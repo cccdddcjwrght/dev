@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
+  m_Name: Rules
+  m_EditorClassIdentifier: 
+  searchPatternAsset: '*.asset'
+  searchPatternController: '*.controller'
+  searchPatternDir: '*'
+  searchPatternMaterial: '*.mat'
+  searchPatternPng: '*.png'
+  searchPatternPrefab: '*.prefab'
+  searchPatternScene: '*.unity'
+  searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
+  version: 128
+  scenesInBuild:
+  - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
+  - {fileID: 102900000, guid: 6d380452236c26945a1e6fc958bc4042, type: 3}
+  ignoreOps: []
+  rules:
+  - searchPath: Assets/BuildAsset/Effects
+    searchPattern: '*.prefab'
+    nameBy: 0
+    assetBundleName: effects
+  - searchPath: Assets/BuildAsset/configs
+    searchPattern: '*.bytes'
+    nameBy: 2
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Lua
+    searchPattern: '*.txt'
+    nameBy: 2
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/UI
+    searchPattern: '*.png,*.bytes'
+    nameBy: 4
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Setting
+    searchPattern: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
+    nameBy: 1
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/language
+    searchPattern: '*.xml'
+    nameBy: 2
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Prefabs
+    searchPattern: '*.prefab'
+    nameBy: 1
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Audio
+    searchPattern: '*.*'
+    nameBy: 2
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Scenes
+    searchPattern: '*.unity'
+    nameBy: 1
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/App/Logo
+    searchPattern: '*.png'
+    nameBy: 1
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Textures
+    searchPattern: '*.png'
+    nameBy: 1
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Fonts
+    searchPattern: '*.ttf,*.asset,*.otf'
+    nameBy: 2
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Code
+    searchPattern: '*.bytes'
+    nameBy: 1
+    assetBundleName: 
+  ruleAssets:
+  - bundle: assets/buildasset/audio/mixer.unity3d
+    path: assets/buildasset/audio/mixer/game.mixer
+  - bundle: assets/buildasset/code/game.dll.bytes.unity3d
+    path: assets/buildasset/code/game.dll.bytes
+  - bundle: assets/buildasset/code/hotfix.dll.bytes.unity3d
+    path: assets/buildasset/code/hotfix.dll.bytes
+  - bundle: assets/buildasset/prefabs/game.prefab.unity3d
+    path: assets/buildasset/prefabs/game.prefab
+  ruleBundles:
+  - name: assets/buildasset/prefabs/game.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/game.prefab
+  - name: assets/buildasset/audio/mixer.unity3d
+    assets:
+    - assets/buildasset/audio/mixer/game.mixer
+  - name: assets/buildasset/code/game.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/game.dll.bytes
+  - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/hotfix.dll.bytes
