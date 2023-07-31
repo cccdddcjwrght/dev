@@ -1,0 +1,37 @@
+#################################
+#打包工具参数
+#CI和批处理都需要设置
+#################################
+
+
+#工程配置
+#APP名
+APP_NAME=Solitaire Navigation
+#包名
+PACKAGE_ID=com.one.fline.fpro
+#版本号
+VERSION_NUMBER_VAR_OTHER=1.0.0
+#资源号，不填默认就用CI任务号
+VERSION_BUILD_VAR=133
+#代码版本，需要进行换包时，修改这个值
+VERSION_CORE_VAR=0
+#初始场景
+FIRST_SCENE=__Splash
+
+#签名相关
+KEY_ALIAS_PASS=jxcjss
+KEYSTORE_PASS=jxcjss
+KEY_ALIAS_NAME=fjmmxc
+KEY_STORE_FILE=keys/uhiuser.keystore
+
+#ini配置
+INI_FILE=release
+
+#固定宏，一般情况下别动
+BUILD_REPLACE_SYMBOL=ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;LUA_DEBUG;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST
+#动态宏，控制登录 AutoLogin ，新手 GAME_GUIDE，是否release版本 SVR_RELEASE
+BUILD_SYMBOL=XASSET_DISABLE_VDISK;XASSET_MD5_FILE;GAME_GUIDE;AutoLogin;SVR_RELEASE
+#编译方式
+SCRIPTING_BACKEND=IL2CPP
+#打包模式
+BuildOptions=Development
