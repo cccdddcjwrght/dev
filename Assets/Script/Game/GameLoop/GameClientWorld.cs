@@ -12,7 +12,8 @@ namespace SGame
 			m_gameWorld			= world;
 			m_resourceManager	= resourceManager;
 			m_character			= new CharacterModule(world, resourceManager);
-			// m_snake             = new SnakeModule(world, resourceManager);
+			m_dice              = new DiceModule(world, resourceManager);
+			m_syncSystem        = new EntitySyncGameObjectSystem();
 		}
 
 		/// <summary>
@@ -27,11 +28,13 @@ namespace SGame
 			
 			// 角色模块更新
 			m_character.Update();
+			
+			// 骰子更新
+			m_dice.Update();
 
 			// 貪吃蛇模塊更新
-			//m_snake.Update();
+			m_syncSystem.Update();
 		}
-
 
 		/// <summary>
 		///  关闭系统
@@ -39,7 +42,8 @@ namespace SGame
 		public void Shutdown()
 		{
 			m_character.Shutdown();
-			//m_snake.Shutdown();
+			m_dice.Shutdown();
+			m_gameWorld.GetECSWorld().DestroySystem(m_syncSystem);
 		}
 
 		public void LateUpdate()
@@ -73,8 +77,13 @@ namespace SGame
 		private CharacterModule m_character;
 
 		/// <summary>
-		/// 貪吃蛇模塊
+		/// 骰子模块 
 		/// </summary>
-		//private SnakeModule m_snake;
+		private DiceModule      m_dice;
+
+		/// <summary>
+		/// 同步系统
+		/// </summary>
+		private EntitySyncGameObjectSystem m_syncSystem;
 	}
 }

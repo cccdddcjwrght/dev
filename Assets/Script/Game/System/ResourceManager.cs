@@ -34,30 +34,43 @@ namespace SGame
             m_entityPrefab = new Dictionary<GameObject, Entity>(32);
         }
 
-        /// <summary>
-        /// 獲得entity預製
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public Entity GetPrefab(string path)
+        public GameObject LoadPrefab(string path)
         {
-            // 1. 首先加载prefab
-            // 2. 通过world实例化对象
-            // 3. 返回对象
             AssetRequest        req     = Assets.LoadAsset(path, typeof(GameObject));
             if (!string.IsNullOrEmpty(req.error))
             { 
                 log.Error("Load Prefab fail=" + req.error);
-                return Entity.Null;
+                return null;
             }
             
             GameObject          prefab  = req.asset as GameObject;
             if (prefab == null)
             {
                 log.Error("Load Prefab Fail=" + path);
-                return Entity.Null;
+                return null;
             }
-            
+
+            return prefab;
+        }
+
+        public Entity Spawn(string path, Vector3 position, Quaternion rotation)
+        {
+            GameObject prefab = LoadPrefab(path);
+            if (prefab == null)
+                return Entity.Null;
+
+            GameObject newObject = m_world.SpawnInternal(prefab, position, rotation, out Entity e);
+            return e;
+        }
+
+        /// <summary>
+        /// 獲得entity預製
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public Entity GetEntityPrefab(string path)
+        {
+            GameObject prefab = LoadPrefab(path);
             Entity ret = m_world.CoverToEntity(prefab);
             if (ret == Entity.Null)
             {

@@ -43,7 +43,7 @@ namespace SGame
             
             m_spawnSystem.Initalize(resourceManager);
             
-            m_snakePrefab      = m_resourceManager.GetPrefab(SNAKE_PREFAGB);
+            m_snakePrefab      = m_resourceManager.GetEntityPrefab(SNAKE_PREFAGB);
             
             TestRun();
         }

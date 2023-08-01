@@ -24,7 +24,7 @@ namespace SGame
         
         public void Initalize(ResourceManager resourceMnaager)
         {
-            m_snakeBodyPrefab = resourceMnaager.GetPrefab(SNAKE_BODY_PREFAB);
+            m_snakeBodyPrefab = resourceMnaager.GetEntityPrefab(SNAKE_BODY_PREFAB);
         }
 
         protected override void OnUpdate()
