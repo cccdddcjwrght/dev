@@ -5,6 +5,7 @@ using UnityEngine;
 namespace SGame
 {
     // 骰子生成器
+    [DisableAutoCreation]
     public partial class DiceSpawnSystem : SystemBase
     {
         // 初始化标记
