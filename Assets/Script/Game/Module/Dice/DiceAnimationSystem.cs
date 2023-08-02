@@ -5,16 +5,36 @@ using UnityEngine;
 
 namespace SGame
 {
+    // 骰子动画播放
+    [GenerateAuthoringComponent]
     public struct DiceAnimation : IComponentData
     {
+        public enum AnimState : uint
+        {
+            STOP    = 0,  // 没有播放
+            PLAYING = 1,  // 播放中
+            RESULT  = 2,  // 显示结果中
+        }
+        
+        // 动画是否正在播放
+        public AnimState          state;
+        
         // 动画播放时间
-        public float       playSecond;
+        public float        time;
 
         // 旋转速度
-        public float        rotationSpeed;
+        public float        speed;
         
         // 旋转目标
-        public quaternion   target;
+        public quaternion   rotation;
+
+        public bool isPlaying
+        {
+            get
+            {
+                return state != AnimState.STOP;
+            }
+        }
     }
     
     // 骰子动画系统
@@ -36,19 +56,40 @@ namespace SGame
         protected override void OnUpdate()
         {
             float deltaTime = Time.DeltaTime;
-            Entities.WithAll<DiceSpawnSystem.Initalized>().ForEach((Entity e, ref Rotation rot, ref DiceAnimation anim, ref DiceData dice) =>
+            Entities.WithAll<DiceSpawnSystem.Initalized>().ForEach((Entity e, ref Rotation rot, ref DiceAnimation anim, in DiceData dice) =>
             {
-                if (anim.playSecond <= 0)
+                if (anim.isPlaying == false)
                     return;
+                
+                float r    = deltaTime * anim.speed;
+                rot.Value  = math.slerp(rot.Value, anim.rotation, r);
+                float dt   = math.dot(rot.Value, anim.rotation);
+                anim.time -= deltaTime;
 
-                anim.playSecond -= deltaTime;
-                if (anim.playSecond <= 0)
+                if (anim.time <= 0 && anim.state == DiceAnimation.AnimState.PLAYING)
                 {
-                    anim.playSecond = 3;
-                    rot.Value = DiceData.GetQuation(dice.Value);
-                    dice.Value = (dice.Value + 1) % 6;
+                    // 筛子目标设为最后一个
+                    int face          = m_random.NextInt(0, 4);
+                    anim.rotation     = DiceData.GetQuation(dice.Value, face);
+                    anim.state        = DiceAnimation.AnimState.RESULT;
+                    anim.time         = 0;
                 }
-            }).WithStructuralChanges().WithoutBurst().Run();
+
+                // 结束骰子动画动画
+                if ((1 - math.abs(dt)) <= 0.0001)
+                {
+                    if (anim.state == DiceAnimation.AnimState.PLAYING)
+                    {
+                        int dice_value = m_random.NextInt(1, 7);
+                        int face = m_random.NextInt(0, 4);
+                        anim.rotation = DiceData.GetQuation(dice_value, face);
+                    }
+                    else
+                    {
+                        rot.Value = anim.rotation;
+                    }
+                }
+            }).WithoutBurst().Run();
         }
     }
 }

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2670377669151184149}
   - component: {fileID: 1342298925417847472}
   - component: {fileID: 3838257151872839290}
+  - component: {fileID: 4212758581115840568}
   m_Layer: 0
-  m_Name: dice
+  m_Name: client_dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4212758581115840568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3334008405958594479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52153d96eb7907478f2283ebb91d3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoolIndex: 0

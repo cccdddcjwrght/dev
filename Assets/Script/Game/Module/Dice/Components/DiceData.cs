@@ -5,29 +5,11 @@ using UnityEngine;
 
 namespace SGame
 {
+    [GenerateAuthoringComponent]
     public struct DiceData : IComponentData
     {
         public int     Value;           // 骰子数字
-        public Entity  m_instance;      // 骰子实例
 
-        public static DiceData Create(int value)
-        {
-            return new DiceData() { Value = value, m_instance = Entity.Null };
-        }
-
-        public static Entity Create(EntityCommandBuffer command, int value)
-        {
-            var e = command.CreateEntity();
-            command.AddComponent(e, Create(value));
-            command.AddComponent<LocalToWorld>(e);
-            command.AddComponent<Translation>(e);
-            command.AddComponent<Rotation>(e);
-            command.AddComponent<NonUniformScale>(e);
-            var buff = command.AddBuffer<LinkedEntityGroup>(e);
-            buff.Add(new LinkedEntityGroup() { Value = e });
-            return e;
-        }
-        
         // 筛子点数对应的旋转值
         public static quaternion GetQuation(int value)
         {
@@ -48,6 +30,12 @@ namespace SGame
             return quaternion.identity;
         }
 
+        /// <summary>
+        /// 给出筛子确切的方位
+        /// </summary>
+        /// <param name="value">筛子正面朝上的数字</param>
+        /// <param name="face">第几个面, 骰子有4个面</param>
+        /// <returns></returns>
         public static quaternion GetQuation(int value, int face)
         {
             quaternion baseRotation = GetQuation(value);
@@ -56,7 +44,7 @@ namespace SGame
             quaternion rot_face = quaternion.RotateY(face * (math.PI / 2));
             
             // 计算旋转
-            return math.mul(baseRotation, rot_face);
+            return math.mul(rot_face, baseRotation);
         }
     }
 }
