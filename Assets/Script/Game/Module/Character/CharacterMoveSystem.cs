@@ -67,7 +67,7 @@ namespace SGame
                     anim.SetFloat("Speed", 1);
                 }
             }).WithoutBurst().Run();
-            
+           
             cmdBuffer.Playback(EntityManager);
             cmdBuffer.Dispose();
         }

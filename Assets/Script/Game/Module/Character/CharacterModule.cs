@@ -26,9 +26,18 @@ namespace SGame
         private ResourceManager                 m_resourceManager;
 
         private EntityManager                   m_entityManager;
+        private static CharacterModule          s_instance;
+        
+        private Entity                          m_character;
+
+        public static CharacterModule Insatance
+        {
+            get { return s_instance; }
+        }
 
         public CharacterModule(GameWorld world, ResourceManager resourceManager)
         {
+            s_instance = this;
             m_world                         = world;
             m_resourceManager               = resourceManager;
             m_moveCollection                = new SystemCollection();
@@ -63,6 +72,7 @@ namespace SGame
                 new Vector3(1, 0, 1),
                 new Vector3(0, 0, 0),
             });
+            m_character = e;
         }
 
         // 角色创建
@@ -75,6 +85,11 @@ namespace SGame
             Character character = m_entityManager.GetComponentObject<Character>(e);
             character.m_characterName = "yuehaiyouxi";
             return e;
+        }
+
+        public Entity GetCharacter()
+        {
+            return m_character;
         }
 
         /// <summary>
