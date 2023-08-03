@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 using log4net;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -10,7 +11,7 @@ namespace SGame
     public class CharacterMover : MonoBehaviour, IConvertGameObjectToEntity
     {
         // 移动路径
-        public List<Vector3>        m_paths;
+        public List<float3>        m_paths;
 
         // 已经移动距离
         public float                m_movedDistance;
@@ -41,10 +42,10 @@ namespace SGame
                 return 0;
                 
             float d = 0;
-            Vector3 startPos = m_paths[0];
+            float3 startPos = m_paths[0];
             for (int i = 1; i < m_paths.Count; i++)
             {
-                d += (m_paths[i] - startPos).magnitude;
+                d += math.length(m_paths[i] - startPos);
                 startPos = m_paths[i];
             }
 
@@ -52,23 +53,23 @@ namespace SGame
         }
 
         // 根据移动距离获取真实位置
-        public Vector3 GetPositionFromDistance(float distance)
+        public float3 GetPositionFromDistance(float distance)
         {
             if (m_paths.Count < 2)
-                return Vector3.zero;
+                return float3.zero;
             
             float d = 0;
-            Vector3 startPos = m_paths[0];
+            float3 startPos = m_paths[0];
             for (int i = 1; i < m_paths.Count; i++)
             {
-                d += (m_paths[i] - startPos).magnitude;
+                d += math.length(m_paths[i] - startPos);
 
                 if (d >= distance)
                 {
                     float small_distance = d - distance;
 
-                    Vector3 dir = (m_paths[i] - startPos).normalized;
-                    Vector3 ret = m_paths[i] - dir * small_distance;
+                    float3 dir = math.normalize(m_paths[i] - startPos);
+                    float3 ret = m_paths[i] - dir * small_distance;
                     return ret;
                 }
                 
@@ -81,7 +82,7 @@ namespace SGame
 
         void Awake()
         {
-            m_paths = new List<Vector3>();
+            m_paths = new List<float3>();
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace SGame
         }
 
         // 移动到特定位置
-        public void MoveTo(List<Vector3> paths)
+        public void MoveTo(List<float3> paths)
         {
             if (paths.Count < 2)
             {
@@ -108,9 +109,9 @@ namespace SGame
         }
 
         // 移动到目标点
-        public void MoveTo(Vector3 startPosition, Vector3 targetPosition)
+        public void MoveTo(float3 startPosition, float3 targetPosition)
         {
-            List<Vector3> v = new List<Vector3>(2);
+            List<float3> v = new List<float3>(2);
             v.Add(startPosition);
             v.Add(targetPosition);
             MoveTo(v);

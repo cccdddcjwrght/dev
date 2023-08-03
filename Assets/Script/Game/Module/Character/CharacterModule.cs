@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -63,7 +64,7 @@ namespace SGame
             // 角色创建创建方式2 并执行移动操作测试
             Entity e = CreateCharacter(102);
             CharacterMover mover = m_entityManager.GetComponentObject<CharacterMover>(e);
-            mover.MoveTo(new List<Vector3>()
+            mover.MoveTo(new List<float3>()
             {
                 Vector3.zero,
                 new Vector3(0, 0, 3),
@@ -85,6 +86,13 @@ namespace SGame
             Character character = m_entityManager.GetComponentObject<Character>(e);
             character.m_characterName = "yuehaiyouxi";
             return e;
+        }
+
+        public void MoveTo(Entity player, List<float3> paths)
+        {
+            var entityManger = m_world.GetEntityManager();
+            CharacterMover mover = entityManger.GetComponentObject<CharacterMover>(player);
+            mover.MoveTo(paths);
         }
 
         public Entity GetCharacter()
@@ -114,6 +122,5 @@ namespace SGame
             m_world.GetECSWorld().DestroySystem(m_spawerRequest);
             m_world.GetECSWorld().DestroySystem(m_spawnSystem);
         }
-
     }
 }

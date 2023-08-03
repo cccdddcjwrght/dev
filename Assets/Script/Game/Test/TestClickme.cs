@@ -4,17 +4,22 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using UnityEngine;
 using SGame;
 using Unity.Entities;
+using Unity.Mathematics;
+using Random = Unity.Mathematics.Random;
+using Time = UnityEngine.Time;
 
 public class TestClickme : MonoBehaviour
 {
     public int   num = 1;
     public float time = 2;
+    private Random m_random;
 
     public int currentIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //m_reandom = new Random(Time.)
+        m_random = new Random((uint)Time.frameCount);
     }
 
     // Update is called once per frame
@@ -25,6 +30,7 @@ public class TestClickme : MonoBehaviour
 
     public void ClickMe1()
     {
+        num = m_random.NextInt(1,7);
         DiceModule.Instance.Play(DiceModule.Instance.GetDice(), time, num);
         MoveCharacter();
     }

@@ -10,7 +10,7 @@ namespace SGame
     public class CheckPointData : IComponentData
     {
         // 检查点
-        public List<Vector3> Value;
+        public List<float3> Value;
     }
     
     public class CheckPoints : MonoBehaviour, IConvertGameObjectToEntity
@@ -22,7 +22,7 @@ namespace SGame
         {
             Transform[] all_transform = transform.GetComponentsInChildren<Transform>();
             CheckPointData v = new CheckPointData();
-            v.Value = new List<Vector3>();
+            v.Value = new List<float3>();
             foreach (var t in all_transform)
             {
                 if (t == transform)

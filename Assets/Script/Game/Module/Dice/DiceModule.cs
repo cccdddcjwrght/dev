@@ -54,6 +54,11 @@ namespace SGame
             return m_dice;
         }
 
+        public Entity Create()
+        {
+            return m_world.GetEntityManager().Instantiate(m_prefab);
+        }
+
         void RunTest()
         {
             //m_resourceManager.SpawnAndCovert(DICE_ASSET_PATH);

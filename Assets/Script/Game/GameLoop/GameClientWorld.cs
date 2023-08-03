@@ -1,4 +1,5 @@
 using SGame;
+using UnityEngine;
 
 namespace SGame
 {
@@ -11,10 +12,16 @@ namespace SGame
 		{
 			m_gameWorld			= world;
 			m_resourceManager	= resourceManager;
+			m_randomSystem      = RandomSystem.Instance;
+
 			m_character			= new CharacterModule(world, resourceManager);
 			m_dice              = new DiceModule(world, resourceManager);
+			
 			m_snake			    = new SnakeModule(world, resourceManager);
-			m_syncSystem = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
+			m_syncSystem        = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
+
+			m_randomSystem.Initalize((uint)Time.frameCount);
+			m_gameModule        = new GameModule(world, resourceManager, m_randomSystem, m_character, m_dice);
 		}
 
 		/// <summary>
@@ -85,11 +92,18 @@ namespace SGame
 		/// 骰子模块 
 		/// </summary>
 		private DiceModule      m_dice;
+
+		/// <summary>
+		/// 游戏内容模块, 处理游戏中的流程
+		/// </summary>
+		private GameModule      m_gameModule;
 		
 		/// <summary>
 		/// 同步系统
 		/// </summary>
 		private EntitySyncGameObjectSystem m_syncSystem;
+
+		private RandomSystem m_randomSystem;
 
 		private SnakeModule m_snake;
 	}
