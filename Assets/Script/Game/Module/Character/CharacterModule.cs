@@ -52,28 +52,6 @@ namespace SGame
             m_spawerRequest.Initalize(m_world, resourceManager);
             m_spawnSystem.Initalize(m_world, resourceManager);
             moveSystem.Initalize(m_world, resourceManager);
-
-            Test();
-        }
-
-        /// <summary>
-        /// 测试代码
-        /// </summary>
-        void Test()
-        {
-            // 角色创建创建方式2 并执行移动操作测试
-            Entity e = CreateCharacter(102);
-            CharacterMover mover = m_entityManager.GetComponentObject<CharacterMover>(e);
-            mover.MoveTo(new List<float3>()
-            {
-                Vector3.zero,
-                new Vector3(0, 0, 3),
-                new Vector3(3, 0, 3),
-                new Vector3(2, 0, 2),
-                new Vector3(1, 0, 1),
-                new Vector3(0, 0, 0),
-            });
-            m_character = e;
         }
 
         // 角色创建
@@ -86,18 +64,6 @@ namespace SGame
             Character character = m_entityManager.GetComponentObject<Character>(e);
             character.m_characterName = "yuehaiyouxi";
             return e;
-        }
-
-        public void MoveTo(Entity player, List<float3> paths)
-        {
-            var entityManger = m_world.GetEntityManager();
-            CharacterMover mover = entityManger.GetComponentObject<CharacterMover>(player);
-            mover.MoveTo(paths);
-        }
-
-        public Entity GetCharacter()
-        {
-            return m_character;
         }
 
         /// <summary>

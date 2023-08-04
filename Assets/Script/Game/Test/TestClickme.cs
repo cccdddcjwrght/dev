@@ -30,9 +30,9 @@ public class TestClickme : MonoBehaviour
 
     public void ClickMe1()
     {
-        num = m_random.NextInt(1,7);
-        DiceModule.Instance.Play(DiceModule.Instance.GetDice(), time, num);
-        MoveCharacter();
+        //num = m_random.NextInt(1,7);
+        //DiceModule.Instance.Play(DiceModule.Instance.GetDice(), time, num);
+        //MoveCharacter();
     }
 
     public void MoveCharacter()

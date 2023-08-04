@@ -21,62 +21,104 @@ namespace SGame
         
         private static ILog         log                     = LogManager.GetLogger("xl.Character");
 
+        // 移动总长度
+        private float                m_distance;
+
         public bool isFinish
         {
             get
             {
-                return m_movedDistance >= CalcPathDistance();
+                return m_movedDistance >= m_distance;
             }
+        }
+
+        public float3 LastPosition()
+        {
+            return m_paths[m_paths.Count - 1];
         }
 
         public void Clear()
         {
-            //m_movedDistance = 0;
+            m_movedDistance = 0;
+            m_distance = 0;
             m_paths.Clear();
         }
 
         // 计算距离路径
         public float CalcPathDistance()
         {
+            return GetDistance(m_paths.Count - 1);
+        }
+
+        /// <summary>
+        /// 获得位置起始点
+        /// </summary>
+        /// <param name="distance">检测的位置</param>
+        /// <param name="upper_distance">上一个的位置</param>
+        /// <returns>位置索引</returns>
+        public int GetPositionIndex(float distance)
+        {
             if (m_paths.Count < 2)
-                return 0;
-                
+                return -1;
+
+            if (distance >= m_distance)
+                return -1;
+
             float d = 0;
             float3 startPos = m_paths[0];
             for (int i = 1; i < m_paths.Count; i++)
             {
-                d += math.length(m_paths[i] - startPos);
-                startPos = m_paths[i];
+                d += math.length(m_paths[i] - m_paths[i - 1]);
+
+                if (d >= distance)
+                {
+                    return i - 1;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// 获得距离
+        /// </summary>
+        /// <param name="posIndex"></param>
+        /// <returns></returns>
+        public float GetDistance(int posIndex)
+        {
+            float d = 0;
+            for (int i = 1; i <= posIndex; i++)
+            {
+                d += math.length(m_paths[i] - m_paths[i - 1]);
             }
 
             return d;
         }
 
-        // 根据移动距离获取真实位置
-        public float3 GetPositionFromDistance(float distance)
+        public float3 GetDirection(int posIndex)
         {
-            if (m_paths.Count < 2)
-                return float3.zero;
+            return m_paths[posIndex] - m_paths[posIndex + 1];
+        }
+
+        // 根据移动距离获取真实位置
+        public bool GetPositionFromDistance(float distance, out float3 pos, out quaternion rot)
+        {
+            pos = float3.zero;
+            rot = quaternion.identity;
             
-            float d = 0;
-            float3 startPos = m_paths[0];
-            for (int i = 1; i < m_paths.Count; i++)
-            {
-                d += math.length(m_paths[i] - startPos);
+            int posIndex = GetPositionIndex(distance);
+            if (posIndex < 0)
+                return false;
 
-                if (d >= distance)
-                {
-                    float small_distance = d - distance;
+            float last_distance = GetDistance(posIndex);
 
-                    float3 dir = math.normalize(m_paths[i] - startPos);
-                    float3 ret = m_paths[i] - dir * small_distance;
-                    return ret;
-                }
-                
-                startPos = m_paths[i];
-            }
-
-            return m_paths[m_paths.Count - 1];
+            // 获得方向
+            float3 dir = m_paths[posIndex + 1] - m_paths[posIndex];
+            dir.y = 0;
+            rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
+            float distance2 = distance - last_distance;
+            pos = m_paths[posIndex] + math.normalize(dir) * distance2;
+            return true;
         }
 
 
@@ -99,13 +141,14 @@ namespace SGame
         {
             if (paths.Count < 2)
             {
-                log.Info("Path Count Less 2!");
+                log.Error("Path Count Less 2!");
                 return;
             }
             
             m_movedDistance = 0;
             m_paths.Clear();
             m_paths.AddRange(paths);
+            m_distance = CalcPathDistance(); // 统计移动长度
         }
 
         // 移动到目标点

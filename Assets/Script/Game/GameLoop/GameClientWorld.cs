@@ -40,11 +40,12 @@ namespace SGame
 			
 			// 骰子更新
 			m_dice.Update();
+			
+			// 游戏逻辑模块
+			m_gameModule.Update();
 
 			// 同步模块
 			m_syncSystem.Update();
-
-			//m_snake.Update();
 		}
 
 		/// <summary>
@@ -55,6 +56,7 @@ namespace SGame
 			m_character.Shutdown();
 			m_dice.Shutdown();
 			//m_snake.Shutdown();
+			m_gameModule.Shutdown();
 			m_gameWorld.GetECSWorld().DestroySystem(m_syncSystem);
 		}
 

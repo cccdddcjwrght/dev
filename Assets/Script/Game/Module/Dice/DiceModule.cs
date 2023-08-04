@@ -46,26 +46,20 @@ namespace SGame
 
             m_prefab = resourceManager.GetEntityPrefab(DICE_ASSET_PATH);
             m_world.GetEntityManager().RemoveComponent<LinkedEntityGroup>(m_prefab);
-            RunTest();
-        }
-
-        public Entity GetDice()
-        {
-            return m_dice;
         }
 
         public Entity Create()
         {
             return m_world.GetEntityManager().Instantiate(m_prefab);
         }
+        
 
-        void RunTest()
-        {
-            //m_resourceManager.SpawnAndCovert(DICE_ASSET_PATH);
-            m_dice = m_world.GetEntityManager().Instantiate(m_prefab);
-        }
-
-        // 骰子移动 
+        /// <summary>
+        /// 播放骰子动画
+        /// </summary>
+        /// <param name="dice">骰子对象</param>
+        /// <param name="time">播放时间</param>
+        /// <param name="value">骰子点数</param>
         public void Play(Entity dice, float time, int value)
         {
             var manager = m_world.GetEntityManager();

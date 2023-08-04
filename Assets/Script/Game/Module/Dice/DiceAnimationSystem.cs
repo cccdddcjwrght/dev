@@ -87,6 +87,7 @@ namespace SGame
                     else
                     {
                         rot.Value = anim.rotation;
+                        anim.state = DiceAnimation.AnimState.STOP;
                     }
                 }
             }).WithoutBurst().Run();

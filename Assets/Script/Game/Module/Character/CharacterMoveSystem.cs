@@ -4,6 +4,7 @@ using log4net;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -48,22 +49,21 @@ namespace SGame
                 
                 float delta = speed.Value * dt;
                 mover.Movement(delta);
-                Vector3 target = mover.GetPositionFromDistance(mover.m_movedDistance);
-
-                Vector3 deltaMovement = target - controller.transform.position;
-                controller.Move(deltaMovement);
-                controller.transform.rotation = Quaternion.LookRotation(deltaMovement);
-                
                 Animator anim = controller.GetComponent<Animator>();
+
                 if (mover.isFinish)
                 {
-                    //anim.SetBool("Move", false);
+                    controller.transform.position = mover.LastPosition();
                     anim.SetFloat("Speed", 0);
                     mover.Clear();
                 }
                 else
                 {
-                    //anim.SetBool("Move", true);
+                    mover.GetPositionFromDistance(mover.m_movedDistance, out float3 f3target, out quaternion look_at);
+                    Vector3 target = f3target;       
+                    Vector3 deltaMovement = target - controller.transform.position;
+                    controller.Move(deltaMovement);
+                    controller.transform.rotation = look_at; //Quaternion.LookRotation(deltaMovement);
                     anim.SetFloat("Speed", 1);
                 }
             }).WithoutBurst().Run();
