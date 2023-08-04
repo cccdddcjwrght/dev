@@ -17,6 +17,7 @@ namespace SGame
             GameWorld       gameWorld,
             ResourceManager resourceManager,
             RandomSystem    randomSystem,
+            UserInputsystem userInputSystem,
             CharacterModule characterModule, 
             DiceModule      diceModule)
         {
@@ -26,16 +27,11 @@ namespace SGame
             m_characterModule = characterModule;
             m_diceModule      = diceModule;
             m_resourceManager = resourceManager;
+            m_userInputSystem = userInputSystem;
             m_fiber           = new Fiber(Logic());
             m_eventContainer = new EventHandleContainer();
-            m_eventContainer += EventManager.Instance.Reg((int)GameEvent.PLAYER_ROTE_DICE, OnUserClickNextMove);
-            m_controlNextMove = false;
         }
-
-        public void OnUserClickNextMove()
-        {
-            m_controlNextMove = true;
-        }
+        
 
         public void Update()
         {
@@ -86,9 +82,17 @@ namespace SGame
         // 等待下一轮
         IEnumerator WaitNextRond()
         {
-            m_controlNextMove = false;
-            while (m_controlNextMove == false)
+            var mgr = m_gameWorld.GetEntityManager();
+            EntityQuery query = mgr.CreateEntityQuery(typeof(UserInput));
+            while (true)
+            {
+                UserInput input = m_userInputSystem.GetInput();
+                if (input.rollDice == true)
+                    break;
+
                 yield return null;
+            }
+            query.Dispose();
         }
 
         // 游戏循环
@@ -123,7 +127,6 @@ namespace SGame
             
             // 删除骰子
             // m_gameWorld.RequestDespawn(dice);
-            
         }
 
         IEnumerator PlayerMove(int move_num)
@@ -148,7 +151,7 @@ namespace SGame
             mover.MoveTo(paths);
 
             Character character = mgr.GetComponentObject<Character>(m_player);
-            character.m_pathIndex = m_curCheckPoint;
+            character.pathIndex = m_curCheckPoint;
             
             // 等待角色移动结束
             while (mover.isFinish == false)
@@ -182,8 +185,8 @@ namespace SGame
         // 当前移动点
         private int                 m_curCheckPoint  ;
 
-        private bool                m_controlNextMove;
-
+        private UserInputsystem    m_userInputSystem ;
+        
         // 游戏主逻辑
         private static ILog log = LogManager.GetLogger("xl.Game.Main");
 

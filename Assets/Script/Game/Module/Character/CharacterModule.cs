@@ -65,7 +65,7 @@ namespace SGame
             
             // 设置名字, 加载资源等初始化信息
             Character character = m_entityManager.GetComponentObject<Character>(e);
-            character.m_characterName = "yuehaiyouxi";
+            character.characterName = "yuehaiyouxi";
             return e;
         }
 

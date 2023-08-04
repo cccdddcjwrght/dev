@@ -19,9 +19,15 @@ namespace SGame
 			
 			m_snake			    = new SnakeModule(world, resourceManager);
 			m_syncSystem        = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
+			m_userInputSystem   = world.GetECSWorld().CreateSystem<UserInputsystem>();
 
 			m_randomSystem.Initalize((uint)Time.frameCount);
-			m_gameModule        = new GameModule(world, resourceManager, m_randomSystem, m_character, m_dice);
+			m_gameModule        = new GameModule(world, 
+				resourceManager, 
+				m_randomSystem, 
+				m_userInputSystem, 
+				m_character, 
+				m_dice);
 		}
 
 		/// <summary>
@@ -34,6 +40,9 @@ namespace SGame
 
 			// 显示时间更新
 			m_renderTime.AddDuration(deltaTime);
+			
+			// 输入系统
+			m_userInputSystem.Update();
 			
 			// 角色模块更新
 			m_character.Update();
@@ -58,6 +67,7 @@ namespace SGame
 			//m_snake.Shutdown();
 			m_gameModule.Shutdown();
 			m_gameWorld.GetECSWorld().DestroySystem(m_syncSystem);
+			m_gameWorld.GetECSWorld().DestroySystem(m_userInputSystem);
 		}
 
 		public void LateUpdate()
@@ -88,24 +98,33 @@ namespace SGame
 		/// <summary>
 		/// 角色模块
 		/// </summary>
-		private CharacterModule m_character;
+		private CharacterModule              m_character;
 
 		/// <summary>
 		/// 骰子模块 
 		/// </summary>
-		private DiceModule      m_dice;
+		private DiceModule                    m_dice;
 
 		/// <summary>
 		/// 游戏内容模块, 处理游戏中的流程
 		/// </summary>
-		private GameModule      m_gameModule;
+		private GameModule                    m_gameModule;
 		
 		/// <summary>
 		/// 同步系统
 		/// </summary>
-		private EntitySyncGameObjectSystem m_syncSystem;
+		private EntitySyncGameObjectSystem    m_syncSystem;
 
-		private RandomSystem m_randomSystem;
+		/// <summary>
+		/// 随机系统
+		/// </summary>
+		private RandomSystem                  m_randomSystem;
+
+		/// <summary>
+		/// 用户输入系统
+		/// </summary>
+		/// <returns></returns>
+		private UserInputsystem               m_userInputSystem;
 
 		private SnakeModule m_snake;
 	}

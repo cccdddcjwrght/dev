@@ -34,8 +34,8 @@ namespace SGame
         void CreateCharacter(Entity e, Character c)
         {
             // 1. 创建显示界面
-            Entity renderEntity = m_resourceManager.LoadCharacterRender(c.m_characterId);
-            c.m_render = renderEntity;
+            Entity renderEntity = m_resourceManager.LoadCharacterRender(c.characterId);
+            c.render = renderEntity;
             
             // 2. 初始化移动速度
             if (EntityManager.HasComponent<SpeedData>(e) == false)
@@ -68,7 +68,7 @@ namespace SGame
             {
                 CreateCharacter(e, c);
                 cmdBuffer.AddComponent<InitalizedTag>(e);
-                log.Info("character initalize finish=" + c.m_characterName);
+                log.Info("character initalize finish=" + c.characterName);
             });
             
             cmdBuffer.Playback(EntityManager);
