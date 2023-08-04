@@ -114,10 +114,11 @@ namespace SGame
 
             // 获得方向
             float3 dir = m_paths[posIndex + 1] - m_paths[posIndex];
-            dir.y = 0;
-            rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
             float distance2 = distance - last_distance;
             pos = m_paths[posIndex] + math.normalize(dir) * distance2;
+            
+            dir.y = 0;
+            rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
             return true;
         }
 
