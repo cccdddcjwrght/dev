@@ -69,11 +69,13 @@ namespace SGame
             
             // 1. 创建角色
             m_player = m_characterModule.CreateCharacter(101);
+            mgr.SetComponentData(m_player, new Translation{Value = m_checkPoints.Value[0]});
             
             // 2. 创建骰子
             m_dice   =   m_diceModule.Create();
             
             mgr.SetComponentData(m_dice, new Translation() {Value = new float3(-4, 1, 0)});
+            mgr.SetComponentData(m_dice, new Rotation() {Value = quaternion.identity});
 
             // 3. 获取场景路径
             yield return null;
