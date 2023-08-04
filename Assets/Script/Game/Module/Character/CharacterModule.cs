@@ -29,7 +29,8 @@ namespace SGame
         private EntityManager                   m_entityManager;
         private static CharacterModule          s_instance;
         
-        private Entity                          m_character;
+        private Entity                          m_characterPrefab;
+        private const string CHARACTER_PREFAB = "Assets/BuildAsset/Prefabs/Character.prefab";
 
         public static CharacterModule Insatance
         {
@@ -52,13 +53,15 @@ namespace SGame
             m_spawerRequest.Initalize(m_world, resourceManager);
             m_spawnSystem.Initalize(m_world, resourceManager);
             moveSystem.Initalize(m_world, resourceManager);
+
+            m_characterPrefab = resourceManager.GetEntityPrefab(CHARACTER_PREFAB);
         }
 
         // 角色创建
         public Entity CreateCharacter(int id)
         {
             // 加载对象
-            Entity e = m_resourceManager.LoadCharacter(id);
+            Entity e = m_world.GetEntityManager().Instantiate(m_characterPrefab);
             
             // 设置名字, 加载资源等初始化信息
             Character character = m_entityManager.GetComponentObject<Character>(e);

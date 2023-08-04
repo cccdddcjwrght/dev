@@ -5,6 +5,7 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace SGame
 {
@@ -34,7 +35,11 @@ namespace SGame
         {
             float dt = Time.DeltaTime;
             EntityCommandBuffer cmdBuffer = new EntityCommandBuffer(Allocator.Temp);
-            Entities.WithAll<CharacterSpawnSystem.InitalizedTag>().ForEach((Entity e, CharacterMover mover, in SpeedData speed) =>
+            Entities.WithAll<CharacterSpawnSystem.InitalizedTag>().ForEach((Entity e,
+                CharacterMover mover, 
+                ref Translation translation, 
+                ref Rotation  rotation,
+                    in SpeedData speed) =>
             {
                 if (mover.m_paths.Count == 0)
                 {
@@ -47,6 +52,7 @@ namespace SGame
                     controller.transform.position = mover.m_paths[0];
                 }
                 
+                // 移动控制器中的GameObject 对象
                 float delta = speed.Value * dt;
                 mover.Movement(delta);
                 Animator anim = controller.GetComponent<Animator>();
@@ -66,6 +72,12 @@ namespace SGame
                     controller.transform.rotation = look_at; //Quaternion.LookRotation(deltaMovement);
                     anim.SetFloat("Speed", 1);
                 }
+                
+                // 将移动的位置同步回来
+                translation.Value = controller.transform.position;
+                rotation.Value    = controller.transform.rotation;
+
+                // 将移动后的位置同步回去
             }).WithoutBurst().Run();
            
             cmdBuffer.Playback(EntityManager);

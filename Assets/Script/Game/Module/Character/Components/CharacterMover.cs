@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
@@ -7,11 +7,12 @@ using Unity.Mathematics;
 
 namespace SGame
 {
+    
     // 角色移动组件
-    public class CharacterMover : MonoBehaviour, IConvertGameObjectToEntity
+    public class CharacterMover : IComponentData
     {
-        // 移动路径
-        public List<float3>        m_paths;
+        [NonSerialized]
+        public List<float3>        m_paths = new List<float3>(32);        // 移动路径
 
         // 已经移动距离
         public float                m_movedDistance;
@@ -19,9 +20,11 @@ namespace SGame
         // 角色控制器, 用于实际移动, 角色初始化的时候会自动设置
         public CharacterController  m_controller;
         
+        [NonSerialized]
         private static ILog         log                     = LogManager.GetLogger("xl.Character");
-
+    
         // 移动总长度
+        [NonSerialized]
         private float                m_distance;
 
         public bool isFinish
@@ -169,4 +172,6 @@ namespace SGame
             dstManager.AddComponentObject(entity, this);
         }
     }
+    
+
 }

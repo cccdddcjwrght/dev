@@ -27,6 +27,14 @@ namespace SGame
             m_diceModule      = diceModule;
             m_resourceManager = resourceManager;
             m_fiber           = new Fiber(Logic());
+            m_eventContainer = new EventHandleContainer();
+            m_eventContainer += EventManager.Instance.Reg((int)GameEvent.PLAYER_ROTE_DICE, OnUserClickNextMove);
+            m_controlNextMove = false;
+        }
+
+        public void OnUserClickNextMove()
+        {
+            m_controlNextMove = true;
         }
 
         public void Update()
@@ -40,7 +48,11 @@ namespace SGame
             yield return StartGame();
              
             // 进入循环逻辑
-            yield return Play();
+            while (true)
+            {
+                yield return WaitNextRond();
+                yield return Play();
+            }
         }
 
         // 开始游戏
@@ -74,27 +86,22 @@ namespace SGame
         // 等待下一轮
         IEnumerator WaitNextRond()
         {
-            yield return FiberHelper.Wait(2.0f);
-            log.Info("Next Round!");
+            m_controlNextMove = false;
+            while (m_controlNextMove == false)
+                yield return null;
         }
 
         // 游戏循环
         IEnumerator Play()
         {
-            while (true)
-            {
-                // 获得随机骰子
-                int dice_value = m_randomSystem.NextInt(1, 7);
-                
-                // 创建并显示骰子动画
-                yield return ShowDice(dice_value, 0.5f);
+            // 获得随机骰子
+            int dice_value = m_randomSystem.NextInt(1, 7);
+            
+            // 创建并显示骰子动画
+            yield return ShowDice(dice_value, 0.5f);
 
-                // 角色移动
-                yield return PlayerMove(dice_value);
-                
-                // 等待下一局
-                yield return WaitNextRond();
-            }
+            // 角色移动
+            yield return PlayerMove(dice_value);
         }
 
         IEnumerator ShowDice(int num, float time)
@@ -132,21 +139,28 @@ namespace SGame
                 // 添加位置
                 paths.Add(m_checkPoints.Value[index]);
             }
+            int startIndex = m_curCheckPoint;
             m_curCheckPoint += move_num;
             m_curCheckPoint %= m_checkPoints.Value.Count;
 
             // 移动角色
             CharacterMover mover = mgr.GetComponentObject<CharacterMover>(m_player);
             mover.MoveTo(paths);
+
+            Character character = mgr.GetComponentObject<Character>(m_player);
+            character.m_pathIndex = m_curCheckPoint;
             
             // 等待角色移动结束
             while (mover.isFinish == false)
                 yield return null;
+            
+            // 显示游戏内事件
+            log.Info(string.Format("Move Finish Start Index={0} End Index={1} DiceNum={2}", startIndex, m_curCheckPoint, move_num));
         }
 
         public void Shutdown()
         {
-            
+            m_eventContainer.Close();
         }
         
         private GameWorld           m_gameWorld      ;
@@ -168,7 +182,11 @@ namespace SGame
         // 当前移动点
         private int                 m_curCheckPoint  ;
 
+        private bool                m_controlNextMove;
+
         // 游戏主逻辑
         private static ILog log = LogManager.GetLogger("xl.Game.Main");
+
+        private EventHandleContainer m_eventContainer;
     }
 }

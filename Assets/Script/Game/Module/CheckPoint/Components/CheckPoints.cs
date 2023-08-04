@@ -27,8 +27,14 @@ namespace SGame
             {
                 if (t == transform)
                     continue;
-                
-                v.Value.Add(t.transform.position);
+
+                if (t.parent == transform)
+                {
+                    v.Value.Add(t.transform.position);
+                }
+
+                //Entity e = conversionSystem.GetPrimaryEntity(t);
+                GameObject.Destroy(t.gameObject);
             }
 
             dstManager.AddComponentData(entity, v);

@@ -33,6 +33,7 @@ public class TestClickme : MonoBehaviour
         //num = m_random.NextInt(1,7);
         //DiceModule.Instance.Play(DiceModule.Instance.GetDice(), time, num);
         //MoveCharacter();
+        EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
     }
 
     public void MoveCharacter()
