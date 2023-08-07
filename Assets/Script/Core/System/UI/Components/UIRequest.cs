@@ -165,7 +165,7 @@ namespace SGame.UI
                 foreach (var depend in depenencies)
                 {
                     var pkgName = depend["name"];
-                    m_dependencies.Add(UISystem.Instance.LoadPackage(pkgName));
+                    m_dependencies.Add(m_load(pkgName));
                 }
                 loadState = LoadState.Loaded;
                 return;

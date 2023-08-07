@@ -14,7 +14,7 @@ namespace SGame.UI
             Entities.WithAll<DespawningEntity>().ForEach((Entity e, UIWindow window) =>
             {
                 window.Dispose();
-            });
+            }).WithoutBurst().Run();
         }
     }
 }

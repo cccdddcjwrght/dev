@@ -24,7 +24,7 @@ using System;
 
 namespace SGame.UI
 {
-	public class UISystem : SystemBase
+	public partial class UISystem : SystemBase
 	{
 		private const string ROOT_PATH = "Assets/BuildAsset/";
 		private const string DESC_BUNDLE_FMT = ROOT_PATH + "UI/{0}_fui.bytes";
@@ -80,7 +80,7 @@ namespace SGame.UI
 			UIConfig.enhancedTextOutlineEffect = true;
 
 			//当ui对象创建时，进行本地化处理
-			UIPackage.onObjectCreate += OnUIObjectCreate;
+			//UIPackage.onObjectCreate += OnUIObjectCreate;
 
 			// FairyGUI 包加载模块
 			//m_packageRequest = new ResourceLoader<UIPackageRequest>();
@@ -132,13 +132,13 @@ namespace SGame.UI
 			float deltaTime = Time.DeltaTime;
 			
 			// 1. UI更新
-			Entities.WithAll<UIInitalized>().WithNone<UIWindow, UIDestroy>().ForEach((Entity e, UIWindow win) =>
+			Entities.WithAll<UIInitalized>().ForEach((Entity e, UIWindow win) =>
 			{
 				if (win.Value.isReadly == false)
 					return;
 
 				win.Value.OnFrameUpdate(deltaTime);
-			});
+			}).WithoutBurst().Run();
 			
 			m_spawnSystem.Update();
 			m_despawnSystem.Update();
