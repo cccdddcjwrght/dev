@@ -1,3 +1,4 @@
+using System.Runtime.Remoting.Contexts;
 using log4net;
 using Unity.Collections;
 using Unity.Entities;
@@ -16,6 +17,8 @@ namespace SGame.UI
         // UI包加载请求
         private ResourceLoader<UIPackageRequest>        m_packageRequest;
         private EndSimulationEntityCommandBufferSystem  m_commandSystem;
+        private UIScriptFactory                         m_scriptFactory;
+        private GameWorld                               m_gameWorld;
 
         private static ILog log = LogManager.GetLogger("xl.ui");
 
@@ -24,6 +27,12 @@ namespace SGame.UI
             base.OnCreate();
             m_packageRequest = new ResourceLoader<UIPackageRequest>(PackageRequestFactory);
             m_commandSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        }
+
+        public void Initalize( GameWorld gameWorld, UIScriptFactory factory)
+        {
+            m_gameWorld = gameWorld;
+            m_scriptFactory = factory;
         }
 
         // 创建UIPackageRequest
@@ -41,6 +50,16 @@ namespace SGame.UI
         UIPackageRequest LoadPackage(string uiPackage)
         {
             return m_packageRequest.Load(uiPackage);
+        }
+
+        UIContext CreateContext(Entity e, FairyGUI.GComponent content )
+        {
+            UIContext context = new UIContext();
+            context.gameWorld = m_gameWorld;
+            context.uiModule = UIModule.Instance;
+            context.entity = e;
+            context.content = content;
+            return context;
         }
 
         protected override void OnUpdate()
@@ -89,8 +108,12 @@ namespace SGame.UI
                     // 4. 创建WINDOW
                     var fui = new FairyWindow();
                     fui.bringToFontOnClick = false; // 点击不会改变顺序
-                    fui.contentPane = window.gObject.asCom;
-                    fui.Initalize();
+                    var gCom = window.gObject.asCom;
+                    fui.contentPane = gCom;
+                    
+                    IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.m_uiName, pkgName = request.m_uiPackageName });
+                    UIContext context = CreateContext(e, gCom);
+                    fui.Initalize(script, context);
                     window.Value = fui;
                     fui.Show();
 

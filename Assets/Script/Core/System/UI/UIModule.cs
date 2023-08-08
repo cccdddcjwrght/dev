@@ -34,24 +34,32 @@ namespace SGame.UI
 		private DespaenUISystem   m_despawnSystem;
 		private UISystem          m_updateSystem;
 		private GameWorld         m_gameWorld;
+		private UIScriptFactory   m_factory;
 
 		static  UIModule          s_module;
 
 		public UIModule(GameWorld gameWorld)
 		{
-		     m_spawnSystem = gameWorld.GetECSWorld().CreateSystem<SpawnUISystem>();
-		     m_updateSystem = gameWorld.GetECSWorld().CreateSystem<UISystem>();;
-		     m_despawnSystem = gameWorld.GetECSWorld().CreateSystem<DespaenUISystem>();
+		     m_spawnSystem    = gameWorld.GetECSWorld().CreateSystem<SpawnUISystem>();
+		     m_updateSystem   = gameWorld.GetECSWorld().CreateSystem<UISystem>();;
+		     m_despawnSystem  = gameWorld.GetECSWorld().CreateSystem<DespaenUISystem>();
+		     m_factory        = new UIScriptFactory();
+		     
 		     // 不要FairyGUI管理
 		     UIPackage.unloadBundleByFGUI = false;
 
 		     // 更好的字体描边效果 
 		     UIConfig.enhancedTextOutlineEffect = true;
+
+		     m_spawnSystem.Initalize(m_gameWorld, m_factory);
 		     s_module = this;
 		}
 		
 		public static UIModule Instance { get { return s_module; } }
-
+		
+		/// <summary>
+		/// 结束
+		/// </summary>
 		public void Shutdown()
 		{
 			m_gameWorld.GetECSWorld().DestroySystem(m_spawnSystem);

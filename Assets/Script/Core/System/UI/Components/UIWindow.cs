@@ -4,6 +4,7 @@ using System;
 using log4net;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Contexts;
 
 namespace SGame.UI
 {
@@ -99,6 +100,9 @@ namespace SGame.UI
         // 显示结束事件
         public Action<FairyWindow>  onShownFinish;
 
+        private IUIScript m_uiScript;
+        private UIContext m_context;
+
         private static ILog log = LogManager.GetLogger("UI");
 
         public void OnFrameUpdate(double deltaTime)
@@ -106,8 +110,7 @@ namespace SGame.UI
             if (screenSizeVer != StageCamera.screenSizeVer)
                 HandleScreenSizeChanged();
             
-            //if (_luaUpdate != null)
-            //    _luaUpdate.Action(deltaTime);//.Call(deltaTime);
+            m_context.onUpdate?.Invoke(m_context);
         }
 
         // 调用函数结束通知
@@ -169,6 +172,8 @@ namespace SGame.UI
             }
             
 
+            if (m_uiScript != null)
+                m_uiScript.OnInit(m_context);
 
         }
 
@@ -180,8 +185,7 @@ namespace SGame.UI
             
             base.OnShown();
 
-            onShownFinish?.Invoke(this);
-            onShownFinish = null;
+            m_context.onShown?.Invoke(m_context);
         }
 
         protected override void OnHide()
@@ -190,6 +194,7 @@ namespace SGame.UI
             m_isReadyShowed = false;
             m_isHiding = false;
             base.OnHide();
+            m_context.onHide?.Invoke(m_context);
             
             if (m_isDelayClose == true)
             {
@@ -218,8 +223,10 @@ namespace SGame.UI
             GTween.Kill(contentPane, false);
         }
 
-        public bool Initalize()
+        public bool Initalize(IUIScript scirpt, UIContext context)
         {
+            m_uiScript = scirpt;
+            m_context = context;
             return true;
         }
 
@@ -233,20 +240,19 @@ namespace SGame.UI
         public void CloseImmediately()
         {
             m_isClosed = true;
+            m_context.onClose?.Invoke(m_context);
         }
 
         public void OnClose()
         {
+            
         }
 
         public void HandleScreenSizeChanged()
         {
-           // if (!Application.isPlaying)
-           //     DisplayObject.hideFlags = HideFlags.DontSaveInEditor;
-
             screenSizeVer = StageCamera.screenSizeVer;
-            float width = GRoot.inst.width;
-            float height = GRoot.inst.height;
+            float width   = GRoot.inst.width;
+            float height  = GRoot.inst.height;
 
             var ui = contentPane;
             if (ui != null)

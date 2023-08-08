@@ -11,8 +11,7 @@ using System;
 //	文件名称:	UISystem.cs
 //  创 建 人:   Silekey
 //	版权所有:	
-//	说    明:	用于 绑定assetbundle 与 fairygui 包, 通过fairygui 包直接加载bundle并返回
-//              UIPackage 没有卸载功能(应该给UIPackage 加一个引用计数, 然后当引用数为0, 可以对UIPackage 进行Dispose)
+//	说    明:	用于调用UI的UPDATE
 //*************************************************************************
 // example: 
 // var ui = UISystem.Instance.ShowwUI("name");
