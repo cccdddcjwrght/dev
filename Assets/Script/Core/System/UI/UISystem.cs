@@ -26,31 +26,19 @@ namespace SGame.UI
 {
 	public partial class UISystem : SystemBase
 	{
-		private const string ROOT_PATH = "Assets/BuildAsset/";
+		private const string ROOT_PATH       = "Assets/BuildAsset/";
 		private const string DESC_BUNDLE_FMT = ROOT_PATH + "UI/{0}_fui.bytes";
-		private const string RES_BUNDLE_FMT = ROOT_PATH + "UI/{0}";
-
+		private const string RES_BUNDLE_FMT  = ROOT_PATH + "UI/{0}";
 
 		private SpawnUISystem     m_spawnSystem;
 		private DespaenUISystem   m_despawnSystem;
-
-		// UI管理 , 缓存UI对象
-		private Dictionary<string, Entity> m_uiRecored;
-
-		// UI显示的堆栈
-		private Stack<string> m_uiStack;
-
-		// 基础UI
-		private Action<object> m_luaInitPanel;
+		
 
 		// 创建UI的原型
-		static ILog log = LogManager.GetLogger("UISystem");
+		static ILog log = LogManager.GetLogger("xl.ui");
 
 		// UI对象的查询条件
 		private EntityQuery m_groupUIWindow;
-
-		// UI请求对象
-		private EntityQuery m_groupRequest;
 
 		// 有效的显示
 		private EntityQuery m_groupVisible;
@@ -79,25 +67,9 @@ namespace SGame.UI
 			// 更好的字体描边效果 
 			UIConfig.enhancedTextOutlineEffect = true;
 
-			//当ui对象创建时，进行本地化处理
-			//UIPackage.onObjectCreate += OnUIObjectCreate;
-
-			// FairyGUI 包加载模块
-			//m_packageRequest = new ResourceLoader<UIPackageRequest>();
-
-			// UI记录
-			m_uiRecored = new Dictionary<string, Entity>();
-			m_uiStack = new Stack<string>();
-			
 			m_groupUIWindow = GetEntityQuery(typeof(UIWindow));
 			m_groupVisible = GetEntityQuery(typeof(UIWindow),
-																							ComponentType.Exclude<UIClosed>(),
-																							ComponentType.Exclude<UICloseEvent>(),
-																							ComponentType.Exclude<UIDestroy>());
-
-			m_groupRequest = GetEntityQuery(typeof(UIRequest), ComponentType.Exclude<UIWindow>(),
-				ComponentType.Exclude<UIDestroy>());
-
+																							ComponentType.Exclude<DespawningEntity>());
 		}
 
 		/// <summary>

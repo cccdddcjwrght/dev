@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using System.IO;
-using UnityEngine;
-using UnityEngine.Serialization;
+
 namespace SGame
 {
     // 游戏版本信息
@@ -58,7 +54,6 @@ namespace SGame
         /// <returns></returns>
         public static GameVersion LoadJson(string jsonStr)
         {
-            GameVersion ret = null;
             try
             {
                 return JsonUtility.FromJson<GameVersion>(jsonStr);

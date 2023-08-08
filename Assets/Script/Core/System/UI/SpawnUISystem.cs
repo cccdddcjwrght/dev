@@ -5,6 +5,7 @@ using Unity.Entities;
 // UI生成系统
 namespace SGame.UI
 {
+    // UI加载完毕
     public struct UIInitalized : IComponentData
     {
     }
@@ -44,7 +45,7 @@ namespace SGame.UI
 
         protected override void OnUpdate()
         {
-            EntityCommandBuffer comamndBuffer = new EntityCommandBuffer(Allocator.Temp);
+            EntityCommandBuffer comamndBuffer = m_commandSystem.CreateCommandBuffer();// new EntityCommandBuffer(Allocator.Temp);
 
             // 1. 生成Package加载
             Entities.WithNone<UIWindow, UIInitalized>().ForEach((Entity e, UIRequest request) =>
@@ -99,8 +100,6 @@ namespace SGame.UI
             
             // 3. 更新 FairyGUI 包的加载
             m_packageRequest.Update();
-            
-            // m_commandSystem.AddJobHandleForProducer(Dependency);
         }
 
     }

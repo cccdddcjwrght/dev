@@ -313,8 +313,6 @@ namespace SGame
             foreach (var f in m_updateList)
             {
                 string  filePath    = Path.Combine(m_downloadDir, f.name);
-                string  md5         = null;
-                long    fileSize    = 0;
                 yield return WaitPause();
                 using (var fs = new FileStream(filePath, FileMode.Open))
                 {
