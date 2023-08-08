@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SGame.UI;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
@@ -55,6 +56,8 @@ namespace SGame
             moveSystem.Initalize(m_world, resourceManager);
 
             m_characterPrefab = resourceManager.GetEntityPrefab(CHARACTER_PREFAB);
+            
+            //UIRequest.Create()
         }
 
         // 角色创建
@@ -68,7 +71,7 @@ namespace SGame
             character.characterName = "yuehaiyouxi";
             return e;
         }
-
+        
         /// <summary>
         /// 系统更新
         /// </summary>

@@ -16,5 +16,22 @@ namespace SGame.UI
         
         // 包名
         public   string                m_uiPackageName;
+
+        // 创建UI 对象
+        public static Entity Create(EntityCommandBuffer commandBuffer, string name, string pkgName)
+        {
+            Entity e = commandBuffer.CreateEntity();
+            commandBuffer.AddComponent<UIRequest>(e);
+            var req = new UIRequest() { m_uiName = name, m_uiPackageName = pkgName };
+            commandBuffer.SetComponent(e, req);
+            return e;
+        }
+        
+        public static Entity Create(EntityManager entityManager, string name, string pkgName)
+        {
+            Entity e = entityManager.CreateEntity(typeof(UIRequest));
+            entityManager.SetComponentData(e, new UIRequest() { m_uiName = name, m_uiPackageName = pkgName });
+            return e;
+        }
     }
 }

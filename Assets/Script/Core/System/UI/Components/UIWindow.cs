@@ -82,10 +82,14 @@ namespace SGame.UI
 
         // 是否正在隐藏
         private bool                        m_isHiding = false;
+
+        private bool m_isClosed = false;
         
         public bool isReadyShowed           { get { return m_isReadyShowed && isShowing; } }
         
         public bool isHiding                { get { return m_isHiding; } }
+        
+        public bool isClosed { get { return m_isClosed; } }
         
         // 显示版本
         public int screenSizeVer = 0;
@@ -168,7 +172,6 @@ namespace SGame.UI
 
         }
 
-
         override protected void OnShown()
         {
             log.Debug("UI OnShow=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
@@ -220,11 +223,6 @@ namespace SGame.UI
             return true;
         }
 
-        public bool isClosed()
-        {
-            return World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<UIClosed>(uiEntity);
-        }
-
         public void Close()
         {
             CleanTween();
@@ -234,44 +232,13 @@ namespace SGame.UI
 
         public void CloseImmediately()
         {
-            World.DefaultGameObjectInjectionWorld.GetExistingSystem<UISystem>().CloseUI(this.uiEntity);
+            m_isClosed = true;
         }
 
         public void OnClose()
         {
         }
 
-        public override void Dispose()
-        {
-            base.Dispose();
-            
-            /*
-            if (_luaUpdate != null)
-            {
-                _luaUpdate.Dispose();
-                _luaUpdate = null;
-            }
-
-            if (_luaLogic != null)
-            {
-                _luaLogic.Dispose();
-                _luaLogic = null;
-            }
-            
-            if (_luaDoShowAnimation != null)
-            {
-                _luaDoShowAnimation.Dispose();
-                _luaDoShowAnimation = null;
-            }
-
-            if (_luaDoHideAnimation != null)
-            {
-                _luaDoHideAnimation.Dispose();
-                _luaDoHideAnimation = null;
-            }
-            */
-        }
-        
         public void HandleScreenSizeChanged()
         {
            // if (!Application.isPlaying)
@@ -306,19 +273,4 @@ namespace SGame.UI
         }
     }
 
-    // UI销毁
-    public struct UIDestroy : IComponentData
-    {
-    }
-
-    // UI已被关闭
-    public struct UIClosed : IComponentData
-    {
-    }
-    
-    // UI 关闭事件
-    public struct UICloseEvent : IComponentData
-    {
-        
-    }
 }

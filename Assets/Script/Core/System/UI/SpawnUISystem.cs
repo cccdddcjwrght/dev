@@ -48,7 +48,7 @@ namespace SGame.UI
             EntityCommandBuffer comamndBuffer = m_commandSystem.CreateCommandBuffer();// new EntityCommandBuffer(Allocator.Temp);
 
             // 1. 生成Package加载
-            Entities.WithNone<UIWindow, UIInitalized>().ForEach((Entity e, UIRequest request) =>
+            Entities.WithNone<UIWindow, UIInitalized, DespawningEntity>().ForEach((Entity e, UIRequest request) =>
             {
                 var ui = new UIWindow()
                 {
@@ -60,13 +60,13 @@ namespace SGame.UI
             ).WithStructuralChanges().WithoutBurst().Run();
             
             // 2. UI 加载中
-            Entities.WithNone<UIInitalized>().ForEach((Entity e, UIRequest request, UIWindow window) =>
+            Entities.WithNone<UIInitalized, DespawningEntity>().ForEach((Entity e, UIRequest request, UIWindow window) =>
                 {
                     // 1. 判断包是否加载成功
-                    if (string.IsNullOrEmpty(window.uiPackage.error))
+                    if (!string.IsNullOrEmpty(window.uiPackage.error))
                     {
                         log.Error("Load UI Package Fail=" + window.uiPackage.error);
-                        comamndBuffer.DestroyEntity(e);
+                        comamndBuffer.AddComponent<DespawningEntity>(e);
                         return;
                     }
 
@@ -91,6 +91,8 @@ namespace SGame.UI
                     fui.bringToFontOnClick = false; // 点击不会改变顺序
                     fui.contentPane = window.gObject.asCom;
                     fui.Initalize();
+                    window.Value = fui;
+                    fui.Show();
 
                     // 5. 设置加载完成标记
                     comamndBuffer.RemoveComponent<UIRequest>(e);

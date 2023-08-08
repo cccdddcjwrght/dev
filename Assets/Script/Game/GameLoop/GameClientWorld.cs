@@ -1,4 +1,5 @@
 using SGame;
+using SGame.UI;
 using UnityEngine;
 
 namespace SGame
@@ -13,6 +14,8 @@ namespace SGame
 			m_gameWorld			= world;
 			m_resourceManager	= resourceManager;
 			m_randomSystem      = RandomSystem.Instance;
+
+			m_uiModule          = new UIModule(world);
 
 			m_character			= new CharacterModule(world, resourceManager);
 			m_dice              = new DiceModule(world, resourceManager);
@@ -41,6 +44,9 @@ namespace SGame
 			// 显示时间更新
 			m_renderTime.AddDuration(deltaTime);
 			
+			// 更新UI系统
+			m_uiModule.Update();
+
 			// 输入系统
 			m_userInputSystem.Update();
 			
@@ -64,10 +70,10 @@ namespace SGame
 		{
 			m_character.Shutdown();
 			m_dice.Shutdown();
-			//m_snake.Shutdown();
 			m_gameModule.Shutdown();
 			m_gameWorld.GetECSWorld().DestroySystem(m_syncSystem);
 			m_gameWorld.GetECSWorld().DestroySystem(m_userInputSystem);
+			m_uiModule.Shutdown();
 		}
 
 		public void LateUpdate()
@@ -84,6 +90,8 @@ namespace SGame
 		///  游戏时间, 游戏逻辑以该时间为准
 		/// </summary>
 		GameTime m_gameTime;
+		
+		
 
 		/// <summary>
 		/// 游戏对象的显示时间
@@ -125,6 +133,11 @@ namespace SGame
 		/// </summary>
 		/// <returns></returns>
 		private UserInputsystem               m_userInputSystem;
+
+		/// <summary>
+		/// UI系统
+		/// </summary>
+		private UIModule                       m_uiModule;
 
 		private SnakeModule m_snake;
 	}

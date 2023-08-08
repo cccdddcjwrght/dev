@@ -24,13 +24,9 @@ using System;
 
 namespace SGame.UI
 {
+	[DisableAutoCreation]
 	public partial class UISystem : SystemBase
 	{
-
-		private SpawnUISystem     m_spawnSystem;
-		private DespaenUISystem   m_despawnSystem;
-		
-
 		// 创建UI的原型
 		static ILog log = LogManager.GetLogger("xl.ui");
 
@@ -39,59 +35,6 @@ namespace SGame.UI
 
 		// 有效的显示
 		private EntityQuery    m_groupVisible;
-
-		public static UISystem Instance
-		{
-			get
-			{
-				return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<UISystem>();
-			}
-		}
-
-		/// <summary>
-		///  系统创建  
-		/// </summary>
-		protected override void OnCreate()
-		{
-			base.OnCreate();
-
-			m_spawnSystem = World.GetOrCreateSystem<SpawnUISystem>();
-			m_despawnSystem = World.GetOrCreateSystem<DespaenUISystem>();
-
-			// 不要FairyGUI管理
-			UIPackage.unloadBundleByFGUI = false;
-
-			// 更好的字体描边效果 
-			UIConfig.enhancedTextOutlineEffect = true;
-
-			m_groupUIWindow = GetEntityQuery(typeof(UIWindow));
-			m_groupVisible = GetEntityQuery(typeof(UIWindow),
-																							ComponentType.Exclude<DespawningEntity>());
-		}
-
-		/// <summary>
-		///  ECS 开始运行前事件
-		/// </summary>
-		protected override void OnStartRunning()
-		{
-			base.OnStartRunning();
-
-			// 全局配置UI
-			log.Info("UI Config Success!");
-		}
-
-		/// <summary>
-		///  ECS System 销毁事件  
-		/// </summary>
-		protected override void OnDestroy()
-		{
-			// 清空UI信息
-			UIWindow[] windows = m_groupUIWindow.ToComponentDataArray<UIWindow>();
-			foreach (var w in windows)
-			{
-				w.Dispose();
-			}
-		}
 
 		/// <summary>
 		/// 更新
@@ -108,30 +51,6 @@ namespace SGame.UI
 
 				win.Value.OnFrameUpdate(deltaTime);
 			}).WithoutBurst().Run();
-			
-			m_spawnSystem.Update();
-			m_despawnSystem.Update();
-		}
-
-		/// <summary>
-		/// 关闭UI
-		/// </summary>
-		/// <param name="ui">要关闭的UI对象</param>
-		/// <param name="win">Window对象</param>        
-		public void CloseUI(Entity ui)
-		{
-			if (EntityManager.Exists(ui))
-			{
-				if (EntityManager.HasComponent<UIClosed>(ui) ||
-					EntityManager.HasComponent<UICloseEvent>(ui) ||
-					EntityManager.HasComponent<UIDestroy>(ui))
-				{
-					// 该UI已经关闭 或正在销毁
-					return;
-				}
-
-				EntityManager.AddComponent<UICloseEvent>(ui);
-			}
 		}
 	}
 }
