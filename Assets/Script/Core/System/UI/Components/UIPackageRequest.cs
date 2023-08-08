@@ -144,7 +144,7 @@ namespace SGame.UI
             // 本地模式, 无需打ab包
             if (libx.Assets.runtimeMode == false)
             {
-                string pkgPath = UISystem.GetPackageDescPath(packageName);
+                string pkgPath = UIUtils.GetPackageDescPath(packageName);
                 this.uiPackage = UIPackage.AddPackage(pkgPath);
                 
                 // 加载依赖
@@ -161,7 +161,7 @@ namespace SGame.UI
             // bundle 模式, 异步加载
             string descBundlePath = null;
             string resBundlePath = null;
-            UISystem.GetPackageDescAndResName(packageName, out descBundlePath, out resBundlePath);
+            UIUtils.GetPackageDescAndResName(packageName, out descBundlePath, out resBundlePath);
             this.descBundle = libx.Assets.LoadBundleAsync(descBundlePath);
             this.resBundle = libx.Assets.LoadBundleAsync(resBundlePath);
             loadState = LoadState.LoadAssetBundle;
