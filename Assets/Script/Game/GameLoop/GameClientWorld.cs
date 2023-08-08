@@ -31,6 +31,13 @@ namespace SGame
 				m_userInputSystem, 
 				m_character, 
 				m_dice);
+
+			InitalizeUI();
+		}
+
+		public void InitalizeUI()
+		{
+			m_uiModule.Reg("MainUI", "Main", UIMain.Create);
 		}
 
 		/// <summary>

@@ -56,6 +56,12 @@ namespace SGame.UI
 		}
 		
 		public static UIModule Instance { get { return s_module; } }
+
+		public void Reg(string comName, string pkgName, UIScriptFactory.CREATER creater)
+		{
+			UIInfo info = new UIInfo() { comName = comName, pkgName = pkgName };
+			m_factory.Register(info, creater);
+		}
 		
 		/// <summary>
 		/// 结束
