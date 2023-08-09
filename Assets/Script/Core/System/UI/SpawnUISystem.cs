@@ -71,9 +71,26 @@ namespace SGame.UI
             // 1. 生成Package加载
             Entities.WithNone<UIWindow, UIInitalized, DespawningEntity>().ForEach((Entity e, UIRequest request) =>
             {
+                if (request.configId != 0 && m_preprocess != null)
+                {
+                    string comName;
+                    string pkgName;
+
+                    if (m_preprocess.GetUIInfo(request.configId, out comName, out pkgName))
+                    {
+                        request.comName = comName;
+                        request.pkgName = pkgName;
+                    }
+                    else
+                    {
+                        log.Error("Get UIInfo Fail ID=" + request.configId);
+                        comamndBuffer.DestroyEntity(e);
+                        return;
+                    }
+                }
                 var ui = new UIWindow()
                 {
-                    uiPackage = m_packageRequest.Load(request.m_uiPackageName)
+                    uiPackage = m_packageRequest.Load(request.pkgName)
                 };
                 comamndBuffer.AddComponent<UIWindow>(e);
                 comamndBuffer.SetComponent(e, ui);
@@ -98,10 +115,10 @@ namespace SGame.UI
                     // 3. 加载GObject
                     if (window.gObject == null)
                     {
-                        window.gObject = window.uiPackage.uiPackage.CreateObject(request.m_uiName);
+                        window.gObject = window.uiPackage.uiPackage.CreateObject(request.comName);
                         if (window.gObject == null)
                         {
-                            log.Error("Package " + request.m_uiPackageName + " ui=" + request.m_uiName + " not found");
+                            log.Error("Package " + request.pkgName + " ui=" + request.comName + " not found");
                             comamndBuffer.DestroyEntity(e);
                             return;
                         }
@@ -113,8 +130,8 @@ namespace SGame.UI
                     var gCom = window.gObject.asCom;
                     fui.contentPane = gCom;
                     
-                    IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.m_uiName, pkgName = request.m_uiPackageName });
-                    UIContext context = CreateContext(e, gCom, request.m_configId);
+                    IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.comName, pkgName = request.pkgName });
+                    UIContext context = CreateContext(e, gCom, request.configId);
                     if (m_preprocess != null)
                         m_preprocess.Init(context);
                     fui.Initalize(script, context);
