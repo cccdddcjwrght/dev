@@ -11,7 +11,8 @@ using UnityEngine;
 
 namespace SGame
 {
-    public class GameModule
+    // 主要用于运行游戏逻辑
+    public partial class GameModule
     {
         public GameModule(
             GameWorld       gameWorld,
@@ -32,6 +33,8 @@ namespace SGame
             m_eventContainer = new EventHandleContainer();
         }
         
+        public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
+        
 
         public void Update()
         {
@@ -40,6 +43,9 @@ namespace SGame
 
         IEnumerator Logic()
         {
+            // 执行登录逻辑
+            yield return RunLogin();
+            
             // 开始游戏
             yield return StartGame();
              

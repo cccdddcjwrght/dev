@@ -25,6 +25,11 @@ namespace SGame.UI
         public GComponent        content;
 
         /// <summary>
+        /// Window 对象
+        /// </summary>
+        public FairyWindow       window;
+
+        /// <summary>
         /// UI对象本身
         /// </summary>
         public Entity            entity;

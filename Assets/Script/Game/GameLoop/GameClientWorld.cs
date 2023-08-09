@@ -37,7 +37,9 @@ namespace SGame
 
 		public void InitalizeUI()
 		{
+			/// 后续该代码要做成自动化
 			m_uiModule.Reg("MainUI", "Main", UIMain.Create);
+			m_uiModule.Reg("Login", "Login", UILogin.Create);
 		}
 
 		/// <summary>

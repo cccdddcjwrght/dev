@@ -18,8 +18,7 @@ namespace SGame
 
         void OnClick()
         {
-            log.Info("On Click");
-            
+            EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
         }
         
 

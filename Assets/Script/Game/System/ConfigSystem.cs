@@ -338,7 +338,7 @@ namespace SGame
 			return default(T);
 		}
 
-		public bool TryGet<T>(Func<IFlatbufferObject, bool> condition, out T data) where T : IFlatbufferObject
+		public bool TryGet<T>(Func<T, bool> condition, out T data) where T : IFlatbufferObject
 		{
 			data = default;
 			if (condition != null)
@@ -394,7 +394,7 @@ namespace SGame
 			return false;
 		}
 
-		public T Find<T>(Func<IFlatbufferObject, bool> condition) where T : IFlatbufferObject
+		public T Find<T>(Func<T, bool> condition) where T : IFlatbufferObject
 		{
 			TryGet<T>(condition, out var v);
 			return v;

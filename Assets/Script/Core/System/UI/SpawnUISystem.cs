@@ -32,8 +32,9 @@ namespace SGame.UI
 
         public void Initalize( GameWorld gameWorld, UIScriptFactory factory, IPreprocess preprocess)
         {
-            m_gameWorld = gameWorld;
+            m_gameWorld     = gameWorld;
             m_scriptFactory = factory;
+            m_preprocess    = preprocess;
         }
 
         // 创建UIPackageRequest
@@ -134,6 +135,7 @@ namespace SGame.UI
                     UIContext context = CreateContext(e, gCom, request.configId);
                     if (m_preprocess != null)
                         m_preprocess.Init(context);
+                    context.window = fui;
                     fui.Initalize(script, context);
                     window.Value = fui;
                     fui.Show();
