@@ -30,6 +30,11 @@ namespace SGame.UI
         public Entity            entity;
 
         /// <summary>
+        /// 配置表ID
+        /// </summary>
+        public int               configID;
+
+        /// <summary>
         /// onShown事件
         /// </summary>
         public Action<UIContext> onShown;

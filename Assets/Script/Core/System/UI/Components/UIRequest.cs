@@ -16,6 +16,9 @@ namespace SGame.UI
         
         // 包名
         public   string                m_uiPackageName;
+        
+        // 配置表名称
+        public   int                   m_configId;
 
         // 创建UI 对象
         public static Entity Create(EntityCommandBuffer commandBuffer, string name, string pkgName)

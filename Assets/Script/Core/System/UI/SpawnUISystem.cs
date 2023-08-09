@@ -19,6 +19,7 @@ namespace SGame.UI
         private EndSimulationEntityCommandBufferSystem  m_commandSystem;
         private UIScriptFactory                         m_scriptFactory;
         private GameWorld                               m_gameWorld;
+        private IPreprocess                             m_preprocess;
 
         private static ILog log = LogManager.GetLogger("xl.ui");
 
@@ -29,7 +30,7 @@ namespace SGame.UI
             m_commandSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         }
 
-        public void Initalize( GameWorld gameWorld, UIScriptFactory factory)
+        public void Initalize( GameWorld gameWorld, UIScriptFactory factory, IPreprocess preprocess)
         {
             m_gameWorld = gameWorld;
             m_scriptFactory = factory;
@@ -52,13 +53,14 @@ namespace SGame.UI
             return m_packageRequest.Load(uiPackage);
         }
 
-        UIContext CreateContext(Entity e, FairyGUI.GComponent content )
+        UIContext CreateContext(Entity e, FairyGUI.GComponent content, int configId )
         {
             UIContext context = new UIContext();
             context.gameWorld = m_gameWorld;
             context.uiModule = UIModule.Instance;
             context.entity = e;
             context.content = content;
+            context.configID = configId;
             return context;
         }
 
@@ -112,7 +114,9 @@ namespace SGame.UI
                     fui.contentPane = gCom;
                     
                     IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.m_uiName, pkgName = request.m_uiPackageName });
-                    UIContext context = CreateContext(e, gCom);
+                    UIContext context = CreateContext(e, gCom, request.m_configId);
+                    if (m_preprocess != null)
+                        m_preprocess.Init(context);
                     fui.Initalize(script, context);
                     window.Value = fui;
                     fui.Show();

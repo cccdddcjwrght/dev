@@ -15,7 +15,7 @@ namespace SGame
 			m_resourceManager	= resourceManager;
 			m_randomSystem      = RandomSystem.Instance;
 
-			m_uiModule          = new UIModule(world);
+			m_uiModule          = new UIModule(world, new UIPreprocess());
 
 			m_character			= new CharacterModule(world, resourceManager);
 			m_dice              = new DiceModule(world, resourceManager);

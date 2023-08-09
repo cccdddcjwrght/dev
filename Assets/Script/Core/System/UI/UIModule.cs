@@ -38,12 +38,15 @@ namespace SGame.UI
 
 		static  UIModule          s_module;
 
-		public UIModule(GameWorld gameWorld)
+		private IPreprocess       m_preProcess;
+
+		public UIModule(GameWorld gameWorld, IPreprocess preProcessing)
 		{
 		     m_spawnSystem    = gameWorld.GetECSWorld().CreateSystem<SpawnUISystem>();
 		     m_updateSystem   = gameWorld.GetECSWorld().CreateSystem<UISystem>();;
 		     m_despawnSystem  = gameWorld.GetECSWorld().CreateSystem<DespaenUISystem>();
 		     m_factory        = new UIScriptFactory();
+		     m_preProcess    = preProcessing;
 		     
 		     // 不要FairyGUI管理
 		     UIPackage.unloadBundleByFGUI = false;
@@ -51,7 +54,7 @@ namespace SGame.UI
 		     // 更好的字体描边效果 
 		     UIConfig.enhancedTextOutlineEffect = true;
 
-		     m_spawnSystem.Initalize(m_gameWorld, m_factory);
+		     m_spawnSystem.Initalize(m_gameWorld, m_factory, m_preProcess);
 		     s_module = this;
 		}
 		
