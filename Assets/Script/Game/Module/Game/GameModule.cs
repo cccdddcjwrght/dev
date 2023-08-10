@@ -60,8 +60,6 @@ namespace SGame
         // 开始游戏
         IEnumerator StartGame()
         {
-            UI.UIRequest.Create(m_gameWorld.GetEntityManager(), "MainUI", "Main");
-            
             // 等待checkPoint 转换结束!
             yield return FiberHelper.Wait(1.0f);
             
