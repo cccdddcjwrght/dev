@@ -10,8 +10,8 @@ namespace SGame
     {
         public IEnumerator RunLogin()
         {
-            const float HotfixTime = 3.0f;  // 更新UI显示时间
-            const float LoadingTime = 2.0f; // 加载UI更新时间
+            const float HotfixTime = 2.0f;  // 更新UI显示时间
+            const float LoadingTime = 1.0f; // 加载UI更新时间
             
             // 1. 显示更新界面
             Entity hotfixUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hotfix"));
