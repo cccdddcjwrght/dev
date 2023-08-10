@@ -1,5 +1,7 @@
 ﻿
+using log4net;
 using SGame.UI;
+using UnityEngine;
 namespace SGame
 {
     /// <summary>
@@ -7,10 +9,22 @@ namespace SGame
     /// </summary>
     public class UIPreprocess : IPreprocess
     {
+        private static ILog log = LogManager.GetLogger("xl.ui");
         // 初始化UI状态, 包括是否全屏等等
         public void Init(UIContext context)
         {
-            
+            if (context.configID != 0)
+            {
+                if (!ConfigSystem.Instance.TryGet(context.configID, out GameConfigs.ui_resRowData ui))
+                {
+                    log.Error("ui config not found=" + context.configID);
+                    return;
+                }
+
+                context.window.sortingOrder = ui.Order;
+            }
+
+
         }
 
         public bool GetUIInfo(int configId, out string comName, out string pkgName)

@@ -133,11 +133,13 @@ namespace SGame.UI
                     
                     IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.comName, pkgName = request.pkgName });
                     UIContext context = CreateContext(e, gCom, request.configId);
+                    context.window = fui;
+                    window.Value = fui;
+                    
+                    // UI初始化前的预处理, 比如配置表相关的设置
                     if (m_preprocess != null)
                         m_preprocess.Init(context);
-                    context.window = fui;
                     fui.Initalize(script, context);
-                    window.Value = fui;
                     fui.Show();
 
                     // 5. 设置加载完成标记

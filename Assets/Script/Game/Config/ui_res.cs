@@ -41,13 +41,16 @@ public struct ui_resRowData : IFlatbufferObject
   public ArraySegment<byte>? GetPackageNameBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
   public byte[] GetPackageNameArray() { return __p.__vector_as_array<byte>(10); }
+  public int Order { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ui_resRowData> Createui_resRowData(FlatBufferBuilder builder,
       int id = 0,
       StringOffset nameOffset = default(StringOffset),
       StringOffset ComNameOffset = default(StringOffset),
-      StringOffset PackageNameOffset = default(StringOffset)) {
-    builder.StartTable(4);
+      StringOffset PackageNameOffset = default(StringOffset),
+      int order = 0) {
+    builder.StartTable(5);
+    ui_resRowData.AddOrder(builder, order);
     ui_resRowData.AddPackageName(builder, PackageNameOffset);
     ui_resRowData.AddComName(builder, ComNameOffset);
     ui_resRowData.AddName(builder, nameOffset);
@@ -55,11 +58,12 @@ public struct ui_resRowData : IFlatbufferObject
     return ui_resRowData.Endui_resRowData(builder);
   }
 
-  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(5); }
   public static void AddId(FlatBufferBuilder builder, int id) { builder.AddInt(0, id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddComName(FlatBufferBuilder builder, StringOffset ComNameOffset) { builder.AddOffset(2, ComNameOffset.Value, 0); }
   public static void AddPackageName(FlatBufferBuilder builder, StringOffset PackageNameOffset) { builder.AddOffset(3, PackageNameOffset.Value, 0); }
+  public static void AddOrder(FlatBufferBuilder builder, int order) { builder.AddInt(4, order, 0); }
   public static Offset<GameConfigs.ui_resRowData> Endui_resRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ui_resRowData>(o);
