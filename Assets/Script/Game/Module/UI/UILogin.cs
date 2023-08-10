@@ -1,5 +1,6 @@
 using SGame.UI;
 using log4net;
+using Unity.Entities;
 namespace SGame
 {
     public class UILogin : IUIScript
@@ -17,7 +18,8 @@ namespace SGame
 
         public void OnClick()
         {
-            log.Info("Close UI value=" + m_text.text);
+            EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN);
+            //log.Info("Close UI value=" + m_text.text);
             m_context.window.Close();
         }
 

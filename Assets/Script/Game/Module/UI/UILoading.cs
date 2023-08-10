@@ -10,17 +10,23 @@ namespace SGame
     {
         // 协程对象
         private Fiber m_fiber;
+
+        // 显示时间
+        private float m_waitTime;
         
         public void OnInit(UIContext context)
         {
             context.onUpdate += onUpdate;
             m_fiber = new Fiber(RunLogic(context));
+            
+            // 获得参数
+            m_waitTime = context.gameWorld.GetEntityManager().GetComponentData<UIParamFloat>(context.entity).Value;
         }
 
         IEnumerator RunLogic(UIContext context)
         {
             //  播放动画, 等待3秒结束
-            yield return FiberHelper.Wait(3);
+            yield return FiberHelper.Wait(m_waitTime);
             context.window.Close();
         }
 
