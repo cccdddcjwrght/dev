@@ -10,7 +10,7 @@ namespace SGame
         public void OnInit(UIContext context)
         {
             context.onUpdate += onUpdate;
-            var clickBtn = context.content.GetChild("battle").asButton;
+            var clickBtn = context.content.GetChildByPath("battle.icon").asButton;
             clickBtn.onClick.Add(OnClick);
         }
 

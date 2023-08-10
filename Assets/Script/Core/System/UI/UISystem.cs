@@ -35,6 +35,12 @@ namespace SGame.UI
 		// 有效的显示
 		private EntityQuery    m_groupVisible;
 
+		protected override void OnCreate()
+		{
+			base.OnCreate();
+			UIConfig.defaultFont = "Quicksand-Bold-2_SDF";
+		}
+
 		/// <summary>
 		/// 更新
 		/// </summary>
