@@ -21,12 +21,9 @@ namespace SGame
 		TIPS_ID_EVENT = 100000,
 
 		//登录======================================
-		LOGIN_SUCCESS = 100,
-		USER_DATA_REFRESH = 101,
-		LOAD_USER_INFO = 102, // 登陆后加载用户数据
-		ANNOUNCE_DONE = 103,  // 公告结束
-		ENTER_LOGIN = 104,    //进入登录
-		RECONNECTING = 105,   //重连 （bool start or end）
+		HOTFIX_DONE       = 100, // 热更新结束
+		ENTER_LOGIN       = 104, // 进入登录
+		ENTER_GAME        = 105, // 进入游戏
 
 		SYNC_COMPLETE = 110, //数据同步选择完成(int 1:本地，2：服务器)
 

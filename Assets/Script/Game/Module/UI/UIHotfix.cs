@@ -25,7 +25,7 @@ namespace SGame
         {
             // 播放动画
             yield return FiberHelper.Wait(3);
-            context.window.Close();
+            EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
         }
 
         void onUpdate(UIContext context)

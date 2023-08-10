@@ -1,5 +1,5 @@
 using SGame.UI;
-
+using Unity.Entities;
 namespace SGame
 {
     public class UIUtils
@@ -16,6 +16,19 @@ namespace SGame
 
             // 找不到ID
             return 0;
+        }
+
+        /// <summary>
+        /// 关闭UI
+        /// </summary>
+        /// <param name="mgr"></param>
+        /// <param name="ui">UI 的Entity对象</param>
+        public static void CloseUI(EntityManager mgr, Entity ui)
+        {
+            if (mgr.HasComponent<UICloseEvent>(ui) == false)
+            {
+                mgr.AddComponent<UICloseEvent>(ui);
+            }
         }
     }
 }

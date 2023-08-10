@@ -27,7 +27,7 @@ namespace SGame
         {
             //  播放动画, 等待3秒结束
             yield return FiberHelper.Wait(m_waitTime);
-            context.window.Close();
+            EventManager.Instance.Trigger((int)GameEvent.ENTER_GAME);
         }
 
         void onUpdate(UIContext context)

@@ -16,19 +16,26 @@ namespace SGame
             // 1. 显示更新界面
             Entity hotfixUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hotfix"));
             EntityManager.AddComponentData(hotfixUI, new UIParamFloat() {Value = HotfixTime});
-            yield return FiberHelper.Wait(HotfixTime - 1); //new WaitUIClose(EntityManager, hotfixUI);
             
             // 2. 显示登录界面
+            yield return new WaitEvent(EntityManager, GameEvent.HOTFIX_DONE);
             Entity loginUI = UIRequest.Create(EntityManager, UIUtils.GetUI("login"));
-            yield return new WaitUIClose(EntityManager, loginUI);
+            yield return new WaitUIOpen(EntityManager, loginUI);
+            UIUtils.CloseUI(EntityManager, hotfixUI);
+
             
             // 3. 进入加载界面
+            yield return new WaitEvent(EntityManager, GameEvent.ENTER_LOGIN);
             Entity loadingUI = UIRequest.Create(EntityManager, UIUtils.GetUI("loading"));
             EntityManager.AddComponentData(loadingUI, new UIParamFloat() {Value = LoadingTime});
-            yield return FiberHelper.Wait(LoadingTime - 1);
+            yield return new WaitUIOpen(EntityManager, loadingUI);
+            UIUtils.CloseUI(EntityManager, loginUI);
 
             // 4. 完成后直接进入主界
+            yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
+            UIUtils.CloseUI(EntityManager, loadingUI);
+
             yield return null;
         }
     }

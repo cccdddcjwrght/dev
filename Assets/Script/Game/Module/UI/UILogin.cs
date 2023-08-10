@@ -19,8 +19,6 @@ namespace SGame
         public void OnClick()
         {
             EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN);
-            //log.Info("Close UI value=" + m_text.text);
-            m_context.window.Close();
         }
 
         public static IUIScript Create() { return new UILogin(); }

@@ -6,6 +6,10 @@ using UnityEngine;
 // UI销毁系统
 namespace SGame.UI
 {
+    public struct UICloseEvent : IComponentData
+    {
+        
+    }
     public partial class DespaenUISystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_commandBufferSystem;
@@ -18,7 +22,12 @@ namespace SGame.UI
 
         protected override void OnUpdate()
         {
-            var commandBuffer = m_commandBufferSystem.CreateCommandBuffer(); 
+            var commandBuffer = m_commandBufferSystem.CreateCommandBuffer();
+            Entities.WithAll<UICloseEvent>().WithNone<DespawningEntity>().ForEach((Entity e, UIWindow window) =>
+            {
+                commandBuffer.AddComponent<DespawningEntity>(e);
+            }).WithStructuralChanges().WithoutBurst().Run();;
+            
             Entities.WithAll<DespawningEntity>().ForEach((Entity e, UIWindow window) =>
             {
                 window.Dispose();
