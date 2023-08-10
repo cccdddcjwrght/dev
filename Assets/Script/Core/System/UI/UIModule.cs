@@ -42,6 +42,7 @@ namespace SGame.UI
 
 		public UIModule(GameWorld gameWorld, IPreprocess preProcessing)
 		{
+			m_gameWorld       = gameWorld;
 		     m_spawnSystem    = gameWorld.GetECSWorld().CreateSystem<SpawnUISystem>();
 		     m_updateSystem   = gameWorld.GetECSWorld().CreateSystem<UISystem>();;
 		     m_despawnSystem  = gameWorld.GetECSWorld().CreateSystem<DespaenUISystem>();

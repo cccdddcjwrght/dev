@@ -40,6 +40,8 @@ namespace SGame
 			/// 后续该代码要做成自动化
 			m_uiModule.Reg("MainUI", "Main", UIMain.Create);
 			m_uiModule.Reg("Login", "Login", UILogin.Create);
+			m_uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
+			m_uiModule.Reg("LoadingUI", "Loading", UILoading.Create);
 		}
 
 		/// <summary>

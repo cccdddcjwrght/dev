@@ -4,7 +4,7 @@ namespace SGame
 {
     public class UIUtils
     {
-        public int GetUI(string name)
+        public static int GetUI(string name)
         {
             if (ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>((GameConfigs.ui_resRowData conf) =>
             {
