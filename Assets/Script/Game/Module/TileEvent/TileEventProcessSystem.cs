@@ -24,10 +24,10 @@ namespace SGame
             {
                 for (int i = 0; i < triggers.Length; i++)
                 {
-                    if (triggers[i].state == TileEventTrigger.State.FINISH)
+                    if (triggers[i].state == TileEventTrigger.State.ENTER)
                     {
                         var data = DataCenter.Instance.GetUserData();
-                        data.gold += 10;
+                        data.gold += RandomSystem.Instance.NextInt(0, 10);
                         DataCenter.Instance.SetUserData(data);
                     } 
                 }

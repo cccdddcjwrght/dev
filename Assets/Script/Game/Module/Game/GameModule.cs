@@ -78,6 +78,9 @@ namespace SGame
             // 1. 创建角色
             m_player = m_characterModule.CreateCharacter(101);
             mgr.SetComponentData(m_player, new Translation{Value = m_checkPoints.Value[0]});
+            UserData userData = DataCenter.Instance.GetUserData();
+            userData.player = m_player;
+            DataCenter.Instance.SetUserData(userData);
             
             // 2. 创建骰子
             m_dice   =   m_diceModule.Create();
