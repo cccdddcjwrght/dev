@@ -31,7 +31,7 @@ namespace SGame
 				m_userInputSystem, 
 				m_character, 
 				m_dice);
-			m_tileEventSystem   = world.GetECSWorld().CreateSystem<TileEventSystem>();
+			m_tileEventModule = new TileEventModule(world);
 
 			InitalizeUI();
 		}
@@ -72,7 +72,7 @@ namespace SGame
 			m_gameModule.Update();
 			
 			// 游戏内场景事件
-			m_tileEventSystem.Update();
+			m_tileEventModule.Update();
 
 			// 同步模块
 			m_syncSystem.Update();
@@ -88,7 +88,7 @@ namespace SGame
 			m_gameModule.Shutdown();
 			m_gameWorld.GetECSWorld().DestroySystem(m_syncSystem);
 			m_gameWorld.GetECSWorld().DestroySystem(m_userInputSystem);
-			m_gameWorld.GetECSWorld().DestroySystem(m_tileEventSystem);
+			m_tileEventModule.Shutdown();
 			m_uiModule.Shutdown();
 		}
 
@@ -156,9 +156,10 @@ namespace SGame
 		private UIModule                       m_uiModule;
 
 		/// <summary>
-		/// 角色在场景中运动的触发事件
+		/// 地块事件系统
 		/// </summary>
-		private TileEventSystem                m_tileEventSystem;
+		private TileEventModule                m_tileEventModule;
+		
 
 		private SnakeModule                    m_snake;
 	}
