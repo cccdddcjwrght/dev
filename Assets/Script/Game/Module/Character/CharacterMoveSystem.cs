@@ -50,13 +50,15 @@ namespace SGame
                 // 移动控制器中的GameObject 对象
                 float delta = speed.Value * dt;
                 mover.Movement(delta);
+                int index = mover.GetPositionIndex(mover.m_movedDistance);
+                mover.m_currentIndex = index >= 0 ? index : 0;
                 Animator anim = controller.GetComponent<Animator>();
 
                 if (mover.isFinish)
                 {
                     controller.transform.position = mover.LastPosition();
                     anim.SetFloat("Speed", 0);
-                    mover.Clear();
+                    mover.Finish();
                 }
                 else
                 {

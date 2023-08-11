@@ -16,7 +16,7 @@ namespace SGame
         
         public int                          characterId = 0;                  // 角色ID
 
-        public int                          titleId = 0;                    // 目标PATH
+        public int                          titleId = 0;                       // 目标PATH
 
         public int                          round     = 0;                    // 第几轮的骰子
     }

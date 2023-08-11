@@ -25,7 +25,19 @@ namespace SGame
     
         // 移动总长度
         [NonSerialized]
-        private float                m_distance;
+        private float                 m_distance;
+
+        public int                    m_currentIndex = 0;
+
+        public int                    m_startTileId = 0;          // 开始到结束的ID
+
+        public int                    currentTile         // 当前的TileID
+        {
+            get
+            {
+                return m_startTileId + m_currentIndex;
+            }
+        }
 
         public bool isFinish
         {
@@ -43,7 +55,17 @@ namespace SGame
         public void Clear()
         {
             m_movedDistance = 0;
+            m_currentIndex = 0;
             m_distance = 0;
+            m_paths.Clear();
+        }
+
+        public void Finish()
+        {
+            m_startTileId  += m_paths.Count - 1;
+            m_movedDistance = 0;
+            m_currentIndex  = 0;
+            m_distance      = 0;
             m_paths.Clear();
         }
 
@@ -65,7 +87,7 @@ namespace SGame
                 return -1;
 
             if (distance >= m_distance)
-                return -1;
+                return m_paths.Count - 1;
 
             float d = 0;
             float3 startPos = m_paths[0];
@@ -79,7 +101,7 @@ namespace SGame
                 }
             }
 
-            return -1;
+            return m_paths.Count - 1;
         }
 
         /// <summary>
@@ -141,27 +163,25 @@ namespace SGame
         }
 
         // 移动到特定位置
-        public void MoveTo(List<float3> paths)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="paths">paths移动的路径</param>
+        /// <param name="startTileId">开始移动的ID</param>
+        public void MoveTo(List<float3> paths, int startTileId)
         {
             if (paths.Count < 2)
             {
                 log.Error("Path Count Less 2!");
                 return;
             }
-            
-            m_movedDistance = 0;
+
+            m_movedDistance  = 0;
+            m_currentIndex   = 0;
+            m_startTileId    = startTileId;
             m_paths.Clear();
             m_paths.AddRange(paths);
             m_distance = CalcPathDistance(); // 统计移动长度
-        }
-
-        // 移动到目标点
-        public void MoveTo(float3 startPosition, float3 targetPosition)
-        {
-            List<float3> v = new List<float3>(2);
-            v.Add(startPosition);
-            v.Add(targetPosition);
-            MoveTo(v);
         }
 
         public void Convert(

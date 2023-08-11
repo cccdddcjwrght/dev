@@ -156,7 +156,7 @@ namespace SGame
 
             // 移动角色
             CharacterMover mover = mgr.GetComponentObject<CharacterMover>(m_player);
-            mover.MoveTo(paths);
+            mover.MoveTo(paths, startIndex);
 
             Character character = mgr.GetComponentObject<Character>(m_player);
             character.titleId = m_curCheckPoint;
