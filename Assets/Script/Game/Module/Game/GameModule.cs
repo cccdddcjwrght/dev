@@ -159,7 +159,7 @@ namespace SGame
             mover.MoveTo(paths);
 
             Character character = mgr.GetComponentObject<Character>(m_player);
-            character.pathIndex = m_curCheckPoint;
+            character.titleId = m_curCheckPoint;
             
             // 等待角色移动结束
             while (mover.isFinish == false)

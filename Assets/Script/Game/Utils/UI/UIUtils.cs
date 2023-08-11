@@ -25,9 +25,13 @@ namespace SGame
         /// <param name="ui">UI 的Entity对象</param>
         public static void CloseUI(EntityManager mgr, Entity ui)
         {
-            if (mgr.HasComponent<UICloseEvent>(ui) == false)
+            if (mgr.HasComponent<UIWindow>(ui))
             {
-                mgr.AddComponent<UICloseEvent>(ui);
+                UIWindow window = mgr.GetComponentData<UIWindow>(ui);
+                if (window.Value != null)
+                {
+                    window.Value.Close();
+                }
             }
         }
     }

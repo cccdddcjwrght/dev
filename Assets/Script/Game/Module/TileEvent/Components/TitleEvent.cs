@@ -2,9 +2,9 @@ using Unity.Entities;
 
 namespace SGame
 {
-    // 游戏格子进入事件
-    public struct TitleEvent : IBufferElementData
+    // 已经事件当前进度
+    public struct TitleEvent : IComponentData
     {
-        public int eventId;
+        public int titleId; // 已处理的TileEvent
     }
 }

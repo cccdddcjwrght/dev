@@ -14,8 +14,10 @@ namespace SGame
         
         [NonSerialized] public Entity       render;                           // 显示对象, 初始化后创建的
         
-        public int                          characterId;                      // 角色ID
+        public int                          characterId = 0;                  // 角色ID
 
-        public int                          pathIndex;                        // 目标PATH
+        public int                          titleId = 0;                    // 目标PATH
+
+        public int                          round     = 0;                    // 第几轮的骰子
     }
 }

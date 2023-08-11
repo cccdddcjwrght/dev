@@ -12,11 +12,6 @@ namespace SGame
     [DisableAutoCreation]
     public partial class CharacterMoveSystem : SystemBase
     {
-        // 初始化完成标签
-        public struct InitalizedTag : IComponentData
-        {
-        }
-        
         private static ILog                             log                     = LogManager.GetLogger("xl.Character");
         private GameWorld                               m_world;
         private ResourceManager                         m_resourceManager;
