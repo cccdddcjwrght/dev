@@ -24,6 +24,8 @@ namespace SGame
 			m_syncSystem        = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
 			m_userInputSystem   = world.GetECSWorld().CreateSystem<UserInputsystem>();
 
+			m_dataCenter        = new DataCenter(world);
+
 			m_randomSystem.Initalize((uint)Time.frameCount);
 			m_gameModule        = new GameModule(world, 
 				resourceManager, 
@@ -76,6 +78,9 @@ namespace SGame
 
 			// 同步模块
 			m_syncSystem.Update();
+			
+			// 数据中心更新
+			m_dataCenter.Update();
 		}
 
 		/// <summary>
@@ -90,6 +95,7 @@ namespace SGame
 			m_gameWorld.GetECSWorld().DestroySystem(m_userInputSystem);
 			m_tileEventModule.Shutdown();
 			m_uiModule.Shutdown();
+			m_dataCenter.Shutdown();
 		}
 
 		public void LateUpdate()
@@ -159,6 +165,11 @@ namespace SGame
 		/// 地块事件系统
 		/// </summary>
 		private TileEventModule                m_tileEventModule;
+
+		/// <summary>
+		/// 数据中心
+		/// </summary>
+		private DataCenter                     m_dataCenter;
 		
 
 		private SnakeModule                    m_snake;

@@ -9,7 +9,15 @@ namespace SGame
     public partial class TileEventProcessSystem : SystemBase
     {
         private static ILog log = LogManager.GetLogger("xl.game");
-        
+
+        protected Entity m_userData;
+
+        protected override void OnCreate()
+        {
+            base.OnCreate();
+            m_userData = DataCenter.Instance.m_userData;
+        }
+
         protected override void OnUpdate()
         {
             Entities.ForEach((Entity e, in DynamicBuffer<TileEventTrigger> triggers) =>
@@ -18,8 +26,10 @@ namespace SGame
                 {
                     if (triggers[i].state == TileEventTrigger.State.FINISH)
                     {
-                        log.Info("Finish Trigger=" + triggers[i].titleId);
-                    }
+                        var data = DataCenter.Instance.GetUserData();
+                        data.gold += 10;
+                        DataCenter.Instance.SetUserData(data);
+                    } 
                 }
             }).WithoutBurst().Run();
         }

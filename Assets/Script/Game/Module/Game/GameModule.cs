@@ -35,6 +35,8 @@ namespace SGame
         
         public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
         
+        
+        
 
         public void Update()
         {
