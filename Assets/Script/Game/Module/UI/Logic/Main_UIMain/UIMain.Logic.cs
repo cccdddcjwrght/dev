@@ -23,37 +23,21 @@ namespace SGame.UI{
 			m_context = context;
 			m_numberEffect = new Fiber(FiberBucket.Manual);
 			context.onUpdate += onUpdate;
-			var clickBtn = context.content.GetChildByPath("battle.icon").asButton;
-			clickBtn.onClick.Add(OnClick);
+
             
-			//uiGold = new UINumber(context.content.GetChild("gold").asCom);
 			m_userData = DataCenter.Instance.GetUserData();
 			m_userSetting = DataCenter.Instance.GetUserSetting();
-			//uiGold.Value = m_userData.gold;
 
 			m_showText = m_view.m_goldFloating;
-			//var btnPower = context.content.GetChildByPath("battle.power").asButton;
-			//m_bonusText = btnPower.GetChild("title").asTextField;
-            SetGoldText(m_userData.gold.ToString());
-			//btnPower.onClick.Add(OnClickBonus);
+			SetGoldText(m_userData.gold.ToString());
 			UpdateBonusText();
 		}
 		
-
-
 		void UpdateBonusText()
 		{
-			//m_bonusText.text = "X" + m_userSetting.doubleBonus.ToString();
 			SetBattleBtn_PowerText("X" + m_userSetting.doubleBonus.ToString());
 		}
-
-		public void OnClickBonus()
-		{
-			UserSetting setting = DataCenter.Instance.GetUserSetting();
-			setting.doubleBonus = (setting.doubleBonus) % 5 + 1;
-			DataCenter.Instance.SetUserSetting(setting);
-		}
-
+		
 		IEnumerator ShowNumberEffect(int num)
 		{
 			EntityManager mgr = m_context.gameWorld.GetEntityManager();
@@ -88,20 +72,6 @@ namespace SGame.UI{
 			yield return null;
 		}
 		
-		void OnClick(EventContext context)
-		{
-			if (context.inputEvent.isDoubleClick)
-			{
-				var v = DataCenter.Instance.GetUserSetting();
-				v.autoUse = !v.autoUse;
-				DataCenter.Instance.SetUserSetting(v);
-			}
-			else
-			{
-				EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
-			}
-		}
-
 		private void onUpdate(UIContext context)
 		{
 			UserData cur = DataCenter.Instance.GetUserData();
