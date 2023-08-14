@@ -83,10 +83,11 @@ namespace SGame
             DataCenter.Instance.SetUserData(userData);
             
             // 2. 创建骰子
-            m_dice   =   m_diceModule.Create();
+            m_dice1   =   m_diceModule.Create();
+            m_dice2   =   m_diceModule.Create();
             
-            mgr.SetComponentData(m_dice, new Translation() {Value = new float3(-4, 1, 0)});
-            mgr.SetComponentData(m_dice, new Rotation() {Value = quaternion.identity});
+            mgr.SetComponentData(m_dice1, new Translation() {Value = new float3(-4, 1, 0)});
+            mgr.SetComponentData(m_dice1, new Rotation() {Value = quaternion.identity});
 
             // 3. 获取场景路径
             yield return null;
@@ -130,18 +131,18 @@ namespace SGame
         IEnumerator ShowDice(int num, float time)
         {
             // 创建骰子
-            m_diceModule.Play(m_dice, time, num);
+            m_diceModule.Play(m_dice1, time, num);
             
             // 等两等两帧开始播放动画
             yield return null;
             yield return null;
             
             // 等待骰子动画结束
-            DiceAnimation diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(m_dice);
+            DiceAnimation diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(m_dice1);
             while (diceAnimation.isPlaying)
             {
                 yield return null;
-                diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(m_dice);
+                diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(m_dice1);
             }
             
             // 删除骰子
@@ -194,8 +195,9 @@ namespace SGame
         // 角色
         private Entity              m_player         ;
 
-        // 骰子
-        private Entity              m_dice           ;
+        // 骰子1
+        private Entity              m_dice1           ;
+        private Entity              m_dice2           ;
 
         // 路径点
         private CheckPointData      m_checkPoints    ;
