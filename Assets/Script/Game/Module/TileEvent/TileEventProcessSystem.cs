@@ -12,6 +12,7 @@ namespace SGame
         
         protected override void OnUpdate()
         {
+            UserSetting setting = DataCenter.Instance.GetUserSetting();
             Entities.ForEach((Entity e, in DynamicBuffer<TileEventTrigger> triggers) =>
             {
                 for (int i = 0; i < triggers.Length; i++)
@@ -19,7 +20,7 @@ namespace SGame
                     if (triggers[i].state == TileEventTrigger.State.ENTER)
                     {
                         var data = DataCenter.Instance.GetUserData();
-                        data.gold += RandomSystem.Instance.NextInt(0, 10);
+                        data.gold += (RandomSystem.Instance.NextInt(0, 10) * setting.doubleBonus);
                         DataCenter.Instance.SetUserData(data);
                     } 
                 }

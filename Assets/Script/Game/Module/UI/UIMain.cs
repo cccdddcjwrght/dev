@@ -15,10 +15,12 @@ namespace SGame
     {
         private static ILog log = LogManager.GetLogger("xl.gameui");
         private UINumber         uiGold;
-        private UserData         userData;
+        private UserData         m_userData;
+        private UserSetting      m_userSetting;
         private GTextField       m_showText;
         private Fiber            m_numberEffect;
         private UIContext        m_context;
+        private GTextField       m_bonusText;
         
         public void OnInit(UIContext context)
         {
@@ -29,19 +31,37 @@ namespace SGame
             clickBtn.onClick.Add(OnClick);
             
             uiGold = new UINumber(context.content.GetChild("gold").asCom);
-            userData = DataCenter.Instance.GetUserData();
-            uiGold.Value = userData.gold;
+            m_userData = DataCenter.Instance.GetUserData();
+            m_userSetting = DataCenter.Instance.GetUserSetting();
+            uiGold.Value = m_userData.gold;
 
             m_showText = context.content.GetChild("goldText").asTextField;
+            var btnPower = context.content.GetChildByPath("battle.power").asButton;
+            m_bonusText = btnPower.GetChild("title").asTextField;
+            
+            btnPower.onClick.Add(OnClickBonus);
+            UpdateBonusText();
+        }
+
+        void UpdateBonusText()
+        {
+            m_bonusText.text = "X" + m_userSetting.doubleBonus.ToString();
+        }
+
+        public void OnClickBonus()
+        {
+            UserSetting setting = DataCenter.Instance.GetUserSetting();
+            setting.doubleBonus = (setting.doubleBonus) % 5 + 1;
+            DataCenter.Instance.SetUserSetting(setting);
         }
 
         IEnumerator ShowNumberEffect(int num)
         {
             EntityManager mgr = m_context.gameWorld.GetEntityManager();
-            if (mgr.Exists(userData.player) == false)
+            if (mgr.Exists(m_userData.player) == false)
                 yield break;
 
-            float3 pos = mgr.GetComponentData<Translation>(userData.player).Value;
+            float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
             pos.y += 1.0f;
             Vector3 screenPoint = GameCamera.camera.WorldToScreenPoint(pos);
             screenPoint.y = Screen.height - screenPoint.y;
@@ -87,13 +107,23 @@ namespace SGame
         private void onUpdate(UIContext context)
         {
             UserData cur = DataCenter.Instance.GetUserData();
-            if (cur.gold != userData.gold)
+            UserSetting setting = DataCenter.Instance.GetUserSetting();
+            
+            if (cur.gold != m_userData.gold)
             {
-                int addvalue = cur.gold - userData.gold;
-                userData = cur;
-                uiGold.Value = userData.gold;
+                int addvalue = cur.gold - m_userData.gold;
+                m_userData = cur;
+                uiGold.Value = m_userData.gold;
                 m_numberEffect.Start(ShowNumberEffect(addvalue));
             }
+
+            if (setting.doubleBonus != m_userSetting.doubleBonus)
+            {
+                m_userSetting.doubleBonus = setting.doubleBonus;
+                UpdateBonusText();
+            }
+            
+            
 
             m_numberEffect.Step();
         }
