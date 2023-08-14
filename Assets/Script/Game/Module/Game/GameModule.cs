@@ -96,16 +96,22 @@ namespace SGame
         IEnumerator WaitNextRond()
         {
             var mgr = m_gameWorld.GetEntityManager();
-            EntityQuery query = mgr.CreateEntityQuery(typeof(UserInput));
             while (true)
             {
+                UserSetting setting = DataCenter.Instance.GetUserSetting();
+                if (setting.autoUse == true)
+                {
+                    // 自动投掷就等待1秒
+                    yield return FiberHelper.Wait(1.0f);
+                    break;
+                }
+                
                 UserInput input = m_userInputSystem.GetInput();
                 if (input.rollDice == true)
                     break;
 
                 yield return null;
             }
-            query.Dispose();
         }
 
         // 游戏循环

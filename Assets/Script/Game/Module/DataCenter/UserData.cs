@@ -15,5 +15,14 @@ namespace SGame
 
         // 角色ID
         public Entity player;
+
+        public static UserData GetDefault()
+        {
+            return new UserData()
+            {
+                gold = 0,
+                player = Entity.Null
+            };
+        }
     }
 }

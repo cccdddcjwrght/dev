@@ -18,7 +18,7 @@ namespace SGame
         private UserData         userData;
         private GTextField       m_showText;
         private Fiber            m_numberEffect;
-        private UIContext m_context;
+        private UIContext        m_context;
         
         public void OnInit(UIContext context)
         {
@@ -70,9 +70,18 @@ namespace SGame
 
         public static IUIScript Create() { return new UIMain(); }
 
-        void OnClick()
+        void OnClick(EventContext context)
         {
-            EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
+            if (context.inputEvent.isDoubleClick)
+            {
+                var v = DataCenter.Instance.GetUserSetting();
+                v.autoUse = !v.autoUse;
+                DataCenter.Instance.SetUserSetting(v);
+            }
+            else
+            {
+                EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
+            }
         }
 
         private void onUpdate(UIContext context)
