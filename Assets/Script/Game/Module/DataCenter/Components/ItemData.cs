@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using cs;
-using Unity.VisualScripting;
-using UnityEngine.Serialization;
 
 namespace SGame
 {
@@ -13,8 +10,8 @@ namespace SGame
 		[Serializable]
 		public struct Value
 		{
-			public int id;
-			public int num;
+			public int      id;
+			public int      num;
 			public ItemType type;
 
 			public override string ToString()
