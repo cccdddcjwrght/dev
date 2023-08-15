@@ -104,6 +104,9 @@ namespace SGame.UI{
 				m_view.m_battle.m_countprogress.max   = m_diceMaxPower;
 				m_view.m_battle.m_countprogress.value = m_dicePower;
 			}
+			
+			/// 显示道具恢复倒计时
+			SetBattleBtn_TimeText(Utils.TimeFormat(DataCenter.Instance.GetDiceRecoverTime()));
 
 			m_numberEffect.Step();
 		}

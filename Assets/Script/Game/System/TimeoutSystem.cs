@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -21,9 +22,9 @@ namespace SGame
             float deltaTime = Time.DeltaTime;
             Entities.ForEach((ref TimeoutData data) =>
             {
-                if (data.Value >= 0)
+                if (data.Value > 0)
                 {
-                    data.Value -= deltaTime;
+                    data.Value = math.clamp(data.Value - deltaTime, 0, float.MaxValue);
                 }
             }).WithoutBurst().ScheduleParallel();
         }

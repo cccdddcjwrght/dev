@@ -50,5 +50,22 @@ namespace SGame
 
             return value;
         }
+
+        /// <summary>
+        /// 时间倒计时
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static string TimeFormat(float time)
+        {
+            if (time <= 0)
+                time = 0;
+            double t = time;
+            t *= TimeSpan.TicksPerSecond;
+            DateTime dt = new DateTime((long)t);
+            if (dt.Hour > 0)
+                return dt.ToString("HH:mm:ss");
+            return dt.ToString("mm:ss");
+        }
     }
 }
