@@ -15,21 +15,28 @@ namespace SGame.UI{
 	{
 		private UserData         m_userData;
 		private UserSetting      m_userSetting;
+		private int              m_dicePower;
+		private int              m_diceMaxPower;
+		private int              m_glod;
+
 		private GTextField       m_showText;
 		private Fiber            m_numberEffect;
 		private UIContext        m_context;
+		private ItemGroup        m_itemGroup;
 
 		partial void InitLogic(UIContext context){
 			m_context = context;
 			m_numberEffect = new Fiber(FiberBucket.Manual);
 			context.onUpdate += onUpdate;
 
-            
+			m_itemGroup = PropertyManager.Instance.GetGroup(ItemType.USER);
+			m_dicePower = -1;
+			m_glod = m_itemGroup.GetNum((int)UserType.GOLD);
 			m_userData = DataCenter.Instance.GetUserData();
 			m_userSetting = DataCenter.Instance.GetUserSetting();
 
 			m_showText = m_view.m_goldFloating;
-			SetGoldText(m_userData.gold.ToString());
+			SetGoldText(m_glod.ToString());
 			UpdateBonusText();
 		}
 		
@@ -40,6 +47,7 @@ namespace SGame.UI{
 		
 		IEnumerator ShowNumberEffect(int num)
 		{
+			m_userData = DataCenter.Instance.GetUserData();
 			EntityManager mgr = m_context.gameWorld.GetEntityManager();
 			if (mgr.Exists(m_userData.player) == false)
 				yield break;
@@ -50,15 +58,11 @@ namespace SGame.UI{
 			screenPoint.y = Screen.height - screenPoint.y;
 
 			Vector2 uiPos = m_context.content.GlobalToLocal(screenPoint);
-			//GRoot.inst.LocalToGlobal(screenPoint)
 			m_showText.alpha = 0;
 			float wait = 1.0f;
 			m_showText.text = num.ToString();
-			//m_view.m_goldFloating.text = num.ToString();
 			for (float r = 0; r < wait;)
 			{
-				// pos = mgr.GetComponentData<Translation>(userData.player).Value;
-				//m_context.content.scree
 				float per = r / wait;
 				Vector2 runPos = uiPos;
 				runPos.y -= per * 100;
@@ -74,15 +78,14 @@ namespace SGame.UI{
 		
 		private void onUpdate(UIContext context)
 		{
-			UserData cur = DataCenter.Instance.GetUserData();
 			UserSetting setting = DataCenter.Instance.GetUserSetting();
             
-			if (cur.gold != m_userData.gold)
+			if (m_glod != m_itemGroup.GetNum((int)UserType.GOLD))
 			{
-				int addvalue = cur.gold - m_userData.gold;
-				m_userData = cur;
-				//uiGold.Value = m_userData.gold;
-				SetGoldText(m_userData.gold.ToString());
+				int cur = m_itemGroup.GetNum((int)UserType.GOLD);
+				int addvalue = cur - m_glod;
+				m_glod = cur;
+				SetGoldText(m_glod.ToString());
 				m_numberEffect.Start(ShowNumberEffect(addvalue));
 			}
 
@@ -91,12 +94,17 @@ namespace SGame.UI{
 				m_userSetting.doubleBonus = setting.doubleBonus;
 				UpdateBonusText();
 			}
-            
-            
+
+			if (m_dicePower    != m_itemGroup.GetNum((int)UserType.DICE_POWER) ||
+				m_diceMaxPower != m_itemGroup.GetNum((int)UserType.DICE_MAXPOWER))
+			{
+				m_view.m_battle.m_countprogress.min = 0;
+				m_view.m_battle.m_countprogress.max = m_diceMaxPower;
+				m_view.m_battle.m_countprogress.value = m_dicePower;
+			}
 
 			m_numberEffect.Step();
 		}
-
 		
 		partial void UnInitLogic(UIContext context)
 		{

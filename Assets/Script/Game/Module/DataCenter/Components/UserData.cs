@@ -11,7 +11,7 @@ namespace SGame
     public struct UserData : IComponentData
     {
         // 金币数据
-        public int    gold;
+        // public int    gold;
 
         // 角色ID
         public Entity player;
@@ -20,7 +20,7 @@ namespace SGame
         {
             return new UserData()
             {
-                gold = 0,
+                //gold = 0,
                 player = Entity.Null
             };
         }

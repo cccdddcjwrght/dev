@@ -20,7 +20,8 @@ namespace SGame
             RandomSystem    randomSystem,
             UserInputsystem userInputSystem,
             CharacterModule characterModule, 
-            DiceModule      diceModule)
+            DiceModule      diceModule,
+            PropertyManager property)
         {
             m_gameWorld       = gameWorld;
             m_resourceManager = resourceManager;
@@ -30,7 +31,8 @@ namespace SGame
             m_resourceManager = resourceManager;
             m_userInputSystem = userInputSystem;
             m_fiber           = new Fiber(Logic());
-            m_eventContainer = new EventHandleContainer();
+
+            m_userData        = property.GetGroup(ItemType.USER);
         }
         
         public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
@@ -99,9 +101,17 @@ namespace SGame
         IEnumerator WaitNextRond()
         {
             var mgr = m_gameWorld.GetEntityManager();
+            UserSetting setting = DataCenter.Instance.GetUserSetting();
+
+            // 判断骰子的能量消耗
+            while (m_userData.GetNum((int)UserType.DICE_POWER) < setting.doubleBonus)
+            {
+                // 等待骰子数量大于可用部分
+                yield return null;
+            }
+            
             while (true)
             {
-                UserSetting setting = DataCenter.Instance.GetUserSetting();
                 if (setting.autoUse == true)
                 {
                     // 自动投掷就等待1秒
@@ -120,6 +130,9 @@ namespace SGame
         // 游戏循环
         IEnumerator Play()
         {
+            // 消耗一个骰子数量
+            m_userData.AddNum((int)UserType.DICE_POWER, -1);
+            
             // 获得随机骰子
             int dice_value1 = m_randomSystem.NextInt(1, 7);
             int dice_value2 = m_randomSystem.NextInt(1, 7);
@@ -188,7 +201,6 @@ namespace SGame
 
         public void Shutdown()
         {
-            m_eventContainer.Close();
         }
         
         private GameWorld           m_gameWorld      ;
@@ -215,7 +227,7 @@ namespace SGame
         
         // 游戏主逻辑
         private static ILog log = LogManager.GetLogger("xl.Game.Main");
-
-        private EventHandleContainer m_eventContainer;
+        
+        private ItemGroup           m_userData;
     }
 }

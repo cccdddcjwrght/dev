@@ -8,7 +8,7 @@ using log4net;
 public class ItemGroup
 {
 	// 道具数据
-	private ItemData					m_itemData	= null;
+	private ItemData					m_itemData	= new ItemData();
 	private Dictionary<int, int>		m_values	= new Dictionary<int, int>();
 	static ILog							log			= LogManager.GetLogger("Game.ItemSystem");
 

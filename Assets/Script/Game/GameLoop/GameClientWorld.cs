@@ -30,7 +30,8 @@ namespace SGame
 				m_randomSystem, 
 				m_userInputSystem, 
 				m_character, 
-				m_dice);
+				m_dice,
+				m_propertyManager);
 			m_tileEventModule = new TileEventModule(world);
 
 			InitalizeUI();
