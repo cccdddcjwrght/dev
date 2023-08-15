@@ -174,7 +174,11 @@ namespace SGame
 		/// 数据中心
 		/// </summary>
 		private DataCenter                     m_dataCenter;
-		
+
+		/// <summary>
+		/// 属性管理, 用于存储键值对数据
+		/// </summary>
+		private PropertyManager                m_propertyManager;
 
 		private SnakeModule                    m_snake;
 	}
