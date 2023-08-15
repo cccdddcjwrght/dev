@@ -71,7 +71,6 @@ namespace SGame
 
             if (m_checkPoints.Value.Count <= 2)
             {
-                ;
                 yield break;
             }
             
@@ -88,6 +87,9 @@ namespace SGame
             
             mgr.SetComponentData(m_dice1, new Translation() {Value = new float3(-4, 1, 0)});
             mgr.SetComponentData(m_dice1, new Rotation() {Value = quaternion.identity});
+            
+            mgr.SetComponentData(m_dice2, new Translation() {Value = new float3(-5, 1, 0)});
+            mgr.SetComponentData(m_dice2, new Rotation() {Value = quaternion.identity});
 
             // 3. 获取场景路径
             yield return null;
@@ -119,30 +121,33 @@ namespace SGame
         IEnumerator Play()
         {
             // 获得随机骰子
-            int dice_value = m_randomSystem.NextInt(1, 7);
-            
-            // 创建并显示骰子动画
-            yield return ShowDice(dice_value, 0.5f);
+            int dice_value1 = m_randomSystem.NextInt(1, 7);
+            int dice_value2 = m_randomSystem.NextInt(1, 7);
+
+            // 同时运行两个骰子动画
+            yield return FiberHelper.RunParallel(
+                ShowDice(m_dice1, dice_value1, 0.5f), 
+                ShowDice(m_dice2, dice_value2 , 0.5f));
 
             // 角色移动
-            yield return PlayerMove(dice_value);
+            yield return PlayerMove(dice_value1 + dice_value2);
         }
 
-        IEnumerator ShowDice(int num, float time)
+        IEnumerator ShowDice(Entity dice, int num, float time)
         {
-            // 创建骰子
-            m_diceModule.Play(m_dice1, time, num);
+            // 播放骰子
+            m_diceModule.Play(dice, time, num);
             
             // 等两等两帧开始播放动画
             yield return null;
             yield return null;
             
             // 等待骰子动画结束
-            DiceAnimation diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(m_dice1);
+            DiceAnimation diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(dice);
             while (diceAnimation.isPlaying)
             {
                 yield return null;
-                diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(m_dice1);
+                diceAnimation = m_gameWorld.GetEntityManager().GetComponentData<DiceAnimation>(dice);
             }
             
             // 删除骰子

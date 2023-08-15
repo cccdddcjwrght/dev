@@ -9,8 +9,6 @@ namespace SGame
         private GameWorld         m_world;
         private const string DICE_ASSET_PATH = "Assets/BuildAsset/Prefabs/dice/dice.prefab";
         private Entity            m_prefab;
-
-        private Entity            m_dice;
         
         private static DiceModule s_instance = null;
 
@@ -36,13 +34,11 @@ namespace SGame
             var animSystem = world.GetECSWorld().CreateSystem<DiceAnimationSystem>();
             
             // 销毁系统
-            var despawnSystem = world.GetECSWorld().CreateSystem<DespawnDiceSystem>();
             spawnSystem.Initalize(world, resourceManager);
             animSystem.Initalize(world, resourceManager);
 
             m_collection.Add(spawnSystem);
             m_collection.Add(animSystem);
-            m_collection.Add(despawnSystem);
 
             m_prefab = resourceManager.GetEntityPrefab(DICE_ASSET_PATH);
             m_world.GetEntityManager().RemoveComponent<LinkedEntityGroup>(m_prefab);
