@@ -56,7 +56,6 @@ namespace SGame
             
             EntityManager.SetComponentData(m_data, UserSetting.GetDefault());
             EntityManager.SetComponentData(m_data, UserData.GetDefault());
-
         }
         
         public void Update()

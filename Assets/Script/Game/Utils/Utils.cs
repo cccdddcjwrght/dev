@@ -39,5 +39,16 @@ namespace SGame
             }
             return null;
         }
+
+        public static long Clamp(long value, long min, long max)
+        {
+            if (value >= max)
+                value = max;
+
+            if (value <= min)
+                value = min;
+
+            return value;
+        }
     }
 }

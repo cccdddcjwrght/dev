@@ -12,6 +12,7 @@ namespace SGame
 
         public TileEventModule(GameWorld gameWorld)
         {
+            m_gameWorld = gameWorld;
             m_eventSystem = gameWorld.GetECSWorld().CreateSystem<TileEventSystem>();
             m_processSystem = gameWorld.GetECSWorld().CreateSystem<TileEventProcessSystem>();
         }
@@ -26,7 +27,6 @@ namespace SGame
         {
             m_gameWorld.GetECSWorld().DestroySystem(m_eventSystem);
             m_gameWorld.GetECSWorld().DestroySystem(m_processSystem);
-            m_processSystem.Update();
         }
     }
 }

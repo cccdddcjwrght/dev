@@ -14,17 +14,17 @@ namespace SGame
 			m_gameWorld			= world;
 			m_randomSystem      = RandomSystem.Instance;
 			m_propertyManager   = PropertyManager.Instance;
+			m_randomSystem.Initalize((uint)Time.frameCount);
+			m_propertyManager.Initalize();
+
 			m_uiModule          = new UIModule(world, new UIPreprocess());
 			m_character			= new CharacterModule(world, resourceManager);
-			m_dice              = new DiceModule(world, resourceManager);
+			m_dice              = new DiceModule(world, resourceManager, m_propertyManager.GetGroup(ItemType.USER));
 			m_snake			    = new SnakeModule(world, resourceManager);
 			m_syncSystem        = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
 			m_userInputSystem   = world.GetECSWorld().CreateSystem<UserInputsystem>();
 			m_dataCenter        = new DataCenter(world);
 
-			m_randomSystem.Initalize((uint)Time.frameCount);
-			m_propertyManager.Initalize();
-			
 			m_gameModule        = new GameModule(world, 
 				resourceManager, 
 				m_randomSystem, 

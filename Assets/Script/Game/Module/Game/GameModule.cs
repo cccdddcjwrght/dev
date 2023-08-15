@@ -39,6 +39,7 @@ namespace SGame
         
         
         
+        
 
         public void Update()
         {
@@ -92,6 +93,8 @@ namespace SGame
             
             mgr.SetComponentData(m_dice2, new Translation() {Value = new float3(-5, 1, 0)});
             mgr.SetComponentData(m_dice2, new Rotation() {Value = quaternion.identity});
+            
+
 
             // 3. 获取场景路径
             yield return null;

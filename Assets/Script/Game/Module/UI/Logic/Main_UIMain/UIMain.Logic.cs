@@ -15,23 +15,23 @@ namespace SGame.UI{
 	{
 		private UserData         m_userData;
 		private UserSetting      m_userSetting;
-		private int              m_dicePower;
-		private int              m_diceMaxPower;
-		private int              m_glod;
+		private long             m_dicePower;
+		private long             m_diceMaxPower;
+		private long             m_glod;
 
 		private GTextField       m_showText;
 		private Fiber            m_numberEffect;
 		private UIContext        m_context;
-		private ItemGroup        m_itemGroup;
+		private ItemGroup        m_userProperty;
 
 		partial void InitLogic(UIContext context){
 			m_context = context;
 			m_numberEffect = new Fiber(FiberBucket.Manual);
 			context.onUpdate += onUpdate;
 
-			m_itemGroup = PropertyManager.Instance.GetGroup(ItemType.USER);
+			m_userProperty = PropertyManager.Instance.GetGroup(ItemType.USER);
 			m_dicePower = -1;
-			m_glod = m_itemGroup.GetNum((int)UserType.GOLD);
+			m_glod = m_userProperty.GetNum((int)UserType.GOLD);
 			m_userData = DataCenter.Instance.GetUserData();
 			m_userSetting = DataCenter.Instance.GetUserSetting();
 
@@ -80,13 +80,13 @@ namespace SGame.UI{
 		{
 			UserSetting setting = DataCenter.Instance.GetUserSetting();
             
-			if (m_glod != m_itemGroup.GetNum((int)UserType.GOLD))
+			if (m_glod != m_userProperty.GetNum((int)UserType.GOLD))
 			{
-				int cur = m_itemGroup.GetNum((int)UserType.GOLD);
-				int addvalue = cur - m_glod;
+				long cur = m_userProperty.GetNum((int)UserType.GOLD);
+				long addvalue = cur - m_glod;
 				m_glod = cur;
 				SetGoldText(m_glod.ToString());
-				m_numberEffect.Start(ShowNumberEffect(addvalue));
+				m_numberEffect.Start(ShowNumberEffect((int)addvalue));
 			}
 
 			if (setting.doubleBonus != m_userSetting.doubleBonus)
@@ -95,11 +95,13 @@ namespace SGame.UI{
 				UpdateBonusText();
 			}
 
-			if (m_dicePower    != m_itemGroup.GetNum((int)UserType.DICE_POWER) ||
-				m_diceMaxPower != m_itemGroup.GetNum((int)UserType.DICE_MAXPOWER))
+			if (m_dicePower    != m_userProperty.GetNum((int)UserType.DICE_POWER) ||
+				m_diceMaxPower != m_userProperty.GetNum((int)UserType.DICE_MAXPOWER))
 			{
+				m_diceMaxPower = m_userProperty.GetNum((int)UserType.DICE_MAXPOWER);
+				m_dicePower    = m_userProperty.GetNum((int)UserType.DICE_POWER);
 				m_view.m_battle.m_countprogress.min = 0;
-				m_view.m_battle.m_countprogress.max = m_diceMaxPower;
+				m_view.m_battle.m_countprogress.max   = m_diceMaxPower;
 				m_view.m_battle.m_countprogress.value = m_dicePower;
 			}
 

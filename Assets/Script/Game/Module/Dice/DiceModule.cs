@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlTypes;
+using GameConfigs;
 using Unity.Entities;
 namespace SGame
 {
@@ -9,6 +10,7 @@ namespace SGame
         private GameWorld         m_world;
         private const string DICE_ASSET_PATH = "Assets/BuildAsset/Prefabs/dice/dice.prefab";
         private Entity            m_prefab;
+        private Entity            m_recover; // 恢复对象
         
         private static DiceModule s_instance = null;
 
@@ -20,7 +22,23 @@ namespace SGame
             }
         }
 
-        public DiceModule(GameWorld world, ResourceManager resourceManager)
+        public EntityManager EntityManager
+        {
+            get
+            {
+                return m_world.GetEntityManager();
+            }
+        }
+
+        public World EcsWorld
+        {
+            get
+            {
+                return m_world.GetECSWorld();
+            }
+        }
+
+        public DiceModule(GameWorld world, ResourceManager resourceManager, ItemGroup userGroup)
         {
             s_instance = this;
             m_world = world;
@@ -28,17 +46,21 @@ namespace SGame
             m_collection = new SystemCollection();
             
             // 创建洗头膏
-            var spawnSystem = world.GetECSWorld().CreateSystem<DiceSpawnSystem>();
+            var spawnSystem = EcsWorld.CreateSystem<DiceSpawnSystem>();
             
             // 动画系统
-            var animSystem = world.GetECSWorld().CreateSystem<DiceAnimationSystem>();
+            var animSystem = EcsWorld.CreateSystem<DiceAnimationSystem>();
+
+            var recoverSystem = EcsWorld.CreateSystem<DiceRecoverSystem>();
             
             // 销毁系统
             spawnSystem.Initalize(world, resourceManager);
             animSystem.Initalize(world, resourceManager);
+            recoverSystem.Initalize(userGroup);
 
             m_collection.Add(spawnSystem);
             m_collection.Add(animSystem);
+            m_collection.Add(recoverSystem);
 
             m_prefab = resourceManager.GetEntityPrefab(DICE_ASSET_PATH);
             m_world.GetEntityManager().RemoveComponent<LinkedEntityGroup>(m_prefab);

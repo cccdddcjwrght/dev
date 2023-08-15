@@ -12,8 +12,6 @@ namespace SGame.UI.Login
         public Controller m_loginstate;
         public Controller m_textSize;
         public GLoader m_Img_Bg;
-        public GProgressBar m_Processbar;
-        public GTextField m_Message;
         public GLoader m_logo;
         public GGroup m_Login;
         public GButton m_btn_login;
@@ -37,15 +35,13 @@ namespace SGame.UI.Login
             m_loginstate = GetControllerAt(2);
             m_textSize = GetControllerAt(3);
             m_Img_Bg = (GLoader)GetChildAt(0);
-            m_Processbar = (GProgressBar)GetChildAt(1);
-            m_Message = (GTextField)GetChildAt(2);
-            m_logo = (GLoader)GetChildAt(3);
-            m_Login = (GGroup)GetChildAt(4);
-            m_btn_login = (GButton)GetChildAt(5);
-            m_labelBg = (GGraph)GetChildAt(6);
-            m_account = (GTextInput)GetChildAt(7);
-            m_normal = (GGroup)GetChildAt(8);
-            m_ver = (GTextField)GetChildAt(9);
+            m_logo = (GLoader)GetChildAt(1);
+            m_Login = (GGroup)GetChildAt(2);
+            m_btn_login = (GButton)GetChildAt(3);
+            m_labelBg = (GGraph)GetChildAt(4);
+            m_account = (GTextInput)GetChildAt(5);
+            m_normal = (GGroup)GetChildAt(6);
+            m_ver = (GTextField)GetChildAt(7);
         }
     }
 }
