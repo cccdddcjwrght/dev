@@ -39,7 +39,29 @@ namespace SGame.UI{
 			SetGoldText(m_glod.ToString());
 			UpdateBonusText();
 		}
-		
+
+		void SetHold(bool value)
+		{
+			
+		}
+
+		bool autoDice
+		{
+			get
+			{
+				var v = DataCenter.Instance.GetUserSetting();
+				return v.autoUse;
+			}
+
+			set
+			{
+				var v = DataCenter.Instance.GetUserSetting();
+				v.autoUse = value;
+				m_view.m_battle.m_autoHold.visible = !value;
+				DataCenter.Instance.SetUserSetting(v);
+			}
+		}
+
 		void UpdateBonusText()
 		{
 			SetBattleBtn_PowerText("X" + m_userSetting.doubleBonus.ToString());
@@ -76,7 +98,7 @@ namespace SGame.UI{
 			yield return null;
 		}
 		
-		private void onUpdate(UIContext context)
+		private  void onUpdate(UIContext context)
 		{
 			UserSetting setting = DataCenter.Instance.GetUserSetting();
             
@@ -100,14 +122,13 @@ namespace SGame.UI{
 			{
 				m_diceMaxPower = m_userProperty.GetNum((int)UserType.DICE_MAXPOWER);
 				m_dicePower    = m_userProperty.GetNum((int)UserType.DICE_POWER);
-				m_view.m_battle.m_countprogress.min = 0;
+				m_view.m_battle.m_countprogress.min   = 0;
 				m_view.m_battle.m_countprogress.max   = m_diceMaxPower;
 				m_view.m_battle.m_countprogress.value = m_dicePower;
 			}
 			
 			/// 显示道具恢复倒计时
-			SetBattleBtn_TimeText(Utils.TimeFormat(DataCenter.Instance.GetDiceRecoverTime()));
-
+			SetBattleBtn_TimeText("5 Rolls in " +  Utils.TimeFormat(DataCenter.Instance.GetDiceRecoverTime()));
 			m_numberEffect.Step();
 		}
 		

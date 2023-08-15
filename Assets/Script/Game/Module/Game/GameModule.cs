@@ -115,6 +115,7 @@ namespace SGame
             
             while (true)
             {
+                setting = DataCenter.Instance.GetUserSetting();
                 if (setting.autoUse == true)
                 {
                     // 自动投掷就等待1秒
