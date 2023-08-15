@@ -12,21 +12,19 @@ namespace SGame
 		public GameClientWorld(GameWorld world, ResourceManager resourceManager)
 		{
 			m_gameWorld			= world;
-			m_resourceManager	= resourceManager;
 			m_randomSystem      = RandomSystem.Instance;
-
+			m_propertyManager   = PropertyManager.Instance;
 			m_uiModule          = new UIModule(world, new UIPreprocess());
-
 			m_character			= new CharacterModule(world, resourceManager);
 			m_dice              = new DiceModule(world, resourceManager);
-			
 			m_snake			    = new SnakeModule(world, resourceManager);
 			m_syncSystem        = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
 			m_userInputSystem   = world.GetECSWorld().CreateSystem<UserInputsystem>();
-
 			m_dataCenter        = new DataCenter(world);
 
 			m_randomSystem.Initalize((uint)Time.frameCount);
+			m_propertyManager.Initalize();
+			
 			m_gameModule        = new GameModule(world, 
 				resourceManager, 
 				m_randomSystem, 
@@ -37,18 +35,16 @@ namespace SGame
 
 			InitalizeUI();
 
+			// 新的UI注册功能
 			SGame.UI.UIReg reg = new UIReg();
 			reg.RegAllUI(new UIContext() {uiModule = m_uiModule});
-
 		}
 
 		public void InitalizeUI()
 		{
 			/// 后续该代码要做成自动化
-			//m_uiModule.Reg("MainUI", "Main", UIMain.Create);
 			m_uiModule.Reg("Login", "Login", UILogin.Create);
 			m_uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
-			//m_uiModule.Reg("LoadingUI", "Loading", UILoading.Create);
 		}
 
 		/// <summary>
@@ -110,24 +106,17 @@ namespace SGame
 		/// <summary>
 		///  ECS 对象世界, 给使用者一个统一接口创建对象. 并将GameObject 与 Entity 的生命周期绑定(战斗系统必须)
 		/// </summary>
-		GameWorld m_gameWorld;
+		GameWorld                            m_gameWorld;
 
 		/// <summary>
 		///  游戏时间, 游戏逻辑以该时间为准
 		/// </summary>
-		GameTime m_gameTime;
+		GameTime                             m_gameTime;
 		
-		
-
 		/// <summary>
 		/// 游戏对象的显示时间
 		/// </summary>
-		private GameTime m_renderTime;
-
-		/// <summary>
-		/// 游戏内的资源管理
-		/// </summary>
-		private ResourceManager m_resourceManager;
+		private GameTime                     m_renderTime;
 
 		/// <summary>
 		/// 角色模块

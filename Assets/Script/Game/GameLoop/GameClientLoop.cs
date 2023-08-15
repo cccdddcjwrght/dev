@@ -108,17 +108,17 @@ namespace SGame
 		/// <summary>
 		///  ECS 对象世界, 给使用者一个统一接口创建对象. 并将GameObject 与 Entity 的生命周期绑定(战斗系统必须)
 		/// </summary>
-		GameWorld m_gameWorld;
+		GameWorld                m_gameWorld;
 
 		/// <summary>
 		///  游戏世界, 里面包含主要的处理罗i就
 		/// </summary>
-		GameClientWorld m_gameClientWorld;
+		GameClientWorld          m_gameClientWorld;
 
 		/// <summary>
 		/// 游戏内资源加载接口
 		/// </summary>
-		ResourceManager m_resourceManager;
+		ResourceManager          m_resourceManager;
 
 		/// <summary>
 		///  状态机, 游戏中每个大模块是互斥的, 通过状态机管理
