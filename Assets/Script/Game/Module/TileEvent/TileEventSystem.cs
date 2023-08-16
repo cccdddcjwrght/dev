@@ -33,11 +33,15 @@ namespace SGame
                 if (titleId != eventRecord.titleId)
                 {
                     // 离开格子
-                    trigger.Add(new TileEventTrigger() { titleId = eventRecord.previousTitleId, state = TileEventTrigger.State.LEAVE });
-                    trigger.Add(new TileEventTrigger() { titleId = titleId,                     state = TileEventTrigger.State.ENTER });
+                    //trigger.Add(new TileEventTrigger() { titleId = eventRecord.previousTitleId, state = TileEventTrigger.State.LEAVE });
+                    //trigger.Add(new TileEventTrigger() { titleId = titleId,                     state = TileEventTrigger.State.ENTER });
                     if (mover.isFinish) 
                     {
                         trigger.Add(new TileEventTrigger() { titleId = titleId, state = TileEventTrigger.State.FINISH });
+                    }
+                    else
+                    {
+                        trigger.Add(new TileEventTrigger() { titleId = titleId,                     state = TileEventTrigger.State.ENTER });
                     }
                     eventRecord.previousTitleId = eventRecord.titleId;
                     eventRecord.titleId = titleId;
