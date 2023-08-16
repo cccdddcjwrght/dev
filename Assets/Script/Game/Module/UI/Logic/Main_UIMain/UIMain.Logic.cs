@@ -75,6 +75,11 @@ namespace SGame.UI{
 				yield break;
 
 			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
+			FloatTextRequest.CreateEntity(mgr, num.ToString(), pos, Color.red, 20,1.0f);
+			yield return null;
+			yield break;
+/*
+			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
 			pos.y += 1.0f;
 			Vector3 screenPoint = GameCamera.camera.WorldToScreenPoint(pos);
 			screenPoint.y = Screen.height - screenPoint.y;
@@ -96,6 +101,7 @@ namespace SGame.UI{
 			}
 			m_showText.alpha = 0;
 			yield return null;
+			*/
 		}
 		
 		private  void onUpdate(UIContext context)

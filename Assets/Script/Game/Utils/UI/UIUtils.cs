@@ -1,5 +1,8 @@
+using FairyGUI;
 using SGame.UI;
 using Unity.Entities;
+using UnityEngine;
+
 namespace SGame
 {
     public class UIUtils
@@ -33,6 +36,19 @@ namespace SGame
                     window.Value.Close();
                 }
             }
+        }
+
+        /// <summary>
+        /// 通过世界坐标转换成控件坐标
+        /// </summary>
+        /// <param name="ui"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public static Vector2 WorldPosToUI(GComponent ui, Vector3 pos)
+        {
+            Vector3 screenPoint = GameCamera.camera.WorldToScreenPoint(pos);
+            screenPoint.y = Screen.height - screenPoint.y;
+            return ui.GlobalToLocal(screenPoint);
         }
     }
 }

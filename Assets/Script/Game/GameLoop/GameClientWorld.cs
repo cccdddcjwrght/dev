@@ -33,12 +33,15 @@ namespace SGame
 				m_dice,
 				m_propertyManager);
 			m_tileEventModule = new TileEventModule(world);
-
+			
 			InitalizeUI();
 
 			// 新的UI注册功能
 			SGame.UI.UIReg reg = new UIReg();
 			reg.RegAllUI(new UIContext() {uiModule = m_uiModule});
+
+
+			m_hudModule = new HudModule(world);
 		}
 
 		public void InitalizeUI()
@@ -82,6 +85,9 @@ namespace SGame
 			
 			// 数据中心更新
 			m_dataCenter.Update();
+			
+			// HUD 显示
+			m_hudModule.Update();
 		}
 
 		/// <summary>
@@ -97,6 +103,7 @@ namespace SGame
 			m_tileEventModule.Shutdown();
 			m_uiModule.Shutdown();
 			m_dataCenter.Shutdown();
+			m_hudModule.Shutdown();
 		}
 
 		public void LateUpdate()
@@ -169,6 +176,11 @@ namespace SGame
 		/// 属性管理, 用于存储键值对数据
 		/// </summary>
 		private PropertyManager                m_propertyManager;
+
+		/// <summary>
+		/// 场景头显界面
+		/// </summary>
+		private HudModule                      m_hudModule;
 
 		private SnakeModule                    m_snake;
 	}

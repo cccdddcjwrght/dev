@@ -62,17 +62,17 @@ public class NetClient
 		DISCONNECT,     // 断开连接
 	}
 
-	const int MESSAGE_SIZE = 64 * 1024;
+	const int                             MESSAGE_SIZE = 64 * 1024;
 
-	private INetworkAdapter m_connect = new NetworkAdapterTcp();
+	private INetworkAdapter               m_connect;
 
-	static ILog log = LogManager.GetLogger("System.NetClient");
+	static ILog                           log          = LogManager.GetLogger("System.NetClient");
 
 	// 网络事件派发
-	private SGame.EventDispatcherEx eventPackage = new SGame.EventDispatcherEx();
+	private SGame.EventDispatcherEx       eventPackage = new SGame.EventDispatcherEx();
 
 	// 内部事件派发
-	private SGame.EventDispatcherEx interEvent = new SGame.EventDispatcherEx();
+	private SGame.EventDispatcherEx       interEvent    = new SGame.EventDispatcherEx();
 
 	public Action<GamePackage>            OnNetPackage { get; set; }
 	public Action<NetClient, GamePackage> OnSendFail { get; set; }
@@ -86,8 +86,9 @@ public class NetClient
 
 	public string Error { get; private set; }
 
-	public bool Initalize()
+	public bool Initalize(INetworkAdapter network)
 	{
+		m_connect = network;
 		m_connect.OnConnect = OnInterConnect;
 		m_connect.OnDisconnect = OnInterDisconnect;
 		m_connect.Initialize(checkPackage);

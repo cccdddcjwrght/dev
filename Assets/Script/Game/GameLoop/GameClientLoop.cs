@@ -41,6 +41,7 @@ namespace SGame
 			// 默认转换到登录状态
 			m_stateMachine.SwitchTo(GAME_STATE.GAMEING);
 
+			NetworkManager.Instance.Initalize();
 			return true;
 		}
 

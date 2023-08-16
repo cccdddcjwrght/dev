@@ -26,7 +26,7 @@ namespace SGame
                 {
                     data.Value = math.clamp(data.Value - deltaTime, 0, float.MaxValue);
                 }
-            }).WithoutBurst().ScheduleParallel();
+            }).WithBurst().ScheduleParallel();
         }
     }
 }
