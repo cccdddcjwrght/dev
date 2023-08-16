@@ -3,7 +3,7 @@ using log4net;
 
 public class NetworkManager : Singleton<NetworkManager>
 {
-	NetClient m_Client;
+	NetClient   m_Client;
 	NetClient m_Battle;
 	static ILog log = LogManager.GetLogger("System.Network");
 

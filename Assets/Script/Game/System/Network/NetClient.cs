@@ -59,12 +59,12 @@ public class NetClient
 	{
 		CONNECT_SUCC,   // 连接成功
 		CONNECT_FAIL,   // 连接失败
-		DISCONNECT,   // 断开连接
+		DISCONNECT,     // 断开连接
 	}
 
 	const int MESSAGE_SIZE = 64 * 1024;
 
-	private NetworkAdapterTcp m_connect = new NetworkAdapterTcp();
+	private INetworkAdapter m_connect = new NetworkAdapterTcp();
 
 	static ILog log = LogManager.GetLogger("System.NetClient");
 
@@ -74,28 +74,20 @@ public class NetClient
 	// 内部事件派发
 	private SGame.EventDispatcherEx interEvent = new SGame.EventDispatcherEx();
 
-	// 连接事件
-	//public Action<int, string> OnConnect { get; set; }
-
-	// 断开连接事件
-	//public Action<int, string> OnDisconnect { get; set; }
-
-	public Action<GamePackage> OnNetPackage { get; set; }
+	public Action<GamePackage>            OnNetPackage { get; set; }
 	public Action<NetClient, GamePackage> OnSendFail { get; set; }
+	
 	// 网络序号
-	private uint m_clientSeq = 0;
+	private uint           m_clientSeq = 0;
 
-	private ConnectHandle m_cacheHandle;
+	private ConnectHandle  m_cacheHandle;
 
 	byte[] m_sendBuffer = new byte[MESSAGE_SIZE];
-	//byte[]      m_headBuffer = new byte[PackageHead.SIZE];
-
 
 	public string Error { get; private set; }
 
 	public bool Initalize()
 	{
-		//m_sendBuffer = new byte[]
 		m_connect.OnConnect = OnInterConnect;
 		m_connect.OnDisconnect = OnInterDisconnect;
 		m_connect.Initialize(checkPackage);
