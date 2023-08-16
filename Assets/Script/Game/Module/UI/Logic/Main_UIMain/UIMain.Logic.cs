@@ -57,7 +57,7 @@ namespace SGame.UI{
 			{
 				var v = DataCenter.Instance.GetUserSetting();
 				v.autoUse = value;
-				m_view.m_battle.m_autoHold.visible = !value;
+				m_view.m_battle.m_main.m_auto_dice.selectedIndex = value ? 1 : 0;
 				DataCenter.Instance.SetUserSetting(v);
 			}
 		}
