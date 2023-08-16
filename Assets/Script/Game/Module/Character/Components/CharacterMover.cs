@@ -16,6 +16,12 @@ namespace SGame
 
         // 已经移动距离
         public float                m_movedDistance;
+
+        // 每次移动间隔时间
+        public float                m_Intervaltime;
+
+        // 每次移动间隔初始时间
+        public float                m_IntervaltimeReset;
         
         // 角色控制器, 用于实际移动, 角色初始化的时候会自动设置
         public CharacterController  m_controller;
@@ -47,6 +53,14 @@ namespace SGame
             }
         }
 
+        /// <summary>
+        /// 重置时间计数
+        /// </summary>
+        public void ResetTimer()
+        {
+            m_Intervaltime = m_IntervaltimeReset;
+        }
+
         public float3 LastPosition()
         {
             return m_paths[m_paths.Count - 1];
@@ -66,6 +80,8 @@ namespace SGame
             m_movedDistance = 0;
             m_currentIndex  = 0;
             m_distance      = 0;
+            m_Intervaltime  = 0;
+            m_IntervaltimeReset = 0;
             m_paths.Clear();
         }
 
@@ -168,7 +184,7 @@ namespace SGame
         /// </summary>
         /// <param name="paths">paths移动的路径</param>
         /// <param name="startTileId">开始移动的ID</param>
-        public void MoveTo(List<float3> paths, int startTileId)
+        public void MoveTo(List<float3> paths, int startTileId, float intervalTime)
         {
             if (paths.Count < 2)
             {
@@ -176,6 +192,8 @@ namespace SGame
                 return;
             }
 
+            m_IntervaltimeReset = intervalTime;
+            m_Intervaltime   = 0;
             m_movedDistance  = 0;
             m_currentIndex   = 0;
             m_startTileId    = startTileId;

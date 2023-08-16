@@ -45,6 +45,6 @@ public class TestClickme : MonoBehaviour
         EntityQuery query2 = entityManager.CreateEntityQuery(typeof(Character));
         Entity ce = query2.GetSingletonEntity();
         CharacterMover character = entityManager.GetComponentObject<CharacterMover>(ce);
-        character.MoveTo(c.Value, 0);
+        character.MoveTo(c.Value, 0, 0);
     }
 }

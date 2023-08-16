@@ -41,6 +41,12 @@ namespace SGame
                     return;
                 }
 
+                if (mover.m_Intervaltime > 0)
+                {
+                    mover.m_Intervaltime -= dt;
+                    return;
+                }
+
                 CharacterController controller = mover.m_controller;
                 if (mover.m_movedDistance <= 0.00001f)
                 {
@@ -49,6 +55,7 @@ namespace SGame
                 
                 // 移动控制器中的GameObject 对象
                 float delta = speed.Value * dt;
+                int oldIndex = mover.m_currentIndex;
                 mover.Movement(delta);
                 int index = mover.GetPositionIndex(mover.m_movedDistance);
                 mover.m_currentIndex = index >= 0 ? index : 0;
@@ -62,6 +69,11 @@ namespace SGame
                 }
                 else
                 {
+                    if (oldIndex != index)
+                    {
+                        // 计时开始
+                        mover.ResetTimer();
+                    }
                     mover.GetPositionFromDistance(mover.m_movedDistance, out float3 f3target, out quaternion look_at);
                     Vector3 target = f3target;       
                     Vector3 deltaMovement = target - controller.transform.position;

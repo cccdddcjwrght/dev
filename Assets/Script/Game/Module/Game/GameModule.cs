@@ -36,8 +36,8 @@ namespace SGame
         }
         
         public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
-        
-        
+
+        private const float MOVE_INTERVAL_TIME = 1.0f; // 移动时间间隔
         
         
 
@@ -104,10 +104,10 @@ namespace SGame
         IEnumerator WaitNextRond()
         {
             var mgr = m_gameWorld.GetEntityManager();
-            UserSetting setting = DataCenter.Instance.GetUserSetting();
+            m_userSetting = DataCenter.Instance.GetUserSetting();
 
             // 判断骰子的能量消耗
-            while (m_userData.GetNum((int)UserType.DICE_POWER) < setting.doubleBonus)
+            while (m_userData.GetNum((int)UserType.DICE_POWER) < m_userSetting.doubleBonus)
             {
                 // 等待骰子数量大于可用部分
                 yield return null;
@@ -115,8 +115,8 @@ namespace SGame
             
             while (true)
             {
-                setting = DataCenter.Instance.GetUserSetting();
-                if (setting.autoUse == true)
+                m_userSetting = DataCenter.Instance.GetUserSetting();
+                if (m_userSetting.autoUse == true)
                 {
                     // 自动投掷就等待1秒
                     yield return FiberHelper.Wait(1.0f);
@@ -135,7 +135,7 @@ namespace SGame
         IEnumerator Play()
         {
             // 消耗一个骰子数量
-            m_userData.AddNum((int)UserType.DICE_POWER, -1);
+            m_userData.AddNum((int)UserType.DICE_POWER, -m_userSetting.doubleBonus);
             
             // 获得随机骰子
             int dice_value1 = m_randomSystem.NextInt(1, 7);
@@ -190,7 +190,7 @@ namespace SGame
 
             // 移动角色
             CharacterMover mover = mgr.GetComponentObject<CharacterMover>(m_player);
-            mover.MoveTo(paths, startIndex);
+            mover.MoveTo(paths, startIndex, MOVE_INTERVAL_TIME);
 
             Character character = mgr.GetComponentObject<Character>(m_player);
             character.titleId = m_curCheckPoint;
@@ -233,5 +233,7 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("xl.Game.Main");
         
         private ItemGroup           m_userData;
+
+        private UserSetting         m_userSetting;
     }
 }
