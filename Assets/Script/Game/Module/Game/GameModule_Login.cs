@@ -33,6 +33,8 @@ namespace SGame
             {
                 Value = dice_add_time
             });
+            
+            UpdateDicePower(true);
         }
         
         public IEnumerator RunLogin()

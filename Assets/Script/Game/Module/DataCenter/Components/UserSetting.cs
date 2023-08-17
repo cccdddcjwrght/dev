@@ -17,6 +17,7 @@ namespace SGame
             UserSetting v = new UserSetting()
             {
                 doubleBonus = 1,
+                maxBonus = 0,
                 autoUse = false
             };
             return v;
