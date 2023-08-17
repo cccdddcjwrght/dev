@@ -28,10 +28,7 @@ namespace SGame
         
         [NonSerialized]
         private static ILog             log                     = LogManager.GetLogger("xl.Character");
-    
-        // 移动总长度
-        [NonSerialized]
-        private float                   m_distance;
+        
 
         private int                     m_currentIndex = 0;
 
@@ -62,7 +59,6 @@ namespace SGame
         {
             m_movedDistance = 0;
             m_currentIndex = 0;
-            m_distance = 0;
             m_paths.Clear();
         }
 
@@ -71,7 +67,6 @@ namespace SGame
             m_startTileId  += m_paths.Count - 1;
             m_movedDistance = 0;
             m_currentIndex  = 0;
-            m_distance      = 0;
             m_Intervaltime  = 0;
             m_IntervaltimeReset = 0;
             m_paths.Clear();
@@ -81,35 +76,6 @@ namespace SGame
         public float CalcPathDistance()
         {
             return GetDistance(m_paths.Count - 1);
-        }
-
-        /// <summary>
-        /// 获得位置起始点
-        /// </summary>
-        /// <param name="distance">检测的位置</param>
-        /// <param name="upper_distance">上一个的位置</param>
-        /// <returns>位置索引</returns>
-        public int GetPositionIndex(float distance)
-        {
-            if (m_paths.Count < 2)
-                return -1;
-
-            if (distance >= m_distance)
-                return m_paths.Count - 1;
-
-            float d = 0;
-            float3 startPos = m_paths[0];
-            for (int i = 1; i < m_paths.Count; i++)
-            {
-                d += math.length(m_paths[i] - m_paths[i - 1]);
-
-                if (d >= distance)
-                {
-                    return i - 1;
-                }
-            }
-
-            return m_paths.Count - 1;
         }
 
         /// <summary>
@@ -176,13 +142,13 @@ namespace SGame
             float3 moveData = m_paths[currentIndex + 1] - m_paths[currentIndex];
             float3 dir      = math.normalize(moveData);
             float  len      = math.length(dir);
-            if (len <= m_distance)
+            if (len <= m_movedDistance)
             {
                 // 已经超出移动范围了, 以节点数值未准
                 return m_paths[currentIndex + 1];
             }
             
-            float3 pos = m_paths[currentIndex] + dir * m_distance;
+            float3 pos = m_paths[currentIndex] + dir * m_movedDistance;
             return pos;
         }
 
@@ -196,10 +162,10 @@ namespace SGame
                 return 1.0f;
 
             float nDistance = nodeDistance;
-            if (m_distance >= nDistance)
+            if (m_movedDistance >= nDistance)
                 return 1.0f;
 
-            return m_distance / nDistance;
+            return m_movedDistance / nDistance;
         }
 
         /// <summary>
@@ -254,7 +220,7 @@ namespace SGame
             m_startTileId    = startTileId;
             m_paths.Clear();
             m_paths.AddRange(paths);
-            m_distance = CalcPathDistance(); // 统计移动长度
+            //m_distance = CalcPathDistance(); // 统计移动长度
         }
 
         public void Convert(

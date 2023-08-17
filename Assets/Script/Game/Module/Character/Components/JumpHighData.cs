@@ -7,7 +7,7 @@ using UnityEngine;
 namespace SGame
 {
     [GenerateAuthoringComponent]
-    public struct JumHighData : IComponentData
+    public struct JumpHighData : IComponentData
     {
         public float Value;
     }

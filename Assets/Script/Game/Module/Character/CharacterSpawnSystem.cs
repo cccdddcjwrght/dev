@@ -37,10 +37,15 @@ namespace SGame
             Entity renderEntity = m_resourceManager.LoadCharacterRender(c.characterId);
             c.render = renderEntity;
             
-            // 2. 初始化移动速度
-            if (EntityManager.HasComponent<SpeedData>(e) == false)
+            if (EntityManager.HasComponent<JumpTimeData>(e) == false)
             {
-                log.Error("Speed Component Not Found!");
+                log.Error("JumpTime Component Not Found!");
+                return;
+            }
+            
+            if (EntityManager.HasComponent<JumpHighData>(e) == false)
+            {
+                log.Error("JumpHighData Component Not Found!");
                 return;
             }
 

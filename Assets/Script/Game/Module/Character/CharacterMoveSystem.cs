@@ -35,7 +35,7 @@ namespace SGame
                 ref Translation translation, 
                 ref Rotation  rotation,
                     in JumpTimeData jumpTime,
-                    in JumHighData  jumpHigh) =>
+                    in JumpHighData  jumpHigh) =>
             {
                 if (mover.isFinish)
                     return;
