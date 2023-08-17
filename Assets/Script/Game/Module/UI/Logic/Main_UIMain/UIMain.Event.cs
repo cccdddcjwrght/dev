@@ -59,6 +59,17 @@ namespace SGame.UI{
 		partial void OnBattleBtn_PowerClick(EventContext datat)
 		{
 			EventManager.Instance.Trigger((int)GameEvent.PLAYER_POWER_DICE);
+			
+			// 显示ALL WIN 提示
+			var v = DataCenter.Instance.GetUserSetting();
+			string showTitle = string.Format("all win  X{0}", v.doubleBonus);
+			Color color = Color.blue;
+			// 138,43,226
+			if (v.doubleBonus == v.maxBonus)
+				color = new Color(138 / 255.0f, 43 / 255.0f, 226 /255.0f);
+			FloatTextRequest.CreateEntity(
+				m_context.gameWorld.GetEntityManager(), showTitle,
+				new Vector3(8.22000027f,-1.13f,5.09000015f), color, 50, 2.0f);
 		}
 
 		void OnBattleIconClick(EventContext context)
