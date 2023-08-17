@@ -12,46 +12,38 @@ namespace SGame
     public class CharacterMover : IComponentData
     {
         [NonSerialized]
-        public List<float3>        m_paths = new List<float3>(32);        // 移动路径
+        public List<float3>             m_paths = new List<float3>(32);        // 移动路径
 
         // 已经移动距离
-        public float                m_movedDistance;
+        public float                    m_movedDistance;
 
         // 每次移动间隔时间
-        public float                m_Intervaltime;
+        public float                    m_Intervaltime;
 
         // 每次移动间隔初始时间
-        public float                m_IntervaltimeReset;
+        public float                    m_IntervaltimeReset;
         
         // 角色控制器, 用于实际移动, 角色初始化的时候会自动设置
-        public CharacterController  m_controller;
+        public CharacterController      m_controller;
         
         [NonSerialized]
-        private static ILog         log                     = LogManager.GetLogger("xl.Character");
+        private static ILog             log                     = LogManager.GetLogger("xl.Character");
     
         // 移动总长度
         [NonSerialized]
-        private float                 m_distance;
+        private float                   m_distance;
 
-        public int                    m_currentIndex = 0;
+        private int                     m_currentIndex = 0;
 
-        public int                    m_startTileId = 0;          // 开始到结束的ID
+        public int                      m_startTileId = 0;          // 开始到结束的ID
 
-        public int                    currentTile         // 当前的TileID
-        {
-            get
-            {
-                return m_startTileId + m_currentIndex;
-            }
-        }
+        public int                      currentIndex      { get { return m_currentIndex; } }
 
-        public bool isFinish
-        {
-            get
-            {
-                return m_movedDistance >= m_distance;
-            }
-        }
+        // 当前的TileID
+        public int                      currentTile         { get { return m_startTileId + m_currentIndex; } }
+
+        // 是否结束移动了
+        public bool                     isFinish           { get { return m_currentIndex >= m_paths.Count - 1; } }
 
         /// <summary>
         /// 重置时间计数
@@ -136,46 +128,109 @@ namespace SGame
             return d;
         }
 
-        public float3 GetDirection(int posIndex)
+        // 获得角色当前朝向
+        /// <summary>
+        /// 通过当前节点与下一个节点, 计算出角色的朝向
+        /// </summary>
+        /// <returns></returns>
+        public quaternion GetRotation()
         {
-            return m_paths[posIndex] - m_paths[posIndex + 1];
-        }
-
-        // 根据移动距离获取真实位置
-        public bool GetPositionFromDistance(float distance, out float3 pos, out quaternion rot)
-        {
-            pos = float3.zero;
-            rot = quaternion.identity;
+            // 无效的
+            if (m_paths.Count <= 1 || m_currentIndex >= m_paths.Count)
+            {
+                return quaternion.identity;
+            }
             
-            int posIndex = GetPositionIndex(distance);
-            if (posIndex < 0)
-                return false;
+            float3 pos1 = float3.zero;
+            float3 pos2 = float3.zero;
+            if (m_currentIndex == m_paths.Count - 1)
+            {
+                // 最后一个
+                pos1 = m_paths[m_currentIndex - 1];
+                pos2 = m_paths[m_currentIndex];
 
-            float last_distance = GetDistance(posIndex);
+            }
+            else
+            {
+                // 正常
+                pos1 = m_paths[m_currentIndex];
+                pos2 = m_paths[m_currentIndex + 1];
+            }
 
-            // 获得方向
-            float3 dir = m_paths[posIndex + 1] - m_paths[posIndex];
-            float distance2 = distance - last_distance;
-            pos = m_paths[posIndex] + math.normalize(dir) * distance2;
-            
+            float3 dir = pos2 - pos1;
             dir.y = 0;
-            rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
-            return true;
+            quaternion ret = quaternion.LookRotation(dir, new float3(0, 1, 0));
+            return ret;
         }
-
-
-        void Awake()
+        
+        /// <summary>
+        /// 获得当前位置
+        /// </summary>
+        /// <returns></returns>
+        public float3 GetPosition()
         {
-            m_paths = new List<float3>();
+            if (isFinish)
+                return m_paths[m_paths.Count - 1];
+
+            int currentIndex = m_currentIndex;
+            float3 moveData = m_paths[currentIndex + 1] - m_paths[currentIndex];
+            float3 dir      = math.normalize(moveData);
+            float  len      = math.length(dir);
+            if (len <= m_distance)
+            {
+                // 已经超出移动范围了, 以节点数值未准
+                return m_paths[currentIndex + 1];
+            }
+            
+            float3 pos = m_paths[currentIndex] + dir * m_distance;
+            return pos;
         }
+
+        /// <summary>
+        /// 获得当前节点的移动进度, 注意不是整体进度, 是节点间的进度
+        /// </summary>
+        /// <returns></returns>
+        public float GetMoveProgress()
+        {
+            if (isFinish)
+                return 1.0f;
+
+            float nDistance = nodeDistance;
+            if (m_distance >= nDistance)
+                return 1.0f;
+
+            return m_distance / nDistance;
+        }
+
+        /// <summary>
+        /// 获取节点开始位置 
+        /// </summary>
+        /// <returns></returns>
+        public float3 GetStartPosition()
+        {
+            return m_paths[m_currentIndex];
+        }
+
+        // 节点之间距离
+        public float nodeDistance { get { if (isFinish) return 0; return math.length(m_paths[m_currentIndex + 1] - m_paths[m_currentIndex]); } }
 
         /// <summary>
         /// 移动一个距离
         /// </summary>
         /// <param name="delta"></param>
-        public void Movement(float delta)
+        public bool Movement(float delta)
         {
+            if (isFinish)
+                return false;
+            
             m_movedDistance += delta;
+            float ndistance = nodeDistance;
+            if (ndistance <= m_movedDistance)
+            {
+                m_movedDistance -= ndistance;
+                m_currentIndex += 1;
+            }
+            return true;
         }
 
         // 移动到特定位置

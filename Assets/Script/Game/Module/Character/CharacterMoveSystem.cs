@@ -34,12 +34,11 @@ namespace SGame
                 CharacterMover mover, 
                 ref Translation translation, 
                 ref Rotation  rotation,
-                    in SpeedData speed) =>
+                    in JumpTimeData jumpTime,
+                    in JumHighData  jumpHigh) =>
             {
-                if (mover.m_paths.Count == 0)
-                {
+                if (mover.isFinish)
                     return;
-                }
 
                 if (mover.m_Intervaltime > 0)
                 {
@@ -53,12 +52,26 @@ namespace SGame
                     controller.transform.position = mover.m_paths[0];
                 }
                 
-                // 移动控制器中的GameObject 对象
-                float delta = speed.Value * dt;
-                int oldIndex = mover.m_currentIndex;
+                // 速度等于距离除以时间
+                float nodeDistance = mover.nodeDistance;
+                if (nodeDistance <= 0.000000001f)
+                {
+                    log.Error("node distance check fail!!=" + nodeDistance.ToString());
+                    return;
+                }
+                if (jumpTime.Value <= 0.000001f)
+                {
+                    log.Error("speed is too small!!" + jumpTime.Value.ToString());
+                }
+                // 计算得到移动速度
+                float speed = nodeDistance / jumpTime.Value;
+                
+                // 通过速度计算每帧移动距离
+                float delta = speed * dt;
+                int oldIndex = mover.currentIndex;
                 mover.Movement(delta);
-                int index = mover.GetPositionIndex(mover.m_movedDistance);
-                mover.m_currentIndex = index >= 0 ? index : 0;
+                int index = mover.currentIndex;
+
                 Animator anim = controller.GetComponent<Animator>();
 
                 if (mover.isFinish)
@@ -74,11 +87,14 @@ namespace SGame
                         // 计时开始
                         mover.ResetTimer();
                     }
-                    mover.GetPositionFromDistance(mover.m_movedDistance, out float3 f3target, out quaternion look_at);
+                    float3 f3target = mover.GetPosition();
+                    float  progress = mover.GetMoveProgress();
+                    quaternion look_at = mover.GetRotation();
+                    //mover.GetPositionFromDistance(mover.m_movedDistance, out float3 f3target, out quaternion look_at);
                     Vector3 target = f3target;       
                     Vector3 deltaMovement = target - controller.transform.position;
                     controller.Move(deltaMovement);
-                    controller.transform.rotation = look_at; //Quaternion.LookRotation(deltaMovement);
+                    controller.transform.rotation = look_at; 
                     anim.SetFloat("Speed", 1);
                 }
                 
