@@ -78,7 +78,7 @@ public class Game : SGame.MonoSingleton<Game>
 
 		//应用安卓退出键
 		Input.backButtonLeavesApp = true;
-		
+
 #if !UNITY_EDITOR
 #if GAME_GUIDE
 				enableGuide = true;

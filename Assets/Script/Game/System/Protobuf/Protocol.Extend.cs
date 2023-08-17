@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using IPMessage = Google.Protobuf.IMessage;
 
 public partial class Protocol
 {
@@ -14,7 +15,7 @@ public partial class Protocol
 			var nex = pix + "\t";
 			sb = sb ?? new StringBuilder();
 			name = name ?? val.GetType().Name;
-			if (val is ProtoBuf.IExtensible p)
+			if (val is IPMessage p)
 			{
 				sb.AppendFormat(pix + "Msg {0}-{1}:【\n", val.GetType().Name, name);
 				PropertyInfo[] props = val.GetType().GetProperties();
