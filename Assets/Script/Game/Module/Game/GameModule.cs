@@ -33,14 +33,14 @@ namespace SGame
             m_fiber           = new Fiber(Logic());
 
             m_userData        = property.GetGroup(ItemType.USER);
+            m_eventHandles.Add(EventManager.Instance.Reg((int)GameEvent.PLAYER_POWER_DICE, OnChangeDicePower));
+            LogicInit();
         }
         
         public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
 
-        private const float MOVE_INTERVAL_TIME = 0.0f;//0.1f; // 移动时间间隔
+        private const float MOVE_INTERVAL_TIME = 0.0f;
         
-        
-
         public void Update()
         {
             m_fiber.Step();
@@ -203,6 +203,8 @@ namespace SGame
             log.Info(string.Format("Move Finish Start Index={0} End Index={1} DiceNum={2}", startIndex, m_curCheckPoint, move_num));
         }
 
+
+
         public void Shutdown()
         {
         }
@@ -235,5 +237,7 @@ namespace SGame
         private ItemGroup           m_userData;
 
         private UserSetting         m_userSetting;
+
+        private EventHandleContainer m_eventHandles = new EventHandleContainer();
     }
 }

@@ -55,11 +55,10 @@ namespace SGame.UI{
 			autoDice = true;
 		}
 		
+		// 倍率设置
 		partial void OnBattleBtn_PowerClick(EventContext datat)
 		{
-			UserSetting setting = DataCenter.Instance.GetUserSetting();
-			setting.doubleBonus = (setting.doubleBonus) % 5 + 1;
-			DataCenter.Instance.SetUserSetting(setting);
+			EventManager.Instance.Trigger((int)GameEvent.PLAYER_POWER_DICE);
 		}
 
 		void OnBattleIconClick(EventContext context)

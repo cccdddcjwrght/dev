@@ -8,6 +8,7 @@ namespace SGame
     public struct UserSetting : IComponentData
     {
         public int doubleBonus; // 倍率数量, 默认以北
+        public int maxBonus;    // 最大倍率
 
         public bool autoUse;    // 自动骰子
 

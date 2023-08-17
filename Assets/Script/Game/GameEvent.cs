@@ -31,5 +31,6 @@ namespace SGame
 		UI_CURRENCY_ANI_REFRESH = 151,
 
 		PLAYER_ROTE_DICE = 2000, // 用户操作骰子
+		PLAYER_POWER_DICE = 2001, // 用户更改倍率设置
 	}
 }
