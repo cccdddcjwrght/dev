@@ -110,6 +110,7 @@ namespace SGame
             {
                 // 等待骰子数量大于可用部分
                 yield return null;
+                m_userSetting = DataCenter.Instance.GetUserSetting();
             }
             
             while (true)
