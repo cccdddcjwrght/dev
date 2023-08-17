@@ -23,13 +23,19 @@ namespace SGame
         {
             Entities.ForEach((Entity e, ref TimeoutData timeCounter, in DiceRecover recover) =>
             {
+                long diceNum = m_userData.GetNum(DICE_ID);
+                long diceMax = m_userData.GetNum(MAXDICE_ID);
+                if (diceNum == diceMax)
+                {
+                    // 数值相同不恢复了
+                    timeCounter.Value = recover.duration;
+                    return;
+                }
+                
                 if (timeCounter.Value <= 0)
                 {
                     // 时间恢复
                     timeCounter.Value = recover.duration;
-
-                    long diceNum = m_userData.GetNum(DICE_ID);
-                    long diceMax = m_userData.GetNum(MAXDICE_ID);
                     long num = Utils.Clamp(diceNum + recover.recoverNum, 0, diceMax);
                     m_userData.SetNum(DICE_ID, num);
                 }

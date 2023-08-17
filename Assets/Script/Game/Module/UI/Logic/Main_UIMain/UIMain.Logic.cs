@@ -19,13 +19,11 @@ namespace SGame.UI{
 		private long             m_diceMaxPower;
 		private long             m_glod;
 
-		private Fiber            m_numberEffect;
 		private UIContext        m_context;
 		private ItemGroup        m_userProperty;
 
 		partial void InitLogic(UIContext context){
 			m_context = context;
-			m_numberEffect = new Fiber(FiberBucket.Manual);
 			context.onUpdate += onUpdate;
 
 			m_userProperty = PropertyManager.Instance.GetGroup(ItemType.USER);
@@ -37,12 +35,7 @@ namespace SGame.UI{
 			SetGoldText(m_glod.ToString());
 			UpdateBonusText();
 		}
-
-		void SetHold(bool value)
-		{
-			
-		}
-
+		
 		bool autoDice
 		{
 			get
@@ -65,50 +58,61 @@ namespace SGame.UI{
 			SetBattleBtn_PowerText("X" + m_userSetting.doubleBonus.ToString());
 		}
 		
-		IEnumerator ShowNumberEffect(int num)
+		void ShowNumberEffect(int num)
 		{
 			m_userData = DataCenter.Instance.GetUserData();
 			EntityManager mgr = m_context.gameWorld.GetEntityManager();
 			if (mgr.Exists(m_userData.player) == false)
-				yield break;
+				return;
 
 			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
 			FloatTextRequest.CreateEntity(mgr, num.ToString(), pos, Color.red, 40,1.0f);
-			yield return null;
 		}
 		
 		private  void onUpdate(UIContext context)
 		{
 			UserSetting setting = DataCenter.Instance.GetUserSetting();
             
+			// 更新金币数量
 			if (m_glod != m_userProperty.GetNum((int)UserType.GOLD))
 			{
 				long cur = m_userProperty.GetNum((int)UserType.GOLD);
 				long addvalue = cur - m_glod;
 				m_glod = cur;
 				SetGoldText(m_glod.ToString());
-				m_numberEffect.Start(ShowNumberEffect((int)addvalue));
+				ShowNumberEffect((int)addvalue);
 			}
 
+			// 更新倍率设置
 			if (setting.doubleBonus != m_userSetting.doubleBonus)
 			{
 				m_userSetting.doubleBonus = setting.doubleBonus;
 				UpdateBonusText();
 			}
 
-			if (m_dicePower    != m_userProperty.GetNum((int)UserType.DICE_POWER) ||
-				m_diceMaxPower != m_userProperty.GetNum((int)UserType.DICE_MAXPOWER))
+			// 更新骰子进度
+			var diceMaxPower = m_userProperty.GetNum((int)UserType.DICE_MAXPOWER);
+			var dicePower    = m_userProperty.GetNum((int)UserType.DICE_POWER);
+			
+			if (m_dicePower    != diceMaxPower ||
+				m_diceMaxPower != dicePower)
 			{
-				m_diceMaxPower = m_userProperty.GetNum((int)UserType.DICE_MAXPOWER);
-				m_dicePower    = m_userProperty.GetNum((int)UserType.DICE_POWER);
+				m_diceMaxPower	= diceMaxPower;
+				m_dicePower		= dicePower;
 				m_view.m_battle.m_countprogress.min   = 0;
 				m_view.m_battle.m_countprogress.max   = m_diceMaxPower;
 				m_view.m_battle.m_countprogress.value = m_dicePower;
 			}
 			
 			/// 显示道具恢复倒计时
-			SetBattleBtn_TimeText("5 Rolls in " +  Utils.TimeFormat(DataCenter.Instance.GetDiceRecoverTime()));
-			m_numberEffect.Step();
+			if (diceMaxPower != dicePower)
+			{
+				SetBattleBtn_TimeText("5 Rolls in " + Utils.TimeFormat(DataCenter.Instance.GetDiceRecoverTime()));
+			}
+			else
+			{
+				m_view.m_battle.m_time.text = "";
+			}
 		}
 		
 		partial void UnInitLogic(UIContext context)

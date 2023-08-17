@@ -177,6 +177,11 @@ namespace SGame
             return m_paths[m_currentIndex];
         }
 
+        public float3 GetNextPosition()
+        {
+            return m_paths[m_currentIndex + 1];
+        }
+
         // 节点之间距离
         public float nodeDistance { get { if (isFinish) return 0; return math.length(m_paths[m_currentIndex + 1] - m_paths[m_currentIndex]); } }
 

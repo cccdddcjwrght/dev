@@ -89,6 +89,7 @@ namespace SGame
                     }
                     float3 f3target = mover.GetPosition();
                     float3 startPos = mover.GetStartPosition();
+                    float3 nextPos = mover.GetNextPosition();
                     float  progress = mover.GetMoveProgress();
                     if (progress <= 0.5)
                         progress *= 2.0f;
@@ -96,7 +97,7 @@ namespace SGame
                         progress = 2 * (1 - progress);
    
                     float  high = jumpHigh.Value * progress;       // 计算跳跃高点
-                    f3target.y = startPos.y + high;
+                    f3target.y = math.max(startPos.y + high, nextPos.y);
                     quaternion look_at = mover.GetRotation();
                     Vector3 target = f3target;       
                     Vector3 deltaMovement = target - controller.transform.position;
