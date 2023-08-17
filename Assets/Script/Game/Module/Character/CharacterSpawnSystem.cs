@@ -43,7 +43,6 @@ namespace SGame
                 log.Error("Speed Component Not Found!");
                 return;
             }
-            EntityManager.SetComponentData(e, new SpeedData(){Value = 0.996f});
 
             // 3. 初始化角色控制器
             if (EntityManager.HasComponent<CharacterMover>(e) == false)

@@ -19,7 +19,6 @@ namespace SGame.UI{
 		private long             m_diceMaxPower;
 		private long             m_glod;
 
-		private GTextField       m_showText;
 		private Fiber            m_numberEffect;
 		private UIContext        m_context;
 		private ItemGroup        m_userProperty;
@@ -35,7 +34,6 @@ namespace SGame.UI{
 			m_userData = DataCenter.Instance.GetUserData();
 			m_userSetting = DataCenter.Instance.GetUserSetting();
 
-			m_showText = m_view.m_goldFloating;
 			SetGoldText(m_glod.ToString());
 			UpdateBonusText();
 		}
@@ -77,31 +75,6 @@ namespace SGame.UI{
 			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
 			FloatTextRequest.CreateEntity(mgr, num.ToString(), pos, Color.red, 40,1.0f);
 			yield return null;
-			yield break;
-/*
-			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
-			pos.y += 1.0f;
-			Vector3 screenPoint = GameCamera.camera.WorldToScreenPoint(pos);
-			screenPoint.y = Screen.height - screenPoint.y;
-
-			Vector2 uiPos = m_context.content.GlobalToLocal(screenPoint);
-			m_showText.alpha = 0;
-			float wait = 1.0f;
-			m_showText.text = num.ToString();
-			for (float r = 0; r < wait;)
-			{
-				float per = r / wait;
-				Vector2 runPos = uiPos;
-				runPos.y -= per * 100;
-
-				m_showText.xy = runPos;
-				m_showText.alpha = math.clamp(per + 0.2f, 0, 1);
-				r += Time.deltaTime;
-				yield return null;
-			}
-			m_showText.alpha = 0;
-			yield return null;
-			*/
 		}
 		
 		private  void onUpdate(UIContext context)
