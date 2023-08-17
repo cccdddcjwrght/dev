@@ -35,10 +35,14 @@ namespace SGame.UI
 		// 有效的显示
 		private EntityQuery    m_groupVisible;
 
+		private List<FairyWindow> m_windowCache;
+
 		protected override void OnCreate()
 		{
 			base.OnCreate();
 			UIConfig.defaultFont = "Quicksand-Bold-2_SDF";
+
+			m_windowCache = new List<FairyWindow>(32);
 		}
 
 		/// <summary>
@@ -53,9 +57,16 @@ namespace SGame.UI
 			{
 				if (win.Value.isReadly == false)
 					return;
-
-				win.Value.OnFrameUpdate(deltaTime);
+				
+				m_windowCache.Add(win.Value);
 			}).WithoutBurst().Run();
+
+			foreach (var w in m_windowCache)
+			{
+				w.OnFrameUpdate(deltaTime);
+			}
+			m_windowCache.Clear();
 		}
+		
 	}
 }

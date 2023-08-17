@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using FairyGUI;
+using log4net;
 using SGame.UI;
-using UnityEngine;
 using Unity.Entities;
 using SGame.UI.Hud;
-using UnityEditor;
+using UnityEngine;
 
 namespace SGame
 {
@@ -25,6 +22,7 @@ namespace SGame
         private bool                     m_isReadly;
         private GComponent               m_hudContent;
         private EndInitializationEntityCommandBufferSystem      m_commandBuffer;
+        private static ILog log = LogManager.GetLogger("xl.game.floatext");
 
         public ObjectPool<UI_FloatText> pool
         {
@@ -61,6 +59,8 @@ namespace SGame
 
         void Despawn(UI_FloatText floatText)
         {
+            log.Info("On Free");
+            floatText.alpha = 0;
             floatText.enabled = false;
         }
         
@@ -106,6 +106,7 @@ namespace SGame
             {
                 PoolID id              = m_floatComponents.Alloc();
                 Entity entityFloatText = commandBuffer.CreateEntity(m_floatTextType);
+                log.Info("create id=" + id.ToString() + " text=" + request.text);
                 
                 commandBuffer.SetComponent(entityFloatText, new LiveTime() {Value = request.duration});
                 commandBuffer.SetComponent(entityFloatText, new FloatTextData()      {Value = id});

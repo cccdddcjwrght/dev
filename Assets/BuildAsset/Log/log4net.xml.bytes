@@ -30,7 +30,7 @@
     </appender>
     
     <root>
-        <level value="INFO" />
+        <level value="ERROR" />
         <appender-ref ref="UnityAppender" />
     </root>
     
@@ -38,7 +38,7 @@
         <level value="DEBUG" />
     </logger>
     
-    <logger name="UISystem">
+    <logger name="xl.game.floatext">
         <level value="DEBUG" />
     </logger>
     

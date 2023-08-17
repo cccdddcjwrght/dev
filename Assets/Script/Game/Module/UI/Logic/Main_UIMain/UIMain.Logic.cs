@@ -75,7 +75,7 @@ namespace SGame.UI{
 				yield break;
 
 			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
-			FloatTextRequest.CreateEntity(mgr, num.ToString(), pos, Color.red, 20,1.0f);
+			FloatTextRequest.CreateEntity(mgr, num.ToString(), pos, Color.red, 40,1.0f);
 			yield return null;
 			yield break;
 /*

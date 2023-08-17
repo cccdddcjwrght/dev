@@ -2,6 +2,7 @@ using FairyGUI;
 using Unity.Entities;
 using SGame.UI.Hud;
 using UnityEngine;
+using log4net;
 
 namespace SGame
 {
@@ -14,7 +15,9 @@ namespace SGame
         private Entity                   m_hud;
         private bool                     m_isReadly;
         private GComponent               m_hudContent;
-        private float                   FLOAT_SPEED = 10.0f;
+        private float                   FLOAT_SPEED = 100.0f;
+        private static ILog log = LogManager.GetLogger("xl.game.floatext");
+
 
         public void Initalize(Entity hud, ObjectPool<UI_FloatText> pool)
         {

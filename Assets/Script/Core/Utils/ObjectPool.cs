@@ -14,7 +14,12 @@ namespace SGame
         public int Index ;      
         
         // 对象版本号, 防止已经索引的对象 数据串了
-        public int Version;     
+        public int Version;
+
+        public override string ToString()
+        {
+            return "Index:" + Index.ToString() + " Version:" + Version.ToString();
+        }
 
         public static PoolID NULL => new PoolID {Index = -1, Version = 0};
 

@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using FairyGUI;
-using SGame.UI;
-using UnityEngine;
 using Unity.Entities;
 using SGame.UI.Hud;
-using UnityEditor;
+using log4net;
 
 namespace SGame
 {
@@ -19,6 +14,8 @@ namespace SGame
         private Entity                   m_hud;
         private GComponent               m_hudContent;
         private EndInitializationEntityCommandBufferSystem      m_commandBuffer;
+        private static ILog log = LogManager.GetLogger("xl.game.floatext");
+
 
         public void Initalize(Entity hud, ObjectPool<UI_FloatText> pool)
         {
@@ -37,6 +34,7 @@ namespace SGame
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.WithAll<DespawningEntity>().ForEach((Entity e, in FloatTextData data) =>
             {
+                log.Info("free id=" + data.Value.ToString());
                 m_floatComponents.Free(data.Value);
             }).WithoutBurst().Run();
         }
