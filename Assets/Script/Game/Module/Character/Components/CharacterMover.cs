@@ -222,14 +222,6 @@ namespace SGame
             m_paths.AddRange(paths);
             //m_distance = CalcPathDistance(); // 统计移动长度
         }
-
-        public void Convert(
-            Entity entity,
-            EntityManager dstManager,
-            GameObjectConversionSystem conversionSystem)
-        {
-            dstManager.AddComponentObject(entity, this);
-        }
     }
     
 

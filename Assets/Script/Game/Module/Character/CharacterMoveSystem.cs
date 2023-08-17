@@ -88,9 +88,16 @@ namespace SGame
                         mover.ResetTimer();
                     }
                     float3 f3target = mover.GetPosition();
+                    float3 startPos = mover.GetStartPosition();
                     float  progress = mover.GetMoveProgress();
+                    if (progress <= 0.5)
+                        progress *= 2.0f;
+                    else
+                        progress = 2 * (1 - progress);
+   
+                    float  high = jumpHigh.Value * progress;       // 计算跳跃高点
+                    f3target.y = startPos.y + high;
                     quaternion look_at = mover.GetRotation();
-                    //mover.GetPositionFromDistance(mover.m_movedDistance, out float3 f3target, out quaternion look_at);
                     Vector3 target = f3target;       
                     Vector3 deltaMovement = target - controller.transform.position;
                     controller.Move(deltaMovement);

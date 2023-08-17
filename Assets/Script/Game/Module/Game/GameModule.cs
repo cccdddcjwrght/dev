@@ -37,7 +37,7 @@ namespace SGame
         
         public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
 
-        private const float MOVE_INTERVAL_TIME = 0.1f; // 移动时间间隔
+        private const float MOVE_INTERVAL_TIME = 0.0f;//0.1f; // 移动时间间隔
         
         
 
