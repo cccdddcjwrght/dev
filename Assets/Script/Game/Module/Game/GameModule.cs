@@ -95,6 +95,7 @@ namespace SGame
             mgr.SetComponentData(m_dice2, new Rotation() {Value = quaternion.identity});
             
 
+            UpdateDicePower(true);
 
             // 3. 获取场景路径
             yield return null;

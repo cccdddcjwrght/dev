@@ -21,8 +21,14 @@ namespace SGame
                 , out data);
         }
 
-        void UpdateDicePower()
+        void UpdateDicePower(bool isForce = false)
         {
+            if (isForce)
+            {
+                ChangeDicePower(false);
+                return;
+            }
+            
             UserSetting setting = DataCenter.Instance.GetUserSetting();
             int diceNum = (int)m_userData.GetNum((int)UserType.DICE_POWER);
             if (setting.doubleBonus < diceNum)
@@ -31,8 +37,7 @@ namespace SGame
             }
         }
 
-        // 更改骰子数逻辑
-        void OnChangeDicePower()
+        void ChangeDicePower(bool isNext)
         {
             UserSetting setting = DataCenter.Instance.GetUserSetting();
             int settingDiceNum = setting.doubleBonus;
@@ -58,7 +63,13 @@ namespace SGame
                 return;
             }
 
-            int index = (i + 1) % data.BetLength;
+            // 是否取下一个, 否则就是强制刷新
+            int index = 0;
+            if (isNext)
+                index = (i + 1) % data.BetLength;
+            else
+                index = i;
+
             int newNum = data.Bet(index);
             setting.maxBonus    = data.Bet(data.BetLength - 1);
             if (newNum <= diceNum)
@@ -70,6 +81,12 @@ namespace SGame
                 setting.doubleBonus = data.Bet(0);
             }
             DataCenter.Instance.SetUserSetting(setting);
+        }
+
+        // 更改骰子数逻辑
+        void OnChangeDicePower()
+        {
+            ChangeDicePower(true);
         }
     }
 }

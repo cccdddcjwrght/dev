@@ -56,6 +56,16 @@ namespace SGame.UI{
 		void UpdateBonusText()
 		{
 			SetBattleBtn_PowerText("X" + m_userSetting.doubleBonus.ToString());
+			if (m_userSetting.doubleBonus != m_userSetting.maxBonus)
+			{
+				m_view.m_battle.title = "X" + m_userSetting.maxBonus.ToString();
+				m_view.m_battle.m_maxtext.visible = true;
+			}
+			else
+			{
+				m_view.m_battle.title = "";
+				m_view.m_battle.m_maxtext.visible = false;
+			}
 		}
 		
 		void ShowNumberEffect(int num)
@@ -86,7 +96,7 @@ namespace SGame.UI{
 			// 更新倍率设置
 			if (setting.doubleBonus != m_userSetting.doubleBonus)
 			{
-				m_userSetting.doubleBonus = setting.doubleBonus;
+				m_userSetting = setting;//.doubleBonus = setting.doubleBonus;
 				UpdateBonusText();
 			}
 

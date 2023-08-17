@@ -11,6 +11,7 @@ namespace SGame.UI.Main
         public UI_DiceBtn m_main;
         public GButton m_power;
         public GProgressBar m_countprogress;
+        public GTextField m_maxtext;
         public GTextField m_time;
         public Transition m_t0;
         public const string URL = "ui://ktixaqljgmj1u";
@@ -28,6 +29,7 @@ namespace SGame.UI.Main
             m_main = (UI_DiceBtn)GetChildAt(3);
             m_power = (GButton)GetChildAt(4);
             m_countprogress = (GProgressBar)GetChildAt(5);
+            m_maxtext = (GTextField)GetChildAt(6);
             m_time = (GTextField)GetChildAt(7);
             m_t0 = GetTransitionAt(0);
         }
