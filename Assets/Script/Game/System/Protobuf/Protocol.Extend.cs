@@ -21,6 +21,7 @@ public partial class Protocol
 				PropertyInfo[] props = val.GetType().GetProperties();
 				foreach (PropertyInfo info in props)
 				{
+					if (info.PropertyType.Name.Contains("Google.")) continue;
 					object value = info.GetGetMethod()?.Invoke(val, null);
 					if (value != null)
 						Format(value, sb, nex, info.Name);
@@ -44,4 +45,11 @@ public partial class Protocol
 		}
 		return null;
 	}
+
+	static partial void PrintMsg(object msg)
+	{
+		if (msg != null)
+			UnityEngine.Debug.Log(msg.Format());
+	}
+
 }

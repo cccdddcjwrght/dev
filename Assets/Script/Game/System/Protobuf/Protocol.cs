@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using IPMessage = Google.Protobuf.IMessage;
 
@@ -52,8 +53,7 @@ public static partial class Protocol
 	}
 
 	static readonly private byte[] _empty = System.Array.Empty<byte>();
-	static readonly private MemoryStream _outstream = new MemoryStream();
-	static readonly private Google.Protobuf.CodedOutputStream _codeOutputStream = new Google.Protobuf.CodedOutputStream(_outstream);
+	static private Stream _outstream;
 	static private object[] _args;
 
 	static public PID ToPID(this int id)
@@ -61,15 +61,9 @@ public static partial class Protocol
 		return id;
 	}
 
-
 	static public PID<T> Send<T>(this T item, int msgID, int svrType = 0) where T : class, IPMessage, new()
 	{
-		if (msgID > 0 && item != null)
-		{
-			var buffer = item.Serialize();
-			if (buffer != null)
-				Send(msgID, buffer, svrType);
-		}
+		SendMsg(item, msgID, svrType);
 		return msgID;
 	}
 
@@ -79,6 +73,20 @@ public static partial class Protocol
 			DoSend(msgID, buffer, 0, buffer != null ? buffer.Length : 0, svrType);
 		_args = null;
 		return msgID;
+	}
+
+	static public PID SendMsg(this IPMessage item, int msgID, int svrType = 0)
+	{
+
+		if (msgID > 0 && item != null)
+		{
+			PrintMsg(item);
+			var buffer = item.Serialize();
+			if (buffer != null)
+				Send(msgID, buffer, svrType);
+		}
+		return msgID;
+
 	}
 
 	/// <summary>
@@ -159,7 +167,10 @@ public static partial class Protocol
 	/// <returns></returns>
 	static public T Deserialize<T>(byte[] buffer, int offset, int length) where T : class, IPMessage, new()
 	{
-		return new T().Descriptor.Parser.ParseFrom(buffer, offset, length) as T;
+		object msg = new T();
+		DoDeserialize(ref msg, buffer, offset, length);
+		PrintMsg(msg);
+		return msg as T;
 	}
 
 	static public int SerializeToBuff<T>(this T val, byte[] buffer, int offset) where T : class, IPMessage, new()
@@ -169,21 +180,14 @@ public static partial class Protocol
 		return 0;
 	}
 
-
 	static private int SerializeToBuff(object val, byte[] buffer, int offset)
 	{
-		if (val is IPMessage m)
-		{
-			_outstream.Seek(0, SeekOrigin.Begin);
-			m.WriteTo(_codeOutputStream);
-			_codeOutputStream.Flush();
-			var len = (int)_outstream.Position;
-			_outstream.Seek(0, SeekOrigin.Begin);
-			if (buffer != null && buffer.Length > 0)
-				return CopyStreamToBuffer(buffer, Math.Max(0, offset), len);
-			return len;
-		}
-		return 0;
+		var len = 0;
+		offset = Math.Max(0, offset);
+		DoSerialize(val, ref _outstream, ref len);
+		if (len > 0 && buffer != null && buffer.Length > offset + len)
+			return CopyStreamToBuffer(buffer, offset, len);
+		return len;
 	}
 
 	static private int CopyStreamToBuffer(byte[] buffer, int offset, int length)
@@ -192,10 +196,16 @@ public static partial class Protocol
 		return _outstream.Read(buffer, offset, length);
 	}
 
+	static partial void DoSerialize(object msg, ref Stream buffer, ref int len);
+
+	static partial void DoDeserialize(ref object msg, byte[] buffer, int offset, int len);
+
 	static partial void DoSend(int msgID, byte[] buffer, int offset, int length, int svrType);
 
 	static partial void DoRecv(int msgID, byte[] buffer, int offset, int count, int seqID);
 
 	static partial void DoRegister<T>(int protoID, Action<int, T> action, bool once = false, bool unregister = false) where T : class, IPMessage, new();
 
+	[Conditional("DEBUG")]
+	static partial void PrintMsg(object msg);
 }

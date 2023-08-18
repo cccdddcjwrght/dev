@@ -36,27 +36,24 @@ namespace Cmd
 
 		static public bool IsError(this ErrorID id, bool tips = true)
 		{
-			/* todo
-			var s = id > 1;
-			if (s && tips)
+			if (id > 0)
 			{
-				var code = (cs.ErrorCode)id.id;
-				if (code != cs.ErrorCode.Error_None)
+				var t = $"proto error id:{id.id}";
+				var s = false;
+				Convert(id, ref t, ref s);
+				if (s)
 				{
-					var k = code.ToString();
-					Tips(k);
-					GameDebug.LogError(k);
+					Tips(t);
+					GameDebug.LogError(t);
 				}
-				else
-					GameDebug.LogError($"svr errorID:{id.id}");
-
+				return s;
 			}
-			return s;
-			*/
 			return false;
 		}
 
 		static partial void Tips(string key);
+
+		static partial void Convert(int id ,ref string tips , ref bool isError);
 	}
 
 }
