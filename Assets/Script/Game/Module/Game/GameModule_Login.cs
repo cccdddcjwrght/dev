@@ -9,18 +9,18 @@ namespace SGame
     // 用于运行登录逻辑
     public partial class GameModule
     {
-        private const string COIN_DEFAULT = "coin_default";
-        private const string DICE_DEFAULT = "dice_default";
-        private const string DICE_LIMIT   = "dice_limit";
-        private const string DICE_ADD_TIME = "dice_add_time";
-        private const string DICE_ADD_NUM = "dice_add_num";
+        private const string COIN_DEFAULT   = "coin_default";
+        private const string DICE_DEFAULT   = "dice_default";
+        private const string DICE_LIMIT     = "dice_limit";
+        private const string DICE_ADD_TIME  = "dice_add_time";
+        private const string DICE_ADD_NUM   = "dice_add_num";
 
         // 设置默认值
         private void SetupDefault()
         {
-            m_userData.SetNum((int)UserType.GOLD,           GlobalDesginConfig.GetInt(COIN_DEFAULT));
-            m_userData.SetNum((int)UserType.DICE_POWER,    GlobalDesginConfig.GetInt(DICE_DEFAULT));
-            m_userData.SetNum((int)UserType.DICE_MAXPOWER, GlobalDesginConfig.GetInt(DICE_LIMIT));
+            m_userData.SetNum((int)UserType.GOLD,               GlobalDesginConfig.GetInt(COIN_DEFAULT));
+            m_userData.SetNum((int)UserType.DICE_POWER,         GlobalDesginConfig.GetInt(DICE_DEFAULT));
+            m_userData.SetNum((int)UserType.DICE_MAXPOWER,      GlobalDesginConfig.GetInt(DICE_LIMIT));
             
             // 创建恢复骰子对象
             var recover = EntityManager.CreateEntity(typeof(DiceRecover), typeof(TimeoutData));
@@ -39,8 +39,8 @@ namespace SGame
         
         public IEnumerator RunLogin()
         {
-            const float HotfixTime = 2.0f;  // 更新UI显示时间
-            const float LoadingTime = 1.0f; // 加载UI更新时间
+            const float HotfixTime = 1.0f;  // 更新UI显示时间
+            const float LoadingTime = 0.5f; // 加载UI更新时间
             
             // 1. 显示更新界面
             Entity hotfixUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hotfix"));
@@ -54,7 +54,10 @@ namespace SGame
 
             
             // 3. 进入加载界面
-            yield return new WaitEvent(EntityManager, GameEvent.ENTER_LOGIN);
+            var waitLogin = new WaitEvent<string>(EntityManager, GameEvent.ENTER_LOGIN);
+            yield return waitLogin;
+            log.Info("Login UserName=" + waitLogin.m_Value);
+            
             Entity loadingUI = UIRequest.Create(EntityManager, UIUtils.GetUI("loading"));
             EntityManager.AddComponentData(loadingUI, new UIParamFloat() {Value = LoadingTime});
             yield return new WaitUIOpen(EntityManager, loadingUI);

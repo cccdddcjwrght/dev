@@ -141,11 +141,6 @@ public class Game : SGame.MonoSingleton<Game>
 		m_initalizeEntity = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntity(typeof(GameInitFinish));
 		EVENT_INIT_FINISH?.Invoke();
 
-#if LUA_DEBUG
-		GameDebug.Log("lua wait attach...");
-		yield return FiberHelper.Wait(2.0f);
-#endif
-
 		// 开启客户端代码
 		RequestLoop(GameLoopType.Client, null);
 		log.Info("Game System Startup...");

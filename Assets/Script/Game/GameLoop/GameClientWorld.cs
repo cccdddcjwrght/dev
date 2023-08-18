@@ -40,7 +40,6 @@ namespace SGame
 			SGame.UI.UIReg reg = new UIReg();
 			reg.RegAllUI(new UIContext() {uiModule = m_uiModule});
 
-
 			m_hudModule = new HudModule(world);
 		}
 
@@ -49,6 +48,9 @@ namespace SGame
 			/// 后续该代码要做成自动化
 			m_uiModule.Reg("Login", "Login", UILogin.Create);
 			m_uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
+			
+			// 手动绑定登录的
+			SGame.UI.Login.LoginBinder.BindAll();
 		}
 
 		/// <summary>

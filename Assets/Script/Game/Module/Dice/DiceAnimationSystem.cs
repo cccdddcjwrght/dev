@@ -50,7 +50,7 @@ namespace SGame
         {
             m_world           = world;
             m_resourceManager = resourceManager;
-            m_random = new Unity.Mathematics.Random((uint)Time.ElapsedTime);
+            m_random = new Unity.Mathematics.Random((uint)(Time.ElapsedTime + 1));
         }
         
         protected override void OnUpdate()
