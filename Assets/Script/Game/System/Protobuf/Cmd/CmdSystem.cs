@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IPMessage = Google.Protobuf.IMessage;
 
 namespace Cmd
 {
@@ -31,7 +32,7 @@ namespace Cmd
 	/// 用CmdExcute属性类标记
 	/// </summary>
 	/// <typeparam name="T">协议类</typeparam>
-	public abstract class ICmdExcute<T> : ICmdExcute where T : class, ProtoBuf.IExtensible
+	public abstract class ICmdExcute<T> : ICmdExcute where T : class, Google.Protobuf.IMessage,new()
 	{
 		void ICmdExcute.OnExcute(int msgID, byte[] gamePackage, int offset, int count, int sqid)
 		{
@@ -56,6 +57,9 @@ namespace Cmd
 		abstract class Item
 		{
 			public Type type;
+
+			public Func<byte[], int, int,object> decode;
+
 			public abstract void OnExcute(int msgID, object msg);
 
 			public virtual void Clear()
@@ -83,8 +87,13 @@ namespace Cmd
 
 		static private Dictionary<int, Item> _binds = new Dictionary<int, Item>();
 
-		static public void AddListen<T>(int msgID, Action<int, T> call, bool once = false)
+		static public void AddListen<T>(int msgID, Action<int, T> call, bool once = false) where T : class, IPMessage, new()
 		{
+			static object Decode(byte[] bytes , int off,int len)
+			{
+				return Protocol.Deserialize<T>(bytes,off,len);
+			}
+
 			if (msgID > 0 && call != null)
 			{
 				if (_binds.TryGetValue(msgID, out var item))
@@ -97,7 +106,7 @@ namespace Cmd
 				}
 				else
 				{
-					item = new Item<T>() { type = typeof(T) };
+					item = new Item<T>() { type = typeof(T), decode = Decode };
 					_binds[msgID] = item;
 				}
 				if (item is Item<T> it)
@@ -153,7 +162,7 @@ namespace Cmd
 			GameDebug.Log($"recv=> {msgID}");
 			if (_binds.TryGetValue(msgID, out var type))
 			{
-				var msg = Protocol.Deserialize(type.type, gamePackage, offset, count);
+				var msg = type.decode?.Invoke(gamePackage, offset, count);
 				Excute(msgID, msg, type);
 			}
 		}
