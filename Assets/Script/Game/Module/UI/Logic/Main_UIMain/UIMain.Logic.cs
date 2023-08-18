@@ -62,16 +62,6 @@ namespace SGame.UI{
 		void UpdateBonusText()
 		{
 			SetBattleBtn_PowerText("X" + m_userSetting.doubleBonus.ToString());
-			if (m_userSetting.doubleBonus != m_userSetting.maxBonus)
-			{
-				m_view.m_battle.title = "X" + m_userSetting.maxBonus.ToString();
-				m_view.m_battle.m_maxtext.visible = true;
-			}
-			else
-			{
-				m_view.m_battle.title = "";
-				m_view.m_battle.m_maxtext.visible = false;
-			}
 		}
 		
 		void ShowNumberEffect(int num)
@@ -93,6 +83,9 @@ namespace SGame.UI{
 				// 更新自动使用
 				UpdateAutoUseUI(setting.autoUse);
 			}
+			
+			// 设置最大控制状态
+			m_view.m_battle.m_max.selectedIndex = setting.doubleBonus != setting.maxBonus ? 0 : 1;
             
 			// 更新金币数量
 			if (m_glod != m_userProperty.GetNum((int)UserType.GOLD))

@@ -8,6 +8,7 @@ namespace SGame.UI.Main
     public partial class UI_BattleBtn : GLabel
     {
         public Controller m_button;
+        public Controller m_max;
         public UI_DiceBtn m_main;
         public GButton m_power;
         public GProgressBar m_countprogress;
@@ -26,6 +27,7 @@ namespace SGame.UI.Main
             base.ConstructFromXML(xml);
 
             m_button = GetControllerAt(0);
+            m_max = GetControllerAt(1);
             m_main = (UI_DiceBtn)GetChildAt(3);
             m_power = (GButton)GetChildAt(4);
             m_countprogress = (GProgressBar)GetChildAt(5);
