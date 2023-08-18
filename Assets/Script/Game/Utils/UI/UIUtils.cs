@@ -2,6 +2,7 @@ using FairyGUI;
 using SGame.UI;
 using Unity.Entities;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -49,6 +50,21 @@ namespace SGame
             Vector3 screenPoint = GameCamera.camera.WorldToScreenPoint(pos);
             screenPoint.y = Screen.height - screenPoint.y;
             return ui.GlobalToLocal(screenPoint);
+        }
+
+        /// <summary>
+        /// 创建漂字
+        /// </summary>
+        /// <param name="mgr"></param>
+        /// <param name="title">文字</param>
+        /// <param name="pos">3d场景中的位置</param>
+        /// <param name="color">颜色</param>
+        /// <param name="fontSize">字体大小</param>
+        /// <param name="duration">持续时间</param>
+        /// <returns></returns>
+        public static Entity ShowTips(EntityManager mgr, string title, float3 pos, Color color, int fontSize, float duration)
+        {
+            return FloatTextRequest.CreateEntity(mgr, title, pos, color, 50, 2.0f);
         }
     }
 }

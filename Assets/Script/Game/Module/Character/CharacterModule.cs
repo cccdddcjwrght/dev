@@ -51,9 +51,9 @@ namespace SGame
             m_moveCollection.Add(moveSystem);
             
             // 不能直接在构造函数里初始化, 只能创建后调用初始化函数
-            m_spawerRequest.Initalize(m_world, resourceManager);
-            m_spawnSystem.Initalize(m_world, resourceManager);
-            moveSystem.Initalize(m_world, resourceManager);
+            m_spawerRequest.Initalize(m_world,  resourceManager);
+            m_spawnSystem.Initalize(m_world,    resourceManager);
+            moveSystem.Initalize(m_world,       resourceManager);
 
             m_characterPrefab = resourceManager.GetEntityPrefab(CHARACTER_PREFAB);
             

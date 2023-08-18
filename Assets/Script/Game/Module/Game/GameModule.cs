@@ -99,33 +99,53 @@ namespace SGame
             yield return null;
         }
 
+        /// <summary>
+        /// 提示骰子不足
+        /// </summary>
+        void TipDiceNotEnough()
+        {
+            UIUtils.ShowTips(EntityManager, "NOT ENOUGH DICE", new float3(8.22000027f, -1.13f, 5.09000015f), Color.yellow, 50, 2.0f);
+        }
+
         // 等待下一轮
         IEnumerator WaitNextRond()
         {
             var mgr = m_gameWorld.GetEntityManager();
             m_userSetting = DataCenter.Instance.GetUserSetting();
-
-            // 判断骰子的能量消耗
-            while (m_userData.GetNum((int)UserType.DICE_POWER) < m_userSetting.doubleBonus)
-            {
-                // 等待骰子数量大于可用部分
-                yield return null;
-                m_userSetting = DataCenter.Instance.GetUserSetting();
-            }
+            
             
             while (true)
             {
                 m_userSetting = DataCenter.Instance.GetUserSetting();
+                int dicePower = (int)m_userData.GetNum((int)UserType.DICE_POWER);
+                
                 if (m_userSetting.autoUse == true)
                 {
                     // 自动投掷就等待1秒
                     yield return FiberHelper.Wait(1.0f);
+                    if (dicePower < m_userSetting.doubleBonus)
+                    {
+                        // 取消自动骰子
+                        m_userSetting.autoUse = false;
+                        DataCenter.Instance.SetUserSetting(m_userSetting);
+                        TipDiceNotEnough();
+                        yield return null;
+                        continue;
+                    }
                     break;
                 }
                 
                 UserInput input = m_userInputSystem.GetInput();
                 if (input.rollDice == true)
+                {
+                    if (dicePower < m_userSetting.doubleBonus)
+                    {
+                        TipDiceNotEnough();
+                        yield return null;
+                        continue;
+                    }
                     break;
+                }
 
                 yield return null;
             }

@@ -67,10 +67,10 @@ namespace SGame
                 float speed = nodeDistance / jumpTime.Value;
                 
                 // 通过速度计算每帧移动距离
-                float delta = speed * dt;
-                int oldIndex = mover.currentIndex;
+                float delta     = speed * dt;
+                int oldIndex    = mover.currentIndex;
                 mover.Movement(delta);
-                int index = mover.currentIndex;
+                int index       = mover.currentIndex;
 
                 Animator anim = controller.GetComponent<Animator>();
 
