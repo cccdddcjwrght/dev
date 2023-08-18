@@ -10,14 +10,14 @@ namespace SGame.UI{
 	public partial class UILoading
 	{
 		// 协程对象
-		private Fiber m_fiber;
+		private Fiber			m_fiber;
 
 		// 显示时间
-		private float m_waitTime;
+		private float			m_waitTime;
 
-		private GProgressBar m_progressBar;
+		private GProgressBar	m_progressBar;
 
-		private GTextField m_text;
+		private GTextField		m_text;
         
 		partial void InitLogic(UIContext context)
 		{

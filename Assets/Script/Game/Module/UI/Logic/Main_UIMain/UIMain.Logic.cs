@@ -23,8 +23,8 @@ namespace SGame.UI{
 		private ItemGroup        m_userProperty;
 
 		partial void InitLogic(UIContext context){
-			m_context = context;
-			context.onUpdate += onUpdate;
+			m_context			= context;
+			context.onUpdate	+= onUpdate;
 
 			m_userProperty = PropertyManager.Instance.GetGroup(ItemType.USER);
 			m_dicePower = -1;

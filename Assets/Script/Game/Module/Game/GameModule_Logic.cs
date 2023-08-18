@@ -17,7 +17,7 @@ namespace SGame
         // 查找骰子配置
         static bool FindBetData(int diceNum, out BetRowData data)
         {
-            return ConfigSystem.Instance.TryGet((BetRowData d) => diceNum >= d.DiceRange(0) && diceNum <= d.DiceRange(1)
+            return ConfigSystem.Instance.TryGet((BetRowData d) => diceNum >= d.DiceRange(0) && diceNum < d.DiceRange(1)
                 , out data);
         }
 
@@ -70,16 +70,9 @@ namespace SGame
             else
                 index = i;
 
-            int newNum = data.Bet(index);
+            int newNum          = data.Bet(index);
             setting.maxBonus    = data.Bet(data.BetLength - 1);
-            if (newNum <= diceNum)
-            {
-                setting.doubleBonus = newNum;
-            }
-            else
-            {
-                setting.doubleBonus = data.Bet(0);
-            }
+            setting.doubleBonus = newNum;
             DataCenter.Instance.SetUserSetting(setting);
         }
 
