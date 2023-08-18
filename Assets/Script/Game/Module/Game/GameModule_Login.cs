@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cs;
 using SGame.UI;
 using UnityEngine;
 using Unity.Entities;
@@ -14,6 +15,8 @@ namespace SGame
         private const string DICE_LIMIT     = "dice_limit";
         private const string DICE_ADD_TIME  = "dice_add_time";
         private const string DICE_ADD_NUM   = "dice_add_num";
+        private const string SERVER_ADDRESS = "address";
+        private const string SERVER_PORT    = "port";
 
         // 设置默认值
         private void SetupDefault()
@@ -39,7 +42,7 @@ namespace SGame
         
         public IEnumerator RunLogin()
         {
-            const float HotfixTime = 1.0f;  // 更新UI显示时间
+            const float HotfixTime  = 1.0f;  // 更新UI显示时间
             const float LoadingTime = 0.5f; // 加载UI更新时间
             
             // 1. 显示更新界面
@@ -52,18 +55,57 @@ namespace SGame
             yield return new WaitUIOpen(EntityManager, loginUI);
             UIUtils.CloseUI(EntityManager, hotfixUI);
 
-            
-            // 3. 进入加载界面
-            var waitLogin = new WaitEvent<string>(EntityManager, GameEvent.ENTER_LOGIN);
-            yield return waitLogin;
-            log.Info("Login UserName=" + waitLogin.m_Value);
-            
+            // 3. 等待登录事件登录
+            while (true)
+            {
+                var     waitLogin = new WaitEvent<string>(EntityManager, GameEvent.ENTER_LOGIN);
+                yield return waitLogin;
+                
+                string  ip = GlobalConfig.GetStr(SERVER_ADDRESS);
+                int     port = GlobalConfig.GetInt(SERVER_PORT);
+                log.Info("Login UserName=" + waitLogin.m_Value + " server ip=" + ip + " port=" + port.ToString());
+                var     connectHandle = NetworkManager.Instance.GetClient().Connect(ip, port, 1000);
+                yield return connectHandle;
+                
+                if (!string.IsNullOrEmpty(connectHandle.error))
+                {
+                    log.Error("connect fail=" + connectHandle.error);
+                    yield return null;
+                    continue;
+                }
+
+                // 成功登录
+                log.Info("connect success name=" + waitLogin.m_Value);
+                
+                // 登录
+                // 设置游戏数据
+                Login userinfo = new Login()
+                {
+                    Request = new Login.Types.Request()
+                    {
+                        Username =  waitLogin.m_Value
+                    }
+                };
+                userinfo.Send((int)GameMsgID.CsLogin);
+
+                var waitMessage = new WaitMessage<Login>((int)GameMsgID.CsLogin);
+                yield return waitMessage;
+                if (waitMessage.Value.Response.Err != ErrorCode.ErrorSuccess)
+                {
+                    log.Error("Login Fail=" + waitMessage.Value.Response.Err.ToString());
+                    continue;
+                }
+                //log.Info("Login Success login id=" +  waitMessage.Value.Response.Playerid.ToString());
+                break;
+            }
+
+            SetupDefault();
+
+            // 登录成功后显示加载UI
             Entity loadingUI = UIRequest.Create(EntityManager, UIUtils.GetUI("loading"));
             EntityManager.AddComponentData(loadingUI, new UIParamFloat() {Value = LoadingTime});
             yield return new WaitUIOpen(EntityManager, loadingUI);
             UIUtils.CloseUI(EntityManager, loginUI);
-
-            SetupDefault();
 
             // 4. 完成后直接进入主界
             yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);

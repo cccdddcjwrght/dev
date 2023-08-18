@@ -271,6 +271,37 @@ public class NetClient
 
 		return 0;
 	}
+	
+	// 发送网络数据
+	public unsafe void SendMessage<T>(int msgId, T message)  where T : class, Google.Protobuf.IMessage, new()
+	{
+		if (!m_connect.Connected)
+		{
+			log.Warn("Networkd Is Disconnected!");
+			return;
+		}
+
+		// 发送数据大小
+		int send_size = Protocol.SerializeToBuff(message, m_sendBuffer, PackageHead.SIZE);
+		if (send_size <= 0 || send_size >= MESSAGE_SIZE)
+		{
+			log.Error("Send Message Serail Fail=" + msgId.ToString());
+			return;
+		}
+
+		// 修改包头
+		fixed (byte* dataPtr = &m_sendBuffer[0])
+		{
+			PackageHead* head = (PackageHead*)dataPtr;
+			head->msgId = msgId;
+			head->pkgLen = PackageHead.SIZE + send_size;
+			head->pkgSeq = m_clientSeq++;
+			FillVer(ref *head);
+		}
+
+		// 发送数据包
+		m_connect.SendMessage(m_sendBuffer, 0, PackageHead.SIZE + send_size);
+	}
 
 	// 判断连接状态
 	public bool IsConnected { get { return m_connect.Connected; } }
