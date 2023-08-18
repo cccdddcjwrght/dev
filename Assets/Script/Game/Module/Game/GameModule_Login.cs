@@ -39,23 +39,9 @@ namespace SGame
             
             UpdateDicePower(true);
         }
-        
-        public IEnumerator RunLogin()
-        {
-            const float HotfixTime  = 1.0f;  // 更新UI显示时间
-            const float LoadingTime = 0.5f; // 加载UI更新时间
-            
-            // 1. 显示更新界面
-            Entity hotfixUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hotfix"));
-            EntityManager.AddComponentData(hotfixUI, new UIParamFloat() {Value = HotfixTime});
-            
-            // 2. 显示登录界面
-            yield return new WaitEvent(EntityManager, GameEvent.HOTFIX_DONE);
-            Entity loginUI = UIRequest.Create(EntityManager, UIUtils.GetUI("login"));
-            yield return new WaitUIOpen(EntityManager, loginUI);
-            UIUtils.CloseUI(EntityManager, hotfixUI);
 
-            // 3. 等待登录事件登录
+        IEnumerator LoginServer()
+        {
             while (true)
             {
                 var     waitLogin = new WaitEvent<string>(EntityManager, GameEvent.ENTER_LOGIN);
@@ -90,15 +76,38 @@ namespace SGame
 
                 var waitMessage = new WaitMessage<Login>((int)GameMsgID.CsLogin);
                 yield return waitMessage;
+                if (waitMessage.Value == null || waitMessage.Value.Response == null)
+                {
+                    log.Error("Message Null");
+                    break;
+                }
                 if (waitMessage.Value.Response.Err != ErrorCode.ErrorSuccess)
                 {
                     log.Error("Login Fail=" + waitMessage.Value.Response.Err.ToString());
-                    continue;
+                    //continue;
                 }
                 //log.Info("Login Success login id=" +  waitMessage.Value.Response.Playerid.ToString());
                 break;
             }
+        }
+        
+        public IEnumerator RunLogin()
+        {
+            const float HotfixTime  = 1.0f;  // 更新UI显示时间
+            const float LoadingTime = 0.5f; // 加载UI更新时间
+            
+            // 1. 显示更新界面
+            Entity hotfixUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hotfix"));
+            EntityManager.AddComponentData(hotfixUI, new UIParamFloat() {Value = HotfixTime});
+            
+            // 2. 显示登录界面
+            yield return new WaitEvent(EntityManager, GameEvent.HOTFIX_DONE);
+            Entity loginUI = UIRequest.Create(EntityManager, UIUtils.GetUI("login"));
+            yield return new WaitUIOpen(EntityManager, loginUI);
+            UIUtils.CloseUI(EntityManager, hotfixUI);
 
+            // 3. 等待登录事件登录
+            yield return LoginServer();
             SetupDefault();
 
             // 登录成功后显示加载UI
