@@ -35,6 +35,12 @@ namespace SGame.UI{
 			SetGoldText(m_glod.ToString());
 			UpdateBonusText();
 		}
+
+		void UpdateAutoUseUI(bool autoUse)
+		{
+			m_view.m_battle.m_main.m_auto_dice.selectedIndex = autoUse ? 1 : 0;
+		}
+		
 		
 		bool autoDice
 		{
@@ -48,7 +54,7 @@ namespace SGame.UI{
 			{
 				var v = DataCenter.Instance.GetUserSetting();
 				v.autoUse = value;
-				m_view.m_battle.m_main.m_auto_dice.selectedIndex = value ? 1 : 0;
+				UpdateAutoUseUI(value);
 				DataCenter.Instance.SetUserSetting(v);
 			}
 		}
@@ -82,6 +88,11 @@ namespace SGame.UI{
 		private  void onUpdate(UIContext context)
 		{
 			UserSetting setting = DataCenter.Instance.GetUserSetting();
+			if (m_userSetting.autoUse != setting.autoUse)
+			{
+				// 更新自动使用
+				UpdateAutoUseUI(setting.autoUse);
+			}
             
 			// 更新金币数量
 			if (m_glod != m_userProperty.GetNum((int)UserType.GOLD))
@@ -123,6 +134,7 @@ namespace SGame.UI{
 			{
 				m_view.m_battle.m_time.text = "";
 			}
+			m_userSetting = setting;
 		}
 		
 		partial void UnInitLogic(UIContext context)
