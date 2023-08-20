@@ -5,11 +5,15 @@ using Unity.Entities;
 using UnityEngine;
 namespace SGame
 {
+    /// <summary>
+    /// 执行事件功能
+    /// </summary>
     [DisableAutoCreation]
     public partial class TileEventProcessSystem : SystemBase
     {
-        private static ILog log = LogManager.GetLogger("xl.game");
-        private ItemGroup m_itemGroup;
+        private static ILog                         log         = LogManager.GetLogger("xl.game")     ;
+        private ItemGroup                           m_itemGroup                                            ;
+        private Dictionary<int, List<IDesginEvent>> m_nodeEvents = new Dictionary<int, List<IDesginEvent>>();
 
         protected override void OnCreate()
         {

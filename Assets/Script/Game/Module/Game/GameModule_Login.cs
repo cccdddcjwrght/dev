@@ -76,6 +76,11 @@ namespace SGame
 
                 var waitMessage = new WaitMessage<Login>((int)GameMsgID.CsLogin);
                 yield return waitMessage;
+                if (waitMessage.IsTimeOut)
+                {
+                    log.Error("Message Time Out");
+                    break;
+                }
                 if (waitMessage.Value == null || waitMessage.Value.Response == null)
                 {
                     log.Error("Message Null");
@@ -120,7 +125,6 @@ namespace SGame
             yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
             UIUtils.CloseUI(EntityManager, loadingUI);
-            
 
             yield return null;
         }
