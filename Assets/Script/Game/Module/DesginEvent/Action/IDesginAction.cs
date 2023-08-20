@@ -5,15 +5,13 @@ using UnityEngine;
 namespace SGame
 {
     /// <summary>
-    /// 执行事件
+    /// 场景事件
     /// </summary>
-    public abstract class IDesginEvent
+    public abstract class IDesginAction
     {
-        // 执行的地块
-        public  int tileId;
-        
         // 执行
         public virtual void Do() { }
     }
-    
+
+
 }

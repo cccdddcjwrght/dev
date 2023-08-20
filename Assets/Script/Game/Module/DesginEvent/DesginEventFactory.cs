@@ -11,7 +11,7 @@ namespace SGame
         /// </summary>
         /// <param name="eventParam"></param>
         /// <returns></returns>
-        public List<IDesginEvent> Create(DesginEvent eventParam)
+        public List<IDesginAction> Create(DesginEvent eventParam)
         {
             return null;
         }

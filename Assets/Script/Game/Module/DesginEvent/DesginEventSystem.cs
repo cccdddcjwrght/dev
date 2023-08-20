@@ -34,7 +34,7 @@ namespace SGame
         /// <summary>
         /// 事件对象
         /// </summary>
-        private List<IDesginEvent> m_datas;
+        private List<IDesginAction> m_datas;
         
         /// <summary>
         /// 游戏事件工厂

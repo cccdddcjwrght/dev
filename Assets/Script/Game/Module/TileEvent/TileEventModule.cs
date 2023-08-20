@@ -32,11 +32,13 @@ namespace SGame
         }
 
         /// <summary>
-        /// 运行下一个骰子
+        /// 运行下一回合的事件处理
         /// </summary>
-        public void RunNext()
+        public void NextRound()
         {
             // m_desginEvent.get
+            // 1. 解析事件, 生成下一个骰子应该播放多少
+            // 2. 生成对应的游戏内事件集
         }
     }
 }
