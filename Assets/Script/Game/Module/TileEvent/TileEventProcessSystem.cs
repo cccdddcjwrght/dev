@@ -20,9 +20,20 @@ namespace SGame
         private static ILog                         log         = LogManager.GetLogger("xl.game")     ;
         private ItemGroup                           m_itemGroup                                            ;
 
-        private List<TileEventProcess> m_currentProcess;
-        private List<TileEventProcess> m_sucessProcess;
-        private List<TileEventProcess> m_failProcess;
+        /// <summary>
+        /// 当前待处理事件
+        /// </summary>
+        private List<TileEventProcess>              m_currentProcess;
+        
+        /// <summary>
+        /// 检测成功后的事件
+        /// </summary>
+        private List<TileEventProcess>              m_sucessProcess;
+        
+        /// <summary>
+        /// 检测不通过的事件
+        /// </summary>
+        private List<TileEventProcess>              m_failProcess;
 
 
         /// <summary>

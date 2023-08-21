@@ -66,6 +66,7 @@ namespace SGame
                 TileEventProcess v  = new TileEventProcess();
                 v.condition         = m_conditionFactory.CreateTileCondition(0, i, TileEventTrigger.State.PASSOVER);
                 v.action            = m_actionFactory.CreateGold(addGold);
+                ret.Add(v);
             }
 
             return ret;
