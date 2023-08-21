@@ -88,7 +88,7 @@ namespace SGame
                         else
                         {
                             // 不符合触发条件
-                            m_sucessProcess.Add(eventData);
+                            m_failProcess.Add(eventData);
                         }
                     }
                 }
