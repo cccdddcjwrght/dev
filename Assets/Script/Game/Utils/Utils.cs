@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Unity.Entities;
 
 namespace SGame
 {
@@ -66,6 +67,42 @@ namespace SGame
             if (dt.Hour > 0)
                 return dt.ToString("HH:mm:ss");
             return dt.ToString("mm:ss");
+        }
+
+        /// <summary>
+        /// 获得场景中数据单列
+        /// </summary>
+        /// <param name="entityManager"></param>
+        /// <param name="data"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public bool TryGetSingletonData<T>(EntityManager entityManager, out T data) where T : struct, IComponentData
+        {
+            data = default;
+            EntityQuery query = entityManager.CreateEntityQuery(typeof(CheckPointData));
+            if (query.CalculateEntityCount() == 0)
+                return false;
+
+            data = query.GetSingleton<T>();
+            return true;
+        }
+        
+        /// <summary>
+        /// 获得场景中数据单列
+        /// </summary>
+        /// <param name="entityManager"></param>
+        /// <param name="data"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public bool TryGetSingletonObject<T>(EntityManager entityManager, out T data) where T : class, IComponentData
+        {
+            data = default;
+            EntityQuery query = entityManager.CreateEntityQuery(typeof(CheckPointData));
+            if (query.CalculateEntityCount() == 0)
+                return false;
+
+            data = query.GetSingleton<T>();
+            return true;
         }
     }
 }

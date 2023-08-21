@@ -163,8 +163,8 @@ namespace SGame
             // 获得随机骰子
             // 获得下一轮数据
             var diceData = m_tileEventModule.NextRound(m_curCheckPoint);
-            int dice_value1 = diceData.Value1; //m_randomSystem.NextInt(1, 7);
-            int dice_value2 = diceData.Value2; //m_randomSystem.NextInt(1, 7);
+            int dice_value1 = diceData.Value1; 
+            int dice_value2 = diceData.Value2;
 
             // 同时运行两个骰子动画
             yield return FiberHelper.RunParallel(

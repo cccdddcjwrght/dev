@@ -18,12 +18,18 @@ namespace SGame
         private const string SERVER_ADDRESS = "address";
         private const string SERVER_PORT    = "port";
 
+        private LoaderUserInfo.Types.Response m_userInfo;
+
         // 设置默认值
         private void SetupDefault()
         {
-            m_userData.SetNum((int)UserType.GOLD,               GlobalDesginConfig.GetInt(COIN_DEFAULT));
+            m_curCheckPoint = m_userInfo.Pos;
+            
+            m_userData.SetNum((int)UserType.GOLD,               m_userInfo.Coin);
             m_userData.SetNum((int)UserType.DICE_POWER,         GlobalDesginConfig.GetInt(DICE_DEFAULT));
             m_userData.SetNum((int)UserType.DICE_MAXPOWER,      GlobalDesginConfig.GetInt(DICE_LIMIT));
+            m_userData.SetNum((int)UserType.POS,      m_userInfo.Pos);
+
             
             // 创建恢复骰子对象
             var recover = EntityManager.CreateEntity(typeof(DiceRecover), typeof(TimeoutData));
@@ -36,8 +42,33 @@ namespace SGame
             {
                 Value = dice_add_time
             });
-            
+
+            foreach (var e in m_userInfo.StepList)
+            {
+                m_tileEventModule.AddEventGroup(CovertNetEventToRound(e));
+            }
+
             UpdateDicePower(true);
+        }
+
+        static RoundData CovertNetEventToRound(DiceEvent diceEvent)
+        {
+            RoundData d = new RoundData()
+            {
+                eventId = diceEvent.EventId,
+                dice1 = diceEvent.Dice1,
+                dice2 = diceEvent.Dice2,
+                pos = diceEvent.Pos,
+                roundEvent =  new RoundEvent()
+                {
+                    eventType   = (int)diceEvent.Data.Type,
+                    playerId    = diceEvent.Data.PlayerId,
+                    gold        =  diceEvent.Data.Gold,
+                    card_id     =  diceEvent.Data.CardId,
+                }
+            };
+
+            return d;
         }
 
         IEnumerator LoginServer()
@@ -89,9 +120,33 @@ namespace SGame
                 if (waitMessage.Value.Response.Err != ErrorCode.ErrorSuccess)
                 {
                     log.Error("Login Fail=" + waitMessage.Value.Response.Err.ToString());
-                    //continue;
+                    break;
                 }
-                //log.Info("Login Success login id=" +  waitMessage.Value.Response.Playerid.ToString());
+
+                var loaderUserInfo = new LoaderUserInfo()
+                {
+                    Request = new LoaderUserInfo.Types.Request()
+                };
+                loaderUserInfo.Send((int)GameMsgID.CsLoaderUserInfo);
+                var waitUserInfo = new WaitMessage<LoaderUserInfo>((int)GameMsgID.CsLoaderUserInfo);
+                yield return waitUserInfo;
+                if (waitUserInfo.Value == null)
+                {
+                    log.Error("loaderUserInfo  is null" );
+                    break;
+                }
+                var userInfo = waitUserInfo.Value.Response;
+                if (userInfo.Code != ErrorCode.ErrorSuccess)
+                {
+                    log.Error("Get User Fail=" + waitMessage.Value.Response.Err.ToString());
+                    break;
+                }
+                //userInfo.Pos
+                
+                log.Info("dice =" + userInfo.Dice.ToString() + " dice max=" + userInfo.DiceMax.ToString());
+                m_userInfo = userInfo;
+                
+                // 发送获取数据
                 break;
             }
         }
@@ -125,6 +180,8 @@ namespace SGame
             yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
             UIUtils.CloseUI(EntityManager, loadingUI);
+            
+            
 
             yield return null;
         }
