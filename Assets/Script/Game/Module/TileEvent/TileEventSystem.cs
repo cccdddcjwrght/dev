@@ -41,7 +41,7 @@ namespace SGame
                     }
                     else
                     {
-                        trigger.Add(new TileEventTrigger() { titleId = titleId,                     state = TileEventTrigger.State.ENTER });
+                        trigger.Add(new TileEventTrigger() { titleId = titleId,                     state = TileEventTrigger.State.PASSOVER });
                     }
                     eventRecord.previousTitleId = eventRecord.titleId;
                     eventRecord.titleId = titleId;

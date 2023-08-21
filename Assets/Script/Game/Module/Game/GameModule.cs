@@ -21,7 +21,9 @@ namespace SGame
             UserInputsystem userInputSystem,
             CharacterModule characterModule, 
             DiceModule      diceModule,
-            PropertyManager property)
+            PropertyManager property,
+            TileEventModule tileEventModule
+            )
         {
             m_gameWorld       = gameWorld;
             m_resourceManager = resourceManager;
@@ -30,6 +32,7 @@ namespace SGame
             m_diceModule      = diceModule;
             m_resourceManager = resourceManager;
             m_userInputSystem = userInputSystem;
+            m_tileEventModule = tileEventModule;
             m_fiber           = new Fiber(Logic());
 
             m_userData        = property.GetGroup(ItemType.USER);
@@ -158,8 +161,10 @@ namespace SGame
             m_userData.AddNum((int)UserType.DICE_POWER, -m_userSetting.doubleBonus);
             
             // 获得随机骰子
-            int dice_value1 = m_randomSystem.NextInt(1, 7);
-            int dice_value2 = m_randomSystem.NextInt(1, 7);
+            // 获得下一轮数据
+            var diceData = m_tileEventModule.NextRound(m_curCheckPoint);
+            int dice_value1 = diceData.Value1; //m_randomSystem.NextInt(1, 7);
+            int dice_value2 = diceData.Value2; //m_randomSystem.NextInt(1, 7);
 
             // 同时运行两个骰子动画
             yield return FiberHelper.RunParallel(
@@ -201,7 +206,7 @@ namespace SGame
             {
                 int index = (m_curCheckPoint + i) % m_checkPoints.Value.Count;
                 
-                // 添加位置
+                // 添加位置 
                 paths.Add(m_checkPoints.Value[index]);
             }
             int startIndex = m_curCheckPoint;
@@ -258,6 +263,8 @@ namespace SGame
 
         private UserSetting         m_userSetting;
 
+        private TileEventModule    m_tileEventModule;
+        
         private EventHandleContainer m_eventHandles = new EventHandleContainer();
     }
 }

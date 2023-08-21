@@ -12,18 +12,24 @@ namespace SGame
     public class DesginGoldAction : IDesginAction
     {
         private static ILog log = LogManager.GetLogger("DesginGold");
-        private ItemGroup  m_userProperty;
         
         // 添加金币
         public int Value;
+
+        public int PlayerId;
+
+        public DesginGoldAction(int add_gold, int playerId = 0)
+        {
+            Value = add_gold;
+            this.PlayerId = playerId;
+        }
         
         public override void Do()
         {
+           var userProperty =  PropertyManager.Instance.GetUserGroup(PlayerId);
+
             // 执行添加金币事件
-            m_userProperty.AddNum((int)UserType.GOLD, Value); 
-            //UserSetting setting = DataCenter.Instance.GetUserSetting();
-            //log.Info("Execute Gold=" + Value.ToString());
-            //m_itemGroup.AddNum((int)UserType.GOLD, RandomSystem.Instance.NextInt(0, 10) * setting.doubleBonus);
+            userProperty.AddNum((int)UserType.GOLD, Value);
         }
     }
 }

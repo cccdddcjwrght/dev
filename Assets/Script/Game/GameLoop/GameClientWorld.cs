@@ -24,6 +24,7 @@ namespace SGame
 			m_syncSystem        = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
 			m_userInputSystem   = world.GetECSWorld().CreateSystem<UserInputsystem>();
 			m_dataCenter        = new DataCenter(world);
+			m_tileEventModule	= new TileEventModule(world, m_randomSystem);
 
 			m_gameModule        = new GameModule(world, 
 				resourceManager, 
@@ -31,8 +32,8 @@ namespace SGame
 				m_userInputSystem, 
 				m_character, 
 				m_dice,
-				m_propertyManager);
-			m_tileEventModule = new TileEventModule(world);
+				m_propertyManager,
+				m_tileEventModule);
 			
 			InitalizeUI();
 

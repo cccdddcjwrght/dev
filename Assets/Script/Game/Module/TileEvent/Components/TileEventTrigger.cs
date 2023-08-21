@@ -12,10 +12,8 @@ namespace SGame
     {
         public enum State : uint
         {
-            ENTER = 0,  // 进入
-            STAY  = 1,  // 停留            
-            LEAVE = 2,  // 离开事件
-            FINISH = 3, // 完成事件, 移动到目标点
+            PASSOVER = 0,  // 路过
+            FINISH   = 1, // 完成事件, 移动到目标点
         }
 
         //public Entity  entity;
