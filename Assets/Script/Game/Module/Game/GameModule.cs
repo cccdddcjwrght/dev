@@ -183,12 +183,12 @@ namespace SGame
 
             // 角色移动
             var waitMove = PlayerMove(dice_value1 + dice_value2);
-            
             if (m_tileEventModule.IsEmpty())
             {
                 SendGetNextEventPool(m_currentPlayerPos, m_userInfo.MapId);
             }
-            
+            yield return waitMove;
+
             // 移动结束了, 同步服务器
             SendCommitEvent(diceData.eventId);
         }

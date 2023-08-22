@@ -14,6 +14,7 @@ namespace SGame
         {
             var client = NetworkManager.Instance.GetClient();
             m_eventHandles += client.RegMessage((int)GameMsgID.CsDiceCommitPos, OnMsg_DiceCommitPosResponse);
+            m_eventHandles += client.RegMessage((int)GameMsgID.CsDiceEventPool, OnMsg_DiceEventUpdate);
         }
 
         /// <summary>
