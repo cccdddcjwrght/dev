@@ -11,4 +11,6 @@ namespace SGame
         GOLD          = 3, // 金币数量
         POS           = 4, // 位置信息
     }
+    
+    
 }

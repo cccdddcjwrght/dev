@@ -25,6 +25,9 @@ namespace SGame
 			m_userInputSystem   = world.GetECSWorld().CreateSystem<UserInputsystem>();
 			m_dataCenter        = new DataCenter(world);
 			m_tileEventModule	= new TileEventModule(world, m_randomSystem);
+			m_buildModule		= BuildingModule.Instance;
+			
+			m_buildModule.Initalize(world);
 
 			m_gameModule        = new GameModule(world, 
 				resourceManager, 
@@ -184,6 +187,11 @@ namespace SGame
 		/// 场景头显界面
 		/// </summary>
 		private HudModule                      m_hudModule;
+
+		/// <summary>
+		/// 建筑模块
+		/// </summary>
+		private BuildingModule				    m_buildModule;
 
 		private SnakeModule                    m_snake;
 	}

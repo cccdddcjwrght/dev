@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace SGame
 {
+    // 属性类型
     public enum ItemType : uint
     {
-        // Start is called before the first frame update
-        USER = 0, // 用户属性
-        ITEM = 1, // 道具
+        USER = 0,       // 用户属性
+        ITEM = 10000,   // 道具
     }
 }

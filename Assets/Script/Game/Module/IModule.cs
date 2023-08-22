@@ -6,7 +6,6 @@ namespace SGame
 {
     public interface IModule
     {
-        void Update();
         void Shutdown();
     }
 }
