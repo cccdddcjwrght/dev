@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Cs;
 using Fibers;
 using log4net;
 using Unity.Entities;
@@ -68,6 +69,9 @@ namespace SGame
         // 开始游戏
         IEnumerator StartGame()
         {
+            // 网络初始化
+            NetInit();
+            
             // 等待checkPoint 转换结束!
             yield return FiberHelper.Wait(1.0f);
             
@@ -162,7 +166,13 @@ namespace SGame
             
             // 获得随机骰子
             // 获得下一轮数据
-            var diceData = m_tileEventModule.NextRound(m_curCheckPoint);
+            if (m_tileEventModule.NextRound(m_currentPlayerPos, out DiceRollData diceData) == false)
+            {
+                log.Info("Game Event List Is Empty!");
+                yield break;
+            }
+
+            
             int dice_value1 = diceData.Value1; 
             int dice_value2 = diceData.Value2;
 
@@ -172,7 +182,15 @@ namespace SGame
                 ShowDice(m_dice2, dice_value2 , 0.5f));
 
             // 角色移动
-            yield return PlayerMove(dice_value1 + dice_value2);
+            var waitMove = PlayerMove(dice_value1 + dice_value2);
+            
+            if (m_tileEventModule.IsEmpty())
+            {
+                SendGetNextEventPool(m_currentPlayerPos, m_userInfo.MapId);
+            }
+            
+            // 移动结束了, 同步服务器
+            SendCommitEvent(diceData.eventId);
         }
 
         IEnumerator ShowDice(Entity dice, int num, float time)
@@ -204,28 +222,28 @@ namespace SGame
             List<float3> paths = new List<float3>(move_num);
             for (int i = 0; i < move_num + 1; i++)
             {
-                int index = (m_curCheckPoint + i) % m_checkPoints.Value.Count;
+                int index = (m_currentPlayerPos + i) % m_checkPoints.Value.Count;
                 
                 // 添加位置 
                 paths.Add(m_checkPoints.Value[index]);
             }
-            int startIndex = m_curCheckPoint;
-            m_curCheckPoint += move_num;
-            m_curCheckPoint %= m_checkPoints.Value.Count;
+            int startIndex = m_currentPlayerPos;
+            m_currentPlayerPos += move_num;
+            m_currentPlayerPos %= m_checkPoints.Value.Count;
 
             // 移动角色
             CharacterMover mover = mgr.GetComponentObject<CharacterMover>(m_player);
             mover.MoveTo(paths, startIndex, MOVE_INTERVAL_TIME);
 
             Character character = mgr.GetComponentObject<Character>(m_player);
-            character.titleId = m_curCheckPoint;
+            character.titleId = m_currentPlayerPos;
             
             // 等待角色移动结束
             while (mover.isFinish == false)
                 yield return null;
-            
+
             // 显示游戏内事件
-            log.Info(string.Format("Move Finish Start Index={0} End Index={1} DiceNum={2}", startIndex, m_curCheckPoint, move_num));
+            log.Info(string.Format("Move Finish Start Index={0} End Index={1} DiceNum={2}", startIndex, m_currentPlayerPos, move_num));
         }
 
 
@@ -252,7 +270,7 @@ namespace SGame
         private RandomSystem        m_randomSystem   ;
         
         // 当前移动点
-        private int                 m_curCheckPoint  ;
+        private int                 m_currentPlayerPos  ;
 
         private UserInputsystem    m_userInputSystem ;
         

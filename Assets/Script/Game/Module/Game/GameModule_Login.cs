@@ -23,7 +23,7 @@ namespace SGame
         // 设置默认值
         private void SetupDefault()
         {
-            m_curCheckPoint = m_userInfo.Pos;
+            m_currentPlayerPos = m_userInfo.Pos;
             
             m_userData.SetNum((int)UserType.GOLD,               m_userInfo.Coin);
             m_userData.SetNum((int)UserType.DICE_POWER,         GlobalDesginConfig.GetInt(DICE_DEFAULT));
@@ -59,6 +59,7 @@ namespace SGame
                 dice1 = diceEvent.Dice1,
                 dice2 = diceEvent.Dice2,
                 pos = diceEvent.Pos,
+                serverEventId =  diceEvent.Id,
                 roundEvent =  new RoundEvent()
                 {
                     eventType   = (int)diceEvent.Data.Type,

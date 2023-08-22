@@ -27,7 +27,7 @@ namespace SGame
                     return CreateGold(e.gold);
                 
                 default:
-                    log.Error("Error Not Support Event" + e.eventType);
+                    log.Warn("Error Not Support Event=" + ((Cs.EventType)e.eventType).ToString());
                     break;
             }
 

@@ -13,6 +13,9 @@ namespace SGame
         
         // 第二个骰子的值
         public int Value2;
+
+        // 服务器ID识别
+        public int eventId;
     }
 
     public struct RoundEvent
@@ -29,6 +32,7 @@ namespace SGame
         public int dice1;
         public int dice2;
         public int pos;
+        public int serverEventId;
 
         public RoundEvent roundEvent;
     }
@@ -89,17 +93,20 @@ namespace SGame
         /// <summary>
         /// 解析事件数据, 并运行下一回合的事件处理
         /// </summary>
-        public DiceRollData NextRound(int startTileId)
+        public bool NextRound(int startTileId, out DiceRollData v)
         {
+            v = default;
+            if (m_roundDatas.Count == 0)
+                return false;
+            
             // 获得第一个event
             RoundData data = m_roundDatas.First();
             m_roundDatas.RemoveAt(0);
             
-            DiceRollData v = new DiceRollData();
-            
             // 1. 解析事件, 生成下一个骰子应该播放多少
             v.Value1 = data.dice1; //m_randomSystem.NextInt(1, 7);
             v.Value2 = data.dice2; //m_randomSystem.NextInt(1, 7);
+            v.eventId = data.serverEventId;
             int endTileID = startTileId + v.Value1 + v.Value2;
 
             // 添加路过事件
@@ -116,7 +123,16 @@ namespace SGame
             {
                 m_processSystem.AddTileEvent(cond, act);
             }
-            return v;
+            return true;
+        }
+
+        /// <summary>
+        /// 判断事件池是否为空
+        /// </summary>
+        /// <returns></returns>
+        public bool IsEmpty()
+        {
+            return m_roundDatas.Count == 0;
         }
 
         public void AddEventGroup(RoundData diceEvent)
