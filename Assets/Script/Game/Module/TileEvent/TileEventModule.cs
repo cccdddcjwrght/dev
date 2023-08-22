@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
 using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
@@ -71,16 +72,30 @@ namespace SGame
         /// <summary>
         /// 计算路过的事件
         /// </summary>
-        /// <param name="startTileId"></param>
-        /// <param name="endTileId"></param>
+        /// <param name="startPos"></param>
+        /// <param name="endPos"></param>
         /// <returns></returns>
-        List<TileEventProcess> GetPassEventProcess(int startTileId, int endTileId)
+        List<TileEventProcess> GetPassEventProcess(int startPos, int endPos)
         {
             List<TileEventProcess> ret = new List<TileEventProcess>();
-            for (int i = startTileId; i < endTileId; i++)
+            for (int i = startPos; i < endPos; i++)
             {
+                int tileId = TileModule.Instance.GetTileIdByPos(i);
+                
+                // 获得配置
+                if (!ConfigSystem.Instance.TryGet(tileId, out GameConfigs.GridRowData girdData))
+                {
+                    log.Error("tile not found=" + tileId + " pos=" + i);
+                    continue;
+                }
+
+                if (girdData.BaseRewardLength != 2)
+                {
+                    continue;
+                }
+
                 // 随机获取金币数量
-                int addGold = m_randomSystem.NextInt(10, 20);
+                int addGold = girdData.BaseReward(1);//m_randomSystem.NextInt(10, 20);
                 TileEventProcess v  = new TileEventProcess();
                 v.condition         = m_conditionFactory.CreateTileCondition(0, i, TileEventTrigger.State.PASSOVER);
                 v.action            = m_actionFactory.CreateGold(addGold);
@@ -152,6 +167,7 @@ namespace SGame
         private RandomSystem           m_randomSystem;
         
 
-        private List<RoundData> m_roundDatas = new List<RoundData>();
+        private List<RoundData>     m_roundDatas    = new List<RoundData>();
+        private static ILog         log             = LogManager.GetLogger("xl.Game.tileevent");
     }
 }
