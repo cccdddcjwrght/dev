@@ -9,37 +9,27 @@ namespace SGame
     /// <summary>
     /// 银行事件
     /// </summary>
-    public class DesginBankAction : IDesginAction
+    public class DesginGoldAction : IDesginAction
     {
         private static ILog log = LogManager.GetLogger("DesginGold");
         
-        // 银行ID
-        int    m_bankID;
-
-        // 是存钱还是取钱
-        bool   m_isSave; 
-        
         // 添加金币
-        int    m_gold;
+        public int Value;
 
-        // 角色ID
-        int    m_playerID;
+        public int PlayerId;
 
-        public DesginBankAction(int bankId, bool isSave, int add_gold,  int playerId = 0)
+        public DesginGoldAction(int add_gold, int playerId = 0)
         {
-            m_bankID    = bankId;
-            m_isSave    = isSave;
-            m_gold      = add_gold;
-            m_playerID  = playerId;
+            Value = add_gold;
+            this.PlayerId = playerId;
         }
         
         public override void Do()
         {
-           // var userProperty =  PropertyManager.Instance.GetUserGroup(PlayerId);
+            var userProperty =  PropertyManager.Instance.GetUserGroup(PlayerId);
+
             // 执行添加金币事件
-            // userProperty.AddNum((int)UserType.GOLD, Value);
-            
-            
+            userProperty.AddNum((int)UserType.GOLD, Value);
         }
     }
 }
