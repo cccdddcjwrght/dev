@@ -26,11 +26,10 @@ namespace SGame
             m_currentPlayerPos = m_userInfo.Pos;
             
             m_userData.SetNum((int)UserType.GOLD,               m_userInfo.Coin);
-            m_userData.SetNum((int)UserType.DICE_POWER,         GlobalDesginConfig.GetInt(DICE_DEFAULT));
-            m_userData.SetNum((int)UserType.DICE_MAXPOWER,      GlobalDesginConfig.GetInt(DICE_LIMIT));
-            m_userData.SetNum((int)UserType.POS,      m_userInfo.Pos);
+            m_userData.SetNum((int)UserType.DICE_NUM,         m_userInfo.Dice);
+            m_userData.SetNum((int)UserType.DICE_MAXNUM,      m_userInfo.DiceMax);
+            m_userData.SetNum((int)UserType.POS,                m_userInfo.Pos);
 
-            
             // 创建恢复骰子对象
             var recover = EntityManager.CreateEntity(typeof(DiceRecover), typeof(TimeoutData));
             var dice_add_time = (float)GlobalDesginConfig.GetInt(DICE_ADD_TIME);
@@ -38,11 +37,9 @@ namespace SGame
                 duration   = dice_add_time,
                 recoverNum = GlobalDesginConfig.GetInt(DICE_ADD_NUM),
             });
-            EntityManager.SetComponentData(recover, new TimeoutData
-            {
-                Value = dice_add_time
-            });
+            EntityManager.SetComponentData(recover, new TimeoutData { Value = dice_add_time });
 
+            // 创建事件
             foreach (var e in m_userInfo.StepList)
             {
                 m_tileEventModule.AddEventGroup(CovertNetEventToRound(e));

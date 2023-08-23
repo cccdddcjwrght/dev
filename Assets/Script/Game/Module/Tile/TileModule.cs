@@ -15,7 +15,7 @@ public class TileModule : Singleton<TileModule>, IModule
         
     }
 
-    // 加载地图ID
+    // 通过地图ID 加载地图
     public void LoadMap(int id)
     {
         
@@ -26,7 +26,25 @@ public class TileModule : Singleton<TileModule>, IModule
     {
         return pos + 1;
     }
-    
+
+    /// <summary>
+    /// 通过位置获得场景
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public int GetBuildingIDByPos(int pos)
+    {
+        int tileId = GetTileIdByPos(pos);
+        if (tileId <= 0)
+            return -1;
+
+        if (!ConfigSystem.Instance.TryGet(tileId, out GameConfigs.GridRowData girdData))
+        {
+            return -1;
+        }
+
+        return girdData.EventBuildId;
+    }
     
     public void Update()
     {

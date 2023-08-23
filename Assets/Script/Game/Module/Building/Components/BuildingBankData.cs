@@ -7,6 +7,6 @@ namespace SGame
         /// <summary>
         /// 银行金币
         /// </summary>
-        public int Value;
+        public long Value;
     }
 }

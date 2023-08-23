@@ -8,7 +8,7 @@ namespace SGame
     [GenerateAuthoringComponent]
     public struct JumpTimeData : IComponentData
     {
-        // 移动时间
+        // 移动时间 
         public float Value;
     }
 }

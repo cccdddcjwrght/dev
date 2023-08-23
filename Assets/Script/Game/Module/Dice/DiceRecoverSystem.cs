@@ -11,8 +11,8 @@ namespace SGame
         // 骰子的显示对象
         private ItemGroup         m_userData;
         private Entity            m_counter;
-        private const int DICE_ID = (int)UserType.DICE_POWER;
-        private const int MAXDICE_ID = (int)UserType.DICE_MAXPOWER;
+        private const int DICE_ID = (int)UserType.DICE_NUM;
+        private const int MAXDICE_ID = (int)UserType.DICE_MAXNUM;
         
         public void Initalize(ItemGroup userData)
         {

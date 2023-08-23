@@ -124,13 +124,13 @@ namespace SGame
             while (true)
             {
                 m_userSetting = DataCenter.Instance.GetUserSetting();
-                int dicePower = (int)m_userData.GetNum((int)UserType.DICE_POWER);
+                int dicePower = (int)m_userData.GetNum((int)UserType.DICE_NUM);
                 
                 if (m_userSetting.autoUse == true)
                 {
                     // 自动投掷就等待1秒
                     yield return FiberHelper.Wait(1.0f);
-                    if (dicePower < m_userSetting.doubleBonus)
+                    if (dicePower < m_userSetting.power)
                     {
                         // 取消自动骰子
                         m_userSetting.autoUse = false;
@@ -145,7 +145,7 @@ namespace SGame
                 UserInput input = m_userInputSystem.GetInput();
                 if (input.rollDice == true)
                 {
-                    if (dicePower < m_userSetting.doubleBonus)
+                    if (dicePower < m_userSetting.power)
                     {
                         TipDiceNotEnough();
                         yield return null;
@@ -162,7 +162,7 @@ namespace SGame
         IEnumerator Play()
         {
             // 消耗一个骰子数量
-            m_userData.AddNum((int)UserType.DICE_POWER, -m_userSetting.doubleBonus);
+            m_userData.AddNum((int)UserType.DICE_NUM, -m_userSetting.power);
             
             // 获得随机骰子
             // 获得下一轮数据
@@ -190,7 +190,7 @@ namespace SGame
             yield return waitMove;
 
             // 移动结束了, 同步服务器
-            SendCommitEvent(diceData.eventId);
+            SendCommitEvent(diceData.eventId, m_userSetting.power);
         }
 
         IEnumerator ShowDice(Entity dice, int num, float time)

@@ -21,13 +21,14 @@ namespace SGame
         /// 同步事件
         /// </summary>
         /// <param name="eventId"></param>
-        void SendCommitEvent(int eventId)
+        void SendCommitEvent(int eventId, int power)
         {
             var commitPos = new Cs.DiceCommitPos()
             {
                 Request = new DiceCommitPos.Types.Request()
                 {
                     Id = eventId,
+                    Power = power,
                     Travel = false,
                 }
             }.Send((int)GameMsgID.CsDiceCommitPos);

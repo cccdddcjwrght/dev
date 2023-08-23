@@ -16,16 +16,16 @@ namespace SGame
             m_gameWorld = gameWorld;
             m_datas     = new Dictionary<int, Entity>(32);
             
-            CreateBankDefault();
+            CreateBuilds();
         }
 
         /// <summary>
         /// 设置
         /// </summary>
-        void CreateBankDefault()
+        void CreateBuilds()
         {
-            var archetypeBank = EntityManager.CreateArchetype(typeof(BuildingBankData), typeof(BuildingData));
-            GameConfigs.Build_Bank values = ConfigSystem.Instance.LoadConfig<GameConfigs.Build_Bank>();
+            var archetypeBase = EntityManager.CreateArchetype( typeof(BuildingData));
+            GameConfigs.Event_Build values = ConfigSystem.Instance.LoadConfig<GameConfigs.Event_Build>();
             for (int i = 0; i < values.DatalistLength; i++)
             {
                 var data = values.Datalist(i);
@@ -36,13 +36,49 @@ namespace SGame
                 };
                 
                 // 生成默认银行
-                var e = EntityManager.CreateEntity(archetypeBank);
-                var buildData = new BuildingData() { id = data.Value.Id, level = data.Value.BuildLevel };
-                var bankData = new BuildingBankData() { Value = data.Value.BasicRewardsCoin };
+                var e      = EntityManager.CreateEntity(archetypeBase);
+                var buildData   = new BuildingData()                            { id = data.Value.Id, level = 1 , buildType = data.Value.EventType};
+
+                int buildingEventId = data.Value.BuildId(buildData.level - 1);
+
+                switch (data.Value.EventType)
+                {
+                    case (int)Cs.EventType.Gold:
+                        // 服务器已处理
+                        break;
+                    case (int)Cs.EventType.Bank:
+                        AddBankData(e, buildingEventId);
+                        break;
+                }
+                
                 EntityManager.SetComponentData(e, buildData);
-                EntityManager.SetComponentData(e, bankData);
                 m_datas.Add(buildData.id, e);
             }
+        }
+        
+        /// <summary>
+        /// 添加银行数据
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="buildEventId"></param>
+        void AddBankData(Entity e, int buildEventId)
+        {
+            if (!ConfigSystem.Instance.TryGet(buildEventId, out GameConfigs.Build_BankRowData data))
+            {
+                log.Error("bank build event id not found=" + buildEventId);
+                return;
+            }
+            
+            // 设置银行初始值
+            var bankData    = new BuildingBankData()                        { Value = data.BasicRewardsCoin };
+            EntityManager.AddComponent<BuildingBankData>(e);
+            EntityManager.SetComponentData(e, bankData);
+        }
+        
+
+        public int GetBuildEventId(int buildId, int level)
+        {
+            return Utils.GetBuildingEventId(buildId, level);
         }
 
         public void Shutdown()

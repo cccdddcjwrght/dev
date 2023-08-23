@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using log4net;
+using Unity.Entities;
 using UnityEngine;
 
 
@@ -12,27 +13,23 @@ namespace SGame
     public class DesginBankAction : IDesginAction
     {
         private static ILog log = LogManager.GetLogger("xl.tileevent.DesginBankAction");
-        
-        // 银行ID
-        int    m_buildingID;
 
-        // 是存钱还是取钱
-        bool   m_isSave; 
-        
-        // 添加金币
-        int    m_gold;
+        // 银行ID
+        int m_buildingID;
+
+        // 给银行添加金币, 负数就是取钱
+        int m_gold;
 
         // 角色ID
-        int    m_playerID;
+        int m_playerID;
 
-        public DesginBankAction(int buildingID, bool isSave, int add_gold,  int playerId = 0)
+        public DesginBankAction(int buildingID, int add_gold, int playerId = 0)
         {
-            m_buildingID  = buildingID;
-            m_isSave      = isSave;
-            m_gold        = add_gold;
-            m_playerID    = playerId;
+            m_buildingID = buildingID;
+            m_gold = add_gold;
+            m_playerID = playerId;
         }
-        
+
         public override void Do()
         {
             if (BuildingModule.Instance.HasBuidlingData<BuildingBankData>(m_buildingID) == false)
@@ -42,22 +39,21 @@ namespace SGame
             }
 
             var bankData = BuildingModule.Instance.GetBuildingData<BuildingBankData>(m_buildingID);
-            if (m_isSave)
-            {
-                // 存银行
-                bankData.Value += m_gold;
-                BuildingModule.Instance.SetBuildingData(m_buildingID, bankData);
-            }
-            else
+            bankData.Value += m_gold;
+
+            if (m_gold < 0)
             {
                 // 取银行
-                bankData.Value -= m_gold;
-                
+                bankData.Value += m_gold;
+
                 // 执行添加金币事件
-                var userProperty =  PropertyManager.Instance.GetUserGroup(m_playerID);
-                userProperty.AddNum((int)UserType.GOLD, m_gold);
+                var userProperty = PropertyManager.Instance.GetUserGroup(m_playerID);
+                userProperty.AddNum((int)UserType.GOLD, -m_gold);
             }
 
+            // 银行添加金币
+            BuildingModule.Instance.SetBuildingData(m_buildingID, bankData);
+            EventManager.Instance.Trigger((int)GameEvent.PROPERTY_BANK, m_gold, bankData.Value , m_buildingID, m_playerID);
         }
     }
 }

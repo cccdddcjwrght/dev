@@ -24,11 +24,13 @@ namespace SGame
 			m_syncSystem        = world.GetECSWorld().CreateSystem<EntitySyncGameObjectSystem>();
 			m_userInputSystem   = world.GetECSWorld().CreateSystem<UserInputsystem>();
 			m_dataCenter        = new DataCenter(world);
-			m_tileEventModule	= new TileEventModule(world, m_randomSystem);
+			m_tileModule		= TileModule.Instance;
 			m_buildModule		= BuildingModule.Instance;
-			
-			m_buildModule.Initalize(world);
 
+			m_tileModule.Initalize(world);
+			m_buildModule.Initalize(world);
+			
+			m_tileEventModule	= new TileEventModule(world, m_randomSystem, m_tileModule);
 			m_gameModule        = new GameModule(world, 
 				resourceManager, 
 				m_randomSystem, 
@@ -192,6 +194,11 @@ namespace SGame
 		/// 建筑模块
 		/// </summary>
 		private BuildingModule				    m_buildModule;
+
+		/// <summary>
+		/// 瓦块模块
+		/// </summary>
+		private TileModule                      m_tileModule;
 
 		private SnakeModule                    m_snake;
 	}

@@ -13,6 +13,8 @@ namespace SGame.UI{
 		
 		private float m_holdTime = 0;
 		private bool  m_holdEvent = false;
+
+		private EventHandleContainer m_handles = new EventHandleContainer();
 		
 		partial void InitEvent(UIContext context)
 		{
@@ -22,11 +24,28 @@ namespace SGame.UI{
 
 			clickBtn.onTouchBegin.Add(OnTouchBattleBegin);
 			clickBtn.onTouchEnd.Add(OnTouchBattleEnd);
+
+			m_handles += EventManager.Instance.Reg<int,long,int>((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
+			m_handles += EventManager.Instance.Reg<int,long,int,int>((int)GameEvent.PROPERTY_BANK, OnEventBankChange);
 		}
 		
 		partial void UnInitEvent(UIContext context){
 
 		}
+
+		void OnEventGoldChange(int value, long newValue, int playerId)
+		{
+			log.Info("On Gold Update add =" + value + " newvalue=" + newValue + " plyaerid=" + playerId);
+			SetGoldText(newValue.ToString());
+			ShowNumberEffect("g+" + value, Color.red);
+		}
+		
+		void OnEventBankChange(int value, long newValue, int buildingId, int playerId)
+		{
+			log.Info("On Bank Update add =" + value + " newvalue=" + newValue + "buildingid="+ buildingId + " plyaerid=" + playerId);
+			ShowNumberEffect("b+" + value, Color.blue);
+		}
+
 
 		void OnTouchBattleBegin(EventContext e)
 		{
@@ -62,10 +81,10 @@ namespace SGame.UI{
 			
 			// 显示ALL WIN 提示
 			var v = DataCenter.Instance.GetUserSetting();
-			string showTitle = string.Format("all win  X{0}", v.doubleBonus);
+			string showTitle = string.Format("all win  X{0}", v.power);
 			Color color = Color.blue;
 			// 138,43,226
-			if (v.doubleBonus == v.maxBonus)
+			if (v.power == v.maxPower)
 				color = new Color(138 / 255.0f, 43 / 255.0f, 226 /255.0f);
 			FloatTextRequest.CreateEntity(
 				m_context.gameWorld.GetEntityManager(), showTitle,
@@ -82,6 +101,11 @@ namespace SGame.UI{
 				autoDice = false;
 				EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
 			}
+		}
+
+		void UnInitEvent()
+		{
+			m_handles.Close();
 		}
 	}
 }

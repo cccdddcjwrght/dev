@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using GameConfigs;
 using Unity.Entities;
 
 namespace SGame
@@ -76,7 +77,7 @@ namespace SGame
         /// <param name="data"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public bool TryGetSingletonData<T>(EntityManager entityManager, out T data) where T : struct, IComponentData
+        public static bool TryGetSingletonData<T>(EntityManager entityManager, out T data) where T : struct, IComponentData
         {
             data = default;
             EntityQuery query = entityManager.CreateEntityQuery(typeof(CheckPointData));
@@ -94,7 +95,7 @@ namespace SGame
         /// <param name="data"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public bool TryGetSingletonObject<T>(EntityManager entityManager, out T data) where T : class, IComponentData
+        public static bool TryGetSingletonObject<T>(EntityManager entityManager, out T data) where T : class, IComponentData
         {
             data = default;
             EntityQuery query = entityManager.CreateEntityQuery(typeof(CheckPointData));
@@ -103,6 +104,22 @@ namespace SGame
 
             data = query.GetSingleton<T>();
             return true;
+        }
+
+        // 根据等级获取 building event id
+        public static int GetBuildingEventId(int buildingId, int level)
+        {
+            if (!ConfigSystem.Instance.TryGet(buildingId, out Event_BuildRowData buildData))
+            {
+                return -1;
+            }
+
+            if (level <= 0 || level > buildData.BuildIdLength)
+            {
+                return -1;
+            }
+
+            return buildData.BuildId(level - 1);
         }
     }
 }

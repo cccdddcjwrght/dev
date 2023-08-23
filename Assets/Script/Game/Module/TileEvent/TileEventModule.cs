@@ -46,14 +46,17 @@ namespace SGame
     {
 
 
-        public TileEventModule(GameWorld gameWorld, RandomSystem randomSystem)
+        public TileEventModule(GameWorld gameWorld, 
+            RandomSystem randomSystem, 
+            TileModule tileModule)
         {
             m_gameWorld     = gameWorld;
             m_randomSystem  = randomSystem;
+            m_tileModule    = tileModule;
             m_eventSystem   = gameWorld.GetECSWorld().CreateSystem<TileEventSystem>();
             m_processSystem = gameWorld.GetECSWorld().CreateSystem<TileEventProcessSystem>();
             m_conditionFactory  = new DesginConditionFactory();
-            m_actionFactory     = new DesginActionFactory();
+            m_actionFactory     = new DesginActionFactory(tileModule);
             //m_desginEvent       = new List<DesginEvent>();
         }
 
@@ -80,7 +83,7 @@ namespace SGame
             List<TileEventProcess> ret = new List<TileEventProcess>();
             for (int i = startPos; i < endPos; i++)
             {
-                int tileId = TileModule.Instance.GetTileIdByPos(i);
+                int tileId = m_tileModule.GetTileIdByPos(i);
                 
                 // 获得配置
                 if (!ConfigSystem.Instance.TryGet(tileId, out GameConfigs.GridRowData girdData))
@@ -88,18 +91,36 @@ namespace SGame
                     log.Error("tile not found=" + tileId + " pos=" + i);
                     continue;
                 }
+                
+                // 条件判定
+                var cond    = m_conditionFactory.CreateTileCondition(0, i, TileEventTrigger.State.PASSOVER);
+                
+                /// 建筑路过
+                IDesginAction act = m_actionFactory.CreatePass(girdData.EventType, tileId, girdData.EventBuildId);
+                if (act != null)
+                {
+                    ret.Add(new TileEventProcess()
+                    {
+                        condition = cond,
+                        action    = act
+                    });
+                }
 
+                // 金币路过
                 if (girdData.BaseRewardLength != 2)
                 {
                     continue;
                 }
 
-                // 随机获取金币数量
-                int addGold = girdData.BaseReward(1);//m_randomSystem.NextInt(10, 20);
-                TileEventProcess v  = new TileEventProcess();
-                v.condition         = m_conditionFactory.CreateTileCondition(0, i, TileEventTrigger.State.PASSOVER);
-                v.action            = m_actionFactory.CreateGold(addGold);
-                ret.Add(v);
+                // 添加自动金币事件
+                int addGold = girdData.BaseReward(1);
+                if (addGold != 0)
+                {
+                    TileEventProcess v = new TileEventProcess();
+                    v.condition        = cond;
+                    v.action           = m_actionFactory.CreateGold(addGold);
+                    ret.Add(v);
+                }
             }
 
             return ret;
@@ -108,7 +129,7 @@ namespace SGame
         /// <summary>
         /// 解析事件数据, 并运行下一回合的事件处理
         /// </summary>
-        public bool NextRound(int startTileId, out DiceRollData v)
+        public bool NextRound(int startPos, out DiceRollData v)
         {
             v = default;
             if (m_roundDatas.Count == 0)
@@ -119,21 +140,21 @@ namespace SGame
             m_roundDatas.RemoveAt(0);
             
             // 1. 解析事件, 生成下一个骰子应该播放多少
-            v.Value1 = data.dice1; //m_randomSystem.NextInt(1, 7);
-            v.Value2 = data.dice2; //m_randomSystem.NextInt(1, 7);
+            v.Value1 = data.dice1;                          
+            v.Value2 = data.dice2;                         
             v.eventId = data.serverEventId;
-            int endTileID = startTileId + v.Value1 + v.Value2;
+            int endPos = startPos + v.Value1 + v.Value2;
 
             // 添加路过事件
-            List<TileEventProcess> passoverEvent = GetPassEventProcess(startTileId, endTileID);
+            List<TileEventProcess> passoverEvent = GetPassEventProcess(startPos, endPos);
             foreach (var e in passoverEvent)
             {
                 m_processSystem.AddTileEvent(e.condition, e.action);
             }
             
             // 添加结束事件
-            var cond = m_conditionFactory.CreateTileCondition(0, endTileID, TileEventTrigger.State.FINISH);
-            var act = m_actionFactory.Create(data.roundEvent);//m_actionFactory.CreateGold(m_randomSystem.NextInt(100, 200));
+            var cond = m_conditionFactory.CreateTileCondition(0, endPos, TileEventTrigger.State.FINISH);
+            var act = m_actionFactory.Create(data.roundEvent, endPos);//m_actionFactory.CreateGold(m_randomSystem.NextInt(100, 200));
             if (act != null)
             {
                 m_processSystem.AddTileEvent(cond, act);
@@ -159,12 +180,13 @@ namespace SGame
         /// 数据
         /// </summary>
         private TileEventSystem        m_eventSystem;
-        private TileEventProcessSystem m_processSystem;
-        private GameWorld              m_gameWorld;
+        private TileEventProcessSystem  m_processSystem;
+        private GameWorld               m_gameWorld;
         //private List<DesginEvent>      m_desginEvent;
-        private DesginConditionFactory m_conditionFactory;
-        private DesginActionFactory    m_actionFactory;
-        private RandomSystem           m_randomSystem;
+        private DesginConditionFactory  m_conditionFactory;
+        private DesginActionFactory     m_actionFactory;
+        private RandomSystem            m_randomSystem;
+        private TileModule              m_tileModule;
         
 
         private List<RoundData>     m_roundDatas    = new List<RoundData>();

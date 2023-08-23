@@ -17,7 +17,6 @@ namespace SGame.UI{
 		private UserSetting      m_userSetting;
 		private long             m_dicePower;
 		private long             m_diceMaxPower;
-		private long             m_glod;
 
 		private UIContext        m_context;
 		private ItemGroup        m_userProperty;
@@ -28,11 +27,10 @@ namespace SGame.UI{
 
 			m_userProperty = PropertyManager.Instance.GetGroup(ItemType.USER);
 			m_dicePower = -1;
-			m_glod = m_userProperty.GetNum((int)UserType.GOLD);
 			m_userData = DataCenter.Instance.GetUserData();
 			m_userSetting = DataCenter.Instance.GetUserSetting();
 
-			SetGoldText(m_glod.ToString());
+			SetGoldText(m_userProperty.GetNum((int)UserType.GOLD).ToString());
 			UpdateBonusText();
 		}
 
@@ -61,10 +59,10 @@ namespace SGame.UI{
 
 		void UpdateBonusText()
 		{
-			SetBattleBtn_PowerText("X" + m_userSetting.doubleBonus.ToString());
-			if (m_userSetting.doubleBonus != m_userSetting.maxBonus)
+			SetBattleBtn_PowerText("X" + m_userSetting.power.ToString());
+			if (m_userSetting.power != m_userSetting.maxPower)
 			{
-				m_view.m_battle.title = "X" + m_userSetting.maxBonus.ToString();
+				m_view.m_battle.title = "X" + m_userSetting.maxPower.ToString();
 			}
 			else
 			{
@@ -72,7 +70,7 @@ namespace SGame.UI{
 			}
 		}
 		
-		void ShowNumberEffect(int num)
+		void ShowNumberEffect(string num, Color color)
 		{
 			m_userData = DataCenter.Instance.GetUserData();
 			EntityManager mgr = m_context.gameWorld.GetEntityManager();
@@ -80,7 +78,7 @@ namespace SGame.UI{
 				return;
 
 			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
-			FloatTextRequest.CreateEntity(mgr, num.ToString(), pos, Color.red, 40,1.0f);
+			FloatTextRequest.CreateEntity(mgr, num, pos, color, 40,1.0f);
 		}
 		
 		private  void onUpdate(UIContext context)
@@ -93,28 +91,18 @@ namespace SGame.UI{
 			}
 			
 			// 设置最大控制状态
-			m_view.m_battle.m_max.selectedIndex = setting.doubleBonus != setting.maxBonus ? 1 : 0;
-            
-			// 更新金币数量
-			if (m_glod != m_userProperty.GetNum((int)UserType.GOLD))
-			{
-				long cur = m_userProperty.GetNum((int)UserType.GOLD);
-				long addvalue = cur - m_glod;
-				m_glod = cur;
-				SetGoldText(m_glod.ToString());
-				ShowNumberEffect((int)addvalue);
-			}
+			m_view.m_battle.m_max.selectedIndex = setting.power != setting.maxPower ? 1 : 0;
 
 			// 更新倍率设置
-			if (setting.doubleBonus != m_userSetting.doubleBonus)
+			if (setting.power != m_userSetting.power)
 			{
 				m_userSetting = setting;//.doubleBonus = setting.doubleBonus;
 				UpdateBonusText();
 			}
 
 			// 更新骰子进度
-			var diceMaxPower = m_userProperty.GetNum((int)UserType.DICE_MAXPOWER);
-			var dicePower    = m_userProperty.GetNum((int)UserType.DICE_POWER);
+			var diceMaxPower = m_userProperty.GetNum((int)UserType.DICE_MAXNUM);
+			var dicePower    = m_userProperty.GetNum((int)UserType.DICE_NUM);
 			
 			if (m_dicePower    != diceMaxPower ||
 				m_diceMaxPower != dicePower)

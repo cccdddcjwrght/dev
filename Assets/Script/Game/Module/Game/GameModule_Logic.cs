@@ -30,8 +30,8 @@ namespace SGame
             }
             
             UserSetting setting = DataCenter.Instance.GetUserSetting();
-            int diceNum = (int)m_userData.GetNum((int)UserType.DICE_POWER);
-            if (setting.doubleBonus < diceNum)
+            int diceNum = (int)m_userData.GetNum((int)UserType.DICE_NUM);
+            if (setting.power < diceNum)
             {
                 OnChangeDicePower();
             }
@@ -40,12 +40,12 @@ namespace SGame
         void ChangeDicePower(bool isNext)
         {
             UserSetting setting = DataCenter.Instance.GetUserSetting();
-            int settingDiceNum = setting.doubleBonus;
-            int diceNum = (int)m_userData.GetNum((int)UserType.DICE_POWER);
+            int settingDiceNum = setting.power;
+            int diceNum = (int)m_userData.GetNum((int)UserType.DICE_NUM);
             if  (FindBetData(diceNum, out BetRowData data) == false)
             {
                 log.Error("Dice Num Config Not Found=" + diceNum.ToString());
-                setting.doubleBonus = 1;
+                setting.power = 1;
                 DataCenter.Instance.SetUserSetting(setting);
                 return;
             }
@@ -54,7 +54,7 @@ namespace SGame
             int i = 0;
             for (i = 0; i < data.BetLength; i++)
             {
-                if (data.Bet(i) == setting.doubleBonus)
+                if (data.Bet(i) == setting.power)
                     break;
             }
             if (i >= data.BetLength)
@@ -71,8 +71,8 @@ namespace SGame
                 index = i;
 
             int newNum          = data.Bet(index);
-            setting.maxBonus    = data.Bet(data.BetLength - 1);
-            setting.doubleBonus = newNum;
+            setting.maxPower    = data.Bet(data.BetLength - 1);
+            setting.power = newNum;
             DataCenter.Instance.SetUserSetting(setting);
         }
 
