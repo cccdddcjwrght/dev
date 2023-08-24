@@ -28,7 +28,6 @@ public static partial class Protocol
 				}
 				else 
 				{
-					GameDebug.Log($"Send Msg:{msgID}");
 					svr.Send(msgID, buffer, offset, length);
 				}
 			}

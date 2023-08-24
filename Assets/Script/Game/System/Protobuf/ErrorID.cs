@@ -51,9 +51,19 @@ namespace Cmd
 			return false;
 		}
 
+		static public bool CheckError(object val , bool tips = true)
+		{
+			var ret = false;
+			IsErrorProperty(val, ref ret, tips);
+			return ret;
+		}
+
 		static partial void Tips(string key);
 
 		static partial void Convert(int id ,ref string tips , ref bool isError);
+
+		static partial void IsErrorProperty(object val , ref bool ret, bool showtips = false);
+
 	}
 
 }

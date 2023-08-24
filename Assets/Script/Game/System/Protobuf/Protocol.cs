@@ -80,7 +80,7 @@ public static partial class Protocol
 
 		if (msgID > 0 && item != null)
 		{
-			PrintMsg(item);
+			PrintMsg(item , $"【Send:{msgID}】");
 			var buffer = item.Serialize();
 			if (buffer != null)
 				Send(msgID, buffer, svrType);
@@ -169,7 +169,7 @@ public static partial class Protocol
 	{
 		object msg = new T();
 		DoDeserialize(ref msg, buffer, offset, length);
-		PrintMsg(msg);
+		PrintMsg(msg,"【Recv】");
 		return msg as T;
 	}
 
@@ -207,5 +207,5 @@ public static partial class Protocol
 	static partial void DoRegister<T>(int protoID, Action<int, T> action, bool once = false, bool unregister = false) where T : class, IPMessage, new();
 
 	[Conditional("DEBUG")]
-	static partial void PrintMsg(object msg);
+	static partial void PrintMsg(object msg,string append = default);
 }

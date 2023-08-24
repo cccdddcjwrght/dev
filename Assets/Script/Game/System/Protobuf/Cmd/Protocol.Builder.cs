@@ -7,6 +7,17 @@ namespace Cmd
 {
 	partial class ErrorCode
 	{
+
+		static partial void IsErrorProperty(object val, ref bool ret , bool showtips )
+		{
+			if (val != null && val is Cs.ErrorCode e)
+			{
+				ret = true;
+				if (showtips)
+					IsError((int)e);
+			}
+		}
+
 		static partial void Convert(int id, ref string tips, ref bool isError)
 		{
 			var e	= (Cs.ErrorCode)id;

@@ -36,25 +36,3 @@ public static partial class Protocol
 	}
 }
 
-
-namespace Temp
-{
-	using Unity.Entities;
-	public partial class ProtoBufSystem : SystemBase
-	{
-		protected override void OnCreate()
-		{
-			/*
-			this.Call(() =>
-			{
-				Protocol.GetAdapter(0).RegMessage(0, (package) =>
-				{
-					Protocol.Recv(package.msgId, package.data.data, package.data.start_pos, package.data.len, (int)package.seq);
-				});
-			}, () => Game.HasInitialize && Game.Instance.IsInitalize);
-			*/
-		}
-
-		protected override void OnUpdate() { }
-	}
-}

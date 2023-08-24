@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Cmd;
 using IPMessage = Google.Protobuf.IMessage;
 
 public partial class Protocol
@@ -21,7 +22,7 @@ public partial class Protocol
 				PropertyInfo[] props = val.GetType().GetProperties();
 				foreach (PropertyInfo info in props)
 				{
-					if (info.PropertyType.Name.Contains("Google.")) continue;
+					if (info.PropertyType.FullName.Contains("Google.")) continue;
 					object value = info.GetGetMethod()?.Invoke(val, null);
 					if (value != null)
 						Format(value, sb, nex, info.Name);
@@ -40,16 +41,17 @@ public partial class Protocol
 			else
 			{
 				sb.AppendLine(pix + (name ?? "Field") + ":" + val.ToString());
+				ErrorCode.CheckError(val);
 			}
 			return s ? sb.ToString() : null;
 		}
 		return null;
 	}
 
-	static partial void PrintMsg(object msg)
+	static partial void PrintMsg(object msg, string append)
 	{
 		if (msg != null)
-			UnityEngine.Debug.Log(msg.Format());
+			UnityEngine.Debug.Log(append + "\n" + msg.Format());
 	}
 
 }
