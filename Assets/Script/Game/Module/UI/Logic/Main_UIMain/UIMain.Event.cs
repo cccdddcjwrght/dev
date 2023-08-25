@@ -43,7 +43,23 @@ namespace SGame.UI{
 		void OnEventBankChange(int value, long newValue, int buildingId, int playerId)
 		{
 			log.Info("On Bank Update add =" + value + " newvalue=" + newValue + "buildingid="+ buildingId + " plyaerid=" + playerId);
-			ShowNumberEffect("b+" + value, Color.blue);
+			if (value > 0)
+			{
+				// 存钱
+				ShowNumberEffect("b+" + value, Color.blue);
+			}
+			else
+			{
+				// 取钱
+				ShowNumberEffect("b-" + value, Color.blue);
+
+				UpdateGoldText();
+			}
+		}
+
+		void UpdateGoldText()
+		{
+			SetGoldText(m_userProperty.GetNum((int)UserType.GOLD).ToString());
 		}
 
 

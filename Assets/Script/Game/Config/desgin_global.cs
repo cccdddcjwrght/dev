@@ -26,30 +26,30 @@ public struct desgin_globalRowData : IFlatbufferObject
   public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(4); }
-  public string Value { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int Type { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Value { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetValueBytes() { return __p.__vector_as_span<byte>(6, 1); }
+  public Span<byte> GetValueBytes() { return __p.__vector_as_span<byte>(8, 1); }
 #else
-  public ArraySegment<byte>? GetValueBytes() { return __p.__vector_as_arraysegment(6); }
+  public ArraySegment<byte>? GetValueBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
-  public byte[] GetValueArray() { return __p.__vector_as_array<byte>(6); }
-  public int Type { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public byte[] GetValueArray() { return __p.__vector_as_array<byte>(8); }
 
   public static Offset<GameConfigs.desgin_globalRowData> Createdesgin_globalRowData(FlatBufferBuilder builder,
       StringOffset NameOffset = default(StringOffset),
-      StringOffset ValueOffset = default(StringOffset),
-      int Type = 0) {
+      int Type = 0,
+      StringOffset ValueOffset = default(StringOffset)) {
     builder.StartTable(3);
-    desgin_globalRowData.AddType(builder, Type);
     desgin_globalRowData.AddValue(builder, ValueOffset);
+    desgin_globalRowData.AddType(builder, Type);
     desgin_globalRowData.AddName(builder, NameOffset);
     return desgin_globalRowData.Enddesgin_globalRowData(builder);
   }
 
   public static void Startdesgin_globalRowData(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(0, NameOffset.Value, 0); }
-  public static void AddValue(FlatBufferBuilder builder, StringOffset ValueOffset) { builder.AddOffset(1, ValueOffset.Value, 0); }
-  public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
+  public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(1, Type, 0); }
+  public static void AddValue(FlatBufferBuilder builder, StringOffset ValueOffset) { builder.AddOffset(2, ValueOffset.Value, 0); }
   public static Offset<GameConfigs.desgin_globalRowData> Enddesgin_globalRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.desgin_globalRowData>(o);

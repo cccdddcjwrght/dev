@@ -44,8 +44,6 @@ namespace SGame
             if (m_gold < 0)
             {
                 // 取银行
-                bankData.Value += m_gold;
-
                 // 执行添加金币事件
                 var userProperty = PropertyManager.Instance.GetUserGroup(m_playerID);
                 userProperty.AddNum((int)UserType.GOLD, -m_gold);
