@@ -25,14 +25,13 @@ namespace SGame
             public Entity       buildingData;       // building 数据
             public GameObject   buildingRes;        // building 界面
         }
-        
-        // 位置到地块ID
-        // public Dictionary<int, int>         m_tileIdToPos;
 
         // 位置信息
         private CheckPointData              m_checkPotinData1;
         
-        
+        /// <summary>
+        /// 游戏世界
+        /// </summary>
         private GameWorld                   m_gameWorld;
 
         /// <summary>
@@ -45,11 +44,18 @@ namespace SGame
         /// </summary>
         private List<TileData>                  m_trivalDatas;
 
+        private MapType                         m_mapType       = MapType.NORMAL;
+
         public void Initalize(GameWorld gameWorld)
         {
             m_gameWorld      = gameWorld;
             m_tileDatas      = new List<TileData>();
         }
+
+        /// <summary>
+        /// 当前地图类型
+        /// </summary>
+        public MapType currentMap { get { return m_mapType; } }
 
         /// <summary>
         /// 
@@ -65,11 +71,28 @@ namespace SGame
         }
 
         /// <summary>
+        /// 关联建筑
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="gameObject"></param>
+        /// <returns></returns>
+        public bool ConnectBuilding(MapType map, int pos, GameObject gameObject)
+        {
+            // TRVAL
+            TileData data = GetData(pos, map);
+            if (data == null)
+                return false;
+
+            data.buildingRes = gameObject;
+            return true;
+        }
+
+        /// <summary>
         /// 获取地块相关数据
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public TileData GetData(int pos, MapType mapType = MapType.NORMAL)
+        public TileData GetData(int pos, MapType mapType)
         {
             var mapData = GetMap(mapType);
             if (pos < 0 || pos > mapData.Count)
@@ -134,9 +157,9 @@ namespace SGame
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public int GetTileIdByPos(int pos)
+        public int GetTileIdByPos(int pos, MapType mapType)
         {
-            return GetData(pos).tileId;
+            return GetData(pos, mapType).tileId;
         }
 
         /// <summary>
@@ -144,7 +167,7 @@ namespace SGame
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public int GetBuildingIDByPos(int pos, MapType mapType = MapType.NORMAL)
+        public int GetBuildingIDByPos(int pos, MapType mapType)
         {
             return GetData(pos, mapType).buildingId;
         }
@@ -156,7 +179,8 @@ namespace SGame
 
         public void Shutdown()
         {
-
+            m_tileDatas.Clear();
+            m_trivalDatas.Clear();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace SGame
         /// <returns></returns>
         public IDesginAction Create(RoundEvent e, int pos)
         {
-            int buildngID = m_tileModule.GetBuildingIDByPos(pos);
+            int buildngID = m_tileModule.GetBuildingIDByPos(pos, m_tileModule.currentMap);
             if (buildngID <= 0)
             {
                 log.Warn("build id not found pos=" + pos);

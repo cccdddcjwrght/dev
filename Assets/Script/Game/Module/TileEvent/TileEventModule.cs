@@ -83,7 +83,7 @@ namespace SGame
             List<TileEventProcess> ret = new List<TileEventProcess>();
             for (int i = startPos; i < endPos; i++)
             {
-                int tileId = m_tileModule.GetTileIdByPos(i);
+                int tileId = m_tileModule.GetTileIdByPos(i, m_tileModule.currentMap);
                 
                 // 获得配置
                 if (!ConfigSystem.Instance.TryGet(tileId, out GameConfigs.GridRowData girdData))
