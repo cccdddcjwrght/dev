@@ -27,7 +27,7 @@ namespace GameConfigs
 		public static int GetInt(string name)
 		{
 			//找到表里面的数值
-			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.desgin_globalRowData val))
+			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.Desgin_GlobalRowData val))
 			{
 				if (val.Type == (int)VType.VInt)
 				{
@@ -45,7 +45,7 @@ namespace GameConfigs
 		//类型是float时输出数据
 		public static float GetFloat(string name)
 		{
-			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.desgin_globalRowData val))
+			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.Desgin_GlobalRowData val))
 			{
 				if (val.Type == (int)VType.VFloat)
 				{
@@ -70,7 +70,7 @@ namespace GameConfigs
 		//类型是string时输出数据
 		public static string GetStr(string name, bool checkempty)
 		{
-			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.desgin_globalRowData val))
+			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.Desgin_GlobalRowData val))
 			{
 				if (val.Type == (int)VType.VStr && (!checkempty))
 				{
@@ -83,9 +83,9 @@ namespace GameConfigs
 			return null;
 		}
 
-		public static desgin_global GetCfg(int index = 0)
+		public static Desgin_Global GetCfg(int index = 0)
 		{
-			ConfigSystem.Instance.TryGetByIndex<desgin_global>(index, out var data);
+			ConfigSystem.Instance.TryGetByIndex<Desgin_Global>(index, out var data);
 			return data;
 		}
 	}

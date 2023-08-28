@@ -9,15 +9,15 @@ using global::System;
 using global::System.Collections.Generic;
 using global::FlatBuffers;
 
-public struct desgin_globalRowData : IFlatbufferObject
+public struct Desgin_GlobalRowData : IFlatbufferObject
 {
   private Table __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
   public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
-  public static desgin_globalRowData GetRootAsdesgin_globalRowData(ByteBuffer _bb) { return GetRootAsdesgin_globalRowData(_bb, new desgin_globalRowData()); }
-  public static desgin_globalRowData GetRootAsdesgin_globalRowData(ByteBuffer _bb, desgin_globalRowData obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public static Desgin_GlobalRowData GetRootAsDesgin_GlobalRowData(ByteBuffer _bb) { return GetRootAsDesgin_GlobalRowData(_bb, new Desgin_GlobalRowData()); }
+  public static Desgin_GlobalRowData GetRootAsDesgin_GlobalRowData(ByteBuffer _bb, Desgin_GlobalRowData obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
-  public desgin_globalRowData __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+  public Desgin_GlobalRowData __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public string Name { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
@@ -35,58 +35,58 @@ public struct desgin_globalRowData : IFlatbufferObject
 #endif
   public byte[] GetValueArray() { return __p.__vector_as_array<byte>(8); }
 
-  public static Offset<GameConfigs.desgin_globalRowData> Createdesgin_globalRowData(FlatBufferBuilder builder,
+  public static Offset<GameConfigs.Desgin_GlobalRowData> CreateDesgin_GlobalRowData(FlatBufferBuilder builder,
       StringOffset NameOffset = default(StringOffset),
       int Type = 0,
       StringOffset ValueOffset = default(StringOffset)) {
     builder.StartTable(3);
-    desgin_globalRowData.AddValue(builder, ValueOffset);
-    desgin_globalRowData.AddType(builder, Type);
-    desgin_globalRowData.AddName(builder, NameOffset);
-    return desgin_globalRowData.Enddesgin_globalRowData(builder);
+    Desgin_GlobalRowData.AddValue(builder, ValueOffset);
+    Desgin_GlobalRowData.AddType(builder, Type);
+    Desgin_GlobalRowData.AddName(builder, NameOffset);
+    return Desgin_GlobalRowData.EndDesgin_GlobalRowData(builder);
   }
 
-  public static void Startdesgin_globalRowData(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void StartDesgin_GlobalRowData(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(0, NameOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(1, Type, 0); }
   public static void AddValue(FlatBufferBuilder builder, StringOffset ValueOffset) { builder.AddOffset(2, ValueOffset.Value, 0); }
-  public static Offset<GameConfigs.desgin_globalRowData> Enddesgin_globalRowData(FlatBufferBuilder builder) {
+  public static Offset<GameConfigs.Desgin_GlobalRowData> EndDesgin_GlobalRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
-    return new Offset<GameConfigs.desgin_globalRowData>(o);
+    return new Offset<GameConfigs.Desgin_GlobalRowData>(o);
   }
 };
 
-public struct desgin_global : IFlatbufferObject
+public struct Desgin_Global : IFlatbufferObject
 {
   private Table __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
   public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
-  public static desgin_global GetRootAsdesgin_global(ByteBuffer _bb) { return GetRootAsdesgin_global(_bb, new desgin_global()); }
-  public static desgin_global GetRootAsdesgin_global(ByteBuffer _bb, desgin_global obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public static Desgin_Global GetRootAsDesgin_Global(ByteBuffer _bb) { return GetRootAsDesgin_Global(_bb, new Desgin_Global()); }
+  public static Desgin_Global GetRootAsDesgin_Global(ByteBuffer _bb, Desgin_Global obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
-  public desgin_global __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+  public Desgin_Global __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public GameConfigs.desgin_globalRowData? Datalist(int j) { int o = __p.__offset(4); return o != 0 ? (GameConfigs.desgin_globalRowData?)(new GameConfigs.desgin_globalRowData()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
+  public GameConfigs.Desgin_GlobalRowData? Datalist(int j) { int o = __p.__offset(4); return o != 0 ? (GameConfigs.Desgin_GlobalRowData?)(new GameConfigs.Desgin_GlobalRowData()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
   public int DatalistLength { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
 
-  public static Offset<GameConfigs.desgin_global> Createdesgin_global(FlatBufferBuilder builder,
+  public static Offset<GameConfigs.Desgin_Global> CreateDesgin_Global(FlatBufferBuilder builder,
       VectorOffset datalistOffset = default(VectorOffset)) {
     builder.StartTable(1);
-    desgin_global.AddDatalist(builder, datalistOffset);
-    return desgin_global.Enddesgin_global(builder);
+    Desgin_Global.AddDatalist(builder, datalistOffset);
+    return Desgin_Global.EndDesgin_Global(builder);
   }
 
-  public static void Startdesgin_global(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void StartDesgin_Global(FlatBufferBuilder builder) { builder.StartTable(1); }
   public static void AddDatalist(FlatBufferBuilder builder, VectorOffset datalistOffset) { builder.AddOffset(0, datalistOffset.Value, 0); }
-  public static VectorOffset CreateDatalistVector(FlatBufferBuilder builder, Offset<GameConfigs.desgin_globalRowData>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
-  public static VectorOffset CreateDatalistVectorBlock(FlatBufferBuilder builder, Offset<GameConfigs.desgin_globalRowData>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateDatalistVector(FlatBufferBuilder builder, Offset<GameConfigs.Desgin_GlobalRowData>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateDatalistVectorBlock(FlatBufferBuilder builder, Offset<GameConfigs.Desgin_GlobalRowData>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartDatalistVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static Offset<GameConfigs.desgin_global> Enddesgin_global(FlatBufferBuilder builder) {
+  public static Offset<GameConfigs.Desgin_Global> EndDesgin_Global(FlatBufferBuilder builder) {
     int o = builder.EndTable();
-    return new Offset<GameConfigs.desgin_global>(o);
+    return new Offset<GameConfigs.Desgin_Global>(o);
   }
-  public static void Finishdesgin_globalBuffer(FlatBufferBuilder builder, Offset<GameConfigs.desgin_global> offset) { builder.Finish(offset.Value); }
-  public static void FinishSizePrefixeddesgin_globalBuffer(FlatBufferBuilder builder, Offset<GameConfigs.desgin_global> offset) { builder.FinishSizePrefixed(offset.Value); }
+  public static void FinishDesgin_GlobalBuffer(FlatBufferBuilder builder, Offset<GameConfigs.Desgin_Global> offset) { builder.Finish(offset.Value); }
+  public static void FinishSizePrefixedDesgin_GlobalBuffer(FlatBufferBuilder builder, Offset<GameConfigs.Desgin_Global> offset) { builder.FinishSizePrefixed(offset.Value); }
 };
 
 
