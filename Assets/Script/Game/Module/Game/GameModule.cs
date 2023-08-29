@@ -177,7 +177,6 @@ namespace SGame
                 yield break;
             }
 
-            
             int dice_value1 = diceData.Value1; 
             int dice_value2 = diceData.Value2;
             if (dice_value1 == 0 || dice_value2 == 0)

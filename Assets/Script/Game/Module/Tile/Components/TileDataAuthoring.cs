@@ -47,6 +47,7 @@ namespace SGame
             int tileId = GetTileId();
             data.tileId = tileId;
             data.tileEntity = entity;
+            data.mapType = mapType;
             dstManager.SetComponentData(entity, data);
         }
     }
