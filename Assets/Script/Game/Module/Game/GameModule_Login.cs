@@ -40,6 +40,7 @@ namespace SGame
             EntityManager.SetComponentData(recover, new TimeoutData { Value = dice_add_time });
 
             // 创建事件
+            int i = 0;
             foreach (var e in m_userInfo.StepList)
             {
                 m_tileEventModule.AddEventGroup(CovertNetEventToRound(e));
@@ -53,6 +54,10 @@ namespace SGame
 
         static RoundData CovertNetEventToRound(DiceEvent diceEvent)
         {
+            if (diceEvent.Data == null)
+            {
+                log.Error("round event is null " + diceEvent.Id);
+            }
             RoundData d = new RoundData()
             {
                 eventId = diceEvent.EventId,

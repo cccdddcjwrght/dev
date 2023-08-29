@@ -22,7 +22,7 @@ public partial class Protocol
 				PropertyInfo[] props = val.GetType().GetProperties();
 				foreach (PropertyInfo info in props)
 				{
-					if (info.PropertyType.FullName.Contains("Google.")) continue;
+					//if (info.PropertyType.FullName.Contains("Google.")) continue;
 					object value = info.GetGetMethod()?.Invoke(val, null);
 					if (value != null)
 						Format(value, sb, nex, info.Name);
