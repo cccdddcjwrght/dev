@@ -46,6 +46,9 @@ namespace SGame
             }
 
             UpdateDicePower(true);
+            
+            // 加载地图
+            TileModule.Instance.LoadMap(m_userInfo.MapId, MapType.NORMAL);
         }
 
         static RoundData CovertNetEventToRound(DiceEvent diceEvent)

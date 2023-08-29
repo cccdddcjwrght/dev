@@ -44,8 +44,6 @@ namespace SGame
     /// </summary>
     public class TileEventModule
     {
-
-
         public TileEventModule(GameWorld gameWorld, 
             RandomSystem randomSystem, 
             TileModule tileModule)
@@ -57,7 +55,6 @@ namespace SGame
             m_processSystem = gameWorld.GetECSWorld().CreateSystem<TileEventProcessSystem>();
             m_conditionFactory  = new DesginConditionFactory();
             m_actionFactory     = new DesginActionFactory(tileModule);
-            //m_desginEvent       = new List<DesginEvent>();
         }
 
         public void Update()
@@ -81,9 +78,11 @@ namespace SGame
         List<TileEventProcess> GetPassEventProcess(int startPos, int endPos)
         {
             List<TileEventProcess> ret = new List<TileEventProcess>();
+            int tileCount = m_tileModule.tileCount;
             for (int i = startPos; i < endPos; i++)
             {
-                int tileId = m_tileModule.GetTileIdByPos(i, m_tileModule.currentMap);
+                int pos         = i % tileCount;
+                int tileId      = m_tileModule.GetTileIdByPos(pos, m_tileModule.currentMap);
                 
                 // 获得配置
                 if (!ConfigSystem.Instance.TryGet(tileId, out GameConfigs.GridRowData girdData))
@@ -153,8 +152,9 @@ namespace SGame
             }
             
             // 添加结束事件
+            int pos = endPos % m_tileModule.tileCount;
             var cond = m_conditionFactory.CreateTileCondition(0, endPos, TileEventTrigger.State.FINISH);
-            var act = m_actionFactory.Create(data.roundEvent, endPos);//m_actionFactory.CreateGold(m_randomSystem.NextInt(100, 200));
+            var act = m_actionFactory.Create(data.roundEvent, pos);//m_actionFactory.CreateGold(m_randomSystem.NextInt(100, 200));
             if (act != null)
             {
                 m_processSystem.AddTileEvent(cond, act);
@@ -179,10 +179,10 @@ namespace SGame
         /// <summary>
         /// 数据
         /// </summary>
-        private TileEventSystem        m_eventSystem;
+        private TileEventSystem         m_eventSystem;
         private TileEventProcessSystem  m_processSystem;
         private GameWorld               m_gameWorld;
-        //private List<DesginEvent>      m_desginEvent;
+        //private List<DesginEvent>     m_desginEvent;
         private DesginConditionFactory  m_conditionFactory;
         private DesginActionFactory     m_actionFactory;
         private RandomSystem            m_randomSystem;

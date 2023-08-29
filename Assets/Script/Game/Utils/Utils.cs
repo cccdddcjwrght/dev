@@ -80,7 +80,7 @@ namespace SGame
         public static bool TryGetSingletonData<T>(EntityManager entityManager, out T data) where T : struct, IComponentData
         {
             data = default;
-            EntityQuery query = entityManager.CreateEntityQuery(typeof(CheckPointData));
+            EntityQuery query = entityManager.CreateEntityQuery(typeof(T));
             if (query.CalculateEntityCount() == 0)
                 return false;
 
@@ -98,7 +98,7 @@ namespace SGame
         public static bool TryGetSingletonObject<T>(EntityManager entityManager, out T data) where T : class, IComponentData
         {
             data = default;
-            EntityQuery query = entityManager.CreateEntityQuery(typeof(CheckPointData));
+            EntityQuery query = entityManager.CreateEntityQuery(typeof(T));
             if (query.CalculateEntityCount() == 0)
                 return false;
 

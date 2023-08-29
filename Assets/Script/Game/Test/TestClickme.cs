@@ -38,6 +38,7 @@ public class TestClickme : MonoBehaviour
 
     public void MoveCharacter()
     {
+        /*
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         EntityQuery query = entityManager.CreateEntityQuery(typeof(CheckPointData));
         CheckPointData c = query.GetSingleton<CheckPointData>();
@@ -46,5 +47,6 @@ public class TestClickme : MonoBehaviour
         Entity ce = query2.GetSingletonEntity();
         CharacterMover character = entityManager.GetComponentObject<CharacterMover>(ce);
         character.MoveTo(c.Value, 0, 0);
+        */
     }
 }

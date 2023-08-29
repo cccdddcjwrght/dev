@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8398511855532451183}
   - component: {fileID: 6389253342382035977}
   - component: {fileID: 7234787673065774209}
-  - component: {fileID: 2084745338853057787}
+  - component: {fileID: 2773969300377000688}
+  - component: {fileID: 6303750193958628928}
   m_Layer: 0
   m_Name: checkpoint
   m_TagString: Untagged
@@ -84,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2084745338853057787
+--- !u!114 &2773969300377000688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +94,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7460438305644343137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ac9e180769c4e749aa9d96d2f996aee, type: 3}
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0
+--- !u!114 &6303750193958628928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460438305644343137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abdde3dcc69f2d64ea5a2c20836c6628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

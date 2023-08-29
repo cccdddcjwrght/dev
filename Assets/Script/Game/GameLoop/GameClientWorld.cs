@@ -38,6 +38,7 @@ namespace SGame
 				m_character, 
 				m_dice,
 				m_propertyManager,
+				m_tileModule,
 				m_tileEventModule);
 			
 			InitalizeUI();
@@ -85,6 +86,9 @@ namespace SGame
 			// 游戏逻辑模块
 			m_gameModule.Update();
 			
+			// 地块更新
+			m_tileModule.Update();
+			
 			// 游戏内场景事件
 			m_tileEventModule.Update();
 
@@ -108,6 +112,7 @@ namespace SGame
 			m_gameModule.Shutdown();
 			m_gameWorld.GetECSWorld().DestroySystem(m_syncSystem);
 			m_gameWorld.GetECSWorld().DestroySystem(m_userInputSystem);
+			m_tileModule.Shutdown();
 			m_tileEventModule.Shutdown();
 			m_uiModule.Shutdown();
 			m_dataCenter.Shutdown();

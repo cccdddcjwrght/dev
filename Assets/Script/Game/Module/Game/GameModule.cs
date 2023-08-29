@@ -23,6 +23,7 @@ namespace SGame
             CharacterModule characterModule, 
             DiceModule      diceModule,
             PropertyManager property,
+            TileModule      tileModule,
             TileEventModule tileEventModule
             )
         {
@@ -33,6 +34,7 @@ namespace SGame
             m_diceModule      = diceModule;
             m_resourceManager = resourceManager;
             m_userInputSystem = userInputSystem;
+            m_tileModule      = tileModule;
             m_tileEventModule = tileEventModule;
             m_fiber           = new Fiber(Logic());
 
@@ -76,17 +78,20 @@ namespace SGame
             yield return FiberHelper.Wait(1.0f);
             
             EntityManager mgr = m_gameWorld.GetEntityManager();
-            EntityQuery query = mgr.CreateEntityQuery(typeof(CheckPointData));
-            m_checkPoints = query.GetSingleton<CheckPointData>();
+            //var mapData = m_tileModule.current;
+            //EntityQuery query = mgr.CreateEntityQuery(typeof(CheckPointData));
+            //m_checkPoints = query.GetSingleton<CheckPointData>();
+            
 
-            if (m_checkPoints.Value.Count <= 2)
+            if (m_tileModule.tileCount <= 2)
             {
                 yield break;
             }
             
             // 1. 创建角色
             m_player = m_characterModule.CreateCharacter(101);
-            mgr.SetComponentData(m_player, new Translation{Value = m_checkPoints.Value[0]});
+            float3 pos = m_tileModule.current.GetTileDataFromPos(0).Position3d;
+            mgr.SetComponentData(m_player, new Translation{Value = pos});
             UserData userData = DataCenter.Instance.GetUserData();
             userData.player = m_player;
             DataCenter.Instance.SetUserData(userData);
@@ -175,6 +180,11 @@ namespace SGame
             
             int dice_value1 = diceData.Value1; 
             int dice_value2 = diceData.Value2;
+            if (dice_value1 == 0 || dice_value2 == 0)
+            {
+                log.Error("dice is zero!");
+                yield break;
+            }
 
             // 同时运行两个骰子动画
             yield return FiberHelper.RunParallel(
@@ -220,16 +230,17 @@ namespace SGame
             
             // 统计移动点
             List<float3> paths = new List<float3>(move_num);
+            var currentMap = m_tileModule.current;
             for (int i = 0; i < move_num + 1; i++)
             {
-                int index = (m_currentPlayerPos + i) % m_checkPoints.Value.Count;
+                int index = (m_currentPlayerPos + i) % currentMap.count;
                 
                 // 添加位置 
-                paths.Add(m_checkPoints.Value[index]);
+                paths.Add(currentMap.GetTileDataFromPos(index).Position3d);// m_checkPoints.Value[index]);
             }
             int startIndex = m_currentPlayerPos;
             m_currentPlayerPos += move_num;
-            m_currentPlayerPos %= m_checkPoints.Value.Count;
+            m_currentPlayerPos %= currentMap.count;
 
             // 移动角色
             CharacterMover mover = mgr.GetComponentObject<CharacterMover>(m_player);
@@ -266,7 +277,7 @@ namespace SGame
         private Entity              m_dice2           ;
 
         // 路径点
-        private CheckPointData      m_checkPoints    ;
+        private TileModule          m_tileModule     ;
         private RandomSystem        m_randomSystem   ;
         
         // 当前移动点

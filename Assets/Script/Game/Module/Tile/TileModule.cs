@@ -2,33 +2,17 @@ using System.Collections.Generic;
 using GameConfigs;
 using log4net;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace SGame
 {
-    public enum MapType : int
-    {
-        NORMAL = 0, // 默认的地块路径
-        TRVAL  = 1, // 出行
-    }
+
     
     public class TileModule : Singleton<TileModule>, IModule
     {
         private static ILog log = LogManager.GetLogger("xl.game");
 
-        // 地块数据
-        public class TileData
-        {
-            public int          tileId;             // 地块ID       
-            public int          pos;                // 位置
-            public int          buildingId;         // buildingID
-            public Entity       buildingData;       // building 数据
-            public GameObject   buildingRes;        // building 界面
-        }
-
-        // 位置信息
-        private CheckPointData              m_checkPotinData1;
-        
         /// <summary>
         /// 游戏世界
         /// </summary>
@@ -37,19 +21,24 @@ namespace SGame
         /// <summary>
         /// 瓦片ID
         /// </summary>
-        private List<TileData>                   m_tileDatas;
+        private TileMap                   m_mapNormal;
 
         /// <summary>
         /// 出行地块
         /// </summary>
-        private List<TileData>                  m_trivalDatas;
+        private TileMap                  m_mapTrival;
 
-        private MapType                         m_mapType       = MapType.NORMAL;
+        private MapType                  m_mapType       = MapType.NORMAL;
+
+        private TileInitalizeSystem     m_initalizeSystem;
 
         public void Initalize(GameWorld gameWorld)
         {
             m_gameWorld      = gameWorld;
-            m_tileDatas      = new List<TileData>();
+            m_mapNormal      = new TileMap(gameWorld);
+            m_mapTrival      = new TileMap(gameWorld);
+            m_initalizeSystem = gameWorld.GetECSWorld().CreateSystem<TileInitalizeSystem>();
+            m_initalizeSystem.Initalize(this);
         }
 
         /// <summary>
@@ -58,33 +47,38 @@ namespace SGame
         public MapType currentMap { get { return m_mapType; } }
 
         /// <summary>
+        /// 地块数量
+        /// </summary>
+        public int tileCount
+        {
+            get
+            {
+                return GetMap(currentMap).count;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="mapType"></param>
         /// <returns></returns>
-        private List<TileData> GetMap(MapType mapType)
+        public TileMap GetMap(MapType mapType)
         {
             if (mapType == MapType.NORMAL)
-                return m_tileDatas;
+                return m_mapNormal;
 
-            return m_trivalDatas;
+            return m_mapTrival;
         }
 
         /// <summary>
-        /// 关联建筑
+        /// 当前地图
         /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="gameObject"></param>
-        /// <returns></returns>
-        public bool ConnectBuilding(MapType map, int pos, GameObject gameObject)
+        public TileMap current
         {
-            // TRVAL
-            TileData data = GetData(pos, map);
-            if (data == null)
-                return false;
-
-            data.buildingRes = gameObject;
-            return true;
+            get
+            {
+                return GetMap(m_mapType);
+            }
         }
 
         /// <summary>
@@ -95,10 +89,13 @@ namespace SGame
         public TileData GetData(int pos, MapType mapType)
         {
             var mapData = GetMap(mapType);
-            if (pos < 0 || pos > mapData.Count)
+            if (pos < 0 || pos >= mapData.count)
+            {
+                log.Error("Pos Not Found=" + pos + " mapType=" + mapType);
                 return null;
+            }
 
-            return mapData[pos];
+            return mapData.GetTileDataFromPos(pos);// [pos];
         }
 
         /// <summary>
@@ -109,22 +106,8 @@ namespace SGame
         /// <returns></returns>
         public bool LoadMap(int id, MapType mapType = MapType.NORMAL)
         {
-            if (!ConfigSystem.Instance.TryGet(id, out Grid_PathRowData girdData))
-            {
-                log.Info("path not found = " + id.ToString());
-                return false;
-            }
-
-            var mapData = GetMap(mapType);
-            mapData.Clear();
-            for (int i = 0; i < girdData.PositionLength; i++)
-            {
-                int tileId = girdData.Position(i);
-                TileData data = CreateTileData(i, tileId);// new TileData();
-                mapData.Add(data);
-            }
-            
-            return true;
+            var m = GetMap(mapType);
+            return m.LoadMap(id);
         }
 
         /// <summary>
@@ -148,7 +131,7 @@ namespace SGame
             }
 
             data.buildingId = girdData.EventBuildId;
-            data.buildingData = BuildingModule.Instance.GetBuilding(data.buildingId);
+            //data.buildingData = BuildingModule.Instance.GetBuilding(data.buildingId);
             return data;
         }
 
@@ -174,13 +157,14 @@ namespace SGame
 
         public void Update()
         {
-
+            m_initalizeSystem.Update();
         }
 
         public void Shutdown()
         {
-            m_tileDatas.Clear();
-            m_trivalDatas.Clear();
+            m_mapNormal.Shutdown();
+            m_mapTrival.Shutdown();
+            m_gameWorld.GetECSWorld().DestroySystem(m_initalizeSystem);
         }
     }
 }
