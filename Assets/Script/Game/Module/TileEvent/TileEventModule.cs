@@ -70,6 +70,18 @@ namespace SGame
         }
 
         /// <summary>
+        /// 清空所有游戏事件
+        /// </summary>
+        public void ClearAllEvents()
+        {
+            // 清空运行中的事件
+            m_processSystem.Clear();
+            
+            // 清空队列中的事件
+            m_roundDatas.Clear();
+        }
+
+        /// <summary>
         /// 计算路过的事件
         /// </summary>
         /// <param name="startPos"></param>

@@ -35,6 +35,15 @@ namespace SGame
         /// </summary>
         private List<TileEventProcess>              m_failProcess;
 
+        /// <summary>
+        /// 清空所有当前事件
+        /// </summary>
+        public void Clear()
+        {
+            m_currentProcess.Clear();
+            m_sucessProcess.Clear();
+            m_failProcess.Clear();
+        }
 
         /// <summary>
         /// 添加地砖相关事件

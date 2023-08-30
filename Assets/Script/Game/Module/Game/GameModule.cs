@@ -40,7 +40,8 @@ namespace SGame
 
             m_userData        = property.GetGroup(ItemType.USER);
             m_eventHandles.Add(EventManager.Instance.Reg((int)GameEvent.PLAYER_POWER_DICE, OnChangeDicePower));
-            LogicInit();
+            InitLogic();
+            InitTravel();
         }
         
         public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
@@ -60,11 +61,17 @@ namespace SGame
             // 开始游戏
             yield return StartGame();
              
-            // 进入循环逻辑
+            // 游戏逻辑
             while (true)
             {
+                // 运行出行逻辑
+                yield return RunTavel();
+                
+                // 等待下一轮 自动摇骰子还是手动
                 yield return WaitNextRond();
-                yield return Play();
+                
+                // 播放下一轮
+                yield return PlayNextRound();
             }
         }
 
@@ -78,10 +85,6 @@ namespace SGame
             yield return FiberHelper.Wait(1.0f);
             
             EntityManager mgr = m_gameWorld.GetEntityManager();
-            //var mapData = m_tileModule.current;
-            //EntityQuery query = mgr.CreateEntityQuery(typeof(CheckPointData));
-            //m_checkPoints = query.GetSingleton<CheckPointData>();
-            
 
             if (m_tileModule.tileCount <= 2)
             {
@@ -102,7 +105,6 @@ namespace SGame
             
             mgr.SetComponentData(m_dice1, new Translation() {Value = new float3(-4, 1, 0)});
             mgr.SetComponentData(m_dice1, new Rotation() {Value = quaternion.identity});
-            
             mgr.SetComponentData(m_dice2, new Translation() {Value = new float3(-5, 1, 0)});
             mgr.SetComponentData(m_dice2, new Rotation() {Value = quaternion.identity});
             
@@ -119,13 +121,12 @@ namespace SGame
             UIUtils.ShowTips(EntityManager, "NOT ENOUGH DICE", new float3(8.22000027f, -1.13f, 5.09000015f), Color.yellow, 50, 2.0f);
         }
 
-        // 等待下一轮
+        // 等待下一局
         IEnumerator WaitNextRond()
         {
             var mgr = m_gameWorld.GetEntityManager();
             m_userSetting = DataCenter.Instance.GetUserSetting();
-            
-            
+
             while (true)
             {
                 m_userSetting = DataCenter.Instance.GetUserSetting();
@@ -147,6 +148,7 @@ namespace SGame
                     break;
                 }
                 
+                // 等待玩家输入
                 UserInput input = m_userInputSystem.GetInput();
                 if (input.rollDice == true)
                 {
@@ -163,8 +165,8 @@ namespace SGame
             }
         }
 
-        // 游戏循环
-        IEnumerator Play()
+        // 执行下一局
+        IEnumerator PlayNextRound()
         {
             // 消耗一个骰子数量
             m_userData.AddNum((int)UserType.DICE_NUM, -m_userSetting.power);

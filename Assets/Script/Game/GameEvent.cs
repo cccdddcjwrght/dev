@@ -16,23 +16,20 @@ namespace SGame
 		NET_BATTLE_DISCONNECTED = 12,    // 网络断开连接事件         int, string
 		NET_BATTLE_EVENT = 13,           // 网络战斗包事件         (GamePackage)
 
-
-		//tips 预留ID
-		TIPS_ID_EVENT = 100000,
-
 		//登录======================================
-		HOTFIX_DONE       = 100, // 热更新结束
-		ENTER_LOGIN       = 104, // 进入登录
-		ENTER_GAME        = 105, // 进入游戏
+		HOTFIX_DONE					= 100, // 热更新结束
+		ENTER_LOGIN					= 104, // 进入登录
+		ENTER_GAME					= 105, // 进入游戏
 		
-		PROPERTY_GOLD	  = 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
-		PROPERTY_BANK     = 1001, // 银行存存款添加  (int add_gold, long new_value, int buildingId, int player_id)
+		SYNC_COMPLETE				= 110, //数据同步选择完成(int 1:本地，2：服务器)
+		GAME_UPDATE_START			= 150, //更新  (int 强更 or  热更)
+		UI_CURRENCY_ANI_REFRESH		= 151,
+		
+		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
+		PROPERTY_BANK				= 1001, // 银行存款或取款  (int add_gold, long new_value, int buildingId, int player_id)
 
-		SYNC_COMPLETE		= 110, //数据同步选择完成(int 1:本地，2：服务器)
-
-		GAME_UPDATE_START	= 150, //更新  (int 强更 or  热更)
-		UI_CURRENCY_ANI_REFRESH = 151,
-
+		TRAVEL_TRIGGER				= 2000, // 触发出行
+		
 		PLAYER_ROTE_DICE = 2000, // 用户操作骰子
 		PLAYER_POWER_DICE = 2001, // 用户更改倍率设置
 	}

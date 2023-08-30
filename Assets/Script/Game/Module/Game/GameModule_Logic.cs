@@ -9,7 +9,7 @@ namespace SGame
     // 用于运行登录逻辑
     public partial class GameModule
     {
-        void LogicInit()
+        void InitLogic()
         {
             
         }
