@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using log4net;
 using UnityEngine;
 using Unity.Entities;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -11,6 +12,8 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("game.tile");
         
         private const string NORMAT_TAG = "Normal";
+
+        public float3 offset;
 
         int GetTileId()
         {
@@ -48,6 +51,7 @@ namespace SGame
             data.tileId = tileId;
             data.tileEntity = entity;
             data.mapType = mapType;
+            data.Position3d = offset + new float3(transform.position);
             dstManager.SetComponentData(entity, data);
         }
     }

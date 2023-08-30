@@ -38,10 +38,10 @@ namespace SGame
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithNone<InitalizeTag>().ForEach((Entity e, TileData tileData, in Translation translation) =>
+            Entities.WithNone<InitalizeTag>().ForEach((Entity e, TileData tileData) =>
             {
                 TileMap m = m_tileModule.GetMap(tileData.mapType);
-                tileData.Position3d = translation.Value;
+                //tileData.Position3d = translation.Value;
                 m.Register(tileData);
                 commandBuffer.AddComponent<InitalizeTag>(e);
             }).WithoutBurst().Run();
