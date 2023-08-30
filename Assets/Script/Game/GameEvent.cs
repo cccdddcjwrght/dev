@@ -6,15 +6,15 @@ namespace SGame
 {
 	public enum GameEvent : int
 	{
-		NET_GAME_CONNECT_SUCCESS = 1, // 网络连接事件
-		NET_GAME_CONNECT_FAIL = 2,    // 网络连接失败           (int err, string msg)
-		NET_GAME_DISCONNECTED = 3,    // 网络断开连接事件        int, string
-		NET_GAME_EVENT = 4,           // 网络数据事件           (GamePackage)
+		NET_GAME_CONNECT_SUCCESS	= 1,	// 网络连接事件
+		NET_GAME_CONNECT_FAIL		= 2,    // 网络连接失败           (int err, string msg)
+		NET_GAME_DISCONNECTED		= 3,    // 网络断开连接事件        int, string
+		NET_GAME_EVENT				= 4,    // 网络数据事件           (GamePackage)
 
-		NET_BATTLE_CONNECT_SUCCESS = 10, // 网络连接事件
-		NET_BATTLE_CONNECT_FAIL = 11,    // 网络连接失败           (int err, string msg)
-		NET_BATTLE_DISCONNECTED = 12,    // 网络断开连接事件         int, string
-		NET_BATTLE_EVENT = 13,           // 网络战斗包事件         (GamePackage)
+		NET_BATTLE_CONNECT_SUCCESS	= 10,	// 网络连接事件
+		NET_BATTLE_CONNECT_FAIL		= 11,   // 网络连接失败           (int err, string msg)
+		NET_BATTLE_DISCONNECTED		= 12,   // 网络断开连接事件         int, string
+		NET_BATTLE_EVENT			= 13,   // 网络战斗包事件         (GamePackage)
 
 		//登录======================================
 		HOTFIX_DONE					= 100, // 热更新结束
@@ -28,9 +28,9 @@ namespace SGame
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 		PROPERTY_BANK				= 1001, // 银行存款或取款  (int add_gold, long new_value, int buildingId, int player_id)
 
-		TRAVEL_TRIGGER				= 2000, // 触发出行
+		PLAYER_ROTE_DICE			= 2000, // 用户操作骰子
+		PLAYER_POWER_DICE			= 2001, // 用户更改倍率设置
 		
-		PLAYER_ROTE_DICE = 2000, // 用户操作骰子
-		PLAYER_POWER_DICE = 2001, // 用户更改倍率设置
+		TRAVEL_TRIGGER				= 3000, // 触发出行
 	}
 }

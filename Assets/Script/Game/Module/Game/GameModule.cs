@@ -42,6 +42,9 @@ namespace SGame
             m_eventHandles.Add(EventManager.Instance.Reg((int)GameEvent.PLAYER_POWER_DICE, OnChangeDicePower));
             InitLogic();
             InitTravel();
+            
+            // 网络初始化
+            InitNet();
         }
         
         public EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
@@ -72,15 +75,15 @@ namespace SGame
                 
                 // 播放下一轮
                 yield return PlayNextRound();
+
+                // 防止进入死循环
+                yield return null;
             }
         }
 
         // 开始游戏
         IEnumerator StartGame()
         {
-            // 网络初始化
-            NetInit();
-            
             // 等待checkPoint 转换结束!
             yield return FiberHelper.Wait(1.0f);
             
@@ -168,16 +171,16 @@ namespace SGame
         // 执行下一局
         IEnumerator PlayNextRound()
         {
-            // 消耗一个骰子数量
-            m_userData.AddNum((int)UserType.DICE_NUM, -m_userSetting.power);
-            
             // 获得随机骰子
             // 获得下一轮数据
             if (m_tileEventModule.NextRound(m_currentPlayerPos, out DiceRollData diceData) == false)
             {
-                log.Info("Game Event List Is Empty!");
+                log.Error("Game Event List Is Empty!");
                 yield break;
             }
+            
+            // 消耗一个骰子数量
+            m_userData.AddNum((int)UserType.DICE_NUM, -m_userSetting.power);
 
             int dice_value1 = diceData.Value1; 
             int dice_value2 = diceData.Value2;

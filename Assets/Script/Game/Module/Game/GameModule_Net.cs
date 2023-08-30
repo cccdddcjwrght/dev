@@ -10,7 +10,7 @@ namespace SGame
     // 用于运行登录逻辑
     public partial class GameModule
     {
-        void NetInit()
+        void InitNet()
         {
             var client = NetworkManager.Instance.GetClient();
             m_eventHandles += client.RegMessage((int)GameMsgID.CsDiceCommitPos, OnMsg_DiceCommitPosResponse);

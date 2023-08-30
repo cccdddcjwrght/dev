@@ -38,7 +38,7 @@ namespace SGame
         public void InitTravel()
         {
             m_eventHandles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_TRIGGER, OnTriggerTrival);
-
+            m_playerState = PlayState.NORMAL;
         }
 
         IEnumerator RunTavel()
