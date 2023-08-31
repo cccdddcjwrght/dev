@@ -27,8 +27,19 @@ namespace SGame.UI{
 
 			m_handles += EventManager.Instance.Reg<int,long,int>((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg<int,long,int,int>((int)GameEvent.PROPERTY_BANK, OnEventBankChange);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_START, OnTravelStart);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_END, OnTravelEnd);
 		}
-		
+
+		private void OnTravelStart()
+		{
+			m_context.window.visible = false;
+		}
+		private void OnTravelEnd()
+		{
+			m_context.window.visible = true;
+		}
+
 		partial void UnInitEvent(UIContext context){
 
 		}

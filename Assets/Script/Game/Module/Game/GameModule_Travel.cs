@@ -49,11 +49,15 @@ namespace SGame
             switch (m_playerState)
             {
                 case PlayState.TRAVEL_ENTER:
+                    EventManager.Instance.Trigger((int)GameEvent.TRAVEL_START);
                     yield return TravelEnter();
+                    EventManager.Instance.Trigger((int)GameEvent.TRAVEL_END);
                     break;
                 
                 case PlayState.TRAVEL_LEAVE:
+                    EventManager.Instance.Trigger((int)GameEvent.TRAVEL_START);
                     yield return TravelLeave();
+                    EventManager.Instance.Trigger((int)GameEvent.TRAVEL_END);
                     break;
             }
         }

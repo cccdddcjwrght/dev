@@ -32,5 +32,9 @@ namespace SGame
 		PLAYER_POWER_DICE			= 2001, // 用户更改倍率设置
 		
 		TRAVEL_TRIGGER				= 3000, // 触发出行 (bool isTravel)
+		
+		TRAVEL_START				= 3001, // 触发出行开始 
+		TRAVEL_END   				= 3003, // 触发出行结束 
+
 	}
 }
