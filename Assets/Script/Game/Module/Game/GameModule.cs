@@ -134,12 +134,12 @@ namespace SGame
                 log.Error("travel dice check point not found");
             }
 
-            UpdateNornalDice();
+            UpdateDicePosition();
             // 3. 获取场景路径
             yield return null;
         }
 
-        private void UpdateNornalDice()
+        private void UpdateDicePosition()
         {
             float3 pos = float3.zero;
             if (m_playerState == PlayState.NORMAL)

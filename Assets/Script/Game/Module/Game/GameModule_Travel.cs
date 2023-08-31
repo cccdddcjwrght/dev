@@ -111,8 +111,11 @@ namespace SGame
             // 玩家移动目标位置
             MovePlayerToPosition(pos);
             
+            // 更新骰子位置
+            UpdateDicePosition();
+            
             // 等待1秒
-            yield return FiberHelper.Wait(0.5f);
+            yield return FiberHelper.Wait(3.0f);
 
             // 关闭UI
             UIUtils.CloseUI(EntityManager, ui);

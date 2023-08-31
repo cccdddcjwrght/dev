@@ -86,8 +86,9 @@ namespace SGame
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public TileData GetData(int pos, MapType mapType)
+        public TileData GetData(int pos)
         {
+            var mapType = currentMap;
             var mapData = GetMap(mapType);
             if (pos < 0 || pos >= mapData.count)
             {
@@ -107,6 +108,7 @@ namespace SGame
         public bool LoadMap(int id, MapType mapType = MapType.NORMAL)
         {
             var m = GetMap(mapType);
+            m_mapType = mapType;
             return m.LoadMap(id);
         }
 
@@ -140,9 +142,9 @@ namespace SGame
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public int GetTileIdByPos(int pos, MapType mapType)
+        public int GetTileIdByPos(int pos)
         {
-            return GetData(pos, mapType).tileId;
+            return GetData(pos).tileId;
         }
 
         /// <summary>
@@ -152,7 +154,7 @@ namespace SGame
         /// <returns></returns>
         public int GetBuildingIDByPos(int pos, MapType mapType)
         {
-            return GetData(pos, mapType).buildingId;
+            return GetData(pos).buildingId;
         }
 
         public void Update()

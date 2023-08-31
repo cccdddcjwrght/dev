@@ -49,7 +49,7 @@ namespace SGame
                     return;
                 }
 
-                tileData.buildingId = girdData.EventBuildId;
+                tileData.buildingId =  girdData.EventBuildId;
                 m.Register(tileData);
                 commandBuffer.AddComponent<InitalizeTag>(e);
             }).WithoutBurst().Run();

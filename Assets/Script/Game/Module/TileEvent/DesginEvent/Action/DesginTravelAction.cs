@@ -14,9 +14,9 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("GameEvent.DesginTravelAction");
         
 
-        public int m_travelPlayerId;
+        public long m_travelPlayerId;
 
-        public DesginTravelAction(int travelPlayerId)
+        public DesginTravelAction(long travelPlayerId)
         {
             m_travelPlayerId  = travelPlayerId;
         }

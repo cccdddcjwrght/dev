@@ -51,6 +51,9 @@ namespace SGame
                 
                 case (int)Cs.EventType.Bank:
                     return new DesginBankAction(buildngID, -e.gold);
+                
+                case (int)Cs.EventType.Travel:
+                    return new DesginTravelAction(e.playerId);
 
                 default:
                     log.Error("Error Not Support Event=" + ((Cs.EventType)e.eventType).ToString());
@@ -66,19 +69,26 @@ namespace SGame
         /// <param name="e"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public IDesginAction CreatePass(int eventType, int tileId, int buildingID)
+        public IDesginAction CreatePass(int pos)
         {
-            switch (eventType)
+            var tileData = TileModule.Instance.GetData(pos);
+            if (!ConfigSystem.Instance.TryGet(tileData.tileId, out GridRowData girdData))
+            {
+                log.Error("tileid not found=" + tileData.tileId);
+                return null;
+            }
+            
+            switch (girdData.EventType)
             {
                 case (int)Cs.EventType.Gold:
                     return null;
 
                 case (int)Cs.EventType.Bank:
                         // 添加路过添加银行事件
-                        return new DesginBankPass(buildingID, 0);
+                        return new DesginBankPass(tileData.buildingId, 0);
                 
                 default:
-                    log.Warn("CreatePass Error Not Support Event=" + ((Cs.EventType)eventType).ToString());
+                    log.Warn("CreatePass Error Not Support Event=" + ((Cs.EventType)girdData.EventType).ToString());
                     break;
             }
                 

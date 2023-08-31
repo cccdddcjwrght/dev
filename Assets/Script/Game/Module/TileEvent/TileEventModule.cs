@@ -94,7 +94,7 @@ namespace SGame
             for (int i = startPos; i < endPos; i++)
             {
                 int pos         = i % tileCount;
-                int tileId      = m_tileModule.GetTileIdByPos(pos, m_tileModule.currentMap);
+                int tileId      = m_tileModule.GetTileIdByPos(pos);
                 
                 // 获得配置
                 if (!ConfigSystem.Instance.TryGet(tileId, out GameConfigs.GridRowData girdData))
@@ -107,7 +107,7 @@ namespace SGame
                 var cond    = m_conditionFactory.CreateTileCondition(0, i, TileEventTrigger.State.PASSOVER);
                 
                 /// 建筑路过
-                IDesginAction act = m_actionFactory.CreatePass(girdData.EventType, tileId, girdData.EventBuildId);
+                IDesginAction act = m_actionFactory.CreatePass(pos);
                 if (act != null)
                 {
                     ret.Add(new TileEventProcess()
