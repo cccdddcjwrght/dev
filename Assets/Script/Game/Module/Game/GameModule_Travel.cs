@@ -9,6 +9,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEditorInternal;
 using UnityEngine;
+using SGame.UI;
 
 namespace SGame
 {
@@ -63,8 +64,58 @@ namespace SGame
         /// <returns></returns>
         IEnumerator TravelEnter()
         {
+            var playerId = m_userData.GetNum((int)UserType.TRAVEL_PLAYERID);
+            if (playerId == 0)
+            {
+                log.Error("TRAVEL PLAYER ID IS ZERO");
+                UIUtils.ShowTips(EntityManager, "TRAVEL PLAYER ID IS ZERO", new float3(8.22000027f, -1.13f, 5.09000015f), Color.red, 50, 2.0f);
+                yield break;
+            }
+
             yield return null;
             m_tileEventModule.ClearAllEvents();
+            
+            // 1. 显示更新界面
+            Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelenter"));
+            
+            // 2. 发送出行数据
+            SendTravelData(playerId);
+            var waitMessage = new WaitMessage<TravelPlayerInfo>((int)GameMsgID.CsTravelPlayerInfo);
+            yield return waitMessage;
+            if (waitMessage.IsTimeOut) {
+                log.Error("TravelPlayerInfo Message Time Out");
+            }
+            if (waitMessage.Value == null || waitMessage.Value.Response == null)
+                log.Error("TravelPlayerInfo recive is null");
+            if (waitMessage.Value.Response.Code != ErrorCode.ErrorSuccess)
+                log.Error("TravelPlayerInfo Errorcode = "+ waitMessage.Value.Response.Code);
+            
+            // 得到列表数据， 更新列表事件
+            int mapId       = 1;
+            int pos         = 0;
+            if (waitMessage.Value != null && waitMessage.Value.Response != null)
+            {
+                int i = 0;
+                var response = waitMessage.Value.Response;
+                foreach (var e in response.StepList)
+                {
+                    m_tileEventModule.AddEventGroup(CovertNetEventToRound(e));
+                }
+                mapId   = response.MapId;
+                pos     = response.Pos;
+            }
+
+            // 加载地图
+            TileModule.Instance.LoadMap(mapId, MapType.TRVAL);
+
+            // 玩家移动目标位置
+            MovePlayerToPosition(pos);
+            
+            // 等待1秒
+            yield return FiberHelper.Wait(0.5f);
+
+            // 关闭UI
+            UIUtils.CloseUI(EntityManager, ui);
             m_playerState = PlayState.TRAVEL;
         }
 

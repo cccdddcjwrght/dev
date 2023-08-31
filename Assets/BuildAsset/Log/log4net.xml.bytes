@@ -30,7 +30,7 @@
     </appender>
     
     <root>
-        <level value="ERROR" />
+        <level value="warning" />
         <appender-ref ref="UnityAppender" />
     </root>
     
@@ -38,19 +38,12 @@
         <level value="DEBUG" />
     </logger>
     
-	<!--
-    <logger name="xl.game.floatext">
-        <level value="DEBUG" />
-    </logger>
-	-->
-	
-	<logger name="xl.Game.Main">
+    <logger name="xl.gameevent">
         <level value="DEBUG" />
     </logger>
 	
-	<logger name="xl.Game.tileevent">
+	<logger name="xl.Game">
         <level value="DEBUG" />
     </logger>
-
 
 </log4net>

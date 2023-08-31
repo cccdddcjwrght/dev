@@ -27,9 +27,9 @@ namespace SGame
             {
                 Request = new DiceCommitPos.Types.Request()
                 {
-                    Id = eventId,
-                    Power = power,
-                    Travel = false,
+                    Id      = eventId,
+                    Power   = power,
+                    Travel  = m_playerState == PlayState.TRAVEL,
                 }
             }.Send((int)GameMsgID.CsDiceCommitPos);
         }
@@ -48,6 +48,22 @@ namespace SGame
                 }
             };
             req.Send((int)GameMsgID.CsDiceEventPool);
+        }
+
+        /// <summary>
+        /// 发送出行消息
+        /// </summary>
+        /// <param name="travelPlayerId"></param>
+        void SendTravelData(long travelPlayerId)
+        {
+            var req = new TravelPlayerInfo()
+            {
+                Request = new TravelPlayerInfo.Types.Request()
+                {
+                    PlayerId = m_userInfo.PlayerId
+                }
+            };
+            req.Send((int)GameMsgID.CsTravelPlayerInfo);
         }
 
         void OnMsg_DiceCommitPosResponse(GamePackage message)

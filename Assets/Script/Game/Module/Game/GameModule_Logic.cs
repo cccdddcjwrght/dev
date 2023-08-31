@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using FairyGUI;
 using SGame.UI;
 using UnityEngine;
 using Unity.Entities;
 using GameConfigs;
+using Unity.Mathematics;
+using Unity.Transforms;
+
 namespace SGame
 {
     // 用于运行登录逻辑
@@ -80,6 +84,29 @@ namespace SGame
         void OnChangeDicePower()
         {
             ChangeDicePower(true);
+        }
+
+        /// <summary>
+        /// 将PLAYER 移动到 目标点
+        /// </summary>
+        /// <param name="pos"></param>
+        void MovePlayerToPosition(int pos)
+        {
+            m_currentPlayerPos = pos;
+            float3 position3d  = m_tileModule.current.GetTileDataFromPos(m_currentPlayerPos).Position3d;
+            CharacterMover mover = EntityManager.GetComponentObject<CharacterMover>(m_player);
+            if (mover.m_controller != null)
+            {
+                mover.m_controller.transform.position = position3d;
+            }
+            else
+            {
+                EntityManager.SetComponentData(m_player, new Translation{Value = position3d});
+                log.Error("controller not readly!");
+            }
+
+            Character character = EntityManager.GetComponentObject<Character>(m_player);
+            character.titleId = m_currentPlayerPos;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace SGame
     {
         private TileModule m_tileModule;
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
+        private static ILog log = LogManager.GetLogger("xl.game.tile");
         
         /// <summary>
         /// 初始化标记
@@ -42,6 +43,13 @@ namespace SGame
             {
                 TileMap m = m_tileModule.GetMap(tileData.mapType);
                 //tileData.Position3d = translation.Value;
+                if (!ConfigSystem.Instance.TryGet(tileData.tileId, out GameConfigs.GridRowData girdData))
+                {
+                    log.Error("tile Id not found=" + tileData.tileId);
+                    return;
+                }
+
+                tileData.buildingId = girdData.EventBuildId;
                 m.Register(tileData);
                 commandBuffer.AddComponent<InitalizeTag>(e);
             }).WithoutBurst().Run();

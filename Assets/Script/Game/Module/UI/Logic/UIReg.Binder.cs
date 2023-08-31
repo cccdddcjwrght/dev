@@ -11,6 +11,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("MainUI", "Main", ()=>new UIMain());SGame.UI.Main.MainBinder.BindAll();;
 			context.uiModule.Reg("LoadingUI", "Loading", ()=>new UILoading());SGame.UI.Loading.LoadingBinder.BindAll();;
 			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
+			context.uiModule.Reg("TravelLeaveUI", "Travel", ()=>new UITravelLeave());SGame.UI.Travel.TravelBinder.BindAll();;
+			context.uiModule.Reg("TravelEnterUI", "Travel", ()=>new UITravelEnter());
 		}
 	}
 }

@@ -222,7 +222,8 @@ namespace SGame
             }
             
             // 消耗一个骰子数量
-            m_userData.AddNum((int)UserType.DICE_NUM, -m_userSetting.power);
+            int power = m_userSetting.power;
+            m_userData.AddNum((int)UserType.DICE_NUM, -power);
 
             int dice_value1 = diceData.Value1; 
             int dice_value2 = diceData.Value2;
@@ -246,7 +247,7 @@ namespace SGame
             yield return waitMove;
 
             // 移动结束了, 同步服务器
-            SendCommitEvent(diceData.eventId, m_userSetting.power);
+            SendCommitEvent(diceData.eventId, power);
         }
 
         IEnumerator ShowDice(Entity dice, int num, float time)

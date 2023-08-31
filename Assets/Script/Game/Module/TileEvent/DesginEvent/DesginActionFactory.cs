@@ -51,9 +51,9 @@ namespace SGame
                 
                 case (int)Cs.EventType.Bank:
                     return new DesginBankAction(buildngID, -e.gold);
-                
+
                 default:
-                    log.Warn("Error Not Support Event=" + ((Cs.EventType)e.eventType).ToString());
+                    log.Error("Error Not Support Event=" + ((Cs.EventType)e.eventType).ToString());
                     break;
             }
 
