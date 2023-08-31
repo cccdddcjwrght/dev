@@ -31,6 +31,6 @@ namespace SGame
 		PLAYER_ROTE_DICE			= 2000, // 用户操作骰子
 		PLAYER_POWER_DICE			= 2001, // 用户更改倍率设置
 		
-		TRAVEL_TRIGGER				= 3000, // 触发出行
+		TRAVEL_TRIGGER				= 3000, // 触发出行 (bool isTravel)
 	}
 }

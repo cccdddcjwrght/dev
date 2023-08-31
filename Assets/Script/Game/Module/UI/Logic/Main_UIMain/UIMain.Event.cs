@@ -94,6 +94,8 @@ namespace SGame.UI{
 		partial void OnBattleBtn_PowerClick(EventContext datat)
 		{
 			EventManager.Instance.Trigger((int)GameEvent.PLAYER_POWER_DICE);
+			EventManager.Instance.Trigger((int)GameEvent.TRAVEL_TRIGGER, true);
+
 			
 			// 显示ALL WIN 提示
 			var v = DataCenter.Instance.GetUserSetting();

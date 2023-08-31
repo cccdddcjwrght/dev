@@ -29,6 +29,7 @@ namespace SGame
 
 			m_tileModule.Initalize(world);
 			m_buildModule.Initalize(world);
+			m_cameraModule		= new CameraModule();
 			
 			m_tileEventModule	= new TileEventModule(world, m_randomSystem, m_tileModule);
 			m_gameModule        = new GameModule(world, 
@@ -117,6 +118,7 @@ namespace SGame
 			m_uiModule.Shutdown();
 			m_dataCenter.Shutdown();
 			m_hudModule.Shutdown();
+			m_cameraModule.Shutdown();
 		}
 
 		public void LateUpdate()
@@ -204,6 +206,11 @@ namespace SGame
 		/// 瓦块模块
 		/// </summary>
 		private TileModule                      m_tileModule;
+
+		/// <summary>
+		/// 摄像机模块
+		/// </summary>
+		private CameraModule					m_cameraModule;
 
 		private SnakeModule                    m_snake;
 	}

@@ -29,15 +29,17 @@ namespace SGame
         private PlayState m_playerState = PlayState.NORMAL;
 
 
-        private void OnTriggerTrival()
+        private void OnTriggerTravel(bool isTravel)
         {
-            if (m_playerState == PlayState.NORMAL)
+            if (isTravel)
                 m_playerState = PlayState.TRAVEL_ENTER;
+            else
+                m_playerState = PlayState.TRAVEL_LEAVE;
         }
 
         public void InitTravel()
         {
-            m_eventHandles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_TRIGGER, OnTriggerTrival);
+            m_eventHandles += EventManager.Instance.Reg<bool>((int)GameEvent.TRAVEL_TRIGGER, OnTriggerTravel);
             m_playerState = PlayState.NORMAL;
         }
 
