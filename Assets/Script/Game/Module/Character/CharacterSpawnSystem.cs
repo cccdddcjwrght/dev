@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using FairyGUI;
 using log4net;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
+using Unity.Transforms;
+using Unity.Mathematics;
 
 namespace SGame
 {
     [DisableAutoCreation]
-    public class CharacterSpawnSystem : ComponentSystem
+    public partial class CharacterSpawnSystem : SystemBase
     {
         // 初始化完成标签
         public struct InitalizedTag : IComponentData
@@ -31,8 +34,10 @@ namespace SGame
         {
         }
 
-        void CreateCharacter(Entity e, Character c)
+        void CreateCharacter(Entity e)
         {
+            Character c = EntityManager.GetComponentObject<Character>(e);
+            
             // 1. 创建显示界面
             Entity renderEntity = m_resourceManager.LoadCharacterRender(c.characterId);
             c.render = renderEntity;
@@ -63,17 +68,27 @@ namespace SGame
             }
             CharacterController characterController = EntityManager.GetComponentObject<CharacterController>(renderEntity);
             mover.m_controller = characterController;
+
+            Translation trans = EntityManager.GetComponentData<Translation>(e);
+            characterController.transform.position = trans.Value;
         }
 
         protected override void OnUpdate()
         {
             EntityCommandBuffer cmdBuffer = new EntityCommandBuffer(Allocator.Temp);
-            Entities.WithNone<InitalizedTag>().ForEach((Entity e, Character c) =>
+            NativeList<Entity> entityList   = new NativeList<Entity>(Allocator.Temp);
+            
+            Entities.WithNone<InitalizedTag>().WithAll<Character,Translation>().ForEach((Entity e) =>
             {
-                CreateCharacter(e, c);
+                entityList.Add(e);
                 cmdBuffer.AddComponent<InitalizedTag>(e);
-                log.Info("character initalize finish=" + c.characterName);
-            });
+            }).WithoutBurst().Run();
+
+            foreach (Entity e in entityList)
+            {
+                CreateCharacter(e);
+            }
+            entityList.Dispose();
             
             cmdBuffer.Playback(EntityManager);
             cmdBuffer.Dispose();
