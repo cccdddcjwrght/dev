@@ -4,6 +4,7 @@ using System.Numerics;
 using Cs;
 using Fibers;
 using log4net;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -95,25 +96,66 @@ namespace SGame
             }
             
             // 1. 创建角色
-            m_player = m_characterModule.CreateCharacter(101);
-            float3 pos = m_tileModule.current.GetTileDataFromPos(0).Position3d;
+            m_player            = m_characterModule.CreateCharacter(101);
+            float3 pos          = m_tileModule.current.GetTileDataFromPos(m_currentPlayerPos).Position3d;
             mgr.SetComponentData(m_player, new Translation{Value = pos});
-            UserData userData = DataCenter.Instance.GetUserData();
-            userData.player = m_player;
+            UserData userData   = DataCenter.Instance.GetUserData();
+            userData.player     = m_player;
             DataCenter.Instance.SetUserData(userData);
             
             // 2. 创建骰子
             m_dice1   =   m_diceModule.Create();
             m_dice2   =   m_diceModule.Create();
-            
-            mgr.SetComponentData(m_dice1, new Translation() {Value = new float3(-4, 1, 0)});
-            mgr.SetComponentData(m_dice1, new Rotation() {Value = quaternion.identity});
-            mgr.SetComponentData(m_dice2, new Translation() {Value = new float3(-5, 1, 0)});
-            mgr.SetComponentData(m_dice2, new Rotation() {Value = quaternion.identity});
-            
-            
+            var spawnCheckPoints = EntityManager.CreateEntityQuery(typeof(SpawnPoint), typeof(Translation));
+            var checkPoints         = spawnCheckPoints.ToEntityArray(Allocator.Temp);
+            var checkPointTypes = spawnCheckPoints.ToComponentDataArray<SpawnPoint>(Allocator.Temp);
+            for (int i = 0; i < checkPointTypes.Length; i++)
+            {
+                switch (checkPointTypes[i].Value)
+                {
+                    case SpawnPoint.PointType.NORMAL_DICE:
+                        m_normalDiceCheckPoint = checkPoints[i];
+                        break;
+                    case SpawnPoint.PointType.TRAVEL_DICE:
+                        m_travelDiceCheckPoint = checkPoints[i];
+                        break;
+                }
+            }
+            spawnCheckPoints.Dispose();
+            checkPoints.Dispose();
+            checkPointTypes.Dispose();
+            // 设置骰子位置
+            if (EntityManager.Exists(m_normalDiceCheckPoint) == false)
+            {
+                log.Error("normal dice check point not found");
+            }
+            if (EntityManager.Exists(m_travelDiceCheckPoint) == false)
+            {
+                log.Error("travel dice check point not found");
+            }
+
+            UpdateNornalDice();
             // 3. 获取场景路径
             yield return null;
+        }
+
+        private void UpdateNornalDice()
+        {
+            float3 pos = float3.zero;
+            if (m_playerState == PlayState.NORMAL)
+            {
+                pos = EntityManager.GetComponentData<Translation>(m_normalDiceCheckPoint).Value;
+            }
+            else if (m_playerState == PlayState.TRAVEL)
+            {
+                pos = EntityManager.GetComponentData<Translation>(m_travelDiceCheckPoint).Value;
+            }
+            
+            EntityManager.SetComponentData(m_dice1, new Translation() {Value = pos});
+            EntityManager.SetComponentData(m_dice1, new Rotation()    {Value = quaternion.identity});
+
+            EntityManager.SetComponentData(m_dice2, new Translation() {Value = pos + new float3(1,0,0)});
+            EntityManager.SetComponentData(m_dice2, new Rotation()    {Value = quaternion.identity});
         }
 
         /// <summary>
@@ -296,8 +338,14 @@ namespace SGame
 
         private UserSetting         m_userSetting;
 
-        private TileEventModule    m_tileEventModule;
+        private TileEventModule     m_tileEventModule;
         
         private EventHandleContainer m_eventHandles = new EventHandleContainer();
+
+        /// <summary>
+        /// 关联点
+        /// </summary>
+        private Entity               m_normalDiceCheckPoint;
+        private Entity               m_travelDiceCheckPoint;
     }
 }
