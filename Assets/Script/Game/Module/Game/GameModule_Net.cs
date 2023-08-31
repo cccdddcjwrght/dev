@@ -65,7 +65,7 @@ namespace SGame
             };
             req.Send((int)GameMsgID.CsTravelPlayerInfo);
         }
-
+        
         void OnMsg_DiceCommitPosResponse(GamePackage message)
         {
             var d = message.data;

@@ -142,11 +142,11 @@ namespace SGame
         private void UpdateDicePosition()
         {
             float3 pos = float3.zero;
-            if (m_playerState == PlayState.NORMAL)
+            if (m_playerState == PlayState.NORMAL || m_playerState == PlayState.TRAVEL_LEAVE)
             {
                 pos = EntityManager.GetComponentData<Translation>(m_normalDiceCheckPoint).Value;
             }
-            else if (m_playerState == PlayState.TRAVEL)
+            else if (m_playerState == PlayState.TRAVEL || m_playerState == PlayState.TRAVEL_ENTER)
             {
                 pos = EntityManager.GetComponentData<Translation>(m_travelDiceCheckPoint).Value;
             }

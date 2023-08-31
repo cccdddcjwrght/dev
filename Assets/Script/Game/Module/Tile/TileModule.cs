@@ -113,6 +113,15 @@ namespace SGame
         }
 
         /// <summary>
+        /// 用户恢复地图
+        /// </summary>
+        /// <param name="mapType"></param>
+        public void SetMapType(MapType mapType)
+        {
+            m_mapType = mapType;
+        }
+
+        /// <summary>
         /// 创建tile数据
         /// </summary>
         /// <param name="pos"></param>
