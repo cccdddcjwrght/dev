@@ -20,35 +20,19 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 128
+  version: 133
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   - {fileID: 102900000, guid: 6d380452236c26945a1e6fc958bc4042, type: 3}
   ignoreOps: []
   rules:
-  - searchPath: Assets/BuildAsset/Effects
-    searchPattern: '*.prefab'
-    nameBy: 0
-    assetBundleName: effects
   - searchPath: Assets/BuildAsset/configs
     searchPattern: '*.bytes'
-    nameBy: 2
-    assetBundleName: 
-  - searchPath: Assets/BuildAsset/Lua
-    searchPattern: '*.txt'
     nameBy: 2
     assetBundleName: 
   - searchPath: Assets/BuildAsset/UI
     searchPattern: '*.png,*.bytes'
     nameBy: 4
-    assetBundleName: 
-  - searchPath: Assets/BuildAsset/Setting
-    searchPattern: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-    nameBy: 1
-    assetBundleName: 
-  - searchPath: Assets/BuildAsset/language
-    searchPattern: '*.xml'
-    nameBy: 2
     assetBundleName: 
   - searchPath: Assets/BuildAsset/Prefabs
     searchPattern: '*.prefab'
@@ -66,14 +50,6 @@ MonoBehaviour:
     searchPattern: '*.png'
     nameBy: 1
     assetBundleName: 
-  - searchPath: Assets/BuildAsset/Textures
-    searchPattern: '*.png'
-    nameBy: 1
-    assetBundleName: 
-  - searchPath: Assets/BuildAsset/Fonts
-    searchPattern: '*.ttf,*.asset,*.otf'
-    nameBy: 2
-    assetBundleName: 
   - searchPath: Assets/BuildAsset/Code
     searchPattern: '*.bytes'
     nameBy: 1
@@ -85,12 +61,171 @@ MonoBehaviour:
     path: assets/buildasset/code/game.dll.bytes
   - bundle: assets/buildasset/code/hotfix.dll.bytes.unity3d
     path: assets/buildasset/code/hotfix.dll.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/bet.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/build_bank.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/build_chancecard.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/build_coin.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/build_game.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/build_house.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/build_trap.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/build_visit.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/desgin_global.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/event_build.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/event_group.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/event_part.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/game_event.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/game_function.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/game_global.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/grid.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/grid_path.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/item.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/item_chancecard.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/language_chn.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/language_en.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/language_hi.bytes
+  - bundle: assets/buildasset/configs.unity3d
+    path: assets/buildasset/configs/ui_res.bytes
+  - bundle: assets/buildasset/prefabs/character.prefab.unity3d
+    path: assets/buildasset/prefabs/character.prefab
+  - bundle: assets/buildasset/prefabs/characters/kiki_v2.prefab.unity3d
+    path: assets/buildasset/prefabs/characters/kiki_v2.prefab
+  - bundle: assets/buildasset/prefabs/dice/client_dice.prefab.unity3d
+    path: assets/buildasset/prefabs/dice/client_dice.prefab
+  - bundle: assets/buildasset/prefabs/dice/dice.prefab.unity3d
+    path: assets/buildasset/prefabs/dice/dice.prefab
   - bundle: assets/buildasset/prefabs/game.prefab.unity3d
     path: assets/buildasset/prefabs/game.prefab
+  - bundle: assets/buildasset/prefabs/mapdata.prefab.unity3d
+    path: assets/buildasset/prefabs/mapdata.prefab
+  - bundle: assets/buildasset/prefabs/snake/snake.prefab.unity3d
+    path: assets/buildasset/prefabs/snake/snake.prefab
+  - bundle: assets/buildasset/prefabs/snake/snakebody.prefab.unity3d
+    path: assets/buildasset/prefabs/snake/snakebody.prefab
+  - bundle: assets/buildasset/ui/common.unity3d
+    path: assets/buildasset/ui/common_atlas0.png
+  - bundle: assets/buildasset/ui/common.unity3d
+    path: assets/buildasset/ui/common_fui.bytes
+  - bundle: assets/buildasset/ui/hotfix.unity3d
+    path: assets/buildasset/ui/hotfix_atlas0.png
+  - bundle: assets/buildasset/ui/hotfix.unity3d
+    path: assets/buildasset/ui/hotfix_fui.bytes
+  - bundle: assets/buildasset/ui/hud.unity3d
+    path: assets/buildasset/ui/hud_fui.bytes
+  - bundle: assets/buildasset/ui/loading.unity3d
+    path: assets/buildasset/ui/loading_atlas0.png
+  - bundle: assets/buildasset/ui/loading.unity3d
+    path: assets/buildasset/ui/loading_fui.bytes
+  - bundle: assets/buildasset/ui/login.unity3d
+    path: assets/buildasset/ui/login_atlas0.png
+  - bundle: assets/buildasset/ui/login.unity3d
+    path: assets/buildasset/ui/login_fui.bytes
+  - bundle: assets/buildasset/ui/main.unity3d
+    path: assets/buildasset/ui/main_atlas0.png
+  - bundle: assets/buildasset/ui/main.unity3d
+    path: assets/buildasset/ui/main_fui.bytes
+  - bundle: assets/buildasset/ui/travel.unity3d
+    path: assets/buildasset/ui/travel_atlas0.png
+  - bundle: assets/buildasset/ui/travel.unity3d
+    path: assets/buildasset/ui/travel_fui.bytes
   ruleBundles:
+  - name: assets/buildasset/configs.unity3d
+    assets:
+    - assets/buildasset/configs/bet.bytes
+    - assets/buildasset/configs/build_bank.bytes
+    - assets/buildasset/configs/build_chancecard.bytes
+    - assets/buildasset/configs/build_coin.bytes
+    - assets/buildasset/configs/build_game.bytes
+    - assets/buildasset/configs/build_house.bytes
+    - assets/buildasset/configs/build_trap.bytes
+    - assets/buildasset/configs/build_visit.bytes
+    - assets/buildasset/configs/desgin_global.bytes
+    - assets/buildasset/configs/event_build.bytes
+    - assets/buildasset/configs/event_group.bytes
+    - assets/buildasset/configs/event_part.bytes
+    - assets/buildasset/configs/game_event.bytes
+    - assets/buildasset/configs/game_function.bytes
+    - assets/buildasset/configs/game_global.bytes
+    - assets/buildasset/configs/grid.bytes
+    - assets/buildasset/configs/grid_path.bytes
+    - assets/buildasset/configs/item.bytes
+    - assets/buildasset/configs/item_chancecard.bytes
+    - assets/buildasset/configs/language_chn.bytes
+    - assets/buildasset/configs/language_en.bytes
+    - assets/buildasset/configs/language_hi.bytes
+    - assets/buildasset/configs/ui_res.bytes
+  - name: assets/buildasset/ui/common.unity3d
+    assets:
+    - assets/buildasset/ui/common_atlas0.png
+    - assets/buildasset/ui/common_fui.bytes
+  - name: assets/buildasset/ui/hotfix.unity3d
+    assets:
+    - assets/buildasset/ui/hotfix_atlas0.png
+    - assets/buildasset/ui/hotfix_fui.bytes
+  - name: assets/buildasset/ui/loading.unity3d
+    assets:
+    - assets/buildasset/ui/loading_atlas0.png
+    - assets/buildasset/ui/loading_fui.bytes
+  - name: assets/buildasset/ui/login.unity3d
+    assets:
+    - assets/buildasset/ui/login_atlas0.png
+    - assets/buildasset/ui/login_fui.bytes
+  - name: assets/buildasset/ui/main.unity3d
+    assets:
+    - assets/buildasset/ui/main_atlas0.png
+    - assets/buildasset/ui/main_fui.bytes
+  - name: assets/buildasset/ui/travel.unity3d
+    assets:
+    - assets/buildasset/ui/travel_atlas0.png
+    - assets/buildasset/ui/travel_fui.bytes
+  - name: assets/buildasset/ui/hud.unity3d
+    assets:
+    - assets/buildasset/ui/hud_fui.bytes
+  - name: assets/buildasset/prefabs/character.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/character.prefab
   - name: assets/buildasset/prefabs/game.prefab.unity3d
     assets:
     - assets/buildasset/prefabs/game.prefab
+  - name: assets/buildasset/prefabs/mapdata.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/mapdata.prefab
+  - name: assets/buildasset/prefabs/characters/kiki_v2.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/characters/kiki_v2.prefab
+  - name: assets/buildasset/prefabs/dice/client_dice.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/dice/client_dice.prefab
+  - name: assets/buildasset/prefabs/dice/dice.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/dice/dice.prefab
+  - name: assets/buildasset/prefabs/snake/snake.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/snake/snake.prefab
+  - name: assets/buildasset/prefabs/snake/snakebody.prefab.unity3d
+    assets:
+    - assets/buildasset/prefabs/snake/snakebody.prefab
   - name: assets/buildasset/audio/mixer.unity3d
     assets:
     - assets/buildasset/audio/mixer/game.mixer
@@ -100,3 +235,9 @@ MonoBehaviour:
   - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
     assets:
     - assets/buildasset/code/hotfix.dll.bytes
+  - name: assets/buildasset/art/dice/model_scene_object_dice_map01.png.unity3d
+    assets:
+    - Assets/BuildAsset/Art/dice/model_scene_object_dice_map01.png
+  - name: assets/buildasset/art/dice/model_scene_object_dice_01.fbx.unity3d
+    assets:
+    - Assets/BuildAsset/Art/dice/model_scene_object_dice_01.fbx

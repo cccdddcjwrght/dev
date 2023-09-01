@@ -46,6 +46,11 @@ namespace SGame
         /// </summary>
         public MapType currentMap { get { return m_mapType; } }
 
+        public int mapId
+        {
+            get { return GetMap(m_mapType).mapId; }
+        }
+
         /// <summary>
         /// 地块数量
         /// </summary>

@@ -1,12 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using OfficeOpenXml;
-using UnityEngine;
-using SGame;
 using SGame.UI;
 using Unity.Entities;
-using UnityEngine.UI;
-using Unity.Mathematics;
 
 namespace SGame
 {

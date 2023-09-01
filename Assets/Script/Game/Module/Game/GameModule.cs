@@ -1,14 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using Cs;
 using Fibers;
 using log4net;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace SGame
@@ -242,7 +239,7 @@ namespace SGame
             var waitMove = PlayerMove(dice_value1 + dice_value2);
             if (m_tileEventModule.IsEmpty())
             {
-                SendGetNextEventPool(m_currentPlayerPos, m_userInfo.MapId);
+                SendGetNextEventPool(m_currentPlayerPos,  m_tileModule.mapId);
             }
             yield return waitMove;
 

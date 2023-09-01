@@ -1,13 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using Cs;
-using Fibers;
-using log4net;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
-using UnityEditorInternal;
 using UnityEngine;
 using SGame.UI;
 

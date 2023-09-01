@@ -21,12 +21,14 @@ namespace SGame
     {
         private static ILog log = LogManager.GetLogger("game.tile");
         private GameWorld m_gameWorld;
+        private int m_mapId;
 
         public TileMap(GameWorld gameWorld)
         {
             m_gameWorld = gameWorld;
             m_paths = new List<TileData>();
             m_datas = new Dictionary<int, TileData>();
+            m_mapId = 0;
         }
 
         public EntityManager entityManager
@@ -36,7 +38,11 @@ namespace SGame
                 return m_gameWorld.GetEntityManager();
             }
         }
-        
+
+        public int mapId
+        {
+            get { return m_mapId; }
+        }
         
         /// <summary>
         /// 注册Tile
@@ -78,6 +84,7 @@ namespace SGame
                 mapData.Add(data);
             }
 
+            m_mapId = mapId;
             return true;
         }
 
