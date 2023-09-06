@@ -33,6 +33,7 @@ namespace SGame.UI{
 			m_handles += EventManager.Instance.Reg<int,long,int,int>((int)GameEvent.PROPERTY_BANK, OnEventBankChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_START, OnTravelStart);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_END, OnTravelEnd);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_WAIT_NEXTROUND, OnEventNextGameRound);
 		}
 
 		private void OnTravelStart()
@@ -131,8 +132,15 @@ namespace SGame.UI{
 			log.Info("on baccle icon click!");
 			{
 				autoDice = false;
+
+				m_view.m_battle.m_main.m_state.selectedIndex = 1;
 				EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
 			}
+		}
+
+		void OnEventNextGameRound()
+		{
+			m_view.m_battle.m_main.m_state.selectedIndex = 0;
 		}
 
 		void UnInitEvent()

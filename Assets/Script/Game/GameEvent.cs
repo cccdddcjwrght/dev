@@ -21,9 +21,8 @@ namespace SGame
 		ENTER_LOGIN					= 104, // 进入登录
 		ENTER_GAME					= 105, // 进入游戏
 		
-		SYNC_COMPLETE				= 110, //数据同步选择完成(int 1:本地，2：服务器)
-		GAME_UPDATE_START			= 150, //更新  (int 强更 or  热更)
-		UI_CURRENCY_ANI_REFRESH		= 151,
+
+		GAME_WAIT_NEXTROUND			= 106, // 等待下一局
 		
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 		PROPERTY_BANK				= 1001, // 银行存款或取款  (int add_gold, long new_value, int buildingId, int player_id)

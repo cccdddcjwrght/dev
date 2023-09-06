@@ -71,6 +71,7 @@ namespace SGame
                 yield return RunTavel();
                 
                 // 等待下一轮 自动摇骰子还是手动
+                EventManager.Instance.Trigger((int)GameEvent.GAME_WAIT_NEXTROUND);
                 yield return WaitNextRond();
                 
                 // 播放下一轮
