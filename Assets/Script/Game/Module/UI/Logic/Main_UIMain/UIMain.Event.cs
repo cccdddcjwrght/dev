@@ -122,25 +122,27 @@ namespace SGame.UI{
 			ShowTips("ALL WIN", showTitle, v.power == v.maxPower, 
 				showTime, 
 				hideTime);
+			
+			autoDice = false;
 		}
 
 		void OnBattleIconClick(EventContext context)
 		{
 			if (m_holdEvent == true)
 				return;
+
+			if (Utils.PlayerIsMoving(EntityManager))
+				return;
 			
 			log.Info("on baccle icon click!");
-			{
-				autoDice = false;
-
-				m_view.m_battle.m_main.m_state.selectedIndex = 1;
-				EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
-			}
+			autoDice = false;
+			m_view.m_battle.m_main.m_state.selectedIndex = 1;
+			EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
 		}
 
 		void OnEventNextGameRound()
 		{
-			m_view.m_battle.m_main.m_state.selectedIndex = 0;
+			UpdateDiceButtonState();
 		}
 
 		void UnInitEvent()

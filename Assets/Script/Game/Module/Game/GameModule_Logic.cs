@@ -129,5 +129,7 @@ namespace SGame
             
             m_cameraModule.SwitchCamera(CameraType.PLAYER);
         }
+
+
     }
 }

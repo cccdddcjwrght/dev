@@ -121,5 +121,23 @@ namespace SGame
 
             return buildData.BuildId(level - 1);
         }
+        
+        /// <summary>
+        /// 判断玩家是否正在移动
+        /// </summary>
+        /// <returns></returns>
+        public static bool PlayerIsMoving(EntityManager mgr)
+        {
+            var userData = DataCenter.Instance.GetUserData();
+
+            if (mgr.Exists(userData.player) == false)
+                return false;
+
+            CharacterMover mover = mgr.GetComponentObject<CharacterMover>(userData.player);
+            if (mover == null)
+                return false;
+
+            return !mover.isFinish;
+        }
     }
 }

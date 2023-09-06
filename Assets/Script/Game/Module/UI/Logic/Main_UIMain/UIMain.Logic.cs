@@ -38,6 +38,14 @@ namespace SGame.UI{
 			m_fiberShowTips = FiberCtrl.Pool.AllocateFiber(FiberBucket.Manual);
 		}
 
+		EntityManager EntityManager
+		{
+			get
+			{
+				return m_context.gameWorld.GetEntityManager();
+			}
+		}
+
 		/// <summary>
 		/// 显示TIPS 特效
 		/// </summary>
@@ -87,6 +95,7 @@ namespace SGame.UI{
 		void UpdateAutoUseUI(bool autoUse)
 		{
 			m_view.m_battle.m_main.m_auto_dice.selectedIndex = autoUse ? 1 : 0;
+			UpdateDiceButtonState();
 		}
 		
 		
@@ -102,8 +111,8 @@ namespace SGame.UI{
 			{
 				var v = DataCenter.Instance.GetUserSetting();
 				v.autoUse = value;
-				UpdateAutoUseUI(value);
 				DataCenter.Instance.SetUserSetting(v);
+				UpdateAutoUseUI(value);
 			}
 		}
 
@@ -181,6 +190,16 @@ namespace SGame.UI{
 		partial void UnInitLogic(UIContext context)
 		{
 			context.onUpdate -= onUpdate;
+		}
+
+		/// <summary>
+		/// 更新骰子按钮状态
+		/// </summary>
+		void UpdateDiceButtonState()
+		{
+			// 更新按钮状态
+			bool isPlayerMoving = Utils.PlayerIsMoving(EntityManager);
+			m_view.m_battle.m_main.m_state.selectedIndex = isPlayerMoving ? 1 : 0;
 		}
 	}
 }
