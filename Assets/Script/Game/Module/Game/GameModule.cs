@@ -144,7 +144,12 @@ namespace SGame
         private void UpdateDicePosition()
         {
             float3 pos = float3.zero;
-            if (m_playerState == PlayState.NORMAL || m_playerState == PlayState.TRAVEL_LEAVE)
+            if (m_characterModule.IsReadly(m_player))
+            {
+                pos = EntityManager.GetComponentData<Translation>(m_player).Value;
+                pos += new float3(2, 2, 2);
+            }
+            else if (m_playerState == PlayState.NORMAL || m_playerState == PlayState.TRAVEL_LEAVE)
             {
                 pos = EntityManager.GetComponentData<Translation>(m_normalDiceCheckPoint).Value;
             }
@@ -236,6 +241,7 @@ namespace SGame
             }
 
             // 同时运行两个骰子动画
+            UpdateDicePosition();
             yield return FiberHelper.RunParallel(
                 ShowDice(m_dice1, dice_value1, 0.5f), 
                 ShowDice(m_dice2, dice_value2 , 0.5f));
