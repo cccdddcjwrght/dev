@@ -248,7 +248,7 @@ PlayerSettings:
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 2
+  AndroidTargetArchitectures: 14
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 0}
@@ -538,7 +538,7 @@ PlayerSettings:
     m_Devices:
     - Oculus
     - OpenVR
-  openGLRequireES31: 0
+  openGLRequireES31: 1
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags: {}
@@ -812,15 +812,16 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Android: ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;LUA_DEBUG;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;GAME_GUIDE
+    Android: ODIN_INSPECTOR;ODIN_INSPECTOR_3;FAIRYGUI_TMPRO;LUA_DEBUG;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;GAME_GUIDE;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP
     Server: 
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;FAIRYGUI_TMPRO;LUA_DEBUG;XASSET_MD5_FILE
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;FAIRYGUI_TMPRO;LUA_DEBUG;XASSET_MD5_FILE;ENABLE_HYBRID_RENDERER_V2
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
     Standalone: 1
   il2cppCompilerConfiguration:
+    Android: 1
     Standalone: 0
   managedStrippingLevel:
     Android: 3

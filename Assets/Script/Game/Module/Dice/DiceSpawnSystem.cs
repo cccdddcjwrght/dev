@@ -14,16 +14,13 @@ namespace SGame
         }
         
         // 骰子的显示对象
-        private GameObject        m_prefabDice;
         private ResourceManager   m_resourceManager ;
         private GameWorld         m_world;
-        private const string      DICE_PATH = "Assets/BuildAsset/Prefabs/dice/client_dice.prefab";
         
         public void Initalize(GameWorld world, ResourceManager resourceManager)
         {
             m_world           = world;
             m_resourceManager = resourceManager;
-            m_prefabDice      = resourceManager.LoadPrefab(DICE_PATH);
         }
 
         protected override void OnUpdate()

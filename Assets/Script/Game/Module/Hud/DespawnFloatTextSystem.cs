@@ -9,18 +9,17 @@ namespace SGame
     [DisableAutoCreation]
     public partial class DespawnFloatTextSystem : SystemBase
     {
-        private EntityArchetype          m_floatTextType;
-        public ObjectPool<UI_FloatText> m_floatComponents;
-        private Entity                   m_hud;
-        private GComponent               m_hudContent;
+        private EntityArchetype                                 m_floatTextType;
+        public ObjectPool<UI_FloatText>                         m_floatComponents;
+        private Entity                                          m_hud;
+        private GComponent                                      m_hudContent;
         private EndInitializationEntityCommandBufferSystem      m_commandBuffer;
         private static ILog log = LogManager.GetLogger("xl.game.floatext");
 
-
         public void Initalize(Entity hud, ObjectPool<UI_FloatText> pool)
         {
-            m_hud      = hud;
-            m_floatComponents = pool;
+            m_hud               = hud;
+            m_floatComponents   = pool;
         }
 
         protected override void OnCreate()

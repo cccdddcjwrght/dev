@@ -1,4 +1,5 @@
 ﻿
+using GameConfigs;
 namespace SGame.UI{
 	using FairyGUI;
 	using UnityEngine;
@@ -10,6 +11,9 @@ namespace SGame.UI{
 	{
 		// 长按表示两秒
 		private const float HOLD_LONG_TIME = 2.0f;
+		private const string SHOW_TIPS_TIME = "show_power_tips_time";
+		private const string HIDE_TIPS_TIME = "hide_power_tips_time";
+
 		
 		private float m_holdTime = 0;
 		private bool  m_holdEvent = false;
@@ -104,20 +108,19 @@ namespace SGame.UI{
 		// 倍率设置
 		partial void OnBattleBtn_PowerClick(EventContext datat)
 		{
+			float showTime = GlobalDesginConfig.GetFloat(SHOW_TIPS_TIME);
+			float hideTime = GlobalDesginConfig.GetFloat(HIDE_TIPS_TIME);
 			EventManager.Instance.Trigger((int)GameEvent.PLAYER_POWER_DICE);
-			EventManager.Instance.Trigger((int)GameEvent.TRAVEL_TRIGGER, true);
 
-			
 			// 显示ALL WIN 提示
 			var v = DataCenter.Instance.GetUserSetting();
-			string showTitle = string.Format("all win  X{0}", v.power);
-			Color color = Color.blue;
-			// 138,43,226
+			string showTitle = string.Format("X{0}", v.power);
 			if (v.power == v.maxPower)
-				color = new Color(138 / 255.0f, 43 / 255.0f, 226 /255.0f);
-			FloatTextRequest.CreateEntity(
-				m_context.gameWorld.GetEntityManager(), showTitle,
-				new Vector3(8.22000027f,-1.13f,5.09000015f), color, 50, 2.0f);
+				showTitle = "MAX";
+			
+			ShowTips("ALL WIN", showTitle, v.power == v.maxPower, 
+				showTime, 
+				hideTime);
 		}
 
 		void OnBattleIconClick(EventContext context)

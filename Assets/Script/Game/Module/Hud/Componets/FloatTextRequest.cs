@@ -10,8 +10,15 @@ namespace SGame
     /// </summary>
     public class FloatTextRequest : IComponentData
     {
-        public float3 position;              // 浮动文字位置
-        public string text;             // 文本
+        // 参考对其位置
+        public enum Aligh
+        {
+            LEFTTOP = 0, // 屏幕左上角
+            CENTER  = 1, // 屏幕居中
+        }
+        
+        public float3 position;         // 浮动文字位置
+        public string text1;            // 文本
         public int    fontSize;         // 字体大小
         public Color  color;            // 字体颜色
         public float  duration;         // 持续时间
@@ -26,7 +33,7 @@ namespace SGame
             FloatTextRequest req = new FloatTextRequest()
             {
                 position    = pos,
-                text        = text,
+                text1        = text,
                 fontSize    = fontSize,
                 color       = color,
                 duration    =  duration,

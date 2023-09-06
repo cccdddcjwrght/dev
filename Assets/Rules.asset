@@ -20,10 +20,10 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 133
+  version: 158
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
-  - {fileID: 102900000, guid: 6d380452236c26945a1e6fc958bc4042, type: 3}
+  - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
   ignoreOps: []
   rules:
   - searchPath: Assets/BuildAsset/configs
@@ -54,7 +54,35 @@ MonoBehaviour:
     searchPattern: '*.bytes'
     nameBy: 1
     assetBundleName: 
+  - searchPath: Assets/BuildAsset/AOTMeta
+    searchPattern: '*.bytes'
+    nameBy: 0
+    assetBundleName: aotmeta
+  - searchPath: Assets/BuildAsset/Log
+    searchPattern: '*.bytes'
+    nameBy: 1
+    assetBundleName: 
   ruleAssets:
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/core.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/flatbuffers.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/google.protobuf.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/mscorlib.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/system.core.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/unity.collections.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/unity.entities.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/unity.properties.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/unityengine.coremodule.dll.bytes
+  - bundle: aotmeta.unity3d
+    path: assets/buildasset/aotmeta/unityengine.jsonserializemodule.dll.bytes
   - bundle: assets/buildasset/audio/mixer.unity3d
     path: assets/buildasset/audio/mixer/game.mixer
   - bundle: assets/buildasset/code/game.dll.bytes.unity3d
@@ -107,12 +135,12 @@ MonoBehaviour:
     path: assets/buildasset/configs/language_hi.bytes
   - bundle: assets/buildasset/configs.unity3d
     path: assets/buildasset/configs/ui_res.bytes
+  - bundle: assets/buildasset/log/log4net.xml.bytes.unity3d
+    path: assets/buildasset/log/log4net.xml.bytes
   - bundle: assets/buildasset/prefabs/character.prefab.unity3d
     path: assets/buildasset/prefabs/character.prefab
   - bundle: assets/buildasset/prefabs/characters/kiki_v2.prefab.unity3d
     path: assets/buildasset/prefabs/characters/kiki_v2.prefab
-  - bundle: assets/buildasset/prefabs/dice/client_dice.prefab.unity3d
-    path: assets/buildasset/prefabs/dice/client_dice.prefab
   - bundle: assets/buildasset/prefabs/dice/dice.prefab.unity3d
     path: assets/buildasset/prefabs/dice/dice.prefab
   - bundle: assets/buildasset/prefabs/game.prefab.unity3d
@@ -214,9 +242,6 @@ MonoBehaviour:
   - name: assets/buildasset/prefabs/characters/kiki_v2.prefab.unity3d
     assets:
     - assets/buildasset/prefabs/characters/kiki_v2.prefab
-  - name: assets/buildasset/prefabs/dice/client_dice.prefab.unity3d
-    assets:
-    - assets/buildasset/prefabs/dice/client_dice.prefab
   - name: assets/buildasset/prefabs/dice/dice.prefab.unity3d
     assets:
     - assets/buildasset/prefabs/dice/dice.prefab
@@ -235,9 +260,18 @@ MonoBehaviour:
   - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
     assets:
     - assets/buildasset/code/hotfix.dll.bytes
-  - name: assets/buildasset/art/dice/model_scene_object_dice_map01.png.unity3d
+  - name: aotmeta.unity3d
     assets:
-    - Assets/BuildAsset/Art/dice/model_scene_object_dice_map01.png
-  - name: assets/buildasset/art/dice/model_scene_object_dice_01.fbx.unity3d
+    - assets/buildasset/aotmeta/core.dll.bytes
+    - assets/buildasset/aotmeta/flatbuffers.dll.bytes
+    - assets/buildasset/aotmeta/google.protobuf.dll.bytes
+    - assets/buildasset/aotmeta/mscorlib.dll.bytes
+    - assets/buildasset/aotmeta/system.core.dll.bytes
+    - assets/buildasset/aotmeta/unity.collections.dll.bytes
+    - assets/buildasset/aotmeta/unity.entities.dll.bytes
+    - assets/buildasset/aotmeta/unity.properties.dll.bytes
+    - assets/buildasset/aotmeta/unityengine.coremodule.dll.bytes
+    - assets/buildasset/aotmeta/unityengine.jsonserializemodule.dll.bytes
+  - name: assets/buildasset/log/log4net.xml.bytes.unity3d
     assets:
-    - Assets/BuildAsset/Art/dice/model_scene_object_dice_01.fbx
+    - assets/buildasset/log/log4net.xml.bytes

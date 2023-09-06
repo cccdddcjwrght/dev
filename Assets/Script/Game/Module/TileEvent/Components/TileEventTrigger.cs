@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Entities;
-using UnityEngine;
-using System.Collections;
 
 namespace SGame
 {
     // 游戏格子进入事件
-    [GenerateAuthoringComponent]
     public struct TileEventTrigger : IBufferElementData//, IComparable<TitleEventTrigger>
     {
         public enum State : uint

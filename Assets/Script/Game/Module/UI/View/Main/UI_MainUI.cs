@@ -15,6 +15,7 @@ namespace SGame.UI.Main
         public UI_ImgBtn m_setting;
         public UI_BattleBtn m_battle;
         public GTextField m_goldFloating;
+        public UI_Tip m_tip;
         public Transition m_doshow;
         public Transition m_dohide;
         public const string URL = "ui://ktixaqljgmj1l";
@@ -36,6 +37,7 @@ namespace SGame.UI.Main
             m_setting = (UI_ImgBtn)GetChildAt(4);
             m_battle = (UI_BattleBtn)GetChildAt(6);
             m_goldFloating = (GTextField)GetChildAt(7);
+            m_tip = (UI_Tip)GetChildAt(8);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }

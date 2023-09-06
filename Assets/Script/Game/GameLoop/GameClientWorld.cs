@@ -40,7 +40,8 @@ namespace SGame
 				m_dice,
 				m_propertyManager,
 				m_tileModule,
-				m_tileEventModule);
+				m_tileEventModule,
+				m_cameraModule);
 			
 			InitalizeUI();
 

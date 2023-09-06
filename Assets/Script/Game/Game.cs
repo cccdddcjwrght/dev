@@ -10,6 +10,7 @@ using System.IO;
 using SGame;
 using UnityEngine.Audio;
 using System.Globalization;
+using UnityEngine.SceneManagement;
 
 // 初始化完成状态
 public struct GameInitFinish : IComponentData
@@ -26,7 +27,7 @@ public class Game : SGame.MonoSingleton<Game>
 	{
 		var asset = Assets.LoadAsset("Assets/BuildAsset/Prefabs/Game.prefab", typeof(GameObject));
 		Instantiate(asset.asset);
-		asset.Release();
+		//asset.Release();
 		
 		log.Info("Game Start Running");
 		yield return null;
@@ -54,21 +55,11 @@ public class Game : SGame.MonoSingleton<Game>
 
 	Fiber m_initProcess;
 
-	// 解决场景初始话可能导致失败的问题
-	//[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-	private static void Initialize()
-	{
-#if UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP
-		DefaultWorldInitialization.Initialize("Default World", false);
-#endif
-	}
-
 
 	protected override void Awake()
 	{
 		base.Awake();
-		Initialize();
-
+		
 		Application.targetFrameRate = 100;
 		m_isInitalized = false;
 		m_initProcess = new Fibers.Fiber(InitProcess());
@@ -96,7 +87,7 @@ public class Game : SGame.MonoSingleton<Game>
 
 	IEnumerator InitSystem()
 	{
-		VersionUpdater.PreInitalize();
+		//VersionUpdater.PreInitalize();
 		
 		// 资源加载初始化
 		ManifestRequest assetRequest = libx.Assets.Initialize();
@@ -126,6 +117,21 @@ public class Game : SGame.MonoSingleton<Game>
 		log.Info("Log Load Success!");
 	}
 
+	IEnumerator LoadScene()
+	{
+		/*
+		Debug.Log("Start Load game scene!!!");
+		log.Info("Start Load game scene!");
+		var req = Assets.LoadSceneAsync("Assets/BuildAsset/Scenes/game.unity", true);
+		yield return req;
+		*/
+		var loadHandle = SceneManager.LoadSceneAsync("game", LoadSceneMode.Additive);
+		loadHandle.allowSceneActivation = true;
+		yield return loadHandle;
+		Debug.Log("game scene finish !!!");
+		log.Info("game finish scene!");
+	}
+
 	// 初始化流程
 	IEnumerator InitProcess()
 	{
@@ -136,6 +142,8 @@ public class Game : SGame.MonoSingleton<Game>
 		eventManager = EventManager.Instance;
 
 		yield return InitSystem();
+
+		yield return LoadScene();
 
 		m_isInitalized = true;
 		m_initalizeEntity = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntity(typeof(GameInitFinish));

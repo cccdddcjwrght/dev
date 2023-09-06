@@ -21,6 +21,8 @@ namespace SGame.UI{
 		private UIContext        m_context;
 		private ItemGroup        m_userProperty;
 
+		private Fiber			 m_fiberShowTips;
+
 		partial void InitLogic(UIContext context){
 			m_context			= context;
 			context.onUpdate	+= onUpdate;
@@ -32,6 +34,54 @@ namespace SGame.UI{
 
 			SetGoldText(m_userProperty.GetNum((int)UserType.GOLD).ToString());
 			UpdateBonusText();
+
+			m_fiberShowTips = FiberCtrl.Pool.AllocateFiber(FiberBucket.Manual);
+		}
+
+		/// <summary>
+		/// 显示TIPS 特效
+		/// </summary>
+		/// <param name="tile1"></param>
+		/// <param name="tile2"></param>
+		/// <param name="isMax"></param>
+		/// <param name="showTime"></param>
+		/// <param name="hideTime"></param>
+		/// <returns></returns>
+		IEnumerator RunShowTips(string tile1, string tile2, bool isMax, float showTime, float hideTime)
+		{
+			var tipUI = m_view.m_tip;
+			
+			// 设置控制器
+			tipUI.m_state.selectedIndex = isMax ? 1 : 0;
+
+			tipUI.m_tile1.text = tile1;
+			tipUI.m_tile2.text = tile2;
+			
+			tipUI.visible	= true;
+			tipUI.alpha		= 1.0f;
+
+			yield return FiberHelper.Wait(showTime);
+
+			float passTime = 0.0f;
+			while (passTime < hideTime)
+			{
+				passTime += Time.deltaTime;
+				tipUI.alpha = math.clamp((hideTime - passTime) / hideTime, 0, 1.0f);
+				yield return null;
+			}
+
+			tipUI.visible = false;
+		}
+
+		/// <summary>
+		/// 显示tips
+		/// </summary>
+		/// <param name="tile1"></param>
+		/// <param name="tile2"></param>
+		/// <param name="isMax"></param>
+		void ShowTips(string tile1, string tile2, bool isMax, float showTime = 2.0f, float hideTime = 0.2f)
+		{
+			m_fiberShowTips.Start(RunShowTips(tile1, tile2, isMax, showTime, hideTime));
 		}
 
 		void UpdateAutoUseUI(bool autoUse)
@@ -83,6 +133,8 @@ namespace SGame.UI{
 		
 		private  void onUpdate(UIContext context)
 		{
+			m_fiberShowTips.Step();
+			
 			UserSetting setting = DataCenter.Instance.GetUserSetting();
 			if (m_userSetting.autoUse != setting.autoUse)
 			{

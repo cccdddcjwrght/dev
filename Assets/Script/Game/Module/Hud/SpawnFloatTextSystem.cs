@@ -16,11 +16,11 @@ namespace SGame
     [DisableAutoCreation]
     public partial class SpawnFloatTextSystem : SystemBase
     {
-        private EntityArchetype          m_floatTextType;
-        public  ObjectPool<UI_FloatText> m_floatComponents = new ObjectPool<UI_FloatText>();
-        private Entity                   m_hud;
-        private bool                     m_isReadly;
-        private GComponent               m_hudContent;
+        private EntityArchetype                                 m_floatTextType;
+        public  ObjectPool<UI_FloatText>                        m_floatComponents = new ObjectPool<UI_FloatText>();
+        private Entity                                          m_hud;
+        private bool                                            m_isReadly;
+        private GComponent                                      m_hudContent;
         private EndInitializationEntityCommandBufferSystem      m_commandBuffer;
         private static ILog log = LogManager.GetLogger("xl.game.floatext");
 
@@ -87,7 +87,7 @@ namespace SGame
         void SetupFloatText(FloatTextRequest request, UI_FloatText floatText)
         {
             floatText.m_title.color = request.color;
-            floatText.m_title.text = request.text;
+            floatText.m_title.text = request.text1;
             floatText.m_title.textFormat.size = request.fontSize;
             floatText.xy = UIUtils.WorldPosToUI(m_hudContent, request.position);
             floatText.alpha = 1.0f;
@@ -106,7 +106,7 @@ namespace SGame
             {
                 PoolID id              = m_floatComponents.Alloc();
                 Entity entityFloatText = commandBuffer.CreateEntity(m_floatTextType);
-                log.Info("create id=" + id.ToString() + " text=" + request.text);
+                log.Info("create id=" + id.ToString() + " text=" + request.text1);
                 
                 commandBuffer.SetComponent(entityFloatText, new LiveTime() {Value = request.duration});
                 commandBuffer.SetComponent(entityFloatText, new FloatTextData()      {Value = id});

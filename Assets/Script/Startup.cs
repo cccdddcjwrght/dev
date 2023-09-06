@@ -15,6 +15,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 游戏启动类, 启动核心逻辑与游戏等逻辑
 /// </summary>
+[DefaultExecutionOrder(-1000)]
 public class Startup : MonoBehaviour
 {
     [Serializable]
@@ -52,6 +53,9 @@ public class Startup : MonoBehaviour
     {
         SetupAssetPath();
         
+        Debug.Log("call 1!!!");
+
+        
         // 1. 初始化日志
         TextAsset logAsset = Resources.Load<TextAsset>(LogInitPath);
         if (logAsset != null && logAsset.bytes != null)
@@ -80,15 +84,14 @@ public class Startup : MonoBehaviour
         yield return null;
     }
 
-    // 加载startup
-    IEnumerator Run()
+    IEnumerator LoadModules()
     {
-        // 初始化基础共
-        yield return BaseModuleInitalize();
-        
         // 先处理热更新
         foreach (var module in m_modules)
         {
+            Debug.Log("module =" + module.m_className);
+
+            
             log.Info("Moudle Start Load =" + module.m_dllName);
             Type t = LoadDll(module.m_dllName, module.m_className);
             if (t == null)
@@ -113,6 +116,41 @@ public class Startup : MonoBehaviour
             
             log.Info("Moudle Call Finish =" + module.m_dllName);
         }
+    }
+
+    IEnumerator LoadModulesNoHotfix()
+    {
+        log.Info("Hotfix Module Load");
+        yield return Hotfix.Main();
+
+        log.Info("Main Module Load");
+        yield return Game.Main();
+    }
+
+    // 加载startup
+    IEnumerator Run()
+    {
+        // 初始化基础共
+        yield return BaseModuleInitalize();
+        
+        log.Info("BaseModuleInitalize Finish");
+        
+        Debug.Log("call 2!!!");
+        
+        if (useHotfix)
+            LoadAOTMeta();
+
+        if (useHotfix)
+            yield return LoadModules();
+        else
+            yield return LoadModulesNoHotfix();
+        
+        log.Info("LoadAOTMeta Finish");
+        
+        Debug.Log("LoadAOTMeta game scene!!!");
+
+
+       
 
         // 销毁startup
         Destroy(gameObject);
@@ -122,11 +160,15 @@ public class Startup : MonoBehaviour
     {
         get
         {
+            /*
             #if UNITY_EDITOR
             if (!m_useHotfixCode)
                 return false;
             #endif
+            
             return true;
+            */
+            return false;
         }
     }
     
@@ -152,17 +194,56 @@ public class Startup : MonoBehaviour
         Type t = hotUpdateAss.GetType(className);
         return t;
     }
+
+    /// <summary>
+    /// 加载AOT 原数据
+    /// </summary>
+    void LoadAOTMeta()
+    {
+        //#if !UNITY_EDITOR 
+            const string AOTBasePath = "Assets/BuildAsset/AOTMeta/";
+            foreach (var aotDllName in AOTGenericReferences.PatchedAOTAssemblyList)
+            {
+                string dllPath = AOTBasePath + aotDllName + ".bytes";
+                var req = Assets.LoadAsset(dllPath, typeof(TextAsset));
+                var asset = req.asset as TextAsset;
+                byte[] dllBytes = asset.bytes;
+                LoadImageErrorCode err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, HomologousImageMode.SuperSet);
+                if (err != LoadImageErrorCode.OK)
+                {
+                    log.Error("Load Dll Meta Fail File=" + aotDllName + " err=" + err);
+                }
+                req.Release();
+            }
+        //#endif
+    }
     
     // 设置加载路径
     static public void SetupAssetPath()
     {
 #if UNITY_EDITOR
         // 没开启更新流程直接进入游戏
-        if (Assets.useVersionUpdate == false)
+        //if (Assets.useVersionUpdate == false)
+        if (true)
         {
             return;
         }
 #endif
-        Assets.updatePath = UpdateUtils.GetUpdatePath();
+        Assets.updatePath = GetUpdatePath();
+    }
+    
+    public static string GetUpdatePath()
+    {
+        return string.Format("{0}{1}DLC{1}", Application.persistentDataPath, Path.DirectorySeparatorChar);
+    }
+    
+    // 解决场景初始话可能导致失败的问题
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void Initialize()
+    {
+#if UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP
+        log.Info("UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP Init!");
+        Unity.Entities.DefaultWorldInitialization.Initialize("Default World", false);
+#endif
     }
 }

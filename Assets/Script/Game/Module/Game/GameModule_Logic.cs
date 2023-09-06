@@ -108,5 +108,26 @@ namespace SGame
             Character character = EntityManager.GetComponentObject<Character>(m_player);
             character.titleId = m_currentPlayerPos;
         }
+        
+        /// <summary>
+        /// 设置跟随角色的摄像机
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator PlayerCameraSetup()
+        {
+            // 等待 角色创建
+            while (!m_characterModule.IsReadly(m_player))
+                yield return null;
+            
+            var camera = m_cameraModule.GetCamera(CameraType.PLAYER);
+            var mover = EntityManager.GetComponentObject<CharacterMover>(m_player);
+            var playerGameObject = mover.m_controller.gameObject;
+            
+            // 绑定摄像机
+            camera.Follow = playerGameObject.transform;
+            //camera.LookAt = playerGameObject.transform;
+            
+            m_cameraModule.SwitchCamera(CameraType.PLAYER);
+        }
     }
 }

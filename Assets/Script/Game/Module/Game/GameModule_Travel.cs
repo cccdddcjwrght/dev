@@ -62,6 +62,7 @@ namespace SGame
         /// <returns></returns>
         IEnumerator TravelEnter()
         {
+            m_cameraModule.SwitchCamera(CameraType.TRAVEL_MAP);
             var playerId = m_userData.GetNum((int)UserType.TRAVEL_PLAYERID);
             if (playerId == 0)
             {
@@ -115,6 +116,8 @@ namespace SGame
             // 等待1秒
             yield return FiberHelper.Wait(3.0f);
 
+            m_cameraModule.SwitchCamera(CameraType.PLAYER);
+
             // 关闭UI
             UIUtils.CloseUI(EntityManager, ui);
             m_playerState = PlayState.TRAVEL;
@@ -126,6 +129,7 @@ namespace SGame
         /// <returns></returns>
         IEnumerator TravelLeave()
         {
+            m_cameraModule.SwitchCamera(CameraType.BASE_MAP);
             yield return null;
             m_tileEventModule.ClearAllEvents();
 
@@ -178,6 +182,7 @@ namespace SGame
             
             // 等待1秒
             yield return FiberHelper.Wait(3.0f);
+            m_cameraModule.SwitchCamera(CameraType.PLAYER);
             UIUtils.CloseUI(EntityManager, ui);
 
             m_playerState = PlayState.NORMAL;

@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using log4net;
-using Unity.Collections;
 using Unity.Entities;
-using UnityEngine;
-using Unity.Collections;
 
 namespace SGame
 {

@@ -22,7 +22,8 @@ namespace SGame
             DiceModule      diceModule,
             PropertyManager property,
             TileModule      tileModule,
-            TileEventModule tileEventModule
+            TileEventModule tileEventModule,
+            CameraModule     cameraModule
             )
         {
             m_gameWorld       = gameWorld;
@@ -34,6 +35,7 @@ namespace SGame
             m_userInputSystem = userInputSystem;
             m_tileModule      = tileModule;
             m_tileEventModule = tileEventModule;
+            m_cameraModule    = cameraModule;
             m_fiber           = new Fiber(Logic());
 
             m_userData        = property.GetGroup(ItemType.USER);
@@ -132,6 +134,9 @@ namespace SGame
             }
 
             UpdateDicePosition();
+
+            yield return PlayerCameraSetup();
+
             // 3. 获取场景路径
             yield return null;
         }
@@ -339,6 +344,11 @@ namespace SGame
         private TileEventModule     m_tileEventModule;
         
         private EventHandleContainer m_eventHandles = new EventHandleContainer();
+
+        /// <summary>
+        /// 摄像机模块引用 
+        /// </summary>
+        private CameraModule         m_cameraModule;         
 
         /// <summary>
         /// 关联点

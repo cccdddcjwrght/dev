@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using log4net;
 using SGame.UI;
 using Unity.Collections;
 using Unity.Entities;
@@ -33,9 +34,16 @@ namespace SGame
         private Entity                          m_characterPrefab;
         private const string CHARACTER_PREFAB = "Assets/BuildAsset/Prefabs/Character.prefab";
 
+        private static ILog log = LogManager.GetLogger("xl.game.Character");
+
         public static CharacterModule Insatance
         {
             get { return s_instance; }
+        }
+
+        public EntityManager EntityManager
+        {
+            get { return m_world.GetEntityManager(); }
         }
 
         public CharacterModule(GameWorld world, ResourceManager resourceManager)
@@ -54,9 +62,11 @@ namespace SGame
             m_spawerRequest.Initalize(m_world,  resourceManager);
             m_spawnSystem.Initalize(m_world,    resourceManager);
             moveSystem.Initalize(m_world,       resourceManager);
-
-            m_characterPrefab = resourceManager.GetEntityPrefab(CHARACTER_PREFAB);
             
+            log.Info("Get Prefab START = " + CHARACTER_PREFAB);
+            m_characterPrefab = resourceManager.GetEntityPrefab(CHARACTER_PREFAB);
+            log.Info("Get Prefab END = " + CHARACTER_PREFAB);
+
             //UIRequest.Create()
         }
 
@@ -70,6 +80,16 @@ namespace SGame
             Character character = m_entityManager.GetComponentObject<Character>(e);
             character.characterName = "yuehaiyouxi";
             return e;
+        }
+
+        /// <summary>
+        /// 判断角色是否初始化完成
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public bool IsReadly(Entity e)
+        {
+            return EntityManager.HasComponent<CharacterSpawnSystem.InitalizedTag>(e);
         }
         
         /// <summary>

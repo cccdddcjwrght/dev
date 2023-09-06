@@ -71,6 +71,12 @@ namespace SGame
         public Entity GetEntityPrefab(string path)
         {
             GameObject prefab = LoadPrefab(path);
+            if (prefab == null)
+            {
+                log.Error("Load Prefab Is NUll=" + path);
+                return Entity.Null;
+            }
+            
             Entity ret = m_world.CoverToEntity(prefab);
             if (ret == Entity.Null)
             {
