@@ -12,6 +12,10 @@ namespace SGame
         POS             = 4, // 位置信息
 
         TRAVEL_PLAYERID = 5, // 记录的出行对象ID
-        DICE_POWER      = 100, // 骰子设置数量
+        TRAVEL_GOLD     = 6, // 使用出行金币
+        TRAVEL          = 7, // 出行状态 0 表示普通状态, 1表示出行状态
+        
+        DICE_POWER      = 100,      // 骰子设置数量
+        TRAVEL_DICE_POWER = 101,    // 出行时保存的骰子数量
     }
 }

@@ -29,10 +29,17 @@ namespace SGame
             var userProperty =  PropertyManager.Instance.GetUserGroup(m_playerId);
 
             // 执行添加金币事件
-            userProperty.AddNum((int)UserType.GOLD, Value);
-            long newValue = userProperty.GetNum((int)UserType.GOLD);
+            int travelState = (int)userProperty.GetNum((int)UserType.TRAVEL);
+            int goldId = travelState == 0 ? (int)UserType.GOLD : (int)UserType.TRAVEL_GOLD;
+            userProperty.AddNum(goldId, Value);
+            long newValue = userProperty.GetNum(goldId);
             
-            EventManager.Instance.Trigger((int)GameEvent.PROPERTY_GOLD, Value, newValue, m_playerId);
+            if (travelState == 0)
+                // 添加普通金币
+                EventManager.Instance.Trigger((int)GameEvent.PROPERTY_GOLD, Value, newValue, m_playerId);
+            else
+                // 添加出行金币
+                EventManager.Instance.Trigger((int)GameEvent.PROPERTY_TRAVEL_GOLD, Value, newValue, m_playerId);
         }
     }
 }

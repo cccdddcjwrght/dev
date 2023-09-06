@@ -26,7 +26,8 @@ namespace SGame
 		
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 		PROPERTY_BANK				= 1001, // 银行存款或取款  (int add_gold, long new_value, int buildingId, int player_id)
-
+		PROPERTY_TRAVEL_GOLD		= 1002, // 出行金币       (int add_gold, long new_gold, int player_id)
+		
 		PLAYER_ROTE_DICE			= 2000, // 用户操作骰子
 		PLAYER_POWER_DICE			= 2001, // 用户更改倍率设置
 		

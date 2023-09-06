@@ -189,7 +189,9 @@ namespace SGame
                 {
                     // 自动投掷就等待1秒
                     yield return FiberHelper.Wait(1.0f);
-                    if (dicePower < m_userSetting.power)
+                    
+                    // 只有普通关卡才计算骰子
+                    if (m_playerState ==  PlayState.NORMAL &&  dicePower < m_userSetting.power)
                     {
                         // 取消自动骰子
                         m_userSetting.autoUse = false;
@@ -205,7 +207,7 @@ namespace SGame
                 UserInput input = m_userInputSystem.GetInput();
                 if (input.rollDice == true)
                 {
-                    if (dicePower < m_userSetting.power)
+                    if (m_playerState == PlayState.NORMAL && dicePower < m_userSetting.power)
                     {
                         TipDiceNotEnough();
                         yield return null;
@@ -217,7 +219,10 @@ namespace SGame
                 yield return null;
             }
 
-            m_userData.SetNum((int)UserType.DICE_POWER, m_userSetting.power);
+            if (m_playerState == PlayState.NORMAL)
+                m_userData.SetNum((int)UserType.DICE_POWER, m_userSetting.power);
+            else
+                m_userData.SetNum((int)UserType.DICE_POWER, 1);
         }
 
         // 执行下一局
@@ -232,8 +237,12 @@ namespace SGame
             }
             
             // 消耗一个骰子数量
-            var power = m_userData.GetNum((int)UserType.DICE_POWER);//m_userSetting.power;
-            m_userData.AddNum((int)UserType.DICE_NUM, -power);
+            var power = m_userData.GetNum((int)UserType.DICE_POWER); //m_userSetting.power;
+            if (m_playerState == PlayState.NORMAL)
+            {
+                // 正常运行需要扣骰子数量
+                m_userData.AddNum((int)UserType.DICE_NUM, -power);
+            }
 
             int dice_value1 = diceData.Value1; 
             int dice_value2 = diceData.Value2;
@@ -341,7 +350,7 @@ namespace SGame
         // 当前移动点
         private int                 m_currentPlayerPos  ;
 
-        private UserInputsystem    m_userInputSystem ;
+        private UserInputsystem     m_userInputSystem ;
         
         // 游戏主逻辑
         private static ILog log = LogManager.GetLogger("xl.Game.Main");

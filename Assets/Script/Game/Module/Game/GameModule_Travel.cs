@@ -73,6 +73,8 @@ namespace SGame
 
             yield return null;
             m_tileEventModule.ClearAllEvents();
+            m_userData.SetNum((int)UserType.TRAVEL, 1);
+            m_userData.SetNum((int)UserType.TRAVEL_DICE_POWER, m_userData.GetNum((int)UserType.DICE_POWER));
             
             // 1. 显示更新界面
             Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelenter"));
@@ -132,6 +134,8 @@ namespace SGame
             m_cameraModule.SwitchCamera(CameraType.BASE_MAP);
             yield return null;
             m_tileEventModule.ClearAllEvents();
+            // 清空出行金币
+            m_userData.SetNum((int)UserType.TRAVEL_GOLD, 0);
 
             // 1. 显示更新界面
             Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelleave"));
@@ -185,7 +189,21 @@ namespace SGame
             m_cameraModule.SwitchCamera(CameraType.PLAYER);
             UIUtils.CloseUI(EntityManager, ui);
 
+            // 设置出行状态
             m_playerState = PlayState.NORMAL;
+            m_userData.SetNum((int)UserType.TRAVEL, 0);
+            
+            // 将出行金币转换为玩家金币
+            long travelGold = m_userData.GetNum((int)UserType.TRAVEL_GOLD);
+            long dicePower = m_userData.GetNum((int)UserType.DICE_POWER);
+            if (dicePower <= 0)
+                log.Error("TraveDice Power Less Zero" + dicePower);
+            
+            // 添加从出行钟获得的金币
+            travelGold *= dicePower;
+            m_userData.AddNum((int)UserType.GOLD, travelGold);
+            long newGold = m_userData.GetNum((int)UserType.GOLD);
+            EventManager.Instance.Trigger((int)GameEvent.PROPERTY_GOLD, (int)travelGold, newGold, 0);
         }
              
     }

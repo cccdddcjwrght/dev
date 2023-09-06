@@ -29,11 +29,12 @@ namespace SGame.UI{
 			clickBtn.onTouchBegin.Add(OnTouchBattleBegin);
 			clickBtn.onTouchEnd.Add(OnTouchBattleEnd);
 
-			m_handles += EventManager.Instance.Reg<int,long,int>((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
-			m_handles += EventManager.Instance.Reg<int,long,int,int>((int)GameEvent.PROPERTY_BANK, OnEventBankChange);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_START, OnTravelStart);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_END, OnTravelEnd);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_WAIT_NEXTROUND, OnEventNextGameRound);
+			m_handles += EventManager.Instance.Reg<int,long,int>((int)GameEvent.PROPERTY_GOLD,			OnEventGoldChange);
+			m_handles += EventManager.Instance.Reg<int, long, int>((int)GameEvent.PROPERTY_TRAVEL_GOLD, OnEventTravelGoldChange);
+			m_handles += EventManager.Instance.Reg<int,long,int,int>((int)GameEvent.PROPERTY_BANK,		OnEventBankChange);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_START,							OnTravelStart);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_END,                           OnTravelEnd);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_WAIT_NEXTROUND,                  OnEventNextGameRound);
 		}
 
 		private void OnTravelStart()
@@ -49,11 +50,20 @@ namespace SGame.UI{
 
 		}
 
+		// 金币添加事件
 		void OnEventGoldChange(int value, long newValue, int playerId)
 		{
 			log.Info("On Gold Update add =" + value + " newvalue=" + newValue + " plyaerid=" + playerId);
 			SetGoldText(newValue.ToString());
 			ShowNumberEffect("g+" + value, Color.red);
+		}
+
+		// 出行金币添加事件
+		void OnEventTravelGoldChange(int value, long newValue, int playerId)
+		{
+			log.Info("On OnEventTravelGoldChange add =" + value + " newvalue=" + newValue + " plyaerid=" + playerId);
+			//SetGoldText(newValue.ToString());
+			ShowNumberEffect("g+" + value, Color.yellow);
 		}
 		
 		void OnEventBankChange(int value, long newValue, int buildingId, int playerId)
@@ -130,12 +140,11 @@ namespace SGame.UI{
 		{
 			if (m_holdEvent == true)
 				return;
-
-			if (Utils.PlayerIsMoving(EntityManager))
-				return;
 			
 			log.Info("on baccle icon click!");
 			autoDice = false;
+			if (Utils.PlayerIsMoving(EntityManager))
+				return;
 			m_view.m_battle.m_main.m_state.selectedIndex = 1;
 			EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
 		}
