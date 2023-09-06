@@ -10,7 +10,8 @@ namespace SGame
         DICE_MAXNUM     = 2, // 骰子最大数量 
         GOLD            = 3, // 金币数量
         POS             = 4, // 位置信息
-        
+
         TRAVEL_PLAYERID = 5, // 记录的出行对象ID
+        DICE_POWER      = 100, // 骰子设置数量
     }
 }

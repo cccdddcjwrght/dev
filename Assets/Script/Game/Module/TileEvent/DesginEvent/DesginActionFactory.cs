@@ -35,7 +35,7 @@ namespace SGame
         /// <param name="e"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public IDesginAction Create(RoundEvent e, int pos)
+        public IDesginAction Create(RoundEvent e, int pos, int power)
         {
             int buildngID = m_tileModule.GetBuildingIDByPos(pos, m_tileModule.currentMap);
             if (buildngID <= 0)
@@ -47,10 +47,10 @@ namespace SGame
             switch (e.eventType)
             {
                 case (int)Cs.EventType.Gold:
-                    return CreateGold(e.gold);
+                    return CreateGold(e.gold * power);
                 
                 case (int)Cs.EventType.Bank:
-                    return new DesginBankAction(buildngID, -e.gold);
+                    return new DesginBankAction(buildngID, -e.gold * power);
                 
                 case (int)Cs.EventType.Travel:
                     return new DesginTravelAction(e.playerId);

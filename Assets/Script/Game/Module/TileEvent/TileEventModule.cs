@@ -87,10 +87,11 @@ namespace SGame
         /// <param name="startPos"></param>
         /// <param name="endPos"></param>
         /// <returns></returns>
-        List<TileEventProcess> GetPassEventProcess(int startPos, int endPos)
+        List<TileEventProcess> GetPassEventProcess(int startPos, int endPos, int power)
         {
             List<TileEventProcess> ret = new List<TileEventProcess>();
             int tileCount = m_tileModule.tileCount;
+
             for (int i = startPos; i < endPos; i++)
             {
                 int pos         = i % tileCount;
@@ -129,7 +130,7 @@ namespace SGame
                 {
                     TileEventProcess v = new TileEventProcess();
                     v.condition        = cond;
-                    v.action           = m_actionFactory.CreateGold(addGold);
+                    v.action           = m_actionFactory.CreateGold(addGold * power);
                     ret.Add(v);
                 }
             }
@@ -155,9 +156,17 @@ namespace SGame
             v.Value2 = data.dice2;                         
             v.eventId = data.serverEventId;
             int endPos = startPos + v.Value1 + v.Value2;
+            
+            var userProperty =  PropertyManager.Instance.GetUserGroup(0);
+            var power = (int)userProperty.GetNum((int)UserType.DICE_POWER);
+            if (power <= 0)
+            {
+                log.Error("power is zero!!");
+                return false;
+            }
 
             // 添加路过事件
-            List<TileEventProcess> passoverEvent = GetPassEventProcess(startPos, endPos);
+            List<TileEventProcess> passoverEvent = GetPassEventProcess(startPos, endPos, power);
             foreach (var e in passoverEvent)
             {
                 m_processSystem.AddTileEvent(e.condition, e.action);
@@ -166,7 +175,7 @@ namespace SGame
             // 添加结束事件
             int pos = endPos % m_tileModule.tileCount;
             var cond = m_conditionFactory.CreateTileCondition(0, endPos, TileEventTrigger.State.FINISH);
-            var act = m_actionFactory.Create(data.roundEvent, pos);//m_actionFactory.CreateGold(m_randomSystem.NextInt(100, 200));
+            var act = m_actionFactory.Create(data.roundEvent, pos, power);//m_actionFactory.CreateGold(m_randomSystem.NextInt(100, 200));
             if (act != null)
             {
                 m_processSystem.AddTileEvent(cond, act);
