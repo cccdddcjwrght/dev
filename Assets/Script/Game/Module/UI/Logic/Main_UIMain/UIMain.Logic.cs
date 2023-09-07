@@ -198,8 +198,7 @@ namespace SGame.UI{
 		void UpdateDiceButtonState()
 		{
 			// 更新按钮状态
-			bool isPlayerMoving = Utils.PlayerIsMoving(EntityManager);
-			m_view.m_battle.m_main.m_state.selectedIndex = isPlayerMoving ? 1 : 0;
+			m_view.m_battle.m_main.m_state.selectedIndex = m_inPlaying ? 1 : 0;
 		}
 	}
 }

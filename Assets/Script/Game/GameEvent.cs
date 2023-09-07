@@ -23,6 +23,7 @@ namespace SGame
 		
 
 		GAME_WAIT_NEXTROUND			= 106, // 等待下一局
+		GAME_NEXTROUND				= 107, // 运行下一局
 		
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 		PROPERTY_BANK				= 1001, // 银行存款或取款  (int add_gold, long new_value, int buildingId, int player_id)
@@ -33,8 +34,8 @@ namespace SGame
 		
 		TRAVEL_TRIGGER				= 3000, // 触发出行 (bool isTravel)
 		
-		TRAVEL_START				= 3001, // 触发出行开始 
-		TRAVEL_END   				= 3003, // 触发出行结束 
+		TRAVEL_START				= 3001, // (bool isTravel)触发出行开始 
+		TRAVEL_END   				= 3003, // (bool isTravel)触发出行结束 
 
 	}
 }

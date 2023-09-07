@@ -75,6 +75,7 @@ namespace SGame
                 yield return WaitNextRond();
                 
                 // 播放下一轮
+                EventManager.Instance.Trigger((int)GameEvent.GAME_NEXTROUND);
                 yield return PlayNextRound();
 
                 // 防止进入死循环

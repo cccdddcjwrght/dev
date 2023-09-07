@@ -9,8 +9,9 @@ namespace SGame.UI.Main
     {
         public Controller m_state;
         public Controller m_auto_dice;
-        public GImage m_hold1;
-        public GImage m_hold2;
+        public Controller m_travel;
+        public GLoader m_hold1;
+        public GLoader m_hold_travel1;
         public GTextField m_tile;
         public const string URL = "ui://ktixaqljjx7gla5";
 
@@ -25,8 +26,9 @@ namespace SGame.UI.Main
 
             m_state = GetControllerAt(0);
             m_auto_dice = GetControllerAt(1);
-            m_hold1 = (GImage)GetChildAt(3);
-            m_hold2 = (GImage)GetChildAt(4);
+            m_travel = GetControllerAt(2);
+            m_hold1 = (GLoader)GetChildAt(3);
+            m_hold_travel1 = (GLoader)GetChildAt(4);
             m_tile = (GTextField)GetChildAt(5);
         }
     }

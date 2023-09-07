@@ -10,18 +10,20 @@ namespace SGame.UI{
 	public partial class UIMain
 	{
 		// 长按表示两秒
-		private const float HOLD_LONG_TIME = 2.0f;
+		private float HOLD_LONG_TIME = 2.0f;
 		private const string SHOW_TIPS_TIME = "show_power_tips_time";
 		private const string HIDE_TIPS_TIME = "hide_power_tips_time";
-
+		private const string HOLD_TIME		= "dice_button_hold_time";
 		
 		private float m_holdTime = 0;
 		private bool  m_holdEvent = false;
+		private bool m_inPlaying = false;
 
 		private EventHandleContainer m_handles = new EventHandleContainer();
 		
 		partial void InitEvent(UIContext context)
 		{
+			HOLD_LONG_TIME = GlobalDesginConfig.GetFloat(HOLD_TIME);
 			context.onUpdate += OnTouchLoginUpdate;
 			var clickBtn = m_view.m_battle.m_main;
 			clickBtn.onClick.Add(OnBattleIconClick);
@@ -32,18 +34,20 @@ namespace SGame.UI{
 			m_handles += EventManager.Instance.Reg<int,long,int>((int)GameEvent.PROPERTY_GOLD,			OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg<int, long, int>((int)GameEvent.PROPERTY_TRAVEL_GOLD, OnEventTravelGoldChange);
 			m_handles += EventManager.Instance.Reg<int,long,int,int>((int)GameEvent.PROPERTY_BANK,		OnEventBankChange);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_START,							OnTravelStart);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.TRAVEL_END,                           OnTravelEnd);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_WAIT_NEXTROUND,                  OnEventNextGameRound);
+			m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.TRAVEL_START,							OnTravelStart);
+			m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.TRAVEL_END,                           OnTravelEnd);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_WAIT_NEXTROUND,                  OnEventWaitNextGameRound);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_NEXTROUND,						OnEventNextGameRound);
 		}
 
-		private void OnTravelStart()
+		private void OnTravelStart(bool isTravel)
 		{
-			m_context.window.visible = false;
+			m_view.visible = false;
+			m_view.m_battle.m_travel.selectedIndex = isTravel ? 1 : 0;
 		}
-		private void OnTravelEnd()
+		private void OnTravelEnd(bool isTravel)
 		{
-			m_context.window.visible = true;
+			m_view.visible = true;
 		}
 
 		partial void UnInitEvent(UIContext context){
@@ -135,6 +139,8 @@ namespace SGame.UI{
 			
 			autoDice = false;
 		}
+		
+		
 
 		void OnBattleIconClick(EventContext context)
 		{
@@ -145,12 +151,20 @@ namespace SGame.UI{
 			autoDice = false;
 			if (Utils.PlayerIsMoving(EntityManager))
 				return;
-			m_view.m_battle.m_main.m_state.selectedIndex = 1;
+			m_userSetting = DataCenter.Instance.GetUserSetting();
+			//m_view.m_battle.m_main.m_state.selectedIndex = 1;
 			EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
 		}
 
 		void OnEventNextGameRound()
 		{
+			m_inPlaying = true;
+			UpdateDiceButtonState();
+		}
+		
+		void OnEventWaitNextGameRound()
+		{
+			m_inPlaying = false;
 			UpdateDiceButtonState();
 		}
 

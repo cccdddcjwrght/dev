@@ -9,11 +9,12 @@ namespace SGame.UI.Main
     {
         public Controller m_button;
         public Controller m_max;
-        public UI_DiceBtn m_main;
+        public Controller m_travel;
         public GButton m_power;
         public GProgressBar m_countprogress;
         public GTextField m_maxtext;
         public GTextField m_time;
+        public UI_DiceBtn m_main;
         public Transition m_t0;
         public const string URL = "ui://ktixaqljgmj1u";
 
@@ -28,11 +29,12 @@ namespace SGame.UI.Main
 
             m_button = GetControllerAt(0);
             m_max = GetControllerAt(1);
-            m_main = (UI_DiceBtn)GetChildAt(3);
-            m_power = (GButton)GetChildAt(4);
-            m_countprogress = (GProgressBar)GetChildAt(5);
-            m_maxtext = (GTextField)GetChildAt(6);
-            m_time = (GTextField)GetChildAt(7);
+            m_travel = GetControllerAt(2);
+            m_power = (GButton)GetChildAt(3);
+            m_countprogress = (GProgressBar)GetChildAt(4);
+            m_maxtext = (GTextField)GetChildAt(5);
+            m_time = (GTextField)GetChildAt(6);
+            m_main = (UI_DiceBtn)GetChildAt(10);
             m_t0 = GetTransitionAt(0);
         }
     }

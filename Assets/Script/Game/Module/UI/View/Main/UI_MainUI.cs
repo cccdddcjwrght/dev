@@ -8,6 +8,7 @@ namespace SGame.UI.Main
     public partial class UI_MainUI : GComponent
     {
         public Controller m_main;
+        public Controller m_travel;
         public GProgressBar m_level;
         public GProgressBar m_gold;
         public GProgressBar m_diamond;
@@ -30,6 +31,7 @@ namespace SGame.UI.Main
             base.ConstructFromXML(xml);
 
             m_main = GetControllerAt(0);
+            m_travel = GetControllerAt(1);
             m_level = (GProgressBar)GetChildAt(0);
             m_gold = (GProgressBar)GetChildAt(1);
             m_diamond = (GProgressBar)GetChildAt(2);

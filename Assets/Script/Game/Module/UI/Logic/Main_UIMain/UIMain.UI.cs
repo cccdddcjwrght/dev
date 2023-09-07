@@ -11,11 +11,15 @@ namespace SGame.UI{
 	{
 		partial void InitUI(UIContext context){
 			m_view.m_main.onChanged.Add(new EventCallback1(_OnMainChanged));
+			m_view.m_travel.onChanged.Add(new EventCallback1(_OnTravelChanged));
 			UIListener.Listener(m_view.m_setting, new EventCallback1(_OnSettingClick));
 			m_view.m_battle.m_max.onChanged.Add(new EventCallback1(_OnBattleBtn_MaxChanged));
-			m_view.m_battle.m_main.m_auto_dice.onChanged.Add(new EventCallback1(_OnDiceBtn_Auto_diceChanged));
-			UIListener.Listener(m_view.m_battle.m_main, new EventCallback1(_OnBattleBtn_MainClick));
+			m_view.m_battle.m_travel.onChanged.Add(new EventCallback1(_OnBattleBtn_TravelChanged));
 			UIListener.Listener(m_view.m_battle.m_power, new EventCallback1(_OnBattleBtn_PowerClick));
+			m_view.m_battle.m_main.m_state.onChanged.Add(new EventCallback1(_OnDiceBtn_StateChanged));
+			m_view.m_battle.m_main.m_auto_dice.onChanged.Add(new EventCallback1(_OnDiceBtn_Auto_diceChanged));
+			m_view.m_battle.m_main.m_travel.onChanged.Add(new EventCallback1(_OnDiceBtn_TravelChanged));
+			UIListener.Listener(m_view.m_battle.m_main, new EventCallback1(_OnBattleBtn_MainClick));
 			UIListener.Listener(m_view.m_battle, new EventCallback1(_OnBattleClick));
 			m_view.m_tip.m_state.onChanged.Add(new EventCallback1(_OnTip_StateChanged));
 			UIListener.ListenerIcon(m_view.m_tip, new EventCallback1(_OnTipClick));
@@ -23,11 +27,15 @@ namespace SGame.UI{
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_main.onChanged.Remove(new EventCallback1(_OnMainChanged));
+			m_view.m_travel.onChanged.Remove(new EventCallback1(_OnTravelChanged));
 			UIListener.Listener(m_view.m_setting, new EventCallback1(_OnSettingClick),remove:true);
 			m_view.m_battle.m_max.onChanged.Remove(new EventCallback1(_OnBattleBtn_MaxChanged));
-			m_view.m_battle.m_main.m_auto_dice.onChanged.Remove(new EventCallback1(_OnDiceBtn_Auto_diceChanged));
-			UIListener.Listener(m_view.m_battle.m_main, new EventCallback1(_OnBattleBtn_MainClick),remove:true);
+			m_view.m_battle.m_travel.onChanged.Remove(new EventCallback1(_OnBattleBtn_TravelChanged));
 			UIListener.Listener(m_view.m_battle.m_power, new EventCallback1(_OnBattleBtn_PowerClick),remove:true);
+			m_view.m_battle.m_main.m_state.onChanged.Remove(new EventCallback1(_OnDiceBtn_StateChanged));
+			m_view.m_battle.m_main.m_auto_dice.onChanged.Remove(new EventCallback1(_OnDiceBtn_Auto_diceChanged));
+			m_view.m_battle.m_main.m_travel.onChanged.Remove(new EventCallback1(_OnDiceBtn_TravelChanged));
+			UIListener.Listener(m_view.m_battle.m_main, new EventCallback1(_OnBattleBtn_MainClick),remove:true);
 			UIListener.Listener(m_view.m_battle, new EventCallback1(_OnBattleClick),remove:true);
 			m_view.m_tip.m_state.onChanged.Remove(new EventCallback1(_OnTip_StateChanged));
 			UIListener.ListenerIcon(m_view.m_tip, new EventCallback1(_OnTipClick),remove:true);
@@ -38,6 +46,11 @@ namespace SGame.UI{
 		}
 		partial void OnMainChanged(EventContext data);
 		void SwitchMainPage(int index)=>m_view.m_main.selectedIndex=index;
+		void _OnTravelChanged(EventContext data){
+			OnTravelChanged(data);
+		}
+		partial void OnTravelChanged(EventContext data);
+		void SwitchTravelPage(int index)=>m_view.m_travel.selectedIndex=index;
 		void SetLevelValue(float data)=>UIListener.SetValue(m_view.m_level,data);
 		float GetLevelValue()=>UIListener.GetValue(m_view.m_level);
 		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
@@ -61,17 +74,11 @@ namespace SGame.UI{
 		}
 		partial void OnBattleBtn_MaxChanged(EventContext data);
 		void SwitchBattleBtn_MaxPage(int index)=>m_view.m_battle.m_max.selectedIndex=index;
-		void _OnDiceBtn_Auto_diceChanged(EventContext data){
-			OnDiceBtn_Auto_diceChanged(data);
+		void _OnBattleBtn_TravelChanged(EventContext data){
+			OnBattleBtn_TravelChanged(data);
 		}
-		partial void OnDiceBtn_Auto_diceChanged(EventContext data);
-		void SwitchDiceBtn_Auto_dicePage(int index)=>m_view.m_battle.m_main.m_auto_dice.selectedIndex=index;
-		void _OnBattleBtn_MainClick(EventContext data){
-			OnBattleBtn_MainClick(data);
-		}
-		partial void OnBattleBtn_MainClick(EventContext data);
-		void SetBattleBtn_MainText(string data)=>UIListener.SetText(m_view.m_battle.m_main,data);
-		string GetBattleBtn_MainText()=>UIListener.GetText(m_view.m_battle.m_main);
+		partial void OnBattleBtn_TravelChanged(EventContext data);
+		void SwitchBattleBtn_TravelPage(int index)=>m_view.m_battle.m_travel.selectedIndex=index;
 		void _OnBattleBtn_PowerClick(EventContext data){
 			OnBattleBtn_PowerClick(data);
 		}
@@ -86,6 +93,29 @@ namespace SGame.UI{
 		string GetBattleBtn_MaxtextText()=>UIListener.GetText(m_view.m_battle.m_maxtext);
 		void SetBattleBtn_TimeText(string data)=>UIListener.SetText(m_view.m_battle.m_time,data);
 		string GetBattleBtn_TimeText()=>UIListener.GetText(m_view.m_battle.m_time);
+		void _OnDiceBtn_StateChanged(EventContext data){
+			OnDiceBtn_StateChanged(data);
+		}
+		partial void OnDiceBtn_StateChanged(EventContext data);
+		void SwitchDiceBtn_StatePage(int index)=>m_view.m_battle.m_main.m_state.selectedIndex=index;
+		void _OnDiceBtn_Auto_diceChanged(EventContext data){
+			OnDiceBtn_Auto_diceChanged(data);
+		}
+		partial void OnDiceBtn_Auto_diceChanged(EventContext data);
+		void SwitchDiceBtn_Auto_dicePage(int index)=>m_view.m_battle.m_main.m_auto_dice.selectedIndex=index;
+		void _OnDiceBtn_TravelChanged(EventContext data){
+			OnDiceBtn_TravelChanged(data);
+		}
+		partial void OnDiceBtn_TravelChanged(EventContext data);
+		void SwitchDiceBtn_TravelPage(int index)=>m_view.m_battle.m_main.m_travel.selectedIndex=index;
+		void SetDiceBtn_TileText(string data)=>UIListener.SetText(m_view.m_battle.m_main.m_tile,data);
+		string GetDiceBtn_TileText()=>UIListener.GetText(m_view.m_battle.m_main.m_tile);
+		void _OnBattleBtn_MainClick(EventContext data){
+			OnBattleBtn_MainClick(data);
+		}
+		partial void OnBattleBtn_MainClick(EventContext data);
+		void SetBattleBtn_MainText(string data)=>UIListener.SetText(m_view.m_battle.m_main,data);
+		string GetBattleBtn_MainText()=>UIListener.GetText(m_view.m_battle.m_main);
 		void _OnBattleClick(EventContext data){
 			OnBattleClick(data);
 		}
