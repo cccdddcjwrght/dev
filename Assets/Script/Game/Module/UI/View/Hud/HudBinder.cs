@@ -8,6 +8,7 @@ namespace SGame.UI.Hud
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_HudGold.URL, typeof(UI_HudGold));
             UIObjectFactory.SetPackageItemExtension(UI_HudUI.URL, typeof(UI_HudUI));
             UIObjectFactory.SetPackageItemExtension(UI_FloatText.URL, typeof(UI_FloatText));
         }
