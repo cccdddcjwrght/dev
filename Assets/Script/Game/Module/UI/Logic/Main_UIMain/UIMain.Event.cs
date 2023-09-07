@@ -97,11 +97,13 @@ namespace SGame.UI{
 		{
 			m_holdTime = HOLD_LONG_TIME;
 			m_holdEvent = false;
+			m_view.m_battle.m_main.m_state.selectedIndex = 1;
 		}
 
 		void OnTouchBattleEnd(EventContext e)
 		{
 			m_holdTime = 0;
+			UpdateDiceButtonState();
 		}
 
 		void OnTouchLoginUpdate(UIContext e)
