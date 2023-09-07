@@ -14,286 +14,224 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeVariants: []
   dirs:
-  - assets/buildasset/aotmeta
   - assets/buildasset/audio/mixer
   - assets/buildasset/code
   - assets/buildasset/configs
   - assets/buildasset/log
+  - assets/buildasset/prefabs/building
   - assets/buildasset/prefabs
   - assets/buildasset/prefabs/characters
   - assets/buildasset/prefabs/dice
   - assets/buildasset/prefabs/snake
   - assets/buildasset/ui
   assets:
-  - name: core.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: flatbuffers.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: google.protobuf.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: mscorlib.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: system.core.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: unity.collections.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: unity.entities.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: unity.properties.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: unityengine.coremodule.dll.bytes
-    bundle: 0
-    dir: 0
-  - name: unityengine.jsonserializemodule.dll.bytes
-    bundle: 0
-    dir: 0
   - name: game.mixer
+    bundle: 0
+    dir: 0
+  - name: game.dll.bytes
     bundle: 1
     dir: 1
-  - name: game.dll.bytes
-    bundle: 2
-    dir: 2
   - name: hotfix.dll.bytes
-    bundle: 3
-    dir: 2
+    bundle: 2
+    dir: 1
   - name: bet.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: build_bank.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: build_chancecard.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: build_coin.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: build_game.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: build_house.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: build_trap.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: build_visit.bytes
-    bundle: 4
-    dir: 3
-  - name: desgin_global.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
+  - name: design_global.bytes
+    bundle: 11
+    dir: 2
   - name: event_build.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: event_group.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: event_part.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: game_event.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: game_function.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: game_global.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: grid.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: grid_path.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: item.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: item_chancecard.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: language_chn.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: language_en.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: language_hi.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: ui_res.bytes
-    bundle: 4
-    dir: 3
+    bundle: 11
+    dir: 2
   - name: log4net.xml.bytes
-    bundle: 5
+    bundle: 3
+    dir: 3
+  - name: bank.prefab
+    bundle: 12
     dir: 4
   - name: character.prefab
-    bundle: 6
+    bundle: 12
     dir: 5
   - name: kiki_v2.prefab
-    bundle: 7
+    bundle: 12
     dir: 6
   - name: dice.prefab
-    bundle: 8
+    bundle: 12
     dir: 7
   - name: game.prefab
-    bundle: 9
+    bundle: 12
     dir: 5
   - name: mapdata.prefab
-    bundle: 10
+    bundle: 12
     dir: 5
   - name: snake.prefab
-    bundle: 11
+    bundle: 12
     dir: 8
   - name: snakebody.prefab
     bundle: 12
     dir: 8
   - name: common_atlas0.png
-    bundle: 13
+    bundle: 4
     dir: 9
   - name: common_fui.bytes
-    bundle: 13
+    bundle: 4
     dir: 9
   - name: hotfix_atlas0.png
-    bundle: 14
+    bundle: 5
     dir: 9
   - name: hotfix_fui.bytes
-    bundle: 14
+    bundle: 5
     dir: 9
   - name: hud_fui.bytes
-    bundle: 15
+    bundle: 6
     dir: 9
   - name: loading_atlas0.png
-    bundle: 16
+    bundle: 7
     dir: 9
   - name: loading_fui.bytes
-    bundle: 16
+    bundle: 7
     dir: 9
   - name: login_atlas0.png
-    bundle: 17
+    bundle: 8
     dir: 9
   - name: login_fui.bytes
-    bundle: 17
+    bundle: 8
     dir: 9
   - name: main_atlas0.png
-    bundle: 18
+    bundle: 9
     dir: 9
   - name: main_fui.bytes
-    bundle: 18
+    bundle: 9
     dir: 9
   - name: travel_atlas0.png
-    bundle: 19
+    bundle: 10
     dir: 9
   - name: travel_fui.bytes
-    bundle: 19
+    bundle: 10
     dir: 9
   bundles:
-  - name: aotmeta.unity3d
-    id: 0
-    deps: 
-    len: 2117737
-    hash: 3d3b0f6c007fa90d3330348eaf194400
   - name: assets/buildasset/audio/mixer.unity3d
-    id: 1
+    id: 0
     deps: 
     len: 3160
     hash: f096efdfc7bce2bbf50c13e37331468d
   - name: assets/buildasset/code/game.dll.bytes.unity3d
-    id: 2
+    id: 1
     deps: 
     len: 125328
     hash: 2cb72db84704bfcabc37b05dd9b2901a
   - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
-    id: 3
+    id: 2
     deps: 
     len: 15826
     hash: e9685e2fe85b3d28dabfd78c3c31bdde
-  - name: assets/buildasset/configs.unity3d
-    id: 4
-    deps: 
-    len: 10097
-    hash: ef8090cfbe06041466672bb4ad76c4d0
   - name: assets/buildasset/log/log4net.xml.bytes.unity3d
-    id: 5
+    id: 3
     deps: 
     len: 1756
     hash: 00fbab37e0227fcbeaa983f7ca34227b
-  - name: assets/buildasset/prefabs/character.prefab.unity3d
-    id: 6
-    deps: 
-    len: 3078
-    hash: 6d3338dd39b5a1cb63a20975ea440a34
-  - name: assets/buildasset/prefabs/characters/kiki_v2.prefab.unity3d
-    id: 7
-    deps: 
-    len: 2838736
-    hash: d8a7ea0d3952803aa74a320cce9021c6
-  - name: assets/buildasset/prefabs/dice/dice.prefab.unity3d
-    id: 8
-    deps: 
-    len: 455784
-    hash: e8c1b7f210aec9a4c961e37182163cf2
-  - name: assets/buildasset/prefabs/game.prefab.unity3d
-    id: 9
-    deps: 
-    len: 2500
-    hash: bafaee70ab3a2ee5917ed1ef4a8f8fde
-  - name: assets/buildasset/prefabs/mapdata.prefab.unity3d
-    id: 10
-    deps: 
-    len: 4210527
-    hash: f3f179a87007ebd03627a1c0db940df9
-  - name: assets/buildasset/prefabs/snake/snake.prefab.unity3d
-    id: 11
-    deps: 
-    len: 2940
-    hash: edb91196f52a6f55886683606109448e
-  - name: assets/buildasset/prefabs/snake/snakebody.prefab.unity3d
-    id: 12
-    deps: 
-    len: 427032
-    hash: 01c4e11b053ed880411e6943aa1c9a62
   - name: assets/buildasset/ui/common.unity3d
-    id: 13
+    id: 4
     deps: 
     len: 234142
     hash: c6ceb4dce941c8a53b2704398285646e
   - name: assets/buildasset/ui/hotfix.unity3d
-    id: 14
+    id: 5
     deps: 
     len: 368276
     hash: 2a2e0ea9c21f507cc58a87270495a829
   - name: assets/buildasset/ui/hud.unity3d
-    id: 15
+    id: 6
     deps: 
-    len: 1556
-    hash: 3b321087a5171683904f551b1b70e542
+    len: 1778
+    hash: 19d4580469c4b6dbafa0a7dbb8c49ef7
   - name: assets/buildasset/ui/loading.unity3d
-    id: 16
+    id: 7
     deps: 
     len: 368149
     hash: 5111fbdb334406a299536ee36d106b5b
   - name: assets/buildasset/ui/login.unity3d
-    id: 17
+    id: 8
     deps: 
     len: 364087
     hash: aa5a2531554dbe8b3ec9d593ad1ee54d
   - name: assets/buildasset/ui/main.unity3d
-    id: 18
+    id: 9
     deps: 
-    len: 121512
-    hash: bdbc57e84717c45a5d4350f2a6712001
+    len: 165624
+    hash: ffe24534a9380eacf6f186ff48c0e3fa
   - name: assets/buildasset/ui/travel.unity3d
-    id: 19
+    id: 10
     deps: 
     len: 30439
     hash: 9c90dff66a1ed1472f48a59a2646e11d
+  - name: configs.unity3d
+    id: 11
+    deps: 
+    len: 10324
+    hash: 6fd52deee857061dc10dc5f73504afdc
+  - name: prefabs.unity3d
+    id: 12
+    deps: 
+    len: 6710910
+    hash: 166216aedd3aaab154dda9dc21ca6630

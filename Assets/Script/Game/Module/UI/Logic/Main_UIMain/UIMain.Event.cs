@@ -103,7 +103,7 @@ namespace SGame.UI{
 		void OnTouchBattleEnd(EventContext e)
 		{
 			m_holdTime = 0;
-			UpdateDiceButtonState();
+			//UpdateDiceButtonState();
 		}
 
 		void OnTouchLoginUpdate(UIContext e)
@@ -120,6 +120,7 @@ namespace SGame.UI{
 		{
 			m_holdEvent = true;
 			autoDice = true;
+			//UpdateDiceButtonState();
 		}
 		
 		// 倍率设置
@@ -140,6 +141,7 @@ namespace SGame.UI{
 				hideTime);
 			
 			autoDice = false;
+			UpdateDiceButtonState();
 		}
 		
 		
@@ -152,9 +154,15 @@ namespace SGame.UI{
 			log.Info("on baccle icon click!");
 			autoDice = false;
 			if (Utils.PlayerIsMoving(EntityManager))
+			{
 				return;
+			}
+			
 			m_userSetting = DataCenter.Instance.GetUserSetting();
-			//m_view.m_battle.m_main.m_state.selectedIndex = 1;
+			if (m_userSetting.power > (int)m_userProperty.GetNum((int)UserType.DICE_NUM))
+			{
+				UpdateDiceButtonState();
+			}
 			EventManager.Instance.Trigger((int)GameEvent.PLAYER_ROTE_DICE);
 		}
 

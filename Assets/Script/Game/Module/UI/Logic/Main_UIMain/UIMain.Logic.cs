@@ -95,7 +95,7 @@ namespace SGame.UI{
 		void UpdateAutoUseUI(bool autoUse)
 		{
 			m_view.m_battle.m_main.m_auto_dice.selectedIndex = autoUse ? 1 : 0;
-			UpdateDiceButtonState();
+			//UpdateDiceButtonState();
 		}
 		
 		
