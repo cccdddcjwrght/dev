@@ -73,6 +73,8 @@ namespace SGame
 
             yield return null;
             m_tileEventModule.ClearAllEvents();
+            // 清空出行金币
+            m_userData.SetNum((int)UserType.TRAVEL_GOLD, 0);
             m_userData.SetNum((int)UserType.TRAVEL, 1);
             m_userData.SetNum((int)UserType.TRAVEL_DICE_POWER, m_userData.GetNum((int)UserType.DICE_POWER));
             
@@ -134,8 +136,6 @@ namespace SGame
             m_cameraModule.SwitchCamera(CameraType.BASE_MAP);
             yield return null;
             m_tileEventModule.ClearAllEvents();
-            // 清空出行金币
-            m_userData.SetNum((int)UserType.TRAVEL_GOLD, 0);
 
             // 1. 显示更新界面
             Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelleave"));
