@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using log4net;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -38,8 +39,17 @@ namespace SGame
                 return;
             }
 
+            // 限制最小金币
+            int buildEventId = Utils.GetBuildingEventId(m_buildingID, 1);
+            if (!ConfigSystem.Instance.TryGet(buildEventId, out GameConfigs.Build_BankRowData buildEventConfig))
+            {
+                log.Error("bank build event id not found=" + buildEventId);
+                return;
+            }
+            long minGold = (long)buildEventConfig.BasicRewardsCoin;
             var bankData = BuildingModule.Instance.GetBuildingData<BuildingBankData>(m_buildingID);
             bankData.Value += m_gold;
+            bankData.Value = math.max(minGold, bankData.Value);
 
             if (m_gold < 0)
             {
