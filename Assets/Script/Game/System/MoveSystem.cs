@@ -13,9 +13,9 @@ namespace SGame
     public struct MoveDirection : IComponentData
     {
         /// <summary>
-        /// 移动方向
+        /// 移动方向+速度
         /// </summary>
-        public float3 Value;
+        public float3 Value;   // 每秒运行多少距离
         
         /// <summary>
         /// 持续时间
@@ -26,29 +26,34 @@ namespace SGame
     /// <summary>
     /// 计时系统
     /// </summary>
-    /*
     public partial class MoveSystem : SystemBase
     {
+        private EndSimulationEntityCommandBufferSystem m_bufferSystem;
+        protected override void OnCreate()
+        {
+            base.OnCreate();
+            m_bufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        }
+        
         protected override void OnUpdate()
         {
             float deltaTime = Time.DeltaTime;
-            Entities.ForEach((ref Translation trans, ref MoveDirection data) =>
+            var entityCommandBufferParallel =  m_bufferSystem.CreateCommandBuffer().AsParallelWriter();
+            Entities.ForEach((int entityInQueryIndex, Entity e,ref Translation trans, ref MoveDirection data) =>
             {
                 if (data.duration > 0)
                 {
                     data.duration -= deltaTime;
                     if (data.duration <= 0)
                     {
-                        
+                        entityCommandBufferParallel.RemoveComponent<MoveDirection>(entityInQueryIndex, e);
                     }
                 }
-                
-                //if (data.Value > 0)
-                //{
-                //    data.Value = math.clamp(data.Value - deltaTime, 0, float.MaxValue);
-                //}
+
+                trans.Value += data.Value * deltaTime;
             }).WithBurst().ScheduleParallel();
+            
+            m_bufferSystem.AddJobHandleForProducer(Dependency);
         }
     }
-    */
 }

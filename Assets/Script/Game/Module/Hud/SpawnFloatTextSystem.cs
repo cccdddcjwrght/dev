@@ -1,4 +1,5 @@
 using FairyGUI;
+using GameConfigs;
 using log4net;
 using SGame.UI;
 using Unity.Entities;
@@ -25,6 +26,7 @@ namespace SGame
         private GComponent                                      m_hudContent;
         private EndInitializationEntityCommandBufferSystem      m_commandBuffer;
         private static ILog log = LogManager.GetLogger("xl.game.floatext");
+        private float FLOAT_SPEED = 10.0f;
 
         public ObjectPool<UI_FloatText> pool
         {
@@ -45,8 +47,11 @@ namespace SGame
                 typeof(FloatTextData),
                 typeof(Translation),
                 typeof(LocalToWorld),
-                typeof(Rotation));
+                typeof(Rotation),
+                typeof(MoveDirection));
             m_floatComponents = new ObjectPool<UI_FloatText>(Alloce, Spawn, Despawn);
+
+            FLOAT_SPEED = GlobalDesginConfig.GetFloat("float_text_speed");
         }
 
         UI_FloatText Alloce()
@@ -114,6 +119,7 @@ namespace SGame
                 Entity entityFloatText = commandBuffer.CreateEntity(m_floatTextType);
                 log.Info("create id=" + id.ToString() + " text=" + request.text1);
 
+                commandBuffer.SetComponent(entityFloatText,  new MoveDirection() { Value = new float3() { x = 0, y = 1, z = 0 } * FLOAT_SPEED, duration = request.duration - 0.2f});
                 commandBuffer.SetComponent(entityFloatText, new Rotation()      { Value = quaternion.identity });
                 commandBuffer.SetComponent(entityFloatText, new Translation()   { Value = request.position });
 

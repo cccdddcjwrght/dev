@@ -3,6 +3,7 @@ using Unity.Entities;
 using SGame.UI.Hud;
 using UnityEngine;
 using log4net;
+using Unity.Transforms;
 
 namespace SGame
 {
@@ -29,12 +30,11 @@ namespace SGame
         protected override void OnUpdate()
         {
             float moveMent = FLOAT_SPEED * Time.DeltaTime;
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, in FloatTextData data) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, in Translation translation, in FloatTextData data) =>
             {
                 if (m_floatComponents.TryGet(data.Value, out UI_FloatText floatText))
                 {
-                    Vector2 pos = floatText.xy;
-                    pos.y -= moveMent;
+                    Vector2 pos = UIUtils.WorldPosToUI(floatText.parent.asCom, translation.Value);
                     floatText.xy = pos;
                 }
             }).WithoutBurst().Run();
