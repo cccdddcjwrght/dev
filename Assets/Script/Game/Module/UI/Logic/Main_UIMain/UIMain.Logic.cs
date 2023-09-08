@@ -92,10 +92,9 @@ namespace SGame.UI{
 			m_fiberShowTips.Start(RunShowTips(tile1, tile2, isMax, showTime, hideTime));
 		}
 
-		void UpdateAutoUseUI(bool autoUse)
+		void UpdateAutoUseUI(UserSetting setting)
 		{
-			m_view.m_battle.m_main.m_auto_dice.selectedIndex = autoUse ? 1 : 0;
-			//UpdateDiceButtonState();
+			m_view.m_battle.m_main.m_auto_dice.selectedIndex = setting.autoUse ? 1 : 0;
 		}
 		
 		
@@ -112,7 +111,7 @@ namespace SGame.UI{
 				var v = DataCenter.Instance.GetUserSetting();
 				v.autoUse = value;
 				DataCenter.Instance.SetUserSetting(v);
-				UpdateAutoUseUI(value);
+				UpdateAutoUseUI(v);
 			}
 		}
 
@@ -148,18 +147,18 @@ namespace SGame.UI{
 			if (m_userSetting.autoUse != setting.autoUse)
 			{
 				// 更新自动使用
-				UpdateAutoUseUI(setting.autoUse);
+				UpdateAutoUseUI(setting);
 			}
 			
 			// 设置最大控制状态
-			m_view.m_battle.m_max.selectedIndex = setting.power != setting.maxPower ? 1 : 0;
+			m_view.m_battle.m_max.selectedIndex = setting.power != setting.maxPower ? 0 : 1;
 
 			// 更新倍率设置
 			if (setting.power != m_userSetting.power)
 			{
 				m_userSetting = setting;//.doubleBonus = setting.doubleBonus;
 				UpdateBonusText();
-			}
+			} 
 
 			// 更新骰子进度
 			var diceMaxPower = m_userProperty.GetNum((int)UserType.DICE_MAXNUM);

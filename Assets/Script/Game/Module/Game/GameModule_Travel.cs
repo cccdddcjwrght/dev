@@ -38,6 +38,13 @@ namespace SGame
             m_playerState = PlayState.NORMAL;
         }
 
+        void ResetUserSetting()
+        {
+            var setting = DataCenter.Instance.GetUserSetting();
+            setting.autoUse = false;
+            DataCenter.Instance.SetUserSetting(setting);
+        }
+
         IEnumerator RunTavel()
         {
             switch (m_playerState)
@@ -45,12 +52,14 @@ namespace SGame
                 case PlayState.TRAVEL_ENTER:
                     EventManager.Instance.Trigger((int)GameEvent.TRAVEL_START, true);
                     yield return TravelEnter();
+                    ResetUserSetting();
                     EventManager.Instance.Trigger((int)GameEvent.TRAVEL_END, true);
                     break;
                 
                 case PlayState.TRAVEL_LEAVE:
                     EventManager.Instance.Trigger((int)GameEvent.TRAVEL_START, false);
                     yield return TravelLeave();
+                    ResetUserSetting();
                     EventManager.Instance.Trigger((int)GameEvent.TRAVEL_END, false);
                     break;
             }

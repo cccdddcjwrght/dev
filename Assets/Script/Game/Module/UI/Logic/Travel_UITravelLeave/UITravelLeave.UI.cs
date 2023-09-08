@@ -57,6 +57,10 @@ namespace SGame.UI{
 			OnGoldClick(data);
 		}
 		partial void OnGoldClick(EventContext data);
+		void SetGoldValue(float data)=>UIListener.SetValue(m_view.m_gold,data);
+		float GetGoldValue()=>UIListener.GetValue(m_view.m_gold);
+		void SetGoldText(string data)=>UIListener.SetText(m_view.m_gold,data);
+		string GetGoldText()=>UIListener.GetText(m_view.m_gold);
 
 	}
 }

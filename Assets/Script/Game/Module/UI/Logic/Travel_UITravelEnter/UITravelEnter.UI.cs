@@ -55,6 +55,10 @@ namespace SGame.UI{
 			OnCurrencyClick(data);
 		}
 		partial void OnCurrencyClick(EventContext data);
+		void SetCurrencyValue(float data)=>UIListener.SetValue(m_view.m_currency,data);
+		float GetCurrencyValue()=>UIListener.GetValue(m_view.m_currency);
+		void SetCurrencyText(string data)=>UIListener.SetText(m_view.m_currency,data);
+		string GetCurrencyText()=>UIListener.GetText(m_view.m_currency);
 		void SetNameText(string data)=>UIListener.SetText(m_view.m_name,data);
 		string GetNameText()=>UIListener.GetText(m_view.m_name);
 		void _OnHeadClick(EventContext data){

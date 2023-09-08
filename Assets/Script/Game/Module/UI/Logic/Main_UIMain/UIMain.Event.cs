@@ -47,6 +47,7 @@ namespace SGame.UI{
 		}
 		private void OnTravelEnd(bool isTravel)
 		{
+			UpdateAutoUseUI(DataCenter.Instance.GetUserSetting());
 			m_view.visible = true;
 		}
 

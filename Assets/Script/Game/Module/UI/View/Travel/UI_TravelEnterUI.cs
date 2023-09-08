@@ -21,9 +21,9 @@ namespace SGame.UI.Travel
         {
             base.ConstructFromXML(xml);
 
-            m_currency = (UI_Currency)GetChildAt(1);
-            m_name = (GTextField)GetChildAt(2);
-            m_head = (UI_Head)GetChildAt(3);
+            m_currency = (UI_Currency)GetChildAt(2);
+            m_name = (GTextField)GetChildAt(3);
+            m_head = (UI_Head)GetChildAt(4);
         }
     }
 }

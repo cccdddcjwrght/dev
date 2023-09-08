@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 161
+  version: 163
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
@@ -158,6 +158,8 @@ MonoBehaviour:
   - bundle: assets/buildasset/ui/travel.unity3d
     path: assets/buildasset/ui/travel_atlas0.png
   - bundle: assets/buildasset/ui/travel.unity3d
+    path: assets/buildasset/ui/travel_atlas_f7ke3lad.png
+  - bundle: assets/buildasset/ui/travel.unity3d
     path: assets/buildasset/ui/travel_fui.bytes
   ruleBundles:
   - name: configs.unity3d
@@ -208,6 +210,7 @@ MonoBehaviour:
   - name: assets/buildasset/ui/travel.unity3d
     assets:
     - assets/buildasset/ui/travel_atlas0.png
+    - assets/buildasset/ui/travel_atlas_f7ke3lad.png
     - assets/buildasset/ui/travel_fui.bytes
   - name: assets/buildasset/ui/hud.unity3d
     assets:

@@ -20,8 +20,8 @@ namespace SGame.UI.Travel
         {
             base.ConstructFromXML(xml);
 
-            m_head = (UI_Head)GetChildAt(1);
-            m_gold = (UI_Gold)GetChildAt(2);
+            m_head = (UI_Head)GetChildAt(2);
+            m_gold = (UI_Gold)GetChildAt(3);
         }
     }
 }
