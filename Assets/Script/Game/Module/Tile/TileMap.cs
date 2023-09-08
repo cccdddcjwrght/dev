@@ -80,6 +80,11 @@ namespace SGame
             {
                 int tileId = girdData.Position(i);
                 TileData data = GetTileDataFromId(tileId);
+                if (data == null)
+                {
+                    log.Error("tileId Not Found=" + tileId);
+                    continue;
+                }
                 data.pos = i;
                 mapData.Add(data);
             }

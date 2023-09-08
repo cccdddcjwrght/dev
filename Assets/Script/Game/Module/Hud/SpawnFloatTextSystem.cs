@@ -3,6 +3,8 @@ using log4net;
 using SGame.UI;
 using Unity.Entities;
 using SGame.UI.Hud;
+using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace SGame
@@ -39,7 +41,11 @@ namespace SGame
         {
             base.OnCreate();
             m_commandBuffer = World.GetOrCreateSystem<EndInitializationEntityCommandBufferSystem>();
-            m_floatTextType = EntityManager.CreateArchetype(typeof(LiveTime), typeof(FloatTextData));
+            m_floatTextType = EntityManager.CreateArchetype(typeof(LiveTime), 
+                typeof(FloatTextData),
+                typeof(Translation),
+                typeof(LocalToWorld),
+                typeof(Rotation));
             m_floatComponents = new ObjectPool<UI_FloatText>(Alloce, Spawn, Despawn);
         }
 
@@ -104,12 +110,15 @@ namespace SGame
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.ForEach((Entity e, FloatTextRequest request) =>
             {
-                PoolID id              = m_floatComponents.Alloc();
+                PoolID id = m_floatComponents.Alloc();
                 Entity entityFloatText = commandBuffer.CreateEntity(m_floatTextType);
                 log.Info("create id=" + id.ToString() + " text=" + request.text1);
-                
-                commandBuffer.SetComponent(entityFloatText, new LiveTime() {Value = request.duration});
-                commandBuffer.SetComponent(entityFloatText, new FloatTextData()      {Value = id});
+
+                commandBuffer.SetComponent(entityFloatText, new Rotation()      { Value = quaternion.identity });
+                commandBuffer.SetComponent(entityFloatText, new Translation()   { Value = request.position });
+
+                commandBuffer.SetComponent(entityFloatText, new LiveTime()      {Value = request.duration});
+                commandBuffer.SetComponent(entityFloatText, new FloatTextData() {Value = id});
                 if (m_floatComponents.TryGet(id, out UI_FloatText floatText))
                 {
                     SetupFloatText(request, floatText);
