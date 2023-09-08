@@ -123,6 +123,10 @@ namespace SGame
                 }
                 SwitchProcess();
             }
+            else
+            {
+                m_failProcess.Clear();
+            }
         }
     }
 }

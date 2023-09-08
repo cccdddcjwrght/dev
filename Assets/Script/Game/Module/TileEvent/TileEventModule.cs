@@ -55,6 +55,7 @@ namespace SGame
             m_processSystem = gameWorld.GetECSWorld().CreateSystem<TileEventProcessSystem>();
             m_conditionFactory  = new DesginConditionFactory();
             m_actionFactory     = new DesginActionFactory(tileModule);
+            m_userProperty      = PropertyManager.Instance.GetUserGroup(0);
         }
 
         public void Update()
@@ -89,6 +90,7 @@ namespace SGame
         /// <returns></returns>
         List<TileEventProcess> GetPassEventProcess(int startPos, int endPos, int power)
         {
+            
             List<TileEventProcess> ret = new List<TileEventProcess>();
             int tileCount = m_tileModule.tileCount;
 
@@ -129,8 +131,8 @@ namespace SGame
                 if (addGold != 0)
                 {
                     TileEventProcess v = new TileEventProcess();
-                    v.condition        = cond;
-                    v.action           = m_actionFactory.CreateGold(addGold * power);
+                    v.condition = cond;
+                    v.action = m_actionFactory.CreateGold(addGold * power);
                     ret.Add(v);
                 }
             }
@@ -146,6 +148,9 @@ namespace SGame
             v = default;
             if (m_roundDatas.Count == 0)
                 return false;
+            
+            var travelTag = m_userProperty.GetNum((int)UserType.TRAVEL);
+
             
             // 获得第一个event
             RoundData data = m_roundDatas.First();
@@ -166,12 +171,15 @@ namespace SGame
             }
 
             // 添加路过事件
-            List<TileEventProcess> passoverEvent = GetPassEventProcess(startPos, endPos, power);
-            foreach (var e in passoverEvent)
+            if (travelTag == 0)
             {
-                m_processSystem.AddTileEvent(e.condition, e.action);
+                List<TileEventProcess> passoverEvent = GetPassEventProcess(startPos, endPos, power);
+                foreach (var e in passoverEvent)
+                {
+                    m_processSystem.AddTileEvent(e.condition, e.action);
+                }
             }
-            
+
             // 添加结束事件
             int pos = endPos % m_tileModule.tileCount;
             var cond = m_conditionFactory.CreateTileCondition(0, endPos, TileEventTrigger.State.FINISH);
@@ -203,11 +211,11 @@ namespace SGame
         private TileEventSystem         m_eventSystem;
         private TileEventProcessSystem  m_processSystem;
         private GameWorld               m_gameWorld;
-        //private List<DesginEvent>     m_desginEvent;
         private DesginConditionFactory  m_conditionFactory;
         private DesginActionFactory     m_actionFactory;
         private RandomSystem            m_randomSystem;
         private TileModule              m_tileModule;
+        private ItemGroup               m_userProperty;
         
 
         private List<RoundData>     m_roundDatas    = new List<RoundData>();
