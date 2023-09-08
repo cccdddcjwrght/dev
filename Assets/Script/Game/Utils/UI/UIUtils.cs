@@ -53,6 +53,39 @@ namespace SGame
         }
 
         /// <summary>
+        /// 更加坐标类型获得UI位置 
+        /// </summary>
+        /// <param name="ui"></param>
+        /// <param name="pos"></param>
+        /// <param name="posType"></param>
+        /// <returns></returns>
+        public static Vector2 GetUIPosition(GComponent ui, Vector3 pos, PositionType posType)
+        {
+            Vector2 ret = Vector2.zero;
+            
+            switch (posType)
+            {
+                case PositionType.POS3D:
+                    ret = UIUtils.WorldPosToUI(ui, pos);
+                    break;
+
+                case PositionType.POS2D_CENTER:
+                    {
+                       
+                        Vector2 center = new Vector2( ui.width / 2, ui.height / 2);
+                        ret = center + new Vector2(pos.x, pos.y);
+                    }
+                    break;
+                
+                case PositionType.POS2D:
+                    ret = new  Vector2(pos.x, pos.y);
+                    break;
+            }
+
+            return ret;
+        }
+
+        /// <summary>
         /// 创建漂字
         /// </summary>
         /// <param name="mgr"></param>
@@ -62,9 +95,9 @@ namespace SGame
         /// <param name="fontSize">字体大小</param>
         /// <param name="duration">持续时间</param>
         /// <returns></returns>
-        public static Entity ShowTips(EntityManager mgr, string title, float3 pos, Color color, int fontSize, float duration)
+        public static Entity ShowTips(EntityManager mgr, string title, float3 pos, Color color, int fontSize, float duration, PositionType posType)
         {
-            return FloatTextRequest.CreateEntity(mgr, title, pos, color, 50, 2.0f);
+            return FloatTextRequest.CreateEntity(mgr, title, pos, color, 50, 2.0f, posType);
         }
     }
 }

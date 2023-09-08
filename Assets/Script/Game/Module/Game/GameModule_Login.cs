@@ -58,6 +58,11 @@ namespace SGame
             {
                 log.Error("round event is null " + diceEvent.Id);
             }
+            if (diceEvent.Dice == 0 || diceEvent.Dice1 == 0 || diceEvent.Dice2 == 0)
+            {
+                log.Error("Dice Num Is Zero" + diceEvent.Id);
+            }
+            
             RoundData d = new RoundData()
             {
                 eventId = diceEvent.EventId,

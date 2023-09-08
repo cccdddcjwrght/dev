@@ -16,8 +16,8 @@ namespace SGame
         private Entity                   m_hud;
         private bool                     m_isReadly;
         private GComponent               m_hudContent;
-        private float                   FLOAT_SPEED = 100.0f;
-        private static ILog log = LogManager.GetLogger("xl.game.floatext");
+        private float                    FLOAT_SPEED = 100.0f;
+        private static ILog              log = LogManager.GetLogger("xl.game.floatext");
 
 
         public void Initalize(Entity hud, ObjectPool<UI_FloatText> pool)
@@ -34,7 +34,7 @@ namespace SGame
             {
                 if (m_floatComponents.TryGet(data.Value, out UI_FloatText floatText))
                 {
-                    Vector2 pos = UIUtils.WorldPosToUI(floatText.parent.asCom, translation.Value);
+                    Vector2 pos = UIUtils.GetUIPosition (floatText.parent, translation.Value, data.posType);
                     floatText.xy = pos;
                 }
             }).WithoutBurst().Run();

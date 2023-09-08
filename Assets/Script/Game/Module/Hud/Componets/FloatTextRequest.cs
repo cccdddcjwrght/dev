@@ -5,30 +5,33 @@ using Unity.Mathematics;
 
 namespace SGame
 {
+    // 参考对其位置
+    public enum PositionType
+    {
+        POS3D = 0, // 3d 位置
+        POS2D = 1, // 2d 位置
+        POS2D_CENTER = 2, // 屏幕中心偏移量
+    }
+    
     /// <summary>
     /// 浮动文字创建请求
     /// </summary>
     public class FloatTextRequest : IComponentData
     {
-        // 参考对其位置
-        public enum Aligh
-        {
-            LEFTTOP = 0, // 屏幕左上角
-            CENTER  = 1, // 屏幕居中
-        }
-        
-        public float3 position;         // 浮动文字位置
-        public string text1;            // 文本
-        public int    fontSize;         // 字体大小
-        public Color  color;            // 字体颜色
-        public float  duration;         // 持续时间
+        public PositionType posType;          // 位置
+        public float3       position;         // 浮动文字位置
+        public string       text1;            // 文本
+        public int          fontSize;         // 字体大小
+        public Color        color;            // 字体颜色
+        public float        duration;         // 持续时间
 
         public static FloatTextRequest Create(
             string text, 
             float3 pos,
             Color color, 
             int fontSize, 
-            float duration)
+            float duration,
+            PositionType posType)
         {
             FloatTextRequest req = new FloatTextRequest()
             {
@@ -37,6 +40,7 @@ namespace SGame
                 fontSize    = fontSize,
                 color       = color,
                 duration    =  duration,
+                posType = posType
             };
 
             return req;
@@ -56,9 +60,10 @@ namespace SGame
             float3 pos,
             Color color, 
             int fontSize, 
-            float duration)
+            float duration,
+            PositionType posType)
         {
-            FloatTextRequest req = Create(text, pos, color, fontSize, duration);
+            FloatTextRequest req = Create(text, pos, color, fontSize, duration, posType);
             Entity e = mgr.CreateEntity();
             mgr.AddComponentObject(e, req);
             return e;
@@ -77,9 +82,10 @@ namespace SGame
             float3 pos,
             Color color, 
             int fontSize, 
-            float duration)
+            float duration,
+            PositionType posType)
         {
-            FloatTextRequest req = Create(text, pos, color, fontSize, duration);
+            FloatTextRequest req = Create(text, pos, color, fontSize, duration, posType);
             Entity e = commandBuffer.CreateEntity();
             commandBuffer.AddComponent(e, req);
             return e;

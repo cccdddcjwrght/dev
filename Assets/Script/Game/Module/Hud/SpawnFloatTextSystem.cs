@@ -14,6 +14,9 @@ namespace SGame
     {
         // 对象池ID
         public PoolID Value;
+        
+        // 位置类型
+        public PositionType posType; 
     }
     
     [DisableAutoCreation]
@@ -26,7 +29,8 @@ namespace SGame
         private GComponent                                      m_hudContent;
         private EndInitializationEntityCommandBufferSystem      m_commandBuffer;
         private static ILog log = LogManager.GetLogger("xl.game.floatext");
-        private float FLOAT_SPEED = 10.0f;
+        private float FLOAT_SPEED   = 10.0f;
+        private float FLOAT_SPEED2D = 50.0f; // 2d的飘字速度
 
         public ObjectPool<UI_FloatText> pool
         {
@@ -52,6 +56,7 @@ namespace SGame
             m_floatComponents = new ObjectPool<UI_FloatText>(Alloce, Spawn, Despawn);
 
             FLOAT_SPEED = GlobalDesginConfig.GetFloat("float_text_speed");
+            FLOAT_SPEED2D = GlobalDesginConfig.GetFloat("float_text2d_speed");
         }
 
         UI_FloatText Alloce()
@@ -100,7 +105,7 @@ namespace SGame
             floatText.m_title.color = request.color;
             floatText.m_title.text = request.text1;
             floatText.m_title.textFormat.size = request.fontSize;
-            floatText.xy = UIUtils.WorldPosToUI(m_hudContent, request.position);
+            floatText.xy = UIUtils.GetUIPosition(m_hudContent, request.position, request.posType);
             floatText.alpha = 1.0f;
         }
 
@@ -119,12 +124,19 @@ namespace SGame
                 Entity entityFloatText = commandBuffer.CreateEntity(m_floatTextType);
                 log.Info("create id=" + id.ToString() + " text=" + request.text1);
 
-                commandBuffer.SetComponent(entityFloatText,  new MoveDirection() { Value = new float3() { x = 0, y = 1, z = 0 } * FLOAT_SPEED, duration = request.duration - 0.2f});
+                if (request.posType == PositionType.POS3D)
+                {
+                    commandBuffer.SetComponent(entityFloatText, new MoveDirection() { Value = new float3() { x = 0, y = 1, z = 0 } * FLOAT_SPEED, duration = request.duration - 0.2f });
+                }
+                else
+                {
+                    // UI是反方向
+                    commandBuffer.SetComponent(entityFloatText,  new MoveDirection() { Value = new float3() { x = 0, y = -1, z = 0 } * FLOAT_SPEED2D, duration = request.duration - 0.2f});
+                }
                 commandBuffer.SetComponent(entityFloatText, new Rotation()      { Value = quaternion.identity });
                 commandBuffer.SetComponent(entityFloatText, new Translation()   { Value = request.position });
-
                 commandBuffer.SetComponent(entityFloatText, new LiveTime()      {Value = request.duration});
-                commandBuffer.SetComponent(entityFloatText, new FloatTextData() {Value = id});
+                commandBuffer.SetComponent(entityFloatText, new FloatTextData() {Value = id, posType = request.posType});
                 if (m_floatComponents.TryGet(id, out UI_FloatText floatText))
                 {
                     SetupFloatText(request, floatText);

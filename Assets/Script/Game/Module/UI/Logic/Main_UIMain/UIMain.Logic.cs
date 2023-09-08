@@ -137,7 +137,7 @@ namespace SGame.UI{
 				return;
 
 			float3 pos = mgr.GetComponentData<Translation>(m_userData.player).Value;
-			FloatTextRequest.CreateEntity(mgr, num, pos, color, 40,1.0f);
+			FloatTextRequest.CreateEntity(mgr, num, pos, color, 40,1.0f, PositionType.POS3D);
 		}
 		
 		private  void onUpdate(UIContext context)

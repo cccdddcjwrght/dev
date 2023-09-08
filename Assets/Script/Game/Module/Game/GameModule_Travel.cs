@@ -67,7 +67,7 @@ namespace SGame
             if (playerId == 0)
             {
                 log.Error("TRAVEL PLAYER ID IS ZERO");
-                UIUtils.ShowTips(EntityManager, "TRAVEL PLAYER ID IS ZERO", new float3(8.22000027f, -1.13f, 5.09000015f), Color.red, 50, 2.0f);
+                UIUtils.ShowTips(EntityManager, "TRAVEL PLAYER ID IS ZERO", new float3(0, 0, 0), Color.red, 50, 2.0f, PositionType.POS2D_CENTER);
                 yield break;
             }
 
@@ -113,10 +113,7 @@ namespace SGame
 
             // 玩家移动目标位置
             MovePlayerToPosition(pos);
-            
-            // 更新骰子位置
-            UpdateDicePosition();
-            
+
             // 等待1秒
             yield return FiberHelper.Wait(3.0f);
 
@@ -125,6 +122,9 @@ namespace SGame
             // 关闭UI
             UIUtils.CloseUI(EntityManager, ui);
             m_playerState = PlayState.TRAVEL;
+            
+            // 更新骰子位置
+            UpdateDicePosition();
         }
 
         /// <summary>
@@ -180,10 +180,7 @@ namespace SGame
 
             // 玩家移动目标位置
             MovePlayerToPosition(pos);
-            
-            // 更新骰子位置
-            UpdateDicePosition();
-            
+
             // 等待1秒
             yield return FiberHelper.Wait(3.0f);
             m_cameraModule.SwitchCamera(CameraType.PLAYER);
@@ -192,6 +189,8 @@ namespace SGame
             // 设置出行状态
             m_playerState = PlayState.NORMAL;
             m_userData.SetNum((int)UserType.TRAVEL, 0);
+            // 更新骰子位置
+            UpdateDicePosition();
             
             // 将出行金币转换为玩家金币
             long travelGold = m_userData.GetNum((int)UserType.TRAVEL_GOLD);

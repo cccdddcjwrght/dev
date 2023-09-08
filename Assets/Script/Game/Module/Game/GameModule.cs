@@ -149,13 +149,13 @@ namespace SGame
             if (m_characterModule.IsReadly(m_player))
             {
                 pos = EntityManager.GetComponentData<Translation>(m_player).Value;
-                pos += new float3(2, 2, 2);
+                pos += new float3(0, 2, 0);
             }
-            else if (m_playerState == PlayState.NORMAL || m_playerState == PlayState.TRAVEL_LEAVE)
+            else if (m_playerState == PlayState.NORMAL)
             {
                 pos = EntityManager.GetComponentData<Translation>(m_normalDiceCheckPoint).Value;
             }
-            else if (m_playerState == PlayState.TRAVEL || m_playerState == PlayState.TRAVEL_ENTER)
+            else 
             {
                 pos = EntityManager.GetComponentData<Translation>(m_travelDiceCheckPoint).Value;
             }
@@ -172,7 +172,7 @@ namespace SGame
         /// </summary>
         void TipDiceNotEnough()
         {
-            UIUtils.ShowTips(EntityManager, "NOT ENOUGH DICE", new float3(8.22000027f, -1.13f, 5.09000015f), Color.yellow, 50, 2.0f);
+            UIUtils.ShowTips(EntityManager, "NOT ENOUGH DICE", float3.zero, Color.yellow, 50, 2.0f, PositionType.POS2D_CENTER);
         }
 
         // 等待下一局
@@ -249,7 +249,7 @@ namespace SGame
             int dice_value2 = diceData.Value2;
             if (dice_value1 == 0 || dice_value2 == 0)
             {
-                log.Error("dice is zero!");
+                log.Error("dice is zero! evenit id=" + diceData.eventId);
                 yield break;
             }
 
