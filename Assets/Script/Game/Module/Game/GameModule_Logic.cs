@@ -119,13 +119,15 @@ namespace SGame
             while (!m_characterModule.IsReadly(m_player))
                 yield return null;
             
+            // 绑定摄像机
             var camera = m_cameraModule.GetCamera(CameraType.PLAYER);
             var mover = EntityManager.GetComponentObject<CharacterMover>(m_player);
             var playerGameObject = mover.m_controller.gameObject;
-            
-            // 绑定摄像机
             camera.Follow = playerGameObject.transform;
-            //camera.LookAt = playerGameObject.transform;
+            
+            // 出行摄像机设置
+            camera = m_cameraModule.GetCamera(CameraType.PLAYER_TRAVEL);
+            camera.Follow = playerGameObject.transform;
             
             m_cameraModule.SwitchCamera(CameraType.PLAYER);
         }

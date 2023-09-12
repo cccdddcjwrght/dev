@@ -126,7 +126,7 @@ namespace SGame
             // 等待1秒
             yield return FiberHelper.Wait(3.0f);
 
-            m_cameraModule.SwitchCamera(CameraType.PLAYER);
+            m_cameraModule.SwitchCamera(CameraType.PLAYER_TRAVEL);
 
             // 关闭UI
             UIUtils.CloseUI(EntityManager, ui);
