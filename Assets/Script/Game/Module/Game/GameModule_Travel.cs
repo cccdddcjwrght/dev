@@ -64,6 +64,19 @@ namespace SGame
                     break;
             }
         }
+
+        public TravelAnimation GetTravelEffect(MapType mapType)
+        {
+            TravelAnimation[] anims = GameObject.FindObjectsOfType<TravelAnimation>();
+            string tag = mapType == MapType.NORMAL ? "normal" : "travel";
+            foreach (var t in anims)
+            {
+                if (t.tag.Equals(tag))
+                    return t;
+            }
+
+            return null;
+        }
         
         /// <summary>
         /// 触发进入出行
@@ -71,7 +84,6 @@ namespace SGame
         /// <returns></returns>
         IEnumerator TravelEnter()
         {
-            m_cameraModule.SwitchCamera(CameraType.TRAVEL_MAP);
             var playerId = m_userData.GetNum((int)UserType.TRAVEL_PLAYERID);
             if (playerId == 0)
             {
@@ -82,14 +94,16 @@ namespace SGame
 
             yield return null;
             m_tileEventModule.ClearAllEvents();
-            // 清空出行金币
+            // 清空出行金币   
             m_userData.SetNum((int)UserType.TRAVEL_GOLD, 0);
             m_userData.SetNum((int)UserType.TRAVEL, 1);
             m_userData.SetNum((int)UserType.TRAVEL_DICE_POWER, m_userData.GetNum((int)UserType.DICE_POWER));
             
-            // 1. 显示更新界面
-            Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelenter"));
+            TravelAnimation travelAnimation = GetTravelEffect(MapType.NORMAL);
             
+            // 播放飞行
+            travelAnimation.Play(TravelAnimation.FlyType.FLY);
+
             // 2. 发送出行数据
             SendTravelData(playerId);
             var waitMessage = new WaitMessage<TravelPlayerInfo>((int)GameMsgID.CsTravelPlayerInfo);
@@ -101,7 +115,7 @@ namespace SGame
                 log.Error("TravelPlayerInfo recive is null");
             if (waitMessage.Value.Response.Code != ErrorCode.ErrorSuccess)
                 log.Error("TravelPlayerInfo Errorcode = "+ waitMessage.Value.Response.Code);
-            
+
             // 得到列表数据， 更新列表事件
             int mapId       = 1;
             int pos         = 0;
@@ -120,20 +134,33 @@ namespace SGame
             // 加载地图
             m_tileModule.LoadMap(mapId, MapType.TRVAL);
 
+            // 等待动画播放出来
+            yield return FiberHelper.Wait(10.0f);
+
+            Time.timeScale = 0.1f;
+            
+            // 1. 显示更新界面
+            Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelenter"));
+            
             // 玩家移动目标位置
             MovePlayerToPosition(pos);
-
-            // 等待1秒
-            yield return FiberHelper.Wait(3.0f);
-
-            m_cameraModule.SwitchCamera(CameraType.PLAYER_TRAVEL);
+            yield return FiberHelper.Wait(1.0f);
 
             // 关闭UI
             UIUtils.CloseUI(EntityManager, ui);
             m_playerState = PlayState.TRAVEL;
+            Time.timeScale = 1.0f;
+            
+            // 播放鸟回来
+            travelAnimation.Stop();
+            TravelAnimation travelAnimation2 = GetTravelEffect(MapType.TRVAL);
+            m_cameraModule.SwitchCamera(CameraType.PLAYER_TRAVEL);
+            travelAnimation2.Play(TravelAnimation.FlyType.LAND);
+            yield return FiberHelper.Wait(6.0f);
+            travelAnimation2.Stop();
             
             // 更新骰子位置
-            UpdateDicePosition();
+            //UpdateDicePosition();
         }
 
         /// <summary>
