@@ -10832,15 +10832,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7967406277049603547}
-  m_LocalRotation: {x: 0.09366161, y: 0.88044655, z: -0.19557233, w: 0.42165497}
-  m_LocalPosition: {x: -4.5033474, y: 3.2857683, z: 3.6811848}
+  m_LocalRotation: {x: 0.21283202, y: 0.78527224, z: -0.44074613, w: 0.37920034}
+  m_LocalPosition: {x: -2.602665, y: 6.0308, z: 2.1243558}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7967406277503077475}
   m_Father: {fileID: 7967406276090455922}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 359.6387, y: 359.968, z: 0.01493583}
+  m_LocalEulerAnglesHint: {x: 359.5358, y: 0.02824362, z: 0.03943744}
 --- !u!114 &7967406277049603495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16787,7 +16787,7 @@ PlayableDirector:
   m_GameObject: {fileID: 7967406277790266216}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 12b8cdc2242d12f43bc66b4538881300, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 5ff44f44bad29524583daed5f1a06585, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -16801,12 +16801,19 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -2701534391378523718, guid: 12b8cdc2242d12f43bc66b4538881300, type: 2}
     value: {fileID: 7967406277049603493}
+  - key: {fileID: 3711260696965420982, guid: 12b8cdc2242d12f43bc66b4538881300, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -66781967714073302, guid: 5ff44f44bad29524583daed5f1a06585, type: 2}
+    value: {fileID: 7967406277790266229}
+  - key: {fileID: -4356714297857561796, guid: 5ff44f44bad29524583daed5f1a06585, type: 2}
+    value: {fileID: 7967406277049603493}
   m_ExposedReferences:
     m_References:
     - 519db3cd656282f4486164f1be7620b2: {fileID: 0}
     - 6d131d1bcec78394085620a36db437e0: {fileID: 0}
     - 8b44838607ff283469dc0b70e4b0ca24: {fileID: 7967406277790266216}
     - 0d09c5019e5c88c4cbf1a6e08cbfc94e: {fileID: 7967406277568051293}
+    - 9dcad198fa75a3d43bd954e982691f18: {fileID: 7967406277568051293}
     - 65f5f28825408e143a37ce8afd0e4be0: {fileID: 0}
     - d1062d9336b812240b12498a1d526d49: {fileID: 0}
     - fef8a119515071e469493673259656e7: {fileID: 0}
