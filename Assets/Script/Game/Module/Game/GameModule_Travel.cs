@@ -173,9 +173,6 @@ namespace SGame
             yield return null;
             m_tileEventModule.ClearAllEvents();
 
-            // 1. 显示更新界面
-            Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelleave"));
-
             // 2. 发送出行数据
             var req = new DiceEventPool()
             {
@@ -194,6 +191,9 @@ namespace SGame
                 log.Error("DiceEventPool recive is null");
             if (waitMessage.Value.Response.Code != ErrorCode.ErrorSuccess)
                 log.Error("DiceEventPool Errorcode = "+ waitMessage.Value.Response.Code);
+            
+            TravelAnimation travelAnimation = GetTravelEffect(MapType.TRVAL);
+            travelAnimation.Play(TravelAnimation.FlyType.FLY);
             
             // 得到列表数据， 更新列表事件
             int mapId       = 1;
@@ -217,10 +217,12 @@ namespace SGame
             // 玩家移动目标位置
             MovePlayerToPosition(pos);
 
-            // 等待1秒
-            yield return FiberHelper.Wait(3.0f);
+            yield return FiberHelper.Wait(8.0f);
+
+            // 1. 显示更新界面
+            Entity ui = UIRequest.Create(EntityManager, UIUtils.GetUI("travelleave"));
+            Time.timeScale = 0.1f;
             m_cameraModule.SwitchCamera(CameraType.PLAYER);
-            UIUtils.CloseUI(EntityManager, ui);
 
             // 设置出行状态
             m_playerState = PlayState.NORMAL;
@@ -233,6 +235,12 @@ namespace SGame
             long dicePower = m_userData.GetNum((int)UserType.DICE_POWER);
             if (dicePower <= 0)
                 log.Error("TraveDice Power Less Zero" + dicePower);
+            
+            // 等待1秒结束
+            yield return FiberHelper.Wait(1.0f);
+            UIUtils.CloseUI(EntityManager, ui);
+            travelAnimation.Stop();
+            Time.timeScale = 1.0f;
             
             // 添加从出行钟获得的金币
             travelGold *= dicePower;
