@@ -68,6 +68,7 @@ namespace SGame
                 eventId = diceEvent.EventId,
                 dice1 = diceEvent.Dice1,
                 dice2 = diceEvent.Dice2,
+                showDice = diceEvent.ShowDiceValue,
                 pos = diceEvent.Pos,
                 serverEventId =  diceEvent.Id,
                 roundEvent =  new RoundEvent()

@@ -14,6 +14,9 @@ namespace SGame
         
         // 第二个骰子的值
         public int Value2;
+        
+        // 骰子展示
+        public int ShowValue;
 
         // 服务器ID识别
         public int eventId;
@@ -32,6 +35,7 @@ namespace SGame
         public int eventId;
         public int dice1;
         public int dice2;
+        public int showDice;
         public int pos;
         public int serverEventId;
 
@@ -158,7 +162,8 @@ namespace SGame
             
             // 1. 解析事件, 生成下一个骰子应该播放多少
             v.Value1 = data.dice1;                          
-            v.Value2 = data.dice2;                         
+            v.Value2 = data.dice2;
+            v.ShowValue = data.showDice;
             v.eventId = data.serverEventId;
             int endPos = startPos + v.Value1 + v.Value2;
             

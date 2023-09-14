@@ -264,9 +264,18 @@ namespace SGame
             
             // 同时运行两个骰子动画
             UpdateDicePosition();
-            yield return FiberHelper.RunParallel(
-                ShowDice(m_dice1, dice_value1, 0.5f), 
-                ShowDice(m_dice2, dice_value2 , 0.5f));
+            if (diceData.ShowValue == 0)
+            {
+                yield return FiberHelper.RunParallel(
+                    ShowDice(m_dice1, dice_value1, 0.5f),
+                    ShowDice(m_dice2, dice_value2, 0.5f));
+            }
+            else
+            {
+                yield return FiberHelper.RunParallel(
+                    ShowDice(m_dice1, diceData.ShowValue, 0.5f),
+                    ShowDice(m_dice2, 0, 0.5f));
+            }
 
             // 角色移动
             var waitMove = PlayerMove(dice_value1 + dice_value2);
