@@ -139,5 +139,34 @@ namespace SGame
 
             return !mover.isFinish;
         }
+        
+        /// <summary>
+        /// 激活或禁止ENTITY
+        /// </summary>
+        /// <param name="mgr"></param>
+        /// <param name="e"></param>
+        /// <param name="enable"></param>
+        /// <returns></returns>
+        public static bool EnableEntity(EntityManager mgr, Entity e, bool enable)
+        {
+            if (!mgr.Exists(e))
+            {
+                return false;
+            }
+
+            if (enable && mgr.HasComponent<Disabled>(e))
+            {
+                mgr.RemoveComponent<Disabled>(e);
+                return true;
+            }
+
+            if (!enable && !mgr.HasComponent<Disabled>(e))
+            {
+                mgr.AddComponent<Disabled>(e);
+                return true;
+            }
+
+            return false;
+        }
     }
 }

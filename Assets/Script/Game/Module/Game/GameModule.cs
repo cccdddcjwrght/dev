@@ -167,6 +167,13 @@ namespace SGame
             EntityManager.SetComponentData(m_dice2, new Rotation()    {Value = quaternion.identity});
         }
 
+
+        void ShowDice(bool show)
+        {
+            Utils.EnableEntity(EntityManager, m_dice1, show);
+            Utils.EnableEntity(EntityManager, m_dice2, show);
+        }
+
         /// <summary>
         /// 提示骰子不足
         /// </summary>
@@ -247,12 +254,14 @@ namespace SGame
 
             int dice_value1 = diceData.Value1; 
             int dice_value2 = diceData.Value2;
-            if (dice_value1 == 0 || dice_value2 == 0)
+            if (dice_value1 == 0)
             {
                 log.Error("dice is zero! evenit id=" + diceData.eventId);
                 yield break;
             }
 
+            Utils.EnableEntity(EntityManager, m_dice2, dice_value2 > 0);
+            
             // 同时运行两个骰子动画
             UpdateDicePosition();
             yield return FiberHelper.RunParallel(
@@ -273,6 +282,9 @@ namespace SGame
 
         IEnumerator ShowDice(Entity dice, int num, float time)
         {
+            if (num == 0)
+                yield break;
+            
             // 播放骰子
             m_diceModule.Play(dice, time, num);
             

@@ -4,6 +4,7 @@ using Fibers;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
+using System.Collections.Generic;
 
 namespace SGame
 {
@@ -20,10 +21,16 @@ namespace SGame
             {
                 data.Stop();
             });
-            
-            yield return FiberHelper.Wait(data.triggerTime);
-            data.trigger?.Invoke();
 
+            if (data.triggers != null)
+            {
+                foreach (var t in data.triggers)
+                {
+                    yield return FiberHelper.Wait(t.time);
+                    t.trigger?.Invoke();
+                }
+            }
+            
             while (data.timeline.state == PlayState.Playing)
             {
                 yield return null;
@@ -59,12 +66,15 @@ namespace SGame
             m_fiber.Terminate();
         }
 
-        public UnityAction onStartEffect;
 
-        private IEnumerator EffectStart(AnimationData data)
+        /// <summary>
+        /// 触发数据
+        /// </summary>
+        [System.Serializable]
+        public struct TriggerData
         {
-            yield return new WaitForSeconds(data.triggerTime);
-            data.trigger?.Invoke();
+            public float                    time;
+            public UnityEvent               trigger;
         }
         
         /// <summary>
@@ -75,8 +85,7 @@ namespace SGame
         {
             public GameObject               gameObject;
             public PlayableDirector         timeline;
-            public float                    triggerTime;
-            public UnityEvent               trigger;
+            public List<TriggerData>        triggers;
             public UnityEvent               endTrigger;
 
             public void Play()

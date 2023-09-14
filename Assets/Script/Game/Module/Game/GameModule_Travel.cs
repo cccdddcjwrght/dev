@@ -94,6 +94,8 @@ namespace SGame
 
             yield return null;
             m_tileEventModule.ClearAllEvents();
+            ShowDice(false);
+
             // 清空出行金币   
             m_userData.SetNum((int)UserType.TRAVEL_GOLD, 0);
             m_userData.SetNum((int)UserType.TRAVEL, 1);
@@ -144,7 +146,7 @@ namespace SGame
             
             // 玩家移动目标位置
             MovePlayerToPosition(pos);
-            yield return FiberHelper.Wait(1.0f);
+            yield return FiberHelper.Wait(0.5f);
 
             // 关闭UI
             UIUtils.CloseUI(EntityManager, ui);
@@ -156,11 +158,11 @@ namespace SGame
             TravelAnimation travelAnimation2 = GetTravelEffect(MapType.TRVAL);
             m_cameraModule.SwitchCamera(CameraType.PLAYER_TRAVEL);
             travelAnimation2.Play(TravelAnimation.FlyType.LAND);
+            
+            // 停止动画, 显示骰子
             yield return FiberHelper.Wait(6.0f);
             travelAnimation2.Stop();
-            
-            // 更新骰子位置
-            //UpdateDicePosition();
+            ShowDice(true);
         }
 
         /// <summary>
@@ -216,6 +218,7 @@ namespace SGame
 
             // 玩家移动目标位置
             MovePlayerToPosition(pos);
+            ShowDice(false);
 
             yield return FiberHelper.Wait(8.0f);
 
@@ -227,8 +230,9 @@ namespace SGame
             // 设置出行状态
             m_playerState = PlayState.NORMAL;
             m_userData.SetNum((int)UserType.TRAVEL, 0);
+            
             // 更新骰子位置
-            UpdateDicePosition();
+            ShowDice(true);
             
             // 将出行金币转换为玩家金币
             long travelGold = m_userData.GetNum((int)UserType.TRAVEL_GOLD);
@@ -237,7 +241,7 @@ namespace SGame
                 log.Error("TraveDice Power Less Zero" + dicePower);
             
             // 等待1秒结束
-            yield return FiberHelper.Wait(1.0f);
+            yield return FiberHelper.Wait(0.5f);
             UIUtils.CloseUI(EntityManager, ui);
             travelAnimation.Stop();
             Time.timeScale = 1.0f;
