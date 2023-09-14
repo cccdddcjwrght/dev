@@ -251,6 +251,17 @@ namespace SGame
             m_userData.AddNum((int)UserType.GOLD, travelGold);
             long newGold = m_userData.GetNum((int)UserType.GOLD);
             EventManager.Instance.Trigger((int)GameEvent.PROPERTY_GOLD, (int)travelGold, newGold, 0);
+            
+            // 播放鸟回来
+            travelAnimation.Stop();
+            TravelAnimation travelAnimation2 = GetTravelEffect(MapType.NORMAL);
+            m_cameraModule.SwitchCamera(CameraType.PLAYER);
+            travelAnimation2.Play(TravelAnimation.FlyType.LAND);
+            
+            // 停止动画, 显示骰子
+            yield return FiberHelper.Wait(6.0f);
+            travelAnimation2.Stop();
+            ShowDice(true);
         }
              
     }
