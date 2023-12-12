@@ -11,7 +11,7 @@ namespace SGame
     /// <summary>
     /// 角色模块, 控制角色所有行为, 包括角色创建, 角色移动, 
     /// </summary>
-    public class CharacterModule
+    public class CharacterModule : IModule
     {
         // 所有的和移动优化的系统
         private SystemCollection                m_moveCollection;

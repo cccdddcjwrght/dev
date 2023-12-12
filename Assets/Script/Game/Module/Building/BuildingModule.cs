@@ -85,6 +85,11 @@ namespace SGame
         {
             
         }
+
+        public void Update()
+        {
+            
+        }
         
         EntityManager EntityManager { get { return m_gameWorld.GetEntityManager(); } }
 

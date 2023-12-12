@@ -10,7 +10,7 @@ namespace SGame.BT
     [TaskDescription("Wating UI open")]
     [TaskIcon("{SkinColor}WaitIcon.png")]
     [TaskCategory("UI")]
-    public class WaitUI : Action
+    public class WaitGameEvent : Action
     {
         [BehaviorDesigner.Runtime.Tasks.Tooltip("要等待的UI")]
         public SharedVector2Int uiEntity;

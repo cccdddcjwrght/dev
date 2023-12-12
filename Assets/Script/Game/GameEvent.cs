@@ -6,15 +6,10 @@ namespace SGame
 {
 	public enum GameEvent : int
 	{
-		NET_GAME_CONNECT_SUCCESS	= 1,	// 网络连接事件
-		NET_GAME_CONNECT_FAIL		= 2,    // 网络连接失败           (int err, string msg)
-		NET_GAME_DISCONNECTED		= 3,    // 网络断开连接事件        int, string
-		NET_GAME_EVENT				= 4,    // 网络数据事件           (GamePackage)
+		TEST_EVENT1                = 1,
 
-		NET_BATTLE_CONNECT_SUCCESS	= 10,	// 网络连接事件
-		NET_BATTLE_CONNECT_FAIL		= 11,   // 网络连接失败           (int err, string msg)
-		NET_BATTLE_DISCONNECTED		= 12,   // 网络断开连接事件         int, string
-		NET_BATTLE_EVENT			= 13,   // 网络战斗包事件         (GamePackage)
+		
+		
 
 		//登录======================================
 		HOTFIX_DONE					= 100, // 热更新结束

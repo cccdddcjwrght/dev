@@ -46,7 +46,7 @@ namespace SGame
     /// <summary>
     /// 游戏事件系统, 目前是挂在场景事件中
     /// </summary>
-    public class TileEventModule
+    public class TileEventModule : IModule
     {
         public TileEventModule(GameWorld gameWorld, 
             RandomSystem randomSystem, 

@@ -100,5 +100,11 @@ namespace SGame
         {
 
         }
+
+        public void Update()
+        {
+            
+        }
+        
     }
 }

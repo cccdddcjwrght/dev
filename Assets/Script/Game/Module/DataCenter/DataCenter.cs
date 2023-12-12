@@ -6,7 +6,7 @@ using Unity.Entities;
 
 namespace SGame
 {
-    public class DataCenter
+    public class DataCenter : IModule
     {
         // 用户数据
         public Entity        m_data;

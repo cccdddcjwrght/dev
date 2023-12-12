@@ -11,7 +11,8 @@ using UnityEngine;
 namespace SGame
 {
     // 主要用于运行游戏逻辑
-    public partial class GameModule
+    public partial class 
+        GameModule
     {
         public GameModule(
             GameWorld       gameWorld,
@@ -347,6 +348,10 @@ namespace SGame
         }
 
 
+        public void Enter()
+        {
+            
+        }
 
         public void Shutdown()
         {

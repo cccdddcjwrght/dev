@@ -25,7 +25,7 @@ using System;
 namespace SGame.UI
 {
 	[DisableAutoCreation]
-	public class UIModule 
+	public class UIModule : IModule
 	{
 		// 创建UI的原型
 		static ILog log = LogManager.GetLogger("xl.ui");

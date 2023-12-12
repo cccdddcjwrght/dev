@@ -3,7 +3,7 @@ using GameConfigs;
 using Unity.Entities;
 namespace SGame
 {
-    public class DiceModule 
+    public class DiceModule : IModule
     {
         private SystemCollection  m_collection;
         private ResourceManager   m_resourceManager;
