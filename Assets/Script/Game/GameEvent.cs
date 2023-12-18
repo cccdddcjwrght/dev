@@ -6,8 +6,9 @@ namespace SGame
 {
 	public enum GameEvent : int
 	{
+		NONE					   = 0,
 		TEST_EVENT1                = 1,
-
+		TEST_EVENT2				   = 2,
 		
 		
 

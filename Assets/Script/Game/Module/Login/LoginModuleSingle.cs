@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Fibers;
 using UnityEngine;
 using Unity.Entities;
 using SGame.UI;
@@ -18,7 +19,8 @@ namespace SGame
 
         public void Enter()
         {
-
+            m_fiber           = new Fiber(LoginServer());
+            m_userData        = PropertyManager.Instance.GetGroup(ItemType.USER);
         }
 
         public void Shutdown()
@@ -28,7 +30,10 @@ namespace SGame
 
         public void Update()
         {
-
+            if (m_fiber != null)
+            {
+                
+            }
         }
 
         IEnumerator LoginServer()
@@ -38,8 +43,38 @@ namespace SGame
 
         void SetupDefault()
         {
+            //m_currentPlayerPos = m_userInfo.Pos;
+            /*
             
+            m_userData.SetNum((int)UserType.GOLD,             m_userInfo.Coin);
+            m_userData.SetNum((int)UserType.DICE_NUM,         m_userInfo.Dice);
+            m_userData.SetNum((int)UserType.DICE_MAXNUM,      m_userInfo.DiceMax);
+            m_userData.SetNum((int)UserType.POS,              m_userInfo.Pos);
+
+            // 创建恢复骰子对象
+            var recover = EntityManager.CreateEntity(typeof(DiceRecover), typeof(TimeoutData));
+            var dice_add_time = (float)GlobalDesginConfig.GetInt(DICE_ADD_TIME);
+            EntityManager.SetComponentData(recover, new DiceRecover {
+                duration   = dice_add_time,
+                recoverNum = GlobalDesginConfig.GetInt(DICE_ADD_NUM),
+            });
+            EntityManager.SetComponentData(recover, new TimeoutData { Value = dice_add_time });
+
+            // 创建事件
+            int i = 0;
+            foreach (var e in m_userInfo.StepList)
+            {
+                m_tileEventModule.AddEventGroup(CovertNetEventToRound(e));
+            }
+
+            UpdateDicePower(true);
+            
+            // 加载地图
+            TileModule.Instance.LoadMap(m_userInfo.MapId, MapType.NORMAL);
+            */
         }
+        
+        
 
         public IEnumerator RunLogin()
         {
@@ -77,5 +112,9 @@ namespace SGame
         ////////////////////// DATA ///////////////////
         private GameWorld m_gameWorld;
         private EntityManager EntityManager { get { return m_gameWorld.GetECSWorld().EntityManager; } }
+
+        private Fiber       m_fiber;
+
+        private ItemGroup   m_userData;
     }
 }

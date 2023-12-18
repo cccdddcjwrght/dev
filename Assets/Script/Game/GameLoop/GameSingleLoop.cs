@@ -6,8 +6,21 @@ using SGame.UI;
 
 namespace SGame
 {
+	/// <summary>
+	/// 单机逻辑
+	/// </summary>
 	public class GameSingleLoop : IGameLoop
 	{
+		/// <summary>
+		///  游戏状态
+		/// </summary>
+		public enum GAME_STATE
+		{
+			LOGIN	= 0, // 登录界面, 登录逻辑
+			GAMEING = 1, // 游戏中
+			LOBBY   = 2, // 大厅
+		}
+		
 		/// <summary>
 		/// 模块初始化
 		/// </summary>
@@ -27,7 +40,7 @@ namespace SGame
 			
 			var   userInputSystem = ecsWorld.CreateSystem<UserInputsystem>();
 			m_commonSystem.Add(userInputSystem);
-			
+			//Vector2Int
 			//RandomSystem                  randomSystem      = RandomSystem.Instance;
 			// 初始化UI, 不再使用手动注册
 			var	uiModule		= new UIModule(world, new UIPreprocess());;
@@ -164,16 +177,6 @@ namespace SGame
 
 		///////////////////////////////////////////////////////// DATA ////////////////////////////////////////////////////////////////////////////////
 		/// <summary>
-		///  游戏状态
-		/// </summary>
-		public enum GAME_STATE
-		{
-			LOGIN	= 0,	// 登录界面, 登录逻辑
-			GAMEING = 1,	// 游戏中
-			LOBBY   = 2,	// 大厅
-		}
-
-		/// <summary>
 		///  ECS 对象世界, 给使用者一个统一接口创建对象. 并将GameObject 与 Entity 的生命周期绑定(战斗系统必须)
 		/// </summary>
 		GameWorld                m_gameWorld;
@@ -213,7 +216,6 @@ namespace SGame
 		/// </summary>
 		private GameTime          m_renderTime;
 
-		
 		/// <summary>
 		///  状态机, 游戏中每个大模块是互斥的, 通过状态机管理
 		/// </summary>

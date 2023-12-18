@@ -42,12 +42,12 @@ namespace SGame.UI
 
 		public UIModule(GameWorld gameWorld, IPreprocess preProcessing)
 		{
-			m_gameWorld       = gameWorld;
+			 m_gameWorld      = gameWorld;
 		     m_spawnSystem    = gameWorld.GetECSWorld().CreateSystem<SpawnUISystem>();
 		     m_updateSystem   = gameWorld.GetECSWorld().CreateSystem<UISystem>();;
 		     m_despawnSystem  = gameWorld.GetECSWorld().CreateSystem<DespaenUISystem>();
 		     m_factory        = new UIScriptFactory();
-		     m_preProcess    = preProcessing;
+		     m_preProcess     = preProcessing;
 		     
 		     // 不要FairyGUI管理
 		     UIPackage.unloadBundleByFGUI = false;
