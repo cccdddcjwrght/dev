@@ -7,7 +7,7 @@ using SGame.UI;
 using Unity.Entities;
 
 namespace SGame.VS
-{/*
+{
     [UnitTitle("UICheckOpened")] //The Custom Scripting Event node to receive the Event. Add "On" to the node title as an Event naming convention.
     [UnitCategory("Game/UI")]
     public class UICheckOpened : Unit
@@ -20,14 +20,23 @@ namespace SGame.VS
         [PortLabel("isReadly")]
         public ValueOutput result;
 
-        private EntityManager entityManager;
+        private EntityManager _entityManager;
+        private EntityManager entityManager
+        {
+            get
+            {
+                if (_entityManager == null)
+                    _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+                return _entityManager;
+            }
+        }
         
         // 端口定义
         protected override void Definition()
         {
             uiEntity = ValueInput("uiEntity", Vector2Int.zero);
             result   = ValueOutput<bool>("isReady", Check);
-            entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         }
 
         /// <summary>
@@ -37,6 +46,9 @@ namespace SGame.VS
         /// <returns></returns>
         bool Check(Flow flow)
         {
+            if (!Application.isPlaying)
+                return true;
+            
             Vector2Int v2 = flow.GetValue<Vector2Int>(uiEntity);
             Entity e = new Entity() {Index = v2.x, Version = v2.y};
             if (e == Entity.Null)
@@ -45,5 +57,4 @@ namespace SGame.VS
             return entityManager.HasComponent<UIInitalized>(e) && !entityManager.HasComponent<DespawningEntity>(e);
         }
     }
-    */
 }

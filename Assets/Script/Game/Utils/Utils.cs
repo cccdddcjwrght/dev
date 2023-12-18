@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using GameConfigs;
 using Unity.Entities;
+using UnityEngine;
 
 namespace SGame
 {
@@ -18,6 +19,16 @@ namespace SGame
                 }
             }
             return null;
+        }
+
+        public static Entity Vector2Entity(Vector2Int v)
+        {
+            return new Entity { Index = v.x, Version = v.y };
+        }
+
+        public static Vector2Int Entity2Vector(Entity e)
+        {
+            return new Vector2Int(e.Index, e.Version);
         }
 
         static public Dictionary<string, string> IniParser(params string[] lines)
