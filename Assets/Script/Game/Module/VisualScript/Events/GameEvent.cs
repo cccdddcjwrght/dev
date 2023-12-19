@@ -12,7 +12,18 @@ namespace SGame.VS
     {
         public static string EventHOOK = "GameEvent";
         protected override bool register => false;
-
+        
+        public new class Data : EventUnit<CustomEventArgs>.Data
+        {
+            public SGame.GameEvent eventId = SGame.GameEvent.NONE;
+            public VSEventBridge.EventType eventHandle;
+        }
+        
+        public override IGraphElementData CreateData()
+        {
+            return new Data();
+        }
+        
         [SerializeAs(nameof(argumentCount))]
         private int _argumentCount;
 
@@ -29,14 +40,12 @@ namespace SGame.VS
         /// </summary>
         [DoNotSerialize]
         [PortLabelHidden]
-        public ValueInput name { get; private set; }
-
-        private SGame.GameEvent _eventId;
-
+        public ValueInput eventId { get; private set; }
+        
         [DoNotSerialize]
         public List<ValueOutput> argumentPorts { get; } = new List<ValueOutput>();
 
-        private VSEventBridge.EventType eventHandle;
+        //private VSEventBridge.EventType eventHandle;
 
         public override EventHook GetHook(GraphReference reference)
         {
@@ -47,7 +56,7 @@ namespace SGame.VS
         {
             base.Definition();
 
-            name = ValueInput(nameof(name), SGame.GameEvent.NONE);
+            eventId = ValueInput(nameof(eventId), SGame.GameEvent.NONE);
 
             argumentPorts.Clear();
 
@@ -73,7 +82,7 @@ namespace SGame.VS
                 flow.SetValue(argumentPorts[i], args.arguments[i]);
             }
         }
-        
+
         public override void StartListening(GraphStack stack)
         {
             var data = stack.GetElementData<Data>(this);
@@ -83,12 +92,16 @@ namespace SGame.VS
             }
             
             var reference = stack.ToReference();
-            var flow = Flow.New(reference);
-            _eventId = flow.GetValue<SGame.GameEvent>(name);
-            flow.Dispose();
-            eventHandle = (args) => OnGameEvent(reference, args);
-            VSEventBridge.Instance.Reg((int)_eventId, eventHandle);
+            if (data.eventId != SGame.GameEvent.NONE)
+            {
+                Debug.LogError("data event repeate!");
+                return;
+            }
             
+            // 注册事件
+            data.eventId = Flow.FetchValue<SGame.GameEvent>(eventId, reference);;
+            data.eventHandle = (args) => OnGameEvent(reference, args);
+            VSEventBridge.Instance.Reg((int)data.eventId, data.eventHandle);
             base.StartListening(stack);
         }
         
@@ -101,11 +114,15 @@ namespace SGame.VS
             }
             base.StopListening(stack);
 
-            if (eventHandle != null)
+            if (data.eventId == SGame.GameEvent.NONE)
             {
-                VSEventBridge.Instance.UnReg((int)_eventId, eventHandle);
-                eventHandle = null;
+                return;
             }
+            
+
+            VSEventBridge.Instance.UnReg((int)data.eventId, data.eventHandle);
+            data.eventId = SGame.GameEvent.NONE;
+            data.eventHandle = null;
         }
         
         /// <summary>
@@ -115,7 +132,7 @@ namespace SGame.VS
         /// <param name="args"></param>
         public void OnGameEvent(GraphReference reference, params object[] args)
         {
-            CustomEventArgs eventArgs = new CustomEventArgs(_eventId.ToString(), args);
+            CustomEventArgs eventArgs = new CustomEventArgs("GameEvent", args);
             Trigger(reference, eventArgs);
         }
     }

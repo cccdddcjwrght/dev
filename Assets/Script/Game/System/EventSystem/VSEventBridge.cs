@@ -76,7 +76,8 @@ namespace SGame
 
 		public bool HasEvent(int id)
 		{
-			return _registers.ContainsKey(id);
+			bool hasKey = _registers.ContainsKey(id);
+			return hasKey;
 		}
 
 		public void OnCall(int id, params object[] values)
