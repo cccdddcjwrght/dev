@@ -105,7 +105,7 @@ namespace SGame.VS
             base.StartListening(stack);
         }
         
-        public override void StopListening(GraphStack stack)
+        protected override void StopListening(GraphStack stack, bool destroyed)
         {
             var data = stack.GetElementData<Data>(this);
             if (!data.isListening)
