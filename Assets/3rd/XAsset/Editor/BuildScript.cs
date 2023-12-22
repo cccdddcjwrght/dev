@@ -34,7 +34,7 @@ namespace libx
 {
 	public static class BuildScript
 	{
-		public static string outputPath = "DLC/" + GetPlatformName();
+		public static string outputPath { get { return "DLC/" + GetPlatformName(); } }
 
 		public static void ClearAssetBundles()
 		{
@@ -186,7 +186,12 @@ namespace libx
 		{
 			// Choose the output path according to the build target.
 			var outputPath = CreateAssetBundleDirectory();
-			const BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression;
+			#if !BUILD_FAST
+				const BuildAssetBundleOptions options = BuildAssetBundleOptions.None;
+			#else
+				const BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression;
+			#endif
+
 			var targetPlatform = EditorUserBuildSettings.activeBuildTarget;
 			var rules = GetBuildRules();
 			var builds = rules.GetBuilds();
@@ -405,17 +410,6 @@ namespace libx
 			if (Directory.Exists(dstPath))
 				Directory.Delete(dstPath, true);
 			CopyPath(srcPath, dstPath);
-			/*
-			string versionFileName = "GameVersion.json";
-			string dstFile = Path.Combine(dstPath, versionFileName);
-			//GetBuildRules().version
-			if (!File.Exists(dstFile))
-			{
-				File.Copy(Path.Combine("Assets", versionFileName),
-					Path.Combine(dstPath, versionFileName));
-			}
-			*/
-
 		}
 	}
 }

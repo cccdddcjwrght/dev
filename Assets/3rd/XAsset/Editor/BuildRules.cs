@@ -209,6 +209,7 @@ namespace libx
 				_asset2Bundles.TryGetValue(asset, out bundleName);
 				if (string.IsNullOrEmpty(bundleName))
 				{
+					// 包体内不存在该依赖资源, 先统计出来
 					_duplicated.Add(asset);
 				}
 			}
@@ -261,6 +262,7 @@ namespace libx
 			AssetDatabase.SaveAssets();
 		}
 
+	
 		private void OptimizeAssets()
 		{
 			int i = 0, max = _conflicted.Count;
@@ -286,6 +288,7 @@ namespace libx
 
 		private void AnalysisAssets()
 		{
+			// 将所有bundle 收集起来(通过assetToBundle,找到对应的bundles)
 			var getBundles = GetBundles();
 			int i = 0, max = getBundles.Count;
 			foreach (var item in getBundles)
@@ -299,8 +302,12 @@ namespace libx
 				var dependencies = AssetDatabase.GetDependencies(assetPaths.ToArray(), true);
 				if (dependencies.Length > 0)
 					foreach (var asset in dependencies)
+					{
 						if (ValidateAsset(asset))
-							Track(asset, bundle);
+						{
+							Track(asset.ToLower(), bundle);
+						}
+					}
 				i++;
 			}
 		}
