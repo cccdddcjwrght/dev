@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4748271612671412533
+--- !u!1 &5411789171146047146
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 296620976084357533}
-  - component: {fileID: 1924573588982026275}
-  - component: {fileID: 6683797116717141157}
+  - component: {fileID: 729886055712589133}
+  - component: {fileID: 8957942906970687354}
+  - component: {fileID: 3423975928350167382}
   m_Layer: 0
   m_Name: eyes
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &296620976084357533
+--- !u!4 &729886055712589133
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4748271612671412533}
+  m_GameObject: {fileID: 5411789171146047146}
   m_LocalRotation: {x: -0.000000053385083, y: 0.7071068, z: 0.7071068, w: 0.000000053385083}
   m_LocalPosition: {x: 0.00024591247, y: 1.3805736, z: 0.027263809}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &1924573588982026275
+--- !u!137 &8957942906970687354
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4748271612671412533}
+  m_GameObject: {fileID: 5411789171146047146}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -78,7 +78,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 2aa02cfd27b2fdd439be7daeb77e6b2f, type: 2}
   m_Bones:
   - {fileID: 0}
   - {fileID: 0}
@@ -88,13 +88,13 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.016456446, y: 0.011906182, z: -0.056554884}
     m_Extent: {x: 0.07274289, y: 0.04577756, z: 0.0906322}
   m_DirtyAABB: 0
---- !u!114 &6683797116717141157
+--- !u!114 &3423975928350167382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4748271612671412533}
+  m_GameObject: {fileID: 5411789171146047146}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15682c8cc05f5d4498e30fec0f70ad53, type: 3}
