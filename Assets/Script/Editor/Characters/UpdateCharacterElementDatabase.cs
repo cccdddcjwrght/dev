@@ -18,7 +18,7 @@ class UpdateCharacterElementDatabase
         //string[] assetbundles = Directory.GetFiles(CreateAssetbundles.AssetbundlePath);                                                  // 遍历所有生成的bundle 文件
         //string[] materials = Directory.GetFiles("Assets/BuildAsset/Art/Characters", "*.mat", SearchOption.AllDirectories); // 获取所有材质
 
-        string[] assets = AssetDatabase.FindAssets("t:Prefab", new[] { CreateCharacterAssets.ASSET_PATH });
+        string[] assets = AssetDatabase.FindAssets("t:Prefab", new[] { CharacterSetting.ASSET_PATH });
         
         foreach (string asset in assets)
         {

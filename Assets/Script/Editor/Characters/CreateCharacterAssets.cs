@@ -6,7 +6,7 @@ using UnityEngine;
 
 class CreateCharacterAssets
 {
-    public const string ASSET_PATH = "Assets/BuildAsset/CustomCharacters/";
+    //public static string ASSET_PATH = "Assets/BuildAsset/CustomCharacters/";
     // This method creates an assetbundle of each SkinnedMeshRenderer
     // found in any selected character fbx, and adds any materials that
     // are intended to be used by the specific SkinnedMeshRenderer.
@@ -149,12 +149,12 @@ class CreateCharacterAssets
     /// <returns>返回生成后的预制对象</returns>
     static Object GetPrefabPath(GameObject go, string path)
     {
-        var dir_path = ASSET_PATH + path; 
+        var dir_path = CharacterSetting.ASSET_PATH + path; 
         dir_path = Path.GetDirectoryName(dir_path);
         if (!Directory.Exists(dir_path))
             Directory.CreateDirectory(dir_path);
         
-        Object tempPrefab = EditorUtility.CreateEmptyPrefab( ASSET_PATH + path + ".prefab");
+        Object tempPrefab = EditorUtility.CreateEmptyPrefab( CharacterSetting.ASSET_PATH + path + ".prefab");
         tempPrefab = EditorUtility.ReplacePrefab(go, tempPrefab);
         Object.DestroyImmediate(go);
         return tempPrefab;

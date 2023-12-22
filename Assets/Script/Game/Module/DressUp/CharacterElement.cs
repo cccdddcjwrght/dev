@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Object=UnityEngine.Object;
+using libx;
 
 // When analyzing the available assets UpdateCharacterElementDatabase creates
 // a CharacterElement for each possible element. For instance, one mesh with
@@ -15,20 +16,43 @@ public class CharacterElement
     public string name;             // 元件名(材质名)
     public string meshName;         // 模型名
     public string baseName;         // 基础名称
-   
-    // The WWWs for retrieving the appropriate assetbundle are stored 
-    // statically, so CharacterElements that share an assetbundle can
-    // use the same WWW.
-    // path to assetbundle -> WWW for retieving required assets
-    static Dictionary<string, WWW> wwws = new Dictionary<string, WWW>();
+    
+    
+    public AssetRequest asset_data;
 
-    // The required assets are loaded asynchronously to avoid delays
-    // when first using them. A LoadAsync results in an AssetBundleRequest
-    // which are stored here so we can check their progress and use the
-    // assets they contain once they are loaded.
-    AssetBundleRequest gameObjectRequest;
-    AssetBundleRequest materialRequest;
-    AssetBundleRequest boneNameRequest;
+    public string AssetPath
+    {
+        get
+        {
+            return CharacterSetting.ASSET_PATH + meshName + ".prefab";
+        }
+    }
+    
+    public bool IsLoaded
+    {
+        get
+        {
+            if (asset_data != null)
+                return asset_data.isDone;
+
+            asset_data = libx.Assets.LoadAssetAsync(AssetPath, typeof(CharacterElemInfo));
+            return asset_data.isDone;
+        }
+    }
+
+    /// <summary>
+    /// 资源下载进度
+    /// </summary>
+    public float progress
+    {
+        get
+        {
+            if (asset_data == null)
+                return 0.0f;
+            
+            return asset_data.progress;
+        }
+    }
 
     public CharacterElement(string name, string meshName, string baseName)
     {
@@ -36,18 +60,42 @@ public class CharacterElement
         this.meshName = meshName;
         this.baseName = baseName;
     }
+
+    /// <summary>
+    /// 获得材质球
+    /// </summary>
+    /// <returns></returns>
+    public Material GetMaterial()
+    {
+        var info = asset_data.asset as CharacterElemInfo;
+        foreach (var m in info.materials)
+        {
+            if (m.name.ToLower() == name)
+                return m;
+        }
+
+        return null;
+    }
     
-    
+    /// <summary>
+    /// 获得Mesh信息
+    /// </summary>
+    /// <returns></returns>
     public SkinnedMeshRenderer GetSkinnedMeshRenderer()
     {
-        GameObject go = (GameObject)Object.Instantiate(gameObjectRequest.asset);
-        go.GetComponent<Renderer>().material = (Material)materialRequest.asset;
+        var info = asset_data.asset as CharacterElemInfo;
+        GameObject go = (GameObject)GameObject.Instantiate(info.gameObject);
+        go.GetComponent<Renderer>().material = GetMaterial();
         return (SkinnedMeshRenderer)go.GetComponent<Renderer>();
     }
 
+    /// <summary>
+    /// 获得骨骼名称
+    /// </summary>
+    /// <returns></returns>
     public string[] GetBoneNames()
     {
-		var holder = (StringHolder)boneNameRequest.asset;
-        return holder.content;
+        var info = asset_data.asset as CharacterElemInfo;
+        return info.bones;
     }
 }
