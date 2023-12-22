@@ -30,14 +30,14 @@ public class CharacterGenerator
     // Stores the WWWs for retrieving the characterbase assetbundles that 
     // hold the bones and animations for a specific character.
     // character name -> WWW for characterbase.assetbundle
-    static Dictionary<string, AssetRequest> characterBaseWWWs = new Dictionary<string, AssetRequest>();
+    //static Dictionary<string, AssetRequest> characterBaseWWWs = new Dictionary<string, AssetRequest>();
 
     // The bones and animations from the characterbase assetbundles are loaded
     // asynchronously to avoid delays when first using them. A LoadAsync results
     // in an AssetBundleRequest which are stored here so we can check their progress
     // and use the assets they contain once they are loaded.
     // character name -> AssetBundleRequest for Character Base GameObject.
-    static Dictionary<string, AssetBundleRequest> characterBaseRequests = new Dictionary<string, AssetBundleRequest>();
+    static Dictionary<string, AssetRequest> characterBaseRequests = new Dictionary<string, AssetRequest>();
 
     // Stores the currently configured character which is used when downloading
     // assets and generating characters.
@@ -323,12 +323,12 @@ public class CharacterGenerator
     {
         get
         {
-            if (!characterBaseWWWs.ContainsKey(currentCharacter))
+            if (!characterBaseRequests.ContainsKey(currentCharacter))
             {
                 var req = Assets.LoadAssetAsync(AssetbundleBaseURL + currentCharacter + "/" + CharacterSetting.ROOT_NAME + ".prefab", typeof(GameObject));
-                characterBaseWWWs.Add(currentCharacter, req);
+                characterBaseRequests.Add(currentCharacter, req);
             }
-            return characterBaseWWWs[currentCharacter];
+            return characterBaseRequests[currentCharacter];
         }
     }
 }

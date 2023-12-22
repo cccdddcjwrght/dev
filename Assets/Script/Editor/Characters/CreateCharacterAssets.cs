@@ -60,8 +60,9 @@ class CreateCharacterAssets
                 List<Object> toinclude = new List<Object>();
                 List<Material> all_materials = new List<Material>();
 
-                string renderAssetPath = "Assets/BuildAsset/Characters/" + name + "/" + smr.name + "/";
-                Mesh mesh = smr.sharedMesh;
+                //string renderAssetPath = "Assets/BuildAsset/Characters/" + name + "/" + smr.name + "/";
+                //Mesh mesh = smr.sharedMesh;
+                /*
                 Mesh newMesh = new Mesh()
                 {
                     vertices = mesh.vertices,
@@ -72,14 +73,14 @@ class CreateCharacterAssets
                     uv = mesh.uv,
                     uv2 = mesh.uv2
                 };
-
+                */
                 // Save the current SkinnedMeshRenderer as a prefab so it can be included
                 // in the assetbundle. As instantiating part of an fbx results in the
                 // entire fbx being instantiated, we have to dispose of the entire instance
                 // after we detach the SkinnedMeshRenderer in question.
                 GameObject rendererClone = GameObject.Instantiate(smr.gameObject);         //(GameObject)EditorUtility.InstantiatePrefab(smr.gameObject);
                 CharacterElemInfo info = rendererClone.AddComponent<CharacterElemInfo>();
-                rendererClone.GetComponent<SkinnedMeshRenderer>().sharedMesh = newMesh;
+                //rendererClone.GetComponent<SkinnedMeshRenderer>().sharedMesh = newMesh;
                 //Object rendererPrefab = GetPrefabPath(rendererClone, name + "/" + smr.name + "/rendererobject"); //GetPrefab(rendererClone, "rendererobject");
                 //toinclude.Add(rendererPrefab);
 
@@ -106,6 +107,8 @@ class CreateCharacterAssets
 				//holder.content = boneNames.ToArray();
                 //AssetDatabase.CreateAsset(holder, stringholderpath);
                 //toinclude.Add(AssetDatabase.LoadAssetAtPath(stringholderpath, typeof (StringHolder)));
+                rendererClone.GetComponent<SkinnedMeshRenderer>().sharedMesh = CopyMesh(smr.sharedMesh, CharacterSetting.ASSET_PATH + name + "/" + smr.name);
+
                 Object rendererPrefab = GetPrefabPath(rendererClone, name + "/" + smr.name); //GetPrefab(rendererClone, "rendererobject");
 
                 // Save the assetbundle.
@@ -159,6 +162,27 @@ class CreateCharacterAssets
         Object.DestroyImmediate(go);
         return tempPrefab;
     }
+    
+    static Mesh CopyMesh(Mesh mesh, string path)
+    {
+        Mesh newmesh = new Mesh();
+        newmesh.vertices = mesh.vertices;
+        newmesh.triangles = mesh.triangles;
+        newmesh.uv = mesh.uv;
+        newmesh.uv2 = mesh.uv2;
+        newmesh.normals = mesh.normals;
+        newmesh.colors = mesh.colors;
+        newmesh.tangents = mesh.tangents;
+        newmesh.boneWeights = mesh.boneWeights;
+        newmesh.bounds = mesh.bounds;
+        newmesh.bindposes = mesh.bindposes;
+        string asset_path = path + "_mesh.asset";
+        AssetDatabase.CreateAsset(newmesh, asset_path);
+        return AssetDatabase.LoadAssetAtPath(asset_path, typeof(Mesh)) as Mesh;
+        //return AssetDatabase.LoadAssetAtPath<Mesh>(asset_path);
+        //return newmesh;
+    }
+
 
     /*
     public static string AssetbundlePath

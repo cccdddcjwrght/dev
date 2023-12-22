@@ -24,7 +24,7 @@ public class CharacterElement
     {
         get
         {
-            return CharacterSetting.ASSET_PATH + meshName + ".prefab";
+            return string.Format("{0}{1}/{2}.prefab", CharacterSetting.ASSET_PATH, baseName, meshName);
         }
     }
     
