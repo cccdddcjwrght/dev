@@ -42,14 +42,33 @@ public struct ui_resRowData : IFlatbufferObject
 #endif
   public byte[] GetPackageNameArray() { return __p.__vector_as_array<byte>(10); }
   public int Order { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Group(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int GroupLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetGroupBytes() { return __p.__vector_as_span<int>(14, 4); }
+#else
+  public ArraySegment<byte>? GetGroupBytes() { return __p.__vector_as_arraysegment(14); }
+#endif
+  public int[] GetGroupArray() { return __p.__vector_as_array<int>(14); }
+  public int AniShow { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AniHide { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Mask { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ui_resRowData> Createui_resRowData(FlatBufferBuilder builder,
       int id = 0,
       StringOffset nameOffset = default(StringOffset),
       StringOffset ComNameOffset = default(StringOffset),
       StringOffset PackageNameOffset = default(StringOffset),
-      int order = 0) {
-    builder.StartTable(5);
+      int order = 0,
+      VectorOffset groupOffset = default(VectorOffset),
+      int AniShow = 0,
+      int AniHide = 0,
+      int mask = 0) {
+    builder.StartTable(9);
+    ui_resRowData.AddMask(builder, mask);
+    ui_resRowData.AddAniHide(builder, AniHide);
+    ui_resRowData.AddAniShow(builder, AniShow);
+    ui_resRowData.AddGroup(builder, groupOffset);
     ui_resRowData.AddOrder(builder, order);
     ui_resRowData.AddPackageName(builder, PackageNameOffset);
     ui_resRowData.AddComName(builder, ComNameOffset);
@@ -58,12 +77,19 @@ public struct ui_resRowData : IFlatbufferObject
     return ui_resRowData.Endui_resRowData(builder);
   }
 
-  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(5); }
+  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddId(FlatBufferBuilder builder, int id) { builder.AddInt(0, id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddComName(FlatBufferBuilder builder, StringOffset ComNameOffset) { builder.AddOffset(2, ComNameOffset.Value, 0); }
   public static void AddPackageName(FlatBufferBuilder builder, StringOffset PackageNameOffset) { builder.AddOffset(3, PackageNameOffset.Value, 0); }
   public static void AddOrder(FlatBufferBuilder builder, int order) { builder.AddInt(4, order, 0); }
+  public static void AddGroup(FlatBufferBuilder builder, VectorOffset groupOffset) { builder.AddOffset(5, groupOffset.Value, 0); }
+  public static VectorOffset CreateGroupVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateGroupVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartGroupVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddAniShow(FlatBufferBuilder builder, int AniShow) { builder.AddInt(6, AniShow, 0); }
+  public static void AddAniHide(FlatBufferBuilder builder, int AniHide) { builder.AddInt(7, AniHide, 0); }
+  public static void AddMask(FlatBufferBuilder builder, int mask) { builder.AddInt(8, mask, 0); }
   public static Offset<GameConfigs.ui_resRowData> Endui_resRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ui_resRowData>(o);

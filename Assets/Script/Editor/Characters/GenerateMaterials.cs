@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEditor.Graphs;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 class GenerateMaterials
 {
@@ -44,6 +46,7 @@ class GenerateMaterials
 
                 // Create a Material for each texture which name contains
                 // the SkinnedMeshRenderer name.
+                bool findTexture = false;
                 foreach (Texture2D t in textures)
                 {
                     if (t.name.ToLower().Contains("normal")) continue;
@@ -54,17 +57,44 @@ class GenerateMaterials
 
                     // Dont overwrite existing materials, as we would
                     // lose existing material settings.
-                    if (File.Exists(materialPath)) continue;
+                    if (File.Exists(materialPath))
+                    {
+                        findTexture = true;
+                        continue;
+                    }
 
                     // Use a default shader according to artist preferences.
-                    string shader = "Universal Render Pipeline/Unlit";
-                    if (normalmap != null) shader = "Universal Render Pipeline/Lit";
+                    //string shader = "Universal Render Pipeline/Unlit";
+                    //if (normalmap != null) shader = "Universal Render Pipeline/Lit";
+                    string shader = "Universal Render Pipeline/Lit";
 
                     // Create the Material
                     Material m = new Material(Shader.Find(shader));
                     m.SetTexture("_BaseMap", t);
                     if (normalmap != null) m.SetTexture("_BumpMap", normalmap);
                     AssetDatabase.CreateAsset(m, materialPath);
+                    findTexture = true;
+                }
+
+                if (!findTexture)
+                {
+                    string materialPath = MaterialsPath(characterFbx) + "/" + characterFbx.name + "_" + smr.name.ToLower() + ".mat";
+                    if (!File.Exists(materialPath))
+                    {
+                        // 没有贴图
+                        var shaderObj = Shader.Find("Universal Render Pipeline/Unlit");
+                        //var localkeyword = new LocalKeyword(shaderObj, "_SURFACE_TYPE_TRANSPARENT");
+                        Material m = new Material(shaderObj);
+                        SetBlendMode(m, UnityEngine.Rendering.BlendMode.SrcAlpha, UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+
+                        m.SetColor("_Color", new Color(0,1,0,0));
+                        m.SetColor("_BaseColor", new Color(0,1,0,0));
+                        m.SetFloat("_Surface", 1);
+                        m.renderQueue = (int)RenderQueue.Transparent;
+                        m.SetOverrideTag("RenderType", "Transparent");
+                        CoreUtils.SetKeyword(m, "_SURFACE_TYPE_TRANSPARENT", true);
+                        AssetDatabase.CreateAsset(m, materialPath);
+                    }
                 }
             }
         }
@@ -72,6 +102,16 @@ class GenerateMaterials
         
         if (!validMaterial) 
             EditorUtility.DisplayDialog("Character Generator", "No Materials created. Select the characters folder in the Project pane to process all characters. Select subfolders to process specific characters.", "Ok");
+    }
+    
+    static void SetBlendMode(Material material, UnityEngine.Rendering.BlendMode srcBlendMode, UnityEngine.Rendering.BlendMode dstBlendMode)
+    {
+        var srcBlendProp = "_SrcBlend";
+        if (material.HasProperty(srcBlendProp))
+            material.SetFloat(srcBlendProp, (int)srcBlendMode);
+        var dstBlendProp = "_DstBlend";
+        if (material.HasProperty(dstBlendProp))
+            material.SetFloat(dstBlendProp, (int)dstBlendMode);
     }
 
     // Returns the path to the directory that holds the specified FBX.

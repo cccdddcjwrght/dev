@@ -8,6 +8,8 @@ public class TestCustomCharacter : MonoBehaviour
     private GameObject currentCharacter;
     private CharacterGenerator generator;
     private Fiber m_fiber;
+
+    public string character_name = "role";
     
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class TestCustomCharacter : MonoBehaviour
         while (CharacterGenerator.ReadyToUse == false)
             yield return null;
 
-        var generator = CharacterGenerator.CreateWithRandomConfig();
+        var generator = CharacterGenerator.CreateWithRandomConfig(character_name);
         while (generator.ConfigReady == false)
             yield return null;
         

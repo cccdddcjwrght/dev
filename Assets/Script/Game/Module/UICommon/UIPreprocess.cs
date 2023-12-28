@@ -21,6 +21,7 @@ namespace SGame
                     return;
                 }
 
+                // 设置UI显示层级
                 context.window.sortingOrder = ui.Order;
             }
 
