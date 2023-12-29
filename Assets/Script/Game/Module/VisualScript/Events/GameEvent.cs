@@ -112,7 +112,7 @@ namespace SGame.VS
             {
                 return;
             }
-            base.StopListening(stack);
+            base.StopListening(stack, destroyed);
 
             if (data.eventId == SGame.GameEvent.NONE)
             {

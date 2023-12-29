@@ -38,7 +38,6 @@ namespace SGame.VS
         // 端口定义
         protected override void Definition()
         {
-            Debug.Log("UI CLOSE CALL DEF!!!");
             // 关闭UI
             inputTrigger = ControlInput("input", (flow) =>
             {
