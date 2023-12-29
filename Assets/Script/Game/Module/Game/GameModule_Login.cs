@@ -193,8 +193,6 @@ namespace SGame
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
             UIUtils.CloseUI(loadingUI);
             
-            
-
             yield return null;
         }
     }

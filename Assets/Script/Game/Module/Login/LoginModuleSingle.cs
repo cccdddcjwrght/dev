@@ -40,7 +40,10 @@ namespace SGame
             }
 
             GameObject go = GameObject.Instantiate(asset.asset as GameObject);
-            yield return new WaitEvent(GameEvent.ENTER_GAME);
+            var     waitLogin = new WaitEvent(GameEvent.ENTER_GAME);
+            yield return waitLogin;
+            yield return null;
+            GameObject.Destroy(go);
         }
 
         public void Shutdown()
@@ -111,7 +114,8 @@ namespace SGame
             yield return new WaitUIOpen(EntityManager, loginUI);
             UIUtils.CloseUI(hotfixUI);
 
-            
+            //yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
+            //Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
             /*
             // 3. 等待登录事件登录
             yield return LoginServer();
