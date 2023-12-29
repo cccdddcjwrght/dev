@@ -3,8 +3,6 @@ using FairyGUI;
 using System;
 using log4net;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Contexts;
 
 namespace SGame.UI
 {
