@@ -24,7 +24,7 @@ namespace SGame
             m_fiber = new Fiber(RunLogic(context));
             
             // 获得参数
-            m_waitTime = context.gameWorld.GetEntityManager().GetComponentData<UIParamFloat>(context.entity).Value;
+            m_waitTime = (float)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
         }
         
         IEnumerator RunLogic(UIContext context)

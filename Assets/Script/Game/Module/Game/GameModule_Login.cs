@@ -87,7 +87,7 @@ namespace SGame
         {
             while (true)
             {
-                var     waitLogin = new WaitEvent<string>(EntityManager, GameEvent.ENTER_LOGIN);
+                var     waitLogin = new WaitEvent<string>(GameEvent.ENTER_LOGIN);
                 yield return waitLogin;
                 
                 string  ip = GlobalConfig.GetStr(SERVER_ADDRESS);
@@ -170,13 +170,13 @@ namespace SGame
             
             // 1. 显示更新界面
             Entity hotfixUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hotfix"));
-            EntityManager.AddComponentData(hotfixUI, new UIParamFloat() {Value = HotfixTime});
+            EntityManager.AddComponentData(hotfixUI, new UIParam() {Value = HotfixTime});
             
             // 2. 显示登录界面
-            yield return new WaitEvent(EntityManager, GameEvent.HOTFIX_DONE);
+            yield return new WaitEvent(GameEvent.HOTFIX_DONE);
             Entity loginUI = UIRequest.Create(EntityManager, UIUtils.GetUI("login"));
             yield return new WaitUIOpen(EntityManager, loginUI);
-            UIUtils.CloseUI(EntityManager, hotfixUI);
+            UIUtils.CloseUI(hotfixUI);
 
             // 3. 等待登录事件登录
             yield return LoginServer();
@@ -184,14 +184,14 @@ namespace SGame
 
             // 登录成功后显示加载UI
             Entity loadingUI = UIRequest.Create(EntityManager, UIUtils.GetUI("loading"));
-            EntityManager.AddComponentData(loadingUI, new UIParamFloat() {Value = LoadingTime});
+            EntityManager.AddComponentData(loadingUI, new UIParam() {Value = LoadingTime});
             yield return new WaitUIOpen(EntityManager, loadingUI);
-            UIUtils.CloseUI(EntityManager, loginUI);
+            UIUtils.CloseUI(loginUI);
 
             // 4. 完成后直接进入主界
-            yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
+            yield return new WaitEvent(GameEvent.ENTER_GAME);
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
-            UIUtils.CloseUI(EntityManager, loadingUI);
+            UIUtils.CloseUI(loadingUI);
             
             
 

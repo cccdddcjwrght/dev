@@ -2,6 +2,8 @@
 using Unity.Entities;
 using Unity.VisualScripting;
 using System.Collections.Generic;
+using log4net;
+using UnityEngine;
 
 namespace SGame.UI
 {
@@ -12,6 +14,8 @@ namespace SGame.UI
     {
         public UISTATE_CHANGE onUIEvent { get; set; }
 
+        private static ILog log = LogManager.GetLogger("ui.group");
+
         public enum GROUP_TYPE
         {
             NORMAL = 0,   // 普通UI组, 有就是显示, 没有就不显示
@@ -21,10 +25,10 @@ namespace SGame.UI
 
         class UIState
         {
-            public int id;           // UI 的ID
-            public bool isShow;      // 当前UI是否显示
-            public int priority;     // 优先级
-            public List<int> groups; // 该UI 所属的UI组
+            public int       id;          // UI 的ID
+            public bool      isShow;      // 当前UI是否显示
+            public int       priority;    // 优先级
+            public List<int> groups;      // 该UI 所属的UI组
         }
 
         /// <summary>
@@ -80,11 +84,8 @@ namespace SGame.UI
         /// </summary>
         /// <param name="ui_id"></param>
         /// <returns>是否成功更新状态, 状态不变不用更新</returns>
-        bool UpdateUI(int ui_id)
+        bool UpdateUI()
         {
-            if (!m_datas.TryGetValue(ui_id, out UIState info))
-                return false;
-
             var oldList = GetUITemp();
             List<UIState> changes = new List<UIState>();
             foreach (var v in m_datas.Keys)
@@ -103,6 +104,10 @@ namespace SGame.UI
                     changes.Add(right);
                 }
             }
+
+            // 没有修改状态的UI
+            if (changes.Count == 0)
+                return false;
 
             if (onUIEvent != null)
             {
@@ -188,12 +193,8 @@ namespace SGame.UI
             }
             return false;
         }
-
-        IUIGroup GetOrCreateGroup(int groupId)
-        {
-            return null;
-        }
-
+        
+        
         /// <summary>
         /// 关闭UI
         /// </summary>
@@ -201,6 +202,32 @@ namespace SGame.UI
         public bool CloseUI(int ui_id)
         {
             return false;
+        }
+
+        IUIGroup GetOrCreateGroup(int groupId)
+        {
+            if (m_groups == null)
+            {
+                m_groups = new Dictionary<int, IUIGroup>();
+            }
+
+            if (m_groups.TryGetValue(groupId, out IUIGroup ret))
+            {
+                return ret;
+            }
+
+            if (!ConfigSystem.Instance.TryGet(groupId, out GameConfigs.ui_groupsRowData groupInfo))
+            {
+                log.Error("not found group id=" + groupId);
+                return null;
+            }
+
+            ret = CreateCroup((GROUP_TYPE)groupInfo.Type);
+            if (ret != null)
+            {
+                m_groups.Add(groupId, ret);
+            }
+            return ret;
         }
 
         /// <summary>

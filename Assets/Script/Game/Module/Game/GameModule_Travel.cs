@@ -149,7 +149,7 @@ namespace SGame
             yield return FiberHelper.Wait(0.5f);
 
             // 关闭UI
-            UIUtils.CloseUI(EntityManager, ui);
+            UIUtils.CloseUI(ui);
             m_playerState = PlayState.TRAVEL;
             Time.timeScale = 1.0f;
             
@@ -242,7 +242,7 @@ namespace SGame
             
             // 等待1秒结束
             yield return FiberHelper.Wait(0.5f);
-            UIUtils.CloseUI(EntityManager, ui);
+            UIUtils.CloseUI(ui);
             travelAnimation.Stop();
             Time.timeScale = 1.0f;
             

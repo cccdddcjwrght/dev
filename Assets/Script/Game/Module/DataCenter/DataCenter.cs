@@ -22,7 +22,7 @@ namespace SGame
                 return s_instance;
             }
         }
-
+        
         // 获取用户信息
         public UserData GetUserData()
         {

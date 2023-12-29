@@ -26,6 +26,8 @@ namespace SGame
 		/// </summary>
 		void InitModule()
 		{
+			m_commonSystem		 = new SystemCollection();
+			m_commonModule		 = new List<IModule>();
 			var world			 = m_gameWorld;
 			var ecsWorld		 = world.GetECSWorld();
 			var randomSystem	 = RandomSystem.Instance;
@@ -43,25 +45,27 @@ namespace SGame
 			//Vector2Int
 			//RandomSystem                  randomSystem      = RandomSystem.Instance;
 			// 初始化UI, 不再使用手动注册
-			var	uiModule		= new UIModule(world, new UIPreprocess());;
-			var	reg				= new UIReg();
-			reg.RegAllUI(new UIContext() {uiModule = uiModule});
-			var hudModule = new HudModule(world);
-			m_commonModule.Add(uiModule);
-			m_commonModule.Add(hudModule);
+			//var	uiModule		= new UIModule(world, new UIPreprocess());;
+			//var	reg				= new UIReg();
+			//reg.RegAllUI(new UIContext() {uiModule = uiModule});
+			//var hudModule = new HudModule(world);
+			//m_commonModule.Add(uiModule);
+			InitalizeUI();
+			//m_commonModule.Add(hudModule);
 
 			var characterModule = new CharacterModule(m_gameWorld, m_resourceManager);
 			m_commonModule.Add(characterModule);
 
 			// 数据中心
-			m_commonModule.Add(DataCenter.Instance);
+			var dataCenter = new DataCenter(m_gameWorld);
+			m_commonModule.Add(dataCenter);
 			
 			var diceModule      = new DiceModule(world, m_resourceManager, propertyManager.GetGroup(ItemType.USER));
 			var tileModule		= TileModule.Instance;
 			var buildModule		= BuildingModule.Instance;
 			tileModule.Initalize(world);
 			buildModule.Initalize(world);
-			var cameraModule		= new CameraModule();
+			//var cameraModule		= new CameraModule();
 			m_commonModule.Add(diceModule);
 			m_commonModule.Add(tileModule);
 			m_commonModule.Add(buildModule);
@@ -69,6 +73,7 @@ namespace SGame
 			var tileEventModule	= new TileEventModule(world, randomSystem, tileModule);
 			m_commonModule.Add(tileEventModule);
 
+			/*
 			m_gameModule = new GameModule(m_gameWorld, 
 				m_resourceManager, 
 				RandomSystem.Instance, 
@@ -79,8 +84,18 @@ namespace SGame
 				tileModule, 
 				tileEventModule,
 				cameraModule);
-
+			*/
 			m_loginModule = new LoginModuleSingle(world);
+		}
+
+		void InitalizeUI(UIModule uiModule)
+		{
+			/// 后续该代码要做成自动化
+			uiModule.Reg("Login", "Login", UILogin.Create);
+			uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
+			
+			// 手动绑定登录的
+			SGame.UI.Login.LoginBinder.BindAll();
 		}
 
 		/// <summary>
@@ -99,14 +114,14 @@ namespace SGame
 			m_resourceManager	= new ResourceManager(m_gameWorld);
 			
 			// 初始化状体机
-			m_stateMachine.Add(GAME_STATE.GAMEING, ()=>m_gameModule.Enter(), () => m_gameModule.Update(), () => m_gameModule.Shutdown());
+			//m_stateMachine.Add(GAME_STATE.GAMEING, ()=>m_gameModule.Enter(), () => m_gameModule.Update(), () => m_gameModule.Shutdown());
 			m_stateMachine.Add(GAME_STATE.LOGIN, ()=>m_loginModule.Enter(), ()=>m_loginModule.Update(), ()=> m_loginModule.Shutdown());
 
 			// 初始化模块
 			InitModule();
 
 			// 默认转换到登录状态
-			m_stateMachine.SwitchTo(GAME_STATE.GAMEING);
+			m_stateMachine.SwitchTo(GAME_STATE.LOGIN);
 			return true;
 		}
 		
@@ -148,7 +163,17 @@ namespace SGame
 			//m_uiModule.Reg("Login", "Login", UILogin.Create);
 			//m_uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			// 手动绑定登录的
-			//SGame.UI.Login.LoginBinder.BindAll();
+			var	uiModule		= new UIModule(m_gameWorld, new UIPreprocess());;
+			var	reg				= new UIReg();
+			reg.RegAllUI(new UIContext() {uiModule = uiModule});
+			var hudModule = new HudModule(m_gameWorld);
+			
+			uiModule.Reg("Login", "Login", UILogin.Create);
+			uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
+			SGame.UI.Login.LoginBinder.BindAll();
+			
+			m_commonModule.Add(uiModule);
+			m_commonModule.Add(hudModule);
 		}
 
 		/// <summary>
@@ -194,7 +219,7 @@ namespace SGame
 		/// <summary>
 		/// 游戏模块
 		/// </summary>
-		private GameModule		  m_gameModule;
+		//private GameModule		  m_gameModule;
 
 		/// <summary>
 		/// 登录模块

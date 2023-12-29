@@ -4,11 +4,11 @@ using Unity.VisualScripting;
 
 namespace SGame
 {
-    [Inspectable]
-    [System.Serializable]
-    public struct UIParamFloat : IComponentData
+    /// <summary>
+    /// 带一个UI自定义参数
+    /// </summary>
+    public class UIParam : IComponentData
     {
-        [Inspectable]
-        public float Value;
+        public object Value;
     }
 }

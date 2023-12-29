@@ -20,15 +20,13 @@ namespace SGame.VS
         [PortLabel("isReadly")]
         public ValueOutput result;
 
-        private EntityManager _entityManager;
+        //private EntityManager _entityManager;
         private EntityManager entityManager
         {
             get
             {
-                if (_entityManager == null)
-                    _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-                return _entityManager;
+                return  World.DefaultGameObjectInjectionWorld.EntityManager;
+                //return _entityManager;
             }
         }
         

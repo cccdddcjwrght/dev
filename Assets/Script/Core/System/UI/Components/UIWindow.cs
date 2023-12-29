@@ -13,8 +13,7 @@ namespace SGame.UI
     {
         public string name
         {
-            get;
-            set;
+            get { return Value != null ? Value.uiname : null; }
         }
 
         // 创建的Windoww

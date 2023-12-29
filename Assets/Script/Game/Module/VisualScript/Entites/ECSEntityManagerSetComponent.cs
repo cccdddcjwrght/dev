@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,20 +33,6 @@ namespace SGame.VS
         public ValueOutput OutEntity;
 
         private Vector2Int result;
-        
-        //[SerializeAs(nameof(IsAdd))]
-        //[Inspectable, UnitHeaderInspectable("IsAdd")]
-        //public bool IsAdd;
-
-        /*
-        [DoNotSerialize]
-        [Inspectable, UnitHeaderInspectable("Arguments")]
-        public bool IsAdd
-        {
-            get => _IsAdd;
-            set => _IsAdd = value;
-        }
-        */
         
         // 端口定义
         protected override void Definition()

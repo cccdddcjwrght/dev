@@ -6,12 +6,11 @@ namespace SGame
     // 等待事件
     public class WaitEvent : IEnumerator
     {
-        private EntityManager     m_mgr;
         private EventHanle        m_eventHandle;
         private bool              m_isTrigger;
         private GameEvent         m_eventId;
 
-        public WaitEvent(EntityManager mgr, GameEvent eventId)
+        public WaitEvent(GameEvent eventId)
         {
             m_eventId = eventId;
             Reset();
@@ -43,13 +42,12 @@ namespace SGame
     // 带一个参数的等待事件
     public class WaitEvent<T> : IEnumerator
     {
-        private EntityManager     m_mgr;
         private EventHanle        m_eventHandle;
         private bool              m_isTrigger;
         private GameEvent         m_eventId;
         public T                  m_Value;
         
-        public WaitEvent(EntityManager mgr, GameEvent eventId)
+        public WaitEvent(GameEvent eventId)
         {
             m_eventId = eventId;
             Reset();
@@ -82,14 +80,13 @@ namespace SGame
     // 带一个参数的等待事件
     public class WaitEvent<T1,T2> : IEnumerator
     {
-        private EntityManager     m_mgr;
         private EventHanle        m_eventHandle;
         private bool              m_isTrigger;
         private GameEvent         m_eventId;
         public T1                  m_Value1;
         public T2                  m_Value2;
 
-        public WaitEvent(EntityManager mgr, GameEvent eventId)
+        public WaitEvent(GameEvent eventId)
         {
             m_eventId = eventId;
             Reset();

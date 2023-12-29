@@ -27,20 +27,23 @@ namespace SGame
         /// </summary>
         /// <param name="mgr"></param>
         /// <param name="ui">UI 的Entity对象</param>
-        public static bool CloseUI(EntityManager mgr, Entity ui)
+        public static bool CloseUI(Entity ui)
         {
-            if (mgr.Exists(ui) && mgr.HasComponent<UIWindow>(ui))
-            {
-                UIWindow window = mgr.GetComponentData<UIWindow>(ui);
-                if (window.Value != null)
-                {
-                    window.Value.Close();
-                }
+            return UIModule.Instance.CloseUI(ui);
+        }
 
-                return true;
-            }
-
-            return false;
+        /// <summary>
+        /// 通过UI名字关闭UI
+        /// </summary>
+        /// <param name="uiName"></param>
+        /// <returns></returns>
+        public static bool CloseUIByName(string uiName)
+        {
+            var e = UIModule.Instance.GetUI(uiName);
+            if (e == Entity.Null)
+                return false;
+            
+            return UIModule.Instance.CloseUI(e);
         }
 
         /// <summary>

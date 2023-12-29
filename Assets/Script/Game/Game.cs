@@ -143,14 +143,14 @@ public class Game : SGame.MonoSingleton<Game>
 
 		yield return InitSystem();
 
-		yield return LoadScene();
+		//yield return LoadScene();
 
 		m_isInitalized = true;
 		m_initalizeEntity = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntity(typeof(GameInitFinish));
 		EVENT_INIT_FINISH?.Invoke();
 
 		// 开启客户端代码
-		RequestLoop(GameLoopType.Client, null);
+		RequestLoop(GameLoopType.Single, null);
 		log.Info("Game System Startup...");
 	}
 

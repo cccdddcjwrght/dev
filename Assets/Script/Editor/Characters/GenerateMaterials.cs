@@ -39,7 +39,7 @@ class GenerateMaterials
                 foreach (Texture2D t in textures)
                 {
                     if (!t.name.ToLower().Contains("normal")) continue;
-                    if (!t.name.ToLower().Contains(smr.name.ToLower())) continue;
+                    if (!t.name.ToLower().Contains(smr.name.ToLower()))  continue;
                     normalmap = t;
                     break;
                 }

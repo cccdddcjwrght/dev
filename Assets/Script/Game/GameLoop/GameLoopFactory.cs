@@ -30,7 +30,7 @@ namespace SGame
                     break;
 
                 case GameLoopType.Single:
-                    break;
+                    return new GameSingleLoop();
             }
 
             return null;

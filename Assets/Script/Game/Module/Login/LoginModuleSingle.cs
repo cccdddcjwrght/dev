@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Fibers;
+using libx;
+using log4net;
 using UnityEngine;
 using Unity.Entities;
 using SGame.UI;
+using Unity.VisualScripting;
 
 /// <summary>
 /// 单机登录模块
@@ -12,15 +15,32 @@ namespace SGame
 {
     public class LoginModuleSingle : IModule
     {
+        private const string script = "Assets/BuildAsset/VisualScript/Prefabs/Login.prefab";
+        private static     ILog log = LogManager.GetLogger("game.login");
+        
         public LoginModuleSingle(GameWorld gameWorld)
         {
-
+            m_gameWorld = gameWorld;
         }
 
         public void Enter()
         {
-            m_fiber           = new Fiber(LoginServer());
+            m_fiber           = new Fiber(RunScriptLogin());
             m_userData        = PropertyManager.Instance.GetGroup(ItemType.USER);
+        }
+
+        IEnumerator RunScriptLogin()
+        {
+            var asset = Assets.LoadAssetAsync(script, typeof(GameObject));
+            yield return asset;
+            if (!string.IsNullOrEmpty(asset.error))
+            {
+                log.Error("script load fail=" + asset.error);
+                yield break;
+            }
+
+            GameObject go = GameObject.Instantiate(asset.asset as GameObject);
+            yield return new WaitEvent(GameEvent.ENTER_GAME);
         }
 
         public void Shutdown()
@@ -32,7 +52,7 @@ namespace SGame
         {
             if (m_fiber != null)
             {
-                
+                m_fiber.Step();
             }
         }
 
@@ -83,14 +103,16 @@ namespace SGame
 
             // 1. 显示更新界面
             Entity hotfixUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hotfix"));
-            EntityManager.AddComponentData(hotfixUI, new UIParamFloat() { Value = HotfixTime });
+            EntityManager.AddComponentData(hotfixUI, new UIParam() { Value = HotfixTime });
 
             // 2. 显示登录界面
-            yield return new WaitEvent(EntityManager, GameEvent.HOTFIX_DONE);
+            yield return new WaitEvent(GameEvent.HOTFIX_DONE);
             Entity loginUI = UIRequest.Create(EntityManager, UIUtils.GetUI("login"));
             yield return new WaitUIOpen(EntityManager, loginUI);
-            UIUtils.CloseUI(EntityManager, hotfixUI);
+            UIUtils.CloseUI(hotfixUI);
 
+            
+            /*
             // 3. 等待登录事件登录
             yield return LoginServer();
             SetupDefault();
@@ -105,7 +127,7 @@ namespace SGame
             yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
             UIUtils.CloseUI(EntityManager, loadingUI);
-
+*/
             yield return null;
         }
         

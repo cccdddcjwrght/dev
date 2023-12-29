@@ -21,6 +21,9 @@ namespace SGame.VS
         public ValueInput uiName;
         
         [DoNotSerialize]
+        public ValueInput uiParam;
+        
+        [DoNotSerialize]
         public ValueOutput result;
         
         private Vector2Int resultValue;
@@ -29,17 +32,28 @@ namespace SGame.VS
         protected override void Definition()
         {
             // 打开UI
-            inputTrigger = ControlInput("inputTrigger", (flow) =>
+            inputTrigger = ControlInput("Input", (flow) =>
             {
                 //Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
                 EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 Entity ui = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiName)));
+
+                if (uiParam.hasValidConnection)
+                {
+                    object param = flow.GetValue<object>(uiParam);
+                    if (param != null)
+                    {
+                        mgr.AddComponentObject(ui, new UIParam { Value = param });
+                    }
+                }
+
                 resultValue = new Vector2Int(ui.Index, ui.Version);
                 return outputTrigger;
             });
             
             uiName = ValueInput<string>("UIName", "");
-            outputTrigger = ControlOutput("outputTrigger");
+            uiParam = ValueInput<object>("UIParam", null);
+            outputTrigger = ControlOutput("Output");
             result = ValueOutput<Vector2Int>("UI Entity", (flow) => resultValue);
         }
     }

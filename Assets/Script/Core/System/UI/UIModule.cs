@@ -39,7 +39,10 @@ namespace SGame.UI
 		static  UIModule          s_module;
 
 		private IPreprocess       m_preProcess;
-
+		
+		// 有效的显示
+		private EntityQuery		m_groupVisible;
+		
 		public UIModule(GameWorld gameWorld, IPreprocess preProcessing)
 		{
 			 m_gameWorld      = gameWorld;
@@ -48,6 +51,9 @@ namespace SGame.UI
 		     m_despawnSystem  = gameWorld.GetECSWorld().CreateSystem<DespaenUISystem>();
 		     m_factory        = new UIScriptFactory();
 		     m_preProcess     = preProcessing;
+		     
+		     m_groupVisible =  m_gameWorld.GetEntityManager().CreateEntityQuery(typeof(UIWindow),
+																						 ComponentType.Exclude<DespawningEntity>());
 		     
 		     // 不要FairyGUI管理
 		     UIPackage.unloadBundleByFGUI = false;
@@ -92,19 +98,60 @@ namespace SGame.UI
 		/// </summary>
 		/// <param name="ui">要关闭的UI对象</param>
 		/// <param name="win">Window对象</param>        
-		public void CloseUI(Entity ui)
+		public bool CloseUI(Entity ui)
 		{
 			EntityManager mgr = m_gameWorld.GetECSWorld().EntityManager;
 			if (mgr.Exists(ui))
 			{
-				if (mgr.HasComponent<DespawningEntity>(ui) == false)
+				if (mgr.HasComponent<DespawningEntity>(ui))
 				{
 					// 该UI已经关闭 或正在销毁
-					return;
+					return false;
 				}
 
-				mgr.AddComponent<DespawningEntity>(ui);
+				UIWindow window = mgr.GetComponentData<UIWindow>(ui);
+				if (window.Value != null)
+				{
+					window.Value.Close();
+					return true;
+				}
 			}
+			
+			return false;
+		}
+		
+		public List<UIWindow> GetVisibleUI()
+		{
+			List<UIWindow> ret = new List<UIWindow>();
+			UIWindow[] windows = m_groupVisible.ToComponentDataArray<UIWindow>();
+			foreach (var w in windows)
+			{
+				if (w != null && !w.Value.isHiding && w.Value.isShowing)
+				{
+					ret.Add(w);
+				}
+			}
+
+			return ret;
+		}
+
+		/// <summary>
+		/// 获取UI对象
+		/// </summary>
+		/// <param name="ui">ui 名称</param>
+		/// <returns></returns>
+		public Entity GetUI(string ui)
+		{
+			UIWindow[] windows = m_groupVisible.ToComponentDataArray<UIWindow>();
+			foreach (var w in windows)
+			{
+				if (w != null && w.name == ui)
+				{
+					return w.entity;
+				}
+			}
+			
+			return Entity.Null;
 		}
 	}
 }

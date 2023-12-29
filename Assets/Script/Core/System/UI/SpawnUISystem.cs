@@ -135,6 +135,7 @@ namespace SGame.UI
                     UIContext context = CreateContext(e, gCom, request.configId);
                     context.window = fui;
                     window.Value = fui;
+                    window.entity = e;
                     
                     // UI初始化前的预处理, 比如配置表相关的设置
                     if (m_preprocess != null)

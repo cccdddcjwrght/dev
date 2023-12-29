@@ -10,6 +10,7 @@ namespace SGame
     public class UIPreprocess : IPreprocess
     {
         private static ILog log = LogManager.GetLogger("xl.ui");
+        
         // 初始化UI状态, 包括是否全屏等等
         public void Init(UIContext context)
         {
@@ -23,6 +24,7 @@ namespace SGame
 
                 // 设置UI显示层级
                 context.window.sortingOrder = ui.Order;
+                context.window.uiname = ui.Name;
             }
 
 
