@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+using SGame;
 
 // This MonoBehaviour is responsible for controlling the CharacterGenerator,
 // animating the character, and the user interface. When the user requests a 
@@ -8,27 +10,66 @@ using UnityEngine;
 // character is created.
 class TesetCharacterGame : MonoBehaviour
 {
-    CharacterGenerator generator;
-    GameObject character;
-    bool usingLatestConfig;
-    bool newCharacterRequested = true;
-    bool firstCharacter = true;
-    string nonLoopingAnimationToPlay;
+    CharacterGenerator  generator;
+    GameObject          character;
+    bool                usingLatestConfig;
+    bool                newCharacterRequested       = true;
+    bool                firstCharacter              = true;
+    string              nonLoopingAnimationToPlay;
 
-    const float fadeLength = .6f;
-    const int typeWidth = 80;
-    const int buttonWidth = 20;
-    const string prefName = "Character Generator Demo Pref";
-    public string characterName = "role";
+    const float         fadeLength = .6f;
+    const int           typeWidth = 80;
+    const int           buttonWidth = 20;
+    const string        prefName = "Character Generator Demo Pref";
+    public string       characterName = "role";
+
+    public class EquipData
+    {
+        public List<int> equipId;
+        public int       index;
+
+        public int GetID()
+        {
+            return equipId[index];
+        }
+    }
+
+    // 武器配置
+    private Dictionary<SlotType, EquipData> m_slotIndex;
+
+    private Equipments                      m_equipments;
 
     // Initializes the CharacterGenerator and load a saved config if any.
     IEnumerator Start()
     {
+        SetupWeapons();
+
         while (!CharacterGenerator.ReadyToUse) yield return 0;
         //if (PlayerPrefs.HasKey(prefName))
         //    generator = CharacterGenerator.CreateWithConfig(PlayerPrefs.GetString(prefName));
         //else
         generator = CharacterGenerator.CreateWithRandomConfig(characterName);
+    }
+
+    void SetupWeapons()
+    {
+        m_slotIndex = new Dictionary<SlotType, EquipData>();
+        List<int> weapons = new List<int>();
+        weapons.Add(0);
+        var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.Equip>();
+        for (int i = 0; i < configs.DatalistLength; i++)
+        {
+            var item = configs.Datalist(i);
+            if (item.Value.Slot == (int)SlotType.LEFT_HAND)
+            {
+                weapons.Add(item.Value.ItemId);
+            }
+        }
+        
+        m_slotIndex.Add(SlotType.LEFT_HAND, new EquipData()
+        {
+            equipId = weapons
+        });
     }
 
     // Requests a new character when the required asse
@@ -46,6 +87,7 @@ class TesetCharacterGame : MonoBehaviour
         {
             Destroy(character);
             character = generator.Generate();
+            m_equipments = character.AddComponent<Equipments>();
             //character.GetComponent<Animation>().Play("idle1");
             //character.GetComponent<Animation>()["idle1"].wrapMode = WrapMode.Loop;
             newCharacterRequested = false;
@@ -77,6 +119,7 @@ class TesetCharacterGame : MonoBehaviour
         else
         {
             character = generator.Generate(character);
+            m_equipments = character.AddComponent<Equipments>();
             
             //if (nonLoopingAnimationToPlay == null) return;
             //character.GetComponent<Animation>()[nonLoopingAnimationToPlay].layer = 1;
@@ -112,6 +155,7 @@ class TesetCharacterGame : MonoBehaviour
         AddCategory("body", "Body", null);
         AddCategory("clothes", "clothes", null);
         AddCategory("makeup", "Makeup", null);
+        AddEquipCategory(SlotType.LEFT_HAND, "weapon");
 
         // Buttons for saving and deleting configurations.
         // In a real world application you probably want store these
@@ -152,6 +196,31 @@ class TesetCharacterGame : MonoBehaviour
 
         if (GUILayout.Button(">", GUILayout.Width(buttonWidth)))
             ChangeElement(category, true, anim);
+
+        GUILayout.EndHorizontal();
+    }
+
+    void ChangeEquip(SlotType slot, bool next)
+    {
+        if (m_slotIndex.TryGetValue(slot, out EquipData edata))
+        {
+            edata.index =  (edata.index + 1) % edata.equipId.Count;
+            m_equipments.SetEquip(edata.GetID(), slot);
+        }
+    }
+    
+    // Draws buttons for configuring a specific category of items, like pants or shoes.
+    void AddEquipCategory(SlotType slot, string displayName)
+    {
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("<", GUILayout.Width(buttonWidth)))
+            ChangeEquip(slot, false);
+
+        GUILayout.Box(displayName, GUILayout.Width(typeWidth));
+
+        if (GUILayout.Button(">", GUILayout.Width(buttonWidth)))
+            ChangeEquip(slot, true);
 
         GUILayout.EndHorizontal();
     }
