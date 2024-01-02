@@ -25,9 +25,12 @@ namespace SGame
                 // 设置UI显示层级
                 context.window.sortingOrder = ui.Order;
                 context.window.uiname = ui.Name;
+                
+                // 添加UI对动画 显示与隐藏的支持
+                UIAnimationBind.Bind(context);
+                //context.doShowAnimation = UIAnimationBind.DoShowAnimation;
+                //context.doHideAnimation = UIAnimationBind.DoHideAnimation;
             }
-
-
         }
 
         public bool GetUIInfo(int configId, out string comName, out string pkgName)

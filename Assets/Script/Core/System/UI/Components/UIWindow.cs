@@ -128,7 +128,10 @@ namespace SGame.UI
         /// </summary>
         protected override void DoShowAnimation()
         {
-            base.DoShowAnimation();
+            if (m_context.doShowAnimation != null)
+                m_context.doShowAnimation(m_context);
+            else
+                base.DoShowAnimation();
         }
 
         /// <summary>
@@ -137,7 +140,11 @@ namespace SGame.UI
         protected override void DoHideAnimation()
         {
             m_isHiding = true;
-            base.DoHideAnimation();
+
+            if (m_context.doHideAnimation != null)
+                m_context.doHideAnimation(m_context);
+            else
+                base.DoHideAnimation();
         }
         
         

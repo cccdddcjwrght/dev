@@ -64,9 +64,9 @@ class GenerateMaterials
                     }
 
                     // Use a default shader according to artist preferences.
-                    //string shader = "Universal Render Pipeline/Unlit";
+                    string shader = "Universal Render Pipeline/Unlit";
                     //if (normalmap != null) shader = "Universal Render Pipeline/Lit";
-                    string shader = "Universal Render Pipeline/Lit";
+                    //string shader = "Universal Render Pipeline/Lit";
 
                     // Create the Material
                     Material m = new Material(Shader.Find(shader));

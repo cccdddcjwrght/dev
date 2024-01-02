@@ -58,5 +58,15 @@ namespace SGame.UI
         /// UI的更新事件
         /// </summary>
         public Action<UIContext> onUpdate;
+
+        /// <summary>
+        /// UI 显示动画 
+        /// </summary>
+        public Action<UIContext> doShowAnimation;
+
+        /// <summary>
+        /// UI 隐藏动画
+        /// </summary>
+        public Action<UIContext> doHideAnimation;
     }
 }
