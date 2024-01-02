@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5053284803316539405}
-  - component: {fileID: 1721905991216844210}
-  - component: {fileID: 566519639779081212}
+  - component: {fileID: 2873113685310975827}
+  - component: {fileID: 4521244247240933405}
   m_Layer: 0
   m_Name: clothes-2
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &1721905991216844210
+--- !u!137 &2873113685310975827
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7301279310005317288, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  - {fileID: 8578991229988381114, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,10 +84,10 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.059811354, y: 0.00026325881, z: 0.000000029802322}
-    m_Extent: {x: 0.1067061, y: 0.2461062, z: 0.25383002}
+    m_Center: {x: 0.08850095, y: 0.00026330352, z: 0.00000008940697}
+    m_Extent: {x: 0.10670608, y: 0.24610618, z: 0.25383}
   m_DirtyAABB: 0
---- !u!114 &566519639779081212
+--- !u!114 &4521244247240933405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

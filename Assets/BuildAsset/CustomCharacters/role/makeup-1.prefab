@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 383118559172505298}
-  - component: {fileID: 433607047885163633}
-  - component: {fileID: 621221125368406751}
+  - component: {fileID: 5874609332961363169}
+  - component: {fileID: 5567947451794345769}
   m_Layer: 0
   m_Name: makeup-1
   m_TagString: Untagged
@@ -26,14 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650156055446192950}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -1.0757318e-23, z: 0.000000048446655}
+  m_LocalPosition: {x: -5.4389e-20, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &433607047885163633
+--- !u!137 &5874609332961363169
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8507402823019552167, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  - {fileID: 8830196273332348141, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,10 +84,10 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.05848226, y: 0.21086025, z: -0.0000042766333}
-    m_Extent: {x: 0.047199994, y: 0.04660689, z: 0.1984539}
+    m_Center: {x: -0.047884844, y: 0.19913937, z: -0.0000042766333}
+    m_Extent: {x: 0.047199994, y: 0.046606883, z: 0.19845387}
   m_DirtyAABB: 0
---- !u!114 &621221125368406751
+--- !u!114 &5567947451794345769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
