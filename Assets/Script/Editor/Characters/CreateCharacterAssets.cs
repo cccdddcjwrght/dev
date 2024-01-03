@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 
 class CreateCharacterAssets
@@ -45,6 +46,15 @@ class CreateCharacterAssets
 
             // 在根节点添加蒙皮动画组件
             characterClone.AddComponent<SkinnedMeshRenderer>();
+            Animator animator = characterClone.GetComponent<Animator>();
+            if (animator != null)
+            {
+                string animatorPath = CharacterSetting.GetAnimatorPath(name);
+                //if (File.Exists(animatorPath))
+                var animatorController = AssetDatabase.LoadAssetAtPath<AnimatorController>(animatorPath);
+                if (animatorController != null)
+                    animator.runtimeAnimatorController = animatorController;
+            }
             Object characterBasePrefab = GetPrefabPath(characterClone, name + "/characterbase"); // 将处理后的对象生成为prefab
             
 
