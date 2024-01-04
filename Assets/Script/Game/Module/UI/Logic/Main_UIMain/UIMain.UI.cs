@@ -11,34 +11,26 @@ namespace SGame.UI{
 	{
 		partial void InitUI(UIContext context){
 			m_view.m_main.onChanged.Add(new EventCallback1(_OnMainChanged));
-			m_view.m_travel.onChanged.Add(new EventCallback1(_OnTravelChanged));
-			UIListener.Listener(m_view.m_setting, new EventCallback1(_OnSettingClick));
-			m_view.m_battle.m_max.onChanged.Add(new EventCallback1(_OnBattleBtn_MaxChanged));
-			m_view.m_battle.m_travel.onChanged.Add(new EventCallback1(_OnBattleBtn_TravelChanged));
-			UIListener.Listener(m_view.m_battle.m_power, new EventCallback1(_OnBattleBtn_PowerClick));
-			m_view.m_battle.m_main.m_state.onChanged.Add(new EventCallback1(_OnDiceBtn_StateChanged));
-			m_view.m_battle.m_main.m_auto_dice.onChanged.Add(new EventCallback1(_OnDiceBtn_Auto_diceChanged));
-			m_view.m_battle.m_main.m_travel.onChanged.Add(new EventCallback1(_OnDiceBtn_TravelChanged));
-			UIListener.Listener(m_view.m_battle.m_main, new EventCallback1(_OnBattleBtn_MainClick));
-			UIListener.Listener(m_view.m_battle, new EventCallback1(_OnBattleClick));
-			m_view.m_tip.m_state.onChanged.Add(new EventCallback1(_OnTip_StateChanged));
-			UIListener.ListenerIcon(m_view.m_tip, new EventCallback1(_OnTipClick));
+			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick));
+			UIListener.ListenerIcon(m_view.m_leftList, new EventCallback1(_OnLeftListClick));
+			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick));
+			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
+			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
+			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
+			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick));
+			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_main.onChanged.Remove(new EventCallback1(_OnMainChanged));
-			m_view.m_travel.onChanged.Remove(new EventCallback1(_OnTravelChanged));
-			UIListener.Listener(m_view.m_setting, new EventCallback1(_OnSettingClick),remove:true);
-			m_view.m_battle.m_max.onChanged.Remove(new EventCallback1(_OnBattleBtn_MaxChanged));
-			m_view.m_battle.m_travel.onChanged.Remove(new EventCallback1(_OnBattleBtn_TravelChanged));
-			UIListener.Listener(m_view.m_battle.m_power, new EventCallback1(_OnBattleBtn_PowerClick),remove:true);
-			m_view.m_battle.m_main.m_state.onChanged.Remove(new EventCallback1(_OnDiceBtn_StateChanged));
-			m_view.m_battle.m_main.m_auto_dice.onChanged.Remove(new EventCallback1(_OnDiceBtn_Auto_diceChanged));
-			m_view.m_battle.m_main.m_travel.onChanged.Remove(new EventCallback1(_OnDiceBtn_TravelChanged));
-			UIListener.Listener(m_view.m_battle.m_main, new EventCallback1(_OnBattleBtn_MainClick),remove:true);
-			UIListener.Listener(m_view.m_battle, new EventCallback1(_OnBattleClick),remove:true);
-			m_view.m_tip.m_state.onChanged.Remove(new EventCallback1(_OnTip_StateChanged));
-			UIListener.ListenerIcon(m_view.m_tip, new EventCallback1(_OnTipClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_leftList, new EventCallback1(_OnLeftListClick),remove:true);
+			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick),remove:true);
+			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
+			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
+			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
+			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick),remove:true);
+			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
 
 		}
 		void _OnMainChanged(EventContext data){
@@ -46,97 +38,50 @@ namespace SGame.UI{
 		}
 		partial void OnMainChanged(EventContext data);
 		void SwitchMainPage(int index)=>m_view.m_main.selectedIndex=index;
-		void _OnTravelChanged(EventContext data){
-			OnTravelChanged(data);
+		void _OnRightListClick(EventContext data){
+			OnRightListClick(data);
 		}
-		partial void OnTravelChanged(EventContext data);
-		void SwitchTravelPage(int index)=>m_view.m_travel.selectedIndex=index;
-		void SetLevelValue(float data)=>UIListener.SetValue(m_view.m_level,data);
-		float GetLevelValue()=>UIListener.GetValue(m_view.m_level);
-		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
-		string GetLevelText()=>UIListener.GetText(m_view.m_level);
-		void SetGoldValue(float data)=>UIListener.SetValue(m_view.m_gold,data);
-		float GetGoldValue()=>UIListener.GetValue(m_view.m_gold);
-		void SetGoldText(string data)=>UIListener.SetText(m_view.m_gold,data);
-		string GetGoldText()=>UIListener.GetText(m_view.m_gold);
-		void SetDiamondValue(float data)=>UIListener.SetValue(m_view.m_diamond,data);
-		float GetDiamondValue()=>UIListener.GetValue(m_view.m_diamond);
-		void SetDiamondText(string data)=>UIListener.SetText(m_view.m_diamond,data);
-		string GetDiamondText()=>UIListener.GetText(m_view.m_diamond);
-		void _OnSettingClick(EventContext data){
-			OnSettingClick(data);
+		partial void OnRightListClick(EventContext data);
+		void _OnLeftListClick(EventContext data){
+			OnLeftListClick(data);
 		}
-		partial void OnSettingClick(EventContext data);
-		void SetSettingText(string data)=>UIListener.SetText(m_view.m_setting,data);
-		string GetSettingText()=>UIListener.GetText(m_view.m_setting);
-		void _OnBattleBtn_MaxChanged(EventContext data){
-			OnBattleBtn_MaxChanged(data);
+		partial void OnLeftListClick(EventContext data);
+		void _OnHeadClick(EventContext data){
+			OnHeadClick(data);
 		}
-		partial void OnBattleBtn_MaxChanged(EventContext data);
-		void SwitchBattleBtn_MaxPage(int index)=>m_view.m_battle.m_max.selectedIndex=index;
-		void _OnBattleBtn_TravelChanged(EventContext data){
-			OnBattleBtn_TravelChanged(data);
+		partial void OnHeadClick(EventContext data);
+		void SetHeadText(string data)=>UIListener.SetText(m_view.m_head,data);
+		string GetHeadText()=>UIListener.GetText(m_view.m_head);
+		void _OnGoldClick(EventContext data){
+			OnGoldClick(data);
 		}
-		partial void OnBattleBtn_TravelChanged(EventContext data);
-		void SwitchBattleBtn_TravelPage(int index)=>m_view.m_battle.m_travel.selectedIndex=index;
-		void _OnBattleBtn_PowerClick(EventContext data){
-			OnBattleBtn_PowerClick(data);
+		partial void OnGoldClick(EventContext data);
+		void SetGoldText(string data)=>UIListener.SetText(m_view.m_Gold,data);
+		string GetGoldText()=>UIListener.GetText(m_view.m_Gold);
+		void _OnDiamondClick(EventContext data){
+			OnDiamondClick(data);
 		}
-		partial void OnBattleBtn_PowerClick(EventContext data);
-		void SetBattleBtn_PowerText(string data)=>UIListener.SetText(m_view.m_battle.m_power,data);
-		string GetBattleBtn_PowerText()=>UIListener.GetText(m_view.m_battle.m_power);
-		void SetBattleBtn_CountprogressValue(float data)=>UIListener.SetValue(m_view.m_battle.m_countprogress,data);
-		float GetBattleBtn_CountprogressValue()=>UIListener.GetValue(m_view.m_battle.m_countprogress);
-		void SetBattleBtn_CountprogressText(string data)=>UIListener.SetText(m_view.m_battle.m_countprogress,data);
-		string GetBattleBtn_CountprogressText()=>UIListener.GetText(m_view.m_battle.m_countprogress);
-		void SetBattleBtn_MaxtextText(string data)=>UIListener.SetText(m_view.m_battle.m_maxtext,data);
-		string GetBattleBtn_MaxtextText()=>UIListener.GetText(m_view.m_battle.m_maxtext);
-		void SetBattleBtn_TimeText(string data)=>UIListener.SetText(m_view.m_battle.m_time,data);
-		string GetBattleBtn_TimeText()=>UIListener.GetText(m_view.m_battle.m_time);
-		void _OnDiceBtn_StateChanged(EventContext data){
-			OnDiceBtn_StateChanged(data);
+		partial void OnDiamondClick(EventContext data);
+		void SetDiamondText(string data)=>UIListener.SetText(m_view.m_Diamond,data);
+		string GetDiamondText()=>UIListener.GetText(m_view.m_Diamond);
+		void _OnLevelBtnClick(EventContext data){
+			OnLevelBtnClick(data);
 		}
-		partial void OnDiceBtn_StateChanged(EventContext data);
-		void SwitchDiceBtn_StatePage(int index)=>m_view.m_battle.m_main.m_state.selectedIndex=index;
-		void _OnDiceBtn_Auto_diceChanged(EventContext data){
-			OnDiceBtn_Auto_diceChanged(data);
+		partial void OnLevelBtnClick(EventContext data);
+		void SetLevelBtnText(string data)=>UIListener.SetText(m_view.m_levelBtn,data);
+		string GetLevelBtnText()=>UIListener.GetText(m_view.m_levelBtn);
+		void _OnTaskRewardBtnClick(EventContext data){
+			OnTaskRewardBtnClick(data);
 		}
-		partial void OnDiceBtn_Auto_diceChanged(EventContext data);
-		void SwitchDiceBtn_Auto_dicePage(int index)=>m_view.m_battle.m_main.m_auto_dice.selectedIndex=index;
-		void _OnDiceBtn_TravelChanged(EventContext data){
-			OnDiceBtn_TravelChanged(data);
+		partial void OnTaskRewardBtnClick(EventContext data);
+		void SetTaskRewardBtnText(string data)=>UIListener.SetText(m_view.m_taskRewardBtn,data);
+		string GetTaskRewardBtnText()=>UIListener.GetText(m_view.m_taskRewardBtn);
+		void _OnAdBtnClick(EventContext data){
+			OnAdBtnClick(data);
 		}
-		partial void OnDiceBtn_TravelChanged(EventContext data);
-		void SwitchDiceBtn_TravelPage(int index)=>m_view.m_battle.m_main.m_travel.selectedIndex=index;
-		void SetDiceBtn_TileText(string data)=>UIListener.SetText(m_view.m_battle.m_main.m_tile,data);
-		string GetDiceBtn_TileText()=>UIListener.GetText(m_view.m_battle.m_main.m_tile);
-		void _OnBattleBtn_MainClick(EventContext data){
-			OnBattleBtn_MainClick(data);
-		}
-		partial void OnBattleBtn_MainClick(EventContext data);
-		void SetBattleBtn_MainText(string data)=>UIListener.SetText(m_view.m_battle.m_main,data);
-		string GetBattleBtn_MainText()=>UIListener.GetText(m_view.m_battle.m_main);
-		void _OnBattleClick(EventContext data){
-			OnBattleClick(data);
-		}
-		partial void OnBattleClick(EventContext data);
-		void SetBattleText(string data)=>UIListener.SetText(m_view.m_battle,data);
-		string GetBattleText()=>UIListener.GetText(m_view.m_battle);
-		void SetGoldFloatingText(string data)=>UIListener.SetText(m_view.m_goldFloating,data);
-		string GetGoldFloatingText()=>UIListener.GetText(m_view.m_goldFloating);
-		void _OnTip_StateChanged(EventContext data){
-			OnTip_StateChanged(data);
-		}
-		partial void OnTip_StateChanged(EventContext data);
-		void SwitchTip_StatePage(int index)=>m_view.m_tip.m_state.selectedIndex=index;
-		void SetTip_Tile1Text(string data)=>UIListener.SetText(m_view.m_tip.m_tile1,data);
-		string GetTip_Tile1Text()=>UIListener.GetText(m_view.m_tip.m_tile1);
-		void SetTip_Tile2Text(string data)=>UIListener.SetText(m_view.m_tip.m_tile2,data);
-		string GetTip_Tile2Text()=>UIListener.GetText(m_view.m_tip.m_tile2);
-		void _OnTipClick(EventContext data){
-			OnTipClick(data);
-		}
-		partial void OnTipClick(EventContext data);
+		partial void OnAdBtnClick(EventContext data);
+		void SetAdBtnText(string data)=>UIListener.SetText(m_view.m_AdBtn,data);
+		string GetAdBtnText()=>UIListener.GetText(m_view.m_AdBtn);
 
 	}
 }

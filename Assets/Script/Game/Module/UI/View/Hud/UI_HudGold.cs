@@ -7,7 +7,7 @@ namespace SGame.UI.Hud
 {
     public partial class UI_HudGold : GComponent
     {
-        public GProgressBar m_gold;
+        public GComponent m_gold;
         public const string URL = "ui://clbwsjawf7ke2";
 
         public static UI_HudGold CreateInstance()
@@ -19,7 +19,7 @@ namespace SGame.UI.Hud
         {
             base.ConstructFromXML(xml);
 
-            m_gold = (GProgressBar)GetChildAt(0);
+            m_gold = (GComponent)GetChildAt(0);
         }
     }
 }

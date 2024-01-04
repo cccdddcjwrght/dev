@@ -2,18 +2,18 @@
 namespace SGame.UI{
 	using log4net;
 	using SGame;
-	using SGame.UI.Main;
+	using SGame.UI.Common;
 	
-	public partial class UIMain : IUIScript
+	public partial class UIPopup : IUIScript
 	{
-		private static ILog log = LogManager.GetLogger("ui." + nameof(UIMain));
+		private static ILog log = LogManager.GetLogger("ui." + nameof(UIPopup));
 
-		private UI_MainUI m_view;
+		private UI_PopupUI m_view;
 
 		public void OnInit(UIContext context)
 		{
 			context.onClose += OnClose;
-			m_view = context.content as UI_MainUI;
+			m_view = context.content as UI_PopupUI;
 			BeforeInit(context);
 			InitUI(context);
 			InitEvent(context);

@@ -8,11 +8,11 @@ namespace SGame.UI.Main
     {
         public static void BindAll()
         {
-            UIObjectFactory.SetPackageItemExtension(UI_Tip.URL, typeof(UI_Tip));
             UIObjectFactory.SetPackageItemExtension(UI_MainUI.URL, typeof(UI_MainUI));
-            UIObjectFactory.SetPackageItemExtension(UI_ImgBtn.URL, typeof(UI_ImgBtn));
-            UIObjectFactory.SetPackageItemExtension(UI_BattleBtn.URL, typeof(UI_BattleBtn));
-            UIObjectFactory.SetPackageItemExtension(UI_DiceBtn.URL, typeof(UI_DiceBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_ActBtnList.URL, typeof(UI_ActBtnList));
+            UIObjectFactory.SetPackageItemExtension(UI_ActBtn.URL, typeof(UI_ActBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_ShowBtn.URL, typeof(UI_ShowBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_ShowBtnList.URL, typeof(UI_ShowBtnList));
         }
     }
 }

@@ -192,7 +192,7 @@ namespace SGame
             yield return new WaitEvent(GameEvent.ENTER_GAME);
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
             UIUtils.CloseUI(loadingUI);
-            
+
             yield return null;
         }
     }
