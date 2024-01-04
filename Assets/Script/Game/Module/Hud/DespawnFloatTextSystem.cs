@@ -5,8 +5,8 @@ using log4net;
 
 namespace SGame
 {
-
-    [DisableAutoCreation]
+    [UpdateAfter(typeof(FloatTextSystem))]
+    [UpdateInGroup(typeof(GameUIGroup))]
     public partial class DespawnFloatTextSystem : SystemBase
     {
         private EntityArchetype                                 m_floatTextType;

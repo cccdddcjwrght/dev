@@ -9,7 +9,7 @@ namespace SGame.UI
     {
     }
 
-    [DisableAutoCreation]
+    [UpdateInGroup(typeof(UIGroup))]
     public partial class SpawnUISystem : SystemBase
     {
         // UI包加载请求
@@ -20,12 +20,14 @@ namespace SGame.UI
         private IPreprocess                             m_preprocess;
 
         private static ILog log = LogManager.GetLogger("xl.ui");
+        private bool isInit = false;
 
         protected override void OnCreate()
         {
             base.OnCreate();
             m_packageRequest = new ResourceLoader<UIPackageRequest>(PackageRequestFactory);
             m_commandSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            isInit = false;
         }
 
         public void Initalize( GameWorld gameWorld, UIScriptFactory factory, IPreprocess preprocess)
@@ -33,6 +35,7 @@ namespace SGame.UI
             m_gameWorld     = gameWorld;
             m_scriptFactory = factory;
             m_preprocess    = preprocess;
+            isInit = true;
         }
 
         // 创建UIPackageRequest
@@ -65,6 +68,9 @@ namespace SGame.UI
 
         protected override void OnUpdate()
         {
+            if (!isInit)
+                return;
+            
             EntityCommandBuffer comamndBuffer = m_commandSystem.CreateCommandBuffer();// new EntityCommandBuffer(Allocator.Temp);
 
             // 1. 生成Package加载

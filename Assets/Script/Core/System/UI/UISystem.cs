@@ -23,7 +23,8 @@ using System;
 
 namespace SGame.UI
 {
-	[DisableAutoCreation]
+	[UpdateAfter(typeof(SpawnUISystem))]
+	[UpdateInGroup(typeof(UIGroup))]
 	public partial class UISystem : SystemBase
 	{
 		// 创建UI的原型

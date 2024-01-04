@@ -32,6 +32,16 @@ namespace SGame
         {
             m_world = world;
             m_entityPrefab = new Dictionary<GameObject, Entity>(32);
+            s_instance = this;
+        }
+
+        private static ResourceManager s_instance;
+        public ResourceManager Instance
+        {
+            get
+            {
+                return s_instance;
+            }
         }
 
         public GameObject LoadPrefab(string path)

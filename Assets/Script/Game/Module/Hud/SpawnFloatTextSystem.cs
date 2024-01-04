@@ -19,7 +19,7 @@ namespace SGame
         public PositionType posType; 
     }
     
-    [DisableAutoCreation]
+    [UpdateInGroup(typeof(GameUIGroup))]
     public partial class SpawnFloatTextSystem : SystemBase
     {
         private EntityArchetype                                 m_floatTextType;

@@ -10,6 +10,7 @@ namespace SGame
     }
     
     // 根据时间自动销毁
+    [UpdateInGroup(typeof(GameLogicGroup))]
     public partial class DurationSystem : SystemBase
     {
         private EntityCommandBufferSystem m_commandBufferSystem;

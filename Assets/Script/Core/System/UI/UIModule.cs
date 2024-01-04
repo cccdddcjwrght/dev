@@ -24,15 +24,12 @@ using System;
 
 namespace SGame.UI
 {
-	[DisableAutoCreation]
 	public class UIModule : IModule
 	{
 		// 创建UI的原型
 		static ILog log = LogManager.GetLogger("xl.ui");
 
 		private SpawnUISystem     m_spawnSystem;
-		private DespaenUISystem   m_despawnSystem;
-		private UISystem          m_updateSystem;
 		private GameWorld         m_gameWorld;
 		private UIScriptFactory   m_factory;
 
@@ -46,9 +43,7 @@ namespace SGame.UI
 		public UIModule(GameWorld gameWorld, IPreprocess preProcessing)
 		{
 			 m_gameWorld      = gameWorld;
-		     m_spawnSystem    = gameWorld.GetECSWorld().CreateSystem<SpawnUISystem>();
-		     m_updateSystem   = gameWorld.GetECSWorld().CreateSystem<UISystem>();;
-		     m_despawnSystem  = gameWorld.GetECSWorld().CreateSystem<DespaenUISystem>();
+		     m_spawnSystem    = gameWorld.GetECSWorld().GetOrCreateSystem<SpawnUISystem>();
 		     m_factory        = new UIScriptFactory();
 		     m_preProcess     = preProcessing;
 		     
@@ -78,9 +73,6 @@ namespace SGame.UI
 		/// </summary>
 		public void Shutdown()
 		{
-			m_gameWorld.GetECSWorld().DestroySystem(m_spawnSystem);
-			m_gameWorld.GetECSWorld().DestroySystem(m_updateSystem);
-			m_gameWorld.GetECSWorld().DestroySystem(m_despawnSystem);
 		}
 
 		/// <summary>
@@ -88,9 +80,6 @@ namespace SGame.UI
 		/// </summary>
 		public void Update()
 		{
-			m_spawnSystem.Update();
-			m_updateSystem.Update();
-			m_despawnSystem.Update();
 		}
 
 		/// <summary>

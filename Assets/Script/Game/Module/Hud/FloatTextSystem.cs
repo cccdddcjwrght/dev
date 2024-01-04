@@ -7,8 +7,8 @@ using Unity.Transforms;
 
 namespace SGame
 {
-
-    [DisableAutoCreation]
+    [UpdateAfter(typeof(SpawnFloatTextSystem))]
+    [UpdateInGroup(typeof(GameUIGroup))]
     public partial class FloatTextSystem : SystemBase
     {
         private EntityArchetype          m_floatTextType;

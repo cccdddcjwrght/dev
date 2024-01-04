@@ -16,7 +16,7 @@ namespace SGame
     } 
     
     // 对象同步系统
-    [DisableAutoCreation]
+    [UpdateInGroup(typeof(GameLogicAfterGroup))]
     public partial class EntitySyncGameObjectSystem : SystemBase
     {
         protected override void OnUpdate()

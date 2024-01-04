@@ -49,6 +49,7 @@ class CreateCharacterAssets
             Animator animator = characterClone.GetComponent<Animator>();
             if (animator != null)
             {
+                animator.applyRootMotion = false;
                 string animatorPath = CharacterSetting.GetAnimatorPath(name);
                 //if (File.Exists(animatorPath))
                 var animatorController = AssetDatabase.LoadAssetAtPath<AnimatorController>(animatorPath);

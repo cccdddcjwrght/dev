@@ -6,6 +6,8 @@ using UnityEngine;
 // UI销毁系统
 namespace SGame.UI
 {
+    [UpdateAfter(typeof(UISystem))]
+    [UpdateInGroup(typeof(UIGroup))]
     public partial class DespaenUISystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_commandBufferSystem;

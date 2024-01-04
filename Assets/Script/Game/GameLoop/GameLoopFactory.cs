@@ -24,7 +24,7 @@ namespace SGame
             switch (t)
             {
                 case GameLoopType.Client:
-                    return new GameClientLoop();
+                    break;
 
                 case GameLoopType.Server:
                     break;

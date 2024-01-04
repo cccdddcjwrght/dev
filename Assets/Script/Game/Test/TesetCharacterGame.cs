@@ -20,8 +20,11 @@ class TesetCharacterGame : MonoBehaviour
     const float         fadeLength = .6f;
     const int           typeWidth = 80;
     const int           buttonWidth = 20;
+    private const int   toggleWith = 120;
     const string        prefName = "Character Generator Demo Pref";
     public string       characterName = "role";
+
+    private bool        isWalking = false;
 
     public class EquipData
     {
@@ -156,6 +159,7 @@ class TesetCharacterGame : MonoBehaviour
         AddCategory("clothes", "clothes", null);
         AddCategory("makeup", "Makeup", null);
         AddEquipCategory(SlotType.LEFT_HAND, "weapon");
+        DrawAnimation();
 
         // Buttons for saving and deleting configurations.
         // In a real world application you probably want store these
@@ -182,6 +186,24 @@ class TesetCharacterGame : MonoBehaviour
         }
 
         GUILayout.EndArea();
+    }
+
+    void DrawAnimation()
+    {
+        GUILayout.BeginHorizontal();
+
+        var newValue = GUILayout.Toggle(isWalking, "IsWalking", GUILayout.Width(toggleWith));
+        if (newValue != isWalking)
+        {
+            isWalking = newValue;
+            Animator ani = character.GetComponent<Animator>();
+            if (ani != null)
+            {
+                ani.SetBool("walking", isWalking);
+            }
+        }
+
+        GUILayout.EndHorizontal();
     }
 
     // Draws buttons for configuring a specific category of items, like pants or shoes.

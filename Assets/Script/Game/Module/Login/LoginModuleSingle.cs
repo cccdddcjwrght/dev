@@ -23,6 +23,9 @@ namespace SGame
             m_gameWorld = gameWorld;
         }
 
+        // 判断登录流程是否结束
+        public bool IsFinished => m_fiber.IsTerminated;
+
         public void Enter()
         {
             m_fiber           = new Fiber(RunScriptLogin());
@@ -40,7 +43,7 @@ namespace SGame
             }
 
             GameObject go = GameObject.Instantiate(asset.asset as GameObject);
-            var     waitLogin = new WaitEvent(GameEvent.ENTER_GAME);
+            var     waitLogin = new WaitEvent<string>(GameEvent.ENTER_LOGIN);
             yield return waitLogin;
             yield return null;
             GameObject.Destroy(go);

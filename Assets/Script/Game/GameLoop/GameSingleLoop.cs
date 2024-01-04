@@ -3,13 +3,15 @@ using SGame;
 using UnityEngine;
 using System.Collections.Generic;
 using SGame.UI;
+using Unity.Entities;
+//[UpdateAfter()]
 
 namespace SGame
 {
 	/// <summary>
 	/// 单机逻辑
 	/// </summary>
-	public class GameSingleLoop : IGameLoop
+	public class GameSingleLoop :  IGameLoop
 	{
 		/// <summary>
 		///  游戏状态
@@ -26,6 +28,7 @@ namespace SGame
 		/// </summary>
 		void InitModule()
 		{
+			//GameLogicGroup.UpdateSystem();
 			m_commonSystem		 = new SystemCollection();
 			m_commonModule		 = new List<IModule>();
 			var world			 = m_gameWorld;
@@ -36,56 +39,15 @@ namespace SGame
 			randomSystem.Initalize((uint)Time.frameCount);
 			propertyManager.Initalize();
 
-			// 公共系统
-			var  syncSystem = ecsWorld.CreateSystem<EntitySyncGameObjectSystem>();
-			m_commonSystem.Add(syncSystem);
-			
-			var   userInputSystem = ecsWorld.CreateSystem<UserInputsystem>();
-			m_commonSystem.Add(userInputSystem);
-			//Vector2Int
-			//RandomSystem                  randomSystem      = RandomSystem.Instance;
-			// 初始化UI, 不再使用手动注册
-			//var	uiModule		= new UIModule(world, new UIPreprocess());;
-			//var	reg				= new UIReg();
-			//reg.RegAllUI(new UIContext() {uiModule = uiModule});
-			//var hudModule = new HudModule(world);
-			//m_commonModule.Add(uiModule);
+			// 初始化UI
 			InitalizeUI();
-			//m_commonModule.Add(hudModule);
-
-			var characterModule = new CharacterModule(m_gameWorld, m_resourceManager);
-			m_commonModule.Add(characterModule);
-
+			
 			// 数据中心
 			var dataCenter = new DataCenter(m_gameWorld);
 			m_commonModule.Add(dataCenter);
 			
-			var diceModule      = new DiceModule(world, m_resourceManager, propertyManager.GetGroup(ItemType.USER));
-			var tileModule		= TileModule.Instance;
-			var buildModule		= BuildingModule.Instance;
-			tileModule.Initalize(world);
-			buildModule.Initalize(world);
-			//var cameraModule		= new CameraModule();
-			m_commonModule.Add(diceModule);
-			m_commonModule.Add(tileModule);
-			m_commonModule.Add(buildModule);
-			
-			var tileEventModule	= new TileEventModule(world, randomSystem, tileModule);
-			m_commonModule.Add(tileEventModule);
-
-			/*
-			m_gameModule = new GameModule(m_gameWorld, 
-				m_resourceManager, 
-				RandomSystem.Instance, 
-				userInputSystem, 
-				characterModule, 
-				diceModule,
-				propertyManager,
-				tileModule, 
-				tileEventModule,
-				cameraModule);
-			*/
 			m_loginModule = new LoginModuleSingle(world);
+			m_gameModule = new GameModuleSingle(world, m_resourceManager,  randomSystem);
 		}
 
 		void InitalizeUI(UIModule uiModule)
@@ -114,8 +76,13 @@ namespace SGame
 			m_resourceManager	= new ResourceManager(m_gameWorld);
 			
 			// 初始化状体机
-			//m_stateMachine.Add(GAME_STATE.GAMEING, ()=>m_gameModule.Enter(), () => m_gameModule.Update(), () => m_gameModule.Shutdown());
-			m_stateMachine.Add(GAME_STATE.LOGIN, ()=>m_loginModule.Enter(), ()=>m_loginModule.Update(), ()=> m_loginModule.Shutdown());
+			m_stateMachine.Add(GAME_STATE.GAMEING, ()=>m_gameModule.Enter(), () => m_gameModule.Update(), () => m_gameModule.Shutdown());
+			m_stateMachine.Add(GAME_STATE.LOGIN, ()=>m_loginModule.Enter(), ()=>
+			{
+				m_loginModule.Update();
+				if (m_loginModule.IsFinished)
+					m_stateMachine.SwitchTo(GAME_STATE.GAMEING);
+			}, ()=> m_loginModule.Shutdown());
 
 			// 初始化模块
 			InitModule();
@@ -215,16 +182,13 @@ namespace SGame
 		/// SYSTEM 组成的公共模块
 		/// </summary>
 		private SystemCollection m_commonSystem;
-		
-		/// <summary>
-		/// 游戏模块
-		/// </summary>
-		//private GameModule		  m_gameModule;
 
 		/// <summary>
 		/// 登录模块
 		/// </summary>
 		private LoginModuleSingle m_loginModule;
+
+		private GameModuleSingle  m_gameModule;
 
 		/// <summary>
 		/// 游戏内资源加载接口
