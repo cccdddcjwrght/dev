@@ -25,8 +25,8 @@ namespace SGame.UI.Main
         {
             base.ConstructFromXML(xml);
 
-            m___redpoint = GetControllerAt(1);
-            m_timeColor = GetControllerAt(2);
+            m___redpoint = GetControllerAt(0);
+            m_timeColor = GetControllerAt(1);
             m_effect = (GGraph)GetChildAt(0);
             m_content = (GTextField)GetChildAt(2);
             m_time = (GGroup)GetChildAt(3);

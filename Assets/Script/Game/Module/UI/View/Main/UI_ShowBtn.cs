@@ -22,7 +22,7 @@ namespace SGame.UI.Main
         {
             base.ConstructFromXML(xml);
 
-            m___redpoint = GetControllerAt(1);
+            m___redpoint = GetControllerAt(0);
             m_effect = (GGraph)GetChildAt(0);
             m_body = (GGroup)GetChildAt(3);
             m_t0 = GetTransitionAt(0);

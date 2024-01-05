@@ -14,17 +14,39 @@ namespace SGame.UI{
 	public partial class UIMain
 	{
 		private UserData         m_userData;
-		private UserSetting      m_userSetting;
-		private long             m_dicePower;
-		private long             m_diceMaxPower;
-
 		private UIContext        m_context;
 		private ItemGroup        m_userProperty;
 
-		private Fiber			 m_fiberShowTips;
-
 		partial void InitLogic(UIContext context){
 			m_context			= context;
+			context.onUpdate	+= onUpdate;
+
+			m_userProperty = PropertyManager.Instance.GetGroup(ItemType.USER);
+			m_userData = DataCenter.Instance.GetUserData();
+
+			SetGoldText(m_userProperty.GetNum((int)UserType.GOLD).ToString());
 		}
+
+		EntityManager EntityManager
+		{
+			get
+			{
+				return m_context.gameWorld.GetEntityManager();
+			}
+		}
+		
+		
+		
+		private  void onUpdate(UIContext context)
+		{
+			UserSetting setting = DataCenter.Instance.GetUserSetting();
+			
+		}
+		
+		partial void UnInitLogic(UIContext context)
+		{
+			context.onUpdate -= onUpdate;
+		}
+		
 	}
 }
