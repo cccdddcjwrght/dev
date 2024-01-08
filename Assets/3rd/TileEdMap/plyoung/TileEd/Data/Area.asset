@@ -27,7 +27,7 @@ MonoBehaviour:
     - uniqid: -1418722406
       name: zone
       desc: "\u533A\u57DF"
-      color: {r: 1, g: 1, b: 1, a: 0.41960785}
+      color: {r: 0.17697577, g: 0.9150943, b: 0.8495466, a: 0.41960785}
       exts: []
       dataSet:
         name: 
@@ -68,5 +68,141 @@ MonoBehaviour:
       sortOrder: -10
       customThumb: {fileID: 0}
       meta: 
-  lastSetIdent: 1
-  lastIdent: 1
+    - uniqid: 1538672062
+      name: obs
+      desc: "\u969C\u788D"
+      color: {r: 0.36838737, g: 0.9245283, b: 0.09158063, a: 0.69411767}
+      exts: []
+      dataSet:
+        name: 
+        i_val: 0
+        s_val: 
+        b_val: 0
+        list:
+        - name: walkable
+          i_val: 0
+          s_val: 
+          b_val: 0
+          list: []
+        - name: walkcost
+          i_val: 0
+          s_val: 
+          b_val: 0
+          list: []
+      mutex: 1
+      mutexsets: 
+      obsid: -1
+      obstacles: 
+      sameGroupTeam: 1
+      teamsets: 
+      bindGroupIds: []
+      ident: 2
+      prefab:
+      - {fileID: 0}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 3
+      customThumb: {fileID: 0}
+      meta: 
+    - uniqid: -707013674
+      name: oot
+      desc: 
+      color: {r: 0.8018868, g: 0.20803669, b: 0.65974855, a: 0}
+      exts: []
+      dataSet:
+        name: 
+        i_val: 0
+        s_val: 
+        b_val: 0
+        list:
+        - name: walkable
+          i_val: 0
+          s_val: 
+          b_val: 1
+          list: []
+        - name: walkcost
+          i_val: 0
+          s_val: 
+          b_val: 0
+          list: []
+      mutex: 0
+      mutexsets: 
+      obsid: -1
+      obstacles: 
+      sameGroupTeam: 1
+      teamsets: 
+      bindGroupIds: []
+      ident: 3
+      prefab:
+      - {fileID: 0}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+  - uniqid: 500002
+    ident: 2
+    name: Area2
+    tiles:
+    - uniqid: -2027913770
+      name: chufang
+      desc: chufang
+      color: {r: 0.9339623, g: 0.101326115, b: 0.101326115, a: 0}
+      exts: []
+      dataSet:
+        name: 
+        i_val: 0
+        s_val: 
+        b_val: 0
+        list:
+        - name: walkable
+          i_val: 0
+          s_val: 
+          b_val: 1
+          list: []
+        - name: walkcost
+          i_val: 0
+          s_val: 
+          b_val: 0
+          list: []
+      mutex: 0
+      mutexsets: 
+      obsid: -1
+      obstacles: 
+      sameGroupTeam: 1
+      teamsets: 
+      bindGroupIds: []
+      ident: 4
+      prefab:
+      - {fileID: 0}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+  lastSetIdent: 2
+  lastIdent: 4

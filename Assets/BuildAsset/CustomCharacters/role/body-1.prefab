@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2949186242924735717}
-  - component: {fileID: 2078165518642625231}
-  - component: {fileID: 2743806154575349736}
+  - component: {fileID: 2313823194856209027}
+  - component: {fileID: 874396582614334845}
   m_Layer: 0
   m_Name: body-1
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &2078165518642625231
+--- !u!137 &2313823194856209027
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,13 +93,21 @@ SkinnedMeshRenderer:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.24976677, y: 0.0024405792, z: 0}
-    m_Extent: {x: 0.49685895, y: 0.23188871, z: 0.29548445}
+    m_Center: {x: -0.0024409816, y: -0.000000074505806, z: 0.24976659}
+    m_Extent: {x: 0.23188868, y: 0.29548442, z: 0.49685884}
   m_DirtyAABB: 0
---- !u!114 &2743806154575349736
+--- !u!114 &874396582614334845
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,19 +120,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bones:
-  - Bip001 R Forearm
-  - Bip001 R Hand
-  - Bip001 R UpperArm
+  - Bip001
   - Bip001 Pelvis
-  - Bip001 Head
   - Bip001 Spine
-  - Bip001 R Foot
-  - Bip001 R Calf
-  - Bip001 L Foot
-  - Bip001 L Calf
+  - Bip001 Neck
+  - Bip001 Head
+  - Bip001 L Clavicle
+  - Bip001 L UpperArm
   - Bip001 L Forearm
   - Bip001 L Hand
-  - Bip001 L UpperArm
+  - Bip001 R Clavicle
+  - Bip001 R UpperArm
+  - Bip001 R Forearm
+  - Bip001 R Hand
+  - Bip001 L Thigh
+  - Bip001 L Calf
+  - Bip001 L Foot
+  - Bip001 L Toe0
+  - Bip001 R Thigh
+  - Bip001 R Calf
+  - Bip001 R Foot
+  - Bip001 R Toe0
   materials:
   - {fileID: 2100000, guid: 2f52752e30892f44088e6765332c60e3, type: 2}
   - {fileID: 2100000, guid: c4a4a505f61c35b42aec702f4b473c8f, type: 2}

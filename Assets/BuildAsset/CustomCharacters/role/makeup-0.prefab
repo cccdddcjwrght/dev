@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6516763366346568306}
-  - component: {fileID: 1590150802412467236}
-  - component: {fileID: 5590885584399278267}
+  - component: {fileID: 2961198809367185178}
+  - component: {fileID: 3432831121334587420}
   m_Layer: 0
   m_Name: makeup-0
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &1590150802412467236
+--- !u!137 &2961198809367185178
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,13 +81,33 @@ SkinnedMeshRenderer:
   m_Mesh: {fileID: 4300000, guid: 712110cd237fcb446b8c3e52cf90620a, type: 2}
   m_Bones:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.0865307, y: 0.23029529, z: -0.0024088072}
-    m_Extent: {x: 0.019404635, y: 0.00065001845, z: 0.012303026}
+    m_Center: {x: -0.23029563, y: -0.0024089515, z: 0.3689548}
+    m_Extent: {x: 0.00065004826, y: 0.012303052, z: 0.01940465}
   m_DirtyAABB: 0
---- !u!114 &5590885584399278267
+--- !u!114 &3432831121334587420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,6 +120,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bones:
+  - Bip001
+  - Bip001 Pelvis
+  - Bip001 Spine
+  - Bip001 Neck
   - Bip001 Head
+  - Bip001 L Clavicle
+  - Bip001 L UpperArm
+  - Bip001 L Forearm
+  - Bip001 L Hand
+  - Bip001 R Clavicle
+  - Bip001 R UpperArm
+  - Bip001 R Forearm
+  - Bip001 R Hand
+  - Bip001 L Thigh
+  - Bip001 L Calf
+  - Bip001 L Foot
+  - Bip001 L Toe0
+  - Bip001 R Thigh
+  - Bip001 R Calf
+  - Bip001 R Foot
+  - Bip001 R Toe0
   materials:
   - {fileID: 2100000, guid: e8289e1b4f3efc34ba4f80b0b4a81b54, type: 2}

@@ -16,6 +16,7 @@ namespace GameTools.Paths
 
 		// 节点
 		#region Class
+		[BurstCompatible]
 		public struct Node
 		{
 			public int2 pos;
@@ -36,6 +37,7 @@ namespace GameTools.Paths
 			}
 		}
 
+		[BurstCompatible]
 		public struct MapData
 		{
 			public NativeArray<Node> _datas;    // 地图查找数据

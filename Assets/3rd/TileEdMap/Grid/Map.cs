@@ -36,7 +36,7 @@ namespace GameTools.Maps
 	public partial class Grid
 	{
 		/// <summary>
-		/// 顺时针四个角 左下-左上-右上-右下
+		/// 椤烘椂閽堝洓涓 宸︿笅-宸︿笂-鍙充笂-鍙充笅
 		/// </summary>
 		public Vector2Int[] corners { get; private set; }
 		[SerializeField]
@@ -353,10 +353,10 @@ namespace GameTools.Maps
 		}
 
 		/// <summary>
-		/// 获取建筑资源
+		/// 鑾峰彇寤虹瓚璧勬簮
 		/// </summary>
 		/// <param name="buildID">id</param>
-		/// <param name="lv">等级（默认获取当前等级）</param>
+		/// <param name="lv">绛夌骇锛堥粯璁よ幏鍙栧綋鍓嶇瓑绾э級</param>
 		/// <returns></returns>
 		public string GetAsset(int buildID, int lv = -1)
 		{

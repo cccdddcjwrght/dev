@@ -8,7 +8,7 @@ using Unity.Transforms;
 namespace GameTools.Paths
 {
 	/// <summary>
-	/// 重新寻路，当下一个点不可移动
+	/// 閲嶆柊瀵昏矾锛屽綋涓嬩竴涓偣涓嶅彲绉诲姩
 	/// </summary>
 	[UpdateAfter(typeof(MapSyncSystem))]
 	public partial class RepathSystem : SystemBase
