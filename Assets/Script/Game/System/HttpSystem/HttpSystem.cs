@@ -22,9 +22,16 @@ namespace SGame.Http
         {
             get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<HttpSystem>(); }
         }
-        
+
+        protected override void OnCreate()
+        {
+            m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        }
+
         protected override void OnUpdate()
         {
+            var commandBuffer = m_commandBuffer.CreateCommandBuffer();
+            
             // 将结果存入返回值对象中
             Entities.ForEach((Entity e, HttpData data, HttpResult result) =>
             {
@@ -44,7 +51,7 @@ namespace SGame.Http
                     {
                         result.error = data.request.error;
                     }
-                    
+                    commandBuffer.DestroyEntity(e);
                 }
             }).WithoutBurst().Run();
         }
