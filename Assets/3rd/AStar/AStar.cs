@@ -18,11 +18,14 @@ namespace GameTools.Paths
 		public bool IsInMap(Vector3 pos);
 		public Vector3 GetPos(int x, int y);
 		public Vector2Int GetGridPos(Vector3 pos);
+
 		/// <summary>
 		/// µÿÕº–≈œ¢
 		/// </summary>
 		/// <returns></returns>
 		public MapInfo GetMapInfo();
+
+		public void Hold(int x, int y, int holder);
 	}
 
 	public struct MapInfo
@@ -79,7 +82,7 @@ namespace GameTools.Paths
 
 		static public Vector3 GetPos(int2 index)
 		{
-			if (map != null) return map.GetPos(index.x,index.y);
+			if (map != null) return map.GetPos(index.x, index.y);
 			return default;
 		}
 
@@ -97,9 +100,9 @@ namespace GameTools.Paths
 			return new Vector3(x, 0, y) * data.size + data.offset;
 		}
 
-		static public int2 GetGridPos(float3 p , MapInfo data)
+		static public int2 GetGridPos(float3 p, MapInfo data)
 		{
-			Vector3 pos = p; 
+			Vector3 pos = p;
 			pos -= data.offset;
 			pos.x = data.size * Mathf.Round(pos.x / data.size);
 			pos.z = data.size * Mathf.Round(pos.z / data.size);
