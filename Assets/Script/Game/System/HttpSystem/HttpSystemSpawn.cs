@@ -43,6 +43,7 @@ namespace SGame.Http
                 {
                     data.request = UnityWebRequest.Post(req.url, req.post);
                 }
+                data.request.SetRequestHeader("Authorization", "token " + req.token);
                 data.request.certificateHandler = DefultCertificateHandler.Current;
                 data.result = data.request.SendWebRequest();
                 commandBuffer.AddComponent(e, data);

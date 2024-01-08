@@ -18,6 +18,8 @@ namespace SGame.Http
     [UpdateInGroup(typeof(GameLogicAfterGroup))]
     public partial class HttpSystem : SystemBase
     {
+        private string m_token;
+        
         public static HttpSystem Instance
         {
             get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<HttpSystem>(); }
@@ -26,6 +28,11 @@ namespace SGame.Http
         protected override void OnCreate()
         {
             m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        }
+
+        public void SetToken(string value)
+        {
+            m_token = value;
         }
 
         protected override void OnUpdate()
@@ -64,7 +71,7 @@ namespace SGame.Http
         /// <returns></returns>
         public HttpResult Post(string url, string data)
         {
-            HttpRequest request = new HttpRequest() { url = url, post = data, isGet = false };
+            HttpRequest request = new HttpRequest() { url = url, post = data, isGet = false, token = m_token};
             HttpResult result = new HttpResult() { isDone = false, data = null, error = null };
             var e = EntityManager.CreateEntity();
             EntityManager.AddComponentObject(e, request);
@@ -79,7 +86,7 @@ namespace SGame.Http
         /// <returns></returns>
         public HttpResult Get(string url)
         {
-            HttpRequest request = new HttpRequest() { url = url, post = null, isGet = true };
+            HttpRequest request = new HttpRequest() { url = url, post = null, isGet = true, token = m_token};
             HttpResult result = new HttpResult() { isDone = false, data = null, error = null };   
             var e = EntityManager.CreateEntity();
             EntityManager.AddComponentObject(e, request);

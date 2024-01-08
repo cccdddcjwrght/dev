@@ -10,6 +10,7 @@ namespace SGame.Http
     {
         public string url;   // 请求的URL
         public string post;  // 推送数据
+        public string token; // 验证
         public bool   isGet; // 是否是GET
     }
 }

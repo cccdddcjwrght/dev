@@ -6,6 +6,8 @@ using UnityEngine;
 public class TestWebReq : MonoBehaviour
 {
     private Fibers.Fiber m_fiber;
+    public string TsetURL = "https://cn.bing.com/search?q=ss&FORM=HDRSC1";
+    public string token = "1";
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,8 @@ public class TestWebReq : MonoBehaviour
 
     IEnumerator Run()
     {
-        string url = "https://cn.bing.com/search?q=ss&FORM=HDRSC1";
+        string url = TsetURL;
+        SGame.Http.HttpSystem.Instance.SetToken(token);
         var req = SGame.Http.HttpSystem.Instance.Get(url);
         yield return req;
         if (!string.IsNullOrEmpty(req.error))
@@ -25,6 +28,12 @@ public class TestWebReq : MonoBehaviour
         {
             Debug.Log(req.data);
         }
+    }
+
+    [ContextMenu("DoRequest")]
+    public void DoRequest()
+    {
+        m_fiber.Start(Run());
     }
 
     // Update is called once per frame
