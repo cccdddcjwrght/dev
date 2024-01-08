@@ -30,6 +30,8 @@ namespace GameTools.Paths
 
 		protected override void OnUpdate()
 		{
+			if (AStar.map == null) return;
+
 			var command = m_command.CreateCommandBuffer().AsParallelWriter();
 			var chunkTypeFollow = GetComponentTypeHandle<Follow>();
 			var chunkTypeTranslation = GetComponentTypeHandle<Translation>();
