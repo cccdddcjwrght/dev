@@ -26,6 +26,8 @@ namespace GameTools.Maps
 		[NonSerialized]
 		public int selectIndex;
 
+		static Color walkcolor = new Color(0.2f, 1, 0.2f, 0.4f);
+
 		static Vector3 c_pos = new Vector3(0, 0.3f, 0);
 
 		private void OnDrawGizmosSelected()
@@ -49,7 +51,7 @@ namespace GameTools.Maps
 					}
 					else if (c.flag && GetWalkCost(c) >= 0)
 					{
-						Gizmos.color = Color.green * Mathf.Max((100 - c.walkcost), 0) * 0.01f;
+						Gizmos.color = walkcolor * Mathf.Max((100 - c.walkcost), 0) * 0.01f;
 						Gizmos.DrawCube(pos, size);
 					}
 					else

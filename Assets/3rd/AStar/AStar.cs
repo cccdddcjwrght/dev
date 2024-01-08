@@ -77,6 +77,12 @@ namespace GameTools.Paths
 			return default;
 		}
 
+		static public Vector3 GetPos(int2 index)
+		{
+			if (map != null) return map.GetPos(index.x,index.y);
+			return default;
+		}
+
 		static public int2 GetGridPos(float3 pos)
 		{
 			if (map == null) return default;
