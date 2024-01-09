@@ -115,6 +115,8 @@ namespace SGame
 					case HttpMethod.GET:
 						if (!string.IsNullOrEmpty(_data))
 						{
+							if (!_data.Contains('='))
+								_data = "d=" + _data;
 							if (!url.Contains("?"))
 								url += "?" + _data;
 							else
