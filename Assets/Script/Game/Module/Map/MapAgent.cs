@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameTools.Maps;
@@ -8,6 +9,9 @@ namespace GameTools
 {
 	public class MapAgent : MonoBehaviour, IMap
 	{
+		private int[] holder;
+
+		public bool enableHold;
 		[SerializeField]
 		private Maps.Grid _grid;
 
@@ -22,10 +26,7 @@ namespace GameTools
 				if (_grid == null)
 				{
 					_grid = transform.GetComponent<Maps.Grid>() ?? GameObject.FindObjectOfType<Maps.Grid>(true);
-					_grid.walkables = null;
-					_grid.Refresh();
-					mapSize = _grid.gridSize;
-					cellSize = (int)_grid.size;
+					Init();
 				}
 				return _grid;
 			}
@@ -39,40 +40,13 @@ namespace GameTools
 		public bool GetWalkable(int index)
 		{
 			var c = grid.GetCell(index);
-			if (c != null) return grid.GetWalkCost(c) >= 0;
+			if (c != null) return (!enableHold || holder[index] == 0) && grid.GetWalkCost(c) >= 0;
 			return false;
 		}
 
 		public Vector3 GetPos(int x, int y)
 		{
 			return grid.GetCellPositionByIndex(x, y);
-		}
-
-
-		private void Awake()
-		{
-			grid.walkables = null;
-			grid.Refresh();
-			mapSize = grid.gridSize;
-			cellSize = (int)grid.size;
-			grid?.Refresh();
-			AStar.Init(this);
-		}
-
-		private void Update()
-		{
-			if (Input.GetMouseButtonDown(0))
-				AStar.UpdateHitMapPoint();
-			else if (Input.GetMouseButtonDown(1))
-			{
-				AStar.UpdateHitMapPoint();
-				var cell = grid.GetCell(grid.CellIndex(AStar.hit));
-				if (cell != null)
-				{
-					version++;
-					cell.Marking(MaskFlag.UnWalkable , !cell.IsWalkable() );
-				}
-			}
 		}
 
 		public bool IsInMap(Vector3 pos)
@@ -96,6 +70,55 @@ namespace GameTools
 				miny = grid.corners[0].y,
 			};
 		}
+
+		public void Hold(int x, int y, int holder)
+		{
+			if (grid.IsInGridByIndex(x, y))
+			{
+				var id = x + grid.gridSize.x * y;
+				this.holder[id] = holder;
+				version++;
+			}
+			else if (x == -1 && y == -1 && holder == 0)
+				Array.Fill(this.holder, 0);
+
+		}
+
+		private void Init()
+		{
+			_grid.walkables = null;
+			_grid.Refresh();
+			mapSize = _grid.gridSize;
+			cellSize = (int)_grid.size;
+			holder = new int[grid.cells.Count];
+		}
+
+		#region Mono
+
+		private void Awake()
+		{
+			grid.walkables = null;
+			Init();
+			AStar.Init(this);
+		}
+
+		private void Update()
+		{
+			if (Input.GetMouseButtonDown(0))
+				AStar.UpdateHitMapPoint();
+			else if (Input.GetMouseButtonDown(1))
+			{
+				AStar.UpdateHitMapPoint();
+				var cell = grid.GetCell(grid.CellIndex(AStar.hit));
+				if (cell != null)
+				{
+					version++;
+					cell.Marking(MaskFlag.UnWalkable, !cell.IsWalkable());
+				}
+			}
+		}
+		#endregion
+
 	}
 }
 

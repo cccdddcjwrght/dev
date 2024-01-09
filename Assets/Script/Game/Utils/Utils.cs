@@ -35,9 +35,9 @@ namespace SGame
         {
             if (lines != null && lines.Length > 0)
             {
-                var datas = lines.Where(Line => !string.IsNullOrEmpty(Line) && !Line.StartsWith("#") && Line.IndexOf('=') > 0)
+				var datas = lines.Where(Line => !string.IsNullOrEmpty(Line) && !Line.StartsWith("#") && Line.IndexOf('=') > 0)
                     .Select(Line => Line.Split(new char[] { '=' }, 2, StringSplitOptions.RemoveEmptyEntries))
-                    .Where(Lines => lines.Length > 1)
+                    .Where(ls => ls.Length > 1)
                     .ToDictionary(Parts => Parts[0].Trim(), Parts => Parts.Length > 1 ? Parts[1].Trim() : null);
                 return datas;
             }
