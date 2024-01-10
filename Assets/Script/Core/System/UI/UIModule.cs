@@ -24,7 +24,7 @@ using System;
 
 namespace SGame.UI
 {
-	public class UIModule : IModule
+	public class UIModule
 	{
 		// 创建UI的原型
 		static ILog log = LogManager.GetLogger("xl.ui");
@@ -40,28 +40,56 @@ namespace SGame.UI
 		// 有效的显示
 		private EntityQuery		m_groupVisible;
 		
-		public UIModule(GameWorld gameWorld, IPreprocess preProcessing)
+		public UIModule()
 		{
-			 m_gameWorld      = gameWorld;
-		     m_spawnSystem    = gameWorld.GetECSWorld().GetOrCreateSystem<SpawnUISystem>();
-		     m_factory        = new UIScriptFactory();
-		     m_preProcess     = preProcessing;
-		     
-		     m_groupVisible =  m_gameWorld.GetEntityManager().CreateEntityQuery(typeof(UIWindow),
-																						 ComponentType.Exclude<DespawningEntity>());
-		     
-		     // 不要FairyGUI管理
-		     UIPackage.unloadBundleByFGUI = false;
-
-		     // 更好的字体描边效果 
-		     UIConfig.enhancedTextOutlineEffect = true;
-
-		     m_spawnSystem.Initalize(m_gameWorld, m_factory, m_preProcess);
-		     s_module = this;
+			s_module = this;
 		}
-		
-		public static UIModule Instance { get { return s_module; } }
 
+		/// <summary>
+		/// 初始化UI
+		/// </summary>
+		/// <param name="gameWorld"></param>
+		/// <param name="preProcessing"></param>
+		public void Initalize(GameWorld gameWorld, IPreprocess preProcessing)
+		{
+			m_gameWorld      = gameWorld;
+			m_spawnSystem    = gameWorld.GetECSWorld().GetOrCreateSystem<SpawnUISystem>();
+			
+			if (m_factory != null)
+				m_factory.Dispose();
+			
+			m_factory        = new UIScriptFactory();
+			m_preProcess     = preProcessing;
+		     
+			m_groupVisible =  m_gameWorld.GetEntityManager().CreateEntityQuery(typeof(UIWindow),
+				ComponentType.Exclude<DespawningEntity>());
+		     
+			// 不要FairyGUI管理
+			UIPackage.unloadBundleByFGUI = false;
+
+			// 更好的字体描边效果 
+			UIConfig.enhancedTextOutlineEffect = true;
+
+			m_spawnSystem.Initalize(m_gameWorld, m_factory, m_preProcess);
+		}
+
+		public static UIModule Instance
+		{
+			get
+			{
+				if (s_module == null)
+					s_module = new UIModule();
+				
+				return s_module;
+			}
+		}
+
+		/// <summary>
+		/// 手动注册UI
+		/// </summary>
+		/// <param name="comName">元件名</param>
+		/// <param name="pkgName">包名</param>
+		/// <param name="creater">脚本创建器</param>
 		public void Reg(string comName, string pkgName, UIScriptFactory.CREATER creater)
 		{
 			UIInfo info = new UIInfo() { comName = comName, pkgName = pkgName };
@@ -72,13 +100,6 @@ namespace SGame.UI
 		/// 结束
 		/// </summary>
 		public void Shutdown()
-		{
-		}
-
-		/// <summary>
-		/// 更新
-		/// </summary>
-		public void Update()
 		{
 		}
 
@@ -122,6 +143,17 @@ namespace SGame.UI
 			}
 
 			return ret;
+		}
+
+		/// <summary>
+		/// 检测UI是否已经打开
+		/// </summary>
+		/// <param name="ui"></param>
+		/// <returns></returns>
+		public bool CheckOpened(Entity ui)
+		{
+			var entityManager = m_gameWorld.GetEntityManager();
+			return entityManager.HasComponent<UIInitalized>(ui) && !entityManager.HasComponent<DespawningEntity>(ui);
 		}
 
 		/// <summary>

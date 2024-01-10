@@ -50,16 +50,6 @@ namespace SGame
 			m_gameModule = new GameModuleSingle(world, m_resourceManager,  randomSystem);
 		}
 
-		void InitalizeUI(UIModule uiModule)
-		{
-			/// 后续该代码要做成自动化
-			uiModule.Reg("Login", "Login", UILogin.Create);
-			uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
-			
-			// 手动绑定登录的
-			SGame.UI.Login.LoginBinder.BindAll();
-		}
-
 		/// <summary>
 		///  初始化
 		/// </summary>
@@ -127,19 +117,17 @@ namespace SGame
 		public void InitalizeUI()
 		{
 			/// 后续该代码要做成自动化
-			//m_uiModule.Reg("Login", "Login", UILogin.Create);
-			//m_uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			// 手动绑定登录的
-			var	uiModule		= new UIModule(m_gameWorld, new UIPreprocess());;
+			var	uiModule		= UIModule.Instance;
+			uiModule.Initalize(m_gameWorld, new UIPreprocess());
 			var	reg				= new UIReg();
 			reg.RegAllUI(new UIContext() {uiModule = uiModule});
 			var hudModule = new HudModule(m_gameWorld);
 			
 			uiModule.Reg("Login", "Login", UILogin.Create);
-			uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
+			//uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			SGame.UI.Login.LoginBinder.BindAll();
 			
-			m_commonModule.Add(uiModule);
 			m_commonModule.Add(hudModule);
 		}
 

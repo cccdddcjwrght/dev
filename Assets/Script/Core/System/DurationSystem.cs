@@ -10,7 +10,7 @@ namespace SGame
     }
     
     // 根据时间自动销毁
-    [UpdateInGroup(typeof(GameLogicGroup))]
+    //[UpdateInGroup(typeof(GameLogicGroup))]
     public partial class DurationSystem : SystemBase
     {
         private EntityCommandBufferSystem m_commandBufferSystem;
@@ -25,7 +25,7 @@ namespace SGame
         {
             var commandBuffer = m_commandBufferSystem.CreateCommandBuffer().AsParallelWriter();
             float t = (float)GlobalTime.deltaTime;
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, int entityInQueryIndex, ref LiveTime value) =>
+            Entities.WithNone<DespawningEntity>().ForEach((int entityInQueryIndex, Entity e, ref LiveTime value) =>
             {
                 value.Value -= t;
                 if (value.Value <= 0)

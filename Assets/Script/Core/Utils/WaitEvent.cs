@@ -8,9 +8,9 @@ namespace SGame
     {
         private EventHanle        m_eventHandle;
         private bool              m_isTrigger;
-        private GameEvent         m_eventId;
+        private int               m_eventId;
 
-        public WaitEvent(GameEvent eventId)
+        public WaitEvent(int eventId)
         {
             m_eventId = eventId;
             Reset();
@@ -44,10 +44,10 @@ namespace SGame
     {
         private EventHanle        m_eventHandle;
         private bool              m_isTrigger;
-        private GameEvent         m_eventId;
+        private int               m_eventId;
         public T                  m_Value;
         
-        public WaitEvent(GameEvent eventId)
+        public WaitEvent(int  eventId)
         {
             m_eventId = eventId;
             Reset();
@@ -82,11 +82,11 @@ namespace SGame
     {
         private EventHanle        m_eventHandle;
         private bool              m_isTrigger;
-        private GameEvent         m_eventId;
+        private int               m_eventId;
         public T1                  m_Value1;
         public T2                  m_Value2;
 
-        public WaitEvent(GameEvent eventId)
+        public WaitEvent(int eventId)
         {
             m_eventId = eventId;
             Reset();

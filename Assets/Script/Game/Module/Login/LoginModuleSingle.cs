@@ -43,7 +43,7 @@ namespace SGame
             }
 
             GameObject go = GameObject.Instantiate(asset.asset as GameObject);
-            var     waitLogin = new WaitEvent<string>(GameEvent.ENTER_LOGIN);
+            var     waitLogin = new WaitEvent<string>((int)GameEvent.ENTER_LOGIN);
             yield return waitLogin;
             yield return null;
             GameObject.Destroy(go);

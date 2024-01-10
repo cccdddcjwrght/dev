@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using log4net;
 using UnityEngine;
 
-// 
+using SGame.Hotfix;
 public class Hotfix
 {
     private static ILog log = LogManager.GetLogger("Hofix.Entery");
@@ -11,6 +11,6 @@ public class Hotfix
     public static IEnumerator Main()
     {
         log.Info("Hello, I am In!");
-        yield return null;
+        yield return HotfixModule.Instance.RunHotfix();
     }
 }

@@ -14,7 +14,8 @@ namespace SGame
 
 		//登录======================================
 		HOTFIX_DONE					= 100, // 热更新结束
-		ENTER_LOGIN					= 104, // 进入登录
+		LOGIN_READLY				= 101, // 登录准备好了
+		ENTER_LOGIN					= 102, // 进入登录
 		ENTER_GAME					= 105, // 进入游戏
 		
 		OPENPOPUP                   = 106,// 打开弹框 

@@ -25,30 +25,31 @@ public struct EntityGroupChildren : IBufferElementData
     public Entity entity;
 }
 
-[DisableAutoCreation]
-public class DestroyDespawning : ComponentSystem
+[UpdateAfter(typeof(SimulationSystemGroup))]
+[UpdateBefore(typeof(EndSimulationEntityCommandBufferSystem))]
+public partial class DestroyDespawning : SystemBase
 {
-    EntityQuery Group;
+    private EndSimulationEntityCommandBufferSystem m_commandBuffer;
 
     protected override void OnCreate()
     {
         base.OnCreate();
-        Group = GetEntityQuery(typeof(DespawningEntity));
+        m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
     }
 
     protected override void OnUpdate()
     {
-        var entityArray = Group.ToEntityArray(Unity.Collections.Allocator.Temp);
-        for (var i = 0; i < entityArray.Length; i++)
+        var commandbuffer = m_commandBuffer.CreateCommandBuffer().AsParallelWriter();
+        Dependency = Entities.WithAll<DespawningEntity>().ForEach((int entityInQueryIndex, Entity e) =>
         {
-            PostUpdateCommands.DestroyEntity(entityArray[i]);
-        }
+            commandbuffer.DestroyEntity(entityInQueryIndex, e);
+        }).WithBurst().ScheduleParallel(Dependency);
+        m_commandBuffer.AddJobHandleForProducer(Dependency);
     }
 }
 
 public class GameWorld
 {
-
     // TODO (petera) this is kind of ugly. But very useful to look at worlds from outside for stats purposes...
     public static List<GameWorld> s_Worlds = new List<GameWorld>();
 
@@ -86,7 +87,7 @@ public class GameWorld
 
         s_Worlds.Add(this);
 
-        m_destroyDespawningSystem = m_ECSWorld.CreateSystem<DestroyDespawning>();
+        //m_destroyDespawningSystem = m_ECSWorld.CreateSystem<DestroyDespawning>();
     }
 
     public void Shutdown()
@@ -170,7 +171,6 @@ public class GameWorld
     }
 
     ////////////////////////////////////////////////////////////////////////////////
-
     public void RequestDespawn(GameObject entity)
     {
         if (m_DespawnRequests.Contains(entity))
@@ -260,7 +260,7 @@ public class GameWorld
         m_DespawnEntityRequests.Clear();
         m_DespawnRequests.Clear();
 
-        m_destroyDespawningSystem.Update();
+        //m_destroyDespawningSystem.Update();
     }
 
     Entity RegisterInternal(GameObject gameObject, bool isDynamic)
