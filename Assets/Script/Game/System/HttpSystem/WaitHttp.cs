@@ -83,6 +83,30 @@ namespace SGame
 			return this;
 		}
 
+		/// <summary>
+		/// 键值对数据
+		/// </summary>
+		/// <param name="msgId"></param>
+		/// <param name="args">k1,v1,k2,v2......</param>
+		/// <returns></returns>
+		public WaitHttp SetData(int msgId, params object[] args)
+		{
+			if (args != null && args.Length % 2 == 0)
+			{
+				var dic = new Dictionary<string, object>();
+				for (int i = 0; i < args.Length - 1; i += 2)
+				{
+					var k = args[i];
+					if (k == null) continue;
+					dic[k.ToString()] = args[i + 1];
+				}
+				EncodeData(dic, msgId);
+			}
+			else
+				Debug.LogError("参数不是成对出现");
+			return this;
+		}
+
 		public WaitHttp SetMethod(HttpMethod method)
 		{
 			this._method = method;
@@ -169,9 +193,26 @@ namespace SGame
 			{
 				try
 				{
-					var package = HttpPackage.FromJson(_result.data);
-					msg = HttpProtocol.Dencode<T>(package);
+					msg = HttpProtocol.Dencode<T>(new HttpPackage().FromJson(_result.data));
+					return true;
+				}
+				catch (System.Exception e)
+				{
+					Error(e.Message);
+				}
+			}
+			return false;
+		}
 
+		public bool TryGetTable(out Dictionary<string, object> msg)
+		{
+			msg = default;
+			if (State == 1)
+			{
+				try
+				{
+					msg = HttpProtocol.Dencode(new HttpPackage().FromJson(_result.data));
+					return msg != null;
 				}
 				catch (System.Exception e)
 				{
