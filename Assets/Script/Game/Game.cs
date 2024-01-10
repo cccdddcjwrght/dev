@@ -115,6 +115,10 @@ public class Game : SGame.MonoSingleton<Game>
 		}
 		GameDebug.Log("logConfig InitSuccess");
 		log.Info("Log Load Success!");
+
+		//埋点
+		new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr);
+
 	}
 
 	IEnumerator LoadScene()
