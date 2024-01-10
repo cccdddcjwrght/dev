@@ -37,20 +37,15 @@ namespace SGame.Http
 			Entities.ForEach((Entity e, HttpRequest req) =>
 			{
 				HttpData data = new HttpData() { isGet = req.isGet };
-				GameDebug.Log(req.url);
 				if (req.isGet)
 				{
 					data.request = UnityWebRequest.Get(req.url);
 				}
 				else
 				{
-					var bs = string.IsNullOrEmpty(req.post) ? System.Array.Empty<byte>() : Encoding.UTF8.GetBytes(req.post);
-					data.request = new UnityWebRequest(req.url,UnityWebRequest.kHttpVerbPOST);
-					data.request.uploadHandler = new UploadHandlerRaw(bs);
-					data.request.downloadHandler = new DownloadHandlerBuffer();
-					data.request.uploadHandler.contentType = "application/json;charset=utf-8";
+					data.request = UnityWebRequest.Post(req.url, req.post);
+					data.request.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
 				}
-
 				data.request.SetRequestHeader("Authorization", "token " + req.token);
 				data.request.certificateHandler = DefultCertificateHandler.Current;
 				data.result = data.request.SendWebRequest();

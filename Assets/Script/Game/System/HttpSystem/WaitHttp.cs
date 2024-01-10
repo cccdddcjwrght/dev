@@ -11,7 +11,13 @@ namespace SGame
 		POST,
 	}
 
-
+	/// <summary>
+	/// Http请求封装
+	/// 发送
+	/// WaitHttp.Request(<url or api>:string, method:HttpMethod , token:string).Run()
+	/// 发送并等待
+	/// WaitHttp.Request(<url or api>:string, method:HttpMethod , token:string).RunAndWait()
+	/// </summary>
 	public class WaitHttp
 	{
 
@@ -31,7 +37,7 @@ namespace SGame
 		public int State { get; private set; }
 		public bool Completed { get { return State != 0; } }
 
-		static public WaitHttp Get(string url, HttpMethod method = HttpMethod.GET, string token = null)
+		static public WaitHttp Request(string url, HttpMethod method = HttpMethod.GET, string token = null)
 		{
 			return new WaitHttp().SetUrl(url).SetMethod(method).SetToken(token);
 		}
@@ -53,12 +59,24 @@ namespace SGame
 			return this;
 		}
 
+		/// <summary>
+		/// 添加上报数据
+		/// </summary>
+		/// <param name="data"></param>
+		/// <returns></returns>
 		public WaitHttp SetData(string data)
 		{
 			this._data = data;
 			return this;
 		}
 
+		/// <summary>
+		/// 编码并添加上报数据
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="data"></param>
+		/// <param name="msgID"></param>
+		/// <returns></returns>
 		public WaitHttp EncodeData<T>(T data, int msgID = 0)
 		{
 			_data = HttpProtocol.Encode(data, msgID).ToJson();
@@ -91,9 +109,14 @@ namespace SGame
 
 		public IEnumerator Wait()
 		{
-			return _result;
+			if (!Completed && _result != null)
+				yield return DoWait();
 		}
 
+		/// <summary>
+		/// 执行请求
+		/// </summary>
+		/// <returns></returns>
 		public WaitHttp Run()
 		{
 			if (_result == null)
@@ -103,9 +126,9 @@ namespace SGame
 					Error("url is null");
 					return this;
 				}
-				var url = _url;
-				if (!string.IsNullOrEmpty(_api))
-					url += _api;
+				//拼装url和api
+				//eg: http://www.xxx.com/[api]
+				var url = _url + _api;
 				State = 0;
 				_version++;
 				if (!string.IsNullOrEmpty(_token))
@@ -113,10 +136,10 @@ namespace SGame
 				switch (_method)
 				{
 					case HttpMethod.GET:
+						//拼装数据
+						//eg: http://www.xxx.com/[api]?[data]
 						if (!string.IsNullOrEmpty(_data))
 						{
-							if (!_data.Contains('='))
-								_data = "d=" + _data;
 							if (!url.Contains("?"))
 								url += "?" + _data;
 							else
@@ -128,8 +151,14 @@ namespace SGame
 						_result = Http.HttpSystem.Instance.Post(url, _data);
 						break;
 				}
-				FiberCtrl.Pool.Run(DoWait());
 			}
+			return this;
+		}
+
+		public WaitHttp RunAndWait()
+		{
+			Run();
+			FiberCtrl.Pool.Run(Wait());
 			return this;
 		}
 

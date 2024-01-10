@@ -33,7 +33,7 @@ namespace SGame
 			{
 				PlayerPrefs.SetString("user", m_view.m_account.text);
 
-				WaitHttp.Get("login")
+				WaitHttp.Request("login" , HttpMethod.GET)
 					.EncodeData(new LoginData() { account = m_view.m_account.text })
 					.OnSuccess((w, data) =>
 					{
@@ -41,10 +41,9 @@ namespace SGame
 						EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, m_view.m_account.text);
 					})
 					.OnFail((d) => {
-						UnityEngine.Debug.LogError(d);
-						EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, m_view.m_account.text);
+						log.Error(d);
 					})
-					.Run();
+					.RunAndWait();
 
 			}
 		}
