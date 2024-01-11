@@ -2,15 +2,27 @@ using UnityEditor;
 using System.Linq;
 using System;
 using System.IO;
-using libx;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using SGame;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net;
+using System.Text;
 
 static class BuildCommand
 {
+	//´ò°üÇ°Ö´ĞĞ
+	static public Action DoBeforeBuild;
+	//´ò°ü×ÊÔ´½Ó¿Ú
+	static public Action<int, int, int> DoBuildAsset;
+	//´ò°üºóÖ´ĞĞ
+	static public Action DoAfterBuild;
+
+
+	#region ²ÎÊıKey
 	/// <summary>
-	/// å…¨éƒ¨å‚æ•°å€¼
+	/// È«²¿²ÎÊıÖµ
 	/// </summary>
 	private const string ALL_VAR_KEY = "ALL_VAR_KEY";
 
@@ -33,21 +45,29 @@ static class BuildCommand
 	private const string APP_NAME = "APP_NAME";
 	private const string APP_COM = "APP_COM";
 	private const string APP_RES = "VERSION_BUILD_VAR";
-	private const string CORE_RES = "VERSION_CORE_VAR";//ä»£ç ç‰ˆæœ¬
+	private const string CORE_RES = "VERSION_CORE_VAR";//´úÂë°æ±¾
+	private const string PROTO_RES = "VERSION_PROTO_VAR";//Ğ­Òé°æ±¾
 
 	private const string INI_FILE = "INI_FILE";
 
 
 	private const string FIRST_SCENE = "FIRST_SCENE";
+	#endregion
 
-
+	#region ²ÎÊı
 	private const string C_KEYSTORE_PASS = "123456";
 	private const string C_KEY_ALIAS_NAME = "uhi";
 	private const string C_KEY_ALIAS_PASS = "123456";
+	private const string C_BUILD_RESULT_FILE = ".flag";
+
+	private static string G_VAR_FILE = null;
 
 	private static string _old_symbol_string = null;
-	private static System.Collections.Generic.Dictionary<string, string> _cfgs;
+	private static string _output = null;
+	private static Dictionary<string, string> _cfgs;
+	#endregion
 
+	#region ½Ó¿Ú
 	static string GetArgument(string name)
 	{
 		string[] args = Environment.GetCommandLineArgs();
@@ -87,31 +107,35 @@ static class BuildCommand
 		string buildTargetName = GetArgument("customBuildTarget");
 		Console.WriteLine(":: Received customBuildTarget " + buildTargetName);
 
-		if (buildTargetName?.ToLower() == "android")
+		if (!string.IsNullOrEmpty(buildTargetName))
 		{
+			if (buildTargetName?.ToLower() == "android")
+			{
 #if !UNITY_5_6_OR_NEWER
 			// https://issuetracker.unity3d.com/issues/buildoptions-dot-acceptexternalmodificationstoplayer-causes-unityexception-unknown-project-type-0
 			// Fixed in Unity 5.6.0
 			// side effect to fix android build system:
 			EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Internal;
 #endif
+			}
+
+			if (buildTargetName.TryConvertToEnum(out BuildTarget target))
+				return target;
 		}
+		Console.WriteLine($":: {nameof(buildTargetName)} \"{buildTargetName}\" not defined on enum {nameof(BuildTarget)}, using {nameof(EditorUserBuildSettings.activeBuildTarget)} enum to build");
+		return EditorUserBuildSettings.activeBuildTarget;
 
-		if (buildTargetName.TryConvertToEnum(out BuildTarget target))
-			return target;
-
-		Console.WriteLine($":: {nameof(buildTargetName)} \"{buildTargetName}\" not defined on enum {nameof(BuildTarget)}, using {nameof(BuildTarget.NoTarget)} enum to build");
-
-		return BuildTarget.NoTarget;
 	}
 
 	static string GetBuildPath()
 	{
 		string buildPath = GetArgument("customBuildPath");
 		Console.WriteLine(":: Received customBuildPath " + buildPath);
-		if (buildPath == "")
+		if (string.IsNullOrEmpty(buildPath))
 		{
-			throw new Exception("customBuildPath argument is missing");
+			buildPath = ".output/";
+			Console.WriteLine($"customBuildPath argument is missing , now use dir: {buildPath}");
+
 		}
 		return buildPath;
 	}
@@ -120,9 +144,13 @@ static class BuildCommand
 	{
 		string buildName = GetArgument("customBuildName");
 		Console.WriteLine(":: Received customBuildName " + buildName);
-		if (buildName == "")
+		if (string.IsNullOrEmpty(buildName))
 		{
-			throw new Exception("customBuildName argument is missing");
+			buildName = Application.productName + "_" + System.DateTime.Now.ToString("g")
+				.Replace("/", "_")
+				.Replace(":", "_")
+				.Replace(" ", "_");
+			Console.WriteLine($"customBuildName argument is missing,now use name {buildName}");
 		}
 		return buildName;
 	}
@@ -219,12 +247,16 @@ static class BuildCommand
 			Console.WriteLine($":: Using project's configured ScriptingBackend (should be {defaultBackend} for targetGroup {targetGroup}");
 		}
 	}
+	#endregion
 
+	#region Excute
 	static void PerformBuild()
 	{
+		Console.WriteLine(":: Performing build");
+		if (File.Exists(C_BUILD_RESULT_FILE))
+			File.Delete(C_BUILD_RESULT_FILE);
 		HandlAllVar();
 		var buildTarget = GetBuildTarget();
-		Console.WriteLine(":: Performing build");
 		if (TryGetEnv(VERSION_NUMBER_VAR_OTHER, out var bundleVersionNumber) || TryGetEnv(VERSION_NUMBER_VAR, out bundleVersionNumber))
 		{
 			Console.WriteLine($":: Setting bundleVersionNumber to '{bundleVersionNumber}' (Length: {bundleVersionNumber.Length})");
@@ -246,47 +278,69 @@ static class BuildCommand
 		HandleINIFile();
 		var ver = HandleResVer();
 		var core = HandleCoreVer();
+		var proto = HandleProtoVer();
 
 		var buildPath = GetBuildPath();
 		var buildName = GetBuildName();
 		var buildOptions = GetBuildOptions();
 		var fixedBuildPath = GetFixedBuildPath(buildTarget, buildPath, buildName);
-
 		SetScriptingBackendFromEnv(buildTarget);
-		//CSObjectWrapEditor.Generator.ClearAll();
-		//CSObjectWrapEditor.Generator.GenAll();
+
+		DoBeforeBuild?.Invoke();
+		//Éú³ÉÀ¬»ø´úÂë
+		if (GetArgument("ENABLE_CODEGEN") == "1")
+			CodeGenEditor.Excute();
+
 
 #if !_DisableAB
-		HotfixenuItems.OneKeyBuildHotfix(ver,core);
+		if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
+			EditorUserBuildSettings.SwitchActiveBuildTarget(BuildPipeline.GetBuildTargetGroup(buildTarget), buildTarget);
+		DoBuildAsset?.Invoke(ver, core, proto);
 #endif
 		HandleFirstScene(out _);
 		var buildReport = BuildPipeline.BuildPlayer(GetEnabledScenes(), fixedBuildPath, buildTarget, buildOptions);
 
+		ResetSymbol(buildTarget);
 		if (buildReport.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
 			throw new Exception($"Build ended with {buildReport.summary.result} status");
+		_output = buildPath;
 
-		ResetSymbol(buildTarget);
+		File.WriteAllText(C_BUILD_RESULT_FILE, "");
+		DoAfterBuild?.Invoke();
+
 		Console.WriteLine(":: Done with build");
-
+		AssetDatabase.Refresh();
 	}
 
 	private static void HandlAllVar()
 	{
-		if (TryGetEnv(ALL_VAR_KEY, out string value))
+		string value = null;
+		if (G_VAR_FILE != null || TryGetEnv(ALL_VAR_KEY, out value))
 		{
+			value = value ?? G_VAR_FILE;
+			Console.WriteLine("::" + value);
 			if (value.StartsWith("@"))
 			{
-				Console.WriteLine("::" + value);
 				value = value.Substring(1);
 				if (File.Exists(value))
 					value = File.ReadAllText(value, System.Text.Encoding.UTF8);
+			}
+			else if (value.StartsWith("http"))
+			{
+				var req = WebRequest.Create(value);
+				req.Method = "GET";
+				var stream = req.GetResponse().GetResponseStream();
+				var buff = new byte[1024 * 10];
+				var len = stream.Read(buff, 0, buff.Length);
+				if (len > 0)
+					value = Encoding.UTF8.GetString(buff, 0, len);
 			}
 			Console.WriteLine($":: ALL_VAR_KEY =======================");
 			Console.WriteLine(value);
 			Console.WriteLine($":: ALL_VAR_KEY =======================");
 
 			if (string.IsNullOrEmpty(value)) return;
-			var lines = value.Split(new string []{ System.Environment.NewLine,"\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+			var lines = value.Split(new string[] { "\r\n", "\n", System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 			if (lines != null && lines.Length > 0)
 			{
 				_cfgs = lines.Where(Line => !string.IsNullOrEmpty(Line) && !Line.StartsWith("#") && Line.IndexOf('=') > 0)
@@ -363,6 +417,20 @@ static class BuildCommand
 		}
 		return 0;
 	}
+
+	private static int HandleProtoVer()
+	{
+		if (TryGetEnv(PROTO_RES, out string value))
+		{
+			if (int.TryParse(value, out int ver))
+			{
+				Console.WriteLine($":: Protocol Version : {ver}.");
+				return ver;
+			}
+		}
+		return 0;
+	}
+
 
 	private static bool HandleFirstScene(out string scene)
 	{
@@ -549,10 +617,30 @@ static class BuildCommand
 	{
 		if (!string.IsNullOrEmpty(_old_symbol_string))
 		{
-			//è¿˜åŸåŸå§‹å®
+			//»¹Ô­Ô­Ê¼ºê
 			SetSymbol(target, _old_symbol_string);
 			_old_symbol_string = null;
-			AssetDatabase.Refresh();
+		}
+	}
+	#endregion
+
+	[MenuItem("[Tools]/Build/DevBuild")]
+	private static void BuildProject()
+	{
+		G_VAR_FILE = "@exts/buildcfgs/local_dev_dev.txt";
+		PerformBuild();
+		G_VAR_FILE = null;
+	}
+
+	[MenuItem("[Tools]/Build/SelectBuild")]
+	private static void BuildProjectBySelect()
+	{
+		var file = EditorUtility.OpenFilePanelWithFilters("Ñ¡Ôñ´ò°üÅäÖÃ", "exts/buildcfgs", new string[] { "TextAsset", "txt" });
+		if (!string.IsNullOrEmpty(file))
+		{
+			G_VAR_FILE = "@" + file;
+			PerformBuild();
+			G_VAR_FILE = null;
 		}
 	}
 }

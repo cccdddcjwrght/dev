@@ -36,9 +36,17 @@ namespace Http
 		{
 			if (package.data != null && package.data.Length > 0)
 			{
-				return JsonSerialization.FromJson<T>(package.data);
+				return JsonSerialization.FromJson<T>(package.data, Parameters);
 			}
 			return default;
+		}
+
+		static public void DencodeOverride<T>(HttpPackage package, ref T data)
+		{
+			if (package.data != null && package.data.Length > 0)
+			{
+				JsonSerialization.FromJsonOverride<T>(package.data, ref data, Parameters);
+			}
 		}
 
 		static public Dictionary<string, object> Dencode(HttpPackage package)

@@ -36,6 +36,8 @@ namespace SGame
 
 		public int State { get; private set; }
 		public bool Completed { get { return State != 0; } }
+		public string Error { get { return _result?.error; } }
+		public string Data { get { return _result?.data; } }
 
 		static public WaitHttp Request(string url, HttpMethod method = HttpMethod.GET, string token = null)
 		{
@@ -147,7 +149,7 @@ namespace SGame
 			{
 				if (string.IsNullOrEmpty(_url) && string.IsNullOrEmpty(_api))
 				{
-					Error("url is null");
+					Fail("url is null");
 					return this;
 				}
 				//拼装url和api
@@ -186,6 +188,12 @@ namespace SGame
 			return this;
 		}
 
+		/// <summary>
+		/// 解析为对象
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="msg"></param>
+		/// <returns></returns>
 		public bool TryGet<T>(out T msg)
 		{
 			msg = default;
@@ -198,12 +206,35 @@ namespace SGame
 				}
 				catch (System.Exception e)
 				{
-					Error(e.Message);
+					Fail(e.Message);
 				}
 			}
 			return false;
 		}
 
+		public bool TryGetOverride<T>(ref T msg)
+		{
+			msg = default;
+			if (State == 1)
+			{
+				try
+				{
+					HttpProtocol.DencodeOverride<T>(new HttpPackage().FromJson(_result.data) , ref msg);
+					return true;
+				}
+				catch (System.Exception e)
+				{
+					Fail(e.Message);
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// 解析数据为字典
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <returns></returns>
 		public bool TryGetTable(out Dictionary<string, object> msg)
 		{
 			msg = default;
@@ -216,7 +247,7 @@ namespace SGame
 				}
 				catch (System.Exception e)
 				{
-					Error(e.Message);
+					Fail(e.Message);
 				}
 			}
 			return false;
@@ -248,7 +279,7 @@ namespace SGame
 				try
 				{
 					if (state) Success(_result.data);
-					else Error(_result.error);
+					else Fail(_result.error);
 				}
 				catch (System.Exception e)
 				{
@@ -263,7 +294,7 @@ namespace SGame
 			_onSuccess?.Invoke(this, data);
 		}
 
-		private void Error(string error)
+		private void Fail(string error)
 		{
 			State = -1;
 			if (!string.IsNullOrEmpty(error))
