@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using GameConfigs;
 using log4net;
 using SGame;
 using UnityEngine;
@@ -179,7 +176,7 @@ namespace SDK.TDSDK
 
 		private void RegisterEvent()
 		{
-			//通用打点接口
+			//閫氱敤鎵撶偣鎺ュ彛
 			EventManager.Instance.Reg<string, object[]>(-1, TrackNormal);
 		}
 
