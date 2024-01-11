@@ -87,6 +87,7 @@ namespace SGame
             }
 
             throw new IOException("file not found!=" + src);
+            return false;
         }
 
         public delegate void ERR_CALLBACK(string err);
@@ -97,6 +98,56 @@ namespace SGame
             if (!Directory.Exists(dirName))
             {
                 Directory.CreateDirectory(dirName);
+            }
+        }
+
+        // @param srcFileName, 原始文件名
+        // @param dstFileName, 存储文件名
+        public static IEnumerator StreamingCopy(string[] srcFileNames, string[] dstFileNames, ERR_CALLBACK errCallback)
+        {
+            // 检测1
+            if (srcFileNames == null || dstFileNames == null)
+            {
+                Debug.LogError("param is null!");
+                errCallback("param is null!");
+                yield break;
+            }
+
+            // 检测2
+            if (srcFileNames.Length == 0 || dstFileNames.Length != srcFileNames.Length)
+            {
+                Debug.LogError("copy files is 0!");
+                errCallback("param is null!");
+                yield break;
+            }
+
+            // 将Streaming内的文件拷贝到存储目录
+            string src;
+            string dst;
+            string err;
+            for (int i = 0; i < srcFileNames.Length; i++)
+            {
+                src = srcFileNames[i];
+                if (!src.Contains("file://"))
+                {
+                    src = "file://" + src;
+                }
+
+                Debug.Log("src file=" + src);
+                WWW www = new WWW(src);
+                yield return www;
+                err = www.error;
+                if (err != null)
+                {
+                    www.Dispose();
+                    errCallback(err);
+                    yield break;
+                }
+
+                dst = dstFileNames[i];
+                MakeDirectorys(dst);
+                File.WriteAllBytes(dst, www.bytes);
+                www.Dispose();
             }
         }
     }
