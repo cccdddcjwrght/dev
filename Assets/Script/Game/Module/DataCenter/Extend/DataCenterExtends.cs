@@ -28,8 +28,6 @@ namespace SGame
 
 	partial class DataCenter
 	{
-		private Index<IData> _datas = new Index<IData>();
-
 
 		public void SetData<T>(T data) where T : struct, IComponentData
 		{
