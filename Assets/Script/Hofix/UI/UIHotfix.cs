@@ -9,13 +9,13 @@ namespace SGame.Hotfix
     // 热更新UI 脚本, 更新逻辑包含再这这里面
     public class UIHotfix : IUIScript
     {
-        private Fiber m_fiber;
-        private float m_waitTime;
-        private FairyGUI.GProgressBar m_progressBar;
-        private FairyGUI.GTextField   m_text;
-        private const int MAX_DOWNLOAD = 10;
-        private EventHanle m_eventHandle;
-        private Entity     m_entity;
+        private Fiber                   m_fiber;
+        private float                   m_waitTime;
+        private FairyGUI.GProgressBar   m_progressBar;
+        private FairyGUI.GTextField     m_text;
+        private const int               MAX_DOWNLOAD = 10;
+        private EventHanle              m_eventHandle;      // 事件
+        private Entity                  m_entity;           // UI
 
         /// <summary>
         /// 测试时间
@@ -39,6 +39,9 @@ namespace SGame.Hotfix
             m_waitTime = TEST_TIME;
         }
 
+        /// <summary>
+        /// 登录界面已经准备号, 
+        /// </summary>
         void OnEventGameLogin()
         {
             // 关闭UI
@@ -49,10 +52,43 @@ namespace SGame.Hotfix
         
         IEnumerator RunLogic(UIContext context)
         {
-            //VersionUpdater.Instance.Initalize(Define.REMOTE_URL);
-
-            // 播放动画
+            VersionUpdater updater = VersionUpdater.Instance;
+            updater.Initalize(Define.REMOTE_URL);
+            var state = updater.state;
+            while (state < VersionUpdater.STATE.FAIL)
+            {
+                state = updater.state;
+                switch (state)
+                {
+                    case VersionUpdater.STATE.INIT:                 // 初始化
+                        break;
+                    case VersionUpdater.STATE.COPY_STREAM_ASSETS:   // 拷贝本地版本信息与MD5
+                        break;
+                    case VersionUpdater.STATE.CHECK_VERSION:        // 检测版本号
+                        break;
+                    case VersionUpdater.STATE.COUNT_UPDATELIST:     // 计算下载资源列表
+                        break;
+                    case VersionUpdater.STATE.DOWNLOADING:          // 下载更新资源
+                        break;
+                    case VersionUpdater.STATE.CHECK_MD5:            // 校验文件MD5
+                        break;
+                    case VersionUpdater.STATE.COPY_FILES:           // 拷贝文件
+                        break;
+                    case VersionUpdater.STATE.RELOAD:               // 重新加载资源管理
+                        break;
+                }
+                yield return null;
+            }
             
+            
+            
+
+            // 热更新结束, 发送事件
+            EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
+        }
+
+        IEnumerator Test()
+        {
             /// 测试代码
             yield return FiberHelper.Wait(3);
             float run = 0;
@@ -68,9 +104,6 @@ namespace SGame.Hotfix
                 yield return null;
             }
             m_progressBar.value = m_waitTime;
-
-            // 热更新结束, 发送事件
-            EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
         }
 
         void onUpdate(UIContext context)

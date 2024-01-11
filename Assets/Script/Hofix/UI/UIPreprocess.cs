@@ -17,7 +17,7 @@ namespace SGame.Hotfix
             if (context.configID == Define.HOTFIX_UI_ID)
             {
                 // 设置UI显示层级
-                context.window.sortingOrder = 1000;
+                context.window.sortingOrder = Define.HOTFIX_ORDER;
                 context.window.uiname = Define.HOTFIX_UI_NAME;
             }
         }

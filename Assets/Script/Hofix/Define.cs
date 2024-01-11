@@ -14,10 +14,11 @@ namespace SGame.Hotfix
         /// 更新代码无法使用配置表, 因此将UI配置信息写入代码中 
         /// </summary>
         public const int        HOTFIX_UI_ID        = 1;        // UI ID
+        public const int        HOTFIX_ORDER        = 1000;     // 热更UI的层级
         public const string     HOTFIX_UI_NAME      = "Hotfix"; // UI 名称
         public const string     HOTFIX_UI_COM       = "Hotfix"; // UI 元件名
         public const string     HOTFIX_PACKAGE_NAME = "Hotfix"; // UI 包名
 
-        public const string     REMOTE_URL = "";
+        public const string     REMOTE_URL = "http://127.0.0.1/idle/ver/";                // 远端URL
     }
 }
