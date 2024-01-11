@@ -12,10 +12,10 @@ namespace SGame
 	}
 
 	/// <summary>
-	/// HttpÇëÇó·â×°
-	/// ·¢ËÍ
+	/// Httpè¯·æ±‚å°è£…
+	/// å‘é€
 	/// WaitHttp.Request(<url or api>:string, method:HttpMethod , token:string).Run()
-	/// ·¢ËÍ²¢µÈ´ı
+	/// å‘é€å¹¶ç­‰å¾…
 	/// WaitHttp.Request(<url or api>:string, method:HttpMethod , token:string).RunAndWait()
 	/// </summary>
 	public class WaitHttp
@@ -62,7 +62,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// Ìí¼ÓÉÏ±¨Êı¾İ
+		/// æ·»åŠ ä¸ŠæŠ¥æ•°æ®
 		/// </summary>
 		/// <param name="data"></param>
 		/// <returns></returns>
@@ -73,7 +73,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// ±àÂë²¢Ìí¼ÓÉÏ±¨Êı¾İ
+		/// ç¼–ç å¹¶æ·»åŠ ä¸ŠæŠ¥æ•°æ®
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="data"></param>
@@ -86,7 +86,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// ¼üÖµ¶ÔÊı¾İ
+		/// é”®å€¼å¯¹æ•°æ®
 		/// </summary>
 		/// <param name="msgId"></param>
 		/// <param name="args">k1,v1,k2,v2......</param>
@@ -105,7 +105,7 @@ namespace SGame
 				EncodeData(dic, msgId);
 			}
 			else
-				Debug.LogError("²ÎÊı²»ÊÇ³É¶Ô³öÏÖ");
+				Debug.LogError("å‚æ•°ä¸æ˜¯æˆå¯¹å‡ºç°");
 			return this;
 		}
 
@@ -140,7 +140,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// Ö´ĞĞÇëÇó
+		/// æ‰§è¡Œè¯·æ±‚
 		/// </summary>
 		/// <returns></returns>
 		public WaitHttp Run()
@@ -152,7 +152,7 @@ namespace SGame
 					Fail("url is null");
 					return this;
 				}
-				//Æ´×°urlºÍapi
+				//æ‹¼è£…urlå’Œapi
 				//eg: http://www.xxx.com/[api]
 				var url = _url + _api;
 				State = 0;
@@ -162,7 +162,7 @@ namespace SGame
 				switch (_method)
 				{
 					case HttpMethod.GET:
-						//Æ´×°Êı¾İ
+						//æ‹¼è£…æ•°æ®
 						//eg: http://www.xxx.com/[api]?[data]
 						if (!string.IsNullOrEmpty(_data))
 						{
@@ -189,7 +189,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// ½âÎöÎª¶ÔÏó
+		/// è§£æä¸ºå¯¹è±¡
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="msg"></param>
@@ -231,7 +231,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// ½âÎöÊı¾İÎª×Öµä
+		/// è§£ææ•°æ®ä¸ºå­—å…¸
 		/// </summary>
 		/// <param name="msg"></param>
 		/// <returns></returns>
