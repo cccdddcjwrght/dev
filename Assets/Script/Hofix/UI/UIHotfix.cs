@@ -88,9 +88,7 @@ namespace SGame.Hotfix
             if (totalSize == 0)
                 totalSize = 1;
             
-            var downloadStr = string.Format(
-                "download..  {0}MB/{1}MB", math.min(downloadSize / 1024 / 1024, 2), 
-                                 math.min(totalSize / 1024 / 1024, 2));
+            var downloadStr = string.Format("download..  {0}MB/{1}MB", math.min(downloadSize / 1024 / 1024, 2), math.min(totalSize / 1024 / 1024, 2));
 
             m_text.text = downloadStr;
         }

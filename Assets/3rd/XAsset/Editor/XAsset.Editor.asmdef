@@ -1,10 +1,20 @@
 {
     "name": "XAsset.Editor",
+    "rootNamespace": "",
     "references": [
-        "XAsset.Runtime"
+        "XAsset.Runtime",
+        "Sirenix.OdinInspector.CompatibilityLayer",
+        "Sirenix.OdinInspector.CompatibilityLayer.Editor"
     ],
     "includePlatforms": [
         "Editor"
     ],
-    "excludePlatforms": []
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
