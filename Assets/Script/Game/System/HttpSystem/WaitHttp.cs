@@ -95,7 +95,7 @@ namespace SGame
 		{
 			if (args != null && args.Length % 2 == 0)
 			{
-				var dic = new Dictionary<string, object>();
+				var dic = new Hashtable();
 				for (int i = 0; i < args.Length - 1; i += 2)
 				{
 					var k = args[i];
@@ -235,7 +235,7 @@ namespace SGame
 		/// </summary>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public bool TryGetTable(out Dictionary<string, object> msg)
+		public bool TryGetTable(out Hashtable msg)
 		{
 			msg = default;
 			if (State == 1)

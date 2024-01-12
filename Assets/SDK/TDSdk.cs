@@ -139,6 +139,7 @@ namespace SDK.TDSDK
 
 		partial void DoStart()
 		{
+			netType = Application.internetReachability.ToString(); 
 			RegisterProperties();
 			RegisterEvent();
 			if (IsFirstStartApp())
@@ -153,7 +154,7 @@ namespace SDK.TDSDK
 		partial void DoGetDynamicSuperProperties(ref Dictionary<string, object> properties)
 		{
 			properties = properties ?? new Dictionary<string, object>();
-			properties["network_type"] = Application.internetReachability.ToString();
+			properties["network_type"] = netType;
 		}
 
 		partial void DoFillEventProperties(string eventName, ref Dictionary<string, object> properties)

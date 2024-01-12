@@ -13,11 +13,11 @@ using System.Text;
 static class BuildCommand
 {
 	//打包前执行
-	static public Action DoBeforeBuild;
+	static public Action<Func<string,string>> DoBeforeBuild;
 	//打包资源接口
 	static public Action<int, int, int> DoBuildAsset;
 	//打包后执行
-	static public Action DoAfterBuild;
+	static public Action<Func<string, string>> DoAfterBuild;
 
 
 	#region 参数Key
@@ -286,7 +286,7 @@ static class BuildCommand
 		var fixedBuildPath = GetFixedBuildPath(buildTarget, buildPath, buildName);
 		SetScriptingBackendFromEnv(buildTarget);
 
-		DoBeforeBuild?.Invoke();
+		DoBeforeBuild?.Invoke(GetArgument);
 		//生成垃圾代码
 		if (GetArgument("ENABLE_CODEGEN") == "1")
 			CodeGenEditor.Excute();
@@ -306,7 +306,7 @@ static class BuildCommand
 		_output = buildPath;
 
 		File.WriteAllText(C_BUILD_RESULT_FILE, "");
-		DoAfterBuild?.Invoke();
+		DoAfterBuild?.Invoke(GetArgument);
 
 		Console.WriteLine(":: Done with build");
 		AssetDatabase.Refresh();

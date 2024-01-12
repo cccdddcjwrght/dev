@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 164
+  version: 1
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
@@ -66,6 +66,10 @@ MonoBehaviour:
     searchPattern: '*.prefab,*.asset'
     nameBy: 1
     assetBundleName: 
+  - searchPath: Assets/BuildAsset/VisualScript
+    searchPattern: '*.prefab,*.asset'
+    nameBy: 1
+    assetBundleName: 
   ruleAssets:
   - bundle: assets/buildasset/audio/mixer.unity3d
     path: assets/buildasset/audio/mixer/game.mixer
@@ -92,6 +96,8 @@ MonoBehaviour:
   - bundle: configs.unity3d
     path: assets/buildasset/configs/design_global.bytes
   - bundle: configs.unity3d
+    path: assets/buildasset/configs/equip.bytes
+  - bundle: configs.unity3d
     path: assets/buildasset/configs/event_build.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/event_group.bytes
@@ -117,6 +123,10 @@ MonoBehaviour:
     path: assets/buildasset/configs/language_en.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/language_hi.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/travel_event.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/ui_groups.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/ui_res.bytes
   - bundle: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
@@ -167,46 +177,70 @@ MonoBehaviour:
     path: assets/buildasset/customcharacters/female/top-2.prefab
   - bundle: assets/buildasset/customcharacters/female/top-2_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/female/top-2_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/body-1.prefab
+  - bundle: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/body-1_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/characterbase.prefab
+  - bundle: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-1.prefab
+  - bundle: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-1_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-2.prefab
+  - bundle: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-2_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/hair-1.prefab
+  - bundle: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/hair-1_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/hair-2.prefab
+  - bundle: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/hair-2_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/makeup-0.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/makeup-0.prefab
+  - bundle: assets/buildasset/customcharacters/role/makeup-0_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/makeup-0_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/makeup-1.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/makeup-1.prefab
+  - bundle: assets/buildasset/customcharacters/role/makeup-1_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/makeup-1_mesh.asset
   - bundle: assets/buildasset/log/log4net.xml.bytes.unity3d
     path: assets/buildasset/log/log4net.xml.bytes
   - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/building/bank.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/cameralook.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/character.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/characters/kiki_v2.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/cube.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/dice/dice.prefab
+    path: assets/buildasset/prefabs/equipments/weapon1.prefab
   - bundle: prefabs.unity3d
     path: assets/buildasset/prefabs/game.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/mapdata.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/playercamera.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/snake/snake.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/snake/snakebody.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/travel/vcm_travel_fly.prefab
-  - bundle: prefabs.unity3d
-    path: assets/buildasset/prefabs/travel/vcm_travel_land.prefab
+  - bundle: assets/buildasset/scenes/markeds/scene01_marked.unity.unity3d
+    path: assets/buildasset/scenes/markeds/scene01_marked.unity
   - bundle: assets/buildasset/ui/common.unity3d
     path: assets/buildasset/ui/common_atlas0.png
   - bundle: assets/buildasset/ui/common.unity3d
     path: assets/buildasset/ui/common_fui.bytes
+  - bundle: assets/buildasset/ui/gameloge.unity3d
+    path: assets/buildasset/ui/gameloge_atlas_vm0m1.png
+  - bundle: assets/buildasset/ui/gameloge.unity3d
+    path: assets/buildasset/ui/gameloge_atlas_vm0m2.png
+  - bundle: assets/buildasset/ui/gameloge.unity3d
+    path: assets/buildasset/ui/gameloge_atlas_vm0m3.png
+  - bundle: assets/buildasset/ui/gameloge.unity3d
+    path: assets/buildasset/ui/gameloge_atlas_vm0m4.png
+  - bundle: assets/buildasset/ui/gameloge.unity3d
+    path: assets/buildasset/ui/gameloge_fui.bytes
   - bundle: assets/buildasset/ui/hotfix.unity3d
-    path: assets/buildasset/ui/hotfix_atlas0.png
+    path: assets/buildasset/ui/hotfix_atlas_cuja3.png
+  - bundle: assets/buildasset/ui/hotfix.unity3d
+    path: assets/buildasset/ui/hotfix_atlas_cuja4.png
+  - bundle: assets/buildasset/ui/hotfix.unity3d
+    path: assets/buildasset/ui/hotfix_atlas_cuja5.png
+  - bundle: assets/buildasset/ui/hotfix.unity3d
+    path: assets/buildasset/ui/hotfix_atlas_cuja6.png
   - bundle: assets/buildasset/ui/hotfix.unity3d
     path: assets/buildasset/ui/hotfix_fui.bytes
   - bundle: assets/buildasset/ui/hud.unity3d
     path: assets/buildasset/ui/hud_fui.bytes
-  - bundle: assets/buildasset/ui/loading.unity3d
-    path: assets/buildasset/ui/loading_atlas0.png
   - bundle: assets/buildasset/ui/loading.unity3d
     path: assets/buildasset/ui/loading_fui.bytes
   - bundle: assets/buildasset/ui/login.unity3d
@@ -223,6 +257,16 @@ MonoBehaviour:
     path: assets/buildasset/ui/travel_atlas_f7ke3lad.png
   - bundle: assets/buildasset/ui/travel.unity3d
     path: assets/buildasset/ui/travel_fui.bytes
+  - bundle: assets/buildasset/visualscript/game.asset.unity3d
+    path: assets/buildasset/visualscript/game.asset
+  - bundle: assets/buildasset/visualscript/login/login.asset.unity3d
+    path: assets/buildasset/visualscript/login/login.asset
+  - bundle: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
+    path: assets/buildasset/visualscript/prefabs/game.prefab
+  - bundle: assets/buildasset/visualscript/prefabs/login.prefab.unity3d
+    path: assets/buildasset/visualscript/prefabs/login.prefab
+  - bundle: assets/buildasset/visualscript/testevent.asset.unity3d
+    path: assets/buildasset/visualscript/testevent.asset
   ruleBundles:
   - name: configs.unity3d
     assets:
@@ -235,6 +279,7 @@ MonoBehaviour:
     - assets/buildasset/configs/build_trap.bytes
     - assets/buildasset/configs/build_visit.bytes
     - assets/buildasset/configs/design_global.bytes
+    - assets/buildasset/configs/equip.bytes
     - assets/buildasset/configs/event_build.bytes
     - assets/buildasset/configs/event_group.bytes
     - assets/buildasset/configs/event_part.bytes
@@ -248,19 +293,27 @@ MonoBehaviour:
     - assets/buildasset/configs/language_chn.bytes
     - assets/buildasset/configs/language_en.bytes
     - assets/buildasset/configs/language_hi.bytes
+    - assets/buildasset/configs/travel_event.bytes
+    - assets/buildasset/configs/ui_groups.bytes
     - assets/buildasset/configs/ui_res.bytes
   - name: assets/buildasset/ui/common.unity3d
     assets:
     - assets/buildasset/ui/common_atlas0.png
     - assets/buildasset/ui/common_fui.bytes
+  - name: assets/buildasset/ui/gameloge.unity3d
+    assets:
+    - assets/buildasset/ui/gameloge_atlas_vm0m1.png
+    - assets/buildasset/ui/gameloge_atlas_vm0m2.png
+    - assets/buildasset/ui/gameloge_atlas_vm0m3.png
+    - assets/buildasset/ui/gameloge_atlas_vm0m4.png
+    - assets/buildasset/ui/gameloge_fui.bytes
   - name: assets/buildasset/ui/hotfix.unity3d
     assets:
-    - assets/buildasset/ui/hotfix_atlas0.png
+    - assets/buildasset/ui/hotfix_atlas_cuja3.png
+    - assets/buildasset/ui/hotfix_atlas_cuja4.png
+    - assets/buildasset/ui/hotfix_atlas_cuja5.png
+    - assets/buildasset/ui/hotfix_atlas_cuja6.png
     - assets/buildasset/ui/hotfix_fui.bytes
-  - name: assets/buildasset/ui/loading.unity3d
-    assets:
-    - assets/buildasset/ui/loading_atlas0.png
-    - assets/buildasset/ui/loading_fui.bytes
   - name: assets/buildasset/ui/login.unity3d
     assets:
     - assets/buildasset/ui/login_atlas0.png
@@ -277,24 +330,19 @@ MonoBehaviour:
   - name: assets/buildasset/ui/hud.unity3d
     assets:
     - assets/buildasset/ui/hud_fui.bytes
+  - name: assets/buildasset/ui/loading.unity3d
+    assets:
+    - assets/buildasset/ui/loading_fui.bytes
   - name: prefabs.unity3d
     assets:
-    - assets/buildasset/prefabs/cameralook.prefab
-    - assets/buildasset/prefabs/character.prefab
-    - assets/buildasset/prefabs/cube.prefab
     - assets/buildasset/prefabs/game.prefab
-    - assets/buildasset/prefabs/mapdata.prefab
-    - assets/buildasset/prefabs/playercamera.prefab
-    - assets/buildasset/prefabs/building/bank.prefab
-    - assets/buildasset/prefabs/characters/kiki_v2.prefab
-    - assets/buildasset/prefabs/dice/dice.prefab
-    - assets/buildasset/prefabs/snake/snake.prefab
-    - assets/buildasset/prefabs/snake/snakebody.prefab
-    - assets/buildasset/prefabs/travel/vcm_travel_fly.prefab
-    - assets/buildasset/prefabs/travel/vcm_travel_land.prefab
+    - assets/buildasset/prefabs/equipments/weapon1.prefab
   - name: assets/buildasset/audio/mixer.unity3d
     assets:
     - assets/buildasset/audio/mixer/game.mixer
+  - name: assets/buildasset/scenes/markeds/scene01_marked.unity.unity3d
+    assets:
+    - assets/buildasset/scenes/markeds/scene01_marked.unity
   - name: assets/buildasset/code/game.dll.bytes.unity3d
     assets:
     - assets/buildasset/code/game.dll.bytes
@@ -340,6 +388,30 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/female/top-2.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/female/top-2.prefab
+  - name: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/body-1.prefab
+  - name: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/characterbase.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-1.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-2.prefab
+  - name: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-1.prefab
+  - name: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-2.prefab
+  - name: assets/buildasset/customcharacters/role/makeup-0.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/makeup-0.prefab
+  - name: assets/buildasset/customcharacters/role/makeup-1.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/makeup-1.prefab
   - name: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/characterelementdatabase.asset
@@ -376,3 +448,54 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/female/top-2_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/female/top-2_mesh.asset
+  - name: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/body-1_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-1_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-2_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-1_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-2_mesh.asset
+  - name: assets/buildasset/customcharacters/role/makeup-0_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/makeup-0_mesh.asset
+  - name: assets/buildasset/customcharacters/role/makeup-1_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/makeup-1_mesh.asset
+  - name: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
+    assets:
+    - assets/buildasset/visualscript/prefabs/game.prefab
+  - name: assets/buildasset/visualscript/prefabs/login.prefab.unity3d
+    assets:
+    - assets/buildasset/visualscript/prefabs/login.prefab
+  - name: assets/buildasset/visualscript/game.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game.asset
+  - name: assets/buildasset/visualscript/testevent.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/testevent.asset
+  - name: assets/buildasset/visualscript/login/login.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/login/login.asset
+  - name: assets/buildasset/art/characters/role/textures/role_body-1_1.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_body-1_1.png
+  - name: assets/buildasset/art/characters/role/textures/role_clothes-1.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_clothes-1.png
+  - name: assets/buildasset/art/characters/role/role.fbx.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/role.fbx
+  - name: assets/buildasset/art/characters/role/textures/role_makeup-1.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_makeup-1.png
+  - name: assets/buildasset/art/characters/role/textures/role_clothes-2.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_clothes-2.png

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Unity.Serialization.Json;
 using UnityEngine;
 
 namespace Http
@@ -14,21 +14,17 @@ namespace Http
 		public string data;
 	}
 
-
 	public static class HttpProtocol
 	{
-		static public JsonSerializationParameters Parameters = new JsonSerializationParameters()
-		{
-			Minified = true,
-
-		};
 
 		static public HttpPackage Encode<T>(T data, int msgID = 0)
 		{
+			string d = (data is Hashtable h) ? MiniJSON.jsonEncode(h) : JsonUtility.ToJson(data);
+
 			return new HttpPackage()
 			{
 				code = msgID,
-				data = JsonSerialization.ToJson(data, Parameters),
+				data = d,
 			};
 		}
 
@@ -36,7 +32,7 @@ namespace Http
 		{
 			if (package.data != null && package.data.Length > 0)
 			{
-				return JsonSerialization.FromJson<T>(package.data, Parameters);
+				return JsonUtility.FromJson<T>(package.data);
 			}
 			return default;
 		}
@@ -45,27 +41,27 @@ namespace Http
 		{
 			if (package.data != null && package.data.Length > 0)
 			{
-				JsonSerialization.FromJsonOverride<T>(package.data, ref data, Parameters);
+				JsonUtility.FromJsonOverwrite(package.data, data);
 			}
 		}
 
-		static public Dictionary<string, object> Dencode(HttpPackage package)
+		static public Hashtable Dencode(HttpPackage package)
 		{
 			if (package.data != null && package.data.Length > 0)
 			{
-				return JsonSerialization.FromJson<Dictionary<string, object>>(package.data);
+				return MiniJSON.jsonDecode(package.data) as Hashtable;
 			}
 			return default;
 		}
 
 		static public string ToJson(this HttpPackage package)
 		{
-			return JsonSerialization.ToJson(package, Parameters);
+			return JsonUtility.ToJson(package);
 		}
 
 		public static HttpPackage FromJson(this HttpPackage package, string json)
 		{
-			var p = JsonSerialization.FromJson<HttpPackage>(json, Parameters);
+			var p = JsonUtility.FromJson<HttpPackage>(json);
 			package.code = p.code;
 			package.msg = p.msg;
 			package.data = p.data;
