@@ -54,7 +54,11 @@ namespace SGame
                 typeof(Rotation),
                 typeof(MoveDirection));
             m_floatComponents = new ObjectPool<UI_FloatText>(Alloce, Spawn, Despawn);
+        }
 
+        protected override void OnStartRunning()
+        {
+            base.OnStartRunning();
             FLOAT_SPEED = GlobalDesginConfig.GetFloat("float_text_speed");
             FLOAT_SPEED2D = GlobalDesginConfig.GetFloat("float_text2d_speed");
         }

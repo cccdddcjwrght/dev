@@ -27,8 +27,9 @@ namespace SGame.Http
 			get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<HttpSystem>(); }
 		}
 
-		protected override void OnCreate()
+		protected override void OnStartRunning()
 		{
+			base.OnStartRunning();
 			m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
 			SetBaseUrl(GlobalConfig.GetStr("svr_url"));
 			SetToken(GlobalConfig.GetStr("svr_token") ?? "1");
@@ -85,7 +86,7 @@ namespace SGame.Http
 			if (!url.Contains("://"))
 				url = GetBaseUrl() + url;
 
-			HttpRequest request = new HttpRequest() { url = url, post = data, isGet = false, token = m_token };
+			HttpRequest request = new HttpRequest() { url = url, post = data, isGet = false, token = GetToken() };
 			HttpResult result = new HttpResult() { isDone = false, data = null, error = null };
 			var e = EntityManager.CreateEntity();
 			EntityManager.AddComponentObject(e, request);
@@ -103,7 +104,7 @@ namespace SGame.Http
 			if (!url.Contains("://"))
 				url = GetBaseUrl() + url;
 
-			HttpRequest request = new HttpRequest() { url = url, post = null, isGet = true, token = m_token };
+			HttpRequest request = new HttpRequest() { url = url, post = null, isGet = true, token = GetToken() };
 			HttpResult result = new HttpResult() { isDone = false, data = null, error = null };
 			var e = EntityManager.CreateEntity();
 			EntityManager.AddComponentObject(e, request);
@@ -113,7 +114,16 @@ namespace SGame.Http
 
 		private string GetBaseUrl()
 		{
+			if (string.IsNullOrEmpty(m_baseUrl))
+				SetBaseUrl(GlobalConfig.GetStr("svr_url"));
 			return m_baseUrl;
+		}
+
+		public string GetToken()
+		{
+			if (string.IsNullOrEmpty(m_token))
+				SetToken(GlobalConfig.GetStr("svr_token") ?? "1");
+			return m_token;
 		}
 
 		////// 数据 /////////

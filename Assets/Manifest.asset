@@ -24,6 +24,9 @@ MonoBehaviour:
   - assets/buildasset/prefabs/equipments
   - assets/buildasset/prefabs
   - assets/buildasset/ui
+  - assets/buildasset/visualscript
+  - assets/buildasset/visualscript/login
+  - assets/buildasset/visualscript/prefabs
   assets:
   - name: game.mixer
     bundle: 5
@@ -280,6 +283,21 @@ MonoBehaviour:
   - name: travel_fui.bytes
     bundle: 54
     dir: 9
+  - name: game.asset
+    bundle: 57
+    dir: 10
+  - name: login.asset
+    bundle: 57
+    dir: 11
+  - name: game.prefab
+    bundle: 57
+    dir: 12
+  - name: login.prefab
+    bundle: 57
+    dir: 12
+  - name: testevent.asset
+    bundle: 57
+    dir: 10
   bundles:
   - name: assets/buildasset/art/characters/role/role.fbx.unity3d
     id: 0
@@ -566,3 +584,8 @@ MonoBehaviour:
     deps: 
     len: 2371
     hash: 188c70ef1c6938bad7da20bc220e2b81
+  - name: visualscript.unity3d
+    id: 57
+    deps: 
+    len: 4954
+    hash: 49b689e35ca95ffa865c3b62ee3424ef

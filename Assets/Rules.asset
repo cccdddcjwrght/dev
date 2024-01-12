@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 166
+  version: 169
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
@@ -66,6 +66,10 @@ MonoBehaviour:
     searchPattern: '*.prefab,*.asset'
     nameBy: 1
     assetBundleName: 
+  - searchPath: Assets/BuildAsset/VisualScript
+    searchPattern: '*.prefab,*.asset'
+    nameBy: 0
+    assetBundleName: visualscript
   ruleAssets:
   - bundle: assets/buildasset/audio/mixer.unity3d
     path: assets/buildasset/audio/mixer/game.mixer
@@ -237,6 +241,16 @@ MonoBehaviour:
     path: assets/buildasset/ui/travel_atlas_f7ke3lad.png
   - bundle: assets/buildasset/ui/travel.unity3d
     path: assets/buildasset/ui/travel_fui.bytes
+  - bundle: visualscript.unity3d
+    path: assets/buildasset/visualscript/game.asset
+  - bundle: visualscript.unity3d
+    path: assets/buildasset/visualscript/login/login.asset
+  - bundle: visualscript.unity3d
+    path: assets/buildasset/visualscript/prefabs/game.prefab
+  - bundle: visualscript.unity3d
+    path: assets/buildasset/visualscript/prefabs/login.prefab
+  - bundle: visualscript.unity3d
+    path: assets/buildasset/visualscript/testevent.asset
   ruleBundles:
   - name: configs.unity3d
     assets:
@@ -427,6 +441,13 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/role/makeup-1_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/role/makeup-1_mesh.asset
+  - name: visualscript.unity3d
+    assets:
+    - assets/buildasset/visualscript/prefabs/game.prefab
+    - assets/buildasset/visualscript/prefabs/login.prefab
+    - assets/buildasset/visualscript/game.asset
+    - assets/buildasset/visualscript/testevent.asset
+    - assets/buildasset/visualscript/login/login.asset
   - name: assets/buildasset/art/characters/role/textures/role_body-1_1.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_body-1_1.png

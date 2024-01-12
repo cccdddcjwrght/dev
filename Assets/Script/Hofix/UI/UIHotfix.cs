@@ -131,6 +131,12 @@ namespace SGame.Hotfix
             state = updater.state;
             if (state != VersionUpdater.STATE.FAIL)
                 EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
+            else
+            {
+                m_text.text = "Error =" + updater.error;
+                yield return FiberHelper.Wait(3.0f);
+                EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
+            }
         }
 
         IEnumerator Test()
