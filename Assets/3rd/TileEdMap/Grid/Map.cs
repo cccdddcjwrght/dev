@@ -220,12 +220,12 @@ namespace GameTools.Maps
 		{
 			try
 			{
-				if (index >=0 && cells.Count > index) return cells[index];
+				if (index >= 0 && cells.Count > index) return cells[index];
 			}
 			catch (System.Exception e)
 			{
 				Debug.Log(index);
-				Debug.LogException(e );
+				Debug.LogException(e);
 			}
 			return default;
 		}
@@ -267,6 +267,37 @@ namespace GameTools.Maps
 				}
 			}
 			return cell.IsWalkable() ? cell.walkcost : -1;
+		}
+
+		public List<int> GetIDListByTag(string tag)
+		{
+			if (tags.TryGetValue(tag, out var cs) && cs.Count > 0)
+			{
+				var ls = new List<int>();
+				for (int i = 0; i < cs.Count; i++)
+				{
+					var c = GetCell(cs[i]);
+					if (c != null)
+						ls.Add(c.GetDataSetByTag(tag).i_val);
+				}
+				return ls;
+			}
+			return default;
+		}
+
+		public List<int> GetIDListByBuild(string build)
+		{
+			if (tags.TryGetValue(tag, out var cs) && cs.Count > 0)
+			{
+				var ls = new List<int>();
+				for (int i = 0; i < cs.Count; i++)
+				{
+					var c = GetCell(cs[i]);
+					if (c != null) { }
+				}
+				return ls;
+			}
+			return default;
 		}
 
 		private void FillNear(Cell cell)

@@ -47,7 +47,7 @@ namespace GameTools.Maps
 					if (selectTag != null && c.tags.Contains(selectTag))
 					{
 						Gizmos.color = selectTag.StartsWith("obs") ? Color.red : Color.yellow;
-						Gizmos.DrawCube(pos, size);
+						Gizmos.DrawCube(pos + c_pos, size);
 					}
 					else if (c.flag && GetWalkCost(c) >= 0)
 					{

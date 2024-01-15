@@ -317,6 +317,7 @@ namespace TileEdExt
 				if (data != null)
 				{
 					bool isDummy = data.dataSet.GetValByPath("dummy");
+					bool isplatform = data.dataSet;
 					string tag = isDummy ? data.dataSet.GetValByPath("itemid") : null;
 					//string uname = (string)data.dataSet.GetValByPath("setid") + "_" + (int)data.dataSet.GetValByPath("itemid");
 					string uname = data.dataSet.i_val.ToString();
@@ -335,7 +336,7 @@ namespace TileEdExt
 						{
 							if (isDummy && !config.debug)
 								GameObject.DestroyImmediate(body.gameObject);
-							if (!isDummy && (!config.debug && !config.dontRemoveInter))
+							if (!isDummy && !isplatform && (!config.debug && !config.dontRemoveInter))
 								GameObject.DestroyImmediate(body.gameObject);
 						}
 					}

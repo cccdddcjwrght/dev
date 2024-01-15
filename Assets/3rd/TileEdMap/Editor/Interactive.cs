@@ -63,6 +63,7 @@ namespace TileEdExt
 		protected override void OnDrawPopupSetting(Rect rect, TileED_Common_SettingsPopup popup)
 		{
 			var areas = popup.tile.obstacles;
+
 			if (toggleStyle == null)
 			{
 				toggleStyle = new GUIStyle(GUI.skin.button)
@@ -90,6 +91,8 @@ namespace TileEdExt
 				if (select.uniqid == 0) select.uniqid = select.name.GetHashCode();
 				popup.tile.obsid = select.uniqid;
 			}
+
+			//popup.tile.dataSet.SetVal(EditorGUILayout.Toggle("默认不显示:", popup.tile.dataSet.GetVal("isplatform")) , "isplatform");
 
 			normal = GUI.color;
 			EditorGUILayout.Space();
