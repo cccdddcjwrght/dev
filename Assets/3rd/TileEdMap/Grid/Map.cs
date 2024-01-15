@@ -218,7 +218,15 @@ namespace GameTools.Maps
 
 		public Cell GetCell(int index)
 		{
-			if (cells.Count > index) return cells[index];
+			try
+			{
+				if (index >=0 && cells.Count > index) return cells[index];
+			}
+			catch (System.Exception e)
+			{
+				Debug.Log(index);
+				Debug.LogException(e );
+			}
 			return default;
 		}
 

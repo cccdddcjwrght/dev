@@ -12,6 +12,162 @@ MonoBehaviour:
   m_Script: {fileID: -1262527666, guid: b20c2b512f92f504eaf8db9b1d939ab8, type: 3}
   m_Name: Props
   m_EditorClassIdentifier: 
-  tileSets: []
-  lastPropSetIdent: 0
-  lastPropIdent: 0
+  tileSets:
+  - ident: 3
+    name: tree
+    tiles:
+    - ident: 6
+      prefab:
+      - {fileID: 6150704856385992123, guid: f1fb7192c6f04dd4a89aa692779716c0, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+    - ident: 7
+      prefab:
+      - {fileID: 6106303691217292707, guid: d43744b154a4e1441843229421b00ead, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+  - ident: 4
+    name: obj
+    tiles:
+    - ident: 8
+      prefab:
+      - {fileID: 5592666804698370111, guid: d90b7f44e7a51d341b258f60bbb303dd, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+    - ident: 9
+      prefab:
+      - {fileID: 8035661710993485826, guid: e57884128e788b146a9cbd1f57d2a749, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+  - ident: 5
+    name: wall
+    tiles:
+    - ident: 10
+      prefab:
+      - {fileID: 2977000121584451993, guid: 147e07e14e2af854193b1c6a01739b6c, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+    - ident: 11
+      prefab:
+      - {fileID: 686612814435211856, guid: 53bb2bc7b557bd14ead5660acbad0713, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+    - ident: 13
+      prefab:
+      - {fileID: 5907726431604259862, guid: ba07daaa3db953b459dba5124472b69d, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+    - ident: 14
+      prefab:
+      - {fileID: 300320617129649562, guid: dc3825bf69ad15443a35c4b91960ee01, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+  - ident: 6
+    name: jingzi
+    tiles:
+    - ident: 12
+      prefab:
+      - {fileID: 6197826551430926696, guid: b29318597b9062547a994a882e3f1908, type: 3}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 0
+      customThumb: {fileID: 0}
+      meta: 
+  lastPropSetIdent: 6
+  lastPropIdent: 14

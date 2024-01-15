@@ -29,6 +29,7 @@ namespace TileEdExt
 		public string bgScene;
 
 		public bool debug;
+		public bool dontRemoveInter;
 		public string sceneouput;
 		public bool enableCombineMesh;
 		public string meshouput;
@@ -134,15 +135,18 @@ namespace TileEdExt
 			{
 				EditorGUI.BeginChangeCheck();
 				config.debug = GUIHelp.DrawObject(config.debug, "debug");
+				config.dontRemoveInter = GUIHelp.DrawObject(config.dontRemoveInter, "不隐藏交互层");
+
 				GUIHelp.DrawFolderSelect("场景导出文件夹", ref config.sceneouput);
 				config.enableCombineMesh = GUIHelp.DrawObject(config.enableCombineMesh, "允许合并网格");
 				if (config.enableCombineMesh)
 					GUIHelp.DrawFolderSelect("合并网格导出文件夹", ref config.meshouput);
 				if (EditorGUI.EndChangeCheck()) Save();
 				EditorGUILayout.Space();
-				GUIHelp.GUI_DH(() => {
+				GUIHelp.GUI_DH(() =>
+				{
 					excuteBool = GUIHelp.DrawFadeOut(excuteBool, "其他附加处理", DrawMapExcute);
-				} , GUI.skin.box);
+				}, GUI.skin.box);
 				EditorGUILayout.Space();
 				if (GUILayout.Button("导出"))
 				{
@@ -295,6 +299,7 @@ namespace TileEdExt
 				if (item.name.StartsWith("__")) continue;
 				var p = new IntVector3(item.name);
 				var cell = grid.GetCell(p.x, p.z);
+				if (cell == null) continue;
 				var point = go.transform.Find(item.name);
 				if (point == null)
 				{
@@ -326,7 +331,13 @@ namespace TileEdExt
 						GameObject.DestroyImmediate(child.GetComponent<plyLib.plyIdent>());
 						child.name = tag ?? uname ?? "body";
 						var body = child.transform.Find("body");
-						if (body && !config.debug) GameObject.DestroyImmediate(body.gameObject);
+						if (body)
+						{
+							if (isDummy && !config.debug)
+								GameObject.DestroyImmediate(body.gameObject);
+							if (!isDummy && (!config.debug && !config.dontRemoveInter))
+								GameObject.DestroyImmediate(body.gameObject);
+						}
 					}
 
 					if (cell != null)
