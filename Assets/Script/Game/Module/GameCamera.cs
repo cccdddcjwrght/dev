@@ -10,6 +10,7 @@ namespace SGame
         void Start()
         {
             camera = GetComponent<Camera>();
+			DontDestroyOnLoad(gameObject);
         }
     }
 }

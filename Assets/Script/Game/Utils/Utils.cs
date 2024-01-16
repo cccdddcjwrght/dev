@@ -117,21 +117,6 @@ namespace SGame
             return true;
         }
 
-        // 根据等级获取 building event id
-        public static int GetBuildingEventId(int buildingId, int level)
-        {
-            if (!ConfigSystem.Instance.TryGet(buildingId, out Event_BuildRowData buildData))
-            {
-                return -1;
-            }
-
-            if (level <= 0 || level > buildData.BuildIdLength)
-            {
-                return -1;
-            }
-
-            return buildData.BuildId(level - 1);
-        }
         
         /// <summary>
         /// 激活或禁止ENTITY

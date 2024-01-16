@@ -5,6 +5,7 @@ using FairyGUI;
 using Unity.Collections;
 using UnityEngine;
 using System;
+using System.Linq;
 
 //*******************************************************************
 //	创建日期:	2016-8-22
@@ -29,17 +30,17 @@ namespace SGame.UI
 		// 创建UI的原型
 		static ILog log = LogManager.GetLogger("xl.ui");
 
-		private SpawnUISystem     m_spawnSystem;
-		private GameWorld         m_gameWorld;
-		private UIScriptFactory   m_factory;
+		private SpawnUISystem m_spawnSystem;
+		private GameWorld m_gameWorld;
+		private UIScriptFactory m_factory;
 
-		static  UIModule          s_module;
+		static UIModule s_module;
 
-		private IPreprocess       m_preProcess;
-		
+		private IPreprocess m_preProcess;
+
 		// 有效的显示
-		private EntityQuery		m_groupVisible;
-		
+		private EntityQuery m_groupVisible;
+
 		public UIModule()
 		{
 			s_module = this;
@@ -52,18 +53,18 @@ namespace SGame.UI
 		/// <param name="preProcessing"></param>
 		public void Initalize(GameWorld gameWorld, IPreprocess preProcessing)
 		{
-			m_gameWorld      = gameWorld;
-			m_spawnSystem    = gameWorld.GetECSWorld().GetOrCreateSystem<SpawnUISystem>();
-			
+			m_gameWorld = gameWorld;
+			m_spawnSystem = gameWorld.GetECSWorld().GetOrCreateSystem<SpawnUISystem>();
+
 			if (m_factory != null)
 				m_factory.Dispose();
-			
-			m_factory        = new UIScriptFactory();
-			m_preProcess     = preProcessing;
-		     
-			m_groupVisible =  m_gameWorld.GetEntityManager().CreateEntityQuery(typeof(UIWindow),
+
+			m_factory = new UIScriptFactory();
+			m_preProcess = preProcessing;
+
+			m_groupVisible = m_gameWorld.GetEntityManager().CreateEntityQuery(typeof(UIWindow),
 				ComponentType.Exclude<DespawningEntity>());
-		     
+
 			// 不要FairyGUI管理
 			UIPackage.unloadBundleByFGUI = false;
 
@@ -79,7 +80,7 @@ namespace SGame.UI
 			{
 				if (s_module == null)
 					s_module = new UIModule();
-				
+
 				return s_module;
 			}
 		}
@@ -95,7 +96,7 @@ namespace SGame.UI
 			UIInfo info = new UIInfo() { comName = comName, pkgName = pkgName };
 			m_factory.Register(info, creater);
 		}
-		
+
 		/// <summary>
 		/// 结束
 		/// </summary>
@@ -126,10 +127,23 @@ namespace SGame.UI
 					return true;
 				}
 			}
-			
+
 			return false;
 		}
-		
+
+		public void CloseAllUI(params string[] ignore)
+		{
+			var wins = GetVisibleUI();
+			if (wins?.Count > 0)
+			{
+				foreach (var w in wins)
+				{
+					if (ignore.Length > 0 && ignore.Contains(w.name)) continue;
+					CloseUI(w.entity);
+				}
+			}
+		}
+
 		public List<UIWindow> GetVisibleUI()
 		{
 			List<UIWindow> ret = new List<UIWindow>();
@@ -171,8 +185,13 @@ namespace SGame.UI
 					return w.entity;
 				}
 			}
-			
+
 			return Entity.Null;
+		}
+
+		public EntityManager GetEntityManager()
+		{
+			return m_gameWorld.GetEntityManager();
 		}
 	}
 }

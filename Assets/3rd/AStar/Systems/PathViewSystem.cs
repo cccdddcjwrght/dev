@@ -41,6 +41,7 @@ namespace GameTools.Paths.Test
 			m_view = new GameObject("PathView");
 			m_views = new Dictionary<int, PathView>();
 			m_view.gameObject.SetActive(false);
+			GameObject.DontDestroyOnLoad(m_view);
 		}
 
 		protected override void OnUpdate()

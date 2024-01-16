@@ -12,7 +12,9 @@ namespace SGame
     {
         private Entity              m_eUI;
         private EntityManager       m_mgr;
-        public WaitUIOpen(EntityManager mgr, Entity e)
+        
+		
+		public WaitUIOpen(EntityManager mgr, Entity e)
         {
             m_mgr = mgr;
             m_eUI = e;
@@ -35,7 +37,7 @@ namespace SGame
         {
             get
             {
-                return null;
+                return m_eUI;
             }
         }
 

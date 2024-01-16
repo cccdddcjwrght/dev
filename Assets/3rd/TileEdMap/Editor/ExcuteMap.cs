@@ -280,6 +280,9 @@ namespace TileEdExt
 		private void AfterExcute(TileEdMap[] maps)
 		{
 			if (maps != null && maps.Length > 0) { foreach (TileEdMap map in maps) GameObject.DestroyImmediate(map.gameObject); }
+
+			GameObject.FindAnyObjectByType<Camera>()?.gameObject?.SetActive(false);
+			Lightmapping.Bake();
 			EditorSceneManager.MarkAllScenesDirty();
 			EditorSceneManager.SaveOpenScenes();
 			AssetDatabase.Refresh();

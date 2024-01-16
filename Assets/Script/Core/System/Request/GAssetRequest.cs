@@ -101,7 +101,7 @@ namespace SGame
             loadState = LoadState.Loaded;
         }
 
-        internal  virtual void Unload()
+        public  virtual void Unload()
         {
             //if (asset == null)
             //    return;

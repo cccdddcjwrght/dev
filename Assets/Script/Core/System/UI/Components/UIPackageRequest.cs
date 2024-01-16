@@ -167,7 +167,7 @@ namespace SGame.UI
             loadState = LoadState.LoadAssetBundle;
         }
 
-        internal override void Unload()
+        public override void Unload()
         {
             UIPackage.RemovePackage(name);
             if (descBundle != null)

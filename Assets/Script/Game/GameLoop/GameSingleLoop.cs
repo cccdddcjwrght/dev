@@ -48,6 +48,10 @@ namespace SGame
 			
 			m_loginModule = new LoginModuleSingle(world);
 			m_gameModule = new GameModuleSingle(world, m_resourceManager,  randomSystem);
+
+			//场景加载
+			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUI, UIUtils.CloseUI);
+
 		}
 
 		/// <summary>
