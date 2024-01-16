@@ -25,9 +25,14 @@ namespace SGame.UI{
 			m_text = context.content.GetChild("n4").asTextField;
 			context.onUpdate += onUpdate;
 			m_fiber = new Fiber(RunLogic(context));
-            
-			// 获得参数
-			m_waitTime = (float)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
+
+			var param = context.GetParam();
+			if(param!=null )
+			{
+				// 获得参数
+				m_waitTime = (float)param.Value;
+			}
+
 		}
 
 		IEnumerator RunLogic(UIContext context)

@@ -56,6 +56,7 @@ namespace GameTools.Maps
 
 		public Vector2Int gridSize { get { return new Vector2Int(stepX, stepY); } }
 		public Dictionary<string, List<int>> tags { get; set; }
+		public Dictionary<string, List<int[]>> builds { get; set; }
 		public List<int> walkables { get; set; }
 
 
@@ -113,6 +114,7 @@ namespace GameTools.Maps
 			if (cells != null && (tags == null || walkables == null))
 			{
 				tags = new Dictionary<string, List<int>>();
+				builds = new Dictionary<string, List<int[]>>();
 				walkables = new List<int>();
 
 				for (int i = 0; i < cells.Count; i++)
@@ -126,6 +128,19 @@ namespace GameTools.Maps
 							ls.Add(cell.index);
 						}
 					}
+
+					if (cell.builds?.Count > 0)
+					{
+						for (int j = 0; j < cell.builds.Count; j++)
+						{
+							var d = cell.GetDataSetByBuildName(cell.builds[j]);
+							var name = d.GetValByPath("itemid");
+							if (string.IsNullOrEmpty(name)) continue;
+							if (builds.TryGetValue(name, out var ls)) builds[name] = ls = new List<int[]>();
+							ls.Add(new int[] { cell.index, d });
+						}
+					}
+
 					if (cell.walkcost >= 0 && cell.flag)
 						walkables.Add(cell.index);
 
@@ -285,7 +300,7 @@ namespace GameTools.Maps
 			return default;
 		}
 
-		public List<int> GetIDListByBuild(string build)
+		public List<int> GetIDListByBuild(string buildName)
 		{
 			if (tags.TryGetValue(tag, out var cs) && cs.Count > 0)
 			{
@@ -293,7 +308,15 @@ namespace GameTools.Maps
 				for (int i = 0; i < cs.Count; i++)
 				{
 					var c = GetCell(cs[i]);
-					if (c != null) { }
+					if (c != null && c.builds?.Count > 0)
+					{
+						c.builds.ForEach(b =>
+						{
+							var d = c.GetDataSetByBuildName(b);
+							string n = d.GetVal("itemid");
+							if (n == buildName) ls.Add(d.i_val);
+						});
+					}
 				}
 				return ls;
 			}

@@ -51,6 +51,8 @@ namespace SGame
 
 			//场景加载
 			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUI, UIUtils.CloseUI);
+			//餐厅管理
+			SGame.Dining.DiningRoomSystem.Instance.Init();
 
 		}
 

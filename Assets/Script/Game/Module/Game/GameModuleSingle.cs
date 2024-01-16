@@ -38,9 +38,7 @@ namespace SGame
         IEnumerator Logic()
         {
 			//临时场景加载
-			var req = SceneSystemV2.Instance.Load("Level01");
-			req.logic = default;
-			yield return req;
+			yield return Dining.DiningRoomSystem.Instance.LoadRoom(1);
 
             var prefab = m_resourceManager.LoadPrefab(script);
             var go = GameObject.Instantiate(prefab);
