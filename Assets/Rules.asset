@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 169
+  version: 179
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
@@ -54,10 +54,6 @@ MonoBehaviour:
     searchPattern: '*.bytes'
     nameBy: 1
     assetBundleName: 
-  - searchPath: Assets/BuildAsset/AOTMeta
-    searchPattern: '*.bytes'
-    nameBy: 0
-    assetBundleName: aotmeta
   - searchPath: Assets/BuildAsset/Log
     searchPattern: '*.bytes'
     nameBy: 1
@@ -73,6 +69,204 @@ MonoBehaviour:
   ruleAssets:
   - bundle: assets/buildasset/audio/mixer.unity3d
     path: assets/buildasset/audio/mixer/game.mixer
+  - bundle: assets/buildasset/code/aot/3rd.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/3rd.dll.bytes
+  - bundle: assets/buildasset/code/aot/aot.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/aot.dll.bytes
+  - bundle: assets/buildasset/code/aot/assembly-csharp-firstpass.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/assembly-csharp-firstpass.dll.bytes
+  - bundle: assets/buildasset/code/aot/assembly-csharp.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/assembly-csharp.dll.bytes
+  - bundle: assets/buildasset/code/aot/cinemachine.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/cinemachine.dll.bytes
+  - bundle: assets/buildasset/code/aot/cmds.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/cmds.dll.bytes
+  - bundle: assets/buildasset/code/aot/core.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/core.dll.bytes
+  - bundle: assets/buildasset/code/aot/dataset.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/dataset.dll.bytes
+  - bundle: assets/buildasset/code/aot/fairygui.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/fairygui.dll.bytes
+  - bundle: assets/buildasset/code/aot/flatbuffers.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/flatbuffers.dll.bytes
+  - bundle: assets/buildasset/code/aot/google.protobuf.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/google.protobuf.dll.bytes
+  - bundle: assets/buildasset/code/aot/hdgremotedebugruntime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/hdgremotedebugruntime.dll.bytes
+  - bundle: assets/buildasset/code/aot/hybridclr.runtime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/hybridclr.runtime.dll.bytes
+  - bundle: assets/buildasset/code/aot/log4net.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/log4net.dll.bytes
+  - bundle: assets/buildasset/code/aot/mono.security.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/mono.security.dll.bytes
+  - bundle: assets/buildasset/code/aot/mscorlib.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/mscorlib.dll.bytes
+  - bundle: assets/buildasset/code/aot/plylib.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/plylib.dll.bytes
+  - bundle: assets/buildasset/code/aot/sirenix.odininspector.attributes.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/sirenix.odininspector.attributes.dll.bytes
+  - bundle: assets/buildasset/code/aot/sirenix.serialization.config.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/sirenix.serialization.config.dll.bytes
+  - bundle: assets/buildasset/code/aot/sirenix.serialization.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/sirenix.serialization.dll.bytes
+  - bundle: assets/buildasset/code/aot/sirenix.utilities.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/sirenix.utilities.dll.bytes
+  - bundle: assets/buildasset/code/aot/startup.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/startup.dll.bytes
+  - bundle: assets/buildasset/code/aot/system.configuration.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/system.configuration.dll.bytes
+  - bundle: assets/buildasset/code/aot/system.core.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/system.core.dll.bytes
+  - bundle: assets/buildasset/code/aot/system.data.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/system.data.dll.bytes
+  - bundle: assets/buildasset/code/aot/system.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/system.dll.bytes
+  - bundle: assets/buildasset/code/aot/system.numerics.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/system.numerics.dll.bytes
+  - bundle: assets/buildasset/code/aot/system.web.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/system.web.dll.bytes
+  - bundle: assets/buildasset/code/aot/system.xml.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/system.xml.dll.bytes
+  - bundle: assets/buildasset/code/aot/thinkinganalytics.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/thinkinganalytics.dll.bytes
+  - bundle: assets/buildasset/code/aot/tileedruntime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/tileedruntime.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.2d.animation.runtime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.2d.animation.runtime.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.burst.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.burst.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.burst.unsafe.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.burst.unsafe.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.collections.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.collections.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.collections.lowlevel.ilsupport.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.collections.lowlevel.ilsupport.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.deformations.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.deformations.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.entities.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.entities.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.entities.hybrid.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.entities.hybrid.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.entities.hybrid.hybridcomponents.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.entities.hybrid.hybridcomponents.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.internalapienginebridge.001.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.internalapienginebridge.001.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.mathematics.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.mathematics.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.mathematics.extensions.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.mathematics.extensions.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.mathematics.extensions.hybrid.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.mathematics.extensions.hybrid.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.properties.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.properties.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.rendering.hybrid.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.rendering.hybrid.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.renderpipeline.universal.shaderlibrary.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.renderpipeline.universal.shaderlibrary.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.renderpipelines.core.runtime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.renderpipelines.core.runtime.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.renderpipelines.universal.runtime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.renderpipelines.universal.runtime.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.scenes.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.scenes.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.serialization.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.serialization.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.textmeshpro.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.textmeshpro.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.timeline.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.timeline.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.transforms.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.transforms.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.transforms.hybrid.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.transforms.hybrid.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.visualscripting.antlr3.runtime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.visualscripting.antlr3.runtime.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.visualscripting.core.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.visualscripting.core.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.visualscripting.flow.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.visualscripting.flow.dll.bytes
+  - bundle: assets/buildasset/code/aot/unity.visualscripting.state.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unity.visualscripting.state.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.aimodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.aimodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.androidjnimodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.androidjnimodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.animationmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.animationmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.assetbundlemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.assetbundlemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.audiomodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.audiomodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.coremodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.coremodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.directormodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.directormodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.gridmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.gridmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.imageconversionmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.imageconversionmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.imguimodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.imguimodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.inputlegacymodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.inputlegacymodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.inputmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.inputmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.jsonserializemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.jsonserializemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.particlesystemmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.particlesystemmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.physics2dmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.physics2dmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.physicsmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.physicsmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.sharedinternalsmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.sharedinternalsmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.spriteshapemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.spriteshapemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.subsystemsmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.subsystemsmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.terrainmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.terrainmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.textcorefontenginemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.textcorefontenginemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.textcoretextenginemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.textcoretextenginemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.textrenderingmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.textrenderingmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.tilemapmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.tilemapmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.ui.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.ui.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.uielementsmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.uielementsmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.uielementsnativemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.uielementsnativemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.uimodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.uimodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.unityanalyticsmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.unityanalyticsmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.unitywebrequestassetbundlemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.unitywebrequestassetbundlemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.unitywebrequestaudiomodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.unitywebrequestaudiomodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.unitywebrequestmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.unitywebrequestmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.unitywebrequesttexturemodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.unitywebrequesttexturemodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.unitywebrequestwwwmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.unitywebrequestwwwmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.vfxmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.vfxmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.videomodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.videomodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.vrmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.vrmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/unityengine.xrmodule.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/unityengine.xrmodule.dll.bytes
+  - bundle: assets/buildasset/code/aot/xasset.runtime.dll.bytes.unity3d
+    path: assets/buildasset/code/aot/xasset.runtime.dll.bytes
   - bundle: assets/buildasset/code/game.dll.bytes.unity3d
     path: assets/buildasset/code/game.dll.bytes
   - bundle: assets/buildasset/code/hotfix.dll.bytes.unity3d
@@ -321,6 +515,303 @@ MonoBehaviour:
   - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
     assets:
     - assets/buildasset/code/hotfix.dll.bytes
+  - name: assets/buildasset/code/aot/3rd.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/3rd.dll.bytes
+  - name: assets/buildasset/code/aot/aot.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/aot.dll.bytes
+  - name: assets/buildasset/code/aot/assembly-csharp-firstpass.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/assembly-csharp-firstpass.dll.bytes
+  - name: assets/buildasset/code/aot/assembly-csharp.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/assembly-csharp.dll.bytes
+  - name: assets/buildasset/code/aot/cinemachine.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/cinemachine.dll.bytes
+  - name: assets/buildasset/code/aot/cmds.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/cmds.dll.bytes
+  - name: assets/buildasset/code/aot/core.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/core.dll.bytes
+  - name: assets/buildasset/code/aot/dataset.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/dataset.dll.bytes
+  - name: assets/buildasset/code/aot/fairygui.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/fairygui.dll.bytes
+  - name: assets/buildasset/code/aot/flatbuffers.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/flatbuffers.dll.bytes
+  - name: assets/buildasset/code/aot/google.protobuf.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/google.protobuf.dll.bytes
+  - name: assets/buildasset/code/aot/hdgremotedebugruntime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/hdgremotedebugruntime.dll.bytes
+  - name: assets/buildasset/code/aot/hybridclr.runtime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/hybridclr.runtime.dll.bytes
+  - name: assets/buildasset/code/aot/log4net.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/log4net.dll.bytes
+  - name: assets/buildasset/code/aot/mono.security.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/mono.security.dll.bytes
+  - name: assets/buildasset/code/aot/mscorlib.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/mscorlib.dll.bytes
+  - name: assets/buildasset/code/aot/plylib.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/plylib.dll.bytes
+  - name: assets/buildasset/code/aot/sirenix.odininspector.attributes.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/sirenix.odininspector.attributes.dll.bytes
+  - name: assets/buildasset/code/aot/sirenix.serialization.config.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/sirenix.serialization.config.dll.bytes
+  - name: assets/buildasset/code/aot/sirenix.serialization.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/sirenix.serialization.dll.bytes
+  - name: assets/buildasset/code/aot/sirenix.utilities.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/sirenix.utilities.dll.bytes
+  - name: assets/buildasset/code/aot/startup.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/startup.dll.bytes
+  - name: assets/buildasset/code/aot/system.configuration.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/system.configuration.dll.bytes
+  - name: assets/buildasset/code/aot/system.core.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/system.core.dll.bytes
+  - name: assets/buildasset/code/aot/system.data.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/system.data.dll.bytes
+  - name: assets/buildasset/code/aot/system.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/system.dll.bytes
+  - name: assets/buildasset/code/aot/system.numerics.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/system.numerics.dll.bytes
+  - name: assets/buildasset/code/aot/system.web.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/system.web.dll.bytes
+  - name: assets/buildasset/code/aot/system.xml.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/system.xml.dll.bytes
+  - name: assets/buildasset/code/aot/thinkinganalytics.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/thinkinganalytics.dll.bytes
+  - name: assets/buildasset/code/aot/tileedruntime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/tileedruntime.dll.bytes
+  - name: assets/buildasset/code/aot/unity.2d.animation.runtime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.2d.animation.runtime.dll.bytes
+  - name: assets/buildasset/code/aot/unity.burst.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.burst.dll.bytes
+  - name: assets/buildasset/code/aot/unity.burst.unsafe.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.burst.unsafe.dll.bytes
+  - name: assets/buildasset/code/aot/unity.collections.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.collections.dll.bytes
+  - name: assets/buildasset/code/aot/unity.collections.lowlevel.ilsupport.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.collections.lowlevel.ilsupport.dll.bytes
+  - name: assets/buildasset/code/aot/unity.deformations.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.deformations.dll.bytes
+  - name: assets/buildasset/code/aot/unity.entities.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.entities.dll.bytes
+  - name: assets/buildasset/code/aot/unity.entities.hybrid.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.entities.hybrid.dll.bytes
+  - name: assets/buildasset/code/aot/unity.entities.hybrid.hybridcomponents.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.entities.hybrid.hybridcomponents.dll.bytes
+  - name: assets/buildasset/code/aot/unity.internalapienginebridge.001.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.internalapienginebridge.001.dll.bytes
+  - name: assets/buildasset/code/aot/unity.mathematics.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.mathematics.dll.bytes
+  - name: assets/buildasset/code/aot/unity.mathematics.extensions.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.mathematics.extensions.dll.bytes
+  - name: assets/buildasset/code/aot/unity.mathematics.extensions.hybrid.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.mathematics.extensions.hybrid.dll.bytes
+  - name: assets/buildasset/code/aot/unity.properties.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.properties.dll.bytes
+  - name: assets/buildasset/code/aot/unity.rendering.hybrid.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.rendering.hybrid.dll.bytes
+  - name: assets/buildasset/code/aot/unity.renderpipeline.universal.shaderlibrary.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.renderpipeline.universal.shaderlibrary.dll.bytes
+  - name: assets/buildasset/code/aot/unity.renderpipelines.core.runtime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.renderpipelines.core.runtime.dll.bytes
+  - name: assets/buildasset/code/aot/unity.renderpipelines.universal.runtime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.renderpipelines.universal.runtime.dll.bytes
+  - name: assets/buildasset/code/aot/unity.scenes.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.scenes.dll.bytes
+  - name: assets/buildasset/code/aot/unity.serialization.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.serialization.dll.bytes
+  - name: assets/buildasset/code/aot/unity.textmeshpro.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.textmeshpro.dll.bytes
+  - name: assets/buildasset/code/aot/unity.timeline.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.timeline.dll.bytes
+  - name: assets/buildasset/code/aot/unity.transforms.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.transforms.dll.bytes
+  - name: assets/buildasset/code/aot/unity.transforms.hybrid.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.transforms.hybrid.dll.bytes
+  - name: assets/buildasset/code/aot/unity.visualscripting.antlr3.runtime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.visualscripting.antlr3.runtime.dll.bytes
+  - name: assets/buildasset/code/aot/unity.visualscripting.core.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.visualscripting.core.dll.bytes
+  - name: assets/buildasset/code/aot/unity.visualscripting.flow.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.visualscripting.flow.dll.bytes
+  - name: assets/buildasset/code/aot/unity.visualscripting.state.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unity.visualscripting.state.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.aimodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.aimodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.androidjnimodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.androidjnimodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.animationmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.animationmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.assetbundlemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.assetbundlemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.audiomodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.audiomodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.coremodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.coremodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.directormodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.directormodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.gridmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.gridmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.imageconversionmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.imageconversionmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.imguimodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.imguimodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.inputlegacymodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.inputlegacymodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.inputmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.inputmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.jsonserializemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.jsonserializemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.particlesystemmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.particlesystemmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.physics2dmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.physics2dmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.physicsmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.physicsmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.sharedinternalsmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.sharedinternalsmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.spriteshapemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.spriteshapemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.subsystemsmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.subsystemsmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.terrainmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.terrainmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.textcorefontenginemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.textcorefontenginemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.textcoretextenginemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.textcoretextenginemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.textrenderingmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.textrenderingmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.tilemapmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.tilemapmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.ui.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.ui.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.uielementsmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.uielementsmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.uielementsnativemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.uielementsnativemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.uimodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.uimodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.unityanalyticsmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.unityanalyticsmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestassetbundlemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.unitywebrequestassetbundlemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestaudiomodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.unitywebrequestaudiomodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.unitywebrequestmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequesttexturemodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.unitywebrequesttexturemodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestwwwmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.unitywebrequestwwwmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.vfxmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.vfxmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.videomodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.videomodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.vrmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.vrmodule.dll.bytes
+  - name: assets/buildasset/code/aot/unityengine.xrmodule.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/unityengine.xrmodule.dll.bytes
+  - name: assets/buildasset/code/aot/xasset.runtime.dll.bytes.unity3d
+    assets:
+    - assets/buildasset/code/aot/xasset.runtime.dll.bytes
   - name: assets/buildasset/log/log4net.xml.bytes.unity3d
     assets:
     - assets/buildasset/log/log4net.xml.bytes

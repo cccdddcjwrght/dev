@@ -15,6 +15,7 @@ MonoBehaviour:
   activeVariants: []
   dirs:
   - assets/buildasset/audio/mixer
+  - assets/buildasset/code/aot
   - assets/buildasset/code
   - assets/buildasset/configs
   - assets/buildasset/customcharacters
@@ -31,561 +32,1353 @@ MonoBehaviour:
   - name: game.mixer
     bundle: 5
     dir: 0
-  - name: game.dll.bytes
+  - name: 3rd.dll.bytes
     bundle: 6
     dir: 1
-  - name: hotfix.dll.bytes
+  - name: aot.dll.bytes
     bundle: 7
     dir: 1
-  - name: bet.bytes
-    bundle: 55
-    dir: 2
-  - name: build_bank.bytes
-    bundle: 55
-    dir: 2
-  - name: build_chancecard.bytes
-    bundle: 55
-    dir: 2
-  - name: build_coin.bytes
-    bundle: 55
-    dir: 2
-  - name: build_game.bytes
-    bundle: 55
-    dir: 2
-  - name: build_house.bytes
-    bundle: 55
-    dir: 2
-  - name: build_trap.bytes
-    bundle: 55
-    dir: 2
-  - name: build_visit.bytes
-    bundle: 55
-    dir: 2
-  - name: design_global.bytes
-    bundle: 55
-    dir: 2
-  - name: equip.bytes
-    bundle: 55
-    dir: 2
-  - name: event_build.bytes
-    bundle: 55
-    dir: 2
-  - name: event_group.bytes
-    bundle: 55
-    dir: 2
-  - name: event_part.bytes
-    bundle: 55
-    dir: 2
-  - name: game_event.bytes
-    bundle: 55
-    dir: 2
-  - name: game_function.bytes
-    bundle: 55
-    dir: 2
-  - name: game_global.bytes
-    bundle: 55
-    dir: 2
-  - name: grid.bytes
-    bundle: 55
-    dir: 2
-  - name: grid_path.bytes
-    bundle: 55
-    dir: 2
-  - name: item.bytes
-    bundle: 55
-    dir: 2
-  - name: item_chancecard.bytes
-    bundle: 55
-    dir: 2
-  - name: language_chn.bytes
-    bundle: 55
-    dir: 2
-  - name: language_en.bytes
-    bundle: 55
-    dir: 2
-  - name: language_hi.bytes
-    bundle: 55
-    dir: 2
-  - name: travel_event.bytes
-    bundle: 55
-    dir: 2
-  - name: ui_groups.bytes
-    bundle: 55
-    dir: 2
-  - name: ui_res.bytes
-    bundle: 55
-    dir: 2
-  - name: characterelementdatabase.asset
+  - name: assembly-csharp-firstpass.dll.bytes
     bundle: 8
-    dir: 3
-  - name: characterbase.prefab
+    dir: 1
+  - name: assembly-csharp.dll.bytes
     bundle: 9
-    dir: 4
-  - name: eyes.prefab
+    dir: 1
+  - name: cinemachine.dll.bytes
     bundle: 10
-    dir: 4
-  - name: eyes_mesh.asset
+    dir: 1
+  - name: cmds.dll.bytes
     bundle: 11
-    dir: 4
-  - name: face-1.prefab
+    dir: 1
+  - name: core.dll.bytes
     bundle: 12
-    dir: 4
-  - name: face-1_mesh.asset
+    dir: 1
+  - name: dataset.dll.bytes
     bundle: 13
-    dir: 4
-  - name: face-2.prefab
+    dir: 1
+  - name: fairygui.dll.bytes
     bundle: 14
-    dir: 4
-  - name: face-2_mesh.asset
+    dir: 1
+  - name: flatbuffers.dll.bytes
     bundle: 15
-    dir: 4
-  - name: hair-1.prefab
+    dir: 1
+  - name: google.protobuf.dll.bytes
     bundle: 16
-    dir: 4
-  - name: hair-1_mesh.asset
+    dir: 1
+  - name: hdgremotedebugruntime.dll.bytes
     bundle: 17
-    dir: 4
-  - name: hair-2.prefab
+    dir: 1
+  - name: hybridclr.runtime.dll.bytes
     bundle: 18
-    dir: 4
-  - name: hair-2_mesh.asset
+    dir: 1
+  - name: log4net.dll.bytes
     bundle: 19
-    dir: 4
-  - name: pants-1.prefab
+    dir: 1
+  - name: mono.security.dll.bytes
     bundle: 20
-    dir: 4
-  - name: pants-1_mesh.asset
+    dir: 1
+  - name: mscorlib.dll.bytes
     bundle: 21
-    dir: 4
-  - name: pants-2.prefab
+    dir: 1
+  - name: plylib.dll.bytes
     bundle: 22
-    dir: 4
-  - name: pants-2_mesh.asset
+    dir: 1
+  - name: sirenix.odininspector.attributes.dll.bytes
     bundle: 23
-    dir: 4
-  - name: shoes-1.prefab
+    dir: 1
+  - name: sirenix.serialization.config.dll.bytes
     bundle: 24
-    dir: 4
-  - name: shoes-1_mesh.asset
+    dir: 1
+  - name: sirenix.serialization.dll.bytes
     bundle: 25
-    dir: 4
-  - name: shoes-2.prefab
+    dir: 1
+  - name: sirenix.utilities.dll.bytes
     bundle: 26
-    dir: 4
-  - name: shoes-2_mesh.asset
+    dir: 1
+  - name: startup.dll.bytes
     bundle: 27
-    dir: 4
-  - name: top-1.prefab
+    dir: 1
+  - name: system.configuration.dll.bytes
     bundle: 28
-    dir: 4
-  - name: top-1_mesh.asset
+    dir: 1
+  - name: system.core.dll.bytes
     bundle: 29
-    dir: 4
-  - name: top-2.prefab
+    dir: 1
+  - name: system.data.dll.bytes
     bundle: 30
-    dir: 4
-  - name: top-2_mesh.asset
+    dir: 1
+  - name: system.dll.bytes
     bundle: 31
-    dir: 4
-  - name: body-1.prefab
+    dir: 1
+  - name: system.numerics.dll.bytes
     bundle: 32
-    dir: 5
-  - name: body-1_mesh.asset
+    dir: 1
+  - name: system.web.dll.bytes
     bundle: 33
-    dir: 5
-  - name: characterbase.prefab
+    dir: 1
+  - name: system.xml.dll.bytes
     bundle: 34
-    dir: 5
-  - name: clothes-1.prefab
+    dir: 1
+  - name: thinkinganalytics.dll.bytes
     bundle: 35
-    dir: 5
-  - name: clothes-1_mesh.asset
+    dir: 1
+  - name: tileedruntime.dll.bytes
     bundle: 36
-    dir: 5
-  - name: clothes-2.prefab
+    dir: 1
+  - name: unity.2d.animation.runtime.dll.bytes
     bundle: 37
-    dir: 5
-  - name: clothes-2_mesh.asset
+    dir: 1
+  - name: unity.burst.dll.bytes
     bundle: 38
+    dir: 1
+  - name: unity.burst.unsafe.dll.bytes
+    bundle: 39
+    dir: 1
+  - name: unity.collections.dll.bytes
+    bundle: 40
+    dir: 1
+  - name: unity.collections.lowlevel.ilsupport.dll.bytes
+    bundle: 41
+    dir: 1
+  - name: unity.deformations.dll.bytes
+    bundle: 42
+    dir: 1
+  - name: unity.entities.dll.bytes
+    bundle: 43
+    dir: 1
+  - name: unity.entities.hybrid.dll.bytes
+    bundle: 44
+    dir: 1
+  - name: unity.entities.hybrid.hybridcomponents.dll.bytes
+    bundle: 45
+    dir: 1
+  - name: unity.internalapienginebridge.001.dll.bytes
+    bundle: 46
+    dir: 1
+  - name: unity.mathematics.dll.bytes
+    bundle: 47
+    dir: 1
+  - name: unity.mathematics.extensions.dll.bytes
+    bundle: 48
+    dir: 1
+  - name: unity.mathematics.extensions.hybrid.dll.bytes
+    bundle: 49
+    dir: 1
+  - name: unity.properties.dll.bytes
+    bundle: 50
+    dir: 1
+  - name: unity.rendering.hybrid.dll.bytes
+    bundle: 51
+    dir: 1
+  - name: unity.renderpipeline.universal.shaderlibrary.dll.bytes
+    bundle: 52
+    dir: 1
+  - name: unity.renderpipelines.core.runtime.dll.bytes
+    bundle: 53
+    dir: 1
+  - name: unity.renderpipelines.universal.runtime.dll.bytes
+    bundle: 54
+    dir: 1
+  - name: unity.scenes.dll.bytes
+    bundle: 55
+    dir: 1
+  - name: unity.serialization.dll.bytes
+    bundle: 56
+    dir: 1
+  - name: unity.textmeshpro.dll.bytes
+    bundle: 57
+    dir: 1
+  - name: unity.timeline.dll.bytes
+    bundle: 58
+    dir: 1
+  - name: unity.transforms.dll.bytes
+    bundle: 59
+    dir: 1
+  - name: unity.transforms.hybrid.dll.bytes
+    bundle: 60
+    dir: 1
+  - name: unity.visualscripting.antlr3.runtime.dll.bytes
+    bundle: 61
+    dir: 1
+  - name: unity.visualscripting.core.dll.bytes
+    bundle: 62
+    dir: 1
+  - name: unity.visualscripting.flow.dll.bytes
+    bundle: 63
+    dir: 1
+  - name: unity.visualscripting.state.dll.bytes
+    bundle: 64
+    dir: 1
+  - name: unityengine.aimodule.dll.bytes
+    bundle: 65
+    dir: 1
+  - name: unityengine.androidjnimodule.dll.bytes
+    bundle: 66
+    dir: 1
+  - name: unityengine.animationmodule.dll.bytes
+    bundle: 67
+    dir: 1
+  - name: unityengine.assetbundlemodule.dll.bytes
+    bundle: 68
+    dir: 1
+  - name: unityengine.audiomodule.dll.bytes
+    bundle: 69
+    dir: 1
+  - name: unityengine.coremodule.dll.bytes
+    bundle: 70
+    dir: 1
+  - name: unityengine.directormodule.dll.bytes
+    bundle: 71
+    dir: 1
+  - name: unityengine.dll.bytes
+    bundle: 72
+    dir: 1
+  - name: unityengine.gridmodule.dll.bytes
+    bundle: 73
+    dir: 1
+  - name: unityengine.imageconversionmodule.dll.bytes
+    bundle: 74
+    dir: 1
+  - name: unityengine.imguimodule.dll.bytes
+    bundle: 75
+    dir: 1
+  - name: unityengine.inputlegacymodule.dll.bytes
+    bundle: 76
+    dir: 1
+  - name: unityengine.inputmodule.dll.bytes
+    bundle: 77
+    dir: 1
+  - name: unityengine.jsonserializemodule.dll.bytes
+    bundle: 78
+    dir: 1
+  - name: unityengine.particlesystemmodule.dll.bytes
+    bundle: 79
+    dir: 1
+  - name: unityengine.physics2dmodule.dll.bytes
+    bundle: 80
+    dir: 1
+  - name: unityengine.physicsmodule.dll.bytes
+    bundle: 81
+    dir: 1
+  - name: unityengine.sharedinternalsmodule.dll.bytes
+    bundle: 82
+    dir: 1
+  - name: unityengine.spriteshapemodule.dll.bytes
+    bundle: 83
+    dir: 1
+  - name: unityengine.subsystemsmodule.dll.bytes
+    bundle: 84
+    dir: 1
+  - name: unityengine.terrainmodule.dll.bytes
+    bundle: 85
+    dir: 1
+  - name: unityengine.textcorefontenginemodule.dll.bytes
+    bundle: 86
+    dir: 1
+  - name: unityengine.textcoretextenginemodule.dll.bytes
+    bundle: 87
+    dir: 1
+  - name: unityengine.textrenderingmodule.dll.bytes
+    bundle: 88
+    dir: 1
+  - name: unityengine.tilemapmodule.dll.bytes
+    bundle: 89
+    dir: 1
+  - name: unityengine.ui.dll.bytes
+    bundle: 90
+    dir: 1
+  - name: unityengine.uielementsmodule.dll.bytes
+    bundle: 91
+    dir: 1
+  - name: unityengine.uielementsnativemodule.dll.bytes
+    bundle: 92
+    dir: 1
+  - name: unityengine.uimodule.dll.bytes
+    bundle: 93
+    dir: 1
+  - name: unityengine.unityanalyticsmodule.dll.bytes
+    bundle: 94
+    dir: 1
+  - name: unityengine.unitywebrequestassetbundlemodule.dll.bytes
+    bundle: 95
+    dir: 1
+  - name: unityengine.unitywebrequestaudiomodule.dll.bytes
+    bundle: 96
+    dir: 1
+  - name: unityengine.unitywebrequestmodule.dll.bytes
+    bundle: 97
+    dir: 1
+  - name: unityengine.unitywebrequesttexturemodule.dll.bytes
+    bundle: 98
+    dir: 1
+  - name: unityengine.unitywebrequestwwwmodule.dll.bytes
+    bundle: 99
+    dir: 1
+  - name: unityengine.vfxmodule.dll.bytes
+    bundle: 100
+    dir: 1
+  - name: unityengine.videomodule.dll.bytes
+    bundle: 101
+    dir: 1
+  - name: unityengine.vrmodule.dll.bytes
+    bundle: 102
+    dir: 1
+  - name: unityengine.xrmodule.dll.bytes
+    bundle: 103
+    dir: 1
+  - name: xasset.runtime.dll.bytes
+    bundle: 104
+    dir: 1
+  - name: game.dll.bytes
+    bundle: 105
+    dir: 2
+  - name: hotfix.dll.bytes
+    bundle: 106
+    dir: 2
+  - name: bet.bytes
+    bundle: 154
+    dir: 3
+  - name: build_bank.bytes
+    bundle: 154
+    dir: 3
+  - name: build_chancecard.bytes
+    bundle: 154
+    dir: 3
+  - name: build_coin.bytes
+    bundle: 154
+    dir: 3
+  - name: build_game.bytes
+    bundle: 154
+    dir: 3
+  - name: build_house.bytes
+    bundle: 154
+    dir: 3
+  - name: build_trap.bytes
+    bundle: 154
+    dir: 3
+  - name: build_visit.bytes
+    bundle: 154
+    dir: 3
+  - name: design_global.bytes
+    bundle: 154
+    dir: 3
+  - name: equip.bytes
+    bundle: 154
+    dir: 3
+  - name: event_build.bytes
+    bundle: 154
+    dir: 3
+  - name: event_group.bytes
+    bundle: 154
+    dir: 3
+  - name: event_part.bytes
+    bundle: 154
+    dir: 3
+  - name: game_event.bytes
+    bundle: 154
+    dir: 3
+  - name: game_function.bytes
+    bundle: 154
+    dir: 3
+  - name: game_global.bytes
+    bundle: 154
+    dir: 3
+  - name: grid.bytes
+    bundle: 154
+    dir: 3
+  - name: grid_path.bytes
+    bundle: 154
+    dir: 3
+  - name: item.bytes
+    bundle: 154
+    dir: 3
+  - name: item_chancecard.bytes
+    bundle: 154
+    dir: 3
+  - name: language_chn.bytes
+    bundle: 154
+    dir: 3
+  - name: language_en.bytes
+    bundle: 154
+    dir: 3
+  - name: language_hi.bytes
+    bundle: 154
+    dir: 3
+  - name: travel_event.bytes
+    bundle: 154
+    dir: 3
+  - name: ui_groups.bytes
+    bundle: 154
+    dir: 3
+  - name: ui_res.bytes
+    bundle: 154
+    dir: 3
+  - name: characterelementdatabase.asset
+    bundle: 107
+    dir: 4
+  - name: characterbase.prefab
+    bundle: 108
+    dir: 5
+  - name: eyes.prefab
+    bundle: 109
+    dir: 5
+  - name: eyes_mesh.asset
+    bundle: 110
+    dir: 5
+  - name: face-1.prefab
+    bundle: 111
+    dir: 5
+  - name: face-1_mesh.asset
+    bundle: 112
+    dir: 5
+  - name: face-2.prefab
+    bundle: 113
+    dir: 5
+  - name: face-2_mesh.asset
+    bundle: 114
     dir: 5
   - name: hair-1.prefab
-    bundle: 39
+    bundle: 115
     dir: 5
   - name: hair-1_mesh.asset
-    bundle: 40
+    bundle: 116
     dir: 5
   - name: hair-2.prefab
-    bundle: 41
+    bundle: 117
     dir: 5
   - name: hair-2_mesh.asset
-    bundle: 42
+    bundle: 118
     dir: 5
-  - name: makeup-0.prefab
-    bundle: 43
+  - name: pants-1.prefab
+    bundle: 119
     dir: 5
-  - name: makeup-0_mesh.asset
-    bundle: 44
+  - name: pants-1_mesh.asset
+    bundle: 120
     dir: 5
-  - name: makeup-1.prefab
-    bundle: 45
+  - name: pants-2.prefab
+    bundle: 121
     dir: 5
-  - name: makeup-1_mesh.asset
-    bundle: 46
+  - name: pants-2_mesh.asset
+    bundle: 122
     dir: 5
-  - name: log4net.xml.bytes
-    bundle: 47
+  - name: shoes-1.prefab
+    bundle: 123
+    dir: 5
+  - name: shoes-1_mesh.asset
+    bundle: 124
+    dir: 5
+  - name: shoes-2.prefab
+    bundle: 125
+    dir: 5
+  - name: shoes-2_mesh.asset
+    bundle: 126
+    dir: 5
+  - name: top-1.prefab
+    bundle: 127
+    dir: 5
+  - name: top-1_mesh.asset
+    bundle: 128
+    dir: 5
+  - name: top-2.prefab
+    bundle: 129
+    dir: 5
+  - name: top-2_mesh.asset
+    bundle: 130
+    dir: 5
+  - name: body-1.prefab
+    bundle: 131
     dir: 6
-  - name: weapon1.prefab
-    bundle: 56
+  - name: body-1_mesh.asset
+    bundle: 132
+    dir: 6
+  - name: characterbase.prefab
+    bundle: 133
+    dir: 6
+  - name: clothes-1.prefab
+    bundle: 134
+    dir: 6
+  - name: clothes-1_mesh.asset
+    bundle: 135
+    dir: 6
+  - name: clothes-2.prefab
+    bundle: 136
+    dir: 6
+  - name: clothes-2_mesh.asset
+    bundle: 137
+    dir: 6
+  - name: hair-1.prefab
+    bundle: 138
+    dir: 6
+  - name: hair-1_mesh.asset
+    bundle: 139
+    dir: 6
+  - name: hair-2.prefab
+    bundle: 140
+    dir: 6
+  - name: hair-2_mesh.asset
+    bundle: 141
+    dir: 6
+  - name: makeup-0.prefab
+    bundle: 142
+    dir: 6
+  - name: makeup-0_mesh.asset
+    bundle: 143
+    dir: 6
+  - name: makeup-1.prefab
+    bundle: 144
+    dir: 6
+  - name: makeup-1_mesh.asset
+    bundle: 145
+    dir: 6
+  - name: log4net.xml.bytes
+    bundle: 146
     dir: 7
-  - name: game.prefab
-    bundle: 56
+  - name: weapon1.prefab
+    bundle: 155
     dir: 8
-  - name: common_atlas0.png
-    bundle: 48
-    dir: 9
-  - name: common_fui.bytes
-    bundle: 48
-    dir: 9
-  - name: hotfix_atlas0.png
-    bundle: 49
-    dir: 9
-  - name: hotfix_fui.bytes
-    bundle: 49
-    dir: 9
-  - name: hud_fui.bytes
-    bundle: 50
-    dir: 9
-  - name: loading_atlas0.png
-    bundle: 51
-    dir: 9
-  - name: loading_fui.bytes
-    bundle: 51
-    dir: 9
-  - name: login_atlas0.png
-    bundle: 52
-    dir: 9
-  - name: login_fui.bytes
-    bundle: 52
-    dir: 9
-  - name: main_atlas0.png
-    bundle: 53
-    dir: 9
-  - name: main_fui.bytes
-    bundle: 53
-    dir: 9
-  - name: travel_atlas0.png
-    bundle: 54
-    dir: 9
-  - name: travel_atlas_f7ke3lad.png
-    bundle: 54
-    dir: 9
-  - name: travel_fui.bytes
-    bundle: 54
-    dir: 9
-  - name: game.asset
-    bundle: 57
-    dir: 10
-  - name: login.asset
-    bundle: 57
-    dir: 11
   - name: game.prefab
-    bundle: 57
-    dir: 12
-  - name: login.prefab
-    bundle: 57
-    dir: 12
-  - name: testevent.asset
-    bundle: 57
+    bundle: 155
+    dir: 9
+  - name: common_atlas0.png
+    bundle: 147
     dir: 10
+  - name: common_fui.bytes
+    bundle: 147
+    dir: 10
+  - name: hotfix_atlas0.png
+    bundle: 148
+    dir: 10
+  - name: hotfix_fui.bytes
+    bundle: 148
+    dir: 10
+  - name: hud_fui.bytes
+    bundle: 149
+    dir: 10
+  - name: loading_atlas0.png
+    bundle: 150
+    dir: 10
+  - name: loading_fui.bytes
+    bundle: 150
+    dir: 10
+  - name: login_atlas0.png
+    bundle: 151
+    dir: 10
+  - name: login_fui.bytes
+    bundle: 151
+    dir: 10
+  - name: main_atlas0.png
+    bundle: 152
+    dir: 10
+  - name: main_fui.bytes
+    bundle: 152
+    dir: 10
+  - name: travel_atlas0.png
+    bundle: 153
+    dir: 10
+  - name: travel_atlas_f7ke3lad.png
+    bundle: 153
+    dir: 10
+  - name: travel_fui.bytes
+    bundle: 153
+    dir: 10
+  - name: game.asset
+    bundle: 156
+    dir: 11
+  - name: login.asset
+    bundle: 156
+    dir: 12
+  - name: game.prefab
+    bundle: 156
+    dir: 13
+  - name: login.prefab
+    bundle: 156
+    dir: 13
+  - name: testevent.asset
+    bundle: 156
+    dir: 11
   bundles:
   - name: assets/buildasset/art/characters/role/role.fbx.unity3d
     id: 0
     deps: 01000000020000000300000004000000
-    len: 162632
-    hash: fa8317b72f4f9cf8f9815e90b2c7943b
+    len: 569370
+    hash: 26cdcc8375a87e8d77c8e35cf72e98a0
   - name: assets/buildasset/art/characters/role/textures/role_body-1_1.png.unity3d
     id: 1
     deps: 
-    len: 15173
-    hash: e512e12b78d881b86e9c1e8bc07952e6
+    len: 28989
+    hash: 5a7f863d30f5920a194a27f25389bb96
   - name: assets/buildasset/art/characters/role/textures/role_clothes-1.png.unity3d
     id: 2
     deps: 
-    len: 3863
-    hash: 55f8abcc36246f9e7dac2e3e08cc3ccd
+    len: 6723
+    hash: 2fc513ddde3616d6a50e580653c2da05
   - name: assets/buildasset/art/characters/role/textures/role_clothes-2.png.unity3d
     id: 3
     deps: 
-    len: 1570
-    hash: c3ebc5626b0068e76c3e06d6b83b4d48
+    len: 1653
+    hash: c27d3be92223333622b386fa0c58518e
   - name: assets/buildasset/art/characters/role/textures/role_makeup-1.png.unity3d
     id: 4
     deps: 
-    len: 4066
-    hash: 1dde5d25e8487c115c8e6d9c15b3e35c
+    len: 8706
+    hash: 9a42833bbb3b6991ae463d63861c73d0
   - name: assets/buildasset/audio/mixer.unity3d
     id: 5
     deps: 
     len: 2064
-    hash: f2744513e8788a111dfc8208e032c773
-  - name: assets/buildasset/code/game.dll.bytes.unity3d
+    hash: a7f7cf85174dcccd8bb841b9c6ff9743
+  - name: assets/buildasset/code/aot/3rd.dll.bytes.unity3d
     id: 6
     deps: 
-    len: 77418
-    hash: f408507e4a2760c185edf0b8d470afcf
-  - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
+    len: 25209
+    hash: 550579c72a6a9058a716e131fae0bfa8
+  - name: assets/buildasset/code/aot/aot.dll.bytes.unity3d
     id: 7
     deps: 
-    len: 10047
-    hash: ee840a8f7fafe879a59b9557e4d2e535
-  - name: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
+    len: 2061
+    hash: 1579677d31c8111d1ad53edc51bc79cf
+  - name: assets/buildasset/code/aot/assembly-csharp-firstpass.dll.bytes.unity3d
     id: 8
     deps: 
-    len: 1555
-    hash: a9c37716d19920033645fa88bcc09c72
-  - name: assets/buildasset/customcharacters/female/characterbase.prefab.unity3d
+    len: 2336
+    hash: 0bd19fe05a354d0e4301925023b3ea25
+  - name: assets/buildasset/code/aot/assembly-csharp.dll.bytes.unity3d
     id: 9
     deps: 
-    len: 652223
-    hash: 087752c1245bf46f3de53ac2bcd0a2fc
-  - name: assets/buildasset/customcharacters/female/eyes.prefab.unity3d
+    len: 11736
+    hash: 933ba51817156376ad5db418605cfd39
+  - name: assets/buildasset/code/aot/cinemachine.dll.bytes.unity3d
     id: 10
-    deps: 0b000000
-    len: 73497
-    hash: 9d64cca608d3f133f5f1e903cab5fc8f
-  - name: assets/buildasset/customcharacters/female/eyes_mesh.asset.unity3d
+    deps: 
+    len: 104202
+    hash: 055702dcf7ff7131b99628edf8741fa0
+  - name: assets/buildasset/code/aot/cmds.dll.bytes.unity3d
     id: 11
     deps: 
-    len: 4123
-    hash: 022d5f8b16267d11d59c5737972cde9b
-  - name: assets/buildasset/customcharacters/female/face-1.prefab.unity3d
+    len: 38013
+    hash: 8503d0f8e063da66273578f76e2901aa
+  - name: assets/buildasset/code/aot/core.dll.bytes.unity3d
     id: 12
-    deps: 0d000000
-    len: 215456
-    hash: 295ec8773e3679053513cfaa5b52fe09
-  - name: assets/buildasset/customcharacters/female/face-1_mesh.asset.unity3d
+    deps: 
+    len: 47244
+    hash: 034d4b5737a1f868e85a222ad25c6128
+  - name: assets/buildasset/code/aot/dataset.dll.bytes.unity3d
     id: 13
     deps: 
-    len: 15868
-    hash: 174d5cf3af7165c56984a8091f83d79d
-  - name: assets/buildasset/customcharacters/female/face-2.prefab.unity3d
+    len: 3657
+    hash: efcfa87bafa2709a622a8b70f3b4c5b6
+  - name: assets/buildasset/code/aot/fairygui.dll.bytes.unity3d
     id: 14
-    deps: 0f000000
-    len: 215035
-    hash: 3da96fe070635c2d34749161326f1aa2
-  - name: assets/buildasset/customcharacters/female/face-2_mesh.asset.unity3d
+    deps: 
+    len: 163566
+    hash: e8ba0da145447fc3f5c1df8e775e2b6d
+  - name: assets/buildasset/code/aot/flatbuffers.dll.bytes.unity3d
     id: 15
     deps: 
-    len: 16362
-    hash: 13d119be74dbe665707c6f6b346f9898
-  - name: assets/buildasset/customcharacters/female/hair-1.prefab.unity3d
+    len: 8894
+    hash: 2c5b124d5b4228d9170fe38de8ee4bd4
+  - name: assets/buildasset/code/aot/google.protobuf.dll.bytes.unity3d
     id: 16
-    deps: 11000000
-    len: 264107
-    hash: 773066125a8a7f1fcff5ecaf90eb3b2d
-  - name: assets/buildasset/customcharacters/female/hair-1_mesh.asset.unity3d
+    deps: 
+    len: 114753
+    hash: d4d3d9cc93f0ebe260e3792553ff0817
+  - name: assets/buildasset/code/aot/hdgremotedebugruntime.dll.bytes.unity3d
     id: 17
     deps: 
-    len: 12525
-    hash: aa62fcb2bb001ded08e0da4137bcd2ff
-  - name: assets/buildasset/customcharacters/female/hair-2.prefab.unity3d
+    len: 22129
+    hash: c12a577cf2006f83a5bb89e95f372aaa
+  - name: assets/buildasset/code/aot/hybridclr.runtime.dll.bytes.unity3d
     id: 18
-    deps: 13000000
-    len: 107730
-    hash: 61d0b21532caccd9bcc036fa56b54ac3
-  - name: assets/buildasset/customcharacters/female/hair-2_mesh.asset.unity3d
+    deps: 
+    len: 2385
+    hash: cf905c23f550ace6082410f411d15b09
+  - name: assets/buildasset/code/aot/log4net.dll.bytes.unity3d
     id: 19
     deps: 
-    len: 10272
-    hash: e209e40c3c2c369abebb70c88fdaface
-  - name: assets/buildasset/customcharacters/female/pants-1.prefab.unity3d
+    len: 82175
+    hash: d2cdeb9c24003e00d0a75f67aa77f036
+  - name: assets/buildasset/code/aot/mono.security.dll.bytes.unity3d
     id: 20
-    deps: 15000000
-    len: 345547
-    hash: e0e08abe38f8a2194e7f28b907bb3216
-  - name: assets/buildasset/customcharacters/female/pants-1_mesh.asset.unity3d
+    deps: 
+    len: 42754
+    hash: 5fabbdc3010b52a451e0516a20af2ea2
+  - name: assets/buildasset/code/aot/mscorlib.dll.bytes.unity3d
     id: 21
     deps: 
-    len: 9575
-    hash: b79a61ad5aad5241c625429dcb31f3a9
-  - name: assets/buildasset/customcharacters/female/pants-2.prefab.unity3d
+    len: 737993
+    hash: 0885e1d3e8c8f4407797afe7b8af8699
+  - name: assets/buildasset/code/aot/plylib.dll.bytes.unity3d
     id: 22
-    deps: 17000000
-    len: 330274
-    hash: 88babe30bdb0067a79753444adeafa41
-  - name: assets/buildasset/customcharacters/female/pants-2_mesh.asset.unity3d
+    deps: 
+    len: 6921
+    hash: 14dc7a02e10a9011cfcf1d5a13184c7a
+  - name: assets/buildasset/code/aot/sirenix.odininspector.attributes.dll.bytes.unity3d
     id: 23
     deps: 
-    len: 9413
-    hash: e698790a3a4cd6dce9344b54844fd939
-  - name: assets/buildasset/customcharacters/female/shoes-1.prefab.unity3d
+    len: 30691
+    hash: c9bde57f14d32dc45e3d43f0bcf8576d
+  - name: assets/buildasset/code/aot/sirenix.serialization.config.dll.bytes.unity3d
     id: 24
-    deps: 19000000
-    len: 168456
-    hash: 9aa655e26255353b1ba99d2719d6e690
-  - name: assets/buildasset/customcharacters/female/shoes-1_mesh.asset.unity3d
+    deps: 
+    len: 6675
+    hash: 532218055b129ce6dbda8b650cb1b48f
+  - name: assets/buildasset/code/aot/sirenix.serialization.dll.bytes.unity3d
     id: 25
     deps: 
-    len: 7028
-    hash: 40c70e08ca6ab66599458fcb9fdfa40c
-  - name: assets/buildasset/customcharacters/female/shoes-2.prefab.unity3d
+    len: 101768
+    hash: f0d441620c0150b0e61086434b61c981
+  - name: assets/buildasset/code/aot/sirenix.utilities.dll.bytes.unity3d
     id: 26
-    deps: 1b000000
-    len: 167676
-    hash: 58e4618e77dcddd2f4c09d5ac5fde5c3
-  - name: assets/buildasset/customcharacters/female/shoes-2_mesh.asset.unity3d
+    deps: 
+    len: 46534
+    hash: 7069078b685596b755f5f18c880e5aba
+  - name: assets/buildasset/code/aot/startup.dll.bytes.unity3d
     id: 27
     deps: 
-    len: 8496
-    hash: 90d0adf1d86b213d30fca92161bf9113
-  - name: assets/buildasset/customcharacters/female/top-1.prefab.unity3d
+    len: 5137
+    hash: d3a2ee2a20aa3e6f5e0e3ef51a8e65ef
+  - name: assets/buildasset/code/aot/system.configuration.dll.bytes.unity3d
     id: 28
-    deps: 1d000000
-    len: 282177
-    hash: dd76716fb0cf964d8ae13876f65698d8
-  - name: assets/buildasset/customcharacters/female/top-1_mesh.asset.unity3d
+    deps: 
+    len: 2858
+    hash: 6dba26d5f39b4a852ded756fd4cbfcfc
+  - name: assets/buildasset/code/aot/system.core.dll.bytes.unity3d
     id: 29
     deps: 
-    len: 27174
-    hash: e0e2f08c54095eba09fc6351430391be
-  - name: assets/buildasset/customcharacters/female/top-2.prefab.unity3d
+    len: 113612
+    hash: 1b0a0630b390570785cd359bcd52289b
+  - name: assets/buildasset/code/aot/system.data.dll.bytes.unity3d
     id: 30
-    deps: 1f000000
-    len: 375552
-    hash: e1c68a068a5179780e863ff830884ee4
-  - name: assets/buildasset/customcharacters/female/top-2_mesh.asset.unity3d
+    deps: 
+    len: 10499
+    hash: cc14f9d399609b9ae783fe647e4b1372
+  - name: assets/buildasset/code/aot/system.dll.bytes.unity3d
     id: 31
     deps: 
-    len: 36182
-    hash: 7cdd220ce9492664c26ad38a42eab24e
-  - name: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
+    len: 260315
+    hash: 48818dcbc4ef54e76a7f31148bb23186
+  - name: assets/buildasset/code/aot/system.numerics.dll.bytes.unity3d
     id: 32
-    deps: 000000000100000002000000030000000400000021000000
-    len: 31749
-    hash: a996786b0945ae121988c2bd622a70d8
-  - name: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
+    deps: 
+    len: 11644
+    hash: 943d74b8e65faa584f28d61639c74183
+  - name: assets/buildasset/code/aot/system.web.dll.bytes.unity3d
     id: 33
     deps: 
-    len: 9319
-    hash: 4a40c71ad9ac7bc977eb90ff5ac1f161
-  - name: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
+    len: 4890
+    hash: c01804b25734dbbc46dd6175e282eba0
+  - name: assets/buildasset/code/aot/system.xml.dll.bytes.unity3d
     id: 34
-    deps: 0000000001000000020000000300000004000000
-    len: 107314
-    hash: f64429e05997d123fb23f4e4e6641b65
-  - name: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
+    deps: 
+    len: 241086
+    hash: 93cb247843366ee58569c99be363ab62
+  - name: assets/buildasset/code/aot/thinkinganalytics.dll.bytes.unity3d
     id: 35
-    deps: 000000000100000002000000030000000400000024000000
-    len: 14767
-    hash: c9f17f48c01c2acb853d7e12460525c9
-  - name: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
+    deps: 
+    len: 19640
+    hash: 65712f1bed303936d022f7cc188688bc
+  - name: assets/buildasset/code/aot/tileedruntime.dll.bytes.unity3d
     id: 36
     deps: 
-    len: 4558
-    hash: 4a924cf801b94b055eb7055f28405785
-  - name: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
+    len: 7745
+    hash: ec9d11cd973277488ab22ae1b8e36ba6
+  - name: assets/buildasset/code/aot/unity.2d.animation.runtime.dll.bytes.unity3d
     id: 37
-    deps: 000000000100000002000000030000000400000026000000
-    len: 14723
-    hash: 788d7d902b2d6137b122c12ee84a3de1
-  - name: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
+    deps: 
+    len: 24125
+    hash: e6462b8b7c69d8ebdc5a856a440415ad
+  - name: assets/buildasset/code/aot/unity.burst.dll.bytes.unity3d
     id: 38
     deps: 
-    len: 4421
-    hash: 1e75489e68a41ac14a047a544a879b05
-  - name: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
+    len: 65711
+    hash: 60822d6d8e0b9202e85de2d83c802fbd
+  - name: assets/buildasset/code/aot/unity.burst.unsafe.dll.bytes.unity3d
     id: 39
-    deps: 000000000100000002000000030000000400000028000000
-    len: 20531
-    hash: 967ad1e202e60d48f86bfdaa1178b0a3
-  - name: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
+    deps: 
+    len: 2630
+    hash: 1c5fdc5044ada7dc23e1de044f44d5fa
+  - name: assets/buildasset/code/aot/unity.collections.dll.bytes.unity3d
     id: 40
     deps: 
-    len: 4540
-    hash: dd5aa4e519c80cac9c747ef8e04bc746
-  - name: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
+    len: 88762
+    hash: 7551bdf14745a336037de258bab8e03a
+  - name: assets/buildasset/code/aot/unity.collections.lowlevel.ilsupport.dll.bytes.unity3d
     id: 41
-    deps: 00000000010000000200000003000000040000002a000000
-    len: 22774
-    hash: d5c1710eed68432a06506a1bbbbe2a08
-  - name: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
+    deps: 
+    len: 1947
+    hash: 18c191e8093ab1a93e128a7f5f5c53c5
+  - name: assets/buildasset/code/aot/unity.deformations.dll.bytes.unity3d
     id: 42
     deps: 
-    len: 5350
-    hash: 3a9432d44869637d7c1ae88cd053a464
-  - name: assets/buildasset/customcharacters/role/makeup-0.prefab.unity3d
+    len: 1815
+    hash: f280387d966f47a27bb31062423cf065
+  - name: assets/buildasset/code/aot/unity.entities.dll.bytes.unity3d
     id: 43
-    deps: 2c000000
-    len: 75022
-    hash: ed606d2fc6d1c0c788e76af3f7ef1edb
-  - name: assets/buildasset/customcharacters/role/makeup-0_mesh.asset.unity3d
+    deps: 
+    len: 253513
+    hash: 1243264d64b2cb8f9cbee4a049bd4ea2
+  - name: assets/buildasset/code/aot/unity.entities.hybrid.dll.bytes.unity3d
     id: 44
     deps: 
-    len: 2315
-    hash: 270be0a8a05169ea2bc1774d58462ae2
-  - name: assets/buildasset/customcharacters/role/makeup-1.prefab.unity3d
+    len: 42996
+    hash: 99b99d48c0661175d4f84e85724bfd4c
+  - name: assets/buildasset/code/aot/unity.entities.hybrid.hybridcomponents.dll.bytes.unity3d
     id: 45
-    deps: 00000000010000000200000003000000040000002e000000
-    len: 14689
-    hash: 85befd2a6c6aa8af02cfe2df85dbc60b
-  - name: assets/buildasset/customcharacters/role/makeup-1_mesh.asset.unity3d
+    deps: 
+    len: 2279
+    hash: 02220084009684d9229008ee0a908d82
+  - name: assets/buildasset/code/aot/unity.internalapienginebridge.001.dll.bytes.unity3d
     id: 46
     deps: 
-    len: 4187
-    hash: 2f6f4c3127b07dfe0007eb855c902bc0
-  - name: assets/buildasset/log/log4net.xml.bytes.unity3d
+    len: 2281
+    hash: 2b7cf0729cc88ed5bc1142cb86f3a520
+  - name: assets/buildasset/code/aot/unity.mathematics.dll.bytes.unity3d
     id: 47
     deps: 
-    len: 1261
-    hash: 3aab5a42609767177d790c33b72705ac
-  - name: assets/buildasset/ui/common.unity3d
+    len: 116768
+    hash: eb5b715b82eaf70053c2eaf6430bba8d
+  - name: assets/buildasset/code/aot/unity.mathematics.extensions.dll.bytes.unity3d
     id: 48
     deps: 
-    len: 17904
-    hash: c69acaaaf83877292af03cbcc9479ae1
-  - name: assets/buildasset/ui/hotfix.unity3d
+    len: 3317
+    hash: cf77c696566716bff329f2b95a495cdf
+  - name: assets/buildasset/code/aot/unity.mathematics.extensions.hybrid.dll.bytes.unity3d
     id: 49
     deps: 
-    len: 194871
-    hash: ba29f9cf07d8f6419b485436aec60c92
-  - name: assets/buildasset/ui/hud.unity3d
+    len: 2033
+    hash: 273b152937b9265bad9fa13f1cdfa4d6
+  - name: assets/buildasset/code/aot/unity.properties.dll.bytes.unity3d
     id: 50
     deps: 
-    len: 1134
-    hash: d54996a76ff5f1d7161ca5f4c177102a
-  - name: assets/buildasset/ui/loading.unity3d
+    len: 32487
+    hash: df92d045d02d60f7505dab2904952e9c
+  - name: assets/buildasset/code/aot/unity.rendering.hybrid.dll.bytes.unity3d
     id: 51
     deps: 
-    len: 195000
-    hash: 00f6616bce011d7dc12a04bbdbdf06d0
-  - name: assets/buildasset/ui/login.unity3d
+    len: 60223
+    hash: 5e7d98786e10f3da2b45080ab96a5cec
+  - name: assets/buildasset/code/aot/unity.renderpipeline.universal.shaderlibrary.dll.bytes.unity3d
     id: 52
     deps: 
-    len: 193152
-    hash: 577319b2a7012f1965044b9f65ace5fe
-  - name: assets/buildasset/ui/main.unity3d
+    len: 3114
+    hash: d7070b47b676586ea8645eef69431581
+  - name: assets/buildasset/code/aot/unity.renderpipelines.core.runtime.dll.bytes.unity3d
     id: 53
     deps: 
-    len: 67432
-    hash: 2b30b106e5324b527d92e9631de5fd4b
-  - name: assets/buildasset/ui/travel.unity3d
+    len: 123536
+    hash: b3bf0449770faa43d79ec5223bfbd6f7
+  - name: assets/buildasset/code/aot/unity.renderpipelines.universal.runtime.dll.bytes.unity3d
     id: 54
     deps: 
-    len: 60274
-    hash: 45072f75e936520191ca1e054e3d1576
-  - name: configs.unity3d
+    len: 203425
+    hash: f4f1b0fb705c503d45031c2561300993
+  - name: assets/buildasset/code/aot/unity.scenes.dll.bytes.unity3d
     id: 55
     deps: 
-    len: 6032
-    hash: f5491b3eb259aaca7efe2ea4f87db859
-  - name: prefabs.unity3d
+    len: 32728
+    hash: a138badf451c4c4f1a7d8bd28954226c
+  - name: assets/buildasset/code/aot/unity.serialization.dll.bytes.unity3d
     id: 56
     deps: 
-    len: 2371
-    hash: 188c70ef1c6938bad7da20bc220e2b81
-  - name: visualscript.unity3d
+    len: 43113
+    hash: 2e5d979016e9fb048086f276a2b76bde
+  - name: assets/buildasset/code/aot/unity.textmeshpro.dll.bytes.unity3d
     id: 57
     deps: 
+    len: 106072
+    hash: 5f90ecfd0c45ba49523ebfebf79ec6f9
+  - name: assets/buildasset/code/aot/unity.timeline.dll.bytes.unity3d
+    id: 58
+    deps: 
+    len: 44392
+    hash: 0e70cd72a48b545f0f27ddcf10b3560f
+  - name: assets/buildasset/code/aot/unity.transforms.dll.bytes.unity3d
+    id: 59
+    deps: 
+    len: 15611
+    hash: 554b29b019d23fa1a05a2416c2d44bed
+  - name: assets/buildasset/code/aot/unity.transforms.hybrid.dll.bytes.unity3d
+    id: 60
+    deps: 
+    len: 8274
+    hash: 92fb32db75d7be1b0ccde454244ec632
+  - name: assets/buildasset/code/aot/unity.visualscripting.antlr3.runtime.dll.bytes.unity3d
+    id: 61
+    deps: 
+    len: 28887
+    hash: 1f6bb5bc29aa8278f986665fd86d5df0
+  - name: assets/buildasset/code/aot/unity.visualscripting.core.dll.bytes.unity3d
+    id: 62
+    deps: 
+    len: 143383
+    hash: 782af2b8e66cab7c824124c62ddcfe1e
+  - name: assets/buildasset/code/aot/unity.visualscripting.flow.dll.bytes.unity3d
+    id: 63
+    deps: 
+    len: 95387
+    hash: 71e066cd3ef8189a9f1febb749243587
+  - name: assets/buildasset/code/aot/unity.visualscripting.state.dll.bytes.unity3d
+    id: 64
+    deps: 
+    len: 10667
+    hash: eb9c651e8d8338fe665c8f86dd0360af
+  - name: assets/buildasset/code/aot/unityengine.aimodule.dll.bytes.unity3d
+    id: 65
+    deps: 
+    len: 3716
+    hash: cfd2be5668d56283e630a2845c9ea4c9
+  - name: assets/buildasset/code/aot/unityengine.androidjnimodule.dll.bytes.unity3d
+    id: 66
+    deps: 
+    len: 18371
+    hash: 7c673e06652e1994dd4648f1bfcdb92f
+  - name: assets/buildasset/code/aot/unityengine.animationmodule.dll.bytes.unity3d
+    id: 67
+    deps: 
+    len: 19196
+    hash: 5a91bf5517cfdd0f8bfba3468ec5b880
+  - name: assets/buildasset/code/aot/unityengine.assetbundlemodule.dll.bytes.unity3d
+    id: 68
+    deps: 
+    len: 4522
+    hash: a54911fd803baec33e245116aee251b1
+  - name: assets/buildasset/code/aot/unityengine.audiomodule.dll.bytes.unity3d
+    id: 69
+    deps: 
+    len: 7042
+    hash: 78a5b2c25d58dcab92fa335db63b1215
+  - name: assets/buildasset/code/aot/unityengine.coremodule.dll.bytes.unity3d
+    id: 70
+    deps: 
+    len: 185150
+    hash: 7e7de069893f76f67be98d0421c7506f
+  - name: assets/buildasset/code/aot/unityengine.directormodule.dll.bytes.unity3d
+    id: 71
+    deps: 
+    len: 4118
+    hash: 56c1c4e4768f77495254f54f5a11c86c
+  - name: assets/buildasset/code/aot/unityengine.dll.bytes.unity3d
+    id: 72
+    deps: 
+    len: 16985
+    hash: 7297dd4d117697cd5a7221274e9b387d
+  - name: assets/buildasset/code/aot/unityengine.gridmodule.dll.bytes.unity3d
+    id: 73
+    deps: 
+    len: 3435
+    hash: ece35a940be45312e7054afd9b16ec97
+  - name: assets/buildasset/code/aot/unityengine.imageconversionmodule.dll.bytes.unity3d
+    id: 74
+    deps: 
+    len: 3447
+    hash: 27ecc000a6b817fb7001e0433f95e892
+  - name: assets/buildasset/code/aot/unityengine.imguimodule.dll.bytes.unity3d
+    id: 75
+    deps: 
+    len: 45684
+    hash: 38ed49a74f6a6d32433461e74755258c
+  - name: assets/buildasset/code/aot/unityengine.inputlegacymodule.dll.bytes.unity3d
+    id: 76
+    deps: 
+    len: 7834
+    hash: 5e3da12ef1207a130069ba7cfb5e8db8
+  - name: assets/buildasset/code/aot/unityengine.inputmodule.dll.bytes.unity3d
+    id: 77
+    deps: 
+    len: 4089
+    hash: 245fc16df83c769079b29ff7acc465d9
+  - name: assets/buildasset/code/aot/unityengine.jsonserializemodule.dll.bytes.unity3d
+    id: 78
+    deps: 
+    len: 4148
+    hash: 6b4e3f7fbccb5cf3acb4f2a86ccf7f11
+  - name: assets/buildasset/code/aot/unityengine.particlesystemmodule.dll.bytes.unity3d
+    id: 79
+    deps: 
+    len: 5727
+    hash: e1ad2d59a5daf318e559f8a19d54511c
+  - name: assets/buildasset/code/aot/unityengine.physics2dmodule.dll.bytes.unity3d
+    id: 80
+    deps: 
+    len: 7396
+    hash: 12861f8caaf3354f7a61062cea465018
+  - name: assets/buildasset/code/aot/unityengine.physicsmodule.dll.bytes.unity3d
+    id: 81
+    deps: 
+    len: 8181
+    hash: a54c7f617f347f8f3c1bb49e55327f83
+  - name: assets/buildasset/code/aot/unityengine.sharedinternalsmodule.dll.bytes.unity3d
+    id: 82
+    deps: 
+    len: 5832
+    hash: 6c41b21f8a70dda1b73566b5987bedb0
+  - name: assets/buildasset/code/aot/unityengine.spriteshapemodule.dll.bytes.unity3d
+    id: 83
+    deps: 
+    len: 3332
+    hash: c7b8e20dd9fb9bbbf3c6580719afbc47
+  - name: assets/buildasset/code/aot/unityengine.subsystemsmodule.dll.bytes.unity3d
+    id: 84
+    deps: 
+    len: 5356
+    hash: 1e2769e74227c687ba09db65b2117b70
+  - name: assets/buildasset/code/aot/unityengine.terrainmodule.dll.bytes.unity3d
+    id: 85
+    deps: 
+    len: 6997
+    hash: ccb79f239df9a2ae40c8eb56e3a9c57b
+  - name: assets/buildasset/code/aot/unityengine.textcorefontenginemodule.dll.bytes.unity3d
+    id: 86
+    deps: 
+    len: 9196
+    hash: 667a525e545d11c962ec379b6eb11fd8
+  - name: assets/buildasset/code/aot/unityengine.textcoretextenginemodule.dll.bytes.unity3d
+    id: 87
+    deps: 
+    len: 52774
+    hash: 26199dce99c4a1fb1bc1cfa81aef5d5a
+  - name: assets/buildasset/code/aot/unityengine.textrenderingmodule.dll.bytes.unity3d
+    id: 88
+    deps: 
+    len: 8078
+    hash: 70ffadbc97f6eccfdc1b2b860fd5b170
+  - name: assets/buildasset/code/aot/unityengine.tilemapmodule.dll.bytes.unity3d
+    id: 89
+    deps: 
+    len: 6066
+    hash: f29127da4967063e70e9982be11ab617
+  - name: assets/buildasset/code/aot/unityengine.ui.dll.bytes.unity3d
+    id: 90
+    deps: 
+    len: 86578
+    hash: 711f8153ff7aacd870628671ae0eba4c
+  - name: assets/buildasset/code/aot/unityengine.uielementsmodule.dll.bytes.unity3d
+    id: 91
+    deps: 
+    len: 283235
+    hash: 9544183654c1535633c52ab35ff78b44
+  - name: assets/buildasset/code/aot/unityengine.uielementsnativemodule.dll.bytes.unity3d
+    id: 92
+    deps: 
+    len: 11958
+    hash: 3b7a6bc801e2448e63f01fccd1f92a59
+  - name: assets/buildasset/code/aot/unityengine.uimodule.dll.bytes.unity3d
+    id: 93
+    deps: 
+    len: 7763
+    hash: ebb516fd5e936d477cbe63209e0a7dff
+  - name: assets/buildasset/code/aot/unityengine.unityanalyticsmodule.dll.bytes.unity3d
+    id: 94
+    deps: 
+    len: 4344
+    hash: 27c6f824953b79e6f1112bb9108692a2
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestassetbundlemodule.dll.bytes.unity3d
+    id: 95
+    deps: 
+    len: 3993
+    hash: 20269d8f596bbb84cdc09bb5f6644b7d
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestaudiomodule.dll.bytes.unity3d
+    id: 96
+    deps: 
+    len: 3926
+    hash: 9b4760606bb819a4229b747015398c71
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestmodule.dll.bytes.unity3d
+    id: 97
+    deps: 
+    len: 15038
+    hash: 2d2d747fe68585e26c0edade8b394a07
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequesttexturemodule.dll.bytes.unity3d
+    id: 98
+    deps: 
+    len: 4065
+    hash: 25db38432a6b6ca2edc900b654bd51a1
+  - name: assets/buildasset/code/aot/unityengine.unitywebrequestwwwmodule.dll.bytes.unity3d
+    id: 99
+    deps: 
+    len: 6906
+    hash: 09e749bdcdb5060c3a3ceffa65f3e991
+  - name: assets/buildasset/code/aot/unityengine.vfxmodule.dll.bytes.unity3d
+    id: 100
+    deps: 
+    len: 5432
+    hash: bf7ef984e5f9ee21dff53a2aaebcf65f
+  - name: assets/buildasset/code/aot/unityengine.videomodule.dll.bytes.unity3d
+    id: 101
+    deps: 
+    len: 4720
+    hash: 5de482abadc9a1446e5b9292a48b075c
+  - name: assets/buildasset/code/aot/unityengine.vrmodule.dll.bytes.unity3d
+    id: 102
+    deps: 
+    len: 4186
+    hash: 1864346c76730192e2df26af0e4ef758
+  - name: assets/buildasset/code/aot/unityengine.xrmodule.dll.bytes.unity3d
+    id: 103
+    deps: 
+    len: 8883
+    hash: 1a55c748cccb257002794d5d5b449445
+  - name: assets/buildasset/code/aot/xasset.runtime.dll.bytes.unity3d
+    id: 104
+    deps: 
+    len: 21116
+    hash: bd0ec4e812fa0e396437dbe1c74c9120
+  - name: assets/buildasset/code/game.dll.bytes.unity3d
+    id: 105
+    deps: 
+    len: 77162
+    hash: 41c781254c04e8ba5f35766acf4ed9b5
+  - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
+    id: 106
+    deps: 
+    len: 12963
+    hash: 5accbccad38dd2c60d215c789bacac39
+  - name: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
+    id: 107
+    deps: 
+    len: 1556
+    hash: 358313f5093d6697cc48d76072996320
+  - name: assets/buildasset/customcharacters/female/characterbase.prefab.unity3d
+    id: 108
+    deps: 
+    len: 652223
+    hash: 382db5c3ca425a64ba24c78a24138731
+  - name: assets/buildasset/customcharacters/female/eyes.prefab.unity3d
+    id: 109
+    deps: 6e000000
+    len: 251859
+    hash: 66310ece40bc53ce046343480213d06f
+  - name: assets/buildasset/customcharacters/female/eyes_mesh.asset.unity3d
+    id: 110
+    deps: 
+    len: 4122
+    hash: 328fe122fe63a252a6d444f6d51e2f38
+  - name: assets/buildasset/customcharacters/female/face-1.prefab.unity3d
+    id: 111
+    deps: 70000000
+    len: 654580
+    hash: 76ae002c8ee4e2923db429769e6f0b3f
+  - name: assets/buildasset/customcharacters/female/face-1_mesh.asset.unity3d
+    id: 112
+    deps: 
+    len: 15868
+    hash: 3ae90ce242359c4aaae42654ebaea3ad
+  - name: assets/buildasset/customcharacters/female/face-2.prefab.unity3d
+    id: 113
+    deps: 72000000
+    len: 654910
+    hash: 4ac16d5b4f83375dd9d40bce2870f352
+  - name: assets/buildasset/customcharacters/female/face-2_mesh.asset.unity3d
+    id: 114
+    deps: 
+    len: 16362
+    hash: 99ce796c755810d37c6610b486073d64
+  - name: assets/buildasset/customcharacters/female/hair-1.prefab.unity3d
+    id: 115
+    deps: 74000000
+    len: 717936
+    hash: 14b176ee9b5cc5360b75eaa2858b7490
+  - name: assets/buildasset/customcharacters/female/hair-1_mesh.asset.unity3d
+    id: 116
+    deps: 
+    len: 12525
+    hash: ea8b4121bf7d5125c0ac174e97dd61e0
+  - name: assets/buildasset/customcharacters/female/hair-2.prefab.unity3d
+    id: 117
+    deps: 76000000
+    len: 300752
+    hash: 7323564cc9e0e84e49cbe7c2b94f44ad
+  - name: assets/buildasset/customcharacters/female/hair-2_mesh.asset.unity3d
+    id: 118
+    deps: 
+    len: 10272
+    hash: 534c25a81034f30485944d5e57e0769f
+  - name: assets/buildasset/customcharacters/female/pants-1.prefab.unity3d
+    id: 119
+    deps: 78000000
+    len: 834078
+    hash: f3efacaefd30528f3582872169e1b199
+  - name: assets/buildasset/customcharacters/female/pants-1_mesh.asset.unity3d
+    id: 120
+    deps: 
+    len: 9575
+    hash: d7d0a62f7e1db08b8dd88bce61310fb7
+  - name: assets/buildasset/customcharacters/female/pants-2.prefab.unity3d
+    id: 121
+    deps: 7a000000
+    len: 840330
+    hash: 8e37a4f21bb1b93badb8b0ce73815a13
+  - name: assets/buildasset/customcharacters/female/pants-2_mesh.asset.unity3d
+    id: 122
+    deps: 
+    len: 9413
+    hash: 5f15b6bfd3bf42baabe0a17673e5de7a
+  - name: assets/buildasset/customcharacters/female/shoes-1.prefab.unity3d
+    id: 123
+    deps: 7c000000
+    len: 605731
+    hash: 4cfa3a160f0b20cee8b5def7337817f4
+  - name: assets/buildasset/customcharacters/female/shoes-1_mesh.asset.unity3d
+    id: 124
+    deps: 
+    len: 7028
+    hash: 24fb134ea0dfec2a5305aee847e005f5
+  - name: assets/buildasset/customcharacters/female/shoes-2.prefab.unity3d
+    id: 125
+    deps: 7e000000
+    len: 605916
+    hash: 7f22520e609e61429cb0b14c8bf0b191
+  - name: assets/buildasset/customcharacters/female/shoes-2_mesh.asset.unity3d
+    id: 126
+    deps: 
+    len: 8496
+    hash: e8dad6d3a9adfef8e262eea33b5ef530
+  - name: assets/buildasset/customcharacters/female/top-1.prefab.unity3d
+    id: 127
+    deps: 80000000
+    len: 749413
+    hash: 9d2b765b0d3b87806f60551b42579b61
+  - name: assets/buildasset/customcharacters/female/top-1_mesh.asset.unity3d
+    id: 128
+    deps: 
+    len: 27174
+    hash: b93e27ab75ca798d4db4ffe06a158151
+  - name: assets/buildasset/customcharacters/female/top-2.prefab.unity3d
+    id: 129
+    deps: 82000000
+    len: 860506
+    hash: 49b071a9c825881c1cb8050e02810231
+  - name: assets/buildasset/customcharacters/female/top-2_mesh.asset.unity3d
+    id: 130
+    deps: 
+    len: 36182
+    hash: e33193808c0d513593a5c9e2fa0a4c03
+  - name: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
+    id: 131
+    deps: 000000000100000002000000030000000400000084000000
+    len: 54006
+    hash: 4ff7dae922ee7027847856bf1d927977
+  - name: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
+    id: 132
+    deps: 
+    len: 9319
+    hash: 8391df7146975c357ebfd19b8082eb72
+  - name: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
+    id: 133
+    deps: 0000000001000000020000000300000004000000
+    len: 107314
+    hash: 4d26bfffdd83503ccc88d958817bd176
+  - name: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
+    id: 134
+    deps: 000000000100000002000000030000000400000087000000
+    len: 24942
+    hash: 7a42a4b1afa3cfc3871fd87afdec34ff
+  - name: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
+    id: 135
+    deps: 
+    len: 4557
+    hash: 2f03a40838719dc8b791b6efaa99b64e
+  - name: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
+    id: 136
+    deps: 000000000100000002000000030000000400000089000000
+    len: 24846
+    hash: 4c12155e661fa3984d731768b6657e3b
+  - name: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
+    id: 137
+    deps: 
+    len: 4421
+    hash: db4ce11e85f1981459dea114b2eca2d3
+  - name: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
+    id: 138
+    deps: 00000000010000000200000003000000040000008b000000
+    len: 34896
+    hash: 095fe96fd574b7b0324909f691d39f10
+  - name: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
+    id: 139
+    deps: 
+    len: 4540
+    hash: b00b4adaedacab3a6667a54224683b40
+  - name: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
+    id: 140
+    deps: 00000000010000000200000003000000040000008d000000
+    len: 43165
+    hash: 34ca82f842cb49b014dbe3c1f6c6924c
+  - name: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
+    id: 141
+    deps: 
+    len: 5350
+    hash: 40260fd5efe3d56aa5b3f02a46f032bd
+  - name: assets/buildasset/customcharacters/role/makeup-0.prefab.unity3d
+    id: 142
+    deps: 8f000000
+    len: 258930
+    hash: eb6b34e5dd7f71d4272620f27ec8d35a
+  - name: assets/buildasset/customcharacters/role/makeup-0_mesh.asset.unity3d
+    id: 143
+    deps: 
+    len: 2315
+    hash: cad7a8d304941597ddaf90d7f1afa6bb
+  - name: assets/buildasset/customcharacters/role/makeup-1.prefab.unity3d
+    id: 144
+    deps: 000000000100000002000000030000000400000091000000
+    len: 24884
+    hash: 7d1f1d79ebb7df65f313c3bc3dbc3900
+  - name: assets/buildasset/customcharacters/role/makeup-1_mesh.asset.unity3d
+    id: 145
+    deps: 
+    len: 4187
+    hash: 2d621d022c5e40a2726197dee56ccc7a
+  - name: assets/buildasset/log/log4net.xml.bytes.unity3d
+    id: 146
+    deps: 
+    len: 1261
+    hash: 428da8b3fae442b7dd7d5ad377a74341
+  - name: assets/buildasset/ui/common.unity3d
+    id: 147
+    deps: 
+    len: 20097
+    hash: 85743d5988fa08f9ef0f25c361f5627f
+  - name: assets/buildasset/ui/hotfix.unity3d
+    id: 148
+    deps: 
+    len: 301117
+    hash: d492379141095a8ebe1a4757a60f1da4
+  - name: assets/buildasset/ui/hud.unity3d
+    id: 149
+    deps: 
+    len: 1143
+    hash: 2dd54693a74d907494d2b2d88a1f1ccb
+  - name: assets/buildasset/ui/loading.unity3d
+    id: 150
+    deps: 
+    len: 301004
+    hash: a49972ba4f77d29f21cd4911ca6c2bb1
+  - name: assets/buildasset/ui/login.unity3d
+    id: 151
+    deps: 
+    len: 298106
+    hash: 2e9b31126fb1cfeba3f9ae8d6e8278e7
+  - name: assets/buildasset/ui/main.unity3d
+    id: 152
+    deps: 
+    len: 73448
+    hash: a20142f45f00aea6e907fedbc08f9ada
+  - name: assets/buildasset/ui/travel.unity3d
+    id: 153
+    deps: 
+    len: 125235
+    hash: 4e83cae127285ddd15ac206b90bd45e0
+  - name: configs.unity3d
+    id: 154
+    deps: 
+    len: 6025
+    hash: 457dff06325770212d4707424619f0b5
+  - name: prefabs.unity3d
+    id: 155
+    deps: 
+    len: 2370
+    hash: a68260620f0ae493c8a4b8b7504d17c2
+  - name: visualscript.unity3d
+    id: 156
+    deps: 
     len: 4954
-    hash: 49b689e35ca95ffa865c3b62ee3424ef
+    hash: fbeefecba23a3209903ea86a935d09fe

@@ -6,9 +6,11 @@ using System;
 using System.Collections;
 using log4net;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using libx;
 using SGame;
 using Sirenix.OdinInspector;
+using Unity.Entities;
 using UnityEngine.UI;
 
 namespace SGame
@@ -30,9 +32,9 @@ namespace SGame
 
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "m_dllName")]
         public Module[] m_modules;
-#if UNITY_EDITOR
+
         public bool m_useHotfixCode = false;
-#endif
+
         // 热更新资源路径
         public const string HOTFIX_PATH = "Assets/BuildAsset/Code/";
 
@@ -133,34 +135,56 @@ namespace SGame
             Debug.Log("call 2!!!");
 
             LoadAOTMeta();
+            
+            log.Info("LoadAOTMeta Finish");
 
             yield return LoadModules();
 
-            log.Info("LoadAOTMeta Finish");
-
-            Debug.Log("LoadAOTMeta game scene!!!");
+            Debug.Log("Load module finish!!!");
 
             // 销毁startup
             Destroy(gameObject);
         }
 
+        bool IsCodeHotfix
+        {
+            get
+            {
+                #if !UNITY_EDITOR
+                    return m_useHotfixCode;
+                #endif
+                
+                // 编辑器下代码热更永远不会开启
+                return false;
+            }
+        }
 
         Type LoadDll(string module, string className)
         {
             Assembly hotUpdateAss = null;
-        #if !UNITY_EDITOR
-            // 实际加载
-            AssetRequest req = libx.Assets.LoadAsset(HOTFIX_PATH + module + ".dll.bytes", typeof(TextAsset));
-            if (req == null || req.asset == null)
-                return null;
-            var asset = req.asset as TextAsset;
-            if (asset == null || asset.bytes == null)
-                return null;
-            hotUpdateAss = Assembly.Load(asset.bytes);
-        #else
             // Editor下无需加载，直接查找获得HotUpdate程序集
-            hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == module);
-        #endif
+            log.Info("Start Load DLL");
+
+            if (IsCodeHotfix)
+            {
+                log.Info("Start Load DLL FROM FILE");
+                // 实际加载
+                AssetRequest req = libx.Assets.LoadAsset(HOTFIX_PATH + module + ".dll.bytes", typeof(TextAsset));
+                if (req == null || req.asset == null)
+
+                    return null;
+                var asset = req.asset as TextAsset;
+                if (asset == null || asset.bytes == null)
+                    return null;
+                hotUpdateAss = Assembly.Load(asset.bytes);
+                if (hotUpdateAss == null)
+                    return null;
+            }
+            else
+            {
+                log.Info("Start Load DLL FROM GetAssemblies");
+                hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == module);
+            }
 
             Type t = hotUpdateAss.GetType(className);
             return t;
@@ -171,12 +195,19 @@ namespace SGame
         /// </summary>
         void LoadAOTMeta()
         {
+            
+            const string AOTBasePath = "Assets/BuildAsset/Code/AOT/";//"assets/buildasset/code/aot/";
+
         #if !UNITY_EDITOR
-            const string AOTBasePath = "Assets/BuildAsset/AOTMeta/";
             foreach (var aotDllName in AOTGenericReferences.PatchedAOTAssemblyList)
             {
                 string dllPath = AOTBasePath + aotDllName + ".bytes";
                 var req = Assets.LoadAsset(dllPath, typeof(TextAsset));
+                if (!string.IsNullOrEmpty(req.error))
+                {
+                    log.Error("AOT Not Found=" + dllPath);
+                    return;
+                }
                 var asset = req.asset as TextAsset;
                 byte[] dllBytes = asset.bytes;
                 LoadImageErrorCode err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, HomologousImageMode.SuperSet);
@@ -185,6 +216,19 @@ namespace SGame
                     log.Error("Load Dll Meta Fail File=" + aotDllName + " err=" + err);
                 }
                 req.Release();
+            }
+        #else
+            foreach (var aotDllName in AOTGenericReferences.PatchedAOTAssemblyList)
+            {
+                string dllPath = AOTBasePath + aotDllName + ".bytes";
+                var req = Assets.LoadAsset(dllPath, typeof(TextAsset));
+                if (!string.IsNullOrEmpty(req.error))
+                {
+                    log.Error("AOT Not Found=" + dllPath);
+                    return;
+                }
+                req.Release();
+                log.Info("AOT Load Success=" + dllPath);
             }
         #endif
         }
