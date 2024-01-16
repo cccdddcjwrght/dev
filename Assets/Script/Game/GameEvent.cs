@@ -18,7 +18,8 @@ namespace SGame
 		ENTER_LOGIN					= 102, // 进入登录
 		ENTER_GAME					= 105, // 进入游戏
 		
-		OPENPOPUP                   = 106,// 打开弹框 
+		ORDER_NEW                   = 200, // 创建新的订单 (int orderId)
+		ORDER_FOODMAKED				= 201, // 	
 
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 
