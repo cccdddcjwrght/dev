@@ -82,6 +82,7 @@ namespace TileEdExt
 			EditorGUIUtility.labelWidth = 75;
 
 			EditorGUILayout.Space();
+			popup.tile.name = EditorGUILayout.TextField("名：", popup.tile.name);
 			selectItem = Mathf.Max(0, System.Array.FindIndex(items, (i) => (i.uniqid == 0 ? i.name.GetHashCode() : i.uniqid) == popup.tile.obsid));
 			var change = EditorGUILayout.Popup("扩展区域:", selectItem, names);
 			if (change != selectItem)
