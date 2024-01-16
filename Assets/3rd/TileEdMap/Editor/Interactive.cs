@@ -192,6 +192,10 @@ namespace TileEdExt
 		{
 			var pid = mapTile.data[_TileFabIdx];
 			var data = go.GetComponent<DataBinder>().dataSet;
+
+			if(mapTile.extraData.Length > 4)
+				data.b_val = mapTile.extraData[4] == "true"; 
+
 			data.SetVal(Mathf.Max(pid, 0), "level");
 			if (pid >= 0)
 			{
@@ -214,6 +218,12 @@ namespace TileEdExt
 			{
 
 			}
+		}
+
+		protected override void AddItemToTileSet(TileEdItem item)
+		{
+			item.name = item.prefab?.Length > 0 ? item.prefab[0].name : null;
+			base.AddItemToTileSet(item);
 		}
 
 		public override bool CanGroupCombine()

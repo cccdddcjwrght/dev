@@ -317,6 +317,7 @@ namespace TileEdExt
 					cell.name = item.name;
 				}
 				var data = item.GetComponent<DataBinder>();
+				var tile = default(TileEdMapTile);
 				if (data != null)
 				{
 					bool isDummy = data.dataSet.GetValByPath("dummy");
@@ -347,12 +348,17 @@ namespace TileEdExt
 					if (cell != null)
 					{
 						cell.flag = true;
-						bool walk = data.dataSet.GetValByPath("data.walkable");
-						int cost = data.dataSet.GetValByPath("data.walkcost");
-						if (cell.walkcost >= 0 && walk)
-							cell.walkcost = Mathf.Max(cell.walkcost, cost);
-						else if (!walk)
-							cell.walkcost = -1;
+
+						if (isDummy)
+						{
+							bool walk = data.dataSet.GetValByPath("data.walkable");
+							int cost = data.dataSet.GetValByPath("data.walkcost");
+							if (cell.walkcost >= 0 && walk)
+								cell.walkcost = Mathf.Max(cell.walkcost, cost);
+							else if (!walk)
+								cell.walkcost = -1;
+						}
+
 						if (!string.IsNullOrEmpty(tag))
 						{
 							cell.tags.Add(tag);

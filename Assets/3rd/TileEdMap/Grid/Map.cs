@@ -56,7 +56,14 @@ namespace GameTools.Maps
 
 		public Vector2Int gridSize { get { return new Vector2Int(stepX, stepY); } }
 		public Dictionary<string, List<int>> tags { get; set; }
-		public Dictionary<string, List<int[]>> builds { get; set; }
+		/// <summary>
+		/// 建筑配置key=》场景建筑ID
+		/// </summary>
+		public Dictionary<string, List<int>> builds { get; private set; }
+		/// <summary>
+		/// 场景建筑ID=》格子index
+		/// </summary>
+		public Dictionary<int,int> buildIndexs { get; private set; }
 		public List<int> walkables { get; set; }
 
 
@@ -113,9 +120,11 @@ namespace GameTools.Maps
 
 			if (cells != null && (tags == null || walkables == null))
 			{
-				tags = new Dictionary<string, List<int>>();
-				builds = new Dictionary<string, List<int[]>>();
 				walkables = new List<int>();
+				tags = new Dictionary<string, List<int>>();
+				builds = new Dictionary<string, List<int>>();
+				buildIndexs = new Dictionary<int, int>();
+
 
 				for (int i = 0; i < cells.Count; i++)
 				{
@@ -136,8 +145,10 @@ namespace GameTools.Maps
 							var d = cell.GetDataSetByBuildName(cell.builds[j]);
 							var name = d.GetValByPath("itemid");
 							if (string.IsNullOrEmpty(name)) continue;
-							if (builds.TryGetValue(name, out var ls)) builds[name] = ls = new List<int[]>();
-							ls.Add(new int[] { cell.index, d });
+							if (!builds.TryGetValue(name, out var ls)) builds[name] = ls = new List<int>();
+							buildIndexs[d] = cell.index;
+							ls.Add(d);
+
 						}
 					}
 
@@ -284,6 +295,18 @@ namespace GameTools.Maps
 			return cell.IsWalkable() ? cell.walkcost : -1;
 		}
 
+		public DataSet GetBuild(int buildID) {
+		
+			if(buildIndexs.TryGetValue(buildID , out var index))
+			{
+				var cell = GetCell(index);
+				if (cell != null) { 
+					
+				}
+			}
+			return default;
+		}
+
 		public List<int> GetIDListByTag(string tag)
 		{
 			if (tags.TryGetValue(tag, out var cs) && cs.Count > 0)
@@ -302,22 +325,11 @@ namespace GameTools.Maps
 
 		public List<int> GetIDListByBuild(string buildName)
 		{
-			if (tags.TryGetValue(tag, out var cs) && cs.Count > 0)
+			if (builds.TryGetValue(buildName, out var cs) && cs.Count > 0)
 			{
 				var ls = new List<int>();
 				for (int i = 0; i < cs.Count; i++)
-				{
-					var c = GetCell(cs[i]);
-					if (c != null && c.builds?.Count > 0)
-					{
-						c.builds.ForEach(b =>
-						{
-							var d = c.GetDataSetByBuildName(b);
-							string n = d.GetVal("itemid");
-							if (n == buildName) ls.Add(d.i_val);
-						});
-					}
-				}
+					ls.Add(cs[i]);
 				return ls;
 			}
 			return default;
