@@ -24,9 +24,8 @@ namespace SGame.Dining
 
 		private IEnumerator Start()
 		{
+			SceneCameraSystem.Instance.Return();
 			yield return null;
-			//yield return new WaitEvent(((int)GameEvent.ENTER_GAME));
-			//LoadRoom(-1);
 		}
 
 		#endregion

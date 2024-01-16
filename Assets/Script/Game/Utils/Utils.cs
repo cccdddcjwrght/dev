@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SGame
 {
-    public class Utils
+    public partial class Utils
     {
         static public Dictionary<string, string> IniParser(string path)
         {

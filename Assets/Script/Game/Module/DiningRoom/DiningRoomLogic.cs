@@ -78,7 +78,8 @@ namespace SGame.Dining
 		{
 			if (_sceneGrid != null)
 			{
-				//_sceneGrid.GetIDListByBuild()
+				var ids = _sceneGrid.GetIDListByBuild("work_table_1");
+				
 			}
 		}
 
