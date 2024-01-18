@@ -20,6 +20,11 @@ namespace SGame
             m_datas.Clear();
         }
 
+        public void Initalize()
+        {
+            Clear();
+        }
+
         /// <summary>
         /// 获得桌子数据
         /// </summary>

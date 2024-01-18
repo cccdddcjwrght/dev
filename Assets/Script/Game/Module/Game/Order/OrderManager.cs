@@ -19,6 +19,12 @@ namespace SGame
         private Dictionary<int, OrderData>  m_datas     = new Dictionary<int, OrderData>();
         private List<int>                   m_caches    = new List<int>();
 
+        public void Initalize()
+        {
+            m_datas.Clear();
+            m_caches.Clear();
+        }
+        
         /// <summary>
         /// 清空订单数据
         /// </summary>

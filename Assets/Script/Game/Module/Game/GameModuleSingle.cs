@@ -35,8 +35,25 @@ namespace SGame
             m_fiber.Step();
         }
 
+        /// <summary>
+        /// 初始化游戏系统
+        /// </summary>
+        /// <returns></returns>
+        void InitModule()
+        {
+            // 初始化订单系统
+            OrderManager.Instance.Initalize();
+
+            // 初始化桌子系统
+            TableManager.Instance.Initalize();
+            
+            // 初始化角色系统
+        }
+
         IEnumerator Logic()
         {
+            InitModule();
+            
 			//临时场景加载
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(1);
 
