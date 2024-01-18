@@ -25,20 +25,22 @@ namespace SGame
     {
         private static ILog log = LogManager.GetLogger("game.order");
         
-        public int      id {  get; private set; }          // 订单ID
-        public float    startTime;                         // 下单时间
-        public int      cookTime;                          // 制作时间
-        public int      finishTime;                        // 订单完成时间
-        public int      customerID { get; private set; }   // 顾客
-        public int      servicerID { get; private set; }   // 服务员ID （包含下单和清单)
-        public int      cookerID { get; private set; }     // 厨师ID
+        public int          id {  get; private set; }          // 订单ID
+        public float        startTime;                         // 下单时间
+        public int          cookTime;                          // 制作时间
+        public int          finishTime;                        // 订单完成时间
+        public int          customerID { get; private set; }   // 顾客
+        public int          servicerID { get; private set; }   // 服务员ID （包含下单和清单)
+        public int          cookerID { get; private set; }     // 厨师ID
         
-        public bool     perfect { get; private set; }     // 是否完美菜品
-        public int      dishPointID { get; private set; } // 放餐点
+        public bool         perfect { get; private set; }       // 是否完美菜品
+        public int          dishPointID { get; private set; }   // 放餐点
 
-        public int      foodID { get; private set; } // 菜品ID
+        public int          foodID { get; private set; }        // 食物实例ID
         
-        public BigInteger  price;           // 菜品价格
+        public int          foodType { get; private set; }      // 菜品类型
+        
+        public BigInteger   price;                              // 菜品价格
         
         public ORDER_PROGRESS progress { get; private set; } // 订单进度
         
@@ -116,11 +118,13 @@ namespace SGame
         }
 
         /// <summary>
-        /// 厨师完成菜品制作
+        /// 厨师完成菜品制作, 记录食物ID, 记录食物价格
         /// </summary>
         /// <param name="cookerID"></param>
+        /// <param name="foodID">食物对象</param>
+        /// <param name="price">食物价格</param>
         /// <returns></returns>
-        public bool CookFinish(int cookerID)
+        public bool CookFinish(int cookerID, int foodID, BigInteger price)
         {
             if (progress != ORDER_PROGRESS.FOOD_MAKING)
             {
@@ -135,6 +139,8 @@ namespace SGame
                 return false;
             }
 
+            this.foodID = foodID;
+            this.price  = price;
             progress = ORDER_PROGRESS.FOOD_MAKED;
             return true;
         }
