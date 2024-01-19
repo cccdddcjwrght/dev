@@ -86,6 +86,8 @@ namespace GameTools
 
 		private void Init()
 		{
+			if (_grid == null)
+				return;
 			_grid.walkables = null;
 			_grid.Refresh();
 			mapSize = _grid.gridSize;
@@ -97,9 +99,10 @@ namespace GameTools
 
 		private void Awake()
 		{
-			grid.walkables = null;
+			grid?.Refresh();
 			Init();
 			AStar.Init(this);
+			agent = this;
 		}
 
 		private void Update()
@@ -117,6 +120,38 @@ namespace GameTools
 				}
 			}
 		}
+		#endregion
+
+		#region Static
+
+		static private MapAgent agent;
+
+		/// <summary>
+		/// 格子转坐标
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
+		public static Vector3 CellToVector(int x, int y)
+		{
+			if (agent)
+				return agent.grid.GetCellPosition(x, y);
+
+			return default;
+		}
+
+		/// <summary>
+		/// 坐标转格子
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public static Vector2Int VectorToGrid(Vector3 pos)
+		{
+			if (agent)
+				return agent.grid.GridPos(pos);
+			return default;
+		}
+
 		#endregion
 
 	}
