@@ -45,14 +45,14 @@ public struct tableRowData : IFlatbufferObject
   public ArraySegment<byte>? GetCustomerPos1Bytes() { return __p.__vector_as_arraysegment(12); }
 #endif
   public int[] GetCustomerPos1Array() { return __p.__vector_as_array<int>(12); }
-  public int CustomerPos(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CustomerPosLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int CustomerPos2(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CustomerPos2Length { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCustomerPosBytes() { return __p.__vector_as_span<int>(14, 4); }
+  public Span<int> GetCustomerPos2Bytes() { return __p.__vector_as_span<int>(14, 4); }
 #else
-  public ArraySegment<byte>? GetCustomerPosBytes() { return __p.__vector_as_arraysegment(14); }
+  public ArraySegment<byte>? GetCustomerPos2Bytes() { return __p.__vector_as_arraysegment(14); }
 #endif
-  public int[] GetCustomerPosArray() { return __p.__vector_as_array<int>(14); }
+  public int[] GetCustomerPos2Array() { return __p.__vector_as_array<int>(14); }
 
   public static Offset<GameConfigs.tableRowData> CreatetableRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -60,9 +60,9 @@ public struct tableRowData : IFlatbufferObject
       int type = 0,
       VectorOffset orderPosOffset = default(VectorOffset),
       VectorOffset customerPos1Offset = default(VectorOffset),
-      VectorOffset customerPosOffset = default(VectorOffset)) {
+      VectorOffset customerPos2Offset = default(VectorOffset)) {
     builder.StartTable(6);
-    tableRowData.AddCustomerPos(builder, customerPosOffset);
+    tableRowData.AddCustomerPos2(builder, customerPos2Offset);
     tableRowData.AddCustomerPos1(builder, customerPos1Offset);
     tableRowData.AddOrderPos(builder, orderPosOffset);
     tableRowData.AddType(builder, type);
@@ -86,10 +86,10 @@ public struct tableRowData : IFlatbufferObject
   public static VectorOffset CreateCustomerPos1Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCustomerPos1VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCustomerPos1Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCustomerPos(FlatBufferBuilder builder, VectorOffset customerPosOffset) { builder.AddOffset(5, customerPosOffset.Value, 0); }
-  public static VectorOffset CreateCustomerPosVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateCustomerPosVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static void StartCustomerPosVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddCustomerPos2(FlatBufferBuilder builder, VectorOffset customerPos2Offset) { builder.AddOffset(5, customerPos2Offset.Value, 0); }
+  public static VectorOffset CreateCustomerPos2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateCustomerPos2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartCustomerPos2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.tableRowData> EndtableRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.tableRowData>(o);
