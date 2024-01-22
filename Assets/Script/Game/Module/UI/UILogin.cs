@@ -5,6 +5,7 @@ using Unity.Entities;
 using UnityEngine;
 using System;
 using SGame.Http;
+using Unity.Entities.UniversalDelegates;
 
 namespace SGame
 {
@@ -49,7 +50,10 @@ namespace SGame
 					})
 					.OnFail((d) => {
 						log.Error(d);
+						EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, "1111");
+
 					})
+					.Timeout(3f)
 					.RunAndWait();
 
 			}

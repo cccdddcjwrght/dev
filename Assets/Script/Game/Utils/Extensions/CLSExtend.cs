@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FairyGUI;
 using UnityEngine;
 
 namespace SGame
@@ -124,5 +125,38 @@ namespace SGame
 			}
 			return default;
 		}
+
+		static public void SetLayer(this object go, string layer)
+		{
+			if (go != null)
+			{
+				Transform t = null;
+				if (go is Transform v) t = v;
+				else if (go is GameObject g) t = g.transform;
+				else if (go is Component c) t = c.transform;
+				else if (go is GObject f) t = f.displayObject.gameObject.transform;
+
+				if (t)
+				{
+					int id = LayerMask.NameToLayer(layer);
+					if (t.gameObject.layer == id) return;
+					t.gameObject.layer = id;
+					foreach (Transform c in t) SetLayer(c, layer);
+				}
+			}
+		}
+
+		static public T[] GetArray<T>(this FlatBuffers.IFlatbufferObject flatbuffer , System.Func<int,T> call ,int len ,int start = 0)
+		{
+			if (len > 0)
+			{
+				var a = new T[len - start];
+				for (int i = start; i < len; i++)
+					a[i] = call(i);
+				return a;
+			}
+			return default;
+		}
+
 	}
 }

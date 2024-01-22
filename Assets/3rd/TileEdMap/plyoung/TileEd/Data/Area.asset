@@ -355,7 +355,7 @@ MonoBehaviour:
         - name: walkable
           i_val: 0
           s_val: 
-          b_val: 0
+          b_val: 1
           list: []
         - name: walkcost
           i_val: 0
@@ -386,5 +386,50 @@ MonoBehaviour:
       sortOrder: 3
       customThumb: {fileID: 0}
       meta: 
+    - uniqid: 232407486
+      name: serve_1
+      desc: "\u70B9\u83DC"
+      color: {r: 0, g: 1, b: 0.7830725, a: 0}
+      exts: []
+      dataSet:
+        name: 
+        i_val: 0
+        s_val: 
+        b_val: 0
+        list:
+        - name: walkable
+          i_val: 0
+          s_val: 
+          b_val: 1
+          list: []
+        - name: walkcost
+          i_val: 0
+          s_val: 
+          b_val: 0
+          list: []
+      mutex: 0
+      mutexsets: 
+      obsid: -1
+      obstacles: 
+      sameGroupTeam: 0
+      teamsets: 21a10700
+      bindGroupIds:
+      - Area
+      ident: 9
+      prefab:
+      - {fileID: 0}
+      setTag: 0
+      tag: Untagged
+      setLayer: 0
+      layer: 0
+      setStaticFlags: 0
+      staticFlags: -1
+      setNavArea: 0
+      navArea: 1
+      setSort: 0
+      sortLayerId: 0
+      sortOrder: 2
+      customThumb: {fileID: 0}
+      meta: 
   lastSetIdent: 2
-  lastIdent: 8
+  lastIdent: 9

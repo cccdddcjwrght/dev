@@ -323,12 +323,21 @@ namespace TileEdExt
 					bool isDummy = data.dataSet.GetValByPath("dummy");
 					bool isplatform = data.dataSet;
 					string tag = isDummy ? data.dataSet.GetValByPath("itemid") : null;
-					//string uname = (string)data.dataSet.GetValByPath("setid") + "_" + (int)data.dataSet.GetValByPath("itemid");
 					string uname = data.dataSet.i_val.ToString();
 
 					if (!isDummy || config.debug)
 					{
-						var child = GameObject.Instantiate(item.gameObject, point);
+						var parent = point;
+						if (!isDummy)
+						{
+							parent = point.Find("build");
+							if (!parent)
+							{
+								parent = new GameObject("build").transform;
+								parent.SetParent(point, false) ;
+							}
+						}
+						var child = GameObject.Instantiate(item.gameObject, parent);
 						var flag = child.transform.Find("__flag");
 
 						child.transform.position = item.transform.position;

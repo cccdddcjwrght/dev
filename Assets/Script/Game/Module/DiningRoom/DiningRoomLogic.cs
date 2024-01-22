@@ -2,11 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using GameConfigs;
+using libx;
 using UnityEngine;
+using MapGrid = GameTools.Maps.Grid;
 
 namespace SGame.Dining
 {
+	#region Class
+	enum State
+	{
+		None,
+		Loading,
+		Loaded,
+		Used,
+		Close,
+	}
 
 	public interface IBuild : IRequest
 	{
@@ -14,33 +25,271 @@ namespace SGame.Dining
 		public int objID { get; }
 	}
 
+	class Build : IBuild, IEquatable<Build>
+	{
+		protected IEnumerator _wait;
+
+		public int cfgID { get; set; }
+
+		public int objID { get; set; }
+
+		public string error { get; set; }
+
+		public virtual bool isDone { get; set; }
+
+		public virtual void Close() { }
+
+		public bool Equals(Build other)
+		{
+			return other != null && other.cfgID == cfgID && other.objID == objID;
+		}
+
+		public virtual IEnumerator Wait()
+		{
+			yield return _wait;
+			_wait = null;
+		}
+
+	}
+
+	class Seat : Build
+	{
+		public int index;
+		public int near;
+		public string tag;
+	}
+
+	class Part : Build
+	{
+		public int index;
+		public Transform transform;
+		public string asset;
+
+		private State _state = State.None;
+		private AssetRequest _req;
+
+
+		public override bool isDone
+		{
+			get
+			{
+				Update();
+				return _state == State.Used;
+			}
+			set => base.isDone = value;
+		}
+
+
+		public void Update()
+		{
+			switch (_state)
+			{
+				case State.None:
+					_req = Load();
+					break;
+				case State.Loading:
+					if (_req != null)
+					{
+						if (_req.isDone)
+						{
+							error = _req.error;
+							_state = State.Loaded;
+						}
+					}
+					else
+					{
+						_state = State.Loaded;
+					}
+					break;
+				case State.Loaded:
+					_state = State.Used;
+					Process();
+					break;
+			}
+
+		}
+
+		public override void Close()
+		{
+			transform = null;
+			asset = null;
+			_state = State.None;
+			_req?.Release();
+
+		}
+
+		private AssetRequest Load()
+		{
+			var req = default(AssetRequest);
+			if (!transform.Find(objID.ToString()))
+			{
+				if (!string.IsNullOrEmpty(asset))
+				{
+					var path = asset;
+					req = Assets.LoadAssetAsync(path, typeof(GameObject));
+					if (req == null)
+					{
+						_state = State.Loaded;
+						error = "Load Asset Fail" + path;
+						return null;
+					}
+				}
+			}
+			_state = State.Loading;
+			return req;
+		}
+
+		private void Process()
+		{
+			if (transform)
+			{
+				if (string.IsNullOrEmpty(error))
+					GameObject.Instantiate(_req.asset as GameObject, transform);
+				transform.gameObject.SetActive(true);
+			}
+		}
+
+	}
+
+	class Place : Build
+	{
+		public int index;
+		public bool enable;
+		public List<Part> parts;
+		public List<Seat> seats;
+
+		public bool waitActive;
+
+		public Transform transform;
+
+		public override bool isDone
+		{
+			get
+			{
+				if (!enable) return true;
+				return parts == null || parts.All(p => p.isDone);
+			}
+			set => base.isDone = value;
+		}
+
+		public Place(int id) => cfgID = id;
+
+		public void Enable(bool state)
+		{
+			waitActive = false;
+			enable = state;
+			EnableClick(state);
+		}
+
+		public void EnableClick(bool state)
+		{
+			if (transform)
+				transform.GetComponent<BoxCollider>().enabled = state;
+		}
+
+		public override void Close()
+		{
+			parts?.Clear();
+			seats?.Clear();
+		}
+
+		public override IEnumerator Wait()
+		{
+			while (!isDone) yield return null;
+
+		}
+
+
+	}
+
+	class Region : Build
+	{
+		public EntityContainer gHandler = new SpawnContainer();
+
+		public Worktable data;
+		public List<Place> machines = new List<Place>();
+		public Place next { get; private set; }
+		public Place begin { get { return machines == null ? null : machines[0]; } }
+		public bool enable { get { return begin?.enable == true; } set { if (begin != null) begin.enable = true; } }
+		public override bool isDone { get => machines.All(m => m.isDone); set => base.isDone = value; }
+
+		public Region(int id) => cfgID = id;
+
+		public Place GetPlace(int id)
+		{
+			return machines.Find(m => m.cfgID == id);
+		}
+
+		public Place GetLockPlace()
+		{
+			return machines.Find(m => !m.enable);
+		}
+
+		public void SetNextUnlock(Place next)
+		{
+			this.next = next;
+			next?.EnableClick(true);
+		}
+
+		public override void Close()
+		{
+			machines?.ForEach(m => m.Close());
+			machines?.Clear();
+			machines = null;
+		}
+
+	}
+
+	class RegionHit : MonoBehaviour, ITouchOrHited
+	{
+		public int region;
+		public int place;
+		public Action<int, int> onClick;
+
+		private void Awake()
+		{
+			var c = transform.gameObject.AddComponent<BoxCollider>();
+			c.size = new Vector3(1, 1, 1);
+		}
+
+		public void OnClick()
+		{
+			onClick?.Invoke(region, place);
+		}
+	}
+
+
+	#endregion
+
 	class DiningRoomLogic : IBuild
 	{
+		#region Member
 
-		private GameTools.Maps.Grid _sceneGrid;
-		private List<IBuild> _builds;
+		private MapGrid _sceneGrid;
+		private List<Region> _regions;
+		private Region _begin;
+		private EventHandleContainer _eHandlers;
 
 		public string name;
+		public MapGrid grid { get { return _sceneGrid; } }
+
 
 		public int cfgID { get; private set; }
 		public int objID { get; private set; }
 		public string error { get; set; }
-
 		public bool isDone
 		{
 			get
 			{
-				return _builds == null || _builds.All(b=>b.isDone);
+				return _regions == null || _regions.All(b => b.isDone);
 			}
 		}
 
-		public GameTools.Maps.Grid grid { get { return _sceneGrid; } }
+		#endregion
 
-		public DiningRoomLogic(int id)
-		{
-			cfgID = id;
-		}
+		public DiningRoomLogic(int id) => cfgID = id;
 
+		#region Method
 
 		public bool Init()
 		{
@@ -48,6 +297,7 @@ namespace SGame.Dining
 			{
 				InitView();
 				InitBuilds();
+				InitEvents();
 			}
 			return true;
 		}
@@ -55,33 +305,363 @@ namespace SGame.Dining
 		public IEnumerator Wait(bool isnew = false)
 		{
 			double time = 1.0;
+			Init();
 			while (!isDone) yield return null;
-			while ((time -= GlobalTime.deltaTime) > 0) yield return null;
+			while ((time -= GlobalTime.deltaTime) > 0)
+				yield return null;
+		}
+
+		public Region GetRegion(int id)
+		{
+			return _regions.Find(r => r.cfgID == id);
+		}
+
+		public bool UpLevel(Region region)
+		{
+			switch (DataCenter.MachineUtil.CheckCanUpLevel(region.data))
+			{
+				case Error_Code.LV_MAX:
+					Debug.Log($"{region.cfgID} Lv Max!!!");
+					break;
+				case Error_Code.ITEM_NOT_ENOUGH:
+					Debug.Log($"{region.cfgID} 升级道具不足!!!");
+					break;
+				case 0:
+					DataCenter.MachineUtil.UpdateLevel(region.cfgID, cfgID);
+					Debug.Log($"{region.cfgID} : Lv -> {region.data.level}");
+					return true;
+			}
+			return false;
+		}
+
+		public bool Unlock(Region region)
+		{
+			if (!region.enable)
+				region.SetNextUnlock(region.begin);
+
+			if (region.next != null)
+			{
+				switch (DataCenter.MachineUtil.CheckCanActiveMachine(region.next.cfgID))
+				{
+					case Error_Code.MACHINE_DEPENDS_NOT_ENABLE:
+						Debug.Log("前置条件不满足，无法解锁");
+						break;
+					case Error_Code.ITEM_NOT_ENOUGH:
+						Debug.Log("消耗道具不足");
+						break;
+					case 0:
+						var id = region.next.cfgID;
+						DataCenter.MachineUtil.AddMachine(id);
+						return true;
+				}
+			}
+			return false;
+		}
+
+		public void CheckUnlock(Region region)
+		{
+			if (region.next == null)
+			{
+				if (region.data.isTable || (region.data.level <= 0 && !region.enable))
+				{
+					if (0 != DataCenter.MachineUtil.CheckCanActiveMachine(region.begin.cfgID, true)) return;
+				}
+				else if (!DataCenter.MachineUtil.CheckCanAddMachine(region.cfgID, cfgID)) return;
+				DoPreview(region);
+			}
+		}
+
+		public void MarkWalkFlag(Place machine)
+		{
+			var c = _sceneGrid.GetCell(machine.index);
+			if (c != null)
+				c.Marking(GameTools.Maps.MaskFlag.UnWalkable, !machine.enable);
+			else
+				Debug.Log(machine.index);
 		}
 
 		public void Close()
 		{
 			cfgID = 0;
-			_builds?.ForEach(b => b.Close());
-			_builds?.Clear();
+			_regions?.ForEach(b => b.Close());
+			_regions?.Clear();
 			_sceneGrid = null;
+			_eHandlers?.Close();
+			_eHandlers = null;
 		}
 
+		#endregion
+
+		#region Private
 
 		private void InitView()
 		{
-			_sceneGrid = GameObject.FindAnyObjectByType<GameTools.Maps.Grid>(FindObjectsInactive.Include);
+			_sceneGrid = GameObject.FindAnyObjectByType<MapGrid>(FindObjectsInactive.Include);
+			_sceneGrid?.Refresh();
 		}
-
 
 		private void InitBuilds()
 		{
 			if (_sceneGrid != null)
 			{
-				var ids = _sceneGrid.GetIDListByBuild("work_table_1");
-				
+				_regions = new List<Region>();
+				if (ConfigSystem.Instance.TryGets<RoomMachineRowData>(c => c.Scene == cfgID, out var list))
+				{
+					_regions = list.Where(c => c.Type >= 0).GroupBy(c => c.Machine).Select(c =>
+					{
+						var row = new Region(c.Key);
+						row.data = DataCenter.MachineUtil.GetWorktable(c.Key, cfgID, true);
+						row.machines = c.Select(
+							m => ActiveBuild(machine: new Place(m.ID)
+							{
+								parts = CreateParts(m, out var i, out var t, out var s, row),
+								index = i,
+								seats = s,
+								transform = t,
+							},
+							state: DataCenter.MachineUtil.IsActived(m.ID), region: c.Key)
+						).ToList();
+						return row;
+					}).ToList();
+					_begin = _regions[0];
+					OnWorkMachineEnable(0, 0);
+				}
 			}
 		}
+
+		private void InitEvents()
+		{
+			_eHandlers = new EventHandleContainer();
+			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_UPLEVEL), OnWorkTableUplevel);
+			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), OnWorkMachineEnable);
+		}
+
+		private Place ActiveBuild(Place machine = default, int id = -1, bool state = true, int region = 0)
+		{
+			if (id > 0 || machine != null)
+			{
+				machine = machine ?? GetMachine(id);
+				if (machine != null)
+				{
+					machine.Enable(state);
+					MarkWalkFlag(machine);
+					AddWorkers(region, machine);
+					return machine;
+				}
+			}
+			return default;
+		}
+
+		private Place GetMachine(int id)
+		{
+			if (id > 0)
+			{
+				for (int i = 0; i < _regions.Count; i++)
+				{
+					for (int j = 0; j < _regions[i].machines.Count; j++)
+					{
+						if (_regions[i].machines[j].cfgID == id)
+							return _regions[i].machines[j];
+					}
+				}
+			}
+			return default;
+		}
+
+		private List<Part> CreateParts(RoomMachineRowData cfg, out int gindex, out Transform transform, out List<Seat> seats, Region region = null)
+		{
+			gindex = -1;
+			transform = null;
+			seats = new List<Seat>();
+			var placeid = cfg.ID;
+			var builds = new List<int>();
+			var ls = default(List<Part>);
+			var cs = new HashSet<int>();
+			var ids = cfg.GetObjIdArray();
+			var tags = cfg.GetArray(cfg.Tags, cfg.TagsLength);
+
+			void AddBuilds(ref Transform trans, GameTools.Maps.Cell cell)
+			{
+				if (cell == null) return;
+				cs.Add(cell.index);
+				trans = trans ?? cell.cell?.transform;
+				if (cell.builds?.Count > 0) builds.AddRange(cell.builds.Select(b => int.Parse(b)));
+			}
+
+			if (ids != null && ids.Length > 0)
+			{
+				if (ids[0] == 0)
+				{
+					for (int i = 1; i < ids.Length - 1; i += 2)
+						AddBuilds(ref transform, grid.GetCell(ids[i], ids[i + 1]));
+				}
+				else builds.AddRange(ids);
+
+			}
+
+			if (tags != null && tags.Length > 0)
+			{
+				foreach (var item in tags)
+				{
+					if (grid.tags.TryGetValue(item, out var v) && v.Count > 0)
+					{
+						foreach (var idx in v)
+							AddBuilds(ref transform, grid.GetCell(idx));
+					}
+				}
+			}
+
+			if (builds.Count > 0)
+			{
+				ls = builds.Select(o => new Part()
+				{
+					objID = o,
+					index = _sceneGrid.buildIndexs[o],
+					asset = _sceneGrid.GetBuildAsset(o),
+					transform = _sceneGrid.GetBuildObject(o)?.transform,
+				}).ToList();
+
+			}
+
+			if (cfg.LinkTagsLength > 0)
+			{
+				for (int i = 0; i < cfg.LinkTagsLength; i++)
+				{
+					foreach (var item in cs)
+					{
+						var t = cfg.LinkTags(i);
+						var ps = grid.GetNearTagAllPos(item, t);
+						if (ps?.Count > 0)
+						{
+							var ss = seats;
+							ps.ForEach(p => ss.Add(new Seat()
+							{
+								index = grid.PosToIndex(p.x, p.y),
+								tag = t,
+								near = item
+							}));
+						}
+					}
+				}
+			}
+
+			if (cs.Count > 0)
+			{
+				gindex = cs.First();
+				transform = transform ?? ls[0].transform?.parent;
+				var h = transform.gameObject.AddComponent<RegionHit>();
+				h.region = region.cfgID;
+				h.place = placeid;
+				h.onClick = OnRegionClick;
+
+				foreach (var item in cs)
+					AddPlaceHit(item, region.cfgID, cfg.ID);
+
+			}
+
+			return ls;
+
+		}
+
+		private void AddWorkers(int region, Place place)
+		{
+			if (place.enable)
+			{
+				var idxs = new List<int>();
+				if (place.parts?.Count > 0)
+				{
+					for (int i = 0; i < place.parts.Count; i++)
+					{
+						var part = place.parts[i];
+						if (idxs.Contains(part.index)) continue;
+						idxs.Add(part.index);
+						WorkQueueSystem.Instance.AddWorker(region.ToString(), part.index);
+					}
+				}
+				if (place.seats?.Count > 0)
+				{
+					for (int i = 0; i < place.seats.Count; i++)
+					{
+						var seat = place.seats[i];
+						WorkQueueSystem.Instance.AddWorker(seat.tag, seat.index);
+					}
+				}
+			}
+		}
+
+		private void AddPlaceHit(int cell, int region, int placeid)
+		{
+			var c = grid.GetCell(cell);
+			if (c != null)
+			{
+				var g = c.GetBuildLayer();
+				if (!g) return;
+				var h = g.gameObject.AddComponent<RegionHit>();
+				h.region = region;
+				h.place = placeid;
+				h.onClick = OnRegionClick;
+			}
+		}
+
+		private void OnRegionClick(int region, int place)
+		{
+			var r = GetRegion(region);
+			if (r != null)
+			{
+				if (!r.enable || r.next?.cfgID == place)
+					Unlock(r);
+				else if (r.next == null || r.next.cfgID != place)
+					UpLevel(r);
+			}
+		}
+
+		private Place DoPreview(Region region)
+		{
+			if (region != null)
+			{
+				var place = region.GetLockPlace();
+				if (place != null)
+				{
+					place.waitActive = true;
+					region.SetNextUnlock(place);
+					region.gHandler += SpawnSystem.Instance.Spawn("Assets/BuildAsset/Prefabs/Other/Enable02.prefab", place.transform.gameObject);
+					return place;
+				}
+			}
+			return default;
+
+		}
+
+		private void DoUnlock(Region region, int place)
+		{
+			if (region != null)
+			{
+				region.gHandler?.DestroyAllEntity();
+				region.SetNextUnlock(null);
+				ActiveBuild(region.GetPlace(place), region: region.cfgID)?.Wait()?.Start();
+			}
+		}
+
+		#endregion
+
+		#region Events
+
+
+		private void OnWorkTableUplevel(int id, int level)
+		{
+			var r = GetRegion(id);
+			if (r != null)
+				CheckUnlock(r);
+		}
+
+		private void OnWorkMachineEnable(int region, int id)
+		{
+			if (id > 0)
+				DoUnlock(GetRegion(region), id);
+			_regions.ForEach(CheckUnlock);
+		}
+
+		#endregion
 
 	}
 

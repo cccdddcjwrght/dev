@@ -124,6 +124,10 @@ MonoBehaviour:
   - bundle: configs.unity3d
     path: assets/buildasset/configs/language_hi.bytes
   - bundle: configs.unity3d
+    path: assets/buildasset/configs/scene.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/telport.bytes
+  - bundle: configs.unity3d
     path: assets/buildasset/configs/travel_event.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/ui_groups.bytes
@@ -213,6 +217,60 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/equipments/weapon1.prefab
   - bundle: prefabs.unity3d
     path: assets/buildasset/prefabs/game.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_floor_01.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_01.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_02.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_03.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_04.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_table_01.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_table_02.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_terrain_01.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_01.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_02.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_03.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_04.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_01.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_01_1.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_03.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_03_1.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_04.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_04_1.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_05.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_05_1.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_06.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_06_1.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_07.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_07_1.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_08.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_08_1.prefab
+  - bundle: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
+    path: assets/buildasset/scenes/markeds/level01_marked.unity
   - bundle: assets/buildasset/scenes/markeds/scene01_marked.unity.unity3d
     path: assets/buildasset/scenes/markeds/scene01_marked.unity
   - bundle: assets/buildasset/ui/common.unity3d
@@ -293,6 +351,8 @@ MonoBehaviour:
     - assets/buildasset/configs/language_chn.bytes
     - assets/buildasset/configs/language_en.bytes
     - assets/buildasset/configs/language_hi.bytes
+    - assets/buildasset/configs/scene.bytes
+    - assets/buildasset/configs/telport.bytes
     - assets/buildasset/configs/travel_event.bytes
     - assets/buildasset/configs/ui_groups.bytes
     - assets/buildasset/configs/ui_res.bytes
@@ -337,9 +397,38 @@ MonoBehaviour:
     assets:
     - assets/buildasset/prefabs/game.prefab
     - assets/buildasset/prefabs/equipments/weapon1.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_floor_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_object_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_object_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_object_03.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_object_04.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_table_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_table_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_terrain_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_03.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_04.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_01_1.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_03.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_03_1.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_04.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_04_1.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_05.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_05_1.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_06.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_06_1.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_07.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_07_1.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_08.prefab
+    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_08_1.prefab
   - name: assets/buildasset/audio/mixer.unity3d
     assets:
     - assets/buildasset/audio/mixer/game.mixer
+  - name: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
+    assets:
+    - assets/buildasset/scenes/markeds/level01_marked.unity
   - name: assets/buildasset/scenes/markeds/scene01_marked.unity.unity3d
     assets:
     - assets/buildasset/scenes/markeds/scene01_marked.unity
@@ -484,9 +573,48 @@ MonoBehaviour:
   - name: assets/buildasset/visualscript/login/login.asset.unity3d
     assets:
     - assets/buildasset/visualscript/login/login.asset
-  - name: assets/buildasset/art/characters/role/textures/role_body-1_1.png.unity3d
+  - name: assets/buildasset/art/scenes/scene_01/scene_wall_06.fbx.unity3d
     assets:
-    - assets/buildasset/art/characters/role/textures/role_body-1_1.png
+    - assets/buildasset/art/scenes/scene_01/scene_wall_06.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_01.mat.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_01.mat
+  - name: assets/buildasset/art/scenes/scene_01/scene_terrain_01.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_terrain_01.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_floor_01.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_floor_01.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_object_01.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_object_01.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_wall_04.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_wall_04.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_object_03.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_object_03.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_wall_03.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_wall_03.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_object_04.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_object_04.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_wall_08.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_wall_08.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_01.png
+  - name: assets/buildasset/art/scenes/scene_01/scene_wall_07.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_wall_07.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_object_02.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_object_02.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_wall_05.fbx.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_wall_05.fbx
   - name: assets/buildasset/art/characters/role/textures/role_clothes-1.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_clothes-1.png
@@ -496,6 +624,12 @@ MonoBehaviour:
   - name: assets/buildasset/art/characters/role/textures/role_makeup-1.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_makeup-1.png
+  - name: assets/buildasset/art/characters/role/textures/role_hair-1.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_hair-1.png
+  - name: assets/buildasset/art/characters/role/textures/role_hair-2.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_hair-2.png
   - name: assets/buildasset/art/characters/role/textures/role_clothes-2.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_clothes-2.png

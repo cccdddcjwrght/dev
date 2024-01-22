@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using GameConfigs;
 using log4net;
 using Unity.Entities;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace SGame.Dining
@@ -14,11 +16,12 @@ namespace SGame.Dining
 	public partial class DiningRoomSystem : MonoSingleton<DiningRoomSystem>
 	{
 		#region Static
-		private static ILog log = LogManager.GetLogger("DiningRoom"); 
+		private static ILog log = LogManager.GetLogger("DiningRoom");
 		#endregion
 
 
 		private DiningRoomLogic _currentRoom;
+		private EventHandleContainer _eHandlers;
 
 		#region Mono
 
@@ -26,13 +29,18 @@ namespace SGame.Dining
 		{
 			SceneCameraSystem.Instance.Return();
 			yield return null;
+
 		}
+
 
 		#endregion
 
 		#region Method
 
-		public void Init() { }
+		public void Init()
+		{
+			InitEvents();
+		}
 
 		public IEnumerator LoadRoom(int roomID, Action<int> progress = null)
 		{
@@ -61,10 +69,25 @@ namespace SGame.Dining
 			return null;
 		}
 
+
+		#endregion
+
+
+		#region Check
+
+
+
 		#endregion
 
 		#region Private
-		
+
+		private void InitEvents()
+		{
+			_eHandlers = new EventHandleContainer();
+
+		}
+
+
 		private void OnEnterRoomCompleted()
 		{
 			log.Info("Enter Room :" + _currentRoom.cfgID);
@@ -73,8 +96,34 @@ namespace SGame.Dining
 		private IEnumerator Wait()
 		{
 			if (_currentRoom != null)
+			{
 				yield return _currentRoom.Wait();
-		} 
+
+			}
+		}
+
+
+		#endregion
+
+		#region Do
+
+
+
+		#endregion
+
+		#region Events
+
+		private void OnWorkTableEnable(int id)
+		{
+
+		}
+
+		private void OnWorkTableUplevel(int id, int level)
+		{
+
+		}
+
+
 
 		#endregion
 

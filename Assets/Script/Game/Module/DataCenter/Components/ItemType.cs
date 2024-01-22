@@ -8,6 +8,6 @@ namespace SGame
     public enum ItemType : uint
     {
         USER = 0,       // 用户属性
-        ITEM = 10000,   // 道具
+        ITEM = 1,		// 道具
     }
 }

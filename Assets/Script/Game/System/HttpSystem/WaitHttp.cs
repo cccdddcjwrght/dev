@@ -26,6 +26,7 @@ namespace SGame
 		private HttpMethod _method;
 		private string _api;
 		private string _token;
+		private float _time = 5f;
 
 		private int _version;
 
@@ -133,6 +134,12 @@ namespace SGame
 			return this;
 		}
 
+		public WaitHttp Timeout(float time)
+		{
+			this._time = time;
+			return this;
+		}
+
 		public IEnumerator Wait()
 		{
 			if (!Completed && _result != null)
@@ -219,7 +226,7 @@ namespace SGame
 			{
 				try
 				{
-					HttpProtocol.DencodeOverride<T>(new HttpPackage().FromJson(_result.data) , ref msg);
+					HttpProtocol.DencodeOverride<T>(new HttpPackage().FromJson(_result.data), ref msg);
 					return true;
 				}
 				catch (System.Exception e)
@@ -272,14 +279,27 @@ namespace SGame
 		private IEnumerator DoWait()
 		{
 			var ver = _version;
-			yield return _result;
+			var t = _time < 0 ? 0 : _time;
+			var timeout = false;
+			if (t == 0) yield return _result;
+			else
+			{
+				while (t > 0)
+				{
+					if (_result.isDone) break;
+					else yield return null;
+					t -= Time.deltaTime;
+					if (t <= 0) timeout = true;
+				}
+			}
+
 			if (_version == ver)
 			{
-				var state = string.IsNullOrEmpty(_result.error);
+				var state = !timeout && string.IsNullOrEmpty(_result.error);
 				try
 				{
 					if (state) Success(_result.data);
-					else Fail(_result.error);
+					else Fail(timeout ? "timeout!!!" : _result.error);
 				}
 				catch (System.Exception e)
 				{

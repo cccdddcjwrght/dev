@@ -365,7 +365,7 @@ namespace SGame
 			return false;
 		}
 
-		public bool TryGets<T>(Func<IFlatbufferObject, bool> condition, out List<T> datas) where T : IFlatbufferObject
+		public bool TryGets<T>(Func<T, bool> condition, out List<T> datas) where T : IFlatbufferObject
 		{
 			datas = null;
 			if (condition != null)
@@ -400,7 +400,7 @@ namespace SGame
 			return v;
 		}
 
-		public List<T> Finds<T>(Func<IFlatbufferObject, bool> condition) where T : IFlatbufferObject
+		public List<T> Finds<T>(Func<T, bool> condition) where T : IFlatbufferObject
 		{
 			TryGets<T>(condition, out var v);
 			return v;

@@ -63,7 +63,7 @@ namespace GameTools.Maps
 		/// <summary>
 		/// 场景建筑ID=》格子index
 		/// </summary>
-		public Dictionary<int,int> buildIndexs { get; private set; }
+		public Dictionary<int, int> buildIndexs { get; private set; }
 		public List<int> walkables { get; set; }
 
 
@@ -142,12 +142,14 @@ namespace GameTools.Maps
 					{
 						for (int j = 0; j < cell.builds.Count; j++)
 						{
+							var id = int.Parse(cell.builds[j]);
+							buildIndexs[id] = cell.index;
+
 							var d = cell.GetDataSetByBuildName(cell.builds[j]);
 							var name = d.GetValByPath("itemid");
 							if (string.IsNullOrEmpty(name)) continue;
 							if (!builds.TryGetValue(name, out var ls)) builds[name] = ls = new List<int>();
-							buildIndexs[d] = cell.index;
-							ls.Add(d);
+							ls.Add(id);
 
 						}
 					}
@@ -240,6 +242,13 @@ namespace GameTools.Maps
 			};
 		}
 
+		public int PosToIndex(int x, int y)
+		{
+			x -= bl.x;
+			y -= bl.y;
+			return y * stepX + x;
+		}
+
 		#endregion
 
 		public Cell GetCell(int index)
@@ -295,14 +304,38 @@ namespace GameTools.Maps
 			return cell.IsWalkable() ? cell.walkcost : -1;
 		}
 
-		public DataSet GetBuild(int buildID) {
-		
-			if(buildIndexs.TryGetValue(buildID , out var index))
+		public DataSet GetBuild(int buildID)
+		{
+
+			if (buildIndexs.TryGetValue(buildID, out var index))
 			{
 				var cell = GetCell(index);
-				if (cell != null) { 
-					
+				if (cell != null)
+				{
+					return cell.GetDataSetByBuildName(buildID.ToString());
 				}
+			}
+			return default;
+		}
+
+		public string GetBuildAsset(int buildID)
+		{
+			if (buildIndexs.TryGetValue(buildID, out var index))
+			{
+				var cell = GetCell(index);
+				if (cell != null)
+					return cell.GetAsset(buildID);
+			}
+			return default;
+		}
+
+		public GameObject GetBuildObject(int buildID)
+		{
+			if (buildIndexs.TryGetValue(buildID, out var index))
+			{
+				var cell = GetCell(index);
+				if (cell != null)
+					return cell.GetBuildObject(buildID);
 			}
 			return default;
 		}
@@ -330,6 +363,57 @@ namespace GameTools.Maps
 				var ls = new List<int>();
 				for (int i = 0; i < cs.Count; i++)
 					ls.Add(cs[i]);
+				return ls;
+			}
+			return default;
+		}
+
+		public bool GetNearTagPos(int x, int y, string tag, out Vector2Int index)
+		{
+			index = default;
+			var c = GetCell(x, y);
+			if (c != null)
+			{
+				for (int i = 0; i < c.nears.Length; i += 2)
+				{
+					if (c.nears[i] >= 0)
+					{
+						var n = GetCell(c.nears[i]);
+						if (n != null && c.tags?.Contains(tag) == true)
+						{
+							index = new Vector2Int(c.x, c.y);
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		public List<Vector2Int> GetNearTagAllPos(int index, string tag)
+		{
+			return GetNearTagAllPos(GetCell(index), tag);
+		}
+
+		public List<Vector2Int> GetNearTagAllPos(int x, int y, string tag)
+		{
+			return GetNearTagAllPos(GetCell(x, y), tag);
+		}
+
+		private List<Vector2Int> GetNearTagAllPos(Cell c, string tag)
+		{
+			if (c != null)
+			{
+				var ls = new List<Vector2Int>();
+				for (int i = 0; i < c.nears.Length; i += 2)
+				{
+					if (c.nears[i] >= 0)
+					{
+						var n = GetCell(c.nears[i]);
+						if (n != null && n.tags?.Contains(tag) == true)
+							ls.Add(new Vector2Int(n.x, n.y));
+					}
+				}
 				return ls;
 			}
 			return default;
@@ -421,8 +505,15 @@ namespace GameTools.Maps
 			{
 				var bk = buildID.ToString();
 				if (builds.Contains(bk))
-					return cell.transform.Find(bk)?.gameObject;
+					return cell.transform.Find("build/" + bk)?.gameObject;
 			}
+			return default;
+		}
+
+		public Transform GetBuildLayer()
+		{
+			if (cell)
+				return cell.transform.Find("build") ?? cell.transform;
 			return default;
 		}
 

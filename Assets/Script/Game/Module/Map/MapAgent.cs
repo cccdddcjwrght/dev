@@ -152,6 +152,34 @@ namespace GameTools
 			return default;
 		}
 
+		/// <summary>
+		/// 获取格子附件目标tag的位置
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="tag"></param>
+		/// <param name="vector"></param>
+		/// <returns></returns>
+		public static bool GetNearTagPoint(int x, int y, string tag, out Vector2Int vector)
+		{
+			vector = default;
+			if (agent != null)
+				return agent.grid.GetNearTagPos(x, y, tag, out vector);
+			return false;
+
+		}
+
+		public static Vector2Int IndexToGrid(int index)
+		{
+			if (agent != null)
+			{
+				var c = agent.grid.GetCell(index);
+				if (c != null) return new Vector2Int(c.x, c.y);
+			}
+			return default;
+		}
+
+
 		#endregion
 
 	}

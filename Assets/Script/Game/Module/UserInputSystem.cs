@@ -20,7 +20,7 @@ namespace SGame
             base.OnCreate();
             m_userInput = EntityManager.CreateEntity(typeof(UserInput));
             m_handleContiner = new EventHandleContainer();
-            m_handleContiner += EventManager.Instance.Reg((int)GameEvent.PLAYER_ROTE_DICE, OnEventRollDice);
+            //m_handleContiner += EventManager.Instance.Reg((int)GameEvent.PLAYER_ROTE_DICE, OnEventRollDice);
             s_instance = this;
         }
         private static UserInputsystem s_instance;

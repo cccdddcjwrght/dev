@@ -21,27 +21,79 @@ public struct RoomMachineRowData : IFlatbufferObject
 
   public int ID { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Scene { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Machine { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ObjId { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Type { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Machine { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Nowork { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Enable { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Depends(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int DependsLength { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetDependsBytes() { return __p.__vector_as_span<int>(16, 4); }
+#else
+  public ArraySegment<byte>? GetDependsBytes() { return __p.__vector_as_arraysegment(16); }
+#endif
+  public int[] GetDependsArray() { return __p.__vector_as_array<int>(16); }
+  public int ObjId(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int ObjIdLength { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetObjIdBytes() { return __p.__vector_as_span<int>(18, 4); }
+#else
+  public ArraySegment<byte>? GetObjIdBytes() { return __p.__vector_as_arraysegment(18); }
+#endif
+  public int[] GetObjIdArray() { return __p.__vector_as_array<int>(18); }
+  public string Tags(int j) { int o = __p.__offset(20); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
+  public int TagsLength { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public string LinkTags(int j) { int o = __p.__offset(22); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
+  public int LinkTagsLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
 
   public static Offset<GameConfigs.RoomMachineRowData> CreateRoomMachineRowData(FlatBufferBuilder builder,
       int ID = 0,
       int Scene = 0,
+      int Type = 0,
       int Machine = 0,
-      int ObjId = 0) {
-    builder.StartTable(4);
-    RoomMachineRowData.AddObjId(builder, ObjId);
+      int Nowork = 0,
+      int Enable = 0,
+      VectorOffset DependsOffset = default(VectorOffset),
+      VectorOffset ObjIdOffset = default(VectorOffset),
+      VectorOffset TagsOffset = default(VectorOffset),
+      VectorOffset LinkTagsOffset = default(VectorOffset)) {
+    builder.StartTable(10);
+    RoomMachineRowData.AddLinkTags(builder, LinkTagsOffset);
+    RoomMachineRowData.AddTags(builder, TagsOffset);
+    RoomMachineRowData.AddObjId(builder, ObjIdOffset);
+    RoomMachineRowData.AddDepends(builder, DependsOffset);
+    RoomMachineRowData.AddEnable(builder, Enable);
+    RoomMachineRowData.AddNowork(builder, Nowork);
     RoomMachineRowData.AddMachine(builder, Machine);
+    RoomMachineRowData.AddType(builder, Type);
     RoomMachineRowData.AddScene(builder, Scene);
     RoomMachineRowData.AddID(builder, ID);
     return RoomMachineRowData.EndRoomMachineRowData(builder);
   }
 
-  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddScene(FlatBufferBuilder builder, int Scene) { builder.AddInt(1, Scene, 0); }
-  public static void AddMachine(FlatBufferBuilder builder, int Machine) { builder.AddInt(2, Machine, 0); }
-  public static void AddObjId(FlatBufferBuilder builder, int ObjId) { builder.AddInt(3, ObjId, 0); }
+  public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
+  public static void AddMachine(FlatBufferBuilder builder, int Machine) { builder.AddInt(3, Machine, 0); }
+  public static void AddNowork(FlatBufferBuilder builder, int Nowork) { builder.AddInt(4, Nowork, 0); }
+  public static void AddEnable(FlatBufferBuilder builder, int Enable) { builder.AddInt(5, Enable, 0); }
+  public static void AddDepends(FlatBufferBuilder builder, VectorOffset DependsOffset) { builder.AddOffset(6, DependsOffset.Value, 0); }
+  public static VectorOffset CreateDependsVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateDependsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartDependsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddObjId(FlatBufferBuilder builder, VectorOffset ObjIdOffset) { builder.AddOffset(7, ObjIdOffset.Value, 0); }
+  public static VectorOffset CreateObjIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateObjIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartObjIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddTags(FlatBufferBuilder builder, VectorOffset TagsOffset) { builder.AddOffset(8, TagsOffset.Value, 0); }
+  public static VectorOffset CreateTagsVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateTagsVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartTagsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddLinkTags(FlatBufferBuilder builder, VectorOffset LinkTagsOffset) { builder.AddOffset(9, LinkTagsOffset.Value, 0); }
+  public static VectorOffset CreateLinkTagsVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateLinkTagsVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartLinkTagsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.RoomMachineRowData> EndRoomMachineRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomMachineRowData>(o);

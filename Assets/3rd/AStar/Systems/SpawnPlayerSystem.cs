@@ -154,7 +154,7 @@ namespace GameTools.Paths.Test
 							throw new System.Exception("dead loop in the job!");
 					}
 
-					speed.Value = rnd.NextFloat(2f, 10f);
+					//speed.Value = rnd.NextFloat(2f, 10f);
 					chunkSpeed[i] = speed;
 
 					_commandBuffer.AddComponent<FindPathParams>(chunkIndex, e, new FindPathParams
