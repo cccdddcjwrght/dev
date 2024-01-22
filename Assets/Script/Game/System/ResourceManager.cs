@@ -36,7 +36,7 @@ namespace SGame
         }
 
         private static ResourceManager s_instance;
-        public ResourceManager Instance
+        public static ResourceManager Instance
         {
             get
             {

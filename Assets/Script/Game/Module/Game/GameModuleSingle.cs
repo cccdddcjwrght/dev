@@ -50,6 +50,13 @@ namespace SGame
             // 初始化角色系统
         }
 
+        IEnumerator TestData()
+        {
+            // 等1秒再创建角色
+            yield return FiberHelper.Wait(1.0f);
+            CharacterSpawn.Create(1, Vector3.zero);
+        }
+
         IEnumerator Logic()
         {
             InitModule();
@@ -59,11 +66,14 @@ namespace SGame
 
             var prefab = m_resourceManager.LoadPrefab(script);
             var go = GameObject.Instantiate(prefab);
+
+            yield return TestData();
             
             // 游戏逻辑
             while (true)
             {
                 // 防止进入死循环
+                
                 yield return null;
             }
             

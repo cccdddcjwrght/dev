@@ -20,7 +20,7 @@ namespace GameTools.Paths
 		public Vector2Int GetGridPos(Vector3 pos);
 
 		/// <summary>
-		/// 地图信息
+		/// 鍦板浘淇℃伅
 		/// </summary>
 		/// <returns></returns>
 		public MapInfo GetMapInfo();
@@ -31,18 +31,18 @@ namespace GameTools.Paths
 	public struct MapInfo
 	{
 		/// <summary>
-		/// 坐标偏移
+		/// 鍧愭爣鍋忕Щ
 		/// </summary>
 		public Vector3 offset;
 		/// <summary>
-		/// 尺寸
+		/// 灏哄
 		/// </summary>
 		public int2 dimension;
 		/// <summary>
-		/// 格子大小
+		/// 鏍煎瓙澶у皬
 		/// </summary>
 		public int size;
-		//起始点格子x，y
+		//璧峰鐐规牸瀛恱锛寉
 		public int minx;
 		public int miny;
 	}

@@ -34,7 +34,7 @@ namespace SGame
         public int          cookerID { get; private set; }     // 厨师ID
         
         public bool         perfect { get; private set; }       // 是否完美菜品
-        public int          dishPointID { get; private set; }   // 放餐点
+        public int          dishPointID { get; private set; }   // 放餐点 talbe ID
 
         public int          foodID { get; private set; }        // 食物实例ID
         
