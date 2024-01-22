@@ -38,6 +38,9 @@ namespace SGame
 
 	/// <summary>
 	/// 简单工作队列
+	/// 获取相关Tag名队列的空闲位置
+	/// 工作台 RoomMachine.ID
+	/// 或者配置表和场景里面关联的Tag
 	/// </summary>
 
 	public class WorkQueueSystem : MonoSingleton<WorkQueueSystem>
@@ -45,6 +48,11 @@ namespace SGame
 		private Dictionary<string, WorkQueue> _queues = new Dictionary<string, WorkQueue>();
 		private List<Worker> _waitWorkers = new List<Worker>();
 
+		/// <summary>
+		/// 添加一个工作位
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="index">格子索引</param>
 		public void AddWorker(string name, int index)
 		{
 			if (string.IsNullOrEmpty(name)) return;
@@ -74,6 +82,13 @@ namespace SGame
 			return 0;
 		}
 
+		/// <summary>
+		/// 获取空闲工作位
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="worker"></param>
+		/// <param name="condition"></param>
+		/// <returns></returns>
 		public bool Take(string name, out Worker worker, Func<Worker, bool> condition = null)
 		{
 			worker = default;
@@ -102,6 +117,10 @@ namespace SGame
 			return false;
 		}
 
+		/// <summary>
+		/// 释放
+		/// </summary>
+		/// <param name="worker"></param>
 		public void Free(Worker worker)
 		{
 			if (worker.queue == null) return;

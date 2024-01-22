@@ -371,13 +371,16 @@ namespace SGame.Dining
 			}
 		}
 
-		public void MarkWalkFlag(Place machine)
+		public void MarkWalkFlag(Place machine, int index = -1)
 		{
-			var c = _sceneGrid.GetCell(machine.index);
-			if (c != null)
-				c.Marking(GameTools.Maps.MaskFlag.UnWalkable, !machine.enable);
-			else
-				Debug.Log(machine.index);
+			if (machine != null)
+			{
+				var c = _sceneGrid.GetCell(index >= 0 ? index : machine.index);
+				if (c != null)
+					c.Marking(GameTools.Maps.MaskFlag.UnWalkable, !machine.enable);
+				else
+					Debug.Log(machine.index);
+			}
 		}
 
 		public void Close()
@@ -576,6 +579,7 @@ namespace SGame.Dining
 						if (idxs.Contains(part.index)) continue;
 						idxs.Add(part.index);
 						WorkQueueSystem.Instance.AddWorker(region.ToString(), part.index);
+						MarkWalkFlag(place, part.index);
 					}
 				}
 				if (place.seats?.Count > 0)
