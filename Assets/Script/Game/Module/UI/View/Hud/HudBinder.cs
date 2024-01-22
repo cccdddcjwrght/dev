@@ -10,6 +10,8 @@ namespace SGame.UI.Hud
         {
             UIObjectFactory.SetPackageItemExtension(UI_HudUI.URL, typeof(UI_HudUI));
             UIObjectFactory.SetPackageItemExtension(UI_FloatText.URL, typeof(UI_FloatText));
+            UIObjectFactory.SetPackageItemExtension(UI_OrderTip.URL, typeof(UI_OrderTip));
+            UIObjectFactory.SetPackageItemExtension(UI_Progress.URL, typeof(UI_Progress));
         }
     }
 }
