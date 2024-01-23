@@ -30,6 +30,11 @@ namespace SGame
         /// </summary>
         public Entity entity;
 
+        /// <summary>
+        /// 角色实例化ID
+        /// </summary>
+        public int CharacterID = 0;
+        
         private EntityManager entityManager;
         
         /// <summary>
@@ -52,10 +57,11 @@ namespace SGame
         /// <param name="map_pos"></param>
         public void MoveTo(int2 map_pos)
         {
+            Debug.Log("you move to =" + map_pos.ToString());
+
             var searchPos = GameTools.MapAgent.GridToIndex(new Vector2Int(map_pos.x, map_pos.y));
             map_pos.x = searchPos.x;
             map_pos.y = searchPos.y;
-            Debug.Log("you move to =" + map_pos.ToString());
             float3 pos = entityManager.GetComponentData<Translation>(entity).Value;
             int2 curPos = AStar.GetGridPos(pos);
             

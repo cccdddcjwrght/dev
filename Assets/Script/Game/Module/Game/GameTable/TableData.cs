@@ -4,6 +4,7 @@ using log4net;
 using Sirenix.OdinInspector.Editor.Drawers;
 using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -72,7 +73,7 @@ namespace SGame
             }
             var chair = new ChairData()
             {
-                map_pos = chairPos,
+                map_pos = new int2(chairPos.x, chairPos.y),
                 playerID = 0,
                 tableID = id,
                 type = chairType,

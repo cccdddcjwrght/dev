@@ -10,23 +10,23 @@ namespace SGame
 	public static partial class Error_Code
 	{
 		/// <summary>
-		/// ³É¹¦
+		/// æˆåŠŸ
 		/// </summary>
 		public const int SUCCESS = 0;
 
 		/// <summary>
-		/// µÈ¼¶ÉÏÏŞ
+		/// ç­‰çº§ä¸Šé™
 		/// </summary>
 		public const int LV_MAX = 1;
 		/// <summary>
-		/// µÀ¾ß²»×ã
+		/// é“å…·ä¸è¶³
 		/// </summary>
 		public const int ITEM_NOT_ENOUGH = 2;
 
 
 		//===============================================================
 		/// <summary>
-		/// ÒÀÀµµãÎ»Ã»ÓĞ¼¤»î
+		/// ä¾èµ–ç‚¹ä½æ²¡æœ‰æ¿€æ´»
 		/// </summary>
 		public const int MACHINE_DEPENDS_NOT_ENABLE = 100;
 
@@ -109,7 +109,7 @@ namespace SGame
 			}
 
 			/// <summary>
-			/// ¿ÕÏĞµãÎ»
+			/// ç©ºé—²ç‚¹ä½
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>
@@ -190,7 +190,7 @@ namespace SGame
 			}
 
 			/// <summary>
-			/// »ñÈ¡ÉÏÏŞĞÇĞÇ
+			/// è·å–ä¸Šé™æ˜Ÿæ˜Ÿ
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>

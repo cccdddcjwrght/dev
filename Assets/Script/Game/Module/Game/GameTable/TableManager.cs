@@ -24,7 +24,7 @@ namespace SGame
         {
             Clear();
         }
-
+        
         /// <summary>
         /// 获得桌子数据
         /// </summary>
@@ -32,7 +32,7 @@ namespace SGame
         /// <returns></returns>
         public TableData Get(int tableID)
         {
-            return m_datas[tableID];
+            return m_datas[tableID - 1];
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace SGame
         /// <returns></returns>
         public bool AddTable(TableData data)
         {
-            data.id = m_nextTableID;
+            data.id = m_nextTableID + 1;
             m_datas.Add(data);
             m_nextTableID++;
             return true;
@@ -86,6 +86,27 @@ namespace SGame
                 if (t.type == TABLE_TYPE.CUSTOM)
                 {
                     int chairIndex = t.GetEmptySit(CHAIR_TYPE.CUSTOMER);
+                    if (chairIndex >= 0)
+                    {
+                        return t.GetChair(chairIndex);
+                    }
+                }
+            }
+            
+            return ChairData.Empty;
+        }
+        
+        /// <summary>
+        /// 顾客查找空闲座位
+        /// </summary>
+        /// <returns></returns>
+        public ChairData FindEmptyChair(TABLE_TYPE tableType, CHAIR_TYPE chairType)
+        {
+            foreach (var t in m_datas)
+            {
+                if (t.type == tableType)
+                {
+                    int chairIndex = t.GetEmptySit(chairType);
                     if (chairIndex >= 0)
                     {
                         return t.GetChair(chairIndex);
@@ -140,6 +161,34 @@ namespace SGame
             }
             
             return ChairData.Empty;
+        }
+
+        /// <summary>
+        /// 坐下空闲座位
+        /// </summary>
+        /// <param name="chair"></param>
+        /// <returns></returns>
+        public bool SitChair(ChairData chair, int customID)
+        {
+            TableData table = Get(chair.tableID);
+            if (table == null)
+                return false;
+
+            return table.SitChair(customID, chair.chairIndex);
+        }
+
+        /// <summary>
+        /// 离开空闲座位
+        /// </summary>
+        /// <param name="chir"></param>
+        /// <returns></returns>
+        public bool LeaveChair(ChairData chair, int customID)
+        {
+            TableData table = Get(chair.tableID);
+            if (table == null)
+                return false;
+
+            return table.LeaveChair(customID, chair.chairIndex);
         }
     }
 }

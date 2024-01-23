@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Sirenix.OdinInspector.Editor.Drawers;
-using Unity.VisualScripting;
-using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -23,7 +19,7 @@ namespace SGame
     public struct ChairData
     {
         // 地图位置
-        public Vector2Int   map_pos;
+        public int2   map_pos;
 
         // 所属的桌子ID
         public int          tableID;
@@ -42,7 +38,7 @@ namespace SGame
         /// </summary>
         public bool IsEmpty => playerID == 0;
 
-        public static ChairData Empty => new ChairData() { type = CHAIR_TYPE.UNKNOWN, playerID = 0, chairIndex = 0, tableID = 0, map_pos = Vector2Int.zero };
+        public static ChairData Empty => new ChairData() { type = CHAIR_TYPE.UNKNOWN, playerID = 0, chairIndex = 0, tableID = 0, map_pos = int2.zero };
 
         /// <summary>
         /// 相等判定
@@ -51,9 +47,9 @@ namespace SGame
         /// <returns></returns>
         public bool Equals(ChairData other)
         {
-            return other.playerID == this.playerID &&
-                other.type == this.type &&
-                other.map_pos == this.map_pos &&
+            return other.playerID == this.playerID 
+                && other.type == this.type &&
+                other.map_pos.Equals( this.map_pos) &&
                 other.chairIndex == this.chairIndex &&
                 other.tableID == this.tableID;
         }

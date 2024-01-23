@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            /*
             // Using BeginProperty / EndProperty on the parent property means that
             // prefab override logic works on the entire property.
             EditorGUI.BeginProperty(position, label, property);
@@ -34,9 +35,10 @@ using UnityEngine.UIElements;
             EditorGUI.indentLevel = indent;
 
             EditorGUI.EndProperty();
+            */
         }
 
-
+/*
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
             // Create property container element.
@@ -51,5 +53,6 @@ using UnityEngine.UIElements;
             container.Add(yField);
             return container;
 }
+*/
     }
 

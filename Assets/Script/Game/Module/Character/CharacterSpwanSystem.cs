@@ -61,11 +61,13 @@ namespace SGame
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
         private GameObject                             m_characterbase;
         private List<CharacterEvent>                           m_triggerInit;
+        private int lasterCharacterID;
         
         protected override void OnCreate()
         {
             m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
             m_triggerInit = new List<CharacterEvent>();
+            lasterCharacterID = 0;
         }
 
         /// <summary>
@@ -146,8 +148,10 @@ namespace SGame
                 ani.name = "Model";
                 commandBuffer.DestroyEntity(e);
 
+                lasterCharacterID++;
                 c.script = ai;
                 c.model = ani;
+                c.CharacterID = lasterCharacterID;
             }).WithoutBurst().Run();
 
 
