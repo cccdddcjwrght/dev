@@ -48,6 +48,11 @@ namespace SGame
 		private Dictionary<string, WorkQueue> _queues = new Dictionary<string, WorkQueue>();
 		private List<Worker> _waitWorkers = new List<Worker>();
 
+		public const string SEAT_TAG = "seat";
+		public const string SERVE_TAG = "serve_1";
+		public const string PLACE_TAG = "place_1";
+
+
 		/// <summary>
 		/// 添加一个工作位
 		/// </summary>
@@ -58,7 +63,9 @@ namespace SGame
 			if (string.IsNullOrEmpty(name)) return;
 			if (!_queues.TryGetValue(name, out var q))
 				q = new WorkQueue();
-			q.frees.Add(new Worker() { queue = name, index = index, cell = MapAgent.IndexToGrid(index) });
+			var w = new Worker() { queue = name, index = index, cell = MapAgent.IndexToGrid(index) };
+			OnAddWorker(ref w);
+			q.frees.Add(w);
 		}
 
 		public bool HasWorkQueue(string name)
@@ -128,7 +135,7 @@ namespace SGame
 			if (_queues.TryGetValue(worker.queue, out var q))
 			{
 				var idx = q.wokers.FindIndex(w => w.Equals(worker));
-				if(idx>= 0)q.wokers.RemoveAt(idx);
+				if (idx >= 0) q.wokers.RemoveAt(idx);
 				q.frees.Add(worker);
 			}
 		}
@@ -141,6 +148,11 @@ namespace SGame
 		}
 
 		private void OnSelected(string name, ref Worker worker)
+		{
+
+		}
+
+		private void OnAddWorker(ref Worker worker)
 		{
 
 		}

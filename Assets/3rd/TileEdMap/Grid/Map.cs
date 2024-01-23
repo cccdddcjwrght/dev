@@ -379,9 +379,9 @@ namespace GameTools.Maps
 					if (c.nears[i] >= 0)
 					{
 						var n = GetCell(c.nears[i]);
-						if (n != null && c.tags?.Contains(tag) == true)
+						if (n != null && n.tags?.Contains(tag) == true)
 						{
-							index = new Vector2Int(c.x, c.y);
+							index = n.ToGrid();
 							return true;
 						}
 					}
@@ -411,7 +411,7 @@ namespace GameTools.Maps
 					{
 						var n = GetCell(c.nears[i]);
 						if (n != null && n.tags?.Contains(tag) == true)
-							ls.Add(new Vector2Int(n.x, n.y));
+							ls.Add(n.ToGrid());
 					}
 				}
 				return ls;
@@ -515,6 +515,11 @@ namespace GameTools.Maps
 			if (cell)
 				return cell.transform.Find("build") ?? cell.transform;
 			return default;
+		}
+
+		public Vector2Int ToGrid()
+		{
+			return new Vector2Int(x, y);
 		}
 
 		/// <summary>

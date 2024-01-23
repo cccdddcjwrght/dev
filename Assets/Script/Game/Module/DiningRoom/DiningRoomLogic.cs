@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameConfigs;
 using libx;
+using UnityEditor.Sprites;
 using UnityEngine;
 using MapGrid = GameTools.Maps.Grid;
 
@@ -571,15 +572,18 @@ namespace SGame.Dining
 			if (place.enable)
 			{
 				var idxs = new List<int>();
+				var istable = DataCenter.MachineUtil.GetWorktable(region, cfgID)?.isTable == true;
+
 				if (place.parts?.Count > 0)
 				{
+
 					for (int i = 0; i < place.parts.Count; i++)
 					{
 						var part = place.parts[i];
 						if (idxs.Contains(part.index)) continue;
 						idxs.Add(part.index);
-						WorkQueueSystem.Instance.AddWorker(region.ToString(), part.index);
 						MarkWalkFlag(place, part.index);
+						WorkQueueSystem.Instance.AddWorker(region.ToString(), part.index);
 					}
 				}
 				if (place.seats?.Count > 0)
@@ -590,6 +594,26 @@ namespace SGame.Dining
 						WorkQueueSystem.Instance.AddWorker(seat.tag, seat.index);
 					}
 				}
+
+				if (idxs.Count > 0 && istable)
+				{
+					for (int i = 0; i < idxs.Count; i++)
+					{
+						var index = idxs[i];
+						var cell = grid.GetCell(index);
+						if (cell != null)
+						{
+							if (!grid.GetNearTagPos(cell.x, cell.y, WorkQueueSystem.SERVE_TAG, out var order))
+							{ 
+								var servr = place.seats?.Find(seat => seat.tag == WorkQueueSystem.SEAT_TAG);
+								if (servr != null)
+									order = grid.GetCell(servr.index).ToGrid();
+							}
+							TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, WorkQueueSystem.PLACE_TAG));
+						}
+					}
+				}
+
 			}
 		}
 
