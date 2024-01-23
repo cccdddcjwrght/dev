@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2949186242924735717}
-  - component: {fileID: 2313823194856209027}
-  - component: {fileID: 874396582614334845}
+  - component: {fileID: 7700983465700035919}
+  - component: {fileID: 2922781892853843921}
   m_Layer: 0
   m_Name: body-1
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &2313823194856209027
+--- !u!137 &7700983465700035919
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8290782892783832528, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  - {fileID: 5967751492454651251, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,13 +101,16 @@ SkinnedMeshRenderer:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: -0.0024409816, y: -0.000000074505806, z: 0.24976659}
     m_Extent: {x: 0.23188868, y: 0.29548442, z: 0.49685884}
   m_DirtyAABB: 0
---- !u!114 &874396582614334845
+--- !u!114 &2922781892853843921
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,6 +128,7 @@ MonoBehaviour:
   - Bip001 Spine
   - Bip001 Neck
   - Bip001 Head
+  - Bip001 HeadNub
   - Bip001 L Clavicle
   - Bip001 L UpperArm
   - Bip001 L Forearm
@@ -137,10 +141,12 @@ MonoBehaviour:
   - Bip001 L Calf
   - Bip001 L Foot
   - Bip001 L Toe0
+  - Bip001 L Toe0Nub
   - Bip001 R Thigh
   - Bip001 R Calf
   - Bip001 R Foot
   - Bip001 R Toe0
+  - Bip001 R Toe0Nub
   materials:
   - {fileID: 2100000, guid: 2f52752e30892f44088e6765332c60e3, type: 2}
   - {fileID: 2100000, guid: c4a4a505f61c35b42aec702f4b473c8f, type: 2}
