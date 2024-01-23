@@ -179,6 +179,23 @@ namespace GameTools
 			return default;
 		}
 
+		/// <summary>
+		/// 格子点转索引
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public static Vector2Int GridToIndex(Vector2Int pos)
+		{
+			if(agent != null)
+			{
+				var c = agent.grid.corners[0];
+				pos.x -= c.x;
+				pos.y -= c.y;
+				return pos;
+			}
+			return default;
+		}
+
 
 		#endregion
 
