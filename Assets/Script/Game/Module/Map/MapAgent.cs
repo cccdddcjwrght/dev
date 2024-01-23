@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using GameTools.Maps;
 using GameTools.Paths;
 using UnityEngine;
@@ -169,12 +170,49 @@ namespace GameTools
 
 		}
 
+		/// <summary>
+		/// 获取格子附近所有又Tag标签的位置
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="tag"></param>
+		/// <returns></returns>
+		public static List<Vector2Int> GetAllNearTagPoints(int x, int y, string tag)
+		{
+			if (agent != null && !string.IsNullOrEmpty(tag))
+			{
+				return agent.grid.GetNearTagAllPos(x, y, tag);
+			}
+			return default;
+		}
+
+		public static bool GetTagGrid(string tag, out Vector2Int grid)
+		{
+			grid = default;
+			if (agent != null && !string.IsNullOrEmpty(tag))
+			{
+				if (agent.grid.tags.TryGetValue(tag, out var ts))
+					grid = agent.grid.IndexToGrid(ts[0]);
+			}
+			return false;
+		}
+
+		public static List<Vector2Int> GetTagGrids(string tag)
+		{
+			var grids = default(List<Vector2Int>);
+			if (agent != null && !string.IsNullOrEmpty(tag))
+			{
+				if (agent.grid.tags.TryGetValue(tag, out var ts))
+					grids = ts.Select(t => agent.grid.IndexToGrid(t)).ToList();
+			}
+			return grids;
+		}
+
 		public static Vector2Int IndexToGrid(int index)
 		{
 			if (agent != null)
 			{
-				var c = agent.grid.GetCell(index);
-				if (c != null) return new Vector2Int(c.x, c.y);
+				return agent.grid.IndexToGrid(index);
 			}
 			return default;
 		}
@@ -186,7 +224,7 @@ namespace GameTools
 		/// <returns></returns>
 		public static Vector2Int GridToIndex(Vector2Int pos)
 		{
-			if(agent != null)
+			if (agent != null)
 			{
 				var c = agent.grid.corners[0];
 				pos.x -= c.x;

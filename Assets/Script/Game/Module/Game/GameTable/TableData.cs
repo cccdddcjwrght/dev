@@ -60,7 +60,7 @@ namespace SGame
         /// <param name="chairPos">座椅位置</param>
         public bool AddChair(CHAIR_TYPE chairType, Vector2Int chairPos)
         {
-            if (id <= 0)
+            if (id < 0)
             {
                 log.Error("table id not valid!" + id);
                 return false;

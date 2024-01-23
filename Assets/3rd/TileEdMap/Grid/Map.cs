@@ -251,6 +251,23 @@ namespace GameTools.Maps
 
 		#endregion
 
+		/// <summary>
+		/// 索引转格子
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		public Vector2Int IndexToGrid(int index) {
+
+			if (index >= 0 && index < cells.Count)
+			{
+				var x = index % gridSize.x;
+				var y = index / gridSize.x;
+				return new Vector2Int(x + bl.x, y + bl.y);
+			}
+			return default;
+
+		}
+
 		public Cell GetCell(int index)
 		{
 			try
