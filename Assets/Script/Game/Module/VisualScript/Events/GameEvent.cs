@@ -105,21 +105,21 @@ namespace SGame.VS
             base.StartListening(stack);
         }
         
-        protected override void StopListening(GraphStack stack, bool destroyed)
+        //protected override void StopListening(GraphStack stack, bool destroyed)
+        public override void StopListening(GraphStack stack)
         {
             var data = stack.GetElementData<Data>(this);
             if (!data.isListening)
             {
                 return;
             }
-            base.StopListening(stack, destroyed);
+            base.StopListening(stack);
 
             if (data.eventId == SGame.GameEvent.NONE)
             {
                 return;
             }
             
-
             VSEventBridge.Instance.UnReg((int)data.eventId, data.eventHandle);
             data.eventId = SGame.GameEvent.NONE;
             data.eventHandle = null;

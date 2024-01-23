@@ -1,13 +1,14 @@
 using UnityEditor;
 using UnityEngine;
 using Unity.Entities;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
     [CustomPropertyDrawer(typeof(Unity.Entities.Entity))]
     public class EntityDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            //EditorGUI.PropertyField(position, property, label, true);
             // Using BeginProperty / EndProperty on the parent property means that
             // prefab override logic works on the entire property.
             EditorGUI.BeginProperty(position, label, property);
@@ -15,43 +16,40 @@ using Unity.Entities;
             // Draw label
             position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
 
-
-            // Don't indent child fields
+            // Don't make child fields be indented
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-            //Entity e;
-            //e.Version
-
             // Calculate rects
-            var xRect = new Rect(position.x, position.y, position.width / 2, position.height);
-            var yRect = new Rect(position.x + position.width / 2, position.y, position.width / 2, position.height);
-            EditorGUI.PropertyField(xRect, property.FindPropertyRelative("Index"), GUIContent.none);
-            EditorGUI.PropertyField(xRect, property.FindPropertyRelative("Version"), GUIContent.none);
+            var amountRect = new Rect(position.x, position.y, 30, position.height);
+            var unitRect = new Rect(position.x + 35, position.y, 50, position.height);
+            //var nameRect = new Rect(position.x + 90, position.y, position.width - 90, position.height);
 
-            // Draw fields - passs GUIContent.none to each so they are drawn without label
+            // Draw fields - pass GUIContent.none to each so they are drawn without labels
+            EditorGUI.PropertyField(amountRect, property.FindPropertyRelative("Index"), GUIContent.none);
+            EditorGUI.PropertyField(unitRect, property.FindPropertyRelative("Version"), GUIContent.none);
+            //EditorGUI.PropertyField(nameRect, property.FindPropertyRelative("name"), GUIContent.none);
 
             // Set indent back to what it was
             EditorGUI.indentLevel = indent;
 
             EditorGUI.EndProperty();
         }
-        
 
+
+        public override VisualElement CreatePropertyGUI(SerializedProperty property)
+        {
+            // Create property container element.
+            var container = new VisualElement();
+
+            // Create property fields.
+            var xField = new PropertyField(property.FindPropertyRelative("Index"));
+            var yField = new PropertyField(property.FindPropertyRelative("Version"));
+
+            // Add fields to the container.
+            container.Add(xField);
+            container.Add(yField);
+            return container;
+}
     }
 
-
-/*
-public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-var x = property.FindPropertyRelative("x");
-var y = property.FindPropertyRelative("y");
-float LabelWidth = 50;
-var labelRect = new Rect(position.x, position.y, LabelWidth, position.height);
-var xRect = new Rect(position.x + LabelWidth, position.y, (position.width - LabelWidth) / 2 , position.height);
-var yRect = new Rect(position.x + LabelWidth + (position.width - LabelWidth) / 2  , position.y, (position.width - LabelWidth) / 2 , position.height);
-
-EditorGUI.LabelField(labelRect, label);
-EditorGUI.PropertyField(xRect, x);
-EditorGUI.PropertyField(yRect, y);
-}
- */

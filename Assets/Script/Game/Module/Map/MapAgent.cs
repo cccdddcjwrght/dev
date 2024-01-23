@@ -127,7 +127,7 @@ namespace GameTools
 		static private MapAgent agent;
 
 		/// <summary>
-		/// ¸ñ×Ó×ª×ø±ê
+		/// æ ¼å­è½¬åæ ‡
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
@@ -141,7 +141,7 @@ namespace GameTools
 		}
 
 		/// <summary>
-		/// ×ø±ê×ª¸ñ×Ó
+		/// åæ ‡è½¬æ ¼å­
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <returns></returns>
@@ -153,7 +153,7 @@ namespace GameTools
 		}
 
 		/// <summary>
-		/// »ñÈ¡¸ñ×Ó¸½¼şÄ¿±êtagµÄÎ»ÖÃ
+		/// è·å–æ ¼å­é™„ä»¶ç›®æ ‡tagçš„ä½ç½®
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
@@ -180,7 +180,7 @@ namespace GameTools
 		}
 
 		/// <summary>
-		/// ¸ñ×Óµã×ªË÷Òı
+		/// æ ¼å­ç‚¹è½¬ç´¢å¼•
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <returns></returns>

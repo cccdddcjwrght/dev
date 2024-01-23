@@ -10,6 +10,7 @@ using Unity.Core;
 namespace GameTools.Paths.Test
 {
 	// 随机生成角色
+	[DisableAutoCreation]
 	public partial class SpawnPlayerSystem : SystemBase // JobComponentSystem//: ComponentSystem
 	{
 		int _incressID = 1;

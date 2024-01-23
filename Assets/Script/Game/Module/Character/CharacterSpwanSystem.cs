@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using libx;
 using log4net;
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 using Unity.Mathematics;
@@ -34,6 +35,13 @@ namespace SGame
     
     public partial class CharacterSpawnSystem : SystemBase
     {
+        /// <summary>
+        /// 角色初始化完成标记
+        /// </summary>
+        public struct CharacterInitalized : IComponentData {
+        }
+        
+        
         public class CharacterLoading : IComponentData
         {
             public AssetRequest       baseChacterPrefab;
@@ -41,14 +49,23 @@ namespace SGame
             public AssetRequest       aiPrefab;
             public bool isDone => baseChacterPrefab.isDone && gen.ConfigReady && aiPrefab.isDone;
         }
+
+        public struct CharacterEvent
+        {
+            public Character character;
+            public Entity    entity;
+        }
+        
         
         private static ILog log = LogManager.GetLogger("game.character");
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
         private GameObject                             m_characterbase;
+        private List<CharacterEvent>                           m_triggerInit;
         
         protected override void OnCreate()
         {
             m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_triggerInit = new List<CharacterEvent>();
         }
 
         /// <summary>
@@ -113,10 +130,12 @@ namespace SGame
                 var character         = GameObject.Instantiate(characterPrefab);
                 character.transform.position    = req.pos;
                 character.transform.rotation    = Quaternion.identity;
+                Character c = character.AddComponent<Character>();//()
                 
                 // 创建AI
                 GameObject ai       = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
                 ai.transform.parent = character.transform;
+                ai.name = "AI";
                 
                 // 创建对象
                 GameObject ani = loading.gen.Generate();
@@ -124,8 +143,27 @@ namespace SGame
                 ani.transform.localRotation = Quaternion.identity;
                 ani.transform.localPosition = Vector3.zero;
                 ani.transform.localScale = Vector3.one;
+                ani.name = "Model";
                 commandBuffer.DestroyEntity(e);
+
+                c.script = ai;
+                c.model = ani;
             }).WithoutBurst().Run();
+
+
+            // 等待角色创建完成
+            Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, Character character) =>
+            {
+                m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character});
+                commandBuffer.AddComponent<CharacterInitalized>(entity);
+            }).WithoutBurst().Run();
+
+            // 触发事件
+            foreach (var item in m_triggerInit)
+            {
+                item.character.OnInitCharacter(item.entity, EntityManager);
+            }
+            m_triggerInit.Clear();
         }
     }
 }
