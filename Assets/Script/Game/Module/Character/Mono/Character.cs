@@ -73,5 +73,23 @@ namespace SGame
             
             entityManager.SetComponentData(entity, find);
         }
+
+        public bool isMoving
+        {
+            get
+            {
+                if (entityManager.HasComponent<FindPathParams>(entity))
+                    return true;
+                
+                if (entityManager.HasComponent<PathPositions>(entity) == false)
+                    return false;
+
+                if (!entityManager.HasComponent<Follow>(entity))
+                    return false;
+
+                var follow = entityManager.GetComponentData<Follow>(entity);
+                return follow.Value > 0;
+            }
+        }
     }
 }
