@@ -10,7 +10,6 @@ namespace SGame
 	/// </summary>
 	public static partial class ConstDefine
 	{
-
 		#region 餐桌
 		/// <summary>
 		/// 餐桌
@@ -23,7 +22,33 @@ namespace SGame
 		/// <summary>
 		/// 餐桌点单上菜
 		/// </summary>
-		public const string TAG_SERVE = "serve_1"; 
+		public const string TAG_SERVE = "serve_1";
+		#endregion
+
+		#region 上菜
+
+		/// <summary>
+		/// 上菜桌
+		/// </summary>
+		public const string TAG_TAKE_PLACE = "place";
+		/// <summary>
+		/// 上菜桌上菜位
+		/// </summary>
+		public const string TAG_TAKE_SERVE = "serve";
+		/// <summary>
+		/// 上菜桌取菜
+		/// </summary>
+		public const string TAG_TAKE = "take";
+
+		#endregion
+
+		#region 工作台
+
+		/// <summary>
+		/// 工作台做菜位置
+		/// </summary>
+		public const string TAG_MACHINE_WORK = "cook";
+
 		#endregion
 
 	}

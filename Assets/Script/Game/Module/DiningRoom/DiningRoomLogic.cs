@@ -572,44 +572,49 @@ namespace SGame.Dining
 			if (place.enable)
 			{
 				var idxs = new List<int>();
-				var istable = DataCenter.MachineUtil.GetWorktable(region, cfgID)?.isTable == true;
-
 				if (place.parts?.Count > 0)
 				{
-
 					for (int i = 0; i < place.parts.Count; i++)
 					{
 						var part = place.parts[i];
 						if (idxs.Contains(part.index)) continue;
 						idxs.Add(part.index);
 						MarkWalkFlag(place, part.index);
-						WorkQueueSystem.Instance.AddWorker(region.ToString(), part.index);
-					}
-				}
-				if (place.seats?.Count > 0)
-				{
-					for (int i = 0; i < place.seats.Count; i++)
-					{
-						var seat = place.seats[i];
-						WorkQueueSystem.Instance.AddWorker(seat.tag, seat.index);
 					}
 				}
 
-				if (idxs.Count > 0 && istable)
+				if (idxs.Count > 0)
 				{
+					var m = DataCenter.MachineUtil.GetMachine(place.cfgID, out var worktable);
+
 					for (int i = 0; i < idxs.Count; i++)
 					{
-						var index = idxs[i];
-						var cell = grid.GetCell(index);
+						var cell = grid.GetCell(idxs[i]);
 						if (cell != null)
 						{
-							if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_SERVE, out var order))
+							switch ((TABLE_TYPE)m.cfg.Type)
 							{
-								var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_SERVE);
-								if (servr != null)
-									order = grid.GetCell(servr.index).ToGrid();
+								case TABLE_TYPE.CUSTOM:
+									if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_SERVE, out var order))
+									{
+										var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_SERVE);
+										if (servr != null) order = grid.GetCell(servr.index).ToGrid();
+									}
+									TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, ConstDefine.TAG_SEAT));
+									break;
+								case TABLE_TYPE.DISH:
+									if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_TAKE_SERVE, out order))
+									{
+										var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_TAKE_SERVE);
+										if (servr != null) order = grid.GetCell(servr.index).ToGrid();
+									}
+									TableFactory.CreateDish(cell.ToGrid(), grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_TAKE), order);
+									break;
+								default:
+									if (m.cfg.Nowork != 1)
+										TableFactory.CreateFood(cell.ToGrid(), worktable.id, worktable.item, grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_MACHINE_WORK));
+									break;
 							}
-							TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, ConstDefine.TAG_SEAT));
 						}
 					}
 				}

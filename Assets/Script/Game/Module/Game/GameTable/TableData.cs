@@ -12,8 +12,8 @@ namespace SGame
     public enum TABLE_TYPE : uint
     {
         CUSTOM  = 1, // 顾客桌子
-        DISH    = 3, // 放餐机
-        MACHINE = 4, // 机器桌子
+        DISH    = 2, // 放餐机
+        MACHINE = 3, // 机器桌子
     }
 
     /// <summary>

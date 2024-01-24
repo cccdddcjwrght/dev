@@ -407,6 +407,12 @@ namespace GameTools.Maps
 			return false;
 		}
 
+		public Vector2Int GetNearTagPos(int x, int y, string tag)
+		{
+			GetNearTagPos(x,y, tag, out var index);
+			return index;
+		}
+
 		public List<Vector2Int> GetNearTagAllPos(int index, string tag)
 		{
 			return GetNearTagAllPos(GetCell(index), tag);
