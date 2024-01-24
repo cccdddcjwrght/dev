@@ -627,4 +627,13 @@ namespace SGame
 			//return (IFlatbufferObject)(type.GetConstructor(Array.Empty<Type>())?.Invoke(Array.Empty<object>()));
 		}
 	}
+
+	public static class CfgUtils
+	{
+		static public bool IsValid(this IFlatbufferObject flatbuffer)
+		{
+			return flatbuffer.ByteBuffer != null;
+		}
+	}
+
 }

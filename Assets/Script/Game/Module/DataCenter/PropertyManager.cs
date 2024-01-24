@@ -55,5 +55,25 @@ namespace SGame
 			return false;
 		}
 
+		public void UpdateByArgs(bool iscost, params int[] args)
+		{
+			if (args.Length > 2)
+				Update((ItemType)args[0], args[1], args[2] , iscost);
+			else if (args.Length == 2)
+				Update(ItemType.ITEM, args[0], args[1] , iscost);
+		}
+
+		public void Update(ItemType type, int id, long count, bool iscost = false)
+		{
+			if (id > 0)
+			{
+				var group = GetGroup(type);
+				if (group != null)
+				{
+					group.AddNum(id, iscost ? -count : count);
+				}
+			}
+		}
+
 	}
 }

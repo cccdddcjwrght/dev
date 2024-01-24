@@ -61,9 +61,10 @@ namespace SGame
         IEnumerator Logic()
         {
             InitModule();
-            
+
 			//临时场景加载
-			yield return Dining.DiningRoomSystem.Instance.LoadRoom(1);
+			var ud = DataCenter.Instance.GetUserData();
+			yield return Dining.DiningRoomSystem.Instance.LoadRoom(ud.scene);
 
             var prefab = m_resourceManager.LoadPrefab(script);
             var go = GameObject.Instantiate(prefab);

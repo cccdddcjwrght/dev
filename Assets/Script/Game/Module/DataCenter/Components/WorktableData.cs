@@ -86,6 +86,7 @@ namespace SGame
 
 			public static Worktable GetWorktable(int id, int scene = 0, bool ifMissAdd = false)
 			{
+				//scene = scene > 0 ? scene : DataCenter.Instance.GetUserData().scene;
 				var val = Instance.worktable.machines?.Find(m => m.id == id && (scene == 0 || m.scene == scene));
 				if (ifMissAdd && (val == null || val.id == 0))
 					val = AddWorktable(id, scene);
@@ -101,7 +102,13 @@ namespace SGame
 						w.level += val;
 					else
 						w.level = Math.Max(0, val);
+
 					w.Refresh();
+
+					//升级消耗
+					PropertyManager.Instance.UpdateByArgs(true, w.lvcfg.GetUpgradePriceArray());
+					if (w.lvcfg.StarRewardLength > 0)//升级奖励
+						PropertyManager.Instance.UpdateByArgs(false, w.lvcfg.GetStarRewardArray());
 
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
 				}
@@ -109,7 +116,7 @@ namespace SGame
 			}
 
 			/// <summary>
-			/// 空闲点位
+			/// 空闲点位【暂时没什么】
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>
@@ -118,6 +125,91 @@ namespace SGame
 				var w = GetWorktable(id);
 				if (w != null && w.stations?.Count > 0)
 					return w.stations.Find(s => s.state == 0 && s.cfg.Nowork != 1);
+				return default;
+			}
+
+			/// <summary>
+			/// 工作时间
+			/// </summary>
+			/// <param name="id"></param>
+			/// <returns></returns>
+			public static int GetWorkTime(int id)
+			{
+				var w = GetWorktable(id);
+				if (w != null)
+					return w.GetWorkTime();
+				return 0;
+			}
+
+			/// <summary>
+			/// 商品价格
+			/// </summary>
+			/// <param name="id"></param>
+			/// <returns></returns>
+			public static double GetWorkItemPrice(int id)
+			{
+				var w = GetWorktable(id);
+				if (w != null) return w.GetPrice();
+				return 0;
+			}
+
+			/// <summary>
+			/// 星级进度
+			/// </summary>
+			/// <param name="id"></param>
+			/// <returns></returns>
+			public static int GetStarProgress(int id)
+			{
+				var w = GetWorktable(id);
+				if (w != null && !w.isTable && w.level > 0)
+				{
+					var s = w.lvcfg.MachineStar;
+					if (ConfigSystem.Instance.TryGet<MachineStarRowData>(s, out var cfg))
+					{
+						var range = cfg.GetMachineStarArray();
+						var len = range[1] + 1 - range[0];
+						return Mathf.CeilToInt((w.level - range[0]) * 100f / len);
+					}
+				}
+				return 0;
+			}
+
+			/// <summary>
+			/// 获取工作台星星信息
+			/// 返回显示列表
+			/// 列表长度是多少就显示多少个星星
+			/// 数据代表星星类型 <see cref="EnumStar"/>
+			/// </summary>
+			/// <param name="id">工作台id</param>
+			/// <returns></returns>
+			public static int[] GetWorktableStarInfo(int id)
+			{
+				var w = GetWorktable(id);
+				if (w != null)
+				{
+					return CalcuStarList(GetWorkertableMaxStar(id), w.lvcfg.MachineStar);
+				}
+				return default;
+			}
+
+			public static int[] CalcuStarList(int max , int cur) {
+
+				if (max > 0)
+				{
+					var cstar = cur;
+					//几阶
+					var step = Mathf.CeilToInt(max / 5f);
+					//当前处于哪一阶 
+					var type = Mathf.CeilToInt(cstar / 5f);
+					//星星长度
+					var size = type < step ? 5 : max % 5;
+					var stars = new int[size];
+
+					for (int i = 0; i < cstar % 6; i++)
+						stars[i] = type;
+
+					return stars;
+				}
 				return default;
 			}
 
@@ -247,6 +339,8 @@ namespace SGame
 		public int level;
 		public int star;
 
+		public bool isTable;
+
 		public List<Machine> stations = new List<Machine>();
 
 		[NonSerialized]
@@ -254,10 +348,27 @@ namespace SGame
 		[NonSerialized]
 		public MachineUpgradeRowData lvcfg;
 
-		public bool isTable;
+		public int item { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
+
+		public int price { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
+
+		public double GetPrice()
+		{
+			if (isTable && lvcfg.IsValid())
+				return Math.Floor(1L * price * lvcfg.ShopPriceStarRatio * lvcfg.ShopPriceStarRatio * 0.0001);
+			return 0;
+		}
+
+		public int GetWorkTime()
+		{
+			if (isTable && lvcfg.IsValid())
+				return Mathf.FloorToInt(cfg.Time * lvcfg.TimeRatio * 0.001f);
+			return 0;
+		}
 
 		public void Refresh()
 		{
+			if (lvcfg.IsValid()) star = lvcfg.MachineStar;
 			if (!ConfigSystem.Instance.TryGet<MachineRowData>(id, out cfg)) isTable = true;
 			ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg);
 		}
