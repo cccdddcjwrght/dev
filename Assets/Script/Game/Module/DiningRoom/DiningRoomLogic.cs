@@ -605,11 +605,11 @@ namespace SGame.Dining
 						{
 							if (!grid.GetNearTagPos(cell.x, cell.y, WorkQueueSystem.SERVE_TAG, out var order))
 							{ 
-								var servr = place.seats?.Find(seat => seat.tag == WorkQueueSystem.SEAT_TAG);
+								var servr = place.seats?.Find(seat => seat.tag == WorkQueueSystem.SERVE_TAG);
 								if (servr != null)
 									order = grid.GetCell(servr.index).ToGrid();
 							}
-							TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, WorkQueueSystem.PLACE_TAG));
+							TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, WorkQueueSystem.SEAT_TAG));
 						}
 					}
 				}
