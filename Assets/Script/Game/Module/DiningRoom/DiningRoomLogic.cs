@@ -603,13 +603,13 @@ namespace SGame.Dining
 						var cell = grid.GetCell(index);
 						if (cell != null)
 						{
-							if (!grid.GetNearTagPos(cell.x, cell.y, WorkQueueSystem.SERVE_TAG, out var order))
-							{ 
-								var servr = place.seats?.Find(seat => seat.tag == WorkQueueSystem.SERVE_TAG);
+							if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_SERVE, out var order))
+							{
+								var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_SERVE);
 								if (servr != null)
 									order = grid.GetCell(servr.index).ToGrid();
 							}
-							TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, WorkQueueSystem.SEAT_TAG));
+							TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, ConstDefine.TAG_SEAT));
 						}
 					}
 				}

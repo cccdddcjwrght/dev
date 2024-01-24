@@ -48,11 +48,6 @@ namespace SGame
 		private Dictionary<string, WorkQueue> _queues = new Dictionary<string, WorkQueue>();
 		private List<Worker> _waitWorkers = new List<Worker>();
 
-		public const string SEAT_TAG = "seat";
-		public const string SERVE_TAG = "serve_1";
-		public const string PLACE_TAG = "place_1";
-
-
 		/// <summary>
 		/// 添加一个工作位
 		/// </summary>
