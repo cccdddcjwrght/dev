@@ -37,10 +37,10 @@ namespace SGame
 	}
 
 	/// <summary>
-	/// ¼òµ¥¹¤×÷¶ÓÁĞ
-	/// »ñÈ¡Ïà¹ØTagÃû¶ÓÁĞµÄ¿ÕÏĞÎ»ÖÃ
-	/// ¹¤×÷Ì¨ RoomMachine.ID
-	/// »òÕßÅäÖÃ±íºÍ³¡¾°ÀïÃæ¹ØÁªµÄTag
+	/// ç®€å•å·¥ä½œé˜Ÿåˆ—
+	/// è·å–ç›¸å…³Tagåé˜Ÿåˆ—çš„ç©ºé—²ä½ç½®
+	/// å·¥ä½œå° RoomMachine.ID
+	/// æˆ–è€…é…ç½®è¡¨å’Œåœºæ™¯é‡Œé¢å…³è”çš„Tag
 	/// </summary>
 
 	public class WorkQueueSystem : MonoSingleton<WorkQueueSystem>
@@ -49,10 +49,10 @@ namespace SGame
 		private List<Worker> _waitWorkers = new List<Worker>();
 
 		/// <summary>
-		/// Ìí¼ÓÒ»¸ö¹¤×÷Î»
+		/// æ·»åŠ ä¸€ä¸ªå·¥ä½œä½
 		/// </summary>
 		/// <param name="name"></param>
-		/// <param name="index">¸ñ×ÓË÷Òı</param>
+		/// <param name="index">æ ¼å­ç´¢å¼•</param>
 		public void AddWorker(string name, int index)
 		{
 			if (string.IsNullOrEmpty(name)) return;
@@ -85,7 +85,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// »ñÈ¡¿ÕÏĞ¹¤×÷Î»
+		/// è·å–ç©ºé—²å·¥ä½œä½
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="worker"></param>
@@ -120,7 +120,7 @@ namespace SGame
 		}
 
 		/// <summary>
-		/// ÊÍ·Å
+		/// é‡Šæ”¾
 		/// </summary>
 		/// <param name="worker"></param>
 		public void Free(Worker worker)

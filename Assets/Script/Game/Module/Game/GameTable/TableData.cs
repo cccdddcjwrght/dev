@@ -27,7 +27,7 @@ namespace SGame
         public int          id;
 
         // 座位位置
-        public Vector2Int   map_pos;
+        public int2        map_pos;
 
         // 桌子类型
         public TABLE_TYPE   type;
@@ -59,7 +59,7 @@ namespace SGame
         /// </summary>
         /// <param name="chairType">座椅类型</param>
         /// <param name="chairPos">座椅位置</param>
-        public bool AddChair(CHAIR_TYPE chairType, Vector2Int chairPos)
+        public bool AddChair(CHAIR_TYPE chairType, int2 chairPos)
         {
             if (id < 0)
             {
@@ -73,7 +73,7 @@ namespace SGame
             }
             var chair = new ChairData()
             {
-                map_pos = new int2(chairPos.x, chairPos.y),
+                map_pos = chairPos,//new int2(chairPos.x, chairPos.y),
                 playerID = 0,
                 tableID = id,
                 type = chairType,

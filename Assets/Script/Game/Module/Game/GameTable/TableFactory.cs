@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -23,12 +24,12 @@ namespace SGame
             List<Vector2Int> customerPos
             )
         {
-            TableData value = new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = tablePos};
+            TableData value = new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = new int2(tablePos.x, tablePos.y)};
             TableManager.Instance.AddTable(value);
             
-            value.AddChair(CHAIR_TYPE.ORDER, orderPos);
+            value.AddChair(CHAIR_TYPE.ORDER, new int2(orderPos.x, orderPos.y));
             foreach (var pos in customerPos)
-                value.AddChair(CHAIR_TYPE.CUSTOMER, pos);
+                value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
             return value;
         }
         
@@ -41,11 +42,11 @@ namespace SGame
         /// <returns>桌子对象</returns>
         public static TableData CreateDish(Vector2Int tablePos, Vector2Int takerPos, Vector2Int puterPos)
         {
-            TableData value = new TableData() { type = TABLE_TYPE.DISH, map_pos = tablePos};
+            TableData value = new TableData() { type = TABLE_TYPE.DISH, map_pos = new int2(tablePos.x, tablePos.y)};
 
             TableManager.Instance.AddTable(value);
-            value.AddChair(CHAIR_TYPE.CUSTOMER, takerPos);
-            value.AddChair(CHAIR_TYPE.ORDER, puterPos);
+            value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(takerPos.x, takerPos.y));
+            value.AddChair(CHAIR_TYPE.ORDER, new int2(puterPos.x, puterPos.y));
             return value;
         }
         
@@ -60,13 +61,13 @@ namespace SGame
         /// <returns>桌子对象</returns>
         public static TableData CreateFood(Vector2Int tablePos, int machineID, int foodType, Vector2Int operatorPos)
         {
-            TableData value = new TableData() { type = TABLE_TYPE.MACHINE, map_pos = tablePos};
+            TableData value = new TableData() { type = TABLE_TYPE.MACHINE, map_pos = new int2(tablePos.x, tablePos.y)};
             value.machineID = machineID;
             value.foodType  = foodType;
             TableManager.Instance.AddTable(value);
             
             // 添加操作台
-            value.AddChair(CHAIR_TYPE.OPERATOR, operatorPos);
+            value.AddChair(CHAIR_TYPE.OPERATOR, new int2(operatorPos.x, operatorPos.y));
             return value;
         }
     }

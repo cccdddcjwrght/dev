@@ -11,30 +11,31 @@ using Unity.VisualScripting;
 
 namespace SGame
 {
-    public struct CharacterSpawn : IComponentData
-    {
-        // 地图2D 位置
-        public Vector3 pos; 
-        
-        // ID
-        public int id;
-
-        public static Entity Create(int id, Vector3 pos)
-        {
-            var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var entity = mgr.CreateEntity(typeof(CharacterSpawn));
-            mgr.SetComponentData(entity, new CharacterSpawn()
-            {
-                id = id,
-                pos = pos
-            });
-
-            return entity;
-        }
-    }
-    
+    [UpdateInGroup(typeof(GameLogicGroup))]
     public partial class CharacterSpawnSystem : SystemBase
     {
+        public struct CharacterSpawn : IComponentData
+        {
+            // 地图2D 位置
+            public Vector3 pos; 
+        
+            // ID
+            public int id;
+
+            public static Entity Create(int id, Vector3 pos)
+            {
+                var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
+                var entity = mgr.CreateEntity(typeof(CharacterSpawn));
+                mgr.SetComponentData(entity, new CharacterSpawn()
+                {
+                    id = id,
+                    pos = pos
+                });
+
+                return entity;
+            }
+        }
+        
         /// <summary>
         /// 角色初始化完成标记
         /// </summary>
@@ -62,12 +63,28 @@ namespace SGame
         private GameObject                             m_characterbase;
         private List<CharacterEvent>                           m_triggerInit;
         private int lasterCharacterID;
-        
+
+        private Dictionary<int, Entity>             m_characters;
+
         protected override void OnCreate()
         {
             m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
             m_triggerInit = new List<CharacterEvent>();
+            m_characters = new Dictionary<int, Entity>();
             lasterCharacterID = 0;
+        }
+
+        /// <summary>
+        /// 通过角色ID获得角色
+        /// </summary>
+        /// <param name="characterid"></param>
+        /// <returns></returns>
+        public Entity GetCharacter(int characterid)
+        {
+            if (m_characters.TryGetValue(characterid, out Entity e))
+                return e;
+            
+            return Entity.Null;
         }
 
         /// <summary>
@@ -166,6 +183,7 @@ namespace SGame
             foreach (var item in m_triggerInit)
             {
                 item.character.OnInitCharacter(item.entity, EntityManager);
+                m_characters.Add(item.character.CharacterID, item.entity);
             }
             m_triggerInit.Clear();
         }

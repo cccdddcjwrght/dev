@@ -12,12 +12,15 @@ namespace SGame
     public enum ORDER_PROGRESS : uint
     {
          WAIT           = 0, // 等待点餐
-         ORDING         = 1, // 下单中
-         FOOD_MAKING    = 2, // 制作中
-         FOOD_MAKED     = 3, // 制作完成
-         DISH_POINT     = 4, // 放置到
-         MOVETO_CUSTOM  = 5, // 移动到顾客身边
-         FINISH         = 6, // 订单完成
+         START          = 1, // 服务员接单
+         ORDING         = 2, // 服务员处理点单中
+         ORDED          = 3, // 顾客下单并结束
+         FOOD_START     = 5, // 厨师接单
+         FOOD_MAKING    = 4, // 制作中
+         FOOD_MAKED     = 5, // 制作完成
+         FOOD_READLY    = 6, // 食物已经放置到该有位置
+         MOVETO_CUSTOM  = 7, // 移动到顾客身边
+         FINISH         = 8, // 订单完成
     }
     
     // 订单数据 
@@ -40,7 +43,7 @@ namespace SGame
         
         public int          foodType { get; private set; }      // 菜品类型
         
-        public BigInteger   price;                              // 菜品价格
+        public double       price;                              // 菜品价格
         
         public ORDER_PROGRESS progress { get; private set; } // 订单进度
         
@@ -79,12 +82,11 @@ namespace SGame
         }
 
         /// <summary>
-        /// 服务员处理订单
+        /// 开始点单
         /// </summary>
-        /// <param name="servicerID">服务员ID</param>
-        /// <param name="foodID">菜品ID</param>
+        /// <param name="servicerID"></param>
         /// <returns></returns>
-        public bool Ording(int servicerID, int foodID)
+        public bool StartOrding(int servicerID)
         {
             if (progress != ORDER_PROGRESS.WAIT)
             {
@@ -93,8 +95,53 @@ namespace SGame
             }
 
             this.servicerID = servicerID;
-            this.foodID = foodID;
+            this.foodID     = 0;
+            progress = ORDER_PROGRESS.START;
+            return true;
+        }
+
+        /// <summary>
+        /// 服务员锁定处理订单
+        /// </summary>
+        /// <param name="servicerID">服务员ID</param>
+        /// <param name="foodID">菜品ID</param>
+        /// <returns></returns>
+        public bool Ording(int servicerID)
+        {
+            if (progress != ORDER_PROGRESS.START)
+            {
+                log.Error("order progress not match!");
+                return false;
+            }
+
+            this.servicerID = servicerID;
             progress = ORDER_PROGRESS.ORDING;
+            return true;
+        }
+
+
+        /// <summary>
+        /// 客户完成点单
+        /// </summary>
+        /// <param name="customerID">客户ID用于校验</param>
+        /// <param name="foodType">菜品类型</param>
+        /// <returns></returns>
+        public bool Ordered(int customerID, int foodType)
+        {
+            if (progress != ORDER_PROGRESS.ORDING)
+            {
+                log.Error("order progress not match!");
+                return false;
+            }
+
+            if (this.customerID != customerID)
+            {
+                log.Error("customer ID Not match!");
+                return false;
+            }
+
+            this.foodType = foodType;
+            progress = ORDER_PROGRESS.ORDED;
             return true;
         }
         
@@ -104,15 +151,32 @@ namespace SGame
         /// </summary>
         /// <param name="cookerID"></param>
         /// <returns></returns>
-        public bool Take(int cookerID)
+        public bool CookerTake(int cookerID)
         {
-            if (progress != ORDER_PROGRESS.ORDING)
+            if (progress != ORDER_PROGRESS.ORDED)
             {
                 log.Error("order progress not match!");
                 return false;
             }
 
             this.cookerID = cookerID;
+            progress = ORDER_PROGRESS.FOOD_START;
+            return true;
+        }
+
+        /// <summary>
+        /// 厨师开始制作菜品
+        /// </summary>
+        /// <param name="cookerID"></param>
+        /// <returns></returns>
+        public bool CookerCooking(int cookerID)
+        {
+            if (progress != ORDER_PROGRESS.FOOD_START)
+            {
+                log.Error("order progress not match!");
+                return false;
+            }
+
             progress = ORDER_PROGRESS.FOOD_MAKING;
             return true;
         }
@@ -124,7 +188,7 @@ namespace SGame
         /// <param name="foodID">食物对象</param>
         /// <param name="price">食物价格</param>
         /// <returns></returns>
-        public bool CookFinish(int cookerID, int foodID, BigInteger price)
+        public bool CookFinish(int cookerID, int foodID, double price)
         {
             if (progress != ORDER_PROGRESS.FOOD_MAKING)
             {
@@ -166,7 +230,7 @@ namespace SGame
             }
 
             this.dishPointID = dishPointID;
-            this.progress = ORDER_PROGRESS.DISH_POINT;
+            this.progress = ORDER_PROGRESS.FOOD_READLY;
             return true;
         }
 
@@ -177,7 +241,7 @@ namespace SGame
         /// <returns></returns>
         public bool MoveToCustom(int servicerID)
         {
-            if (progress != ORDER_PROGRESS.DISH_POINT && progress != ORDER_PROGRESS.FOOD_MAKED)
+            if (progress != ORDER_PROGRESS.FOOD_READLY && progress != ORDER_PROGRESS.FOOD_MAKED)
             {
                 log.Error("order progress not match!");
                 return false;
