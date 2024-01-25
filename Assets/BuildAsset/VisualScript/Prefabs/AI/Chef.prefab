@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8383558013759506625}
   - component: {fileID: 4764574439233912000}
-  - component: {fileID: 8153009109118353133}
+  - component: {fileID: -8648678867412748940}
   m_Layer: 0
   m_Name: Chef
   m_TagString: Untagged
@@ -46,11 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"PosList","value":{"$content":[{"x":0,"y":-9,"$type":"Unity.Mathematics.int2"},{"x":0,"y":-6,"$type":"Unity.Mathematics.int2"},{"x":0,"y":-9,"$type":"Unity.Mathematics.int2"},{"x":3,"y":9,"$type":"Unity.Mathematics.int2"}],"$type":"Unity.VisualScripting.AotList"},"typeHandle":{"Identification":"Unity.VisualScripting.AotList,
-      Unity.VisualScripting.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"PosIndex","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"Character","value":null,"typeHandle":{"Identification":"SGame.Character,
+      Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"CharacterID","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"Order","value":null,"typeHandle":{"Identification":"SGame.OrderData,
+      Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Chair","value":{"map_pos":{"x":0,"y":0},"tableID":0,"chairIndex":0,"playerID":0,"type":"UNKNOWN","$type":"SGame.ChairData"},"typeHandle":{"Identification":"SGame.ChairData,
+      Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
---- !u!114 &8153009109118353133
+--- !u!114 &-8648678867412748940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,10 +61,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 714309234560938540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+  m_Script: {fileID: 11500000, guid: efe58df89b5b74a97a123b5ed2b70422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
     _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
     _objectReferences:
-    - {fileID: 11400000, guid: ca124649a0d77cc44931006e264f5929, type: 2}
+    - {fileID: 11400000, guid: 85b7abb804fa61a4f960060f03035712, type: 2}
