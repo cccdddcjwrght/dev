@@ -49,6 +49,7 @@ MonoBehaviour:
     _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"Character","value":null,"typeHandle":{"Identification":"SGame.Character,
       Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"CharacterID","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"Order","value":null,"typeHandle":{"Identification":"SGame.OrderData,
+      Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Chair","value":{"map_pos":{"x":0,"y":0},"tableID":0,"chairIndex":0,"playerID":0,"type":"UNKNOWN","$type":"SGame.ChairData"},"typeHandle":{"Identification":"SGame.ChairData,
       Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
 --- !u!114 &-8648678867412748940
@@ -66,4 +67,4 @@ MonoBehaviour:
   _data:
     _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
     _objectReferences:
-    - {fileID: 11400000, guid: a5f9b3a8cf07a7a4b86a4c19961c539f, type: 2}
+    - {fileID: 11400000, guid: 85b7abb804fa61a4f960060f03035712, type: 2}
