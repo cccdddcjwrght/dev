@@ -55,24 +55,24 @@ namespace SGame
         public int FindPutDishTable()
         {
             int dishCount = 100;
-            int index = -1;
+            int id = -1;
             for (int i = 0; i < m_datas.Count; i++)
             {
                 var t = m_datas[i];
                 if (t.type == TABLE_TYPE.DISH)
                 {
-                    if (t.foodsID.Count == 0)
-                        return i;
+                    if (t.foodsID == null || t.foodsID.Count == 0)
+                        return t.id;
                     
                     if (t.foodsID.Count < dishCount)
                     {
-                        index = i;
+                        id = t.id;
                         dishCount = t.foodsID.Count;
                     }
                 }
             }
 
-            return index;
+            return id;
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace SGame
                 if (t.type == TABLE_TYPE.MACHINE && t.foodType == foodType)
                 {
                     int chairIndex = t.GetEmptySit(CHAIR_TYPE.OPERATOR);
-                    if (chairIndex <= 0)
+                    if (chairIndex < 0)
                         return false;
 
                     table = t;

@@ -192,7 +192,7 @@ namespace SGame
         {
             if (progress != ORDER_PROGRESS.FOOD_MAKING)
             {
-                log.Error("order progress not match!");
+                log.Error("order progress not match = " + progress);
                 return false;
             }
 

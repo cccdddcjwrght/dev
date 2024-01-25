@@ -182,9 +182,9 @@ namespace SGame
             }
             
             var chair = chairs[index];
-            if (!chair.IsEmpty)
+            if (chair.IsEmpty)
             {
-                log.Error("chair has already sit =" + index + " table id=" + id);
+                log.Error("leave chair sit is empty =" + index + " table id=" + id);
                 return false;
             }
 
@@ -205,6 +205,9 @@ namespace SGame
         /// <returns></returns>
         public bool PutFood(int foodID)
         {
+            if (foodsID == null)
+                foodsID = new List<int>();
+            
             foodsID.Add(foodID);
             return true;
         }
