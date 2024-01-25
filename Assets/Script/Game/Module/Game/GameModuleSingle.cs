@@ -55,7 +55,7 @@ namespace SGame
             // 等1秒再创建角色
             yield return FiberHelper.Wait(1.0f);
             // CharacterSpawn.Create(1, Vector3.zero);
-            CharacterModule.Instance.Create(4, Vector3.zero);
+            //CharacterModule.Instance.Create(4, Vector3.zero);
         }
 
         IEnumerator Logic()

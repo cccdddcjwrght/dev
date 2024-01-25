@@ -17,7 +17,7 @@ namespace SGame
         /// <returns></returns>
         public Entity Create(int id, Vector3 pos)
         {
-            return CharacterSpawnSystem.CharacterSpawn.Create(4, Vector3.zero);
+            return CharacterSpawnSystem.CharacterSpawn.Create(id, pos);
         }
 
         /// <summary>
