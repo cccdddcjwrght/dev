@@ -13,6 +13,7 @@ namespace SGame
 		// 用户数据
 		public Entity m_data;
 		public AccountData accountData = new AccountData();
+		public AbilityData abilityData = new AbilityData();
 
 		private GameWorld m_world;
 		static DataCenter s_instance;
