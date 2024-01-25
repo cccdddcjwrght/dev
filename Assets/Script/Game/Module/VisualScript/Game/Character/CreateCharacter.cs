@@ -3,6 +3,7 @@ using SGame;
 using Unity.VisualScripting;
 using Unity.Mathematics;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace SGame.VS
 {
@@ -57,10 +58,17 @@ namespace SGame.VS
                 else
                 {
                     // 使用标签
-                    Vector2Int map_pos;
-                    if (GameTools.MapAgent.GetTagGrid(tag, out map_pos))
+                    List<Vector2Int> map_pos = GameTools.MapAgent.GetTagGrids(tag);
+                    if (map_pos != null && map_pos.Count > 0)
                     {
-                        CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(map_pos.x, map_pos.y));
+                        for (int i = 0; i < 5; i++)
+                        {
+                            log.Info("random = " + RandomSystem.Instance.NextInt(0,2));
+                        }
+                        
+                        var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count - 1);
+                        var pos = map_pos[posIndex];
+                        CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y));
                     }
                     else
                     {

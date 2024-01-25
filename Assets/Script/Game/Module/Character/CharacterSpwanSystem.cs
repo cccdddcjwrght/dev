@@ -182,8 +182,8 @@ namespace SGame
             // 触发事件
             foreach (var item in m_triggerInit)
             {
-                item.character.OnInitCharacter(item.entity, EntityManager);
                 m_characters.Add(item.character.CharacterID, item.entity);
+                item.character.OnInitCharacter(item.entity, EntityManager);
             }
             m_triggerInit.Clear();
         }

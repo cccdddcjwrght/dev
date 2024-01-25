@@ -116,7 +116,7 @@ namespace SGame
         {
             for (int i = 0; i < chairs.Count; i++)
             {
-                if (chairs[i].type == chairType)
+                if (chairs[i].type == chairType && chairs[i].IsEmpty)
                 {
                     return i;
                 }
@@ -163,6 +163,7 @@ namespace SGame
             }
 
             chair.playerID = customID;
+            chairs[index] = chair;
             return true;
         }
 
