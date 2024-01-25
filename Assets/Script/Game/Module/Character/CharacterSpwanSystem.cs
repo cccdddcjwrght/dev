@@ -143,6 +143,7 @@ namespace SGame
                 {
                     return;
                 }
+                ConfigSystem.Instance.TryGet(req.id, out GameConfigs.roleRowData config);
 
                 // 获得地图位置
                 var characterPrefab             = loading.baseChacterPrefab.asset as GameObject;
@@ -150,6 +151,7 @@ namespace SGame
                 character.transform.position    = req.pos;
                 character.transform.rotation    = Quaternion.identity;
                 Character c = character.AddComponent<Character>();//()
+                character.name = config.Name;
                 
                 // 创建AI
                 GameObject ai       = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
