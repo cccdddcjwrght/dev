@@ -78,7 +78,7 @@ namespace SGame
              this.dishPointID   = 0;            // 放餐点
              this.foodID        = 0;            // 菜品ID
              this.price         = 0;   // 菜品价格
-             this.progress      = ORDER_PROGRESS.ORDING; // 订单进度
+             this.progress      = ORDER_PROGRESS.WAIT; // 订单进度
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace SGame
         {
             if (progress != ORDER_PROGRESS.ORDING)
             {
-                log.Error("order progress not match!");
+                log.Error("order progress not match = " + progress);
                 return false;
             }
 
