@@ -122,7 +122,7 @@ namespace SGame
         /// </summary>
         /// <param name="customerID">顾客ID</param>
         /// <returns></returns>
-        public ChairData FindCustomerPos(int customerID)
+        public ChairData FindCustomerChair(int customerID)
         {
             foreach (var t in m_datas)
             {
@@ -142,6 +142,34 @@ namespace SGame
         }
 
         /// <summary>
+        /// 查找可用的工作台
+        /// </summary>
+        /// <param name="foodType"></param>
+        /// <param name="table"></param>
+        /// <param name="chair"></param>
+        /// <returns></returns>
+        public bool FindEmptyMatchine(int foodType, out TableData table, out ChairData chair)
+        {
+            table = null;
+            chair = ChairData.Empty;
+            foreach (var t in m_datas)
+            {
+                if (t.type == TABLE_TYPE.MACHINE && t.foodType == foodType)
+                {
+                    int chairIndex = t.GetEmptySit(CHAIR_TYPE.OPERATOR);
+                    if (chairIndex <= 0)
+                        return false;
+
+                    table = t;
+                    chair = t.GetChair(chairIndex);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// 通过顾客找到点单的座位
         /// </summary>
         /// <param name="customerID">顾客ID</param>
@@ -149,7 +177,7 @@ namespace SGame
         public ChairData FindCustomerOrderPos(int customerID)
         {
             // 先找到顾客座位
-            var chairPos = FindCustomerPos(customerID);
+            var chairPos = FindCustomerChair(customerID);
             if (chairPos == ChairData.Empty)
                 return ChairData.Empty;
 

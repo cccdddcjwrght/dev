@@ -19,12 +19,28 @@ namespace SGame.UI{
 			var levelBtn = m_view.m_levelBtn;
 			var adBtn    = m_view.m_AdBtn;
 			var taskBtn  = m_view.m_taskRewardBtn;
+			var leftList        = m_view.m_leftList.m_left;
+			leftList.itemRenderer += RenderListItem;
+			leftList.numItems = 3;
 			levelBtn.onClick.Add(OnlevelBtnClick);
 			adBtn.onClick.Add(OnadBtnClick);
 			taskBtn.onClick.Add(OntaskBtnClick);
+			
 			m_handles += EventManager.Instance.Reg<int,long,int>((int)GameEvent.PROPERTY_GOLD,			OnEventGoldChange);
 		}
 
+		private void RenderListItem(int index, GObject item)
+		{
+			item.onClick.Add(() =>
+			{
+				if (index == 1)
+				{
+					Debug.Log("点击了"+item);
+					Entity techUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("technology"));
+				}
+			});
+		}
+		
 		private void OntaskBtnClick(EventContext context)
 		{
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("popup"));

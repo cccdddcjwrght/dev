@@ -8,6 +8,7 @@ namespace SGame.VS
     /// 等待订单状态
     /// </summary>
     [UnitTitle("WaitOrder")]
+    [UnitCategory("Game/Order")]
     [UnitOrder(1)]
     public class WaitOrder : WaitUnit
     {
@@ -24,7 +25,7 @@ namespace SGame.VS
         [DoNotSerialize]
         [PortLabel("OrderState")]
         public ValueInput _Progress { get; private set; }
-
+        
         protected override void Definition()
         {
             base.Definition();
@@ -38,11 +39,12 @@ namespace SGame.VS
 
         protected override IEnumerator Await(Flow flow)
         {
-            var order = flow.GetValue<OrderData>(this._Order);
-            var progress = flow.GetValue<ORDER_PROGRESS>(_Progress);
-
-            while (order.progress < progress)
-                yield return null;
+            yield return new WaitWhile(() =>
+            {
+                var order = flow.GetValue<OrderData>(this._Order);
+                var progress = flow.GetValue<ORDER_PROGRESS>(_Progress);
+                return order.progress < progress;
+            });
 
             yield return exit;
         }

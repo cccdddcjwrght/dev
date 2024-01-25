@@ -37,6 +37,11 @@ namespace SGame
         /// 判断座位是否位空
         /// </summary>
         public bool IsEmpty => playerID == 0;
+        
+        /// <summary>
+        /// 判断是否是空的
+        /// </summary>
+        public bool IsEmptyChair => Equals(ChairData.Empty);
 
         public static ChairData Empty => new ChairData() { type = CHAIR_TYPE.UNKNOWN, playerID = 0, chairIndex = 0, tableID = 0, map_pos = int2.zero };
 
@@ -56,5 +61,6 @@ namespace SGame
 
         public static bool operator == (ChairData lhs, ChairData rhs) => lhs.Equals(rhs);
         public static bool operator !=(ChairData lhs, ChairData rhs) => !(lhs == rhs);
+
     }
 }

@@ -20,16 +20,13 @@ namespace SGame
 		
 		ORDER_NEW                   = 200, // 创建新的订单 (int orderId)
 		ORDER_FOODMAKED				= 201, // 	
-
+		
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 
-
-
+		
 		//操作台=============================================
 		WORK_TABLE_ENABLE			= 2001,//操作台解锁
 		WORK_TABLE_UPLEVEL			= 2002,//操作台升级
 		WORK_TABLE_MACHINE_ENABLE	= 2003,//操作台点位解锁
-
-
 	}
 }

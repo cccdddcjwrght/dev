@@ -17,6 +17,7 @@ namespace SGame.UI{
 	
 		void OncloseBtnClick(EventContext context)
 		{
+			Debug.Log("==================关闭===========================");
 			m_view.visible = false;
 		}
 		

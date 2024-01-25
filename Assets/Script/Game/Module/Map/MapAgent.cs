@@ -192,7 +192,10 @@ namespace GameTools
 			if (agent != null && !string.IsNullOrEmpty(tag))
 			{
 				if (agent.grid.tags.TryGetValue(tag, out var ts))
+				{
 					grid = agent.grid.IndexToGrid(ts[0]);
+					return true;
+				}
 			}
 			return false;
 		}
