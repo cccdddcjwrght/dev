@@ -36,7 +36,8 @@ namespace SGame.UI{
 			loader.url = string.Format("ui://Technology/{0}", listData[index].VaultIcon);
 			//等级
 			GTextField levelTxt =  item.asCom.GetChild("level").asTextField;
-			levelTxt.text=listData[index].abilitLevelList[levelIndex].level.ToString();
+			levelTxt.text=levelIndex >= listData[index].abilitLevelList.Count-1?
+				ConstDefine.MAX: listData[index].abilitLevelList[levelIndex].level.ToString();
 			//说明
 			GTextField desTxt =  item.asCom.GetChild("Description").asTextField;
 			desTxt.text=listData[index].VaultDes;
@@ -48,19 +49,43 @@ namespace SGame.UI{
 			update2Txt.text = string.Format("{0}%", listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString());
 			//按钮
 			GButton    techBtn=item.asCom.GetChild("techBtn").asButton;
-			techBtn.GetChild("iconTitle").asTextField.text =
-				listData[index].abilitLevelList[levelIndex].BuyData[1].ToString();
+			GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;
+			GTextField buyTxt= techBtn.GetChild("iconTitle").asTextField;
+			buyTxt.text=listData[index].abilitLevelList[levelIndex].BuyData[1].ToString();
 			Controller techController = item.asCom.GetController("state");
-			techBtn.onClick.Set(()=>
-			{
-				OnClickTechBtn(index);
-			});
 			
-			//test
+			//------------test
 			if (index > 5)
 			{
 				techController.selectedIndex = 1;
+				listData[index].IsLock = true;
+				techBtn.enabled = false;
 			}
+			else
+			{
+				if (levelIndex >= listData[index].abilitLevelList.Count-1)
+				{
+					techController.selectedIndex = 2;
+					GTextField maxTxt= techMaxBtn.GetChild("title").asTextField;
+					maxTxt.text = ConstDefine.MAX;
+					techMaxBtn.enabled = false;
+
+				}
+			}
+			//test------------
+			
+			
+			
+			techBtn.onClick.Set(()=>
+			{
+				if (listData[index].IsLock == false)
+				{
+					OnClickTechBtn(index);
+				}
+				
+			});
+			
+		
 		}
 
 		public void OnClickTechBtn(int index)

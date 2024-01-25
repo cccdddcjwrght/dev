@@ -10,14 +10,15 @@ namespace SGame.UI.Technology
         public Controller m_state;
         public GImage m_bg;
         public GLoader m_icon;
-        public GTextField m_level;
         public GTextField m_Description;
         public GTextField m_update2;
         public GTextField m_update1;
-        public GButton m_techBtn;
-        public GTextField m_levelStr;
         public GImage m_lock;
         public GTextField m_unLock;
+        public GButton m_techBtn;
+        public GButton m_techMaxBtn;
+        public GTextField m_level;
+        public GTextField m_levelStr;
         public const string URL = "ui://gnu1a8dnijalg";
 
         public static UI_techItem CreateInstance()
@@ -32,14 +33,15 @@ namespace SGame.UI.Technology
             m_state = GetControllerAt(0);
             m_bg = (GImage)GetChildAt(0);
             m_icon = (GLoader)GetChildAt(1);
-            m_level = (GTextField)GetChildAt(2);
-            m_Description = (GTextField)GetChildAt(3);
-            m_update2 = (GTextField)GetChildAt(4);
-            m_update1 = (GTextField)GetChildAt(5);
-            m_techBtn = (GButton)GetChildAt(6);
-            m_levelStr = (GTextField)GetChildAt(7);
-            m_lock = (GImage)GetChildAt(8);
-            m_unLock = (GTextField)GetChildAt(9);
+            m_Description = (GTextField)GetChildAt(2);
+            m_update2 = (GTextField)GetChildAt(3);
+            m_update1 = (GTextField)GetChildAt(4);
+            m_lock = (GImage)GetChildAt(5);
+            m_unLock = (GTextField)GetChildAt(6);
+            m_techBtn = (GButton)GetChildAt(7);
+            m_techMaxBtn = (GButton)GetChildAt(8);
+            m_level = (GTextField)GetChildAt(9);
+            m_levelStr = (GTextField)GetChildAt(10);
         }
     }
 }

@@ -22,10 +22,11 @@ namespace SGame
         [Serializable]
         public class AbilityList
         {
-            public int ID;
+            public int    ID;
             public string VaultIcon;
             public string VaultDes;
             public int    LevelIndex=0;//等级
+            public bool   IsLock=false;
             public List<AbilitLevelRenderer> abilitLevelList = new List<AbilitLevelRenderer>();
         }
 
@@ -61,7 +62,7 @@ namespace SGame
         /// <param name="vaultIcon"></param>
         /// <param name="firstId"></param>
         /// <param name="lastId"></param>
-        public void AddAbilityListRenderer(int id, string vaultIcon,string valutDes ,int firstId, int lastId)
+        public void AddAbilityListRenderer(int id, string vaultIcon,string valutDes, int firstId, int lastId)
         {
             var abilityLevelList = SetAbilityLevel(firstId, lastId);
             AbilityList abilityItemData = new AbilityList
@@ -118,6 +119,11 @@ namespace SGame
             {
                 abilityList[index].LevelIndex++;
             }
+        }
+
+        public void UnLockAbility(int index)
+        {
+            abilityList[index].IsLock = true;
         }
     }
 }

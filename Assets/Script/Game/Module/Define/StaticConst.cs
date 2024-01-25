@@ -50,6 +50,11 @@ namespace SGame
 		public const string TAG_MACHINE_WORK = "cook";
 
 		#endregion
+		
+		/// <summary>
+		/// max标志
+		/// </summary>
+		public const string MAX = "MAX";
 
 	}
 
