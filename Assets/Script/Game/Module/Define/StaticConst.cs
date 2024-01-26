@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static Fibers.Fiber;
 
 namespace SGame
 {
@@ -10,6 +11,22 @@ namespace SGame
 	/// </summary>
 	public static partial class ConstDefine
 	{
+		#region 百分比缩放
+
+		public const float C_PER_SCALE = 0.0001f;
+
+		#endregion
+
+		#region 目标枚举
+
+		/// <summary>
+		/// 所有人
+		/// </summary>
+		public readonly static EnumTarget AllRole = EnumTarget.Player | EnumTarget.Cook | EnumTarget.Waiter | EnumTarget.Customer;
+
+
+		#endregion
+
 		#region 餐桌
 		/// <summary>
 		/// 餐桌
@@ -63,6 +80,5 @@ namespace SGame
 	/// </summary>
 	public static partial class StaticDefine
 	{
-
 	}
 }

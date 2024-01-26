@@ -43,9 +43,7 @@ namespace SGame.UI{
 		
 		private void OntaskBtnClick(EventContext context)
 		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("popup"));
-			EntityManager.AddComponentData(popupUI, new UIParam() { Value =2 });
-			
+			UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("leveltech"));
 		}
 
 		private void OnadBtnClick(EventContext context)

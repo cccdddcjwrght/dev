@@ -233,7 +233,10 @@ namespace __SPACE__{
 	
 	public partial class __NAME__
 	{
+		private int __id;
+
 		partial void InitUI(UIContext context){
+			__id = context.configID;
 //init
 		}
 		partial void UnInitUI(UIContext context){
