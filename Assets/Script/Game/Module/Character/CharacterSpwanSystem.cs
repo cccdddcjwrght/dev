@@ -144,6 +144,7 @@ namespace SGame
                     return;
                 }
                 ConfigSystem.Instance.TryGet(req.id, out GameConfigs.roleRowData config);
+                lasterCharacterID++;
 
                 // 获得地图位置
                 var characterPrefab             = loading.baseChacterPrefab.asset as GameObject;
@@ -151,7 +152,7 @@ namespace SGame
                 character.transform.position    = req.pos;
                 character.transform.rotation    = Quaternion.identity;
                 Character c = character.AddComponent<Character>();//()
-                character.name = config.Name;
+                character.name = config.Name + "_id_" + lasterCharacterID;
                 
                 // 创建AI
                 GameObject ai       = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
@@ -167,7 +168,6 @@ namespace SGame
                 ani.name = "Model";
                 commandBuffer.DestroyEntity(e);
 
-                lasterCharacterID++;
                 c.script = ai;
                 c.model = ani;
                 c.CharacterID = lasterCharacterID;

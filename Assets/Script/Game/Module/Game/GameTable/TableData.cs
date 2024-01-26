@@ -190,7 +190,7 @@ namespace SGame
 
             if (chair.playerID == 0 || chair.playerID != customID)
             {
-                log.Error("custom ID not match=" + customID + " sit =" + chair.playerID);
+                log.Error("custom ID not match=" + customID + " sit =" + chair.playerID + " pos=" + chair.map_pos);
                 return false;
             }
             chair.playerID = 0;
