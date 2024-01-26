@@ -94,6 +94,23 @@ namespace SGame
 			return (s & v) == v;
 		}
 
+		static public List<T> StateToList<T>(this T type) where T : struct, IConvertible
+		{
+			var es = type.ToString().Split(',');
+			if (es.Length > 1)
+			{
+				var ls = new List<T>();
+				for (int i = 0; i < es.Length; i++)
+				{
+					if (Enum.TryParse<T>(es[i], out var e))
+						ls.Add(e);
+				}
+				return ls;
+			}
+			return default;
+		}
+
+
 		static public void Foreach<T>(this IList<T> list, Action<T> excute)
 		{
 			if (excute != null && list != null && list.Count > 0)

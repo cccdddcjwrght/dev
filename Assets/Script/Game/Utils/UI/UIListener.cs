@@ -123,19 +123,20 @@ public class UIListener
 		{
 			if (gObject is GProgressBar p) p.value = val;
 			else if (gObject is GSlider s) s.value = val;
-			else if(gObject is GComponent c)
+			else if (gObject is GComponent c)
 			{
 				p = c.GetChild("__progress").asProgress;
 				s = c.GetChild("__slider").asSlider;
-				if (p != null) { p.value = val;  }
-				else if(s!=null) { s.value = val; }
+				if (p != null) { p.value = val; }
+				else if (s != null) { s.value = val; }
 			}
 		}
 	}
 
-	static public float GetValue(GObject gObject,float def = 0) {
+	static public float GetValue(GObject gObject, float def = 0)
+	{
 
-		if(gObject != null)
+		if (gObject != null)
 		{
 			var v = 0.0;
 			if (gObject is GProgressBar p) v = p.value;
@@ -145,7 +146,7 @@ public class UIListener
 				p = c.GetChild("__progress").asProgress;
 				s = c.GetChild("__slider").asSlider;
 				if (p != null) { v = p.value; }
-				else if (s != null) { v = s.value ; }
+				else if (s != null) { v = s.value; }
 			}
 			return (float)v;
 		}
@@ -169,10 +170,12 @@ public class UIListener
 			var inputItem = gObject.asCom?.GetChild("__textinput") ?? gObject;
 			var sliderItem = gObject.asCom?.GetChild("__slider") ?? gObject;
 			var comboItem = gObject.asCom?.GetChild("__combo") ?? gObject;
-			var clickItem = gObject.asCom?.GetChild("__btn");
+			var clickItem = gObject.asCom?.GetChild("__btn") ?? gObject.asCom?.GetChild("click");
+
 			if (clickItem == null)
 			{
-				var g = gObject.asCom?.GetChildByPath("icon.__btn");
+				var g = gObject.asCom?.GetChildByPath("icon.__btn")
+					?? gObject.asCom?.GetChildByPath("icon.close");
 				if (g != null)
 					clickItem = gObject.asCom?.GetChild("icon");
 				else
@@ -256,5 +259,17 @@ public class UIListener
 		}
 	}
 
+	static public void ListenerClose(GObject gObject, object method, bool remove = false)
+	{
+		if (gObject != null && gObject is GComponent com)
+		{
+			var icon = com.GetChild("close")
+				?? com.GetChild("Close")
+				?? com.GetChild("Mask")
+				?? com.GetChild("mask");
+			if (icon != null && icon is GButton btn)
+				Listener(btn, method, remove: remove);
+		}
+	}
 
 }

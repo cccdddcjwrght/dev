@@ -34,9 +34,6 @@ namespace SGame
 
 	public partial class DataCenter
 	{
-		[SerializeField]
-		public WorktableData worktable = new WorktableData();
-
 		public class MachineUtil
 		{
 			public static Machine AddMachine(int id)
@@ -86,8 +83,7 @@ namespace SGame
 
 			public static Worktable GetWorktable(int id, int scene = 0, bool ifMissAdd = false)
 			{
-				//scene = scene > 0 ? scene : DataCenter.Instance.GetUserData().scene;
-				var val = Instance.worktable.machines?.Find(m => m.id == id && (scene == 0 || m.scene == scene));
+				var val = GetWorktables()?.Find(m => m.id == id);
 				if (ifMissAdd && (val == null || val.id == 0))
 					val = AddWorktable(id, scene);
 				return val;
@@ -192,7 +188,8 @@ namespace SGame
 				return default;
 			}
 
-			public static int[] CalcuStarList(int max , int cur) {
+			public static int[] CalcuStarList(int max, int cur)
+			{
 
 				if (max > 0)
 				{
@@ -306,7 +303,7 @@ namespace SGame
 					scene = scene,
 				};
 				val.Refresh();
-				Instance.worktable.machines.Add(val);
+				GetWorktables()?.Add(val);
 				return val;
 			}
 
@@ -319,6 +316,10 @@ namespace SGame
 				return m;
 			}
 
+			private static List<Worktable> GetWorktables(int scene = 0)
+			{
+				return Instance.roomData.current.worktables;
+			}
 		}
 	}
 
@@ -384,8 +385,6 @@ namespace SGame
 		public int holder;
 		public int time;
 
-		public List<Seat> seats = new List<Seat>();
-
 		[NonSerialized]
 		public RoomMachineRowData cfg;
 
@@ -396,15 +395,6 @@ namespace SGame
 
 	}
 
-	[System.Serializable]
-	public class Seat
-	{
-		public string tag;
-		public int index;
-		public int state;
-		public int holder;
-		public int time;
-	}
 
 
 }

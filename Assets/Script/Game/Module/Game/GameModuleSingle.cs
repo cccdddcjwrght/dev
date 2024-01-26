@@ -41,7 +41,15 @@ namespace SGame
         /// <returns></returns>
         void InitModule()
         {
-            // 初始化订单系统
+			//场景加载
+			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUI, UIUtils.CloseUI);
+			//餐厅管理
+			SGame.Dining.DiningRoomSystem.Instance.Init();
+
+			//初始化属性系统
+			AttributeSystem.Instance.Initalize();
+            
+			// 初始化订单系统
             OrderManager.Instance.Initalize();
 
             // 初始化桌子系统

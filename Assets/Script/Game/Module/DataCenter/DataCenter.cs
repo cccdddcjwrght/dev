@@ -18,6 +18,7 @@ namespace SGame
 		private GameWorld m_world;
 		static DataCenter s_instance;
 
+		public bool IsInitAll { get; private set; } = false;
 
 		public static DataCenter Instance
 		{
@@ -67,6 +68,18 @@ namespace SGame
 			EntityManager.SetComponentData(m_data, UserData.GetDefault());
 		}
 
+		public void Load()
+		{
+			DoLoad();
+			AfterLoad();
+			Initalize();
+		}
+
+		public void Initalize()
+		{
+			IsInitAll = true;
+		}
+
 		public void Update()
 		{
 
@@ -77,5 +90,8 @@ namespace SGame
 		{
 
 		}
+
+		partial void DoLoad();
+		partial void AfterLoad();
 	}
 }

@@ -91,25 +91,23 @@ namespace SGame.Dining
 		private void OnEnterRoomCompleted()
 		{
 			log.Info("Enter Room :" + _currentRoom.cfgID);
+			EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
+			EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
+
 		}
 
 		private IEnumerator Wait()
 		{
 			if (_currentRoom != null)
 			{
+				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
 				yield return _currentRoom.Wait();
-
 			}
 		}
 
 
 		#endregion
 
-		#region Do
-
-
-
-		#endregion
 
 		#region Events
 
