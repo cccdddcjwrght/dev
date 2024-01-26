@@ -51,9 +51,9 @@ public struct AbilityListRowData : IFlatbufferObject
       StringOffset VaultDesOffset = default(StringOffset),
       int VaultLevelMax = 0,
       VectorOffset LevelIdOffset = default(VectorOffset),
-      int sort = 0) {
+      int Sort = 0) {
     builder.StartTable(6);
-    AbilityListRowData.AddSort(builder, sort);
+    AbilityListRowData.AddSort(builder, Sort);
     AbilityListRowData.AddLevelId(builder, LevelIdOffset);
     AbilityListRowData.AddVaultLevelMax(builder, VaultLevelMax);
     AbilityListRowData.AddVaultDes(builder, VaultDesOffset);
@@ -71,7 +71,7 @@ public struct AbilityListRowData : IFlatbufferObject
   public static VectorOffset CreateLevelIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateLevelIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartLevelIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddSort(FlatBufferBuilder builder, int sort) { builder.AddInt(5, sort, 0); }
+  public static void AddSort(FlatBufferBuilder builder, int Sort) { builder.AddInt(5, Sort, 0); }
   public static Offset<GameConfigs.AbilityListRowData> EndAbilityListRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.AbilityListRowData>(o);
