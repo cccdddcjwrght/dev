@@ -27,6 +27,7 @@ namespace SGame
             public string VaultDes;
             public int    LevelIndex=0;//等级
             public bool   IsLock=false;
+            public int[]  LockData;
             public List<AbilitLevelRenderer> abilitLevelList = new List<AbilitLevelRenderer>();
         }
 
@@ -43,8 +44,10 @@ namespace SGame
                 AddAbilityListRenderer(rowData.Value.Id,
                     rowData.Value.VaultIcon,
                     rowData.Value.VaultDes,
+                    rowData.Value.GetLockCostArray(),
                     rowData.Value.LevelId(0),
                     rowData.Value.LevelId(1)
+                    
                 );
             }
         }
@@ -62,7 +65,7 @@ namespace SGame
         /// <param name="vaultIcon"></param>
         /// <param name="firstId"></param>
         /// <param name="lastId"></param>
-        public void AddAbilityListRenderer(int id, string vaultIcon,string valutDes, int firstId, int lastId)
+        public void AddAbilityListRenderer(int id, string vaultIcon,string valutDes, int[] lockData,int firstId, int lastId)
         {
             var abilityLevelList = SetAbilityLevel(firstId, lastId);
             AbilityList abilityItemData = new AbilityList
@@ -70,6 +73,7 @@ namespace SGame
                 ID = id,
                 VaultIcon = vaultIcon,
                 VaultDes  = valutDes,
+                LockData = lockData,
                 abilitLevelList = abilityLevelList
             };
 
@@ -94,12 +98,13 @@ namespace SGame
                 {
                     var rowData = list[i];
                     var nextlevel = i + 1 == len ? 0 : list[i + 1].Value;
+                    int[] buyData = i + 1 == len ? new []{0,0}:new [] { list[i].Cost(1), list[i].Cost(2) };
                     AbilitLevelRenderer levelItemData = new AbilitLevelRenderer()
                     {
                         level          = rowData.VaultLevel,
                         CurLevelValue  = rowData.Value,
                         NextLevelValue = nextlevel,
-                        BuyData = new int[] { rowData.Cost(1), rowData.Cost(2) },
+                        BuyData        = buyData
                     };
 
                     abilitLevelList.Add(levelItemData);

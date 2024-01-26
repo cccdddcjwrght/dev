@@ -51,38 +51,39 @@ namespace SGame.UI{
 			GButton    techBtn=item.asCom.GetChild("techBtn").asButton;
 			GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;
 			GTextField buyTxt= techBtn.GetChild("iconTitle").asTextField;
-			buyTxt.text=listData[index].abilitLevelList[levelIndex].BuyData[1].ToString();
 			Controller techController = item.asCom.GetController("state");
-			
-			//------------test
-			if (index > 5)
+
+			if (listData[index].IsLock)
 			{
-				techController.selectedIndex = 1;
-				listData[index].IsLock = true;
-				techBtn.enabled = false;
+				techController.selectedIndex = 0;
+				buyTxt.text=listData[index].abilitLevelList[levelIndex].BuyData[1].ToString();
 			}
 			else
 			{
-				if (levelIndex >= listData[index].abilitLevelList.Count-1)
-				{
-					techController.selectedIndex = 2;
-					GTextField maxTxt= techMaxBtn.GetChild("title").asTextField;
-					maxTxt.text = ConstDefine.MAX;
-					techMaxBtn.enabled = false;
-
-				}
+				techController.selectedIndex = 1;
+				buyTxt.text=listData[index].LockData[2].ToString();
 			}
-			//test------------
 			
-			
-			
+			if (levelIndex >= listData[index].abilitLevelList.Count-1)
+			{
+				techController.selectedIndex = 2;
+				GTextField maxTxt= techMaxBtn.GetChild("title").asTextField;
+				maxTxt.text = ConstDefine.MAX;
+				techMaxBtn.enabled = false;
+			}
+
 			techBtn.onClick.Set(()=>
 			{
+		
 				if (listData[index].IsLock == false)
+				{
+					listData[index].IsLock = true;
+				}
+				else
 				{
 					OnClickTechBtn(index);
 				}
-				
+				m_view.m_techList.numItems = m_AbilityData.len; 
 			});
 			
 		
@@ -91,7 +92,6 @@ namespace SGame.UI{
 		public void OnClickTechBtn(int index)
 		{
 			m_AbilityData.UpgradeLevel(index);
-			m_view.m_techList.numItems = m_AbilityData.len; 
 		}
 
 		partial void UnInitLogic(UIContext context){
