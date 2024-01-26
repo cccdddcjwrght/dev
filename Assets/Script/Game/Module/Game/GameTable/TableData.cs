@@ -158,7 +158,7 @@ namespace SGame
             var chair = chairs[index];
             if (!chair.IsEmpty)
             {
-                log.Error("chair has already sit =" + index + " table id=" + id);
+                log.Error("chair has already sit =" + index + " table id=" + id + " pos=" + chair.map_pos);
                 return false;
             }
 
@@ -184,7 +184,7 @@ namespace SGame
             var chair = chairs[index];
             if (chair.IsEmpty)
             {
-                log.Error("leave chair sit is empty =" + index + " table id=" + id);
+                log.Error("leave chair sit is empty =" + index + " table id=" + id + + chair.map_pos);
                 return false;
             }
 

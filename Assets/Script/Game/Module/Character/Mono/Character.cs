@@ -57,8 +57,7 @@ namespace SGame
         /// <param name="map_pos"></param>
         public void MoveTo(int2 map_pos)
         {
-            Debug.Log("you move to =" + map_pos.ToString());
-
+            // Debug.Log("you move to =" + map_pos.ToString());
             var searchPos = GameTools.MapAgent.GridToIndex(new Vector2Int(map_pos.x, map_pos.y));
             map_pos.x = searchPos.x;
             map_pos.y = searchPos.y;

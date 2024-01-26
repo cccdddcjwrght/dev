@@ -61,12 +61,7 @@ namespace SGame.VS
                     List<Vector2Int> map_pos = GameTools.MapAgent.GetTagGrids(tag);
                     if (map_pos != null && map_pos.Count > 0)
                     {
-                        for (int i = 0; i < 5; i++)
-                        {
-                            log.Info("random = " + RandomSystem.Instance.NextInt(0,2));
-                        }
-                        
-                        var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count - 1);
+                        var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count);
                         var pos = map_pos[posIndex];
                         CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y));
                     }

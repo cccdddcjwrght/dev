@@ -56,8 +56,11 @@ namespace SGame
         {
             int dishCount = 100;
             int id = -1;
+            int baseIndex = RandomSystem.Instance.NextInt(0, m_datas.Count);
+                
             for (int i = 0; i < m_datas.Count; i++)
             {
+                int index = (baseIndex + i) % m_datas.Count;
                 var t = m_datas[i];
                 if (t.type == TABLE_TYPE.DISH)
                 {
