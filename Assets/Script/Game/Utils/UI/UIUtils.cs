@@ -5,6 +5,8 @@ using UnityEngine;
 using Unity.Mathematics;
 using System.Collections;
 using Unity.VisualScripting;
+using System.Xml.Linq;
+using GameConfigs;
 
 namespace SGame
 {
@@ -46,6 +48,19 @@ namespace SGame
 				return false;
 
 			return UIModule.Instance.CloseUI(e);
+		}
+
+		public static bool CloseUIByID(int id)
+		{
+			if (ConfigSystem.Instance.TryGet<ui_resRowData>(id, out var cfg))
+			{
+				var e = UIModule.Instance.GetUI(cfg.Name);
+				if (e == Entity.Null)
+					return false;
+
+				return UIModule.Instance.CloseUI(e);
+			}
+			return false;
 		}
 
 		/// <summary>
