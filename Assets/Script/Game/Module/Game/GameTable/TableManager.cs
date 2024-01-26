@@ -158,7 +158,7 @@ namespace SGame
                 {
                     int chairIndex = t.GetEmptySit(CHAIR_TYPE.OPERATOR);
                     if (chairIndex < 0)
-                        return false;
+                        continue;
 
                     table = t;
                     chair = t.GetChair(chairIndex);
