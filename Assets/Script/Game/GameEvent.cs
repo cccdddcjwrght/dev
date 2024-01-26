@@ -35,7 +35,7 @@ namespace SGame
 		WORK_TABLE_MACHINE_ENABLE	= 2003,//操作台点位解锁
 		
 		//buff===============================================
-		BUFF_TRIGGER				= 3001,//触发一个buff （int buffid , int value , int targetid , int time)
+		BUFF_TRIGGER				= 3001,//触发一个buff （BuffData data)
 
 		//Tech===============================================
 		TECH_ADD_REWARD				= 4001,//科技添加奖励 （int tech)
