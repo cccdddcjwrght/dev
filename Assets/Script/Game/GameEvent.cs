@@ -26,6 +26,10 @@ namespace SGame
 		ORDER_NEW = 200, // 创建新的订单 (int orderId)
 		ORDER_FOODMAKED				= 201, // 	
 		
+		/// 角色
+		CHARACTER_CREATE			= 301, // 角色创建 (int 角色类型, int 角色实例ID)
+		CHARACTER_REMOVE			= 302, // 角色销毁 (int 角色类型, int 角色实例ID)
+		
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 
 		
