@@ -2,6 +2,7 @@
 using log4net;
 using SGame.UI;
 using UnityEngine;
+using Unity.Entities;
 namespace SGame.Hotfix
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace SGame.Hotfix
         private static ILog log = LogManager.GetLogger("hotfix");
         
         // 初始化UI状态, 包括是否全屏等等
-        public void Init(UIContext context)
+        public void Init(UIContext context, EntityCommandBuffer commandBuffer)
         {
             if (context.configID == Define.HOTFIX_UI_ID)
             {

@@ -25,8 +25,7 @@ public struct EntityGroupChildren : IBufferElementData
     public Entity entity;
 }
 
-[UpdateAfter(typeof(SimulationSystemGroup))]
-[UpdateBefore(typeof(EndSimulationEntityCommandBufferSystem))]
+[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 public partial class DestroyDespawning : SystemBase
 {
     private EndSimulationEntityCommandBufferSystem m_commandBuffer;

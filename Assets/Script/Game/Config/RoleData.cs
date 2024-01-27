@@ -27,19 +27,21 @@ public struct RoleDataRowData : IFlatbufferObject
   public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
-  public int Model { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public float MoveSpeed { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float OrderSpeed { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float Efficiency { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public int Instant { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Perfect { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int PerfectRatio { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Tip { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int TipRatio { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Type { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Model { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float MoveSpeed { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float OrderSpeed { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float Efficiency { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int Instant { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Perfect { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int PerfectRatio { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Tip { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int TipRatio { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoleDataRowData> CreateRoleDataRowData(FlatBufferBuilder builder,
       int Id = 0,
       StringOffset NameOffset = default(StringOffset),
+      int Type = 0,
       int Model = 0,
       float MoveSpeed = 0.0f,
       float OrderSpeed = 0.0f,
@@ -49,7 +51,7 @@ public struct RoleDataRowData : IFlatbufferObject
       int PerfectRatio = 0,
       int Tip = 0,
       int TipRatio = 0) {
-    builder.StartTable(11);
+    builder.StartTable(12);
     RoleDataRowData.AddTipRatio(builder, TipRatio);
     RoleDataRowData.AddTip(builder, Tip);
     RoleDataRowData.AddPerfectRatio(builder, PerfectRatio);
@@ -59,23 +61,25 @@ public struct RoleDataRowData : IFlatbufferObject
     RoleDataRowData.AddOrderSpeed(builder, OrderSpeed);
     RoleDataRowData.AddMoveSpeed(builder, MoveSpeed);
     RoleDataRowData.AddModel(builder, Model);
+    RoleDataRowData.AddType(builder, Type);
     RoleDataRowData.AddName(builder, NameOffset);
     RoleDataRowData.AddId(builder, Id);
     return RoleDataRowData.EndRoleDataRowData(builder);
   }
 
-  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(11); }
+  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
-  public static void AddModel(FlatBufferBuilder builder, int Model) { builder.AddInt(2, Model, 0); }
-  public static void AddMoveSpeed(FlatBufferBuilder builder, float MoveSpeed) { builder.AddFloat(3, MoveSpeed, 0.0f); }
-  public static void AddOrderSpeed(FlatBufferBuilder builder, float OrderSpeed) { builder.AddFloat(4, OrderSpeed, 0.0f); }
-  public static void AddEfficiency(FlatBufferBuilder builder, float Efficiency) { builder.AddFloat(5, Efficiency, 0.0f); }
-  public static void AddInstant(FlatBufferBuilder builder, int Instant) { builder.AddInt(6, Instant, 0); }
-  public static void AddPerfect(FlatBufferBuilder builder, int Perfect) { builder.AddInt(7, Perfect, 0); }
-  public static void AddPerfectRatio(FlatBufferBuilder builder, int PerfectRatio) { builder.AddInt(8, PerfectRatio, 0); }
-  public static void AddTip(FlatBufferBuilder builder, int Tip) { builder.AddInt(9, Tip, 0); }
-  public static void AddTipRatio(FlatBufferBuilder builder, int TipRatio) { builder.AddInt(10, TipRatio, 0); }
+  public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
+  public static void AddModel(FlatBufferBuilder builder, int Model) { builder.AddInt(3, Model, 0); }
+  public static void AddMoveSpeed(FlatBufferBuilder builder, float MoveSpeed) { builder.AddFloat(4, MoveSpeed, 0.0f); }
+  public static void AddOrderSpeed(FlatBufferBuilder builder, float OrderSpeed) { builder.AddFloat(5, OrderSpeed, 0.0f); }
+  public static void AddEfficiency(FlatBufferBuilder builder, float Efficiency) { builder.AddFloat(6, Efficiency, 0.0f); }
+  public static void AddInstant(FlatBufferBuilder builder, int Instant) { builder.AddInt(7, Instant, 0); }
+  public static void AddPerfect(FlatBufferBuilder builder, int Perfect) { builder.AddInt(8, Perfect, 0); }
+  public static void AddPerfectRatio(FlatBufferBuilder builder, int PerfectRatio) { builder.AddInt(9, PerfectRatio, 0); }
+  public static void AddTip(FlatBufferBuilder builder, int Tip) { builder.AddInt(10, Tip, 0); }
+  public static void AddTipRatio(FlatBufferBuilder builder, int TipRatio) { builder.AddInt(11, TipRatio, 0); }
   public static Offset<GameConfigs.RoleDataRowData> EndRoleDataRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoleDataRowData>(o);

@@ -7,6 +7,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Xml.Linq;
 using GameConfigs;
+using Unity.Transforms;
 
 namespace SGame
 {
@@ -109,21 +110,6 @@ namespace SGame
 			return ret;
 		}
 
-		/// <summary>
-		/// 创建漂字
-		/// </summary>
-		/// <param name="mgr"></param>
-		/// <param name="title">文字</param>
-		/// <param name="pos">3d场景中的位置</param>
-		/// <param name="color">颜色</param>
-		/// <param name="fontSize">字体大小</param>
-		/// <param name="duration">持续时间</param>
-		/// <returns></returns>
-		public static Entity ShowTips(EntityManager mgr, string title, float3 pos, Color color, int fontSize, float duration, PositionType posType)
-		{
-			return FloatTextRequest.CreateEntity(mgr, title, pos, color, 50, 2.0f, posType);
-		}
-
 		public static IEnumerator WaitUI(string name)
 		{
 
@@ -162,5 +148,74 @@ namespace SGame
 			}
 			return default;
 		}
+
+		/// <summary>
+		/// 显示跟随物体的HUD
+		/// </summary>
+		/// <param name="uiname"></param>
+		/// <param name="follow"></param>
+		/// <param name="offset"></param>
+		/// <returns></returns>
+		public static Entity ShowHUD(string uiname, Transform follow, float3 offset)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiname));
+
+			if (!entityManager.HasComponent<HUDFlow>(ui))
+			{
+				entityManager.AddComponentObject(ui, new HUDFlow() {Value = follow, offset = offset});
+			}
+			else
+			{
+				entityManager.SetComponentData(ui, new HUDFlow() {Value = follow, offset = offset});
+			}
+
+			return ui;
+		}
+		
+		/// <summary>
+		/// 创建漂字
+		/// </summary>
+		/// <param name="mgr"></param>
+		/// <param name="title">文字</param>
+		/// <param name="pos">3d场景中的位置</param>
+		/// <param name="color">颜色</param>
+		/// <param name="fontSize">字体大小</param>
+		/// <param name="duration">持续时间</param>
+		/// <returns></returns>
+		public static Entity ShowTipsNew(string uiName, 
+			string title, 
+			float3 pos, 
+			Color color, 
+			int fontSize, float duration)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiName));
+			entityManager.AddComponent<Translation>(ui);
+			entityManager.AddComponent<HUDTips>(ui);
+			entityManager.AddComponent<LiveTime>(ui);
+			
+			entityManager.SetComponentData(ui, new Translation {Value = pos});
+			entityManager.SetComponentData(ui, new HUDTips {title = title, color = color, fontSize = fontSize});
+			entityManager.SetComponentData(ui, new LiveTime {Value = duration});
+			return ui;
+		}
+		
+		//////////////////// 老代码后续清除 ///////////////////////////////////////
+		/// <summary>
+		/// 创建漂字
+		/// </summary>
+		/// <param name="mgr"></param>
+		/// <param name="title">文字</param>
+		/// <param name="pos">3d场景中的位置</param>
+		/// <param name="color">颜色</param>
+		/// <param name="fontSize">字体大小</param>
+		/// <param name="duration">持续时间</param>
+		/// <returns></returns>
+		public static Entity ShowTips(EntityManager mgr, string title, float3 pos, Color color, int fontSize, float duration, PositionType posType)
+		{
+			return FloatTextRequest.CreateEntity(mgr, title, pos, color, 50, 2.0f, posType);
+		}
+
 	}
 }

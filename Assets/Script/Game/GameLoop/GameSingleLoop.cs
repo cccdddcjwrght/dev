@@ -48,8 +48,6 @@ namespace SGame
 			
 			m_loginModule = new LoginModuleSingle(world);
 			m_gameModule = new GameModuleSingle(world, m_resourceManager,  randomSystem);
-
-
 		}
 
 		/// <summary>
@@ -124,13 +122,12 @@ namespace SGame
 			uiModule.Initalize(m_gameWorld, new UIPreprocess());
 			var	reg				= new UIReg();
 			reg.RegAllUI(new UIContext() {uiModule = uiModule});
-			var hudModule = new HudModule(m_gameWorld);
 			
 			uiModule.Reg("Login", "Login", UILogin.Create);
+			uiModule.Reg("Progress", "Hud", HUDProgress.Create);
 			//uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			SGame.UI.Login.LoginBinder.BindAll();
 			
-			m_commonModule.Add(hudModule);
 		}
 
 		/// <summary>

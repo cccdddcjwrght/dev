@@ -7,9 +7,11 @@ namespace SGame.UI{
 	
 	public partial class UIHud
 	{
-		partial void InitLogic(UIContext context){
-
+		partial void InitLogic(UIContext context)
+		{
+			context.content.touchable = false;
 		}
+		
 		partial void UnInitLogic(UIContext context){
 
 		}

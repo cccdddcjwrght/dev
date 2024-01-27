@@ -41,13 +41,16 @@ public struct RoomRowData : IFlatbufferObject
   public ArraySegment<byte>? GetResourceBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
   public byte[] GetResourceArray() { return __p.__vector_as_array<byte>(10); }
+  public int RegionId { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomRowData> CreateRoomRowData(FlatBufferBuilder builder,
       int ID = 0,
       StringOffset NameOffset = default(StringOffset),
       StringOffset IconOffset = default(StringOffset),
-      StringOffset ResourceOffset = default(StringOffset)) {
-    builder.StartTable(4);
+      StringOffset ResourceOffset = default(StringOffset),
+      int RegionId = 0) {
+    builder.StartTable(5);
+    RoomRowData.AddRegionId(builder, RegionId);
     RoomRowData.AddResource(builder, ResourceOffset);
     RoomRowData.AddIcon(builder, IconOffset);
     RoomRowData.AddName(builder, NameOffset);
@@ -55,11 +58,12 @@ public struct RoomRowData : IFlatbufferObject
     return RoomRowData.EndRoomRowData(builder);
   }
 
-  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(5); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
   public static void AddResource(FlatBufferBuilder builder, StringOffset ResourceOffset) { builder.AddOffset(3, ResourceOffset.Value, 0); }
+  public static void AddRegionId(FlatBufferBuilder builder, int RegionId) { builder.AddInt(4, RegionId, 0); }
   public static Offset<GameConfigs.RoomRowData> EndRoomRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomRowData>(o);

@@ -8,7 +8,7 @@ namespace SGame.UI
 {
     [UpdateAfter(typeof(UISystem))]
     [UpdateInGroup(typeof(UIGroup))]
-    public partial class DespaenUISystem : SystemBase
+    public partial class DespawnUISystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_commandBufferSystem;
 

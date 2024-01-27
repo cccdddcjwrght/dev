@@ -34,7 +34,7 @@ namespace SGame
         /// 角色实例化ID
         /// </summary>
         public int CharacterID = 0;
-        
+
         private EntityManager entityManager;
         
         /// <summary>
@@ -46,9 +46,16 @@ namespace SGame
         {
             this.entity = entity;
             this.entityManager = mgr;
+
+            TestHUD();
             
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);
+        }
+
+        void TestHUD()
+        {
+            UIUtils.ShowHUD("progress", transform, float3.zero);
         }
 
         /// <summary>

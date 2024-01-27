@@ -43,6 +43,7 @@ namespace SGame
         {
 			//场景加载
 			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUI, UIUtils.CloseUI);
+            
 			//餐厅管理
 			SGame.Dining.DiningRoomSystem.Instance.Init();
 
@@ -54,8 +55,6 @@ namespace SGame
 
             // 初始化桌子系统
             TableManager.Instance.Initalize();
-            
-            // 初始化角色系统
         }
 
         IEnumerator TestData()
@@ -73,6 +72,15 @@ namespace SGame
 			//临时场景加载
 			var ud = DataCenter.Instance.GetUserData();
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(ud.scene);
+            // 初始化角色系统
+            m_hudModule = new HudModule(m_gameWorld);
+            
+            // 等待HUD 模块加载完成
+            while (m_hudModule.IsReadly == false)
+            {
+                m_hudModule.Update();
+                yield return null;
+            }
 
             var prefab = m_resourceManager.LoadPrefab(script);
             var go = GameObject.Instantiate(prefab);
@@ -111,5 +119,7 @@ namespace SGame
         private ItemGroup           m_userData;
 
         private UserSetting         m_userSetting;
+
+        private HudModule m_hudModule;
     }
 }
