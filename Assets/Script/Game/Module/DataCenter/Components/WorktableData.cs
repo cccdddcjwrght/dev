@@ -48,11 +48,10 @@ namespace SGame
 						machine = CreateMachine(id, ref worktable.stations);
 
 						if (worktable.stations.Count == 1)
-						{
 							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_ENABLE), worktable.id);
-							if (worktable.level == 0) UpdateLevel(worktable.id, worktable.scene);
-						}
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), worktable.id, id);
+						if (worktable.level == 0) UpdateLevel(worktable.id, worktable.scene);
+
 						return machine;
 					}
 				}
@@ -264,8 +263,6 @@ namespace SGame
 			{
 				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(id, out var m))
 				{
-					var w = GetWorktable(m.Machine, m.Scene);
-					var ds = m.GetDependsArray();
 					if (m.Enable == 1 || m.DependsLength > 0)
 						return false;
 					return true;
@@ -283,7 +280,7 @@ namespace SGame
 				if (worktable != null && worktable.cfg.IsValid())
 				{
 					if (worktable.level >= worktable.maxlv) return Error_Code.LV_MAX;
-					if (worktable.level>0 && !PropertyManager.Instance.CheckCountByArgs(worktable.lvcfg.GetUpgradePriceArray()))
+					if (worktable.level > 0 && !PropertyManager.Instance.CheckCountByArgs(worktable.lvcfg.GetUpgradePriceArray()))
 						return Error_Code.ITEM_NOT_ENOUGH;
 					return 0;
 				}

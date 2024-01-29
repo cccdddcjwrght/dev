@@ -13,6 +13,8 @@ namespace SGame.UI.Common
         public Controller m_hasIcon;
         public Controller m_txtColor;
         public Controller m_iconImage;
+        public Controller m_gray;
+        public Controller m_limit;
         public GLoader m_bg;
         public GTextField m_iconTitle;
         public const string URL = "ui://2w8thcm7k0s63lb1";
@@ -32,6 +34,8 @@ namespace SGame.UI.Common
             m_hasIcon = GetControllerAt(4);
             m_txtColor = GetControllerAt(5);
             m_iconImage = GetControllerAt(6);
+            m_gray = GetControllerAt(7);
+            m_limit = GetControllerAt(8);
             m_bg = (GLoader)GetChildAt(0);
             m_iconTitle = (GTextField)GetChildAt(3);
         }

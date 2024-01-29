@@ -365,7 +365,7 @@ namespace SGame.Dining
 			if (region.next == null)
 			{
 				//不能自动解锁
-				if (DataCenter.MachineUtil.CheckDontAutoActive(region.begin.cfgID)) return;
+				if (!region.enable && DataCenter.MachineUtil.CheckDontAutoActive(region.begin.cfgID)) return;
 				if (region.data.isTable || (region.data.level <= 0 && !region.enable))
 				{
 					if (0 != DataCenter.MachineUtil.CheckCanActiveMachine(region.begin.cfgID, true))
