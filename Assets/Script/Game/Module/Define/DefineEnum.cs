@@ -69,7 +69,6 @@ namespace SGame
 		/// 钻石投资概率
 		/// </summary>
 		DiamondRate = 204,
-
 		//=======================================
 		/// <summary>
 		/// 离线时间
@@ -152,6 +151,18 @@ namespace SGame
 		/// 百分比
 		/// </summary>
 		Percentage = 1
+	}
+
+	/// <summary>
+	/// 角色类型
+	/// </summary>
+	public enum EnumRole
+	{
+		None = 0,
+		Cook = 1,
+		Waiter = 2,
+		Customer = 3,
+		Car = 4,
 	}
 
 }

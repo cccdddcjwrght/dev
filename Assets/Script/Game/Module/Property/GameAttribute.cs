@@ -24,7 +24,7 @@ namespace SGame
 		public double val;
 		public int deadtime;
 
-		public double updateval;
+		public double modifiy;
 		public GameAttribute attribute;
 
 
@@ -34,21 +34,21 @@ namespace SGame
 			switch ((EnumCaluType)type)
 			{
 				case EnumCaluType.Value:
-					updateval = val;
+					modifiy = val;
 					break;
 				case EnumCaluType.Percentage:
-					updateval = Math.Floor((attribute.value * val) * ConstDefine.C_PER_SCALE);
+					modifiy = Math.Floor((attribute.value * val) * ConstDefine.C_PER_SCALE);
 					break;
 			}
 
-			attribute.value += updateval;
+			attribute.value += modifiy;
 
 		}
 
 		public void Reset(GameAttribute attribute = null)
 		{
 			attribute = attribute ?? this.attribute;
-			attribute.value -= updateval;
+			attribute.value -= modifiy;
 			this.attribute = null;
 		}
 
@@ -77,15 +77,12 @@ namespace SGame
 		public int id;
 		public double origin;
 		public double value { get { return _val; } set { _val = value; } }
-
 		public double modify { get { return value - origin; } }
-		public List<AttributeUnit> units { get; private set; } = new List<AttributeUnit>();
 
 		public GameAttribute(int id) => this.id = id;
 
 		public GameAttribute Break()
 		{
-			units?.Clear();
 			origin = value;
 			return this;
 		}
@@ -333,10 +330,15 @@ namespace SGame
 				if (item.CheckAndReset(time))
 				{
 					_units.RemoveAt(i);
-					GameDebug.Log($" {key}->reset attribute {a} : {item.updateval} ");
+					GameDebug.Log($" {key}->reset attribute {a} : {item.modifiy} ");
 
 				}
 			}
+		}
+
+		public void Break()
+		{
+			_values?.Foreach(a => a.Break());
 		}
 
 		public void Reset()

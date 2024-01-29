@@ -163,16 +163,16 @@ namespace SGame
 
 			if (!entityManager.HasComponent<HUDFlow>(ui))
 			{
-				entityManager.AddComponentObject(ui, new HUDFlow() {Value = follow, offset = offset});
+				entityManager.AddComponentObject(ui, new HUDFlow() { Value = follow, offset = offset });
 			}
 			else
 			{
-				entityManager.SetComponentData(ui, new HUDFlow() {Value = follow, offset = offset});
+				entityManager.SetComponentData(ui, new HUDFlow() { Value = follow, offset = offset });
 			}
 
 			return ui;
 		}
-		
+
 		/// <summary>
 		/// 创建漂字
 		/// </summary>
@@ -183,10 +183,10 @@ namespace SGame
 		/// <param name="fontSize">字体大小</param>
 		/// <param name="duration">持续时间</param>
 		/// <returns></returns>
-		public static Entity ShowTipsNew(string uiName, 
-			string title, 
-			float3 pos, 
-			Color color, 
+		public static Entity ShowTipsNew(string uiName,
+			string title,
+			float3 pos,
+			Color color,
 			int fontSize, float duration)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -194,13 +194,20 @@ namespace SGame
 			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponent<HUDTips>(ui);
 			entityManager.AddComponent<LiveTime>(ui);
-			
-			entityManager.SetComponentData(ui, new Translation {Value = pos});
-			entityManager.SetComponentData(ui, new HUDTips {title = title, color = color, fontSize = fontSize});
-			entityManager.SetComponentData(ui, new LiveTime {Value = duration});
+
+			entityManager.SetComponentData(ui, new Translation { Value = pos });
+			entityManager.SetComponentData(ui, new HUDTips { title = title, color = color, fontSize = fontSize });
+			entityManager.SetComponentData(ui, new LiveTime { Value = duration });
 			return ui;
 		}
-		
+
+		public static string Tips(this string tips, string pix = null)
+		{
+			tips = UIListener.AutoLocal(pix + tips);
+			Debug.Log("Tips:" + tips);
+			return tips;
+		}
+
 		//////////////////// 老代码后续清除 ///////////////////////////////////////
 		/// <summary>
 		/// 创建漂字

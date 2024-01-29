@@ -13,6 +13,7 @@ namespace SGame.UI.Buff
         public Controller m_hasIcon;
         public Controller m_txtColor;
         public Controller m_iconImage;
+        public Controller m_gray;
         public GLoader m_bg;
         public GTextField m_shadow;
         public const string URL = "ui://g406runab32e8";
@@ -32,6 +33,7 @@ namespace SGame.UI.Buff
             m_hasIcon = GetControllerAt(4);
             m_txtColor = GetControllerAt(5);
             m_iconImage = GetControllerAt(6);
+            m_gray = GetControllerAt(7);
             m_bg = (GLoader)GetChildAt(0);
             m_shadow = (GTextField)GetChildAt(3);
         }

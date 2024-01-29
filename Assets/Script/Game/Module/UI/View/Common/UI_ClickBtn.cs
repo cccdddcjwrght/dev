@@ -7,7 +7,6 @@ namespace SGame.UI.Common
 {
     public partial class UI_ClickBtn : GButton
     {
-        public Controller m_button;
         public Controller m_bgSize;
         public Controller m_txtSize;
         public Controller m_bgColor;
@@ -15,8 +14,6 @@ namespace SGame.UI.Common
         public Controller m_txtColor;
         public Controller m_iconImage;
         public GLoader m_bg;
-        public GTextField m_title;
-        public GLoader m_icon;
         public GTextField m_iconTitle;
         public const string URL = "ui://2w8thcm7k0s63lb1";
 
@@ -29,7 +26,6 @@ namespace SGame.UI.Common
         {
             base.ConstructFromXML(xml);
 
-            m_button = GetControllerAt(0);
             m_bgSize = GetControllerAt(1);
             m_txtSize = GetControllerAt(2);
             m_bgColor = GetControllerAt(3);
@@ -37,8 +33,6 @@ namespace SGame.UI.Common
             m_txtColor = GetControllerAt(5);
             m_iconImage = GetControllerAt(6);
             m_bg = (GLoader)GetChildAt(0);
-            m_title = (GTextField)GetChildAt(1);
-            m_icon = (GLoader)GetChildAt(2);
             m_iconTitle = (GTextField)GetChildAt(3);
         }
     }

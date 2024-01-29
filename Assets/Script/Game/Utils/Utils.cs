@@ -147,7 +147,15 @@ namespace SGame
             return false;
         }
     
+		//把数值转成专用字符串表示
+		public static string ConvertNumberStr(double number) {
 
+			if (number > 1000)
+			{
+				var s = number.ToString();
+			}
+			return number.ToString();
+		}
 
 
 	}

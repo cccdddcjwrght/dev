@@ -240,8 +240,7 @@ namespace SGame
 			{
 				if (worktable != null)
 				{
-					if (worktable.lvcfg.ByteBuffer != null)
-						return worktable.lvcfg.Num + 1 > worktable.stations?.Count;
+					return worktable.max > worktable.stations?.Count;
 				}
 				return false;
 			}
@@ -251,14 +250,27 @@ namespace SGame
 				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(id, out var m))
 				{
 					var w = GetWorktable(m.Machine, m.Scene);
-					if (!IsActiveds(true, m.GetDependsArray()))
+					var ds = m.GetDependsArray();
+					if (!IsActiveds(true, ds))
 						return Error_Code.MACHINE_DEPENDS_NOT_ENABLE;
-					/*if (!ignoreCost &&!PropertyManager.Instance.CheckCountByArgs(w.cfg.GetUnlockPriceArray()))
+					/*if (!ignoreCost && w.cfg.IsValid() && !PropertyManager.Instance.CheckCountByArgs(w.cfg.GetUnlockPriceArray()))
 						return Error_Code.ITEM_NOT_ENOUGH;*/
 					return 0;
 				}
 				return -1;
+			}
 
+			public static bool CheckDontAutoActive(int id)
+			{
+				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(id, out var m))
+				{
+					var w = GetWorktable(m.Machine, m.Scene);
+					var ds = m.GetDependsArray();
+					if (m.Enable == 1 || m.DependsLength > 0)
+						return false;
+					return true;
+				}
+				return false;
 			}
 
 			public static int CheckCanUpLevel(int id, int scene)
@@ -268,9 +280,9 @@ namespace SGame
 
 			public static int CheckCanUpLevel(Worktable worktable)
 			{
-				if (worktable != null && worktable.cfg.ByteBuffer != null)
+				if (worktable != null && worktable.cfg.IsValid())
 				{
-					if (worktable.level >= worktable.cfg.MachineLevelMax) return Error_Code.LV_MAX;
+					if (worktable.level >= worktable.maxlv) return Error_Code.LV_MAX;
 					//if (worktable.level>0 && !PropertyManager.Instance.CheckCountByArgs(worktable.lvcfg.GetUpgradePriceArray()))
 					//	return Error_Code.ITEM_NOT_ENOUGH;
 					return 0;
@@ -341,6 +353,8 @@ namespace SGame
 		public int star;
 
 		public bool isTable;
+		public int max;
+		public int maxlv;
 
 		public List<Machine> stations = new List<Machine>();
 
@@ -371,6 +385,12 @@ namespace SGame
 		{
 			if (lvcfg.IsValid()) star = lvcfg.MachineStar;
 			if (!ConfigSystem.Instance.TryGet<MachineRowData>(id, out cfg)) isTable = true;
+			else
+			{
+				var ls = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => c.Machine == id);
+				max = ls.Count;
+				maxlv = max > 0 ? ls[0].MachineLevelMax : 10;
+			}
 			ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg);
 		}
 

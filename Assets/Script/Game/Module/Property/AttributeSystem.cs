@@ -4,15 +4,28 @@ using System.Linq;
 using System.Text;
 using GameConfigs;
 using log4net;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 namespace SGame
 {
 	public struct BuffData
 	{
+		/// <summary>
+		/// buff
+		/// </summary>
 		public int id;
+		/// <summary>
+		/// buff值
+		/// </summary>
 		public int val;
+		/// <summary>
+		/// 目标id
+		/// </summary>
 		public int targetid;
+		/// <summary>
+		/// 有效时间
+		/// </summary>
 		public int time;
 		/// <summary>
 		/// buff来源标识
@@ -39,12 +52,40 @@ namespace SGame
 	{
 		static ILog log = LogManager.GetLogger("game.attribute");
 
-		static EnumTarget _needResetType = EnumTarget.Player | EnumTarget.Cook | EnumTarget.Waiter | EnumTarget.Customer | EnumTarget.Investor;
-		static EnumTarget _needRemoveType = EnumTarget.Machine;
-
 		private Dictionary<int, Dictionary<int, AttributeList>> _groups = new Dictionary<int, Dictionary<int, AttributeList>>();
 
 		private Action<int> onUpdate;
+
+		#region API
+
+
+		/// <summary>
+		/// 获取属性值
+		/// </summary>
+		/// <param name="type">组</param>
+		/// <param name="attributeID">属性ID</param>
+		/// <param name="targetid"></param>
+		/// <returns></returns>
+		public double GetValue(EnumTarget type, EnumAttribute attributeID, int targetid = 0)
+		{
+
+			return GetValue(((int)type), ((int)attributeID), targetid);
+
+		}
+
+		/// <summary>
+		/// 获取属性值
+		/// </summary>
+		/// <param name="type">组<see cref="EnumTarget"/> </param>
+		/// <param name="attributeID">属性ID<see cref="EnumAttribute"/> </param>
+		/// <param name="targetid">目标id</param>
+		/// <returns></returns>
+		public double GetValue(int type, int attributeID, int targetid = 0)
+		{
+			return GetAttributeList(type, targetid)[attributeID];
+		}
+
+		#endregion
 
 		#region Register
 
@@ -52,15 +93,8 @@ namespace SGame
 		{
 			//注册游戏全局属性
 			Register(((int)EnumTarget.Game));
-			//注册需要随关卡修改的组
-			TypeRegister(_needResetType);
-			//监听房间进入
-			new WaitEvent<int>(((int)GameEvent.ENTER_ROOM)).Wait(OnEnterRoom);
-			//监听工作台解锁
-			new WaitEvent<int>(((int)GameEvent.WORK_TABLE_ENABLE)).Wait(OnWorkTableEnable);
-			//监听buff添加
-			new WaitEvent<BuffData>(((int)GameEvent.BUFF_TRIGGER)).Wait(OnBuffAdd);
-			InitGlobalAttribute();
+			BuffSystem.Instance.Initalize();
+
 		}
 
 		/// <summary>
@@ -186,15 +220,10 @@ namespace SGame
 				if (ConfigSystem.Instance.TryGet<BuffRowData>(id, out var cfg))
 				{
 					var targets = GetTargets(cfg.ID, targetid);
+					time = time != 0 ? time : cfg.Time;
+					time = time > 0 ? GetCurrentTime() + time : time;
 					if (targets?.Count > 0)
-					{
-						targets.ForEach(t =>
-						{
-							time = time != 0 ? time : cfg.Time;
-							time = time > 0 ? GetCurrentTime() + time : time;
-							t.Change(cfg.Attribute, val == 0 ? cfg.Value : val, cfg.AddType, time, from);
-						});
-					}
+						targets.ForEach(t => t.Change(cfg.Attribute, val == 0 ? cfg.Value : val, cfg.AddType, time, from));
 				}
 			}
 		}
@@ -218,32 +247,6 @@ namespace SGame
 			}
 		}
 
-		/// <summary>
-		/// 获取属性值
-		/// </summary>
-		/// <param name="type">组</param>
-		/// <param name="attributeID">属性ID</param>
-		/// <param name="targetid"></param>
-		/// <returns></returns>
-		public double GetValue(EnumTarget type, EnumAttribute attributeID, int targetid = 0)
-		{
-
-			return GetValue(((int)type), ((int)attributeID), targetid);
-
-		}
-
-		/// <summary>
-		/// 获取属性值
-		/// </summary>
-		/// <param name="type">组<see cref="EnumTarget"/> </param>
-		/// <param name="attributeID">属性ID<see cref="EnumAttribute"/> </param>
-		/// <param name="targetid">目标id</param>
-		/// <returns></returns>
-		public double GetValue(int type, int attributeID, int targetid = 0)
-		{
-			return GetAttributeList(type, targetid)[attributeID];
-		}
-
 		public List<AttributeList> GetTargets(int target, int targetid = 0)
 		{
 			if (target > 0)
@@ -261,7 +264,10 @@ namespace SGame
 				{
 					if (item.Key.IsInState(e))
 					{
-						if (item.Value.TryGetValue(targetid, out var a)) ls.Add(a);
+						if (targetid != 0)
+						{ if (item.Value.TryGetValue(targetid, out var a)) ls.Add(a); }
+						else
+							ls.AddRange(item.Value.Values);
 					}
 				}
 
@@ -300,55 +306,5 @@ namespace SGame
 
 		#endregion
 
-		#region private
-
-		private void InitGlobalAttribute()
-		{
-			var attr = GetAttributeList(((int)EnumTarget.Game));
-			attr[((int)EnumAttribute.DiamondRate)] = GlobalDesginConfig.GetInt("investor_gems_chance");
-			attr[((int)EnumAttribute.Diamond)] = GlobalDesginConfig.GetInt("investor_gems");
-			attr[((int)EnumAttribute.Gold)] = GlobalDesginConfig.GetInt("investor_coin_ratio");
-			attr[((int)EnumAttribute.LevelGold)] = GlobalDesginConfig.GetInt("initial_coin");
-			attr[((int)EnumAttribute.OfflineAddition)] = GlobalDesginConfig.GetInt("offline_ratio");
-			attr[((int)EnumAttribute.OfflineTime)] = GlobalDesginConfig.GetInt("max_offline_time");
-			attr[((int)EnumAttribute.AdAddition)] = GlobalDesginConfig.GetInt("ad_boost_ratio");
-			attr[((int)EnumAttribute.AdTime)] = GlobalDesginConfig.GetInt("ad_boost_time");
-		}
-
-		#endregion
-
-		#region Events
-
-		private void OnEnterRoom(WaitEvent<int> wait)
-		{
-			TypeUnRegister(_needRemoveType);
-			TypeResetAttribute(_needResetType);
-			ReInitAllAttribute();
-		}
-
-		private void OnWorkTableEnable(WaitEvent<int> wait)
-		{
-			var id = wait.m_Value;
-			Register(((int)EnumTarget.Machine), id);
-		}
-
-		private void OnBuffAdd(WaitEvent<BuffData> wait)
-		{
-			if (wait.m_Value.id > 0)
-			{
-				var data = wait.m_Value;
-				var from = data.from;
-				if (from != 0)
-					RemoveBuff(data.id, from);
-				AddBuff(data.id, data.val, data.targetid, data.time, data.from);
-			}
-		}
-
-		/// <summary>
-		/// 重置所有属性
-		/// </summary>
-		private void ReInitAllAttribute() { }
-
-		#endregion
 	}
 }

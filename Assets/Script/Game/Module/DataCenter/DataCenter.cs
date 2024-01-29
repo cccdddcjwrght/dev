@@ -77,6 +77,7 @@ namespace SGame
 
 		public void Initalize()
 		{
+			PropertyManager.Instance.GetGroup(ItemType.ITEM).AddNum(1, 200000);
 			IsInitAll = true;
 		}
 

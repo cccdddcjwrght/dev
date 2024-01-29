@@ -5,12 +5,11 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.Common
 {
-    public partial class UI_PopupUI : GComponent
+    public partial class UI_PopupUI : GLabel
     {
         public Controller m_size;
         public GImage m_bg;
-        public GTextField m_Title;
-        public UI_CloseBtn m_close;
+        public GButton m_close;
         public const string URL = "ui://2w8thcm7k0s63lam";
 
         public static UI_PopupUI CreateInstance()
@@ -24,8 +23,7 @@ namespace SGame.UI.Common
 
             m_size = GetControllerAt(0);
             m_bg = (GImage)GetChildAt(0);
-            m_Title = (GTextField)GetChildAt(1);
-            m_close = (UI_CloseBtn)GetChildAt(2);
+            m_close = (GButton)GetChildAt(2);
         }
     }
 }

@@ -11,9 +11,26 @@ namespace SGame
 
 		public static class RoomUtil
 		{
+
 			public static Room GetRoom(int id)
 			{
 				return Instance.roomData.rooms.Find(x => x.id == id);
+			}
+
+			/// <summary>
+			/// 初始化所有关卡科技buff
+			/// </summary>
+			public static void InitTechBuffs()
+			{
+				var room = Instance.roomData.current;
+				if (room != null && room.techs?.Count > 0)
+				{
+					for (int i = 0; i < room.techs.Count; i++)
+					{
+						if (ConfigSystem.Instance.TryGet<RoomTechRowData>(room.techs[i], out var cfg))
+							UseTechBuff(cfg);
+					}
+				}
 			}
 
 			/// <summary>
@@ -28,12 +45,27 @@ namespace SGame
 					if (!room.techs.Contains(id))
 					{
 						room.techs.Add(id);
-						if (cfg.Type == 1)//buff触发
-							EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId));
-						else if (cfg.Type == 2)//添加奖励
+						if (!UseTechBuff(cfg))//buff触发
+						{
+							//添加奖励
 							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_REWARD), id);
+							if (cfg.RoleId == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子
+								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_TABLE), cfg.TableId(0));
+							//添加角色
+							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Num, cfg.TableId(0));
+						}
 					}
 				}
+			}
+
+			private static bool UseTechBuff(RoomTechRowData cfg)
+			{
+				if (cfg.IsValid() && cfg.Type == 1)
+				{
+					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId) { from = cfg.Id });
+					return true;
+				}
+				return false;
 			}
 
 		}

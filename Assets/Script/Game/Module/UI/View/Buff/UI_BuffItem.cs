@@ -7,12 +7,15 @@ namespace SGame.UI.Buff
 {
     public partial class UI_BuffItem : GComponent
     {
+        public Controller m_type;
+        public Controller m_state;
         public GImage m_buffbg;
         public GLoader m_icon;
         public GLoader m_tag;
         public GTextField m_title;
         public GTextField m_desc;
         public UI_ClickBtn m_click;
+        public Transition m_hide;
         public const string URL = "ui://g406runaijal6";
 
         public static UI_BuffItem CreateInstance()
@@ -24,12 +27,15 @@ namespace SGame.UI.Buff
         {
             base.ConstructFromXML(xml);
 
+            m_type = GetControllerAt(0);
+            m_state = GetControllerAt(1);
             m_buffbg = (GImage)GetChildAt(0);
             m_icon = (GLoader)GetChildAt(1);
             m_tag = (GLoader)GetChildAt(2);
             m_title = (GTextField)GetChildAt(3);
             m_desc = (GTextField)GetChildAt(4);
             m_click = (UI_ClickBtn)GetChildAt(5);
+            m_hide = GetTransitionAt(0);
         }
     }
 }

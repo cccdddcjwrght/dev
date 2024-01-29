@@ -7,8 +7,10 @@ namespace SGame.UI.Buff
 {
     public partial class UI_LevelTechUI : GComponent
     {
-        public GComponent m_body;
+        public Controller m_completed;
+        public GLabel m_body;
         public GList m_BuffList;
+        public GTextField m_title;
         public const string URL = "ui://g406runaijal5";
 
         public static UI_LevelTechUI CreateInstance()
@@ -20,8 +22,10 @@ namespace SGame.UI.Buff
         {
             base.ConstructFromXML(xml);
 
-            m_body = (GComponent)GetChildAt(0);
+            m_completed = GetControllerAt(0);
+            m_body = (GLabel)GetChildAt(0);
             m_BuffList = (GList)GetChildAt(1);
+            m_title = (GTextField)GetChildAt(2);
         }
     }
 }

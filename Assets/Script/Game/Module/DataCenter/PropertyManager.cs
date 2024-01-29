@@ -42,7 +42,7 @@ namespace SGame
 
 		public bool CheckCountByArgs(params int[] args)
 		{
-			if (args.Length > 2)
+			if (args!=null && args.Length > 2)
 				return CheckCount(args[1], args[2], args[0]);
 			return args == null || args.Length == 0;
 		}

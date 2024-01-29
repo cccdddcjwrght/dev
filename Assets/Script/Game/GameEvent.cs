@@ -43,6 +43,8 @@ namespace SGame
 
 		//Tech===============================================
 		TECH_ADD_REWARD				= 4001,//科技添加奖励 （int tech)
+		TECH_ADD_TABLE				= 4002,//科技添加桌子 （int roommachine)
+		TECH_ADD_ROLE				= 4003,//科技添加角色 （int roletype,int count,int tableid)
 
 
 	}

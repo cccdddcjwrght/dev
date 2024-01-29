@@ -154,6 +154,49 @@ public class UIListener
 
 	}
 
+	static public void SetIcon(GObject gObject, string icon, string pkg = null)
+	{
+		if (gObject != null)
+		{
+			if (!string.IsNullOrEmpty(pkg))
+				icon = UIPackage.GetItemURL(pkg, icon);
+			gObject.icon = icon;
+			var com = gObject.asCom;
+			if (com != null)
+			{
+				var o = com.GetChild("__icon");
+				if (o != null) o.icon = icon;
+			}
+		}
+	}
+
+	static public void SetIconIndex(GObject gObject, int index)
+	{
+		if (gObject != null && gObject is GComponent com)
+		{
+			var state = com.GetController("price")
+			?? com.GetController("__price")
+			?? com.GetController("icon")
+			?? com.GetController("iconImage");
+
+			if (state != null && state.pageCount > index)
+				state.selectedIndex = index;
+		}
+	}
+
+	static public void SetIconName(GObject gObject, string name)
+	{
+		if (gObject != null && gObject is GComponent com)
+		{
+			var state = com.GetController("price")
+			?? com.GetController("__price")
+			?? com.GetController("icon")
+			?? com.GetController("iconImage");
+
+			if (state != null && state.HasPage(name))
+				state.selectedPage = name;
+		}
+	}
 
 	static public GObject Listener(GObject gObject, object method, EventType eventType = EventType.Click, bool remove = false)
 	{

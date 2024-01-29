@@ -270,6 +270,7 @@ namespace SGame.Dining
 		private List<Region> _regions;
 		private Region _begin;
 		private EventHandleContainer _eHandlers;
+		private LevelRowData _cfg;
 
 		public string name;
 		public MapGrid grid { get { return _sceneGrid; } }
@@ -363,9 +364,12 @@ namespace SGame.Dining
 		{
 			if (region.next == null)
 			{
+				//不能自动解锁
+				if (DataCenter.MachineUtil.CheckDontAutoActive(region.begin.cfgID)) return;
 				if (region.data.isTable || (region.data.level <= 0 && !region.enable))
 				{
-					if (0 != DataCenter.MachineUtil.CheckCanActiveMachine(region.begin.cfgID, true)) return;
+					if (0 != DataCenter.MachineUtil.CheckCanActiveMachine(region.begin.cfgID, true))
+						return;
 				}
 				else if (!DataCenter.MachineUtil.CheckCanAddMachine(region.cfgID, cfgID)) return;
 				DoPreview(region);
@@ -400,6 +404,7 @@ namespace SGame.Dining
 
 		private void InitView()
 		{
+			ConfigSystem.Instance.TryGet(cfgID, out _cfg);
 			_sceneGrid = GameObject.FindAnyObjectByType<MapGrid>(FindObjectsInactive.Include);
 			_sceneGrid?.Refresh();
 		}
@@ -427,7 +432,10 @@ namespace SGame.Dining
 						).ToList();
 						return row;
 					}).ToList();
-					_begin = _regions[0];
+					if (_cfg.IsValid())
+						_begin = GetRegion(_cfg.FirstOrder);
+					else
+						_begin = _regions[0];
 					OnWorkMachineEnable(0, 0);
 				}
 			}
@@ -438,6 +446,8 @@ namespace SGame.Dining
 			_eHandlers = new EventHandleContainer();
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_UPLEVEL), OnWorkTableUplevel);
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), OnWorkMachineEnable);
+			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.TECH_ADD_TABLE), OnTechAddWorktable);
+			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.ORDER_NEW), OnAddOrder);
 		}
 
 		private Place ActiveBuild(Place machine = default, int id = -1, bool state = true, int region = 0)
@@ -642,7 +652,10 @@ namespace SGame.Dining
 			if (r != null)
 			{
 				if (!r.enable || r.next?.cfgID == place)
-					Unlock(r);
+				{
+					if ((r.next ?? r.begin).waitActive == true)
+						Unlock(r);
+				}
 				else if (r.next == null || r.next.cfgID != place)
 					UpLevel(r);
 			}
@@ -692,6 +705,17 @@ namespace SGame.Dining
 			if (id > 0)
 				DoUnlock(GetRegion(region), id);
 			_regions.ForEach(CheckUnlock);
+		}
+
+		private void OnTechAddWorktable(int id)
+		{
+			DoPreview(GetRegion(id));
+		}
+
+		private void OnAddOrder(int id)
+		{
+			if (!_begin.enable)
+				DoPreview(_begin);
 		}
 
 		#endregion
