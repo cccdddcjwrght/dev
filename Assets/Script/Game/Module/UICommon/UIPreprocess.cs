@@ -56,7 +56,7 @@ namespace SGame
             commandBuffer.AddComponent<HUDSync>(ui);
             
             // 设置父节点
-            HudModule.Instance.GetHUD().Value.contentPane.AddChild(context.window);
+            //HudModule.Instance.GetHUD().Value.contentPane.AddChild(context.window);
             //HudModule.Instance.GetHUD().Value.container.AddChild(context.window);
             
             // 添加3D 信息
