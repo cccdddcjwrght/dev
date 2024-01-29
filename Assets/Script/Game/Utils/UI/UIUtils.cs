@@ -207,22 +207,5 @@ namespace SGame
 			Debug.Log("Tips:" + tips);
 			return tips;
 		}
-
-		//////////////////// 老代码后续清除 ///////////////////////////////////////
-		/// <summary>
-		/// 创建漂字
-		/// </summary>
-		/// <param name="mgr"></param>
-		/// <param name="title">文字</param>
-		/// <param name="pos">3d场景中的位置</param>
-		/// <param name="color">颜色</param>
-		/// <param name="fontSize">字体大小</param>
-		/// <param name="duration">持续时间</param>
-		/// <returns></returns>
-		public static Entity ShowTips(EntityManager mgr, string title, float3 pos, Color color, int fontSize, float duration, PositionType posType)
-		{
-			return FloatTextRequest.CreateEntity(mgr, title, pos, color, 50, 2.0f, posType);
-		}
-
 	}
 }

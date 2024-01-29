@@ -47,16 +47,10 @@ namespace SGame
             this.entity = entity;
             this.entityManager = mgr;
 
-            TestHUD();
-            
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);
         }
-
-        void TestHUD()
-        {
-            //UIUtils.ShowHUD("progress", transform, float3.zero);
-        }
+        
 
         /// <summary>
         /// 显示等待HUD
@@ -70,6 +64,7 @@ namespace SGame
             entityManager.SetComponentData(ui, new LiveTime() {Value =  progressTime});
             return ui;
         }
+        
 
         /// <summary>
         /// 角色移动到目标位置
