@@ -253,8 +253,8 @@ namespace SGame
 					var ds = m.GetDependsArray();
 					if (!IsActiveds(true, ds))
 						return Error_Code.MACHINE_DEPENDS_NOT_ENABLE;
-					/*if (!ignoreCost && w.cfg.IsValid() && !PropertyManager.Instance.CheckCountByArgs(w.cfg.GetUnlockPriceArray()))
-						return Error_Code.ITEM_NOT_ENOUGH;*/
+					if (!ignoreCost && w.cfg.IsValid() && !PropertyManager.Instance.CheckCountByArgs(w.cfg.GetUnlockPriceArray()))
+						return Error_Code.ITEM_NOT_ENOUGH;
 					return 0;
 				}
 				return -1;
@@ -283,8 +283,8 @@ namespace SGame
 				if (worktable != null && worktable.cfg.IsValid())
 				{
 					if (worktable.level >= worktable.maxlv) return Error_Code.LV_MAX;
-					//if (worktable.level>0 && !PropertyManager.Instance.CheckCountByArgs(worktable.lvcfg.GetUpgradePriceArray()))
-					//	return Error_Code.ITEM_NOT_ENOUGH;
+					if (worktable.level>0 && !PropertyManager.Instance.CheckCountByArgs(worktable.lvcfg.GetUpgradePriceArray()))
+						return Error_Code.ITEM_NOT_ENOUGH;
 					return 0;
 				}
 				return -1;
