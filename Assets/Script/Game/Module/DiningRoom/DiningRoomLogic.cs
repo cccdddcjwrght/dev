@@ -648,9 +648,13 @@ namespace SGame.Dining
 
 		private void OnRegionClick(int region, int place)
 		{
+
+
 			var r = GetRegion(region);
 			if (r != null)
 			{
+				UIUtils.ShowHUD("worktable", r.begin.transform , default);
+
 				if (!r.enable || r.next?.cfgID == place)
 				{
 					if ((r.next ?? r.begin).waitActive == true)

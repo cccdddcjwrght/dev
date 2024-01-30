@@ -91,10 +91,14 @@ public class UIListener
 				var outline = com.GetChild("outline");
 				var o1 = com.GetChild("__text");
 				var o2 = com.GetChild("__title");
+				var o3 = com.GetChild("iconTitle");
+
 				if (shadow != null) shadow.text = txt;
 				if (outline != null) outline.text = txt;
 				if (o1 != null) o1.text = txt;
 				if (o2 != null) o2.text = txt;
+				if (o3 != null) o3.text = txt;
+
 			}
 		}
 	}
