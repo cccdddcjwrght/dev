@@ -16,6 +16,7 @@ namespace SGame
             public int level;
             public int CurLevelValue;
             public int NextLevelValue;
+            public int BuffType;//buff类型
             public int[] BuyData;
         }
 
@@ -104,6 +105,7 @@ namespace SGame
                         level          = rowData.VaultLevel,
                         CurLevelValue  = rowData.Value,
                         NextLevelValue = nextlevel,
+                        BuffType       = rowData.Type,
                         BuyData        = buyData
                     };
 

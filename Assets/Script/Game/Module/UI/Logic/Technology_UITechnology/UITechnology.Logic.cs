@@ -81,7 +81,11 @@ namespace SGame.UI{
 				}
 				else
 				{
-					OnClickTechBtn(index);
+					OnClickTechBtn(index, 
+						listData[index].abilitLevelList[levelIndex].BuffType,
+						listData[index].abilitLevelList[levelIndex].NextLevelValue,
+						listData[index].ID
+						);
 				}
 				m_view.m_techList.numItems = m_AbilityData.len; 
 			});
@@ -89,8 +93,16 @@ namespace SGame.UI{
 		
 		}
 
-		public void OnClickTechBtn(int index)
+		/// <summary>
+		/// 点击触发Buff
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="buffID"></param>
+		/// <param name="buffValue"></param>
+		/// <param name="from"></param>
+		public void OnClickTechBtn(int index,int buffID,int buffValue,int from)
 		{
+			EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(buffID, buffValue) { from = from });
 			m_AbilityData.UpgradeLevel(index);
 		}
 
