@@ -56,8 +56,6 @@ namespace SGame.UI{
 			OnPanelClick(data);
 		}
 		partial void OnPanelClick(EventContext data);
-		void SetPanelText(string data)=>UIListener.SetText(m_view.m_panel,data);
-		string GetPanelText()=>UIListener.GetText(m_view.m_panel);
 
 	}
 }

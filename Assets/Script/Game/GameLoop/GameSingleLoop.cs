@@ -125,6 +125,9 @@ namespace SGame
 			
 			uiModule.Reg("Login", "Login", UILogin.Create);
 			uiModule.Reg("Progress", "Hud", HUDProgress.Create);
+			uiModule.Reg("FloatText", "Hud", HUDFloatText.Create);
+			uiModule.Reg("OrderTip", "Hud", HUDOrderTip.Create);
+
 			//uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			SGame.UI.Login.LoginBinder.BindAll();
 			

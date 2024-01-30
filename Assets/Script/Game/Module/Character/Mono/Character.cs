@@ -34,6 +34,11 @@ namespace SGame
         /// 角色实例化ID
         /// </summary>
         public int CharacterID = 0;
+        
+        public Transform pos
+        {
+            get { return transform; }
+        }
 
         private EntityManager entityManager;
         

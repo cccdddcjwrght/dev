@@ -196,34 +196,50 @@ namespace SGame
 
 			return ui;
 		}
-
-		/// <summary>
-		/// 创建漂字
-		/// </summary>
-		/// <param name="mgr"></param>
-		/// <param name="title">文字</param>
-		/// <param name="pos">3d场景中的位置</param>
-		/// <param name="color">颜色</param>
-		/// <param name="fontSize">字体大小</param>
-		/// <param name="duration">持续时间</param>
-		/// <returns></returns>
-		public static Entity ShowTipsNew(string uiName,
+		
+        /// <summary>
+        /// 显示飘字
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="pos"></param>
+        /// <param name="color"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="duration"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+		public static Entity ShowTipsNew(
 			string title,
-			float3 pos,
+			Transform pos,
 			Color color,
-			int fontSize, float duration)
+			int fontSize,
+			float duration,
+			int speed)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			Entity ui = UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiName));
+			Entity ui = ShowHUD("floattext", pos, float3.zero);
 			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponent<HUDTips>(ui);
 			entityManager.AddComponent<LiveTime>(ui);
+			entityManager.AddComponent<MoveDirection>(ui);
 
-			entityManager.SetComponentData(ui, new Translation { Value = pos });
+			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
 			entityManager.SetComponentData(ui, new HUDTips { title = title, color = color, fontSize = fontSize });
 			entityManager.SetComponentData(ui, new LiveTime { Value = duration });
+			entityManager.SetComponentData(ui, new MoveDirection() { Value = new float3() { x = 0, y = 1, z = 0 } * speed, duration = duration });
+
 			return ui;
 		}
+        
+        public static Entity ShowOrderTips(
+	        string url,
+	        Transform pos)
+        {
+	        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+	        Entity ui = ShowHUD("ordertip", pos, float3.zero);
+	        entityManager.AddComponent<Translation>(ui);
+	        entityManager.SetComponentData(ui, new Translation { Value = pos.position });
+	        return ui;
+        }
 
 		public static string Tips(this string tips, string pix = null)
 		{
