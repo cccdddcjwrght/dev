@@ -101,6 +101,8 @@ namespace SGame.UI
         private UIContext m_context;
 
         private static ILog log = LogManager.GetLogger("UI");
+        
+        public bool isFullScreen { get; set; }
 
         public void OnFrameUpdate(double deltaTime)
         {
@@ -163,7 +165,7 @@ namespace SGame.UI
             m_isHiding              = false;
             container.renderMode    = RenderMode.ScreenSpaceOverlay;
 
-            if (true)//m_uiConfig.Fullscreen != 0)
+            if (isFullScreen)
             {
                 fitScreen = FitScreen.FitSize;
                 MakeFullScreen();

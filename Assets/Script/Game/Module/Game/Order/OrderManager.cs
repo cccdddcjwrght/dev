@@ -91,7 +91,7 @@ namespace SGame
                 return null;
             }
             
-            EventManager.Instance.Trigger((int)GameEvent.ORDER_NEW, order.id);
+            //EventManager.Instance.Trigger((int)GameEvent.ORDER_NEW, order.id);
             return order;
         }
 

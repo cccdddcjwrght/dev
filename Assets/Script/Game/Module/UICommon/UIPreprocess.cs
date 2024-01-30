@@ -32,9 +32,11 @@ namespace SGame
                 {
                     // 添加UI对动画 显示与隐藏的支持
                     UIAnimationBind.Bind(context);
+                    context.window.isFullScreen = true;
                 }
                 else if (ui.Type == (int)UIType.HUD)
                 {
+                    context.window.isFullScreen = false;
                     HUDSetup(context, commandBuffer);
                 }
                 
