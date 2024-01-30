@@ -160,7 +160,7 @@ namespace TileEdExt
 		{
 			if (s && _excuteTypes != null)
 			{
-				EditorGUILayout.BeginHorizontal(GUI.skin.box);
+				EditorGUILayout.BeginVertical(GUI.skin.box);
 				for (int i = 0; i < _excuteTypes.Count; i++)
 				{
 					var ex = _excuteTypes[i];
@@ -168,7 +168,7 @@ namespace TileEdExt
 						ex.fade = GUIHelp.DrawFadeOut(ex.fade, ex.title ?? "excute_" + i, ex.OnGUI);
 					EditorGUILayout.Space();
 				}
-				EditorGUILayout.EndHorizontal();
+				EditorGUILayout.EndVertical();
 			}
 		}
 

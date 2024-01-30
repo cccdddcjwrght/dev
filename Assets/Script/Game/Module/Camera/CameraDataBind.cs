@@ -66,6 +66,7 @@ public class CameraDataBind
 	public Vector3 startPos;
 	public Vector3 endPos;
 	public bool enableControl = true;
+	public bool disableBounce = false;
 
 	public bool limit
 	{

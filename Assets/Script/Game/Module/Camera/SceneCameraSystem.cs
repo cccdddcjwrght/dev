@@ -377,7 +377,11 @@ namespace SGame
 
 			if (xMove.isEnableChange || yMove.isEnableChange || zMove.isEnableChange || force)
 			{
-				_ctrObj.transform.position = new Vector3(xMove.GetValue(), yMove.GetValue(), zMove.GetValue());
+				var old = _ctrObj.transform.position;
+				old.x = xMove.isEnableChange ? xMove.GetValue() : old.x;
+				old.y = yMove.isEnableChange ? yMove.GetValue() : old.y;
+				old.z = zMove.isEnableChange ? zMove.GetValue() : old.z;
+				_ctrObj.transform.position = old;
 			}
 		}
 
@@ -430,7 +434,7 @@ namespace SGame
 			sceneXMove = xMove;
 			sceneZMove = zMove;
 			sceneFOV = fieldOfView;
-			SetOrginVal();
+			SetOrginVal(2,0,-5);
 			InitCameraBrain();
 			CreateTarget();
 			CreateVCamera();
@@ -463,26 +467,33 @@ namespace SGame
 
 		void CreateVCamera()
 		{
-			var c = transform.Find("__vcamrea")?.gameObject ?? new GameObject("__vcamrea");
-			c.transform.parent = this.transform;
-			c.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-			_vcamera = c.GetOrAddComponent<Cinemachine.CinemachineVirtualCamera>();
+			var c = transform.Find("__vcamrea")?.gameObject;
+			if (c == null)
+			{
+				c = new GameObject("__vcamrea");
+				c.transform.parent = this.transform;
+				c.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+				_vcamera = c.AddComponent<Cinemachine.CinemachineVirtualCamera>();
+				_vcamera.Follow = _ctrObj.transform;
+				_vcamera.LookAt = _ctrObj.transform;
+				_vcamera.m_Lens.FieldOfView = C_DEF_FOV;
+				_vcamera.m_Lens.FarClipPlane = 100;
+
+				var trans = _body = _vcamera.GetCinemachineComponent<CinemachineTransposer>() ?? _vcamera.AddCinemachineComponent<CinemachineTransposer>();
+				trans.m_BindingMode = CinemachineTransposer.BindingMode.LockToTargetNoRoll;
+				trans.m_FollowOffset = new Vector3(0, 110, -120);
+				trans.m_XDamping = 0;
+				trans.m_YDamping = 0;
+				trans.m_ZDamping = 0;
+
+				var aim = _vcamera.GetCinemachineComponent<CinemachineComposer>() ?? _vcamera.AddCinemachineComponent<CinemachineComposer>();
+				aim.m_HorizontalDamping = 0;
+				aim.m_VerticalDamping = 0;
+			}
+			else
+				_vcamera = c.GetOrAddComponent<Cinemachine.CinemachineVirtualCamera>();
 			_vcamera.Follow = _ctrObj.transform;
 			_vcamera.LookAt = _ctrObj.transform;
-			_vcamera.m_Lens.FieldOfView = C_DEF_FOV;
-			_vcamera.m_Lens.FarClipPlane = 500;
-
-			var trans = _body = _vcamera.GetCinemachineComponent<CinemachineTransposer>() ?? _vcamera.AddCinemachineComponent<CinemachineTransposer>();
-			trans.m_BindingMode = CinemachineTransposer.BindingMode.LockToTargetNoRoll;
-			trans.m_FollowOffset = new Vector3(0, 110, -120);
-			trans.m_XDamping = 0;
-			trans.m_YDamping = 0;
-			trans.m_ZDamping = 0;
-
-			var aim = _vcamera.GetCinemachineComponent<CinemachineComposer>() ?? _vcamera.AddCinemachineComponent<CinemachineComposer>();
-			aim.m_HorizontalDamping = 0;
-			aim.m_VerticalDamping = 0;
-
 		}
 
 		void SwitchMoveAxis()

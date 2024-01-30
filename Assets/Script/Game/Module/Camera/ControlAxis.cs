@@ -307,16 +307,20 @@ public class ControlAxis
 
 		if (bind.limit)
 		{
-			if (bind.inputValue > bind.maxValue)
+			if (!bind.disableBounce)
 			{
-				float aDifference = Math.Abs(bind.inputValue - bind.maxValue);
-				bind.inputValue = Mathf.SmoothDamp(bind.inputValue, bind.maxValue, ref bind.refSpeed, 1.0f / (1f * aDifference));
-			}
-			else if (bind.inputValue < bind.minValue)
-			{
-				float aDifference = Math.Abs(bind.inputValue - bind.minValue);
-				bind.inputValue = Mathf.SmoothDamp(bind.inputValue, bind.minValue, ref bind.refSpeed, 1.0f / (1f * aDifference));
-			}
+				if (bind.inputValue > bind.maxValue)
+				{
+					float aDifference = Math.Abs(bind.inputValue - bind.maxValue);
+					bind.inputValue = Mathf.SmoothDamp(bind.inputValue, bind.maxValue, ref bind.refSpeed, 1.0f / (1f * aDifference));
+				}
+				else if (bind.inputValue < bind.minValue)
+				{
+					float aDifference = Math.Abs(bind.inputValue - bind.minValue);
+					bind.inputValue = Mathf.SmoothDamp(bind.inputValue, bind.minValue, ref bind.refSpeed, 1.0f / (1f * aDifference));
+				}
+			}else
+				bind.inputValue = Mathf.Clamp(bind.inputValue,bind.minValue,bind.maxValue);
 		}
 	}
 
