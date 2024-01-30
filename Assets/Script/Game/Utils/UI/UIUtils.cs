@@ -110,13 +110,37 @@ namespace SGame
 			return ret;
 		}
 
+		public static Entity OpenUI(string name, params object[] args)
+		{
+			if (!string.IsNullOrEmpty(name))
+				return OpenUI(name, args?.Length > 0 ? new UIParam() { Value = args } : default);
+			return default;
+		}
+
+		public static Entity OpenUI(string name, IComponentData data)
+		{
+			if (!string.IsNullOrEmpty(name))
+			{
+				var mgr = UIModule.Instance.GetEntityManager();
+				var e = UIRequest.Create(mgr, GetUI(name));
+				if (mgr.Exists(e))
+				{
+					if (data != default)
+						mgr.AddComponentObject(e, data);
+					return e;
+				}
+			}
+			return default;
+		}
+
+
 		public static IEnumerator WaitUI(string name)
 		{
 
 			if (!string.IsNullOrEmpty(name))
 			{
 				var mgr = UIModule.Instance.GetEntityManager();
-				var e = UIRequest.Create(mgr, GetUI(name));
+				var e = OpenUI(name);
 				if (mgr.Exists(e))
 					return new WaitUIOpen(mgr, e);
 			}

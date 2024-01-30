@@ -37,6 +37,7 @@ namespace SGame
 		WORK_TABLE_ENABLE			= 2001,//操作台解锁
 		WORK_TABLE_UPLEVEL			= 2002,//操作台升级
 		WORK_TABLE_MACHINE_ENABLE	= 2003,//操作台点位解锁
+		WORK_TABLE_CLICK			= 2004,//工作台点击
 		
 		//buff===============================================
 		BUFF_TRIGGER				= 3001,//触发一个buff （BuffData data)

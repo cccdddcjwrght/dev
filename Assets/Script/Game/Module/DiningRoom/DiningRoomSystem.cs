@@ -40,6 +40,7 @@ namespace SGame.Dining
 		public void Init()
 		{
 			InitEvents();
+			WorktableHud.Instance.Init();
 		}
 
 		public IEnumerator LoadRoom(int roomID, Action<int> progress = null)

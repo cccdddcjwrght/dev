@@ -649,11 +649,10 @@ namespace SGame.Dining
 		private void OnRegionClick(int region, int place)
 		{
 
-
 			var r = GetRegion(region);
 			if (r != null)
 			{
-				UIUtils.ShowHUD("worktable", r.begin.transform , default);
+				//EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r);
 
 				if (!r.enable || r.next?.cfgID == place)
 				{
@@ -662,6 +661,8 @@ namespace SGame.Dining
 				}
 				else if (r.next == null || r.next.cfgID != place)
 					UpLevel(r);
+				
+
 			}
 		}
 

@@ -16,7 +16,7 @@ public class DefaultBtnExcuter : IUIExcute
         var flag2 = Condition(type, name);
 		var flag3 = name.ToLower().EndsWith("body") || name.ToLower().EndsWith("body");
 
-		if (flag2 || flag || flag3)
+		if (flag2 || flag || flag3 )
         {
             var newName = name.Split('.').Last().Replace("m_", "");
             var method = flag2 ? "Listener" : "ListenerIcon";
@@ -37,6 +37,7 @@ public class DefaultBtnExcuter : IUIExcute
             var pMethod = default(string);
 			if (!flag3)
 			{
+
 				callMethod = $"\t\tvoid _{mname}(EventContext data){{\n\t\t\t{mname}(data);\n{estr}\t\t}}";
 				pMethod = $"\t\tpartial void {mname}(EventContext data);";
 
