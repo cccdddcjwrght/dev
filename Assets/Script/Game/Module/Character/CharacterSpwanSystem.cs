@@ -218,6 +218,7 @@ namespace SGame
                 c.model = ani;
                 c.entity = characterEntity;
                 c.CharacterID = lasterCharacterID;
+                c.roleType = roleData.Type;
                 
                 commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
                 commandBuffer.AddComponent<CharacterInitalized>(characterEntity);

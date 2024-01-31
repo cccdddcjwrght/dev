@@ -34,13 +34,20 @@ namespace SGame
         /// 角色实例化ID
         /// </summary>
         public int CharacterID = 0;
-        
+
+        /// <summary>
+        /// 角色类型
+        /// </summary>
+        public int roleType = 0;
+
         public Transform pos
         {
             get { return transform; }
         }
 
         private EntityManager entityManager;
+        
+        public EnumTarget GetTargetType()  { return Utils.GetTargetFromRoleType(roleType);  }
         
         /// <summary>
         /// 初始化角色
