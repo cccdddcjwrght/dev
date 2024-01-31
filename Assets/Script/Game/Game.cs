@@ -117,7 +117,7 @@ public class Game : SGame.MonoSingleton<Game>
 		log.Info("Log Load Success!");
 
 		//埋点
-		new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr);
+		//new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr);
 
 	}
 

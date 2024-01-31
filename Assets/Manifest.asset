@@ -17,798 +17,420 @@ MonoBehaviour:
   - assets/buildasset/audio/mixer
   - assets/buildasset/code
   - assets/buildasset/configs
-  - assets/buildasset/customcharacters
-  - assets/buildasset/customcharacters/female
-  - assets/buildasset/customcharacters/role
   - assets/buildasset/log
-  - assets/buildasset/prefabs/equipments
   - assets/buildasset/prefabs
-  - assets/buildasset/prefabs/scenes/scene_01
+  - assets/buildasset/prefabs/equipments
+  - assets/buildasset/prefabs/other
   - assets/buildasset/scenes/markeds
   - assets/buildasset/ui
   - assets/buildasset/visualscript
+  - assets/buildasset/visualscript/game
+  - assets/buildasset/visualscript/game/utils
   - assets/buildasset/visualscript/login
+  - assets/buildasset/visualscript/prefabs/ai
   - assets/buildasset/visualscript/prefabs
   assets:
   - name: game.mixer
-    bundle: 20
+    bundle: 0
     dir: 0
   - name: game.dll.bytes
-    bundle: 21
+    bundle: 1
     dir: 1
   - name: hotfix.dll.bytes
-    bundle: 22
+    bundle: 2
     dir: 1
-  - name: bet.bytes
-    bundle: 78
+  - name: abilitylevel.bytes
+    bundle: 33
     dir: 2
-  - name: build_bank.bytes
-    bundle: 78
+  - name: abilitylist.bytes
+    bundle: 33
     dir: 2
-  - name: build_chancecard.bytes
-    bundle: 78
-    dir: 2
-  - name: build_coin.bytes
-    bundle: 78
-    dir: 2
-  - name: build_game.bytes
-    bundle: 78
-    dir: 2
-  - name: build_house.bytes
-    bundle: 78
-    dir: 2
-  - name: build_trap.bytes
-    bundle: 78
-    dir: 2
-  - name: build_visit.bytes
-    bundle: 78
+  - name: buff.bytes
+    bundle: 33
     dir: 2
   - name: design_global.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: equip.bytes
-    bundle: 78
-    dir: 2
-  - name: event_build.bytes
-    bundle: 78
-    dir: 2
-  - name: event_group.bytes
-    bundle: 78
-    dir: 2
-  - name: event_part.bytes
-    bundle: 78
-    dir: 2
-  - name: game_event.bytes
-    bundle: 78
-    dir: 2
-  - name: game_function.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: game_global.bytes
-    bundle: 78
-    dir: 2
-  - name: grid.bytes
-    bundle: 78
-    dir: 2
-  - name: grid_path.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: item.bytes
-    bundle: 78
-    dir: 2
-  - name: item_chancecard.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: language_chn.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: language_en.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: language_hi.bytes
-    bundle: 78
+    bundle: 33
+    dir: 2
+  - name: level.bytes
+    bundle: 33
+    dir: 2
+  - name: machine.bytes
+    bundle: 33
+    dir: 2
+  - name: machinestar.bytes
+    bundle: 33
+    dir: 2
+  - name: machineupgrade.bytes
+    bundle: 33
+    dir: 2
+  - name: region.bytes
+    bundle: 33
+    dir: 2
+  - name: role.bytes
+    bundle: 33
+    dir: 2
+  - name: roledata.bytes
+    bundle: 33
+    dir: 2
+  - name: room.bytes
+    bundle: 33
+    dir: 2
+  - name: roommachine.bytes
+    bundle: 33
+    dir: 2
+  - name: roomtech.bytes
+    bundle: 33
     dir: 2
   - name: scene.bytes
-    bundle: 78
+    bundle: 33
+    dir: 2
+  - name: table.bytes
+    bundle: 33
     dir: 2
   - name: telport.bytes
-    bundle: 78
-    dir: 2
-  - name: travel_event.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: ui_groups.bytes
-    bundle: 78
+    bundle: 33
     dir: 2
   - name: ui_res.bytes
-    bundle: 78
-    dir: 2
-  - name: characterelementdatabase.asset
-    bundle: 23
-    dir: 3
-  - name: characterbase.prefab
-    bundle: 24
-    dir: 4
-  - name: eyes.prefab
-    bundle: 25
-    dir: 4
-  - name: eyes_mesh.asset
-    bundle: 26
-    dir: 4
-  - name: face-1.prefab
-    bundle: 27
-    dir: 4
-  - name: face-1_mesh.asset
-    bundle: 28
-    dir: 4
-  - name: face-2.prefab
-    bundle: 29
-    dir: 4
-  - name: face-2_mesh.asset
-    bundle: 30
-    dir: 4
-  - name: hair-1.prefab
-    bundle: 31
-    dir: 4
-  - name: hair-1_mesh.asset
-    bundle: 32
-    dir: 4
-  - name: hair-2.prefab
     bundle: 33
-    dir: 4
-  - name: hair-2_mesh.asset
+    dir: 2
+  - name: log4net.xml.bytes
+    bundle: 3
+    dir: 3
+  - name: cameractr.prefab
     bundle: 34
     dir: 4
-  - name: pants-1.prefab
-    bundle: 35
-    dir: 4
-  - name: pants-1_mesh.asset
-    bundle: 36
-    dir: 4
-  - name: pants-2.prefab
-    bundle: 37
-    dir: 4
-  - name: pants-2_mesh.asset
-    bundle: 38
-    dir: 4
-  - name: shoes-1.prefab
-    bundle: 39
-    dir: 4
-  - name: shoes-1_mesh.asset
-    bundle: 40
-    dir: 4
-  - name: shoes-2.prefab
-    bundle: 41
-    dir: 4
-  - name: shoes-2_mesh.asset
-    bundle: 42
-    dir: 4
-  - name: top-1.prefab
-    bundle: 43
-    dir: 4
-  - name: top-1_mesh.asset
-    bundle: 44
-    dir: 4
-  - name: top-2.prefab
-    bundle: 45
-    dir: 4
-  - name: top-2_mesh.asset
-    bundle: 46
-    dir: 4
-  - name: body-1.prefab
-    bundle: 47
+  - name: main camera.prefab
+    bundle: 34
     dir: 5
-  - name: body-1_mesh.asset
-    bundle: 48
-    dir: 5
-  - name: characterbase.prefab
-    bundle: 49
-    dir: 5
-  - name: clothes-1.prefab
-    bundle: 50
-    dir: 5
-  - name: clothes-1_mesh.asset
-    bundle: 51
-    dir: 5
-  - name: clothes-2.prefab
-    bundle: 52
-    dir: 5
-  - name: clothes-2_mesh.asset
-    bundle: 53
-    dir: 5
-  - name: hair-1.prefab
-    bundle: 54
-    dir: 5
-  - name: hair-1_mesh.asset
-    bundle: 55
-    dir: 5
-  - name: hair-2.prefab
-    bundle: 56
-    dir: 5
-  - name: hair-2_mesh.asset
-    bundle: 57
-    dir: 5
-  - name: makeup-0.prefab
-    bundle: 58
-    dir: 5
-  - name: makeup-0_mesh.asset
-    bundle: 59
-    dir: 5
-  - name: makeup-1.prefab
-    bundle: 60
-    dir: 5
-  - name: makeup-1_mesh.asset
-    bundle: 61
-    dir: 5
-  - name: log4net.xml.bytes
-    bundle: 62
-    dir: 6
   - name: weapon1.prefab
-    bundle: 79
-    dir: 7
+    bundle: 34
+    dir: 5
   - name: game.prefab
-    bundle: 79
-    dir: 8
-  - name: scene_floor_01.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_object_01.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_object_02.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_object_03.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_object_04.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_table_01.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_table_02.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_terrain_01.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_tool_01.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_tool_02.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_tool_03.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_tool_04.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_01.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_01_1.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_03.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_03_1.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_04.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_04_1.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_05.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_05_1.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_06.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_06_1.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_07.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_07_1.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_08.prefab
-    bundle: 79
-    dir: 9
-  - name: scene_wall_08_1.prefab
-    bundle: 79
-    dir: 9
+    bundle: 34
+    dir: 4
+  - name: enable01.prefab
+    bundle: 34
+    dir: 6
+  - name: enable02.prefab
+    bundle: 34
+    dir: 6
   - name: level01_marked.unity
-    bundle: 63
-    dir: 10
-  - name: scene01_marked.unity
-    bundle: 64
-    dir: 10
+    bundle: 4
+    dir: 7
   - name: common_atlas0.png
-    bundle: 65
-    dir: 11
+    bundle: 5
+    dir: 8
   - name: common_fui.bytes
-    bundle: 65
-    dir: 11
+    bundle: 5
+    dir: 8
   - name: gameloge_atlas_vm0m1.png
-    bundle: 66
-    dir: 11
+    bundle: 6
+    dir: 8
   - name: gameloge_atlas_vm0m2.png
-    bundle: 66
-    dir: 11
+    bundle: 6
+    dir: 8
   - name: gameloge_atlas_vm0m3.png
-    bundle: 66
-    dir: 11
+    bundle: 6
+    dir: 8
   - name: gameloge_atlas_vm0m4.png
-    bundle: 66
-    dir: 11
+    bundle: 6
+    dir: 8
   - name: gameloge_fui.bytes
-    bundle: 66
-    dir: 11
+    bundle: 6
+    dir: 8
   - name: hotfix_atlas_cuja3.png
-    bundle: 67
-    dir: 11
+    bundle: 7
+    dir: 8
   - name: hotfix_atlas_cuja4.png
-    bundle: 67
-    dir: 11
+    bundle: 7
+    dir: 8
   - name: hotfix_atlas_cuja5.png
-    bundle: 67
-    dir: 11
+    bundle: 7
+    dir: 8
   - name: hotfix_atlas_cuja6.png
-    bundle: 67
-    dir: 11
+    bundle: 7
+    dir: 8
   - name: hotfix_fui.bytes
-    bundle: 67
-    dir: 11
+    bundle: 7
+    dir: 8
+  - name: hud_atlas0.png
+    bundle: 8
+    dir: 8
   - name: hud_fui.bytes
-    bundle: 68
-    dir: 11
+    bundle: 8
+    dir: 8
   - name: loading_fui.bytes
-    bundle: 69
-    dir: 11
+    bundle: 9
+    dir: 8
   - name: login_atlas0.png
-    bundle: 70
-    dir: 11
+    bundle: 10
+    dir: 8
   - name: login_fui.bytes
-    bundle: 70
-    dir: 11
+    bundle: 10
+    dir: 8
   - name: main_atlas0.png
-    bundle: 71
-    dir: 11
+    bundle: 11
+    dir: 8
   - name: main_fui.bytes
-    bundle: 71
-    dir: 11
-  - name: travel_atlas0.png
-    bundle: 72
-    dir: 11
-  - name: travel_atlas_f7ke3lad.png
-    bundle: 72
-    dir: 11
-  - name: travel_fui.bytes
-    bundle: 72
-    dir: 11
+    bundle: 11
+    dir: 8
   - name: game.asset
-    bundle: 73
-    dir: 12
+    bundle: 12
+    dir: 9
+  - name: chef.asset
+    bundle: 13
+    dir: 10
+  - name: createcustomer.asset
+    bundle: 14
+    dir: 10
+  - name: customer.asset
+    bundle: 15
+    dir: 10
+  - name: gamelogic.asset
+    bundle: 16
+    dir: 10
+  - name: manager.asset
+    bundle: 17
+    dir: 10
+  - name: player.asset
+    bundle: 18
+    dir: 10
+  - name: room.asset
+    bundle: 19
+    dir: 10
+  - name: charactermove.asset
+    bundle: 20
+    dir: 11
+  - name: getcookingpos.asset
+    bundle: 21
+    dir: 11
+  - name: getorderpos.asset
+    bundle: 22
+    dir: 11
+  - name: gettablechair.asset
+    bundle: 23
+    dir: 11
+  - name: waiter.asset
+    bundle: 24
+    dir: 10
   - name: login.asset
-    bundle: 74
+    bundle: 25
+    dir: 12
+  - name: chef.prefab
+    bundle: 26
+    dir: 13
+  - name: customer.prefab
+    bundle: 27
+    dir: 13
+  - name: waiter.prefab
+    bundle: 28
     dir: 13
   - name: game.prefab
-    bundle: 75
+    bundle: 29
     dir: 14
   - name: login.prefab
-    bundle: 76
+    bundle: 30
+    dir: 14
+  - name: scenevariables.prefab
+    bundle: 31
     dir: 14
   - name: testevent.asset
-    bundle: 77
-    dir: 12
+    bundle: 32
+    dir: 9
   bundles:
-  - name: assets/buildasset/art/characters/role/role.fbx.unity3d
-    id: 0
-    deps: 0100000002000000030000000400000005000000
-    len: 572862
-    hash: a9deb13c420cfad4d39c01b24d8afc0e
-  - name: assets/buildasset/art/characters/role/textures/role_clothes-1.png.unity3d
-    id: 1
-    deps: 
-    len: 6723
-    hash: 0e8d48d445acda597d0db19660f7f113
-  - name: assets/buildasset/art/characters/role/textures/role_clothes-2.png.unity3d
-    id: 2
-    deps: 
-    len: 1653
-    hash: 1a69d8f69b435271a2b586b8ff62bb4c
-  - name: assets/buildasset/art/characters/role/textures/role_hair-1.png.unity3d
-    id: 3
-    deps: 
-    len: 11032
-    hash: 429d8e26fb806db0a5d4fd24746e1735
-  - name: assets/buildasset/art/characters/role/textures/role_hair-2.png.unity3d
-    id: 4
-    deps: 
-    len: 19189
-    hash: 69539967b163e19da2d5e8e1573b977c
-  - name: assets/buildasset/art/characters/role/textures/role_makeup-1.png.unity3d
-    id: 5
-    deps: 
-    len: 8706
-    hash: b299e54113ddd5191b9ce2a997cb007c
-  - name: assets/buildasset/art/scenes/scene_01/scene_01.mat.unity3d
-    id: 6
-    deps: 07000000
-    len: 247220
-    hash: dd763255f0b48a1b0a64ee4f84439f36
-  - name: assets/buildasset/art/scenes/scene_01/scene_01.png.unity3d
-    id: 7
-    deps: 
-    len: 61563
-    hash: d957b7449c1ed6d81a1538ea7cbb706f
-  - name: assets/buildasset/art/scenes/scene_01/scene_floor_01.fbx.unity3d
-    id: 8
-    deps: 
-    len: 249723
-    hash: 291da29fe8c7b9ef16bde327152fda47
-  - name: assets/buildasset/art/scenes/scene_01/scene_object_01.fbx.unity3d
-    id: 9
-    deps: 
-    len: 249814
-    hash: 1f4f869545bc1893b3ef86157aad5615
-  - name: assets/buildasset/art/scenes/scene_01/scene_object_02.fbx.unity3d
-    id: 10
-    deps: 
-    len: 251603
-    hash: 0ba8670923e0d4e96af5f6e7f4d9248e
-  - name: assets/buildasset/art/scenes/scene_01/scene_object_03.fbx.unity3d
-    id: 11
-    deps: 
-    len: 251328
-    hash: a2c12d37a378f1785248fc93088be3a7
-  - name: assets/buildasset/art/scenes/scene_01/scene_object_04.fbx.unity3d
-    id: 12
-    deps: 
-    len: 250928
-    hash: 492ce0f942c51025d7a18f47992e72de
-  - name: assets/buildasset/art/scenes/scene_01/scene_terrain_01.fbx.unity3d
-    id: 13
-    deps: 
-    len: 251116
-    hash: 61d4ac6606cfe2a4bb51c5b0e6f41351
-  - name: assets/buildasset/art/scenes/scene_01/scene_wall_03.fbx.unity3d
-    id: 14
-    deps: 07000000
-    len: 250126
-    hash: 15194f56778a237e4bf26b08ea1f9e39
-  - name: assets/buildasset/art/scenes/scene_01/scene_wall_04.fbx.unity3d
-    id: 15
-    deps: 07000000
-    len: 250122
-    hash: 5a961bcbce04d20bf5953562fa5813a4
-  - name: assets/buildasset/art/scenes/scene_01/scene_wall_05.fbx.unity3d
-    id: 16
-    deps: 07000000
-    len: 250775
-    hash: 6d15102fac44402dd09b209d2c52efb0
-  - name: assets/buildasset/art/scenes/scene_01/scene_wall_06.fbx.unity3d
-    id: 17
-    deps: 07000000
-    len: 249856
-    hash: 02db7c9789837e5512f5c64f9facb61b
-  - name: assets/buildasset/art/scenes/scene_01/scene_wall_07.fbx.unity3d
-    id: 18
-    deps: 07000000
-    len: 249887
-    hash: 682de818871d409e68e188a1d05915cf
-  - name: assets/buildasset/art/scenes/scene_01/scene_wall_08.fbx.unity3d
-    id: 19
-    deps: 07000000
-    len: 249881
-    hash: b3a53a3ad5157321eb60125dccbc3fc8
   - name: assets/buildasset/audio/mixer.unity3d
-    id: 20
+    id: 0
     deps: 
     len: 2064
     hash: 4ec8caff4c84a8b5348bf5f33f699ae6
   - name: assets/buildasset/code/game.dll.bytes.unity3d
-    id: 21
+    id: 1
     deps: 
     len: 77471
     hash: 47a6d3cce146686cc697e6b61e754650
   - name: assets/buildasset/code/hotfix.dll.bytes.unity3d
-    id: 22
+    id: 2
     deps: 
     len: 10047
     hash: 333d711d3719ab41f551a071ea18aca6
-  - name: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
-    id: 23
-    deps: 
-    len: 1556
-    hash: 358313f5093d6697cc48d76072996320
-  - name: assets/buildasset/customcharacters/female/characterbase.prefab.unity3d
-    id: 24
-    deps: 
-    len: 651131
-    hash: b9463ccf4abf17da11581f3d514ae24c
-  - name: assets/buildasset/customcharacters/female/eyes.prefab.unity3d
-    id: 25
-    deps: 1a000000
-    len: 251622
-    hash: d6f017335403b19648f1bdd72e7536df
-  - name: assets/buildasset/customcharacters/female/eyes_mesh.asset.unity3d
-    id: 26
-    deps: 
-    len: 4122
-    hash: 328fe122fe63a252a6d444f6d51e2f38
-  - name: assets/buildasset/customcharacters/female/face-1.prefab.unity3d
-    id: 27
-    deps: 1c000000
-    len: 654724
-    hash: 6c10eca16a26f41233eb781b7ed11668
-  - name: assets/buildasset/customcharacters/female/face-1_mesh.asset.unity3d
-    id: 28
-    deps: 
-    len: 15868
-    hash: 3ae90ce242359c4aaae42654ebaea3ad
-  - name: assets/buildasset/customcharacters/female/face-2.prefab.unity3d
-    id: 29
-    deps: 1e000000
-    len: 654562
-    hash: 9c6a39465be84706c428c8d5622d7133
-  - name: assets/buildasset/customcharacters/female/face-2_mesh.asset.unity3d
-    id: 30
-    deps: 
-    len: 16362
-    hash: 99ce796c755810d37c6610b486073d64
-  - name: assets/buildasset/customcharacters/female/hair-1.prefab.unity3d
-    id: 31
-    deps: 20000000
-    len: 717967
-    hash: d32ff6deb2ccb213e28e39f5f3c80874
-  - name: assets/buildasset/customcharacters/female/hair-1_mesh.asset.unity3d
-    id: 32
-    deps: 
-    len: 12525
-    hash: ea8b4121bf7d5125c0ac174e97dd61e0
-  - name: assets/buildasset/customcharacters/female/hair-2.prefab.unity3d
-    id: 33
-    deps: 22000000
-    len: 300720
-    hash: 5ee648733b98aec895980f8696b168a9
-  - name: assets/buildasset/customcharacters/female/hair-2_mesh.asset.unity3d
-    id: 34
-    deps: 
-    len: 10272
-    hash: 534c25a81034f30485944d5e57e0769f
-  - name: assets/buildasset/customcharacters/female/pants-1.prefab.unity3d
-    id: 35
-    deps: 24000000
-    len: 833582
-    hash: a7c5691096f3f97a6e30e70e06824adc
-  - name: assets/buildasset/customcharacters/female/pants-1_mesh.asset.unity3d
-    id: 36
-    deps: 
-    len: 9575
-    hash: d7d0a62f7e1db08b8dd88bce61310fb7
-  - name: assets/buildasset/customcharacters/female/pants-2.prefab.unity3d
-    id: 37
-    deps: 26000000
-    len: 840300
-    hash: 5bfa4fa5d678bf0aed5552eddb9735c0
-  - name: assets/buildasset/customcharacters/female/pants-2_mesh.asset.unity3d
-    id: 38
-    deps: 
-    len: 9413
-    hash: 5f15b6bfd3bf42baabe0a17673e5de7a
-  - name: assets/buildasset/customcharacters/female/shoes-1.prefab.unity3d
-    id: 39
-    deps: 28000000
-    len: 605402
-    hash: 021f3a395db99d6ac773ea6e8e5f8310
-  - name: assets/buildasset/customcharacters/female/shoes-1_mesh.asset.unity3d
-    id: 40
-    deps: 
-    len: 7028
-    hash: 24fb134ea0dfec2a5305aee847e005f5
-  - name: assets/buildasset/customcharacters/female/shoes-2.prefab.unity3d
-    id: 41
-    deps: 2a000000
-    len: 606063
-    hash: 57524c6604ad5b0793af5f7166c36b9f
-  - name: assets/buildasset/customcharacters/female/shoes-2_mesh.asset.unity3d
-    id: 42
-    deps: 
-    len: 8496
-    hash: e8dad6d3a9adfef8e262eea33b5ef530
-  - name: assets/buildasset/customcharacters/female/top-1.prefab.unity3d
-    id: 43
-    deps: 2c000000
-    len: 749316
-    hash: a3c6eb8437161ae913aff29ac19a99e5
-  - name: assets/buildasset/customcharacters/female/top-1_mesh.asset.unity3d
-    id: 44
-    deps: 
-    len: 27174
-    hash: b93e27ab75ca798d4db4ffe06a158151
-  - name: assets/buildasset/customcharacters/female/top-2.prefab.unity3d
-    id: 45
-    deps: 2e000000
-    len: 860626
-    hash: 61effa705fbb35759adb1284800abeca
-  - name: assets/buildasset/customcharacters/female/top-2_mesh.asset.unity3d
-    id: 46
-    deps: 
-    len: 36182
-    hash: e33193808c0d513593a5c9e2fa0a4c03
-  - name: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
-    id: 47
-    deps: 00000000010000000200000003000000040000000500000030000000
-    len: 80366
-    hash: 47e589961bbdad5be8799adbf821f1fc
-  - name: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
-    id: 48
-    deps: 
-    len: 9319
-    hash: 5911d6a9cfaea1b4237b5b345bd2e61e
-  - name: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
-    id: 49
-    deps: 000000000100000002000000030000000400000005000000
-    len: 106452
-    hash: ecdded7c1a1f386c71e5bc88a15c22c4
-  - name: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
-    id: 50
-    deps: 00000000010000000200000003000000040000000500000033000000
-    len: 24880
-    hash: fbadb1c96d7726c64cfc63b590640fc2
-  - name: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
-    id: 51
-    deps: 
-    len: 4557
-    hash: 3c6f431f15e180e5dac33fda77b0307b
-  - name: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
-    id: 52
-    deps: 00000000010000000200000003000000040000000500000035000000
-    len: 25276
-    hash: ad59b4e67614a7e06df3f481daf4686c
-  - name: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
-    id: 53
-    deps: 
-    len: 4421
-    hash: ed5004f908428e6f02277af3cc99fdd8
-  - name: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
-    id: 54
-    deps: 00000000010000000200000003000000040000000500000037000000
-    len: 24755
-    hash: 4e8510cda738b765c68db4f14928a941
-  - name: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
-    id: 55
-    deps: 
-    len: 4540
-    hash: ee75f4fe8fd5d116148f2021a15b438c
-  - name: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
-    id: 56
-    deps: 00000000010000000200000003000000040000000500000039000000
-    len: 25198
-    hash: d7d2bf768c3037ca13d681de495651c6
-  - name: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
-    id: 57
-    deps: 
-    len: 5350
-    hash: 9808084da4df57b1d6e7c5b17221e4c2
-  - name: assets/buildasset/customcharacters/role/makeup-0.prefab.unity3d
-    id: 58
-    deps: 3b000000
-    len: 258935
-    hash: 00b2fca96f3ce5bf838899b29f38d5e1
-  - name: assets/buildasset/customcharacters/role/makeup-0_mesh.asset.unity3d
-    id: 59
-    deps: 
-    len: 2315
-    hash: 7eb3374a63af8f8d555c7c751c8ccae3
-  - name: assets/buildasset/customcharacters/role/makeup-1.prefab.unity3d
-    id: 60
-    deps: 0000000001000000020000000300000004000000050000003d000000
-    len: 24860
-    hash: 5d7fc18fc7639d05b2e5e7ed407ff20c
-  - name: assets/buildasset/customcharacters/role/makeup-1_mesh.asset.unity3d
-    id: 61
-    deps: 
-    len: 4187
-    hash: 45a48dfaa48502c5bbbd90e12cc4dd5c
   - name: assets/buildasset/log/log4net.xml.bytes.unity3d
-    id: 62
+    id: 3
     deps: 
-    len: 1261
-    hash: 7936550adfa3bcdd58ba01956b4efb93
+    len: 1420
+    hash: b22c65aa2ff4aebad02c587624b5edc8
   - name: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
-    id: 63
-    deps: 060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000004f000000
-    len: 70343
-    hash: 193c81de1923a95691061f3ef7f0ddf0
-  - name: assets/buildasset/scenes/markeds/scene01_marked.unity.unity3d
-    id: 64
+    id: 4
     deps: 
-    len: 67329
-    hash: c3646405cf63f5bb604f6f6d069c49b5
+    len: 4452757
+    hash: a6fca12ed169f99eb17658769ac8796f
   - name: assets/buildasset/ui/common.unity3d
-    id: 65
+    id: 5
     deps: 
-    len: 20097
-    hash: 597c310e82f3d7db75c761e48ae7d242
+    len: 20713
+    hash: bc735f360bb1809a42f1513829ffdf10
   - name: assets/buildasset/ui/gameloge.unity3d
-    id: 66
+    id: 6
     deps: 
-    len: 120117
-    hash: 0dba8978ae4ea609bb47253e3834b39b
+    len: 74289
+    hash: b3016e4bec4c8388c7f7c6e508ae39fc
   - name: assets/buildasset/ui/hotfix.unity3d
-    id: 67
+    id: 7
     deps: 
-    len: 120732
-    hash: 960f60215d2706e34316f602d9f3a2c9
+    len: 74853
+    hash: 8a38f7981e0c3860dfa00f7d7d022617
   - name: assets/buildasset/ui/hud.unity3d
-    id: 68
+    id: 8
     deps: 
-    len: 1143
-    hash: e7d03fe37af90139e3b9071a0875b466
+    len: 5389
+    hash: f402ccc8fe76f77b0c9e6896bd0d7de1
   - name: assets/buildasset/ui/loading.unity3d
-    id: 69
+    id: 9
     deps: 
     len: 1347
     hash: 9780ad8be8ae18b6a90b1bbe1f8b0759
   - name: assets/buildasset/ui/login.unity3d
-    id: 70
+    id: 10
     deps: 
     len: 3217
     hash: 2919343ab0426990765d438addda719c
   - name: assets/buildasset/ui/main.unity3d
-    id: 71
+    id: 11
     deps: 
     len: 73448
     hash: 59f93ad72c78723be06530143d48f6db
-  - name: assets/buildasset/ui/travel.unity3d
-    id: 72
-    deps: 
-    len: 125235
-    hash: 8adc0e913bc1af6f0d7b6020663a3090
   - name: assets/buildasset/visualscript/game.asset.unity3d
-    id: 73
+    id: 12
+    deps: 0e000000
+    len: 4255
+    hash: 90c8a089389b422fb9085f9c2263c9f3
+  - name: assets/buildasset/visualscript/game/chef.asset.unity3d
+    id: 13
+    deps: 14000000
+    len: 7413
+    hash: 5ee3d54fb77ef706825a0409828679c2
+  - name: assets/buildasset/visualscript/game/createcustomer.asset.unity3d
+    id: 14
     deps: 
-    len: 2325
-    hash: f352bc8374171d51fc03703d2c372bcd
+    len: 2887
+    hash: ada0680e00784dc1faafeb33c42cd058
+  - name: assets/buildasset/visualscript/game/customer.asset.unity3d
+    id: 15
+    deps: 14000000
+    len: 6294
+    hash: b93e2ff56ce89be36aa8b2cf271b52fd
+  - name: assets/buildasset/visualscript/game/gamelogic.asset.unity3d
+    id: 16
+    deps: 
+    len: 2544
+    hash: dec2d8deddb771c39e9eb6ce0adf3b3c
+  - name: assets/buildasset/visualscript/game/manager.asset.unity3d
+    id: 17
+    deps: 
+    len: 1868
+    hash: 9f7230055b9463988df2a171d9ecce21
+  - name: assets/buildasset/visualscript/game/player.asset.unity3d
+    id: 18
+    deps: 
+    len: 1453
+    hash: 6f6307db1ae8e4612db462fa4bcda4f6
+  - name: assets/buildasset/visualscript/game/room.asset.unity3d
+    id: 19
+    deps: 
+    len: 1448
+    hash: f927639eac5f6f78394269a78c569402
+  - name: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
+    id: 20
+    deps: 
+    len: 2924
+    hash: ace5b1ac853802ac91733ab484eefdee
+  - name: assets/buildasset/visualscript/game/utils/getcookingpos.asset.unity3d
+    id: 21
+    deps: 
+    len: 2841
+    hash: 8036759f67db488749eff7d3684e5027
+  - name: assets/buildasset/visualscript/game/utils/getorderpos.asset.unity3d
+    id: 22
+    deps: 
+    len: 2813
+    hash: 474601de56f12565f1126529869043ea
+  - name: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
+    id: 23
+    deps: 
+    len: 2625
+    hash: c8c786b8a23f4ed4da666e71ee41d9f5
+  - name: assets/buildasset/visualscript/game/waiter.asset.unity3d
+    id: 24
+    deps: 140000001600000017000000
+    len: 8483
+    hash: 16cc6fc7ca213465ed1d673a992cd08f
   - name: assets/buildasset/visualscript/login/login.asset.unity3d
-    id: 74
+    id: 25
     deps: 
-    len: 2453
-    hash: 1f2f047beb14c25166ccf0ced28a32bc
+    len: 2460
+    hash: f6d7eb638b2dd8787827fe44c4383ddc
+  - name: assets/buildasset/visualscript/prefabs/ai/chef.prefab.unity3d
+    id: 26
+    deps: 0d00000014000000
+    len: 2166
+    hash: eb2530aceb13d42824ee34da3ca9fea6
+  - name: assets/buildasset/visualscript/prefabs/ai/customer.prefab.unity3d
+    id: 27
+    deps: 0f00000014000000
+    len: 2044
+    hash: 58d39ef1536cf67a07619b8193fb2a14
+  - name: assets/buildasset/visualscript/prefabs/ai/waiter.prefab.unity3d
+    id: 28
+    deps: 14000000160000001700000018000000
+    len: 2103
+    hash: f8c54a22a76a52265f7466f7a86a8e26
   - name: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
-    id: 75
-    deps: 49000000
-    len: 2036
-    hash: eabab19d450e749a185f46a903f189f1
+    id: 29
+    deps: 0c0000000e000000
+    len: 2310
+    hash: 631e6530a2912d84b156866e3fabcfc8
   - name: assets/buildasset/visualscript/prefabs/login.prefab.unity3d
-    id: 76
-    deps: 4a000000
+    id: 30
+    deps: 19000000
     len: 2031
     hash: 730a2f9dbde469f7f5a1799805547d08
+  - name: assets/buildasset/visualscript/prefabs/scenevariables.prefab.unity3d
+    id: 31
+    deps: 
+    len: 2021
+    hash: 9b1a91891edf4967f5714fb7efff1f75
   - name: assets/buildasset/visualscript/testevent.asset.unity3d
-    id: 77
+    id: 32
     deps: 
     len: 3062
     hash: 815a8b6047a9b33c4b0b5eb6573344b2
   - name: configs.unity3d
-    id: 78
+    id: 33
     deps: 
-    len: 6208
-    hash: da1f07a904e5af5d7d4f39ebe25af26e
+    len: 8267
+    hash: 50fccee69e11de8471b70ecd71fa17e5
   - name: prefabs.unity3d
-    id: 79
-    deps: 060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
-    len: 23613
-    hash: 76b8914197eb657382350ef0da91dd8e
+    id: 34
+    deps: 
+    len: 322059
+    hash: 2fe2914da855447a3bc47b74372443d7
