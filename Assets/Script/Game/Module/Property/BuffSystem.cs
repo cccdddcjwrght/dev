@@ -55,9 +55,9 @@ namespace SGame
 			if (ConfigSystem.Instance.TryGet<LevelRowData>(scene, out var cfg))
 			{
 				//厨师
-				attrSys.Register(((int)EnumTarget.Cook), cfg.ChefId, CreateAttribute(1, cfg.ChefId));
+				attrSys.Register(((int)EnumTarget.Cook), 0, CreateAttribute(1, cfg.ChefId));
 				//服务员
-				attrSys.Register(((int)EnumTarget.Waiter), cfg.WaiterId, CreateAttribute(1, cfg.WaiterId));
+				attrSys.Register(((int)EnumTarget.Waiter), 0, CreateAttribute(1, cfg.WaiterId));
 
 				//工作台
 				for (int i = 0; i < cfg.MachineIdLength; i++)
@@ -80,6 +80,7 @@ namespace SGame
 				case 0://工作台
 					if (ConfigSystem.Instance.TryGet<MachineRowData>(id, out var m))
 						attr[((int)EnumAttribute.Price)] = m.ShopPrice(2);
+						attr[((int)EnumAttribute.WorkSpeed)] = m.Efficiency;
 					break;
 				case 1://厨师，服务员
 					if (ConfigSystem.Instance.TryGet<RoleDataRowData>(id, out var r))
