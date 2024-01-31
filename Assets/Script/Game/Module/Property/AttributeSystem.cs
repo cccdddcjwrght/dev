@@ -85,6 +85,29 @@ namespace SGame
 			return GetAttributeList(type, targetid)[attributeID];
 		}
 
+		/// <summary>
+		/// 根据RoleID 获取属性
+		/// </summary>
+		/// <param name="roleID"></param>
+		/// <param name="attributeID"></param>
+		/// <returns></returns>
+		public double GetValueByRoleID(int roleID, EnumAttribute attributeID)
+		{
+			if (ConfigSystem.Instance.TryGet<RoleDataRowData>(roleID, out var cfg))
+			{
+				switch ((EnumRole)cfg.Type)
+				{
+					case EnumRole.Cook:
+					case EnumRole.Waiter:
+						return GetValue((EnumTarget)(1 << cfg.Type), attributeID);
+					case EnumRole.Customer:
+					case EnumRole.Car:
+						return GetValue(EnumTarget.Customer, attributeID, roleID);
+				}
+			}
+			return 0;
+		}
+
 		#endregion
 
 		#region Register
