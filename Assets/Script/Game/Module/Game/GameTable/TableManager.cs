@@ -98,6 +98,48 @@ namespace SGame
             
             return ChairData.Empty;
         }
+
+        public List<ChairData> GetEmptyChairs(TABLE_TYPE tableType, CHAIR_TYPE chair)
+        {
+            List<ChairData> ret = new List<ChairData>();
+            foreach (var t in m_datas)
+            {
+                if (t.type == TABLE_TYPE.CUSTOM)
+                {
+                    int chairIndex = t.GetEmptySit(CHAIR_TYPE.CUSTOMER);
+                    if (chairIndex >= 0)
+                    {
+                        ret.Add(t.GetChair(chairIndex));
+                    }
+                }
+            }
+
+            return ret;
+        }
+        
+        /// <summary>
+        /// 获得空座位数量
+        /// </summary>
+        /// <param name="tableType"></param>
+        /// <param name="chair"></param>
+        /// <returns></returns>
+        public int GetEmptyChairCount(TABLE_TYPE tableType, CHAIR_TYPE chair)
+        {
+            int ret = 0;
+            foreach (var t in m_datas)
+            {
+                if (t.type == TABLE_TYPE.CUSTOM)
+                {
+                    int chairIndex = t.GetEmptySit(CHAIR_TYPE.CUSTOMER);
+                    if (chairIndex >= 0)
+                    {
+                        ret++;
+                    }
+                }
+            }
+
+            return ret;
+        }
         
         /// <summary>
         /// 顾客查找空闲座位

@@ -42,7 +42,7 @@ namespace SGame
 
         public bool DespawnCharacter(int charcterID)
         {
-            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<CharacterDespawnSystem>();
+            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
             
             var character = FindCharacter(charcterID);
             if (character == null)

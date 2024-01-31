@@ -1,6 +1,7 @@
 using Unity.Entities;
 namespace SGame
 {
+    [GenerateAuthoringComponent]
     public struct CharacterAttribue : IComponentData
     {
         /// <summary>

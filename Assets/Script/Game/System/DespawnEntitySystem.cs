@@ -26,6 +26,7 @@ namespace SGame
             {
                 commandBuffer.AddComponent<DespawningEntity>(e);
             }
+            m_entitys.Clear();
         }
 
         public void DespawnEntity(Entity e)

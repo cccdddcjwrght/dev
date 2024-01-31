@@ -30,7 +30,6 @@ namespace SGame.VS
         /// The value of the variable.
         /// </summary>
         [DoNotSerialize]
-        [PortLabelHidden]
         public ValueOutput value { get; private set; }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace SGame.VS
             
             outputTrigger = ControlOutput("Sucess");
             failTrigger   = ControlOutput("Fail");
-            value         = ValueOutput(nameof(value), (flow) => m_valueResult);
+            value         = ValueOutput("RoleID", (flow) => m_valueResult);
             characterType = ValueInput<int>("characterType", 0);
         }
         

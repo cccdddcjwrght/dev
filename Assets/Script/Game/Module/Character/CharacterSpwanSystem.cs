@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameConfigs;
 using libx;
 using log4net;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 using Unity.Mathematics;
+using Unity.Transforms;
 using Unity.VisualScripting;
 
 namespace SGame
@@ -14,6 +16,8 @@ namespace SGame
     [UpdateInGroup(typeof(GameLogicGroup))]
     public partial class CharacterSpawnSystem : SystemBase
     {
+        public string ENTITY_PREFAB_PATH = "Assets/BuildAsset/Prefabs/ECS/Character.prefab";
+        
         public struct CharacterSpawn : IComponentData
         {
             // 地图2D 位置
@@ -45,10 +49,11 @@ namespace SGame
         
         public class CharacterLoading : IComponentData
         {
-            public AssetRequest       baseChacterPrefab;
+            //public AssetRequest       baseChacterPrefab;
             public CharacterGenerator gen;
             public AssetRequest       aiPrefab;
-            public bool isDone => baseChacterPrefab.isDone && gen.ConfigReady && aiPrefab.isDone;
+            public int modelId;
+            public bool isDone => gen.ConfigReady && aiPrefab.isDone;
         }
 
         public struct CharacterEvent
@@ -66,12 +71,37 @@ namespace SGame
 
         private Dictionary<int, Entity>             m_characters;
 
+        /// <summary>
+        /// 角色ECS的预制
+        /// </summary>
+        private Entity                              m_characterPerfab;
+
+        private EntityQuery                         m_prefabReadly;
+        
         protected override void OnCreate()
         {
             m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
             m_triggerInit = new List<CharacterEvent>();
             m_characters = new Dictionary<int, Entity>();
+
+            //Utils.CreateEntityQuery()
+            m_prefabReadly = EntityManager.CreateEntityQuery(typeof(Prefab), typeof(CharacterAttribue));
+            
             lasterCharacterID = 0;
+            
+            RequireForUpdate(m_prefabReadly);
+
+            EventManager.Instance.Reg((int)GameEvent.ENTER_GAME, OnGameInitAfter);
+        }
+
+        void OnGameInitAfter()
+        {
+            ECSPrefabManager.Instance.AddPrefab(ENTITY_PREFAB_PATH);
+        }
+
+        protected override void OnStartRunning()
+        {
+            m_characterPerfab = m_prefabReadly.GetSingletonEntity();
         }
 
         /// <summary>
@@ -113,16 +143,23 @@ namespace SGame
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.WithNone<CharacterLoading>().ForEach((Entity e, CharacterSpawn req) =>
             {
-                if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.roleRowData config))
+                if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData))
                 {
-                    log.Error("role config not found=" + req.id);
+                    log.Error("role data config not found=" + req.id);
+                    commandBuffer.DestroyEntity(e);
+                    return;
+                }
+                
+                if (!ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config))
+                {
+                    log.Error("role model config not found=" + roleData.Model + " role id=" + req.id);
                     commandBuffer.DestroyEntity(e);
                     return;
                 }
 
                 if (string.IsNullOrEmpty(config.Part))
                 {
-                    log.Error("role part is null" + config.Part);
+                    log.Error("role part is null" + config.Part + " role id=" + req.id + " model id=" + roleData.Model);
                     commandBuffer.DestroyEntity(e);
                     return;
                 }
@@ -130,10 +167,12 @@ namespace SGame
                 CharacterLoading loading = new CharacterLoading()
                 {
                     gen       = CharacterGenerator.CreateWithConfig(config.Part),
-                    baseChacterPrefab = LoadBaseCharacter(),
+                    modelId = config.ID,
+                    //baseChacterPrefab = LoadBaseCharacter(),
                     aiPrefab  = LoadAI(config.Ai)
                 };
                 commandBuffer.AddComponent(e, loading);
+                //commandBuffer.AddComponent(e, new CharacterAttribue() { roleID = roleData.Id, roleType = roleData.Type });
             }).WithoutBurst().Run();
             
             // 等待资源加载并生成对象
@@ -143,17 +182,22 @@ namespace SGame
                 {
                     return;
                 }
-                ConfigSystem.Instance.TryGet(req.id, out GameConfigs.roleRowData config);
+                ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData);
+                ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
+
                 lasterCharacterID++;
 
                 // 获得地图位置
-                var characterPrefab             = loading.baseChacterPrefab.asset as GameObject;
-                var character         = GameObject.Instantiate(characterPrefab);
+                var character         = new GameObject();
                 character.transform.position    = req.pos;
                 character.transform.rotation    = Quaternion.identity;
                 Character c = character.AddComponent<Character>();//()
                 character.name = config.Name + "_id_" + lasterCharacterID;
-                
+
+                Entity characterEntity = EntityManager.Instantiate(m_characterPerfab);
+                EntityManager.AddComponentObject(characterEntity, c);
+                EntityManager.AddComponentObject(characterEntity, c.transform);
+
                 // 创建AI
                 GameObject ai       = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
                 ai.transform.parent = character.transform;
@@ -166,14 +210,20 @@ namespace SGame
                 ani.transform.localPosition = Vector3.zero;
                 ani.transform.localScale = Vector3.one;
                 ani.name = "Model";
+                
                 commandBuffer.DestroyEntity(e);
 
                 c.script = ai;
                 c.model = ani;
+                c.entity = characterEntity;
                 c.CharacterID = lasterCharacterID;
-            }).WithoutBurst().Run();
-
-
+                
+                commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
+                commandBuffer.AddComponent<CharacterInitalized>(characterEntity);
+                commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type});
+                commandBuffer.RemoveComponent<LinkedEntityGroup>(characterEntity);                                                                  // 删除这个组件节省空间
+            }).WithStructuralChanges().WithoutBurst().Run();
+            
             // 等待角色创建完成
             Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, Character character) =>
             {

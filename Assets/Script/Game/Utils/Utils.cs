@@ -158,5 +158,47 @@ namespace SGame
 		}
 
 
-	}
+        /// <summary>
+        /// 通过角色类型获得目标类型
+        /// </summary>
+        /// <param name="roleType"></param>
+        /// <returns></returns>
+        public static EnumTarget GetTargetFromRoleType(int roleType)
+        {
+            RoleType r = (RoleType)roleType;
+            switch (roleType)
+            {
+                case (int)RoleType.CHEF:
+                    return EnumTarget.Cook;
+                case (int)RoleType.WAITER:
+                    return EnumTarget.Waiter;
+                case (int)RoleType.CUSTOMER:
+                case (int)RoleType.CAR:
+                    return EnumTarget.Customer;
+            }
+
+            return EnumTarget.Player;
+        }
+
+        /// <summary>
+        /// 通过角色类型获得位置标签
+        /// </summary>
+        /// <param name="roleType"></param>
+        /// <returns></returns>
+        public static string GetMapTagFromRoleType(int roleType)
+        {
+            switch (roleType)
+            {
+                case (int)RoleType.CHEF:
+                case (int)RoleType.PLAYER:
+                    return "born_0";
+                case (int)RoleType.WAITER:
+                    return "born_1";
+                case (int)RoleType.CUSTOMER:
+                    return "born_3";
+            }
+
+            return "";
+        }
+    }
 }
