@@ -14,15 +14,15 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
-			m_view.m_panel.m_type.onChanged.Add(new EventCallback1(_OnPanel_TypeChanged));
-			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnPanel_ClickClick));
+			m_view.m_panel.m_type.onChanged.Add(new EventCallback1(_OnWorktablePanelTypeChanged));
+			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnWorktablePanelClickClick));
 			UIListener.ListenerIcon(m_view.m_panel, new EventCallback1(_OnPanelClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
-			m_view.m_panel.m_type.onChanged.Remove(new EventCallback1(_OnPanel_TypeChanged));
-			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnPanel_ClickClick),remove:true);
+			m_view.m_panel.m_type.onChanged.Remove(new EventCallback1(_OnWorktablePanelTypeChanged));
+			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnWorktablePanelClickClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_panel, new EventCallback1(_OnPanelClick),remove:true);
 
 		}
@@ -31,27 +31,27 @@ namespace SGame.UI{
 		}
 		partial void OnTypeChanged(EventContext data);
 		void SwitchTypePage(int index)=>m_view.m_type.selectedIndex=index;
-		void _OnPanel_TypeChanged(EventContext data){
-			OnPanel_TypeChanged(data);
+		void _OnWorktablePanelTypeChanged(EventContext data){
+			OnWorktablePanelTypeChanged(data);
 		}
-		partial void OnPanel_TypeChanged(EventContext data);
-		void SwitchPanel_TypePage(int index)=>m_view.m_panel.m_type.selectedIndex=index;
-		void SetPanel_LevelText(string data)=>UIListener.SetText(m_view.m_panel.m_level,data);
-		string GetPanel_LevelText()=>UIListener.GetText(m_view.m_panel.m_level);
-		void SetPanel_ProgressValue(float data)=>UIListener.SetValue(m_view.m_panel.m_progress,data);
-		float GetPanel_ProgressValue()=>UIListener.GetValue(m_view.m_panel.m_progress);
-		void SetPanel_ProgressText(string data)=>UIListener.SetText(m_view.m_panel.m_progress,data);
-		string GetPanel_ProgressText()=>UIListener.GetText(m_view.m_panel.m_progress);
-		void SetPanel_TimeText(string data)=>UIListener.SetText(m_view.m_panel.m_time,data);
-		string GetPanel_TimeText()=>UIListener.GetText(m_view.m_panel.m_time);
-		void SetPanel_PriceText(string data)=>UIListener.SetText(m_view.m_panel.m_price,data);
-		string GetPanel_PriceText()=>UIListener.GetText(m_view.m_panel.m_price);
-		void _OnPanel_ClickClick(EventContext data){
-			OnPanel_ClickClick(data);
+		partial void OnWorktablePanelTypeChanged(EventContext data);
+		void SwitchWorktablePanelTypePage(int index)=>m_view.m_panel.m_type.selectedIndex=index;
+		void SetWorktablePanelLevelText(string data)=>UIListener.SetText(m_view.m_panel.m_level,data);
+		string GetWorktablePanelLevelText()=>UIListener.GetText(m_view.m_panel.m_level);
+		void SetWorktablePanelProgressValue(float data)=>UIListener.SetValue(m_view.m_panel.m_progress,data);
+		float GetWorktablePanelProgressValue()=>UIListener.GetValue(m_view.m_panel.m_progress);
+		void SetWorktablePanelProgressText(string data)=>UIListener.SetText(m_view.m_panel.m_progress,data);
+		string GetWorktablePanelProgressText()=>UIListener.GetText(m_view.m_panel.m_progress);
+		void SetWorktablePanelTimeText(string data)=>UIListener.SetText(m_view.m_panel.m_time,data);
+		string GetWorktablePanelTimeText()=>UIListener.GetText(m_view.m_panel.m_time);
+		void SetWorktablePanelPriceText(string data)=>UIListener.SetText(m_view.m_panel.m_price,data);
+		string GetWorktablePanelPriceText()=>UIListener.GetText(m_view.m_panel.m_price);
+		void _OnWorktablePanelClickClick(EventContext data){
+			OnWorktablePanelClickClick(data);
 		}
-		partial void OnPanel_ClickClick(EventContext data);
-		void SetPanel_ClickText(string data)=>UIListener.SetText(m_view.m_panel.m_click,data);
-		string GetPanel_ClickText()=>UIListener.GetText(m_view.m_panel.m_click);
+		partial void OnWorktablePanelClickClick(EventContext data);
+		void SetWorktablePanelClickText(string data)=>UIListener.SetText(m_view.m_panel.m_click,data);
+		string GetWorktablePanelClickText()=>UIListener.GetText(m_view.m_panel.m_click);
 		void _OnPanelClick(EventContext data){
 			OnPanelClick(data);
 		}

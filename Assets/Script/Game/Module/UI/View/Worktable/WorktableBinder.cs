@@ -11,7 +11,7 @@ namespace SGame.UI.Worktable
             UIObjectFactory.SetPackageItemExtension(UI_WorktableUI.URL, typeof(UI_WorktableUI));
             UIObjectFactory.SetPackageItemExtension(UI_Icon.URL, typeof(UI_Icon));
             UIObjectFactory.SetPackageItemExtension(UI_Tips.URL, typeof(UI_Tips));
-            UIObjectFactory.SetPackageItemExtension(UI_Panel.URL, typeof(UI_Panel));
+            UIObjectFactory.SetPackageItemExtension(UI_WorktablePanelUI.URL, typeof(UI_WorktablePanelUI));
         }
     }
 }

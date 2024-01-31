@@ -648,21 +648,24 @@ namespace SGame.Dining
 
 		private void OnRegionClick(int region, int place)
 		{
-
 			var r = GetRegion(region);
 			if (r != null)
 			{
-				//EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r);
-
+				EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r);
 				if (!r.enable || r.next?.cfgID == place)
 				{
 					if ((r.next ?? r.begin).waitActive == true)
-						Unlock(r);
+					{
+						//Unlock(r);
+						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
+					}
 				}
 				else if (r.next == null || r.next.cfgID != place)
-					UpLevel(r);
-				
-
+				{
+					//UpLevel(r);
+					if (!r.data.isTable)
+						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
+				}
 			}
 		}
 

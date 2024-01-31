@@ -388,9 +388,9 @@ namespace SGame
 		bool TouchTrigger()
 		{
 			if (_camera == null || disbaleTouch) return false;
-			ControlAxis.CheckAnyKeyInput();
 			var pos = Vector2.zero;
 			var flag = false;
+			var ret = false;
 			if (Input.touchCount == 1)
 			{
 				var touch = Input.GetTouch(0);
@@ -412,12 +412,14 @@ namespace SGame
 						if (t != null && t.Length > 0)
 						{
 							t.Foreach(v => v.OnClick());
-							return true;
+							ret = true;
+							break;
 						}
 					}
 				}
 			}
-			return false;
+			ControlAxis.CheckAnyKeyInput();
+			return ret;
 		}
 
 		void UpdateFieldOfView()

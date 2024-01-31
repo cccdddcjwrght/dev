@@ -1,5 +1,4 @@
-﻿
-namespace SGame.UI{
+﻿namespace SGame.UI{
 	using FairyGUI;
 	using UnityEngine;
 	using SGame;
@@ -7,19 +6,19 @@ namespace SGame.UI{
 	using Unity.Entities;
 	using Unity.Mathematics;
 
-	public class WorktableInfo : IComponentData
+	public struct WorktableInfo : IComponentData
 	{
 		public int id;
 		public int mid;
 		public float3 target;
+		public int type;
 	}
 
 	public partial class UIWorktable
 	{
 		partial void InitLogic(UIContext context)
 		{
-			var info = context.uiModule.GetEntityManager().GetComponentObject<WorktableInfo>(context.entity);
-			m_view.m_panel.xy = SGame.UIUtils.GetUIPosition(m_view, info.target, PositionType.POS3D);
+
 		}
 		
 		partial void UnInitLogic(UIContext context){

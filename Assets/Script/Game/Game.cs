@@ -116,6 +116,9 @@ public class Game : SGame.MonoSingleton<Game>
 		GameDebug.Log("logConfig InitSuccess");
 		log.Info("Log Load Success!");
 
+		//语言初始化
+		LanagueSystem.Instance.Initalize("en");
+
 		//埋点
 		new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr);
 

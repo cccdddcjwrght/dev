@@ -17,6 +17,7 @@ namespace SGame
 		LOGIN_READLY				= 101, // 登录准备好了
 		ENTER_LOGIN					= 102, // 进入登录
 		ENTER_GAME					= 105, // 进入游戏
+		LANGUAGE_CHANGE				= 106, // 语言修改
 
 		//场景=======================================
 		BEFORE_ENTER_ROOM			= 110, //进入场景之前

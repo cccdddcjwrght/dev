@@ -98,7 +98,17 @@ namespace SGame
 					else
 						w.level = Math.Max(0, val);
 
+					var pmac = 0;
+					var prp = 0;
+					if (w.lvcfg.IsValid())
+					{
+						pmac = w.lvcfg.Num;
+						prp = w.lvcfg.ShopPriceStarRatio;
+					}
+
 					w.Refresh();
+					w.addMachine = w.lvcfg.Num - pmac;
+					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 2;
 
 					//升级消耗
 					PropertyManager.Instance.UpdateByArgs(true, w.lvcfg.GetUpgradePriceArray());
@@ -106,6 +116,7 @@ namespace SGame
 						PropertyManager.Instance.UpdateByArgs(false, w.lvcfg.GetStarRewardArray());
 
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
+					return w;
 				}
 				return default;
 			}
@@ -177,13 +188,11 @@ namespace SGame
 			/// </summary>
 			/// <param name="id">工作台id</param>
 			/// <returns></returns>
-			public static int[] GetWorktableStarInfo(int id)
+			public static int[] GetWorktableStarInfo(int id  )
 			{
 				var w = GetWorktable(id);
-				if (w != null)
-				{
-					return CalcuStarList(GetWorkertableMaxStar(id), w.lvcfg.MachineStar);
-				}
+				if (w != null && !w.isTable)
+					return CalcuStarList(GetWorkertableMaxStar(w.maxlv), w.lvcfg.MachineStar);
 				return default;
 			}
 
@@ -196,11 +205,12 @@ namespace SGame
 					//几阶
 					var step = Mathf.CeilToInt(max / 5f);
 					//当前处于哪一阶 
-					var type = Mathf.CeilToInt(cstar / 5f);
+					var type = cstar == 0 ? 1 : Mathf.CeilToInt(cstar / 5f);
 					//星星长度
 					var size = type < step ? 5 : max % 5;
-					var stars = new int[size];
+					size = size == 0 ? 5 : size;
 
+					var stars = new int[size];
 					for (int i = 0; i < cstar % 6; i++)
 						stars[i] = type;
 
@@ -237,9 +247,9 @@ namespace SGame
 
 			public static bool CheckCanAddMachine(Worktable worktable)
 			{
-				if (worktable != null)
+				if (worktable != null && worktable.lvcfg.IsValid())
 				{
-					return worktable.max > worktable.stations?.Count;
+					return worktable.lvcfg.Num+1 > worktable.stations?.Count;
 				}
 				return false;
 			}
@@ -292,15 +302,10 @@ namespace SGame
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>
-			public static int GetWorkertableMaxStar(int id)
+			public static int GetWorkertableMaxStar(int lvmax)
 			{
-				if (ConfigSystem.Instance.TryGet(id, out MachineRowData cfg))
-				{
-					if (ConfigSystem.Instance.TryGet(cfg.MachineLevelMax, out MachineUpgradeRowData lv))
-					{
-						return lv.MachineStar;
-					}
-				}
+				if (ConfigSystem.Instance.TryGet(lvmax, out MachineUpgradeRowData lv))
+					return lv.MachineStar;
 				return 0;
 			}
 
@@ -359,6 +364,12 @@ namespace SGame
 		public MachineRowData cfg;
 		[NonSerialized]
 		public MachineUpgradeRowData lvcfg;
+		[NonSerialized]
+		public int addProfit;
+		[NonSerialized]
+		public int addMachine;
+		[NonReorderable]
+		public int reward;
 
 		public int item { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
 
@@ -366,15 +377,18 @@ namespace SGame
 
 		public double GetPrice()
 		{
-			if (isTable && lvcfg.IsValid())
-				return Math.Floor(1L * price * lvcfg.ShopPriceStarRatio * lvcfg.ShopPriceStarRatio * 0.0001);
+			if (!isTable && lvcfg.IsValid())
+				return Math.Floor(1L * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceStarRatio * lvcfg.ShopPriceStarRatio * 0.0001);
 			return 0;
 		}
 
 		public int GetWorkTime()
 		{
-			if (isTable && lvcfg.IsValid())
-				return Mathf.FloorToInt(cfg.Time * lvcfg.TimeRatio * 0.001f);
+			if (!isTable && lvcfg.IsValid())
+			{
+				var t = Mathf.FloorToInt(cfg.Time * lvcfg.TimeRatio * 0.001f);
+				return (int)Math.Floor(t / AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.WorkSpeed, id));
+			}
 			return 0;
 		}
 

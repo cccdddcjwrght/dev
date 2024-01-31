@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FairyGUI;
+using SGame;
 using UnityEngine;
 
 public class UIListener
@@ -27,6 +28,31 @@ public class UIListener
 	}
 
 	static string C_REGEX_PATTERN = "%(.*)%";
+
+	#region AutoLocal
+
+	static public void LocalFont(GObject parent)
+	{
+
+	}
+
+	static public void LocalAllChild(GObject gObject, bool b_localfont)
+	{
+		if (gObject != null)
+		{
+			var parent = gObject as GComponent;
+			if (parent != null && parent.GetController("__disablelocal") != null) return;
+			SetText(gObject, null);
+			if (b_localfont) LocalFont(gObject);
+			if (parent != null && parent.numChildren > 0)
+			{
+				var childs = parent.GetChildren();
+				foreach (var item in childs)
+					LocalAllChild(item, b_localfont);
+			}
+		}
+	}
+	#endregion
 
 	static public string MatchReplace(string key)
 	{
@@ -58,9 +84,25 @@ public class UIListener
 		return default;
 	}
 
+	public static string Local(string str, string def)
+	{
+		if (!string.IsNullOrEmpty(str))
+		{
+			str = str.Trim();
+			LanagueSystem.Instance.TryGetValue(str, out var ret);
+			return ret ?? def ?? str;
+		}
+		return str;
+	}
+
 	static public string Local(string txt)
 	{
-		return txt;
+		return Local(txt, null);
+	}
+
+	static public string LocalFormat(string format, params object[] args)
+	{
+		return string.Format(Local(format), args);
 	}
 
 	static public string RegexReplace(string context, string pattern, Func<string, string> match)
@@ -77,6 +119,8 @@ public class UIListener
 			return RegexReplace(Local(txt.Substring(1)), C_REGEX_PATTERN, MatchReplace);
 		return txt;
 	}
+
+
 
 	static public void SetText(GObject gObject, string txt)
 	{
@@ -199,6 +243,18 @@ public class UIListener
 
 			if (state != null && state.HasPage(name))
 				state.selectedPage = name;
+		}
+	}
+
+	static public void SetControllerSelect(GObject gObject, string ctr, int index)
+	{
+		if (!string.IsNullOrEmpty(ctr) && gObject != null && gObject is GComponent com)
+		{
+			var c = com.GetController(ctr);
+			if (c != null && c.pageCount > index)
+				c.selectedIndex = index;
+			else
+				throw new Exception($"{gObject} 不存在 {ctr} 控制器或者{index}越界");
 		}
 	}
 

@@ -164,13 +164,30 @@ namespace SGame
 			}
 		}
 
+		public static void SetParam<T>(this Entity entity, T data)
+		{
+			if (entity != default)
+			{
+				var mgr = UIModule.Instance.GetEntityManager();
+				var param = new UIParam() { Value = data };
+				if (mgr.Exists(entity))
+					mgr.AddComponentData(entity, param);
+			}
+		}
+
 		public static UIParam GetParam(this UIContext ui)
 		{
 			if (ui.gameWorld.GetEntityManager().HasComponent<UIParam>(ui.entity))
 			{
-				ui.gameWorld.GetEntityManager().GetComponentObject<UIParam>(ui.entity);
+				return ui.gameWorld.GetEntityManager().GetComponentObject<UIParam>(ui.entity);
 			}
 			return default;
+		}
+
+		public static bool IsExists(this Entity entity)
+		{
+			var mgr = UIModule.Instance.GetEntityManager();
+			return entity != default && mgr.Exists(entity);
 		}
 
 		/// <summary>
@@ -196,17 +213,17 @@ namespace SGame
 
 			return ui;
 		}
-		
-        /// <summary>
-        /// 显示飘字
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="pos"></param>
-        /// <param name="color"></param>
-        /// <param name="fontSize"></param>
-        /// <param name="duration"></param>
-        /// <param name="speed"></param>
-        /// <returns></returns>
+
+		/// <summary>
+		/// 显示飘字
+		/// </summary>
+		/// <param name="title"></param>
+		/// <param name="pos"></param>
+		/// <param name="color"></param>
+		/// <param name="fontSize"></param>
+		/// <param name="duration"></param>
+		/// <param name="speed"></param>
+		/// <returns></returns>
 		public static Entity ShowTipsNew(
 			string title,
 			Transform pos,
@@ -229,17 +246,17 @@ namespace SGame
 
 			return ui;
 		}
-        
-        public static Entity ShowOrderTips(
-	        string url,
-	        Transform pos)
-        {
-	        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-	        Entity ui = ShowHUD("ordertip", pos, float3.zero);
-	        entityManager.AddComponent<Translation>(ui);
-	        entityManager.SetComponentData(ui, new Translation { Value = pos.position });
-	        return ui;
-        }
+
+		public static Entity ShowOrderTips(
+			string url,
+			Transform pos)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = ShowHUD("ordertip", pos, float3.zero);
+			entityManager.AddComponent<Translation>(ui);
+			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
+			return ui;
+		}
 
 		public static string Tips(this string tips, string pix = null)
 		{
