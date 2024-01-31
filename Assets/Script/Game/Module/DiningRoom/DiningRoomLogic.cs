@@ -447,7 +447,7 @@ namespace SGame.Dining
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_UPLEVEL), OnWorkTableUplevel);
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), OnWorkMachineEnable);
 			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.TECH_ADD_TABLE), OnTechAddWorktable);
-			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.ORDER_NEW), OnAddOrder);
+			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.ORDER_FAIL), OnAddOrder);
 		}
 
 		private Place ActiveBuild(Place machine = default, int id = -1, bool state = true, int region = 0)

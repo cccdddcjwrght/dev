@@ -30,6 +30,7 @@ namespace SGame
             value.AddChair(CHAIR_TYPE.ORDER, new int2(orderPos.x, orderPos.y));
             foreach (var pos in customerPos)
                 value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
+            
             return value;
         }
         
@@ -61,6 +62,7 @@ namespace SGame
         /// <returns>桌子对象</returns>
         public static TableData CreateFood(Vector2Int tablePos, int machineID, int foodType, Vector2Int operatorPos)
         {
+            Debug.Log("Create Food Type=" + foodType);
             TableData value = new TableData() { type = TABLE_TYPE.MACHINE, map_pos = new int2(tablePos.x, tablePos.y)};
             value.machineID = machineID;
             value.foodType  = foodType;
@@ -68,6 +70,7 @@ namespace SGame
             
             // 添加操作台
             value.AddChair(CHAIR_TYPE.OPERATOR, new int2(operatorPos.x, operatorPos.y));
+            EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, value.id, foodType);
             return value;
         }
     }

@@ -23,13 +23,18 @@ namespace SGame
 		ENTER_ROOM					= 111, //进入场景
 		AFTER_ENTER_ROOM			= 112, //进入场景之后
 
-		ORDER_NEW = 200, // 创建新的订单 (int orderId)
-		ORDER_FOODMAKED				= 201, // 	
+		ORDER_FAIL					= 200, // 创建新的订单失败
+		ORDER_FOODMAKED				= 201, // 
 		
 		/// 角色
 		CHARACTER_CREATE			= 301, // 角色创建 (int 角色类型, int 角色实例ID)
 		CHARACTER_REMOVE			= 302, // 角色销毁 (int 角色类型, int 角色实例ID)
 		
+		/// <summary>
+		///  座位
+		/// </summary>
+		MACHINE_ADD					= 400, // 工作机器添加 (int 座位ID, int 食物类型)
+
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 
 		

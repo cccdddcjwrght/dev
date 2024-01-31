@@ -102,6 +102,7 @@ namespace SGame
         protected override void OnStartRunning()
         {
             m_characterPerfab = m_prefabReadly.GetSingletonEntity();
+            EntityManager.RemoveComponent<LinkedEntityGroup>(m_characterPerfab); // 删除这个组件节省空间
         }
 
         /// <summary>
@@ -221,7 +222,6 @@ namespace SGame
                 commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
                 commandBuffer.AddComponent<CharacterInitalized>(characterEntity);
                 commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type});
-                commandBuffer.RemoveComponent<LinkedEntityGroup>(characterEntity);                                                                  // 删除这个组件节省空间
             }).WithStructuralChanges().WithoutBurst().Run();
             
             // 等待角色创建完成

@@ -142,7 +142,7 @@ namespace SGame
 
             this.foodType = foodType;
             progress = ORDER_PROGRESS.ORDED;
-            EventManager.Instance.Trigger((int)GameEvent.ORDER_NEW, this.id);
+            EventManager.Instance.Trigger((int)GameEvent.ORDER_FAIL, this.id);
             return true;
         }
         
