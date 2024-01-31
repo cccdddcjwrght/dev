@@ -12,7 +12,7 @@ namespace SGame
 		{
 			public int      id;
 			public double     num;
-			public ItemType type;
+			public PropertyGroup type;
 
 			public override string ToString()
 			{

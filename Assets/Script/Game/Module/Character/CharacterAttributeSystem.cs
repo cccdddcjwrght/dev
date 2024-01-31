@@ -22,7 +22,7 @@ namespace SGame
             {
                 if (m_baseSpeed == 0)
                 {
-                    m_baseSpeed = 5;
+                    m_baseSpeed = 2;
                 }
 
                 return m_baseSpeed;

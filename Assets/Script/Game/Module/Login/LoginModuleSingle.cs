@@ -29,7 +29,6 @@ namespace SGame
 		public void Enter()
 		{
 			m_fiber = new Fiber(RunScriptLogin());
-			m_userData = PropertyManager.Instance.GetGroup(ItemType.USER);
 		}
 
 		IEnumerator RunScriptLogin()
@@ -69,7 +68,5 @@ namespace SGame
 		private EntityManager EntityManager { get { return m_gameWorld.GetECSWorld().EntityManager; } }
 
 		private Fiber m_fiber;
-
-		private ItemGroup m_userData;
 	}
 }

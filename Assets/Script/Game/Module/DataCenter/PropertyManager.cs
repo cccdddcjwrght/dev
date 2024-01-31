@@ -13,7 +13,7 @@ namespace SGame
 		}
 
 		// 获取道具管理器
-		public ItemGroup GetGroup(ItemType type)
+		public ItemGroup GetGroup(PropertyGroup type)
 		{
 			return GetGroup((int)type);
 		}
@@ -30,12 +30,7 @@ namespace SGame
 			return group;
 		}
 
-		public ItemGroup GetUserGroup(int playerId)
-		{
-			return GetGroup(ItemType.USER);
-		}
-
-		public bool CheckCount(int id, int num, ItemType type)
+		public bool CheckCount(int id, int num, PropertyGroup type)
 		{
 			return CheckCount(id, num, (int)type);
 		}
@@ -58,12 +53,12 @@ namespace SGame
 		public void UpdateByArgs(bool iscost, params int[] args)
 		{
 			if (args.Length > 2)
-				Update((ItemType)args[0], args[1], args[2] , iscost);
+				Update((PropertyGroup)args[0], args[1], args[2] , iscost);
 			else if (args.Length == 2)
-				Update(ItemType.ITEM, args[0], args[1] , iscost);
+				Update(PropertyGroup.ITEM, args[0], args[1] , iscost);
 		}
 
-		public void Update(ItemType type, int id, long count, bool iscost = false)
+		public void Update(PropertyGroup type, int id, long count, bool iscost = false)
 		{
 			if (id > 0)
 			{

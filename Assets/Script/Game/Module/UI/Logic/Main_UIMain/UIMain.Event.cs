@@ -67,7 +67,7 @@ namespace SGame.UI{
 
 		void UpdateGoldText()
 		{
-			SetGoldText(m_userProperty.GetNum((int)UserType.GOLD).ToString());
+			SetGoldText(m_itemProperty.GetNum((int)ItemID.GOLD).ToString());
 		}
 
 		void OnlevelBtnClick(EventContext context)

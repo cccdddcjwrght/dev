@@ -15,16 +15,16 @@ namespace SGame.UI{
 	{
 		private UserData         m_userData;
 		private UIContext        m_context;
-		private ItemGroup        m_userProperty;
+		private ItemGroup        m_itemProperty;
 
 		partial void InitLogic(UIContext context){
 			m_context			= context;
 			context.onUpdate	+= onUpdate;
 
-			m_userProperty = PropertyManager.Instance.GetGroup(ItemType.USER);
-			m_userData = DataCenter.Instance.GetUserData();
+			m_itemProperty		= PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
+			m_userData			= DataCenter.Instance.GetUserData();
 
-			SetGoldText(m_userProperty.GetNum((int)UserType.GOLD).ToString());
+			SetGoldText(m_itemProperty.GetNum((int)ItemID.GOLD).ToString());
 		}
 
 		EntityManager EntityManager
