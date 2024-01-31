@@ -11,7 +11,7 @@ namespace SGame
 		public struct Value
 		{
 			public int      id;
-			public long     num;
+			public double     num;
 			public ItemType type;
 
 			public override string ToString()

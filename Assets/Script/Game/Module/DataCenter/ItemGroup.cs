@@ -41,7 +41,7 @@ public class ItemGroup
 	/// </summary>
 	/// <param name="id"></param>
 	/// <returns></returns>
-	public long GetNum(int id)
+	public double GetNum(int id)
 	{
 		if (m_values.TryGetValue(id, out int value))
 		{
@@ -57,7 +57,7 @@ public class ItemGroup
 	/// </summary>
 	/// <param name="id"></param>
 	/// <param name="value"></param>
-	public bool SetNum(int id, long value)
+	public bool SetNum(int id, double value)
 	{
 		if (value < 0)
 			return false;
@@ -80,7 +80,7 @@ public class ItemGroup
 		return true;
 	}
 
-	public bool CanAddNum(int id, long add_value)
+	public bool CanAddNum(int id, double add_value)
 	{
 		if (add_value == 0)
 			return false;
@@ -100,7 +100,7 @@ public class ItemGroup
 	/// <param name="item_value"></param>
 	/// <param name="value"></param>
 	/// <returns></returns>
-	public bool AddNum(int id, long add_value)
+	public bool AddNum(int id, double add_value)
 	{
 		if (!CanAddNum(id, add_value))
 			return false;
