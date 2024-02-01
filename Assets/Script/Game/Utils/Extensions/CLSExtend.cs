@@ -163,7 +163,7 @@ namespace SGame
 			}
 		}
 
-		static public T[] GetArray<T>(this FlatBuffers.IFlatbufferObject flatbuffer , System.Func<int,T> call ,int len ,int start = 0)
+		static public T[] GetArray<T>(this FlatBuffers.IFlatbufferObject flatbuffer, System.Func<int, T> call, int len, int start = 0)
 		{
 			if (len > 0)
 			{
@@ -173,6 +173,26 @@ namespace SGame
 				return a;
 			}
 			return default;
+		}
+
+		/// <summary>
+		/// 两位小数
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
+		static public double Round(this double number , int digits = 2)
+		{
+			return Math.Round(number, digits);
+		}
+
+		/// <summary>
+		/// 向上取整
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
+		static public double ToInt(this double number)
+		{
+			return Math.Ceiling(number);
 		}
 
 	}

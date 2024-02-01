@@ -87,7 +87,7 @@ namespace SGame.UI
 					m_view.m_reward.SetIconIndex(0);
 
 			}
-			UIListener.SetText(m_view, data.cfg.MachineName);
+			UIListener.SetTextByKey(m_view, data.cfg.MachineName);
 			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice()));
 			SetLevelText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
 			SetProgressValue(data.lvcfg.MachineStar == stars.Length ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id));

@@ -145,7 +145,7 @@ namespace SGame
 			/// </summary>
 			/// <param name="id"></param>
 			/// <returns></returns>
-			public static int GetWorkTime(int id)
+			public static double GetWorkTime(int id)
 			{
 				var w = GetWorktable(id);
 				if (w != null)
@@ -384,16 +384,16 @@ namespace SGame
 		public double GetPrice()
 		{
 			if (!isTable && lvcfg.IsValid())
-				return Math.Floor(1L * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceStarRatio * lvcfg.ShopPriceStarRatio * 0.0001);
+				return (1L * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceStarRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
 			return 0;
 		}
 
-		public int GetWorkTime()
+		public double GetWorkTime()
 		{
 			if (!isTable && lvcfg.IsValid())
 			{
-				var t = Mathf.FloorToInt(cfg.Time * lvcfg.TimeRatio * 0.001f);
-				return (int)Math.Floor(t / AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.WorkSpeed, id));
+				var t = cfg.Time * lvcfg.TimeRatio * 0.01d;
+				return (t / AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.WorkSpeed, id)).Round();
 			}
 			return 0;
 		}

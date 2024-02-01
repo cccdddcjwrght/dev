@@ -656,7 +656,7 @@ namespace SGame.Dining
 				{
 					if ((r.next ?? r.begin).waitActive == true)
 					{
-						if (r.begin.waitActive)
+						if (!r.data.isTable && r.begin.waitActive)
 							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
 						else
 							DataCenter.MachineUtil.AddMachine(r.next.cfgID);

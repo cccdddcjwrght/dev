@@ -242,7 +242,7 @@ namespace SGame
 			{
 				if (ConfigSystem.Instance.TryGet<BuffRowData>(id, out var cfg))
 				{
-					var targets = GetTargets(cfg.ID, targetid);
+					var targets = GetTargets(cfg.Target, targetid != 0 ? targetid : cfg.TargetID);
 					time = time != 0 ? time : cfg.Time;
 					time = time > 0 ? GetCurrentTime() + time : time;
 					if (targets?.Count > 0)
