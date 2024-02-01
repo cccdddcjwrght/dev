@@ -18,7 +18,8 @@ namespace SGame.UI
 			var room = DataCenter.Instance.roomData.current;
 			_datas = ConfigSystem.Instance.Finds<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id));
 			_count = _datas.Count;
-			_datas.Sort((a, b) => {
+			_datas.Sort((a, b) =>
+			{
 
 				var f = a.Cost(2).CompareTo(b.Cost(2));
 				if (f == 0)
@@ -49,10 +50,12 @@ namespace SGame.UI
 		{
 			var view = (UI_BuffItem)item;
 			var data = _datas[index];
-			view.m_title.text = data.Name;
-			view.m_desc.text = data.Des;
-			view.icon = data.Icon;
+			
+			view.SetIcon(data.Icon);
+			view.m_title.SetTextByKey(data.Name);
+			view.m_desc.SetTextByKey(data.Des);
 			view.m_type.selectedIndex = data.Mark - 1;
+
 
 			var str = Utils.ConvertNumberStr(data.Cost(2));
 			var flag = PropertyManager.Instance.CheckCountByArgs(data.GetCostArray());
@@ -60,10 +63,10 @@ namespace SGame.UI
 			UIListener.SetIconIndex(view.m_click, data.Cost(1) - 1);
 			UIListener.SetText(view.m_click, str);
 			view.m_click.onClick.Clear();
-			view.m_click.onClick.Add(() => OnItemClick(index ,view, data));
+			view.m_click.onClick.Add(() => OnItemClick(index, view, data));
 		}
 
-		private void OnItemClick(int index ,UI_BuffItem item, RoomTechRowData data)
+		private void OnItemClick(int index, UI_BuffItem item, RoomTechRowData data)
 		{
 			if (PropertyManager.Instance.CheckCountByArgs(data.GetCostArray()))
 			{

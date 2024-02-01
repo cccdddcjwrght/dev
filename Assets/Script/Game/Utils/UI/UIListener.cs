@@ -441,3 +441,26 @@ public class UIListener
 	}
 
 }
+
+public static class UIListenerExt
+{
+	public static GObject SetText(this GObject gObject, string text, bool local = true)
+	{
+		UIListener.SetText(gObject, text, local);
+		return gObject;
+	}
+
+	public static GObject SetTextByKey(this GObject gObject, string text, params object[] args)
+	{
+		UIListener.SetTextByKey(gObject, text, args);
+		return gObject;
+	}
+
+	public static GObject SetIcon(this GObject gObject, string icon, string pkg = null)
+	{
+
+		UIListener.SetIcon(gObject, icon, pkg);
+		return gObject;
+	}
+
+}
