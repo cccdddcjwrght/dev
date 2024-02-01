@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using GameConfigs;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace SGame
@@ -199,6 +200,27 @@ namespace SGame
             }
 
             return "";
+        }
+
+        public static void AddEntityChild(Entity parent, Entity child)
+        {
+            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            DynamicBuffer<Child> childBuffer;
+            if (!EntityManager.HasComponent<Child>(parent))
+            {
+                childBuffer = EntityManager.AddBuffer<Child>(parent);
+            }
+            else
+            {
+                childBuffer = EntityManager.GetBuffer<Child>(parent);
+            }
+            
+            // World.DefaultGameObjectInjectionWorld
+        }
+
+        public static void RemoveEntityChild(Entity parent, Entity Child)
+        {
+            
         }
     }
 }

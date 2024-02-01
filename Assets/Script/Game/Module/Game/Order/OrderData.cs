@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Numerics;
+
 using log4net;
+using Unity.Entities;
 
 namespace SGame
 {
@@ -39,7 +37,7 @@ namespace SGame
         public bool         perfect { get; private set; }       // 是否完美菜品
         public int          dishPointID { get; private set; }   // 放餐点 talbe ID
 
-        public int          foodID { get; private set; }        // 食物实例ID
+        public Entity        foodID { get; private set; }        // 食物实例ID
         
         public int          foodType { get; private set; }      // 菜品类型
         
@@ -67,17 +65,17 @@ namespace SGame
 
         public void Clear()
         {
-             this.id            = 0;            // 订单ID
-             this.startTime     = 0;            // 下单时间
-             this.cookTime      = 0;            // 制作时间
-             this.finishTime    = 0;            // 订单完成时间
-             this.customerID    = 0;            // 顾客
-             this.servicerID    = 0;            // 服务员
-             this.cookerID      = 0;            // 厨师ID
-             this.perfect       = false;        // 是否完美菜品
-             this.dishPointID   = 0;            // 放餐点
-             this.foodID        = 0;            // 菜品ID
-             this.price         = 0;   // 菜品价格
+             this.id            = 0;                   // 订单ID
+             this.startTime     = 0;                   // 下单时间
+             this.cookTime      = 0;                   // 制作时间
+             this.finishTime    = 0;                   // 订单完成时间
+             this.customerID    = 0;                   // 顾客
+             this.servicerID    = 0;                   // 服务员
+             this.cookerID      = 0;                   // 厨师ID
+             this.perfect       = false;               // 是否完美菜品
+             this.dishPointID   = 0;                   // 放餐点
+             this.foodID        = Entity.Null;      // 菜品ID
+             this.price         = 0;                   // 菜品价格
              this.progress      = ORDER_PROGRESS.WAIT; // 订单进度
         }
 
@@ -95,7 +93,7 @@ namespace SGame
             }
 
             this.servicerID = servicerID;
-            this.foodID     = 0;
+            this.foodID     = Entity.Null;
             progress = ORDER_PROGRESS.START;
             return true;
         }
@@ -189,7 +187,7 @@ namespace SGame
         /// <param name="foodID">食物对象</param>
         /// <param name="price">食物价格</param>
         /// <returns></returns>
-        public bool CookFinish(int cookerID, int foodID, double price)
+        public bool CookFinish(int cookerID, Entity foodID, double price)
         {
             if (progress != ORDER_PROGRESS.FOOD_MAKING)
             {

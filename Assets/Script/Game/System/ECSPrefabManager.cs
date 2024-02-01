@@ -44,6 +44,7 @@ public class ECSPrefabManager : MonoSingleton<ECSPrefabManager>
 {
     private static ILog log = LogManager.GetLogger("game.ecsprefab");
     private List<AssetRequest> m_requestList;
+    private List<string>       m_requestString;
 
     public List<Entity>        m_prefabEntity;
 
@@ -51,6 +52,7 @@ public class ECSPrefabManager : MonoSingleton<ECSPrefabManager>
     {
         base.Awake();
         m_requestList    = new List<AssetRequest>();
+        m_requestString = new List<string>();
         m_prefabEntity  = new List<Entity>();
     }
 
@@ -62,6 +64,16 @@ public class ECSPrefabManager : MonoSingleton<ECSPrefabManager>
     // Update is called once per frame
     void Update()
     {
+        if (Game.Instance.IsInitalize == false)
+            return;
+
+        if (m_requestString.Count != 0)
+        {
+            foreach (var req in m_requestString)
+                m_requestList.Add(Assets.LoadAssetAsync(req, typeof(GameObject)));
+            m_requestString.Clear();
+        }
+        
         if (m_requestList.Count == 0)
             return;
         
@@ -112,6 +124,6 @@ public class ECSPrefabManager : MonoSingleton<ECSPrefabManager>
     /// <param name="path"></param>
     public void AddPrefab(string path)
     {
-        m_requestList.Add(Assets.LoadAssetAsync(path, typeof(GameObject)));
+        m_requestString.Add(path);
     }
 }

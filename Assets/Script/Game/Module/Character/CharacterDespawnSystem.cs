@@ -33,6 +33,16 @@ namespace SGame
             Entities.WithAll<DespawningEntity>().ForEach((Entity entity, Character character) =>
             {
                 m_destoryGameObject.Add(character.gameObject);
+                
+                // 删除FOOD
+                if (EntityManager.HasComponent<FoodHolder>(entity))
+                {
+                    var foodHolder = EntityManager.GetComponentData<FoodHolder>(entity);
+                    if (EntityManager.Exists(foodHolder.Value))
+                    {
+                        commandBuffer.AddComponent<DespawningEntity>(foodHolder.Value);
+                    }
+                }
             }).WithoutBurst().Run();
             
             foreach (var go in m_destoryGameObject)
