@@ -53,7 +53,7 @@ namespace SGame
             public CharacterGenerator gen;
             public AssetRequest       aiPrefab;
             public int modelId;
-            public bool isDone => gen.ConfigReady && aiPrefab.isDone;
+            public bool isDone => CharacterGenerator.ReadyToUse && gen.ConfigReady && aiPrefab.isDone;
         }
 
         public struct CharacterEvent
