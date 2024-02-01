@@ -718,7 +718,10 @@ namespace SGame.Dining
 
 		private void OnTechAddWorktable(int id)
 		{
-			DoPreview(GetRegion(id));
+			if (id < 0)
+				Unlock(GetRegion(-id));
+			else
+				DoPreview(GetRegion(id));
 		}
 
 		private void OnAddOrder(int id)
