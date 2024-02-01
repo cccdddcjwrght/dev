@@ -18,6 +18,8 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 
 		}
+		void SetTechFrameText(string data)=>UIListener.SetText(m_view.m_techFrame,data);
+		string GetTechFrameText()=>UIListener.GetText(m_view.m_techFrame);
 
 	}
 }

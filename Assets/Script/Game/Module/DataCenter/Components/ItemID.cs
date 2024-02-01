@@ -8,5 +8,6 @@ namespace SGame
     public enum ItemID : uint
     {
         GOLD = 1,		// 金币
+        DIAMOND =2      //钻石
     }
 }

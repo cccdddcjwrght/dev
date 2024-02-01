@@ -8,6 +8,7 @@ namespace SGame.UI.Technology
     public partial class UI_techItem : GComponent
     {
         public Controller m_state;
+        public Controller m_iconImage;
         public GImage m_bg;
         public GLoader m_icon;
         public GTextField m_Description;
@@ -31,6 +32,7 @@ namespace SGame.UI.Technology
             base.ConstructFromXML(xml);
 
             m_state = GetControllerAt(0);
+            m_iconImage = GetControllerAt(1);
             m_bg = (GImage)GetChildAt(0);
             m_icon = (GLoader)GetChildAt(1);
             m_Description = (GTextField)GetChildAt(2);

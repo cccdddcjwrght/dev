@@ -7,7 +7,7 @@ namespace SGame.UI.Technology
 {
     public partial class UI_TechnologyUI : GComponent
     {
-        public GComponent m_techFrame;
+        public GLabel m_techFrame;
         public GList m_techList;
         public const string URL = "ui://gnu1a8dnijal0";
 
@@ -20,7 +20,7 @@ namespace SGame.UI.Technology
         {
             base.ConstructFromXML(xml);
 
-            m_techFrame = (GComponent)GetChildAt(0);
+            m_techFrame = (GLabel)GetChildAt(0);
             m_techList = (GList)GetChildAt(1);
         }
     }

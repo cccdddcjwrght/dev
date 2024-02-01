@@ -26,7 +26,7 @@ namespace SGame.UI{
 			adBtn.onClick.Add(OnadBtnClick);
 			taskBtn.onClick.Add(OntaskBtnClick);
 			
-			m_handles += EventManager.Instance.Reg<int,long,int>((int)GameEvent.PROPERTY_GOLD,			OnEventGoldChange);
+			m_handles += EventManager.Instance.Reg<int,int>((int)GameEvent.PROPERTY_GOLD,			OnEventGoldChange);
 		}
 
 		private void RenderListItem(int index, GObject item)
@@ -40,6 +40,28 @@ namespace SGame.UI{
 				}
 			});
 		}
+
+
+		// 金币添加事件
+		void OnEventGoldChange(int newValue, int Id)
+		{
+			log.Info("On Gold Update add  newvalue=" + newValue + " id=" + Id);
+			m_itemProperty.AddNum(Id, -newValue);
+			UpdateItemText();
+		}
+		
+
+		void UpdateItemText()
+		{
+			SetGoldText(m_itemProperty.GetNum((int)ItemID.GOLD).ToString());
+			SetDiamondText(m_itemProperty.GetNum((int)ItemID.DIAMOND).ToString());
+		}
+
+		void OnlevelBtnClick(EventContext context)
+		{
+			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("popup"));
+			EntityManager.AddComponentData(popupUI, new UIParam() { Value = 0 });
+		}
 		
 		private void OntaskBtnClick(EventContext context)
 		{
@@ -51,35 +73,10 @@ namespace SGame.UI{
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("popup"));
 			EntityManager.AddComponentData(popupUI, new UIParam() { Value =1 });
 		}
-
-
+		
 		partial void UnInitEvent(UIContext context){
-
-		}
-
-		// 金币添加事件
-		void OnEventGoldChange(int value, long newValue, int playerId)
-		{
-			log.Info("On Gold Update add =" + value + " newvalue=" + newValue + " plyaerid=" + playerId);
-			SetGoldText(newValue.ToString());
-			m_view.m_Gold.GetChild("num").asTextField.text = newValue.ToString();
-		}
-		
-
-		void UpdateGoldText()
-		{
-			SetGoldText(m_itemProperty.GetNum((int)ItemID.GOLD).ToString());
-		}
-
-		void OnlevelBtnClick(EventContext context)
-		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("popup"));
-			EntityManager.AddComponentData(popupUI, new UIParam() { Value = 0 });
-		}
-		
-		void UnInitEvent()
-		{
 			m_handles.Close();
 		}
+		
 	}
 }

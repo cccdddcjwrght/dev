@@ -52,16 +52,20 @@ namespace SGame.UI{
 			GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;
 			GTextField buyTxt= techBtn.GetChild("iconTitle").asTextField;
 			Controller techController = item.asCom.GetController("state");
-
+			Controller iconController = item.asCom.GetController("iconImage");
+			iconController.selectedIndex = 1;
+			int itemNum = 0; 
 			if (listData[index].IsLock)
 			{
 				techController.selectedIndex = 0;
 				buyTxt.text=listData[index].abilitLevelList[levelIndex].BuyData[1].ToString();
+				itemNum = listData[index].abilitLevelList[levelIndex].BuyData[1];
 			}
 			else
 			{
 				techController.selectedIndex = 1;
 				buyTxt.text=listData[index].LockData[2].ToString();
+				itemNum = listData[index].LockData[2];
 			}
 			
 			if (levelIndex >= listData[index].abilitLevelList.Count-1)
@@ -87,6 +91,7 @@ namespace SGame.UI{
 						listData[index].ID
 						);
 				}
+				EventManager.Instance.Trigger(((int)GameEvent.PROPERTY_GOLD), itemNum,(int)ItemID.DIAMOND);
 				m_view.m_techList.numItems = m_AbilityData.len; 
 			});
 			
