@@ -463,4 +463,11 @@ public static class UIListenerExt
 		return gObject;
 	}
 
+	public static GObject SetIconIndex(this GObject gObject, int icon)
+	{
+
+		UIListener.SetIconIndex(gObject, icon);
+		return gObject;
+	}
+
 }

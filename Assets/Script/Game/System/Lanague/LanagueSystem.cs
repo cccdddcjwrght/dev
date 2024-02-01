@@ -43,7 +43,7 @@ namespace SGame
                 }
             }
 
-            EventManager.Instance.Trigger((int)GameEvent.LANGUAGE_CHANGE);
+            EventManager.Instance.Trigger((int)GameEvent.LANGUAGE_CHANGE, langName);
             return true;
         }
         

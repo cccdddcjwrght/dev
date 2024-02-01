@@ -13,7 +13,7 @@ namespace SGame
 	{
 		#region 百分比缩放
 
-		public const float C_PER_SCALE = 0.0001f;
+		public const float C_PER_SCALE = 0.01f;
 
 		#endregion
 

@@ -41,8 +41,6 @@ namespace SGame.UI
 		protected override void OnCreate()
 		{
 			base.OnCreate();
-			UIConfig.defaultFont = "Quicksand-Bold-2_SDF";
-
 			m_windowCache = new List<FairyWindow>(32);
 		}
 

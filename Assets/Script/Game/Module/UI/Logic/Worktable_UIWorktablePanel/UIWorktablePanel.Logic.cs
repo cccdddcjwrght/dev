@@ -7,6 +7,7 @@ namespace SGame.UI
 	using SGame.UI.Worktable;
 	using Unity.Mathematics;
 	using System.Collections.Generic;
+	using GameConfigs;
 
 	public partial class UIWorktablePanel
 	{
@@ -73,12 +74,18 @@ namespace SGame.UI
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 1);
 				UIListener.SetTextByKey(m_view.m_click, "ui_main_btn_upgrademax");
+				m_view.m_reward.SetIconIndex(0);
 			}
 			else
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
 				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
 				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(data.lvcfg.UpgradePrice(2)));
+				if(ConfigSystem.Instance.TryGet<MachineStarRowData>(data.lvcfg.MachineStar+1 , out var cfg))
+					m_view.m_reward.SetIconIndex(cfg.StarReward(1));
+				else
+					m_view.m_reward.SetIconIndex(0);
+
 			}
 			UIListener.SetText(m_view, data.cfg.MachineName);
 			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice()));
@@ -151,14 +158,12 @@ namespace SGame.UI
 			if (data.addMachine > 0)
 			{
 				var item = m_view.m_tips.GetFromPool(null) as UI_Tips;
-				UIListener.SetTextByKey(item , "tips_main_btn_upgrade_3", data.addMachine);
-				ls.Add(item);
+				ls.Add(item.SetTextByKey("tips_main_btn_upgrade_3", data.addMachine));
 			}
 			if (data.addProfit > 0)
 			{
 				var item = m_view.m_tips.GetFromPool(null) as UI_Tips;
-				UIListener.SetTextByKey(item, "tips_main_btn_upgrade_2", data.addMachine);
-				ls.Add(item);
+				ls.Add(item.SetTextByKey("tips_main_btn_upgrade_2", data.addProfit));
 			}
 			AddItem(ls.ToArray()).Start();
 		}
@@ -169,7 +174,7 @@ namespace SGame.UI
 			while (i < items.Length)
 			{
 				m_view.m_tips.AddChild(items[i++]);
-				m_view.m_tips.ScrollToView(m_view.m_tips.numItems - 1 , true);
+				m_view.m_tips.ScrollToView(m_view.m_tips.numItems - 1, true);
 				yield return new WaitForSeconds(0.3f);
 			}
 		}

@@ -18,6 +18,7 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_Currency.URL, typeof(UI_Currency));
             UIObjectFactory.SetPackageItemExtension(UI_ColorText.URL, typeof(UI_ColorText));
             UIObjectFactory.SetPackageItemExtension(UI_Redpoint.URL, typeof(UI_Redpoint));
+            UIObjectFactory.SetPackageItemExtension(UI_ItemIcon.URL, typeof(UI_ItemIcon));
         }
     }
 }

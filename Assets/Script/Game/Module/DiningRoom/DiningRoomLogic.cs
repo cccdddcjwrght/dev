@@ -656,8 +656,10 @@ namespace SGame.Dining
 				{
 					if ((r.next ?? r.begin).waitActive == true)
 					{
-						//Unlock(r);
-						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
+						if (r.begin.waitActive)
+							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
+						else
+							DataCenter.MachineUtil.AddMachine(r.next.cfgID);
 					}
 				}
 				else if (r.next == null || r.next.cfgID != place)

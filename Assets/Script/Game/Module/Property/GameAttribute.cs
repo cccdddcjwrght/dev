@@ -37,7 +37,7 @@ namespace SGame
 					modifiy = val;
 					break;
 				case EnumCaluType.Percentage:
-					modifiy = Math.Floor((attribute.value * val) * ConstDefine.C_PER_SCALE);
+					modifiy = Math.Ceiling((attribute.value * val) * ConstDefine.C_PER_SCALE);
 					break;
 			}
 

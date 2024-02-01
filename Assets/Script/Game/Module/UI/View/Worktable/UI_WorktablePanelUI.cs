@@ -16,7 +16,7 @@ namespace SGame.UI.Worktable
         public GTextField m_level;
         public GList m_list;
         public GProgressBar m_progress;
-        public GLoader m_reward;
+        public GLabel m_reward;
         public GLabel m_time;
         public GLabel m_price;
         public GTextField m_unlock;
@@ -45,7 +45,7 @@ namespace SGame.UI.Worktable
             m_level = (GTextField)GetChildAt(4);
             m_list = (GList)GetChildAt(6);
             m_progress = (GProgressBar)GetChildAt(7);
-            m_reward = (GLoader)GetChildAt(8);
+            m_reward = (GLabel)GetChildAt(8);
             m_time = (GLabel)GetChildAt(9);
             m_price = (GLabel)GetChildAt(10);
             m_unlock = (GTextField)GetChildAt(12);
