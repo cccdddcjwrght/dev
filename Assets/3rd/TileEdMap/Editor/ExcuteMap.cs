@@ -244,7 +244,7 @@ namespace TileEdExt
 			if (scene.IsValid())
 			{
 				EditorSceneManager.SaveOpenScenes();
-				var newName = scene.name + "_marked.unity";
+				var newName = scene.name.ToLower() + "_marked.unity";
 				var dir = System.IO.Path.Combine(string.IsNullOrEmpty(config.sceneouput) ? System.IO.Path.GetDirectoryName(scene.path) : config.sceneouput, "markeds");
 				if (!System.IO.Directory.Exists(dir))
 					System.IO.Directory.CreateDirectory(dir);

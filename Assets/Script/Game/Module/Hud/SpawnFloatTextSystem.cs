@@ -41,7 +41,10 @@ namespace SGame
         {
             m_hud      = hud;
             m_isReadly = false;
-        }
+
+			FLOAT_SPEED = GlobalDesginConfig.GetFloat("float_text_speed");
+			FLOAT_SPEED2D = GlobalDesginConfig.GetFloat("float_text2d_speed");
+		}
 
         protected override void OnCreate()
         {
@@ -55,8 +58,6 @@ namespace SGame
                 typeof(MoveDirection));
             m_floatComponents = new ObjectPool<UI_FloatText>(Alloce, Spawn, Despawn);
 
-            FLOAT_SPEED = GlobalDesginConfig.GetFloat("float_text_speed");
-            FLOAT_SPEED2D = GlobalDesginConfig.GetFloat("float_text2d_speed");
         }
 
         UI_FloatText Alloce()

@@ -27,8 +27,6 @@ namespace SGame.UI{
 		}
 		partial void OnSizeChanged(EventContext data);
 		void SwitchSizePage(int index)=>m_view.m_size.selectedIndex=index;
-		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
-		string GetTitleText()=>UIListener.GetText(m_view.m_title);
 		void _OnCloseClick(EventContext data){
 			OnCloseClick(data);
 		}

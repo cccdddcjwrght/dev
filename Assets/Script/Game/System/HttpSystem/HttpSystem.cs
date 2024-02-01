@@ -30,8 +30,7 @@ namespace SGame.Http
 		protected override void OnCreate()
 		{
 			m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-			SetBaseUrl(GlobalConfig.GetStr("svr_url"));
-			SetToken(GlobalConfig.GetStr("svr_token") ?? "1");
+
 		}
 
 		public void SetToken(string value)
@@ -113,6 +112,11 @@ namespace SGame.Http
 
 		private string GetBaseUrl()
 		{
+			if(m_baseUrl == null)
+			{
+				SetBaseUrl(GlobalConfig.GetStr("svr_url") ?? "");
+				SetToken(GlobalConfig.GetStr("svr_token") ?? "1");
+			}
 			return m_baseUrl;
 		}
 

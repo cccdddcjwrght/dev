@@ -10,8 +10,7 @@ namespace SGame.UI.Common
         public Controller m_iconShow;
         public Controller m_AddShow;
         public GImage m_bg;
-        public GLoader m_icon;
-        public GTextField m___text;
+        public GTextField m_num;
         public GImage m_Add;
         public const string URL = "ui://2w8thcm7k0s63lb6";
 
@@ -27,8 +26,7 @@ namespace SGame.UI.Common
             m_iconShow = GetControllerAt(0);
             m_AddShow = GetControllerAt(1);
             m_bg = (GImage)GetChildAt(0);
-            m_icon = (GLoader)GetChildAt(1);
-            m___text = (GTextField)GetChildAt(2);
+            m_num = (GTextField)GetChildAt(2);
             m_Add = (GImage)GetChildAt(3);
         }
     }

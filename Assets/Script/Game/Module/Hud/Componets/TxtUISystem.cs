@@ -30,15 +30,16 @@ public partial class TxtUISystem : SystemBase
     /// <param name="hud"></param>
     public void Initalize(Entity hud)
     {
-        m_hud    = hud;
-    }
+        m_hud				= hud;
+		FLOAT_SPEED			= GlobalDesginConfig.GetFloat("float_text_speed");
+		FLOAT_SPEED2D		= GlobalDesginConfig.GetFloat("float_text2d_speed");
+	}
     
     protected override void OnCreate()
     {
         base.OnCreate();
         m_commandBuffer = World.GetOrCreateSystem<EndInitializationEntityCommandBufferSystem>();
-        FLOAT_SPEED = GlobalDesginConfig.GetFloat("float_text_speed");
-        FLOAT_SPEED2D = GlobalDesginConfig.GetFloat("float_text2d_speed");
+
     }
     
     protected override void OnUpdate()
