@@ -149,6 +149,8 @@ namespace SGame
 			return false;
 		}
 
+
+		static readonly char[] c_price = new char[] { default, 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B' };
 		//把数值转成专用字符串表示
 		public static string ConvertNumberStr(double number)
 		{
@@ -158,10 +160,10 @@ namespace SGame
 				a = b = 0;
 				while (number > 1000)
 				{
-					if (b++ > 26) { a++; b = 1; }
+					if (b++ > 9) { a++; b = 1; }
 					number *= 0.001d;
 				}
-				return string.Format("{0}{1}{2}", number.Round(), a > 0 ? (char)(a + 96) : "", (char)(b + 96));
+				return string.Format("{0}{1}{2}", number.Round(), a > 0 ? c_price[a] : "", c_price[b]);
 			}
 			return number.ToString();
 		}
