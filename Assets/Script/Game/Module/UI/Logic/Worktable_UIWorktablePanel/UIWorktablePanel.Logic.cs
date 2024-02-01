@@ -52,7 +52,7 @@ namespace SGame.UI
 			else
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "hasIcon", 1);
-				UIListener.SetText(m_view.m_click, "@ui_unlock_tips");
+				UIListener.SetTextByKey(m_view.m_click, "ui_unlock_tips");
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace SGame.UI
 			if (lvmax)
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 1);
-				UIListener.SetText(m_view.m_click, "@ui_main_btn_upgrademax");
+				UIListener.SetTextByKey(m_view.m_click, "ui_main_btn_upgrademax");
 			}
 			else
 			{
@@ -151,13 +151,13 @@ namespace SGame.UI
 			if (data.addMachine > 0)
 			{
 				var item = m_view.m_tips.GetFromPool(null) as UI_Tips;
-				item.title = UIListener.LocalFormat("@tips_main_btn_upgrade_3", data.addMachine);
+				UIListener.SetTextByKey(item , "tips_main_btn_upgrade_3", data.addMachine);
 				ls.Add(item);
 			}
 			if (data.addProfit > 0)
 			{
 				var item = m_view.m_tips.GetFromPool(null) as UI_Tips;
-				item.title = UIListener.LocalFormat("@tips_main_btn_upgrade_2", data.addProfit);
+				UIListener.SetTextByKey(item, "tips_main_btn_upgrade_2", data.addMachine);
 				ls.Add(item);
 			}
 			AddItem(ls.ToArray()).Start();

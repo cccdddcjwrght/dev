@@ -100,22 +100,28 @@ namespace SGame
 
 					var pmac = 0;
 					var prp = 0;
+					var star = 0;
 					if (w.lvcfg.IsValid())
 					{
+					 	star = w.lvcfg.MachineStar;
 						pmac = w.lvcfg.Num;
 						prp = w.lvcfg.ShopPriceStarRatio;
 					}
 
 					w.Refresh();
 					w.addMachine = w.lvcfg.Num - pmac;
-					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 2;
+					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 100;
 
 					//升级消耗
 					PropertyManager.Instance.UpdateByArgs(true, w.lvcfg.GetUpgradePriceArray());
-					if (w.lvcfg.StarRewardLength > 0)//升级奖励
-						PropertyManager.Instance.UpdateByArgs(false, w.lvcfg.GetStarRewardArray());
-
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
+
+					if (w.lvcfg.MachineStar > star)//升星奖励
+					{
+						if (ConfigSystem.Instance.TryGet<MachineStarRowData>(w.lvcfg.MachineStar, out var cfg))
+							PropertyManager.Instance.UpdateByArgs(false, cfg.GetStarRewardArray());
+						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UP_STAR), id, w.lvcfg.MachineStar);
+					}
 					return w;
 				}
 				return default;
@@ -188,7 +194,7 @@ namespace SGame
 			/// </summary>
 			/// <param name="id">工作台id</param>
 			/// <returns></returns>
-			public static int[] GetWorktableStarInfo(int id  )
+			public static int[] GetWorktableStarInfo(int id)
 			{
 				var w = GetWorktable(id);
 				if (w != null && !w.isTable)
@@ -249,7 +255,7 @@ namespace SGame
 			{
 				if (worktable != null && worktable.lvcfg.IsValid())
 				{
-					return worktable.lvcfg.Num+1 > worktable.stations?.Count;
+					return worktable.lvcfg.Num + 1 > worktable.stations?.Count;
 				}
 				return false;
 			}

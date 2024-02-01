@@ -44,9 +44,11 @@ namespace SGame
 		WORK_TABLE_UPLEVEL			= 2002,//操作台升级
 		WORK_TABLE_MACHINE_ENABLE	= 2003,//操作台点位解锁
 		WORK_TABLE_CLICK			= 2004,//工作台点击
-		
+		WORK_TABLE_UP_STAR			= 2005,//工作台升星
+
+
 		//buff===============================================
-		BUFF_TRIGGER				= 3001,//触发一个buff （BuffData data)
+		BUFF_TRIGGER = 3001,//触发一个buff （BuffData data)
 
 		//Tech===============================================
 		TECH_ADD_REWARD				= 4001,//科技添加奖励 （int tech)

@@ -116,8 +116,8 @@ public class Game : SGame.MonoSingleton<Game>
 		GameDebug.Log("logConfig InitSuccess");
 		log.Info("Log Load Success!");
 
-		var wait = FontManager.Instance.Initalize();
-		yield return wait;
+		//字体
+		yield return FontManager.Instance.Initalize();
 
 		//语言初始化
 		LanagueSystem.Instance.Initalize("en");

@@ -28,22 +28,36 @@ public struct MachineStarRowData : IFlatbufferObject
   public ArraySegment<byte>? GetMachineStarBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
   public int[] GetMachineStarArray() { return __p.__vector_as_array<int>(6); }
+  public int StarReward(int j) { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int StarRewardLength { get { int o = __p.__offset(8); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetStarRewardBytes() { return __p.__vector_as_span<int>(8, 4); }
+#else
+  public ArraySegment<byte>? GetStarRewardBytes() { return __p.__vector_as_arraysegment(8); }
+#endif
+  public int[] GetStarRewardArray() { return __p.__vector_as_array<int>(8); }
 
   public static Offset<GameConfigs.MachineStarRowData> CreateMachineStarRowData(FlatBufferBuilder builder,
       int LevelId = 0,
-      VectorOffset MachineStarOffset = default(VectorOffset)) {
-    builder.StartTable(2);
+      VectorOffset MachineStarOffset = default(VectorOffset),
+      VectorOffset StarRewardOffset = default(VectorOffset)) {
+    builder.StartTable(3);
+    MachineStarRowData.AddStarReward(builder, StarRewardOffset);
     MachineStarRowData.AddMachineStar(builder, MachineStarOffset);
     MachineStarRowData.AddLevelId(builder, LevelId);
     return MachineStarRowData.EndMachineStarRowData(builder);
   }
 
-  public static void StartMachineStarRowData(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void StartMachineStarRowData(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddLevelId(FlatBufferBuilder builder, int LevelId) { builder.AddInt(0, LevelId, 0); }
   public static void AddMachineStar(FlatBufferBuilder builder, VectorOffset MachineStarOffset) { builder.AddOffset(1, MachineStarOffset.Value, 0); }
   public static VectorOffset CreateMachineStarVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateMachineStarVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartMachineStarVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddStarReward(FlatBufferBuilder builder, VectorOffset StarRewardOffset) { builder.AddOffset(2, StarRewardOffset.Value, 0); }
+  public static VectorOffset CreateStarRewardVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateStarRewardVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartStarRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.MachineStarRowData> EndMachineStarRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.MachineStarRowData>(o);

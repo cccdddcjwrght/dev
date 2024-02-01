@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FairyGUI;
+using GameConfigs;
 using SGame;
 using UnityEngine;
 
@@ -31,9 +32,46 @@ public class UIListener
 
 	#region AutoLocal
 
+	static Dictionary<string, string[]> _fonts = new Dictionary<string, string[]>();
+
+	private static string GetLanguage()
+	{
+		return "en";
+	}
+
 	static public void LocalFont(GObject parent)
 	{
+		if (parent != null)
+		{
+			var field = parent.asTextField;
+			if (field == null)
+				return;
+			var lan = GetLanguage();
+			if (!_fonts.TryGetValue(lan, out var font))
+			{
+				font = new string[0];
+				if (ConfigSystem.Instance.TryGet<languageRowData>(lan, out var cfg))
+					font = new string[] { cfg.DefaultFont, cfg.OtherFont };
+				_fonts[lan] = font;
+			}
 
+			if (font.Length == 0) return;
+
+			var format = field.textFormat;
+			var ofont = format.font;
+			var dfont = font[0];
+
+			if (!string.IsNullOrEmpty(ofont) && ofont != dfont)
+			{
+				ofont = ofont.ToLower();
+				if (ofont.EndsWith("sdf"))
+					ofont = dfont;
+				else
+					ofont = font[1];
+				format.font = ofont;
+				field.textFormat = format;
+			}
+		}
 	}
 
 	static public void LocalAllChild(GObject gObject, bool b_localfont)
@@ -84,6 +122,18 @@ public class UIListener
 		return default;
 	}
 
+	static public string RegexReplace(string context, string pattern, Func<string, string> match)
+	{
+		if (context == null || pattern == null || match == null) return context;
+		return Regex.Replace(context, pattern, (m) => match(m.Groups[1].Value), RegexOptions.IgnoreCase);
+	}
+
+	/// <summary>
+	/// 获取本地化文本
+	/// </summary>
+	/// <param name="str"></param>
+	/// <param name="def"></param>
+	/// <returns></returns>
 	public static string Local(string str, string def)
 	{
 		if (!string.IsNullOrEmpty(str))
@@ -95,23 +145,32 @@ public class UIListener
 		return str;
 	}
 
+	/// <summary>
+	/// 获取本地化文本
+	/// </summary>
+	/// <param name="txt"></param>
+	/// <returns></returns>
 	static public string Local(string txt)
 	{
 		return Local(txt, null);
 	}
 
+	/// <summary>
+	/// 本地化并格式化
+	/// </summary>
+	/// <param name="format"></param>
+	/// <param name="args"></param>
+	/// <returns></returns>
 	static public string LocalFormat(string format, params object[] args)
 	{
 		return string.Format(Local(format), args);
 	}
 
-	static public string RegexReplace(string context, string pattern, Func<string, string> match)
-	{
-		if (context == null || pattern == null || match == null) return context;
-		return Regex.Replace(context, pattern, (m) => match(m.Groups[1].Value), RegexOptions.IgnoreCase);
-	}
-
-
+	/// <summary>
+	/// 根据前缀自动本地化
+	/// </summary>
+	/// <param name="txt"></param>
+	/// <returns></returns>
 	static public string AutoLocal(string txt)
 	{
 		if (string.IsNullOrEmpty(txt)) return default;
@@ -120,13 +179,19 @@ public class UIListener
 		return txt;
 	}
 
+	static public void SetTextByKey(GObject gObject, string txt, params object[] args)
+	{
+		if (args?.Length > 0)
+			SetText(gObject, LocalFormat(txt, args), false);
+		else
+			SetText(gObject, Local(txt), false);
+	}
 
-
-	static public void SetText(GObject gObject, string txt)
+	static public void SetText(GObject gObject, string txt, bool local = true)
 	{
 		if (gObject != null)
 		{
-			txt = AutoLocal(string.IsNullOrEmpty(txt) ? gObject.text : txt);
+			txt = local ? AutoLocal(string.IsNullOrEmpty(txt) ? gObject.text : txt) : txt;
 			gObject.text = txt;
 			var com = gObject.asCom;
 			if (com != null)
