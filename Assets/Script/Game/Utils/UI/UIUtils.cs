@@ -213,17 +213,31 @@ namespace SGame
 
 			return ui;
 		}
-
+		
 		/// <summary>
-		/// 显示飘字
+		/// 显示等待HUD
 		/// </summary>
-		/// <param name="title"></param>
-		/// <param name="pos"></param>
-		/// <param name="color"></param>
-		/// <param name="fontSize"></param>
-		/// <param name="duration"></param>
-		/// <param name="speed"></param>
+		/// <param name="progressTime"></param>
 		/// <returns></returns>
+		public static Entity ShowWaitUI(float progressTime,Transform pos)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = ShowHUD("progress", pos, float3.zero);
+			entityManager.AddComponent<LiveTime>(ui);
+			entityManager.SetComponentData(ui, new LiveTime() {Value =  progressTime});
+			return ui;
+		}
+		
+        /// <summary>
+        /// 显示飘字
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="pos"></param>
+        /// <param name="color"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="duration"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
 		public static Entity ShowTipsNew(
 			string title,
 			Transform pos,

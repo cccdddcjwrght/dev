@@ -7,7 +7,7 @@ using Unity.Entities;
 
 namespace SGame.VS
 {
-    // 查找空的顾客位置
+    // 属性
     [UnitTitle("GetAttribute")] 
     [UnitCategory("Game/Attribute")]
     public class GetAttribute : Unit

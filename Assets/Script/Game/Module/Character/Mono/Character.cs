@@ -62,21 +62,7 @@ namespace SGame
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);
         }
-        
 
-        /// <summary>
-        /// 显示等待HUD
-        /// </summary>
-        /// <param name="progressTime"></param>
-        /// <returns></returns>
-        public Entity ShowWaitUI(float progressTime)
-        {
-            Entity ui = UIUtils.ShowHUD("progress", transform, float3.zero);
-            entityManager.AddComponent<LiveTime>(ui);
-            entityManager.SetComponentData(ui, new LiveTime() {Value =  progressTime});
-            return ui;
-        }
-        
 
         /// <summary>
         /// 角色移动到目标位置

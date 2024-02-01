@@ -62,6 +62,7 @@ namespace SGame.UI{
 		{
 			log.Info("On Gold Update add =" + value + " newvalue=" + newValue + " plyaerid=" + playerId);
 			SetGoldText(newValue.ToString());
+			m_view.m_Gold.GetChild("num").asTextField.text = newValue.ToString();
 		}
 		
 
