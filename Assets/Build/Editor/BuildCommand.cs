@@ -13,7 +13,7 @@ using System.Text;
 static class BuildCommand
 {
 	//打包前执行
-	static public Action<Func<string,string>> DoBeforeBuild;
+	static public Action<Func<string, string>> DoBeforeBuild;
 	//打包资源接口
 	static public Action<int, int, int> DoBuildAsset;
 	//打包后执行
@@ -360,6 +360,7 @@ static class BuildCommand
 			{
 				EditorUserBuildSettings.buildAppBundle = buildAppBundle;
 				Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected, set buildAppBundle to {value}.");
+				return;
 			}
 			else
 			{
@@ -369,6 +370,7 @@ static class BuildCommand
             Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected but does not work with lower Unity version than 2018.3");
 #endif
 		}
+		EditorUserBuildSettings.buildAppBundle = false;
 	}
 
 	private static void HandleAndroidBundleVersionCode()

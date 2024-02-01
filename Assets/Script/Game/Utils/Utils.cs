@@ -5,6 +5,7 @@ using GameConfigs;
 using Unity.Entities;
 using UnityEngine;
 using System.Globalization;
+using System.Text;
 
 namespace SGame
 {
@@ -149,11 +150,18 @@ namespace SGame
 		}
 
 		//把数值转成专用字符串表示
-		public static string ConvertNumberStr(double number) {
-
+		public static string ConvertNumberStr(double number)
+		{
 			if (number > 1000)
 			{
-				var s = number.ToString();
+				int a, b;
+				a = b = 0;
+				while (number > 1000)
+				{
+					if (b++ > 26) { a++; b = 1; }
+					number *= 0.001d;
+				}
+				return string.Format("{0}{1}{2}", number.Round(), a > 0 ? (char)(a + 96) : "", (char)(b + 96));
 			}
 			return number.ToString();
 		}
@@ -184,42 +192,42 @@ namespace SGame
 		/// <param name="roleType"></param>
 		/// <returns></returns>
 		public static EnumTarget GetTargetFromRoleType(int roleType)
-        {
-            RoleType r = (RoleType)roleType;
-            switch (roleType)
-            {
-                case (int)RoleType.CHEF:
-                    return EnumTarget.Cook;
-                case (int)RoleType.WAITER:
-                    return EnumTarget.Waiter;
-                case (int)RoleType.CUSTOMER:
-                case (int)RoleType.CAR:
-                    return EnumTarget.Customer;
-            }
+		{
+			RoleType r = (RoleType)roleType;
+			switch (roleType)
+			{
+				case (int)RoleType.CHEF:
+					return EnumTarget.Cook;
+				case (int)RoleType.WAITER:
+					return EnumTarget.Waiter;
+				case (int)RoleType.CUSTOMER:
+				case (int)RoleType.CAR:
+					return EnumTarget.Customer;
+			}
 
-            return EnumTarget.Player;
-        }
+			return EnumTarget.Player;
+		}
 
-        /// <summary>
-        /// 通过角色类型获得位置标签
-        /// </summary>
-        /// <param name="roleType"></param>
-        /// <returns></returns>
-        public static string GetMapTagFromRoleType(int roleType)
-        {
-            switch (roleType)
-            {
-                case (int)RoleType.CHEF:
-                case (int)RoleType.PLAYER:
-                    return "born_0";
-                case (int)RoleType.WAITER:
-                    return "born_1";
-                case (int)RoleType.CUSTOMER:
-                    return "born_3";
-            }
+		/// <summary>
+		/// 通过角色类型获得位置标签
+		/// </summary>
+		/// <param name="roleType"></param>
+		/// <returns></returns>
+		public static string GetMapTagFromRoleType(int roleType)
+		{
+			switch (roleType)
+			{
+				case (int)RoleType.CHEF:
+				case (int)RoleType.PLAYER:
+					return "born_0";
+				case (int)RoleType.WAITER:
+					return "born_1";
+				case (int)RoleType.CUSTOMER:
+					return "born_3";
+			}
 
-            return "";
-        }
+			return "";
+		}
 
 
 		#region 语言
@@ -345,7 +353,7 @@ namespace SGame
 				return lan.Split('-')[0];
 			}
 			return MachineLanguage();
-		} 
+		}
 		#endregion
 
 	}

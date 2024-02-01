@@ -54,7 +54,7 @@ namespace SGame.UI
 			view.SetIcon(data.Icon);
 			view.m_title.SetTextByKey(data.Name);
 			view.m_desc.SetTextByKey(data.Des , Mathf.Max(1, data.Value));
-			view.m_type.selectedIndex = data.Mark - 1;
+			view.m_type.selectedIndex = data.Mark;
 
 
 			var str = Utils.ConvertNumberStr(data.Cost(2));
