@@ -53,7 +53,7 @@ namespace SGame
             public CharacterGenerator gen;
             public AssetRequest       aiPrefab;
             public int modelId;
-            public bool isDone => CharacterGenerator.ReadyToUse && gen.ConfigReady && aiPrefab.isDone;
+            public bool isDone => gen.ConfigReady && aiPrefab.isDone;
         }
 
         public struct CharacterEvent
@@ -140,6 +140,9 @@ namespace SGame
 
         protected override void OnUpdate()
         {
+            if (CharacterGenerator.ReadyToUse == false)
+                return;
+            
             // 获取数据
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.WithNone<CharacterLoading>().ForEach((Entity e, CharacterSpawn req) =>
