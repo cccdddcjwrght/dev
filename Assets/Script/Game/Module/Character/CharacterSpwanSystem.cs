@@ -214,8 +214,8 @@ namespace SGame
                 c.CharacterID = lasterCharacterID;
                 c.roleType = roleData.Type;
                 
+                // 设置属性
                 commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
-                commandBuffer.AddComponent<CharacterInitalized>(characterEntity);
                 commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type});
             }).WithStructuralChanges().WithoutBurst().Run();
             

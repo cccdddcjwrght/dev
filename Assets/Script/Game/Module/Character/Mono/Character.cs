@@ -26,6 +26,8 @@ namespace SGame
         /// </summary>
         public GameObject model;
 
+        public Animator modelAnimator;
+
         /// <summary>
         /// Entity对象
         /// </summary>
@@ -69,6 +71,7 @@ namespace SGame
         {
             this.entity = entity;
             this.entityManager = mgr;
+            modelAnimator = model.GetComponent<Animator>();
 
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);

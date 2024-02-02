@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using log4net;
 using UnityEngine;
 using Unity.Entities;
 
@@ -8,6 +9,7 @@ namespace SGame
     [UpdateInGroup(typeof(GameLogicGroup))]
     public partial class CharacterAttributeSystem : SystemBase
     {
+        private static ILog log = LogManager.GetLogger("game.character");
         private EndInitializationEntityCommandBufferSystem m_commandBuffer;
         private double m_baseSpeed = 0;
         protected override void OnCreate()
@@ -16,36 +18,24 @@ namespace SGame
             m_commandBuffer = World.GetOrCreateSystem<EndInitializationEntityCommandBufferSystem>();
         }
 
-        double baseSpeed
-        {
-            get
-            {
-                if (m_baseSpeed == 0)
-                {
-                    m_baseSpeed = 2;
-                }
-
-                return m_baseSpeed;
-            }
-        }
-
         protected override void OnUpdate()
         {
             // 计算速度属性
-            double global_speed = AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Speed);
-            //var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithAll<CharacterSpawnSystem.CharacterInitalized>().ForEach((Entity e, ref Speed speed, in CharacterAttribue attr) =>
+            Entities.WithAll<CharacterSpawnSystem.CharacterInitalized>().ForEach((
+                Entity e, 
+                ref Speed speed, 
+                in CharacterAttribue attr
+                ) =>
             {
-                var target = Utils.GetTargetFromRoleType(attr.roleType);
-                double character_speed = baseSpeed;
-                if (target != EnumTarget.Customer)
-                     character_speed *= (1 + AttributeSystem.Instance.GetValue(target, EnumAttribute.Speed, 0) + global_speed);
-                else
-                    character_speed *= (1 + AttributeSystem.Instance.GetValue(target, EnumAttribute.Speed, attr.roleID) + global_speed);
-
-                speed.Value = (float)(character_speed);
+                var v = AttributeSystem.Instance.GetValueByRoleID(attr.roleID, EnumAttribute.Speed);
+                if (v <= 0)
+                {
+                    // 速度异常表示没有读取成功
+                    log.Warn("Role Speed Is Zero RoleID=" + attr.roleID);
+                    v = 10;
+                }
+                speed.Value = (float)(v);
             }).WithoutBurst().Run();
-            
         }
     }
 }
