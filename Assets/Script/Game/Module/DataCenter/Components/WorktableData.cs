@@ -386,7 +386,7 @@ namespace SGame
 		public double GetPrice()
 		{
 			if (!isTable && lvcfg.IsValid())
-				return (1L * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceStarRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
+				return (1L * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
 			return 0;
 		}
 

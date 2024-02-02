@@ -15,11 +15,18 @@ namespace SGame.UI
 		private WorktableInfo info;
 		private int[] stars;
 
-		partial void InitLogic(UIContext context)
+		partial void BeforeInit(UIContext context)
 		{
 			if (context.GetParam()?.Value is WorktableInfo info)
 			{
 				this.info = info;
+			}
+		}
+
+		partial void InitLogic(UIContext context)
+		{
+			if (info.id > 0)
+			{
 				this.data = DataCenter.MachineUtil.GetWorktable(info.id);
 				m_view.m_pos.selectedIndex = GetOffset(info.target);
 				switch (info.type)
@@ -82,7 +89,7 @@ namespace SGame.UI
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
 				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
 				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(data.lvcfg.UpgradePrice(2)));
-				if(ConfigSystem.Instance.TryGet<MachineStarRowData>(data.lvcfg.MachineStar+1 , out var cfg))
+				if (ConfigSystem.Instance.TryGet<MachineStarRowData>(data.lvcfg.MachineStar + 1, out var cfg))
 					m_view.m_reward.SetIconIndex(cfg.StarReward(1));
 				else
 					m_view.m_reward.SetIconIndex(0);
@@ -176,7 +183,7 @@ namespace SGame.UI
 			{
 				m_view.m_tips.AddChild(items[i++]);
 				m_view.m_tips.ScrollToView(m_view.m_tips.numItems - 1, true);
-				yield return new WaitForSeconds(0.3f);
+				yield return new WaitForSeconds(0.2f);
 			}
 		}
 
