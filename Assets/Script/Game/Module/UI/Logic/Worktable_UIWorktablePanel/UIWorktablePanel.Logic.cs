@@ -75,8 +75,8 @@ namespace SGame.UI
 		private void LevelRefresh()
 		{
 			stars = DataCenter.MachineUtil.GetWorktableStarInfo(data.id);
+			var cost = data.GetUpCost(out var cty, out var cid);
 			var lvmax = data.maxlv <= data.level;
-			var state = PropertyManager.Instance.CheckCountByArgs(data.lvcfg.GetUpgradePriceArray());
 			var maxStar = DataCenter.MachineUtil.GetWorkertableMaxStar(data.maxlv);
 			if (lvmax)
 			{
@@ -86,9 +86,10 @@ namespace SGame.UI
 			}
 			else
 			{
+				var state = PropertyManager.Instance.CheckCount(cid, cost, cty);
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
 				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
-				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(data.lvcfg.UpgradePrice(2)));
+				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(cost));
 				if (ConfigSystem.Instance.TryGet<MachineStarRowData>(data.lvcfg.MachineStar + 1, out var cfg))
 					m_view.m_reward.SetIconIndex(cfg.StarReward(1));
 				else

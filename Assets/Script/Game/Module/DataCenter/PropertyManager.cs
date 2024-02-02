@@ -30,19 +30,19 @@ namespace SGame
 			return group;
 		}
 
-		public bool CheckCount(int id, int num, PropertyGroup type)
+		public bool CheckCount(int id, double num, PropertyGroup type)
 		{
 			return CheckCount(id, num, (int)type);
 		}
 
 		public bool CheckCountByArgs(params int[] args)
 		{
-			if (args!=null && args.Length > 2)
+			if (args != null && args.Length > 2)
 				return CheckCount(args[1], args[2], args[0]);
 			return args == null || args.Length == 0;
 		}
 
-		public bool CheckCount(int id, int num, int type = 0)
+		public bool CheckCount(int id, double num, int type = 0)
 		{
 			var g = GetGroup(type);
 			if (g != null)
@@ -53,12 +53,14 @@ namespace SGame
 		public void UpdateByArgs(bool iscost, params int[] args)
 		{
 			if (args.Length > 2)
-				Update((PropertyGroup)args[0], args[1], args[2] , iscost);
+				Update((PropertyGroup)args[0], args[1], args[2], iscost);
 			else if (args.Length == 2)
-				Update(PropertyGroup.ITEM, args[0], args[1] , iscost);
+				Update(PropertyGroup.ITEM, args[0], args[1], iscost);
 		}
 
-		public void Update(PropertyGroup type, int id, long count, bool iscost = false)
+		public void Update(int type, int id, double count, bool iscost = false) => Update((PropertyGroup)type, id, count, iscost);
+
+		public void Update(PropertyGroup type, int id, double count, bool iscost = false)
 		{
 			if (id > 0)
 			{
