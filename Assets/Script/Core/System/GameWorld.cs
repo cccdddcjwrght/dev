@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Object = UnityEngine.Object;
 
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine.Profiling;
 
 
@@ -23,28 +24,6 @@ public struct DespawningEntity : IComponentData
 public struct EntityGroupChildren : IBufferElementData
 {
     public Entity entity;
-}
-
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
-public partial class DestroyDespawning : SystemBase
-{
-    private EndSimulationEntityCommandBufferSystem m_commandBuffer;
-
-    protected override void OnCreate()
-    {
-        base.OnCreate();
-        m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-    }
-
-    protected override void OnUpdate()
-    {
-        var commandbuffer = m_commandBuffer.CreateCommandBuffer().AsParallelWriter();
-        Dependency = Entities.WithAll<DespawningEntity>().ForEach((int entityInQueryIndex, Entity e) =>
-        {
-            commandbuffer.DestroyEntity(entityInQueryIndex, e);
-        }).WithBurst().ScheduleParallel(Dependency);
-        m_commandBuffer.AddJobHandleForProducer(Dependency);
-    }
 }
 
 public class GameWorld
@@ -313,9 +292,7 @@ public class GameWorld
     World m_ECSWorld;
 
     GameObject m_sceneRoot;
-
-    DestroyDespawning m_destroyDespawningSystem;
-
+    
     List<GameObject> m_dynamicEntities = new List<GameObject>();
     List<GameObject> m_DespawnRequests = new List<GameObject>(32);
     List<Entity> m_DespawnEntityRequests = new List<Entity>(32);

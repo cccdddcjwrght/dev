@@ -9,31 +9,18 @@ using Unity.Mathematics;
 using Unity.Transforms;
 namespace SGame
 {
-    public struct SpawnFoodRequest : IComponentData
+    public struct SpawnFoodRequestTag : IComponentData
     {
-        // 食物类型
-        public int   foodType;
-
-        // 父节点
-        public Entity parent;
-
-        // 偏移量
-        public float3 pos;
-
-        // 旋转
-        public quaternion rot;
-
-        // 是否显示
-        public bool isShow;
     }
-    
+
+    public struct FoodInitalizedTag : IComponentData
+    {
+    }
+
     public partial class SpawnFoodSystem : SystemBase
     {
         private static ILog log = LogManager.GetLogger("game.food");
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
-        public struct FoodInitalizeTag : IComponentData
-        {
-        }
 
         private string[] RES_PATHS = new string[]
         {
@@ -78,7 +65,10 @@ namespace SGame
             for (int i = 0; i < prefabs.Length; i++)
             {
                 var v = types[i];
-                m_foodsPrefab.Add(v.Value, prefabs[i]);
+                var e = prefabs[i];
+                EntityManager.AddComponent<Parent>(e);
+                EntityManager.AddComponent<LocalToParent>(e);
+                m_foodsPrefab.Add(v.Value, e);
             }
             prefabs.Dispose();
             types.Dispose();
@@ -87,55 +77,20 @@ namespace SGame
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.ForEach((Entity e, in SpawnFoodRequest req) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, in SpawnFoodRequestTag req, in FoodType foodType) =>
             {
-                if (!m_foodsPrefab.TryGetValue(req.foodType, out Entity prefab))
+                commandBuffer.RemoveComponent<SpawnFoodRequestTag>(e);
+                if (!m_foodsPrefab.TryGetValue(foodType.Value, out Entity prefab))
                 {
-                    log.Error("foodType not found = " + req.foodType);
+                    log.Error("foodType not found = " + foodType.Value);
                     return;
                 }
 
-                var parent = req.parent;
+                // 添加子节点
                 var newFood = commandBuffer.Instantiate(prefab);
-                if (parent != Entity.Null && EntityManager.Exists(parent))
-                {
-                    commandBuffer.SetComponent(parent, new FoodHolder() { Value = newFood });
-                    commandBuffer.AddComponent<Parent>(newFood);
-                    commandBuffer.AddComponent<LocalToParent>(newFood);
-                    commandBuffer.SetComponent(newFood, new Parent(){Value = parent});
-
-                    if (!EntityManager.HasComponent<Child>(parent))
-                    {
-                        DynamicBuffer<Child> buff = commandBuffer.AddBuffer<Child>(parent);
-                        buff.Add(new Child() { Value = newFood });
-                    }
-                    else
-                    {
-                        DynamicBuffer<Child> buff = EntityManager.GetBuffer<Child>(parent);
-                        commandBuffer.AppendToBuffer<Child>(parent, new Child(){Value = newFood});
-                    }
-                }
-                
-                
-                //commandBuffer.AddBuffer<>()
-                
-                commandBuffer.SetComponent(newFood, new Translation() {Value = req.pos});
-                commandBuffer.SetComponent(newFood, new Rotation() {Value = req.rot});
-                commandBuffer.DestroyEntity(e);
-
-                if (req.isShow == false)
-                {
-                    commandBuffer.AddComponent<Disabled>(newFood);
-                }
+                commandBuffer.SetComponent(newFood, new Parent(){Value = e});
+                commandBuffer.AppendToBuffer(e, new Child(){Value = newFood});
             }).WithoutBurst().Run();
-
-            /*
-            Entities.WithAll<FoodType>().WithNone<FoodInitalizeTag>().ForEach((Entity e, FoodID id) =>
-            {
-                commandBuffer.AddComponent<FoodInitalizeTag>(e);
-                FoodModule.Instance.Reg(id.Value, e);
-            }).WithoutBurst().Run();
-            */
         }
     }
 }

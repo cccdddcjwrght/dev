@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameTools.Paths;
+using log4net;
 using OfficeOpenXml.Style;
 using UnityEngine;
 using Unity.Entities;
@@ -16,6 +17,8 @@ namespace SGame
     /// </summary>
     public class Character : MonoBehaviour
     {
+        private static ILog log = LogManager.GetLogger("game.character");
+        
         /// <summary>
         /// 脚本数据
         /// </summary>
@@ -30,6 +33,11 @@ namespace SGame
         /// Entity对象
         /// </summary>
         public Entity entity;
+
+        /// <summary>
+        /// 食物Enitty
+        /// </summary>
+        public Entity m_food { get; private set; }
 
         /// <summary>
         /// 角色实例化ID
@@ -105,37 +113,26 @@ namespace SGame
         /// 创建食物
         /// </summary>
         /// <param name="foodType"></param>
-        public void CreateFood(int foodType)
+        public Entity CreateFood(int foodType)
         {
-            var req = entityManager.CreateEntity(typeof(SpawnFoodRequest));
+            var req = entityManager.CreateEntity(typeof(SpawnFoodRequestTag));
             var q1 = quaternion.Euler(-math.PI / 2, 0, 0, math.RotationOrder.ZXY);
 
-            entityManager.SetComponentData(req, new SpawnFoodRequest()
-            {
-                foodType = foodType,
-                parent = entity,
-                pos = new float3(0, 0.5f, 0.5f),
-                rot = quaternion.Euler(-90, 0, 0),
-                isShow = false,
-            });
+            m_food = FoodModule.Instance.CreateFood(foodType, new float3(0, 0.5f, 0.5f), quaternion.identity);
+            AddChild(m_food);
+            return m_food;
         }
 
-        /// <summary>
-        /// 显示食物, 删除Disable节点
-        /// </summary>
-        public Entity ShowFood()
+        // 添加子节点
+        public void AddChild(Entity e)
         {
-            var holder = entityManager.GetComponentData<FoodHolder>(entity);
-            if (holder.Value != Entity.Null && entityManager.Exists(holder.Value))
-            {
-                if (entityManager.HasComponent<Disabled>(holder.Value))
-                {
-                    entityManager.RemoveComponent<Disabled>(holder.Value);
-                }
-                return holder.Value;
-            }
-
-            return Entity.Null;
+            Utils.AddEntityChild(entity, e);
+        }
+        
+        // 删除子节点
+        private void RemoveChild(Entity e)
+        {
+            Utils.RemoveEntityChild(entity, e);
         }
         
         /// <summary>
@@ -145,62 +142,35 @@ namespace SGame
         public void TakeFood(Entity food)
         {
             // 设置父节点为自己
-            if (!entityManager.HasComponent<Parent>(food))
-            {
-                entityManager.AddComponent<Parent>(food);
-            }
-            DynamicBuffer<Child> childs;
-            if (!entityManager.HasComponent<Child>(entity))
-            {
-                childs = entityManager.AddBuffer<Child>(entity);
-            }
-            else
-            {
-                childs = entityManager.GetBuffer<Child>(entity);
-            }
-            childs.Add(new Child() { Value = food });
-            entityManager.SetComponentData(food, new Parent() { Value = entity});
             entityManager.SetComponentData(food, new Translation() {Value = new float3(0, 0.5f, 0.1f)});
-            
-            // 持有食物
-            entityManager.SetComponentData(entity, new FoodHolder{ Value = food});
+            entityManager.SetComponentData(food, new Rotation(){Value = quaternion.identity});
+            AddChild(food);
+            this.m_food = food;
         }
 
-        private bool RemoveChild(Entity e)
-        {
-            if (entityManager.HasComponent<Child>(entity))
-            {
-                var buff = entityManager.GetBuffer<Child>(entity);
-                for (int i = 0; i < buff.Length; i++)
-                {
-                    if (buff[i].Value == e)
-                    {
-                        buff.RemoveAtSwapBack(i);
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-        
         
         /// <summary>
         /// 放置食物到目标位置上去
         /// </summary>
         /// <param name="pos"></param>
-        public void PlaceFoodToTable(int2 pos)
+        public Entity PlaceFoodToTable(int2 pos)
         {
-            float3 worldPos = GameTools.MapAgent.CellToVector(pos.x, pos.y);
-            worldPos += new float3(0, 0, 1);
-            var holder = entityManager.GetComponentData<FoodHolder>(entity);
-            if (holder.Value != Entity.Null && entityManager.Exists(holder.Value))
+            Entity old = m_food;
+            if (m_food != Entity.Null && entityManager.Exists(m_food))
             {
-                RemoveChild(holder.Value);
-                entityManager.SetComponentData<Parent>(holder.Value, new Parent(){Value = Entity.Null});
-                entityManager.SetComponentData(holder.Value, new Translation(){Value = worldPos});
-                entityManager.SetComponentData(entity, new FoodHolder(){Value = Entity.Null});
+                RemoveChild(m_food);
+                Vector3 postemp = GameTools.MapAgent.CellToVector(pos.x, pos.y);
+                float3 worldPos = postemp;
+                worldPos += new float3(0, 2, 0);
+                entityManager.SetComponentData(m_food, new Translation() { Value = worldPos });
+                entityManager.SetComponentData(m_food, new Rotation() { Value = quaternion.identity });
             }
+            else
+            {
+                log.Error("FOOD IS EMPTY!!!");
+            }
+            m_food = Entity.Null;
+            return old;
         }
 
         /// <summary>
@@ -209,29 +179,14 @@ namespace SGame
         /// <param name="foodType"></param>
         public void ClearFood()
         {
-            var holder = entityManager.GetComponentData<FoodHolder>(entity);
-            if (holder.Value != Entity.Null)
+            if (m_food != Entity.Null)
             {
-                if (entityManager.Exists(holder.Value))
-                {
-                    World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>().DespawnEntity(holder.Value);
-                }
-                
-                RemoveChild(holder.Value);
-                entityManager.SetComponentData(entity, new FoodHolder() { Value = Entity.Null });
+                RemoveChild(m_food);
+                FoodModule.Instance.CloseFood(m_food);
+                m_food = Entity.Null;
             }
         }
-
-        /// <summary>
-        /// 获取食物
-        /// </summary>
-        /// <returns></returns>
-        public Entity GetFood()
-        {
-            var holder = entityManager.GetComponentData<FoodHolder>(entity);
-            return holder.Value;
-        }
-
+        
         public bool isMoving
         {
             get
