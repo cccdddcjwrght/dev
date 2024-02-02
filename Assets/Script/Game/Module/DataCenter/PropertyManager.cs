@@ -11,6 +11,8 @@ namespace SGame
 		{
 			m_Values = new Dictionary<int, ItemGroup>(32);
 		}
+		
+		public bool IsInitalize { get { return m_Values != null;  } }
 
 		// 获取道具管理器
 		public ItemGroup GetGroup(PropertyGroup type)
