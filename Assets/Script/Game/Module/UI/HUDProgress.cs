@@ -5,6 +5,7 @@ using UnityEngine;
 using log4net;
 using SGame;
 using SGame.UI.Hud;
+using UIUtils = SGame.UIUtils;
 
 public class HUDProgress : IUIScript
 {
@@ -18,7 +19,7 @@ public class HUDProgress : IUIScript
     {
         context.window.contentPane.touchable = false;
         progressUI = context.content as UI_Progress;
-        time = context.gameWorld.GetEntityManager().GetComponentData<LiveTime>(context.entity).Value;
+        time = context.gameWorld.GetEntityManager().GetComponentData<TweenTime>(context.entity).Value;
         updateTime = 0;
         context.onUpdate += Update;
     }
@@ -30,6 +31,10 @@ public class HUDProgress : IUIScript
             updateTime += Time.deltaTime;
             float fillPercentage = CalculateFillPercentage(updateTime, time);
             progressUI.m_n1.fillAmount = fillPercentage;
+        }
+        else
+        {
+            UIUtils.CloseUI(context.entity);
         }
     }
     

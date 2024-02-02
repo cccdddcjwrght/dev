@@ -223,8 +223,8 @@ namespace SGame
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("progress", pos, float3.zero);
-			entityManager.AddComponent<LiveTime>(ui);
-			entityManager.SetComponentData(ui, new LiveTime() {Value =  progressTime});
+			entityManager.AddComponent<TweenTime>(ui);
+			entityManager.SetComponentData(ui, new TweenTime() {Value =  progressTime});
 			return ui;
 		}
 		
@@ -239,7 +239,7 @@ namespace SGame
         /// <param name="speed"></param>
         /// <returns></returns>
 		public static Entity ShowTipsNew(
-			string title,
+			double gold,
 			Transform pos,
 			Color color,
 			int fontSize,
@@ -251,13 +251,10 @@ namespace SGame
 			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponent<HUDTips>(ui);
 			entityManager.AddComponent<LiveTime>(ui);
-			entityManager.AddComponent<MoveDirection>(ui);
 
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
-			entityManager.SetComponentData(ui, new HUDTips { title = title, color = color, fontSize = fontSize });
+			entityManager.SetComponentData(ui, new HUDTips { title = Utils.ConvertNumberStr(gold), color = color, fontSize = fontSize, speed=speed});
 			entityManager.SetComponentData(ui, new LiveTime { Value = duration });
-			entityManager.SetComponentData(ui, new MoveDirection() { Value = new float3() { x = 0, y = 1, z = 0 } * speed, duration = duration });
-
 			return ui;
 		}
 

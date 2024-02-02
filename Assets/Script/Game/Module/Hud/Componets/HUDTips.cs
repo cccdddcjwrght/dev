@@ -13,5 +13,11 @@ namespace SGame.UI
         public string   title;
         public Color    color;
         public int      fontSize;
+        public float    speed;
+    }
+    
+    public struct TweenTime : IComponentData
+    {
+        public float Value;
     }
 }
