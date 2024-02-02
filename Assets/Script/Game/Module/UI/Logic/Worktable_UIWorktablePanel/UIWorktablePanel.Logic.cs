@@ -70,6 +70,7 @@ namespace SGame.UI
 			stars = DataCenter.MachineUtil.GetWorktableStarInfo(data.id);
 			var lvmax = data.maxlv <= data.level;
 			var state = PropertyManager.Instance.CheckCountByArgs(data.lvcfg.GetUpgradePriceArray());
+			var maxStar = DataCenter.MachineUtil.GetWorkertableMaxStar(data.maxlv);
 			if (lvmax)
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 1);
@@ -90,7 +91,7 @@ namespace SGame.UI
 			UIListener.SetTextByKey(m_view, data.cfg.MachineName);
 			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice()));
 			SetLevelText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
-			SetProgressValue(data.lvcfg.MachineStar == stars.Length ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id));
+			SetProgressValue(data.lvcfg.MachineStar == maxStar ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id));
 
 			m_view.m_list.RemoveChildrenToPool();
 			m_view.m_list.numItems = stars.Length;

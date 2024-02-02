@@ -154,11 +154,11 @@ namespace SGame
 		//把数值转成专用字符串表示
 		public static string ConvertNumberStr(double number)
 		{
-			if (number > 1000)
+			if (number >= 1000)
 			{
 				int a, b;
 				a = b = 0;
-				while (number > 1000)
+				while (number >= 1000)
 				{
 					if (b++ > 9) { a++; b = 1; }
 					number *= 0.001d;

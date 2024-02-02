@@ -100,10 +100,8 @@ namespace SGame
 
 					var pmac = 0;
 					var prp = 0;
-					var star = 0;
 					if (w.lvcfg.IsValid())
 					{
-					 	star = w.lvcfg.MachineStar;
 						pmac = w.lvcfg.Num;
 						prp = w.lvcfg.ShopPriceStarRatio;
 					}
@@ -116,7 +114,7 @@ namespace SGame
 					PropertyManager.Instance.UpdateByArgs(true, w.lvcfg.GetUpgradePriceArray());
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
 
-					if (w.lvcfg.MachineStar > star)//升星奖励
+					if (w.lvcfg.MachineStar > w.star)//升星奖励
 					{
 						if (ConfigSystem.Instance.TryGet<MachineStarRowData>(w.lvcfg.MachineStar, out var cfg))
 							PropertyManager.Instance.UpdateByArgs(false, cfg.GetStarRewardArray());
@@ -217,9 +215,12 @@ namespace SGame
 					size = size == 0 ? 5 : size;
 
 					var stars = new int[size];
-					for (int i = 0; i < cstar % 6; i++)
-						stars[i] = type;
-
+					if (cstar > 0)
+					{
+						var l = cstar % 5 == 0 ? size : cstar % 5;
+						for (int i = 0; i < l; i++)
+							stars[i] = type;
+					}
 					return stars;
 				}
 				return default;
@@ -363,6 +364,7 @@ namespace SGame
 		public bool isTable;
 		public int max;
 		public int maxlv;
+		public int maxStar;
 
 		public List<Machine> stations = new List<Machine>();
 
@@ -402,7 +404,7 @@ namespace SGame
 		{
 			if (lvcfg.IsValid()) star = lvcfg.MachineStar;
 			if (!ConfigSystem.Instance.TryGet<MachineRowData>(id, out cfg)) isTable = true;
-			else
+			else if (max <= 0)
 			{
 				var ls = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => c.Machine == id);
 				max = ls.Count;
