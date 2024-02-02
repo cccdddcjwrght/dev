@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameTools.Paths;
+using log4net;
+using OfficeOpenXml.Style;
 using UnityEngine;
 using Unity.Entities;
 using Unity.VisualScripting;
@@ -15,6 +17,8 @@ namespace SGame
     /// </summary>
     public class Character : MonoBehaviour
     {
+        private static ILog log = LogManager.GetLogger("game.character");
+        
         /// <summary>
         /// 脚本数据
         /// </summary>
@@ -29,6 +33,11 @@ namespace SGame
         /// Entity对象
         /// </summary>
         public Entity entity;
+
+        /// <summary>
+        /// 食物Enitty
+        /// </summary>
+        public Entity m_food { get; private set; }
 
         /// <summary>
         /// 角色实例化ID
@@ -86,6 +95,84 @@ namespace SGame
             entityManager.SetComponentData(entity, find);
         }
 
+        /// <summary>
+        /// 创建食物
+        /// </summary>
+        /// <param name="foodType"></param>
+        public Entity CreateFood(int foodType)
+        {
+            var req = entityManager.CreateEntity(typeof(SpawnFoodRequestTag));
+            var q1 = quaternion.Euler(-math.PI / 2, 0, 0, math.RotationOrder.ZXY);
+
+            m_food = FoodModule.Instance.CreateFood(foodType, new float3(0, 0.5f, 0.5f), quaternion.identity);
+            AddChild(m_food);
+            return m_food;
+        }
+
+        // 添加子节点
+        public void AddChild(Entity e)
+        {
+            Utils.AddEntityChild(entity, e);
+        }
+        
+        // 删除子节点
+        private void RemoveChild(Entity e)
+        {
+            Utils.RemoveEntityChild(entity, e);
+        }
+        
+        /// <summary>
+        /// 拿取食物
+        /// </summary>
+        /// <param name="food"></param>
+        public void TakeFood(Entity food)
+        {
+            // 设置父节点为自己
+            entityManager.SetComponentData(food, new Translation() {Value = new float3(0, 0.5f, 0.1f)});
+            entityManager.SetComponentData(food, new Rotation(){Value = quaternion.identity});
+            AddChild(food);
+            this.m_food = food;
+        }
+
+        
+        /// <summary>
+        /// 放置食物到目标位置上去
+        /// </summary>
+        /// <param name="pos"></param>
+        public Entity PlaceFoodToTable(int2 pos)
+        {
+            Entity old = m_food;
+            if (m_food != Entity.Null && entityManager.Exists(m_food))
+            {
+                RemoveChild(m_food);
+                Vector3 postemp = GameTools.MapAgent.CellToVector(pos.x, pos.y);
+                float3 worldPos = postemp;
+                worldPos += new float3(0, 2, 0);
+                entityManager.SetComponentData(m_food, new Translation() { Value = worldPos });
+                entityManager.SetComponentData(m_food, new Rotation() { Value = quaternion.identity });
+            }
+            else
+            {
+                log.Error("FOOD IS EMPTY!!!");
+            }
+            m_food = Entity.Null;
+            return old;
+        }
+
+        /// <summary>
+        /// 清除手上的食物
+        /// </summary>
+        /// <param name="foodType"></param>
+        public void ClearFood()
+        {
+            if (m_food != Entity.Null)
+            {
+                RemoveChild(m_food);
+                FoodModule.Instance.CloseFood(m_food);
+                m_food = Entity.Null;
+            }
+        }
+        
         public bool isMoving
         {
             get
