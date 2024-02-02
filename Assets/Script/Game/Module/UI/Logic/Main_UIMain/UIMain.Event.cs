@@ -26,7 +26,7 @@ namespace SGame.UI{
 			adBtn.onClick.Add(OnadBtnClick);
 			taskBtn.onClick.Add(OntaskBtnClick);
 			
-			m_handles += EventManager.Instance.Reg<int,int>((int)GameEvent.PROPERTY_GOLD,			OnEventGoldChange);
+			m_handles += EventManager.Instance.Reg<int,double>((int)GameEvent.PROPERTY_GOLD,			OnEventGoldChange);
 		}
 
 		private void RenderListItem(int index, GObject item)
@@ -43,7 +43,7 @@ namespace SGame.UI{
 
 
 		// 金币添加事件
-		void OnEventGoldChange(int newValue, int Id)
+		void OnEventGoldChange(int Id,double newValue)
 		{
 			log.Info("On Gold Update add  newvalue=" + newValue + " id=" + Id);
 			m_itemProperty.AddNum(Id, -newValue);
@@ -53,8 +53,8 @@ namespace SGame.UI{
 
 		void UpdateItemText()
 		{
-			SetGoldText(m_itemProperty.GetNum((int)ItemID.GOLD).ToString());
-			SetDiamondText(m_itemProperty.GetNum((int)ItemID.DIAMOND).ToString());
+			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
+			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)));
 		}
 
 		void OnlevelBtnClick(EventContext context)

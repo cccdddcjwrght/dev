@@ -11,6 +11,7 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_CenterText.URL, typeof(UI_CenterText));
             UIObjectFactory.SetPackageItemExtension(UI_GiftItem.URL, typeof(UI_GiftItem));
             UIObjectFactory.SetPackageItemExtension(UI_PopupUI.URL, typeof(UI_PopupUI));
+            UIObjectFactory.SetPackageItemExtension(UI_CloseBtn.URL, typeof(UI_CloseBtn));
             UIObjectFactory.SetPackageItemExtension(UI_ClickBtn.URL, typeof(UI_ClickBtn));
             UIObjectFactory.SetPackageItemExtension(UI_FuncBtn.URL, typeof(UI_FuncBtn));
             UIObjectFactory.SetPackageItemExtension(UI_AdBtn.URL, typeof(UI_AdBtn));

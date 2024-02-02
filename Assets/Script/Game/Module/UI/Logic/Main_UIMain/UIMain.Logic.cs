@@ -23,8 +23,8 @@ namespace SGame.UI{
 
 			m_itemProperty		= PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
 			m_userData			= DataCenter.Instance.GetUserData();
-			SetGoldText(m_itemProperty.GetNum((int)ItemID.GOLD).ToString());
-			SetDiamondText(m_itemProperty.GetNum((int)ItemID.DIAMOND).ToString());
+			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
+			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)));
 		}
 
 		EntityManager EntityManager

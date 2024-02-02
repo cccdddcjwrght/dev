@@ -18,7 +18,6 @@ namespace SGame.UI{
 			techList.numItems = m_AbilityData.len; 
 			m_entity = context.entity;
 			bgUI.GetChild("close").asButton.onClick.Add(OnClickClose);
-
 		}
 		
 		private void OnClickClose()
@@ -36,11 +35,11 @@ namespace SGame.UI{
 			loader.url = string.Format("ui://Technology/{0}", listData[index].VaultIcon);
 			//等级
 			GTextField levelTxt =  item.asCom.GetChild("level").asTextField;
-			levelTxt.text=levelIndex >= listData[index].abilitLevelList.Count-1?
-				ConstDefine.MAX: listData[index].abilitLevelList[levelIndex].level.ToString();
+			levelTxt.text=string.Format(UIListener.Local("ui_main_btn_upgradelevel"),listData[index].abilitLevelList[levelIndex].level.ToString());
 			//说明
 			GTextField desTxt =  item.asCom.GetChild("Description").asTextField;
-			desTxt.text=listData[index].VaultDes;
+			UIListener.SetTextByKey(desTxt, listData[index].VaultDes);
+			//desTxt.text=listData[index].VaultDes;
 			//当前值
 			GTextField update1Txt= item.asCom.GetChild("update1").asTextField;
 			update1Txt.text=string.Format("{0}%>",listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());
@@ -72,7 +71,7 @@ namespace SGame.UI{
 			{
 				techController.selectedIndex = 2;
 				GTextField maxTxt= techMaxBtn.GetChild("title").asTextField;
-				maxTxt.text = ConstDefine.MAX;
+				UIListener.SetTextByKey(maxTxt,"ui_main_btn_upgrademax");
 				techMaxBtn.enabled = false;
 			}
 
@@ -91,7 +90,7 @@ namespace SGame.UI{
 						listData[index].ID
 						);
 				}
-				EventManager.Instance.Trigger(((int)GameEvent.PROPERTY_GOLD), itemNum,(int)ItemID.DIAMOND);
+				EventManager.Instance.Trigger(((int)GameEvent.PROPERTY_GOLD),(int)ItemID.DIAMOND,itemNum);
 				m_view.m_techList.numItems = m_AbilityData.len; 
 			});
 			

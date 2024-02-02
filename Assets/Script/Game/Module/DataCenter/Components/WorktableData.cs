@@ -100,6 +100,7 @@ namespace SGame
 
 					var pmac = 0;
 					var prp = 0;
+					var cost = w.GetUpCost();
 					if (w.lvcfg.IsValid())
 					{
 						pmac = w.lvcfg.Num;
@@ -111,7 +112,7 @@ namespace SGame
 					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 100;
 
 					//升级消耗
-					PropertyManager.Instance.UpdateByArgs(true, w.lvcfg.GetUpgradePriceArray());
+					PropertyManager.Instance.Update(w.lvcfg.UpgradePrice(0), w.lvcfg.UpgradePrice(1), cost, true);
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
 
 					if (w.lvcfg.MachineStar > w.star)//升星奖励
@@ -122,19 +123,6 @@ namespace SGame
 					}
 					return w;
 				}
-				return default;
-			}
-
-			/// <summary>
-			/// 空闲点位【暂时没什么】
-			/// </summary>
-			/// <param name="id"></param>
-			/// <returns></returns>
-			public static Machine GetFreeMachine(int id)
-			{
-				var w = GetWorktable(id);
-				if (w != null && w.stations?.Count > 0)
-					return w.stations.Find(s => s.state == 0 && s.cfg.Nowork != 1);
 				return default;
 			}
 
@@ -296,8 +284,9 @@ namespace SGame
 			{
 				if (worktable != null && worktable.cfg.IsValid())
 				{
+					var cost = worktable.GetUpCost(out var type, out var id);
 					if (worktable.level >= worktable.maxlv) return Error_Code.LV_MAX;
-					if (worktable.level > 0 && !PropertyManager.Instance.CheckCountByArgs(worktable.lvcfg.GetUpgradePriceArray()))
+					if (worktable.level > 0 && !PropertyManager.Instance.CheckCount(id, cost, type))
 						return Error_Code.ITEM_NOT_ENOUGH;
 					return 0;
 				}
@@ -396,6 +385,24 @@ namespace SGame
 			{
 				var t = cfg.Time * lvcfg.TimeRatio * 0.01d;
 				return (t / AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.WorkSpeed, id)).Round();
+			}
+			return 0;
+		}
+
+
+		public double GetUpCost()
+		{
+			return GetUpCost(out _, out _);
+		}
+
+		public double GetUpCost(out int type, out int id)
+		{
+			type = id = 0;
+			if (!isTable && lvcfg.IsValid())
+			{
+				type = lvcfg.UpgradePrice(0);
+				id = lvcfg.UpgradePrice(1);
+				return (lvcfg.UpgradePrice(2) * cfg.UpgradeRatio * 0.01d).ToInt();
 			}
 			return 0;
 		}
