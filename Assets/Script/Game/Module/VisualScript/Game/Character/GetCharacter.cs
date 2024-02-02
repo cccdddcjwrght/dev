@@ -3,10 +3,6 @@ using Unity.VisualScripting;
 
 namespace SGame.VS
 {
-    /// <summary>
-    /// 通过角色ID获得角色对象
-    /// </summary>
-	
 	[UnitTitle("GetCharacter")] //The Custom Scripting Event node to receive the Event. Add "On" to the node title as an Event naming convention.
     [UnitCategory("Game/Character")]
     public sealed class GetCharacter : Unit
