@@ -71,12 +71,14 @@ public class ItemGroup
 
 			item.num = value;
 			m_itemData.Values[cur_index] = item;
+			EventManager.Instance.Trigger(((int)GameEvent.PROPERTY_GOLD));
 			return true;
 		}
 
 		// 添加新数据
 		m_itemData.Values.Add(new ItemData.Value() { id = id, num = value });
 		m_values.Add(id, m_itemData.Values.Count - 1);
+		
 		return true;
 	}
 
@@ -104,7 +106,7 @@ public class ItemGroup
 	{
 		if (!CanAddNum(id, add_value))
 			return false;
-
+		
 		return SetNum(id, GetNum(id) + add_value);
 	}
 

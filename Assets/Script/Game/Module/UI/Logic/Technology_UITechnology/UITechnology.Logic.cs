@@ -90,7 +90,8 @@ namespace SGame.UI{
 						listData[index].ID
 						);
 				}
-				EventManager.Instance.Trigger(((int)GameEvent.PROPERTY_GOLD),(int)ItemID.DIAMOND,itemNum);
+
+				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, -itemNum);
 				m_view.m_techList.numItems = m_AbilityData.len; 
 			});
 			
