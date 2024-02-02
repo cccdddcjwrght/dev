@@ -52,7 +52,7 @@ namespace SGame
 							if (cfg.RoleId == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_TABLE), cfg.TableId(0));
 							//添加角色
-							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Num, cfg.TableId(0));
+							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, cfg.TableId(0));
 						}
 					}
 				}
