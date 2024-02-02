@@ -9,7 +9,10 @@ namespace SGame.UI{
 	
 	public partial class UIHud
 	{
+		private int __id;
+
 		partial void InitUI(UIContext context){
+			__id = context.configID;
 			UIListener.ListenerIcon(m_view.m_rrr, new EventCallback1(_OnRrrClick));
 			UIListener.ListenerIcon(m_view.m_pgr, new EventCallback1(_OnPgrClick));
 			UIListener.ListenerIcon(m_view.m_tr, new EventCallback1(_OnTrClick));

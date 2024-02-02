@@ -9,7 +9,10 @@ namespace SGame.UI{
 	
 	public partial class UIMain
 	{
+		private int __id;
+
 		partial void InitUI(UIContext context){
+			__id = context.configID;
 			m_view.m_main.onChanged.Add(new EventCallback1(_OnMainChanged));
 			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick));
 			UIListener.ListenerIcon(m_view.m_leftList, new EventCallback1(_OnLeftListClick));

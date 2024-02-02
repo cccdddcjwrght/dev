@@ -9,7 +9,10 @@ namespace SGame.UI{
 	
 	public partial class UITechnology
 	{
+		private int __id;
+
 		partial void InitUI(UIContext context){
+			__id = context.configID;
 
 		}
 		partial void UnInitUI(UIContext context){
