@@ -16,7 +16,7 @@ MonoBehaviour:
   groups:
   - ident: 0
     name: Base
-    visible: 1
+    visible: 0
     combined: 0
     tileSize: 1
     tileHeight: 1
@@ -8262,7 +8262,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   - ident: 1
     name: Area
-    visible: 1
+    visible: 0
     combined: 0
     tileSize: 1
     tileHeight: 1
@@ -8948,7 +8948,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   - ident: 2
     name: Floor
-    visible: 1
+    visible: 0
     combined: 0
     tileSize: 1
     tileHeight: 1
@@ -10693,7 +10693,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   - ident: 3
     name: Build
-    visible: 1
+    visible: 0
     combined: 0
     tileSize: 1
     tileHeight: 1
@@ -11758,7 +11758,128 @@ MonoBehaviour:
     gridYPos: 0
     brushSize: 1
     showPreview: 1
-    tiles: []
+    tiles:
+    - toolIdent: 2
+      data: 0200000016000000000000000000000000000000
+      gridPos:
+        _x: -2
+        _y: 0
+        _z: -13
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - 11dc1c82f607498197e0b8c9f12b2914
+      - 
+      - 
+      meta: 
+    - toolIdent: 2
+      data: 0200000014000000000000000000000000000000
+      gridPos:
+        _x: -1
+        _y: 0
+        _z: -14
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - 4c557236d92b4edeadb26d420fc64970
+      - 
+      - 
+      meta: 
+    - toolIdent: 2
+      data: 0200000014000000000000000000000000000000
+      gridPos:
+        _x: -1
+        _y: 0
+        _z: -14
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - e1ad3e9503da4ef186d62f4478a0e90a
+      - 
+      - 
+      meta: 
+    - toolIdent: 2
+      data: 0200000015000000000000000000000000000000
+      gridPos:
+        _x: 4
+        _y: 0
+        _z: -14
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - 7e26491d4c6a40f8b0d20cb2dd5170c0
+      - 
+      - 
+      meta: 
+    - toolIdent: 2
+      data: 0200000017000000000000000000000000000000
+      gridPos:
+        _x: 6
+        _y: 0
+        _z: -14
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - c0410e48409c4b948ffadaa9931289df
+      - 
+      - 
+      meta: 
+    - toolIdent: 6
+      data: 030000000a0000000000000000000000000000000000000000000000b86b8efb
+      gridPos:
+        _x: -2
+        _y: 0
+        _z: -13
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - 639c4b3e51d44999b3ec6c59127e6c86
+      - 
+      - 
+      - 
+      meta: 
+    - toolIdent: 6
+      data: 0300000008000000000000000000000000000000000000000000000094935c65
+      gridPos:
+        _x: -1
+        _y: 0
+        _z: -14
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - aa664b0d5cd046f1ac198260a02abf89
+      - 
+      - 
+      - 
+      meta: 
+    - toolIdent: 6
+      data: 03000000090000000000000000000000000000000000000000000000b2c7300d
+      gridPos:
+        _x: 4
+        _y: 0
+        _z: -14
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - dddfb454d28349d1be935b7013a313a7
+      - 
+      - 
+      - 
+      meta: 
+    - toolIdent: 6
+      data: 030000000b0000000000000000000000000000000000000000000000001cf227
+      gridPos:
+        _x: 6
+        _y: 0
+        _z: -14
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - 9634c70b9880438ca50ea358da2975c7
+      - 
+      - 
+      - 
+      meta: 
     combinedMeshNames: []
     centreTiles: 1
     enableColor: 0
