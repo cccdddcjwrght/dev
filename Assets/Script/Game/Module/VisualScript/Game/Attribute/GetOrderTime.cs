@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameConfigs;
 using UnityEngine;
 using Unity.VisualScripting;
 using SGame.UI;
@@ -10,42 +11,42 @@ namespace SGame.VS
     // 下单时间
     [UnitTitle("GetOrderTime")] 
     [UnitCategory("Game/Attribute")]
-    public class GetOrderTime : Unit
+    public class GetOrderTime : BaseRoleAttribute
     {
         [DoNotSerialize]
-        public ValueInput m_target;     // 目标类型
-        
-        [DoNotSerialize]
         public ValueOutput resultTime; // 返回下单时间
-
-        private INPUT_TYPE _inputType;
-        
-        [DoNotSerialize]
-        [Inspectable, UnitHeaderInspectable("Type")]
-        public INPUT_TYPE inputType
-        {
-            get => _inputType;
-            set => _inputType = value;
-        }
         
         // 端口定义
         protected override void Definition()
         {
-            if (inputType == INPUT_TYPE.ID)
-            {
-                m_target = ValueInput<int>("CharacterID");
-            }
-            else
-            {
-                m_target = ValueInput<Character>("Character");
-            }
+            base.Definition();
 
-            resultTime          = ValueOutput<float>("value", GetValue);
+            
+            resultTime          = ValueOutput<float>("time", GetValue);
         }
 
+        private static float _baseOrderTime = 0;
+        static float baseOrderTime
+        {
+            get
+            {
+                if (_baseOrderTime == 0)
+                    _baseOrderTime = GlobalDesginConfig.GetFloat("order_time");
+
+                return _baseOrderTime;
+            }
+        }
+
+        /// <summary>
+        /// 获得订单时间
+        /// </summary>
+        /// <param name="flow"></param>
+        /// <returns></returns>
         float GetValue(Flow flow)
         {
-            return 1.0f;
+            int roleID = GetRoleID(flow);
+            double orderSpeed = AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.OrderSpeed);
+            return baseOrderTime / (float)orderSpeed;
         }
     }
 }

@@ -7,15 +7,6 @@ using Unity.Entities;
 
 namespace SGame.VS
 {
-    /// <summary>
-    /// 通过角色ID获得角色对象
-    /// </summary>
-    public enum INPUT_TYPE : uint
-    {
-        ID      = 0, // 角色ID
-        OBJECT  = 1  // 角色对象
-    }
-    
     // 角色煮饭时间
     [UnitTitle("GetCookTime")] 
     [UnitCategory("Game/Attribute")]
