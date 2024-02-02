@@ -38,6 +38,11 @@ namespace SGame
         /// 食物Enitty
         /// </summary>
         public Entity m_food { get; private set; }
+        
+        /// <summary>
+        /// uiEnitty
+        /// </summary>
+        public Entity m_hud { get; private set; }
 
         /// <summary>
         /// 角色实例化ID
@@ -172,7 +177,28 @@ namespace SGame
                 m_food = Entity.Null;
             }
         }
-        
+
+        /// <summary>
+        /// 存储当前hud
+        /// </summary>
+        /// <param name="hud"></param>
+        public void AddHudEntity(Entity hud)
+        {
+            m_hud =hud;
+        }
+
+        /// <summary>
+        /// 关闭当前hud
+        /// </summary>
+        public void ClearHudEntity()
+        {
+            if (m_hud != Entity.Null)
+            {
+                UIUtils.CloseUI(m_hud);
+                m_hud = Entity.Null;
+            }
+        }
+
         public bool isMoving
         {
             get
