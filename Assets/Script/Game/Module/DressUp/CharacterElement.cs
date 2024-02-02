@@ -35,7 +35,7 @@ public class CharacterElement
             if (asset_data != null)
                 return asset_data.isDone;
 
-            asset_data = libx.Assets.LoadAssetAsync(AssetPath, typeof(CharacterElemInfo));
+            asset_data = libx.Assets.LoadAssetAsync(AssetPath, typeof(GameObject));
             return asset_data.isDone;
         }
     }
@@ -67,8 +67,9 @@ public class CharacterElement
     /// <returns></returns>
     public Material GetMaterial()
     {
-        var info = asset_data.asset as CharacterElemInfo;
-        foreach (var m in info.materials)
+        var info = asset_data.asset as GameObject;//CharacterElemInfo;
+        var materials = info.GetComponent<CharacterElemInfo>().materials;
+        foreach (var m in materials)
         {
             if (m.name.ToLower() == name)
                 return m;
@@ -83,7 +84,7 @@ public class CharacterElement
     /// <returns></returns>
     public SkinnedMeshRenderer GetSkinnedMeshRenderer()
     {
-        var info = asset_data.asset as CharacterElemInfo;
+        var info = asset_data.asset as GameObject;//CharacterElemInfo;
         GameObject go = (GameObject)GameObject.Instantiate(info.gameObject);
         go.GetComponent<Renderer>().material = GetMaterial();
         return (SkinnedMeshRenderer)go.GetComponent<Renderer>();
@@ -95,7 +96,8 @@ public class CharacterElement
     /// <returns></returns>
     public string[] GetBoneNames()
     {
-        var info = asset_data.asset as CharacterElemInfo;
-        return info.bones;
+        var info = asset_data.asset as GameObject;//CharacterElemInfo;
+        return info.GetComponent<CharacterElemInfo>().bones;
+        //return info.bones;
     }
 }

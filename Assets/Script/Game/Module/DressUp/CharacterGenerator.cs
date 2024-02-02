@@ -227,14 +227,18 @@ public class CharacterGenerator
             // 检测基础部件
             if (!CurrentCharacterBase.isDone) return false;
 
-            // 下面与 CurrentCharacterBase.isDone 是重复代码, 后续删除
-            //if (!characterBaseRequests.ContainsKey(currentCharacter))
-            //    characterBaseRequests.Add(currentCharacter, CurrentCharacterBase.assetBundle.LoadAssetAsync("characterbase", typeof(GameObject)));
-            //if (!characterBaseRequests[currentCharacter].isDone) return false;
-
+            // 判断base是否加载完成
+            if (CurrentCharacterBase.isDone == false)
+                return false;
+            
             // 检测要生成的其余部件
             foreach (CharacterElement c in currentConfiguration.Values)
-                if (!c.IsLoaded) return false;
+            {
+                if (!c.IsLoaded)
+                {
+                    return false;
+                }
+            }
 
             return true;
         }

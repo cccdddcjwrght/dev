@@ -117,16 +117,7 @@ namespace SGame
             
             return Entity.Null;
         }
-
-        /// <summary>
-        /// 加载基础角色预制
-        /// </summary>
-        /// <returns></returns>
-        AssetRequest LoadBaseCharacter()
-        {
-            return Assets.LoadAssetAsync("Assets/BuildAsset/CustomCharacters/CharacterBase.prefab", typeof(GameObject));
-        }
-
+        
         /// <summary>
         /// 加载AI脚本
         /// </summary>
