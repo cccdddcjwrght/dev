@@ -5,6 +5,7 @@ using GameConfigs;
 using Unity.Entities;
 using UnityEngine;
 using System.Globalization;
+using Unity.Transforms;
 using System.Text;
 
 namespace SGame
@@ -358,5 +359,73 @@ namespace SGame
 		}
 		#endregion
 
+
+        /// <summary>
+        /// 添加子节点
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="child"></param>
+        public static void AddEntityChild(Entity parent, Entity child)
+        {
+            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+            // 父节点设置
+            DynamicBuffer<Child> childBuffer;
+            if (!EntityManager.HasComponent<Child>(parent))
+            {
+                childBuffer = EntityManager.AddBuffer<Child>(parent);
+            }
+            else
+            {
+                childBuffer = EntityManager.GetBuffer<Child>(parent);
+            }
+            childBuffer.Add(new Child() { Value = child });
+
+            // 关联子节点, 必须的又LocalToParent
+            if (!EntityManager.HasComponent<Parent>(child))
+            {
+                EntityManager.AddComponent<Parent>(child);
+            }
+            EntityManager.SetComponentData(child, new Parent() { Value = parent });
+            if (EntityManager.HasComponent<LocalToWorld>(child) && !EntityManager.HasComponent<LocalToParent>(child))
+            {
+                EntityManager.AddComponent<LocalToParent>(child);
+            }
+        }
+
+        /// <summary>
+        /// 删除子节点
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="Child"></param>
+        public static void RemoveEntityChild(Entity parent, Entity child)
+        {
+            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            
+            // 删除父节点中的子节点
+            if (EntityManager.HasComponent<Child>(parent))
+            {
+                var childBuffer = EntityManager.AddBuffer<Child>(parent);
+                for (int i = 0; i < childBuffer.Length; i++)
+                {
+                    if (childBuffer[i].Value == child)
+                    {
+                        childBuffer.RemoveAtSwapBack(i);
+                        break;
+                    }
+                }
+            }
+
+            if (EntityManager.HasComponent<Parent>(child))
+            {
+                // 防止经常删除添加, 这里直接使用赋值
+                EntityManager.RemoveComponent<Parent>(child);
+            }
+
+            if (EntityManager.HasComponent<LocalToParent>(child))
+            {
+                EntityManager.RemoveComponent<LocalToParent>(child);
+            }
+        }
 	}
 }
