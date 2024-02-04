@@ -8,30 +8,53 @@ namespace SGame
     [UpdateInGroup(typeof(GameLogicGroup))]
     public partial class PropertyDataChangeTriggerSystem : SystemBase
     {
-        private double m_preGold;
-        private ItemGroup m_itemGroup;
-        
+        /// <summary>
+        /// 属性事件触发器
+        /// </summary>
+        class PropertyChangeTrigger
+        {
+            private ItemGroup   m_itemGroup;
+            private int         m_itemID;
+            private double      m_preValue = 0;
+            private int         m_eventID;
+
+           public  PropertyChangeTrigger(GameEvent eventID, ItemID itemID)
+            {
+                m_itemGroup = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);;
+                m_itemID = (int)itemID;
+                m_preValue = 0;
+                m_eventID = (int)eventID;
+            }
+
+            public void Update()
+            {
+                double value = m_itemGroup.GetNum((m_itemID));
+                if (m_preValue != value)
+                {
+                    // 更新事件
+                    var newValue = value;
+                    EventManager.Instance.Trigger(m_eventID, newValue, newValue - value);
+                    m_preValue = newValue;
+                }
+            }
+        }
+        private List<PropertyChangeTrigger> m_triggers;
+
         protected override void OnCreate()
         {
-            m_preGold = 0;
         }
 
         protected override void OnUpdate()
         {
             if (PropertyManager.Instance.IsInitalize == false)
                 return;
-
-            if (m_itemGroup == null)
+            
+            if (m_triggers == null)
+                Init();
+            
+            foreach (var trigger in m_triggers)
             {
-                m_itemGroup = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
-            }
-
-            if (m_preGold != m_itemGroup.GetNum((int)ItemID.GOLD))
-            {
-                // 更新事件
-                var newValue = m_itemGroup.GetNum((int)ItemID.GOLD);
-                EventManager.Instance.Trigger((int)GameEvent.PROPERTY_GOLD_CHANGE, newValue, newValue - m_preGold);
-                m_preGold = newValue;
+                trigger.Update();
             }
         }
     }
