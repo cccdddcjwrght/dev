@@ -18,10 +18,11 @@ namespace SGame
 				if (ConfigSystem.Instance.TryGet<RoomRowData>(id, out var cfg))
 				{
 					var room = new Room() { id = id };
-					PropertyManager
+					//³õÊ¼½ð±Ò
+					/*PropertyManager
 						.Instance
 						.GetGroup(PropertyGroup.ITEM)
-						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));
+						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));*/
 
 					if (iscurrent)
 					{
