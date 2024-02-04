@@ -11,7 +11,7 @@ namespace SGame
         {
             m_triggers = new List<PropertyChangeTrigger>();
             m_triggers.Add(new PropertyChangeTrigger(GameEvent.PROPERTY_GOLD_CHANGE, ItemID.GOLD));
-            m_triggers.Add(new PropertyChangeTrigger(GameEvent.PROPERTY_GOLD_CHANGE, ItemID.DIAMOND));
+            m_triggers.Add(new PropertyChangeTrigger(GameEvent.PROPERTY_DIAMOND_CHANGE, ItemID.DIAMOND));
         }
     }
 }
