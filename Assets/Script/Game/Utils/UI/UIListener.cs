@@ -92,6 +92,14 @@ public class UIListener
 	}
 	#endregion
 
+	static public string GetUIRes(string pkg, string res, string defpkg = null)
+	{
+		var url = !string.IsNullOrEmpty(pkg) ? UIPackage.GetItemURL(pkg, res) : UIPackage.NormalizeURL(res);
+		if (string.IsNullOrEmpty(url) && defpkg != null)
+			url = UIPackage.GetItemURL(defpkg, res);
+		return url;
+	}
+
 	static public string MatchReplace(string key)
 	{
 		return key;
@@ -271,14 +279,15 @@ public class UIListener
 	{
 		if (gObject != null)
 		{
-			if (!string.IsNullOrEmpty(pkg))
-				icon = UIPackage.GetItemURL(pkg, icon);
-			gObject.icon = icon;
+			const string def_pkg = "Common";
+			var url = GetUIRes(pkg ?? gObject.packageItem.owner.name, icon, def_pkg);
+			if (string.IsNullOrEmpty(url)) return;
+			gObject.icon = url;
 			var com = gObject.asCom;
 			if (com != null)
 			{
-				var o = com.GetChild("__icon");
-				if (o != null) o.icon = icon;
+				var o = com.GetChild("__icon") ?? com.GetChild("icon");
+				if (o != null) o.icon = url;
 			}
 		}
 	}
@@ -439,6 +448,8 @@ public class UIListener
 				Listener(btn, method, remove: remove);
 		}
 	}
+
+
 
 }
 
