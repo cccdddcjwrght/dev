@@ -101,6 +101,7 @@ namespace SGame.Dining
 		{
 			if (_currentRoom != null)
 			{
+				DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID , true);
 				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
 				yield return _currentRoom.Wait();
 			}

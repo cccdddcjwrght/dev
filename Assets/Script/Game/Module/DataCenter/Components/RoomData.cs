@@ -12,9 +12,40 @@ namespace SGame
 		public static class RoomUtil
 		{
 
-			public static Room GetRoom(int id)
+			public static Room NewRoom(int id, bool iscurrent = false)
 			{
-				return Instance.roomData.rooms.Find(x => x.id == id);
+				var d = DataCenter.Instance.roomData;
+				if (ConfigSystem.Instance.TryGet<RoomRowData>(id, out var cfg))
+				{
+					var room = new Room() { id = id };
+					PropertyManager
+						.Instance
+						.GetGroup(PropertyGroup.ITEM)
+						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));
+
+					if (iscurrent)
+					{
+						d.roomID = id;
+						d.rooms.Insert(0, room);
+					}
+					else
+						d.rooms.Add(room);
+					return room;
+				}
+				return default;
+			}
+
+			public static Room GetRoom(int id, bool isnew = false)
+			{
+				var r = Instance.roomData.rooms.Find(x => x.id == id);
+				return r ?? (isnew ? NewRoom(id) : null);
+			}
+
+			public static Room EnterRoom(int id, bool isnew = false)
+			{
+
+				return GetRoom(id, isnew);
+
 			}
 
 			/// <summary>
@@ -82,7 +113,7 @@ namespace SGame
 			get
 			{
 				if (rooms?.Count == 0)
-					rooms = new List<Room> { new Room() { id = 1 } };
+					DataCenter.RoomUtil.NewRoom(1, true);
 				return rooms?.Count > 0 ? rooms[0] : default;
 			}
 		}

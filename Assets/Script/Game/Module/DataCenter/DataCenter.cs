@@ -76,7 +76,7 @@ namespace SGame
 
 		public void Initalize()
 		{
-			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, 99999999);
+			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, 100000);
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, 10000);
 			IsInitAll = true;
 		}

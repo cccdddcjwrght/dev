@@ -134,8 +134,8 @@ namespace SGame.UI
 					Debug.Log("消耗道具不足");
 					break;
 				case 0:
-					var id = info.mid;
-					DataCenter.MachineUtil.AddMachine(id);
+					DataCenter.MachineUtil.AddMachine(info.mid);
+					PropertyManager.Instance.UpdateByArgs(true, data.cfg.GetUnlockPriceArray());
 					SGame.UIUtils.CloseUIByID(__id);
 					break;
 			}
