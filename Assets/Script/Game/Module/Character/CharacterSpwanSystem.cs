@@ -133,9 +133,17 @@ namespace SGame
         {
             if (CharacterGenerator.ReadyToUse == false)
                 return;
-            
-            // 获取数据
-            var commandBuffer = m_commandBuffer.CreateCommandBuffer();
+
+			var commandBuffer = m_commandBuffer.CreateCommandBuffer();
+
+			// 等待角色创建完成
+			Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, Character character) =>
+			{
+				m_triggerInit.Add(new CharacterEvent() { entity = entity, character = character });
+				commandBuffer.AddComponent<CharacterInitalized>(entity);
+			}).WithoutBurst().Run();
+
+			// 获取数据
             Entities.WithNone<CharacterLoading>().ForEach((Entity e, CharacterSpawn req) =>
             {
                 if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData))
@@ -213,18 +221,12 @@ namespace SGame
                 c.entity = characterEntity;
                 c.CharacterID = lasterCharacterID;
                 c.roleType = roleData.Type;
-                
-                // 设置属性
-                commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
+
+				// 设置属性
+				commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
                 commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type});
             }).WithStructuralChanges().WithoutBurst().Run();
             
-            // 等待角色创建完成
-            Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, Character character) =>
-            {
-                m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character});
-                commandBuffer.AddComponent<CharacterInitalized>(entity);
-            }).WithoutBurst().Run();
 
             // 触发事件
             foreach (var item in m_triggerInit)
