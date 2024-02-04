@@ -34,44 +34,43 @@ public struct RoomTechRowData : IFlatbufferObject
 #endif
   public int[] GetTableIdArray() { return __p.__vector_as_array<int>(16); }
   public int RoleId { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Num { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string Name { get { int o = __p.__offset(22); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string Name { get { int o = __p.__offset(20); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(22, 1); }
+  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(20, 1); }
 #else
-  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(22); }
+  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(20); }
 #endif
-  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(22); }
-  public string Des { get { int o = __p.__offset(24); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(20); }
+  public string Des { get { int o = __p.__offset(22); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetDesBytes() { return __p.__vector_as_span<byte>(24, 1); }
+  public Span<byte> GetDesBytes() { return __p.__vector_as_span<byte>(22, 1); }
 #else
-  public ArraySegment<byte>? GetDesBytes() { return __p.__vector_as_arraysegment(24); }
+  public ArraySegment<byte>? GetDesBytes() { return __p.__vector_as_arraysegment(22); }
 #endif
-  public byte[] GetDesArray() { return __p.__vector_as_array<byte>(24); }
-  public string Icon { get { int o = __p.__offset(26); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetDesArray() { return __p.__vector_as_array<byte>(22); }
+  public string Icon { get { int o = __p.__offset(24); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(26, 1); }
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(24, 1); }
 #else
-  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(26); }
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(24); }
 #endif
-  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(26); }
-  public int Mark { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Cost(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CostLength { get { int o = __p.__offset(30); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(24); }
+  public int Mark { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Cost(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CostLength { get { int o = __p.__offset(28); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCostBytes() { return __p.__vector_as_span<int>(30, 4); }
+  public Span<int> GetCostBytes() { return __p.__vector_as_span<int>(28, 4); }
 #else
-  public ArraySegment<byte>? GetCostBytes() { return __p.__vector_as_arraysegment(30); }
+  public ArraySegment<byte>? GetCostBytes() { return __p.__vector_as_arraysegment(28); }
 #endif
-  public int[] GetCostArray() { return __p.__vector_as_array<int>(30); }
-  public string Effects { get { int o = __p.__offset(32); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int[] GetCostArray() { return __p.__vector_as_array<int>(28); }
+  public string Effects { get { int o = __p.__offset(30); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetEffectsBytes() { return __p.__vector_as_span<byte>(32, 1); }
+  public Span<byte> GetEffectsBytes() { return __p.__vector_as_span<byte>(30, 1); }
 #else
-  public ArraySegment<byte>? GetEffectsBytes() { return __p.__vector_as_arraysegment(32); }
+  public ArraySegment<byte>? GetEffectsBytes() { return __p.__vector_as_arraysegment(30); }
 #endif
-  public byte[] GetEffectsArray() { return __p.__vector_as_array<byte>(32); }
+  public byte[] GetEffectsArray() { return __p.__vector_as_array<byte>(30); }
 
   public static Offset<GameConfigs.RoomTechRowData> CreateRoomTechRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -82,21 +81,19 @@ public struct RoomTechRowData : IFlatbufferObject
       int Value = 0,
       VectorOffset TableIdOffset = default(VectorOffset),
       int RoleId = 0,
-      int Num = 0,
       StringOffset NameOffset = default(StringOffset),
       StringOffset DesOffset = default(StringOffset),
       StringOffset IconOffset = default(StringOffset),
       int Mark = 0,
       VectorOffset CostOffset = default(VectorOffset),
       StringOffset EffectsOffset = default(StringOffset)) {
-    builder.StartTable(15);
+    builder.StartTable(14);
     RoomTechRowData.AddEffects(builder, EffectsOffset);
     RoomTechRowData.AddCost(builder, CostOffset);
     RoomTechRowData.AddMark(builder, Mark);
     RoomTechRowData.AddIcon(builder, IconOffset);
     RoomTechRowData.AddDes(builder, DesOffset);
     RoomTechRowData.AddName(builder, NameOffset);
-    RoomTechRowData.AddNum(builder, Num);
     RoomTechRowData.AddRoleId(builder, RoleId);
     RoomTechRowData.AddTableId(builder, TableIdOffset);
     RoomTechRowData.AddValue(builder, Value);
@@ -108,7 +105,7 @@ public struct RoomTechRowData : IFlatbufferObject
     return RoomTechRowData.EndRoomTechRowData(builder);
   }
 
-  public static void StartRoomTechRowData(FlatBufferBuilder builder) { builder.StartTable(15); }
+  public static void StartRoomTechRowData(FlatBufferBuilder builder) { builder.StartTable(14); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(1, Type, 0); }
   public static void AddRoom(FlatBufferBuilder builder, int Room) { builder.AddInt(2, Room, 0); }
@@ -120,16 +117,15 @@ public struct RoomTechRowData : IFlatbufferObject
   public static VectorOffset CreateTableIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartTableIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddRoleId(FlatBufferBuilder builder, int RoleId) { builder.AddInt(7, RoleId, 0); }
-  public static void AddNum(FlatBufferBuilder builder, int Num) { builder.AddInt(8, Num, 0); }
-  public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(9, NameOffset.Value, 0); }
-  public static void AddDes(FlatBufferBuilder builder, StringOffset DesOffset) { builder.AddOffset(10, DesOffset.Value, 0); }
-  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(11, IconOffset.Value, 0); }
-  public static void AddMark(FlatBufferBuilder builder, int Mark) { builder.AddInt(12, Mark, 0); }
-  public static void AddCost(FlatBufferBuilder builder, VectorOffset CostOffset) { builder.AddOffset(13, CostOffset.Value, 0); }
+  public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(8, NameOffset.Value, 0); }
+  public static void AddDes(FlatBufferBuilder builder, StringOffset DesOffset) { builder.AddOffset(9, DesOffset.Value, 0); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(10, IconOffset.Value, 0); }
+  public static void AddMark(FlatBufferBuilder builder, int Mark) { builder.AddInt(11, Mark, 0); }
+  public static void AddCost(FlatBufferBuilder builder, VectorOffset CostOffset) { builder.AddOffset(12, CostOffset.Value, 0); }
   public static VectorOffset CreateCostVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCostVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCostVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddEffects(FlatBufferBuilder builder, StringOffset EffectsOffset) { builder.AddOffset(14, EffectsOffset.Value, 0); }
+  public static void AddEffects(FlatBufferBuilder builder, StringOffset EffectsOffset) { builder.AddOffset(13, EffectsOffset.Value, 0); }
   public static Offset<GameConfigs.RoomTechRowData> EndRoomTechRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomTechRowData>(o);

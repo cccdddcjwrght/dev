@@ -263,5 +263,24 @@ namespace SGame
 
             return table.LeaveChair(customID, chair.chairIndex);
         }
+
+        /// <summary>
+        /// 通过食物类型找到加工台ID
+        /// </summary>
+        /// <param name="foodType"></param>
+        /// <returns></returns>
+        public int FindMachineIDFromFoodType(int foodType)
+        {
+            foreach (var t in m_datas)
+            {
+                if (t.type == TABLE_TYPE.MACHINE)
+                {
+                    if (t.foodType == foodType)
+                        return t.machineID;
+                }
+            }
+            
+            return -1;
+        }
     }
 }

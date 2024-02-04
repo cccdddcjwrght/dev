@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.VisualScripting;
 using SGame.UI;
 using Unity.Entities;
+using log4net;
 
 namespace SGame.VS
 {
@@ -12,6 +13,8 @@ namespace SGame.VS
     [UnitCategory("Game/Attribute")]
     public class GetFoodGold : Unit
     {
+        private static ILog log = LogManager.GetLogger("game.character");
+
         [DoNotSerialize]
         public ValueInput m_target; // 目标类型
         
@@ -43,6 +46,7 @@ namespace SGame.VS
                 m_target = ValueInput<Character>("Character");
             }
 
+            m_foodType = ValueInput<int>("FoodType");
             resultGold  = ValueOutput<double>("gold", GetValue);
         }
 
@@ -53,7 +57,16 @@ namespace SGame.VS
         /// <returns></returns>
         double GetValue(Flow flow)
         {
-            return 100.0;
+            int foodType = flow.GetValue<int>(m_foodType);
+            int machineID = TableManager.Instance.FindMachineIDFromFoodType(foodType);
+            if (machineID < 0)
+            {
+                log.Error("machine id not found foodType = " + foodType);
+                return 0f;
+            }
+
+            double gold = DataCenter.MachineUtil.GetWorkItemPrice(machineID);
+            return gold;
         }
     }
 }
