@@ -39,6 +39,8 @@ namespace SGame
 
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 		PROPERTY_GOLD_CHANGE		= 1001, // 金币更改 (double newValue, double addValue)
+		PROPERTY_DIAMOND_CHANGE		= 1002, // 金币更改 (double newValue, double addValue)
+
 		
 		//操作台=============================================
 		WORK_TABLE_ENABLE			= 2001,//操作台解锁
