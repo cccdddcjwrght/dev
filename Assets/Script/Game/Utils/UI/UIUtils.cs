@@ -255,6 +255,7 @@ namespace SGame
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
 			entityManager.SetComponentData(ui, new HUDTips { title = Utils.ConvertNumberStr(gold), color = color, fontSize = fontSize, speed=speed});
 			entityManager.SetComponentData(ui, new LiveTime { Value = duration });
+			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD,gold);
 			return ui;
 		}
 

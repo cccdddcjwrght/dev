@@ -19,13 +19,6 @@ public class HUDFloatText : IUIScript
         _uiFloatText = context.content as UI_FloatText;
         HUDTips tip = context.gameWorld.GetEntityManager().GetComponentObject<HUDTips>(context.entity);
         _uiFloatText.m_title.text = "+"+tip.title;
-        context.onUpdate += Update;
     }
-
-    void Update(UIContext context)
-    {
-    }
-    
-    
     
 }

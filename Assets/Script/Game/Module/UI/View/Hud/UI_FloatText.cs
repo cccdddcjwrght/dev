@@ -8,6 +8,7 @@ namespace SGame.UI.Hud
     public partial class UI_FloatText : GComponent
     {
         public GTextField m_title;
+        public Transition m_float;
         public const string URL = "ui://clbwsjawjx7g1";
 
         public static UI_FloatText CreateInstance()
@@ -20,6 +21,7 @@ namespace SGame.UI.Hud
             base.ConstructFromXML(xml);
 
             m_title = (GTextField)GetChildAt(0);
+            m_float = GetTransitionAt(0);
         }
     }
 }
