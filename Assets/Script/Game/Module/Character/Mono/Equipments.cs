@@ -10,6 +10,9 @@ namespace SGame
     {
         LEFT_HAND   = 1, // 左手武器
         RIGHT_HAND  = 2, // 右手武器
+        
+        FOOD        = 3, // 食物挂点
+        HUD         = 4, // 头顶HUD信息挂点
     }
     
     public class Equipments : MonoBehaviour

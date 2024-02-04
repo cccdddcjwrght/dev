@@ -77,6 +77,15 @@ namespace SGame
             EventBus.Trigger(CharacterInit.EventHook, script, this);
         }
 
+        /// <summary>
+        /// 获取角色挂点
+        /// </summary>
+        /// <param name="slotType"></param>
+        /// <returns></returns>
+        public Transform GetAttachementPoint(SlotType slotType)
+        {
+            return this.transform;
+        }
 
         /// <summary>
         /// 角色移动到目标位置
