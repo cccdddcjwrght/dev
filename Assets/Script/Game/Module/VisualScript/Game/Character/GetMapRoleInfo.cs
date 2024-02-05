@@ -136,7 +136,7 @@ namespace SGame.VS
                     return true;
                 
                 case RoleType.PLAYER:
-                    roleIds.Add(config.ChefId);
+                    roleIds.Add(config.PlayerId);
                     weights.Add(100);
                     return true;
                 
