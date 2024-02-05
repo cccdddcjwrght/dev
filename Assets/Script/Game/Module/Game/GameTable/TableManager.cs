@@ -282,5 +282,24 @@ namespace SGame
             
             return -1;
         }
+
+        /// <summary>
+        /// 通过工作台ID 找到对应食物类型
+        /// </summary>
+        /// <param name="foodType"></param>
+        /// <returns>-1表示找不到</returns>
+        public int FindFoodTypeFromMachineID(int machineID)
+        {
+            foreach (var t in m_datas)
+            {
+                if (t.type == TABLE_TYPE.MACHINE)
+                {
+                    if (t.machineID == machineID)
+                        return t.machineID;
+                }
+            }
+
+            return -1;
+        }
     }
 }
