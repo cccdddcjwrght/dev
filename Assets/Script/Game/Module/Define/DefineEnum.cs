@@ -163,6 +163,7 @@ namespace SGame
 		Waiter = 2,
 		Customer = 3,
 		Car = 4,
+		Player=5,
 	}
 
 }
