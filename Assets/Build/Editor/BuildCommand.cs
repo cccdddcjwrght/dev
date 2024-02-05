@@ -13,7 +13,7 @@ using System.Text;
 static class BuildCommand
 {
 	//打包前执行
-	static public Action<Func<string,string>> DoBeforeBuild;
+	static public Action<Func<string, string>> DoBeforeBuild;
 	//打包资源接口
 	static public Action<int, int, int> DoBuildAsset;
 	//打包后执行
@@ -562,7 +562,16 @@ static class BuildCommand
 #endif
 
 		var file = KEYSTORE;
-		if (!TryGetEnv(KEYSTORE_FILE, out file) || !File.Exists(file)) file = KEYSTORE;
+		if (!TryGetEnv(KEYSTORE_FILE, out file) || !File.Exists(file))
+		{
+			if (Application.isBatchMode)
+				file = KEYSTORE;
+			else
+			{
+				EditorUtility.DisplayDialog("签名密钥", $"没有找到设置的签名{file},拷贝需要的签名放到工程目录的key文件夹下","取消打包");
+				throw new Exception($"没有找到密钥{file}");
+			}
+		}
 
 		if (!File.Exists(file))
 		{
