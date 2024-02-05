@@ -402,7 +402,7 @@ namespace SGame
 			{
 				type = lvcfg.UpgradePrice(0);
 				id = lvcfg.UpgradePrice(1);
-				return (lvcfg.UpgradePrice(2) * cfg.UpgradeRatio * 0.01d).ToInt();
+				return (0.01d * lvcfg.UpgradePrice(2) * cfg.UpgradeRatio).ToInt();
 			}
 			return 0;
 		}
