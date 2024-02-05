@@ -231,6 +231,26 @@ namespace SGame
 
 			return "";
 		}
+		
+		/// <summary>
+		/// 通过角色类型获得目标类型
+		/// </summary>
+		/// <param name="roleType"></param>
+		/// <returns></returns>
+		public static EnumTarget GetTargetFromRoleTypeEnum(RoleType roleType)
+		{
+			return GetTargetFromRoleType((int)roleType);
+		}
+
+		/// <summary>
+		/// 通过角色类型获得位置标签
+		/// </summary>
+		/// <param name="roleType"></param>
+		/// <returns></returns>
+		public static string GetMapTagFromRoleTypeEnum(RoleType roleType)
+		{
+			return GetMapTagFromRoleType((int)roleType);
+		}
 
 
 		#region 语言

@@ -59,6 +59,13 @@ namespace SGame
                 other.tableID == this.tableID;
         }
 
+        public bool Equals(object other)
+        {
+            if (other.GetType() != typeof(ChairData))
+                return false;
+            return Equals((ChairData)other);
+        }
+
         public static bool operator == (ChairData lhs, ChairData rhs) => lhs.Equals(rhs);
         public static bool operator !=(ChairData lhs, ChairData rhs) => !(lhs == rhs);
 
