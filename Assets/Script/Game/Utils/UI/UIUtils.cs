@@ -260,13 +260,16 @@ namespace SGame
 		}
 
 		public static Entity ShowOrderTips(
-			string url,
+			int foodType,
 			Transform pos)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("ordertip", pos, float3.zero);
 			entityManager.AddComponent<Translation>(ui);
+			entityManager.AddComponent<FoodType>(ui);
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
+			entityManager.SetComponentData(ui, new FoodType { Value = foodType });
+
 			return ui;
 		}
 

@@ -8,8 +8,7 @@ namespace SGame.UI.Hud
     public partial class UI_OrderTip : GComponent
     {
         public GImage m_n0;
-        public GLoader m_n2;
-        public GImage m_n3;
+        public GLoader m_icon;
         public const string URL = "ui://clbwsjawlrli2";
 
         public static UI_OrderTip CreateInstance()
@@ -22,8 +21,7 @@ namespace SGame.UI.Hud
             base.ConstructFromXML(xml);
 
             m_n0 = (GImage)GetChildAt(0);
-            m_n2 = (GLoader)GetChildAt(1);
-            m_n3 = (GImage)GetChildAt(2);
+            m_icon = (GLoader)GetChildAt(1);
         }
     }
 }
