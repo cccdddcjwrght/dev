@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Unity.Entities;
 
 namespace SGame.UI{
@@ -38,14 +39,13 @@ namespace SGame.UI{
 			levelTxt.text=string.Format(UIListener.Local("ui_main_btn_upgradelevel"),listData[index].abilitLevelList[levelIndex].level.ToString());
 			//说明
 			GTextField desTxt =  item.asCom.GetChild("Description").asTextField;
-			UIListener.SetTextByKey(desTxt, listData[index].VaultDes);
-			//desTxt.text=listData[index].VaultDes;
+			desTxt.text=String.Format(UIListener.Local(listData[index].VaultDes),listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());
 			//当前值
 			GTextField update1Txt= item.asCom.GetChild("update1").asTextField;
-			update1Txt.text=string.Format("{0}%>",listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());
+			update1Txt.text=string.Format("{0}",listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());
 			//下一级值
 			GTextField update2Txt= item.asCom.GetChild("update2").asTextField;
-			update2Txt.text = string.Format("{0}%", listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString());
+			update2Txt.text = string.Format("{0}", listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString());
 			//按钮
 			GButton    techBtn=item.asCom.GetChild("techBtn").asButton;
 			GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;
