@@ -103,6 +103,8 @@ namespace SGame
 					case EnumRole.Customer:
 					case EnumRole.Car:
 						return GetValue(EnumTarget.Customer, attributeID, roleID);
+					case EnumRole.Player:
+						return GetValue(EnumTarget.Player, attributeID);
 				}
 			}
 			return 0;
