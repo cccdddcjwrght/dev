@@ -134,6 +134,14 @@ namespace SGame
             if (CharacterGenerator.ReadyToUse == false)
                 return;
             
+            // 触发事件
+            foreach (var item in m_triggerInit)
+            {
+                m_characters.Add(item.character.CharacterID, item.entity);
+                item.character.OnInitCharacter(item.entity, EntityManager);
+            }
+            m_triggerInit.Clear();
+            
             // 获取数据
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.WithNone<CharacterLoading>().ForEach((Entity e, in CharacterSpawn req) =>
@@ -225,14 +233,6 @@ namespace SGame
                 m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character});
                 commandBuffer.AddComponent<CharacterInitalized>(entity);
             }).WithoutBurst().Run();
-
-            // 触发事件
-            foreach (var item in m_triggerInit)
-            {
-                m_characters.Add(item.character.CharacterID, item.entity);
-                item.character.OnInitCharacter(item.entity, EntityManager);
-            }
-            m_triggerInit.Clear();
         }
     }
 }
