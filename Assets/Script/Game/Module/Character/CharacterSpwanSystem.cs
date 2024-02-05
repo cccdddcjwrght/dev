@@ -213,6 +213,11 @@ namespace SGame
                 ani.transform.localPosition = Vector3.zero;
                 ani.transform.localScale = Vector3.one;
                 ani.name = "Model";
+                if (config.RoleScaleLength == 3)
+                {
+                    var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
+                    ani.transform.localScale = scaleVector;
+                }
                 
                 commandBuffer.DestroyEntity(e);
 

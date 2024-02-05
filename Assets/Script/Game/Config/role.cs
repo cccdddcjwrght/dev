@@ -41,13 +41,23 @@ public struct roleRowData : IFlatbufferObject
   public ArraySegment<byte>? GetAiBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
   public byte[] GetAiArray() { return __p.__vector_as_array<byte>(10); }
+  public float RoleScale(int j) { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
+  public int RoleScaleLength { get { int o = __p.__offset(12); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<float> GetRoleScaleBytes() { return __p.__vector_as_span<float>(12, 4); }
+#else
+  public ArraySegment<byte>? GetRoleScaleBytes() { return __p.__vector_as_arraysegment(12); }
+#endif
+  public float[] GetRoleScaleArray() { return __p.__vector_as_array<float>(12); }
 
   public static Offset<GameConfigs.roleRowData> CreateroleRowData(FlatBufferBuilder builder,
       int ID = 0,
       StringOffset NameOffset = default(StringOffset),
       StringOffset partOffset = default(StringOffset),
-      StringOffset aiOffset = default(StringOffset)) {
-    builder.StartTable(4);
+      StringOffset aiOffset = default(StringOffset),
+      VectorOffset RoleScaleOffset = default(VectorOffset)) {
+    builder.StartTable(5);
+    roleRowData.AddRoleScale(builder, RoleScaleOffset);
     roleRowData.AddAi(builder, aiOffset);
     roleRowData.AddPart(builder, partOffset);
     roleRowData.AddName(builder, NameOffset);
@@ -55,11 +65,15 @@ public struct roleRowData : IFlatbufferObject
     return roleRowData.EndroleRowData(builder);
   }
 
-  public static void StartroleRowData(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void StartroleRowData(FlatBufferBuilder builder) { builder.StartTable(5); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddPart(FlatBufferBuilder builder, StringOffset partOffset) { builder.AddOffset(2, partOffset.Value, 0); }
   public static void AddAi(FlatBufferBuilder builder, StringOffset aiOffset) { builder.AddOffset(3, aiOffset.Value, 0); }
+  public static void AddRoleScale(FlatBufferBuilder builder, VectorOffset RoleScaleOffset) { builder.AddOffset(4, RoleScaleOffset.Value, 0); }
+  public static VectorOffset CreateRoleScaleVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateRoleScaleVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartRoleScaleVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.roleRowData> EndroleRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.roleRowData>(o);
