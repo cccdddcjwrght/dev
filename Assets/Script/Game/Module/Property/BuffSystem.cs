@@ -54,6 +54,8 @@ namespace SGame
 		{
 			if (ConfigSystem.Instance.TryGet<LevelRowData>(scene, out var cfg))
 			{
+				//主角
+				attrSys.Register(((int)EnumTarget.Player), 0, CreateAttribute(1, cfg.PlayerId));
 				//厨师
 				attrSys.Register(((int)EnumTarget.Cook), 0, CreateAttribute(1, cfg.ChefId));
 				//服务员
