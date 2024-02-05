@@ -1,3 +1,4 @@
+using GameTools;
 using GameTools.Paths;
 using log4net;
 using UnityEngine;
@@ -85,6 +86,30 @@ namespace SGame
         public Transform GetAttachementPoint(SlotType slotType)
         {
             return this.transform;
+        }
+
+        /// <summary>
+        /// 最后看向桌子ID
+        /// </summary>
+        /// <param name="tableID"></param>
+        public void LookTable(int tableID)
+        {
+            if (tableID <= 0)
+            {
+                entityManager.HasComponent<LookAtTable>(entity);
+                entityManager.RemoveComponent<LookAtTable>(entity);
+                return;
+            }
+            
+            var tableData = TableManager.Instance.Get(tableID);
+            var pos = tableData.map_pos;
+            var pos3d = GameTools.MapAgent.CellToVector(pos.x, pos.y);
+            if (!entityManager.HasComponent<LookAtTable>(entity))
+            {
+                entityManager.AddComponent<LookAtTable>(entity);
+            }
+            
+            entityManager.SetComponentData(entity, new LookAtTable() { Value = pos3d });
         }
 
         /// <summary>
