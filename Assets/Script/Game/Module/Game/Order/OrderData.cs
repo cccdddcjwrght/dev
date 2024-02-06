@@ -277,5 +277,13 @@ namespace SGame
             this.progress = ORDER_PROGRESS.FINISH;
             return true;
         }
+
+        /// <summary>
+        /// 判断订单是否结束
+        /// </summary>
+        public bool IsFinished
+        {
+            get { return progress == ORDER_PROGRESS.FINISH; }
+        }
     }
 }
