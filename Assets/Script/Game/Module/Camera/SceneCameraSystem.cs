@@ -438,6 +438,7 @@ namespace SGame
 
 		void Init()
 		{
+			#if !DISABLE_CAMERA
 			sceneXMove = xMove;
 			sceneZMove = zMove;
 			sceneFOV = fieldOfView;
@@ -448,6 +449,8 @@ namespace SGame
 			LiveVCamera(_vcamera);
 			Return();
 			isInited = true;
+			#endif
+
 		}
 
 		void InitCameraBrain()
