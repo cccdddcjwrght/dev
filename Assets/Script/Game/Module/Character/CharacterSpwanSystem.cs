@@ -26,14 +26,18 @@ namespace SGame
             // ID
             public int id;
 
-            public static Entity Create(int id, Vector3 pos)
+            // 是否使用属性系统
+            public bool hasAttribute;
+
+            public static Entity Create(int id, Vector3 pos, bool hasAttriburte = true)
             {
                 var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 var entity = mgr.CreateEntity(typeof(CharacterSpawn));
                 mgr.SetComponentData(entity, new CharacterSpawn()
                 {
                     id = id,
-                    pos = pos
+                    pos = pos,
+                    hasAttribute = hasAttriburte
                 });
 
                 return entity;
@@ -200,6 +204,10 @@ namespace SGame
                 Entity characterEntity = EntityManager.Instantiate(m_characterPerfab);
                 EntityManager.AddComponentObject(characterEntity, c);
                 EntityManager.AddComponentObject(characterEntity, c.transform);
+
+                // 禁用属性系统
+                if (!req.hasAttribute)
+                    EntityManager.AddComponent<DisableAttributeTag>(characterEntity);
 
                 // 创建AI
                 GameObject ai       = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);

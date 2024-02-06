@@ -15,9 +15,9 @@ namespace SGame
         /// <param name="id"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public Entity Create(int id, Vector3 pos)
+        public Entity Create(int id, Vector3 pos, bool hasAttribute = true)
         {
-            return CharacterSpawnSystem.CharacterSpawn.Create(id, pos);
+            return CharacterSpawnSystem.CharacterSpawn.Create(id, pos, hasAttribute);
         }
 
         /// <summary>

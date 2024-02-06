@@ -41,6 +41,13 @@ namespace SGame.VS
         /// </summary>
         [DoNotSerialize]
         public ValueInput mapTag { get; private set; }
+        
+        
+        /// <summary>
+        /// 是否启用属性系统
+        /// </summary>
+        [DoNotSerialize]
+        public ValueInput hasAttribute { get; private set; }
 
         protected override void Definition()
         {
@@ -48,12 +55,13 @@ namespace SGame.VS
             {
                 var id =  flow.GetValue<int>(roleID);
                 var tag = flow.GetValue<string>(mapTag);
+                var attr = flow.GetValue<bool>(hasAttribute);
 
                 if (string.IsNullOrEmpty(tag))
                 {
                     // 直接使用地址
                     var pos = flow.GetValue<int2>(mapPos);
-                    CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y));
+                    CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
                 }
                 else
                 {
@@ -63,7 +71,7 @@ namespace SGame.VS
                     {
                         var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count);
                         var pos = map_pos[posIndex];
-                        CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y));
+                        CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
                     }
                     else
                     {
@@ -76,6 +84,7 @@ namespace SGame.VS
             roleID      = ValueInput<int>("roleID", 0);
             mapPos      = ValueInput<int2>("mapPos", int2.zero);
             mapTag      = ValueInput<string>("mapTag", "");
+            hasAttribute = ValueInput<bool>("hasAttribute", true);
             outputTrigger = ControlOutput("Output");
         }
     }

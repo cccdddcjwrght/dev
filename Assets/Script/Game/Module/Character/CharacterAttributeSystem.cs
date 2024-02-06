@@ -21,7 +21,7 @@ namespace SGame
         protected override void OnUpdate()
         {
             // 计算速度属性
-            Entities.WithAll<CharacterSpawnSystem.CharacterInitalized>().ForEach((
+            Entities.WithNone<DisableAttributeTag>().WithAll<CharacterSpawnSystem.CharacterInitalized>().ForEach((
                 Entity e, 
                 ref Speed speed, 
                 in CharacterAttribue attr
