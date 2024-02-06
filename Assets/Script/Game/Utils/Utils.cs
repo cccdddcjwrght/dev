@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Globalization;
 using Unity.Transforms;
 using System.Text;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -446,6 +447,23 @@ namespace SGame
             {
                 EntityManager.RemoveComponent<LocalToParent>(child);
             }
+        }
+
+        /// <summary>
+        /// 获取旋转角度, 以二维里的Y轴为起点
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns>0-360 角度</returns>
+        public static float GetRotation(float x, float y)
+        {
+	        Vector2 dir = new Vector2(x, y);
+	        dir = dir.normalized;
+	        float cosAngle = Mathf.Acos(dir.y); // 通过反余弦计算角度
+		    if (x >= 0)
+			    return cosAngle * Mathf.Rad2Deg;
+
+		    return 360 - cosAngle * Mathf.Rad2Deg;
         }
 	}
 }

@@ -3,8 +3,8 @@ using Unity.Mathematics;
 namespace SGame
 {
     // 看向左面位置
-    public struct LookAtTable : IComponentData
+    public struct LastRotation : IComponentData
     {
-        public float3 Value;
+        public quaternion Value;
     }
 }

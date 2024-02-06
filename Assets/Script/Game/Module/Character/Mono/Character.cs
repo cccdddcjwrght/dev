@@ -1,3 +1,4 @@
+using System;
 using GameTools;
 using GameTools.Paths;
 using log4net;
@@ -89,27 +90,28 @@ namespace SGame
         }
 
         /// <summary>
-        /// 最后看向桌子ID
+        /// 设置角色移动完最后的朝向
         /// </summary>
-        /// <param name="tableID"></param>
-        public void LookTable(int tableID)
+        /// <param name="rot">旋转角度0-360, 负数表示没有</param>
+        public void LastRotation(float rot)
         {
-            if (tableID <= 0)
+            if (rot < 0)
             {
-                entityManager.HasComponent<LookAtTable>(entity);
-                entityManager.RemoveComponent<LookAtTable>(entity);
+                entityManager.HasComponent<LastRotation>(entity);
+                entityManager.RemoveComponent<LastRotation>(entity);
                 return;
             }
-            
-            var tableData = TableManager.Instance.Get(tableID);
-            var pos = tableData.map_pos;
-            var pos3d = GameTools.MapAgent.CellToVector(pos.x, pos.y);
-            if (!entityManager.HasComponent<LookAtTable>(entity))
+
+            if (!entityManager.HasComponent<LastRotation>(entity))
             {
-                entityManager.AddComponent<LookAtTable>(entity);
+                entityManager.AddComponent<LastRotation>(entity);
             }
             
-            entityManager.SetComponentData(entity, new LookAtTable() { Value = pos3d });
+            //float2 dir = new float2(math.cos(rot * Mathf.Deg2Rad), math.sin(Mathf.Deg2Rad * rot));
+            // 绕Y轴旋转
+            quaternion value = quaternion.AxisAngle(new float3(0, 1, 0), rot * Mathf.Deg2Rad);
+            //quaternion value = quaternion.LookRotation(new float3(dir.x, 0, dir.y), new float3(0, 1, 0));
+            entityManager.SetComponentData(entity, new LastRotation() { Value = value });
         }
 
         /// <summary>

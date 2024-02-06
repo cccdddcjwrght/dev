@@ -14,7 +14,7 @@ namespace SGame
         {
             var mapInfo = AStar.map.GetMapInfo();
             float deltaTime = Time.DeltaTime;
-            Entities.WithNone<LookAtTable>().ForEach(
+            Entities.WithNone<LastRotation>().ForEach(
                 (   Entity                       e, 
                 ref Rotation                     rot, 
                 in  DynamicBuffer<PathPositions> paths, 
@@ -44,23 +44,23 @@ namespace SGame
                     in Follow follow,
                     in Translation translation,
                     in RotationSpeed speed,
-                    in LookAtTable lookAt) =>
+                    in LastRotation lookAt) =>
                 {
-                    float3 target_pos = float3.zero;
+                    quaternion target_rot = quaternion.identity;
                     if (follow.Value <= 0)
                     {
-                        target_pos = lookAt.Value;
+                        target_rot = lookAt.Value;
                     }
                     else
                     {
                         int targetIndex     = follow.Value - 1;
                         var map_pos     = paths[targetIndex].Value;
-                        target_pos   = AStar.GetPos(map_pos.x, map_pos.y, mapInfo);
+                        float3 target_pos   = AStar.GetPos(map_pos.x, map_pos.y, mapInfo);
+                        float3 dir = target_pos - translation.Value;
+                        dir.y = 0;
+                        target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
                     }
-                    float3 dir = target_pos - translation.Value;
-                    dir.y = 0;
-                
-                    quaternion target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
+
                     rot.Value = math.slerp(rot.Value, target_rot, deltaTime * speed.Value);;
                 }).WithoutBurst().ScheduleParallel();
         }
