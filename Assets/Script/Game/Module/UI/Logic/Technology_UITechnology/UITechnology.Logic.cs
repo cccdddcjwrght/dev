@@ -42,10 +42,21 @@ namespace SGame.UI{
 			desTxt.text=String.Format(UIListener.Local(listData[index].VaultDes),listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());
 			//当前值
 			GTextField update1Txt= item.asCom.GetChild("update1").asTextField;
-			update1Txt.text=string.Format("{0}",listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());
 			//下一级值
 			GTextField update2Txt= item.asCom.GetChild("update2").asTextField;
-			update2Txt.text = string.Format("{0}", listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString());
+			int type = m_AbilityData.GetValueType(listData[index].abilitLevelList[levelIndex].BuffType);
+			if (type == 1)
+			{
+				
+				update1Txt.text=string.Format("{0}%",listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());
+				update2Txt.text = string.Format("{0}%", listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString());
+			}
+			else
+			{
+				update1Txt.text=listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString();
+				update2Txt.text = listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString();
+			}
+		
 			//按钮
 			GButton    techBtn=item.asCom.GetChild("techBtn").asButton;
 			GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;

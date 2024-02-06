@@ -75,6 +75,7 @@ namespace SGame
                 VaultIcon = vaultIcon,
                 VaultDes  = valutDes,
                 LockData = lockData,
+                
                 abilitLevelList = abilityLevelList
             };
 
@@ -126,6 +127,18 @@ namespace SGame
             {
                 abilityList[index].LevelIndex++;
             }
+        }
+
+        public int GetValueType(int buffID)
+        {
+            if (ConfigSystem.Instance.TryGet<BuffRowData>((c) => (
+                        (BuffRowData)c).ID == buffID,
+                    out var cfg))
+            {
+                return cfg.AddType;
+            }
+
+            return 0;
         }
 
         public void UnLockAbility(int index)
