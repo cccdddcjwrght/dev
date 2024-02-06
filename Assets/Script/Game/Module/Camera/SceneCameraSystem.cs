@@ -69,6 +69,11 @@ namespace SGame
 
 		protected void Start()
 		{
+#if  DISABLE_CAMERA
+			this.gameObject.SetActive(false);
+			return;
+#endif
+			
 			if (isInited) return;
 			libx.Assets
 				.LoadAsset(C_RES_PATH, typeof(GameObject))
