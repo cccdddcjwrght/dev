@@ -30,6 +30,9 @@ namespace SGame
         public float        startTime;                         // 下单时间
         public int          cookTime;                          // 制作时间
         public int          finishTime;                        // 订单完成时间
+
+        public int          orderNum = 1;                      // 订单数量
+        
         public int          customerID { get; private set; }   // 顾客
         public int          servicerID { get; private set; }   // 服务员ID （包含下单和清单)
         public int          cookerID { get; private set; }     // 厨师ID
