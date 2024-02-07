@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using log4net;
 
 
@@ -16,6 +17,15 @@ namespace SGame
         public OrderCounter()
         {
             m_datas = new Dictionary<int, List<int>>();
+        }
+
+        /// <summary>
+        /// 创建一个订单统计
+        /// </summary>
+        /// <returns></returns>
+        public static OrderCounter Create()
+        {
+            return new OrderCounter();
         }
         
         /// <summary>
@@ -72,6 +82,11 @@ namespace SGame
         /// <returns></returns>
         public int GetFoodNum(int foodType)
         {
+            if (foodType == 0 && m_datas.Count > 0)
+            {
+                return m_datas.First().Value.Count;
+            }
+            
             if (!m_datas.TryGetValue(foodType, out List<int> orders))
             {
                 return 0;
