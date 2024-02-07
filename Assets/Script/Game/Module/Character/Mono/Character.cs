@@ -188,7 +188,7 @@ namespace SGame
                 RemoveChild(m_food);
                 Vector3 postemp = GameTools.MapAgent.CellToVector(pos.x, pos.y);
                 float3 worldPos = postemp;
-                worldPos += new float3(0, 2, 0);
+                worldPos += new float3(0, 0.31f, 0);
                 entityManager.SetComponentData(m_food, new Translation() { Value = worldPos });
                 entityManager.SetComponentData(m_food, new Rotation() { Value = quaternion.identity });
             }
