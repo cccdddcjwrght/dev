@@ -9,6 +9,7 @@ namespace SGame.UI.Hud
     {
         public GImage m_n0;
         public GLoader m_icon;
+        public GImage m_n6;
         public GTextField m_num;
         public const string URL = "ui://clbwsjawlrli2";
 
@@ -23,7 +24,8 @@ namespace SGame.UI.Hud
 
             m_n0 = (GImage)GetChildAt(0);
             m_icon = (GLoader)GetChildAt(1);
-            m_num = (GTextField)GetChildAt(2);
+            m_n6 = (GImage)GetChildAt(2);
+            m_num = (GTextField)GetChildAt(3);
         }
     }
 }

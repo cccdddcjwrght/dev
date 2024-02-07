@@ -17,15 +17,15 @@ public class HUDOrderTip : IUIScript
     {
         context.window.contentPane.touchable = false;
         _uiOrderTipUI = context.content as UI_OrderTip;
-        int type = context.gameWorld.GetEntityManager().GetComponentData<FoodType>(context.entity).Value;
+        FoodType type = context.gameWorld.GetEntityManager().GetComponentData<FoodType>(context.entity);
         if (ConfigSystem.Instance.TryGet<ItemRowData>((c) => (
-                    (ItemRowData)c).ItemId == type,
+                    (ItemRowData)c).ItemId == type.Value,
                 out var foodcfg))
         {
             _uiOrderTipUI.m_icon.url=string.Format("ui://Common/{0}",foodcfg.Icon);
         }
 
-        _uiOrderTipUI.m_num.text = "1";
+        _uiOrderTipUI.m_num.text = type.num.ToString();
     }
     
 }
