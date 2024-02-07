@@ -301,5 +301,23 @@ namespace SGame
 
             return -1;
         }
+
+        /// <summary>
+        /// 获得已经打开的食物类型
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetOpenFoodTypes()
+        {
+            List<int> foodTypes = new List<int>();
+            foreach (var t in m_datas)
+            {
+                if (t.type == TABLE_TYPE.MACHINE)
+                {
+                    foodTypes.Add(t.foodType);
+                }
+            }
+
+            return foodTypes;
+        }
     }
 }
