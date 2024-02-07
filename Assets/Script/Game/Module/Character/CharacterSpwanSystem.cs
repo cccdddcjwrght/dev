@@ -238,6 +238,7 @@ namespace SGame
                 // 设置属性
                 commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
                 commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type});
+                commandBuffer.SetComponent(characterEntity, new Speed(){Value = roleData.MoveSpeed});
             }).WithStructuralChanges().WithoutBurst().Run();
             
             // 等待角色创建完成
