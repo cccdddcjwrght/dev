@@ -261,6 +261,7 @@ namespace SGame
 
 		public static Entity ShowOrderTips(
 			int foodType,
+			int foodNum,
 			Transform pos)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -268,8 +269,15 @@ namespace SGame
 			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponent<FoodType>(ui);
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
-			entityManager.SetComponentData(ui, new FoodType { Value = foodType });
+			entityManager.SetComponentData(ui, new FoodType { Value = foodType,num=foodNum });
 
+			return ui;
+		}
+		
+		public static Entity ShowUpdateTip(Transform pos)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = ShowHUD("update", pos, float3.zero);
 			return ui;
 		}
 

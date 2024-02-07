@@ -10,5 +10,6 @@ namespace SGame
     {
         // 食物类型
         public int Value;
+        public int num;
     }
 }

@@ -24,6 +24,8 @@ public class HUDOrderTip : IUIScript
         {
             _uiOrderTipUI.m_icon.url=string.Format("ui://Common/{0}",foodcfg.Icon);
         }
+
+        _uiOrderTipUI.m_num.text = "1";
     }
     
 }
