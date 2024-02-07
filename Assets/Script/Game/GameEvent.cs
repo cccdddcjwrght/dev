@@ -25,7 +25,7 @@ namespace SGame
 		ENTER_ROOM					= 111, //进入场景
 		AFTER_ENTER_ROOM			= 112, //进入场景之后
 
-		ORDER_FAIL					= 200, // 创建新的订单失败
+		ORDER					= 200, // 创建新的订单失败
 		ORDER_FOODMAKED				= 201, // 
 		
 		/// 角色

@@ -12,7 +12,7 @@ namespace SGame
         CUSTOMER = 2, // 顾客, 收菜 区
         OPERATOR = 3, // 操作区
     }
-    
+
     /// <summary>
     /// 座位数据
     /// </summary>

@@ -19,11 +19,19 @@ namespace SGame.VS
         
         [DoNotSerialize]
         public ValueInput customerID; // 角色ID
+        
+        [DoNotSerialize]
+        public ValueInput foodType; // 食物类型
 
         [DoNotSerialize]
         public ValueOutput result;
+
+        [DoNotSerialize]
+        public ValueOutput outFoodType;
         
         private OrderData resultValue;
+
+        private int resultFoodType;
         
         protected override void Definition()
         {
@@ -31,13 +39,17 @@ namespace SGame.VS
             inputTrigger = ControlInput("Input", (flow) =>
             {
                 int customer = flow.GetValue<int>(this.customerID);
-                resultValue = OrderManager.Instance.Create(customer);
+                int food = flow.GetValue<int>(this.foodType);
+                resultFoodType = food;
+                resultValue = OrderManager.Instance.Create(customer, food);
                 return outputTrigger;
             });
             
             customerID = ValueInput<int>("customer", 0);
+            foodType = ValueInput<int>("foodType", 0);
             outputTrigger = ControlOutput("Output");
             result = ValueOutput<OrderData>("Order", (flow) => resultValue);
+            outFoodType = ValueOutput<int>("foodType", (flow) => resultFoodType);
         }
     }
 }

@@ -75,14 +75,13 @@ namespace SGame
         /// <summary>
         /// 创建新的订单
         /// </summary>
-        /// <param name="customID"></param>
-        /// <param name="makerID"></param>
-        /// <param name="foodID"></param>
+        /// <param name="customID">顾客ID</param>
+        /// <param name="foodType">食物类型</param>
         /// <returns></returns>
-        public OrderData Create(int customID)
+        public OrderData Create(int customID, int foodType)
         {
             lastOrderID++;
-            OrderData order = OrderData.Create(lastOrderID, customID);
+            OrderData order = OrderData.Create(lastOrderID, customID, foodType);
             order.startTime = Time.realtimeSinceStartup;
 
             if (!m_datas.TryAdd(order.id, order))
@@ -91,7 +90,6 @@ namespace SGame
                 return null;
             }
             
-            //EventManager.Instance.Trigger((int)GameEvent.ORDER_NEW, order.id);
             return order;
         }
 

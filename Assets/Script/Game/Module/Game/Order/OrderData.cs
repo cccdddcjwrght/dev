@@ -9,16 +9,14 @@ namespace SGame
     /// </summary>
     public enum ORDER_PROGRESS : uint
     {
-         WAIT           = 0, // 等待点餐
-         START          = 1, // 服务员接单
-         ORDING         = 2, // 服务员处理点单中
-         ORDED          = 3, // 顾客下单并结束
-         FOOD_START     = 5, // 厨师接单
-         FOOD_MAKING    = 4, // 制作中
-         FOOD_MAKED     = 5, // 制作完成
-         FOOD_READLY    = 6, // 食物已经放置到该有位置
-         MOVETO_CUSTOM  = 7, // 移动到顾客身边
-         FINISH         = 8, // 订单完成
+         NONE           = 0, // 未知状态
+         ORDED          = 1, // 顾客下单
+         FOOD_START     = 2, // 厨师接单
+         FOOD_MAKING    = 3, // 制作中
+         FOOD_MAKED     = 4, // 制作完成
+         FOOD_READLY    = 5, // 食物已经放置到该有位置
+         MOVETO_CUSTOM  = 6, // 移动到顾客身边
+         FINISH         = 7, // 订单完成
     }
     
     // 订单数据 
@@ -57,12 +55,15 @@ namespace SGame
         /// <param name="ordermakerID">点单的服务员</param>
         /// <param name="foodID">菜品ID</param>
         /// <returns></returns>
-        public static OrderData Create(int id, int customerID)
+        public static OrderData Create(int id, int customerID, int foodType)
         {
             OrderData v = new OrderData();
             v.Clear();
             v.id = id;
             v.customerID = customerID;
+            v.foodType = foodType;
+            v.progress = ORDER_PROGRESS.ORDED;
+            EventManager.Instance.Trigger((int)GameEvent.ORDER, v.id);
             return v;
         }
 
@@ -77,77 +78,11 @@ namespace SGame
              this.cookerID      = 0;                   // 厨师ID
              this.perfect       = false;               // 是否完美菜品
              this.dishPointID   = 0;                   // 放餐点
-             this.foodID        = Entity.Null;      // 菜品ID
+             this.foodID        = Entity.Null;         // 菜品ID
              this.price         = 0;                   // 菜品价格
-             this.progress      = ORDER_PROGRESS.WAIT; // 订单进度
+             this.progress      = ORDER_PROGRESS.NONE; // 订单进度
         }
 
-        /// <summary>
-        /// 开始点单
-        /// </summary>
-        /// <param name="servicerID"></param>
-        /// <returns></returns>
-        public bool StartOrding(int servicerID)
-        {
-            if (progress != ORDER_PROGRESS.WAIT)
-            {
-                log.Error("order progress not match!");
-                return false;
-            }
-
-            this.servicerID = servicerID;
-            this.foodID     = Entity.Null;
-            progress = ORDER_PROGRESS.START;
-            return true;
-        }
-
-        /// <summary>
-        /// 服务员锁定处理订单
-        /// </summary>
-        /// <param name="servicerID">服务员ID</param>
-        /// <param name="foodID">菜品ID</param>
-        /// <returns></returns>
-        public bool Ording(int servicerID)
-        {
-            if (progress != ORDER_PROGRESS.START)
-            {
-                log.Error("order progress not match!");
-                return false;
-            }
-
-            this.servicerID = servicerID;
-            progress = ORDER_PROGRESS.ORDING;
-            return true;
-        }
-
-
-        /// <summary>
-        /// 客户完成点单
-        /// </summary>
-        /// <param name="customerID">客户ID用于校验</param>
-        /// <param name="foodType">菜品类型</param>
-        /// <returns></returns>
-        public bool Ordered(int customerID, int foodType)
-        {
-            if (progress != ORDER_PROGRESS.ORDING)
-            {
-                log.Error("order progress not match = " + progress);
-                return false;
-            }
-
-            if (this.customerID != customerID)
-            {
-                log.Error("customer ID Not match!");
-                return false;
-            }
-
-            this.foodType = foodType;
-            progress = ORDER_PROGRESS.ORDED;
-            EventManager.Instance.Trigger((int)GameEvent.ORDER_FAIL, this.id);
-            return true;
-        }
-        
-        
         /// <summary>
         /// 厨师接单
         /// </summary>

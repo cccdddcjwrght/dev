@@ -54,7 +54,7 @@ namespace SGame.VS
                 return outputSuccess;
             });
             
-            _orderProgress = ValueInput<ORDER_PROGRESS>("customer", ORDER_PROGRESS.WAIT);
+            _orderProgress = ValueInput<ORDER_PROGRESS>("customer", ORDER_PROGRESS.NONE);
             outputSuccess  = ControlOutput("Success");
             outputFail     = ControlOutput("Fail");
             result = ValueOutput<OrderData>("Order", (flow) => resultValue);

@@ -31,7 +31,7 @@ namespace SGame.VS
             base.Definition();
 
             _Order      = ValueInput<OrderData>(nameof(_Order), null);
-            _Progress   = ValueInput<ORDER_PROGRESS>(nameof(_Progress), ORDER_PROGRESS.WAIT);
+            _Progress   = ValueInput<ORDER_PROGRESS>(nameof(_Progress), ORDER_PROGRESS.NONE);
 
             Requirement(_Order, enter);
             Requirement(_Progress, enter);
