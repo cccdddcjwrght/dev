@@ -26,7 +26,13 @@ public class HUDOrderTip : IUIScript
             _uiOrderTipUI.m_icon.url=string.Format("ui://Common/{0}",foodcfg.Icon);
         }
 
+        context.window.AddEventListener("OrderNumUpdate", OnFoodNumUpdate);
         _uiOrderTipUI.m_num.text = type.num.ToString();
+    }
+
+    void OnFoodNumUpdate(FairyGUI.EventContext uiContext)
+    {
+        SetNumText(uiContext.data.ToString());
     }
     
     /// <summary>

@@ -287,5 +287,24 @@ namespace SGame
 			Debug.Log("Tips:" + tips);
 			return tips;
 		}
+
+		/// <summary>
+		/// 触发一个UI事件
+		/// </summary>
+		/// <param name="ui"></param>
+		/// <param name="eventName">UI事件名称</param>
+		/// <param name="param"></param>
+		public static void TriggerUIEvent(Entity e, string eventName, object param)
+		{
+			var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			if (EntityManager.HasComponent<UIWindow>(e))
+			{
+				var ui = EntityManager.GetComponentObject<UIWindow>(e);
+				if (ui != null && ui.Value != null)
+				{
+					ui.Value.DispatchEvent(eventName, param);
+				}
+			}
+		}
 	}
 }
