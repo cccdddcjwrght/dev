@@ -6,6 +6,7 @@ using UnityEngine;
 using log4net;
 using SGame;
 using SGame.UI.Hud;
+using Unity.VisualScripting;
 
 public class HUDOrderTip : IUIScript
 {
@@ -28,4 +29,9 @@ public class HUDOrderTip : IUIScript
         _uiOrderTipUI.m_num.text = type.num.ToString();
     }
     
+    /// <summary>
+    /// 刷新数字
+    /// </summary>
+    /// <param name="data"></param>
+    void SetNumText(string data)=>UIListener.SetText(_uiOrderTipUI.m_num,data);
 }
