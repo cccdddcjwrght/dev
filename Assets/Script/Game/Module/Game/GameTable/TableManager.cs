@@ -13,8 +13,10 @@ namespace SGame
     public class TableManager : Singleton<TableManager>
     {
         private static ILog log = LogManager.GetLogger("game.table");
+        
         // 座位信息
         private List<TableData>             m_datas     = new List<TableData>();
+        private List<int>                   m_foodTypes = new List<int>();
 
         // 下一个tableID
         private int m_nextTableID = 0;
@@ -97,7 +99,7 @@ namespace SGame
                 }
             }
             
-            return ChairData.Empty;
+            return ChairData.Null;
         }
 
         public List<ChairData> GetEmptyChairs(TABLE_TYPE tableType, CHAIR_TYPE chair)
@@ -160,7 +162,7 @@ namespace SGame
                 }
             }
             
-            return ChairData.Empty;
+            return ChairData.Null;
         }
 
         /// <summary>
@@ -184,7 +186,7 @@ namespace SGame
                 }
             }
             
-            return ChairData.Empty;
+            return ChairData.Null;
         }
 
         /// <summary>
@@ -197,7 +199,7 @@ namespace SGame
         public bool FindEmptyMatchine(int foodType, out TableData table, out ChairData chair)
         {
             table = null;
-            chair = ChairData.Empty;
+            chair = ChairData.Null;
             foreach (var t in m_datas)
             {
                 if (t.type == TABLE_TYPE.MACHINE && t.foodType == foodType)
@@ -224,8 +226,8 @@ namespace SGame
         {
             // 先找到顾客座位
             var chairPos = FindCustomerChair(customerID);
-            if (chairPos == ChairData.Empty)
-                return ChairData.Empty;
+            if (chairPos == ChairData.Null)
+                return ChairData.Null;
 
             var t = Get(chairPos.tableID);
             int chairIndex = t.FindFirstChair(CHAIR_TYPE.ORDER);
@@ -234,7 +236,7 @@ namespace SGame
                 return t.GetChair(chairIndex);
             }
             
-            return ChairData.Empty;
+            return ChairData.Null;
         }
 
         /// <summary>
@@ -283,6 +285,31 @@ namespace SGame
             
             return -1;
         }
+        
+        /// <summary>
+        /// 通过食物类型找到可用工作台位置
+        /// </summary>
+        /// <param name="foodType"></param>
+        /// <returns></returns>
+        public ChairData FindMachineChairFromFoodType(int foodType)
+        {
+            foreach (var t in m_datas)
+            {
+                if (t.type == TABLE_TYPE.MACHINE)
+                {
+                    if (t.foodType == foodType)
+                    {
+                        var sitIndex = t.GetEmptySit(CHAIR_TYPE.OPERATOR);
+                        if (sitIndex >= 0)
+                        {
+                            return t.GetChair(sitIndex);
+                        }
+                    }
+                }
+            }
+            
+            return ChairData.Null;
+        }
 
         /// <summary>
         /// 通过工作台ID 找到对应食物类型
@@ -304,21 +331,25 @@ namespace SGame
         }
 
         /// <summary>
+        /// 更新统计信息
+        /// </summary>
+        /// <param name="t"></param>
+        public void UpdateTableInfo(TableData t)
+        {
+            if (t.type == TABLE_TYPE.MACHINE)
+            {
+                if (!m_foodTypes.Contains(t.foodType))
+                    m_foodTypes.Add(t.foodType);
+            }
+        }
+
+        /// <summary>
         /// 获得已经打开的食物类型
         /// </summary>
         /// <returns></returns>
         public List<int> GetOpenFoodTypes()
         {
-            List<int> foodTypes = new List<int>();
-            foreach (var t in m_datas)
-            {
-                if (t.type == TABLE_TYPE.MACHINE)
-                {
-                    foodTypes.Add(t.foodType);
-                }
-            }
-
-            return foodTypes;
+            return m_foodTypes;
         }
     }
 }

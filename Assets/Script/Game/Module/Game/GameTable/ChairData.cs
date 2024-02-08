@@ -39,11 +39,11 @@ namespace SGame
         public bool IsEmpty => playerID == 0;
         
         /// <summary>
-        /// 判断是否是空的
+        /// 判断数据是否是空的
         /// </summary>
-        public bool IsEmptyChair => Equals(ChairData.Empty);
+        public bool IsNull => Equals(ChairData.Null);
 
-        public static ChairData Empty => new ChairData() { type = CHAIR_TYPE.UNKNOWN, playerID = 0, chairIndex = 0, tableID = 0, map_pos = int2.zero };
+        public static ChairData Null => new ChairData() { type = CHAIR_TYPE.UNKNOWN, playerID = 0, chairIndex = 0, tableID = 0, map_pos = int2.zero };
 
         /// <summary>
         /// 相等判定

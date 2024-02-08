@@ -39,7 +39,7 @@ namespace SGame.VS
                 var customerID = flow.GetValue<int>(_customerID);
                 resultValue = TableManager.Instance.FindCustomerChair(customerID);
 
-                if (resultValue == ChairData.Empty)
+                if (resultValue == ChairData.Null)
                     return outputFail;
                 
                 return outputSuccess;

@@ -44,7 +44,7 @@ namespace SGame.VS
 
                 resultValue = TableManager.Instance.FindEmptyChair(table_type, chair_type);
 
-                if (resultValue == ChairData.Empty)
+                if (resultValue == ChairData.Null)
                     return outputFail;
                 
                 return outputSuccess;

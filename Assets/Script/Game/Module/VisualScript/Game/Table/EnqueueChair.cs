@@ -44,7 +44,7 @@ namespace SGame.VS
             });
             output = ControlOutput("Output");
 
-            _chair = ValueInput<ChairData>("chair", ChairData.Empty);
+            _chair = ValueInput<ChairData>("chair", ChairData.Null);
             _out_chair = ValueOutput<ChairData>("chair", (flow) => m_resultChair);
         }
     }

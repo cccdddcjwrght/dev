@@ -30,7 +30,7 @@ namespace SGame
             value.AddChair(CHAIR_TYPE.ORDER, new int2(orderPos.x, orderPos.y));
             foreach (var pos in customerPos)
                 value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
-            
+            TableManager.Instance.UpdateTableInfo(value);
             return value;
         }
         
@@ -48,6 +48,7 @@ namespace SGame
             TableManager.Instance.AddTable(value);
             value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(takerPos.x, takerPos.y));
             value.AddChair(CHAIR_TYPE.ORDER, new int2(puterPos.x, puterPos.y));
+            TableManager.Instance.UpdateTableInfo(value);
             return value;
         }
         
@@ -71,6 +72,7 @@ namespace SGame
             // 添加操作台
             value.AddChair(CHAIR_TYPE.OPERATOR, new int2(operatorPos.x, operatorPos.y));
             EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, value.id, foodType);
+            TableManager.Instance.UpdateTableInfo(value);
             return value;
         }
     }

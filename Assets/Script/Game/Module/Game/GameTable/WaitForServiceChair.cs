@@ -62,7 +62,7 @@ public class WaitForServiceChair : Singleton<WaitForServiceChair>
     /// <returns></returns>
     public bool Dequeue(out ChairData chair)
     {
-        chair = ChairData.Empty;
+        chair = ChairData.Null;
         if (m_chairQuee.Count == 0)
             return false;
 

@@ -55,6 +55,40 @@ namespace SGame
         }
 
         /// <summary>
+        /// 通过条件查找
+        /// </summary>
+        /// <param name="conditon"></param>
+        /// <returns></returns>
+        public OrderData FindOrder(System.Func<OrderData, bool> conditon)
+        {
+            foreach (var item in m_datas.Values)
+            {
+                if (conditon(item))
+                    return item;
+            }
+            
+            return null;
+        }
+        
+        /// <summary>
+        /// 通过条件查找
+        /// </summary>
+        /// <param name="conditon"></param>
+        /// <returns></returns>
+        public OrderData FindChefOrder(int foodType)
+        {
+            foreach (var item in m_datas.Values)
+            {
+                if (item.progress == ORDER_PROGRESS.ORDED && item.foodType == foodType)
+                {
+                    return item;
+                }
+            }
+            
+            return null;
+        }
+        
+        /// <summary>
         /// 获得第一个订单
         /// </summary>
         /// <param name="progress"></param>

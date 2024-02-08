@@ -46,7 +46,7 @@ namespace SGame.VS
                 return output;
             });
             
-            _chair = ValueInput<ChairData>("chair", ChairData.Empty);
+            _chair = ValueInput<ChairData>("chair", ChairData.Null);
             _customID = ValueInput<int>("custom", 0);
             output = ControlOutput("Output");
             result = ValueOutput<bool>("success", (flow) => resultValue);
