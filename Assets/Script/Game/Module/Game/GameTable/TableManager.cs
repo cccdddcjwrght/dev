@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using log4net;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace SGame
@@ -9,6 +12,7 @@ namespace SGame
     /// </summary>
     public class TableManager : Singleton<TableManager>
     {
+        private static ILog log = LogManager.GetLogger("game.table");
         // 座位信息
         private List<TableData>             m_datas     = new List<TableData>();
 
@@ -48,34 +52,31 @@ namespace SGame
             return true;
         }
 
+        private List<TableData> m_sortCache = new List<TableData>();
+        
         /// <summary>
         /// 获得放餐区空闲位置
         /// </summary>
         /// <returns></returns>
         public int FindPutDishTable()
         {
-            int dishCount = 100;
-            int id = -1;
-            int baseIndex = RandomSystem.Instance.NextInt(0, m_datas.Count);
-                
-            for (int i = 0; i < m_datas.Count; i++)
+            m_sortCache.Clear();
+            foreach (var item in m_datas)
             {
-                int index = (baseIndex + i) % m_datas.Count;
-                var t = m_datas[i];
-                if (t.type == TABLE_TYPE.DISH)
-                {
-                    if (t.foodsID == null || t.foodsID.Count == 0)
-                        return t.id;
-                    
-                    if (t.foodsID.Count < dishCount)
-                    {
-                        id = t.id;
-                        dishCount = t.foodsID.Count;
-                    }
-                }
+                if (item.type == TABLE_TYPE.DISH)
+                    m_sortCache.Add(item);
             }
-
-            return id;
+            if (m_sortCache.Count <= 0)
+                return -1;
+            
+            m_sortCache.Sort((a, b) =>
+            {
+                if (a.foodsCount == b.foodsCount)
+                    return 0;
+                return a.foodsCount < b.foodsCount ? -1 : 1;
+            });
+            
+            return m_sortCache[0].id;
         }
 
         /// <summary>

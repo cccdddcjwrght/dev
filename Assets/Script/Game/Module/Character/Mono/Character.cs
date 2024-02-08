@@ -169,7 +169,7 @@ namespace SGame
         public void TakeFood(Entity food)
         {
             // 设置父节点为自己
-            entityManager.SetComponentData(food, new Translation() {Value = new float3(0, 0.5f, 0.1f)});
+            entityManager.SetComponentData(food, new Translation() {Value = new float3(0, 0.5f, 0.5f)});
             entityManager.SetComponentData(food, new Rotation(){Value = quaternion.identity});
             AddChild(food);
             this.m_food = food;

@@ -37,7 +37,7 @@ namespace SGame
         public List<ChairData>    chairs;
 
         // 桌子上的食物实例对象 或金币, 该对象根据桌子类型判断
-        public List<int>          foodsID;
+        public int               foodsCount;
 
         // 关联的食物类型
         public int                foodType;
@@ -46,7 +46,7 @@ namespace SGame
         public int                machineID;
         
         // 该位置是否位空
-        public bool IsFoodEmpty =>  foodsID == null || foodsID.Count == 0;
+        public bool IsFoodEmpty =>  foodsCount == 0;
         
         public void ClearChairs()
         {
@@ -195,29 +195,6 @@ namespace SGame
             chair.playerID = 0;
             chairs[index] = chair;
             return true;
-        }
-
-        /// <summary>
-        /// 放入食物
-        /// </summary>
-        /// <param name="foodID"></param>
-        /// <returns></returns>
-        public bool PutFood(int foodID)
-        {
-            if (foodsID == null)
-                foodsID = new List<int>();
-            
-            foodsID.Add(foodID);
-            return true;
-        }
-
-        /// <summary>
-        /// 拿走食物
-        /// </summary>
-        /// <returns></returns>
-        public bool TakeFood(int foodID)
-        {
-            return foodsID.Remove(foodID);
         }
     }
 }
