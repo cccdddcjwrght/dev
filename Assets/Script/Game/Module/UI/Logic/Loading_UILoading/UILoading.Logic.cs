@@ -32,6 +32,7 @@ namespace SGame.UI{
 				// 获得参数
 				m_waitTime = (float)param.Value;
 			}
+			m_waitTime = Mathf.Max(1,m_waitTime);
 
 		}
 
