@@ -22,6 +22,14 @@ public class AppLogoExcute : IZEditor
 		{ "ui_loading_1" , new string[]{ "GameLoge_atlas_vm0m2" , "Hotfix_atlas_cuja3" } },
 		{ "ui_loading_2" , new string[]{ "GameLoge_atlas_vm0m3" , "Hotfix_atlas_cuja4" } },
 		{ "icon1024x1024" , new string[]{ "Assets/BuildAsset/App/icon1024x1024.png" } },
+		
+		{ "banner/Banner_atlas_b32e0" , new string[]{ "Assets/Resources/Banner/Banner_atlas_b32e0.png" } },
+		{ "banner/Banner_atlas_b32e1" , new string[]{ "Assets/Resources/Banner/Banner_atlas_b32e1.png" } },
+		{ "banner/Banner_atlas_b32e2" , new string[]{ "Assets/Resources/Banner/Banner_atlas_b32e2.png" } },
+		{ "banner/Banner_atlas_b32e3" , new string[]{ "Assets/Resources/Banner/Banner_atlas_b32e3.png" } },
+		{ "banner/Banner_atlas_b32e4" , new string[]{ "Assets/Resources/Banner/Banner_atlas_b32e4.png" } },
+
+
 	};
 
 	[InitializeOnLoadMethod]
