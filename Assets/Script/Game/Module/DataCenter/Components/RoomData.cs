@@ -19,10 +19,10 @@ namespace SGame
 				{
 					var room = new Room() { id = id };
 					//³õÊ¼½ð±Ò
-					PropertyManager
+					/*PropertyManager
 						.Instance
 						.GetGroup(PropertyGroup.ITEM)
-						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));
+						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));*/
 
 					if (iscurrent)
 					{
@@ -94,7 +94,7 @@ namespace SGame
 			{
 				if (cfg.IsValid() && cfg.Type == 1)
 				{
-					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId) { from = cfg.Id });
+					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId) { from = typeof(RoomData).GetHashCode() * 100 + cfg.Id });
 					return true;
 				}
 				return false;

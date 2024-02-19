@@ -37,7 +37,8 @@ namespace SGame
 					modifiy = val;
 					break;
 				case EnumCaluType.Percentage:
-					modifiy = ((attribute.value * val) * ConstDefine.C_PER_SCALE).Round();
+					var v = attribute.value * val;
+					modifiy = (v * ConstDefine.C_PER_SCALE).Round();
 					break;
 			}
 
