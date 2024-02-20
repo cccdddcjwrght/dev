@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6516763366346568306}
-  - component: {fileID: 1870206723227787651}
-  - component: {fileID: 6470773281082518905}
+  - component: {fileID: 8464911678057976292}
+  - component: {fileID: 312510202483498359}
   m_Layer: 0
   m_Name: makeup-0
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &1870206723227787651
+--- !u!137 &8464911678057976292
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,10 +107,10 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.22338673, y: -0.0023366734, z: 0.36635888}
-    m_Extent: {x: 0.00063055754, y: 0.011933958, z: 0.018822521}
+    m_Center: {x: -0.23029563, y: -0.0024089515, z: 0.3689548}
+    m_Extent: {x: 0.00065004826, y: 0.012303052, z: 0.01940465}
   m_DirtyAABB: 0
---- !u!114 &6470773281082518905
+--- !u!114 &312510202483498359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,6 @@ MonoBehaviour:
   - Bip001 Spine
   - Bip001 Neck
   - Bip001 Head
-  - Bip001 HeadNub
   - Bip001 L Clavicle
   - Bip001 L UpperArm
   - Bip001 L Forearm
@@ -147,5 +146,6 @@ MonoBehaviour:
   - Bip001 R Foot
   - Bip001 R Toe0
   - Bip001 R Toe0Nub
+  - Bip001 HeadNub
   materials:
   - {fileID: 2100000, guid: e8289e1b4f3efc34ba4f80b0b4a81b54, type: 2}
