@@ -93,13 +93,15 @@ namespace SGame.UI{
 				}
 				else
 				{
-					OnClickTechBtn(index, 
-						listData[index].abilitLevelList[levelIndex].BuffType,
-						listData[index].abilitLevelList[levelIndex].NextLevelValue,
-						listData[index].ID
-						);
+					m_AbilityData.UpgradeLevel(index);
 				}
-
+				OnClickTechBtn(
+					listData[index].abilitLevelList[levelIndex].BuffType,
+					listData[index].abilitLevelList[levelIndex].NextLevelValue,
+					listData[index].ID
+				);
+				
+				
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, -itemNum);
 				m_view.m_techList.numItems = m_AbilityData.len; 
 			});
@@ -114,10 +116,9 @@ namespace SGame.UI{
 		/// <param name="buffID"></param>
 		/// <param name="buffValue"></param>
 		/// <param name="from"></param>
-		public void OnClickTechBtn(int index,int buffID,int buffValue,int from)
+		public void OnClickTechBtn(int buffID,int buffValue,int from)
 		{
 			EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(buffID, buffValue) { from = from });
-			m_AbilityData.UpgradeLevel(index);
 		}
 
 		partial void UnInitLogic(UIContext context){
