@@ -23,6 +23,7 @@ namespace com.adjust.sdk
 
         public static void Start(AdjustConfig adjustConfig)
         {
+			Debug.Log("[Adjust] Starting!!!");
             // Thank you, Unity 2019.2.0, for breaking this.
             // AndroidJavaObject ajoEnvironment = adjustConfig.environment == AdjustEnvironment.Sandbox ? 
             //     new AndroidJavaClass("com.adjust.sdk.AdjustConfig").GetStatic<AndroidJavaObject>("ENVIRONMENT_SANDBOX") :
