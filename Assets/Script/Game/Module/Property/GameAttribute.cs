@@ -279,7 +279,7 @@ namespace SGame
 			{
 				var unit = new AttributeUnit() { id = id, from = from, type = addtype, val = val, deadtime = deadline };
 				unit.Excute(a);
-				if (deadline != 0)
+				if (deadline != 0 || from != 0)
 					_units.Add(unit);
 				GameDebug.Log($" {key} -> attribute {a} change: {a.modify} - deadtime {deadline} ");
 

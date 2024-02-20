@@ -30,7 +30,7 @@ namespace SGame
 			ReInitAllAttribute(room);
 			//关卡科技生效
 			DataCenter.RoomUtil.InitTechBuffs();
-		} 
+		}
 		#endregion
 
 		#region Private
@@ -82,7 +82,7 @@ namespace SGame
 				case 0://工作台
 					if (ConfigSystem.Instance.TryGet<MachineRowData>(id, out var m))
 						attr[((int)EnumAttribute.Price)] = m.ShopPrice(2);
-						attr[((int)EnumAttribute.WorkSpeed)] = m.Efficiency;
+					attr[((int)EnumAttribute.WorkSpeed)] = m.Efficiency;
 					break;
 				case 1://厨师，服务员
 					if (ConfigSystem.Instance.TryGet<RoleDataRowData>(id, out var r))
@@ -105,7 +105,7 @@ namespace SGame
 			}
 			attr?.Break();
 			return attr;
-		} 
+		}
 		#endregion
 
 		#region Events
@@ -125,7 +125,7 @@ namespace SGame
 			{
 				var from = data.from;
 				if (from != 0)
-					attrSys.RemoveBuff(data.id, from);
+					attrSys.RemoveBuff(data.id, from, data.targetid);
 				attrSys.AddBuff(data.id, data.val, data.targetid, data.time, data.from);
 			}
 		}

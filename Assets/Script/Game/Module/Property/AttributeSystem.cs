@@ -259,13 +259,13 @@ namespace SGame
 		/// <param name="id"></param>
 		/// <param name="from"></param>
 		/// <param name="attributeID"></param>
-		public void RemoveBuff(int id, int from, int attributeID = 0)
+		public void RemoveBuff(int id, int from, int targetid = 0, int attributeID = 0)
 		{
 			if (from != 0)
 			{
 				if (ConfigSystem.Instance.TryGet<BuffRowData>(id, out var cfg))
 				{
-					var targets = GetTargets(id);
+					var targets = GetTargets(cfg.Target, targetid != 0 ? targetid : cfg.TargetID);
 					if (targets?.Count > 0)
 						targets.ForEach(t => t.ResetByFrom(from, attributeID));
 				}
