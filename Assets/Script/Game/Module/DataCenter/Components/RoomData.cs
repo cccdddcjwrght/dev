@@ -94,7 +94,11 @@ namespace SGame
 			{
 				if (cfg.IsValid() && cfg.Type == 1)
 				{
-					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId) { from = typeof(RoomData).GetHashCode() * 100 + cfg.Id });
+					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId) {
+#if UNITY_EDITOR
+						from = nameof(RoomData).GetHashCode() * 100 + cfg.Id  
+#endif
+					});
 					return true;
 				}
 				return false;
