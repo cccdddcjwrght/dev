@@ -24,5 +24,10 @@ namespace SGame
         {
             return m_rand.NextInt(min, max);
         }
+
+        public double NextDouble(double min, double max)
+        {
+            return m_rand.NextDouble(min, max);
+        }
     }
 }

@@ -5,68 +5,96 @@ using Unity.VisualScripting;
 using SGame.UI;
 using Unity.Entities;
 using log4net;
+using Random = Unity.Mathematics.Random;
 
 namespace SGame.VS
 {
     // 食物生成价格
     [UnitTitle("GetFoodGold")] 
     [UnitCategory("Game/Attribute")]
-    public class GetFoodGold : Unit
+    public class GetFoodGold : BaseRoleAttribute
     {
         private static ILog log = LogManager.GetLogger("game.character");
+        
+        [DoNotSerialize]
+        public ControlInput     inputTrigger;
 
+        // 成功返回流程
         [DoNotSerialize]
-        public ValueInput m_target; // 目标类型
+        public ControlOutput    outputTrigger;
         
         [DoNotSerialize]
-        public ValueInput m_foodType; 
+        public ValueInput       m_foodType; 
         
         [DoNotSerialize]
-        public ValueOutput resultGold;
+        public ValueOutput      resultGold;
+        
+        [DoNotSerialize]
+        public ValueOutput      resultPerfect;
 
-        private INPUT_TYPE _inputType;
+        // 计算得到的金币
+        private double          m_gold;
         
-        [DoNotSerialize]
-        [Inspectable, UnitHeaderInspectable("Type")]
-        public INPUT_TYPE inputType
-        {
-            get => _inputType;
-            set => _inputType = value;
-        }
-        
+        // 是否是完美食物
+        private bool            m_isPerfect;
+
+
         // 端口定义
         protected override void Definition()
         {
-            if (inputType == INPUT_TYPE.ID)
-            {
-                m_target = ValueInput<int>("CharacterID");
-            }
-            else
-            {
-                m_target = ValueInput<Character>("Character");
-            }
+            base.Definition();
 
-            m_foodType = ValueInput<int>("FoodType");
-            resultGold  = ValueOutput<double>("gold", GetValue);
+            m_foodType      = ValueInput<int>("FoodType");
+            resultGold      = ValueOutput<double>("gold", (flow) => m_gold);
+            resultPerfect   = ValueOutput<bool>("perfect", (flow) => m_isPerfect);
+            outputTrigger = ControlOutput("output");
+            inputTrigger = ControlInput("input", GetValue);
         }
 
+        static int GetPerfectGold(int roleID)
+        {
+            if (ConfigSystem.Instance.TryGet(roleID, out GameConfigs.RoleDataRowData config))
+            {
+                return config.PerfectRatio;
+            }
+            
+            return 1;
+        }
+        
+        
         /// <summary>
         /// 计算食物金币
         /// </summary>
         /// <param name="flow"></param>
         /// <returns></returns>
-        double GetValue(Flow flow)
+        ControlOutput GetValue(Flow flow)
         {
+            // 计算金币
+            int roleID = GetRoleID(flow);
             int foodType = flow.GetValue<int>(m_foodType);
             int machineID = TableManager.Instance.FindMachineIDFromFoodType(foodType);
             if (machineID < 0)
             {
                 log.Error("machine id not found foodType = " + foodType);
-                return 0f;
+                return outputTrigger;
             }
 
+            // 机器金币
             double gold = DataCenter.MachineUtil.GetWorkItemPrice(machineID);
-            return gold;
+            m_gold = gold;
+            
+            // 完美
+            double perfectProbability = AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.PerfectCompleteRate);
+            double randValue = RandomSystem.Instance.NextDouble(0, 1);
+            m_isPerfect = (randValue <= perfectProbability * ConstDefine.C_PER_SCALE);
+            if (m_isPerfect)
+            {
+                // 完美金币
+                int addGold = GetPerfectGold(roleID);
+                m_gold *= (addGold * ConstDefine.C_PER_SCALE);
+            }
+
+            return outputTrigger;
         }
     }
 }

@@ -28,8 +28,6 @@ namespace SGame
         public float        startTime;                         // 下单时间
         public int          cookTime;                          // 制作时间
         public int          finishTime;                        // 订单完成时间
-
-        public int          orderNum = 1;                      // 订单数量
         
         public int          customerID { get; private set; }   // 顾客
         public int          servicerID { get; private set; }   // 服务员ID （包含下单和清单)
@@ -125,7 +123,7 @@ namespace SGame
         /// <param name="foodID">食物对象</param>
         /// <param name="price">食物价格</param>
         /// <returns></returns>
-        public bool CookFinish(int cookerID, Entity foodID, double price)
+        public bool CookFinish(int cookerID, Entity foodID, double price, bool isPerfect)
         {
             if (progress != ORDER_PROGRESS.FOOD_MAKING)
             {
@@ -142,6 +140,7 @@ namespace SGame
 
             this.foodID = foodID;
             this.price  = price;
+            this.perfect = isPerfect;
             progress = ORDER_PROGRESS.FOOD_MAKED;
             return true;
         }

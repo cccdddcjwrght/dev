@@ -72,8 +72,9 @@ namespace SGame.VS
             if (character == null)
                 return 0;
             
-            var attribute = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<CharacterAttribue>(character.entity);
-            return attribute.roleID;
+            //var attribute = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<CharacterAttribue>(character.entity);
+            //return attribute.roleID;
+            return character.roleID;
         }
     }
 }
