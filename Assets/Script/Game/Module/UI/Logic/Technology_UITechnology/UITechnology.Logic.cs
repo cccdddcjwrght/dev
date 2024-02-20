@@ -62,18 +62,21 @@ namespace SGame.UI{
 			Controller techController = item.asCom.GetController("state");
 			Controller iconController = item.asCom.GetController("iconImage");
 			iconController.selectedIndex = 1;
-			int itemNum = 0; 
+			int itemNum = 0;
+			int LevelValue = 0;
 			if (listData[index].IsLock)
 			{
 				techController.selectedIndex = 0;
 				buyTxt.text=listData[index].abilitLevelList[levelIndex].BuyData[1].ToString();
 				itemNum = listData[index].abilitLevelList[levelIndex].BuyData[1];
+				LevelValue = listData[index].abilitLevelList[levelIndex].NextLevelValue;
 			}
 			else
 			{
 				techController.selectedIndex = 1;
 				buyTxt.text=listData[index].LockData[2].ToString();
 				itemNum = listData[index].LockData[2];
+				LevelValue = listData[index].abilitLevelList[levelIndex].CurLevelValue;
 			}
 			
 			if (levelIndex >= listData[index].abilitLevelList.Count-1)
@@ -95,9 +98,10 @@ namespace SGame.UI{
 				{
 					m_AbilityData.UpgradeLevel(index);
 				}
+				Debug.Log("=========="+LevelValue);
 				OnClickTechBtn(
 					listData[index].abilitLevelList[levelIndex].BuffType,
-					listData[index].abilitLevelList[levelIndex].NextLevelValue,
+					LevelValue,
 					listData[index].ID
 				);
 				
