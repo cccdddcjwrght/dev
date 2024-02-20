@@ -31,6 +31,9 @@ namespace SGame
 					}
 					else
 						d.rooms.Add(room);
+					var user = Instance.GetUserData();
+					user.scene = id;
+					Instance.SetUserData(user);
 					return room;
 				}
 				return default;
