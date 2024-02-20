@@ -22,6 +22,11 @@ namespace SGame.Hotfix
                 context.window.uiname = Define.HOTFIX_UI_NAME;
             }
         }
+        
+        public void AfterShow(UIContext context, EntityCommandBuffer commandBuffer)
+        {
+            
+        }
 
         public bool GetUIInfo(int configId, out string comName, out string pkgName)
         {

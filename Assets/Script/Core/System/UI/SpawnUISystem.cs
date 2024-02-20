@@ -144,8 +144,15 @@ namespace SGame.UI
                     // UI初始化前的预处理, 比如配置表相关的设置
                     fui.Initalize(script, context);
                     if (m_preprocess != null)
+                    {
                         m_preprocess.Init(context, comamndBuffer);
-                    fui.Show();
+                        fui.Show();
+                        m_preprocess.AfterShow(context, comamndBuffer);
+                    }
+                    else
+                    {
+                        fui.Show();
+                    }
 
                     // 5. 设置加载完成标记
                     comamndBuffer.RemoveComponent<UIRequest>(e);

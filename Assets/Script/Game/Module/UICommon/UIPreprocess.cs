@@ -3,6 +3,7 @@ using log4net;
 using SGame.UI;
 using UnityEngine;
 using Unity.Transforms;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -69,7 +70,38 @@ namespace SGame
             if (!entityManager.HasComponent<Rotation>(ui))
                 commandBuffer.AddComponent<Rotation>(ui);
         }
-        
+
+        public void AfterShow(UIContext context, EntityCommandBuffer commandBuffer)
+        {
+            if (context.configID != 0)
+            {
+                if (!ConfigSystem.Instance.TryGet(context.configID, out GameConfigs.ui_resRowData ui))
+                {
+                    log.Error("ui config not found=" + context.configID);
+                    return;
+                }
+
+                if (ui.Type == (int)UIType.HUD)
+                {
+                    // 初始化时更新UI位置
+                    var entityManager = context.gameWorld.GetEntityManager();
+                    var e = context.entity;
+                    if (entityManager.HasComponent<HUDFlow>(e))
+                    {
+                        var flow = entityManager.GetComponentObject<HUDFlow>(e);
+                        Translation t = new Translation() { Value = (float3)flow.Value.position + flow.offset };
+                        commandBuffer.SetComponent(e, t);
+
+                        var uiwindow = context.window;
+                        Vector2 pos = SGame.UIUtils.GetUIPosition (uiwindow.parent, t.Value, PositionType.POS3D);
+                        uiwindow.xy = pos;
+                
+                        log.Info(string.Format("entity pre init = {0}  pos = {1}", e, pos));
+                    }
+                }
+            }
+        }
+
         private void SetupHUD()
         {
             

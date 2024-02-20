@@ -9,6 +9,8 @@ namespace SGame.UI
     {
         void Init(UIContext context, EntityCommandBuffer comamndBuffer);
 
+        void AfterShow(UIContext context, EntityCommandBuffer comamndBuffer);
+
         bool GetUIInfo(int configId, out string comName, out string pkgName);
     }
 }
