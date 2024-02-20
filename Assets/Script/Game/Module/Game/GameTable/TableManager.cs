@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using log4net;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
-using Sirenix.Utilities;
-using UnityEngine;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -53,32 +50,30 @@ namespace SGame
             m_nextTableID++;
             return true;
         }
-
-        private List<TableData> m_sortCache = new List<TableData>();
         
         /// <summary>
         /// 获得放餐区空闲位置
         /// </summary>
         /// <returns></returns>
-        public int FindPutDishTable()
+        public int FindPutDishTable(int2 character_pos )
         {
-            m_sortCache.Clear();
+            int score = int.MaxValue;
+            int tableID = -1;
+
             foreach (var item in m_datas)
             {
                 if (item.type == TABLE_TYPE.DISH)
-                    m_sortCache.Add(item);
+                {
+                    int itemScore = TableUtils.GetPutDishTableScore(item, character_pos);
+                    if (itemScore < score)
+                    {
+                        score = itemScore;
+                        tableID = item.id;
+                    }
+                }
             }
-            if (m_sortCache.Count <= 0)
-                return -1;
-            
-            m_sortCache.Sort((a, b) =>
-            {
-                if (a.foodsCount == b.foodsCount)
-                    return 0;
-                return a.foodsCount < b.foodsCount ? -1 : 1;
-            });
-            
-            return m_sortCache[0].id;
+
+            return tableID;
         }
 
         /// <summary>

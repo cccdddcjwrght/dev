@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using FlatBuffers;
+using GameTools;
 using UnityEngine;
 using Unity.VisualScripting;
 using SGame.UI;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Serialization;
 
 namespace SGame.VS
@@ -24,7 +26,9 @@ namespace SGame.VS
         // 失败返回流程
         [DoNotSerialize]
         public ControlOutput    outputFail;
-        
+
+        [DoNotSerialize]
+        public ValueInput       characterID;
         
         [DoNotSerialize]
         public ValueOutput      resultChair;
@@ -39,7 +43,14 @@ namespace SGame.VS
         {
             inputTrigger = ControlInput("Input", (flow) =>
             {
-                int tableID = TableManager.Instance.FindPutDishTable();
+                var cID = flow.GetValue<int>(characterID);
+                var character = CharacterModule.Instance.FindCharacter(cID);
+                if (character == null) {
+                    return outputFail;
+                }
+
+                var character_pos = GameTools.MapAgent.VectorToGrid(character.transform.position);
+                int tableID = TableManager.Instance.FindPutDishTable(new int2(character_pos.x, character_pos.y));
                 if (tableID <= 0)
                     return outputFail;
 
@@ -57,7 +68,8 @@ namespace SGame.VS
 
             outputSuccess   = ControlOutput("Success");
             outputFail      = ControlOutput("Fail");
-            
+
+            characterID     = ValueInput<int>("CharacerID");
             resultChair     = ValueOutput<ChairData>("OrderChair", (flow) => _valueChair);
             resultTable     = ValueOutput<int>("tableID", (flow) => _valueChair.tableID);
         }
