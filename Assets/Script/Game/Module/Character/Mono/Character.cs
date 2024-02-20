@@ -17,6 +17,7 @@ namespace SGame
     public class Character : MonoBehaviour
     {
         private static ILog log = LogManager.GetLogger("game.character");
+        private const string DISH_OFFSET_NAME = "dish_offsety"; // 放餐偏移
         
         /// <summary>
         /// 脚本数据
@@ -188,7 +189,10 @@ namespace SGame
                 RemoveChild(m_food);
                 Vector3 postemp = GameTools.MapAgent.CellToVector(pos.x, pos.y);
                 float3 worldPos = postemp;
-                worldPos += new float3(0, 0.31f, 0);
+
+                float posY = GameConfigs.GlobalDesginConfig.GetFloat(DISH_OFFSET_NAME);
+                
+                worldPos += new float3(0, posY, 0);
                 entityManager.SetComponentData(m_food, new Translation() { Value = worldPos });
                 entityManager.SetComponentData(m_food, new Rotation() { Value = quaternion.identity });
             }
