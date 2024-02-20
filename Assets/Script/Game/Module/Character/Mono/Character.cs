@@ -56,6 +56,8 @@ namespace SGame
         /// </summary>
         public int roleType = 0;
 
+        public int roleID = 0;
+
         public Transform pos
         {
             get { return transform; }
