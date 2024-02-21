@@ -50,6 +50,9 @@ namespace SGame
 		WORK_TABLE_CLICK			= 2004,//工作台点击
 		WORK_TABLE_UP_STAR			= 2005,//工作台升星
 
+		WORK_COOK_START				= 2010,//工作台开始工作 （int2 cell）
+		WORK_COOK_COMPLETE			= 2011,//工作台工作完成 （int2 cell）
+
 
 		//buff===============================================
 		BUFF_TRIGGER = 3001,//触发一个buff （BuffData data)
@@ -58,6 +61,7 @@ namespace SGame
 		TECH_ADD_REWARD				= 4001,//科技添加奖励 （int tech)
 		TECH_ADD_TABLE				= 4002,//科技添加桌子 （int roommachine)
 		TECH_ADD_ROLE				= 4003,//科技添加角色 （int roletype,int count,int tableid)
+
 
 
 	}
