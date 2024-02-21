@@ -43,8 +43,15 @@ public class SceneAssetProcessor
 					var outpath = G_SCENE_ASSET_SAVE_DIR + name + "/";
 					if (!Directory.Exists(outpath))
 						Directory.CreateDirectory(outpath);
-					files.ForEach(f => File.Copy(f, outpath + Path.GetFileName(f), true));
+					var assets = new List<string>();
+					files.ForEach(f =>
+					{
+						var p = outpath + Path.GetFileName(f);
+						File.Copy(f, p, true);
+						assets.Add(p);
+					});
 					AssetDatabase.Refresh();
+					ExcuteFbx(assets);
 					ExcuteSceneAsset(outpath);
 				}
 			}
@@ -62,6 +69,17 @@ public class SceneAssetProcessor
 		Debug.Log(select.ToString());
 		if (select != null)
 			ExcuteSceneAsset(select is GameObject g ? g : AssetDatabase.GetAssetPath(select));
+	}
+
+
+	[MenuItem("Assets/地块/模型处理")]
+	static void ExcuteFbx()
+	{
+
+		var select = Selection.activeObject;
+		if (select != null)
+			ExcuteFbx(AssetDatabase.GetAssetPath(select));
+
 	}
 
 	static void ExcuteSceneAsset(object select)
@@ -152,6 +170,8 @@ public class SceneAssetProcessor
 		var p = new GameObject();
 		p.name = o.name + (index > 0 ? "_" + index.ToString() : "");
 		var g = GameObject.Instantiate(o);
+		if (o.name.Contains("_tool"))
+			g.GetComponent<Animation>().playAutomatically = false;
 		g.transform.SetParent(p.transform, false);
 		g.name = "body";
 		g.transform.localPosition = local;
@@ -175,6 +195,30 @@ public class SceneAssetProcessor
 		var path = System.IO.Path.Combine(savepath, p.name + ".prefab");
 		PrefabUtility.SaveAsPrefabAsset(p, path, out var success);
 		GameObject.DestroyImmediate(p);
+	}
+
+	static void ExcuteFbx(List<string> assets)
+	{
+		if (assets?.Count > 0)
+			assets.ForEach(ExcuteFbx);
+	}
+
+	static void ExcuteFbx(string asset)
+	{
+		if (asset.Contains("_tool"))
+		{
+			var import = AssetImporter.GetAtPath(asset) as ModelImporter;
+			if (import == null) return;
+			var ans = import.clipAnimations;
+			if (ans?.Length == 1 && ans[0].name.ToLower().StartsWith("take"))
+			{
+				ans[0].name = "cook";
+				import.animationType = ModelImporterAnimationType.Legacy;
+				import.clipAnimations = ans;
+				import.animationWrapMode = WrapMode.Loop;
+				import.SaveAndReimport();
+			}
+		}
 	}
 
 }
