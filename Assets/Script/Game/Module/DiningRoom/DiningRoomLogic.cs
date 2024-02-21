@@ -690,7 +690,7 @@ namespace SGame.Dining
 				{
 					place.waitActive = true;
 					region.SetNextUnlock(place);
-					region.gHandler += SpawnSystem.Instance.Spawn("Assets/BuildAsset/Prefabs/Other/Enable02.prefab", place.transform.gameObject);
+					region.gHandler += SpawnSystem.Instance.Spawn("Assets/BuildAsset/Prefabs/Scenes/other/rewardbox.prefab", place.transform.gameObject);
 					return place;
 				}
 			}

@@ -17,7 +17,7 @@ namespace SGame
 	public partial class RewardSystem : SystemBase
 	{
 
-		private const string c_def_asset = "Assets/BuildAsset/Prefabs/Other/Reward.prefab";
+		private const string c_def_asset = "Assets/BuildAsset/Prefabs/Scenes/other/rewardbox.prefab";
 		private uint c_def_asset_id = 0;
 
 		private EndSimulationEntityCommandBufferSystem _command;
@@ -31,7 +31,8 @@ namespace SGame
 			{
 				asset = string.IsNullOrEmpty(asset) ? c_def_asset_id : asset.ToIndex(),
 				pos = MapAgent.CellToVector(pos.x, pos.y),
-				excuteID = call.ToIndex()
+				excuteID = call.ToIndex(),
+				parentID = MapAgent.agent.grid.gameObject.ToIndex()
 			});
 		}
 
@@ -54,7 +55,7 @@ namespace SGame
 					var go = SpawnSystem.Instance.GetObject(w.spawn);
 					if (go)
 					{
-						var hit = go.GetComponentInChildren<BoxCollider>().gameObject.AddComponent<RewardHit>();
+						var hit = go.AddComponent<RewardHit>();
 						hit.call = data.excuteID.FromIndex<Action>(true);
 						hit.entity = w.spawn;
 					}
@@ -65,8 +66,13 @@ namespace SGame
 			Entities.WithAll<RewardData>().WithNone<RewardWait>().ForEach((Entity e, in RewardData data) =>
 			{
 				var wait = handler.CreateEntity(0);
-				handler.AddComponent(0, wait, new SpawnReq() { assetID = data.asset, pos = data.pos });
 				handler.AddComponent<RewardWait>(0, e, new RewardWait() { spawn = wait });
+				handler.AddComponent(0, wait, new SpawnReq()
+				{
+					assetID = data.asset,
+					parentID = data.parentID,
+					pos = data.pos
+				});
 
 			}).WithBurst().ScheduleParallel();
 			_command.AddJobHandleForProducer(Dependency);

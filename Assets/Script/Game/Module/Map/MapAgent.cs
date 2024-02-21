@@ -125,7 +125,7 @@ namespace GameTools
 
 		#region Static
 
-		static private MapAgent agent;
+		static public MapAgent agent { get; protected set; }
 
 		/// <summary>
 		/// 格子转坐标

@@ -11,5 +11,6 @@ namespace SGame
 		public Vector3 pos;
 		public uint asset;
 		public uint excuteID;
+		public uint parentID;
 	}
 }
