@@ -47,6 +47,7 @@ namespace SGame.VS
                 {
                     // 确定有空位
                     resultChairData = tableManager.FindMachineChairFromFoodType(foodType);
+                    Debug.Log("================="+resultChairData);
                     if (!resultChairData.IsNull)
                     {
                         // 订单中查询

@@ -11,6 +11,7 @@ namespace SGame.UI.Common
         public GImage m_bg;
         public GTextField m_title;
         public UI_CloseBtn m_close;
+        public GGraph m_closeBg;
         public const string URL = "ui://2w8thcm7k0s63lam";
 
         public static UI_PopupUI CreateInstance()
@@ -26,6 +27,7 @@ namespace SGame.UI.Common
             m_bg = (GImage)GetChildAt(0);
             m_title = (GTextField)GetChildAt(1);
             m_close = (UI_CloseBtn)GetChildAt(2);
+            m_closeBg = (GGraph)GetChildAt(3);
         }
     }
 }

@@ -15,10 +15,12 @@ namespace SGame.UI{
 			var techList = m_view.m_techList;
 			var bgUI = m_view.m_techFrame;
 			
+			
 			techList.itemRenderer = RenderListItem;
 			techList.numItems = m_AbilityData.len; 
 			m_entity = context.entity;
 			bgUI.GetChild("close").asButton.onClick.Add(OnClickClose);
+			bgUI.GetChild("closeBg").onClick.Add(OnClickClose);
 		}
 		
 		private void OnClickClose()
@@ -89,25 +91,33 @@ namespace SGame.UI{
 
 			techBtn.onClick.Set(()=>
 			{
-		
-				if (listData[index].IsLock == false)
+
+				if (PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.DIAMOND) >= itemNum)
 				{
-					listData[index].IsLock = true;
+					if (listData[index].IsLock == false)
+					{
+						listData[index].IsLock = true;
+					}
+					else
+					{
+						m_AbilityData.UpgradeLevel(index);
+					}
+					OnClickTechBtn(
+						listData[index].abilitLevelList[levelIndex].BuffType,
+						LevelValue,
+						listData[index].ID
+					);
+				
+				
+					PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, -itemNum);
+					m_view.m_techList.numItems = m_AbilityData.len; 
 				}
 				else
 				{
-					m_AbilityData.UpgradeLevel(index);
+					
 				}
-				Debug.Log("=========="+LevelValue);
-				OnClickTechBtn(
-					listData[index].abilitLevelList[levelIndex].BuffType,
-					LevelValue,
-					listData[index].ID
-				);
+					
 				
-				
-				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, -itemNum);
-				m_view.m_techList.numItems = m_AbilityData.len; 
 			});
 			
 		
