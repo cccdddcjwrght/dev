@@ -89,10 +89,10 @@ namespace SGame
 			return 0;
 		}
 
-		static public T FromIndex<T>(this uint index)
+		static public T FromIndex<T>(this uint index , bool pop = false)
 		{
 			if (_indexs.TryGetValue(typeof(T), out var o) && o is Index<T> items)
-				return items.Value(index);
+				return pop ? items.Pop(index) : items.Value(index);
 			return default;
 		}
 

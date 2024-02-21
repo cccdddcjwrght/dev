@@ -57,10 +57,18 @@ namespace SGame
 		{
 			if (string.IsNullOrEmpty(name)) return;
 			if (!_queues.TryGetValue(name, out var q))
-				q = new WorkQueue();
+				_queues[name] = q = new WorkQueue();
 			var w = new Worker() { queue = name, index = index, cell = MapAgent.IndexToGrid(index) };
 			OnAddWorker(ref w);
 			q.frees.Add(w);
+		}
+
+		public void AddWorkers(string name, bool needClear, params int[] index)
+		{
+			if (needClear)
+				FreeQueue(name);
+			if (index?.Length > 0)
+				index.Foreach(i => AddWorker(name, i));
 		}
 
 		public bool HasWorkQueue(string name)
@@ -119,6 +127,26 @@ namespace SGame
 			return false;
 		}
 
+		public bool Random(string name, out Worker worker) {
+
+			worker = default;
+			if (string.IsNullOrEmpty(name)) return false;
+			if (_queues.TryGetValue(name, out var q) && q.frees.Count > 0)
+			{
+				worker = SGame.Randoms.Random._R.NextItem(q.frees , out var i);
+				if (worker.queue != null)
+				{
+					worker.version++;
+					OnSelected(name, ref worker);
+					q.frees.RemoveAt(i);
+					q.wokers.Add(worker);
+					return true;
+				}
+			}
+			return false;
+
+		}
+
 		/// <summary>
 		/// 释放
 		/// </summary>
@@ -133,6 +161,17 @@ namespace SGame
 				if (idx >= 0) q.wokers.RemoveAt(idx);
 				q.frees.Add(worker);
 			}
+		}
+
+		/// <summary>
+		/// 释放队列
+		/// </summary>
+		/// <param name="name"></param>
+		public void FreeQueue(string name)
+		{
+			var q = GetWorkQueue(name);
+			if (q != null)
+				q.Clear();
 		}
 
 		public void Clear()

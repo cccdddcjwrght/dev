@@ -299,6 +299,17 @@ namespace SGame.Dining
 				InitView();
 				InitBuilds();
 				InitEvents();
+				if (_sceneGrid != null)
+				{
+					if(ConstDefine.SCENE_WORK_TAG?.Count > 0)
+					{
+						ConstDefine.SCENE_WORK_TAG.All((s) => {
+							if (_sceneGrid.tags.TryGetValue(s, out var ls))
+								WorkQueueSystem.Instance.AddWorkers(s, true, ls.ToArray());
+							return true;
+						});
+					}
+				}
 			}
 			return true;
 		}

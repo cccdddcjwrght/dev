@@ -1,0 +1,98 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using GameTools;
+using Unity.Entities;
+using UnityEngine;
+
+namespace SGame
+{
+	public struct RewardWait : IComponentData
+	{
+
+		public Entity spawn;
+
+	}
+
+	public partial class RewardSystem : SystemBase
+	{
+
+		private const string c_def_asset = "Assets/BuildAsset/Prefabs/Other/Reward.prefab";
+		private uint c_def_asset_id = 0;
+
+		private EndSimulationEntityCommandBufferSystem _command;
+
+
+		void OnSceneReward(Vector2Int pos, Action call, string asset)
+		{
+			var e = EntityManager.CreateEntity();
+			if (c_def_asset_id == 0) c_def_asset_id = c_def_asset.ToIndex();
+			EntityManager.AddComponentData<RewardData>(e, new RewardData()
+			{
+				asset = string.IsNullOrEmpty(asset) ? c_def_asset_id : asset.ToIndex(),
+				pos = MapAgent.CellToVector(pos.x, pos.y),
+				excuteID = call.ToIndex()
+			});
+		}
+
+		protected override void OnCreate()
+		{
+			base.OnCreate();
+			_command = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+			EventManager.Instance.Reg<Vector2Int, Action, string>(((int)GameEvent.SCENE_REWARD), OnSceneReward);
+
+		}
+
+		protected override void OnUpdate()
+		{
+			var handler = _command.CreateCommandBuffer().AsParallelWriter();
+
+			Entities.WithAll<RewardData, RewardWait>().ForEach((Entity e, in RewardData data, in RewardWait w) =>
+			{
+				if (SpawnSystem.Instance.IsLoaded(w.spawn))
+				{
+					var go = SpawnSystem.Instance.GetObject(w.spawn);
+					if (go)
+					{
+						var hit = go.GetComponentInChildren<BoxCollider>().gameObject.AddComponent<RewardHit>();
+						hit.call = data.excuteID.FromIndex<Action>(true);
+						hit.entity = w.spawn;
+					}
+					handler.DestroyEntity(0, e);
+				}
+			}).WithoutBurst().Run();
+
+			Entities.WithAll<RewardData>().WithNone<RewardWait>().ForEach((Entity e, in RewardData data) =>
+			{
+				var wait = handler.CreateEntity(0);
+				handler.AddComponent(0, wait, new SpawnReq() { assetID = data.asset, pos = data.pos });
+				handler.AddComponent<RewardWait>(0, e, new RewardWait() { spawn = wait });
+
+			}).WithBurst().ScheduleParallel();
+			_command.AddJobHandleForProducer(Dependency);
+
+
+		}
+	}
+
+
+	public class RewardHit : MonoBehaviour, ITouchOrHited
+	{
+		public Action call;
+		public Entity entity;
+
+		public void OnClick()
+		{
+			call?.Invoke();
+			if (entity != default)
+				SpawnSystem.Instance.Release(entity);
+		}
+
+		private void OnDestroy()
+		{
+			call = null;
+			entity = default;
+		}
+	}
+
+}

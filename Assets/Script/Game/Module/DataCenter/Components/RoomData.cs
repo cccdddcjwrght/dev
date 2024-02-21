@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameConfigs;
+using GameTools;
+using UnityEngine;
 
 namespace SGame
 {
@@ -19,10 +22,10 @@ namespace SGame
 				{
 					var room = new Room() { id = id };
 					//初始金币
-					PropertyManager
+					/*PropertyManager
 						.Instance
 						.GetGroup(PropertyGroup.ITEM)
-						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));
+						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));*/
 
 					if (iscurrent)
 					{
@@ -85,9 +88,13 @@ namespace SGame
 							//添加奖励
 							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_REWARD), id);
 							if (cfg.RoleId == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子
+							{
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_TABLE), cfg.TableId(0));
-							//添加角色
-							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, cfg.TableId(0));
+								//添加角色
+								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, cfg.TableId(0));
+							}
+							else
+								AddRoleReward(cfg.RoleId, cfg.Value, cfg.TableId(0), cfg.TableId(1));
 						}
 					}
 				}
@@ -97,14 +104,37 @@ namespace SGame
 			{
 				if (cfg.IsValid() && cfg.Type == 1)
 				{
-					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId) {
+					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(cfg.BuffId, cfg.Value, cfg.MachineId)
+					{
 #if UNITY_EDITOR
-						from = nameof(RoomData).GetHashCode() * 100 + cfg.Id  
+						from = nameof(RoomData).GetHashCode() * 100 + cfg.Id
 #endif
 					});
 					return true;
 				}
 				return false;
+			}
+
+			private static void AddRoleReward(int roleid, int count, int x, int y)
+			{
+				if (count > 0)
+				{
+					var pos = Vector2Int.zero;
+					var tag = roleid == (int)EnumRole.Cook ? ConstDefine.TAG_BORN_COOK : ConstDefine.TAG_BORN_WAITER;
+					for (int i = 0; i < count; i++)
+					{
+						Worker worker = default;
+						if (x != 0 && y != 0)
+							pos = new Vector2Int(x, y);
+						else if (WorkQueueSystem.Instance.Random(tag, out worker))
+							pos = worker.cell;
+						EventManager.Instance.Trigger(((int)GameEvent.SCENE_REWARD), pos, new Action(() =>
+						{
+							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, 1, worker.index);
+							WorkQueueSystem.Instance.Free(worker);
+						}), string.Empty);
+					}
+				}
 			}
 
 		}

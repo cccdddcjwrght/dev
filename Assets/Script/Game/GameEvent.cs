@@ -24,6 +24,7 @@ namespace SGame
 		BEFORE_ENTER_ROOM			= 110, //进入场景之前
 		ENTER_ROOM					= 111, //进入场景
 		AFTER_ENTER_ROOM			= 112, //进入场景之后
+		SCENE_REWARD				= 113,//场景宝箱（int cellIndex,  , Action call ,[string assetPath = null]）
 
 		ORDER					= 200, // 创建新的订单失败
 		ORDER_FOODMAKED				= 201, // 

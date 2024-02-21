@@ -67,7 +67,24 @@ namespace SGame
 		public const string TAG_MACHINE_WORK = "cook";
 
 		#endregion
-		
+
+		#region 出生地标签
+		/// <summary>
+		/// 厨师
+		/// </summary>
+		public const string TAG_BORN_COOK = "born_0";
+		/// <summary>
+		/// 服务生
+		/// </summary>
+		public const string TAG_BORN_WAITER = "born_1";
+		#endregion
+
+		#region WorkerTags
+
+		public readonly static IReadOnlyList<string> SCENE_WORK_TAG = new string[] { TAG_BORN_COOK, TAG_BORN_WAITER };
+
+		#endregion
+
 		/// <summary>
 		/// max标志
 		/// </summary>

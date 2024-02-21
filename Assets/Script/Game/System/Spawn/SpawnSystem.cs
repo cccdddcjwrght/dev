@@ -5,9 +5,24 @@ using UnityEngine;
 using libx;
 using log4net;
 using System;
+using Unity.Mathematics;
 
 namespace SGame
 {
+
+
+	public struct SpawnReq : IComponentData
+	{
+		public uint assetID;
+		public uint parentID;
+		public float life;
+		public float3 pos;
+		public float3 rot;
+		public int scale ;
+		public int layer;
+		public uint nameID;
+	}
+
 
 	public class RequestSpawn : IComponentData
 	{
@@ -68,8 +83,8 @@ namespace SGame
 		static ILog log = LogManager.GetLogger("SpawnSystem");
 
 		private Dictionary<Entity, GameObject> m_spawnObjects;
+		private EntityArchetype m_spreqType;
 		private EntityArchetype m_requestType;
-
 		private EntityArchetype m_spawnType;
 		private EntityCommandBufferSystem m_commandBuffer;
 
@@ -91,6 +106,8 @@ namespace SGame
 
 			m_spawnType = EntityManager.CreateArchetype(typeof(SpawnData));
 			m_requestType = EntityManager.CreateArchetype(typeof(RequestSpawn));
+			m_spreqType = EntityManager.CreateArchetype(typeof(SpawnReq));
+
 		}
 
 		protected override void OnUpdate()
@@ -102,6 +119,7 @@ namespace SGame
 
 		void Spawn(EntityCommandBuffer cb)
 		{
+
 			Entities.ForEach((Entity e, RequestSpawn req) =>
 			{
 				if (req.isParent && req.parent == null)
@@ -148,6 +166,22 @@ namespace SGame
 					cb.DestroyEntity(e);
 				}
 			}).WithoutBurst().Run();
+
+			Entities.ForEach((Entity e, SpawnReq req) =>
+			{
+				cb.RemoveComponent<SpawnReq>(e);
+				Spawn(
+					req.assetID.FromIndex<string>(),
+					req.parentID.FromIndex<GameObject>(true),
+					req.life,
+					req.pos,
+					req.rot,
+					req.scale == 0 ? 1 : req.scale,
+					req.nameID.FromIndex<string>(true),
+					e
+				);
+
+			}).WithoutBurst().WithStructuralChanges().Run();
 		}
 
 		GameObject Create(Entity entity, AssetRequest prefabRequest)
@@ -229,7 +263,7 @@ namespace SGame
 				complete?.Invoke(false, default);
 		}
 
-		public Entity Spawn(string path, GameObject parent = null, float life = 0, Vector3 pos = default, Vector3 rot = default, float scale = 1, string name = null)
+		public Entity Spawn(string path, GameObject parent = null, float life = 0, Vector3 pos = default, Vector3 rot = default, float scale = 1, string name = null, Entity holder = default)
 		{
 			if (string.IsNullOrEmpty(path)) return Entity.Null;
 
@@ -247,7 +281,14 @@ namespace SGame
 			}
 
 			// 创建特效对象
-			Entity entity = EntityManager.CreateEntity(m_spawnType);
+			Entity entity = default;
+			if (EntityManager.Exists(holder))
+			{
+				EntityManager.AddComponent<SpawnData>(holder);
+				entity = holder;
+			}
+			else
+				entity = EntityManager.CreateEntity(m_spawnType);
 
 			// 创建特效请求
 			Entity spawnRequest = EntityManager.CreateEntity(m_requestType);
@@ -299,10 +340,10 @@ namespace SGame
 		{
 			FiberCtrl.Pool.Run(WaitLoaded(e, onFinish));
 		}
-	
-		public void SetLayer(Entity e , int layer)
+
+		public void SetLayer(Entity e, int layer)
 		{
-			if(e!= Entity.Null)
+			if (e != Entity.Null)
 				EntityManager.AddComponentData(e, new SpawnLayer() { layer = layer });
 		}
 	}
