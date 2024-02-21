@@ -7,12 +7,15 @@ using UnityEngine;
 using System.Globalization;
 using Unity.Transforms;
 using System.Text;
+using log4net;
 using Unity.Mathematics;
 
 namespace SGame
 {
 	public partial class Utils
 	{
+		private static ILog log = LogManager.GetLogger("game.utils");
+		
 		static public Dictionary<string, string> IniParser(string path)
 		{
 			if (!string.IsNullOrEmpty(path))
@@ -464,6 +467,20 @@ namespace SGame
 			    return cosAngle * Mathf.Rad2Deg;
 
 		    return 360 - cosAngle * Mathf.Rad2Deg;
+        }
+
+        public static bool SwitchRemove(List<int> value, int index)
+        {
+	        if (index >= value.Count || index < 0)
+		        return false;
+
+	        if (value.Count - 1 == index)
+		        return false;
+	        
+	        var temp = value[index];
+	        value[index] = value[value.Count - 1];
+	        value[value.Count - 1] = temp;
+	        return true;
         }
 	}
 }

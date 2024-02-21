@@ -13,7 +13,8 @@ namespace SGame
         
         // 座位信息
         private List<TableData>             m_datas     = new List<TableData>();
-        private List<int>                   m_foodTypes = new List<int>();
+        private List<int>                   m_foodTypes = new List<int>();          // 已打开食物类型
+        private List<int>                   m_matchineID = new List<int>();        // 已打开食物权重
 
         // 下一个tableID
         private int m_nextTableID = 0;
@@ -329,12 +330,16 @@ namespace SGame
         /// 更新统计信息
         /// </summary>
         /// <param name="t"></param>
+        /// <param name="widget">食物权重</param>
         public void UpdateTableInfo(TableData t)
         {
             if (t.type == TABLE_TYPE.MACHINE)
             {
                 if (!m_foodTypes.Contains(t.foodType))
+                {
                     m_foodTypes.Add(t.foodType);
+                    m_matchineID.Add(t.machineID);
+                }
             }
         }
 
@@ -345,6 +350,15 @@ namespace SGame
         public List<int> GetOpenFoodTypes()
         {
             return m_foodTypes;
+        }
+
+        /// <summary>
+        /// 获得机器ID
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetOpenMachineIDs()
+        {
+            return m_matchineID;
         }
     }
 }
