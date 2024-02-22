@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameConfigs;
 using libx;
+using Unity.Mathematics;
 using UnityEngine;
 using MapGrid = GameTools.Maps.Grid;
 
@@ -301,9 +302,10 @@ namespace SGame.Dining
 				InitEvents();
 				if (_sceneGrid != null)
 				{
-					if(ConstDefine.SCENE_WORK_TAG?.Count > 0)
+					if (ConstDefine.SCENE_WORK_TAG?.Count > 0)
 					{
-						ConstDefine.SCENE_WORK_TAG.All((s) => {
+						ConstDefine.SCENE_WORK_TAG.All((s) =>
+						{
 							if (_sceneGrid.tags.TryGetValue(s, out var ls))
 								WorkQueueSystem.Instance.AddWorkers(s, true, ls.ToArray());
 							return true;
@@ -458,6 +460,9 @@ namespace SGame.Dining
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), OnWorkMachineEnable);
 			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.TECH_ADD_TABLE), OnTechAddWorktable);
 			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.ORDER), OnAddOrder);
+			_eHandlers += EventManager.Instance.Reg<int2>(((int)GameEvent.WORK_COOK_START), OnWorktablekCook);
+			_eHandlers += EventManager.Instance.Reg<int2>(((int)GameEvent.WORK_COOK_COMPLETE), OnWorktablekCookComplete);
+
 		}
 
 		private Place ActiveBuild(Place machine = default, int id = -1, bool state = true, int region = 0)
@@ -739,6 +744,23 @@ namespace SGame.Dining
 		{
 			if (!_begin.enable)
 				DoPreview(_begin);
+		}
+
+		private void OnWorktablekCook(int2 pos)
+		{
+			var cell = _sceneGrid.GetCell(pos.x, pos.y);
+			if (cell != null)
+			{
+				var state = cell.GetBuildLayer()?.GetComponentInChildren<Animation>()?.PlayQueued("cook");
+				state.wrapMode = WrapMode.Loop;
+			}
+		}
+
+		private void OnWorktablekCookComplete(int2 pos)
+		{
+			var cell = _sceneGrid.GetCell(pos.x, pos.y);
+			if (cell != null)
+				cell.GetBuildLayer()?.GetComponentInChildren<Animation>()?.Stop();
 		}
 
 		#endregion

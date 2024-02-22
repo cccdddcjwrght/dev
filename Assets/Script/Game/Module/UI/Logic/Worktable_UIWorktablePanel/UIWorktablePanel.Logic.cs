@@ -153,7 +153,7 @@ namespace SGame.UI
 					break;
 				case 0:
 					DataCenter.MachineUtil.UpdateLevel(info.id, 0);
-					Debug.Log($"{info.id} : Lv -> {data.level}");
+					//Debug.Log($"{info.id} : Lv -> {data.level}");
 					LevelRefresh();
 					ShowUplevelEffect();
 					return true;
