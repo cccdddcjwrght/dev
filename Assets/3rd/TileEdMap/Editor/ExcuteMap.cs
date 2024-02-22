@@ -303,6 +303,7 @@ namespace TileEdExt
 				var p = new IntVector3(item.name);
 				var cell = grid.GetCell(p.x, p.z);
 				if (cell == null) continue;
+
 				var point = go.transform.Find(item.name);
 				if (point == null)
 				{
@@ -316,8 +317,8 @@ namespace TileEdExt
 					}
 					cell.name = item.name;
 				}
+
 				var data = item.GetComponent<DataBinder>();
-				var tile = default(TileEdMapTile);
 				if (data != null)
 				{
 					bool isDummy = data.dataSet.GetValByPath("dummy");
@@ -339,10 +340,7 @@ namespace TileEdExt
 						}
 						var child = GameObject.Instantiate(item.gameObject, parent);
 						var flag = child.transform.Find("__flag");
-
 						child.transform.position = item.transform.position;
-						if (flag) GameObject.DestroyImmediate(flag.gameObject);
-						GameObject.DestroyImmediate(child.GetComponent<plyLib.plyIdent>());
 						child.name = tag ?? uname ?? "body";
 						var body = child.transform.Find("body");
 						if (body)
@@ -352,6 +350,10 @@ namespace TileEdExt
 							if (!isDummy && !isplatform && (!config.debug && !config.dontRemoveInter))
 								GameObject.DestroyImmediate(body.gameObject);
 						}
+
+						if (flag) GameObject.DestroyImmediate(flag.gameObject);
+						GameObject.DestroyImmediate(child.GetComponent<plyLib.plyIdent>());
+						GameObject.DestroyImmediate(child.GetComponent<DataBinder>());
 					}
 
 					if (cell != null)
@@ -366,6 +368,15 @@ namespace TileEdExt
 								cell.walkcost = Mathf.Max(cell.walkcost, cost);
 							else if (!walk)
 								cell.walkcost = -1;
+
+							string relex = data.dataSet.GetVal("relex");
+							if (!string.IsNullOrEmpty(relex))
+							{
+								var rs = relex.Split('x');
+								if (rs.Length > 4)
+									cell.relex = new int[] { int.Parse(rs[0]), int.Parse(rs[2]), int.Parse(rs[3]), int.Parse(rs[4]) };
+							}
+
 						}
 
 						if (!string.IsNullOrEmpty(tag))
@@ -378,17 +389,6 @@ namespace TileEdExt
 						{
 							cell.builds.Add(uname);
 							cell.data.SetVal(data.dataSet, uname);
-						}
-
-						if (isDummy)
-						{
-							string relex = data.dataSet.GetVal("relex");
-							if (!string.IsNullOrEmpty(relex))
-							{
-								var rs = relex.Split('x');
-								if (rs.Length > 4)
-									cell.relex = new int[] { int.Parse(rs[0]), int.Parse(rs[2]), int.Parse(rs[3]), int.Parse(rs[4]) };
-							}
 						}
 
 					}

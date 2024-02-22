@@ -115,8 +115,9 @@ namespace SGame.UI
 		private int GetOffset(float3 pos)
 		{
 			var p = SGame.UIUtils.WorldPosToUI(GRoot.inst, pos);
-			var left = p.x - 100 < 0;
-			var right = p.x + 100 > Screen.width;
+			var left = p.x - 120 < 0;
+			var right = p.x + 120 > GRoot.inst.width;
+			var w = Screen.width;
 
 			if (left) return 1;
 			else if (right) return 2;
