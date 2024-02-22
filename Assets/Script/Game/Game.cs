@@ -150,6 +150,9 @@ public class Game : SGame.MonoSingleton<Game>
 		//yield return LoadScene();
 
 		m_isInitalized = true;
+		// reload
+		TypeManager.Shutdown();
+		TypeManager.Initialize();
 		m_initalizeEntity = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntity(typeof(GameInitFinish));
 		EVENT_INIT_FINISH?.Invoke();
 
