@@ -36,6 +36,10 @@ namespace GameConfigs
 						return result;
 					}
 				}
+				else
+				{
+					GameDebug.LogWarning("Type Not Match=" + VType.VInt.ToString());
+				}
 			}
 
 			GameDebug.LogWarning("Parse Fail=" + name);
@@ -53,6 +57,10 @@ namespace GameConfigs
 					{
 						return result;
 					}
+				}
+				else
+				{
+					GameDebug.LogWarning("Type Not Match=" + VType.VFloat.ToString());
 				}
 			}
 			
@@ -75,6 +83,10 @@ namespace GameConfigs
 				if (val.Type == (int)VType.VStr && (!checkempty))
 				{
 					return val.Value;
+				}
+				else
+				{
+					GameDebug.LogWarning("Type Not Match=" + VType.VStr.ToString());
 				}
 			}
 
