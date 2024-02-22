@@ -74,7 +74,6 @@ namespace SGame
             value.AddChair(CHAIR_TYPE.OPERATOR, new int2(operatorPos.x, operatorPos.y));
             TableManager.Instance.UpdateTableInfo(value);
 
-            EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, value.id, foodType);
             return value;
         }
     }

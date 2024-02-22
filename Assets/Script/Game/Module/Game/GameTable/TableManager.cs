@@ -339,6 +339,7 @@ namespace SGame
                 {
                     m_foodTypes.Add(t.foodType);
                     m_matchineID.Add(t.machineID);
+                    EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, t.machineID, t.foodType);
                 }
             }
         }
