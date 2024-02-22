@@ -489,6 +489,7 @@ namespace SGame
 				_vcamera.m_Lens.FieldOfView = C_DEF_FOV;
 				_vcamera.m_Lens.FarClipPlane = 100;
 
+
 				var trans = _body = _vcamera.GetCinemachineComponent<CinemachineTransposer>() ?? _vcamera.AddCinemachineComponent<CinemachineTransposer>();
 				trans.m_BindingMode = CinemachineTransposer.BindingMode.LockToTargetNoRoll;
 				trans.m_FollowOffset = new Vector3(0, 110, -120);
@@ -504,6 +505,8 @@ namespace SGame
 				_vcamera = c.GetOrAddComponent<Cinemachine.CinemachineVirtualCamera>();
 			_vcamera.Follow = _ctrObj.transform;
 			_vcamera.LookAt = _ctrObj.transform;
+			_vcamera.m_Lens.OrthographicSize = 0.56f / (1f * Screen.width / Screen.height) * 9;
+
 		}
 
 		void SwitchMoveAxis()
