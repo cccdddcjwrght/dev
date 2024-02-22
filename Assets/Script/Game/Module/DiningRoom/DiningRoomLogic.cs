@@ -160,6 +160,7 @@ namespace SGame.Dining
 		public List<Seat> seats;
 
 		public bool waitActive;
+		public string asset;
 
 		public Transform transform;
 
@@ -265,6 +266,8 @@ namespace SGame.Dining
 	class DiningRoomLogic : IBuild
 	{
 		#region Member
+
+		private const string c_def_asset = "assets/buildasset/prefabs/scenes/other/rewardbox.prefab";
 
 		private MapGrid _sceneGrid;
 		private List<Region> _regions;
@@ -439,6 +442,7 @@ namespace SGame.Dining
 								index = i,
 								seats = s,
 								transform = t,
+								asset = m.TipsAsset
 							},
 							state: DataCenter.MachineUtil.IsActived(m.ID), region: c.Key)
 						).ToList();
@@ -666,7 +670,8 @@ namespace SGame.Dining
 			var r = GetRegion(region);
 			if (r != null)
 			{
-				EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r);
+				var p = r.GetPlace(place);
+
 				if (!r.enable || r.next?.cfgID == place)
 				{
 					if ((r.next ?? r.begin).waitActive == true)
@@ -679,9 +684,10 @@ namespace SGame.Dining
 				}
 				else if (r.next == null || r.next.cfgID != place)
 				{
-					//UpLevel(r);
-					if (!r.data.isTable)
+					if (!r.data.isTable && p.enable)
+					{
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
+					}
 				}
 			}
 		}
@@ -695,7 +701,7 @@ namespace SGame.Dining
 				{
 					place.waitActive = true;
 					region.SetNextUnlock(place);
-					region.gHandler += SpawnSystem.Instance.Spawn("Assets/BuildAsset/Prefabs/Scenes/other/rewardbox.prefab", place.transform.gameObject);
+					region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject);
 					return place;
 				}
 			}
