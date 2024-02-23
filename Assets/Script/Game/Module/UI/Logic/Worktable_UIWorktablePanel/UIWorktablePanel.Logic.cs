@@ -107,11 +107,16 @@ namespace SGame.UI
 
 		private void RefreshClick()
 		{
-			var cost = data.GetUpCost(out var cty, out var cid);
 			var lvmax = data.maxlv <= data.level;
 			if (!lvmax)
 			{
-				var state = PropertyManager.Instance.CheckCount(cid, cost, cty);
+				var state = true;
+				if (info.type == 1)
+					state = DataCenter.MachineUtil.CheckCanActiveMachine(info.mid) == 0;
+				else
+					state = DataCenter.MachineUtil.CheckCanUpLevel(data) == 0;
+
+
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
 				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
 			}
