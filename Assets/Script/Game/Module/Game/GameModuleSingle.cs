@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Fibers;
 using log4net;
+using SGame.UI;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -41,7 +42,7 @@ namespace SGame
         /// <returns></returns>
         void InitModule()
         {
-			//场景加载
+            //场景加载
 			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUI, UIUtils.CloseUI);
             
 			//餐厅管理
@@ -72,6 +73,10 @@ namespace SGame
 			//临时场景加载
 			var ud = DataCenter.Instance.GetUserData();
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(ud.scene);
+            
+            // 初始化MASK
+            UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("mask"));
+            
             // 初始化角色系统
             m_hudModule = new HudModule(m_gameWorld);
             

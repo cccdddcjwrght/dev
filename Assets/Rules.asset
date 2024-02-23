@@ -116,6 +116,8 @@ MonoBehaviour:
   - bundle: configs.unity3d
     path: assets/buildasset/configs/machineupgrade.bytes
   - bundle: configs.unity3d
+    path: assets/buildasset/configs/redconfig.bytes
+  - bundle: configs.unity3d
     path: assets/buildasset/configs/region.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/role.bytes
@@ -205,6 +207,22 @@ MonoBehaviour:
     path: assets/buildasset/customcharacters/role/clothes-3.prefab
   - bundle: assets/buildasset/customcharacters/role/clothes-3_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-3_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/clothes-4.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-4.prefab
+  - bundle: assets/buildasset/customcharacters/role/clothes-4_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-4_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/clothes-5.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-5.prefab
+  - bundle: assets/buildasset/customcharacters/role/clothes-5_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-5_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/clothes-6.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-6.prefab
+  - bundle: assets/buildasset/customcharacters/role/clothes-6_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-6_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/clothes-7.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-7.prefab
+  - bundle: assets/buildasset/customcharacters/role/clothes-7_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/clothes-7_mesh.asset
   - bundle: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-1.prefab
   - bundle: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
@@ -217,6 +235,18 @@ MonoBehaviour:
     path: assets/buildasset/customcharacters/role/hair-3.prefab
   - bundle: assets/buildasset/customcharacters/role/hair-3_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-3_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/hair-4.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/hair-4.prefab
+  - bundle: assets/buildasset/customcharacters/role/hair-4_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/hair-4_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/hair-5.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/hair-5.prefab
+  - bundle: assets/buildasset/customcharacters/role/hair-5_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/hair-5_mesh.asset
+  - bundle: assets/buildasset/customcharacters/role/hair-6.prefab.unity3d
+    path: assets/buildasset/customcharacters/role/hair-6.prefab
+  - bundle: assets/buildasset/customcharacters/role/hair-6_mesh.asset.unity3d
+    path: assets/buildasset/customcharacters/role/hair-6_mesh.asset
   - bundle: assets/buildasset/customcharacters/role/makeup-0.prefab.unity3d
     path: assets/buildasset/customcharacters/role/makeup-0.prefab
   - bundle: assets/buildasset/customcharacters/role/makeup-0_mesh.asset.unity3d
@@ -253,6 +283,20 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/other/enable01.prefab
   - bundle: prefabs.unity3d
     path: assets/buildasset/prefabs/other/enable02.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/goods/goods_1.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/goods/goods_2.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/goods/goods_3.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/goods/goods_4.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/goods/goods_5.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/other/rewardbox.prefab
+  - bundle: prefabs.unity3d
+    path: assets/buildasset/prefabs/scenes/other/scene_grid.prefab
   - bundle: prefabs.unity3d
     path: assets/buildasset/prefabs/scenes/scene_01/scene_floor_01.prefab
   - bundle: prefabs.unity3d
@@ -365,28 +409,26 @@ MonoBehaviour:
     path: assets/buildasset/ui/worktable_fui.bytes
   - bundle: assets/buildasset/visualscript/game.asset.unity3d
     path: assets/buildasset/visualscript/game.asset
-  - bundle: assets/buildasset/visualscript/game/attribute/getfoodgold.asset.unity3d
-    path: assets/buildasset/visualscript/game/attribute/getfoodgold.asset
-  - bundle: assets/buildasset/visualscript/game/attribute/getfoodtime.asset.unity3d
-    path: assets/buildasset/visualscript/game/attribute/getfoodtime.asset
-  - bundle: assets/buildasset/visualscript/game/attribute/getordertime.asset.unity3d
-    path: assets/buildasset/visualscript/game/attribute/getordertime.asset
-  - bundle: assets/buildasset/visualscript/game/chef.asset.unity3d
-    path: assets/buildasset/visualscript/game/chef.asset
-  - bundle: assets/buildasset/visualscript/game/createcharacterevent.asset.unity3d
-    path: assets/buildasset/visualscript/game/createcharacterevent.asset
-  - bundle: assets/buildasset/visualscript/game/createcustomer.asset.unity3d
-    path: assets/buildasset/visualscript/game/createcustomer.asset
-  - bundle: assets/buildasset/visualscript/game/customer.asset.unity3d
-    path: assets/buildasset/visualscript/game/customer.asset
-  - bundle: assets/buildasset/visualscript/game/gamelogic.asset.unity3d
-    path: assets/buildasset/visualscript/game/gamelogic.asset
-  - bundle: assets/buildasset/visualscript/game/manager.asset.unity3d
-    path: assets/buildasset/visualscript/game/manager.asset
-  - bundle: assets/buildasset/visualscript/game/player.asset.unity3d
-    path: assets/buildasset/visualscript/game/player.asset
-  - bundle: assets/buildasset/visualscript/game/room.asset.unity3d
-    path: assets/buildasset/visualscript/game/room.asset
+  - bundle: assets/buildasset/visualscript/game/character/chef.asset.unity3d
+    path: assets/buildasset/visualscript/game/character/chef.asset
+  - bundle: assets/buildasset/visualscript/game/character/createcharacterevent.asset.unity3d
+    path: assets/buildasset/visualscript/game/character/createcharacterevent.asset
+  - bundle: assets/buildasset/visualscript/game/character/createcustomer.asset.unity3d
+    path: assets/buildasset/visualscript/game/character/createcustomer.asset
+  - bundle: assets/buildasset/visualscript/game/character/customer.asset.unity3d
+    path: assets/buildasset/visualscript/game/character/customer.asset
+  - bundle: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset.unity3d
+    path: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset
+  - bundle: assets/buildasset/visualscript/game/character/player.asset.unity3d
+    path: assets/buildasset/visualscript/game/character/player.asset
+  - bundle: assets/buildasset/visualscript/game/character/waiter.asset.unity3d
+    path: assets/buildasset/visualscript/game/character/waiter.asset
+  - bundle: assets/buildasset/visualscript/game/init/createlevelcharacter.asset.unity3d
+    path: assets/buildasset/visualscript/game/init/createlevelcharacter.asset
+  - bundle: assets/buildasset/visualscript/game/order/ordercookfinish.asset.unity3d
+    path: assets/buildasset/visualscript/game/order/ordercookfinish.asset
+  - bundle: assets/buildasset/visualscript/game/order/ordercookstart.asset.unity3d
+    path: assets/buildasset/visualscript/game/order/ordercookstart.asset
   - bundle: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/charactermove.asset
   - bundle: assets/buildasset/visualscript/game/utils/createcharacter.asset.unity3d
@@ -397,20 +439,26 @@ MonoBehaviour:
     path: assets/buildasset/visualscript/game/utils/getcookingpos.asset
   - bundle: assets/buildasset/visualscript/game/utils/getfoodtype.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getfoodtype.asset
+  - bundle: assets/buildasset/visualscript/game/utils/getindexpos.asset.unity3d
+    path: assets/buildasset/visualscript/game/utils/getindexpos.asset
+  - bundle: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset.unity3d
+    path: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset
   - bundle: assets/buildasset/visualscript/game/utils/getorderpos.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getorderpos.asset
+  - bundle: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset.unity3d
+    path: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset
   - bundle: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/gettablechair.asset
   - bundle: assets/buildasset/visualscript/game/utils/recordfoodtype.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/recordfoodtype.asset
-  - bundle: assets/buildasset/visualscript/game/waiter.asset.unity3d
-    path: assets/buildasset/visualscript/game/waiter.asset
   - bundle: assets/buildasset/visualscript/login/login.asset.unity3d
     path: assets/buildasset/visualscript/login/login.asset
   - bundle: assets/buildasset/visualscript/prefabs/ai/chef.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/chef.prefab
   - bundle: assets/buildasset/visualscript/prefabs/ai/customer.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/customer.prefab
+  - bundle: assets/buildasset/visualscript/prefabs/ai/customertest.prefab.unity3d
+    path: assets/buildasset/visualscript/prefabs/ai/customertest.prefab
   - bundle: assets/buildasset/visualscript/prefabs/ai/waiter.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/waiter.prefab
   - bundle: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
@@ -419,6 +467,12 @@ MonoBehaviour:
     path: assets/buildasset/visualscript/prefabs/login.prefab
   - bundle: assets/buildasset/visualscript/prefabs/scenevariables.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/scenevariables.prefab
+  - bundle: assets/buildasset/visualscript/test/createtestcustomer.asset.unity3d
+    path: assets/buildasset/visualscript/test/createtestcustomer.asset
+  - bundle: assets/buildasset/visualscript/test/customertest.asset.unity3d
+    path: assets/buildasset/visualscript/test/customertest.asset
+  - bundle: assets/buildasset/visualscript/test/gametest.asset.unity3d
+    path: assets/buildasset/visualscript/test/gametest.asset
   - bundle: assets/buildasset/visualscript/testevent.asset.unity3d
     path: assets/buildasset/visualscript/testevent.asset
   ruleBundles:
@@ -441,6 +495,7 @@ MonoBehaviour:
     - assets/buildasset/configs/machine.bytes
     - assets/buildasset/configs/machinestar.bytes
     - assets/buildasset/configs/machineupgrade.bytes
+    - assets/buildasset/configs/redconfig.bytes
     - assets/buildasset/configs/region.bytes
     - assets/buildasset/configs/role.bytes
     - assets/buildasset/configs/roledata.bytes
@@ -515,6 +570,13 @@ MonoBehaviour:
     - assets/buildasset/prefabs/ecs/food/goods_3.prefab
     - assets/buildasset/prefabs/ecs/food/goods_4.prefab
     - assets/buildasset/prefabs/ecs/food/goods_5.prefab
+    - assets/buildasset/prefabs/scenes/goods/goods_1.prefab
+    - assets/buildasset/prefabs/scenes/goods/goods_2.prefab
+    - assets/buildasset/prefabs/scenes/goods/goods_3.prefab
+    - assets/buildasset/prefabs/scenes/goods/goods_4.prefab
+    - assets/buildasset/prefabs/scenes/goods/goods_5.prefab
+    - assets/buildasset/prefabs/scenes/other/rewardbox.prefab
+    - assets/buildasset/prefabs/scenes/other/scene_grid.prefab
     - assets/buildasset/prefabs/scenes/scene_01/scene_floor_01.prefab
     - assets/buildasset/prefabs/scenes/scene_01/scene_object_01.prefab
     - assets/buildasset/prefabs/scenes/scene_01/scene_object_02.prefab
@@ -610,6 +672,18 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/role/clothes-3.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/role/clothes-3.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-4.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-4.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-5.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-5.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-6.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-6.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-7.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-7.prefab
   - name: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/role/hair-1.prefab
@@ -619,6 +693,15 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/role/hair-3.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/role/hair-3.prefab
+  - name: assets/buildasset/customcharacters/role/hair-4.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-4.prefab
+  - name: assets/buildasset/customcharacters/role/hair-5.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-5.prefab
+  - name: assets/buildasset/customcharacters/role/hair-6.prefab.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-6.prefab
   - name: assets/buildasset/customcharacters/role/makeup-0.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/role/makeup-0.prefab
@@ -673,6 +756,18 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/role/clothes-3_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/role/clothes-3_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-4_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-4_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-5_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-5_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-6_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-6_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-7_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/clothes-7_mesh.asset
   - name: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/role/hair-1_mesh.asset
@@ -682,6 +777,15 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/role/hair-3_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/role/hair-3_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-4_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-4_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-5_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-5_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-6_mesh.asset.unity3d
+    assets:
+    - assets/buildasset/customcharacters/role/hair-6_mesh.asset
   - name: assets/buildasset/customcharacters/role/makeup-0_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/role/makeup-0_mesh.asset
@@ -703,6 +807,9 @@ MonoBehaviour:
   - name: assets/buildasset/visualscript/prefabs/ai/customer.prefab.unity3d
     assets:
     - assets/buildasset/visualscript/prefabs/ai/customer.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/customertest.prefab.unity3d
+    assets:
+    - assets/buildasset/visualscript/prefabs/ai/customertest.prefab
   - name: assets/buildasset/visualscript/prefabs/ai/waiter.prefab.unity3d
     assets:
     - assets/buildasset/visualscript/prefabs/ai/waiter.prefab
@@ -712,45 +819,48 @@ MonoBehaviour:
   - name: assets/buildasset/visualscript/testevent.asset.unity3d
     assets:
     - assets/buildasset/visualscript/testevent.asset
-  - name: assets/buildasset/visualscript/game/chef.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/chef.asset
-  - name: assets/buildasset/visualscript/game/createcharacterevent.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/createcharacterevent.asset
-  - name: assets/buildasset/visualscript/game/createcustomer.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/createcustomer.asset
-  - name: assets/buildasset/visualscript/game/customer.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/customer.asset
-  - name: assets/buildasset/visualscript/game/gamelogic.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/gamelogic.asset
-  - name: assets/buildasset/visualscript/game/manager.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/manager.asset
-  - name: assets/buildasset/visualscript/game/player.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/player.asset
-  - name: assets/buildasset/visualscript/game/room.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/room.asset
-  - name: assets/buildasset/visualscript/game/waiter.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/waiter.asset
   - name: assets/buildasset/visualscript/login/login.asset.unity3d
     assets:
     - assets/buildasset/visualscript/login/login.asset
-  - name: assets/buildasset/visualscript/game/attribute/getfoodgold.asset.unity3d
+  - name: assets/buildasset/visualscript/test/createtestcustomer.asset.unity3d
     assets:
-    - assets/buildasset/visualscript/game/attribute/getfoodgold.asset
-  - name: assets/buildasset/visualscript/game/attribute/getfoodtime.asset.unity3d
+    - assets/buildasset/visualscript/test/createtestcustomer.asset
+  - name: assets/buildasset/visualscript/test/customertest.asset.unity3d
     assets:
-    - assets/buildasset/visualscript/game/attribute/getfoodtime.asset
-  - name: assets/buildasset/visualscript/game/attribute/getordertime.asset.unity3d
+    - assets/buildasset/visualscript/test/customertest.asset
+  - name: assets/buildasset/visualscript/test/gametest.asset.unity3d
     assets:
-    - assets/buildasset/visualscript/game/attribute/getordertime.asset
+    - assets/buildasset/visualscript/test/gametest.asset
+  - name: assets/buildasset/visualscript/game/character/chef.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/character/chef.asset
+  - name: assets/buildasset/visualscript/game/character/createcharacterevent.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/character/createcharacterevent.asset
+  - name: assets/buildasset/visualscript/game/character/createcustomer.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/character/createcustomer.asset
+  - name: assets/buildasset/visualscript/game/character/customer.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/character/customer.asset
+  - name: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset
+  - name: assets/buildasset/visualscript/game/character/player.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/character/player.asset
+  - name: assets/buildasset/visualscript/game/character/waiter.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/character/waiter.asset
+  - name: assets/buildasset/visualscript/game/init/createlevelcharacter.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/init/createlevelcharacter.asset
+  - name: assets/buildasset/visualscript/game/order/ordercookfinish.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/order/ordercookfinish.asset
+  - name: assets/buildasset/visualscript/game/order/ordercookstart.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/order/ordercookstart.asset
   - name: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/charactermove.asset
@@ -766,9 +876,18 @@ MonoBehaviour:
   - name: assets/buildasset/visualscript/game/utils/getfoodtype.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/getfoodtype.asset
+  - name: assets/buildasset/visualscript/game/utils/getindexpos.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/utils/getindexpos.asset
+  - name: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset
   - name: assets/buildasset/visualscript/game/utils/getorderpos.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/getorderpos.asset
+  - name: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset.unity3d
+    assets:
+    - assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset
   - name: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/gettablechair.asset
@@ -811,6 +930,9 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/scene_01/scene_wall_08.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_01/scene_wall_08.fbx
+  - name: assets/buildasset/art/scenes/scene_01/scene_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/scene_01/scene_01.png
   - name: assets/buildasset/art/scenes/scene_01/scene_wall_07.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_01/scene_wall_07.fbx
@@ -823,9 +945,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/scene_01/scene_wall_05.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_01/scene_wall_05.fbx
-  - name: assets/buildasset/art/scenes/scene_01/scene_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_01/scene_01.png
   - name: assets/buildasset/art/characters/role/textures/role_hair-3.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_hair-3.png
@@ -835,12 +954,24 @@ MonoBehaviour:
   - name: assets/buildasset/art/characters/role/textures/role_clothes-1.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_clothes-1.png
+  - name: assets/buildasset/art/characters/role/textures/role_clothes-4.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_clothes-4.png
   - name: assets/buildasset/art/characters/role/textures/role_body-1_4.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_body-1_4.png
+  - name: assets/buildasset/art/characters/role/textures/role_clothes-7.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_clothes-7.png
   - name: assets/buildasset/art/characters/role/role.fbx.unity3d
     assets:
     - assets/buildasset/art/characters/role/role.fbx
+  - name: assets/buildasset/art/characters/role/textures/role_clothes-5.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_clothes-5.png
+  - name: assets/buildasset/art/characters/role/textures/role_hair-4.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_hair-4.png
   - name: assets/buildasset/art/characters/role/textures/role_makeup-1.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_makeup-1.png
@@ -850,6 +981,9 @@ MonoBehaviour:
   - name: assets/buildasset/art/characters/role/textures/role_hair-2.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_hair-2.png
+  - name: assets/buildasset/art/characters/role/textures/role_hair-5.png.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/textures/role_hair-5.png
   - name: assets/buildasset/art/characters/role/textures/role_clothes-2.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_clothes-2.png

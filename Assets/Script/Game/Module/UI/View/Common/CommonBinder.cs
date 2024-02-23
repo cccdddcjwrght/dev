@@ -8,6 +8,7 @@ namespace SGame.UI.Common
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_MaskUI.URL, typeof(UI_MaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_CenterText.URL, typeof(UI_CenterText));
             UIObjectFactory.SetPackageItemExtension(UI_GiftItem.URL, typeof(UI_GiftItem));
             UIObjectFactory.SetPackageItemExtension(UI_PopupUI.URL, typeof(UI_PopupUI));

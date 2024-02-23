@@ -10,7 +10,8 @@ namespace SGame
 		TEST_EVENT1                = 1,
 		TEST_EVENT2				   = 2,
 		
-		
+		ON_UI_MASK_SHOW				= 10, // 显示MASK 事件, (UIContext context)
+		ON_UI_MASK_HIDE				= 11, // 隐藏MASK 事件, (UIContext context)
 
 		//登录======================================
 		HOTFIX_DONE					= 100, // 热更新结束
