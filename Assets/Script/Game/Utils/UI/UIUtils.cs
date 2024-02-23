@@ -213,31 +213,31 @@ namespace SGame
 
 			return ui;
 		}
-		
+
 		/// <summary>
 		/// 显示等待HUD
 		/// </summary>
 		/// <param name="progressTime"></param>
 		/// <returns></returns>
-		public static Entity ShowWaitUI(float progressTime,Transform pos)
+		public static Entity ShowWaitUI(float progressTime, Transform pos)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("progress", pos, float3.zero);
 			entityManager.AddComponent<TweenTime>(ui);
-			entityManager.SetComponentData(ui, new TweenTime() {Value =  progressTime});
+			entityManager.SetComponentData(ui, new TweenTime() { Value = progressTime });
 			return ui;
 		}
-		
-        /// <summary>
-        /// 显示飘字
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="pos"></param>
-        /// <param name="color"></param>
-        /// <param name="fontSize"></param>
-        /// <param name="duration"></param>
-        /// <param name="speed"></param>
-        /// <returns></returns>
+
+		/// <summary>
+		/// 显示飘字
+		/// </summary>
+		/// <param name="title"></param>
+		/// <param name="pos"></param>
+		/// <param name="color"></param>
+		/// <param name="fontSize"></param>
+		/// <param name="duration"></param>
+		/// <param name="speed"></param>
+		/// <returns></returns>
 		public static Entity ShowTipsNew(
 			double gold,
 			Transform pos,
@@ -253,9 +253,9 @@ namespace SGame
 			entityManager.AddComponent<LiveTime>(ui);
 
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
-			entityManager.SetComponentData(ui, new HUDTips { title = Utils.ConvertNumberStr(gold), color = color, fontSize = fontSize, speed=speed});
+			entityManager.SetComponentData(ui, new HUDTips { title = Utils.ConvertNumberStr(gold), color = color, fontSize = fontSize, speed = speed });
 			entityManager.SetComponentData(ui, new LiveTime { Value = duration });
-			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD,gold);
+			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, gold);
 			return ui;
 		}
 
@@ -269,11 +269,11 @@ namespace SGame
 			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponent<FoodType>(ui);
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
-			entityManager.SetComponentData(ui, new FoodType { Value = foodType,num=foodNum });
+			entityManager.SetComponentData(ui, new FoodType { Value = foodType, num = foodNum });
 
 			return ui;
 		}
-		
+
 		public static Entity ShowUpdateTip(Transform pos)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -305,6 +305,18 @@ namespace SGame
 					ui.Value.DispatchEvent(eventName, param);
 				}
 			}
+		}
+
+		public static bool IsChild(GObject gObject, GObject target)
+		{
+			if (gObject == null || target == null) return false;
+			var p = target;
+			while (gObject != p)
+			{
+				p = p.parent;
+				if (p == null) return false;
+			}
+			return true;
 		}
 	}
 }

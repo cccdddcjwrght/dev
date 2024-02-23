@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FairyGUI;
 using SGame.Dining;
 using SGame.UI;
 using Unity.Entities;
@@ -19,6 +20,7 @@ namespace SGame
 		{
 			EventManager.Instance.Reg<Region, int>(((int)GameEvent.WORK_TABLE_CLICK), OnRegionClick);
 			ControlAxis.OnAnyKeyInput += ListenClick;
+
 		}
 
 		void ListenClick()
