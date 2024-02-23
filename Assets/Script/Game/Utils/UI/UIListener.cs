@@ -446,6 +446,9 @@ public class UIListener
 				?? com.GetChild("mask");
 			if (icon != null && icon is GButton btn)
 				Listener(btn, method, remove: remove);
+			var mask = com.GetChild("closeBg");
+			if (mask != null)
+				Listener(mask, method, remove: remove);
 		}
 	}
 
