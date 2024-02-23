@@ -44,12 +44,13 @@ namespace GameTools.Paths
 					// 设置可行走位置
 					AStarSystem.Node v = mapData._datas[i];
 					v.isWalkable = map_data.GetWalkable(i);
+					v.cost = map_data.HasHold(i) ? 100 : 0;
 					mapData._datas[i] = v;
 				}
 
 				mapData._size = new int2(map_data.mapSize.x, map_data.mapSize.y);
 				mapData._cellSize = map_data.cellSize;
-				mapData._startPos = map_data.GetPos(0,0);
+				mapData._startPos = map_data.GetPos(0, 0);
 				mapData._version = map_data.version;
 
 				_astarSystem.UpdateMap(mapData);

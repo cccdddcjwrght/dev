@@ -42,13 +42,15 @@ namespace SGame
 		private Dictionary<uint, EffectContainer> _referencers = new Dictionary<uint, EffectContainer>();
 		private Index<int> _refIndexs = new Index<int>();
 
-		public Entity AddEffect(int effectId, object parent = default, object referencer = null , Vector3 position = default)
+		public Entity AddEffect(int effectId, object parent = default, object referencer = null, Vector3 position = default)
 		{
 			Entity entity = default;
-			if ( parent is GameObject go)
-				entity = Spawn3d(effectId, go , position);
+			if (parent is GameObject go)
+				entity = Spawn3d(effectId, go, position);
 			else if (parent is GGraph holder)
 				entity = SpawnUI(effectId, holder);
+			else if (parent is GComponent gObject && gObject.GetChild("__effect") is GGraph g)
+				entity = SpawnUI(effectId, g);
 			if (entity != default && referencer != null)
 			{
 				var key = _refIndexs.IndexOf(referencer.GetHashCode());

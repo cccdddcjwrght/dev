@@ -25,7 +25,9 @@ namespace GameTools.Paths
 		/// <returns></returns>
 		public MapInfo GetMapInfo();
 
-		public void Hold(int x, int y, int holder);
+		public bool Hold(int x, int y, int holder);
+
+		public bool HasHold(int index);
 	}
 
 	public struct MapInfo

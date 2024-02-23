@@ -8,7 +8,6 @@ namespace SGame.UI.Common
     public partial class UI_ItemIcon : GLabel
     {
         public Controller m_icon;
-        public GLoader m_icon_2;
         public const string URL = "ui://2w8thcm7vujj3lbg";
 
         public static UI_ItemIcon CreateInstance()
@@ -21,7 +20,6 @@ namespace SGame.UI.Common
             base.ConstructFromXML(xml);
 
             m_icon = GetControllerAt(0);
-            m_icon_2 = (GLoader)GetChildAt(0);
         }
     }
 }

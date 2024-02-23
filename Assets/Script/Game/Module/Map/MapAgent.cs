@@ -72,17 +72,25 @@ namespace GameTools
 			};
 		}
 
-		public void Hold(int x, int y, int holder)
+		public bool Hold(int x, int y, int holder)
 		{
-			if (grid.IsInGridByIndex(x, y))
+			if (x == -1 && y == -1 && holder == 0)
+				Array.Fill(this.holder, 0);
+			else if (grid.IsInGridByIndex(x, y))
 			{
 				var id = x + grid.gridSize.x * y;
+				if (holder == 0) return this.holder[id] != 0;
 				this.holder[id] = holder;
 				version++;
 			}
-			else if (x == -1 && y == -1 && holder == 0)
-				Array.Fill(this.holder, 0);
+			return false;
+		}
 
+		public bool HasHold(int index)
+		{
+			if (index >= 0 && index < this.holder.Length)
+				return this.holder[index] != 0;
+			return false;
 		}
 
 		private void Init()

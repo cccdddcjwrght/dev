@@ -31,6 +31,8 @@ namespace GameTools.Paths
 			public int hValue; // 从该
 			public int fValue;
 
+			public int cost;
+
 			public void CalcFValue()
 			{
 				fValue = gValue + hValue;
@@ -210,7 +212,7 @@ namespace GameTools.Paths
 						continue;
 
 
-					int g = CalcDistanceCost(currentPos, pos) + node.gValue;
+					int g = CalcDistanceCost(currentPos, pos) + node.gValue + node.cost;
 					if (g < n.gValue) // 没有比另一个路径更哟（一开始这个值就是Max）
 					{
 						if (n.hValue == 0)

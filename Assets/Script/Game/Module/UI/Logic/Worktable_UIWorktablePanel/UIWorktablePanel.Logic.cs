@@ -157,6 +157,7 @@ namespace SGame.UI
 					//Debug.Log($"{info.id} : Lv -> {data.level}");
 					LevelRefresh();
 					ShowUplevelEffect();
+					EffectSystem.Instance.AddEffect(2, m_view.m_click);
 					return true;
 			}
 			return false;
