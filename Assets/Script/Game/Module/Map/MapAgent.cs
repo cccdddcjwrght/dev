@@ -13,6 +13,7 @@ namespace GameTools
 		private int[] holder;
 
 		public bool enableHold;
+		public bool checkHoldCost = true;
 		[SerializeField]
 		private Maps.Grid _grid;
 
@@ -88,6 +89,7 @@ namespace GameTools
 
 		public bool HasHold(int index)
 		{
+			if (!checkHoldCost) return false;
 			if (index >= 0 && index < this.holder.Length)
 				return this.holder[index] != 0;
 			return false;

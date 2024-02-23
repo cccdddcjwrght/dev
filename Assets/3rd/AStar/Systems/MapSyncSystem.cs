@@ -44,7 +44,7 @@ namespace GameTools.Paths
 					// 设置可行走位置
 					AStarSystem.Node v = mapData._datas[i];
 					v.isWalkable = map_data.GetWalkable(i);
-					v.cost = map_data.HasHold(i) ? 100 : 0;
+					v.cost = map_data.HasHold(i) ? 20 : 0;
 					mapData._datas[i] = v;
 				}
 
@@ -62,7 +62,9 @@ namespace GameTools.Paths
 				{
 					// 设置可行走位置
 					AStarSystem.Node v = mapData._datas[i];
+					var c = map_data.HasHold(i) ? 20 : 0;
 					v.isWalkable = map_data.GetWalkable(i);
+					if (v.cost != c) v.cost = c;
 					mapData._datas[i] = v;
 				}
 				mapData._version = map_data.version;

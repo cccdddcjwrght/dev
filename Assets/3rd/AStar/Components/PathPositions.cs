@@ -5,4 +5,5 @@ using Unity.Mathematics;
 public struct PathPositions : IBufferElementData
 {
     public int2 Value;
+	public int cost;
 }

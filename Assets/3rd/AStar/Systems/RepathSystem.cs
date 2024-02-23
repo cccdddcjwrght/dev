@@ -85,9 +85,11 @@ namespace GameTools.Paths
 					var e = chunkEntities[i];
 					var points = chunkPathPositions[i];
 					var translation = chunkTranslation[i];
+					var fv = points[follow.Value - 1];
+					var p = map.GetData(fv.Value);
+					var flag = p.cost != fv.cost && follow.Value > 1;
 
-					var map_pos = points[follow.Value - 1].Value;
-					if (!map.GetData(map_pos).isWalkable) {
+					if (!p.isWalkable || flag) {
 
 						var tpos = points[0].Value;
 						var spos = AStar.GetGridPos(translation.Value, mapInfo);

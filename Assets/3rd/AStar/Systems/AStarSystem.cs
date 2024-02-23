@@ -212,7 +212,7 @@ namespace GameTools.Paths
 						continue;
 
 
-					int g = CalcDistanceCost(currentPos, pos) + node.gValue + node.cost;
+					int g = CalcDistanceCost(currentPos, pos) + node.gValue + n.cost;
 					if (g < n.gValue) // 没有比另一个路径更哟（一开始这个值就是Max）
 					{
 						if (n.hValue == 0)
@@ -295,7 +295,7 @@ namespace GameTools.Paths
 			for (int startIndex = endIndex; startIndex >= 0 && maps[startIndex].parentIndex >= 0; startIndex = maps[startIndex].parentIndex)
 			{
 				int2 pos = GetPosFromIndex(startIndex, width);
-				paths.Add(new PathPositions { Value = pos });
+				paths.Add(new PathPositions { Value = pos , cost = maps[startIndex].cost });
 				//paths.Add(startIndex);
 			}
 
