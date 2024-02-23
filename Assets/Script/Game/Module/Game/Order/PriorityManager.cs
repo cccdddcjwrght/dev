@@ -40,6 +40,18 @@ namespace SGame
             }
         }
 
+        /// <summary>
+        /// 删除该人物的优先级
+        /// </summary>
+        /// <param name="id"></param>
+        public void RemovePriorityData(int id)
+        {
+            if(m_priorityDatas.ContainsKey(id))
+            {
+                m_priorityDatas.Remove(id);
+            }
+        }
+
         
         public void SetPriority(int id,int sort,float distance)
         {
@@ -49,15 +61,12 @@ namespace SGame
                     m_datas[id].roleType*(int)PriorityMode.role
                     - distance * (int)PriorityMode.distance;
             }
-            else if(!m_priorityDatas.ContainsKey(id))
+            else if(!m_priorityDatas.ContainsKey(id)&&m_datas.ContainsKey(id))
             {
                 m_priorityDatas.Add(id, m_datas[id].roleType*(int)PriorityMode.role
                                         - distance * (int)PriorityMode.distance);
             }
-            else
-            {
-                Debug.LogWarning("人物初始化错误");
-            }
+           
         }
 
         /// <summary>
@@ -67,14 +76,12 @@ namespace SGame
         /// <returns></returns>
         public int GetPriorityID()
         {
-            // 判断m_datas中所有存在的key值中，m_priorityDatas字典的内容值不为空也不为0
-            bool allPrioritiesNonEmpty = m_datas.Keys.All(key => m_priorityDatas.ContainsKey(key) && m_priorityDatas[key] != 0f);
-            if (allPrioritiesNonEmpty)
+            if (m_priorityDatas.Count == 0 || m_datas.Count == 0)
             {
-                int key = m_priorityDatas.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-                return key;
+                return 0;
             }
-            return 0;
+            int key = m_priorityDatas.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            return key;
         }
 
     }

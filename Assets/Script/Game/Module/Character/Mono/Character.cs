@@ -77,10 +77,16 @@ namespace SGame
             this.entity = entity;
             this.entityManager = mgr;
             modelAnimator = model.GetComponent<Animator>();
-
+         
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);
         }
+
+        public void CacheCharacter()
+        {
+            PriorityManager.Instance.AddRoleData(this);
+        }
+        
 
         /// <summary>
         /// 获取角色挂点
@@ -204,6 +210,11 @@ namespace SGame
             }
             m_food = Entity.Null;
             return old;
+        }
+
+        public int2 GetInt2Pos()
+        {
+            return AStar.GetGridPos(pos.position);
         }
 
         /// <summary>
