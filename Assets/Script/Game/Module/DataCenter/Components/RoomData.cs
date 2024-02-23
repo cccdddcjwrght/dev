@@ -22,10 +22,10 @@ namespace SGame
 				{
 					var room = new Room() { id = id };
 					//³õÊ¼½ð±Ò
-					PropertyManager
+					/*PropertyManager
 						.Instance
 						.GetGroup(PropertyGroup.ITEM)
-						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));
+						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));*/
 
 					if (iscurrent)
 					{

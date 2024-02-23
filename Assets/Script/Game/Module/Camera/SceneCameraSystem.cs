@@ -408,12 +408,12 @@ namespace SGame
 				pos = Input.touchCount == 1 ? Input.GetTouch(0).position : Input.mousePosition;
 				var ray = _camera.ViewportPointToRay(_camera.ScreenToViewportPoint(pos));
 				var count = 0;
-				if ((count = Physics.RaycastNonAlloc(ray, hits)) > 0)
+				if ((count = Physics.RaycastNonAlloc(ray, hits,50)) > 0)
 				{
 					int index = 0;
-					while (index < count)
+					while ((count--)>=0)
 					{
-						var t = hits[index++].collider.gameObject.GetComponents<ITouchOrHited>();
+						var t = hits[count].collider.gameObject.GetComponents<ITouchOrHited>();
 						if (t != null && t.Length > 0)
 						{
 							t.Foreach(v => v.OnClick());
