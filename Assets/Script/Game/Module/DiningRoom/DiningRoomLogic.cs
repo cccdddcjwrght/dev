@@ -251,7 +251,9 @@ namespace SGame.Dining
 		private void Awake()
 		{
 			var c = transform.gameObject.AddComponent<BoxCollider>();
-			c.size = new Vector3(1, 1, 1);
+			c.size = new Vector3(0.9f, 0.3f, 0.9f);
+			c.center = new Vector3(0, 0.25f, 0);
+
 		}
 
 		public void OnClick()
@@ -672,7 +674,7 @@ namespace SGame.Dining
 			{
 				var p = r.GetPlace(place);
 
-				if (!r.enable || r.next?.cfgID == place)
+				if ((!r.enable && r.begin.cfgID == place) || r.next?.cfgID == place)
 				{
 					if ((r.next ?? r.begin).waitActive == true)
 					{

@@ -68,7 +68,7 @@ namespace SGame.UI
 		private void SetUplevelInfo()
 		{
 			m_view.m_type.selectedIndex = 0;
-			UIListener.SetText(m_view.m_time, data.GetWorkTime().ToString());
+			UIListener.SetText(m_view.m_time, data.GetWorkTime().ToString()+"s");
 			m_view.m_list.itemRenderer = SetStarInfo;
 			LevelRefresh();
 		}
