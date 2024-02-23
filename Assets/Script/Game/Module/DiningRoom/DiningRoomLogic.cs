@@ -713,9 +713,11 @@ namespace SGame.Dining
 		{
 			if (region != null)
 			{
+				var p = region.GetPlace(place);
 				region.gHandler?.DestroyAllEntity();
 				region.SetNextUnlock(null);
-				ActiveBuild(region.GetPlace(place), region: region.cfgID)?.Wait()?.Start();
+				ActiveBuild(p, region: region.cfgID)?.Wait()?.Start();
+				EffectSystem.Instance.AddEffect(1, p.transform.gameObject);
 			}
 		}
 
