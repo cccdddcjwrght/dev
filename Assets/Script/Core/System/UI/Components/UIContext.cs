@@ -65,6 +65,11 @@ namespace SGame.UI
         public Action<UIContext> doShowAnimation;
 
         /// <summary>
+        /// 开始显示
+        /// </summary>
+        public Action<UIContext> beginShown;
+
+        /// <summary>
         /// UI 隐藏动画
         /// </summary>
         public Action<UIContext> doHideAnimation;

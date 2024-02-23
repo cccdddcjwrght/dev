@@ -34,6 +34,12 @@ namespace SGame
                     // 添加UI对动画 显示与隐藏的支持
                     UIAnimationBind.Bind(context);
                     context.window.isFullScreen = true;
+
+                    if (ui.Mask != 0)
+                    {
+                        context.beginShown += OnMaskShow;
+                        context.onHide += OnMaskHide;
+                    }
                 }
                 else if (ui.Type == (int)UIType.HUD)
                 {
@@ -43,6 +49,18 @@ namespace SGame
                 
 
             }
+        }
+
+        void OnMaskShow(UIContext otherUI)
+        {
+            log.Debug("show mask =" + otherUI.window.uiname);
+            EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_SHOW, otherUI);
+        }
+        
+        void OnMaskHide(UIContext otherUI)
+        {
+            log.Debug("hide mask =" + otherUI.window.uiname);
+            EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_HIDE, otherUI);
         }
 
         /// <summary>

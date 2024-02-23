@@ -36,11 +36,11 @@ namespace SGame.UI
             switch (animType)
             {
                 case ANIM_TYPE.INTER:
-                    context.doShowAnimation = UIAnimInter.Show;
+                    context.doShowAnimation += UIAnimInter.Show;
                     break;
                 
                 case ANIM_TYPE.SCALE:
-                    context.doShowAnimation = UIAnimScale.Show;
+                    context.doShowAnimation += UIAnimScale.Show;
                     break;
             }
             

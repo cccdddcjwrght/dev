@@ -130,6 +130,7 @@ namespace SGame.UI
         /// </summary>
         protected override void DoShowAnimation()
         {
+            m_context.beginShown?.Invoke(m_context);
             if (m_context.doShowAnimation != null)
                 m_context.doShowAnimation(m_context);
             else
