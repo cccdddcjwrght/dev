@@ -51,8 +51,8 @@ namespace SGame
 		{
 			if (_hud.IsExists())
 			{
-				UIModule.Instance.GetEntityManager().AddComponent<DespawningEntity>(_hud);
 				UIUtils.CloseUI(_hud);
+				UIModule.Instance.GetEntityManager().AddComponent<DespawningEntity>(_hud);
 			}
 			_cid = 0;
 			_hud = default;

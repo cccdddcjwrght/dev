@@ -28,10 +28,12 @@ namespace SGame.UI
 			});
 			m_view.m_BuffList.itemRenderer = OnSetItem;
 			RefreshList();
+			EventManager.Instance.Reg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
 		}
 
 		partial void UnInitEvent(UIContext context)
 		{
+			EventManager.Instance.UnReg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
 
 		}
 
@@ -50,20 +52,27 @@ namespace SGame.UI
 		{
 			var view = (UI_BuffItem)item;
 			var data = _datas[index];
-			
+			view.name = index.ToString();
 			view.SetIcon(data.Icon);
 			view.m_title.SetTextByKey(data.Name);
-			view.m_desc.SetTextByKey(data.Des , Mathf.Max(1, data.Value));
+			view.m_desc.SetTextByKey(data.Des, Mathf.Max(1, data.Value));
 			view.m_type.selectedIndex = data.Mark;
 
-
 			var str = Utils.ConvertNumberStr(data.Cost(2));
-			var flag = PropertyManager.Instance.CheckCountByArgs(data.GetCostArray());
-			view.m_click.m_gray.selectedIndex = flag ? 0 : 1;
 			UIListener.SetIconIndex(view.m_click, data.Cost(1) - 1);
 			UIListener.SetText(view.m_click, str);
 			view.m_click.onClick.Clear();
 			view.m_click.onClick.Add(() => OnItemClick(index, view, data));
+			RefreshBtn(item);
+		}
+
+		private void RefreshBtn(GObject item)
+		{
+			var view = (UI_BuffItem)item;
+			var data = _datas[int.Parse(item.name)];
+
+			var flag = PropertyManager.Instance.CheckCountByArgs(data.GetCostArray());
+			view.m_click.m_gray.selectedIndex = flag ? 0 : 1;
 		}
 
 		private void OnItemClick(int index, UI_BuffItem item, RoomTechRowData data)
@@ -83,5 +92,10 @@ namespace SGame.UI
 			}
 		}
 
+		private void OnGoldChange(double val, double change)
+		{
+			m_view.m_BuffList.GetChildren().Foreach(c => RefreshBtn(c));
+
+		}
 	}
 }

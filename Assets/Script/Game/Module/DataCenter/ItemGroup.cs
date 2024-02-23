@@ -8,9 +8,11 @@ using log4net;
 public class ItemGroup
 {
 	// 道具数据
-	private ItemData					m_itemData	= new ItemData();
-	private Dictionary<int, int>		m_values	= new Dictionary<int, int>();
-	static ILog							log			= LogManager.GetLogger("Game.ItemSystem");
+	private ItemData m_itemData = new ItemData();
+	private Dictionary<int, int> m_values = new Dictionary<int, int>();
+	static ILog log = LogManager.GetLogger("Game.ItemSystem");
+
+	public event Action<int, double, double> onValueUpdate;
 
 	public void Initalize(ItemData data)
 	{
@@ -50,7 +52,7 @@ public class ItemGroup
 
 		return 0;
 	}
-	
+
 
 	/// <summary>
 	/// 设置数量
@@ -62,23 +64,27 @@ public class ItemGroup
 		if (value < 0)
 			return false;
 
+		var oldValue = 0d;
+
 		if (m_values.TryGetValue(id, out int cur_index))
 		{
 			var item = m_itemData.Values[cur_index];
-			var oldValue = item.num;
 			if (item.num == value)
 				return false;
-
+			oldValue = item.num;
 			item.num = value;
 			m_itemData.Values[cur_index] = item;
 			EventManager.Instance.Trigger(((int)GameEvent.PROPERTY_GOLD));
-			return true;
+		}
+		else
+		{
+			// 添加新数据
+			m_itemData.Values.Add(new ItemData.Value() { id = id, num = value });
+			m_values.Add(id, m_itemData.Values.Count - 1);
 		}
 
-		// 添加新数据
-		m_itemData.Values.Add(new ItemData.Value() { id = id, num = value });
-		m_values.Add(id, m_itemData.Values.Count - 1);
-		
+		onValueUpdate?.Invoke(id, value, oldValue);
+
 		return true;
 	}
 
@@ -106,7 +112,7 @@ public class ItemGroup
 	{
 		if (!CanAddNum(id, add_value))
 			return false;
-		
+
 		return SetNum(id, GetNum(id) + add_value);
 	}
 

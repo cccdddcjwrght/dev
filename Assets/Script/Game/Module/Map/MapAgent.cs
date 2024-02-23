@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameConfigs;
 using GameTools.Maps;
 using GameTools.Paths;
 using UnityEngine;
@@ -114,6 +115,7 @@ namespace GameTools
 			Init();
 			AStar.Init(this);
 			agent = this;
+			checkHoldCost = GlobalConfig.GetInt("checkholdcost") == 1;
 		}
 
 		private void Update()

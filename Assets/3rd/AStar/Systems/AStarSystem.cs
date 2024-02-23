@@ -11,7 +11,7 @@ namespace GameTools.Paths
 	[UpdateInGroup(typeof(SimulationSystemGroup))]
 	public partial class AStarSystem : SystemBase //: ComponentSystem
 	{
-		public const int CST_CROSS_VALUE = 20;    // 交叉行走的代价
+		public const int CST_CROSS_VALUE = 15;    // 交叉行走的代价
 		public const int CST_STRAIGHT_VALUE = 10; // 笔直行走的代价
 
 		// 节点

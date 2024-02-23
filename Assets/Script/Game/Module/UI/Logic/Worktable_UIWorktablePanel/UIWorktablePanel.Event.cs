@@ -20,14 +20,20 @@ namespace SGame.UI
 					trigger = 1f
 				}.onAction.Add(OnClickClick);
 			}
+
+			EventManager.Instance.Reg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
+
 		}
 
 		partial void UnInitEvent(UIContext context)
 		{
-
+			EventManager.Instance.UnReg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
 		}
 
-
+		void OnGoldChange(double val , double change)
+		{
+			RefreshClick();
+		}
 
 	}
 }

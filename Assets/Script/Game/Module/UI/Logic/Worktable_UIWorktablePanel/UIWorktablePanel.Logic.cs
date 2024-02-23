@@ -8,6 +8,7 @@ namespace SGame.UI
 	using Unity.Mathematics;
 	using System.Collections.Generic;
 	using GameConfigs;
+	using Unity.VisualScripting;
 
 	public partial class UIWorktablePanel
 	{
@@ -86,9 +87,7 @@ namespace SGame.UI
 			}
 			else
 			{
-				var state = PropertyManager.Instance.CheckCount(cid, cost, cty);
-				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
-				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+				RefreshClick();
 				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(cost));
 				if (ConfigSystem.Instance.TryGet<MachineStarRowData>(data.lvcfg.MachineStar + 1, out var cfg))
 					m_view.m_reward.SetIconIndex(cfg.StarReward(1));
@@ -104,6 +103,18 @@ namespace SGame.UI
 			m_view.m_list.RemoveChildrenToPool();
 			m_view.m_list.numItems = stars.Length;
 
+		}
+
+		private void RefreshClick()
+		{
+			var cost = data.GetUpCost(out var cty, out var cid);
+			var lvmax = data.maxlv <= data.level;
+			if (!lvmax)
+			{
+				var state = PropertyManager.Instance.CheckCount(cid, cost, cty);
+				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
+				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+			}
 		}
 
 		private void SetStarInfo(int index, GObject star)
