@@ -636,6 +636,7 @@ static class BuildCommand
 		var level = ManagedStrippingLevel.High;
 		if (!TryGetEnv(SCRIPT_LEVEL, out var lv))
 			level = (ManagedStrippingLevel)Enum.Parse(typeof(ManagedStrippingLevel), lv , true);
+		Console.WriteLine($"::Set Script Level : {level}");
 		if (level == ManagedStrippingLevel.Disabled)
 		{
 			PlayerSettings.stripEngineCode = false;
