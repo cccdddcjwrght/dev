@@ -278,7 +278,7 @@ static class BuildCommand
 		HandleAppNameAndCom();
 		HandleSymbol(buildTarget);
 		HandleINIFile();
-		HandleScriptLevel();
+		HandleScriptLevel(buildTarget);
 		var ver = HandleResVer();
 		var core = HandleCoreVer();
 		var proto = HandleProtoVer();
