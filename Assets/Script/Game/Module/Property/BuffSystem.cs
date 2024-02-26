@@ -99,8 +99,8 @@ namespace SGame
 					if (ConfigSystem.Instance.TryGet<RoleDataRowData>(id, out r))
 					{
 						attr[((int)EnumAttribute.Speed)] = r.MoveSpeed;
-						attr[((int)EnumAttribute.Gratuity)] = r.Tip;
-						attr[((int)EnumAttribute.GratuityRate)] = r.TipRatio;
+						attr[((int)EnumAttribute.Gratuity)] = r.TipRatio;
+						attr[((int)EnumAttribute.GratuityRate)] = r.Tip;
 					}
 					break;
 			}
