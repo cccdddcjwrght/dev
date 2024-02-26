@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net;
 using System.Text;
+using UnityEditor.Build;
 
 static class BuildCommand
 {
@@ -47,6 +48,7 @@ static class BuildCommand
 	private const string APP_RES = "VERSION_BUILD_VAR";
 	private const string CORE_RES = "VERSION_CORE_VAR";//代码版本
 	private const string PROTO_RES = "VERSION_PROTO_VAR";//协议版本
+	private const string SCRIPT_LEVEL = "SCRIPT_LEVEL";
 
 	private const string INI_FILE = "INI_FILE";
 
@@ -276,6 +278,7 @@ static class BuildCommand
 		HandleAppNameAndCom();
 		HandleSymbol(buildTarget);
 		HandleINIFile();
+		HandleScriptLevel();
 		var ver = HandleResVer();
 		var core = HandleCoreVer();
 		var proto = HandleProtoVer();
@@ -627,6 +630,24 @@ static class BuildCommand
 			_old_symbol_string = null;
 		}
 	}
+
+	private static void HandleScriptLevel(BuildTarget target)
+	{
+		var level = ManagedStrippingLevel.High;
+		if (!TryGetEnv(SCRIPT_LEVEL, out var lv))
+			level = (ManagedStrippingLevel)Enum.Parse(typeof(ManagedStrippingLevel), lv , true);
+		if (level == ManagedStrippingLevel.Disabled)
+		{
+			PlayerSettings.stripEngineCode = false;
+			PlayerSettings.SetManagedStrippingLevel(BuildPipeline.GetBuildTargetGroup(target), ManagedStrippingLevel.Disabled);
+		}
+		else
+		{
+			PlayerSettings.stripEngineCode = true;
+			PlayerSettings.SetManagedStrippingLevel(BuildPipeline.GetBuildTargetGroup(target), level);
+		}
+	}
+
 	#endregion
 
 	[MenuItem("[Tools]/Build/DevBuild")]
