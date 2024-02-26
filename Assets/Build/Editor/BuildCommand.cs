@@ -309,7 +309,8 @@ static class BuildCommand
 		DoAfterBuild?.Invoke(GetArgument);
 
 		Console.WriteLine(":: Done with build");
-		AssetDatabase.Refresh();
+		if (!Application.isBatchMode)
+			AssetDatabase.Refresh(); 
 	}
 
 	private static void HandlAllVar()
