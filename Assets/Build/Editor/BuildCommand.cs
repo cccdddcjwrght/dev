@@ -300,17 +300,19 @@ static class BuildCommand
 		HandleFirstScene(out _);
 		var buildReport = BuildPipeline.BuildPlayer(GetEnabledScenes(), fixedBuildPath, buildTarget, buildOptions);
 
+#if !UNITY_EDITOR_LINUX
 		ResetSymbol(buildTarget);
+#endif
 		if (buildReport.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
 			throw new Exception($"Build ended with {buildReport.summary.result} status");
 		_output = buildPath;
 
-		File.WriteAllText(C_BUILD_RESULT_FILE, "");
+		File.WriteAllText(C_BUILD_RESULT_FILE, contents: "");
 		DoAfterBuild?.Invoke(GetArgument);
 
 		Console.WriteLine(":: Done with build");
 		if (!Application.isBatchMode)
-			AssetDatabase.Refresh(); 
+			AssetDatabase.Refresh();
 	}
 
 	private static void HandlAllVar()
