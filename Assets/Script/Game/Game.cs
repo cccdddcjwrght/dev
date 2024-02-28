@@ -121,6 +121,16 @@ public class Game : SGame.MonoSingleton<Game>
 
 		//语言初始化
 		LanagueSystem.Instance.Initalize("en");
+		
+		// 声音初始化
+		AssetRequest audioReq = Assets.LoadAssetAsync(AudioMixerPath, typeof(AudioMixer));
+		yield return audioReq;
+		if (!string.IsNullOrEmpty(audioReq.error))
+		{
+			GameDebug.LogError("Audio Mixer Load Fail = " + audioReq.error);
+			yield break;
+		}
+		World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
 
 		//埋点
 		new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr);
