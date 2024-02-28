@@ -76,5 +76,21 @@ namespace SGame.VS
             //return attribute.roleID;
             return character.roleID;
         }
+        
+        protected Character GetCharacter(Flow flow)
+        {
+            Character character = null;
+            if (inputType == INPUT_TYPE.OBJECT)
+            {
+                return flow.GetValue<Character>(m_target);
+            }
+            else
+            {
+                var characterID =flow.GetValue<int>(m_target);
+                return CharacterModule.Instance.FindCharacter(characterID);
+            }
+
+            return null;
+        }
     }
 }
