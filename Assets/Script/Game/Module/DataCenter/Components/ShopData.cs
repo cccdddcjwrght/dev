@@ -135,7 +135,7 @@ namespace SGame
 					else if (goods.cfg.LimitNum > 0)
 					{
 						goods.buy += 1;
-						goods.cd = goods.buy >= goods.cfg.LimitNum ? 0 : GameServerTime.Instance.serverTime + Math.Min(goods.cfg.Cd,20);
+						goods.cd = goods.buy >= goods.cfg.LimitNum ? 0 : GameServerTime.Instance.serverTime + goods.cfg.Cd;
 					}
 				}
 				return goods;
