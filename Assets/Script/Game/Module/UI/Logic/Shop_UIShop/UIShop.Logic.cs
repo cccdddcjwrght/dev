@@ -8,9 +8,13 @@ namespace SGame.UI
 	using SGame.UI.Shop;
 	using System.Collections.Generic;
 	using System.Linq;
+	using Cs;
+	using GameConfigs;
 
 	public partial class UIShop
 	{
+		private const int _ad_goods_id = 1;
+
 		private int _currentLevel = 0;
 		private List<ShopGoods> _gifts;
 
@@ -41,13 +45,15 @@ namespace SGame.UI
 
 		void RefreshAdGoods()
 		{
+			var goods = DataCenter.Instance.shopData.goodDic[_ad_goods_id];
 			m_view.m_content.m_adgood.m_saled.selectedIndex = DataCenter.IsIgnoreAd() ? 1 : 0;
+			m_view.m_content.m_adgood.m_click.SetText(goods.pricestr);
 		}
 
 		void RefreshGifts()
 		{
 			_gifts = DataCenter.ShopUtil.GetShopGoodsByArea(2);
-
+			_gifts.RemoveAll(g => g.IsSaled());
 			m_view.m_content.m_gifts.RemoveChildrenToPool();
 			m_view.m_content.m_page.RemoveChildrenToPool();
 			m_view.m_content.m_pages.ClearPages();
@@ -79,9 +85,10 @@ namespace SGame.UI
 
 			var g = _gifts[index];
 			var v = gObject as UI_BigGoods;
-			v.m_left.visible = !string.IsNullOrEmpty(g.cfg.MarkValue);
-			v.m_left.text = g.cfg.MarkValue;
+			v.m_left_state.selectedIndex = !string.IsNullOrEmpty(g.cfg.MarkValue) ? 1 : 0;
+			v.SetIcon(g.cfg.Icon);
 			v.SetTextByKey(g.cfg.ShopName);
+			v.m_left.SetText(g.cfg.MarkValue, false);
 			v.m_desc.SetTextByKey(g.cfg.ShopName);
 			v.m_click.SetText(g.pricestr);
 			v.m_click.onClick?.Clear();
@@ -89,16 +96,20 @@ namespace SGame.UI
 			v.m_items.RemoveChildrenToPool();
 			SGame.UIUtils.AddListItems(v.m_items, DataCenter.ShopUtil.GetGoodsItems(g.id), OnSetGoodsItem);
 
-			_refreshCall[g.id] = () =>
+			if (g.cfg.LimitType != 0)
 			{
-				v.m_count.SetText((g.cfg.LimitNum - g.buy) + "/" + g.cfg.LimitNum, false);
-				v.m_saled.selectedIndex = g.buy >= g.cfg.LimitNum ? 1 : 0;
-			};
-
-			_refreshCall[g.id].Invoke();
+				_refreshCall[g.id] = () =>
+				{
+					v.m_count.SetText((g.cfg.LimitNum - g.buy) + "/" + g.cfg.LimitNum, false);
+					v.m_saled.selectedIndex = g.buy >= g.cfg.LimitNum ? 1 : 0;
+				};
+				_refreshCall[g.id].Invoke();
+			}
+			else
+				v.m_count.visible = false;
 		}
 
-		void SetGoodsInfo(int index , object data, GObject gObject)
+		void SetGoodsInfo(int index, object data, GObject gObject)
 		{
 			var g = data as ShopGoods;
 			var v = gObject as UI_Goods;
@@ -134,7 +145,7 @@ namespace SGame.UI
 			if (g.free > 0)
 			{
 				v.m_currency.selectedIndex = 0;
-				v.m_price.SetText("ui_shop_free");
+				v.m_price.SetTextByKey("ui_shop_free");
 			}
 			else
 			{
@@ -171,9 +182,11 @@ namespace SGame.UI
 		}
 
 
-		void OnSetGoodsItem(int index , object data, GObject gObject)
+		void OnSetGoodsItem(int index, object data, GObject gObject)
 		{
-
+			var val = data as int[];
+			gObject.SetText("X" +Utils.ConvertNumberStr(val[2]));
+			gObject.SetIcon(Utils.GetItemIcon(val[0], val[1]));
 		}
 
 		void OnTipsClick(ShopGoods goods)
@@ -181,7 +194,7 @@ namespace SGame.UI
 			var rates = goods.cfg.GetChestInfoArray();
 			m_view.m_rate_2.m_list.RemoveChildrenToPool();
 
-			SGame.UIUtils.AddListItems<int>(m_view.m_rate_2.m_list, rates, (index , v, g) =>
+			SGame.UIUtils.AddListItems<int>(m_view.m_rate_2.m_list, rates, (index, v, g) =>
 			{
 				UIListener.SetControllerSelect(g, "color", index);
 				g.SetText(string.Format("{0:p2}", (int)v * 0.0001f), false);

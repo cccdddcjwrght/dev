@@ -19,6 +19,7 @@ namespace SGame.UI{
 			m_view.m_content.m_pages.onChanged.Add(new EventCallback1(_OnShopBody_PagesChanged));
 			m_view.m_content.m_adgood.m_type.onChanged.Add(new EventCallback1(_OnBigGoods_TypeChanged));
 			m_view.m_content.m_adgood.m_saled.onChanged.Add(new EventCallback1(_OnBigGoods_SaledChanged));
+			m_view.m_content.m_adgood.m_left_state.onChanged.Add(new EventCallback1(_OnBigGoods_Left_stateChanged));
 			UIListener.Listener(m_view.m_content.m_adgood.m_click, new EventCallback1(_OnBigGoods_ClickClick));
 			UIListener.ListenerIcon(m_view.m_content.m_adgood, new EventCallback1(_OnShopBody_AdgoodClick));
 			UIListener.ListenerIcon(m_view.m_content, new EventCallback1(_OnContentClick));
@@ -33,6 +34,7 @@ namespace SGame.UI{
 			m_view.m_content.m_pages.onChanged.Remove(new EventCallback1(_OnShopBody_PagesChanged));
 			m_view.m_content.m_adgood.m_type.onChanged.Remove(new EventCallback1(_OnBigGoods_TypeChanged));
 			m_view.m_content.m_adgood.m_saled.onChanged.Remove(new EventCallback1(_OnBigGoods_SaledChanged));
+			m_view.m_content.m_adgood.m_left_state.onChanged.Remove(new EventCallback1(_OnBigGoods_Left_stateChanged));
 			UIListener.Listener(m_view.m_content.m_adgood.m_click, new EventCallback1(_OnBigGoods_ClickClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_content.m_adgood, new EventCallback1(_OnShopBody_AdgoodClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_content, new EventCallback1(_OnContentClick),remove:true);
@@ -74,6 +76,11 @@ namespace SGame.UI{
 		}
 		partial void OnBigGoods_SaledChanged(EventContext data);
 		void SwitchBigGoods_SaledPage(int index)=>m_view.m_content.m_adgood.m_saled.selectedIndex=index;
+		void _OnBigGoods_Left_stateChanged(EventContext data){
+			OnBigGoods_Left_stateChanged(data);
+		}
+		partial void OnBigGoods_Left_stateChanged(EventContext data);
+		void SwitchBigGoods_Left_statePage(int index)=>m_view.m_content.m_adgood.m_left_state.selectedIndex=index;
 		void _OnBigGoods_ClickClick(EventContext data){
 			OnBigGoods_ClickClick(data);
 		}

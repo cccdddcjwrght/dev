@@ -9,6 +9,7 @@ namespace SGame.UI.Shop
     {
         public Controller m_type;
         public Controller m_saled;
+        public Controller m_left_state;
         public GButton m_click;
         public GLabel m_left;
         public GList m_items;
@@ -27,6 +28,7 @@ namespace SGame.UI.Shop
 
             m_type = GetControllerAt(0);
             m_saled = GetControllerAt(1);
+            m_left_state = GetControllerAt(2);
             m_click = (GButton)GetChildAt(1);
             m_left = (GLabel)GetChildAt(2);
             m_items = (GList)GetChildAt(3);

@@ -85,7 +85,7 @@ namespace SGame
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
 				OnFirstInit();
 			}
-			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), 0);
+			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 			DoInit();
 			IsInitAll = true;
 			loadtime = GameServerTime.Instance.serverTime;

@@ -55,6 +55,13 @@ public class GameServerTime : Singleton<GameServerTime>
 	{
 		if (nextDayTime > 0)
 			m_nextServerDayTime = nextDayTime + delaySecond;
+		else if(nextDayTime == -1)
+		{
+			var d = DateTimeOffset.FromUnixTimeSeconds(serverTime);
+			d = new DateTimeOffset(d.Year, d.Month, d.Day,0,0,0, default).AddDays(1);
+			m_nextServerDayTime = d.ToUnixTimeSeconds();
+
+		}
 		m_localTime = GlobalTime.passTime;
 		m_serverTime = serverTime;
 		m_lastDay = serverDay;
@@ -74,4 +81,7 @@ public class GameServerTime : Singleton<GameServerTime>
 			return ret;
 		}
 	}
+
+	public int nextDayTime { get { return (int)m_nextServerDayTime; } }
+
 }

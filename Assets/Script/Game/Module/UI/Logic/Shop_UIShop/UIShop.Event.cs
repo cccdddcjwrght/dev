@@ -19,7 +19,7 @@ namespace SGame.UI
 		{
 			EventManager.Instance.UnReg<int>(((int)GameEvent.SHOP_GOODS_BUY_RESULT), OnGoodsBuyResult);
 			EventManager.Instance.UnReg(((int)GameEvent.SHOP_REFRESH), OnShopRefresh);
-			UIListener.ListenerClose(m_view.m_rate_2.m_bg, new EventCallback1(OnRateClose) , false);
+			UIListener.ListenerClose(m_view.m_rate_2.m_bg, new EventCallback1(OnRateClose), false);
 		}
 
 		partial void OnBigGoods_ClickClick(EventContext data)
@@ -32,7 +32,26 @@ namespace SGame.UI
 		void OnGoodsBuyResult(int id)
 		{
 			if (id == 1) RefreshAdGoods();
-			if (_refreshCall.TryGetValue(id, out var call)) call?.Invoke();
+			else
+			{
+				var goods = DataCenter.Instance.shopData.goodDic[id];
+				if (goods.IsSaled() && goods.cfg.LimitNum != 0)
+				{
+					switch (goods.type)
+					{
+						case 2:
+							RefreshGifts();
+							break;
+						case 4:
+						case 5:
+						case 3:
+							RefreshGoods();
+							break;
+					}
+					return;
+				}
+				if (_refreshCall.TryGetValue(id, out var call)) call?.Invoke();
+			}
 		}
 
 		void OnRateClose(EventContext data)

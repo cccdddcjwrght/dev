@@ -14,6 +14,7 @@ namespace SGame.UI.Shop
             UIObjectFactory.SetPackageItemExtension(UI_Goods.URL, typeof(UI_Goods));
             UIObjectFactory.SetPackageItemExtension(UI_Probability.URL, typeof(UI_Probability));
             UIObjectFactory.SetPackageItemExtension(UI_EqItem.URL, typeof(UI_EqItem));
+            UIObjectFactory.SetPackageItemExtension(UI_ItemIcon.URL, typeof(UI_ItemIcon));
         }
     }
 }

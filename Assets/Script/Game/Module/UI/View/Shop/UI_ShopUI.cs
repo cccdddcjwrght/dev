@@ -5,7 +5,7 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.Shop
 {
-    public partial class UI_ShopUI : GComponent
+    public partial class UI_ShopUI : GLabel
     {
         public Controller m_pages;
         public Controller m_rate;
