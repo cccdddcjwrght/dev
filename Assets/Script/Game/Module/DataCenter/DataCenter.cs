@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using GameConfigs;
 
 namespace SGame
 {
@@ -10,6 +11,9 @@ namespace SGame
 
 	public partial class DataCenter : IModule
 	{
+		[SerializeField]
+		private int loadtime;
+		
 		// 用户数据
 		public Entity m_data;
 		public AbilityData abilityData = new AbilityData();
@@ -76,9 +80,15 @@ namespace SGame
 
 		public void Initalize()
 		{
-			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, 100000);
-			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, 100);
+			if(loadtime == 0)
+			{
+				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
+				OnFirstInit();
+			}
+			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), 0);
+			DoInit();
 			IsInitAll = true;
+			loadtime = GameServerTime.Instance.serverTime;
 		}
 
 		public void Update()
@@ -92,6 +102,8 @@ namespace SGame
 
 		}
 
+		partial void OnFirstInit();
+		partial void DoInit();
 		partial void DoLoad();
 		partial void AfterLoad();
 	}
