@@ -86,7 +86,10 @@ namespace SGame.Dining
 			switch (_state)
 			{
 				case State.None:
-					_req = Load();
+					if (transform != null && transform.childCount == 0)
+						_req = Load();
+					else
+						_state = State.Loaded;
 					break;
 				case State.Loading:
 					if (_req != null)
@@ -144,7 +147,7 @@ namespace SGame.Dining
 		{
 			if (transform)
 			{
-				if (string.IsNullOrEmpty(error))
+				if (string.IsNullOrEmpty(error) && _req != null)
 					GameObject.Instantiate(_req.asset as GameObject, transform);
 				transform.gameObject.SetActive(true);
 			}
@@ -172,6 +175,13 @@ namespace SGame.Dining
 				return parts == null || parts.All(p => p.isDone);
 			}
 			set => base.isDone = value;
+		}
+
+		public bool NeedLoadAsset()
+		{
+			if (parts?.Count > 0)
+				return parts.Any(p => p.transform != null && p.transform.childCount == 0);
+			return false;
 		}
 
 		public Place(int id) => cfgID = id;
@@ -716,10 +726,12 @@ namespace SGame.Dining
 			if (region != null)
 			{
 				var p = region.GetPlace(place);
+				var needload = p.NeedLoadAsset();
 				region.gHandler?.DestroyAllEntity();
 				region.SetNextUnlock(null);
 				ActiveBuild(p, region: region.cfgID)?.Wait()?.Start();
-				EffectSystem.Instance.AddEffect(1, p.transform.gameObject);
+				if (needload)
+					EffectSystem.Instance.AddEffect(1, p.transform.gameObject);
 			}
 		}
 
