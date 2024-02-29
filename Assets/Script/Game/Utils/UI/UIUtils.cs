@@ -8,6 +8,8 @@ using Unity.VisualScripting;
 using System.Xml.Linq;
 using GameConfigs;
 using Unity.Transforms;
+using System;
+using System.Collections.Generic;
 
 namespace SGame
 {
@@ -288,6 +290,11 @@ namespace SGame
 			return tips;
 		}
 
+		public static string ErrorTips(this string tips)
+		{
+			return Tips(tips, "error_");
+		}
+
 		/// <summary>
 		/// 触发一个UI事件
 		/// </summary>
@@ -318,5 +325,39 @@ namespace SGame
 			}
 			return true;
 		}
+
+		static public GObject AddListItem(GComponent list, Action<int , object, GObject> onAdded = null, object data = null, string res = null)
+		{
+			if (list != null)
+			{
+				GObject item = default;
+				var index = list.numChildren;
+				if (list is GList gList)
+				{ index = gList.numItems; item = gList.AddItemFromPool(res); }
+				else if (!string.IsNullOrEmpty(res))
+				{
+					item = UIPackage.CreateObjectFromURL(res);
+					if (item != null)
+						list.AddChild(item);
+				}
+				if (item != null && onAdded != null)
+					onAdded(index , data, item);
+				return item;
+			}
+			return default;
+		}
+
+		static public void AddListItems<T>(GComponent list, IList<T> datas, Action<int , object, GObject> onAdded = null, List<GObject> rets = default, string res = null)
+		{
+			if (datas?.Count > 0 && list != null)
+			{
+				for (int i = 0; i < datas.Count; i++)
+				{
+					var g = AddListItem(list, onAdded, datas[i], res);
+					if (rets != null) rets.Add(g);
+				}
+			}
+		}
+
 	}
 }

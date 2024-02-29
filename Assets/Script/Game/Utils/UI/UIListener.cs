@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using FairyGUI;
 using GameConfigs;
 using SGame;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIListener
@@ -171,7 +172,7 @@ public class UIListener
 	/// <returns></returns>
 	static public string LocalFormat(string format, params object[] args)
 	{
-		return string.Format(Local(format), args);
+		return args?.Length > 0 ? string.Format(Local(format), args) : Local(format);
 	}
 
 	/// <summary>
@@ -195,7 +196,7 @@ public class UIListener
 			SetText(gObject, Local(txt), false);
 	}
 
-	static public void SetText(GObject gObject, string txt, bool local = true)
+	static public void SetText(GObject gObject, string txt, bool local = true )
 	{
 		if (gObject != null)
 		{
@@ -482,6 +483,21 @@ public static class UIListenerExt
 
 		UIListener.SetIconIndex(gObject, icon);
 		return gObject;
+	}
+
+	public static string Local(this string txt, string pix = null, params object[] args)
+	{
+		if (string.IsNullOrEmpty(txt)) return txt;
+		return UIListener.LocalFormat(pix + txt, args);
+	}
+
+	public static string AutoLocal(this string txt, params object[] args)
+	{
+		if (string.IsNullOrEmpty(txt)) return txt;
+		txt = UIListener.AutoLocal(txt);
+		if (args?.Length > 0)
+			txt = string.Format(txt, args);
+		return txt;
 	}
 
 }

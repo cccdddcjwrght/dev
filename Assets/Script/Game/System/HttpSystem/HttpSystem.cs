@@ -62,7 +62,10 @@ namespace SGame.Http
 
 					if (data.request.responseCode == 200 && string.IsNullOrEmpty(data.request.error))
 					{
-						result.data = data.request.downloadHandler.text;
+						if (data.isBuffer)
+							result.buffer = data.request.downloadHandler.data;
+						else
+							result.data = data.request.downloadHandler.text;
 					}
 					else
 					{
@@ -79,12 +82,12 @@ namespace SGame.Http
 		/// <param name="url"></param>
 		/// <param name="data"></param>
 		/// <returns></returns>
-		public HttpResult Post(string url, string data)
+		public HttpResult Post(string url, string data, bool isbuffer = false)
 		{
 			if (!url.Contains("://"))
 				url = GetBaseUrl() + url;
 
-			HttpRequest request = new HttpRequest() { url = url, post = data, isGet = false, token = m_token };
+			HttpRequest request = new HttpRequest() { url = url, post = data, isGet = false, token = m_token,buffer = isbuffer };
 			HttpResult result = new HttpResult() { isDone = false, data = null, error = null };
 			var e = EntityManager.CreateEntity();
 			EntityManager.AddComponentObject(e, request);
@@ -97,12 +100,12 @@ namespace SGame.Http
 		/// </summary>
 		/// <param name="url"></param>
 		/// <returns></returns>
-		public HttpResult Get(string url)
+		public HttpResult Get(string url , bool isbuffer = false)
 		{
 			if (!url.Contains("://"))
 				url = GetBaseUrl() + url;
 
-			HttpRequest request = new HttpRequest() { url = url, post = null, isGet = true, token = m_token };
+			HttpRequest request = new HttpRequest() { url = url, post = null, isGet = true, token = m_token , buffer = isbuffer };
 			HttpResult result = new HttpResult() { isDone = false, data = null, error = null };
 			var e = EntityManager.CreateEntity();
 			EntityManager.AddComponentObject(e, request);
@@ -112,7 +115,7 @@ namespace SGame.Http
 
 		private string GetBaseUrl()
 		{
-			if(m_baseUrl == null)
+			if (m_baseUrl == null)
 			{
 				SetBaseUrl(GlobalConfig.GetStr("svr_url") ?? "");
 				SetToken(GlobalConfig.GetStr("svr_token") ?? "1");

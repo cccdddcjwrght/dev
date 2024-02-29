@@ -27,6 +27,7 @@ namespace SGame
 		private string _api;
 		private string _token;
 		private float _time = 5f;
+		private bool _isbuffer ;
 
 		private int _version;
 
@@ -122,6 +123,12 @@ namespace SGame
 			return this;
 		}
 
+		public WaitHttp NeedBuffer()
+		{
+			this._isbuffer = true;
+			return this;
+		}
+
 		public WaitHttp OnSuccess(System.Action<WaitHttp, string> success)
 		{
 			_onSuccess = success;
@@ -178,10 +185,10 @@ namespace SGame
 							else
 								url += _data;
 						}
-						_result = Http.HttpSystem.Instance.Get(url);
+						_result = Http.HttpSystem.Instance.Get(url, _isbuffer);
 						break;
 					case HttpMethod.POST:
-						_result = Http.HttpSystem.Instance.Post(url, _data);
+						_result = Http.HttpSystem.Instance.Post(url, _data,_isbuffer);
 						break;
 				}
 			}
@@ -260,6 +267,11 @@ namespace SGame
 			return false;
 		}
 
+		public byte[] GetDatas()
+		{
+			return _result.buffer;
+		}
+
 		public WaitHttp Flush()
 		{
 			_result = null;
@@ -273,6 +285,7 @@ namespace SGame
 			_onFail = null;
 			_onSuccess = null;
 			_url = _api = _data = null;
+			_isbuffer = false;
 			return this;
 		}
 

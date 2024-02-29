@@ -9,13 +9,14 @@ using Unity.Transforms;
 using System.Text;
 using log4net;
 using Unity.Mathematics;
+using FairyGUI;
 
 namespace SGame
 {
 	public partial class Utils
 	{
 		private static ILog log = LogManager.GetLogger("game.utils");
-		
+
 		static public Dictionary<string, string> IniParser(string path)
 		{
 			if (!string.IsNullOrEmpty(path))
@@ -235,7 +236,7 @@ namespace SGame
 
 			return "";
 		}
-		
+
 		/// <summary>
 		/// 通过角色类型获得目标类型
 		/// </summary>
@@ -384,103 +385,202 @@ namespace SGame
 		#endregion
 
 
-        /// <summary>
-        /// 添加子节点
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="child"></param>
-        public static void AddEntityChild(Entity parent, Entity child)
-        {
-            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+		/// <summary>
+		/// 添加子节点
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="child"></param>
+		public static void AddEntityChild(Entity parent, Entity child)
+		{
+			var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            // 父节点设置
-            DynamicBuffer<Child> childBuffer;
-            if (!EntityManager.HasComponent<Child>(parent))
-            {
-                childBuffer = EntityManager.AddBuffer<Child>(parent);
-            }
-            else
-            {
-                childBuffer = EntityManager.GetBuffer<Child>(parent);
-            }
-            childBuffer.Add(new Child() { Value = child });
+			// 父节点设置
+			DynamicBuffer<Child> childBuffer;
+			if (!EntityManager.HasComponent<Child>(parent))
+			{
+				childBuffer = EntityManager.AddBuffer<Child>(parent);
+			}
+			else
+			{
+				childBuffer = EntityManager.GetBuffer<Child>(parent);
+			}
+			childBuffer.Add(new Child() { Value = child });
 
-            // 关联子节点, 必须的又LocalToParent
-            if (!EntityManager.HasComponent<Parent>(child))
-            {
-                EntityManager.AddComponent<Parent>(child);
-            }
-            EntityManager.SetComponentData(child, new Parent() { Value = parent });
-            if (EntityManager.HasComponent<LocalToWorld>(child) && !EntityManager.HasComponent<LocalToParent>(child))
-            {
-                EntityManager.AddComponent<LocalToParent>(child);
-            }
-        }
+			// 关联子节点, 必须的又LocalToParent
+			if (!EntityManager.HasComponent<Parent>(child))
+			{
+				EntityManager.AddComponent<Parent>(child);
+			}
+			EntityManager.SetComponentData(child, new Parent() { Value = parent });
+			if (EntityManager.HasComponent<LocalToWorld>(child) && !EntityManager.HasComponent<LocalToParent>(child))
+			{
+				EntityManager.AddComponent<LocalToParent>(child);
+			}
+		}
 
-        /// <summary>
-        /// 删除子节点
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="Child"></param>
-        public static void RemoveEntityChild(Entity parent, Entity child)
-        {
-            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            
-            // 删除父节点中的子节点
-            if (EntityManager.HasComponent<Child>(parent))
-            {
-                var childBuffer = EntityManager.AddBuffer<Child>(parent);
-                for (int i = 0; i < childBuffer.Length; i++)
-                {
-                    if (childBuffer[i].Value == child)
-                    {
-                        childBuffer.RemoveAtSwapBack(i);
-                        break;
-                    }
-                }
-            }
+		/// <summary>
+		/// 删除子节点
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="Child"></param>
+		public static void RemoveEntityChild(Entity parent, Entity child)
+		{
+			var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            if (EntityManager.HasComponent<Parent>(child))
-            {
-                // 防止经常删除添加, 这里直接使用赋值
-                EntityManager.RemoveComponent<Parent>(child);
-            }
+			// 删除父节点中的子节点
+			if (EntityManager.HasComponent<Child>(parent))
+			{
+				var childBuffer = EntityManager.AddBuffer<Child>(parent);
+				for (int i = 0; i < childBuffer.Length; i++)
+				{
+					if (childBuffer[i].Value == child)
+					{
+						childBuffer.RemoveAtSwapBack(i);
+						break;
+					}
+				}
+			}
 
-            if (EntityManager.HasComponent<LocalToParent>(child))
-            {
-                EntityManager.RemoveComponent<LocalToParent>(child);
-            }
-        }
+			if (EntityManager.HasComponent<Parent>(child))
+			{
+				// 防止经常删除添加, 这里直接使用赋值
+				EntityManager.RemoveComponent<Parent>(child);
+			}
 
-        /// <summary>
-        /// 获取旋转角度, 以二维里的Y轴为起点
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>0-360 角度</returns>
-        public static float GetRotation(float x, float y)
-        {
-	        Vector2 dir = new Vector2(x, y);
-	        dir = dir.normalized;
-	        float cosAngle = Mathf.Acos(dir.y); // 通过反余弦计算角度
-		    if (x >= 0)
-			    return cosAngle * Mathf.Rad2Deg;
+			if (EntityManager.HasComponent<LocalToParent>(child))
+			{
+				EntityManager.RemoveComponent<LocalToParent>(child);
+			}
+		}
 
-		    return 360 - cosAngle * Mathf.Rad2Deg;
-        }
+		/// <summary>
+		/// 获取旋转角度, 以二维里的Y轴为起点
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns>0-360 角度</returns>
+		public static float GetRotation(float x, float y)
+		{
+			Vector2 dir = new Vector2(x, y);
+			dir = dir.normalized;
+			float cosAngle = Mathf.Acos(dir.y); // 通过反余弦计算角度
+			if (x >= 0)
+				return cosAngle * Mathf.Rad2Deg;
 
-        public static bool SwitchRemove(List<int> value, int index)
-        {
-	        if (index >= value.Count || index < 0)
-		        return false;
+			return 360 - cosAngle * Mathf.Rad2Deg;
+		}
 
-	        if (value.Count - 1 == index)
-		        return false;
-	        
-	        var temp = value[index];
-	        value[index] = value[value.Count - 1];
-	        value[value.Count - 1] = temp;
-	        return true;
-        }
+		public static bool SwitchRemove(List<int> value, int index)
+		{
+			if (index >= value.Count || index < 0)
+				return false;
+
+			if (value.Count - 1 == index)
+				return false;
+
+			var temp = value[index];
+			value[index] = value[value.Count - 1];
+			value[value.Count - 1] = temp;
+			return true;
+		}
+
+		#region 广告
+
+		public static void PlayAd(string ad, Action<bool, string> complete = null)
+		{
+			var state = false;
+			log.Info("Play AD : " + ad);
+			DoPlayAd(ad, complete, ref state);
+			if (!state)
+			{
+				log.Info("no ad sdk");
+				complete?.Invoke(true, null);
+			}
+		}
+
+		static partial void DoPlayAd(string ad, Action<bool, string> complete, ref bool state);
+
+		#endregion
+
+		#region Recharge
+
+		public static void Pay(string id, Action<bool, string> complete = null)
+		{
+			var state = false;
+			DoPay(id, complete, ref state);
+			if (!state)
+			{
+				log.Info("no pay sdk");
+				complete?.Invoke(true, null);
+			}
+		}
+
+		static partial void DoPay(string id, Action<bool, string> complete, ref bool state);
+
+		#endregion
+
+		#region TimeFormat
+
+		static List<string[]> tfs = new List<string[]>(){
+			new string[]{ "{0:D2}:{1:D2}", "{0}:{1:D2}", "{0}:{1:D2}:{2:D2}", "{0}Day {1:D2}", "{0}Day" },
+			new string[]{ "{0:D2}分{1:D2}秒", "{0}小时{1:D2}分", "{0}小时{1:D2}分{2:D2}秒", "{1}天{1:D2}小时", "{0}天" },
+			new string[]{ "{0:d2}m{1:d2}s", "{0}h{1:D2}m", "{0}h{1:D2}m{2:D2}s", "{0}d{1:D2}h", "{0}d" },
+			new string[]{ "{0:D2}m {1:D2}s", "{0}h {1:D2}m", "{0}h {1:D2}m {2:D2}s", "{0}d {1:D2}h", "{0}d" }
+		};
+
+		/// <summary>
+		/// 时间格式化
+		/// </summary>
+		/// <param name="time">总时间（秒）</param>
+		/// <param name="locType">格式索引</param>
+		/// <param name="needsec">是否需要秒</param>
+		/// <param name="daylimit">天数分割上限</param>
+		/// <param name="formats">自定义格式 { 分：秒  | 时：分 | 时：分：秒 | 天：时 | 天 }</param>
+		/// <returns></returns>
+		static public string FormatTime(int time, int locType = 2, bool needsec = true, int daylimit = 0, string[] formats = null)
+		{
+			var hour = (int)math.floor(time / 3600);
+			var min = (int)math.floor(math.fmod(time, 3600) / 60);
+			var sec = (int)math.fmod(math.fmod(time, 3600), 60);
+			formats = formats ?? tfs[math.clamp(locType, 0, tfs.Count - 1)];
+
+			if (hour <= 0) return string.Format(formats[0], min, sec);
+			if (hour > 24 && daylimit > 0)
+			{
+				var day = math.floor(hour / 24);
+				if (day >= daylimit) return string.Format(formats[4], day);
+			}
+			if (needsec)
+				return string.Format(formats[3], hour, min, sec);
+			return string.Format(formats[2], hour, min);
+		}
+
+		/// <summary>
+		/// 定时器
+		/// </summary>
+		/// <param name="time">秒</param>
+		/// <param name="update">帧回调</param>
+		/// <param name="target">挂载定时器的目标</param>
+		/// <param name="delay">延迟</param>
+		/// <param name="start">开始回调</param>
+		/// <param name="completed">完成回调</param>
+		/// <returns></returns>
+		static public Action<bool> Timer(float time, Action update, object target = null, float delay = 0, Action start = null, Action completed = null)
+		{
+			if (time > 0)
+			{
+				var tween = GTween.To(0, 1, time).SetDelay(delay).SetTarget(target);
+				if (tween != null)
+				{
+					if (update != null) tween.OnUpdate(() => update());
+					if (completed != null) tween.OnComplete(() => completed());
+					if (start != null) tween.OnComplete(() => start());
+					return new Action<bool>(s => tween.Kill(s));
+				}
+			}
+			return default;
+		}
+
+		#endregion
 	}
 }

@@ -12,5 +12,6 @@ namespace SGame.Http
         public string post;  // 推送数据
         public string token; // 验证
         public bool   isGet; // 是否是GET
+		public bool   buffer;//不需要转成字符串
     }
 }

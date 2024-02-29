@@ -22,6 +22,14 @@ namespace SGame
 		/// 道具不足
 		/// </summary>
 		public const int ITEM_NOT_ENOUGH = 2;
+		/// <summary>
+		/// 金币不足
+		/// </summary>
+		public const int ITEM_GOLD_NOT_ENOUGH = 3;
+		/// <summary>
+		/// 钻石不足
+		/// </summary>
+		public const int ITEM_DIAMOND_NOT_ENOUGH = 4;
 
 
 		//===============================================================

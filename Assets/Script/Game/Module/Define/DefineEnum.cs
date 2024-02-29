@@ -166,4 +166,15 @@ namespace SGame
 		Player=5,
 	}
 
+
+	public enum EnumShopArea:int
+	{
+		None = 0,
+		Ad = 1,
+		Gift = 2,
+		Item = 3,
+		Eq = 4,
+		Diamond = 5,
+	}
+
 }

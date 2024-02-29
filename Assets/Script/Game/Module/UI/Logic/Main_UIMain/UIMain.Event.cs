@@ -75,6 +75,11 @@ namespace SGame.UI{
 		partial void UnInitEvent(UIContext context){
 			m_handles.Close();
 		}
-		
+
+		partial void OnDiamondClick(EventContext data)
+		{
+			"shop".Goto();
+		}
+
 	}
 }

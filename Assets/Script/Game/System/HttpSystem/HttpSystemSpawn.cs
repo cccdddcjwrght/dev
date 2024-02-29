@@ -36,7 +36,7 @@ namespace SGame.Http
 			/// 1. 创建HTTP 请求
 			Entities.ForEach((Entity e, HttpRequest req) =>
 			{
-				HttpData data = new HttpData() { isGet = req.isGet };
+				HttpData data = new HttpData() { isGet = req.isGet , isBuffer = req.buffer };
 				if (req.isGet)
 				{
 					data.request = UnityWebRequest.Get(req.url);

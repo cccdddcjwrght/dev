@@ -64,7 +64,9 @@ namespace SGame
 		TECH_ADD_TABLE				= 4002,//科技添加桌子 （int roommachine)
 		TECH_ADD_ROLE				= 4003,//科技添加角色 （int roletype,int count,int tableid)
 
-
+		//Shop===============================================
+		SHOP_REFRESH				= 5002,//商城刷新
+		SHOP_GOODS_BUY_RESULT		= 5002,//商品购买
 
 	}
 }

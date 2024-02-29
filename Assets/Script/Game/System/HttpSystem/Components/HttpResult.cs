@@ -24,6 +24,8 @@ namespace SGame.Http
         /// </summary>
         public string data;
 
+		public byte[] buffer;
+
         public bool MoveNext() { return !isDone; }
 
         public object Current { get { return data; } }

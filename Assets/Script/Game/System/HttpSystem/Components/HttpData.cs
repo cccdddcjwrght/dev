@@ -11,5 +11,6 @@ namespace SGame.Http
         public UnityWebRequest                  request;
         public UnityWebRequestAsyncOperation    result;
         public bool                             isGet;
+		public bool								isBuffer;
     }
 }

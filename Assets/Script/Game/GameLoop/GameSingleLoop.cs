@@ -38,6 +38,7 @@ namespace SGame
 
 			randomSystem.Initalize((uint)Time.frameCount);
 			propertyManager.Initalize();
+			RequestExcuteSystem.Instance.Init(world);
 
 			// 初始化UI
 			InitalizeUI();

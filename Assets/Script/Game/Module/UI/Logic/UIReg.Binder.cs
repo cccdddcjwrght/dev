@@ -17,6 +17,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("MainUI", "Main", ()=>new UIMain());SGame.UI.Main.MainBinder.BindAll();;
 			context.uiModule.Reg("PopupUI", "Common", ()=>new UIPopup());SGame.UI.Common.CommonBinder.BindAll();;
 			context.uiModule.Reg("MaskUI", "Common", ()=>new UIMask());
+			context.uiModule.Reg("ShopUI", "Shop", ()=>new UIShop());SGame.UI.Shop.ShopBinder.BindAll();;
 		}
 	}
 }
