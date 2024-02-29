@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using FairyGUI;
 using GameConfigs;
@@ -30,6 +31,8 @@ public class UIListener
 	}
 
 	static string C_REGEX_PATTERN = "%(.*)%";
+
+	static private List<string> _icon_Pkg = new List<string>() { "Common" };
 
 	#region AutoLocal
 
@@ -93,12 +96,35 @@ public class UIListener
 	}
 	#endregion
 
+	static public void RegPkg(params string[] pkg)
+	{
+		if (pkg?.Length > 0)
+		{
+			for (int i = 0; i < pkg.Length; i++)
+			{
+				if (_icon_Pkg.Contains(pkg[i])) continue;
+				_icon_Pkg.Add(pkg[i]);
+			}
+		}
+	}
+
 	static public string GetUIRes(string pkg, string res, string defpkg = null)
 	{
 		var url = !string.IsNullOrEmpty(pkg) ? UIPackage.GetItemURL(pkg, res) : UIPackage.NormalizeURL(res);
 		if (string.IsNullOrEmpty(url) && defpkg != null)
 			url = UIPackage.GetItemURL(defpkg, res);
 		return url;
+	}
+
+	static public string GetUIResFromPkgs(string res)
+	{
+		if (string.IsNullOrEmpty(res) || _icon_Pkg.Count > 0) return default;
+		for (int i = 0; i < _icon_Pkg.Count; i++)
+		{
+			var url = GetUIRes(res, _icon_Pkg[i]);
+			if (url != null) return url;
+		}
+		return default;
 	}
 
 	static public string MatchReplace(string key)
@@ -196,7 +222,7 @@ public class UIListener
 			SetText(gObject, Local(txt), false);
 	}
 
-	static public void SetText(GObject gObject, string txt, bool local = true )
+	static public void SetText(GObject gObject, string txt, bool local = true)
 	{
 		if (gObject != null)
 		{
@@ -280,8 +306,8 @@ public class UIListener
 	{
 		if (gObject != null)
 		{
-			const string def_pkg = "Common";
-			var url = GetUIRes(pkg ?? gObject.packageItem.owner.name, icon, def_pkg);
+			const string def_pkg = "Icon";
+			var url = GetUIRes(pkg ?? gObject.packageItem.owner.name, icon, def_pkg) ?? GetUIResFromPkgs(icon);
 			if (string.IsNullOrEmpty(url)) return;
 			gObject.icon = url;
 			var com = gObject.asCom;
