@@ -42,6 +42,7 @@ namespace SGame
 		///  座位
 		/// </summary>
 		MACHINE_ADD					= 400, // 工作机器添加 (int 座位ID, int 食物类型)
+		FOOD_TIP_CLICK				= 401, // 食物小费点击 (Entity 小费对象)
 
 		ITEM_CHANGE					= 999,  //道具变化（int id , long new , long old）
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)

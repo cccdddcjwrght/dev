@@ -229,6 +229,27 @@ namespace SGame
 
 			return ui;
 		}
+		
+		/// <summary>
+		/// 显示HUD, 并跟随entity
+		/// </summary>
+		/// <param name="uiname"></param>
+		/// <param name="follow"></param>
+		/// <param name="offset"></param>
+		/// <returns></returns>
+		public static Entity ShowHUD(string uiname, Entity follow, float3 offset)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiname));
+
+			if (!entityManager.HasComponent<HUDFlowE>(ui))
+			{
+				entityManager.AddComponent<HUDFlowE>(ui);
+			}
+
+			entityManager.SetComponentData(ui, new HUDFlowE() { Value = follow, offset = offset });
+			return ui;
+		}
 
 		/// <summary>
 		/// 显示等待HUD

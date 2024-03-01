@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using GameConfigs;
 using GameTools;
 using UnityEngine;
@@ -23,10 +22,10 @@ namespace SGame
 				{
 					var room = new Room() { id = id };
 					//初始金币
-					PropertyManager
+					/*PropertyManager
 						.Instance
 						.GetGroup(PropertyGroup.ITEM)
-						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));
+						.SetNum(1, AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.LevelGold));*/
 
 					if (iscurrent)
 					{
@@ -62,10 +61,6 @@ namespace SGame
 			public static void InitTechBuffs()
 			{
 				var room = Instance.roomData.current;
-				
-				if(room.roomTechs == null)
-					room.roomTechs = ConfigSystem.Instance.Finds<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id)).ToDictionary(t=>t.Id);
-
 				if (room != null && room.techs?.Count > 0)
 				{
 					for (int i = 0; i < room.techs.Count; i++)
@@ -88,7 +83,6 @@ namespace SGame
 					if (!room.techs.Contains(id))
 					{
 						room.techs.Add(id);
-						room.roomTechs.Remove(id);
 						if (!UseTechBuff(cfg))//buff触发
 						{
 							//添加奖励
@@ -170,12 +164,6 @@ namespace SGame
 		public int id;
 		public List<Worktable> worktables = new List<Worktable>();
 		public List<int> techs = new List<int>();
-
-		[NonSerialized]
-		public Dictionary<int, RoomTechRowData> roomTechs;
-
-
-
 	}
 
 

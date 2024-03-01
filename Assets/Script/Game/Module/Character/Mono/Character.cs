@@ -198,7 +198,7 @@ namespace SGame
                 Vector3 postemp = GameTools.MapAgent.CellToVector(pos.x, pos.y);
                 float3 worldPos = postemp;
 
-                float posY = GameConfigs.GlobalDesginConfig.GetFloat(DISH_OFFSET_NAME);
+                float posY = ConstDefine.DISH_OFFSET_Y;
                 
                 worldPos += new float3(0, posY, 0);
                 entityManager.SetComponentData(m_food, new Translation() { Value = worldPos });

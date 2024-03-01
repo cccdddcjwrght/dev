@@ -8,12 +8,21 @@ using Unity.Transforms;
 
 namespace SGame.UI
 {
-    // UI跟随GameObject
+    // UI跟随gameobject
     public class HUDFlow : IComponentData
     {
         // 要跟随的对象
-        public Transform Value;
+        public Transform Value; 
 
+        // 偏移量
+        public float3 offset;
+    }
+
+    // UI跟随entity
+    public struct HUDFlowE : IComponentData
+    {
+        public Entity Value;
+        
         // 偏移量
         public float3 offset;
     }
@@ -39,6 +48,22 @@ namespace SGame.UI
                 if (flow.Value != null)
                 {
                     trans.Value = (float3)flow.Value.position + flow.offset;
+                }
+                else
+                {
+                    // 跟随的目标已经销毁了
+                    commandBuffer.RemoveComponent<HUDFlow>(e);
+                    commandBuffer.AddComponent<DespawningEntity>(e);
+                }
+            }).WithoutBurst().Run();
+
+            var translationQuery = GetComponentDataFromEntity<Translation>();
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, HUDFlowE flow, ref Translation trans) =>
+            {
+                if (flow.Value != Entity.Null && translationQuery.HasComponent(flow.Value))
+                {
+                    Translation other = translationQuery[flow.Value];
+                    trans.Value = other.Value + flow.offset;
                 }
                 else
                 {

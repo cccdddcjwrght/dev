@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameConfigs;
 using static Fibers.Fiber;
 
 namespace SGame
@@ -90,6 +91,19 @@ namespace SGame
 		/// </summary>
 		public const string MAX = "MAX";
 
+
+
+		private static float _DISH_OFFSET_Y = -1;
+		public static float DISH_OFFSET_Y
+		{
+			get
+			{
+				if (_DISH_OFFSET_Y < 0)
+					_DISH_OFFSET_Y = GlobalDesginConfig.GetFloat("dish_offsety");
+
+				return _DISH_OFFSET_Y;
+			}
+		}
 	}
 
 	/// <summary>

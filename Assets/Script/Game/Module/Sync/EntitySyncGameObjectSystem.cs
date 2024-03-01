@@ -9,10 +9,8 @@ namespace SGame
     /// <summary>
     /// 同步组件
     /// </summary>
-    public struct EntitySyncGameObject : IComponentData
+    public struct EntitySyncGameObjectTag : IComponentData
     {
-        // 需要同步的对象
-        public Entity Value;
     } 
     
     // 对象同步系统
@@ -21,15 +19,11 @@ namespace SGame
     {
         protected override void OnUpdate()
         {
-            Entities.ForEach((Entity e, in LocalToWorld localToWorld,in EntitySyncGameObject sync) =>
+            Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e,  Transform sycnTransform, in Translation trans, in Rotation rot) =>
             {
-                if (EntityManager.Exists(sync.Value) && EntityManager.HasComponent<Transform>(sync.Value))
-                {
-                    // 同步对象
-                    Transform sycnTransform = EntityManager.GetComponentObject<Transform>(sync.Value);
-                    sycnTransform.position = localToWorld.Position;
-                    sycnTransform.rotation = localToWorld.Rotation;
-                }
+                // 同步对象
+                sycnTransform.position = trans.Value;
+                sycnTransform.rotation = rot.Value;
             }).WithoutBurst().Run();
         }
     }

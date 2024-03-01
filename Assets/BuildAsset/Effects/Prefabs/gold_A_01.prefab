@@ -9635,6 +9635,8 @@ GameObject:
   - component: {fileID: 8178308561048450362}
   - component: {fileID: 8178308561048450361}
   - component: {fileID: 8178308561048450360}
+  - component: {fileID: 7027531199128895304}
+  - component: {fileID: -7609512676238370214}
   m_Layer: 0
   m_Name: gold_A_01
   m_TagString: Untagged
@@ -14439,6 +14441,31 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!65 &7027531199128895304
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178308561048450343}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0.18}
+--- !u!114 &-7609512676238370214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178308561048450343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0c8f2f1a45fca4a8ebb57d287f01ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8178308561987410681
 GameObject:
   m_ObjectHideFlags: 0
