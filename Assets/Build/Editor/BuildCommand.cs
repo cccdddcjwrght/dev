@@ -633,19 +633,20 @@ static class BuildCommand
 
 	private static void HandleScriptLevel(BuildTarget target)
 	{
-		var level = ManagedStrippingLevel.High;
-		if (!TryGetEnv(SCRIPT_LEVEL, out var lv))
+		var tg = BuildPipeline.GetBuildTargetGroup(target);
+		var level = ManagedStrippingLevel.Disabled;
+		if (!TryGetEnv(SCRIPT_LEVEL, out var lv) && !string.IsNullOrEmpty(lv))
 			level = (ManagedStrippingLevel)Enum.Parse(typeof(ManagedStrippingLevel), lv , true);
 		Console.WriteLine($"::Set Script Level : {level}");
 		if (level == ManagedStrippingLevel.Disabled)
 		{
 			PlayerSettings.stripEngineCode = false;
-			PlayerSettings.SetManagedStrippingLevel(BuildPipeline.GetBuildTargetGroup(target), ManagedStrippingLevel.Disabled);
+			PlayerSettings.SetManagedStrippingLevel(tg, ManagedStrippingLevel.Disabled);
 		}
 		else
 		{
 			PlayerSettings.stripEngineCode = true;
-			PlayerSettings.SetManagedStrippingLevel(BuildPipeline.GetBuildTargetGroup(target), level);
+			PlayerSettings.SetManagedStrippingLevel(tg, level);
 		}
 	}
 

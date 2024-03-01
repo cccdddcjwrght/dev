@@ -15,6 +15,7 @@ public class SceneAssetProcessor
 	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/";
 	static string[] G_PATTERNS = new string[] {
 		"scene*.png",
+		"scene_terrain*.fbx",
 		"scene_floor*.fbx",
 		"scene_wall*.fbx",
 		"scene_object*.fbx",
@@ -170,7 +171,7 @@ public class SceneAssetProcessor
 		var p = new GameObject();
 		p.name = o.name + (index > 0 ? "_" + index.ToString() : "");
 		var g = GameObject.Instantiate(o);
-		if (o.name.Contains("_tool"))
+		if (o.name.Contains("_tool") && g.GetComponent<Animation>() != null)
 			g.GetComponent<Animation>().playAutomatically = false;
 		g.transform.SetParent(p.transform, false);
 		g.name = "body";
