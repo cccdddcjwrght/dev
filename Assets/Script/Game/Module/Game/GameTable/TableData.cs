@@ -4,7 +4,7 @@ using log4net;
 using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Mathematics;
-
+using Unity.Entities;
 namespace SGame
 {
     // 座椅位置类型
@@ -41,6 +41,9 @@ namespace SGame
 
         // 关联的食物类型
         public int                foodType;
+
+        // 桌子上的金币
+        public Entity             foodTip = Entity.Null;   
 
         // 机器ID
         public int                machineID;

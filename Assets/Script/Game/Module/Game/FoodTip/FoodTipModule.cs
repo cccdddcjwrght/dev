@@ -21,7 +21,6 @@ namespace SGame
         {
             // 注册事件
             EventManager.Instance.Reg<Entity>((int)GameEvent.FOOD_TIP_CLICK, OnFoodClick);
-            
             m_EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         }
         
@@ -38,10 +37,9 @@ namespace SGame
             var goldEffect = EffectSystem.Instance.Spawn3d((int)EffectDefine.FODD_TIP_GOLD, null, pos);
             
             // hud 跟随
-            //var hud = UIUtils.ShowHUD("HUDTips", goldEffect, CST_HUD_OFFSET);
-            //m_EntityManager.AddComponentData(hud, new UIParam() {Value = gold});
-            //m_EntityManager.AddComponentData(goldEffect, new FoodTips() {gold = gold, ui = hud});
-            m_EntityManager.AddComponentData(goldEffect, new FoodTips() {gold = gold, ui = Entity.Null});
+            var hud = UIUtils.ShowHUD("FoodTip", goldEffect, CST_HUD_OFFSET);
+            m_EntityManager.AddComponentData(hud, new UIParam() {Value = goldEffect});
+            m_EntityManager.AddComponentData(goldEffect, new FoodTips() {gold = gold, ui = hud});
 
             // 创建金币特效
             return goldEffect;
@@ -61,6 +59,7 @@ namespace SGame
             
             // 删除对象
             m_EntityManager.AddComponent<DespawningEntity>(foodTip);
+            m_EntityManager.AddComponent<DespawningEntity>(food.ui);
 
             // 显示点击特效
             var trans = m_EntityManager.GetComponentData<Translation>(foodTip);

@@ -9,7 +9,6 @@ namespace SGame.UI{
 	{
 		partial void Register(UIContext context){
 			context.uiModule.Reg("LoadingUI", "Loading", ()=>new UILoading());SGame.UI.Loading.LoadingBinder.BindAll();;
-			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
 			context.uiModule.Reg("TechnologyUI", "Technology", ()=>new UITechnology());SGame.UI.Technology.TechnologyBinder.BindAll();;
 			context.uiModule.Reg("LevelTechUI", "Buff", ()=>new UILevelTech());SGame.UI.Buff.BuffBinder.BindAll();;
 			context.uiModule.Reg("WorktableUI", "Worktable", ()=>new UIWorktable());SGame.UI.Worktable.WorktableBinder.BindAll();;
@@ -22,6 +21,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("LanguageUI", "Setting", ()=>new UILanguage());
 			context.uiModule.Reg("ChangeHeadUI", "Setting", ()=>new UIChangeHead());
 			context.uiModule.Reg("MaskUI", "Common", ()=>new UIMask());
+			context.uiModule.Reg("FoodTipUI", "Hud", ()=>new UIFoodTip());
+			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
 		}
 	}
 }

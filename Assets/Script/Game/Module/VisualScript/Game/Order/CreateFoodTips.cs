@@ -59,9 +59,22 @@ namespace SGame.VS
                     log.Error("table not found=" + tableID);
                     return outputFail;
                 }
+
+                var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                if (table.foodTip != Entity.Null && entityManager.HasComponent<FoodTips>(table.foodTip))
+                {
+                    // 桌子上已经有小费了
+                    var foodTip = entityManager.GetComponentData<FoodTips>(table.foodTip);
+                    foodTip.gold += gold;
+                    entityManager.SetComponentData<FoodTips>(table.foodTip, foodTip);
+                    _resultEntity = table.foodTip;
+                    return outputTrigger;
+                }
+                
                 var pos = MapAgent.CellToVector(table.map_pos.x, table.map_pos.y);
                 pos.y += ConstDefine.DISH_OFFSET_Y;
                 _resultEntity = FoodTipModule.Instance.CreateTips(gold, pos);
+                table.foodTip = _resultEntity;
                 return outputTrigger;
             });
             
