@@ -413,12 +413,15 @@ namespace SGame
 					int index = 0;
 					while ((count--)>=0)
 					{
-						var t = hits[count].collider.gameObject.GetComponents<ITouchOrHited>();
-						if (t != null && t.Length > 0)
+						if (hits.Length > count && hits[count].collider != null)
 						{
-							t.Foreach(v => v.OnClick());
-							ret = true;
-							break;
+							var t = hits[count].collider.gameObject.GetComponents<ITouchOrHited>();
+							if (t != null && t.Length > 0)
+							{
+								t.Foreach(v => v.OnClick());
+								ret = true;
+								break;
+							}
 						}
 					}
 				}

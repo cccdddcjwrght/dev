@@ -13,6 +13,8 @@ namespace GameTools.Paths
 	{
 		public const int CST_CROSS_VALUE = 15;    // 交叉行走的代价
 		public const int CST_STRAIGHT_VALUE = 10; // 笔直行走的代价
+		public const int CST_CROSSHOLD_OFFSET_VALUE = 6; // 笔直行走的代价
+
 
 		// 节点
 		#region Class
@@ -213,6 +215,13 @@ namespace GameTools.Paths
 
 
 					int g = CalcDistanceCost(currentPos, pos) + node.gValue + n.cost;
+
+					if (x != 0 && y != 0)
+					{
+						if (IsHolded(new int2(n.pos.x - x, n.pos.y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
+						if (IsHolded(new int2(n.pos.x, n.pos.y - y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
+					}
+
 					if (g < n.gValue) // 没有比另一个路径更哟（一开始这个值就是Max）
 					{
 						if (n.hValue == 0)
@@ -241,6 +250,15 @@ namespace GameTools.Paths
 		static bool InMap(int2 pos, int2 mapSize)
 		{
 			return pos.x >= 0 && pos.y >= 0 && pos.x < mapSize.x && pos.y < mapSize.y;
+		}
+
+		static bool IsHolded(int2 pos, int2 mapSize, NativeArray<Node> maps)
+		{
+			if (!InMap(pos, mapSize)) return false;
+			var index = GetIndexFromPos(pos, mapSize.x);
+			var node = maps[index];
+			if (!node.isWalkable || node.cost > 0) return true;
+			return false;
 		}
 
 		public static bool FindPath(int2 startPos, int2 endPos, NativeArray<Node> maps, int2 mapSize, DynamicBuffer<PathPositions> paths)//NativeList<int> paths)
@@ -295,7 +313,7 @@ namespace GameTools.Paths
 			for (int startIndex = endIndex; startIndex >= 0 && maps[startIndex].parentIndex >= 0; startIndex = maps[startIndex].parentIndex)
 			{
 				int2 pos = GetPosFromIndex(startIndex, width);
-				paths.Add(new PathPositions { Value = pos , cost = maps[startIndex].cost });
+				paths.Add(new PathPositions { Value = pos, cost = maps[startIndex].cost });
 				//paths.Add(startIndex);
 			}
 
