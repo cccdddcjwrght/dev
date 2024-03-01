@@ -79,6 +79,7 @@ namespace SGame.UI
 		{
 			if (PropertyManager.Instance.CheckCountByArgs(data.GetCostArray()))
 			{
+				14.ToAudioID().PlayAudio();
 				DataCenter.RoomUtil.AddTech(data.Id);
 				PropertyManager.Instance.UpdateByArgs(true, data.GetCostArray());
 				item.m_state.selectedIndex = 1;

@@ -54,6 +54,7 @@ public struct ui_resRowData : IFlatbufferObject
   public int AniShow { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int AniHide { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Mask { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int DisableAudio { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ui_resRowData> Createui_resRowData(FlatBufferBuilder builder,
       int id = 0,
@@ -65,8 +66,10 @@ public struct ui_resRowData : IFlatbufferObject
       VectorOffset groupOffset = default(VectorOffset),
       int AniShow = 0,
       int AniHide = 0,
-      int mask = 0) {
-    builder.StartTable(10);
+      int mask = 0,
+      int DisableAudio = 0) {
+    builder.StartTable(11);
+    ui_resRowData.AddDisableAudio(builder, DisableAudio);
     ui_resRowData.AddMask(builder, mask);
     ui_resRowData.AddAniHide(builder, AniHide);
     ui_resRowData.AddAniShow(builder, AniShow);
@@ -80,7 +83,7 @@ public struct ui_resRowData : IFlatbufferObject
     return ui_resRowData.Endui_resRowData(builder);
   }
 
-  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
+  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(11); }
   public static void AddId(FlatBufferBuilder builder, int id) { builder.AddInt(0, id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddComName(FlatBufferBuilder builder, StringOffset ComNameOffset) { builder.AddOffset(2, ComNameOffset.Value, 0); }
@@ -94,6 +97,7 @@ public struct ui_resRowData : IFlatbufferObject
   public static void AddAniShow(FlatBufferBuilder builder, int AniShow) { builder.AddInt(7, AniShow, 0); }
   public static void AddAniHide(FlatBufferBuilder builder, int AniHide) { builder.AddInt(8, AniHide, 0); }
   public static void AddMask(FlatBufferBuilder builder, int mask) { builder.AddInt(9, mask, 0); }
+  public static void AddDisableAudio(FlatBufferBuilder builder, int DisableAudio) { builder.AddInt(10, DisableAudio, 0); }
   public static Offset<GameConfigs.ui_resRowData> Endui_resRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ui_resRowData>(o);

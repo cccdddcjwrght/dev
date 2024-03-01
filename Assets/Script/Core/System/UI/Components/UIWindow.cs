@@ -99,6 +99,7 @@ namespace SGame.UI
 
         private IUIScript m_uiScript;
         private UIContext m_context;
+		
 
         private static ILog log = LogManager.GetLogger("UI");
         
@@ -143,8 +144,8 @@ namespace SGame.UI
         protected override void DoHideAnimation()
         {
             m_isHiding = true;
-
-            if (m_context.doHideAnimation != null)
+			m_context.beginHide?.Invoke(m_context);
+			if (m_context.doHideAnimation != null)
                 m_context.doHideAnimation(m_context);
             else
                 base.DoHideAnimation();
@@ -165,6 +166,7 @@ namespace SGame.UI
             _isReadly               = true;
             m_isHiding              = false;
             container.renderMode    = RenderMode.ScreenSpaceOverlay;
+
 
             if (isFullScreen)
             {

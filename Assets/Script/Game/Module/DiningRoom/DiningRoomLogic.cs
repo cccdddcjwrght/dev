@@ -478,6 +478,8 @@ namespace SGame.Dining
 			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.ORDER), OnAddOrder);
 			_eHandlers += EventManager.Instance.Reg<int2>(((int)GameEvent.WORK_COOK_START), OnWorktablekCook);
 			_eHandlers += EventManager.Instance.Reg<int2>(((int)GameEvent.WORK_COOK_COMPLETE), OnWorktablekCookComplete);
+			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_UP_STAR), OnWorkTableUpStar);
+
 
 		}
 
@@ -691,7 +693,9 @@ namespace SGame.Dining
 						if (!r.data.isTable && r.begin.waitActive)
 							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
 						else
+						{
 							DataCenter.MachineUtil.AddMachine(r.next.cfgID);
+						}
 					}
 				}
 				else if (r.next == null || r.next.cfgID != place)
@@ -731,7 +735,10 @@ namespace SGame.Dining
 				region.SetNextUnlock(null);
 				ActiveBuild(p, region: region.cfgID)?.Wait()?.Start();
 				if (needload)
+				{
+					3.ToAudioID().PlayAudio();
 					EffectSystem.Instance.AddEffect(1, p.transform.gameObject);
+				}
 			}
 		}
 
@@ -745,6 +752,13 @@ namespace SGame.Dining
 			var r = GetRegion(id);
 			if (r != null)
 				CheckUnlock(r);
+			if (r.data.level > 1 && r.data.addProfit == 0)
+				7.ToAudioID().PlayAudio();
+		}
+
+		private void OnWorkTableUpStar(int id, int star)
+		{
+			6.ToAudioID().PlayAudio();
 		}
 
 		private void OnWorkMachineEnable(int region, int id)
