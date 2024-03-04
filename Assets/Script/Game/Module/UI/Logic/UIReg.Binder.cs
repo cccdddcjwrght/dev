@@ -16,8 +16,12 @@ namespace SGame.UI{
 			context.uiModule.Reg("WorktablePanelUI", "Worktable", ()=>new UIWorktablePanel());
 			context.uiModule.Reg("MainUI", "Main", ()=>new UIMain());SGame.UI.Main.MainBinder.BindAll();;
 			context.uiModule.Reg("PopupUI", "Common", ()=>new UIPopup());SGame.UI.Common.CommonBinder.BindAll();;
-			context.uiModule.Reg("MaskUI", "Common", ()=>new UIMask());
 			context.uiModule.Reg("ShopUI", "Shop", ()=>new UIShop());SGame.UI.Shop.ShopBinder.BindAll();;
+			context.uiModule.Reg("ChangeNameUI", "Setting", ()=>new UIChangeName());SGame.UI.Setting.SettingBinder.BindAll();;
+			context.uiModule.Reg("SettingUI", "Setting", ()=>new UISetting());
+			context.uiModule.Reg("LanguageUI", "Setting", ()=>new UILanguage());
+			context.uiModule.Reg("ChangeHeadUI", "Setting", ()=>new UIChangeHead());
+			context.uiModule.Reg("MaskUI", "Common", ()=>new UIMask());
 		}
 	}
 }

@@ -9,11 +9,11 @@ namespace SGame
 	partial class Error_Code
 	{
 		/// <summary>
-		/// ÉÌÆ·´¦ÓÚcdÖĞ
+		/// å•†å“å¤„äºcdä¸­
 		/// </summary>
 		public const int SHOP_IS_CD = 201;
 		/// <summary>
-		/// ÉÌÆ·¹ºÂòÉÏÏŞ
+		/// å•†å“è´­ä¹°ä¸Šé™
 		/// </summary>
 		public const int SHOP_BUY_LIMIT = 202;
 	}
@@ -24,7 +24,7 @@ namespace SGame
 		public ShopData shopData = new ShopData();
 
 		/// <summary>
-		/// Ãâ¹ã¸æ
+		/// å…å¹¿å‘Š
 		/// </summary>
 		/// <returns></returns>
 		public static bool IsIgnoreAd()
@@ -79,7 +79,7 @@ namespace SGame
 						RefreshGoods(g, default);
 						g.cd = 0;
 						g.free = g.cfg.FreeTime;
-						//ÓÀ¾ÃÏŞ¹º
+						//æ°¸ä¹…é™è´­
 						if (g.cfg.LimitType != 2) g.buy = 0;
 					});
 					EventManager.Instance.Trigger(((int)GameEvent.SHOP_REFRESH));
@@ -142,7 +142,7 @@ namespace SGame
 			}
 
 			/// <summary>
-			/// Ãâ¹ã¸æ
+			/// å…å¹¿å‘Š
 			/// </summary>
 			/// <returns></returns>
 			static public bool IsIgnoreAd()
@@ -198,9 +198,9 @@ namespace SGame
 		public float price;
 		public string pricestr;
 
-		public int free;//Ãâ·Ñ´ÎÊı
-		public int buy;//·ÇÃâ·Ñ¹ºÂò´ÎÊı
-		public int cd;//ÏÂ´Î¹ºÂòÊ±¼ä
+		public int free;//å…è´¹æ¬¡æ•°
+		public int buy;//éå…è´¹è´­ä¹°æ¬¡æ•°
+		public int cd;//ä¸‹æ¬¡è´­ä¹°æ—¶é—´
 
 		[System.NonSerialized]
 		public ShopRowData cfg;

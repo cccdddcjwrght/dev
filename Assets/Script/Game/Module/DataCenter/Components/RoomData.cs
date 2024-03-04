@@ -21,7 +21,7 @@ namespace SGame
 				if (ConfigSystem.Instance.TryGet<RoomRowData>(id, out var cfg))
 				{
 					var room = new Room() { id = id };
-					//³õÊ¼½ğ±Ò
+					//åˆå§‹é‡‘å¸
 					PropertyManager
 						.Instance
 						.GetGroup(PropertyGroup.ITEM)
@@ -56,7 +56,7 @@ namespace SGame
 			}
 
 			/// <summary>
-			/// ³õÊ¼»¯ËùÓĞ¹Ø¿¨¿Æ¼¼buff
+			/// åˆå§‹åŒ–æ‰€æœ‰å…³å¡ç§‘æŠ€buff
 			/// </summary>
 			public static void InitTechBuffs()
 			{
@@ -72,7 +72,7 @@ namespace SGame
 			}
 
 			/// <summary>
-			/// Ìí¼ÓÒ»¸ö¿Æ¼¼
+			/// æ·»åŠ ä¸€ä¸ªç§‘æŠ€
 			/// </summary>
 			/// <param name="id"></param>
 			public static void AddTech(int id)
@@ -83,14 +83,14 @@ namespace SGame
 					if (!room.techs.Contains(id))
 					{
 						room.techs.Add(id);
-						if (!UseTechBuff(cfg))//buff´¥·¢
+						if (!UseTechBuff(cfg))//buffè§¦å‘
 						{
-							//Ìí¼Ó½±Àø
+							//æ·»åŠ å¥–åŠ±
 							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_REWARD), id);
-							if (cfg.RoleId == ((int)EnumRole.Customer))//Ìí¼Ó¹Ë¿ÍÏàµ±ÓÚ½âËø×À×Ó
+							if (cfg.RoleId == ((int)EnumRole.Customer))//æ·»åŠ é¡¾å®¢ç›¸å½“äºè§£é”æ¡Œå­
 							{
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_TABLE), cfg.TableId(0));
-								//Ìí¼Ó½ÇÉ«
+								//æ·»åŠ è§’è‰²
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, cfg.TableId(0));
 							}
 							else

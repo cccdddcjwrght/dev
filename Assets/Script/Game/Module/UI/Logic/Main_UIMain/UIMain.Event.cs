@@ -16,16 +16,12 @@ namespace SGame.UI{
 		
 		partial void InitEvent(UIContext context)
 		{
-			var levelBtn = m_view.m_levelBtn;
-			var adBtn    = m_view.m_AdBtn;
-			var taskBtn  = m_view.m_taskRewardBtn;
 			var leftList        = m_view.m_leftList.m_left;
+			var headBtn  = m_view.m_head;
 			leftList.itemRenderer += RenderListItem;
 			leftList.numItems = 3;
-			levelBtn.onClick.Add(OnlevelBtnClick);
-			adBtn.onClick.Add(OnadBtnClick);
-			taskBtn.onClick.Add(OntaskBtnClick);
-			
+			headBtn.onClick.Add(OnheadBtnClick);
+
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD,OnEventGoldChange);
 		}
 
@@ -55,23 +51,11 @@ namespace SGame.UI{
 			
 		}
 
-		void OnlevelBtnClick(EventContext context)
+		void OnheadBtnClick(EventContext context)
 		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("popup"));
-			EntityManager.AddComponentData(popupUI, new UIParam() { Value = 0 });
-		}
-		
-		private void OntaskBtnClick(EventContext context)
-		{
-			UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("leveltech"));
+			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));
 		}
 
-		private void OnadBtnClick(EventContext context)
-		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("popup"));
-			EntityManager.AddComponentData(popupUI, new UIParam() { Value =1 });
-		}
-		
 		partial void UnInitEvent(UIContext context){
 			m_handles.Close();
 		}

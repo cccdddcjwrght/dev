@@ -8,8 +8,9 @@ namespace SGame.UI.Common
     public partial class UI_HeadBtn : GButton
     {
         public Controller m_redPointShow;
+        public Controller m_state;
         public GImage m_redPoint;
-        public GImage m_frame;
+        public GLoader m_frame;
         public GLoader m_headImg;
         public const string URL = "ui://2w8thcm7k0s63lb4";
 
@@ -23,8 +24,9 @@ namespace SGame.UI.Common
             base.ConstructFromXML(xml);
 
             m_redPointShow = GetControllerAt(0);
+            m_state = GetControllerAt(1);
             m_redPoint = (GImage)GetChildAt(0);
-            m_frame = (GImage)GetChildAt(1);
+            m_frame = (GLoader)GetChildAt(1);
             m_headImg = (GLoader)GetChildAt(2);
         }
     }
