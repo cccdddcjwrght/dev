@@ -7,16 +7,18 @@ using UnityEngine;
 namespace SGame
 {
 	/// <summary>
-	/// id£º2
-	/// ÊÇ·ñÓĞ¹Ø¿¨¿Æ¼¼¿ÉÒÔ¹ºÂò
+	/// idï¼š2
+	/// æ˜¯å¦æœ‰å…³å¡ç§‘æŠ€å¯ä»¥è´­ä¹°
 	/// </summary>
 	public class Condition_2_id : IConditonCalculator
 	{
 		public bool Do(IFlatbufferObject cfg, string args)
 		{
+			/*
 			var techs = DataCenter.Instance.roomData?.current?.roomTechs;
 			if (techs?.Count > 0)
 				return techs.Values.Any(t => PropertyManager.Instance.CheckCountByArgs(t.GetCostArray()));
+				*/
 			return false;
 		}
 	}
