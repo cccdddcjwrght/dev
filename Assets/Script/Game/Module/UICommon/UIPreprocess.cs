@@ -74,7 +74,6 @@ namespace SGame
 
 		void OnPlayUIShowAudio(UIContext context)
 		{
-			log.Error(context.configID);
 			9.ToAudioID().PlayAudio();
 
 		}
