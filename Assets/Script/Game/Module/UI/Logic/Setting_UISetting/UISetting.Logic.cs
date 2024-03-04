@@ -13,15 +13,16 @@ namespace SGame.UI{
 	public partial class UISetting
 	{
 		private UIContext        m_context;
+		private SetData          _setData;
 		private List<SetData.SetItemData> _setItemDataList;
 		private GList setList;
 
 		partial void BeforeInit(UIContext context)
 		{
 			m_context			= context;
-			var setData = DataCenter.Instance.setData;
-			setData.InitItemDataDic();
-			_setItemDataList = setData.setItemDataList;
+			_setData = DataCenter.Instance.setData;
+			_setData.InitItemDataDic();
+			_setItemDataList = _setData.setItemDataList;
 		}
 		
 		partial void InitLogic(UIContext context){
@@ -73,7 +74,7 @@ namespace SGame.UI{
 				body.m_del.visible = setItemData.val == 0;
 				body.m_toggle.onClick.Set(() =>
 				{
-					setItemData.val = body.m_toggle.selected ? 1 : 0;
+					_setData.SetIntItemData(setItemData.id,body.m_toggle.selected ? 1 : 0);
 					body.m_del.visible = setItemData.val == 0;
 				});
 			}else if (type == 1)

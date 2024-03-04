@@ -10,6 +10,8 @@ namespace SGame
 {
     public class SetData
     {
+        [System.NonSerialized]
+        public bool isInited;
         //设置栏数据
         public class SetItemData
         {
@@ -31,6 +33,10 @@ namespace SGame
         /// </summary>
         public void InitItemDataDic()
         {
+            if (isInited)
+            {
+                return;
+            }
             setItemDataList?.Clear();
             var settingListConfig = ConfigSystem.Instance.LoadConfig<GameConfigs.SettingConfig>(); //设置列表
             var len = settingListConfig.DatalistLength;
@@ -51,6 +57,8 @@ namespace SGame
                     
                 });
             }
+
+            isInited = true;
         }
 
         
@@ -64,7 +72,7 @@ namespace SGame
         {
             SetItemData targetItem = setItemDataList.FirstOrDefault(item => item.id == id);
             targetItem.val = val;
-            EventManager.Instance.Trigger(((int)GameEvent.SETTING_UPDATE_INT), targetItem.val);
+            EventManager.Instance.Trigger(((int)GameEvent.SETTING_UPDATE_INT), val);
         }
         
         
