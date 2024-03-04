@@ -13,8 +13,12 @@ namespace SGame
 		ON_UI_MASK_SHOW				= 10, // 显示MASK 事件, (UIContext context)
 		ON_UI_MASK_HIDE				= 11, // 隐藏MASK 事件, (UIContext context)
 
+		UI_SHOW						= 12,//(UIContext context)
+		UI_HIDE						= 13,//(UIContext context)
+
+
 		//登录======================================
-		HOTFIX_DONE					= 100, // 热更新结束
+		HOTFIX_DONE = 100, // 热更新结束
 		LOGIN_READLY				= 101, // 登录准备好了
 		ENTER_LOGIN					= 102, // 进入登录
 		ENTER_GAME					= 105, // 进入游戏

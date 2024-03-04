@@ -21,7 +21,6 @@ namespace SGame.UI{
 			leftList.itemRenderer += RenderListItem;
 			leftList.numItems = 3;
 			headBtn.onClick.Add(OnheadBtnClick);
-
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD,OnEventGoldChange);
 		}
 
@@ -54,6 +53,11 @@ namespace SGame.UI{
 		void OnheadBtnClick(EventContext context)
 		{
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));
+		}
+
+		partial void OnTaskRewardBtnClick(EventContext data)
+		{
+			UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("leveltech"));
 		}
 
 		partial void UnInitEvent(UIContext context){

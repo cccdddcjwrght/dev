@@ -35,6 +35,10 @@ namespace SGame
 					UIAnimationBind.Bind(context);
 					context.window.isFullScreen = true;
 
+					context.onShown += OnUIShow;
+					context.onHide += OnUIHide;
+
+
 					if (ui.Mask != 0)
 					{
 						context.beginShown += OnMaskShow;
@@ -82,6 +86,13 @@ namespace SGame
 		{
 			8.ToAudioID().PlayAudio();
 		}
+
+		#endregion
+
+		#region 事件
+
+		void OnUIShow(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_SHOW), context);
+		void OnUIHide(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_HIDE), context);
 
 		#endregion
 

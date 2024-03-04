@@ -135,6 +135,20 @@ namespace SGame
 			return default;
 		}
 
+		public static Entity GetUIEntity(string name) {
+
+			if (!string.IsNullOrEmpty(name))
+				return UIModule.Instance.GetUI(name);
+			return default;
+		}
+
+		public static bool CheckUIIsOpen(string name)
+		{
+			if (string.IsNullOrEmpty(name)) return false;
+			var mgr = UIModule.Instance.GetEntityManager();
+			var e = UIModule.Instance.GetUI(name);
+			return e.IsExists() && UIModule.Instance.CheckOpened(e);
+		}
 
 		public static IEnumerator WaitUI(string name)
 		{
