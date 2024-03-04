@@ -42,7 +42,10 @@ namespace SGame
         /// <returns></returns>
         void InitModule()
         {
-            //场景加载
+			//处理模块
+			RequestExcuteSystem.Instance.Init(this.m_gameWorld);
+
+			//场景加载
 			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUI, UIUtils.CloseUI);
             
 			//餐厅管理
