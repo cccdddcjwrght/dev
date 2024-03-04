@@ -72,7 +72,7 @@ namespace SGame
         {
             SetItemData targetItem = setItemDataList.FirstOrDefault(item => item.id == id);
             targetItem.val = val;
-            EventManager.Instance.Trigger(((int)GameEvent.SETTING_UPDATE_INT), val);
+            EventManager.Instance.Trigger(((int)GameEvent.SETTING_UPDATE_INT), id,val);
         }
         
         

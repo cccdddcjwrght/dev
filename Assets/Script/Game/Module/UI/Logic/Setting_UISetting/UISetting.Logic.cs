@@ -29,7 +29,7 @@ namespace SGame.UI{
 			setList = m_view.m_list;
 			setList.itemRenderer = RenderListItem;
 			setList.numItems = _setItemDataList.Count;
-			EventManager.Instance.Reg<int>(((int)GameEvent.SETTING_UPDATE_INT), OnLanSetting);
+			EventManager.Instance.Reg<string,int>(((int)GameEvent.SETTING_UPDATE_INT), OnIntSetting);
 			EventManager.Instance.Reg<string>(((int)GameEvent.SETTING_UPDATE_NAME), OnNameSetting);
 			EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 
@@ -45,9 +45,24 @@ namespace SGame.UI{
 			m_view.m_name.m_title.text = name;
 		}
 
-		private void OnLanSetting(int val)
+		private void OnIntSetting(string id,int val)
 		{
-			setList.numItems = _setItemDataList.Count;
+			if (id == "language")
+			{
+				setList.numItems = _setItemDataList.Count;
+			}else if (id == "music")
+			{
+				val = val == 0 ? -100 : val;
+				AudioSystem.Instance.SetSoundVolume("UIVolume",val);
+			}else if (id == "sound")
+			{
+				val = val == 0 ? -100 : val;
+				AudioSystem.Instance.SetSoundVolume("BackgroundVolume",val);
+			}else if (id == "notice")
+			{
+				
+			}
+			
 		}
 
 		EntityManager EntityManager
