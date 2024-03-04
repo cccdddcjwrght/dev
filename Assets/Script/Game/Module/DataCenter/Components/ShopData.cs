@@ -135,7 +135,7 @@ namespace SGame
 					else if (goods.cfg.LimitNum > 0)
 					{
 						goods.buy += 1;
-						goods.cd = goods.buy >= goods.cfg.LimitNum ? GameServerTime.Instance.nextDayTime : GameServerTime.Instance.serverTime +  goods.cfg.Cd;
+						goods.cd = goods.buy >= goods.cfg.LimitNum ? GameServerTime.Instance.nextDayTime : GameServerTime.Instance.serverTime + goods.cfg.Cd;
 					}
 				}
 				return goods;
@@ -148,6 +148,13 @@ namespace SGame
 			static public bool IsIgnoreAd()
 			{
 				return _data.goods[0].buy > 0;
+			}
+
+			static public bool HasFree()
+			{
+				if (_data.goods?.Count > 0)
+					return _data.goods.Any(g => g.free > 0 || (g.cfg.PurchaseType == 1 && !g.IsSaled() && g.CDTime() <= 0));
+				return false;
 			}
 
 			static public List<ShopRowData> GetShopCfgs(int level, int type, int count = 1)

@@ -113,6 +113,8 @@ namespace SGame.UI
 		{
 			var g = data as ShopGoods;
 			var v = gObject as UI_Goods;
+			if (g.cfg.FreeTime > 0)
+				v.name = "*" + g.id;
 			v.SetTextByKey(g.cfg.ShopName);
 			v.SetIcon(g.cfg.Icon, "Icon");
 			v.m_desc.SetTextByKey(g.cfg.ShopDes);
@@ -185,7 +187,7 @@ namespace SGame.UI
 		void OnSetGoodsItem(int index, object data, GObject gObject)
 		{
 			var val = data as int[];
-			gObject.SetText("X" +Utils.ConvertNumberStr(val[2]));
+			gObject.SetText("X" + Utils.ConvertNumberStr(val[2]));
 			gObject.SetIcon(Utils.GetItemIcon(val[0], val[1]));
 		}
 

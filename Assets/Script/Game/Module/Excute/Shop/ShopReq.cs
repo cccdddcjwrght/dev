@@ -23,7 +23,8 @@ namespace SGame
 			}).OnFail((s) =>
 			{
 				log.Info("暂时没有启用远程下载配置");
-			}).RunAndWait();
+			}).OnCompleted((s) => DataCenter.ShopUtil.Refresh())
+			.RunAndWait();
 
 		}
 

@@ -34,6 +34,7 @@ namespace SGame
 		private Http.HttpResult _result;
 		private System.Action<WaitHttp, string> _onSuccess;
 		private System.Action<string> _onFail;
+		private System.Action<bool> _call;
 
 
 		public int State { get; private set; }
@@ -139,6 +140,11 @@ namespace SGame
 		{
 			_onFail = fail;
 			return this;
+		}
+
+		public WaitHttp OnCompleted(System.Action<bool> completed)
+		{
+			_call = completed; return this;
 		}
 
 		public WaitHttp Timeout(float time)
@@ -325,6 +331,7 @@ namespace SGame
 		{
 			State = 1;
 			_onSuccess?.Invoke(this, data);
+			_call?.Invoke(true);
 		}
 
 		private void Fail(string error)
@@ -335,6 +342,7 @@ namespace SGame
 				UnityEngine.Debug.LogError("http error:" + error);
 			}
 			_onFail?.Invoke(error ?? "http error");
+			_call?.Invoke(false);
 		}
 
 	}
