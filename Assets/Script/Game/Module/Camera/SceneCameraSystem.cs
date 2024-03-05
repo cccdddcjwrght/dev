@@ -47,7 +47,7 @@ namespace SGame
 
 		private Vector2 lastPos;
 
-		public float rayHitMaxDistance = 30;
+		public float rayHitMaxDistance = 50;
 
 		/// <summary>
 		/// 左右

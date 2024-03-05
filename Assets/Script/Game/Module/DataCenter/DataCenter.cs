@@ -13,12 +13,15 @@ namespace SGame
 	{
 		[SerializeField]
 		private int loadtime;
-		
+
 		// 用户数据
 		public Entity m_data;
 		public AccountData accountData = new AccountData();
 		public AbilityData abilityData = new AbilityData();
-		public SetData setData = new SetData(); 
+		public SetData setData = new SetData();
+
+		[SerializeField]
+		private ItemData itemData = new ItemData();
 
 		private GameWorld m_world;
 		static DataCenter s_instance;
@@ -82,7 +85,8 @@ namespace SGame
 
 		public void Initalize()
 		{
-			if(loadtime == 0)
+			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
+			if (loadtime == 0)
 			{
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
 				OnFirstInit();

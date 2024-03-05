@@ -68,7 +68,6 @@ namespace SGame
 
 			public static Machine GetMachine(int id, out Worktable worktable)
 			{
-
 				worktable = default;
 				if (id > 0 && ConfigSystem.Instance.TryGet<RoomMachineRowData>(id, out var cfg))
 				{
@@ -82,6 +81,8 @@ namespace SGame
 							worktable.level = System.Math.Max(1, worktable.level);
 							worktable.Refresh();
 						}
+						else if (m != null && !m.cfg.IsValid())
+							m.Refresh();
 						return m;
 					}
 				}
@@ -93,6 +94,8 @@ namespace SGame
 				var val = GetWorktables()?.Find(m => m.id == id);
 				if (ifMissAdd && (val == null || val.id == 0))
 					val = AddWorktable(id, scene);
+				if (!val.cfg.IsValid())
+					val.Refresh();
 				return val;
 			}
 

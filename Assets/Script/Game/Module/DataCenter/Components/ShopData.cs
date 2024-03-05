@@ -174,7 +174,7 @@ namespace SGame
 				if (cfg.IsValid() || ConfigSystem.Instance.TryGet<ShopRowData>(goods.id, out cfg))
 				{
 					goods.cfg = cfg;
-					goods.price = cfg.Price;
+					goods.price = (float)Math.Floor(cfg.Price * 100) * 0.001f;
 					goods.pricestr = cfg.PurchaseType == 3 ? GetGoodsPriceStr(cfg.Id, cfg.Price) : default;
 				}
 			}

@@ -3,28 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Unity.Entities;
+using UnityEngine;
 
 namespace SGame
 {
-
-	public class DataRef<T>
-	{
-		public struct Index : IComponentData
-		{
-			public uint index;
-			
-			static public implicit operator Index(uint index)
-			{
-				return new Index() { index = index };
-			}
-
-			static public implicit operator uint(Index index)
-			{
-				return index.index;
-			}
-
-		}
-	}
 
 	partial class DataCenter
 	{
@@ -52,5 +34,73 @@ namespace SGame
 			}
 		}
 
+		partial void DoLoad()
+		{
+			this.LoadData();
+		}
+	}
+
+	public static partial class DataCenterExtension
+	{
+		const string __DKey = "__Data";
+		static int __state = 0;
+
+		public static bool LoadData(this DataCenter data, string key = null)
+		{
+			var str = "";
+#if !SVR_RELEASE
+
+#if LOCAL_DATA
+		var p = Application.persistentDataPath + "/data_" + key;
+		if (!string.IsNullOrEmpty(key) && File.Exists(p))
+			str = File.ReadAllText(p);
+		else 
+#endif
+			str = PlayerPrefs.GetString(key ?? __DKey, null);
+#else
+		str = PlayerPrefs.GetString(key ?? __DKey, null);
+#endif
+			var ret = !string.IsNullOrEmpty(str);
+			if (ret)
+				JsonUtility.FromJsonOverwrite(str, data);
+			if (0 == __state++)
+				SetTimer();
+
+			return ret;
+		}
+
+		public static void SaveData(this DataCenter data, string key = null)
+		{
+			if (data != null)
+			{
+				var str = JsonUtility.ToJson(data);
+				PlayerPrefs.SetString(key ?? __DKey, str);
+				PlayerPrefs.Save();
+				if (key != null)
+				{
+#if !SVR_RELEASE
+					var path = Application.persistentDataPath + "/data_" + key;
+					System.IO.File.WriteAllText(path, str);
+#endif
+				}
+			}
+		}
+
+		public static void SavePlayerData(this DataCenter data)
+		{
+			if (data != null)
+				SaveData(data);
+		}
+
+		static void SetTimer()
+		{
+			new Action(() =>
+			{
+				if (DataCenter.Instance.IsInitAll)
+					SaveData(DataCenter.Instance);
+			}).CallWhenQuit();
+			0.Loop(() => SaveData(DataCenter.Instance), () => true, 10000, 10000);
+		}
 	}
 }
+
