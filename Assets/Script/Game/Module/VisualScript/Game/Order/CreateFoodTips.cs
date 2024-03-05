@@ -43,7 +43,7 @@ namespace SGame.VS
             // 创建订单
             inputTrigger = ControlInput("Input", (flow) =>
             {
-                double gold = flow.GetValue<int>(this._gold);
+                double gold = flow.GetValue<double>(this._gold);
                 int tableID = flow.GetValue<int>(this._tableID);
                 _resultEntity = Entity.Null;
 
