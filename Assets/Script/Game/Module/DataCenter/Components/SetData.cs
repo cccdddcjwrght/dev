@@ -12,6 +12,8 @@ namespace SGame
     {
         [System.NonSerialized]
         public bool isInited;
+
+        public string name;
         //设置栏数据
         public class SetItemData
         {

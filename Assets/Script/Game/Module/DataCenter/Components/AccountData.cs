@@ -22,6 +22,8 @@ namespace SGame
 		public string account;
 		public string mail;
 
+		public string playerName;
+
 		public Account To()
 		{
 			return new Account() { pid = playerID };

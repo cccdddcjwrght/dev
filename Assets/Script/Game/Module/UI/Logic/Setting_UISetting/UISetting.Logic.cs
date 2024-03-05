@@ -25,7 +25,9 @@ namespace SGame.UI{
 			_setItemDataList = _setData.setItemDataList;
 		}
 		
-		partial void InitLogic(UIContext context){
+		partial void InitLogic(UIContext context)
+		{
+			m_view.m_name.m_title.text = DataCenter.Instance.accountData.playerName;
 			setList = m_view.m_list;
 			setList.itemRenderer = RenderListItem;
 			setList.numItems = _setItemDataList.Count;
@@ -43,6 +45,7 @@ namespace SGame.UI{
 		private void OnNameSetting(string name)
 		{
 			m_view.m_name.m_title.text = name;
+			DataCenter.Instance.accountData.playerName = name;
 		}
 
 		private void OnIntSetting(string id,int val)
