@@ -11,9 +11,9 @@ namespace SGame
 	/// </summary>
 	public class Condition_1_id : IConditonCalculator
 	{
-		public bool Do(IFlatbufferObject cfg, string args)
+		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			if(args.Length > 1 && int.TryParse(args.Substring(1) , out var id) && DataCenter.Instance.shopData.goodDic.TryGetValue(id , out var g))
+			if (args.Length > 1 && int.TryParse(args.Substring(1), out var id) && DataCenter.Instance.shopData.goodDic.TryGetValue(id, out var g))
 			{
 				return g.free > 0;
 			}

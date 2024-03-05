@@ -83,14 +83,14 @@ public struct RedConfigRowData : IFlatbufferObject
 #endif
   public byte[] GetFilterArray() { return __p.__vector_as_array<byte>(26); }
   public int Postion { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Offset(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public float Offset(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
   public int OffsetLength { get { int o = __p.__offset(30); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetOffsetBytes() { return __p.__vector_as_span<int>(30, 4); }
+  public Span<float> GetOffsetBytes() { return __p.__vector_as_span<float>(30, 4); }
 #else
   public ArraySegment<byte>? GetOffsetBytes() { return __p.__vector_as_arraysegment(30); }
 #endif
-  public int[] GetOffsetArray() { return __p.__vector_as_array<int>(30); }
+  public float[] GetOffsetArray() { return __p.__vector_as_array<float>(30); }
   public string Res { get { int o = __p.__offset(32); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
   public Span<byte> GetResBytes() { return __p.__vector_as_span<byte>(32, 1); }
@@ -191,8 +191,8 @@ public struct RedConfigRowData : IFlatbufferObject
   public static void AddFilter(FlatBufferBuilder builder, StringOffset filterOffset) { builder.AddOffset(11, filterOffset.Value, 0); }
   public static void AddPostion(FlatBufferBuilder builder, int postion) { builder.AddInt(12, postion, 0); }
   public static void AddOffset(FlatBufferBuilder builder, VectorOffset offsetOffset) { builder.AddOffset(13, offsetOffset.Value, 0); }
-  public static VectorOffset CreateOffsetVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateOffsetVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateOffsetVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateOffsetVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOffsetVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddRes(FlatBufferBuilder builder, StringOffset resOffset) { builder.AddOffset(14, resOffset.Value, 0); }
   public static void AddCtr(FlatBufferBuilder builder, StringOffset ctrOffset) { builder.AddOffset(15, ctrOffset.Value, 0); }

@@ -155,7 +155,7 @@ namespace SGame
 		/// </summary>
 		private List<int> _onceCheckReds;
 		private List<object> _stateCache = new List<object>();
-		public Func<FlatBuffers.IFlatbufferObject, string, bool> OnCalculation;
+		public Func<FlatBuffers.IFlatbufferObject, object, string, bool> OnCalculation;
 
 		protected override void OnCreate()
 		{
@@ -338,8 +338,23 @@ namespace SGame
 						if (w != null)
 						{
 							var p = w.Value.contentPane;
-							if (cpath[0] == '!')
-								SetRedOnGameObject(GameObject.Find(cpath.Substring(1)), status, data);
+							var fstate = string.IsNullOrEmpty(data.Filter);
+							if (cpath[0] == '*')
+							{
+								if (!string.IsNullOrEmpty(data.Ctr))
+								{
+									var gos = GameObject.FindGameObjectsWithTag(data.Ctr);
+									if (gos?.Length > 0)
+									{
+										for (int i = 0; i < gos.Length; i++)
+										{
+											if (gos[i].activeInHierarchy && (!fstate || gos[i].name.Contains(data.Filter) || gos[i].transform.Find(data.Filter)))
+												SetRedOnGameObject(gos[i], OnCalculation?.Invoke(data, gos[i], null) == true, data);
+										}
+									}
+								}
+								else SetRedOnGameObject(GameObject.Find(cpath.Substring(1)), status, data);
+							}
 							else
 							{
 								var path = cpath.Replace("/", ".");
@@ -349,13 +364,12 @@ namespace SGame
 									var list = p.GetChildByPath(path)?.asList;
 									if (list != null && list.numChildren > 0)
 									{
-										var fstate = string.IsNullOrEmpty(data.Filter);
 										foreach (var item in list.GetChildren())
 										{
 											if (item is GComponent && (fstate || item.name.Contains(data.Filter)))
 											{
 												status = _stateCache.Contains(data.Id + item.name);
-												SetRedPointState(item.asCom, !status && OnCalculation?.Invoke(data, item.name) == true, data);
+												SetRedPointState(item.asCom, !status && OnCalculation?.Invoke(data, item, item.name) == true, data);
 											}
 										}
 									}
@@ -392,9 +406,10 @@ namespace SGame
 			return false;
 		}
 
-		private void SetRedOnGameObject(GameObject child, bool status, GameConfigs.RedConfigRowData data = default)
+		protected virtual void SetRedOnGameObject(GameObject child, bool status, GameConfigs.RedConfigRowData data = default)
 		{
 			if (!child) return;
+
 			var red = child.transform.Find("__red_auto");//系统添加的红点对象
 			var sred = child.transform.Find("__red");//自带红点对象
 			if (!status)
@@ -462,7 +477,7 @@ namespace SGame
 
 		}
 
-		private void SetPos(FairyGUI.GObject red, int type, int x = 0, int y = 0)
+		private void SetPos(FairyGUI.GObject red, int type, float x = 0, float y = 0)
 		{
 			red?.Center();
 			var size = red.parent.size;
@@ -569,7 +584,7 @@ namespace SGame
 						var old = redpoint.status;
 						var status = redpoint.status == 1;
 						if (OnCalculation != null)
-							status = OnCalculation(cfg, null);
+							status = OnCalculation(cfg, null, null);
 						redpoint.status = (byte)(status ? 1 : 0);
 						redpoint.time = (cfg.Interval == 0 ? __red_check_time : cfg.Interval) + Mathf.FloorToInt((float)Time.ElapsedTime) * 1000;
 						return old == redpoint.status ? 0 : 1;

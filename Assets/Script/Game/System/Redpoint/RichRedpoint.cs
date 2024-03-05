@@ -7,13 +7,14 @@ using GameConfigs;
 using log4net;
 using SGame.UI;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace SGame
 {
 	public interface IConditonCalculator
 	{
-		public bool Do(IFlatbufferObject cfg, string args);
+		public bool Do(IFlatbufferObject cfg, object target, string args);
 
 	}
 
@@ -24,6 +25,7 @@ namespace SGame
 		private static ILog log = LogManager.GetLogger("redpoint");
 
 		private Dictionary<string, object> _calcus = new Dictionary<string, object>();
+		private Dictionary<int, Entity> _hudID = new Dictionary<int, Entity>();
 
 		protected override void OnCreate()
 		{
@@ -64,11 +66,40 @@ namespace SGame
 
 		protected override void InitCalculation()
 		{
-			OnCalculation = (c, a) =>
+			OnCalculation = (c, t, a) =>
 			{
 				var condition = GetConditonCalculator(GetConditionKey(c, null));
-				return condition?.Do(c, a) == true;
+				return condition?.Do(c, t, a) == true;
 			};
+		}
+
+		protected override void SetRedOnGameObject(GameObject child, bool status, RedConfigRowData data = default)
+		{
+			if (child == null) return;
+
+			if (!string.IsNullOrEmpty(data.Res) && data.Res[0] == '*')
+			{
+				var id = child.GetInstanceID();
+				if (status)
+				{
+					if (!_hudID.TryGetValue(id, out var e))
+					{
+						this.Delay(() =>
+						{
+							_hudID[id] = UIUtils.ShowHUD(data.Res.Substring(1), child.transform, new float3(data.Offset(0), data.Offset(1), data.Offset(2)));
+						}, 1);
+
+					}
+				}
+				else if (_hudID.TryGetValue(id, out var e))
+				{
+					_hudID.Remove(id);
+					UIUtils.CloseUI(e);
+				}
+				return;
+			}
+
+			base.SetRedOnGameObject(child, status, data);
 		}
 
 		#endregion
@@ -128,7 +159,7 @@ namespace SGame
 
 		private class NoCondition : IConditonCalculator
 		{
-			public bool Do(IFlatbufferObject flatbuffer, string args)
+			public bool Do(IFlatbufferObject flatbuffer, object target, string args)
 			{
 				log.Error($"没有实现[ {GetConditionKey(flatbuffer, null)} ]条件");
 				return false;

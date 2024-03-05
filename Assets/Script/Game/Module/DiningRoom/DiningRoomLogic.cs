@@ -458,6 +458,8 @@ namespace SGame.Dining
 							},
 							state: DataCenter.MachineUtil.IsActived(m.ID), region: c.Key)
 						).ToList();
+						if (!row.data.isTable && row.begin?.transform != null)
+							row.begin.transform.tag = ConstDefine.C_WORKER_TABLE_GO_TAG;
 						return row;
 					}).ToList();
 					if (_cfg.IsValid())

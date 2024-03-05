@@ -12,13 +12,11 @@ namespace SGame
 	/// </summary>
 	public class Condition_2_id : IConditonCalculator
 	{
-		public bool Do(IFlatbufferObject cfg, string args)
+		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			/*
 			var techs = DataCenter.Instance.roomData?.current?.roomTechs;
 			if (techs?.Count > 0)
 				return techs.Values.Any(t => PropertyManager.Instance.CheckCountByArgs(t.GetCostArray()));
-				*/
 			return false;
 		}
 	}
