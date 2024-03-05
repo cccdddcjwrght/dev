@@ -53,6 +53,14 @@ public struct RoomMachineRowData : IFlatbufferObject
   public ArraySegment<byte>? GetTipsAssetBytes() { return __p.__vector_as_arraysegment(26); }
 #endif
   public byte[] GetTipsAssetArray() { return __p.__vector_as_array<byte>(26); }
+  public int HudOffset(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int HudOffsetLength { get { int o = __p.__offset(28); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetHudOffsetBytes() { return __p.__vector_as_span<int>(28, 4); }
+#else
+  public ArraySegment<byte>? GetHudOffsetBytes() { return __p.__vector_as_arraysegment(28); }
+#endif
+  public int[] GetHudOffsetArray() { return __p.__vector_as_array<int>(28); }
 
   public static Offset<GameConfigs.RoomMachineRowData> CreateRoomMachineRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -66,8 +74,10 @@ public struct RoomMachineRowData : IFlatbufferObject
       VectorOffset ObjIdOffset = default(VectorOffset),
       VectorOffset TagsOffset = default(VectorOffset),
       VectorOffset LinkTagsOffset = default(VectorOffset),
-      StringOffset TipsAssetOffset = default(StringOffset)) {
-    builder.StartTable(12);
+      StringOffset TipsAssetOffset = default(StringOffset),
+      VectorOffset HudOffsetOffset = default(VectorOffset)) {
+    builder.StartTable(13);
+    RoomMachineRowData.AddHudOffset(builder, HudOffsetOffset);
     RoomMachineRowData.AddTipsAsset(builder, TipsAssetOffset);
     RoomMachineRowData.AddLinkTags(builder, LinkTagsOffset);
     RoomMachineRowData.AddTags(builder, TagsOffset);
@@ -83,7 +93,7 @@ public struct RoomMachineRowData : IFlatbufferObject
     return RoomMachineRowData.EndRoomMachineRowData(builder);
   }
 
-  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
+  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddScene(FlatBufferBuilder builder, int Scene) { builder.AddInt(1, Scene, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -108,6 +118,10 @@ public struct RoomMachineRowData : IFlatbufferObject
   public static VectorOffset CreateLinkTagsVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartLinkTagsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddTipsAsset(FlatBufferBuilder builder, StringOffset TipsAssetOffset) { builder.AddOffset(11, TipsAssetOffset.Value, 0); }
+  public static void AddHudOffset(FlatBufferBuilder builder, VectorOffset HudOffsetOffset) { builder.AddOffset(12, HudOffsetOffset.Value, 0); }
+  public static VectorOffset CreateHudOffsetVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateHudOffsetVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartHudOffsetVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.RoomMachineRowData> EndRoomMachineRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomMachineRowData>(o);
