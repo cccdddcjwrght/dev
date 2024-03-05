@@ -16,6 +16,7 @@ namespace SGame.UI{
 		private SetData          _setData;
 		private List<SetData.SetItemData> _setItemDataList;
 		private GList setList;
+		private EventHandleContainer m_handles = new EventHandleContainer();
 
 		partial void BeforeInit(UIContext context)
 		{
@@ -29,11 +30,12 @@ namespace SGame.UI{
 		{
 			m_view.m_name.m_title.text = DataCenter.Instance.accountData.playerName;
 			setList = m_view.m_list;
+			
 			setList.itemRenderer = RenderListItem;
 			setList.numItems = _setItemDataList.Count;
-			EventManager.Instance.Reg<string,int>(((int)GameEvent.SETTING_UPDATE_INT), OnIntSetting);
-			EventManager.Instance.Reg<string>(((int)GameEvent.SETTING_UPDATE_NAME), OnNameSetting);
-			EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
+			m_handles+=EventManager.Instance.Reg<string,int>(((int)GameEvent.SETTING_UPDATE_INT), OnIntSetting);
+			m_handles+=EventManager.Instance.Reg<string>(((int)GameEvent.SETTING_UPDATE_NAME), OnNameSetting);
+			m_handles+=EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 
 		}
 
@@ -44,7 +46,8 @@ namespace SGame.UI{
 
 		private void OnNameSetting(string name)
 		{
-			m_view.m_name.m_title.text = name;
+			var title = m_view.m_name.m_title;
+			title.text = name;
 			DataCenter.Instance.accountData.playerName = name;
 		}
 
@@ -136,7 +139,7 @@ namespace SGame.UI{
 		}
 
 		partial void UnInitLogic(UIContext context){
-
+			m_handles.Close();
 		}
 	}
 }
