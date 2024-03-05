@@ -327,6 +327,9 @@ namespace SGame.Dining
 						});
 					}
 				}
+
+				if (ConfigSystem.Instance.TryGet<GameConfigs.SceneRowData>(name, out var scene))
+					SceneCameraSystem.Reload(scene.CameraCtr);
 			}
 			return true;
 		}

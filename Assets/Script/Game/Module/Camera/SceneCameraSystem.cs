@@ -17,6 +17,9 @@ namespace SGame
 
 	public class SceneCameraSystem : MonoSingleton<SceneCameraSystem>
 	{
+		private static string c_cpath;
+		private static string c_current;
+		private static GameObject __inst;
 
 		const int C_DEF_FOV = 50;
 
@@ -25,7 +28,6 @@ namespace SGame
 
 		public const string Layer_Exhibit = "Exhibit";
 		public const string Layer_Default = "Default";
-
 
 		private float[] _orginValue;
 
@@ -71,31 +73,10 @@ namespace SGame
 
 		private RaycastHit[] hits = new RaycastHit[8];
 
-
-		protected void Start()
+		private void Start()
 		{
-#if DISABLE_CAMERA
-			this.gameObject.SetActive(false);
-			return;
-#endif
-
-			if (isInited) return;
-			libx.Assets
-				.LoadAsset(C_RES_PATH, typeof(GameObject))
-				.Wait((r) =>
-				{
-					if (string.IsNullOrEmpty(r.error))
-					{
-						var g = GameObject.Instantiate(r.asset) as GameObject;
-						g.name = GetType().Name;
-						g.GetComponent<SceneCameraSystem>().Init();
-						GameObject.Destroy(gameObject);
-					}
-					else
-						Init();
-				});
+			__inst = gameObject;
 		}
-
 
 		private void Update()
 		{
@@ -116,6 +97,25 @@ namespace SGame
 			ControlAxis.Control(yMove);
 			ControlAxis.Control(xMove);
 			ControlAxis.Control(zMove);
+		}
+
+		public static void Reload(string path)
+		{
+			path = path ?? c_cpath;
+			if (string.IsNullOrEmpty(path) || path == c_current) return;
+			c_current = path;
+			libx.Assets
+				.LoadAsset(path, typeof(GameObject))
+				.Wait((r) =>
+				{
+					if (string.IsNullOrEmpty(r.error))
+					{
+						if (__inst) Game.Destroy(__inst);
+						var g = GameObject.Instantiate(r.asset) as GameObject;
+						g.GetComponent<SceneCameraSystem>().Init();
+						g.GetComponent<SceneCameraSystem>().Return();
+					}
+				});
 		}
 
 
@@ -452,7 +452,7 @@ namespace SGame
 			sceneXMove = xMove;
 			sceneZMove = zMove;
 			sceneFOV = fieldOfView;
-			SetOrginVal(2, 0, -5);
+			SetOrginVal(xMove.startValue, yMove.startValue, zMove.startValue , leftRight.startValue , fieldOfView.startValue);
 			InitCameraBrain();
 			CreateTarget();
 			CreateVCamera();
@@ -515,7 +515,7 @@ namespace SGame
 				_vcamera = c.GetOrAddComponent<Cinemachine.CinemachineVirtualCamera>();
 			_vcamera.Follow = _ctrObj.transform;
 			_vcamera.LookAt = _ctrObj.transform;
-			_vcamera.m_Lens.OrthographicSize = 0.56f / (1f * Screen.width / Screen.height) * 9;
+			_vcamera.m_Lens.OrthographicSize = 0.56f / (1f * Screen.width / Screen.height) * _vcamera.m_Lens.OrthographicSize;
 
 		}
 

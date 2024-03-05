@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8033859361519748328}
   - component: {fileID: 3786893755689920207}
   m_Layer: 0
-  m_Name: CameraCtr
+  m_Name: Camera01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
     name: xm
     isEnable: 1
     isUselimit: 1
-    startValue: 0
+    startValue: 0.1
     minValue: -2
     maxValue: 2
     currentValue: 0
@@ -319,9 +319,9 @@ MonoBehaviour:
     name: zm
     isEnable: 1
     isUselimit: 1
-    startValue: -5
+    startValue: 6
     minValue: -8.5
-    maxValue: 6.5
+    maxValue: 6
     currentValue: 0
     inputValue: 0
     wrapValue: 0

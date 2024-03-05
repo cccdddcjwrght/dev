@@ -65,6 +65,13 @@ public struct SceneRowData : IFlatbufferObject
   public ArraySegment<byte>? GetFullPathBytes() { return __p.__vector_as_arraysegment(20); }
 #endif
   public byte[] GetFullPathArray() { return __p.__vector_as_array<byte>(20); }
+  public string CameraCtr { get { int o = __p.__offset(22); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetCameraCtrBytes() { return __p.__vector_as_span<byte>(22, 1); }
+#else
+  public ArraySegment<byte>? GetCameraCtrBytes() { return __p.__vector_as_arraysegment(22); }
+#endif
+  public byte[] GetCameraCtrArray() { return __p.__vector_as_array<byte>(22); }
 
   public static Offset<GameConfigs.SceneRowData> CreateSceneRowData(FlatBufferBuilder builder,
       StringOffset nameOffset = default(StringOffset),
@@ -75,8 +82,10 @@ public struct SceneRowData : IFlatbufferObject
       bool hasLoading = false,
       StringOffset loadingUIOffset = default(StringOffset),
       int type = 0,
-      StringOffset fullPathOffset = default(StringOffset)) {
-    builder.StartTable(9);
+      StringOffset fullPathOffset = default(StringOffset),
+      StringOffset CameraCtrOffset = default(StringOffset)) {
+    builder.StartTable(10);
+    SceneRowData.AddCameraCtr(builder, CameraCtrOffset);
     SceneRowData.AddFullPath(builder, fullPathOffset);
     SceneRowData.AddType(builder, type);
     SceneRowData.AddLoadingUI(builder, loadingUIOffset);
@@ -89,7 +98,7 @@ public struct SceneRowData : IFlatbufferObject
     return SceneRowData.EndSceneRowData(builder);
   }
 
-  public static void StartSceneRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
+  public static void StartSceneRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(0, nameOffset.Value, 0); }
   public static void AddDesc(FlatBufferBuilder builder, StringOffset descOffset) { builder.AddOffset(1, descOffset.Value, 0); }
   public static void AddPreload(FlatBufferBuilder builder, VectorOffset preloadOffset) { builder.AddOffset(2, preloadOffset.Value, 0); }
@@ -102,6 +111,7 @@ public struct SceneRowData : IFlatbufferObject
   public static void AddLoadingUI(FlatBufferBuilder builder, StringOffset loadingUIOffset) { builder.AddOffset(6, loadingUIOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int type) { builder.AddInt(7, type, 0); }
   public static void AddFullPath(FlatBufferBuilder builder, StringOffset fullPathOffset) { builder.AddOffset(8, fullPathOffset.Value, 0); }
+  public static void AddCameraCtr(FlatBufferBuilder builder, StringOffset CameraCtrOffset) { builder.AddOffset(9, CameraCtrOffset.Value, 0); }
   public static Offset<GameConfigs.SceneRowData> EndSceneRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.SceneRowData>(o);

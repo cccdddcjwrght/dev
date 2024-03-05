@@ -23,18 +23,6 @@ namespace SGame.Dining
 		private DiningRoomLogic _currentRoom;
 		private EventHandleContainer _eHandlers;
 
-		#region Mono
-
-		private IEnumerator Start()
-		{
-			SceneCameraSystem.Instance.Return();
-			yield return null;
-
-		}
-
-
-		#endregion
-
 		#region Method
 
 		public void Init()
@@ -95,13 +83,14 @@ namespace SGame.Dining
 			EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
 			EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
 
+
 		}
 
 		private IEnumerator Wait()
 		{
 			if (_currentRoom != null)
 			{
-				DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID , true);
+				DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID, true);
 				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
 				yield return _currentRoom.Wait();
 			}
