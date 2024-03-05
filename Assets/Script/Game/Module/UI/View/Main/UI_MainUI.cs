@@ -16,7 +16,6 @@ namespace SGame.UI.Main
         public GButton m_levelBtn;
         public GButton m_taskRewardBtn;
         public GButton m_AdBtn;
-        public GGroup m_n48;
         public Transition m_doshow;
         public Transition m_dohide;
         public const string URL = "ui://ktixaqljgmj1l";
@@ -39,7 +38,6 @@ namespace SGame.UI.Main
             m_levelBtn = (GButton)GetChildAt(5);
             m_taskRewardBtn = (GButton)GetChildAt(6);
             m_AdBtn = (GButton)GetChildAt(7);
-            m_n48 = (GGroup)GetChildAt(8);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }

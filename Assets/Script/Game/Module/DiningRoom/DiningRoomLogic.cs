@@ -795,7 +795,8 @@ namespace SGame.Dining
 			if (cell != null)
 			{
 				var state = cell.GetBuildLayer()?.GetComponentInChildren<Animation>()?.PlayQueued("cook");
-				state.wrapMode = WrapMode.Loop;
+				if (state != null)
+					state.wrapMode = WrapMode.Loop;
 			}
 		}
 

@@ -45,7 +45,9 @@ namespace SGame
 		private bool isInited;
 		private int cameraLayer;
 
-		private Vector3 lastPos;
+		private Vector2 lastPos;
+
+		public float rayHitMaxDistance = 12;
 
 		/// <summary>
 		/// 左右
@@ -410,10 +412,10 @@ namespace SGame
 			}
 			if (flag || Input.GetMouseButtonUp(0))
 			{
-				pos = Input.touchCount == 1 ? Input.GetTouch(0).position : Input.mousePosition;
+				lastPos = pos = Input.touchCount == 1 ? Input.GetTouch(0).position : Input.mousePosition;
 				var ray = _camera.ViewportPointToRay(_camera.ScreenToViewportPoint(pos));
 				var count = 0;
-				if ((count = Physics.RaycastNonAlloc(ray, hits, 55)) > 0)
+				if ((count = Physics.RaycastNonAlloc(ray, hits, rayHitMaxDistance)) > 0)
 				{
 					count--;
 					while (count >= 0)
@@ -452,7 +454,7 @@ namespace SGame
 			sceneXMove = xMove;
 			sceneZMove = zMove;
 			sceneFOV = fieldOfView;
-			SetOrginVal(xMove.startValue, yMove.startValue, zMove.startValue , leftRight.startValue , fieldOfView.startValue);
+			SetOrginVal(xMove.startValue, yMove.startValue, zMove.startValue, leftRight.startValue, fieldOfView.startValue);
 			InitCameraBrain();
 			CreateTarget();
 			CreateVCamera();
@@ -536,10 +538,15 @@ namespace SGame
 #if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{
-			Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Quaternion.Euler(0, 5, 0) * Camera.main.transform.forward * 40);
-			Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Quaternion.Euler(0, -5, 0) * Camera.main.transform.forward * 40);
-			Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * 40);
+			Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Quaternion.Euler(0, 5, 0) * Camera.main.transform.forward * rayHitMaxDistance);
+			Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Quaternion.Euler(0, -5, 0) * Camera.main.transform.forward * rayHitMaxDistance);
+			Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * rayHitMaxDistance);
 
+			/*if (lastPos != Vector2.zero)
+			{
+				var ray = Camera.main.ScreenPointToRay(lastPos);
+				Gizmos.DrawLine(ray.origin, ray.GetPoint(50));
+			}*/
 		}
 #endif
 

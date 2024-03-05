@@ -9,8 +9,6 @@ namespace SGame.UI.Main
     {
         public Controller m___redpoint;
         public GGraph m_effect;
-        public GImage m_n10;
-        public GLoader m_icon;
         public GGroup m_body;
         public Transition m_t0;
         public const string URL = "ui://ktixaqljk0s6las";
@@ -26,8 +24,6 @@ namespace SGame.UI.Main
 
             m___redpoint = GetControllerAt(0);
             m_effect = (GGraph)GetChildAt(0);
-            m_n10 = (GImage)GetChildAt(1);
-            m_icon = (GLoader)GetChildAt(2);
             m_body = (GGroup)GetChildAt(3);
             m_t0 = GetTransitionAt(0);
         }
