@@ -413,7 +413,7 @@ namespace SGame
 					int index = 0;
 					while ((count--)>=0)
 					{
-						var c = hits.Length > count ? default : hits[count].collider;
+						var c = hits.Length <= count ? default : hits[count].collider;
 						if (c != null)
 						{
 							var t = hits[count].collider.gameObject.GetComponents<ITouchOrHited>();
