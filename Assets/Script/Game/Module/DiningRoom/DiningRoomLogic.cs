@@ -261,8 +261,8 @@ namespace SGame.Dining
 		private void Awake()
 		{
 			var c = transform.gameObject.AddComponent<BoxCollider>();
-			c.size = new Vector3(0.9f, 0.3f, 0.9f);
-			c.center = new Vector3(0, 0.25f, 0);
+			c.size = new Vector3(0.9f, 0.2f, 0.9f);
+			c.center = new Vector3(0, 0.22f, 0);
 
 		}
 
@@ -603,9 +603,11 @@ namespace SGame.Dining
 				h.place = placeid;
 				h.onClick = OnRegionClick;
 
-				foreach (var item in cs)
-					AddPlaceHit(item, region.cfgID, cfg.ID);
-
+				if (cs.Count > 1 && !region.data.isTable)
+				{
+					foreach (var item in cs)
+						AddPlaceHit(item, region.cfgID, cfg.ID);
+				}
 			}
 
 			return ls;

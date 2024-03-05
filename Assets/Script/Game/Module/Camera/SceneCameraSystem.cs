@@ -10,6 +10,11 @@ namespace SGame
 		void OnClick();
 	}
 
+	public interface ITrigger
+	{
+		public bool isTrigger { get; set; }
+	}
+
 	public class SceneCameraSystem : MonoSingleton<SceneCameraSystem>
 	{
 
@@ -69,11 +74,11 @@ namespace SGame
 
 		protected void Start()
 		{
-#if  DISABLE_CAMERA
+#if DISABLE_CAMERA
 			this.gameObject.SetActive(false);
 			return;
 #endif
-			
+
 			if (isInited) return;
 			libx.Assets
 				.LoadAsset(C_RES_PATH, typeof(GameObject))
@@ -408,22 +413,23 @@ namespace SGame
 				pos = Input.touchCount == 1 ? Input.GetTouch(0).position : Input.mousePosition;
 				var ray = _camera.ViewportPointToRay(_camera.ScreenToViewportPoint(pos));
 				var count = 0;
-				if ((count = Physics.RaycastNonAlloc(ray, hits,55)) > 0)
+				if ((count = Physics.RaycastNonAlloc(ray, hits, 55)) > 0)
 				{
-					int index = 0;
-					while ((count--)>=0)
+					count--;
+					while (count >= 0)
 					{
 						var c = hits.Length <= count ? default : hits[count].collider;
 						if (c != null)
 						{
-							var t = hits[count].collider.gameObject.GetComponents<ITouchOrHited>();
+							var t = c.gameObject.GetComponents<ITouchOrHited>();
 							if (t != null && t.Length > 0)
 							{
 								t.Foreach(v => v.OnClick());
-								ret = true;
-								break;
+								ret = ret || true;
+								if (t[0] is ITrigger v && !v.isTrigger) break;
 							}
 						}
+						count--;
 					}
 				}
 			}
@@ -442,18 +448,18 @@ namespace SGame
 
 		void Init()
 		{
-			#if !DISABLE_CAMERA
+#if !DISABLE_CAMERA
 			sceneXMove = xMove;
 			sceneZMove = zMove;
 			sceneFOV = fieldOfView;
-			SetOrginVal(2,0,-5);
+			SetOrginVal(2, 0, -5);
 			InitCameraBrain();
 			CreateTarget();
 			CreateVCamera();
 			LiveVCamera(_vcamera);
 			Return();
 			isInited = true;
-			#endif
+#endif
 
 		}
 
