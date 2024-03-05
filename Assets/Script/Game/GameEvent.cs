@@ -31,8 +31,12 @@ namespace SGame
 		AFTER_ENTER_ROOM			= 112, //进入场景之后
 		SCENE_REWARD				= 113,//场景宝箱（int cellIndex,  , Action call ,[string assetPath = null]）
 
-		ORDER					= 200, // 创建新的订单失败
+		ORDER						= 200, // 创建新订单 (int 订单ID)
 		ORDER_FOODMAKED				= 201, // 
+		ORDER_FINSIH				= 202, // 订单完成 (int 订单ID)
+		ORDER_INSTANT				= 203, // 订单立即完成 (int 订单ID)
+		ORDER_PERFECT				= 204, // 订单完美制作 (int 订单ID)
+		ORDER_START					= 205, // 顾客创建订单 (int 顾客实例ID)
 		
 		/// 角色
 		CHARACTER_CREATE			= 301, // 角色创建 (int 角色类型, int 角色实例ID)

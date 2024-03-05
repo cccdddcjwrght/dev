@@ -7,6 +7,7 @@ namespace SGame
     // 用于定义音效文件ID
     public enum AudioDefine : int
     {
-        BGM_LEVEL = 1
+        BGM_LEVEL = 1,
+        SOUND_END = 10, // 订单完成
     }
 }
