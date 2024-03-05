@@ -16,6 +16,7 @@ namespace SGame
 		
 		// 用户数据
 		public Entity m_data;
+		public AccountData accountData = new AccountData();
 		public AbilityData abilityData = new AbilityData();
 		public SetData setData = new SetData(); 
 
