@@ -13,7 +13,7 @@ namespace SGame.UI.Shop
         public Controller m_item;
         public Controller m_saled;
         public Controller m_type;
-        public GLoader m_bg;
+        public UI_shopclick m_click;
         public GImage m_bottom;
         public GLoader m_currency_2;
         public GLoader m_item_2;
@@ -38,7 +38,7 @@ namespace SGame.UI.Shop
             m_item = GetControllerAt(3);
             m_saled = GetControllerAt(4);
             m_type = GetControllerAt(5);
-            m_bg = (GLoader)GetChildAt(1);
+            m_click = (UI_shopclick)GetChildAt(1);
             m_bottom = (GImage)GetChildAt(2);
             m_currency_2 = (GLoader)GetChildAt(3);
             m_item_2 = (GLoader)GetChildAt(4);

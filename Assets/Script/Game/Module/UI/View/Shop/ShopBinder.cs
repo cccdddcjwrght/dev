@@ -8,6 +8,7 @@ namespace SGame.UI.Shop
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_shopclick.URL, typeof(UI_shopclick));
             UIObjectFactory.SetPackageItemExtension(UI_ShopUI.URL, typeof(UI_ShopUI));
             UIObjectFactory.SetPackageItemExtension(UI_BigGoods.URL, typeof(UI_BigGoods));
             UIObjectFactory.SetPackageItemExtension(UI_ShopBody.URL, typeof(UI_ShopBody));

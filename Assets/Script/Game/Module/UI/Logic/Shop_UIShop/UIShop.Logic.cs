@@ -120,8 +120,8 @@ namespace SGame.UI
 			v.m_desc.SetTextByKey(g.cfg.ShopDes);
 			v.m_type.selectedIndex = g.type - 1;
 
-			v.onClick.Clear();
-			v.onClick.Add(() => OnGoodsClick(g));
+			v.m_click.onClick.Clear();
+			v.m_click.onClick.Add(() => OnGoodsClick(g));
 
 			v.m_tips.onClick.Clear();
 			v.m_tips.onClick.Add((e) =>
@@ -141,8 +141,6 @@ namespace SGame.UI
 			var v = gObject as UI_Goods;
 			var time = g.CDTime();
 
-			v.m_cd.selectedIndex = time > 0 ? 1 : 0;
-			v.m_saled.selectedIndex = g.IsSaled() ? 1 : 0;
 
 			if (g.free > 0)
 			{
@@ -176,6 +174,9 @@ namespace SGame.UI
 					v.m_time.SetText(Utils.FormatTime(g.CDTime()), false);
 				}, gObject, completed: () => DoRefreshGoodsInfo(data, gObject));
 			}
+
+			v.m_cd.selectedIndex = time > 0 ? 1 : 0;
+			v.m_saled.selectedIndex = g.IsSaled() ? 1 : 0;
 		}
 
 		void OnGoodsClick(ShopGoods goods)
