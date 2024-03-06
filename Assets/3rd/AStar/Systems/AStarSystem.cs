@@ -218,8 +218,8 @@ namespace GameTools.Paths
 
 					if (x != 0 && y != 0)
 					{
-						if (IsHolded(new int2(n.pos.x - x, n.pos.y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
-						if (IsHolded(new int2(n.pos.x, n.pos.y - y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
+						if (IsHolded(new int2(pos.x - x, pos.y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
+						if (IsHolded(new int2(pos.x, pos.y - y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
 					}
 
 					if (g < n.gValue) // 没有比另一个路径更哟（一开始这个值就是Max）
