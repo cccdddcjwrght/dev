@@ -28,7 +28,7 @@ namespace SGame.UI{
 				if (_value != foodTip.gold)
 				{
 					_value = foodTip.gold;
-					m_view.m_title.text = Utils.ConvertNumberStr(_value);
+					m_view.m_title.text = Utils.ConvertNumberStrLimit3(_value);
 				}
 			}
 		}
