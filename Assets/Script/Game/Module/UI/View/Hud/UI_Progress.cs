@@ -7,8 +7,8 @@ namespace SGame.UI.Hud
 {
     public partial class UI_Progress : GComponent
     {
-        public GImage m_n0;
-        public GImage m_n1;
+        public GImage m_bg;
+        public GImage m_progress;
         public const string URL = "ui://clbwsjawlrli6";
 
         public static UI_Progress CreateInstance()
@@ -20,8 +20,8 @@ namespace SGame.UI.Hud
         {
             base.ConstructFromXML(xml);
 
-            m_n0 = (GImage)GetChildAt(0);
-            m_n1 = (GImage)GetChildAt(1);
+            m_bg = (GImage)GetChildAt(0);
+            m_progress = (GImage)GetChildAt(1);
         }
     }
 }

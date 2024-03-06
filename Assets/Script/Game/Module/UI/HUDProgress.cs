@@ -30,7 +30,7 @@ public class HUDProgress : IUIScript
         {
             updateTime += Time.deltaTime;
             float fillPercentage = CalculateFillPercentage(updateTime, time);
-            progressUI.m_n1.fillAmount = fillPercentage;
+            progressUI.m_progress.fillAmount = fillPercentage;
         }
         else
         {

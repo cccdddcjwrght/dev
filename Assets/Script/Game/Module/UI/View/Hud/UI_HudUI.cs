@@ -7,6 +7,7 @@ namespace SGame.UI.Hud
 {
     public partial class UI_HudUI : GComponent
     {
+        public UI_FloatText m_nn;
         public const string URL = "ui://clbwsjawjx7g0";
 
         public static UI_HudUI CreateInstance()
@@ -18,6 +19,7 @@ namespace SGame.UI.Hud
         {
             base.ConstructFromXML(xml);
 
+            m_nn = (UI_FloatText)GetChildAt(0);
         }
     }
 }

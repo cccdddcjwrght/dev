@@ -22,8 +22,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("ChangeHeadUI", "Setting", ()=>new UIChangeHead());
 			context.uiModule.Reg("MaskUI", "Common", ()=>new UIMask());
 			context.uiModule.Reg("FoodTipUI", "Hud", ()=>new UIFoodTip());
-			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
 			context.uiModule.Reg("RedpointUI", "Common", ()=>new UIRedpoint());
+			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
 		}
 	}
 }

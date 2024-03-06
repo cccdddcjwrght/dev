@@ -7,7 +7,7 @@ namespace SGame.UI.Hud
 {
     public partial class UI_Update : GComponent
     {
-        public GImage m_n2;
+        public GImage m_icon;
         public const string URL = "ui://clbwsjawbw2d7";
 
         public static UI_Update CreateInstance()
@@ -19,7 +19,7 @@ namespace SGame.UI.Hud
         {
             base.ConstructFromXML(xml);
 
-            m_n2 = (GImage)GetChildAt(0);
+            m_icon = (GImage)GetChildAt(0);
         }
     }
 }
