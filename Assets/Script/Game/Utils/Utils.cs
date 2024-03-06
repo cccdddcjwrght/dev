@@ -157,21 +157,29 @@ namespace SGame
 
 
 		static readonly char[] c_price = new char[] { default, 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B' };
+
+		public static string ConvertNumberStrLimit3(double number) => ConvertNumberStr(number, 3);
+
 		//把数值转成专用字符串表示
-		public static string ConvertNumberStr(double number)
+		public static string ConvertNumberStr(double number, int limit = 0)
 		{
+			var unit = "";
 			if (number >= 1000)
 			{
 				int a, b;
 				a = b = 0;
 				while (number >= 1000)
 				{
-					if (b++ > 9) { a++; b = 1; }
+					b++;
+					if (b > 9) { a++; b = 9; } //999P--->1KP
 					number *= 0.001d;
 				}
-				return string.Format("{0}{1}{2}", number.Round(), a > 0 ? c_price[a] : "", c_price[b]);
+				unit = string.Format("{0}{1}", a > 0 ? c_price[a] : "", c_price[b]);//单位
 			}
-			return number.ToString();
+			if (limit > 0)
+				return number.Round().ToString($"G{limit}") + unit;
+			else
+				return number.Round().ToString() + unit;
 		}
 
 		/// <summary>
@@ -583,13 +591,13 @@ namespace SGame
 
 		#endregion
 
-		static public string GetItemIcon(int type , int id )
+		static public string GetItemIcon(int type, int id)
 		{
 			var icon = string.Empty;
 			switch (type)
 			{
 				case 1:
-					if(ConfigSystem.Instance.TryGet<ItemRowData>(id , out var item))
+					if (ConfigSystem.Instance.TryGet<ItemRowData>(id, out var item))
 						icon = item.Icon;
 					break;
 			}
