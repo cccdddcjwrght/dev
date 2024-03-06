@@ -80,7 +80,6 @@ namespace SGame
 		{
 			DoLoad();
 			AfterLoad();
-			Initalize();
 		}
 
 		public void Save()

@@ -44,6 +44,7 @@ namespace SGame
 			
 			// 数据中心
 			var dataCenter = new DataCenter(m_gameWorld);
+			dataCenter.Load();
 			m_commonModule.Add(dataCenter);
 			
 			m_loginModule = new LoginModuleSingle(world);

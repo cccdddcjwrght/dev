@@ -77,7 +77,7 @@ namespace SGame
 
 		public static void SaveData(this DataCenter data, string key = null)
 		{
-			if (data != null)
+			if (data != null && data.IsInitAll)
 			{
 				data.Save();
 				var str = JsonUtility.ToJson(data);
@@ -101,11 +101,7 @@ namespace SGame
 
 		static void SetTimer()
 		{
-			new Action(() =>
-			{
-				if (DataCenter.Instance.IsInitAll)
-					SaveData(DataCenter.Instance);
-			}).CallWhenQuit();
+			new Action(() => SaveData(DataCenter.Instance)).CallWhenQuit();
 			0.Loop(() => SaveData(DataCenter.Instance), () => true, 10000, 10000);
 		}
 	}

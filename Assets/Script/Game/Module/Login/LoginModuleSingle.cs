@@ -44,7 +44,7 @@ namespace SGame
 			GameObject go = GameObject.Instantiate(asset.asset as GameObject);
 			var waitLogin = new WaitEvent<string>((int)GameEvent.ENTER_LOGIN);
 			yield return waitLogin;
-			DataCenter.Instance.Load();
+			DataCenter.Instance.Initalize();
 			while (!DataCenter.Instance.IsInitAll)
 				yield return null;
 			GameObject.Destroy(go);
