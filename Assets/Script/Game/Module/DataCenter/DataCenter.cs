@@ -18,6 +18,8 @@ namespace SGame
 		public Entity m_data;
 		public AccountData accountData = new AccountData();
 		public AbilityData abilityData = new AbilityData();
+		
+		[SerializeField]
 		public SetData setData = new SetData();
 
 		[SerializeField]

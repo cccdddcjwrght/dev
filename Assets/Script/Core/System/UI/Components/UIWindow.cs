@@ -99,6 +99,8 @@ namespace SGame.UI
 
         private IUIScript m_uiScript;
         private UIContext m_context;
+        
+        public int configID { get => m_context.configID;  }
 		
 
         private static ILog log = LogManager.GetLogger("UI");

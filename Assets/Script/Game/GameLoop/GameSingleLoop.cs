@@ -49,8 +49,10 @@ namespace SGame
 			
 			m_loginModule = new LoginModuleSingle(world);
 			m_gameModule = new GameModuleSingle(world, m_resourceManager,  randomSystem);
-
-
+			
+			// 初始化语言
+			DataCenter.Instance.setData.InitItemDataDic();
+			LanagueSystem.Instance.Initalize(Utils.GetLangName(DataCenter.Instance.setData.GetIntItemData("language")));
 		}
 
 		/// <summary>

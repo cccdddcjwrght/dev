@@ -8,13 +8,16 @@ using UnityEngine.Serialization;
 
 namespace SGame
 {
+    [Serializable]
     public class SetData
     {
         [System.NonSerialized]
         public bool isInited;
 
         public string name;
+        
         //设置栏数据
+        [Serializable]
         public class SetItemData
         {
             public string id;
@@ -39,7 +42,7 @@ namespace SGame
             {
                 return;
             }
-            setItemDataList?.Clear();
+
             var settingListConfig = ConfigSystem.Instance.LoadConfig<GameConfigs.SettingConfig>(); //设置列表
             var len = settingListConfig.DatalistLength;
             for (int i = 0; i < len; i++)

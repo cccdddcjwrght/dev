@@ -65,6 +65,42 @@ namespace SGame
 			}
 			return false;
 		}
+		
+		
+		/// <summary>
+		/// 重新加载可见UI
+		/// </summary>
+		public static void ReloadVisibleUI()
+		{
+			List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI();
+			List<int> uiID = new List<int>();
+
+			// 除了HUD 的UI, 所有UI都重新开一遍
+			foreach (var ui in allUI)
+			{
+				if (ui.Value.uiname == "mask")
+				{
+					ui.Value.Close();
+					continue;
+				}
+				
+				var configID = ui.Value.configID;
+				if (ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData uiconfig))
+				{
+					if (uiconfig.Type == (int)UIType.UI && !uiID.Contains(configID))
+					{
+						uiID.Add(configID);
+						ui.Value.Close();
+					}
+				}
+			}
+
+			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			foreach (var id in uiID)
+			{
+				UIRequest.Create(entityManager, id);
+			}
+		}
 
 		/// <summary>
 		/// 通过世界坐标转换成控件坐标

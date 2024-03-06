@@ -10,6 +10,7 @@ using System.Text;
 using log4net;
 using Unity.Mathematics;
 using FairyGUI;
+using SGame.UI;
 
 namespace SGame
 {
@@ -603,5 +604,22 @@ namespace SGame
 			}
 			return icon;
 		}
+
+		/// <summary>
+		/// 获得设置界面语言名字
+		/// </summary>
+		/// <param name="lang_setting"></param>
+		/// <returns></returns>
+		static public string GetLangName(int lang_setting)
+		{
+			if (!ConfigSystem.Instance.TryGet(lang_setting, out Language_settingRowData config))
+			{
+				log.Error("lang not found=" + lang_setting);
+				return "en";
+			}
+
+			return config.Label;
+		}
+		
 	}
 }
