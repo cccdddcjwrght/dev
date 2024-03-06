@@ -24,10 +24,29 @@ namespace SGame
 
 		public string playerName;
 
+		/// <summary>
+		/// 记录事件
+		/// </summary>
+		public int lasttime;
+
 		public Account To()
 		{
 			return new Account() { pid = playerID };
 		}
 
 	}
+
+	partial class DataCenter
+	{
+		/// <summary>
+		/// 间隔时常
+		/// 一般在登录时计算离线时常
+		/// </summary>
+		/// <returns></returns>
+		public int GetOfflineTime()
+		{
+			return GameServerTime.Instance.serverTime - accountData.lasttime;
+		}
+	}
+
 }

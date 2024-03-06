@@ -38,6 +38,12 @@ namespace SGame
 		{
 			this.LoadData();
 		}
+
+		partial void BeforeSave()
+		{
+			accountData.lasttime = GameServerTime.Instance.serverTime;
+		}
+
 	}
 
 	public static partial class DataCenterExtension
@@ -73,6 +79,7 @@ namespace SGame
 		{
 			if (data != null)
 			{
+				data.Save();
 				var str = JsonUtility.ToJson(data);
 				PlayerPrefs.SetString(key ?? __DKey, str);
 				PlayerPrefs.Save();

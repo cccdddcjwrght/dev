@@ -83,6 +83,12 @@ namespace SGame
 			Initalize();
 		}
 
+		public void Save()
+		{
+			BeforeSave();
+			DoSave();
+		}
+
 		public void Initalize()
 		{
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
@@ -112,5 +118,8 @@ namespace SGame
 		partial void DoInit();
 		partial void DoLoad();
 		partial void AfterLoad();
+		partial void DoSave();
+		partial void BeforeSave();
+
 	}
 }
