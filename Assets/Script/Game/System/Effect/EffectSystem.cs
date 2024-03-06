@@ -218,8 +218,8 @@ namespace SGame
 								case RequestSpawnUIEffect.ReqType.REQ_3DPARENT:
 									{
 										// 自带父节点
-										SetupGameObject(obj, req.position, req.scale, req.rotation);
 										obj.transform.parent = req.parent.transform;
+										SetupGameObject(obj, req.position, req.scale, req.rotation);
 										obj.transform.position = req.position + (Vector3)GetComponent<Translation>(req.entity).Value;
 									}
 									break;
