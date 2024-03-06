@@ -219,8 +219,7 @@ namespace SGame
 									{
 										// 自带父节点
 										obj.transform.parent = req.parent.transform;
-										SetupGameObject(obj, req.position, req.scale, req.rotation);
-										obj.transform.position = req.position + (Vector3)GetComponent<Translation>(req.entity).Value;
+										SetupGameObject(obj, req.position + (Vector3)GetComponent<Translation>(req.entity).Value, req.scale, req.rotation);
 									}
 									break;
 

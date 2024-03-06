@@ -90,7 +90,10 @@ namespace SGame
 		public void OnClick()
 		{
 			3.ToAudioID().PlayAudio();
-			EffectSystem.Instance.AddEffect(1, transform.parent.gameObject, null, transform.position + new Vector3(0, 0.25f, -0.1f));
+			EffectSystem.Instance.AddEffect(
+				 1, 
+				 transform.parent.gameObject,
+				 null, transform.localPosition + new Vector3(0, 0.25f, -0.1f) );
 			call?.Invoke();
 			if (entity != default)
 				SpawnSystem.Instance.Release(entity);
