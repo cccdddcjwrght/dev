@@ -19,7 +19,7 @@ public class GridMapExcute_AddAgent : TileEdExt.IMapExcute
 			testModel = GUIHelp.DrawObject(testModel, "Ä£ÐÍÔ¤ÖÆ");
 	}
 
-	public void Excute(GameObject go)
+	public void Excute(GameObject go , plyLib.TileEdMap map)
 	{
 		if (go)
 			go.AddComponent<GameTools.MapAgent>();

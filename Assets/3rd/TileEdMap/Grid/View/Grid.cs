@@ -86,6 +86,14 @@ namespace GameTools.Maps
 				}
 			}
 
+			if(roads?.Count > 0)
+			{
+				foreach (var item in roads)
+				{
+					for (int i = 0; i < item.points.Count - 1; i++)
+						Gizmos.DrawLine(item.points[i], item.points[i + 1]);
+				}
+			}
 		}
 #endif
 

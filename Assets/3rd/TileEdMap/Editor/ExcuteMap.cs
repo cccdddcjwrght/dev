@@ -19,7 +19,7 @@ namespace TileEdExt
 		string title { get; }
 		bool fade { get; set; }
 		void OnGUI(bool show);
-		void Excute(GameObject go);
+		void Excute(GameObject go , plyLib.TileEdMap map);
 	}
 
 	public class BuildConfig
@@ -404,7 +404,7 @@ namespace TileEdExt
 			grid.Refresh();
 			try
 			{
-				_excuteTypes?.ForEach(e => e.Excute(go));
+				_excuteTypes?.ForEach(e => e.Excute(go , map));
 			}
 			catch (System.Exception e)
 			{

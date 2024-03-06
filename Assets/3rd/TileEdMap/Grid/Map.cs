@@ -53,6 +53,7 @@ namespace GameTools.Maps
 		public float size;
 		public Vector3 offset;
 		public List<Cell> cells;
+		public List<Road> roads;
 
 		public Vector2Int gridSize { get { return new Vector2Int(stepX, stepY); } }
 		public Dictionary<string, List<int>> tags { get; set; }
@@ -572,4 +573,10 @@ namespace GameTools.Maps
 
 	}
 
+	[System.Serializable]
+	public partial class Road
+	{
+		public string name;
+		public List<Vector3> points;
+	}
 }

@@ -13,7 +13,7 @@ namespace GameTools.Paths
 	{
 		public const int CST_CROSS_VALUE = 15;    // 交叉行走的代价
 		public const int CST_STRAIGHT_VALUE = 10; // 笔直行走的代价
-		public const int CST_CROSSHOLD_OFFSET_VALUE = 6; // 笔直行走的代价
+		public const int CST_CROSSHOLD_OFFSET_VALUE = 10; // 笔直行走的代价
 
 
 		// 节点
@@ -257,7 +257,7 @@ namespace GameTools.Paths
 			if (!InMap(pos, mapSize)) return false;
 			var index = GetIndexFromPos(pos, mapSize.x);
 			var node = maps[index];
-			if (!node.isWalkable || node.cost > 0) return true;
+			if (!node.isWalkable /*|| node.cost > 0*/) return true;
 			return false;
 		}
 

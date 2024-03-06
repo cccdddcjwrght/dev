@@ -249,6 +249,17 @@ namespace GameTools
 			return default;
 		}
 
+		/// <summary>
+		/// 获取路径
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public static List<Vector3> GetRoad(string name)
+		{
+			if (agent && !string.IsNullOrEmpty(name))
+				return agent.grid.roads.Find(agent => agent.name == name)?.points;
+			return default;
+		}
 
 		#endregion
 

@@ -1332,6 +1332,17 @@ public static partial class GUIHelp
 				var c = serialized;
 				EditorGUILayout.ObjectField(c, GUILayout.Height(style.fixedHeight));
 				if (enable) value = (T)(object)c;
+			}else if(value is Vector3 v3)
+			{
+				var c = (Vector3)(object)value;
+				c = EditorGUILayout.Vector3Field("",c, GUILayout.Height(style.fixedHeight));
+				if (enable) value = (T)(object)c;
+			}
+			else if (value is Vector2 v2)
+			{
+				var c = (Vector2)(object)value;
+				c = EditorGUILayout.Vector2Field("", c, GUILayout.Height(style.fixedHeight));
+				if (enable) value = (T)(object)c;
 			}
 #endif
 		}
