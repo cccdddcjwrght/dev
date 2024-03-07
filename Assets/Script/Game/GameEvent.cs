@@ -16,14 +16,16 @@ namespace SGame
 		UI_SHOW						= 12,//(UIContext context)
 		UI_HIDE						= 13,//(UIContext context)
 
-
-		//登录======================================
+		UI_INPUT_LOCK				= 14,       // 锁定UI输入
+		UI_INPUT_UNLOCK				= 15,     // UI输入解锁
+								   //登录======================================
 		HOTFIX_DONE = 100, // 热更新结束
 		LOGIN_READLY				= 101, // 登录准备好了
 		ENTER_LOGIN					= 102, // 进入登录
 		ENTER_GAME					= 105, // 进入游戏
 		LANGUAGE_CHANGE				= 106, // 语言修改
 		GAME_START					= 107, // 游戏开始
+		DATA_INIT_COMPLETE			= 108, //数据初始化完成
 
 		//场景=======================================
 		BEFORE_ENTER_ROOM			= 110, //进入场景之前

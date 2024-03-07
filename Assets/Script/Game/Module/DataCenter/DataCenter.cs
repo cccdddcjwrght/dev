@@ -118,6 +118,7 @@ namespace SGame
 			DoInit();
 			IsInitAll = true;
 			loadtime = GameServerTime.Instance.serverTime;
+			EventManager.Instance.Trigger(((int)GameEvent.DATA_INIT_COMPLETE));
 		}
 
 		public void Update()

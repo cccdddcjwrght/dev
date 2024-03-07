@@ -12,8 +12,7 @@ namespace SGame
 	public partial class RequestExcuteSystem : Singleton<RequestExcuteSystem>
 	{
 		private static ILog log = LogManager.GetLogger("request.excute");
-
-
+		private static DelayExcuter _delayer = DelayExcuter.Instance;
 		private GameWorld _gameWorld;
 
 		public void Init(GameWorld world)

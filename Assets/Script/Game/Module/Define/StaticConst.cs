@@ -106,6 +106,17 @@ namespace SGame
 				return _DISH_OFFSET_Y;
 			}
 		}
+
+		#region 广告
+
+#if AD_ON
+		public const bool C_AD_OPEN = true; 
+#else
+		public const bool C_AD_OPEN = false;
+#endif
+
+		#endregion
+
 	}
 
 	/// <summary>
@@ -113,5 +124,6 @@ namespace SGame
 	/// </summary>
 	public static partial class StaticDefine
 	{
+		public static int G_Offline_Time = 0;
 	}
 }

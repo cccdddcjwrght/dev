@@ -99,6 +99,17 @@ namespace SGame
 				return val;
 			}
 
+			public static List<Worktable> GetWorktables(Func<Worktable , bool> condition)
+			{
+				if (condition != null)
+				{
+					var ws = GetWorktables();
+					if(ws?.Count > 0)
+						return ws.FindAll( w => condition(w));
+				}
+				return default;
+			}
+
 			public static Worktable UpdateLevel(int id, int scene, int val = 1, bool set = false)
 			{
 				var w = GetWorktable(id, scene);
