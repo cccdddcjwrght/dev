@@ -10,6 +10,8 @@ namespace SGame
 
 	partial class DataCenter
 	{
+		[System.NonSerialized]
+		public int offlinetime;
 
 		public void SetData<T>(T data) where T : struct, IComponentData
 		{
@@ -37,6 +39,7 @@ namespace SGame
 		partial void DoLoad()
 		{
 			this.LoadData();
+			this.offlinetime = accountData.lasttime;
 		}
 
 		partial void BeforeSave()

@@ -46,7 +46,7 @@ namespace SGame
 		/// <returns></returns>
 		public int GetOfflineTime()
 		{
-			return accountData.lasttime > 0 ? GameServerTime.Instance.serverTime - accountData.lasttime : 0;
+			return offlinetime > 0 ? GameServerTime.Instance.serverTime - offlinetime : 0;
 		}
 	}
 
