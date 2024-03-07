@@ -18,6 +18,8 @@ namespace SGame.UI
 		partial void InitLogic(UIContext context)
 		{
 			var max = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.OfflineTime);
+			var rate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.OfflineAddition);
+
 			var val = Mathf.Clamp(StaticDefine.G_Offline_Time, 0, max);
 			m_view.m_progress.max = max;
 			m_view.m_progress.value = val;
@@ -27,7 +29,7 @@ namespace SGame.UI
 
 			var gold = 0d;
 			ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
-			gold = gold.ToInt() * val;
+			gold = (ConstDefine.C_PER_SCALE * gold * val * rate).ToInt();
 
 			m_view.m_count.SetText(Utils.ConvertNumberStr(gold), false);
 
