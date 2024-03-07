@@ -25,8 +25,11 @@ namespace SGame
 		[SerializeField]
 		private ItemData itemData = new ItemData();
 
-		private GameWorld m_world;
-		static DataCenter s_instance;
+		[SerializeField]
+		public double		m_foodTipsGold;
+
+		private GameWorld	m_world;
+		static DataCenter	s_instance;
 
 		public bool IsInitAll { get; private set; } = false;
 
@@ -97,6 +100,15 @@ namespace SGame
 			{
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
 				OnFirstInit();
+			}
+			else
+			{
+				// 小费恢复
+				if (m_foodTipsGold > 0)
+				{
+					PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, m_foodTipsGold);
+					m_foodTipsGold = 0;
+				}
 			}
 			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 			DoInit();
