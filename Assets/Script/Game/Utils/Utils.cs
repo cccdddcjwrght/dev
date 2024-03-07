@@ -173,7 +173,7 @@ namespace SGame
 				{
 					b++;
 					if (b > 9) { a++; b = 9; } //999P--->1KP
-					number *= 0.001d;
+					number = (number * 0.001d).Round();
 				}
 				unit = string.Format("{0}{1}", a > 0 ? c_price[a] : "", c_price[b]);//单位
 			}

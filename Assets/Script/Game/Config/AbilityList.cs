@@ -52,6 +52,7 @@ public struct AbilityListRowData : IFlatbufferObject
 #endif
   public int[] GetLockCostArray() { return __p.__vector_as_array<int>(14); }
   public int Sort { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ShowText { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.AbilityListRowData> CreateAbilityListRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -60,8 +61,10 @@ public struct AbilityListRowData : IFlatbufferObject
       int VaultLevelMax = 0,
       VectorOffset LevelIdOffset = default(VectorOffset),
       VectorOffset LockCostOffset = default(VectorOffset),
-      int Sort = 0) {
-    builder.StartTable(7);
+      int Sort = 0,
+      int ShowText = 0) {
+    builder.StartTable(8);
+    AbilityListRowData.AddShowText(builder, ShowText);
     AbilityListRowData.AddSort(builder, Sort);
     AbilityListRowData.AddLockCost(builder, LockCostOffset);
     AbilityListRowData.AddLevelId(builder, LevelIdOffset);
@@ -72,7 +75,7 @@ public struct AbilityListRowData : IFlatbufferObject
     return AbilityListRowData.EndAbilityListRowData(builder);
   }
 
-  public static void StartAbilityListRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartAbilityListRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddVaultIcon(FlatBufferBuilder builder, StringOffset VaultIconOffset) { builder.AddOffset(1, VaultIconOffset.Value, 0); }
   public static void AddVaultDes(FlatBufferBuilder builder, StringOffset VaultDesOffset) { builder.AddOffset(2, VaultDesOffset.Value, 0); }
@@ -86,6 +89,7 @@ public struct AbilityListRowData : IFlatbufferObject
   public static VectorOffset CreateLockCostVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartLockCostVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddSort(FlatBufferBuilder builder, int Sort) { builder.AddInt(6, Sort, 0); }
+  public static void AddShowText(FlatBufferBuilder builder, int ShowText) { builder.AddInt(7, ShowText, 0); }
   public static Offset<GameConfigs.AbilityListRowData> EndAbilityListRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.AbilityListRowData>(o);
