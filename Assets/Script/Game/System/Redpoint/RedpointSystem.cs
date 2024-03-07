@@ -637,6 +637,7 @@ namespace SGame
 
 					if (cfg.Type == ((int)RedpointType.Group))
 					{
+						if (cfg.SubType == 1) return;
 						var o = id + item.name;
 						if (_stateCache.Contains(o)) return;
 						_stateCache.Add(o);
