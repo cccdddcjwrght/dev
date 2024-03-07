@@ -41,9 +41,6 @@ namespace SGame
             m_EntityManager.AddComponentData(hud, new UIParam() {Value = goldEffect});
             m_EntityManager.AddComponentData(goldEffect, new FoodTips() {gold = gold, ui = hud});
 
-            // 小费存储
-            DataCenter.Instance.m_foodTipsGold += gold;
-
             // 创建金币特效
             return goldEffect;
         }

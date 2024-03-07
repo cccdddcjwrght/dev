@@ -61,6 +61,10 @@ namespace SGame.VS
                 }
 
                 var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                
+                // 小费存储
+                DataCenter.Instance.m_foodTipsGold += gold;
+                
                 if (table.foodTip != Entity.Null && entityManager.HasComponent<FoodTips>(table.foodTip))
                 {
                     // 桌子上已经有小费了

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using GameConfigs;
+using log4net;
 
 namespace SGame
 {
@@ -11,6 +12,7 @@ namespace SGame
 
 	public partial class DataCenter : IModule
 	{
+		private static ILog log = LogManager.GetLogger("game.datacetner");
 		[SerializeField]
 		private int loadtime;
 
@@ -106,8 +108,10 @@ namespace SGame
 				// 小费恢复
 				if (m_foodTipsGold > 0)
 				{
+					log.Info("FoodTip=" + m_foodTipsGold + " before=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
 					PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, m_foodTipsGold);
 					m_foodTipsGold = 0;
+					log.Info("FoodTip=" + m_foodTipsGold + " after=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
 				}
 			}
 			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
