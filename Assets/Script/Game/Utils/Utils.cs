@@ -10,6 +10,7 @@ using System.Text;
 using log4net;
 using Unity.Mathematics;
 using FairyGUI;
+using GameTools;
 using SGame.UI;
 
 namespace SGame
@@ -620,6 +621,28 @@ namespace SGame
 
 			return config.Label;
 		}
-		
+
+		/// <summary>
+		/// 获取地图格子的对象
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		static public Transform GetGirdObject(int2 pos)
+		{
+			string objectName = string.Format("({0}x0x{1}", pos.x, pos.y);
+			Transform root = MapAgent.agent.transform.FindRecursive(objectName);
+			if (root == null)
+			{
+				return null;
+			}
+
+			Transform body = root.Find("body");
+			if (body == null)
+			{
+				return null;
+			}
+
+			return body.GetChild(0);
+		}
 	}
 }

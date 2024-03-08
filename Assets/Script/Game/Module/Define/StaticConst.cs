@@ -107,6 +107,18 @@ namespace SGame
 			}
 		}
 
+		private static float _FOODTIP_OFFSET_Y = -1f;
+		public static float FOODTIP_OFFSET_Y
+		{
+			get
+			{
+				if (_FOODTIP_OFFSET_Y < 0)
+					_FOODTIP_OFFSET_Y = GlobalDesginConfig.GetFloat("food_tip_offsety");
+
+				return _FOODTIP_OFFSET_Y;
+			}
+		}
+
 		#region 广告
 
 #if AD_ON
