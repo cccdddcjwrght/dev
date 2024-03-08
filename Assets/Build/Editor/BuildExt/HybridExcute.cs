@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using libx;
+using SGame;
 using UnityEditor;
 using UnityEngine;
 using ZEditors;
@@ -15,7 +16,7 @@ public class HybridBuildExcute:IZEditor
 	static void Init()
 	{
 		BuildCommand.DoBeforeBuild += BeforeBuildAsset;
-		BuildCommand.DoBuildAsset = (a,b,c) => BuildScript.BuildBundleAndCopyToStream(a);
+		BuildCommand.DoBuildAsset = (v, c, p) => HotfixenuItems.OneKeyBuildHotfix(v, c);
 	}
 
 	static void BeforeBuildAsset(Func<string,string> get)
