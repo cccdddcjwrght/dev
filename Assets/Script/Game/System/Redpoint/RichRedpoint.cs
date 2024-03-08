@@ -30,8 +30,8 @@ namespace SGame
 		protected override void OnCreate()
 		{
 			base.OnCreate();
-			EventManager.Instance.Reg<UIContext>(((int)GameEvent.UI_SHOW), OnUIShow);
-			EventManager.Instance.Reg<UIContext>(((int)GameEvent.UI_HIDE), OnUIHide);
+			EventManager.Instance.Reg<string>(((int)GameEvent.UI_SHOW), OnUIShow);
+			EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnUIHide);
 
 			_calcus = GetType()
 				.Assembly
@@ -106,21 +106,19 @@ namespace SGame
 
 		#region UI Event
 
-		private void OnUIShow(UIContext ui)
+		private void OnUIShow(string ui)
 		{
 			if (DataCenter.Instance.IsInitAll)
 			{
 				Init();
-				if (ConfigSystem.Instance.TryGet(ui.configID, out ui_resRowData cfg))
-					this.Delay(() => MarkRedpointGroup(cfg.Name, true), 1);
+				this.Delay(() => MarkRedpointGroup(ui, true), 1);
 			}
 		}
 
-		private void OnUIHide(UIContext ui)
+		private void OnUIHide(string ui)
 		{
 			if (!_isInited) return;
-			if (ConfigSystem.Instance.TryGet(ui.configID, out ui_resRowData cfg))
-				this.Delay(() => MarkRedpointGroup(cfg.Name, false), 1);
+			this.Delay(() => MarkRedpointGroup(ui, false), 1);
 		}
 
 		#endregion

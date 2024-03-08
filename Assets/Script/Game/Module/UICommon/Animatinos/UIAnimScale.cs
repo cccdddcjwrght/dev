@@ -19,7 +19,7 @@ namespace SGame.UI
         public static void Show(UIContext context)
         {
             var ui = context.window.contentPane;
-            var content = ui.GetChild("content").asCom ;
+			var content =  ui.GetChild("content")?.asCom ;
             if (content != null)
                 ui = content;
             
@@ -37,7 +37,7 @@ namespace SGame.UI
         public static void Hide(UIContext context)
         {
             var ui = context.window.contentPane;
-            var content = ui.GetChild("content").asCom ;
+            var content = ui.GetChild("content")?.asCom ;
             if (content != null)
                 ui = content;
 

@@ -93,8 +93,8 @@ namespace SGame
 
 		#region 事件
 
-		void OnUIShow(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_SHOW), context);
-		void OnUIHide(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_HIDE), context);
+		void OnUIShow(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_SHOW), context.window.uiname);
+		void OnUIHide(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_HIDE), context.window.uiname);
 
 		#endregion
 

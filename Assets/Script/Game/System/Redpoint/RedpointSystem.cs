@@ -637,6 +637,7 @@ namespace SGame
 
 					if (cfg.Type == ((int)RedpointType.Group))
 					{
+						if (cfg.SubType == 1) return;
 						var o = id + item.name;
 						if (_stateCache.Contains(o)) return;
 						_stateCache.Add(o);
@@ -668,7 +669,7 @@ namespace SGame
 			if (!string.IsNullOrEmpty(cfg.Gotoui))
 			{
 				if (int.TryParse(cfg.Gotoui, out var fid))
-					this.Call(() => FunctionSystem.Instance.Goto(fid), () => !flag && Check());
+					this.Call(() => Goto(fid), () => !flag && Check());
 				else
 					this.Call(() => OpenUI(cfg.Gotoui), () => !flag && Check());
 			}

@@ -10,6 +10,8 @@ namespace SGame
 
 	partial class DataCenter
 	{
+		[System.NonSerialized]
+		public int offlinetime;
 
 		public void SetData<T>(T data) where T : struct, IComponentData
 		{
@@ -37,6 +39,7 @@ namespace SGame
 		partial void DoLoad()
 		{
 			this.LoadData();
+			this.offlinetime = accountData.lasttime;
 		}
 
 		partial void BeforeSave()
@@ -83,13 +86,10 @@ namespace SGame
 				var str = JsonUtility.ToJson(data);
 				PlayerPrefs.SetString(key ?? __DKey, str);
 				PlayerPrefs.Save();
-				if (key != null)
-				{
 #if !SVR_RELEASE
-					var path = Application.persistentDataPath + "/data_" + key;
-					System.IO.File.WriteAllText(path, str);
+				var path = Application.persistentDataPath + "/data_" + key;
+				System.IO.File.WriteAllText(path, str);
 #endif
-				}
 			}
 		}
 

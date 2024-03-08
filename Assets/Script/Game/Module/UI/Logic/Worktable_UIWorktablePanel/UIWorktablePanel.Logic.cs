@@ -28,6 +28,11 @@ namespace SGame.UI
 		{
 			if (info.id > 0)
 			{
+				this.Delay(() =>
+				{
+					EventManager.Instance.Trigger(((int)GameEvent.WORK_HUD_SHOW));
+				}, 200);
+
 				this.data = DataCenter.MachineUtil.GetWorktable(info.id);
 				m_view.m_pos.selectedIndex = GetOffset(info.target);
 				switch (info.type)
@@ -68,7 +73,7 @@ namespace SGame.UI
 		private void SetUplevelInfo()
 		{
 			m_view.m_type.selectedIndex = 0;
-			UIListener.SetText(m_view.m_time, data.GetWorkTime().ToString()+"s");
+			UIListener.SetText(m_view.m_time, data.GetWorkTime().ToString() + "s");
 			m_view.m_list.itemRenderer = SetStarInfo;
 			LevelRefresh();
 		}
@@ -131,7 +136,7 @@ namespace SGame.UI
 		private int GetOffset(float3 pos)
 		{
 			var p = SGame.UIUtils.WorldPosToUI(GRoot.inst, pos);
-			var hs = m_view.size.x * 0.5f-10;
+			var hs = m_view.size.x * 0.5f - 10;
 			var left = p.x - hs < 0;
 			var right = p.x + hs > GRoot.inst.width;
 

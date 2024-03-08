@@ -94,9 +94,7 @@ namespace SGame
 		public const string MAX = "MAX";
 
 
-		/// <summary>
-		/// 餐盘位置
-		/// </summary>
+
 		private static float _DISH_OFFSET_Y = -1;
 		public static float DISH_OFFSET_Y
 		{
@@ -109,29 +107,16 @@ namespace SGame
 			}
 		}
 
-		/// <summary>
-		/// 系统提示时间
-		/// </summary>
-		private static float _SYSTEM_TIP_TIME = -1;
-		public static float SYSTEM_TIP_TIME
-		{
-			get
-			{
-				if (_SYSTEM_TIP_TIME < 0)
-					_SYSTEM_TIP_TIME = GlobalDesginConfig.GetFloat("system_tip_time");
-				return _SYSTEM_TIP_TIME;
-			}
-		}
+		#region 广告
 
-		/// <summary>
-		/// 系统提示速度 像素/秒
-		/// </summary>
-		public static float SYSTEM_TIP_SPEED = 10;
+#if AD_ON
+		public const bool C_AD_OPEN = true; 
+#else
+		public const bool C_AD_OPEN = false;
+#endif
 
-		/// <summary>
-		/// 游戏提示速度 米/秒
-		/// </summary>
-		public static float GAME_TIP_SPEED = 10;
+		#endregion
+
 	}
 
 	/// <summary>
@@ -139,5 +124,6 @@ namespace SGame
 	/// </summary>
 	public static partial class StaticDefine
 	{
+		public static int G_Offline_Time = 0;
 	}
 }

@@ -12,6 +12,7 @@ namespace SGame
 		public long pid;
 	}
 
+	[Serializable]
 	public class AccountData 
 	{
 		[FormerlySerializedAs("user_id")]
@@ -45,7 +46,7 @@ namespace SGame
 		/// <returns></returns>
 		public int GetOfflineTime()
 		{
-			return GameServerTime.Instance.serverTime - accountData.lasttime;
+			return offlinetime > 0 ? GameServerTime.Instance.serverTime - offlinetime : 0;
 		}
 	}
 

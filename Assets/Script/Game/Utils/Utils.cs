@@ -173,7 +173,7 @@ namespace SGame
 				{
 					b++;
 					if (b > 9) { a++; b = 9; } //999P--->1KP
-					number *= 0.001d;
+					number = (number * 0.001d).Round();
 				}
 				unit = string.Format("{0}{1}", a > 0 ? c_price[a] : "", c_price[b]);//单位
 			}
@@ -533,7 +533,7 @@ namespace SGame
 		static List<string[]> tfs = new List<string[]>(){
 			new string[]{ "{0:D2}:{1:D2}", "{0}:{1:D2}", "{0}:{1:D2}:{2:D2}", "{0}Day {1:D2}", "{0}Day" },
 			new string[]{ "{0:D2}分{1:D2}秒", "{0}小时{1:D2}分", "{0}小时{1:D2}分{2:D2}秒", "{1}天{1:D2}小时", "{0}天" },
-			new string[]{ "{0:d2}m{1:d2}s", "{0}h{1:D2}m", "{0}h{1:D2}m{2:D2}s", "{0}d{1:D2}h", "{0}d" },
+			new string[]{ "{0}M{1:d2}S", "{0}H{1:D2}M", "{0}H{1:D2}M{2:D2}S", "{0}D{1:D2}H", "{0}D" },
 			new string[]{ "{0:D2}m {1:D2}s", "{0}h {1:D2}m", "{0}h {1:D2}m {2:D2}s", "{0}d {1:D2}h", "{0}d" }
 		};
 
@@ -546,7 +546,7 @@ namespace SGame
 		/// <param name="daylimit">天数分割上限</param>
 		/// <param name="formats">自定义格式 { 分：秒  | 时：分 | 时：分：秒 | 天：时 | 天 }</param>
 		/// <returns></returns>
-		static public string FormatTime(int time, int locType = 2, bool needsec = true, int daylimit = 3, string[] formats = null)
+		static public string FormatTime(int time, int locType = 2, bool needsec = true, int daylimit = 3, string[] formats = null )
 		{
 			var hour = (int)math.floor(time / 3600);
 			var min = (int)math.floor(math.fmod(time, 3600) / 60);
