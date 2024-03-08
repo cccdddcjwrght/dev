@@ -8,7 +8,6 @@ using Unity.VisualScripting;
 using SGame.VS;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEditor.SceneManagement;
 
 namespace SGame
 {
