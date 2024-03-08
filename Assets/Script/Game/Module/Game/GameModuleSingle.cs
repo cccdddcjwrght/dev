@@ -64,9 +64,19 @@ namespace SGame
         IEnumerator TestData()
         {
             // 等1秒再创建角色
+            /*
             yield return FiberHelper.Wait(1.0f);
-            // CharacterSpawn.Create(1, Vector3.zero);
-            //CharacterModule.Instance.Create(4, Vector3.zero);
+            HudModule.Instance.ShowGameTips("ABC", new float3(0,0,0), TipType.BLUE);
+            yield return  FiberHelper.Wait(1.0f);
+            HudModule.Instance.ShowGameTips("DEF", new float3(2,0,0), TipType.YELLOW);
+
+            HudModule.Instance.SystemTips("system tip aaa bbb");
+            yield return FiberHelper.Wait(1.0f);
+            HudModule.Instance.SystemTips("system cctv aaa bbb");
+            yield return FiberHelper.Wait(1.0f);
+            HudModule.Instance.SystemTips("system cctv2 aaa bbb");
+            */
+            yield break;
         }
 
         IEnumerator Logic()

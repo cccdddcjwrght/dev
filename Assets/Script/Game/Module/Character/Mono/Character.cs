@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using SGame.VS;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEditor.SceneManagement;
 
 namespace SGame
 {
@@ -66,6 +67,13 @@ namespace SGame
         private EntityManager entityManager;
         
         public EnumTarget GetTargetType()  { return Utils.GetTargetFromRoleType(roleType);  }
+
+        private Equipments m_slot;
+
+        void Start()
+        {
+            m_slot = gameObject.AddComponent<Equipments>();
+        }
         
         /// <summary>
         /// 初始化角色
@@ -86,7 +94,19 @@ namespace SGame
         {
             PriorityManager.Instance.AddRoleData(this);
         }
-        
+
+        /// <summary>
+        /// 获得挂点
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public Transform GetSlot(SlotType t)
+        {
+            if (m_slot != null)
+                return m_slot.GetSlot(t);
+
+            return gameObject.transform;
+        }
 
         /// <summary>
         /// 获取角色挂点
@@ -251,7 +271,7 @@ namespace SGame
                 m_hud = Entity.Null;
             }
         }
-
+        
         public bool isMoving
         {
             get

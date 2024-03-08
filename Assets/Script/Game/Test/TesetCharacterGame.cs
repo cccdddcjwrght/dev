@@ -56,6 +56,7 @@ class TesetCharacterGame : MonoBehaviour
 
     void SetupWeapons()
     {
+        /*
         m_slotIndex = new Dictionary<SlotType, EquipData>();
         List<int> weapons = new List<int>();
         weapons.Add(0);
@@ -63,16 +64,17 @@ class TesetCharacterGame : MonoBehaviour
         for (int i = 0; i < configs.DatalistLength; i++)
         {
             var item = configs.Datalist(i);
-            if (item.Value.Slot == (int)SlotType.LEFT_HAND)
+            if (item.Value.Slot == (int)SlotType.WEAPON)
             {
                 weapons.Add(item.Value.ItemId);
             }
         }
         
-        m_slotIndex.Add(SlotType.LEFT_HAND, new EquipData()
+        m_slotIndex.Add(SlotType.WEAPON, new EquipData()
         {
             equipId = weapons
         });
+        */
     }
 
     // Requests a new character when the required asse
@@ -158,7 +160,7 @@ class TesetCharacterGame : MonoBehaviour
         AddCategory("body", "Body", null);
         AddCategory("clothes", "clothes", null);
         AddCategory("makeup", "Makeup", null);
-        AddEquipCategory(SlotType.LEFT_HAND, "weapon");
+        AddEquipCategory(SlotType.WEAPON, "weapon");
         DrawAnimation();
 
         // Buttons for saving and deleting configurations.
@@ -227,7 +229,7 @@ class TesetCharacterGame : MonoBehaviour
         if (m_slotIndex.TryGetValue(slot, out EquipData edata))
         {
             edata.index =  (edata.index + 1) % edata.equipId.Count;
-            m_equipments.SetEquip(edata.GetID(), slot);
+            //m_equipments.SetEquip(edata.GetID(), slot);
         }
     }
     

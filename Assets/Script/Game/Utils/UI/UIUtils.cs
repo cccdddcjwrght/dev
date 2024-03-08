@@ -239,7 +239,7 @@ namespace SGame
 		public static bool IsExists(this Entity entity)
 		{
 			var mgr = UIModule.Instance.GetEntityManager();
-			return entity != default && mgr.Exists(entity);
+			return entity != Entity.Null && mgr.Exists(entity);
 		}
 
 		/// <summary>

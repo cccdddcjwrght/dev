@@ -24,6 +24,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("FoodTipUI", "Hud", ()=>new UIFoodTip());
 			context.uiModule.Reg("RedpointUI", "Common", ()=>new UIRedpoint());
 			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
+			context.uiModule.Reg("GameTipUI", "Hud", ()=>new UIGameTip());
+			context.uiModule.Reg("SystemTipUI", "Hud", ()=>new UISystemTip());
 		}
 	}
 }

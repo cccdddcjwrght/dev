@@ -28,6 +28,8 @@ namespace SGame
 				// 设置UI显示层级
 				context.window.sortingOrder = ui.Order;
 				context.window.uiname = ui.Name;
+				
+				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type);
 
 				if (ui.Type == (int)UIType.UI)
 				{
