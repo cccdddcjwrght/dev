@@ -19,12 +19,19 @@ namespace SGame
     {
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
 
-        private List<GameObject>                        m_destoryGameObject;
-        
+        struct EventData
+        {
+            public GameObject gameObject;
+            public Entity     entity;
+            public int        characterID;
+        }
+        private List<EventData>                        m_destoryGameObject;
+        private CharacterSpawnSystem                    m_spawnSystem;
         protected override void OnCreate()
         {
             m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-            m_destoryGameObject = new List<GameObject>();
+            m_spawnSystem = World.GetOrCreateSystem<CharacterSpawnSystem>();
+            m_destoryGameObject = new List<EventData>();
         }
         
         protected override void OnUpdate()
@@ -32,11 +39,16 @@ namespace SGame
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.WithAll<DespawningEntity>().ForEach((Entity entity, Character character) =>
             {
-                m_destoryGameObject.Add(character.gameObject);
+                m_destoryGameObject.Add(new EventData() {gameObject = character.gameObject, entity = entity, characterID = character.CharacterID});
             }).WithoutBurst().Run();
-            
-            foreach (var go in m_destoryGameObject)
-                GameObject.Destroy(go);
+
+            foreach (var item in m_destoryGameObject)
+            {
+                EventManager.Instance.Trigger<int, Entity>((int)GameEvent.CHARACTER_REMOVE, item.characterID, item.entity);
+                
+                GameObject.Destroy(item.gameObject);
+                m_spawnSystem.RemoveCharacrID(item.characterID);
+            }
         }
     }
 }

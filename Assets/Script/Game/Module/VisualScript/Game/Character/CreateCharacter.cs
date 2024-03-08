@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Entities;
 
 namespace SGame.VS
 {
@@ -48,6 +49,12 @@ namespace SGame.VS
         /// </summary>
         [DoNotSerialize]
         public ValueInput hasAttribute { get; private set; }
+        
+        /// <summary>
+        /// 创建的角色Entity
+        /// </summary>
+        public ValueOutput m_characterEntity { get; private set; }
+        private Entity m_outCharacter;
 
         protected override void Definition()
         {
@@ -61,7 +68,7 @@ namespace SGame.VS
                 {
                     // 直接使用地址
                     var pos = flow.GetValue<int2>(mapPos);
-                    CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
+                    m_outCharacter = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
                 }
                 else
                 {
@@ -71,7 +78,7 @@ namespace SGame.VS
                     {
                         var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count);
                         var pos = map_pos[posIndex];
-                        CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
+                        m_outCharacter = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
                     }
                     else
                     {
@@ -85,6 +92,7 @@ namespace SGame.VS
             mapPos      = ValueInput<int2>("mapPos", int2.zero);
             mapTag      = ValueInput<string>("mapTag", "");
             hasAttribute = ValueInput<bool>("hasAttribute", true);
+            m_characterEntity = ValueOutput<Entity>("roleEntity", (flow)=> m_outCharacter);
             outputTrigger = ControlOutput("Output");
         }
     }

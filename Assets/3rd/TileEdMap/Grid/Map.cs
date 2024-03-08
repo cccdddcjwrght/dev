@@ -266,7 +266,6 @@ namespace GameTools.Maps
 				return new Vector2Int(x + bl.x, y + bl.y);
 			}
 			return default;
-
 		}
 
 		public Cell GetCell(int index)

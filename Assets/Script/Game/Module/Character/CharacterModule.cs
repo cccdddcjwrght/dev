@@ -21,6 +21,17 @@ namespace SGame
         }
 
         /// <summary>
+        /// 是否加载完成
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public bool IsReadly(Entity e)
+        {
+            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            return EntityManager.Exists(e) && EntityManager.HasComponent<CharacterSpawnSystem.CharacterInitalized>(e);
+        }
+
+        /// <summary>
         /// 查找角色
         /// </summary>
         /// <param name="characterID"></param>
@@ -49,6 +60,13 @@ namespace SGame
                 return false;
 
             despawnSystem.DespawnEntity(character.entity);
+            return true;
+        }
+
+        public bool DespawnCharacterEntity(Entity e)
+        {
+            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
+            despawnSystem.DespawnEntity(e);
             return true;
         }
     }

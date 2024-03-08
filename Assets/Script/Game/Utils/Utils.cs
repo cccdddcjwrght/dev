@@ -646,5 +646,15 @@ namespace SGame
 
 			return body.GetChild(0);
 		}
+
+		/// <summary>
+		/// 判断角色加载完成
+		/// </summary>
+		/// <param name="e"></param>
+		/// <returns></returns>
+		public static bool CharacterReadly(Entity e)
+		{
+			return CharacterModule.Instance.IsReadly(e);
+		}
 	}
 }

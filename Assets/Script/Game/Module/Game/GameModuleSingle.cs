@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Fibers;
+using GameTools;
 using log4net;
 using SGame.UI;
 using Unity.Collections;
@@ -76,6 +77,23 @@ namespace SGame
             yield return FiberHelper.Wait(1.0f);
             HudModule.Instance.SystemTips("system cctv2 aaa bbb");
             */
+            var gird = MapAgent.IndexToGrid(20);
+            log.Info("Test 20 gird=" + gird);
+            var index = MapAgent.GirdToRealIndex(gird);
+            log.Info("Test gird=" + gird + " index=" + index);
+
+            var mypos = new Vector2Int(1, 1);
+            var index2 = MapAgent.GirdToRealIndex(mypos);
+            log.Info("Test gird3=" + mypos + " index=" + index2);
+            var gird2 = MapAgent.IndexToGrid(index2);
+            log.Info("Test gird4=" + gird2 + " index=" + index2);
+            
+             mypos = new Vector2Int(3, -2);
+             index2 = MapAgent.GirdToRealIndex(mypos);
+            log.Info("Test gird3=" + mypos + " index=" + index2);
+             gird2 = MapAgent.IndexToGrid(index2);
+            log.Info("Test gird4=" + gird2 + " index=" + index2);
+
             yield break;
         }
 

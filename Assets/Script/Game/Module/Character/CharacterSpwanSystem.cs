@@ -121,6 +121,11 @@ namespace SGame
             
             return Entity.Null;
         }
+
+        public void RemoveCharacrID(int characterid)
+        {
+            m_characters.Remove(characterid);
+        }
         
         /// <summary>
         /// 加载AI脚本
