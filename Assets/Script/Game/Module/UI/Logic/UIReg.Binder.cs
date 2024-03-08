@@ -26,6 +26,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
 			context.uiModule.Reg("OfflineUI", "Offline", ()=>new UIOffline());SGame.UI.Offline.OfflineBinder.BindAll();;
 			context.uiModule.Reg("PlayerUI", "Player", ()=>new UIPlayer());SGame.UI.Player.PlayerBinder.BindAll();;
+			context.uiModule.Reg("GameTipUI", "Hud", ()=>new UIGameTip());
+			context.uiModule.Reg("SystemTipUI", "Hud", ()=>new UISystemTip());
 		}
 	}
 }
