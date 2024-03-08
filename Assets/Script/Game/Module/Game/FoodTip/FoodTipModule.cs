@@ -35,10 +35,9 @@ namespace SGame
         {
             // 创建金币对象
             var goldEffect = EffectSystem.Instance.Spawn3d((int)EffectDefine.FODD_TIP_GOLD, null, pos);
-            float yoffset = ConstDefine.FOODTIP_OFFSET_Y;
             
             // hud 跟随
-            var hud = UIUtils.ShowHUD("FoodTip", goldEffect, new float3(0, yoffset, 0) );
+            var hud = UIUtils.ShowHUD("FoodTip", goldEffect, new float3(ConstDefine.FOODTIP_OFFSET_X, ConstDefine.FOODTIP_OFFSET_Y, 0) );
             m_EntityManager.AddComponentData(hud, new UIParam() {Value = goldEffect});
             m_EntityManager.AddComponentData(goldEffect, new FoodTips() {gold = gold, ui = hud});
 

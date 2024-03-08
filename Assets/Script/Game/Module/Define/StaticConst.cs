@@ -107,15 +107,27 @@ namespace SGame
 			}
 		}
 
-		private static float _FOODTIP_OFFSET_Y = -1f;
+		private static float _FOODTIP_OFFSET_Y = -1001f;
 		public static float FOODTIP_OFFSET_Y
 		{
 			get
 			{
-				if (_FOODTIP_OFFSET_Y < 0)
+				if (_FOODTIP_OFFSET_Y < 1000)
 					_FOODTIP_OFFSET_Y = GlobalDesginConfig.GetFloat("food_tip_offsety");
 
 				return _FOODTIP_OFFSET_Y;
+			}
+		}
+		
+		private static float _FOODTIP_OFFSET_X = -1001f;
+		public static float FOODTIP_OFFSET_X
+		{
+			get
+			{
+				if (_FOODTIP_OFFSET_X < 1000)
+					_FOODTIP_OFFSET_X = GlobalDesginConfig.GetFloat("food_tip_offsetx");
+
+				return _FOODTIP_OFFSET_X;
 			}
 		}
 
