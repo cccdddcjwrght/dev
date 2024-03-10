@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using SGame;
 using UnityEngine;
 
@@ -60,7 +61,7 @@ public class GameServerTime : Singleton<GameServerTime>
 			var d = DateTimeOffset.FromUnixTimeSeconds(serverTime);
 			d = new DateTimeOffset(d.Year, d.Month, d.Day,0,0,0, default).AddDays(1);
 			m_nextServerDayTime = d.ToUnixTimeSeconds();
-
+			m_lastDay = DateTimeOffset.FromUnixTimeSeconds(serverTime).DateTime.DayOfYear;
 		}
 		m_localTime = GlobalTime.passTime;
 		m_serverTime = serverTime;

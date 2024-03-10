@@ -669,7 +669,7 @@ namespace SGame
 			if (!string.IsNullOrEmpty(cfg.Gotoui))
 			{
 				if (int.TryParse(cfg.Gotoui, out var fid))
-					this.Call(() => FunctionSystem.Instance.Goto(fid), () => !flag && Check());
+					this.Call(() => Goto(fid), () => !flag && Check());
 				else
 					this.Call(() => OpenUI(cfg.Gotoui), () => !flag && Check());
 			}
