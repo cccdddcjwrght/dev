@@ -629,9 +629,9 @@ namespace SGame
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <returns></returns>
-		static public Transform GetGirdObject(int2 pos)
+		static public Transform GetGirdObject(Vector2Int pos)
 		{
-			string objectName = string.Format("({0}x0x{1}", pos.x, pos.y);
+			string objectName = string.Format("({0}x0x{1})", pos.x, pos.y);
 			Transform root = MapAgent.agent.transform.FindRecursive(objectName);
 			if (root == null)
 			{
