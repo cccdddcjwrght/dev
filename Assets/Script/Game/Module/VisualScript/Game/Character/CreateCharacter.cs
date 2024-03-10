@@ -54,7 +54,7 @@ namespace SGame.VS
         /// 创建的角色Entity
         /// </summary>
         public ValueOutput m_characterEntity { get; private set; }
-        private Entity m_outCharacter;
+        private CharacterSpawnResult m_spwanResult;
 
         protected override void Definition()
         {
@@ -68,7 +68,7 @@ namespace SGame.VS
                 {
                     // 直接使用地址
                     var pos = flow.GetValue<int2>(mapPos);
-                    m_outCharacter = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
+                    m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace SGame.VS
                     {
                         var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count);
                         var pos = map_pos[posIndex];
-                        m_outCharacter = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
+                        m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
                     }
                     else
                     {
@@ -92,7 +92,7 @@ namespace SGame.VS
             mapPos      = ValueInput<int2>("mapPos", int2.zero);
             mapTag      = ValueInput<string>("mapTag", "");
             hasAttribute = ValueInput<bool>("hasAttribute", true);
-            m_characterEntity = ValueOutput<Entity>("roleEntity", (flow)=> m_outCharacter);
+            m_characterEntity = ValueOutput<CharacterSpawnResult>("Result", (flow)=> m_spwanResult);
             outputTrigger = ControlOutput("Output");
         }
     }

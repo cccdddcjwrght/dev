@@ -654,7 +654,19 @@ namespace SGame
 		/// <returns></returns>
 		public static bool CharacterReadly(Entity e)
 		{
-			return CharacterModule.Instance.IsReadly(e);
+			bool ret = CharacterModule.Instance.IsReadly(e);
+			log.Info("CheckReadly=" + e);
+			return ret;
+		}
+
+		/// <summary>
+		/// 通过Entity获取Character
+		/// </summary>
+		/// <param name="e"></param>
+		/// <returns></returns>
+		public static Character GetCharacterFromEntity(Entity e)
+		{
+			return CharacterModule.Instance.FindCharacter(e);
 		}
 	}
 }

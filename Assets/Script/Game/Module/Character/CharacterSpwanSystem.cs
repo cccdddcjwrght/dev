@@ -29,7 +29,7 @@ namespace SGame
             // 是否使用属性系统
             public bool hasAttribute;
 
-            public static Entity Create(int id, Vector3 pos, bool hasAttriburte = true)
+            public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true)
             {
                 var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 var entity = mgr.CreateEntity(typeof(CharacterSpawn));
@@ -40,7 +40,15 @@ namespace SGame
                     hasAttribute = hasAttriburte
                 });
 
-                return entity;
+                var request = new CharacterSpawnResult()
+                {
+                    characterID = 0,
+                    entity = Entity.Null
+                };
+
+                mgr.AddComponentData(entity, request);
+
+                return request;
             }
         }
         
@@ -64,6 +72,7 @@ namespace SGame
         {
             public Character character;
             public Entity    entity;
+            public CharacterSpawnResult result;
         }
         
         
@@ -148,6 +157,8 @@ namespace SGame
             {
                 m_characters.Add(item.character.CharacterID, item.entity);
                 item.character.OnInitCharacter(item.entity, EntityManager);
+                item.result.entity = item.entity;
+                item.result.characterID = item.character.CharacterID;
             }
             m_triggerInit.Clear();
             
@@ -188,7 +199,7 @@ namespace SGame
             }).WithoutBurst().Run();
             
             // 等待资源加载并生成对象
-            Entities.ForEach((Entity e, CharacterSpawn req, in CharacterLoading loading) =>
+            Entities.ForEach((Entity e, CharacterSpawn req, CharacterSpawnResult result, in CharacterLoading loading) =>
             {
                 if (!loading.isDone)
                 {
@@ -245,13 +256,15 @@ namespace SGame
                 commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
                 commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type});
                 commandBuffer.SetComponent(characterEntity, new Speed(){Value = roleData.MoveSpeed});
+                commandBuffer.AddComponent(characterEntity, result);
             }).WithStructuralChanges().WithoutBurst().Run();
             
             // 等待角色创建完成
-            Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, Character character) =>
+            Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
             {
-                m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character});
+                m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character, result = result});
                 commandBuffer.AddComponent<CharacterInitalized>(entity);
+                commandBuffer.RemoveComponent<CharacterSpawnResult>(entity);
             }).WithoutBurst().Run();
         }
     }

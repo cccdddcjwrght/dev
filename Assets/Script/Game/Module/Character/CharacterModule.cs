@@ -15,7 +15,7 @@ namespace SGame
         /// <param name="id"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public Entity Create(int id, Vector3 pos, bool hasAttribute = true)
+        public CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttribute = true)
         {
             return CharacterSpawnSystem.CharacterSpawn.Create(id, pos, hasAttribute);
         }
@@ -28,7 +28,24 @@ namespace SGame
         public bool IsReadly(Entity e)
         {
             var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            return EntityManager.Exists(e) && EntityManager.HasComponent<CharacterSpawnSystem.CharacterInitalized>(e);
+            if (!EntityManager.Exists(e))
+                return false;
+            
+            return EntityManager.HasComponent<CharacterSpawnSystem.CharacterInitalized>(e);
+        }
+
+        /// <summary>
+        /// 通过Entity获得对象
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public Character FindCharacter(Entity e)
+        {
+            if (!IsReadly(e))
+                return null;
+            
+            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            return EntityManager.GetComponentObject<Character>(e);
         }
 
         /// <summary>

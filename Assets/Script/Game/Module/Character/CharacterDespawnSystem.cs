@@ -44,10 +44,10 @@ namespace SGame
 
             foreach (var item in m_destoryGameObject)
             {
-                EventManager.Instance.Trigger<int, Entity>((int)GameEvent.CHARACTER_REMOVE, item.characterID, item.entity);
-                
-                GameObject.Destroy(item.gameObject);
+                EventManager.Instance.Trigger<int>((int)GameEvent.CHARACTER_REMOVE, item.characterID);
                 m_spawnSystem.RemoveCharacrID(item.characterID);
+
+                GameObject.Destroy(item.gameObject);
             }
         }
     }
