@@ -21,6 +21,7 @@ namespace SGame
 			m_view = context.content as UI_Login;
 			m_view.m_btn_login.onClick.Add(OnClick);
 			m_view.m_account.text = PlayerPrefs.GetString("user", "test");
+			UI.UIUtils.SetLogo(m_view);
 		}
 
 

@@ -37,6 +37,9 @@ namespace SGame.Hotfix
             
             // 获得参数
             m_waitTime = TEST_TIME;
+
+			UIUtils.SetLogo(context.window.contentPane);
+
         }
 
         void OnEventGameLogin()
@@ -78,5 +81,6 @@ namespace SGame.Hotfix
             if (m_fiber != null && !m_fiber.IsTerminated)
                 m_fiber.Step();
         }
-    }
+
+	}
 }

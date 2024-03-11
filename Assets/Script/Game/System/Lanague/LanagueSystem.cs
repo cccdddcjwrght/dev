@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GameConfigs;
 using log4net;
+using UnityEngine;
 
 namespace SGame
 {
@@ -42,14 +43,19 @@ namespace SGame
                     log.Error("Lanague Key Repeate=" + value.Value.StringId);
                 }
             }
-
+			PlayerPrefs.SetString("__language", langName);
             EventManager.Instance.Trigger((int)GameEvent.LANGUAGE_CHANGE, langName);
             return true;
         }
         
-        
-        // 获得文本
-        public string GetValue(string key)
+		public bool HasLanguage(string lan)
+		{
+			return ConfigSystem.Instance.TryGet<languageRowData>(lan, out languageRowData lang);
+		}
+
+
+		// 获得文本
+		public string GetValue(string key)
         {
             if (m_Values == null)
             {

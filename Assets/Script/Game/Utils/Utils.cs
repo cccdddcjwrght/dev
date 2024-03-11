@@ -392,6 +392,8 @@ namespace SGame
 			}
 			return MachineLanguage();
 		}
+
+
 		#endregion
 
 
@@ -547,7 +549,7 @@ namespace SGame
 		/// <param name="daylimit">天数分割上限</param>
 		/// <param name="formats">自定义格式 { 分：秒  | 时：分 | 时：分：秒 | 天：时 | 天 }</param>
 		/// <returns></returns>
-		static public string FormatTime(int time, int locType = 2, bool needsec = true, int daylimit = 3, string[] formats = null )
+		static public string FormatTime(int time, int locType = 2, bool needsec = true, int daylimit = 3, string[] formats = null)
 		{
 			var hour = (int)math.floor(time / 3600);
 			var min = (int)math.floor(math.fmod(time, 3600) / 60);

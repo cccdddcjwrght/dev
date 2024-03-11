@@ -22,7 +22,6 @@ namespace SGame.UI{
 		{
 			index = m_view.m_list.selectedIndex;
 			setData.SetIntItemData("language", index);
-			
 			// 切换语言
 			LanagueSystem.Instance.Initalize(SGame.Utils.GetLangName(index));
 			

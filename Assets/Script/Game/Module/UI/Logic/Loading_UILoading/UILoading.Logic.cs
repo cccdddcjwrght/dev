@@ -33,7 +33,7 @@ namespace SGame.UI{
 				m_waitTime = (float)param.Value;
 			}
 			m_waitTime = Mathf.Max(1,m_waitTime);
-
+			UI.UIUtils.SetLogo(m_view);
 		}
 
 		IEnumerator RunLogic(UIContext context)
