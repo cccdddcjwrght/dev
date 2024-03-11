@@ -232,6 +232,7 @@ namespace GameTools
 			
 			return default;
 		}
+		
 
 		/// <summary>
 		/// 格子点转索引
@@ -259,6 +260,22 @@ namespace GameTools
 		{
 			Vector2Int index = GridToIndex(pos);
 			return index.x + index.y * agent.grid.gridSize.x;
+		}
+		
+				/// <summary>
+		/// 格子id，转索引
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
+		public static int XYToCellIndex(int x ,int y) {
+
+			if (agent != null)
+			{
+				var cell = agent.grid.GetCellByIndex(x, y);
+				if (cell != null) return cell.index;
+			}
+			return 0;
 		}
 
 		/// <summary>
