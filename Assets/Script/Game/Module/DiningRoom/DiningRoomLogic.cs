@@ -765,6 +765,12 @@ namespace SGame.Dining
 				CheckUnlock(r);
 			if (r.data.level > 1 && r.data.addProfit == 0)
 				7.ToAudioID().PlayAudio();
+
+			 var ws = DataCenter.MachineUtil.GetWorktables(w => !w.isTable && w.level >0 );
+			if (ws?.Count > 0) {
+				if(ws.All(w => w.level >= w.maxlv))
+					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_ALL_MAX_LV));
+			}
 		}
 
 		private void OnWorkTableUpStar(int id, int star)

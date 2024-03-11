@@ -10,22 +10,20 @@ namespace SGame.UI
 	{
 		partial void InitLogic(UIContext context)
 		{
-
-
-			var v = SceneCameraSystem.Instance.zMove.Rate();
-			if (v > 0)
-				m_view.m_wall.y = Screen.height * (0.5f + v);
-
-			context.onUpdate += (c) => {
-				var v = SceneCameraSystem.Instance.zMove.Rate();
-				if (v > 0)
-					m_view.m_wall.y = Screen.height *  v;
-			};
+			SetY(null);
+			context.onUpdate += SetY;
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
+			context.onUpdate -= SetY;
+		}
 
+		void SetY(UIContext context)
+		{
+			var v = SceneCameraSystem.Instance.zMove.Rate();
+			if (v > 0)
+				m_view.m_wall.y = Screen.height * v;
 		}
 	}
 }
