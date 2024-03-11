@@ -138,12 +138,18 @@ public class CameraDataBind
 		return this;
 	}
 
-	public CameraDataBind AxisLimit(bool limit, float min, float max , bool onlylimit = false)
+	public CameraDataBind AxisLimit(bool limit, float min, float max, bool onlylimit = false)
 	{
-		control?.ForEach(c => c.Limit(limit, min, max , onlylimit));
+		control?.ForEach(c => c.Limit(limit, min, max, onlylimit));
 		return this;
 	}
 
+	public float Rate()
+	{
+		if (maxValue != 0 && minValue != 0)
+			return (GetValue() - minValue) / (maxValue - minValue);
+		return -1f;
+	}
 }
 
 //@}

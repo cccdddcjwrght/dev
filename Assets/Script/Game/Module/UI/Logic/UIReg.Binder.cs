@@ -28,6 +28,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("PlayerUI", "Player", ()=>new UIPlayer());SGame.UI.Player.PlayerBinder.BindAll();;
 			context.uiModule.Reg("GameTipUI", "Hud", ()=>new UIGameTip());
 			context.uiModule.Reg("SystemTipUI", "Hud", ()=>new UISystemTip());
+			context.uiModule.Reg("DecorUI", "SceneDecor", ()=>new UIDecor());SGame.UI.SceneDecor.SceneDecorBinder.BindAll();;
 		}
 	}
 }
