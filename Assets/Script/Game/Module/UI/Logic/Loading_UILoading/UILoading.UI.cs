@@ -9,12 +9,17 @@ namespace SGame.UI{
 	
 	public partial class UILoading
 	{
+		private int __id;
+
 		partial void InitUI(UIContext context){
+			__id = context.configID;
 
 		}
 		partial void UnInitUI(UIContext context){
 
 		}
+		void Set__logoText(string data)=>UIListener.SetText(m_view.m___logo,data);
+		string Get__logoText()=>UIListener.GetText(m_view.m___logo);
 
 	}
 }

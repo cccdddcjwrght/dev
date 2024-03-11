@@ -20,8 +20,10 @@ namespace SGame.Hotfix
                 // 设置UI显示层级
                 context.window.sortingOrder = 1000;
                 context.window.uiname = Define.HOTFIX_UI_NAME;
-            }
-        }
+				context.window.isFullScreen = true;
+
+			}
+		}
         
         public void AfterShow(UIContext context, EntityCommandBuffer commandBuffer)
         {

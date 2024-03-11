@@ -46,7 +46,8 @@ namespace SGame.UI{
 			{
 				run += Time.deltaTime;
 				float per = Mathf.Clamp01(run / m_waitTime);
-				m_text.text = string.Format("LOADING ... {0:0.00}%", per * 100);
+				m_text.text = "ui_loading_tips".Local();
+				//string.Format("LOADING ... {0:0.00}%", per * 100);
 				m_progressBar.value = run;
 				yield return null;
 			}

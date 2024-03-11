@@ -18,16 +18,18 @@ namespace SGame
 
         public void OnInit(UIContext context)
         {
-            m_progressBar = context.content.GetChild("Processbar").asProgress;
+
+
+			m_progressBar = context.content.GetChild("Processbar").asProgress;
             m_text        = context.content.GetChild("Message").asTextField;
             context.onUpdate += onUpdate;
             m_fiber = new Fiber(RunLogic(context));
             
             // 获得参数
             m_waitTime = (float)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
-        }
-        
-        IEnumerator RunLogic(UIContext context)
+		}
+
+		IEnumerator RunLogic(UIContext context)
         {
             // 播放动画
             
