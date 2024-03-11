@@ -129,7 +129,7 @@ namespace SGame
 						{
 							ret = false;
 							if (enableTips)
-								tips = tips ?? "ui_system_dont_open".AutoLocal();
+								tips = tips ?? "ui_system_dont_open".Local();
 						}
 					}
 				}
