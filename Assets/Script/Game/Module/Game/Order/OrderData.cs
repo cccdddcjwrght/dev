@@ -195,9 +195,9 @@ namespace SGame
         /// <returns></returns>
         public bool Finish(int servicerID)
         {
-            if (progress != ORDER_PROGRESS.MOVETO_CUSTOM)
+            if (progress != ORDER_PROGRESS.MOVETO_CUSTOM && progress != ORDER_PROGRESS.FOOD_MAKED)
             {
-                log.Error("order progress not match!");
+                log.Error("order progress not match =" + progress.ToString());
                 return false;
             }
 
