@@ -101,8 +101,7 @@ namespace SGame
 								//添加角色
 								if (cfg.TableIdLength > 1)
 								{
-									var mid = cfg.TableId(1);
-									if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(mid, out var m))
+									if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(Math.Abs(cfg.TableId(1)), out var m))
 										tid = MapAgent.XYToCellIndex(m.ObjId(1), m.ObjId(2));
 								}
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, tid);

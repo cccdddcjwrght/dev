@@ -272,7 +272,7 @@ namespace GameTools
 
 			if (agent != null)
 			{
-				var cell = agent.grid.GetCellByIndex(x, y);
+				var cell = agent.grid.GetCell(x, y);
 				if (cell != null) return cell.index;
 			}
 			return 0;
