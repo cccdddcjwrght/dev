@@ -107,9 +107,11 @@ namespace SGame
             var go = GameObject.Instantiate(prefab);
 
             yield return TestData();
-            
-            // 游戏逻辑
-            while (true)
+
+			EventManager.Instance.Trigger((int)GameEvent.ENTER_GAME);
+
+			// 游戏逻辑
+			while (true)
             {
                 // 防止进入死循环
                 
