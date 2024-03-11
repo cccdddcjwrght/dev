@@ -638,7 +638,7 @@ namespace SGame
 				return null;
 			}
 
-			Transform body = root.Find("body");
+			Transform body = root.Find("build");
 			if (body == null)
 			{
 				return null;
