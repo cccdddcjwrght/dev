@@ -63,7 +63,7 @@ namespace SGame.UI
 
 		partial void OnTaskRewardBtnClick(EventContext data)
 		{
-			UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("leveltech"));
+			"leveltech".Goto();
 		}
 
 		partial void UnInitEvent(UIContext context)

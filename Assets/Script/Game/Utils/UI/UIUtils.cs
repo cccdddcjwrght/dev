@@ -356,8 +356,7 @@ namespace SGame
 
 		public static string Tips(this string tips, string pix = null)
 		{
-			tips = UIListener.AutoLocal(pix + tips);
-			Debug.Log("Tips:" + tips);
+			HudModule.Instance.SystemTips(UIListener.AutoLocal(pix + tips));
 			return tips;
 		}
 

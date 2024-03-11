@@ -56,7 +56,10 @@ namespace SGame
 						machine = CreateMachine(id, ref worktable.stations);
 
 						if (worktable.stations.Count == 1)
+						{
 							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_ENABLE), worktable.id);
+							if (!worktable.isTable) DataCenter.Instance.roomData.current.worktableCount++;
+						}
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), worktable.id, id);
 						if (worktable.level == 0) UpdateLevel(worktable.id, worktable.scene);
 

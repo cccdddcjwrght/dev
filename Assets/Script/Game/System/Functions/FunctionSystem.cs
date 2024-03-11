@@ -118,21 +118,35 @@ namespace SGame
 				if (enableTips && string.IsNullOrEmpty(tips) && !string.IsNullOrEmpty(cfg.Tips))
 					tips = cfg.Tips.AutoLocal();
 
-				/*var cv = Math.Abs(cfg.FixConditionVal);
+				var cv = Math.Abs(cfg.FixConditionVal);
 				if (cv > 0)
 				{
-					var level = DataCenter.Instance.account.passLevel;
-					if (level < cv)
+					//工作台是否解锁
+					if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(cv, out var machine))
 					{
-						ret = false;
-						if (enableTips)
-							tips = tips ?? "ui_system_dont_open".AutoLocal();
+						var room = DataCenter.Instance.roomData.current.id;
+						if (room < machine.Scene || (room == machine.Scene && DataCenter.MachineUtil.IsActived(cv)) )
+						{
+							ret = false;
+							if (enableTips)
+								tips = tips ?? "ui_system_dont_open".AutoLocal();
+						}
 					}
-				}*/
+				}
 
 				if (ret && cfg.OpenType > 0)
 				{
+					switch (cfg.OpenType)
+					{
 
+						case 5://关卡点位数量
+							if( DataCenter.Instance.roomData.current.worktableCount < cfg.OpenVal(0))
+							{
+								ret = false;
+								tips = "ui_machine_enable_not_enough";
+							}
+							break;
+					}
 				}
 
 

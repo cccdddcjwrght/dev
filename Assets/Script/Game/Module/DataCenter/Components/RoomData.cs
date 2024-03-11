@@ -168,6 +168,7 @@ namespace SGame
 	public class Room
 	{
 		public int id;
+		public int worktableCount;
 		public List<Worktable> worktables = new List<Worktable>();
 		public List<int> techs = new List<int>();
 
