@@ -129,7 +129,7 @@ namespace SGame
 						{
 							ret = false;
 							if (enableTips)
-								tips = tips ?? "ui_system_dont_open".Local();
+								tips = tips ?? "@ui_system_dont_open";
 						}
 					}
 				}
@@ -143,7 +143,7 @@ namespace SGame
 							if( DataCenter.Instance.roomData.current.worktableCount < cfg.OpenVal(0))
 							{
 								ret = false;
-								tips = "ui_machine_enable_not_enough";
+								tips = "@ui_machine_enable_not_enough";
 							}
 							break;
 					}
