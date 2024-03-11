@@ -410,11 +410,15 @@ namespace SGame.Dining
 		{
 			if (machine != null)
 			{
-				var c = _sceneGrid.GetCell(index >= 0 ? index : machine.index);
-				if (c != null)
-					c.Marking(GameTools.Maps.MaskFlag.UnWalkable, !machine.enable);
-				else
-					Debug.Log(machine.index);
+				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(machine.cfgID, out var cfg) && cfg.Walkable == 0)
+				{
+
+					var c = _sceneGrid.GetCell(index >= 0 ? index : machine.index);
+					if (c != null)
+						c.Marking(GameTools.Maps.MaskFlag.UnWalkable, !machine.enable);
+					else
+						Debug.Log(machine.index);
+				}
 			}
 		}
 

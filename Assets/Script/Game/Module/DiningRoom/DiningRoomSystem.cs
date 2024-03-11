@@ -92,6 +92,7 @@ namespace SGame.Dining
 			{
 				DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID, true);
 				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
+				UIUtils.OpenUI("scenedecorui");
 				yield return _currentRoom.Wait();
 			}
 		}
