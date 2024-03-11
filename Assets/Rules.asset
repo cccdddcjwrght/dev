@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 1
+  version: 2
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
@@ -78,6 +78,10 @@ MonoBehaviour:
     searchPattern: '*.prefab'
     nameBy: 2
     assetBundleName: effects
+  - searchPath: Assets/BuildAsset/App/logo
+    searchPattern: '*.png'
+    nameBy: 0
+    assetBundleName: applogo
   ruleAssets:
   - bundle: assets/buildasset/audio/mixer.unity3d
     path: assets/buildasset/audio/mixer/game.mixer
@@ -329,6 +333,34 @@ MonoBehaviour:
     path: assets/buildasset/customcharacters/role/makeup-2.prefab
   - bundle: assets/buildasset/customcharacters/role/makeup-2_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/makeup-2_mesh.asset
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/diamond_01.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/diamond_02.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/gold_01.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/gold_02.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/gold_a_01.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/gold_a_02.5.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/gold_a_02.prefab
+  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+    path: assets/buildasset/effects/prefabs/level03/diamond.prefab
+  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+    path: assets/buildasset/effects/prefabs/level03/diamond2.prefab
+  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+    path: assets/buildasset/effects/prefabs/level03/lights.prefab
+  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+    path: assets/buildasset/effects/prefabs/level03/smoke.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/smoke.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/spark.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/zzzzz.prefab
   - bundle: assets/buildasset/fonts/lilitaone/lilitaone-regular-sdf.asset.unity3d
     path: assets/buildasset/fonts/lilitaone/lilitaone-regular-sdf.asset
   - bundle: assets/buildasset/fonts/lilitaone/lilitaone-regular.ttf.unity3d
@@ -1184,6 +1216,24 @@ MonoBehaviour:
   - name: assets/buildasset/fonts/lilitaone/lilitaone-regular.ttf.unity3d
     assets:
     - assets/buildasset/fonts/lilitaone/lilitaone-regular.ttf
+  - name: assets/buildasset/effects/prefabs.unity3d
+    assets:
+    - assets/buildasset/effects/prefabs/diamond_01.prefab
+    - assets/buildasset/effects/prefabs/diamond_02.prefab
+    - assets/buildasset/effects/prefabs/gold_01.prefab
+    - assets/buildasset/effects/prefabs/gold_02.prefab
+    - assets/buildasset/effects/prefabs/gold_a_01.prefab
+    - assets/buildasset/effects/prefabs/gold_a_02.5.prefab
+    - assets/buildasset/effects/prefabs/gold_a_02.prefab
+    - assets/buildasset/effects/prefabs/smoke.prefab
+    - assets/buildasset/effects/prefabs/spark.prefab
+    - assets/buildasset/effects/prefabs/zzzzz.prefab
+  - name: assets/buildasset/effects/prefabs/level03.unity3d
+    assets:
+    - assets/buildasset/effects/prefabs/level03/diamond.prefab
+    - assets/buildasset/effects/prefabs/level03/diamond2.prefab
+    - assets/buildasset/effects/prefabs/level03/lights.prefab
+    - assets/buildasset/effects/prefabs/level03/smoke.prefab
   - name: assets/buildasset/art/model/dish/textures/goods_1.mat.unity3d
     assets:
     - assets/buildasset/art/model/dish/textures/goods_1.mat
@@ -1331,3 +1381,27 @@ MonoBehaviour:
   - name: assets/buildasset/art/characters/role/textures/role_clothes-2.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_clothes-2.png
+  - name: assets/buildasset/effects/textures/glow_1022.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/glow_1022.png
+  - name: assets/buildasset/effects/materials/yanhua1.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/yanhua1.mat
+  - name: assets/buildasset/effects/textures/glow_4027.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/glow_4027.png
+  - name: assets/buildasset/effects/materials/yanhuatuo.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/yanhuatuo.mat
+  - name: assets/buildasset/effects/materials/huan.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/huan.mat
+  - name: assets/buildasset/effects/textures/glow_11008.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/glow_11008.png
+  - name: assets/buildasset/effects/textures/smoke_7004.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/smoke_7004.png
+  - name: assets/buildasset/effects/materials/smoke 1.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/smoke 1.mat
