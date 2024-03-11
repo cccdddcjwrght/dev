@@ -76,31 +76,39 @@ public struct LevelRowData : IFlatbufferObject
 #endif
   public int[] GetCustomerWeightArray() { return __p.__vector_as_array<int>(30); }
   public int CustomerNum { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int CustomerOrder(int j) { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CustomerOrderLength { get { int o = __p.__offset(34); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int CustomerPos(int j) { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CustomerPosLength { get { int o = __p.__offset(34); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCustomerOrderBytes() { return __p.__vector_as_span<int>(34, 4); }
+  public Span<int> GetCustomerPosBytes() { return __p.__vector_as_span<int>(34, 4); }
 #else
-  public ArraySegment<byte>? GetCustomerOrderBytes() { return __p.__vector_as_arraysegment(34); }
+  public ArraySegment<byte>? GetCustomerPosBytes() { return __p.__vector_as_arraysegment(34); }
 #endif
-  public int[] GetCustomerOrderArray() { return __p.__vector_as_array<int>(34); }
-  public int CarId(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CarIdLength { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetCustomerPosArray() { return __p.__vector_as_array<int>(34); }
+  public int CustomerOrder(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CustomerOrderLength { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCarIdBytes() { return __p.__vector_as_span<int>(36, 4); }
+  public Span<int> GetCustomerOrderBytes() { return __p.__vector_as_span<int>(36, 4); }
 #else
-  public ArraySegment<byte>? GetCarIdBytes() { return __p.__vector_as_arraysegment(36); }
+  public ArraySegment<byte>? GetCustomerOrderBytes() { return __p.__vector_as_arraysegment(36); }
 #endif
-  public int[] GetCarIdArray() { return __p.__vector_as_array<int>(36); }
-  public int CarWeight(int j) { int o = __p.__offset(38); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CarWeightLength { get { int o = __p.__offset(38); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetCustomerOrderArray() { return __p.__vector_as_array<int>(36); }
+  public int CarId(int j) { int o = __p.__offset(38); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CarIdLength { get { int o = __p.__offset(38); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCarWeightBytes() { return __p.__vector_as_span<int>(38, 4); }
+  public Span<int> GetCarIdBytes() { return __p.__vector_as_span<int>(38, 4); }
 #else
-  public ArraySegment<byte>? GetCarWeightBytes() { return __p.__vector_as_arraysegment(38); }
+  public ArraySegment<byte>? GetCarIdBytes() { return __p.__vector_as_arraysegment(38); }
 #endif
-  public int[] GetCarWeightArray() { return __p.__vector_as_array<int>(38); }
-  public int CarNum { get { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int[] GetCarIdArray() { return __p.__vector_as_array<int>(38); }
+  public int CarWeight(int j) { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CarWeightLength { get { int o = __p.__offset(40); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetCarWeightBytes() { return __p.__vector_as_span<int>(40, 4); }
+#else
+  public ArraySegment<byte>? GetCarWeightBytes() { return __p.__vector_as_arraysegment(40); }
+#endif
+  public int[] GetCarWeightArray() { return __p.__vector_as_array<int>(40); }
+  public int CarNum { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.LevelRowData> CreateLevelRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -118,15 +126,17 @@ public struct LevelRowData : IFlatbufferObject
       VectorOffset CustomerIdOffset = default(VectorOffset),
       VectorOffset CustomerWeightOffset = default(VectorOffset),
       int CustomerNum = 0,
+      VectorOffset CustomerPosOffset = default(VectorOffset),
       VectorOffset CustomerOrderOffset = default(VectorOffset),
       VectorOffset CarIdOffset = default(VectorOffset),
       VectorOffset CarWeightOffset = default(VectorOffset),
       int CarNum = 0) {
-    builder.StartTable(19);
+    builder.StartTable(20);
     LevelRowData.AddCarNum(builder, CarNum);
     LevelRowData.AddCarWeight(builder, CarWeightOffset);
     LevelRowData.AddCarId(builder, CarIdOffset);
     LevelRowData.AddCustomerOrder(builder, CustomerOrderOffset);
+    LevelRowData.AddCustomerPos(builder, CustomerPosOffset);
     LevelRowData.AddCustomerNum(builder, CustomerNum);
     LevelRowData.AddCustomerWeight(builder, CustomerWeightOffset);
     LevelRowData.AddCustomerId(builder, CustomerIdOffset);
@@ -145,7 +155,7 @@ public struct LevelRowData : IFlatbufferObject
     return LevelRowData.EndLevelRowData(builder);
   }
 
-  public static void StartLevelRowData(FlatBufferBuilder builder) { builder.StartTable(19); }
+  public static void StartLevelRowData(FlatBufferBuilder builder) { builder.StartTable(20); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddMachineId(FlatBufferBuilder builder, VectorOffset MachineIdOffset) { builder.AddOffset(1, MachineIdOffset.Value, 0); }
   public static VectorOffset CreateMachineIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
@@ -179,19 +189,23 @@ public struct LevelRowData : IFlatbufferObject
   public static VectorOffset CreateCustomerWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCustomerWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddCustomerNum(FlatBufferBuilder builder, int CustomerNum) { builder.AddInt(14, CustomerNum, 0); }
-  public static void AddCustomerOrder(FlatBufferBuilder builder, VectorOffset CustomerOrderOffset) { builder.AddOffset(15, CustomerOrderOffset.Value, 0); }
+  public static void AddCustomerPos(FlatBufferBuilder builder, VectorOffset CustomerPosOffset) { builder.AddOffset(15, CustomerPosOffset.Value, 0); }
+  public static VectorOffset CreateCustomerPosVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateCustomerPosVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartCustomerPosVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddCustomerOrder(FlatBufferBuilder builder, VectorOffset CustomerOrderOffset) { builder.AddOffset(16, CustomerOrderOffset.Value, 0); }
   public static VectorOffset CreateCustomerOrderVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCustomerOrderVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCustomerOrderVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCarId(FlatBufferBuilder builder, VectorOffset CarIdOffset) { builder.AddOffset(16, CarIdOffset.Value, 0); }
+  public static void AddCarId(FlatBufferBuilder builder, VectorOffset CarIdOffset) { builder.AddOffset(17, CarIdOffset.Value, 0); }
   public static VectorOffset CreateCarIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCarIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCarIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCarWeight(FlatBufferBuilder builder, VectorOffset CarWeightOffset) { builder.AddOffset(17, CarWeightOffset.Value, 0); }
+  public static void AddCarWeight(FlatBufferBuilder builder, VectorOffset CarWeightOffset) { builder.AddOffset(18, CarWeightOffset.Value, 0); }
   public static VectorOffset CreateCarWeightVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCarWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCarWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCarNum(FlatBufferBuilder builder, int CarNum) { builder.AddInt(18, CarNum, 0); }
+  public static void AddCarNum(FlatBufferBuilder builder, int CarNum) { builder.AddInt(19, CarNum, 0); }
   public static Offset<GameConfigs.LevelRowData> EndLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.LevelRowData>(o);

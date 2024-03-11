@@ -13,7 +13,6 @@ namespace SGame
         /// <returns></returns>
         public bool IsReadly()
         {
-            Debug.Log("readly entity=" + entity.ToString());
             return entity != Entity.Null;
         }
     }
