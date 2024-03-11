@@ -204,7 +204,7 @@ namespace SGame
 		public static IEnumerator WaitUIWithAnimation(string name)
 		{
 			WaitUIOpen.needWaitAnimation = true;
-			WaitUIOpen.needDelay = 5;
+			WaitUIOpen.needDelay = 10;
 			return WaitUI(name);
 
 		}
