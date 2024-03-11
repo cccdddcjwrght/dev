@@ -1,67 +1,66 @@
 ﻿
-namespace SGame.UI{
+namespace SGame.UI
+{
 	using FairyGUI;
 	using UnityEngine;
 	using SGame;
 	using SGame.UI.Loading;
 	using System.Collections;
 	using Fibers;
-	
+	using System;
+
 	public partial class UILoading
 	{
+		int maxstate = 4;
+		bool startFlag = false;
+		int cprogress = 0;
+		int progress;
+		Action<bool> timer;
+
 		// 协程对象
-		private Fiber			m_fiber;
+		private Fiber m_fiber;
 
 		// 显示时间
-		private float			m_waitTime;
+		private float m_waitTime;
 
-		private GProgressBar	m_progressBar;
+		private GProgressBar m_progressBar;
 
-		private GTextField		m_text;
-        
+		private GTextField m_text;
+
 		partial void InitLogic(UIContext context)
 		{
+			UI.UIUtils.SetLogo(m_view);
+
 			m_progressBar = context.content.GetChild("n3").asProgress;
 			m_text = context.content.GetChild("n4").asTextField;
-			context.onUpdate += onUpdate;
-			m_fiber = new Fiber(RunLogic(context));
 
-			var param = context.GetParam();
-			if(param!=null )
-			{
-				// 获得参数
-				m_waitTime = (float)param.Value;
-			}
-			m_waitTime = Mathf.Max(1,m_waitTime);
-			UI.UIUtils.SetLogo(m_view);
-		}
-
-		IEnumerator RunLogic(UIContext context)
-		{
-			// 播放动画
-			float run = 0;
 			m_progressBar.min = 0;
-			m_progressBar.max = m_waitTime;
-			while (run <= m_waitTime)
-			{
-				run += Time.deltaTime;
-				float per = Mathf.Clamp01(run / m_waitTime);
-				m_text.text = "ui_loading_tips".Local();
-				//string.Format("LOADING ... {0:0.00}%", per * 100);
-				m_progressBar.value = run;
-				yield return null;
-			}
-			m_progressBar.value = m_waitTime;
+			m_progressBar.max = 100;
+			m_text.text = "ui_loading_tips".Local();
+			SceneSystemV2.Instance.AddListener(OnStateChange, false, true);
 
-			EventManager.Instance.Trigger((int)GameEvent.ENTER_GAME);
+
 		}
 
-		void onUpdate(UIContext context)
+		void OnStateChange(int state)
 		{
-			m_fiber.Step();
+			progress = (int)Mathf.Clamp(((float)state / maxstate) * 100, 0, 100);
+			if (!startFlag)
+			{
+				startFlag = true;
+				timer = Utils.Timer(9999, () =>
+				{
+					var step = progress - cprogress > 20 ? 5 : 1;
+					cprogress = Math.Clamp(cprogress + step, 0, progress);
+					m_progressBar.value = cprogress;
+				}, m_view);
+			}
 		}
-		
-		partial void UnInitLogic(UIContext context){
+
+		partial void UnInitLogic(UIContext context)
+		{
+			timer?.Invoke(false);
+			SceneSystemV2.Instance.AddListener(OnStateChange, true, true);
 
 		}
 	}

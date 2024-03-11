@@ -65,8 +65,8 @@ namespace SGame
 			}
 			return false;
 		}
-		
-		
+
+
 		/// <summary>
 		/// 重新加载可见UI
 		/// </summary>
@@ -83,7 +83,7 @@ namespace SGame
 					ui.Value.Close();
 					continue;
 				}
-				
+
 				var configID = ui.Value.configID;
 				if (ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData uiconfig))
 				{
@@ -171,7 +171,8 @@ namespace SGame
 			return default;
 		}
 
-		public static Entity GetUIEntity(string name) {
+		public static Entity GetUIEntity(string name)
+		{
 
 			if (!string.IsNullOrEmpty(name))
 				return UIModule.Instance.GetUI(name);
@@ -197,6 +198,14 @@ namespace SGame
 					return new WaitUIOpen(mgr, e);
 			}
 			return default;
+
+		}
+
+		public static IEnumerator WaitUIWithAnimation(string name)
+		{
+			WaitUIOpen.needWaitAnimation = true;
+			WaitUIOpen.needDelay = 5;
+			return WaitUI(name);
 
 		}
 
@@ -265,7 +274,7 @@ namespace SGame
 
 			return ui;
 		}
-		
+
 		/// <summary>
 		/// 显示HUD, 并跟随entity
 		/// </summary>
@@ -396,7 +405,7 @@ namespace SGame
 			return true;
 		}
 
-		static public GObject AddListItem(GComponent list, Action<int , object, GObject> onAdded = null, object data = null, string res = null)
+		static public GObject AddListItem(GComponent list, Action<int, object, GObject> onAdded = null, object data = null, string res = null)
 		{
 			if (list != null)
 			{
@@ -411,13 +420,13 @@ namespace SGame
 						list.AddChild(item);
 				}
 				if (item != null && onAdded != null)
-					onAdded(index , data, item);
+					onAdded(index, data, item);
 				return item;
 			}
 			return default;
 		}
 
-		static public void AddListItems<T>(GComponent list, IList<T> datas, Action<int , object, GObject> onAdded = null, List<GObject> rets = default, string res = null)
+		static public void AddListItems<T>(GComponent list, IList<T> datas, Action<int, object, GObject> onAdded = null, List<GObject> rets = default, string res = null)
 		{
 			if (datas?.Count > 0 && list != null)
 			{

@@ -46,7 +46,7 @@ namespace SGame
 			RequestExcuteSystem.Instance.Init(this.m_gameWorld);
 
 			//场景加载
-			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUI, UIUtils.CloseUI);
+			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUIWithAnimation, UIUtils.CloseUI);
             
 			//餐厅管理
 			SGame.Dining.DiningRoomSystem.Instance.Init();
