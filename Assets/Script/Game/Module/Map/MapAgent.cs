@@ -250,6 +250,22 @@ namespace GameTools
 		}
 
 		/// <summary>
+		/// 格子id，转索引
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
+		public static int XYToCellIndex(int x ,int y) {
+
+			if (agent != null)
+			{
+				var cell = agent.grid.GetCellByIndex(x, y);
+				if (cell != null) return cell.index;
+			}
+			return 0;
+		}
+
+		/// <summary>
 		/// 获取路径
 		/// </summary>
 		/// <param name="name"></param>

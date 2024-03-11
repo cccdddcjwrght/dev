@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using FairyGUI;
 using libx;
 using log4net;
@@ -13,7 +12,7 @@ namespace SGame.UI
 		private const string RES_BUNDLE_FMT = ROOT_PATH + "UI/{0}";
 
 		private const string LOGO_PATH = "Assets/BuildAsset/App/logo/ui_loading_logo{lan}.png";
-
+		private const string LAN_DEF = "en";
 
 		static ILog log = LogManager.GetLogger("xl.ui");
 
@@ -68,7 +67,7 @@ namespace SGame.UI
 				var otex = default(NTexture);
 				try
 				{
-					path = path.Replace("{lan}", "@" + LanguageUtil.GetGameLanguage("en"));
+					path = path.Replace("{lan}", "@" + LanguageUtil.GetGameLanguage(LAN_DEF));
 
 					var tn = System.IO.Path.GetFileNameWithoutExtension(path);
 					if (loader.texture != null)

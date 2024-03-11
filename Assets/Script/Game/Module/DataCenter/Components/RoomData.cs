@@ -62,9 +62,9 @@ namespace SGame
 			public static void InitTechBuffs()
 			{
 				var room = Instance.roomData.current;
-				
-				if(room.roomTechs == null)
-					room.roomTechs = ConfigSystem.Instance.Finds<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id)).ToDictionary(t=>t.Id);
+
+				if (room.roomTechs == null)
+					room.roomTechs = ConfigSystem.Instance.Finds<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id)).ToDictionary(t => t.Id);
 
 				if (room != null && room.techs?.Count > 0)
 				{
@@ -95,9 +95,17 @@ namespace SGame
 							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_REWARD), id);
 							if (cfg.RoleId == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子
 							{
+
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_TABLE), cfg.TableId(0));
+								var tid = 0;
 								//添加角色
-								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, cfg.TableId(0));
+								if (cfg.TableIdLength > 1)
+								{
+									var mid = cfg.TableId(1);
+									if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(mid, out var m))
+										tid = MapAgent.XYToCellIndex(m.ObjId(1), m.ObjId(2));
+								}
+								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, tid);
 							}
 							else
 								AddRoleReward(cfg.RoleId, cfg.Value, cfg.TableId(0), cfg.TableId(1));
