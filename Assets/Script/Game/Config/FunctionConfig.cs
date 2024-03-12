@@ -45,53 +45,62 @@ public struct FunctionConfigRowData : IFlatbufferObject
   public ArraySegment<byte>? GetOpenValBytes() { return __p.__vector_as_arraysegment(16); }
 #endif
   public int[] GetOpenValArray() { return __p.__vector_as_array<int>(16); }
-  public int FixConditionVal { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int NeedFinger { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AutoShow { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string Tips { get { int o = __p.__offset(24); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int Level(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int LevelLength { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetTipsBytes() { return __p.__vector_as_span<byte>(24, 1); }
+  public Span<int> GetLevelBytes() { return __p.__vector_as_span<int>(18, 4); }
 #else
-  public ArraySegment<byte>? GetTipsBytes() { return __p.__vector_as_arraysegment(24); }
+  public ArraySegment<byte>? GetLevelBytes() { return __p.__vector_as_arraysegment(18); }
 #endif
-  public byte[] GetTipsArray() { return __p.__vector_as_array<byte>(24); }
-  public int Entrance { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string Alias { get { int o = __p.__offset(28); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int[] GetLevelArray() { return __p.__vector_as_array<int>(18); }
+  public int GuideId { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int FixConditionVal { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int NeedFinger { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AutoShow { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Tips { get { int o = __p.__offset(28); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetAliasBytes() { return __p.__vector_as_span<byte>(28, 1); }
+  public Span<byte> GetTipsBytes() { return __p.__vector_as_span<byte>(28, 1); }
 #else
-  public ArraySegment<byte>? GetAliasBytes() { return __p.__vector_as_arraysegment(28); }
+  public ArraySegment<byte>? GetTipsBytes() { return __p.__vector_as_arraysegment(28); }
 #endif
-  public byte[] GetAliasArray() { return __p.__vector_as_array<byte>(28); }
-  public string Uniqid { get { int o = __p.__offset(30); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetTipsArray() { return __p.__vector_as_array<byte>(28); }
+  public int Entrance { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Uniqid { get { int o = __p.__offset(32); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetUniqidBytes() { return __p.__vector_as_span<byte>(30, 1); }
+  public Span<byte> GetUniqidBytes() { return __p.__vector_as_span<byte>(32, 1); }
 #else
-  public ArraySegment<byte>? GetUniqidBytes() { return __p.__vector_as_arraysegment(30); }
+  public ArraySegment<byte>? GetUniqidBytes() { return __p.__vector_as_arraysegment(32); }
 #endif
-  public byte[] GetUniqidArray() { return __p.__vector_as_array<byte>(30); }
-  public string Icon { get { int o = __p.__offset(32); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetUniqidArray() { return __p.__vector_as_array<byte>(32); }
+  public string Icon { get { int o = __p.__offset(34); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(32, 1); }
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(34, 1); }
 #else
-  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(32); }
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(34); }
 #endif
-  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(32); }
-  public string Res { get { int o = __p.__offset(34); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(34); }
+  public string Alias { get { int o = __p.__offset(36); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetResBytes() { return __p.__vector_as_span<byte>(34, 1); }
+  public Span<byte> GetAliasBytes() { return __p.__vector_as_span<byte>(36, 1); }
 #else
-  public ArraySegment<byte>? GetResBytes() { return __p.__vector_as_arraysegment(34); }
+  public ArraySegment<byte>? GetAliasBytes() { return __p.__vector_as_arraysegment(36); }
 #endif
-  public byte[] GetResArray() { return __p.__vector_as_array<byte>(34); }
-  public int Net { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string Nettips { get { int o = __p.__offset(38); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetAliasArray() { return __p.__vector_as_array<byte>(36); }
+  public string Res { get { int o = __p.__offset(38); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetNettipsBytes() { return __p.__vector_as_span<byte>(38, 1); }
+  public Span<byte> GetResBytes() { return __p.__vector_as_span<byte>(38, 1); }
 #else
-  public ArraySegment<byte>? GetNettipsBytes() { return __p.__vector_as_arraysegment(38); }
+  public ArraySegment<byte>? GetResBytes() { return __p.__vector_as_arraysegment(38); }
 #endif
-  public byte[] GetNettipsArray() { return __p.__vector_as_array<byte>(38); }
+  public byte[] GetResArray() { return __p.__vector_as_array<byte>(38); }
+  public int Net { get { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Nettips { get { int o = __p.__offset(42); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetNettipsBytes() { return __p.__vector_as_span<byte>(42, 1); }
+#else
+  public ArraySegment<byte>? GetNettipsBytes() { return __p.__vector_as_arraysegment(42); }
+#endif
+  public byte[] GetNettipsArray() { return __p.__vector_as_array<byte>(42); }
 
   public static Offset<GameConfigs.FunctionConfigRowData> CreateFunctionConfigRowData(FlatBufferBuilder builder,
       int id = 0,
@@ -101,29 +110,33 @@ public struct FunctionConfigRowData : IFlatbufferObject
       StringOffset uiOffset = default(StringOffset),
       int openType = 0,
       VectorOffset openValOffset = default(VectorOffset),
+      VectorOffset levelOffset = default(VectorOffset),
+      int guideId = 0,
       int fixConditionVal = 0,
       int needFinger = 0,
       int autoShow = 0,
       StringOffset tipsOffset = default(StringOffset),
       int entrance = 0,
-      StringOffset aliasOffset = default(StringOffset),
       StringOffset uniqidOffset = default(StringOffset),
       StringOffset iconOffset = default(StringOffset),
+      StringOffset aliasOffset = default(StringOffset),
       StringOffset resOffset = default(StringOffset),
       int net = 0,
       StringOffset nettipsOffset = default(StringOffset)) {
-    builder.StartTable(18);
+    builder.StartTable(20);
     FunctionConfigRowData.AddNettips(builder, nettipsOffset);
     FunctionConfigRowData.AddNet(builder, net);
     FunctionConfigRowData.AddRes(builder, resOffset);
+    FunctionConfigRowData.AddAlias(builder, aliasOffset);
     FunctionConfigRowData.AddIcon(builder, iconOffset);
     FunctionConfigRowData.AddUniqid(builder, uniqidOffset);
-    FunctionConfigRowData.AddAlias(builder, aliasOffset);
     FunctionConfigRowData.AddEntrance(builder, entrance);
     FunctionConfigRowData.AddTips(builder, tipsOffset);
     FunctionConfigRowData.AddAutoShow(builder, autoShow);
     FunctionConfigRowData.AddNeedFinger(builder, needFinger);
     FunctionConfigRowData.AddFixConditionVal(builder, fixConditionVal);
+    FunctionConfigRowData.AddGuideId(builder, guideId);
+    FunctionConfigRowData.AddLevel(builder, levelOffset);
     FunctionConfigRowData.AddOpenVal(builder, openValOffset);
     FunctionConfigRowData.AddOpenType(builder, openType);
     FunctionConfigRowData.AddUi(builder, uiOffset);
@@ -134,7 +147,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
     return FunctionConfigRowData.EndFunctionConfigRowData(builder);
   }
 
-  public static void StartFunctionConfigRowData(FlatBufferBuilder builder) { builder.StartTable(18); }
+  public static void StartFunctionConfigRowData(FlatBufferBuilder builder) { builder.StartTable(20); }
   public static void AddId(FlatBufferBuilder builder, int id) { builder.AddInt(0, id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddOrder(FlatBufferBuilder builder, int order) { builder.AddInt(2, order, 0); }
@@ -145,17 +158,22 @@ public struct FunctionConfigRowData : IFlatbufferObject
   public static VectorOffset CreateOpenValVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateOpenValVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOpenValVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddFixConditionVal(FlatBufferBuilder builder, int fixConditionVal) { builder.AddInt(7, fixConditionVal, 0); }
-  public static void AddNeedFinger(FlatBufferBuilder builder, int needFinger) { builder.AddInt(8, needFinger, 0); }
-  public static void AddAutoShow(FlatBufferBuilder builder, int autoShow) { builder.AddInt(9, autoShow, 0); }
-  public static void AddTips(FlatBufferBuilder builder, StringOffset tipsOffset) { builder.AddOffset(10, tipsOffset.Value, 0); }
-  public static void AddEntrance(FlatBufferBuilder builder, int entrance) { builder.AddInt(11, entrance, 0); }
-  public static void AddAlias(FlatBufferBuilder builder, StringOffset aliasOffset) { builder.AddOffset(12, aliasOffset.Value, 0); }
-  public static void AddUniqid(FlatBufferBuilder builder, StringOffset uniqidOffset) { builder.AddOffset(13, uniqidOffset.Value, 0); }
-  public static void AddIcon(FlatBufferBuilder builder, StringOffset iconOffset) { builder.AddOffset(14, iconOffset.Value, 0); }
-  public static void AddRes(FlatBufferBuilder builder, StringOffset resOffset) { builder.AddOffset(15, resOffset.Value, 0); }
-  public static void AddNet(FlatBufferBuilder builder, int net) { builder.AddInt(16, net, 0); }
-  public static void AddNettips(FlatBufferBuilder builder, StringOffset nettipsOffset) { builder.AddOffset(17, nettipsOffset.Value, 0); }
+  public static void AddLevel(FlatBufferBuilder builder, VectorOffset levelOffset) { builder.AddOffset(7, levelOffset.Value, 0); }
+  public static VectorOffset CreateLevelVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateLevelVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartLevelVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddGuideId(FlatBufferBuilder builder, int guideId) { builder.AddInt(8, guideId, 0); }
+  public static void AddFixConditionVal(FlatBufferBuilder builder, int fixConditionVal) { builder.AddInt(9, fixConditionVal, 0); }
+  public static void AddNeedFinger(FlatBufferBuilder builder, int needFinger) { builder.AddInt(10, needFinger, 0); }
+  public static void AddAutoShow(FlatBufferBuilder builder, int autoShow) { builder.AddInt(11, autoShow, 0); }
+  public static void AddTips(FlatBufferBuilder builder, StringOffset tipsOffset) { builder.AddOffset(12, tipsOffset.Value, 0); }
+  public static void AddEntrance(FlatBufferBuilder builder, int entrance) { builder.AddInt(13, entrance, 0); }
+  public static void AddUniqid(FlatBufferBuilder builder, StringOffset uniqidOffset) { builder.AddOffset(14, uniqidOffset.Value, 0); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset iconOffset) { builder.AddOffset(15, iconOffset.Value, 0); }
+  public static void AddAlias(FlatBufferBuilder builder, StringOffset aliasOffset) { builder.AddOffset(16, aliasOffset.Value, 0); }
+  public static void AddRes(FlatBufferBuilder builder, StringOffset resOffset) { builder.AddOffset(17, resOffset.Value, 0); }
+  public static void AddNet(FlatBufferBuilder builder, int net) { builder.AddInt(18, net, 0); }
+  public static void AddNettips(FlatBufferBuilder builder, StringOffset nettipsOffset) { builder.AddOffset(19, nettipsOffset.Value, 0); }
   public static Offset<GameConfigs.FunctionConfigRowData> EndFunctionConfigRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.FunctionConfigRowData>(o);

@@ -517,8 +517,17 @@ namespace SGame
 				_vcamera = c.GetOrAddComponent<Cinemachine.CinemachineVirtualCamera>();
 			_vcamera.Follow = _ctrObj.transform;
 			_vcamera.LookAt = _ctrObj.transform;
-			_vcamera.m_Lens.OrthographicSize = 0.56f / (1f * Screen.width / Screen.height) * _vcamera.m_Lens.OrthographicSize;
 
+			var size = _vcamera.m_Lens.OrthographicSize;
+			var dscale = 750f / 1334;
+			var cscale = 1f * Screen.width / Screen.height;
+			var scale = dscale / cscale;
+			if (scale < 1)
+			{
+				_vcamera.m_Lens.OrthographicSize = scale * size;
+				zMove.maxValue = (zMove.maxValue / scale) * (1 + Mathf.Cos(_vcamera.transform.localRotation.x));
+				zMove.minValue = (zMove.minValue / scale) ;
+			}
 		}
 
 		void SwitchMoveAxis()

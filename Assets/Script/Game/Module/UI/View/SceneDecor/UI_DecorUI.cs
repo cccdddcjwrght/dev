@@ -7,7 +7,7 @@ namespace SGame.UI.SceneDecor
 {
     public partial class UI_DecorUI : GLabel
     {
-        public GComponent m_wall;
+        public GLoader m_loader;
         public const string URL = "ui://04q21cn9sdk36";
 
         public static UI_DecorUI CreateInstance()
@@ -19,7 +19,7 @@ namespace SGame.UI.SceneDecor
         {
             base.ConstructFromXML(xml);
 
-            m_wall = (GComponent)GetChildAt(0);
+            m_loader = (GLoader)GetChildAt(0);
         }
     }
 }

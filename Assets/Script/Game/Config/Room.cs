@@ -41,16 +41,28 @@ public struct RoomRowData : IFlatbufferObject
   public ArraySegment<byte>? GetResourceBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
   public byte[] GetResourceArray() { return __p.__vector_as_array<byte>(10); }
-  public int RegionId { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Decor { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetDecorBytes() { return __p.__vector_as_span<byte>(12, 1); }
+#else
+  public ArraySegment<byte>? GetDecorBytes() { return __p.__vector_as_arraysegment(12); }
+#endif
+  public byte[] GetDecorArray() { return __p.__vector_as_array<byte>(12); }
+  public float Adjust { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int RegionId { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomRowData> CreateRoomRowData(FlatBufferBuilder builder,
       int ID = 0,
       StringOffset NameOffset = default(StringOffset),
       StringOffset IconOffset = default(StringOffset),
       StringOffset ResourceOffset = default(StringOffset),
+      StringOffset DecorOffset = default(StringOffset),
+      float Adjust = 0.0f,
       int RegionId = 0) {
-    builder.StartTable(5);
+    builder.StartTable(7);
     RoomRowData.AddRegionId(builder, RegionId);
+    RoomRowData.AddAdjust(builder, Adjust);
+    RoomRowData.AddDecor(builder, DecorOffset);
     RoomRowData.AddResource(builder, ResourceOffset);
     RoomRowData.AddIcon(builder, IconOffset);
     RoomRowData.AddName(builder, NameOffset);
@@ -58,12 +70,14 @@ public struct RoomRowData : IFlatbufferObject
     return RoomRowData.EndRoomRowData(builder);
   }
 
-  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(5); }
+  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
   public static void AddResource(FlatBufferBuilder builder, StringOffset ResourceOffset) { builder.AddOffset(3, ResourceOffset.Value, 0); }
-  public static void AddRegionId(FlatBufferBuilder builder, int RegionId) { builder.AddInt(4, RegionId, 0); }
+  public static void AddDecor(FlatBufferBuilder builder, StringOffset DecorOffset) { builder.AddOffset(4, DecorOffset.Value, 0); }
+  public static void AddAdjust(FlatBufferBuilder builder, float Adjust) { builder.AddFloat(5, Adjust, 0.0f); }
+  public static void AddRegionId(FlatBufferBuilder builder, int RegionId) { builder.AddInt(6, RegionId, 0); }
   public static Offset<GameConfigs.RoomRowData> EndRoomRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomRowData>(o);
