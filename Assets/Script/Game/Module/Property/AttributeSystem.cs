@@ -82,7 +82,10 @@ namespace SGame
 		/// <returns></returns>
 		public double GetValue(int type, int attributeID, int targetid = 0)
 		{
-			return GetAttributeList(type, targetid)[attributeID];
+			var list = GetAttributeList(type, targetid);
+			if (list != null )
+				return list[attributeID];
+			return 0;
 		}
 
 		/// <summary>

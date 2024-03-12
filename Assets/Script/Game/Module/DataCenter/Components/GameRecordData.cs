@@ -10,7 +10,7 @@ namespace SGame
     /// 游戏数据统计
     /// </summary>
     [Serializable]
-    public class GameRecordData : MonoBehaviour
+    public class GameRecordData 
     {
         [Serializable]
         public struct RoleData

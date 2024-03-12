@@ -13,20 +13,25 @@ using UnityEngine.SceneManagement;
 namespace SGame.Dining
 {
 
+	public struct LevelScene : IComponentData { }
+
 	public partial class DiningRoomSystem : MonoSingleton<DiningRoomSystem>
 	{
 		#region Static
 		private static ILog log = LogManager.GetLogger("DiningRoom");
 		#endregion
 
+		private GameWorld _gameWorld;
+		private Entity _sceneFlag;
 
 		private DiningRoomLogic _currentRoom;
 		private EventHandleContainer _eHandlers;
 
 		#region Method
 
-		public void Init()
+		public void Init(GameWorld world)
 		{
+			_gameWorld = world;
 			InitEvents();
 			WorktableHud.Instance.Init();
 		}
@@ -48,6 +53,7 @@ namespace SGame.Dining
 					lastLogic?.Close();
 					((Func<bool>)(() => req.isDone)).Wait(OnEnterRoomCompleted);
 					EventManager.Instance.Trigger(((int)GameEvent.PREPARE_LEVEL_ROOM));
+					_sceneFlag = _gameWorld.GetEntityManager().CreateEntity(typeof(LevelScene));
 					return req;
 				}
 			}
@@ -74,7 +80,7 @@ namespace SGame.Dining
 		private void InitEvents()
 		{
 			_eHandlers = new EventHandleContainer();
-			
+
 		}
 
 
@@ -83,7 +89,7 @@ namespace SGame.Dining
 			log.Info("Enter Room :" + _currentRoom.cfgID);
 			EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
 			EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
-
+			_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
 
 		}
 

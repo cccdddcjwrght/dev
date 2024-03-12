@@ -52,8 +52,14 @@ namespace SGame
 			public static Room EnterRoom(int id, bool isnew = false)
 			{
 
-				return GetRoom(id, isnew);
-
+				var r = GetRoom(id, isnew);
+				if (r != null)
+				{
+					var ud = Instance.GetUserData();
+					ud.scene = id;
+					Instance.SetUserData(ud);
+				}
+				return r;
 			}
 
 			/// <summary>

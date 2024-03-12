@@ -239,7 +239,8 @@ namespace SGame
 		{
 			get
 			{
-				return GetAttribute(id).value;
+				var a = GetAttribute(id);
+				return a == null ? 0 : a.value;
 			}
 			set
 			{

@@ -50,7 +50,7 @@ namespace SGame
 			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUIWithAnimation, UIUtils.CloseUI);
 
 			//餐厅管理
-			SGame.Dining.DiningRoomSystem.Instance.Init();
+			SGame.Dining.DiningRoomSystem.Instance.Init(this.m_gameWorld);
 
 			//初始化属性系统
 			AttributeSystem.Instance.Initalize();
@@ -89,6 +89,8 @@ namespace SGame
 		{
 			InitModule();
 
+			EventManager.Instance.Reg<int>(((int)GameEvent.ENTER_ROOM), OnEnterRoom);
+
 			//临时场景加载
 			var ud = DataCenter.Instance.GetUserData();
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(ud.scene, OnStageChange);
@@ -106,13 +108,7 @@ namespace SGame
 				yield return null;
 			}
 
-			// 播放背景
-			AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
 
-			var prefab = m_resourceManager.LoadPrefab(script);
-			var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
-			var go = GameObject.Instantiate(prefab);
-			var guideGo = GameObject.Instantiate(guidePrefab);
 
 
 			yield return TestData();
@@ -126,10 +122,18 @@ namespace SGame
 				yield return null;
 			}
 
-			GameObject.Destroy(go);
-			GameObject.Destroy(guideGo);
 		}
 
+		void OnEnterRoom(int room)
+		{
+			// 播放背景
+			AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
+
+			var prefab = m_resourceManager.LoadPrefab(script);
+			var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
+			var go = GameObject.Instantiate(prefab);
+			var guideGo = GameObject.Instantiate(guidePrefab);
+		}
 
 		public void Enter()
 		{

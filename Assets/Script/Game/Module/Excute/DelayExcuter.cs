@@ -26,11 +26,11 @@ namespace SGame
 		}
 
 		private string[] C_DELAY_UI = new string[]{
-			"confirmtips","rewardtips","loadingui","rewardflytips","enterseason","game_result"
+			"confirmtips","rewardtips","loadingui","rewardflytips",
 		};
 
 		private List<string> C_IGNORE_UI = new List<string>() {
-			"gmui","mask","guidefinger","guideui"
+			"gmui","mask","guidefinger","guideui","scenedecorui","hud"
 		};
 
 		private Dictionary<string, List<Item>> m_delayQueues = new Dictionary<string, List<Item>>();
