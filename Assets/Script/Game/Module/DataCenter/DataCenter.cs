@@ -125,6 +125,12 @@ namespace SGame
 				}
 			}
 			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
+
+			var scene = roomData.current.id;
+			var ud = GetUserData();
+			ud.scene = scene;
+			SetUserData(ud);
+
 			DoInit();
 			IsInitAll = true;
 			loadtime = GameServerTime.Instance.serverTime;

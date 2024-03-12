@@ -46,7 +46,7 @@ namespace SGame
 			public static Room GetRoom(int id, bool isnew = false)
 			{
 				var r = Instance.roomData.rooms.Find(x => x.id == id);
-				return r ?? (isnew ? NewRoom(id) : null);
+				return r ?? (isnew ? NewRoom(id , true) : null);
 			}
 
 			public static Room EnterRoom(int id, bool isnew = false)
@@ -57,6 +57,7 @@ namespace SGame
 				{
 					var ud = Instance.GetUserData();
 					ud.scene = id;
+					Instance.roomData.roomID = id;
 					Instance.SetUserData(ud);
 				}
 				return r;
