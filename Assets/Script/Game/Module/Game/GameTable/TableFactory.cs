@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using log4net;
 using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Mathematics;
@@ -11,6 +12,8 @@ namespace SGame
     /// </summary>
     public class TableFactory
     {
+        private static ILog log = LogManager.GetLogger("game.table");
+        
         /// <summary>
         /// 创建客桌
         /// </summary>
@@ -31,6 +34,8 @@ namespace SGame
             foreach (var pos in customerPos)
                 value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
             //TableManager.Instance.UpdateTableInfo(value);
+
+            log.Debug(string.Format("Create Customer tablePos={0}, orderPos={1}, num={2}", tablePos, orderPos, customerPos.Count) );
             return value;
         }
         
@@ -49,7 +54,9 @@ namespace SGame
             value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(takerPos.x, takerPos.y));
             value.AddChair(CHAIR_TYPE.ORDER, new int2(puterPos.x, puterPos.y));
             //TableManager.Instance.UpdateTableInfo(value);
-            return value;
+            
+             log.Debug(string.Format("Create Dish tablePos={0}, takerPos={1}, puterPos={2}", tablePos, takerPos, puterPos) );
+             return value;
         }
         
         
@@ -74,6 +81,7 @@ namespace SGame
             value.AddChair(CHAIR_TYPE.OPERATOR, new int2(operatorPos.x, operatorPos.y));
             TableManager.Instance.UpdateTableInfo(value);
 
+            log.Debug(string.Format("Create FooTable tablePos={0}, machineID={1}, foodType={2}, operatorPos={3}", tablePos, machineID, foodType, operatorPos) );
             return value;
         }
     }
