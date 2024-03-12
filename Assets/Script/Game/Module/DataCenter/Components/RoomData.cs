@@ -144,7 +144,7 @@ namespace SGame
 							pos = new Vector2Int(x, y);
 						else if (WorkQueueSystem.Instance.Random(tag, out worker))
 							pos = worker.cell;
-
+						DataCenter.Instance.m_gameRecord.RecordRole(roleid, 1, worker.index);
 						EventManager.Instance.Trigger(((int)GameEvent.SCENE_REWARD), pos, new Action(() =>
 						{
 							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, 1, worker.index);
