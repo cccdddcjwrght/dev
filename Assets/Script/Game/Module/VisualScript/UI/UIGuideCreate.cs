@@ -48,12 +48,12 @@ namespace SGame.VS
             {
 
                 EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
-
+                Vector2Int sizeint2 = new Vector2Int(0, 0);
+                Vector2Int s2 = flow.GetValue<Vector2Int>(uiSize);
                 //遮罩
-                if (uiSize.hasValidConnection)
+                if (s2!=sizeint2)
                 {
                     Entity uiMask = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiMaskName)));
-                    Vector2Int s2 = flow.GetValue<Vector2Int>(uiSize);
                     mgr.AddComponentObject(uiMask, new UISize() { size = s2 });
                     Vector2Int p2 = flow.GetValue<Vector2Int>(uiPos);
                     mgr.AddComponentObject(uiMask, new UIPos() { pos = p2 });
