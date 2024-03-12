@@ -34,11 +34,23 @@ namespace SGame
         // 保存角色信息
         public List<RecordRoleData>  roleDatas = new List<RecordRoleData>();
 
-        public bool HasRecord() { return roleDatas.Count > 0; }
+        public bool HasRecord()
+        {
+            return roleDatas.Count > 0;
+        }
         
         public void Initalize()
         {
             EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnPerpareLeaveRoom);
+            EventManager.Instance.Reg<int,int,int>((int)GameEvent.TECH_ADD_ROLE, AddRole);
+        }
+
+        void AddRole(int roleType, int num, int pos)
+        {
+            if (roleType == (int)EnumRole.Customer)
+            {
+                roleDatas.Add(new RecordRoleData(){roleType = EnumRole.Customer, Num = num, pos = pos});
+            }
         }
         
         /// <summary>

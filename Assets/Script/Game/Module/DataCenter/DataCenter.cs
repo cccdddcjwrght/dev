@@ -132,8 +132,11 @@ namespace SGame
 			SetUserData(ud);
 
 			DoInit();
+			m_gameRecord.Initalize();
+			
 			IsInitAll = true;
 			loadtime = GameServerTime.Instance.serverTime;
+			
 			EventManager.Instance.Trigger(((int)GameEvent.DATA_INIT_COMPLETE));
 		}
 
