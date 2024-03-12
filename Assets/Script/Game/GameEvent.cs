@@ -32,8 +32,9 @@ namespace SGame
 		ENTER_ROOM					= 111, //进入场景
 		AFTER_ENTER_ROOM			= 112, //进入场景之后
 		SCENE_REWARD				= 113,//场景宝箱（int cellIndex,  , Action call ,[string assetPath = null]）
+		PREPARE_LEVEL_ROOM			= 114,//准备离开房间
 
-		ORDER						= 200, // 创建新订单 (int 订单ID)
+		ORDER = 200, // 创建新订单 (int 订单ID)
 		ORDER_FOODMAKED				= 201, // 
 		ORDER_FINSIH				= 202, // 订单完成 (int 订单ID)
 		ORDER_INSTANT				= 203, // 订单立即完成 (int 订单ID)

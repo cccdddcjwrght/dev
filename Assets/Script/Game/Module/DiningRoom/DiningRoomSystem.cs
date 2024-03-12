@@ -47,6 +47,7 @@ namespace SGame.Dining
 						req.onStateChange += progress;
 					lastLogic?.Close();
 					((Func<bool>)(() => req.isDone)).Wait(OnEnterRoomCompleted);
+					EventManager.Instance.Trigger(((int)GameEvent.PREPARE_LEVEL_ROOM));
 					return req;
 				}
 			}
@@ -73,7 +74,7 @@ namespace SGame.Dining
 		private void InitEvents()
 		{
 			_eHandlers = new EventHandleContainer();
-
+			
 		}
 
 
@@ -100,22 +101,6 @@ namespace SGame.Dining
 
 		#endregion
 
-
-		#region Events
-
-		private void OnWorkTableEnable(int id)
-		{
-
-		}
-
-		private void OnWorkTableUplevel(int id, int level)
-		{
-
-		}
-
-
-
-		#endregion
 
 	}
 }
