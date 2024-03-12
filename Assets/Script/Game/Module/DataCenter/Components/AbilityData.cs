@@ -7,9 +7,11 @@ using UnityEngine.Serialization;
 
 namespace SGame
 {
+    [Serializable]
     public class AbilityData
     {
         public int len;
+        public bool inited;
         [Serializable]
         public struct AbilitLevelRenderer
         {
@@ -31,12 +33,14 @@ namespace SGame
             public int[]  LockData;
             public List<AbilitLevelRenderer> abilitLevelList = new List<AbilitLevelRenderer>();
         }
-
-        private List<AbilityList> abilityList = new List<AbilityList>();
+       
+        public List<AbilityList> abilityList = new List<AbilityList>();
         
         //科技列表初始化
         public void InitAbilityList()
         {
+            if(inited) return;
+            
             var abilityListConfig = ConfigSystem.Instance.LoadConfig<GameConfigs.AbilityList>(); //科技列表
             len = abilityListConfig.DatalistLength;
             for (int i = 0; i < len; i++)
@@ -51,6 +55,8 @@ namespace SGame
                     
                 );
             }
+
+            inited = true;
         }
 
         //获取科技列表
