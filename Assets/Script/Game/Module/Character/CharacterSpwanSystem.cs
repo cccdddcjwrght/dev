@@ -254,7 +254,7 @@ namespace SGame
                 
                 // 设置属性
                 commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
-                commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type});
+                commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type, characterID = lasterCharacterID});
                 commandBuffer.SetComponent(characterEntity, new Speed(){Value = roleData.MoveSpeed});
                 commandBuffer.AddComponent(characterEntity, result);
             }).WithStructuralChanges().WithoutBurst().Run();

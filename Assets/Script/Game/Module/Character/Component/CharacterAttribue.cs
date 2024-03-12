@@ -13,5 +13,10 @@ namespace SGame
         /// 角色类型
         /// </summary>
         public int roleType;
+
+        /// <summary>
+        /// 角色实例ID
+        /// </summary>
+        public int characterID;
     }
 }

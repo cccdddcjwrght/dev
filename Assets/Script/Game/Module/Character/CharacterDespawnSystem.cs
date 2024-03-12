@@ -39,7 +39,7 @@ namespace SGame
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.WithAll<DespawningEntity>().ForEach((Entity entity, Character character) =>
             {
-                m_destoryGameObject.Add(new EventData() {gameObject = character.gameObject, entity = entity, characterID = character.CharacterID});
+                m_destoryGameObject.Add(new EventData() {gameObject = character != null ? character.gameObject : null, entity = entity, characterID = character.CharacterID});
             }).WithoutBurst().Run();
 
             foreach (var item in m_destoryGameObject)
@@ -47,7 +47,8 @@ namespace SGame
                 EventManager.Instance.Trigger<int>((int)GameEvent.CHARACTER_REMOVE, item.characterID);
                 m_spawnSystem.RemoveCharacrID(item.characterID);
 
-                GameObject.Destroy(item.gameObject);
+                if (item.gameObject != null)
+                    GameObject.Destroy(item.gameObject);
             }
         }
     }

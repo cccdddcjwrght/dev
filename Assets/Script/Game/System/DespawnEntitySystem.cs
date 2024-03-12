@@ -15,7 +15,7 @@ namespace SGame
             m_entitys = new List<Entity>(10);
             m_commanderBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         }
-
+        
         protected override void OnUpdate()
         {
             if (m_entitys.Count == 0)

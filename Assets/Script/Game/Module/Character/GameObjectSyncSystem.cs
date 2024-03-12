@@ -11,10 +11,13 @@ namespace SGame
     {
         protected override void OnUpdate()
         {
-            Entities.WithAll<GameObjectSyncTag>().ForEach((Entity e, Transform trans, in Translation t, in Rotation rot ) =>
+            Entities.WithNone<DespawningEntity>().WithAll<GameObjectSyncTag>().ForEach((Entity e, Transform trans, in Translation t, in Rotation rot ) =>
             {
-                trans.position = t.Value;
-                trans.rotation = rot.Value;
+                if (trans != null)
+                {
+                    trans.position = t.Value;
+                    trans.rotation = rot.Value;
+                }
             }).WithoutBurst().Run();
         }
     }

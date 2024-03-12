@@ -73,7 +73,16 @@ namespace SGame
         {
             m_slot = gameObject.AddComponent<Equipments>();
         }
-        
+
+        private void OnDestroy()
+        {
+            DespawnEntitySystem sys = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
+            if (entityManager.Exists(entity) && !entityManager.HasComponent<DespawningEntity>(entity))
+            {
+                sys.DespawnEntity(entity);
+            }
+        }
+
         /// <summary>
         /// 初始化角色
         /// </summary>
