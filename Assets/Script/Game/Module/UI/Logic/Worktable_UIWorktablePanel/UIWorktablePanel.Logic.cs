@@ -150,10 +150,10 @@ namespace SGame.UI
 			switch (DataCenter.MachineUtil.CheckCanActiveMachine(info.mid))
 			{
 				case Error_Code.MACHINE_DEPENDS_NOT_ENABLE:
-					Debug.Log("前置条件不满足，无法解锁");
+					"@tips_unlock_fail".Tips();
 					break;
 				case Error_Code.ITEM_NOT_ENOUGH:
-					Debug.Log("消耗道具不足");
+					"@tips_unlock_item_not_enough".Tips();
 					break;
 				case 0:
 					DataCenter.MachineUtil.AddMachine(info.mid);
@@ -169,13 +169,14 @@ namespace SGame.UI
 			{
 				case Error_Code.LV_MAX:
 					Debug.Log($"{info.id} Lv Max!!!");
+					"@tips_lv_max".Tips();
 					break;
 				case Error_Code.ITEM_NOT_ENOUGH:
 					Debug.Log($"{info.id} 升级道具不足!!!");
+					"@tips_uplv_item_not_enough".Tips();
 					break;
 				case 0:
 					DataCenter.MachineUtil.UpdateLevel(info.id, 0);
-					//Debug.Log($"{info.id} : Lv -> {data.level}");
 					LevelRefresh();
 					ShowUplevelEffect();
 					EffectSystem.Instance.AddEffect(2, m_view.m_click);
