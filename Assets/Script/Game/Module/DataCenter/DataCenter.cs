@@ -126,7 +126,7 @@ namespace SGame
 			}
 			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 
-			var scene = roomData.current.id;
+			var scene = roomData.roomID <= 0 ? 1 : roomData.roomID;
 			var ud = GetUserData();
 			ud.scene = scene;
 			SetUserData(ud);
