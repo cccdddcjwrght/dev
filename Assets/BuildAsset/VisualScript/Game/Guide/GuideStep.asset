@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: GuideStep
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[{"key":"Input","label":null,"summary":null,"hideLabel":false}],"controlOutputDefinitions":[{"key":"Output","label":null,"summary":null,"hideLabel":false}],"valueInputDefinitions":[{"hasDefaultValue":false,"defaultValue":{"$content":0,"$type":"System.Int32"},"_type":"System.Int32","key":"Step","label":null,"summary":null,"hideLabel":false},{"hasDefaultValue":true,"defaultValue":{"$content":0,"$type":"System.Int32"},"_type":"System.Int32","key":"MaxStep","label":null,"summary":null,"hideLabel":false}],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":-191.4447,"y":-130.2569},"zoom":1.0,"elements":[{"defaultValues":{},"position":{"x":390.0,"y":-104.0},"guid":"f0e18ec1-0811-4526-b34c-579478ec5184","$version":"A","$type":"Unity.VisualScripting.GraphOutput","$id":"13"},{"defaultValues":{},"position":{"x":-639.0,"y":-140.0},"guid":"6eb698ab-6607-4810-8d06-044ac42e9b45","$version":"A","$type":"Unity.VisualScripting.GraphInput","$id":"15"},{"defaultValues":{},"position":{"x":74.0,"y":-145.0},"guid":"583c0697-f429-451e-947d-538184f61184","$version":"A","$type":"Unity.VisualScripting.If","$id":"17"},{"numeric":false,"defaultValues":{},"position":{"x":-167.0,"y":-30.0},"guid":"a8819955-68cf-46d6-bb2f-dd73060f2e4b","$version":"A","$type":"Unity.VisualScripting.Equal","$id":"19"},{"sourceUnit":{"$ref":"17"},"sourceKey":"ifTrue","destinationUnit":{"$ref":"13"},"destinationKey":"Output","guid":"51206dcd-5530-4ecf-bbdf-c750343cc662","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"15"},"sourceKey":"Input","destinationUnit":{"$ref":"17"},"destinationKey":"enter","guid":"97189bd6-990f-4d64-b8ee-0ed7b088d2ca","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"15"},"sourceKey":"MaxStep","destinationUnit":{"$ref":"19"},"destinationKey":"b","guid":"81262a64-d645-4bc0-8cf1-4e716f2d0af3","$type":"Unity.VisualScripting.ValueConnection"},{"sourceUnit":{"$ref":"19"},"sourceKey":"equal","destinationUnit":{"$ref":"17"},"destinationKey":"condition","guid":"5c9facb6-8d23-4c8b-9c90-09cdfc9a457a","$type":"Unity.VisualScripting.ValueConnection"},{"sourceUnit":{"$ref":"15"},"sourceKey":"Step","destinationUnit":{"$ref":"19"},"destinationKey":"a","guid":"0c422097-f4ba-45ef-aac5-f0184df68b5b","$type":"Unity.VisualScripting.ValueConnection"}],"$version":"A"}}'
+    _objectReferences: []

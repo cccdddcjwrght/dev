@@ -86,5 +86,10 @@ namespace SGame
 		SETTING_UPDATE_HEAD				= 8003,     //头像更新
 		SETTING_UPDATE_NAME				= 8004,     //名字更新
 		
+		//新手引导===================================
+		GUIDE_START                     = 9001,
+		GUIDE_STEP                      = 9002,
+
+
 	}
 }

@@ -1,6 +1,7 @@
 ﻿
 using Unity.Entities;
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace SGame
 {
@@ -10,5 +11,18 @@ namespace SGame
     public class UIParam : IComponentData
     {
         public object Value;
+    }
+
+    /// <summary>
+    /// UI位置
+    /// </summary>
+    public class UIPos : IComponentData
+    {
+        public Vector2Int pos;
+    }
+
+    public class UISize : IComponentData
+    {
+        public Vector2Int size;
     }
 }

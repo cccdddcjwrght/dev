@@ -15,6 +15,7 @@ namespace SGame
 	public class GameModuleSingle : IModule
 	{
 		private const string script = "Assets/BuildAsset/VisualScript/Prefabs/Game.prefab";
+		private const string guidescript = "Assets/BuildAsset/VisualScript/Prefabs/Guide.prefab";
 
 
 		public GameModuleSingle(
@@ -109,7 +110,10 @@ namespace SGame
 			AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
 
 			var prefab = m_resourceManager.LoadPrefab(script);
+			var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
 			var go = GameObject.Instantiate(prefab);
+			var guideGo = GameObject.Instantiate(guidePrefab);
+
 
 			yield return TestData();
 
@@ -123,6 +127,7 @@ namespace SGame
 			}
 
 			GameObject.Destroy(go);
+			GameObject.Destroy(guideGo);
 		}
 
 

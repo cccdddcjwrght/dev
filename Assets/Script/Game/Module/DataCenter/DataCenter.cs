@@ -18,11 +18,17 @@ namespace SGame
 
 		// 用户数据
 		public Entity m_data;
+		[SerializeField]
 		public AccountData accountData = new AccountData();
+		
+		[SerializeField]
 		public AbilityData abilityData = new AbilityData();
 		
 		[SerializeField]
 		public SetData setData = new SetData();
+		
+		[SerializeField]
+		public GuideData guideData= new GuideData();
 
 		[SerializeField]
 		private ItemData itemData = new ItemData();

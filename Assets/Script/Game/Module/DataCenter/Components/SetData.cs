@@ -5,6 +5,7 @@ using System.Linq;
 using GameConfigs;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Avatar = GameConfigs.Avatar;
 
 namespace SGame
 {
@@ -32,6 +33,21 @@ namespace SGame
         }
 
         public List<SetItemData> setItemDataList = new List<SetItemData>();
+
+
+        public class HeadFrameData
+        {
+            public int id;
+            public int type;
+            public string icon;
+            public bool isCheck;
+            public bool isLock;
+        }
+
+        public List<HeadFrameData> headDataList = new List<HeadFrameData>();
+        public List<HeadFrameData> freamDataList = new List<HeadFrameData>();
+
+
 
         /// <summary>
         /// 初始化设置表格内容
@@ -89,9 +105,50 @@ namespace SGame
             }
             return setItemDataList[index];
         }
+
+        public void InitHeadFrameData()
+        {
+            if (ConfigSystem.Instance.TryGets(item => (item).Type == 1,
+                    out List<AvatarRowData> headConfigs))
+            {
+                foreach (var item in headConfigs)
+                {
+                    headDataList.Add(new HeadFrameData()
+                    {
+                        id=item.AvatarId,
+                        icon = item.Icon,
+                        isCheck = item.Rank==1?true:false,
+                        isLock =  item.Rank==1?true:false,
+                    });
+                }
+                
+            }else if (ConfigSystem.Instance.TryGets(item => (item).Type == 2,
+                          out List<AvatarRowData> freamConfigs))
+            {
+                foreach (var item in freamConfigs)
+                {
+                    freamDataList.Add(new HeadFrameData()
+                    {
+                        id=item.AvatarId,
+                        icon = item.Icon,
+                        isCheck = item.Rank==1,
+                        isLock =  item.Rank==1
+                    });
+                }
+            }
+        }
        
-      
-        
+        public void SetHeadFrame(int type,int id,bool isLock)
+        {
+            if (type == 1)
+            {
+                headDataList[id].isLock = isLock;
+            }else if(type == 2)
+            {
+                freamDataList[id].isLock = isLock;
+            }
+        }
+
     }
 }
 

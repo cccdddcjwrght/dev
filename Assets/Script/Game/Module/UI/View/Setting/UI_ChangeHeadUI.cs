@@ -7,7 +7,7 @@ namespace SGame.UI.Setting
 {
     public partial class UI_ChangeHeadUI : GComponent
     {
-        public Controller m_c1;
+        public Controller m_State;
         public GLabel m_body;
         public GImage m_n16;
         public GImage m_n18;
@@ -28,7 +28,7 @@ namespace SGame.UI.Setting
         {
             base.ConstructFromXML(xml);
 
-            m_c1 = GetControllerAt(0);
+            m_State = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
             m_n16 = (GImage)GetChildAt(1);
             m_n18 = (GImage)GetChildAt(2);

@@ -22,7 +22,7 @@ namespace SGame.VS
         
         [DoNotSerialize]
         public ValueInput uiParam;
-        
+
         [DoNotSerialize]
         public ValueOutput result;
         
@@ -34,7 +34,7 @@ namespace SGame.VS
             // 打开UI
             inputTrigger = ControlInput("Input", (flow) =>
             {
-                //Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
+               
                 EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 Entity ui = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiName)));
 
@@ -51,7 +51,7 @@ namespace SGame.VS
                 return outputTrigger;
             });
             
-            uiName = ValueInput<string>("UIName", "");
+            uiName  = ValueInput<string>("UIName", "");
             uiParam = ValueInput<object>("UIParam", null);
             outputTrigger = ControlOutput("Output");
             result = ValueOutput<Vector2Int>("UI Entity", (flow) => resultValue);

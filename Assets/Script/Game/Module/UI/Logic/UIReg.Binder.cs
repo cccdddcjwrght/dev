@@ -25,10 +25,13 @@ namespace SGame.UI{
 			context.uiModule.Reg("RedpointUI", "Common", ()=>new UIRedpoint());
 			context.uiModule.Reg("HudUI", "Hud", ()=>new UIHud());SGame.UI.Hud.HudBinder.BindAll();;
 			context.uiModule.Reg("OfflineUI", "Offline", ()=>new UIOffline());SGame.UI.Offline.OfflineBinder.BindAll();;
-			context.uiModule.Reg("PlayerUI", "Player", ()=>new UIPlayer());SGame.UI.Player.PlayerBinder.BindAll();;
+			context.uiModule.Reg("GuideUI", "Guide", ()=>new UIGuide());SGame.UI.Guide.GuideBinder.BindAll();;
+			context.uiModule.Reg("GuideFingerUI", "Guide", ()=>new UIGuideFinger());
+            context.uiModule.Reg("PlayerUI", "Player", ()=>new UIPlayer());SGame.UI.Player.PlayerBinder.BindAll();;
 			context.uiModule.Reg("GameTipUI", "Hud", ()=>new UIGameTip());
 			context.uiModule.Reg("SystemTipUI", "Hud", ()=>new UISystemTip());
-			context.uiModule.Reg("DecorUI", "SceneDecor", ()=>new UIDecor());SGame.UI.SceneDecor.SceneDecorBinder.BindAll();;
+            context.uiModule.Reg("DecorUI", "SceneDecor", ()=>new UIDecor());SGame.UI.SceneDecor.SceneDecorBinder.BindAll();;
+			context.uiModule.Reg("GuideMaskUI", "Guide", ()=>new UIGuideMask());
 		}
 	}
 }

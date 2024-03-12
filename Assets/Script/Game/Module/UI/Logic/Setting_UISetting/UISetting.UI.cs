@@ -16,7 +16,7 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick));
 			m_view.m_name.m_c1.onChanged.Add(new EventCallback1(_OnNameComponent_C1Changed));
-			UIListener.ListenerIcon(m_view.m_name, new EventCallback1(_OnNameClick));
+			UIListener.Listener(m_view.m_name, new EventCallback1(_OnNameClick));
 			m_view.m_signBtn.m_signSate.onChanged.Add(new EventCallback1(_OnSignBtn_SignSateChanged));
 			UIListener.Listener(m_view.m_signBtn, new EventCallback1(_OnSignBtnClick));
 
@@ -25,7 +25,7 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick),remove:true);
 			m_view.m_name.m_c1.onChanged.Remove(new EventCallback1(_OnNameComponent_C1Changed));
-			UIListener.ListenerIcon(m_view.m_name, new EventCallback1(_OnNameClick),remove:true);
+			UIListener.Listener(m_view.m_name, new EventCallback1(_OnNameClick),remove:true);
 			m_view.m_signBtn.m_signSate.onChanged.Remove(new EventCallback1(_OnSignBtn_SignSateChanged));
 			UIListener.Listener(m_view.m_signBtn, new EventCallback1(_OnSignBtnClick),remove:true);
 
@@ -56,6 +56,8 @@ namespace SGame.UI{
 			OnNameClick(data);
 		}
 		partial void OnNameClick(EventContext data);
+		void SetNameText(string data)=>UIListener.SetText(m_view.m_name,data);
+		string GetNameText()=>UIListener.GetText(m_view.m_name);
 		void SetAllNameText(string data)=>UIListener.SetText(m_view.m_allName,data);
 		string GetAllNameText()=>UIListener.GetText(m_view.m_allName);
 		void _OnSignBtn_SignSateChanged(EventContext data){
@@ -69,6 +71,8 @@ namespace SGame.UI{
 			OnSignBtnClick(data);
 		}
 		partial void OnSignBtnClick(EventContext data);
+		void SetSignBtnText(string data)=>UIListener.SetText(m_view.m_signBtn,data);
+		string GetSignBtnText()=>UIListener.GetText(m_view.m_signBtn);
 		void SetIdText(string data)=>UIListener.SetText(m_view.m_id,data);
 		string GetIdText()=>UIListener.GetText(m_view.m_id);
 

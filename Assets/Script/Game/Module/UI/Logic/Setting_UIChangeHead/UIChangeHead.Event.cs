@@ -13,5 +13,20 @@ namespace SGame.UI{
 		partial void UnInitEvent(UIContext context){
 
 		}
+
+		partial void OnHeadClick(EventContext data)
+		{
+			OnTabClick(0);
+		}
+
+		partial void OnFrameClick(EventContext data)
+		{
+			OnTabClick(1);
+		}
+
+		private void OnTabClick(int index)
+		{
+			
+		}
 	}
 }

@@ -13,7 +13,7 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
-			m_view.m_c1.onChanged.Add(new EventCallback1(_OnC1Changed));
+			m_view.m_State.onChanged.Add(new EventCallback1(_OnStateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick));
 			UIListener.Listener(m_view.m_frame, new EventCallback1(_OnFrameClick));
@@ -21,18 +21,18 @@ namespace SGame.UI{
 
 		}
 		partial void UnInitUI(UIContext context){
-			m_view.m_c1.onChanged.Remove(new EventCallback1(_OnC1Changed));
+			m_view.m_State.onChanged.Remove(new EventCallback1(_OnStateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick),remove:true);
 			UIListener.Listener(m_view.m_frame, new EventCallback1(_OnFrameClick),remove:true);
 			UIListener.Listener(m_view.m_icon, new EventCallback1(_OnIconClick),remove:true);
 
 		}
-		void _OnC1Changed(EventContext data){
-			OnC1Changed(data);
+		void _OnStateChanged(EventContext data){
+			OnStateChanged(data);
 		}
-		partial void OnC1Changed(EventContext data);
-		void SwitchC1Page(int index)=>m_view.m_c1.selectedIndex=index;
+		partial void OnStateChanged(EventContext data);
+		void SwitchStatePage(int index)=>m_view.m_State.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

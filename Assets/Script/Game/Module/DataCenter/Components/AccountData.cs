@@ -24,6 +24,11 @@ namespace SGame
 		public string mail;
 
 		public string playerName;
+		public int head;
+		public int frame;
+		
+		public List<int> heads = new List<int>();
+		public List<int> frames = new List<int>();
 
 		/// <summary>
 		/// 记录事件

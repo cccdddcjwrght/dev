@@ -15,6 +15,7 @@ namespace SGame.UI.Common
         public Controller m_iconImage;
         public Controller m_gray;
         public Controller m_limit;
+        public Controller m_iconsize;
         public GLoader m_bg;
         public GTextField m_iconTitle;
         public GGraph m___effect;
@@ -37,6 +38,7 @@ namespace SGame.UI.Common
             m_iconImage = GetControllerAt(6);
             m_gray = GetControllerAt(7);
             m_limit = GetControllerAt(8);
+            m_iconsize = GetControllerAt(9);
             m_bg = (GLoader)GetChildAt(0);
             m_iconTitle = (GTextField)GetChildAt(3);
             m___effect = (GGraph)GetChildAt(4);
