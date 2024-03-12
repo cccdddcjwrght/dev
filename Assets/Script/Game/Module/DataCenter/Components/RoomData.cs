@@ -102,7 +102,10 @@ namespace SGame
 								if (cfg.TableIdLength > 1)
 								{
 									if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(Math.Abs(cfg.TableId(1)), out var m))
+									{
 										tid = MapAgent.XYToCellIndex(m.ObjId(1), m.ObjId(2));
+										EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_TABLE), cfg.TableId(1));
+									}
 								}
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, tid);
 							}
