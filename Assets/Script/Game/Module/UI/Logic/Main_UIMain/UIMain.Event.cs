@@ -68,7 +68,7 @@ namespace SGame.UI
 
 		partial void OnLevelBtnClick(EventContext data)
 		{
-			if (!DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
+			if (DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
 			{
 				Dining.DiningRoomSystem.Instance.LoadRoom(DataCenter.Instance.roomData.current.id + 1).Start();
 			}
