@@ -370,7 +370,6 @@ namespace SGame
 	[System.Serializable]
 	public class WorktableData
 	{
-
 		public List<Worktable> machines = new List<Worktable>();
 	}
 
