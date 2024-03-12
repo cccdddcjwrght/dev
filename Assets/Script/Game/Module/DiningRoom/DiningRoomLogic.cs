@@ -771,7 +771,9 @@ namespace SGame.Dining
 			if (ws?.Count > 0)
 			{
 				if (ws.All(w => w.level >= w.maxlv))
+				{
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_ALL_MAX_LV));
+				}
 			}
 		}
 

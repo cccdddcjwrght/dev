@@ -66,6 +66,18 @@ namespace SGame.UI
 			"leveltech".Goto();
 		}
 
+		partial void OnLevelBtnClick(EventContext data)
+		{
+			if (!DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
+			{
+				Dining.DiningRoomSystem.Instance.LoadRoom(DataCenter.Instance.roomData.current.id + 1).Start();
+			}
+			else
+			{
+				"@ui_worktable_goto_next_fail".Tips();
+			}
+		}
+
 		partial void UnInitEvent(UIContext context)
 		{
 			m_handles.Close();

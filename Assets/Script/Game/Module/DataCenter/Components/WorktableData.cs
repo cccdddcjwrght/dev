@@ -102,13 +102,13 @@ namespace SGame
 				return val;
 			}
 
-			public static List<Worktable> GetWorktables(Func<Worktable , bool> condition)
+			public static List<Worktable> GetWorktables(Func<Worktable, bool> condition)
 			{
 				if (condition != null)
 				{
 					var ws = GetWorktables();
-					if(ws?.Count > 0)
-						return ws.FindAll( w => condition(w));
+					if (ws?.Count > 0)
+						return ws.FindAll(w => condition(w));
 				}
 				return default;
 			}
@@ -328,6 +328,14 @@ namespace SGame
 				if (ConfigSystem.Instance.TryGet(lvmax, out MachineUpgradeRowData lv))
 					return lv.MachineStar;
 				return 0;
+			}
+
+			public static bool CheckAllWorktableIsMaxLv()
+			{
+				var ws = GetWorktables(w => !w.isTable && w.level > 0);
+				if (ws?.Count > 0)
+					return ws.All(w => w.level >= w.maxlv);
+				return false;
 			}
 
 			private static Worktable AddWorktable(int id, int scene)
