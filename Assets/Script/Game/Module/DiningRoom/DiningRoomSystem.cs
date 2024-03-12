@@ -52,8 +52,11 @@ namespace SGame.Dining
 						req.onStateChange += progress;
 					lastLogic?.Close();
 					((Func<bool>)(() => req.isDone)).Wait(OnEnterRoomCompleted);
-					EventManager.Instance.Trigger(((int)GameEvent.PREPARE_LEVEL_ROOM));
+					if (lastLogic != null)
+						EventManager.Instance.Trigger(((int)GameEvent.PREPARE_LEVEL_ROOM));
 					_sceneFlag = _gameWorld.GetEntityManager().CreateEntity(typeof(LevelScene));
+					lastLogic = default;
+
 					return req;
 				}
 			}
