@@ -22,7 +22,7 @@ namespace SGame
         /// <summary>
         /// 角色类型
         /// </summary>
-        public int roleType;
+        public EnumRole roleType;
     }
     
     /// <summary>
@@ -49,7 +49,7 @@ namespace SGame
         /// <param name="pos"></param>
         public void RecordRole(int roleType, int num, int pos)
         {
-            roleDatas.Add(new RecordRoleData(){roleType = roleType, Num = num, pos = pos});
+            roleDatas.Add(new RecordRoleData(){roleType = (EnumRole)roleType, Num = num, pos = pos});
         }
 
         /// <summary>
@@ -59,11 +59,10 @@ namespace SGame
         /// <returns></returns>
         public List<RecordRoleData> GetData(EnumRole roleType)
         {
-            int checkType = (int)roleType;
             List<RecordRoleData> ret = new List<RecordRoleData>();
             foreach (var item in roleDatas)
             {
-                if (item.roleType == checkType)
+                if (item.roleType == roleType)
                     ret.Add(item);
             }
             return ret;
@@ -74,6 +73,7 @@ namespace SGame
         /// </summary>
         void OnPerpareLeaveRoom()
         {
+            //Convert.ToInt32()
             roleDatas.Clear();
         }
     }

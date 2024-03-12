@@ -58,7 +58,7 @@ namespace SGame.VS
         [DoNotSerialize]
         public ValueOutput roleNum { get; private set; }
 
-        private RoleType    _roleType;
+        private EnumRole    _roleType;
         private int         _roleNum;
         private List<int>   _roleIDs = new List<int>();
         private List<int>   _weights = new List<int>();
@@ -67,7 +67,7 @@ namespace SGame.VS
         {
             inputTrigger = ControlInput("input", (flow) =>
             {
-                _roleType = flow.GetValue<RoleType>(roleType);
+                _roleType = flow.GetValue<EnumRole>(roleType);
                 var id = flow.GetValue<int>(mapID);
                 _roleIDs.Clear();
                 _weights.Clear();
@@ -84,8 +84,8 @@ namespace SGame.VS
             outputFail    = ControlOutput("Fail");
 
             mapID       = ValueInput<int>("mapID");
-            roleType    = ValueInput<RoleType>("roleType", RoleType.CUSTOMER);
-            roleType2   = ValueOutput<RoleType>("roleType", (flow) => _roleType);
+            roleType    = ValueInput<EnumRole>("roleType", EnumRole.Customer);
+            roleType2   = ValueOutput<EnumRole>("roleType", (flow) => _roleType);
             roleNum     = ValueOutput<int>("roleNum", (flow) => _roleNum);
             RoleIDs     = ValueOutput<List<int>>("roleIDs", (flow) => _roleIDs);
             Weights     = ValueOutput<List<int>>("weights", (flow) => _weights);
@@ -97,23 +97,23 @@ namespace SGame.VS
         /// <param name="t"></param>
         /// <param name="config"></param>
         /// <returns></returns>
-        static int GetRoleNum(RoleType t, LevelRowData config)
+        static int GetRoleNum(EnumRole t, LevelRowData config)
         {
             switch (t)
             {
-                case RoleType.CHEF:
+                case EnumRole.Cook:
                     return config.ChefNum;
                     
-                case RoleType.CAR:
+                case EnumRole.Car:
                     return config.CarNum;
                 
-                case RoleType.PLAYER:
+                case EnumRole.Player:
                     return 1;
                 
-                case RoleType.WAITER:
+                case EnumRole.Waiter:
                     return config.WaiterNum;
                 
-                case RoleType.CUSTOMER:
+                case EnumRole.Customer:
                     return config.CustomerNum;
             }
 
@@ -121,31 +121,31 @@ namespace SGame.VS
             return 0;
         }
 
-        static bool GetRoleIDs(RoleType t, LevelRowData config, List<int> roleIds, List<int> weights)
+        static bool GetRoleIDs(EnumRole t, LevelRowData config, List<int> roleIds, List<int> weights)
         {
             switch (t)
             {
-                case RoleType.CAR:
+                case EnumRole.Car:
                     roleIds.AddRange(config.GetCarIdArray());
                     weights.AddRange(config.GetCarWeightArray());
                     return true;
                 
-                case RoleType.CHEF:
+                case EnumRole.Cook:
                     roleIds.Add(config.ChefId);
                     weights.Add(100);
                     return true;
                 
-                case RoleType.PLAYER:
+                case EnumRole.Player:
                     roleIds.Add(config.PlayerId);
                     weights.Add(100);
                     return true;
                 
-                case RoleType.WAITER:
+                case EnumRole.Waiter:
                     roleIds.Add(config.WaiterId);
                     weights.Add(100);
                     return true;
                 
-                case RoleType.CUSTOMER:
+                case EnumRole.Customer:
                     roleIds.AddRange(config.GetCustomerIdArray());
                     weights.AddRange(config.GetCustomerWeightArray());
                     return true;

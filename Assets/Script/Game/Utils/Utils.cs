@@ -211,18 +211,17 @@ namespace SGame
 		/// <returns></returns>
 		public static EnumTarget GetTargetFromRoleType(int roleType)
 		{
-			RoleType r = (RoleType)roleType;
+			EnumRole r = (EnumRole)roleType;
 			switch (roleType)
 			{
-				case (int)RoleType.CHEF:
+				case (int)EnumRole.Cook:
 					return EnumTarget.Cook;
-				case (int)RoleType.WAITER:
+				case (int)EnumRole.Waiter:
 					return EnumTarget.Waiter;
-				case (int)RoleType.CUSTOMER:
-				case (int)RoleType.CAR:
+				case (int)EnumRole.Customer:
+				case (int)EnumRole.Car:
 					return EnumTarget.Customer;
 			}
-
 			return EnumTarget.Player;
 		}
 
@@ -235,12 +234,12 @@ namespace SGame
 		{
 			switch (roleType)
 			{
-				case (int)RoleType.CHEF:
-				case (int)RoleType.PLAYER:
+				case (int)EnumRole.Cook:
+				case (int)EnumRole.Player:
 					return "born_0";
-				case (int)RoleType.WAITER:
+				case (int)EnumRole.Waiter:
 					return "born_1";
-				case (int)RoleType.CUSTOMER:
+				case (int)EnumRole.Customer:
 					return "born_3";
 			}
 
@@ -252,7 +251,7 @@ namespace SGame
 		/// </summary>
 		/// <param name="roleType"></param>
 		/// <returns></returns>
-		public static EnumTarget GetTargetFromRoleTypeEnum(RoleType roleType)
+		public static EnumTarget GetTargetFromRoleTypeEnum(EnumRole roleType)
 		{
 			return GetTargetFromRoleType((int)roleType);
 		}
@@ -262,7 +261,7 @@ namespace SGame
 		/// </summary>
 		/// <param name="roleType"></param>
 		/// <returns></returns>
-		public static string GetMapTagFromRoleTypeEnum(RoleType roleType)
+		public static string GetMapTagFromRoleTypeEnum(EnumRole roleType)
 		{
 			return GetMapTagFromRoleType((int)roleType);
 		}

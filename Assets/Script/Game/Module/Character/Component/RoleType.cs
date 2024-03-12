@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace SGame
 {
+    /*
     /// <summary>
     /// 角色类型定义
     /// </summary>
@@ -16,4 +17,5 @@ namespace SGame
         CAR      = 4,
         PLAYER   = 5,
     }
+    */
 }

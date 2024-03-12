@@ -76,6 +76,9 @@ namespace SGame
 
         private void OnDestroy()
         {
+            if (!Application.isPlaying)
+                return;
+            
             DespawnEntitySystem sys = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
             if (entityManager.Exists(entity) && !entityManager.HasComponent<DespawningEntity>(entity))
             {
