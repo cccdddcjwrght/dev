@@ -353,7 +353,7 @@ namespace SGame
 		public void Clear()
 		{
 			_values = null;
-			_indexs.Clear();
+			//_indexs.Clear();
 		}
 
 		public AttributeList Copy()
