@@ -108,6 +108,14 @@ namespace SGame
 			if (_registers.TryGetValue(id, out var c))
 			{
 				c -= call;
+				if (c != null)
+				{
+					_registers[id] = c;
+				}
+				else
+				{
+					_registers.Remove(id);
+				}
 			}
 		}
 
