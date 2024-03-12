@@ -34,7 +34,6 @@ namespace SGame.UI{
 			}
 			
 			setList = m_view.m_list;
-			
 			setList.itemRenderer = RenderListItem;
 			setList.numItems = _setItemDataList.Count;
 			m_handles+=EventManager.Instance.Reg<string,int>(((int)GameEvent.SETTING_UPDATE_INT), OnIntSetting);

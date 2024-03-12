@@ -138,6 +138,20 @@ namespace SGame
 				{
 					switch (cfg.OpenType)
 					{
+						
+						case 1://关卡等级
+							if( DataCenter.Instance.GetUserData().scene < cfg.Level(0)|| DataCenter.Instance.GetUserData().scene> cfg.Level(1))
+							{
+								ret = false;
+							}
+							break;
+						
+						case 3:	//条件判断
+							if( DataCenter.Instance.guideData.guideStep < cfg.GuideId)
+							{
+								ret = false;
+							}
+							break;
 
 						case 5://关卡点位数量
 							if( DataCenter.Instance.roomData.current.worktableCount < cfg.OpenVal(0))

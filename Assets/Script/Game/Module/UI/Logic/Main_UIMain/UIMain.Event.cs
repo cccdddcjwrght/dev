@@ -1,5 +1,6 @@
 ﻿
 
+using System.Collections.Generic;
 using GameConfigs;
 using Unity.Entities;
 
@@ -14,15 +15,31 @@ namespace SGame.UI
 	public partial class UIMain
 	{
 		private EventHandleContainer m_handles = new EventHandleContainer();
+		private GList leftList;
 
 		partial void InitEvent(UIContext context)
 		{
-			var leftList = m_view.m_leftList.m_left;
+			leftList= m_view.m_leftList.m_left;
 			var headBtn = m_view.m_head;
 			leftList.itemRenderer += RenderListItem;
 			leftList.numItems = 3;
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
+			OnEventRefreshItem();
+		}
+
+		private void OnEventRefreshItem()
+		{
+			var levelBtn = m_view.m_levelBtn;
+			levelBtn.visible = 15.IsOpend(false);
+			var adBtn = m_view.m_AdBtn;
+			adBtn.visible = 16.IsOpend(false);
+			var leveltechBtn = m_view.m_taskRewardBtn;
+			leveltechBtn.visible = 13.IsOpend(false);
+			leftList.GetChildAt(0).visible = 12.IsOpend(false);
+			leftList.GetChildAt(1).visible = 17.IsOpend(false);
+			leftList.GetChildAt(2).visible = 14.IsOpend(false);
 		}
 
 		private void RenderListItem(int index, GObject item)
@@ -35,8 +52,7 @@ namespace SGame.UI
 						"player".Goto();
 						break;
 					case 1:
-						Debug.Log("点击了" + item);
-						Entity techUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("technology"));
+						"technology".Goto();
 						break;
 				}
 			});
