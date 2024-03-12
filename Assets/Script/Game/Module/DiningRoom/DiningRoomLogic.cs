@@ -748,7 +748,8 @@ namespace SGame.Dining
 				if (needload)
 				{
 					3.ToAudioID().PlayAudio();
-					EffectSystem.Instance.AddEffect(1, p.transform.gameObject);
+					if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(p.cfgID, out var c) && c.ActiveEffect == 1)
+						EffectSystem.Instance.AddEffect(1, p.transform.gameObject);
 				}
 			}
 		}
@@ -766,9 +767,10 @@ namespace SGame.Dining
 			if (r.data.level > 1 && r.data.addProfit == 0)
 				7.ToAudioID().PlayAudio();
 
-			 var ws = DataCenter.MachineUtil.GetWorktables(w => !w.isTable && w.level >0 );
-			if (ws?.Count > 0) {
-				if(ws.All(w => w.level >= w.maxlv))
+			var ws = DataCenter.MachineUtil.GetWorktables(w => !w.isTable && w.level > 0);
+			if (ws?.Count > 0)
+			{
+				if (ws.All(w => w.level >= w.maxlv))
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_ALL_MAX_LV));
 			}
 		}

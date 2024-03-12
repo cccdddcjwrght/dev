@@ -62,6 +62,7 @@ public struct RoomMachineRowData : IFlatbufferObject
 #endif
   public int[] GetHudOffsetArray() { return __p.__vector_as_array<int>(28); }
   public int Walkable { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ActiveEffect { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomMachineRowData> CreateRoomMachineRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -77,8 +78,10 @@ public struct RoomMachineRowData : IFlatbufferObject
       VectorOffset LinkTagsOffset = default(VectorOffset),
       StringOffset TipsAssetOffset = default(StringOffset),
       VectorOffset HudOffsetOffset = default(VectorOffset),
-      int Walkable = 0) {
-    builder.StartTable(14);
+      int Walkable = 0,
+      int ActiveEffect = 0) {
+    builder.StartTable(15);
+    RoomMachineRowData.AddActiveEffect(builder, ActiveEffect);
     RoomMachineRowData.AddWalkable(builder, Walkable);
     RoomMachineRowData.AddHudOffset(builder, HudOffsetOffset);
     RoomMachineRowData.AddTipsAsset(builder, TipsAssetOffset);
@@ -96,7 +99,7 @@ public struct RoomMachineRowData : IFlatbufferObject
     return RoomMachineRowData.EndRoomMachineRowData(builder);
   }
 
-  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(14); }
+  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(15); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddScene(FlatBufferBuilder builder, int Scene) { builder.AddInt(1, Scene, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -126,6 +129,7 @@ public struct RoomMachineRowData : IFlatbufferObject
   public static VectorOffset CreateHudOffsetVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartHudOffsetVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddWalkable(FlatBufferBuilder builder, int Walkable) { builder.AddInt(13, Walkable, 0); }
+  public static void AddActiveEffect(FlatBufferBuilder builder, int ActiveEffect) { builder.AddInt(14, ActiveEffect, 0); }
   public static Offset<GameConfigs.RoomMachineRowData> EndRoomMachineRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomMachineRowData>(o);
