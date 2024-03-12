@@ -50,8 +50,8 @@ namespace SGame.UI{
 		}
 		partial void OnNameComponent_C1Changed(EventContext data);
 		void SwitchNameComponent_C1Page(int index)=>m_view.m_name.m_c1.selectedIndex=index;
-		void SetNameComponent_TitleText(string data)=>UIListener.SetText(m_view.m_name.m_title,data);
-		string GetNameComponent_TitleText()=>UIListener.GetText(m_view.m_name.m_title);
+		void SetNameComponent_TitleText(string data)=>UIListener.SetText(m_view.m_name.m___title,data);
+		string GetNameComponent_TitleText()=>UIListener.GetText(m_view.m_name.m___title);
 		void _OnNameClick(EventContext data){
 			OnNameClick(data);
 		}

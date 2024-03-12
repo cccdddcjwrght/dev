@@ -33,11 +33,7 @@ namespace SGame
 			if (!string.IsNullOrEmpty(m_view.m_account.text))
 			{
 				PlayerPrefs.SetString("user", m_view.m_account.text);
-				if (DataCenter.Instance.accountData.playerName == null)
-				{
-					DataCenter.Instance.accountData.playerName=m_view.m_account.text;
-				}
-				 
+
 				//
 				// WaitHttp.Request("login", HttpMethod.GET)
 				// 	.SetData(0, "user_id", m_view.m_account.text)

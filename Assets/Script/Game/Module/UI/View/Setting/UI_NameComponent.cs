@@ -9,7 +9,7 @@ namespace SGame.UI.Setting
     {
         public Controller m_c1;
         public GLoader m_icon;
-        public GTextField m_title;
+        public GTextField m___title;
         public const string URL = "ui://dpgt0e2zn1bm1c";
 
         public static UI_NameComponent CreateInstance()
@@ -23,7 +23,7 @@ namespace SGame.UI.Setting
 
             m_c1 = GetControllerAt(0);
             m_icon = (GLoader)GetChildAt(0);
-            m_title = (GTextField)GetChildAt(1);
+            m___title = (GTextField)GetChildAt(1);
         }
     }
 }

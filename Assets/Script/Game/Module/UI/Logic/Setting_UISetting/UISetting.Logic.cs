@@ -28,7 +28,11 @@ namespace SGame.UI{
 		
 		partial void InitLogic(UIContext context)
 		{
-			m_view.m_name.m_title.text = DataCenter.Instance.accountData.playerName;
+			if (DataCenter.Instance.accountData.playerName != null)
+			{
+				m_view.m_name.m___title.text = DataCenter.Instance.accountData.playerName;
+			}
+			
 			setList = m_view.m_list;
 			
 			setList.itemRenderer = RenderListItem;
@@ -46,7 +50,7 @@ namespace SGame.UI{
 
 		private void OnNameSetting(string name)
 		{
-			var title = m_view.m_name.m_title;
+			var title = m_view.m_name.m___title;
 			title.text = name;
 			DataCenter.Instance.accountData.playerName = name;
 		}
