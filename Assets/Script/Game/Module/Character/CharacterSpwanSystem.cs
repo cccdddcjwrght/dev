@@ -199,7 +199,7 @@ namespace SGame
             }).WithoutBurst().Run();
             
             // 等待资源加载并生成对象
-            Entities.ForEach((Entity e, CharacterSpawn req, CharacterSpawnResult result, in CharacterLoading loading) =>
+            Entities.ForEach((Entity e, CharacterSpawnResult result, CharacterSpawn req,  in CharacterLoading loading) =>
             {
                 if (!loading.isDone)
                 {
@@ -243,8 +243,6 @@ namespace SGame
                     ani.transform.localScale = scaleVector;
                 }
                 
-                commandBuffer.DestroyEntity(e);
-
                 c.script = ai;
                 c.model = ani;
                 c.entity = characterEntity;
@@ -257,6 +255,7 @@ namespace SGame
                 commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type, characterID = lasterCharacterID});
                 commandBuffer.SetComponent(characterEntity, new Speed(){Value = roleData.MoveSpeed});
                 commandBuffer.AddComponent(characterEntity, result);
+                commandBuffer.DestroyEntity(e);
             }).WithStructuralChanges().WithoutBurst().Run();
             
             // 等待角色创建完成
