@@ -150,10 +150,10 @@ namespace SGame.UI
 			switch (DataCenter.MachineUtil.CheckCanActiveMachine(info.mid))
 			{
 				case Error_Code.MACHINE_DEPENDS_NOT_ENABLE:
-					"@tips_unlock_fail".Tips();
+					//"@tips_unlock_fail".Tips();
 					break;
 				case Error_Code.ITEM_NOT_ENOUGH:
-					"@tips_unlock_item_not_enough".Tips();
+					//"@tips_unlock_item_not_enough".Tips();
 					break;
 				case 0:
 					DataCenter.MachineUtil.AddMachine(info.mid);
@@ -169,11 +169,11 @@ namespace SGame.UI
 			{
 				case Error_Code.LV_MAX:
 					Debug.Log($"{info.id} Lv Max!!!");
-					"@tips_lv_max".Tips();
+					//"@tips_lv_max".Tips();
 					break;
 				case Error_Code.ITEM_NOT_ENOUGH:
 					Debug.Log($"{info.id} 升级道具不足!!!");
-					"@tips_uplv_item_not_enough".Tips();
+					//"@tips_uplv_item_not_enough".Tips();
 					break;
 				case 0:
 					DataCenter.MachineUtil.UpdateLevel(info.id, 0);
