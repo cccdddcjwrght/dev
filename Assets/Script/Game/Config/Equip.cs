@@ -19,77 +19,159 @@ public struct EquipRowData : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public EquipRowData __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public int ItemId { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Type { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Slot { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string Name { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int Id { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Name { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(10, 1); }
+  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(6, 1); }
 #else
-  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(10); }
+  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
-  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(10); }
-  public string Prefab { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
+  public string Description { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetPrefabBytes() { return __p.__vector_as_span<byte>(12, 1); }
+  public Span<byte> GetDescriptionBytes() { return __p.__vector_as_span<byte>(8, 1); }
 #else
-  public ArraySegment<byte>? GetPrefabBytes() { return __p.__vector_as_arraysegment(12); }
+  public ArraySegment<byte>? GetDescriptionBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
-  public byte[] GetPrefabArray() { return __p.__vector_as_array<byte>(12); }
-  public float Offset(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
-  public int OffsetLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte[] GetDescriptionArray() { return __p.__vector_as_array<byte>(8); }
+  public string Icon { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<float> GetOffsetBytes() { return __p.__vector_as_span<float>(14, 4); }
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(10, 1); }
 #else
-  public ArraySegment<byte>? GetOffsetBytes() { return __p.__vector_as_arraysegment(14); }
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
-  public float[] GetOffsetArray() { return __p.__vector_as_array<float>(14); }
-  public float Rotation(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
-  public int RotationLength { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(10); }
+  public int Activity { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Group { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Type { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Resource { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Level { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int LevelMax { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int MainBuff(int j) { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int MainBuffLength { get { int o = __p.__offset(26); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<float> GetRotationBytes() { return __p.__vector_as_span<float>(16, 4); }
+  public Span<int> GetMainBuffBytes() { return __p.__vector_as_span<int>(26, 4); }
 #else
-  public ArraySegment<byte>? GetRotationBytes() { return __p.__vector_as_arraysegment(16); }
+  public ArraySegment<byte>? GetMainBuffBytes() { return __p.__vector_as_arraysegment(26); }
 #endif
-  public float[] GetRotationArray() { return __p.__vector_as_array<float>(16); }
-  public float Scale { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int[] GetMainBuffArray() { return __p.__vector_as_array<int>(26); }
+  public int Buff1(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Buff1Length { get { int o = __p.__offset(28); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetBuff1Bytes() { return __p.__vector_as_span<int>(28, 4); }
+#else
+  public ArraySegment<byte>? GetBuff1Bytes() { return __p.__vector_as_arraysegment(28); }
+#endif
+  public int[] GetBuff1Array() { return __p.__vector_as_array<int>(28); }
+  public int Buff2(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Buff2Length { get { int o = __p.__offset(30); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetBuff2Bytes() { return __p.__vector_as_span<int>(30, 4); }
+#else
+  public ArraySegment<byte>? GetBuff2Bytes() { return __p.__vector_as_arraysegment(30); }
+#endif
+  public int[] GetBuff2Array() { return __p.__vector_as_array<int>(30); }
+  public int Buff3(int j) { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Buff3Length { get { int o = __p.__offset(32); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetBuff3Bytes() { return __p.__vector_as_span<int>(32, 4); }
+#else
+  public ArraySegment<byte>? GetBuff3Bytes() { return __p.__vector_as_arraysegment(32); }
+#endif
+  public int[] GetBuff3Array() { return __p.__vector_as_array<int>(32); }
+  public int Buff4(int j) { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Buff4Length { get { int o = __p.__offset(34); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetBuff4Bytes() { return __p.__vector_as_span<int>(34, 4); }
+#else
+  public ArraySegment<byte>? GetBuff4Bytes() { return __p.__vector_as_arraysegment(34); }
+#endif
+  public int[] GetBuff4Array() { return __p.__vector_as_array<int>(34); }
+  public int Buff5(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Buff5Length { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetBuff5Bytes() { return __p.__vector_as_span<int>(36, 4); }
+#else
+  public ArraySegment<byte>? GetBuff5Bytes() { return __p.__vector_as_arraysegment(36); }
+#endif
+  public int[] GetBuff5Array() { return __p.__vector_as_array<int>(36); }
 
   public static Offset<GameConfigs.EquipRowData> CreateEquipRowData(FlatBufferBuilder builder,
-      int ItemId = 0,
-      int Type = 0,
-      int Slot = 0,
+      int Id = 0,
       StringOffset NameOffset = default(StringOffset),
-      StringOffset PrefabOffset = default(StringOffset),
-      VectorOffset offsetOffset = default(VectorOffset),
-      VectorOffset rotationOffset = default(VectorOffset),
-      float scale = 0.0f) {
-    builder.StartTable(8);
-    EquipRowData.AddScale(builder, scale);
-    EquipRowData.AddRotation(builder, rotationOffset);
-    EquipRowData.AddOffset(builder, offsetOffset);
-    EquipRowData.AddPrefab(builder, PrefabOffset);
-    EquipRowData.AddName(builder, NameOffset);
-    EquipRowData.AddSlot(builder, Slot);
+      StringOffset DescriptionOffset = default(StringOffset),
+      StringOffset IconOffset = default(StringOffset),
+      int Activity = 0,
+      int Group = 0,
+      int Type = 0,
+      int Quality = 0,
+      int Resource = 0,
+      int Level = 0,
+      int LevelMax = 0,
+      VectorOffset MainBuffOffset = default(VectorOffset),
+      VectorOffset Buff1Offset = default(VectorOffset),
+      VectorOffset Buff2Offset = default(VectorOffset),
+      VectorOffset Buff3Offset = default(VectorOffset),
+      VectorOffset Buff4Offset = default(VectorOffset),
+      VectorOffset Buff5Offset = default(VectorOffset)) {
+    builder.StartTable(17);
+    EquipRowData.AddBuff5(builder, Buff5Offset);
+    EquipRowData.AddBuff4(builder, Buff4Offset);
+    EquipRowData.AddBuff3(builder, Buff3Offset);
+    EquipRowData.AddBuff2(builder, Buff2Offset);
+    EquipRowData.AddBuff1(builder, Buff1Offset);
+    EquipRowData.AddMainBuff(builder, MainBuffOffset);
+    EquipRowData.AddLevelMax(builder, LevelMax);
+    EquipRowData.AddLevel(builder, Level);
+    EquipRowData.AddResource(builder, Resource);
+    EquipRowData.AddQuality(builder, Quality);
     EquipRowData.AddType(builder, Type);
-    EquipRowData.AddItemId(builder, ItemId);
+    EquipRowData.AddGroup(builder, Group);
+    EquipRowData.AddActivity(builder, Activity);
+    EquipRowData.AddIcon(builder, IconOffset);
+    EquipRowData.AddDescription(builder, DescriptionOffset);
+    EquipRowData.AddName(builder, NameOffset);
+    EquipRowData.AddId(builder, Id);
     return EquipRowData.EndEquipRowData(builder);
   }
 
-  public static void StartEquipRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
-  public static void AddItemId(FlatBufferBuilder builder, int ItemId) { builder.AddInt(0, ItemId, 0); }
-  public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(1, Type, 0); }
-  public static void AddSlot(FlatBufferBuilder builder, int Slot) { builder.AddInt(2, Slot, 0); }
-  public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(3, NameOffset.Value, 0); }
-  public static void AddPrefab(FlatBufferBuilder builder, StringOffset PrefabOffset) { builder.AddOffset(4, PrefabOffset.Value, 0); }
-  public static void AddOffset(FlatBufferBuilder builder, VectorOffset offsetOffset) { builder.AddOffset(5, offsetOffset.Value, 0); }
-  public static VectorOffset CreateOffsetVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateOffsetVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static void StartOffsetVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddRotation(FlatBufferBuilder builder, VectorOffset rotationOffset) { builder.AddOffset(6, rotationOffset.Value, 0); }
-  public static VectorOffset CreateRotationVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateRotationVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static void StartRotationVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddScale(FlatBufferBuilder builder, float scale) { builder.AddFloat(7, scale, 0.0f); }
+  public static void StartEquipRowData(FlatBufferBuilder builder) { builder.StartTable(17); }
+  public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
+  public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
+  public static void AddDescription(FlatBufferBuilder builder, StringOffset DescriptionOffset) { builder.AddOffset(2, DescriptionOffset.Value, 0); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(3, IconOffset.Value, 0); }
+  public static void AddActivity(FlatBufferBuilder builder, int Activity) { builder.AddInt(4, Activity, 0); }
+  public static void AddGroup(FlatBufferBuilder builder, int Group) { builder.AddInt(5, Group, 0); }
+  public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(6, Type, 0); }
+  public static void AddQuality(FlatBufferBuilder builder, int Quality) { builder.AddInt(7, Quality, 0); }
+  public static void AddResource(FlatBufferBuilder builder, int Resource) { builder.AddInt(8, Resource, 0); }
+  public static void AddLevel(FlatBufferBuilder builder, int Level) { builder.AddInt(9, Level, 0); }
+  public static void AddLevelMax(FlatBufferBuilder builder, int LevelMax) { builder.AddInt(10, LevelMax, 0); }
+  public static void AddMainBuff(FlatBufferBuilder builder, VectorOffset MainBuffOffset) { builder.AddOffset(11, MainBuffOffset.Value, 0); }
+  public static VectorOffset CreateMainBuffVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateMainBuffVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartMainBuffVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBuff1(FlatBufferBuilder builder, VectorOffset Buff1Offset) { builder.AddOffset(12, Buff1Offset.Value, 0); }
+  public static VectorOffset CreateBuff1Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateBuff1VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartBuff1Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBuff2(FlatBufferBuilder builder, VectorOffset Buff2Offset) { builder.AddOffset(13, Buff2Offset.Value, 0); }
+  public static VectorOffset CreateBuff2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateBuff2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartBuff2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBuff3(FlatBufferBuilder builder, VectorOffset Buff3Offset) { builder.AddOffset(14, Buff3Offset.Value, 0); }
+  public static VectorOffset CreateBuff3Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateBuff3VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartBuff3Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBuff4(FlatBufferBuilder builder, VectorOffset Buff4Offset) { builder.AddOffset(15, Buff4Offset.Value, 0); }
+  public static VectorOffset CreateBuff4Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateBuff4VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartBuff4Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBuff5(FlatBufferBuilder builder, VectorOffset Buff5Offset) { builder.AddOffset(16, Buff5Offset.Value, 0); }
+  public static VectorOffset CreateBuff5Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateBuff5VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartBuff5Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.EquipRowData> EndEquipRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipRowData>(o);

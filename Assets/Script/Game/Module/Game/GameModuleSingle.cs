@@ -128,7 +128,7 @@ namespace SGame
 		{
 			// 播放背景
 			AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
-
+			
 			var prefab = m_resourceManager.LoadPrefab(script);
 			var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
 			var go = GameObject.Instantiate(prefab);

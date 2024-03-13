@@ -125,7 +125,7 @@ namespace SGame
 					if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(cv, out var machine))
 					{
 						var room = DataCenter.Instance.roomData.current.id;
-						if (room < machine.Scene || (room == machine.Scene && DataCenter.MachineUtil.IsActived(cv)) )
+						if (room < machine.Scene || (room == machine.Scene && DataCenter.MachineUtil.IsActived(cv)))
 						{
 							ret = false;
 							if (enableTips)
@@ -138,23 +138,21 @@ namespace SGame
 				{
 					switch (cfg.OpenType)
 					{
-						
+
 						case 1://关卡等级
-							if( DataCenter.Instance.GetUserData().scene < cfg.Level(0)|| DataCenter.Instance.GetUserData().scene> cfg.Level(1))
-							{
+							var scene = DataCenter.Instance.GetUserData().scene;
+							var args = cfg.GetOpenValArray();
+							if (scene > args[1] || scene < args[0])
 								ret = false;
-							}
 							break;
-						
-						case 3:	//条件判断
-							if( DataCenter.Instance.guideData.guideStep < cfg.GuideId)
-							{
+
+						case 6: //引导步骤
+							if (cfg.OpenValLength > 0 && DataCenter.Instance.guideData.guideStep < cfg.OpenVal(0))
 								ret = false;
-							}
 							break;
 
 						case 5://关卡点位数量
-							if( DataCenter.Instance.roomData.current.worktableCount < cfg.OpenVal(0))
+							if (DataCenter.Instance.roomData.current.worktableCount < cfg.OpenVal(0))
 							{
 								ret = false;
 								tips = "@ui_machine_enable_not_enough";
