@@ -13,6 +13,11 @@ public class WaitForServiceChair : Singleton<WaitForServiceChair>
 {
     private static ILog log = LogManager.GetLogger("game.table");
     private Queue<ChairData> m_chairQuee = new Queue<ChairData>();
+
+    public void Clear()
+    {
+        m_chairQuee.Clear();
+    }
     
     /// <summary>
     /// 添加需要服务的座位
