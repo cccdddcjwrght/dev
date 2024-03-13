@@ -12,7 +12,7 @@ namespace SGame.UI.Common
         public GImage m_bg;
         public GLoader m_icon;
         public GTextField m___text;
-        public UI_IconBtn m_click;
+        public GButton m_click;
         public const string URL = "ui://2w8thcm7k0s63lb6";
 
         public static UI_Currency CreateInstance()
@@ -29,7 +29,7 @@ namespace SGame.UI.Common
             m_bg = (GImage)GetChildAt(0);
             m_icon = (GLoader)GetChildAt(1);
             m___text = (GTextField)GetChildAt(2);
-            m_click = (UI_IconBtn)GetChildAt(3);
+            m_click = (GButton)GetChildAt(3);
         }
     }
 }
