@@ -30,6 +30,10 @@ namespace SGame.VS
         //UI大小
         [DoNotSerialize]
         public ValueInput uiSize;
+        
+        //UI透明度
+        [DoNotSerialize]
+        public ValueInput uiAlpha;
 
         [DoNotSerialize]
         public ValueOutput uiResult;
@@ -55,13 +59,15 @@ namespace SGame.VS
                 {
                     Entity uiMask = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiMaskName)));
                     mgr.AddComponentObject(uiMask, new UISize() { size = s2 });
-                    Vector2Int p2 = flow.GetValue<Vector2Int>(uiPos);
+                    Vector2 p2 = flow.GetValue<Vector2>(uiPos);
+                    float a2= flow.GetValue<float>(uiAlpha);
                     mgr.AddComponentObject(uiMask, new UIPos() { pos = p2 });
+                    mgr.AddComponentObject(uiMask, new UIAlpha() { alpha = a2 });
                     resultmaskValue=new Vector2Int(uiMask.Index, uiMask.Version);
                 }
                 //手指
                 Entity ui = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiName)));
-                Vector2Int p3 = flow.GetValue<Vector2Int>(uiPos);
+                Vector2 p3 = flow.GetValue<Vector2>(uiPos);
                 mgr.AddComponentObject(ui, new UIPos() { pos = p3 });
             
 
@@ -71,8 +77,9 @@ namespace SGame.VS
             
             uiName  = ValueInput<string>("UIName", "");
             uiMaskName  = ValueInput<string>("UIMaskName", "");
+            uiPos  = ValueInput<Vector2>("UIPos");
             uiSize = ValueInput<Vector2Int>("UISize");
-            uiPos  = ValueInput<Vector2Int>("UIPos");
+            uiAlpha = ValueInput<float>("UIAlpha");
             outputTrigger = ControlOutput("Output");
             uiResult = ValueOutput<Vector2Int>("UI Entity", (flow) => resultValue);
             uiMaskResult= ValueOutput<Vector2Int>("UI Mask Entity", (flow) => resultmaskValue);

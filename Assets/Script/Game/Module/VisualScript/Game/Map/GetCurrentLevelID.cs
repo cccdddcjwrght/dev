@@ -2,6 +2,7 @@ using SGame;
 using Unity.VisualScripting;
 using Unity.Mathematics;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace SGame.VS
 {

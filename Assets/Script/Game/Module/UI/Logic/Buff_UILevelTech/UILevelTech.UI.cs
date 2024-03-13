@@ -15,11 +15,13 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_completed.onChanged.Add(new EventCallback1(_OnCompletedChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_completed.onChanged.Remove(new EventCallback1(_OnCompletedChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 
 		}
 		void _OnCompletedChanged(EventContext data){
@@ -38,6 +40,10 @@ namespace SGame.UI{
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
 		string GetTitleText()=>UIListener.GetText(m_view.m_title);
+		void _OnClickBtnClick(EventContext data){
+			OnClickBtnClick(data);
+		}
+		partial void OnClickBtnClick(EventContext data);
 
 	}
 }

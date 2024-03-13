@@ -115,6 +115,17 @@ namespace SGame
 			return ui.GlobalToLocal(screenPoint);
 		}
 
+		public static Vector2 WorldPosToUI(Vector3 pos)
+		{
+			Vector3 screenPoint = GameCamera.camera.WorldToScreenPoint(pos);
+			screenPoint.y = Screen.height - screenPoint.y;
+			Vector2 uipos = GRoot.inst.GlobalToLocal(screenPoint);
+			return uipos;
+		}
+			
+			
+
+
 		/// <summary>
 		/// 更加坐标类型获得UI位置 
 		/// </summary>
@@ -144,6 +155,24 @@ namespace SGame
 					ret = new Vector2(pos.x, pos.y);
 					break;
 			}
+
+			return ret;
+		}
+		
+		//根据ui名称获取到相应的坐标位置
+		public static Vector2 GetUIPosition(string uiName, string uiPath)
+		{
+			Entity e = GetUIEntity(uiName);
+			var ui= World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
+			var item=ui.Value.contentPane.GetChildByPath(uiPath);
+			if (item == null)
+			{
+				Debug.Log("ui path not found={0}, {1}"+ uiName+ uiPath);
+				return Vector2.zero;
+			}
+
+			Vector2 ret = item.LocalToGlobal(Vector2.zero);
+			ret = GRoot.inst.GlobalToLocal(ret);
 
 			return ret;
 		}

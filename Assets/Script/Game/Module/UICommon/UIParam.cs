@@ -18,11 +18,16 @@ namespace SGame
     /// </summary>
     public class UIPos : IComponentData
     {
-        public Vector2Int pos;
+        public Vector2 pos;
     }
 
     public class UISize : IComponentData
     {
         public Vector2Int size;
+    }
+    
+    public class UIAlpha : IComponentData
+    {
+        public float alpha;
     }
 }

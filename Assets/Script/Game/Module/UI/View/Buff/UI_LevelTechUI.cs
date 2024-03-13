@@ -11,6 +11,7 @@ namespace SGame.UI.Buff
         public GLabel m_body;
         public GList m_BuffList;
         public GTextField m_title;
+        public GLoader m_clickBtn;
         public const string URL = "ui://g406runaijal5";
 
         public static UI_LevelTechUI CreateInstance()
@@ -26,6 +27,7 @@ namespace SGame.UI.Buff
             m_body = (GLabel)GetChildAt(0);
             m_BuffList = (GList)GetChildAt(1);
             m_title = (GTextField)GetChildAt(2);
+            m_clickBtn = (GLoader)GetChildAt(3);
         }
     }
 }
