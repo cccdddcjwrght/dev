@@ -290,6 +290,31 @@ namespace GameTools
 			return default;
 		}
 
+		/// <summary>
+		/// 获取格子标签列表
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		static public List<string> GetTagsByIndex(int index)
+		{
+			var cell = agent.grid.GetCell(index);
+			if (cell != null) return cell.tags;
+			return default;
+		}
+
+		/// <summary>
+		/// 获取格子标签列表
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		static public List<string> GetTagsByPos(int x,int y)
+		{
+			var cell = agent.grid.GetCell(x,y);
+			if (cell != null) return cell.tags;
+			return default;
+		}
+
+
 		#endregion
 
 	}
