@@ -99,7 +99,7 @@ namespace SGame.VS
 
                 if (_foodTypes.Count <= 0)
                 {
-                    log.Error("Level Config OrderWeight Error!");
+                    log.Warn("Level Config OrderWeight Error Food Not Found!");
                     return failTrigger;
                 }
                 return outputTrigger;
