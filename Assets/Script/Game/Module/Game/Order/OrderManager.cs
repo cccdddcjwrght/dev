@@ -21,6 +21,7 @@ namespace SGame
 
         public void Initalize()
         {
+            lastOrderID = 0;
             m_datas.Clear();
             m_caches.Clear();
         }

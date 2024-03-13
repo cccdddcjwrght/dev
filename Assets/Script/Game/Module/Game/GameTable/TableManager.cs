@@ -21,7 +21,10 @@ namespace SGame
 
         public void Clear()
         {
+            m_nextTableID = 0;
             m_datas.Clear();
+            m_foodTypes.Clear();
+            m_matchineID.Clear();
         }
 
         public void Initalize()
