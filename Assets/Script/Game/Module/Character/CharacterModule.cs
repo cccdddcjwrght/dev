@@ -35,6 +35,15 @@ namespace SGame
         }
 
         /// <summary>
+        /// 清空所有角色 
+        /// </summary>
+        public void ClearAll()
+        {
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var spawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<CharacterSpawnSystem>();
+        }
+
+        /// <summary>
         /// 通过Entity获得对象
         /// </summary>
         /// <param name="e"></param>
