@@ -22,8 +22,11 @@ namespace SGame
             Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e,  Transform sycnTransform, in Translation trans, in Rotation rot) =>
             {
                 // 同步对象
-                sycnTransform.position = trans.Value;
-                sycnTransform.rotation = rot.Value;
+                if (sycnTransform != null)
+                {
+                    sycnTransform.position = trans.Value;
+                    sycnTransform.rotation = rot.Value;
+                }
             }).WithoutBurst().Run();
         }
     }
