@@ -107,7 +107,8 @@ namespace SGame
 				m_hudModule.Update();
 				yield return null;
 			}
-
+			//科技数据初始化
+			DataCenter.Instance.abilityData.InitAbilityList(); 
 
 
 

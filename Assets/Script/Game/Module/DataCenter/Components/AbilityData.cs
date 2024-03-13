@@ -39,7 +39,20 @@ namespace SGame
         //科技列表初始化
         public void InitAbilityList()
         {
-            if(inited) return;
+
+            if (inited)
+            {
+                foreach (AbilityList list in abilityList)
+                {
+                    if(!list.IsLock) continue;
+                    AbilitLevelRenderer render = list.abilitLevelList[list.LevelIndex];
+                    int bufftype= render.BuffType;
+                    int buffValue= render.CurLevelValue;
+                   EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(bufftype, buffValue) { from = list.ID });
+               
+                }
+                return;
+            }
             
             var abilityListConfig = ConfigSystem.Instance.LoadConfig<GameConfigs.AbilityList>(); //科技列表
             len = abilityListConfig.DatalistLength;

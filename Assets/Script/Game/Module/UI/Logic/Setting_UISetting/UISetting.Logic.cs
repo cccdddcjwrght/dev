@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Unity.Entities;
+using UnityEngine.SocialPlatforms;
 
 namespace SGame.UI{
 	using FairyGUI;
@@ -28,9 +29,13 @@ namespace SGame.UI{
 		
 		partial void InitLogic(UIContext context)
 		{
-			if (DataCenter.Instance.accountData.playerName != null)
+			if (DataCenter.Instance.accountData.playerName!=""||DataCenter.Instance.accountData.playerName!=null)
 			{
 				m_view.m_name.m___title.text = DataCenter.Instance.accountData.playerName;
+			}
+			else
+			{
+				m_view.m_name.m___title.text=UIListener.Local("player_name");
 			}
 			
 			setList = m_view.m_list;

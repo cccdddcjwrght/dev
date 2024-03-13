@@ -36,8 +36,7 @@ namespace SGame.UI{
 
 		void BeforeInit(UIContext context)
 		{
-			//科技数据初始化
-			m_AbilityData.InitAbilityList();
+			
 		}
 		partial void InitUI(UIContext context);
 		partial void InitEvent(UIContext context);

@@ -31,7 +31,7 @@ namespace SGame
 		public GuideData guideData= new GuideData();
 		
 		[SerializeField]
-		public GameRecordData	m_gameRecord = new GameRecordData(); // 游戏统计数据包括 顾客数量, 厨师数量, 服务员数量, 小费金币 等
+		public GameRecordData	m_gameRecord = new GameRecordData(); // 游戏统计数据包括 顾客数量, 厨师数量, 服务员数量
 
 
 		[SerializeField]

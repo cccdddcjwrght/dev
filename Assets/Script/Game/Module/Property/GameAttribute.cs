@@ -224,11 +224,13 @@ namespace SGame
 	/// <summary>
 	/// 属性列表
 	/// </summary>
+	[Serializable]
 	public class AttributeList
 	{
 		private static Dictionary<int, int> _indexs;
 
 		private double[] _array;
+		
 		private List<AttributeUnit> _units = new List<AttributeUnit>();
 		private GameAttribute[] _values = new GameAttribute[0];
 		public int Count { get { return _values.Length; } }
