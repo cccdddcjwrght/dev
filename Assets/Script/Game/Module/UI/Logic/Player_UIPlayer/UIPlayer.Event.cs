@@ -13,5 +13,10 @@ namespace SGame.UI{
 		partial void UnInitEvent(UIContext context){
 
 		}
+
+		partial void OnAttrbtnClick(EventContext data)
+		{
+		}
+
 	}
 }

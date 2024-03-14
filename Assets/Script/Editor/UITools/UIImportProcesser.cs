@@ -190,6 +190,7 @@ namespace __SPACE__{
 		public void OnInit(UIContext context)
 		{
 			context.onClose += OnClose;
+			context.onShown += OnShow;
 			m_view = context.content as __VIEW__;
 			BeforeInit(context);
 			InitUI(context);
@@ -201,6 +202,7 @@ namespace __SPACE__{
 		private void OnClose(UIContext context)
 		{
 			context.onClose -= OnClose;
+			context.onShown -= OnShow;
 			UnInitUI(context);
 			UnInitEvent(context);
 			UnInitLogic(context);
@@ -217,6 +219,9 @@ namespace __SPACE__{
 		partial void UnInitEvent(UIContext context);
 		partial void UnInitLogic(UIContext context);
 		partial void AfterUnInit(UIContext context);
+
+		private void OnShow(UIContext context) => DoShow(context);
+		partial void DoShow(UIContext context);
 	}
 }
 

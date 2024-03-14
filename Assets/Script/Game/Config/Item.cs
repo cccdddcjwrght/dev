@@ -41,13 +41,19 @@ public struct ItemRowData : IFlatbufferObject
   public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
   public byte[] GetIconArray() { return __p.__vector_as_array<byte>(10); }
+  public int Type { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int TypeId { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ItemRowData> CreateItemRowData(FlatBufferBuilder builder,
       int ItemId = 0,
       StringOffset NameOffset = default(StringOffset),
       StringOffset DescriptionOffset = default(StringOffset),
-      StringOffset IconOffset = default(StringOffset)) {
-    builder.StartTable(4);
+      StringOffset IconOffset = default(StringOffset),
+      int Type = 0,
+      int TypeId = 0) {
+    builder.StartTable(6);
+    ItemRowData.AddTypeId(builder, TypeId);
+    ItemRowData.AddType(builder, Type);
     ItemRowData.AddIcon(builder, IconOffset);
     ItemRowData.AddDescription(builder, DescriptionOffset);
     ItemRowData.AddName(builder, NameOffset);
@@ -55,11 +61,13 @@ public struct ItemRowData : IFlatbufferObject
     return ItemRowData.EndItemRowData(builder);
   }
 
-  public static void StartItemRowData(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void StartItemRowData(FlatBufferBuilder builder) { builder.StartTable(6); }
   public static void AddItemId(FlatBufferBuilder builder, int ItemId) { builder.AddInt(0, ItemId, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddDescription(FlatBufferBuilder builder, StringOffset DescriptionOffset) { builder.AddOffset(2, DescriptionOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(3, IconOffset.Value, 0); }
+  public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(4, Type, 0); }
+  public static void AddTypeId(FlatBufferBuilder builder, int TypeId) { builder.AddInt(5, TypeId, 0); }
   public static Offset<GameConfigs.ItemRowData> EndItemRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ItemRowData>(o);

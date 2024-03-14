@@ -5,16 +5,17 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.Player
 {
-    public partial class UI_Equip : GButton
+    public partial class UI_EquipBox : GButton
     {
         public Controller m_quality;
         public Controller m___redpoint;
-        public GTextField m_level;
-        public const string URL = "ui://cmw7t1elk62214";
+        public UI_Equip m_body;
+        public Transition m_show;
+        public const string URL = "ui://cmw7t1elw46k1e";
 
-        public static UI_Equip CreateInstance()
+        public static UI_EquipBox CreateInstance()
         {
-            return (UI_Equip)UIPackage.CreateObject("Player", "Equip");
+            return (UI_EquipBox)UIPackage.CreateObject("Player", "EquipBox");
         }
 
         public override void ConstructFromXML(XML xml)
@@ -23,7 +24,8 @@ namespace SGame.UI.Player
 
             m_quality = GetControllerAt(0);
             m___redpoint = GetControllerAt(1);
-            m_level = (GTextField)GetChildAt(6);
+            m_body = (UI_Equip)GetChildAt(0);
+            m_show = GetTransitionAt(0);
         }
     }
 }
