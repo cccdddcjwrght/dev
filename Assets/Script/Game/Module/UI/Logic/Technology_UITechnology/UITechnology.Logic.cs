@@ -45,7 +45,7 @@ namespace SGame.UI{
 			GTextField update1Txt= item.asCom.GetChild("update1").asTextField;
 			//下一级值
 			GTextField update2Txt= item.asCom.GetChild("update2").asTextField;
-			int type = m_AbilityData.GetValueType(listData[index].abilitLevelList[levelIndex].BuffType);
+			int type =listData[index].ShowText;
 			if (type == 1)
 			{
 				update1Txt.text=string.Format("{0}%",listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString());

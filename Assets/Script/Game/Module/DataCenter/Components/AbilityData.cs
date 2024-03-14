@@ -28,6 +28,7 @@ namespace SGame
             public int    ID;
             public string VaultIcon;
             public string VaultDes;
+            public int    ShowText;
             public int    LevelIndex=0;//等级
             public bool   IsLock=false;
             public int[]  LockData;
@@ -62,6 +63,7 @@ namespace SGame
                 AddAbilityListRenderer(rowData.Value.Id,
                     rowData.Value.VaultIcon,
                     rowData.Value.VaultDes,
+                    rowData.Value.ShowText,
                     rowData.Value.GetLockCostArray(),
                     rowData.Value.LevelId(0),
                     rowData.Value.LevelId(1)
@@ -85,7 +87,7 @@ namespace SGame
         /// <param name="vaultIcon"></param>
         /// <param name="firstId"></param>
         /// <param name="lastId"></param>
-        public void AddAbilityListRenderer(int id, string vaultIcon,string valutDes, int[] lockData,int firstId, int lastId)
+        public void AddAbilityListRenderer(int id, string vaultIcon,string valutDes,int ShowText, int[] lockData,int firstId, int lastId)
         {
             var abilityLevelList = SetAbilityLevel(firstId, lastId);
             AbilityList abilityItemData = new AbilityList
@@ -93,8 +95,8 @@ namespace SGame
                 ID = id,
                 VaultIcon = vaultIcon,
                 VaultDes  = valutDes,
+                ShowText= ShowText,
                 LockData = lockData,
-                
                 abilitLevelList = abilityLevelList
             };
 
