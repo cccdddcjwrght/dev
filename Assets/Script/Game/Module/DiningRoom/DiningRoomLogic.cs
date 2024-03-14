@@ -767,7 +767,7 @@ namespace SGame.Dining
 			if (r.data.level > 1 && r.data.addProfit == 0)
 				7.ToAudioID().PlayAudio();
 
-			var ws = DataCenter.MachineUtil.GetWorktables(w => !w.isTable && w.level > 0);
+			var ws = DataCenter.MachineUtil.GetWorktables(w => !w.isTable );
 			if (ws?.Count > 0)
 			{
 				if (ws.All(w => w.level >= w.maxlv))

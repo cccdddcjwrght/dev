@@ -332,7 +332,7 @@ namespace SGame
 
 			public static bool CheckAllWorktableIsMaxLv()
 			{
-				var ws = GetWorktables(w => !w.isTable && w.level > 0);
+				var ws = GetWorktables(w => !w.isTable );
 				if (ws?.Count > 0)
 					return ws.All(w => w.level >= w.maxlv);
 				return false;
