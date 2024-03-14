@@ -25,6 +25,8 @@ namespace SGame.UI{
 			m_userData			= DataCenter.Instance.GetUserData();
 			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
 			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)));
+			//科技数据初始化
+			DataCenter.Instance.abilityData.InitAbilityList(); 
 		}
 
 		EntityManager EntityManager
