@@ -31,12 +31,17 @@ namespace SGame.UI
 
 		private void OnEventRefreshItem()
 		{
-			var levelBtn = m_view.m_levelBtn;
-			levelBtn.visible = 15.IsOpend(false);
+			if (DataCenter.Instance.guideData.isGuide)
+			{
+				var levelBtn = m_view.m_levelBtn;
+				levelBtn.visible = 15.IsOpend(false);
+				var leveltechBtn = m_view.m_taskRewardBtn;
+				leveltechBtn.visible = 13.IsOpend(false);
+			}
+		
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
-			var leveltechBtn = m_view.m_taskRewardBtn;
-			leveltechBtn.visible = 13.IsOpend(false);
+			
 			leftList.GetChildAt(0).visible = 12.IsOpend(false);
 			leftList.GetChildAt(1).visible = 17.IsOpend(false);
 			leftList.GetChildAt(2).visible = 14.IsOpend(false);
