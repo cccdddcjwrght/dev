@@ -7,6 +7,7 @@ namespace SGame
     public class GuideData
     {
         public int guideStep;
+        public bool isGuide;
     }
 }
 
