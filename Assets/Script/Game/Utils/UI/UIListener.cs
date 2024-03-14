@@ -467,15 +467,20 @@ public class UIListener
 	{
 		if (gObject != null && gObject is GComponent com)
 		{
-			var icon = com.GetChild("close")
-				?? com.GetChild("Close")
-				?? com.GetChild("Mask")
-				?? com.GetChild("mask");
-			if (icon != null && icon is GButton btn)
-				Listener(btn, method, remove: remove);
-			var mask = com.GetChild("closeBg");
-			if (mask != null)
-				Listener(mask, method, remove: remove);
+			if (gObject.name == "close" || gObject.name == "mask")
+				Listener(gObject, method, remove: remove);
+			else
+			{
+				var icon = com.GetChild("close")
+					?? com.GetChild("Close")
+					?? com.GetChild("Mask")
+					?? com.GetChild("mask");
+				if (icon != null && icon is GButton btn)
+					Listener(btn, method, remove: remove);
+				var mask = com.GetChild("closeBg");
+				if (mask != null)
+					Listener(mask, method, remove: remove);
+			}
 		}
 	}
 

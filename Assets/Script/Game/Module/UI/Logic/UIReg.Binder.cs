@@ -32,6 +32,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("SystemTipUI", "Hud", ()=>new UISystemTip());
             context.uiModule.Reg("DecorUI", "SceneDecor", ()=>new UIDecor());SGame.UI.SceneDecor.SceneDecorBinder.BindAll();;
 			context.uiModule.Reg("GuideMaskUI", "Guide", ()=>new UIGuideMask());
+			context.uiModule.Reg("EquipGiftUI", "Player", ()=>new UIEquipGift());
 		}
 	}
 }

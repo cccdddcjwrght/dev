@@ -4,18 +4,16 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.Player;
 	
-	public partial class UIPlayer : IUIScript
+	public partial class UIEquipGift : IUIScript
 	{
-		private static ILog log = LogManager.GetLogger("ui." + nameof(UIPlayer));
+		private static ILog log = LogManager.GetLogger("ui." + nameof(UIEquipGift));
 
-		private UI_PlayerUI m_view;
+		private UI_EquipGiftUI m_view;
 
 		public void OnInit(UIContext context)
 		{
 			context.onClose += OnClose;
-			context.onShown += OnShow;
-
-			m_view = context.content as UI_PlayerUI;
+			m_view = context.content as UI_EquipGiftUI;
 			BeforeInit(context);
 			InitUI(context);
 			InitEvent(context);
@@ -26,8 +24,6 @@ namespace SGame.UI{
 		private void OnClose(UIContext context)
 		{
 			context.onClose -= OnClose;
-			context.onShown -= OnShow;
-
 			UnInitUI(context);
 			UnInitEvent(context);
 			UnInitLogic(context);
@@ -44,11 +40,6 @@ namespace SGame.UI{
 		partial void UnInitEvent(UIContext context);
 		partial void UnInitLogic(UIContext context);
 		partial void AfterUnInit(UIContext context);
-
-
-		private void OnShow(UIContext context) => DoShow(context);
-		partial void DoShow(UIContext context);
-
 	}
 }
 

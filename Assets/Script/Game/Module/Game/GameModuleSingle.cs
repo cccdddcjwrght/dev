@@ -108,7 +108,7 @@ namespace SGame
 				yield return null;
 			}
 			//科技数据初始化
-			DataCenter.Instance.abilityData.InitAbilityList(); 
+			DataCenter.Instance.abilityData.InitAbilityList();
 
 
 
@@ -129,14 +129,17 @@ namespace SGame
 		{
 			// 播放背景
 			AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
-			
+
 			var prefab = m_resourceManager.LoadPrefab(script);
 			var go = GameObject.Instantiate(prefab);
 
-			#if GAME_GUIDE
+#if GAME_GUIDE
+			if (Game.Instance.enableGuide)
+			{
 				var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
 				var guideGo = GameObject.Instantiate(guidePrefab);
-			#endif
+			}
+#endif
 		}
 
 		public void Enter()

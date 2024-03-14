@@ -11,6 +11,9 @@ namespace SGame.UI.Player
             UIObjectFactory.SetPackageItemExtension(UI_PlayerUI.URL, typeof(UI_PlayerUI));
             UIObjectFactory.SetPackageItemExtension(UI_EqPos.URL, typeof(UI_EqPos));
             UIObjectFactory.SetPackageItemExtension(UI_Equip.URL, typeof(UI_Equip));
+            UIObjectFactory.SetPackageItemExtension(UI_EquipGiftUI.URL, typeof(UI_EquipGiftUI));
+            UIObjectFactory.SetPackageItemExtension(UI_EquipBox.URL, typeof(UI_EquipBox));
+            UIObjectFactory.SetPackageItemExtension(UI_GiftBody.URL, typeof(UI_GiftBody));
         }
     }
 }

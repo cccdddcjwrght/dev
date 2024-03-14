@@ -33,8 +33,6 @@ namespace SGame.UI{
 			OnCloseClick(data);
 		}
 		partial void OnCloseClick(EventContext data);
-		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
-		string GetCloseText()=>UIListener.GetText(m_view.m_close);
 
 	}
 }

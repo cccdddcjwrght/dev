@@ -82,8 +82,13 @@ namespace SGame
 		SHOP_REFRESH				= 5002,//商城刷新
 		SHOP_GOODS_BUY_RESULT		= 5002,//商品购买
 		
+		//===================================================
+		EQUIP_REFRESH				= 6001,//装备刷新
+		EQUIP_ADD					= 6002,//装备添加
+
+
 		//设置======================================
-		SETTING_UPDATE_INT				= 8001,     //(int)设置更新
+		SETTING_UPDATE_INT = 8001,     //(int)设置更新
 		SETTING_UPDATE_STR				= 8002,     //(str)设置更新
 		SETTING_UPDATE_HEAD				= 8003,     //头像更新
 		SETTING_UPDATE_NAME				= 8004,     //名字更新
