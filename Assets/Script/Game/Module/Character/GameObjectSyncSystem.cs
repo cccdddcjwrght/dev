@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SGame
 {
-    [UpdateInGroup(typeof(GameLogicAfterGroup))]
+    [UpdateInGroup(typeof(GameLogicBefore))]
     public partial class GameObjectSyncSystem : SystemBase
     {
         protected override void OnUpdate()

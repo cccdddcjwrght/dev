@@ -155,6 +155,7 @@ namespace SGame
             // 触发事件
             foreach (var item in m_triggerInit)
             {
+                //log.Info("character init character =" + item.character.CharacterID + " pos=" + item.character.transform.position);
                 m_characters.Add(item.character.CharacterID, item.entity);
                 item.character.OnInitCharacter(item.entity, EntityManager);
                 item.result.entity = item.entity;
@@ -191,11 +192,9 @@ namespace SGame
                 {
                     gen       = CharacterGenerator.CreateWithConfig(config.Part),
                     modelId = config.ID,
-                    //baseChacterPrefab = LoadBaseCharacter(),
                     aiPrefab  = LoadAI(config.Ai)
                 };
                 commandBuffer.AddComponent(e, loading);
-                //commandBuffer.AddComponent(e, new CharacterAttribue() { roleID = roleData.Id, roleType = roleData.Type });
             }).WithoutBurst().Run();
             
             // 等待资源加载并生成对象
@@ -214,6 +213,7 @@ namespace SGame
                 var character         = new GameObject();
                 character.transform.position    = req.pos;
                 character.transform.rotation    = Quaternion.identity;
+                //log.Info("character start character =" + lasterCharacterID + " pos=" + req.pos);
                 Character c = character.AddComponent<Character>();//()
                 character.name = config.Name + "_id_" + lasterCharacterID;
 

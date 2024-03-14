@@ -17,6 +17,13 @@ public class GameLogicGroup : ComponentSystemGroup
 }
 
 [UpdateInGroup(typeof(GameGroup))]
+[UpdateBefore(typeof(GameLogicGroup))]
+public class GameLogicBefore : ComponentSystemGroup
+{
+    
+}
+
+[UpdateInGroup(typeof(GameGroup))]
 [UpdateAfter(typeof(GameLogicGroup))]
 public class GameLogicAfterGroup : ComponentSystemGroup
 {
