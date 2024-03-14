@@ -121,12 +121,7 @@ namespace SGame
 			{
 				// 3D对象特殊处理, 使用Entity属性来完成
 				GameObject parent = new GameObject("effect");
-				EffectMono mono = parent.AddComponent<EffectMono>();
-				mono.entity = effect;
-				mono.prefabRequest = prefabRequest;
 				obj.transform.parent = parent.transform;
-				EntityManager.AddComponentObject(effect, mono);
-				EntityManager.AddComponentObject(effect, mono.transform);
 				parent.transform.position = GetComponent<Translation>(effect).Value;
 				parent.transform.rotation = GetComponent<Rotation>(effect).Value;
 				if (HasComponent<Scale>(effect))
@@ -135,6 +130,12 @@ namespace SGame
 					parent.transform.localScale = new Vector3(scale, scale, scale);
 				}
 				m_effectObjects.Add(effect, parent);
+				
+				EffectMono mono = parent.AddComponent<EffectMono>();
+				EntityManager.AddComponentObject(effect, mono);
+				EntityManager.AddComponentObject(effect, mono.transform);
+				mono.entity = effect;
+				mono.prefabRequest = prefabRequest;
 				return parent;
 			}
 		}
@@ -145,6 +146,7 @@ namespace SGame
 			trans.localPosition = pos;
 			trans.localScale = scale;
 			trans.localRotation = rotation;
+
 		}
 
 		// 创建UI特效
@@ -234,6 +236,10 @@ namespace SGame
 
 							// 加载成功
 							EntityManager.AddComponent<EffectSysData>(req.entity);
+							
+							EffectMono mono = obj.GetComponent<EffectMono>();
+							if (mono != null)
+								mono.Play();
 						}
 						else
 						{

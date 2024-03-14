@@ -46,12 +46,14 @@ public class EffectMono : MonoBehaviour, IEffectOperator
 
     public void Play()
     {
-        m_particle.Play();
+        if (m_particle)
+            m_particle.Play();
     }
 
     public void Stop()
     {
-        m_particle.Stop();
+        if (m_particle)
+            m_particle.Stop();
     }
 
     public bool isPlaying { get { return m_particle.isPlaying; } }
