@@ -228,6 +228,9 @@ namespace SGame
                 // 创建AI
                 GameObject ai       = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
                 ai.transform.parent = character.transform;
+                ai.transform.localRotation = Quaternion.identity;
+                ai.transform.localPosition = Vector3.zero;
+                ai.transform.localScale = Vector3.one;
                 ai.name = "AI";
                 
                 // 创建对象

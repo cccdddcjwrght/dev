@@ -667,5 +667,24 @@ namespace SGame
 		{
 			return CharacterModule.Instance.FindCharacter(e);
 		}
+
+		/// <summary>
+		/// 判断节点是否有某个tag
+		/// </summary>
+		/// <param name="tag"></param>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public static bool MapHasTag(string tag, Vector3 pos)
+		{
+			var map_pos = MapAgent.VectorToGrid(pos);
+			var tags = MapAgent.GetTagsByPos(map_pos.x, map_pos.y);
+
+			if (tags == null || tags.Count == 0)
+				return false;
+			bool ret = tags.Contains(tag);
+			
+			//log.Info(string.Format("check tag pos {0}, map_pos={1}, ret={2}", pos, map_pos, ret));
+			return ret;
+		}
 	}
 }

@@ -201,6 +201,35 @@ namespace SGame
         {
             Utils.RemoveEntityChild(entity, e);
         }
+
+        /// <summary>
+        /// 设置速度属性
+        /// </summary>
+        /// <param name="enable"></param>
+        public void SetEnableSpeedAttribute(bool enable)
+        {
+            bool hasDisable = entityManager.HasComponent<DisableAttributeTag>(entity);
+            if (enable == hasDisable)
+            {
+                if (enable)
+                {
+                    entityManager.RemoveComponent<DisableAttributeTag>(entity);
+                }
+                else
+                {
+                    entityManager.AddComponent<DisableAttributeTag>(entity);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 设置角色移动速度
+        /// </summary>
+        /// <param name="speed"></param>
+        public void SetSpeed(float speed)
+        {
+            entityManager.SetComponentData(entity, new Speed() { Value = speed });
+        }
         
         /// <summary>
         /// 拿取食物
