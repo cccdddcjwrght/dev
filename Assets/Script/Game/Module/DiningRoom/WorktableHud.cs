@@ -26,6 +26,7 @@ namespace SGame
 
 		void ListenClick()
 		{
+			if (DataCenter.Instance.guideData.isGuide) return;
 			if (!_hit) Close();
 			_hit = false;
 		}
