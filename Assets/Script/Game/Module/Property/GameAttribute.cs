@@ -284,7 +284,7 @@ namespace SGame
 				unit.Excute(a);
 				if (deadline != 0 || from != 0)
 					_units.Add(unit);
-				GameDebug.Log($" {key} -> attribute {a} change: {a.modify} - deadtime {deadline} ");
+				GameDebug.Log($" {key} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
 
 			}
 			return this;

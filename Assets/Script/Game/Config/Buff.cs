@@ -27,6 +27,13 @@ public struct BuffRowData : IFlatbufferObject
   public int Value { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Time { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int RepeatType { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Describe { get { int o = __p.__offset(20); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetDescribeBytes() { return __p.__vector_as_span<byte>(20, 1); }
+#else
+  public ArraySegment<byte>? GetDescribeBytes() { return __p.__vector_as_arraysegment(20); }
+#endif
+  public byte[] GetDescribeArray() { return __p.__vector_as_array<byte>(20); }
 
   public static Offset<GameConfigs.BuffRowData> CreateBuffRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -36,8 +43,10 @@ public struct BuffRowData : IFlatbufferObject
       int AddType = 0,
       int Value = 0,
       int Time = 0,
-      int RepeatType = 0) {
-    builder.StartTable(8);
+      int RepeatType = 0,
+      StringOffset DescribeOffset = default(StringOffset)) {
+    builder.StartTable(9);
+    BuffRowData.AddDescribe(builder, DescribeOffset);
     BuffRowData.AddRepeatType(builder, RepeatType);
     BuffRowData.AddTime(builder, Time);
     BuffRowData.AddValue(builder, Value);
@@ -49,7 +58,7 @@ public struct BuffRowData : IFlatbufferObject
     return BuffRowData.EndBuffRowData(builder);
   }
 
-  public static void StartBuffRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StartBuffRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddAttribute(FlatBufferBuilder builder, int Attribute) { builder.AddInt(1, Attribute, 0); }
   public static void AddTarget(FlatBufferBuilder builder, int Target) { builder.AddInt(2, Target, 0); }
@@ -58,6 +67,7 @@ public struct BuffRowData : IFlatbufferObject
   public static void AddValue(FlatBufferBuilder builder, int Value) { builder.AddInt(5, Value, 0); }
   public static void AddTime(FlatBufferBuilder builder, int Time) { builder.AddInt(6, Time, 0); }
   public static void AddRepeatType(FlatBufferBuilder builder, int RepeatType) { builder.AddInt(7, RepeatType, 0); }
+  public static void AddDescribe(FlatBufferBuilder builder, StringOffset DescribeOffset) { builder.AddOffset(8, DescribeOffset.Value, 0); }
   public static Offset<GameConfigs.BuffRowData> EndBuffRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.BuffRowData>(o);

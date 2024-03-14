@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameConfigs;
 
 namespace SGame
 {
@@ -13,12 +14,87 @@ namespace SGame
 		public static class EquipUtil
 		{
 			private static EquipData _data { get { return Instance.equipData; } }
+			private static StringBuilder _sb = new StringBuilder();
 
 			static public void Init()
 			{
 				_data.items?.ForEach(e => e.Refresh());
+				_data.equipeds.Foreach(e => e?.Refresh());
 			}
 
+			static public void InitEquipEffects()
+			{
+				_data.equipeds.Foreach(e => OnRoleEquipChange(e));
+			}
+
+			static public string GetRoleEquipString()
+			{
+				if (_data.defaultEquipPart == null)
+				{
+					_data.defaultEquipPart = new Dictionary<string, string>();
+					if (ConfigSystem.Instance.TryGet<GameConfigs.LevelRowData>(DataCenter.Instance.roomData.current.id, out var level))
+					{
+						if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(level.PlayerId, out var role))
+						{
+							if (ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
+							{
+								var ss = model.Part.Split('|');
+								if (ss.Length % 2 == 1)
+								{
+									for (int i = 1; i < ss.Length - 1; i += 2)
+										_data.defaultEquipPart[ss[i].ToLower()] = ss[i + 1];
+								}
+							}
+						}
+					}
+				}
+
+				var d = new Dictionary<string, string>(_data.defaultEquipPart);
+				_data.equipeds.Foreach(e =>
+				{
+					if (e.cfgID > 0 && !string.IsNullOrEmpty(e.cfg.Resource)) d[((EquipType)e.type).ToString()] = e.cfg.Resource;
+				});
+				_sb.Clear();
+				_sb.Append("role");
+				d.ToList().ForEach(kv => _sb.AppendFormat("|{0}|{1}", kv.Key, kv.Value));
+				return _sb.ToString();
+			}
+
+			static public int GetRoleEquipAddValue()
+			{
+				var v = 0;
+				for (int i = 0; i < _data.equipeds.Length; i++)
+				{
+					var e = _data.equipeds[i];
+					if (e != null && e.cfgID > 0)
+						v += e.cfg.MainBuff(1);
+				}
+				return v;
+			}
+
+			static public List<int[]> GetEquipEffects(GameConfigs.EquipmentRowData equipment, bool needMainBuff = false, List<int[]> rets = null)
+			{
+				if (equipment.IsValid())
+				{
+					var list = rets ?? new List<int[]>();
+					if (equipment.Buff1Length > 0)
+						list.Add(equipment.GetBuff1Array());
+					if (equipment.Buff2Length > 0)
+						list.Add(equipment.GetBuff2Array());
+					if (equipment.Buff3Length > 0)
+						list.Add(equipment.GetBuff3Array());
+					if (equipment.Buff4Length > 0)
+						list.Add(equipment.GetBuff4Array());
+					if (equipment.Buff5Length > 0)
+						list.Add(equipment.GetBuff5Array());
+
+					if (needMainBuff)
+						list.Add(equipment.GetMainBuffArray());
+
+					return list;
+				}
+				return default;
+			}
 
 			static public void AddEquips(bool isnew, params int[] ids)
 			{
@@ -50,7 +126,13 @@ namespace SGame
 				{
 					for (int i = 0; i < count; i++)
 					{
-						var e = new EquipItem() { cfgID = eq, cfg = cfg, level = cfg.Level, isnew = isnew ? (byte)1 : (byte)0 };
+						var e = new EquipItem()
+						{
+							cfgID = eq,
+							cfg = cfg,
+							level = cfg.Level,
+							isnew = isnew ? (byte)1 : (byte)0
+						};
 						_data.items.Add(e);
 					}
 					if (triggerevent)
@@ -58,6 +140,63 @@ namespace SGame
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_ADD));
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 					}
+				}
+			}
+
+			static public void RemoveEquips(params EquipItem[] equips)
+			{
+				if (equips?.Length > 0)
+				{
+					foreach (var item in equips)
+						RemoveEquip(item, false);
+					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+				}
+			}
+
+			static public void PutOn(EquipItem equip, int pos = 0)
+			{
+				if (equip != null)
+				{
+					pos = pos == 0 ? equip.cfg.Type : pos;
+					if (pos > _data.equipeds.Length)
+					{ log.Error("装备格子不对，无法装备"); return; }
+
+					PutOff(_data.equipeds[pos], false);
+					RemoveEquip(equip, false);
+					OnRoleEquipChange(equip);
+
+					equip.pos = pos;
+					_data.equipeds[pos] = equip;
+					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+					EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
+				}
+			}
+
+			static public void PutOff(EquipItem equip, bool triggerevent = true)
+			{
+				if (equip != null && equip.cfgID > 0 && equip.pos > 0)
+				{
+					_data.equipeds[equip.pos] = default;
+					_data.items.Add(equip);
+					equip.pos = 0;
+					OnRoleEquipChange(equip, true);
+					if (triggerevent)
+					{
+						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+						EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
+					}
+				}
+			}
+
+			static public void RemoveEquip(EquipItem equip, bool triggerevent = true)
+			{
+
+				var index = _data.items.IndexOf(equip);
+				if (index >= 0)
+				{
+					_data.items.RemoveAt(index);
+					if (triggerevent)
+						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 				}
 			}
 
@@ -88,6 +227,23 @@ namespace SGame
 
 			}
 
+			static private void OnRoleEquipChange(EquipItem equip, bool remove = false)
+			{
+				if (equip == null || equip.cfgID <= 0) return;
+				var list = GetEquipEffects(equip.cfg, true);
+				if (list.Count > 0)
+				{
+					var buffs = list.GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(kv => new BuffData()
+					{
+						id = kv.Key, val = kv.Value, from = equip.key, isremove = remove,
+					}).All(buff =>
+					{
+						EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff);
+						return true;
+					});
+				}
+			}
+
 		}
 
 	}
@@ -95,14 +251,21 @@ namespace SGame
 	[Serializable]
 	public class EquipData
 	{
+		public EquipItem[] equipeds = new EquipItem[16];
 		public List<EquipItem> items = new List<EquipItem>();
+
+		[NonSerialized]
+		public Dictionary<string, string> defaultEquipPart;
+
 	}
 
 	[Serializable]
 	public class EquipItem
 	{
+		public int key;
 		public int cfgID;
 		public int level;
+		public int pos;
 		public byte isnew;
 
 		public int type { get { return cfg.Type; } }
@@ -112,6 +275,12 @@ namespace SGame
 
 		[NonSerialized]
 		public GameConfigs.EquipmentRowData cfg;
+
+
+		public EquipItem()
+		{
+			key = (int)System.DateTime.Now.Ticks;
+		}
 
 		public EquipItem Refresh()
 		{

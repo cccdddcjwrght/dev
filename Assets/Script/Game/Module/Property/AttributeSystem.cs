@@ -32,6 +32,7 @@ namespace SGame
 		/// 可以通过这个清除buff
 		/// </summary>
 		public int from;
+		public bool isremove;
 
 		public BuffData(int id, int val, int targetid = 0, int time = 0)
 		{
@@ -40,6 +41,7 @@ namespace SGame
 			this.val = val;
 			this.targetid = targetid;
 			this.time = time;
+			this.isremove = false;
 			from = 0;
 		}
 
@@ -50,6 +52,16 @@ namespace SGame
 	/// </summary>
 	public class AttributeSystem : MonoSingleton<AttributeSystem>
 	{
+
+		readonly static EnumTarget ALL_TARGET = EnumTarget.Player
+			| EnumTarget.Equip
+			| EnumTarget.Customer
+			| EnumTarget.Investor
+			| EnumTarget.Cook
+			| EnumTarget.Waiter
+			| EnumTarget.Machine
+			| EnumTarget.Game;
+
 		static ILog log = LogManager.GetLogger("game.attribute");
 
 		private Dictionary<int, Dictionary<int, AttributeList>> _groups = new Dictionary<int, Dictionary<int, AttributeList>>();
@@ -83,7 +95,7 @@ namespace SGame
 		public double GetValue(int type, int attributeID, int targetid = 0)
 		{
 			var list = GetAttributeList(type, targetid);
-			if (list != null )
+			if (list != null)
 				return list[attributeID];
 			return 0;
 		}
@@ -270,9 +282,15 @@ namespace SGame
 				{
 					var targets = GetTargets(cfg.Target, targetid != 0 ? targetid : cfg.TargetID);
 					if (targets?.Count > 0)
-						targets.ForEach(t => t.ResetByFrom(from, attributeID));
+						targets.ForEach(t => t.ResetByFrom(from, attributeID > 0 ? attributeID : cfg.Attribute));
 				}
 			}
+		}
+
+		public void RemoveBuffByFrom(int from)
+		{
+			if (from != 0)
+				GetTargets((int)ALL_TARGET)?.ForEach(t => t.ResetByFrom(from, 0));
 		}
 
 		public List<AttributeList> GetTargets(int target, int targetid = 0)
@@ -313,8 +331,6 @@ namespace SGame
 
 		#region Mono
 
-		System.Random _r = new System.Random();
-
 		private void Update()
 		{
 			try
@@ -326,10 +342,6 @@ namespace SGame
 				log.Error(e.Message);
 			}
 
-			if (Input.GetKeyDown(KeyCode.A))
-			{
-				AddBuff(_r.Next(1, 70), _r.Next(-100, 100), 0, _r.Next(0, 20));
-			}
 		}
 
 		#endregion

@@ -35,7 +35,6 @@ namespace SGame
 			}
 		}
 
-
 		private static void DoExcuteEqGift(ItemRowData item, int count)
 		{
 			if (count > 0 && ConfigSystem.Instance.TryGet<ChestRowData>(item.TypeId, out var chest))

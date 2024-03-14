@@ -347,15 +347,33 @@ public class UIListener
 		}
 	}
 
-	static public void SetControllerSelect(GObject gObject, string ctr, int index)
+	static public void SetControllerSelect(GObject gObject, string ctr, int index , bool throwex = true)
 	{
 		if (!string.IsNullOrEmpty(ctr) && gObject != null && gObject is GComponent com)
 		{
 			var c = com.GetController(ctr);
 			if (c != null && c.pageCount > index)
 				c.selectedIndex = index;
-			else
+			else if(throwex)
 				throw new Exception($"{gObject} 不存在 {ctr} 控制器或者{index}越界");
+		}
+	}
+
+	static public void SetTextWithName(GObject gObject , string labelName , string text)
+	{
+		if (!string.IsNullOrEmpty(labelName) && gObject is GComponent com)
+		{
+			var c = com.GetChildByPath(labelName);
+			if (c != null) SetText(c, text);
+		}
+	}
+
+	static public void SetIconWithName(GObject gObject, string iconName, string res)
+	{
+		if (!string.IsNullOrEmpty(iconName) && gObject is GComponent com)
+		{
+			var c = com.GetChildByPath(iconName);
+			if (c != null) SetIcon(c, res);
 		}
 	}
 
@@ -488,7 +506,7 @@ public class UIListener
 
 }
 
-public static class UIListenerExt
+public  static partial class UIListenerExt
 {
 	public static GObject SetText(this GObject gObject, string text, bool local = true)
 	{

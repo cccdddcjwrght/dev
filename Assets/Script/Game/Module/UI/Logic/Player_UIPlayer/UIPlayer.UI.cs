@@ -17,10 +17,10 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_attrbtn, new EventCallback1(_OnAttrbtnClick));
 			UIListener.Listener(m_view.m_eq1, new EventCallback1(_OnEq1Click));
-			UIListener.Listener(m_view.m_eq2, new EventCallback1(_OnEq2Click));
 			UIListener.Listener(m_view.m_eq3, new EventCallback1(_OnEq3Click));
-			UIListener.Listener(m_view.m_eq4, new EventCallback1(_OnEq4Click));
+			UIListener.Listener(m_view.m_eq2, new EventCallback1(_OnEq2Click));
 			UIListener.Listener(m_view.m_eq5, new EventCallback1(_OnEq5Click));
+			UIListener.Listener(m_view.m_eq4, new EventCallback1(_OnEq4Click));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -28,10 +28,10 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_attrbtn, new EventCallback1(_OnAttrbtnClick),remove:true);
 			UIListener.Listener(m_view.m_eq1, new EventCallback1(_OnEq1Click),remove:true);
-			UIListener.Listener(m_view.m_eq2, new EventCallback1(_OnEq2Click),remove:true);
 			UIListener.Listener(m_view.m_eq3, new EventCallback1(_OnEq3Click),remove:true);
-			UIListener.Listener(m_view.m_eq4, new EventCallback1(_OnEq4Click),remove:true);
+			UIListener.Listener(m_view.m_eq2, new EventCallback1(_OnEq2Click),remove:true);
 			UIListener.Listener(m_view.m_eq5, new EventCallback1(_OnEq5Click),remove:true);
+			UIListener.Listener(m_view.m_eq4, new EventCallback1(_OnEq4Click),remove:true);
 
 		}
 		void _OnEqTabChanged(EventContext data){
@@ -62,30 +62,30 @@ namespace SGame.UI{
 		partial void OnEq1Click(EventContext data);
 		void SetEq1Text(string data)=>UIListener.SetText(m_view.m_eq1,data);
 		string GetEq1Text()=>UIListener.GetText(m_view.m_eq1);
-		void _OnEq2Click(EventContext data){
-			OnEq2Click(data);
-		}
-		partial void OnEq2Click(EventContext data);
-		void SetEq2Text(string data)=>UIListener.SetText(m_view.m_eq2,data);
-		string GetEq2Text()=>UIListener.GetText(m_view.m_eq2);
 		void _OnEq3Click(EventContext data){
 			OnEq3Click(data);
 		}
 		partial void OnEq3Click(EventContext data);
 		void SetEq3Text(string data)=>UIListener.SetText(m_view.m_eq3,data);
 		string GetEq3Text()=>UIListener.GetText(m_view.m_eq3);
-		void _OnEq4Click(EventContext data){
-			OnEq4Click(data);
+		void _OnEq2Click(EventContext data){
+			OnEq2Click(data);
 		}
-		partial void OnEq4Click(EventContext data);
-		void SetEq4Text(string data)=>UIListener.SetText(m_view.m_eq4,data);
-		string GetEq4Text()=>UIListener.GetText(m_view.m_eq4);
+		partial void OnEq2Click(EventContext data);
+		void SetEq2Text(string data)=>UIListener.SetText(m_view.m_eq2,data);
+		string GetEq2Text()=>UIListener.GetText(m_view.m_eq2);
 		void _OnEq5Click(EventContext data){
 			OnEq5Click(data);
 		}
 		partial void OnEq5Click(EventContext data);
 		void SetEq5Text(string data)=>UIListener.SetText(m_view.m_eq5,data);
 		string GetEq5Text()=>UIListener.GetText(m_view.m_eq5);
+		void _OnEq4Click(EventContext data){
+			OnEq4Click(data);
+		}
+		partial void OnEq4Click(EventContext data);
+		void SetEq4Text(string data)=>UIListener.SetText(m_view.m_eq4,data);
+		string GetEq4Text()=>UIListener.GetText(m_view.m_eq4);
 
 	}
 }

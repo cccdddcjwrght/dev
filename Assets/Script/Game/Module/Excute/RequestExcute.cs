@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace SGame
 				.Where(m => Attribute.IsDefined(m, typeof(InitCallAttribute))).ToList();
 			try
 			{
-				methods.Foreach(m => m.Invoke(null, Array.Empty<object>()));
+				CallInitMethod(methods).Start() ;
 			}
 			catch (Exception e)
 			{
@@ -35,6 +36,12 @@ namespace SGame
 		private void InitEvent()
 		{
 
+		}
+
+		private IEnumerator CallInitMethod(List<System.Reflection.MethodInfo> methods)
+		{
+			yield return null;
+			methods.Foreach(m => m.Invoke(null, Array.Empty<object>()));
 		}
 
 	}

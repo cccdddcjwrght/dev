@@ -14,7 +14,7 @@ public class DefaultBtnExcuter : IUIExcute
 	{
 		var flag = type.StartsWith(UIImportUtils.CS_PIX);
 		var flag2 = Condition(type, name);
-		var flag3 = name.ToLower().EndsWith("body") || name.ToLower() == "mask" || name.ToLower() == "close";
+		var flag3 = name.ToLower().EndsWith("body") || name.ToLower().EndsWith("_mask") || name.ToLower().EndsWith("_close");
 
 		if (flag2 || flag || flag3)
 		{

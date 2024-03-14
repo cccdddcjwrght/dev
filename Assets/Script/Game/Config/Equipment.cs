@@ -45,7 +45,13 @@ public struct EquipmentRowData : IFlatbufferObject
   public int Group { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Type { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Quality { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Resource { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Resource { get { int o = __p.__offset(20); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetResourceBytes() { return __p.__vector_as_span<byte>(20, 1); }
+#else
+  public ArraySegment<byte>? GetResourceBytes() { return __p.__vector_as_arraysegment(20); }
+#endif
+  public byte[] GetResourceArray() { return __p.__vector_as_array<byte>(20); }
   public int Level { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int LevelMax { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int MainBuff(int j) { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
@@ -106,7 +112,7 @@ public struct EquipmentRowData : IFlatbufferObject
       int Group = 0,
       int Type = 0,
       int Quality = 0,
-      int Resource = 0,
+      StringOffset ResourceOffset = default(StringOffset),
       int Level = 0,
       int LevelMax = 0,
       VectorOffset MainBuffOffset = default(VectorOffset),
@@ -124,7 +130,7 @@ public struct EquipmentRowData : IFlatbufferObject
     EquipmentRowData.AddMainBuff(builder, MainBuffOffset);
     EquipmentRowData.AddLevelMax(builder, LevelMax);
     EquipmentRowData.AddLevel(builder, Level);
-    EquipmentRowData.AddResource(builder, Resource);
+    EquipmentRowData.AddResource(builder, ResourceOffset);
     EquipmentRowData.AddQuality(builder, Quality);
     EquipmentRowData.AddType(builder, Type);
     EquipmentRowData.AddGroup(builder, Group);
@@ -145,7 +151,7 @@ public struct EquipmentRowData : IFlatbufferObject
   public static void AddGroup(FlatBufferBuilder builder, int Group) { builder.AddInt(5, Group, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(6, Type, 0); }
   public static void AddQuality(FlatBufferBuilder builder, int Quality) { builder.AddInt(7, Quality, 0); }
-  public static void AddResource(FlatBufferBuilder builder, int Resource) { builder.AddInt(8, Resource, 0); }
+  public static void AddResource(FlatBufferBuilder builder, StringOffset ResourceOffset) { builder.AddOffset(8, ResourceOffset.Value, 0); }
   public static void AddLevel(FlatBufferBuilder builder, int Level) { builder.AddInt(9, Level, 0); }
   public static void AddLevelMax(FlatBufferBuilder builder, int LevelMax) { builder.AddInt(10, LevelMax, 0); }
   public static void AddMainBuff(FlatBufferBuilder builder, VectorOffset MainBuffOffset) { builder.AddOffset(11, MainBuffOffset.Value, 0); }

@@ -10,8 +10,7 @@ namespace SGame.UI.Common
         public Controller m_size;
         public GGraph m_closeBg;
         public GLoader m_bg;
-        public GTextField m_title;
-        public UI_CloseBtn m_close;
+        public GButton m_close;
         public const string URL = "ui://2w8thcm7k0s63lam";
 
         public static UI_PopupUI CreateInstance()
@@ -26,8 +25,7 @@ namespace SGame.UI.Common
             m_size = GetControllerAt(0);
             m_closeBg = (GGraph)GetChildAt(0);
             m_bg = (GLoader)GetChildAt(1);
-            m_title = (GTextField)GetChildAt(2);
-            m_close = (UI_CloseBtn)GetChildAt(3);
+            m_close = (GButton)GetChildAt(3);
         }
     }
 }

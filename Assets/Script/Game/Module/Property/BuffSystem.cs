@@ -30,6 +30,9 @@ namespace SGame
 			ReInitAllAttribute(room);
 			//关卡科技生效
 			DataCenter.RoomUtil.InitTechBuffs();
+			//装备属性
+			DataCenter.EquipUtil.InitEquipEffects();
+
 		}
 		#endregion
 
@@ -127,8 +130,11 @@ namespace SGame
 				var from = data.from;
 				if (from != 0)
 					attrSys.RemoveBuff(data.id, from, data.targetid);
-				attrSys.AddBuff(data.id, data.val, data.targetid, data.time, data.from);
+				if (!data.isremove)
+					attrSys.AddBuff(data.id, data.val, data.targetid, data.time, data.from);
 			}
+			else if (data.from != 0)
+				attrSys.RemoveBuffByFrom(data.from);
 		}
 
 

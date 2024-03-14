@@ -20,7 +20,6 @@ namespace SGame.UI
 			swipe.onMove.Add(OnTouchMove);
 			m_view.m_eqTab.selectedIndex = -1;
 
-			m_view.m_attr.SetText("ui_player_base_attr".Local(null, 0), false);
 			m_view.m_list.itemRenderer = OnSetEquipInfo;
 			m_view.m_list.SetVirtual();
 
@@ -32,6 +31,8 @@ namespace SGame.UI
 		partial void DoShow(UIContext context)
 		{
 			m_view.m_eqTab.selectedIndex = 0;
+			SetPlayEquipsInfo();
+			OnDataRefresh(false);
 		}
 
 		partial void UnInitLogic(UIContext context)
@@ -41,13 +42,31 @@ namespace SGame.UI
 			goWrapper = null;
 		}
 
+		void OnDataRefresh(bool refreshtabs = true)
+		{
+			m_view.m_attr.SetTextByKey("ui_player_base_attr" , DataCenter.EquipUtil.GetRoleEquipAddValue());
+			if (refreshtabs) OnEqTabChanged(null);
+		}
 
 		partial void OnEqTabChanged(EventContext data)
 		{
+
 			switch (m_view.m_tabs.selectedIndex)
 			{
 				case 0: OnEquipListPage(); break;
 			}
+		}
+
+		void SetPlayEquipsInfo()
+		{
+			var eqs = DataCenter.Instance.equipData.equipeds;
+
+			UIListenerExt.SetEquipInfo(m_view.m_eq1, eqs[1]);
+			UIListenerExt.SetEquipInfo(m_view.m_eq2, eqs[2]);
+			UIListenerExt.SetEquipInfo(m_view.m_eq3, eqs[3]);
+			UIListenerExt.SetEquipInfo(m_view.m_eq4, eqs[4]);
+			UIListenerExt.SetEquipInfo(m_view.m_eq5, eqs[5]);
+
 		}
 
 		void OnEquipListPage()
@@ -70,7 +89,20 @@ namespace SGame.UI
 		void OnSetEquipInfo(int index, GObject gObject)
 		{
 
-			(gObject as UI_Equip).SetInfo(_eqs[index]);
+			(gObject as UI_Equip).SetEquipInfo(_eqs[index]);
+			(gObject as UI_Equip).onClick.Clear();
+			(gObject as UI_Equip).onClick.Add(() => OnEqClick(gObject, _eqs[index]));
+		}
+
+		void OnEqClick(GObject gObject, EquipItem data)
+		{
+			if (data != null && data.cfgID > 0)
+			{
+				data.isnew = 0;
+				SGame.UIUtils.OpenUI("eqtipsui", data);
+				if (gObject != null)
+					UIListener.SetControllerSelect(gObject, "__redpoint", 0, false);
+			}
 		}
 
 		void OnTouchMove(EventContext context)
@@ -82,24 +114,15 @@ namespace SGame.UI
 		System.Collections.IEnumerator CreateRole()
 		{
 			yield return null;
-			if (ConfigSystem.Instance.TryGet<GameConfigs.LevelRowData>(DataCenter.Instance.roomData.current.id, out var level))
+			var gen = CharacterGenerator.CreateWithConfig(DataCenter.EquipUtil.GetRoleEquipString());
+			var go = gen.Generate();
+			if (go)
 			{
-				if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(level.PlayerId, out var role))
-				{
-					if (ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
-					{
-						var gen = CharacterGenerator.CreateWithConfig(model.Part);
-						var go = gen.Generate();
-						if (go)
-						{
-							var old = goWrapper.wrapTarget;
-							if (old) GameObject.Destroy(old);
-							goWrapper.SetWrapTarget(go, false);
-							go.transform.localScale = Vector3.one * 300;
-							go.transform.localRotation = Quaternion.Euler(0, -145, 0);
-						}
-					}
-				}
+				var old = goWrapper.wrapTarget;
+				if (old) GameObject.Destroy(old);
+				goWrapper.SetWrapTarget(go, false);
+				go.transform.localScale = Vector3.one * 300;
+				go.transform.localRotation = Quaternion.Euler(0, -145, 0);
 			}
 		}
 

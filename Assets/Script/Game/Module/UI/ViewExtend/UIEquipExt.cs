@@ -1,29 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using FairyGUI;
+using GameConfigs;
+using SGame;
 using UnityEngine;
 
-namespace SGame.UI.Player
+partial class UIListenerExt
 {
-	partial class UI_Equip
+	static public void SetEquipInfo(this GObject gObject, EquipmentRowData cfg)
 	{
-		public UI_Equip SetInfo(GameConfigs.EquipmentRowData cfg)
+		if (gObject != null && cfg.IsValid())
 		{
-			if (cfg.IsValid())
+			if (gObject is GComponent com)
 			{
-				this.SetTextByKey(cfg.Name);
-				this.SetIcon(cfg.Icon);
-				this.m_quality.selectedIndex = cfg.Quality;
-				this.m_level.SetText(cfg.Level.ToString(), false);
+				com.SetTextByKey(cfg.Name);
+				com.SetIcon(cfg.Icon);
+				UIListener.SetControllerSelect(com, "quality", cfg.Quality);
+				UIListener.SetTextWithName(com, "level", cfg.Level.ToString());
 			}
-			return this;
 		}
-
-		public UI_Equip SetInfo(EquipItem equip)
-		{
-			SetInfo(equip.cfg);
-			this.m_level.SetText(equip.level.ToString(), false);
-			return this;
-		}
-
 	}
+
+	static public void SetEquipInfo(this GObject gObject, EquipItem equip)
+	{
+		if (equip == null || equip.cfgID <= 0)
+			UIListener.SetControllerSelect(gObject, "eq", 0, false);
+		else
+		{
+			UIListener.SetControllerSelect(gObject, "eq", 1, false);
+			SetEquipInfo(gObject, equip.cfg);
+			UIListener.SetTextWithName(gObject, "level", equip.level.ToString());
+			UIListener.SetControllerSelect(gObject, "__redpoint", equip.isnew, false);
+		}
+	}
+
 }

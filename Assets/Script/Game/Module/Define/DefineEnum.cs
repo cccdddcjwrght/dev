@@ -177,4 +177,17 @@ namespace SGame
 		Diamond = 5,
 	}
 
+	/// <summary>
+	/// 装备类型
+	/// </summary>
+	public enum EquipType
+	{
+		None		= 0,
+		Hair		= 1,
+		Clothes		= 2,
+		Weapon		= 3,
+		RightWeapon = 4,
+		Shoes		= 5
+	}
+
 }

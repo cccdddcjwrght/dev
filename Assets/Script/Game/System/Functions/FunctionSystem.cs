@@ -163,7 +163,7 @@ namespace SGame
 
 
 				if (!ret && enableTips)
-					tips.Tips();
+					(tips ?? "@ui_system_dont_open").Tips();
 
 				return ret;
 			}

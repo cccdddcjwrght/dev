@@ -11,7 +11,6 @@ namespace SGame.UI.Common
         public Controller m_txtpos;
         public Controller m_color;
         public Controller m_txtSize;
-        public GLoader m_icon;
         public UI_ColorText m_title_2;
         public UI_ColorText m_title_1;
         public const string URL = "ui://2w8thcm7hwwav";
@@ -29,7 +28,6 @@ namespace SGame.UI.Common
             m_txtpos = GetControllerAt(1);
             m_color = GetControllerAt(2);
             m_txtSize = GetControllerAt(3);
-            m_icon = (GLoader)GetChildAt(0);
             m_title_2 = (UI_ColorText)GetChildAt(1);
             m_title_1 = (UI_ColorText)GetChildAt(2);
         }

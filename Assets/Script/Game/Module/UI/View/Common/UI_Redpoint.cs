@@ -7,8 +7,6 @@ namespace SGame.UI.Common
 {
     public partial class UI_Redpoint : GButton
     {
-        public Controller m_button;
-        public GLoader m_icon;
         public Transition m_t0;
         public const string URL = "ui://2w8thcm7tfqd62";
 
@@ -21,8 +19,6 @@ namespace SGame.UI.Common
         {
             base.ConstructFromXML(xml);
 
-            m_button = GetControllerAt(0);
-            m_icon = (GLoader)GetChildAt(0);
             m_t0 = GetTransitionAt(0);
         }
     }

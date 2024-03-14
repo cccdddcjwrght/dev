@@ -89,7 +89,7 @@ namespace SGame.UI
 		{
 			var cfg = _eqs[index];
 			var eq = gObject as UI_EquipBox;
-			eq.m_body.SetInfo(cfg);
+			eq.m_body.SetEquipInfo(cfg);
 		}
 
 		private List<EquipmentRowData> GetRandomEqs(int id, out ChestRowData chest)
