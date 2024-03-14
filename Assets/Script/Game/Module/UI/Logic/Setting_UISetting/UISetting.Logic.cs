@@ -29,7 +29,7 @@ namespace SGame.UI{
 		
 		partial void InitLogic(UIContext context)
 		{
-			if (DataCenter.Instance.accountData.playerName!=""||DataCenter.Instance.accountData.playerName!=null)
+			if (!String.IsNullOrEmpty(DataCenter.Instance.accountData.playerName))
 			{
 				m_view.m_name.m___title.text = DataCenter.Instance.accountData.playerName;
 			}

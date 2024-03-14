@@ -7,6 +7,7 @@ namespace SGame
     public class GuideData
     {
         public int guideStep;
+        [NonSerialized]
         public bool isGuide=false;
     }
 }
