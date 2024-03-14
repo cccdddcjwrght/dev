@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -52,7 +53,18 @@ namespace SGame
         /// <param name="food"></param>
         public void CloseFood(Entity food)
         {
-            m_destorySystem.DespawnEntity(food);
+            DynamicBuffer<Child> childs = EntityManager.GetBuffer<Child>(food);
+            List<Entity> closing = new List<Entity>();
+            for (int i = 0; i < childs.Length; i++)
+            {
+                //m_destorySystem.DespawnEntity(childs[i].Value);
+                //EntityManager.DestroyEntity(childs[i].Value);
+                closing.Add(childs[i].Value);
+            }
+            foreach (var e in closing)
+                EntityManager.DestroyEntity(e);
+            EntityManager.DestroyEntity(food);
+            //m_destorySystem.DespawnEntity(food);
         }
     }
 }

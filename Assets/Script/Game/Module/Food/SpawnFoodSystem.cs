@@ -17,10 +17,11 @@ namespace SGame
     {
     }
 
+    [UpdateAfter(typeof(EndSimulationEntityCommandBufferSystem))]
     public partial class SpawnFoodSystem : SystemBase
     {
         private static ILog log = LogManager.GetLogger("game.food");
-        private EndSimulationEntityCommandBufferSystem m_commandBuffer;
+        private BeginSimulationEntityCommandBufferSystem m_commandBuffer;
 
         private string[] RES_PATHS = new string[]
         {
@@ -36,7 +37,7 @@ namespace SGame
         
         protected override void OnCreate()
         {
-            m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commandBuffer = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
 
 
             m_foodsQuery = EntityManager.CreateEntityQuery(typeof(FoodType), typeof(Prefab));
@@ -77,7 +78,7 @@ namespace SGame
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, in SpawnFoodRequestTag req, in FoodType foodType) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, in SpawnFoodRequestTag req, in FoodType foodType, in LocalToWorld ltw) =>
             {
                 commandBuffer.RemoveComponent<SpawnFoodRequestTag>(e);
                 if (!m_foodsPrefab.TryGetValue(foodType.Value, out Entity prefab))
