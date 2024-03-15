@@ -14,7 +14,7 @@ namespace SGame.UI.Technology
         public GTextField m_Description;
         public GTextField m_update2;
         public GTextField m_update1;
-        public GTextField m_up;
+        public GImage m_up;
         public GImage m_lock;
         public GTextField m_unLock;
         public GButton m_techBtn;
@@ -39,7 +39,7 @@ namespace SGame.UI.Technology
             m_Description = (GTextField)GetChildAt(2);
             m_update2 = (GTextField)GetChildAt(3);
             m_update1 = (GTextField)GetChildAt(4);
-            m_up = (GTextField)GetChildAt(5);
+            m_up = (GImage)GetChildAt(5);
             m_lock = (GImage)GetChildAt(6);
             m_unLock = (GTextField)GetChildAt(7);
             m_techBtn = (GButton)GetChildAt(8);

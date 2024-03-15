@@ -15,6 +15,7 @@ namespace SGame.UI.Buff
         public Controller m_txtColor;
         public Controller m_iconImage;
         public Controller m_gray;
+        public Controller m_IconSize;
         public GLoader m_bg;
         public GTextField m_title;
         public GLoader m_icon;
@@ -38,6 +39,7 @@ namespace SGame.UI.Buff
             m_txtColor = GetControllerAt(5);
             m_iconImage = GetControllerAt(6);
             m_gray = GetControllerAt(7);
+            m_IconSize = GetControllerAt(8);
             m_bg = (GLoader)GetChildAt(0);
             m_title = (GTextField)GetChildAt(1);
             m_icon = (GLoader)GetChildAt(2);

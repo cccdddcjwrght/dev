@@ -14,12 +14,12 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_size.onChanged.Add(new EventCallback1(_OnSizeChanged));
-			UIListener.Listener(m_view.m_close, new EventCallback1(_OnCloseClick));
+			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_size.onChanged.Remove(new EventCallback1(_OnSizeChanged));
-			UIListener.Listener(m_view.m_close, new EventCallback1(_OnCloseClick),remove:true);
+			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
 		void _OnSizeChanged(EventContext data){
@@ -27,10 +27,15 @@ namespace SGame.UI{
 		}
 		partial void OnSizeChanged(EventContext data);
 		void SwitchSizePage(int index)=>m_view.m_size.selectedIndex=index;
-		void _OnCloseClick(EventContext data){
-			OnCloseClick(data);
+		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
+		string GetTitleText()=>UIListener.GetText(m_view.m_title);
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
 		}
-		partial void OnCloseClick(EventContext data);
+		partial void OnUICloseClick(ref bool state);
 		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
 		string GetCloseText()=>UIListener.GetText(m_view.m_close);
 
