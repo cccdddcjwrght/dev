@@ -15,7 +15,6 @@ namespace SGame.UI.Buff
         public GTextField m_title;
         public GTextField m_desc;
         public UI_ClickBtn m_click;
-        public GGroup m_n6;
         public Transition m_hide;
         public const string URL = "ui://g406runaijal6";
 
@@ -36,7 +35,6 @@ namespace SGame.UI.Buff
             m_title = (GTextField)GetChildAt(3);
             m_desc = (GTextField)GetChildAt(4);
             m_click = (UI_ClickBtn)GetChildAt(5);
-            m_n6 = (GGroup)GetChildAt(6);
             m_hide = GetTransitionAt(0);
         }
     }
