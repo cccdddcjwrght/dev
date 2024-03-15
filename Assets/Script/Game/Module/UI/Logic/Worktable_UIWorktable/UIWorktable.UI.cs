@@ -14,6 +14,7 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
+			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			m_view.m_panel.m_type.onChanged.Add(new EventCallback1(_OnWorktablePanelTypeChanged));
 			m_view.m_panel.m_pos.onChanged.Add(new EventCallback1(_OnWorktablePanelPosChanged));
 			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnWorktablePanelClickClick));
@@ -22,6 +23,7 @@ namespace SGame.UI{
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
+			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_panel.m_type.onChanged.Remove(new EventCallback1(_OnWorktablePanelTypeChanged));
 			m_view.m_panel.m_pos.onChanged.Remove(new EventCallback1(_OnWorktablePanelPosChanged));
 			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnWorktablePanelClickClick),remove:true);
@@ -33,6 +35,13 @@ namespace SGame.UI{
 		}
 		partial void OnTypeChanged(EventContext data);
 		void SwitchTypePage(int index)=>m_view.m_type.selectedIndex=index;
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
+		}
+		partial void OnUICloseClick(ref bool state);
 		void _OnWorktablePanelTypeChanged(EventContext data){
 			OnWorktablePanelTypeChanged(data);
 		}
@@ -67,6 +76,8 @@ namespace SGame.UI{
 			OnPanelClick(data);
 		}
 		partial void OnPanelClick(EventContext data);
+		void SetPanelText(string data)=>UIListener.SetText(m_view.m_panel,data);
+		string GetPanelText()=>UIListener.GetText(m_view.m_panel);
 
 	}
 }
