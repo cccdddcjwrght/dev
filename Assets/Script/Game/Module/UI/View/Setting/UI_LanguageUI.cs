@@ -10,6 +10,7 @@ namespace SGame.UI.Setting
         public GLabel m_body;
         public GList m_list;
         public GButton m_confirm;
+        public GGroup m_n13;
         public const string URL = "ui://dpgt0e2zfpxr19";
 
         public static UI_LanguageUI CreateInstance()
@@ -24,6 +25,7 @@ namespace SGame.UI.Setting
             m_body = (GLabel)GetChildAt(0);
             m_list = (GList)GetChildAt(1);
             m_confirm = (GButton)GetChildAt(2);
+            m_n13 = (GGroup)GetChildAt(3);
         }
     }
 }
