@@ -190,7 +190,7 @@ namespace SGame.UI
 
         override protected void OnShown()
         {
-            log.Debug("UI OnShow=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
+            //log.Debug("UI OnShow=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
             m_isReadyShowed = true;
             m_isDelayClose = false;
             
@@ -201,7 +201,7 @@ namespace SGame.UI
 
         protected override void OnHide()
         {
-            log.Debug("UI OnHide=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
+            //log.Debug("UI OnHide=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
             m_isReadyShowed = false;
             m_isHiding = false;
             base.OnHide();

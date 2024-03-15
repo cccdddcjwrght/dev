@@ -19,6 +19,7 @@ namespace SGame.UI
 			equip = (context.GetParam().Value as object[]).Val<EquipItem>(0);
 			m_view.m_list.itemRenderer = OnSetEffect;
 			SetInfo();
+			SetEffectsInfo();
 		}
 
 		partial void DoShow(UIContext context)

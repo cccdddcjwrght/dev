@@ -284,7 +284,9 @@ namespace SGame
 				unit.Excute(a);
 				if (deadline != 0 || from != 0)
 					_units.Add(unit);
-				GameDebug.Log($" {key} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
+#if DEBUG
+				GameDebug.Log($"<color='green'>[BUFF]</color>{key} -> ::attribute {a} change: {a.modify} - deadtime {deadline} "); 
+#endif
 
 			}
 			return this;
@@ -299,6 +301,9 @@ namespace SGame
 					var u = _units[i];
 					if (u.from == from && (id == 0 || u.id == id))
 					{
+#if DEBUG
+						GameDebug.Log($"<color='red'>[BUFF]</color>{key} -> ::attribute {u.attribute} change : {u.modifiy}, val-> {u.attribute.value - u.modifiy}  "); 
+#endif
 						u.Reset();
 						_units.RemoveAt(i);
 					}

@@ -29,6 +29,7 @@ namespace SGame
 
 			static public string GetRoleEquipString()
 			{
+				#region 当前场景角色基模数据
 				if (_data.defaultEquipPart == null)
 				{
 					_data.defaultEquipPart = new Dictionary<string, string>();
@@ -48,11 +49,13 @@ namespace SGame
 						}
 					}
 				}
+				#endregion
 
 				var d = new Dictionary<string, string>(_data.defaultEquipPart);
 				_data.equipeds.Foreach(e =>
 				{
-					if (e.cfgID > 0 && !string.IsNullOrEmpty(e.cfg.Resource)) d[((EquipType)e.type).ToString()] = e.cfg.Resource;
+					if (e != null && e.cfgID > 0)
+						e.ReplacePart(d);
 				});
 				_sb.Clear();
 				_sb.Append("role");
@@ -235,7 +238,10 @@ namespace SGame
 				{
 					var buffs = list.GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(kv => new BuffData()
 					{
-						id = kv.Key, val = kv.Value, from = equip.key, isremove = remove,
+						id = kv.Key,
+						val = kv.Value,
+						from = equip.key,
+						isremove = remove,
 					}).All(buff =>
 					{
 						EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff);
@@ -273,6 +279,8 @@ namespace SGame
 
 		private string _attrStr;
 
+		private Dictionary<string, string> _partData;
+
 		[NonSerialized]
 		public GameConfigs.EquipmentRowData cfg;
 
@@ -286,6 +294,45 @@ namespace SGame
 		{
 			ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(cfgID, out cfg);
 			return this;
+		}
+
+		public Dictionary<string, string> GetPartData()
+		{
+			if (_partData == null && cfg.IsValid() && !string.IsNullOrEmpty(cfg.Resource))
+			{
+				_partData = new Dictionary<string, string>();
+				var ss = cfg.Resource.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+				if (ss.Length > 1)
+				{
+					for (int i = 0; i < ss.Length - 1; i += 2)
+					{
+						try
+						{
+							var k = ss[i].ToLower();
+							if (k.StartsWith("weapon")) continue;
+							_partData[k] = ss[i + 1];
+						}
+						catch (Exception)
+						{
+							GameDebug.LogError($"装备 {cfg.Id} 配置 {cfg.Resource} error!!!");
+						}
+					}
+				}
+			}
+			return _partData;
+		}
+
+		public void ReplacePart(in Dictionary<string, string> rets)
+		{
+			if (rets != null)
+			{
+				var parts = GetPartData();
+				if (parts?.Count > 0)
+				{
+					foreach (var item in parts)
+						rets[item.Key] = item.Value;
+				}
+			}
 		}
 
 		public string GetAttrStr()

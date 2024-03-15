@@ -80,6 +80,11 @@ namespace SGame.UI
 				_count--;
 				_mask = true;
 				m_view.m_open.Play(() => _mask = false);
+				this.Delay(() =>
+				{
+						EffectSystem.Instance.AddEffect(6,m_view.m_body);
+
+				}, 1000);
 				return true;
 			}
 			return false;

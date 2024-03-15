@@ -8,9 +8,10 @@ namespace SGame.UI.Player
     public partial class UI_GiftBody : GLabel
     {
         public Controller m_type;
-        public GList m_items;
         public GLoader m_icon_open;
+        public GGraph m___effect;
         public GButton m_click;
+        public GList m_items;
         public Transition m_open;
         public Transition m_t1;
         public const string URL = "ui://cmw7t1elw46k1g";
@@ -25,9 +26,10 @@ namespace SGame.UI.Player
             base.ConstructFromXML(xml);
 
             m_type = GetControllerAt(0);
-            m_items = (GList)GetChildAt(2);
-            m_icon_open = (GLoader)GetChildAt(4);
+            m_icon_open = (GLoader)GetChildAt(3);
+            m___effect = (GGraph)GetChildAt(4);
             m_click = (GButton)GetChildAt(5);
+            m_items = (GList)GetChildAt(6);
             m_open = GetTransitionAt(0);
             m_t1 = GetTransitionAt(1);
         }

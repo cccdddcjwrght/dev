@@ -32,7 +32,7 @@ public class UIListener
 
 	static string C_REGEX_PATTERN = "%(.*)%";
 
-	static private List<string> _icon_Pkg = new List<string>() { "Common" };
+	static private List<string> _icon_Pkg = new List<string>() { "Icon", "IconEquip", "Common" };
 
 	#region AutoLocal
 
@@ -118,10 +118,10 @@ public class UIListener
 
 	static public string GetUIResFromPkgs(string res)
 	{
-		if (string.IsNullOrEmpty(res) || _icon_Pkg.Count > 0) return default;
+		if (string.IsNullOrEmpty(res) || _icon_Pkg.Count == 0) return default;
 		for (int i = 0; i < _icon_Pkg.Count; i++)
 		{
-			var url = GetUIRes(res, _icon_Pkg[i]);
+			var url = GetUIRes(_icon_Pkg[i] , res);
 			if (url != null) return url;
 		}
 		return default;
@@ -347,19 +347,19 @@ public class UIListener
 		}
 	}
 
-	static public void SetControllerSelect(GObject gObject, string ctr, int index , bool throwex = true)
+	static public void SetControllerSelect(GObject gObject, string ctr, int index, bool throwex = true)
 	{
 		if (!string.IsNullOrEmpty(ctr) && gObject != null && gObject is GComponent com)
 		{
 			var c = com.GetController(ctr);
 			if (c != null && c.pageCount > index)
 				c.selectedIndex = index;
-			else if(throwex)
+			else if (throwex)
 				throw new Exception($"{gObject} 不存在 {ctr} 控制器或者{index}越界");
 		}
 	}
 
-	static public void SetTextWithName(GObject gObject , string labelName , string text)
+	static public void SetTextWithName(GObject gObject, string labelName, string text)
 	{
 		if (!string.IsNullOrEmpty(labelName) && gObject is GComponent com)
 		{
@@ -506,7 +506,7 @@ public class UIListener
 
 }
 
-public  static partial class UIListenerExt
+public static partial class UIListenerExt
 {
 	public static GObject SetText(this GObject gObject, string text, bool local = true)
 	{

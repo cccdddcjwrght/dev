@@ -13,11 +13,11 @@ namespace SGame.UI.Player
         public GButton m_attrbtn;
         public GTextField m_attr;
         public GGraph m_holder;
-        public UI_EqPos m_eq1;
-        public UI_EqPos m_eq3;
-        public UI_EqPos m_eq2;
         public UI_EqPos m_eq5;
         public UI_EqPos m_eq4;
+        public UI_EqPos m_eq1;
+        public UI_EqPos m_eq2;
+        public UI_EqPos m_eq3;
         public GList m_tabs;
         public GList m_list;
         public const string URL = "ui://cmw7t1elk6220";
@@ -37,11 +37,11 @@ namespace SGame.UI.Player
             m_attrbtn = (GButton)GetChildAt(4);
             m_attr = (GTextField)GetChildAt(5);
             m_holder = (GGraph)GetChildAt(7);
-            m_eq1 = (UI_EqPos)GetChildAt(9);
-            m_eq3 = (UI_EqPos)GetChildAt(10);
-            m_eq2 = (UI_EqPos)GetChildAt(11);
-            m_eq5 = (UI_EqPos)GetChildAt(12);
-            m_eq4 = (UI_EqPos)GetChildAt(13);
+            m_eq5 = (UI_EqPos)GetChildAt(9);
+            m_eq4 = (UI_EqPos)GetChildAt(10);
+            m_eq1 = (UI_EqPos)GetChildAt(11);
+            m_eq2 = (UI_EqPos)GetChildAt(12);
+            m_eq3 = (UI_EqPos)GetChildAt(13);
             m_tabs = (GList)GetChildAt(14);
             m_list = (GList)GetChildAt(15);
         }

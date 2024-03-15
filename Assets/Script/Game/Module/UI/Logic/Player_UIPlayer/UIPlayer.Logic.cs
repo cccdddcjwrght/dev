@@ -25,13 +25,13 @@ namespace SGame.UI
 
 			goWrapper = new GoWrapper();
 			m_view.m_holder.SetNativeObject(goWrapper);
-			CreateRole().Start();
+			RefreshModel();
 		}
 
 		partial void DoShow(UIContext context)
 		{
 			m_view.m_eqTab.selectedIndex = 0;
-			SetPlayEquipsInfo();
+			SetPlayerEquipsInfo();
 			OnDataRefresh(false);
 		}
 
@@ -44,7 +44,7 @@ namespace SGame.UI
 
 		void OnDataRefresh(bool refreshtabs = true)
 		{
-			m_view.m_attr.SetTextByKey("ui_player_base_attr" , DataCenter.EquipUtil.GetRoleEquipAddValue());
+			m_view.m_attr.SetTextByKey("ui_player_base_attr", DataCenter.EquipUtil.GetRoleEquipAddValue());
 			if (refreshtabs) OnEqTabChanged(null);
 		}
 
@@ -57,7 +57,7 @@ namespace SGame.UI
 			}
 		}
 
-		void SetPlayEquipsInfo()
+		void SetPlayerEquipsInfo()
 		{
 			var eqs = DataCenter.Instance.equipData.equipeds;
 
@@ -111,10 +111,16 @@ namespace SGame.UI
 
 		}
 
+		void RefreshModel()
+		{
+			CreateRole().Start();
+		}
+
 		System.Collections.IEnumerator CreateRole()
 		{
 			yield return null;
 			var gen = CharacterGenerator.CreateWithConfig(DataCenter.EquipUtil.GetRoleEquipString());
+			while (!gen.ConfigReady) yield return null;
 			var go = gen.Generate();
 			if (go)
 			{
@@ -123,6 +129,7 @@ namespace SGame.UI
 				goWrapper.SetWrapTarget(go, false);
 				go.transform.localScale = Vector3.one * 300;
 				go.transform.localRotation = Quaternion.Euler(0, -145, 0);
+				go.SetLayer("UILight");
 			}
 		}
 

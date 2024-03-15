@@ -28,8 +28,10 @@ namespace SGame
 				// 设置UI显示层级
 				context.window.sortingOrder = ui.Order;
 				context.window.uiname = ui.Name;
-				
-				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type);
+
+#if !EVENT_LOG_OFF
+				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type); 
+#endif
 
 				if (ui.Type == (int)UIType.UI)
 				{
@@ -149,7 +151,7 @@ namespace SGame
 						Vector2 pos = SGame.UIUtils.GetUIPosition(uiwindow.parent, t.Value, PositionType.POS3D);
 						uiwindow.xy = pos;
 
-						log.Info(string.Format("entity pre init = {0}  pos = {1}", e, pos));
+						//log.Info(string.Format("entity pre init = {0}  pos = {1}", e, pos));
 					}
 				}
 			}
