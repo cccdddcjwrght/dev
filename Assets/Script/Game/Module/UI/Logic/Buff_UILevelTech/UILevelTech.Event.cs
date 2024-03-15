@@ -44,7 +44,7 @@ namespace SGame.UI
 			if (_count > 0)
 			{
 				m_view.m_BuffList.numItems = count;
-				m_view.m_BuffList.scrollPane.touchEffect = _count > 7;
+				//m_view.m_BuffList.scrollPane.touchEffect = _count > 7;
 			}
 		}
 

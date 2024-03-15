@@ -72,6 +72,7 @@ namespace SGame
 
 		//buff===============================================
 		BUFF_TRIGGER = 3001,//触发一个buff （BuffData data)
+		BUFF_RESET = 3002,//buff系统重置
 
 		//Tech===============================================
 		TECH_ADD_REWARD				= 4001,//科技添加奖励 （int tech)

@@ -28,6 +28,7 @@ namespace SGame
 			attrSys.TypeUnRegister(_TypeFollowLevel);
 			//重置当前关卡所有角色属性
 			ReInitAllAttribute(room);
+			EventManager.Instance.Trigger(((int)GameEvent.BUFF_RESET));
 			//关卡科技生效
 			DataCenter.RoomUtil.InitTechBuffs();
 			//装备属性
