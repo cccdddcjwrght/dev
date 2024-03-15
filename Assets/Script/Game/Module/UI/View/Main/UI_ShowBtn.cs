@@ -7,7 +7,6 @@ namespace SGame.UI.Main
 {
     public partial class UI_ShowBtn : GButton
     {
-        public Controller m___redpoint;
         public GGraph m_effect;
         public GGroup m_body;
         public Transition m_t0;
@@ -22,7 +21,6 @@ namespace SGame.UI.Main
         {
             base.ConstructFromXML(xml);
 
-            m___redpoint = GetControllerAt(0);
             m_effect = (GGraph)GetChildAt(0);
             m_body = (GGroup)GetChildAt(3);
             m_t0 = GetTransitionAt(0);
