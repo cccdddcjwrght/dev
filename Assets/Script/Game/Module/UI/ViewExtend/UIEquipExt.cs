@@ -17,6 +17,8 @@ partial class UIListenerExt
 				com.SetIcon(cfg.Icon);
 				UIListener.SetControllerSelect(com, "quality", cfg.Quality);
 				UIListener.SetTextWithName(com, "level", cfg.Level.ToString());
+				UIListener.SetTextWithName(com, "qname", $"ui_quality_name_{cfg.Quality}".Local()  );
+
 			}
 		}
 	}

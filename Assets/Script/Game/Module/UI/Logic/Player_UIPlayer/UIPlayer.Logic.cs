@@ -37,9 +37,9 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-
 			goWrapper.Dispose();
 			goWrapper = null;
+			DataCenter.EquipUtil.CancelAllNewFlag();
 		}
 
 		void OnDataRefresh(bool refreshtabs = true)

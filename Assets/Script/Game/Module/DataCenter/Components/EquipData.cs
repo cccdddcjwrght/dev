@@ -230,6 +230,11 @@ namespace SGame
 
 			}
 
+			static public void CancelAllNewFlag()
+			{
+				_data.items?.ForEach(e => e.isnew = 0);
+			}
+
 			static private void OnRoleEquipChange(EquipItem equip, bool remove = false)
 			{
 				if (equip == null || equip.cfgID <= 0) return;

@@ -9,8 +9,6 @@ namespace SGame.UI.Worktable
     {
         public Controller m_type;
         public Controller m_pos;
-        public GImage m_bg;
-        public GImage m_arrow;
         public GGraph m_right;
         public GGraph m_left;
         public GTextField m_level;
@@ -38,8 +36,6 @@ namespace SGame.UI.Worktable
 
             m_type = GetControllerAt(0);
             m_pos = GetControllerAt(1);
-            m_bg = (GImage)GetChildAt(0);
-            m_arrow = (GImage)GetChildAt(1);
             m_right = (GGraph)GetChildAt(3);
             m_left = (GGraph)GetChildAt(4);
             m_level = (GTextField)GetChildAt(5);
