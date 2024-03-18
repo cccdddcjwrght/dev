@@ -16,6 +16,9 @@ namespace SGame
         public bool isInited;
 
         public string name;
+
+        public int musicVal=1;
+        public int soundVal=1;
         
         //设置栏数据
         [Serializable]

@@ -68,10 +68,12 @@ namespace SGame.UI{
 			{
 				val = val == 0 ? -100 : val;
 				AudioSystem.Instance.SetSoundVolume("UIVolume",val);
+				_setData.musicVal = val;
 			}else if (id == "sound")
 			{
 				val = val == 0 ? -100 : val;
 				AudioSystem.Instance.SetSoundVolume("BackgroundVolume",val);
+				_setData.soundVal = val;
 			}else if (id == "notice")
 			{
 				
