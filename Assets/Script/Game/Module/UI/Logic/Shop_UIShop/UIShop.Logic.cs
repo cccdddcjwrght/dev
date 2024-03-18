@@ -15,10 +15,14 @@ namespace SGame.UI
 	{
 		private const int _ad_goods_id = 1;
 
+		private int _targetGoods;
+
 		private int _currentLevel = 0;
 		private List<ShopGoods> _gifts;
 
 		private Dictionary<int, Action> _refreshCall = new Dictionary<int, Action>();
+
+		private Dictionary<int, GObject> _goodsItems = new Dictionary<int, GObject>();
 
 		partial void BeforeInit(UIContext context)
 		{
@@ -28,12 +32,21 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
+			context.onShown += OnShow;
 			Refresh();
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
 			_refreshCall?.Clear();
+			_goodsItems?.Clear();
+		}
+
+		void OnShow(UIContext context)
+		{
+			_targetGoods = (context.GetParam()?.Value as object[]).Val<int>(0);
+			if (_targetGoods > 0 && _goodsItems.TryGetValue(_targetGoods, out var g))
+				m_view.m_content.m_goods.ScrollToView(m_view.m_content.m_goods.GetChildIndex(g));
 		}
 
 		void Refresh()
@@ -136,6 +149,7 @@ namespace SGame.UI
 			DoRefreshGoodsInfo(data, gObject);
 
 			_refreshCall[g.id] = () => DoRefreshGoodsInfo(data, gObject);
+			_goodsItems[g.id] = gObject;
 		}
 
 		void DoRefreshGoodsInfo(object data, GObject gObject)
