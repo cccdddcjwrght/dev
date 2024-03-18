@@ -96,7 +96,9 @@ namespace SGame
 			{
 				var val = GetWorktables()?.Find(m => m.id == id);
 				if (ifMissAdd && (val == null || val.id == 0))
+				{
 					val = AddWorktable(id, scene);
+				}
 				if (!val.cfg.IsValid())
 					val.Refresh();
 				return val;
@@ -133,8 +135,8 @@ namespace SGame
 					}
 
 					w.Refresh();
-					w.addMachine = w.lvcfg.Num - pmac;
-					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 100;
+					w.addMachine	= Math.Min(w.max, w.lvcfg.Num) - pmac;
+					w.addProfit		= (w.lvcfg.ShopPriceStarRatio - prp) / 100;
 
 					//升级消耗
 					PropertyManager.Instance.Update(w.lvcfg.UpgradePrice(0), w.lvcfg.UpgradePrice(1), cost, true);
@@ -346,6 +348,7 @@ namespace SGame
 					scene = scene,
 				};
 				val.Refresh();
+
 				GetWorktables()?.Add(val);
 				return val;
 			}
@@ -446,8 +449,8 @@ namespace SGame
 			else if (max <= 0)
 			{
 				var ls = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => c.Machine == id);
-				max = ls.Count;
-				maxlv = max > 0 ? ls[0].MachineLevelMax : 10;
+				maxlv = ls.Count > 0 ? ls[0].MachineLevelMax : 10;
+				max = ls.Count - 1;
 			}
 			ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg);
 		}
