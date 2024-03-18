@@ -100,6 +100,7 @@ static class BuildCommand
 			where scene.enabled
 			where !string.IsNullOrEmpty(scene.path)
 			where !scene.path.Contains("BuildAsset/Scenes")
+			where File.Exists(scene.path)
 			select scene.path
 		).ToArray();
 	}
