@@ -70,10 +70,11 @@ namespace SGame
 
 			var cfg = goods.cfg;
 			var id = goods.id;
+			var free = goods.free;
 			var items = DataCenter.ShopUtil.GetGoodsItems(id);
 
 			DataCenter.ShopUtil.RecordBuyGoods(id);
-			if (cfg.PurchaseType == 2)
+			if (cfg.PurchaseType == 2 && free <= 0 )
 				PropertyManager.Instance.Update(1, 2, cfg.Price, true);
 			for (int i = 0; i < items.Count; i++)
 				PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);

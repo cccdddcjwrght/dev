@@ -136,7 +136,7 @@ namespace SGame.UI
 		private int GetOffset(float3 pos)
 		{
 			var p = SGame.UIUtils.WorldPosToUI(GRoot.inst, pos);
-			var hs = m_view.size.x * 0.5f - 10;
+			var hs = m_view.size.x * 0.5f + 10;
 			var left = p.x - hs < 0;
 			var right = p.x + hs > GRoot.inst.width;
 
