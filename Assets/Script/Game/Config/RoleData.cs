@@ -37,6 +37,7 @@ public struct RoleDataRowData : IFlatbufferObject
   public int PerfectRatio { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Tip { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int TipRatio { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Price { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoleDataRowData> CreateRoleDataRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -50,8 +51,10 @@ public struct RoleDataRowData : IFlatbufferObject
       int Perfect = 0,
       int PerfectRatio = 0,
       int Tip = 0,
-      int TipRatio = 0) {
-    builder.StartTable(12);
+      int TipRatio = 0,
+      int Price = 0) {
+    builder.StartTable(13);
+    RoleDataRowData.AddPrice(builder, Price);
     RoleDataRowData.AddTipRatio(builder, TipRatio);
     RoleDataRowData.AddTip(builder, Tip);
     RoleDataRowData.AddPerfectRatio(builder, PerfectRatio);
@@ -67,7 +70,7 @@ public struct RoleDataRowData : IFlatbufferObject
     return RoleDataRowData.EndRoleDataRowData(builder);
   }
 
-  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
+  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -80,6 +83,7 @@ public struct RoleDataRowData : IFlatbufferObject
   public static void AddPerfectRatio(FlatBufferBuilder builder, int PerfectRatio) { builder.AddInt(9, PerfectRatio, 0); }
   public static void AddTip(FlatBufferBuilder builder, int Tip) { builder.AddInt(10, Tip, 0); }
   public static void AddTipRatio(FlatBufferBuilder builder, int TipRatio) { builder.AddInt(11, TipRatio, 0); }
+  public static void AddPrice(FlatBufferBuilder builder, int Price) { builder.AddInt(12, Price, 0); }
   public static Offset<GameConfigs.RoleDataRowData> EndRoleDataRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoleDataRowData>(o);
