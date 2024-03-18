@@ -35,6 +35,8 @@ namespace SGame.UI
 			m_view.m_qualitytips.SetTextByKey("ui_quality_name_" + equip.cfg.Quality);
 			m_view.m_attr.SetTextByKey(buff.Describe, equip.cfg.MainBuff(1));
 			m_view.m_click.SetTextByKey(equip.pos == 0 ? "ui_equip_on" : "ui_equip_off");
+			m_view.m_click2.SetTextByKey(equip.pos == 0 ? "ui_equip_on" : "ui_equip_off");
+
 			if (m_view.m_lvmax.selectedIndex == 0)
 			{
 				m_view.m_progress.value = 0;
@@ -69,6 +71,11 @@ namespace SGame.UI
 			else
 				DataCenter.EquipUtil.PutOff(equip);
 			DoCloseUIClick(null);
+		}
+
+		partial void OnClick2Click(EventContext data)
+		{
+			OnClickClick(null);
 		}
 
 		partial void UnInitLogic(UIContext context)
