@@ -686,5 +686,40 @@ namespace SGame
 			//log.Info(string.Format("check tag pos {0}, map_pos={1}, ret={2}", pos, map_pos, ret));
 			return ret;
 		}
+
+		/// <summary>
+		/// 提取角色字符串, 并返回提取后的字符串
+		/// </summary>
+		/// <param name="part"></param>
+		/// <param name="la"></param>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public static string PickCharacterPart(string part, string key, out string ret)
+		{
+			part = part.ToLower();
+			string[] settings	= part.Split('|');
+			var currentCharacter = settings[0];
+			var keyvalue		= new Dictionary<string, string>();
+			ret = currentCharacter;
+			string value = "";
+			
+			for (int i = 1; i < settings.Length; )
+			{
+				string categoryName = settings[i++];
+				string elementName = settings[i++];
+
+				if (categoryName == key)
+				{
+					value = elementName;
+				}
+				else
+				{
+					ret += "|" + categoryName + "|";
+					ret += elementName;
+				}
+			}
+
+			return value;
+		}
 	}
 }

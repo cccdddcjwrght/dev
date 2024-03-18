@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Fibers;
 using GameTools;
 using GameTools.Paths;
 using log4net;
@@ -18,6 +20,7 @@ namespace SGame
     {
         private static ILog log = LogManager.GetLogger("game.character");
         private const string DISH_OFFSET_NAME = "dish_offsety"; // 放餐偏移
+        private Fiber m_modelLoading;
         
         /// <summary>
         /// 脚本数据
@@ -69,6 +72,11 @@ namespace SGame
 
         private Equipments m_slot;
 
+        void Awake()
+        {
+            m_modelLoading = new Fiber(FiberBucket.Manual);
+        }
+        
         void Start()
         {
             m_slot = gameObject.AddComponent<Equipments>();
@@ -327,6 +335,60 @@ namespace SGame
 
                 var follow = entityManager.GetComponentData<Follow>(entity);
                 return follow.Value > 0;
+            }
+        }
+
+        /// <summary>
+        /// 更改外观
+        /// </summary>
+        /// <param name="part">外观字符串</param>
+        public void ChangeLooking(string part)
+        {
+            m_modelLoading.Start(ChangLooking(part));
+        }
+
+        /// <summary>
+        /// 带武器的looking
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        IEnumerator ChangLooking(string part)
+        {
+            var weaponStr = Utils.PickCharacterPart(part, "weapon", out string newPart);
+            var gen = CharacterGenerator.CreateWithConfig(newPart);
+            while (gen.ConfigReady == false)
+                yield return null;
+
+            var ani = gen.Generate();
+            ani.transform.SetParent(transform, false);
+            ani.transform.localRotation = Quaternion.identity;
+            ani.transform.localPosition = Vector3.zero;
+            ani.transform.localScale = Vector3.one;
+            ani.name = "Model";
+            
+            ConfigSystem.Instance.TryGet(roleID, out GameConfigs.RoleDataRowData roleData);
+            ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
+            if (config.RoleScaleLength == 3)
+            {
+                var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
+                ani.transform.localScale = scaleVector;
+            }
+
+            GameObject.Destroy(model);
+            yield return null;
+            m_slot.UpdateModel();
+            model = ani;
+
+            if (!string.IsNullOrEmpty(weaponStr))
+            {
+                // 有武器
+                if (!int.TryParse(weaponStr, out int weaponID))
+                {
+                    log.Error("parse weapon id fail=" + weaponStr);
+                    yield break;
+                }
+                
+                m_slot.SetWeapon(weaponID);
             }
         }
     }

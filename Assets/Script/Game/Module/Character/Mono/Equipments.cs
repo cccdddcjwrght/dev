@@ -20,21 +20,20 @@ namespace SGame
         private static ILog         log = LogManager.GetLogger("game.equipments");
 
         // 插槽对象
-        public Dictionary<SlotType, Transform> m_slots;
+        public Dictionary<SlotType, Transform> m_slots = new Dictionary<SlotType, Transform>();
 
         // 左手装备
         private GameObject m_weapon;
 
-        void Awake()
-        {
-            int a = 99;
-            a = 20;
-        }
-        
 
         void Start()
         {
-            m_slots = new Dictionary<SlotType, Transform>();
+            UpdateModel();
+        }
+
+        public void UpdateModel()
+        {
+            m_slots.Clear();// = new Dictionary<SlotType, Transform>();
             var weapon      = transform.FindRecursive("weapon");
             var glasses     = transform.FindRecursive("glasses");
             var good        = transform.FindRecursive("good");
@@ -43,7 +42,6 @@ namespace SGame
             m_slots.Add(SlotType.WEAPON, weapon);
             m_slots.Add(SlotType.FOOD,   good);
             m_slots.Add(SlotType.HUD,    glasses);
-
         }
         
         /// <summary>
@@ -105,6 +103,31 @@ namespace SGame
 
                 m_weapon = obj;
             }
+        }
+
+        /// <summary>
+        /// 拆分部位
+        /// </summary>
+        /// <param name="part"></param>
+        /// <param name="rolePart"></param>
+        /// <param name="weapon"></param>
+        /// <returns></returns>
+        public static bool GetRolePart(string part, out string rolePart, out int weapon)
+        {
+            weapon = 0;
+            rolePart = null;
+            var index = part.LastIndexOf("|weapon|");
+
+            if (index <= 0)
+            {
+                rolePart = part;
+                return true;
+            }
+
+            // 找到武器
+            rolePart = null;
+            
+            return true;
         }
     }
 }
