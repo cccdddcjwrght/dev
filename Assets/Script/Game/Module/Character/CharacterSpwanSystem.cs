@@ -252,14 +252,16 @@ namespace SGame
                 c.CharacterID = lasterCharacterID;
                 c.roleType = roleData.Type;
                 c.roleID = roleData.Id;
-                
-                // 设置属性
-                commandBuffer.SetComponent(characterEntity, new Translation() {Value = req.pos});
-                commandBuffer.SetComponent(characterEntity, new CharacterAttribue() {roleID = roleData.Id, roleType = roleData.Type, characterID = lasterCharacterID});
-                commandBuffer.SetComponent(characterEntity, new Speed(){Value = roleData.MoveSpeed});
-                commandBuffer.AddComponent(characterEntity, result);
-                commandBuffer.DestroyEntity(e);
-            }).WithStructuralChanges().WithoutBurst().Run();
+
+				//TODO:先不使用CommandBuff处理
+
+				// 设置属性
+				EntityManager.SetComponentData(characterEntity, new Translation() { Value = req.pos });
+				EntityManager.SetComponentData(characterEntity, new CharacterAttribue() { roleID = roleData.Id, roleType = roleData.Type, characterID = lasterCharacterID });
+				EntityManager.SetComponentData(characterEntity, new Speed() { Value = roleData.MoveSpeed });
+				EntityManager.AddComponentObject(characterEntity, result);
+				EntityManager.DestroyEntity(e);
+			}).WithStructuralChanges().WithoutBurst().Run();
             
             // 等待角色创建完成
             Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
