@@ -114,7 +114,7 @@ namespace SGame.UI{
 				}
 				else
 				{
-					
+					"shop".Goto();
 				}
 					
 				

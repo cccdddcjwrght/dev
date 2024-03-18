@@ -9,14 +9,19 @@ namespace SGame.UI.Worktable
     {
         public Controller m_type;
         public Controller m_pos;
+        public GImage m_n29;
+        public GImage m_n30;
+        public GImage m_n31;
         public GGraph m_right;
         public GGraph m_left;
         public GTextField m_level;
+        public GTextField m_title;
         public GList m_list;
-        public GProgressBar m_progress;
+        public UI_Progress m_progress;
         public GLabel m_reward;
-        public GLabel m_time;
-        public GLabel m_price;
+        public UI_Label2 m_time;
+        public UI_Label m_price;
+        public GGroup m_n5;
         public GTextField m_unlock;
         public GButton m_click;
         public GGroup m_info;
@@ -36,14 +41,19 @@ namespace SGame.UI.Worktable
 
             m_type = GetControllerAt(0);
             m_pos = GetControllerAt(1);
+            m_n29 = (GImage)GetChildAt(0);
+            m_n30 = (GImage)GetChildAt(1);
+            m_n31 = (GImage)GetChildAt(2);
             m_right = (GGraph)GetChildAt(3);
             m_left = (GGraph)GetChildAt(4);
             m_level = (GTextField)GetChildAt(5);
+            m_title = (GTextField)GetChildAt(6);
             m_list = (GList)GetChildAt(7);
-            m_progress = (GProgressBar)GetChildAt(8);
+            m_progress = (UI_Progress)GetChildAt(8);
             m_reward = (GLabel)GetChildAt(9);
-            m_time = (GLabel)GetChildAt(10);
-            m_price = (GLabel)GetChildAt(11);
+            m_time = (UI_Label2)GetChildAt(10);
+            m_price = (UI_Label)GetChildAt(11);
+            m_n5 = (GGroup)GetChildAt(12);
             m_unlock = (GTextField)GetChildAt(13);
             m_click = (GButton)GetChildAt(14);
             m_info = (GGroup)GetChildAt(15);
