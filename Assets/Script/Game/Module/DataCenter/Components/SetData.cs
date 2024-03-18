@@ -37,7 +37,7 @@ namespace SGame
 
         public List<SetItemData> setItemDataList = new List<SetItemData>();
 
-
+        [Serializable]
         public class HeadFrameData
         {
             public int id;
@@ -82,6 +82,7 @@ namespace SGame
                 });
             }
 
+            InitHeadFrameData();
             isInited = true;
         }
 
