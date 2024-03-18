@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 2
+  version: 1
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
@@ -134,15 +134,11 @@ MonoBehaviour:
   - bundle: configs.unity3d
     path: assets/buildasset/configs/buff.bytes
   - bundle: configs.unity3d
-    path: assets/buildasset/configs/chest.bytes
-  - bundle: configs.unity3d
     path: assets/buildasset/configs/design_global.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/effects.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/equip.bytes
-  - bundle: configs.unity3d
-    path: assets/buildasset/configs/equipment.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/fonts.bytes
   - bundle: configs.unity3d
@@ -362,25 +358,9 @@ MonoBehaviour:
   - bundle: assets/buildasset/effects/prefabs/level03.unity3d
     path: assets/buildasset/effects/prefabs/level03/smoke.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/railway.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/smoke.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/spark.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/hong.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/jin.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/lan.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/transitions01.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/ui_transitions01.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/ui_transitions02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/treasure chest.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/zzzzz.prefab
   - bundle: assets/buildasset/fonts/lilitaone/lilitaone-regular-sdf.asset.unity3d
@@ -391,10 +371,6 @@ MonoBehaviour:
     path: assets/buildasset/log/log4net.xml.bytes
   - bundle: assets/buildasset/prefabs.unity3d
     path: assets/buildasset/prefabs/camera01.prefab
-  - bundle: assets/buildasset/prefabs.unity3d
-    path: assets/buildasset/prefabs/camera02.prefab
-  - bundle: assets/buildasset/prefabs.unity3d
-    path: assets/buildasset/prefabs/camera03.prefab
   - bundle: assets/buildasset/prefabs.unity3d
     path: assets/buildasset/prefabs/cameractr.prefab
   - bundle: assets/buildasset/prefabs/ecs.unity3d
@@ -427,8 +403,6 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/other/enable01.prefab
   - bundle: assets/buildasset/prefabs/other.unity3d
     path: assets/buildasset/prefabs/other/enable02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/animal.unity3d
-    path: assets/buildasset/prefabs/scenes/animal/animal_mouse-1 variant.prefab
   - bundle: assets/buildasset/prefabs/scenes/goods.unity3d
     path: assets/buildasset/prefabs/scenes/goods/goods_1.prefab
   - bundle: assets/buildasset/prefabs/scenes/goods.unity3d
@@ -439,8 +413,6 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/goods/goods_4.prefab
   - bundle: assets/buildasset/prefabs/scenes/goods.unity3d
     path: assets/buildasset/prefabs/scenes/goods/goods_5.prefab
-  - bundle: assets/buildasset/prefabs/scenes/other.unity3d
-    path: assets/buildasset/prefabs/scenes/other/bg_mine.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
     path: assets/buildasset/prefabs/scenes/other/rewardbox.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
@@ -579,10 +551,6 @@ MonoBehaviour:
     path: assets/buildasset/ui/icon_atlas0.png
   - bundle: assets/buildasset/ui/icon.unity3d
     path: assets/buildasset/ui/icon_fui.bytes
-  - bundle: assets/buildasset/ui/iconequip.unity3d
-    path: assets/buildasset/ui/iconequip_atlas0.png
-  - bundle: assets/buildasset/ui/iconequip.unity3d
-    path: assets/buildasset/ui/iconequip_fui.bytes
   - bundle: assets/buildasset/ui/loading.unity3d
     path: assets/buildasset/ui/loading_fui.bytes
   - bundle: assets/buildasset/ui/login.unity3d
@@ -707,16 +675,10 @@ MonoBehaviour:
     path: assets/buildasset/visualscript/game/order/orderfinish.asset
   - bundle: assets/buildasset/visualscript/game/order/orderfoodtips.asset.unity3d
     path: assets/buildasset/visualscript/game/order/orderfoodtips.asset
-  - bundle: assets/buildasset/visualscript/game/room/railwaylooking.asset.unity3d
-    path: assets/buildasset/visualscript/game/room/railwaylooking.asset
-  - bundle: assets/buildasset/visualscript/game/room/roomcleanup.asset.unity3d
-    path: assets/buildasset/visualscript/game/room/roomcleanup.asset
   - bundle: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/charactermove.asset
   - bundle: assets/buildasset/visualscript/game/utils/createcharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/createcharacter.asset
-  - bundle: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset.unity3d
-    path: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset
   - bundle: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset
   - bundle: assets/buildasset/visualscript/game/utils/getcookingpos.asset.unity3d
@@ -735,8 +697,6 @@ MonoBehaviour:
     path: assets/buildasset/visualscript/game/utils/gettablechair.asset
   - bundle: assets/buildasset/visualscript/game/utils/recordfoodtype.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/recordfoodtype.asset
-  - bundle: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
-    path: assets/buildasset/visualscript/game/utils/recovercharacter.asset
   - bundle: assets/buildasset/visualscript/gameelevator.asset.unity3d
     path: assets/buildasset/visualscript/gameelevator.asset
   - bundle: assets/buildasset/visualscript/login/login.asset.unity3d
@@ -777,11 +737,9 @@ MonoBehaviour:
     - assets/buildasset/configs/adconfig.bytes
     - assets/buildasset/configs/avatar.bytes
     - assets/buildasset/configs/buff.bytes
-    - assets/buildasset/configs/chest.bytes
     - assets/buildasset/configs/design_global.bytes
     - assets/buildasset/configs/effects.bytes
     - assets/buildasset/configs/equip.bytes
-    - assets/buildasset/configs/equipment.bytes
     - assets/buildasset/configs/fonts.bytes
     - assets/buildasset/configs/functionconfig.bytes
     - assets/buildasset/configs/game_global.bytes
@@ -840,10 +798,6 @@ MonoBehaviour:
     assets:
     - assets/buildasset/ui/hud_atlas0.png
     - assets/buildasset/ui/hud_fui.bytes
-  - name: assets/buildasset/ui/iconequip.unity3d
-    assets:
-    - assets/buildasset/ui/iconequip_atlas0.png
-    - assets/buildasset/ui/iconequip_fui.bytes
   - name: assets/buildasset/ui/icon.unity3d
     assets:
     - assets/buildasset/ui/icon_atlas0.png
@@ -896,8 +850,6 @@ MonoBehaviour:
   - name: assets/buildasset/prefabs.unity3d
     assets:
     - assets/buildasset/prefabs/camera01.prefab
-    - assets/buildasset/prefabs/camera02.prefab
-    - assets/buildasset/prefabs/camera03.prefab
     - assets/buildasset/prefabs/cameractr.prefab
     - assets/buildasset/prefabs/game.prefab
   - name: assets/buildasset/prefabs/ecs.unity3d
@@ -922,9 +874,6 @@ MonoBehaviour:
     - assets/buildasset/prefabs/ecs/food/goods_34.prefab
     - assets/buildasset/prefabs/ecs/food/goods_4.prefab
     - assets/buildasset/prefabs/ecs/food/goods_5.prefab
-  - name: assets/buildasset/prefabs/scenes/animal.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/animal/animal_mouse-1 variant.prefab
   - name: assets/buildasset/prefabs/scenes/goods.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/goods/goods_1.prefab
@@ -934,7 +883,6 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/goods/goods_5.prefab
   - name: assets/buildasset/prefabs/scenes/other.unity3d
     assets:
-    - assets/buildasset/prefabs/scenes/other/bg_mine.prefab
     - assets/buildasset/prefabs/scenes/other/rewardbox.prefab
     - assets/buildasset/prefabs/scenes/other/scene_grid.prefab
   - name: assets/buildasset/prefabs/scenes/scene_01.unity3d
@@ -1379,21 +1327,12 @@ MonoBehaviour:
   - name: assets/buildasset/visualscript/game/order/orderfoodtips.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/order/orderfoodtips.asset
-  - name: assets/buildasset/visualscript/game/room/railwaylooking.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/room/railwaylooking.asset
-  - name: assets/buildasset/visualscript/game/room/roomcleanup.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/room/roomcleanup.asset
   - name: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/charactermove.asset
   - name: assets/buildasset/visualscript/game/utils/createcharacter.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/createcharacter.asset
-  - name: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/utils/createlevelcharacter.asset
   - name: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/getcharacerattribute.asset
@@ -1421,9 +1360,6 @@ MonoBehaviour:
   - name: assets/buildasset/visualscript/game/utils/recordfoodtype.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/recordfoodtype.asset
-  - name: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/utils/recovercharacter.asset
   - name: assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset
@@ -1460,10 +1396,8 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/gold_a_01.prefab
     - assets/buildasset/effects/prefabs/gold_a_02.5.prefab
     - assets/buildasset/effects/prefabs/gold_a_02.prefab
-    - assets/buildasset/effects/prefabs/railway.prefab
     - assets/buildasset/effects/prefabs/smoke.prefab
     - assets/buildasset/effects/prefabs/spark.prefab
-    - assets/buildasset/effects/prefabs/treasure chest.prefab
     - assets/buildasset/effects/prefabs/zzzzz.prefab
   - name: assets/buildasset/effects/prefabs/level03.unity3d
     assets:
@@ -1471,14 +1405,6 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/level03/diamond2.prefab
     - assets/buildasset/effects/prefabs/level03/lights.prefab
     - assets/buildasset/effects/prefabs/level03/smoke.prefab
-  - name: assets/buildasset/effects/prefabs/transitions01.unity3d
-    assets:
-    - assets/buildasset/effects/prefabs/transitions01/hong.prefab
-    - assets/buildasset/effects/prefabs/transitions01/jin.prefab
-    - assets/buildasset/effects/prefabs/transitions01/lan.prefab
-    - assets/buildasset/effects/prefabs/transitions01/transitions01.prefab
-    - assets/buildasset/effects/prefabs/transitions01/ui_transitions01.prefab
-    - assets/buildasset/effects/prefabs/transitions01/ui_transitions02.prefab
   - name: assets/buildasset/art/model/dish/textures/goods_1.mat.unity3d
     assets:
     - assets/buildasset/art/model/dish/textures/goods_1.mat
@@ -1542,90 +1468,33 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/scene_03/scene_table_03.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_table_03.fbx
-  - name: assets/buildasset/art/scenes/animal/animal_mouse-1.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/animal/animal_mouse-1.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_12.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_12.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_10.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_10.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_09.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_09.png
-  - name: assets/buildasset/effects/materials/dian.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/dian.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_09.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_09.mat
-  - name: assets/buildasset/art/scenes/animal/animal_mouse-1.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/animal/animal_mouse-1.png
-  - name: assets/buildasset/art/scenes/animal/animal_mouse-1@walk.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/animal/animal_mouse-1@walk.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_12.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_12.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_14.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_14.mat
-  - name: assets/buildasset/art/scenes/scene_03/scene_table_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_table_04.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_10.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_10.mat
   - name: assets/buildasset/art/scenes/scene_03/scene_03.mat.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_03.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_08.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_08.png
-  - name: assets/buildasset/art/scenes/animal/animal_mouse-1.controller.unity3d
-    assets:
-    - assets/buildasset/art/scenes/animal/animal_mouse-1.controller
   - name: assets/buildasset/effects/textures/glow_1007.png.unity3d
     assets:
     - assets/buildasset/effects/textures/glow_1007.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_11.png.unity3d
+  - name: assets/buildasset/effects/materials/dian.mat.unity3d
     assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_11.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_11.mat.unity3d
+    - assets/buildasset/effects/materials/dian.mat
+  - name: assets/buildasset/art/scenes/scene_03/scene_table_06.fbx.unity3d
     assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_11.mat
-  - name: assets/buildasset/art/scenes/animal/animal_mouse-1@idlel.fbx.unity3d
+    - assets/buildasset/art/scenes/scene_03/scene_table_06.fbx
+  - name: assets/buildasset/art/scenes/scene_03/scene_table_04.fbx.unity3d
     assets:
-    - assets/buildasset/art/scenes/animal/animal_mouse-1@idlel.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_08.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_08.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_14.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_14.png
+    - assets/buildasset/art/scenes/scene_03/scene_table_04.fbx
   - name: assets/buildasset/art/scenes/scene_03/scene_terrain_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_terrain_01.fbx
+  - name: assets/buildasset/effects/materials/smoke 1.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/smoke 1.mat
   - name: assets/buildasset/effects/textures/glow_1022.png.unity3d
     assets:
     - assets/buildasset/effects/textures/glow_1022.png
   - name: assets/buildasset/effects/textures/smoke_7004.png.unity3d
     assets:
     - assets/buildasset/effects/textures/smoke_7004.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_07.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_07.png
-  - name: assets/buildasset/effects/textures/glow_11008.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_11008.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_object_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_object_04.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_07.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_07.mat
   - name: assets/buildasset/art/scenes/scene_03/scene_tool_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_tool_01.fbx
@@ -1635,33 +1504,21 @@ MonoBehaviour:
   - name: assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_01_dusk_b.png.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_01_dusk_b.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_13.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_13.mat
   - name: assets/buildasset/effects/materials/yanhuatuo.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/yanhuatuo.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_16.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_16.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_table_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_table_06.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_16.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_16.mat
   - name: assets/buildasset/effects/materials/huan.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/huan.mat
   - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_01_dusk_b.mat.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_01_dusk_b.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_13.png.unity3d
+  - name: assets/buildasset/effects/textures/glow_11008.png.unity3d
     assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_13.png
-  - name: assets/buildasset/effects/materials/smoke 1.mat.unity3d
+    - assets/buildasset/effects/textures/glow_11008.png
+  - name: assets/buildasset/art/scenes/scene_03/scene_object_04.fbx.unity3d
     assets:
-    - assets/buildasset/effects/materials/smoke 1.mat
+    - assets/buildasset/art/scenes/scene_03/scene_object_04.fbx
   - name: assets/buildasset/art/characters/role/textures/role_hair-3.png.unity3d
     assets:
     - assets/buildasset/art/characters/role/textures/role_hair-3.png
@@ -1722,6 +1579,3 @@ MonoBehaviour:
   - name: assets/buildasset/effects/textures/glow_4027.png.unity3d
     assets:
     - assets/buildasset/effects/textures/glow_4027.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_object_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_object_02.fbx
