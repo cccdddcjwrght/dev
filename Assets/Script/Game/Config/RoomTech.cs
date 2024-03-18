@@ -56,14 +56,14 @@ public struct RoomTechRowData : IFlatbufferObject
 #endif
   public byte[] GetIconArray() { return __p.__vector_as_array<byte>(24); }
   public int Mark { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Cost(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public float Cost(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
   public int CostLength { get { int o = __p.__offset(28); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCostBytes() { return __p.__vector_as_span<int>(28, 4); }
+  public Span<float> GetCostBytes() { return __p.__vector_as_span<float>(28, 4); }
 #else
   public ArraySegment<byte>? GetCostBytes() { return __p.__vector_as_arraysegment(28); }
 #endif
-  public int[] GetCostArray() { return __p.__vector_as_array<int>(28); }
+  public float[] GetCostArray() { return __p.__vector_as_array<float>(28); }
   public string Effects { get { int o = __p.__offset(30); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
   public Span<byte> GetEffectsBytes() { return __p.__vector_as_span<byte>(30, 1); }
@@ -122,8 +122,8 @@ public struct RoomTechRowData : IFlatbufferObject
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(10, IconOffset.Value, 0); }
   public static void AddMark(FlatBufferBuilder builder, int Mark) { builder.AddInt(11, Mark, 0); }
   public static void AddCost(FlatBufferBuilder builder, VectorOffset CostOffset) { builder.AddOffset(12, CostOffset.Value, 0); }
-  public static VectorOffset CreateCostVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateCostVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateCostVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateCostVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCostVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddEffects(FlatBufferBuilder builder, StringOffset EffectsOffset) { builder.AddOffset(13, EffectsOffset.Value, 0); }
   public static Offset<GameConfigs.RoomTechRowData> EndRoomTechRowData(FlatBufferBuilder builder) {

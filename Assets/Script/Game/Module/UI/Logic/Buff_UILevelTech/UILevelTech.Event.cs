@@ -59,7 +59,7 @@ namespace SGame.UI
 			view.m_type.selectedIndex = data.Mark;
 
 			var str = Utils.ConvertNumberStr(data.Cost(2));
-			UIListener.SetIconIndex(view.m_click, data.Cost(1) - 1);
+			UIListener.SetIconIndex(view.m_click, (int)data.Cost(1) - 1);
 			UIListener.SetText(view.m_click, str);
 			view.m_click.onClick.Clear();
 			view.m_click.onClick.Add(() => OnItemClick(index, view, data));

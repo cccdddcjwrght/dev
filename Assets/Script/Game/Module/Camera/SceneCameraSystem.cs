@@ -91,7 +91,13 @@ namespace SGame
 		private void LateUpdate()
 		{
 			if (!isInited) return;
-			if (FairyGUI.Stage.isTouchOnUI || disbaleControl) return;
+			if (FairyGUI.Stage.isTouchOnUI || disbaleControl) {
+
+				var g= FairyGUI.Stage.inst.HitTest(FairyGUI.Stage.inst.WorldToLocal(Input.mousePosition, Vector3.forward) , true);
+				Debug.Log(g);
+				return;
+			
+			}
 			if (TouchTrigger()) return;
 
 			ControlAxis.Control(leftRight);

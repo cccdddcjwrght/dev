@@ -37,6 +37,12 @@ namespace SGame
 			return CheckCount(id, num, (int)type);
 		}
 
+		public bool CheckCountByArgs(params float[] args) {
+			if (args != null && args.Length > 2)
+				return CheckCount((int)args[1], args[2], (int)args[0]);
+			return args == null || args.Length == 0;
+		}
+
 		public bool CheckCountByArgs(params int[] args)
 		{
 			if (args != null && args.Length > 2)
@@ -50,6 +56,14 @@ namespace SGame
 			if (g != null)
 				return g.GetNum(id) >= num;
 			return false;
+		}
+
+		public void UpdateByArgs(bool iscost, params float[] args)
+		{
+			if (args.Length > 2)
+				Update((int)args[0], (int)args[1], args[2], iscost);
+			else if (args.Length == 2)
+				Update(PropertyGroup.ITEM, (int)args[0], args[1], iscost);
 		}
 
 		public void UpdateByArgs(bool iscost, params int[] args)
