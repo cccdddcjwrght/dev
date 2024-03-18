@@ -42,6 +42,10 @@ namespace SGame
             m_slots.Add(SlotType.WEAPON, weapon);
             m_slots.Add(SlotType.FOOD,   good);
             m_slots.Add(SlotType.HUD,    glasses);
+
+            if (m_weapon != null)
+                GameObject.Destroy(m_weapon);
+            m_weapon = null;
         }
         
         /// <summary>

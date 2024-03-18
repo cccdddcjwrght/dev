@@ -396,6 +396,10 @@ namespace SGame
                 
                 m_slot.SetWeapon(weaponID);
             }
+            else
+            {
+                m_slot.SetWeapon(0);
+            }
             modelAnimator = ani.GetComponent<Animator>();
         }
     }
