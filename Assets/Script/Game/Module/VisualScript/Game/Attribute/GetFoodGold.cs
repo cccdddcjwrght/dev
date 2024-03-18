@@ -93,7 +93,9 @@ namespace SGame.VS
                 int addGold = GetPerfectGold(roleID);
                 m_gold *= (addGold * ConstDefine.C_PER_SCALE);
             }
-
+            
+            // 添加价格系数
+            m_gold *= (AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.Price) * ConstDefine.C_PER_SCALE);
             return outputTrigger;
         }
     }
