@@ -14,10 +14,13 @@ namespace SGame
 
 			new WaitEvent<int>(((int)GameEvent.AFTER_ENTER_ROOM)).Wait((e) =>
 			{
-					StaticDefine.G_Offline_Time = DataCenter.Instance.GetOfflineTime();
-					var min = GlobalDesginConfig.GetInt("min_offline_time");
-					if (StaticDefine.G_Offline_Time >= min)
+				StaticDefine.G_Offline_Time = DataCenter.Instance.GetOfflineTime();
+				var min = GlobalDesginConfig.GetInt("min_offline_time");
+				if (StaticDefine.G_Offline_Time >= min)
+				{
+					if ("offline".IsOpend(false))
 						_delayer.DelayOpen(11, "mainui");
+				}
 			});
 
 		}

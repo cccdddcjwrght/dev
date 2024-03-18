@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Xml;
 using GameConfigs;
 using SGame.UI;
 using Unity.Entities;
@@ -20,13 +19,11 @@ namespace SGame
 		{
 			if (!string.IsNullOrEmpty(id))
 			{
-				if (ConfigSystem.Instance.TryGet<FunctionConfigRowData>(id, out var cfg))
-				{
-					if (cfg.IsValid())
-						return IsOpened(cfg.Id, enableTips, tips);
-					else if (enableTips)
-						TipsDontOpen(id);
-				}
+				var cfg = FindFunction(id);
+				if (cfg.IsValid())
+					return IsOpened(cfg.Id, enableTips, tips);
+				else
+					return true;
 			}
 			return false;
 		}

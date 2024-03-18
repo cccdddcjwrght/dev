@@ -343,6 +343,7 @@ namespace __SPACE__{
 
 	public static void OnPostprocessAllAssets(string[] importedAsset, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
+		if (Application.isBatchMode) return;
 		_uiinfos?.Clear();
 		OnImportUIList(false, importedAsset);
 		OnDeleteAssets(false, deletedAssets);
@@ -361,7 +362,8 @@ namespace __SPACE__{
 			WriteUIReg(ref lines, null, null, null, null, write: true);
 			_uiinfos.Clear();
 		}
-		DoRefresh(refresh);
+		if (refresh)
+			DoRefresh(refresh);
 	}
 
 
@@ -395,7 +397,8 @@ namespace __SPACE__{
 				_uiinfos?.Clear();
 			}
 		}
-		DoRefresh(refresh);
+		if (refresh)
+			DoRefresh(refresh);
 	}
 
 	static void DoRefresh(bool refresh = true)
@@ -412,7 +415,7 @@ namespace __SPACE__{
 	{
 		if (UIImportUtils.IsFileMatch(asset, out var info))
 			GenUIModuleCode(info);
-		
+
 	}
 
 	static private void GenUIModuleCode(UInfo info)

@@ -13,6 +13,8 @@ namespace SGame
 
 		public static class EquipUtil
 		{
+			readonly static int EQ_FROM_ID = nameof(EquipUtil).GetHashCode();
+
 			private static EquipData _data { get { return Instance.equipData; } }
 			private static StringBuilder _sb = new StringBuilder();
 
@@ -24,7 +26,7 @@ namespace SGame
 
 			static public void InitEquipEffects()
 			{
-				_data.equipeds.Foreach(e => OnRoleEquipChange(e));
+				OnRoleEquipChange();
 			}
 
 			static public string GetRoleEquipString()
@@ -96,7 +98,7 @@ namespace SGame
 
 					return list;
 				}
-				return default;
+				return rets;
 			}
 
 			static public void AddEquips(bool isnew, params int[] ids)
@@ -166,10 +168,11 @@ namespace SGame
 
 					PutOff(_data.equipeds[pos], false);
 					RemoveEquip(equip, false);
-					OnRoleEquipChange(equip);
 
 					equip.pos = pos;
 					_data.equipeds[pos] = equip;
+
+					OnRoleEquipChange();
 					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 					EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
 				}
@@ -182,9 +185,9 @@ namespace SGame
 					_data.equipeds[equip.pos] = default;
 					_data.items.Add(equip);
 					equip.pos = 0;
-					OnRoleEquipChange(equip, true);
 					if (triggerevent)
 					{
+						OnRoleEquipChange();
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 						EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
 					}
@@ -235,23 +238,27 @@ namespace SGame
 				_data.items?.ForEach(e => e.isnew = 0);
 			}
 
-			static private void OnRoleEquipChange(EquipItem equip, bool remove = false)
+			static private void OnRoleEquipChange(bool remove = false)
 			{
-				if (equip == null || equip.cfgID <= 0) return;
-				var list = GetEquipEffects(equip.cfg, true);
-				if (list.Count > 0)
+				EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = EQ_FROM_ID });
+				if (!remove)
 				{
-					var buffs = list.GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(kv => new BuffData()
+					var list = new List<int[]>();
+					_data.equipeds.Foreach(e => GetEquipEffects(e != null ? e.cfg : default, true, list));
+
+					if (list.Count > 0)
 					{
-						id = kv.Key,
-						val = kv.Value,
-						from = equip.key,
-						isremove = remove,
-					}).All(buff =>
-					{
-						EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff);
-						return true;
-					});
+						var buffs = list.GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(kv => new BuffData()
+						{
+							id = kv.Key,
+							val = kv.Value,
+							from = EQ_FROM_ID,
+						}).All(buff =>
+						{
+							EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff);
+							return true;
+						});
+					}
 				}
 			}
 

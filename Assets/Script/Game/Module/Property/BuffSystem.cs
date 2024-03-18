@@ -97,6 +97,7 @@ namespace SGame
 						attr[((int)EnumAttribute.WorkSpeed)] = r.Efficiency;
 						attr[((int)EnumAttribute.ImmediatelyCompleteRate)] = r.Instant;
 						attr[((int)EnumAttribute.PerfectCompleteRate)] = r.Perfect;
+						attr[((int)EnumAttribute.Price)] = r.Price;
 					}
 					break;
 				case 2://客人
@@ -105,6 +106,7 @@ namespace SGame
 						attr[((int)EnumAttribute.Speed)] = r.MoveSpeed;
 						attr[((int)EnumAttribute.Gratuity)] = r.TipRatio;
 						attr[((int)EnumAttribute.GratuityRate)] = r.Tip;
+						attr[((int)EnumAttribute.Price)] = r.Price;
 					}
 					break;
 			}
