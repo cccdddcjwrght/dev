@@ -29,12 +29,12 @@ namespace SGame.UI.Buff
 
             m_type = GetControllerAt(0);
             m_state = GetControllerAt(1);
-            m_buffbg = (GImage)GetChildAt(0);
-            m_icon = (GLoader)GetChildAt(1);
-            m_tag = (GLoader)GetChildAt(2);
-            m_title = (GTextField)GetChildAt(3);
-            m_desc = (GTextField)GetChildAt(4);
-            m_click = (UI_ClickBtn)GetChildAt(5);
+            m_buffbg = (GImage)GetChildAt(1);
+            m_icon = (GLoader)GetChildAt(2);
+            m_tag = (GLoader)GetChildAt(3);
+            m_title = (GTextField)GetChildAt(4);
+            m_desc = (GTextField)GetChildAt(5);
+            m_click = (UI_ClickBtn)GetChildAt(6);
             m_hide = GetTransitionAt(0);
         }
     }
