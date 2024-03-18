@@ -15,6 +15,7 @@ namespace SGame.UI{
 			var param = context.gameWorld.GetEntityManager().GetComponentData<UIParam>(context.entity);
 			_foodTipEntity = (Entity)param.Value;
 			//m_view.m_title.text = Utils.ConvertNumberStr(value);
+			context.window.xy = new Vector2(999999f, 99999f);
 			_value = 0;
 			context.onUpdate += OnUpdate;
 		}
