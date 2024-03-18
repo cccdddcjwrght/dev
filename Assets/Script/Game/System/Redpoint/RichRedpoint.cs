@@ -84,6 +84,7 @@ namespace SGame
 				{
 					if (!_hudID.TryGetValue(id, out var e))
 					{
+						_hudID[id] = default;
 						this.Delay(() =>
 						{
 							_hudID[id] = UIUtils.ShowHUD(data.Res.Substring(1), child.transform, new float3(data.Offset(0), data.Offset(1), data.Offset(2)));

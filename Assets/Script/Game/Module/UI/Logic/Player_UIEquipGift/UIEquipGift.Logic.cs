@@ -9,6 +9,7 @@ namespace SGame.UI
 	using System.Linq;
 	using System.Collections.Generic;
 	using System;
+	using Unity.Entities;
 
 	public partial class UIEquipGift
 	{
@@ -21,6 +22,7 @@ namespace SGame.UI
 		private ItemData.Value _current;
 		private int _chestID;
 		private int _count;
+		private Entity _effect;
 
 		partial void InitLogic(UIContext context)
 		{
@@ -82,7 +84,7 @@ namespace SGame.UI
 				m_view.m_open.Play(() => _mask = false);
 				this.Delay(() =>
 				{
-						EffectSystem.Instance.AddEffect(6,m_view.m_body);
+					_effect = EffectSystem.Instance.AddEffect(6, m_view.m_body);
 
 				}, 1000);
 				return true;
@@ -131,6 +133,9 @@ namespace SGame.UI
 
 		void CloseUI(bool imm = false)
 		{
+			if (_effect != default)
+				EffectSystem.Instance.ReleaseEffect(_effect);
+			_effect = default;
 			if (imm)
 				SGame.UIUtils.CloseUIByID(__id);
 			else

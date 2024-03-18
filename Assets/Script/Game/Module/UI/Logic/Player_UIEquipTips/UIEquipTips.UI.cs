@@ -18,6 +18,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_click2, new EventCallback1(_OnClick2Click));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -26,6 +27,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick),remove:true);
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_click2, new EventCallback1(_OnClick2Click),remove:true);
 
 		}
 		void _OnQualityChanged(EventContext data){
@@ -73,6 +75,12 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
 		string GetCloseText()=>UIListener.GetText(m_view.m_close);
+		void _OnClick2Click(EventContext data){
+			OnClick2Click(data);
+		}
+		partial void OnClick2Click(EventContext data);
+		void SetClick2Text(string data)=>UIListener.SetText(m_view.m_click2,data);
+		string GetClick2Text()=>UIListener.GetText(m_view.m_click2);
 
 	}
 }

@@ -119,9 +119,9 @@ namespace SGame.UI
 		System.Collections.IEnumerator CreateRole()
 		{
 			yield return null;
-			var gen = CharacterGenerator.CreateWithConfig(DataCenter.EquipUtil.GetRoleEquipString());
-			while (!gen.ConfigReady) yield return null;
-			var go = gen.Generate();
+			var wait = Utils.GenCharacter(DataCenter.EquipUtil.GetRoleEquipString());
+			yield return wait;
+			var go = wait.Current as GameObject;
 			if (go)
 			{
 				var old = goWrapper.wrapTarget;

@@ -20,6 +20,7 @@ namespace SGame.UI.Player
         public GButton m_click;
         public GButton m_up;
         public GButton m_close;
+        public GButton m_click2;
         public const string URL = "ui://cmw7t1elw46k1h";
 
         public static UI_EquipTipsUI CreateInstance()
@@ -44,6 +45,7 @@ namespace SGame.UI.Player
             m_click = (GButton)GetChildAt(15);
             m_up = (GButton)GetChildAt(16);
             m_close = (GButton)GetChildAt(17);
+            m_click2 = (GButton)GetChildAt(18);
         }
     }
 }

@@ -139,7 +139,7 @@ namespace SGame
 					w.addProfit		= (w.lvcfg.ShopPriceStarRatio - prp) / 100;
 
 					//升级消耗
-					PropertyManager.Instance.Update(w.lvcfg.UpgradePrice(0), w.lvcfg.UpgradePrice(1), cost, true);
+					PropertyManager.Instance.Update((int)w.lvcfg.UpgradePrice(0), (int)w.lvcfg.UpgradePrice(1), cost, true);
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
 
 					if (w.lvcfg.MachineStar > w.star)//升星奖励
@@ -435,8 +435,8 @@ namespace SGame
 			type = id = 0;
 			if (!isTable && lvcfg.IsValid())
 			{
-				type = lvcfg.UpgradePrice(0);
-				id = lvcfg.UpgradePrice(1);
+				type = (int)lvcfg.UpgradePrice(0);
+				id = (int)lvcfg.UpgradePrice(1);
 				return (0.01d * lvcfg.UpgradePrice(2) * cfg.UpgradeRatio).ToInt();
 			}
 			return 0;

@@ -21,14 +21,14 @@ public struct MachineUpgradeRowData : IFlatbufferObject
 
   public int LevelId { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int MachineStar { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int UpgradePrice(int j) { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public float UpgradePrice(int j) { int o = __p.__offset(8); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
   public int UpgradePriceLength { get { int o = __p.__offset(8); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetUpgradePriceBytes() { return __p.__vector_as_span<int>(8, 4); }
+  public Span<float> GetUpgradePriceBytes() { return __p.__vector_as_span<float>(8, 4); }
 #else
   public ArraySegment<byte>? GetUpgradePriceBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
-  public int[] GetUpgradePriceArray() { return __p.__vector_as_array<int>(8); }
+  public float[] GetUpgradePriceArray() { return __p.__vector_as_array<float>(8); }
   public int ShopPriceRatio { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int ShopPriceStarRatio { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int TimeRatio { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
@@ -67,8 +67,8 @@ public struct MachineUpgradeRowData : IFlatbufferObject
   public static void AddLevelId(FlatBufferBuilder builder, int LevelId) { builder.AddInt(0, LevelId, 0); }
   public static void AddMachineStar(FlatBufferBuilder builder, int MachineStar) { builder.AddInt(1, MachineStar, 0); }
   public static void AddUpgradePrice(FlatBufferBuilder builder, VectorOffset UpgradePriceOffset) { builder.AddOffset(2, UpgradePriceOffset.Value, 0); }
-  public static VectorOffset CreateUpgradePriceVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateUpgradePriceVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateUpgradePriceVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateUpgradePriceVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartUpgradePriceVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddShopPriceRatio(FlatBufferBuilder builder, int ShopPriceRatio) { builder.AddInt(3, ShopPriceRatio, 0); }
   public static void AddShopPriceStarRatio(FlatBufferBuilder builder, int ShopPriceStarRatio) { builder.AddInt(4, ShopPriceStarRatio, 0); }

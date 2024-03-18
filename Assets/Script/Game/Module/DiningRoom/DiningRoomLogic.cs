@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameConfigs;
 using libx;
+using log4net;
 using Unity.Mathematics;
 using UnityEngine;
 using MapGrid = GameTools.Maps.Grid;
@@ -279,6 +280,9 @@ namespace SGame.Dining
 	{
 		#region Member
 
+		private static ILog log = LogManager.GetLogger("zcf.scene.worktable");
+
+
 		private const string c_def_asset = "assets/buildasset/prefabs/scenes/other/rewardbox.prefab";
 
 		private MapGrid _sceneGrid;
@@ -410,12 +414,17 @@ namespace SGame.Dining
 		{
 			if (machine != null)
 			{
-				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(machine.cfgID, out var cfg) && cfg.Walkable == 0)
+				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(machine.cfgID, out var cfg))
 				{
 
 					var c = _sceneGrid.GetCell(index >= 0 ? index : machine.index);
 					if (c != null)
-						c.Marking(GameTools.Maps.MaskFlag.UnWalkable, !machine.enable);
+					{
+						if (cfg.Walkable == 0)
+							c.Marking(GameTools.Maps.MaskFlag.UnWalkable, !machine.enable);
+						else
+							c.walkcost = !machine.enable ? 1 : cfg.Walkable;
+					}
 					else
 						Debug.Log(machine.index);
 				}
@@ -605,6 +614,10 @@ namespace SGame.Dining
 			{
 				gindex = cs.First();
 				transform = transform ?? ls[0].transform?.parent;
+
+				if(transform == null)
+					log.Error($"点位->{cfg.ID} : 当前场景没有找到相关格子");
+
 				var h = transform.gameObject.AddComponent<RegionHit>();
 				h.region = region.cfgID;
 				h.place = placeid;
@@ -767,7 +780,7 @@ namespace SGame.Dining
 			if (r.data.level > 1 && r.data.addProfit == 0)
 				7.ToAudioID().PlayAudio();
 
-			var ws = DataCenter.MachineUtil.GetWorktables(w => !w.isTable );
+			var ws = DataCenter.MachineUtil.GetWorktables(w => !w.isTable);
 			if (ws?.Count > 0)
 			{
 				if (ws.All(w => w.level >= w.maxlv))
