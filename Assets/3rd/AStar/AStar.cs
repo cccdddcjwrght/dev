@@ -28,6 +28,9 @@ namespace GameTools.Paths
 		public bool Hold(int x, int y, int holder);
 
 		public bool HasHold(int index);
+
+		public int GetCost(int index);
+
 	}
 
 	public struct MapInfo

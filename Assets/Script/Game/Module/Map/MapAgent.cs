@@ -96,6 +96,14 @@ namespace GameTools
 			return false;
 		}
 
+		public int GetCost(int index)
+		{
+			var cell = grid.GetCell(index);
+			if (cell != null) return cell.walkcost;
+			else return 0;
+		}
+
+
 		private void Init()
 		{
 			if (_grid == null)
@@ -229,10 +237,10 @@ namespace GameTools
 			{
 				return agent.grid.IndexToGrid(index);
 			}
-			
+
 			return default;
 		}
-		
+
 
 		/// <summary>
 		/// 格子点转索引
@@ -261,14 +269,15 @@ namespace GameTools
 			Vector2Int index = GridToIndex(pos);
 			return index.x + index.y * agent.grid.gridSize.x;
 		}
-		
-				/// <summary>
+
+		/// <summary>
 		/// 格子id，转索引
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public static int XYToCellIndex(int x ,int y) {
+		public static int XYToCellIndex(int x, int y)
+		{
 
 			if (agent != null)
 			{
@@ -307,9 +316,9 @@ namespace GameTools
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		static public List<string> GetTagsByPos(int x,int y)
+		static public List<string> GetTagsByPos(int x, int y)
 		{
-			var cell = agent.grid.GetCell(x,y);
+			var cell = agent.grid.GetCell(x, y);
 			if (cell != null) return cell.tags;
 			return default;
 		}

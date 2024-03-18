@@ -27,7 +27,7 @@ namespace SGame.UI.Shop
             m_adgood = (UI_BigGoods)GetChildAt(0);
             m_gifts = (GList)GetChildAt(1);
             m_page = (GList)GetChildAt(2);
-            m_goods = (GList)GetChildAt(4);
+            m_goods = (GList)GetChildAt(5);
         }
     }
 }
