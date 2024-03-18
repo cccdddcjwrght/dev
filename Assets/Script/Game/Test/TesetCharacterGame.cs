@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using SGame;
+using GameEvent = SGame.VS.GameEvent;
 
 // This MonoBehaviour is responsible for controlling the CharacterGenerator,
 // animating the character, and the user interface. When the user requests a 
@@ -56,7 +57,6 @@ class TesetCharacterGame : MonoBehaviour
 
     void SetupWeapons()
     {
-        /*
         m_slotIndex = new Dictionary<SlotType, EquipData>();
         List<int> weapons = new List<int>();
         weapons.Add(0);
@@ -74,7 +74,6 @@ class TesetCharacterGame : MonoBehaviour
         {
             equipId = weapons
         });
-        */
     }
 
     // Requests a new character when the required asse
@@ -124,7 +123,7 @@ class TesetCharacterGame : MonoBehaviour
         else
         {
             character = generator.Generate(character);
-            m_equipments = character.AddComponent<Equipments>();
+            //m_equipments = character.AddComponent<Equipments>();
             
             //if (nonLoopingAnimationToPlay == null) return;
             //character.GetComponent<Animation>()[nonLoopingAnimationToPlay].layer = 1;
@@ -229,7 +228,7 @@ class TesetCharacterGame : MonoBehaviour
         if (m_slotIndex.TryGetValue(slot, out EquipData edata))
         {
             edata.index =  (edata.index + 1) % edata.equipId.Count;
-            //m_equipments.SetEquip(edata.GetID(), slot);
+            m_equipments.SetWeapon(edata.GetID());
         }
     }
     

@@ -141,6 +141,8 @@ namespace SGame
 
 		#endregion
 
+		// 装备资源路径
+		public const string WEAPON_PATH = "Assets/BuildAsset/Prefabs/Equipments/";
 	}
 
 	/// <summary>

@@ -131,44 +131,5 @@ namespace SGame
             req.Release();
             return ret;
         }
-
-        public Entity LoadCharacterRender(int charcterId)
-        {
-            string path = CHARACTER_TEST_PREFAB;
-            // 1. 首先加载prefab
-            // 2. 通过world实例化对象
-            // 3. 返回对象
-            
-            AssetRequest        req     = Assets.LoadAsset(path, typeof(GameObject));
-            if (!string.IsNullOrEmpty(req.error))
-            { 
-                log.Error("Load Prefab fail=" + req.error);
-                return Entity.Null;
-            }
-            
-            GameObject          prefab  = req.asset as GameObject;
-            if (prefab == null)
-            {
-                log.Error("Load Prefab Fail=" + path);
-                return Entity.Null;
-            }
-            
-            GameObject obj = m_world.SpawnInternal(prefab, Vector3.zero, Quaternion.identity, out Entity ret);
-            if (ret == Entity.Null)
-            {
-                log.Error("Cover Fail = " + path);
-            }
-            
-            // 确保资源能够自动释放
-            req.Require(obj);
-            req.Release();
-            return ret;
-        }
-
-        // 加载角色对象
-        public Entity LoadCharacter(int charcterId)
-        {
-            return SpawnAndCovert(CHARACTER_PREFAB);
-        }
     }
 }
