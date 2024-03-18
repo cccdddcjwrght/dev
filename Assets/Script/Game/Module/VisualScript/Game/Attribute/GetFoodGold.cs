@@ -96,6 +96,7 @@ namespace SGame.VS
             
             // 添加价格系数
             m_gold *= (AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.Price) * ConstDefine.C_PER_SCALE);
+            m_gold = System.Math.Floor(m_gold);
             return outputTrigger;
         }
     }
