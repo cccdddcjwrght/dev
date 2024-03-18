@@ -114,7 +114,11 @@ namespace SGame.UI{
 				}
 				else
 				{
-					"shop".Goto();
+					if ("shop".IsOpend())
+					{
+
+						SGame.UIUtils.OpenUI("shopui", 15);
+					}
 				}
 					
 				
