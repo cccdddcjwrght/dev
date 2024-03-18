@@ -82,6 +82,12 @@ namespace SGame
             m_slot = gameObject.AddComponent<Equipments>();
         }
 
+        void Update()
+        {
+            if (m_modelLoading != null && !m_modelLoading.IsTerminated)
+                m_modelLoading.Step();
+        }
+
         private void OnDestroy()
         {
             if (World.DefaultGameObjectInjectionWorld.IsCreated)

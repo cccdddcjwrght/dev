@@ -12,6 +12,7 @@ using Unity.Mathematics;
 using FairyGUI;
 using GameTools;
 using SGame.UI;
+using System.Collections;
 
 namespace SGame
 {
@@ -721,5 +722,36 @@ namespace SGame
 
 			return value;
 		}
+
+		/// <summary>
+		/// 创建角色接口
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static IEnumerator GenCharacter(string part)
+		{
+			var weaponStr = Utils.PickCharacterPart(part, "weapon", out string newPart);
+			var gen = CharacterGenerator.CreateWithConfig(newPart);
+			while (gen.ConfigReady == false)
+				yield return null;
+
+			var ani = gen.Generate();
+			if (!string.IsNullOrEmpty(weaponStr))
+			{
+				if (!int.TryParse(weaponStr, out int weaponID))
+				{
+					log.Error("parse weapon id fail=" + weaponStr);
+				}
+				else
+				{
+					Equipments equip = ani.AddComponent<Equipments>();
+					yield return null;
+					equip.SetWeapon(weaponID);
+				}
+			}
+
+			yield return ani;
+		}
+		
 	}
 }

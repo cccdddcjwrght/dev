@@ -321,7 +321,7 @@ namespace SGame
 						try
 						{
 							var k = ss[i].ToLower();
-							if (k.StartsWith("weapon")) continue;
+							//if (k.StartsWith("weapon")) continue;
 							_partData[k] = ss[i + 1];
 						}
 						catch (Exception)
