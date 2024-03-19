@@ -123,8 +123,8 @@ namespace SGame
 			Vector2 uipos = GRoot.inst.GlobalToLocal(screenPoint);
 			return uipos;
 		}
-			
-			
+
+
 
 
 		/// <summary>
@@ -159,16 +159,16 @@ namespace SGame
 
 			return ret;
 		}
-		
+
 		//根据ui名称获取到相应的坐标位置
 		public static Vector2 GetUIPosition(string uiName, string uiPath)
 		{
 			Entity e = GetUIEntity(uiName);
-			var ui= World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
-			var item=ui.Value.contentPane.GetChildByPath(uiPath);
+			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
+			var item = ui.Value.contentPane.GetChildByPath(uiPath);
 			if (item == null)
 			{
-				Debug.Log("ui path not found={0}, {1}"+ uiName+ uiPath);
+				Debug.Log("ui path not found={0}, {1}" + uiName + uiPath);
 				return Vector2.zero;
 			}
 
@@ -298,7 +298,7 @@ namespace SGame
 				}
 			}
 		}
-		
+
 
 		public static void SetParam<T>(this Entity entity, T data)
 		{
@@ -444,9 +444,9 @@ namespace SGame
 			return tips;
 		}
 
-		public static string ErrorTips(this string tips)
+		public static string ErrorTips(this string tips, bool local = true)
 		{
-			return Tips(tips, "error_");
+			return Tips(tips, local ? "@error_" : "error_");
 		}
 
 		/// <summary>
