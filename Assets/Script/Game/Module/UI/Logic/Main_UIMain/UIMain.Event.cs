@@ -20,6 +20,7 @@ namespace SGame.UI
 		partial void InitEvent(UIContext context)
 		{
 			leftList= m_view.m_leftList.m_left;
+			leftList.opaque = false;
 			var headBtn = m_view.m_head;
 			leftList.itemRenderer += RenderListItem;
 			leftList.numItems = 3;
