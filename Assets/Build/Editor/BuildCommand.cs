@@ -49,6 +49,7 @@ static class BuildCommand
 	private const string CORE_RES = "VERSION_CORE_VAR";//代码版本
 	private const string PROTO_RES = "VERSION_PROTO_VAR";//协议版本
 	private const string SCRIPT_LEVEL = "SCRIPT_LEVEL";
+	private const string CPU_TYPE = "CPU_TYPE";//安卓cpu架构
 
 	private const string INI_FILE = "INI_FILE";
 
@@ -273,6 +274,7 @@ static class BuildCommand
 			HandleAndroidAppBundle();
 			HandleAndroidBundleVersionCode();
 			HandleAndroidKeystore();
+			HandlerTargetCPUType();
 		}
 
 		HandlePackageID();
@@ -301,14 +303,16 @@ static class BuildCommand
 			EditorUserBuildSettings.SwitchActiveBuildTarget(BuildPipeline.GetBuildTargetGroup(buildTarget), buildTarget);
 		DoBuildAsset?.Invoke(ver, core, proto);
 #endif
+
 		HandleFirstScene(out _);
 		var buildReport = BuildPipeline.BuildPlayer(GetEnabledScenes(), fixedBuildPath, buildTarget, buildOptions);
-
 #if !UNITY_EDITOR_LINUX
 		ResetSymbol(buildTarget);
 #endif
-		if (buildReport.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
+
+		if (buildReport != null && buildReport.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
 			throw new Exception($"Build ended with {buildReport.summary.result} status");
+
 		_output = buildPath;
 
 		File.WriteAllText(C_BUILD_RESULT_FILE, contents: "");
@@ -636,8 +640,8 @@ static class BuildCommand
 	{
 		var tg = BuildPipeline.GetBuildTargetGroup(target);
 		var level = ManagedStrippingLevel.Disabled;
-		if (!TryGetEnv(SCRIPT_LEVEL, out var lv) && !string.IsNullOrEmpty(lv))
-			level = (ManagedStrippingLevel)Enum.Parse(typeof(ManagedStrippingLevel), lv , true);
+		if (TryGetEnv(SCRIPT_LEVEL, out var lv) && !string.IsNullOrEmpty(lv))
+			level = (ManagedStrippingLevel)Enum.Parse(typeof(ManagedStrippingLevel), lv, true);
 		Console.WriteLine($"::Set Script Level : {level}");
 		if (level == ManagedStrippingLevel.Disabled)
 		{
@@ -649,7 +653,27 @@ static class BuildCommand
 			PlayerSettings.stripEngineCode = true;
 			PlayerSettings.SetManagedStrippingLevel(tg, level);
 		}
+
+
 	}
+
+	#region 安卓
+
+	private static void HandlerTargetCPUType()
+	{
+		var target = PlayerSettings.Android.targetArchitectures;
+		if (TryGetEnv(CPU_TYPE, out var type) && !string.IsNullOrEmpty(type) && Enum.TryParse<AndroidArchitecture>(type, true, out var v))
+			target = v;
+		else
+		{
+			Console.WriteLine($":: {CPU_TYPE} not found, skipping setup, using default {target}");
+			return;
+		}
+		Console.WriteLine($"::Set Cpu type : {target}");
+		PlayerSettings.Android.targetArchitectures = target;
+	}
+
+	#endregion
 
 	#endregion
 
