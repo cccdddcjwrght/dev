@@ -9,14 +9,10 @@ namespace SGame.UI.Setting
     {
         public Controller m_State;
         public GLabel m_body;
-        public GImage m_n16;
-        public GImage m_n18;
         public GList m_list;
         public GButton m_head;
         public GButton m_frame;
-        public GGroup m_n6;
         public GButton m_icon;
-        public GGroup m_n19;
         public const string URL = "ui://dpgt0e2zn1bm20";
 
         public static UI_ChangeHeadUI CreateInstance()
@@ -30,14 +26,10 @@ namespace SGame.UI.Setting
 
             m_State = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
-            m_n16 = (GImage)GetChildAt(1);
-            m_n18 = (GImage)GetChildAt(2);
             m_list = (GList)GetChildAt(3);
             m_head = (GButton)GetChildAt(4);
             m_frame = (GButton)GetChildAt(5);
-            m_n6 = (GGroup)GetChildAt(6);
             m_icon = (GButton)GetChildAt(7);
-            m_n19 = (GGroup)GetChildAt(8);
         }
     }
 }

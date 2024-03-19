@@ -65,8 +65,6 @@ namespace SGame.UI{
 		}
 		partial void OnSignBtn_SignSateChanged(EventContext data);
 		void SwitchSignBtn_SignSatePage(int index)=>m_view.m_signBtn.m_signSate.selectedIndex=index;
-		void SetSignBtn_TitleText(string data)=>UIListener.SetText(m_view.m_signBtn.m_title,data);
-		string GetSignBtn_TitleText()=>UIListener.GetText(m_view.m_signBtn.m_title);
 		void _OnSignBtnClick(EventContext data){
 			OnSignBtnClick(data);
 		}

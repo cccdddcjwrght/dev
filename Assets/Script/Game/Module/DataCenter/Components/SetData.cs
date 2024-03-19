@@ -42,8 +42,7 @@ namespace SGame
         {
             public int id;
             public int type;
-            public string icon;
-            public bool isCheck;
+            public string icon; 
             public bool isLock;
         }
 
@@ -121,12 +120,13 @@ namespace SGame
                     {
                         id=item.AvatarId,
                         icon = item.Icon,
-                        isCheck = item.Rank==1?true:false,
-                        isLock =  item.Rank==1?true:false,
+                        isLock =  item.Rank==1,
                     });
                 }
                 
-            }else if (ConfigSystem.Instance.TryGets(item => (item).Type == 2,
+            }
+            
+            if (ConfigSystem.Instance.TryGets(item => (item).Type == 2,
                           out List<AvatarRowData> freamConfigs))
             {
                 foreach (var item in freamConfigs)
@@ -135,8 +135,7 @@ namespace SGame
                     {
                         id=item.AvatarId,
                         icon = item.Icon,
-                        isCheck = item.Rank==1,
-                        isLock =  item.Rank==1
+                        isLock=item.Rank==1
                     });
                 }
             }

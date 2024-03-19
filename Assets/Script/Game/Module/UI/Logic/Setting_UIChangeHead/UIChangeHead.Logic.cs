@@ -12,15 +12,12 @@ namespace SGame.UI{
 		private AccountData _accountData;
 		private SetData     _setData;
 		private GList list;
-		private int headID;
-		private int freamID;
+	
 
 		partial void BeforeInit(UIContext context)
 		{
 			_accountData = DataCenter.Instance.accountData;
 			_setData = DataCenter.Instance.setData;
-			headID = _accountData.head;
-			freamID = _accountData.frame;
 		}
 
 		
@@ -45,8 +42,7 @@ namespace SGame.UI{
 			else
 			{
 				list.RemoveChildrenToPool();
-				SGame.UIUtils.AddListItems(list, _setData.headDataList, OnSetHeadList);
-			
+				SGame.UIUtils.AddListItems(list, _setData.freamDataList, OnSetHeadList);
 			}
 			
 		}
@@ -59,20 +55,45 @@ namespace SGame.UI{
 		private void OnSetHeadList(int index,object data, GObject item)
          {
 	        var headData= data as SetData.HeadFrameData;
-	         var obj = item as UI_SimpleHeadIcon;
+	        var obj = item as UI_SimpleHeadIcon;
+	        
+	        item.onClick.Set(()=>
+	        {
+		        var showHead = m_view.m_icon as UI_HeadBtn;
+		        if (m_view.m_State.selectedIndex == 0)
+		        {
+			        showHead.m_headImg.url=string.Format("ui://IconHead/{0}",headData.icon);
+			        _accountData.head = headData.id;
+		        }
+		        else
+		        {
+			        showHead.m_frame.url=string.Format("ui://IconHead/{0}",headData.icon);
+			        _accountData.frame = headData.id;
+		        }
+	        });
+	        
 			if (m_view.m_State.selectedIndex == 0)
 			{
+				obj.m_state.selectedIndex = 1;
 				var head = obj.m_body as UI_HeadBtn;
-				head.m_state.selectedIndex = 1;
 				head.m_headImg.url=string.Format("ui://IconHead/{0}",headData.icon);
 			}
 			else
 			{
+				obj.m_state.selectedIndex = 0;
 				var head = obj.m_body as UI_HeadBtn;
-				head.m_state.selectedIndex = 0;
 				head.m_frame.url=string.Format("ui://IconHead/{0}",headData.icon);
 			}
-		}
+			//
+			// if (_accountData.head == headData.id || _accountData.frame == headData.id)
+			// {
+			// 	obj.m_check.selectedIndex = 1;
+			// }
+			// else
+			// {
+			// 	obj.m_check.selectedIndex = 0;
+			// }
+         }
 
 		partial void UnInitLogic(UIContext context){
 

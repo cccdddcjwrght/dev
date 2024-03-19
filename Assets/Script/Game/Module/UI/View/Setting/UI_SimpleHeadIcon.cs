@@ -7,7 +7,6 @@ namespace SGame.UI.Setting
 {
     public partial class UI_SimpleHeadIcon : GButton
     {
-        public Controller m_button;
         public Controller m_lock;
         public Controller m_check;
         public Controller m_state;
@@ -27,7 +26,6 @@ namespace SGame.UI.Setting
         {
             base.ConstructFromXML(xml);
 
-            m_button = GetControllerAt(0);
             m_lock = GetControllerAt(1);
             m_check = GetControllerAt(2);
             m_state = GetControllerAt(3);

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using SGame.UI.Common;
 using Unity.Entities;
 using UnityEngine.SocialPlatforms;
 
@@ -44,11 +45,11 @@ namespace SGame.UI{
 			m_handles+=EventManager.Instance.Reg<string,int>(((int)GameEvent.SETTING_UPDATE_INT), OnIntSetting);
 			m_handles+=EventManager.Instance.Reg<string>(((int)GameEvent.SETTING_UPDATE_NAME), OnNameSetting);
 			m_handles+=EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
-
 		}
 
 		private void OnHeadSetting()
 		{
+			var head = m_view.m_head as UI_HeadBtn;
 			
 		}
 
