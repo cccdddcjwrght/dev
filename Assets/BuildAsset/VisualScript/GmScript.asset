@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: GmScript
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":"\u6d4b\u8bd5\u811a\u672c","summary":null,"pan":{"x":0.0,"y":0.0},"zoom":1.0,"elements":[{"argumentCount":0,"coroutine":false,"defaultValues":{"eventId":{"$content":"GAME_START","$type":"SGame.GameEvent"}},"position":{"x":-699.0,"y":-200.0},"guid":"af23c740-5413-4586-8030-28053d39b730","$version":"A","$type":"SGame.VS.GameEvent"},{"nest":{"source":"Macro","macro":0,"embed":null},"defaultValues":{"id":{"$content":1,"$type":"System.Int32"},"vaue":{"$content":1.00000001504747E+30,"$type":"System.Double"}},"position":{"x":-440.0,"y":-201.0},"guid":"9682c8f4-b4cf-4c23-a0fe-386231918e99","$version":"A","$type":"Unity.VisualScripting.SubgraphUnit","$id":"11"},{"nest":{"source":"Macro","macro":1,"embed":null},"defaultValues":{"id":{"$content":2,"$type":"System.Int32"},"vaue":{"$content":1.00000001504747E+30,"$type":"System.Double"}},"position":{"x":-71.0,"y":-197.0},"guid":"39496c50-9f48-44fa-add5-453efc19faa4","$version":"A","$type":"Unity.VisualScripting.SubgraphUnit","$id":"14"},{"sourceUnit":{"$ref":"11"},"sourceKey":"Output","destinationUnit":{"$ref":"14"},"destinationKey":"Input","guid":"35fe8f3d-658d-4b9e-a6f9-fb648a9c4963","$type":"Unity.VisualScripting.ControlConnection"}],"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 2b841dd42208c6548a5c7dc5ebd531b7, type: 2}
+    - {fileID: 11400000, guid: 2b841dd42208c6548a5c7dc5ebd531b7, type: 2}
