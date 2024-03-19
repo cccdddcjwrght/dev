@@ -24,6 +24,7 @@ namespace SGame.UI{
 
 		void ShowText(string name)
 		{
+			if (string.IsNullOrEmpty(name)) return;
 			m_view.visible = true;
 			m_view.m_title.text = name;
 			m_view.m_myfloat.Stop(false, false);
