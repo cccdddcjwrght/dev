@@ -8,7 +8,8 @@ namespace SGame.UI{
 	public partial class UISystemTip
 	{
 		partial void InitLogic(UIContext context)
-		{			
+		{
+			m_view.visible = false;
 			context.window.AddEventListener("UpdateTip", OnUpdateTip);
 			context.content.xy = Vector2.zero;
 			if (context.gameWorld.GetEntityManager().HasComponent<UIParam>(context.entity))
