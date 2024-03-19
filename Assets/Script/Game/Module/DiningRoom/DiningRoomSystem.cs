@@ -27,6 +27,8 @@ namespace SGame.Dining
 		private DiningRoomLogic _currentRoom;
 		private EventHandleContainer _eHandlers;
 
+		public bool isEnterSceneCompleted { get; private set; }
+
 		#region Method
 
 		public void Init(GameWorld world)
@@ -43,6 +45,7 @@ namespace SGame.Dining
 				if (ConfigSystem.Instance.TryGet<RoomRowData>(roomID, out var room))
 				{
 					var lastLogic = _currentRoom;
+					isEnterSceneCompleted = false;
 					_currentRoom = new DiningRoomLogic(roomID);
 					_currentRoom.name = room.Resource;
 					var req = SceneSystemV2.Instance.Load(_currentRoom.name);
@@ -93,7 +96,7 @@ namespace SGame.Dining
 			EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
 			EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
 			_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
-
+			isEnterSceneCompleted = true;
 		}
 
 		private IEnumerator Wait()

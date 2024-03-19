@@ -92,7 +92,7 @@ namespace SGame.UI
 		{
 			if (DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
 			{
-				Dining.DiningRoomSystem.Instance.LoadRoom(DataCenter.Instance.roomData.current.id + 1).Start();
+				SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
 			}
 			else
 			{
