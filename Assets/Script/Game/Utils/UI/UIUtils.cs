@@ -10,6 +10,7 @@ using GameConfigs;
 using Unity.Transforms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SGame
 {
@@ -247,12 +248,57 @@ namespace SGame
 				else if (ui.Current is string name)
 				{
 					if (name.StartsWith("-"))
-						UIModule.Instance.CloseAllUI(name.Substring(1));
+						CloseAllUI(name.Substring(1));//UIModule.Instance.CloseAllUI(name.Substring(1));
 					else
 						CloseUIByName(name);
 				}
 			}
 		}
+
+		/// <summary>
+		/// 判断某个UI是否包含某个组标签
+		/// </summary>
+		/// <param name="uiID"></param>
+		/// <param name="groupTag"></param>
+		/// <returns></returns>
+		public static bool HasUIGroup(int uiID, int groupTag)
+		{
+			if (ConfigSystem.Instance.TryGet(uiID, out ui_resRowData config))
+			{
+				if (config.GroupLength > 0)
+				{
+					for (int i = 0; i < config.GroupLength; i++)
+					{
+						if (config.Group(i) == groupTag)
+							return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// 关闭UI
+		/// </summary>
+		/// <param name="ignore">排除UI</param>
+		public static void CloseAllUI(params string[] ignore)
+		{
+			var wins = UIModule.Instance.GetVisibleUI();
+			if (wins != null)
+			{
+				foreach (var w in wins)
+				{
+					if (HasUIGroup(w.Value.configID, 10))
+					{
+						continue;
+					}
+					if (ignore.Length > 0 && ignore.Contains(w.name)) continue;
+					CloseUI(w.entity);
+				}
+			}
+		}
+		
 
 		public static void SetParam<T>(this Entity entity, T data)
 		{
