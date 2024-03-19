@@ -127,7 +127,7 @@ namespace SGame
 		void OnEnterRoom(int room)
 		{
 			// 播放背景
-			AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
+			//AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
 
 			var prefab = m_resourceManager.LoadPrefab(script);
 			var go = GameObject.Instantiate(prefab);
