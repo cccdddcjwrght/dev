@@ -5,6 +5,7 @@ namespace SGame.UI
 	using UnityEngine;
 	using SGame;
 	using SGame.UI.EnterScene;
+	using GameConfigs;
 
 	public partial class UIEnterScene
 	{
@@ -14,9 +15,14 @@ namespace SGame.UI
 		{
 			_nextScene = (context.GetParam()?.Value as object[]).Val<int>(0);
 			if (_nextScene > 0)
-				PlayEffect().Start();
-			else
-				SGame.UIUtils.CloseUIByID(__id);
+			{
+				if (ConfigSystem.Instance.TryGet<RoomRowData>(_nextScene, out _))
+				{
+					PlayEffect().Start();
+					return;
+				}
+			}
+			SGame.UIUtils.CloseUIByID(__id);
 		}
 
 
@@ -26,7 +32,7 @@ namespace SGame.UI
 			yield return EffectSystem.Instance.WaitEffectLoaded(e);
 			var go = EffectSystem.Instance.GetEffect(e);
 			var com = go.GetComponent<EnterNextSceneComponent>().Set(_nextScene - 2).Play();
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1f);
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 			com.continueFlag = true;
 			while (com.director.time < com.director.duration * 0.9f)
