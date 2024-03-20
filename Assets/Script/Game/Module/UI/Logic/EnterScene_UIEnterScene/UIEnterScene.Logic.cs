@@ -16,18 +16,19 @@ namespace SGame.UI
 		private int _nextScene = 0;
 		private VideoPlayer _player;
 
+		#region path
 		string c_video_path =
-#if !UNITY_EDITOR
-					Path.Combine(Application.streamingAssetsPath, "splash.mp4");
+#if UNITY_EDITOR
+				"exts/apploge/splash.mp4";
 #else
-					"exts/apploge/splash.mp4";
+	            Application.streamingAssetsPath + "/splash.mp4";
 #endif
+		#endregion
 
 		partial void InitLogic(UIContext context)
 		{
-			var path = GlobalConfig.GetStr("splash_video");
-			if (!string.IsNullOrEmpty(path))
-				c_video_path = path;
+			var path = GameConfigs.GlobalConfig.GetStr("splash_video");
+			if (!string.IsNullOrEmpty(path)) c_video_path = path;
 
 			m_view.m_loader.onClick.Add(OnClick);
 			_nextScene = (context.GetParam()?.Value as object[]).Val<int>(0);
@@ -55,18 +56,24 @@ namespace SGame.UI
 			player.aspectRatio = VideoAspectRatio.FitHorizontally;
 			player.renderMode = VideoRenderMode.RenderTexture;
 			player.targetTexture = RenderTexture.GetTemporary(
-				   1024,
-				   2048,
-				   0,
-				   RenderTextureFormat.RGB565,
-				   RenderTextureReadWrite.Default
+				   1024, 2048, 0, RenderTextureFormat.RGB565, RenderTextureReadWrite.Default
 			);
 			player.loopPointReached += (v) => CompleteVideo();
-			player.url = c_video_path;
 			player.prepareCompleted += (v) => flag = true;
+			player.url = c_video_path;
 			m_view.m_loader.texture = new NTexture(player.targetTexture);
-			yield return new WaitForSeconds(3f);
+			var w = 5f;
+			yield return new WaitUntil(() => flag || (w -= Time.deltaTime) < 0);
 			if (!flag) CompleteVideo();
+			else
+			{
+				w = GlobalConfig.GetInt("splash_time");
+				if (w > 0)
+				{
+					yield return new WaitUntil(() => (w -= Time.deltaTime) < 0);
+					StaticDefine.G_VIDEO_COMPLETE = true;
+				}
+			}
 		}
 
 		IEnumerator PlayEffect()

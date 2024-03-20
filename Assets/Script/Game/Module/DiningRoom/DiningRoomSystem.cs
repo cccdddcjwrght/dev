@@ -92,11 +92,19 @@ namespace SGame.Dining
 
 		private void OnEnterRoomCompleted()
 		{
-			log.Info("Enter Room :" + _currentRoom.cfgID);
-			EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
-			EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
-			_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
-			isEnterSceneCompleted = true;
+			/*if (StaticDefine.G_WAIT_VIDEO)
+			{
+				StaticDefine.G_WAIT_VIDEO = false;
+				this.Call(OnEnterRoomCompleted, () => StaticDefine.G_VIDEO_COMPLETE);
+			}
+			else*/
+			{
+				log.Info("Enter Room :" + _currentRoom.cfgID);
+				EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
+				EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
+				_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
+				isEnterSceneCompleted = true;
+			}
 		}
 
 		private IEnumerator Wait()
@@ -106,15 +114,15 @@ namespace SGame.Dining
 				DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID, true);
 				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
 				UIUtils.OpenUI("scenedecorui");
-				yield return _currentRoom.Wait();
-
 				if (DataCenter.IsNew)
 				{
 					DataCenter.IsNew = false;
+					StaticDefine.G_WAIT_VIDEO = true;
 					UIUtils.OpenUI("enterscene", -1);
-					while (!StaticDefine.G_VIDEO_COMPLETE)
-						yield return null;
 				}
+				yield return _currentRoom.Wait();
+				if (StaticDefine.G_WAIT_VIDEO)
+					yield return new WaitUntil(() => StaticDefine.G_VIDEO_COMPLETE);
 			}
 		}
 

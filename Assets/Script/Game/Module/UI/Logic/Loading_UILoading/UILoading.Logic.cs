@@ -50,8 +50,12 @@ namespace SGame.UI
 				startFlag = true;
 				timer = Utils.Timer(9999, () =>
 				{
-					var step = progress - cprogress > 20 ? 5 : 1;
-					cprogress = Math.Clamp(cprogress + step, 0, progress);
+					if (!StaticDefine.G_WAIT_VIDEO)
+					{
+						var step = progress - cprogress > 20 ? 5 : 1;
+						cprogress = Math.Clamp(cprogress + step, 0, progress);
+					}
+					else cprogress = 100;
 					m_progressBar.value = cprogress;
 				}, m_view);
 			}

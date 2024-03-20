@@ -152,6 +152,7 @@ namespace SGame
 	{
 		public static int G_Offline_Time = 0;
 
+		public static bool G_WAIT_VIDEO = false;
 		public static bool G_VIDEO_COMPLETE = false;
 
 	}
