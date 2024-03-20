@@ -16,7 +16,7 @@ namespace SGame.UI
 		private int _nextScene = 0;
 		private VideoPlayer _player;
 
-		readonly string c_video_path =
+		string c_video_path =
 #if !UNITY_EDITOR
 					Path.Combine(Application.streamingAssetsPath, "splash.mp4");
 #else
@@ -25,6 +25,10 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
+			var path = GlobalConfig.GetStr("splash_video");
+			if (!string.IsNullOrEmpty(path))
+				c_video_path = path;
+
 			m_view.m_loader.onClick.Add(OnClick);
 			_nextScene = (context.GetParam()?.Value as object[]).Val<int>(0);
 			if (_nextScene > 0)
@@ -35,10 +39,13 @@ namespace SGame.UI
 					return;
 				}
 			}
-			else if (_nextScene < 0 && File.Exists(c_video_path))
+			else if (_nextScene < 0 && !string.IsNullOrEmpty(c_video_path))
 			{
-				ShowVideo().Start();
-				return;
+				if (c_video_path.StartsWith("http") || File.Exists(c_video_path))
+				{
+					ShowVideo().Start();
+					return;
+				}
 			}
 			SGame.UIUtils.CloseUIByID(__id);
 		}
@@ -46,7 +53,6 @@ namespace SGame.UI
 		IEnumerator ShowVideo()
 		{
 			var player = _player = new GameObject("_video").AddComponent<VideoPlayer>();
-			var flag = false;
 			player.waitForFirstFrame = true;
 			player.aspectRatio = VideoAspectRatio.FitHorizontally;
 			player.renderMode = VideoRenderMode.RenderTexture;
@@ -59,8 +65,8 @@ namespace SGame.UI
 			);
 			player.loopPointReached += (v) => CompleteVideo();
 			m_view.m_loader.texture = new NTexture(player.targetTexture);
-			player.url = c_video_path;
 			yield return null;
+			player.url = c_video_path;
 		}
 
 		IEnumerator PlayEffect()
