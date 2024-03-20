@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Fibers;
+using GameConfigs;
 using GameTools;
 using GameTools.Paths;
 using log4net;
@@ -97,6 +98,8 @@ namespace SGame
                 {
                     sys.DespawnEntity(entity);
                 }
+
+                ClearFood();
             }
         }
 
@@ -193,27 +196,17 @@ namespace SGame
         /// <summary>
         /// 创建食物
         /// </summary>
-        /// <param name="foodType"></param>
-        public Entity CreateFood(int foodType)
+        /// <param name="itemId">道具ID</param>
+        public Entity CreateFood(int itemId)
         {
-            var req = entityManager.CreateEntity(typeof(SpawnFoodRequestTag));
-            var q1 = quaternion.Euler(-math.PI / 2, 0, 0, math.RotationOrder.ZXY);
+            if (!ConfigSystem.Instance.TryGet(itemId, out ItemRowData config))
+            {
+                log.Error("item not found =" + itemId);
+                return Entity.Null;
+            }
 
-            m_food = FoodModule.Instance.CreateFood(foodType, new float3(0, 0.5f, 0.5f), quaternion.identity);
-            AddChild(m_food);
+            m_food = EffectSystem.Instance.Spawn3d(config.ModelEffectID, GetSlot(SlotType.FOOD).gameObject);
             return m_food;
-        }
-
-        // 添加子节点
-        public void AddChild(Entity e)
-        {
-            Utils.AddEntityChild(entity, e);
-        }
-        
-        // 删除子节点
-        private void RemoveChild(Entity e)
-        {
-            Utils.RemoveEntityChild(entity, e);
         }
 
         /// <summary>
@@ -252,9 +245,11 @@ namespace SGame
         public void TakeFood(Entity food)
         {
             // 设置父节点为自己
-            entityManager.SetComponentData(food, new Translation() {Value = new float3(0, 0.5f, 0.5f)});
-            entityManager.SetComponentData(food, new Rotation(){Value = quaternion.identity});
-            AddChild(food);
+            //entityManager.SetComponentData(food, new Translation() {Value = new float3(0, 0.5f, 0.5f)});
+            //entityManager.SetComponentData(food, new Rotation(){Value = quaternion.identity});
+            //AddChild(food);
+            Transform foodTransform = entityManager.GetComponentObject<Transform>(food);
+            foodTransform.SetParent(GetSlot(SlotType.FOOD), false);
             this.m_food = food;
         }
 
@@ -268,19 +263,18 @@ namespace SGame
             Entity old = m_food;
             if (m_food != Entity.Null && entityManager.Exists(m_food))
             {
-                RemoveChild(m_food);
                 Vector3 postemp = GameTools.MapAgent.CellToVector(pos.x, pos.y);
                 float3 worldPos = postemp;
-
                 float posY = ConstDefine.DISH_OFFSET_Y;
-                
                 worldPos += new float3(0, posY, 0);
-                entityManager.SetComponentData(m_food, new Translation() { Value = worldPos });
-                entityManager.SetComponentData(m_food, new Rotation() { Value = quaternion.identity });
+
+                Transform foodTrans = entityManager.GetComponentObject<Transform>(m_food);
+                foodTrans.SetParent(null);
+                foodTrans.position = worldPos;
             }
             else
             {
-                log.Error("FOOD IS EMPTY!!!");
+                log.Error("FOOD IS EMPTY!!!" + pos);
             }
             m_food = Entity.Null;
             return old;
@@ -299,8 +293,9 @@ namespace SGame
         {
             if (m_food != Entity.Null)
             {
-                RemoveChild(m_food);
-                FoodModule.Instance.CloseFood(m_food);
+                //RemoveChild(m_food);
+                //FoodModule.Instance.CloseFood(m_food);
+                EffectSystem.Instance.CloseEffect(m_food);
                 m_food = Entity.Null;
             }
         }
@@ -311,7 +306,7 @@ namespace SGame
         /// <param name="hud"></param>
         public void AddHudEntity(Entity hud)
         {
-            m_hud =hud;
+            m_hud = hud;
         }
 
         /// <summary>

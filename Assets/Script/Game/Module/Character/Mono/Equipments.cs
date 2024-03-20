@@ -36,7 +36,7 @@ namespace SGame
             m_slots.Clear();// = new Dictionary<SlotType, Transform>();
             var weapon      = transform.FindRecursive("weapon");
             var glasses     = transform.FindRecursive("glasses");
-            var good        = transform.FindRecursive("good");
+            var good        = transform.FindRecursive("goods");
             
             // 初始化插槽
             m_slots.Add(SlotType.WEAPON, weapon);

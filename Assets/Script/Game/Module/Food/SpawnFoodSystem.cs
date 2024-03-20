@@ -25,11 +25,11 @@ namespace SGame
 
         private string[] RES_PATHS = new string[]
         {
-            "Assets/BuildAsset/Prefabs/ECS/food/goods_1.prefab",
-            "Assets/BuildAsset/Prefabs/ECS/food/goods_2.prefab",
-            "Assets/BuildAsset/Prefabs/ECS/food/goods_3.prefab",
-            "Assets/BuildAsset/Prefabs/ECS/food/goods_4.prefab",
-            "Assets/BuildAsset/Prefabs/ECS/food/goods_5.prefab",
+            //"Assets/BuildAsset/Prefabs/ECS/food/goods_1.prefab",
+            //"Assets/BuildAsset/Prefabs/ECS/food/goods_2.prefab",
+            //"Assets/BuildAsset/Prefabs/ECS/food/goods_3.prefab",
+            //"Assets/BuildAsset/Prefabs/ECS/food/goods_4.prefab",
+            //"Assets/BuildAsset/Prefabs/ECS/food/goods_5.prefab",
         };
 
         private EntityQuery m_foodsQuery;
