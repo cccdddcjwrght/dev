@@ -85,7 +85,7 @@ namespace SGame.UI
 			yield return new WaitForSeconds(1f);
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 			com.continueFlag = true;
-			while (com.director.time < com.director.duration * 0.9f)
+			while (com.director.time < 7f)
 				yield return null;
 			EffectSystem.Instance.ReleaseEffect(e);
 			SGame.UIUtils.CloseUIByID(__id);
@@ -112,6 +112,7 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
+			Debug.Log("<color=red>ad</color>asdasdasdasd");
 		}
 	}
 }
