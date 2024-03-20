@@ -79,7 +79,7 @@ namespace SGame.UI
 		IEnumerator PlayEffect()
 		{
 			var wait = GlobalConfig.GetFloat("wait_scene_effect");
-			if (wait <= 0) wait = 6.5f;
+			if (wait <= 0) wait = 6f;
 			var e = EffectSystem.Instance.AddEffect(7, m_view);
 			yield return EffectSystem.Instance.WaitEffectLoaded(e);
 			var go = EffectSystem.Instance.GetEffect(e);
@@ -87,14 +87,24 @@ namespace SGame.UI
 			yield return new WaitForSeconds(1f);
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 			com.continueFlag = true;
-			while (com.director.time < wait)
+			if (wait > 0)
+			{
+				while (com.director.time < wait)
+					yield return null;
+				EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
+			}
+
+			while (com.director.time < com.director.duration * 0.9f)
 				yield return null;
+
+
 			EffectSystem.Instance.ReleaseEffect(e);
 			SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		void CompleteVideo()
 		{
+			EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
 			StaticDefine.G_VIDEO_COMPLETE = true;
 			SGame.UIUtils.CloseUIByID(__id);
 			if (_player != null)
@@ -113,8 +123,6 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-			EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
-			Debug.Log("<color=red>ad</color>asdasdasdasd");
 		}
 	}
 }
