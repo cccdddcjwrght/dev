@@ -79,15 +79,13 @@ namespace SGame
 			// 除了HUD 的UI, 所有UI都重新开一遍
 			foreach (var ui in allUI)
 			{
-				if (ui.Value.uiname == "mask")
-				{
-					ui.Value.Close();
-					continue;
-				}
-
 				var configID = ui.Value.configID;
 				if (ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData uiconfig))
 				{
+					if (HasUIGroup(configID, 11))
+					{
+						continue;
+					}
 					if (uiconfig.Type == (int)UIType.UI && !uiID.Contains(configID))
 					{
 						uiID.Add(configID);
