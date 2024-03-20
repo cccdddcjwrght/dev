@@ -53,8 +53,8 @@ namespace SGame
 			// 初始化语言
 			DataCenter.Instance.setData.InitItemDataDic();
 			LanagueSystem.Instance.Initalize(Utils.GetLangName(DataCenter.Instance.setData.GetIntItemData("language")));
-			AudioSystem.Instance.SetSoundVolume("UIVolume",DataCenter.Instance.setData.musicVal);
-			AudioSystem.Instance.SetSoundVolume("BackgroundVolume",DataCenter.Instance.setData.soundVal);
+			AudioSystem.Instance.SetSoundVolume("BackgroundVolume",DataCenter.Instance.setData.musicVal);
+			AudioSystem.Instance.SetSoundVolume("UIVolume",DataCenter.Instance.setData.soundVal);
 	
 		}
 

@@ -51,6 +51,7 @@ public struct AvatarRowData : IFlatbufferObject
   public ArraySegment<byte>? GetExchangeValueBytes() { return __p.__vector_as_arraysegment(16); }
 #endif
   public int[] GetExchangeValueArray() { return __p.__vector_as_array<int>(16); }
+  public int DefaultIcon { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.AvatarRowData> CreateAvatarRowData(FlatBufferBuilder builder,
       int AvatarId = 0,
@@ -59,8 +60,10 @@ public struct AvatarRowData : IFlatbufferObject
       StringOffset NameOffset = default(StringOffset),
       StringOffset DescriptionOffset = default(StringOffset),
       StringOffset IconOffset = default(StringOffset),
-      VectorOffset ExchangeValueOffset = default(VectorOffset)) {
-    builder.StartTable(7);
+      VectorOffset ExchangeValueOffset = default(VectorOffset),
+      int DefaultIcon = 0) {
+    builder.StartTable(8);
+    AvatarRowData.AddDefaultIcon(builder, DefaultIcon);
     AvatarRowData.AddExchangeValue(builder, ExchangeValueOffset);
     AvatarRowData.AddIcon(builder, IconOffset);
     AvatarRowData.AddDescription(builder, DescriptionOffset);
@@ -71,7 +74,7 @@ public struct AvatarRowData : IFlatbufferObject
     return AvatarRowData.EndAvatarRowData(builder);
   }
 
-  public static void StartAvatarRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartAvatarRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddAvatarId(FlatBufferBuilder builder, int AvatarId) { builder.AddInt(0, AvatarId, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(1, Type, 0); }
   public static void AddRank(FlatBufferBuilder builder, int Rank) { builder.AddInt(2, Rank, 0); }
@@ -82,6 +85,7 @@ public struct AvatarRowData : IFlatbufferObject
   public static VectorOffset CreateExchangeValueVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateExchangeValueVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartExchangeValueVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddDefaultIcon(FlatBufferBuilder builder, int DefaultIcon) { builder.AddInt(7, DefaultIcon, 0); }
   public static Offset<GameConfigs.AvatarRowData> EndAvatarRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.AvatarRowData>(o);

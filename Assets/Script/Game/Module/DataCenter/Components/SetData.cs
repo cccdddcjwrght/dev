@@ -152,6 +152,21 @@ namespace SGame
             }
         }
 
+        public string GetHeadFrameIcon(int type,int id)
+        {
+            string icon = "";
+            if (type == 1)
+            {
+                icon=headDataList.FirstOrDefault(item => item.id == id)?.icon;
+
+            }else if(type == 2)
+            {
+                icon=freamDataList.FirstOrDefault(item => item.id == id)?.icon;
+            }
+
+            return icon;
+        }
+
     }
 }
 

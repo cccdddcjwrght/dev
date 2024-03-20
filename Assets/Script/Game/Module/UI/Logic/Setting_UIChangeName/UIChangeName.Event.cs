@@ -1,4 +1,6 @@
 ﻿
+using SGame.UI.Common;
+
 namespace SGame.UI{
 	using FairyGUI;
 	using UnityEngine;
@@ -7,8 +9,9 @@ namespace SGame.UI{
 	
 	public partial class UIChangeName
 	{
-		partial void InitEvent(UIContext context){
-
+		partial void InitEvent(UIContext context)
+		{
+			
 		}
 		partial void UnInitEvent(UIContext context){
 

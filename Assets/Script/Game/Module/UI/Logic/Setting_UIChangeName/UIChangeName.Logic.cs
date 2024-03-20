@@ -8,6 +8,7 @@ namespace SGame.UI{
 	public partial class UIChangeName
 	{
 		partial void InitLogic(UIContext context){
+			
 
 		}
 

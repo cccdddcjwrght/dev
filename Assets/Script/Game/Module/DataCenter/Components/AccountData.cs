@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameConfigs;
 using Unity.Entities;
 using UnityEngine.Serialization;
 
@@ -27,9 +28,6 @@ namespace SGame
 		public int head;
 		public int frame;
 		
-		public List<int> heads = new List<int>();
-		public List<int> frames = new List<int>();
-
 		/// <summary>
 		/// 记录事件
 		/// </summary>
@@ -38,6 +36,28 @@ namespace SGame
 		public Account To()
 		{
 			return new Account() { pid = playerID };
+		}
+
+		public int GetHead()
+		{
+			if (head==0&&ConfigSystem.Instance.TryGet(item => (item).DefaultIcon == 1 &&(item).Type==1,
+				    out AvatarRowData Config))
+			{
+				return Config.AvatarId;
+			}
+
+			return head;
+		}
+		
+		public int GetFrame()
+		{
+			if (frame==0&&ConfigSystem.Instance.TryGet(item => (item).DefaultIcon == 1&&(item).Type==2,
+				    out AvatarRowData Config))
+			{
+				return Config.AvatarId;
+			}
+
+			return frame;
 		}
 
 	}

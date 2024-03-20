@@ -70,6 +70,7 @@ namespace SGame.UI{
 			        showHead.m_frame.url=string.Format("ui://IconHead/{0}",headData.icon);
 			        _accountData.frame = headData.id;
 		        }
+		        EventManager.Instance.Trigger(((int)GameEvent.SETTING_UPDATE_HEAD));
 	        });
 	        
 			if (m_view.m_State.selectedIndex == 0)

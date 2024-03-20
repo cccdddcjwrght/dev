@@ -1,24 +1,20 @@
-﻿
-
-using System.Collections.Generic;
-using GameConfigs;
+﻿using SGame.UI.Common;
 using Unity.Entities;
 
 namespace SGame.UI
 {
 	using FairyGUI;
-	using UnityEngine;
 	using SGame;
-	using SGame.UI.Main;
-	using Unity.Mathematics;
 
 	public partial class UIMain
 	{
 		private EventHandleContainer m_handles = new EventHandleContainer();
 		private GList leftList;
+		private SetData m_setData;
 
 		partial void InitEvent(UIContext context)
 		{
+			m_setData			= DataCenter.Instance.setData;
 			leftList= m_view.m_leftList.m_left;
 			leftList.opaque = false;
 			var headBtn = m_view.m_head;
@@ -27,7 +23,16 @@ namespace SGame.UI
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
+			m_handles+=EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
+			OnHeadSetting();
 			OnEventRefreshItem();
+		}
+
+		private void OnHeadSetting()
+		{
+			var head = m_view.m_head as UI_HeadBtn;
+			head.m_headImg.url=string.Format("ui://IconHead/{0}",m_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
+			head.m_frame.url=string.Format("ui://IconHead/{0}",m_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
 		}
 
 		private void OnEventRefreshItem()
@@ -71,13 +76,7 @@ namespace SGame.UI
 			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
 			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)));
 		}
-
-
-		void UpdateItemText()
-		{
-
-		}
-
+		
 		void OnheadBtnClick(EventContext context)
 		{
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));

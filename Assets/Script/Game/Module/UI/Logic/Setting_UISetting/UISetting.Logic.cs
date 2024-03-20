@@ -24,7 +24,6 @@ namespace SGame.UI{
 		{
 			m_context			= context;
 			_setData = DataCenter.Instance.setData;
-			_setData.InitItemDataDic();
 			_setItemDataList = _setData.setItemDataList;
 		}
 		
@@ -45,12 +44,14 @@ namespace SGame.UI{
 			m_handles+=EventManager.Instance.Reg<string,int>(((int)GameEvent.SETTING_UPDATE_INT), OnIntSetting);
 			m_handles+=EventManager.Instance.Reg<string>(((int)GameEvent.SETTING_UPDATE_NAME), OnNameSetting);
 			m_handles+=EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
+			OnHeadSetting();
 		}
 
 		private void OnHeadSetting()
 		{
 			var head = m_view.m_head as UI_HeadBtn;
-			
+			head.m_headImg.url=string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
+			head.m_frame.url=string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
 		}
 
 		private void OnNameSetting(string name)
@@ -68,12 +69,12 @@ namespace SGame.UI{
 			}else if (id == "music")
 			{
 				val = val == 0 ? -100 : val;
-				AudioSystem.Instance.SetSoundVolume("UIVolume",val);
+				AudioSystem.Instance.SetSoundVolume("BackgroundVolume",val);
 				_setData.musicVal = val;
 			}else if (id == "sound")
 			{
 				val = val == 0 ? -100 : val;
-				AudioSystem.Instance.SetSoundVolume("BackgroundVolume",val);
+				AudioSystem.Instance.SetSoundVolume("UIVolume",val);
 				_setData.soundVal = val;
 			}else if (id == "notice")
 			{

@@ -1,4 +1,6 @@
 ﻿
+using SGame.UI.Common;
+
 namespace SGame.UI{
 	using FairyGUI;
 	using UnityEngine;
@@ -15,6 +17,7 @@ namespace SGame.UI{
 			setData = DataCenter.Instance.setData;
 			m_view.m_list.selectedIndex = setData.GetIntItemData("language");
 			index = m_view.m_list.selectedIndex;
+		
 		}
 		
 
