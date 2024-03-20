@@ -89,7 +89,7 @@ namespace SGame.UI
 			}
 			else
 			{
-				Error_Code.ITEM_NOT_ENOUGH.ToString().Tips();
+				Error_Code.ITEM_GOLD_NOT_ENOUGH.ToString().ErrorTips();
 			}
 		}
 
