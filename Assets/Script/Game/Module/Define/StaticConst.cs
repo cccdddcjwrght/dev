@@ -151,5 +151,8 @@ namespace SGame
 	public static partial class StaticDefine
 	{
 		public static int G_Offline_Time = 0;
+
+		public static bool G_VIDEO_COMPLETE = false;
+
 	}
 }

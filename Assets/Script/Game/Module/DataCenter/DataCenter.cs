@@ -13,6 +13,9 @@ namespace SGame
 	public partial class DataCenter : IModule
 	{
 		private static ILog log = LogManager.GetLogger("game.datacetner");
+
+		public static bool IsNew { get; set; }
+
 		[SerializeField]
 		private int loadtime;
 
@@ -110,6 +113,7 @@ namespace SGame
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
 			if (loadtime == 0)
 			{
+				IsNew = true;
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
 				OnFirstInit();
 			}

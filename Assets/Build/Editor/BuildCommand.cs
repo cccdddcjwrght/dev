@@ -50,6 +50,8 @@ static class BuildCommand
 	private const string PROTO_RES = "VERSION_PROTO_VAR";//协议版本
 	private const string SCRIPT_LEVEL = "SCRIPT_LEVEL";
 	private const string CPU_TYPE = "CPU_TYPE";//安卓cpu架构
+	private const string VIDEO_PATH = "VIDEO_PATH";//闪屏视频路径
+
 
 	private const string INI_FILE = "INI_FILE";
 
@@ -305,6 +307,7 @@ static class BuildCommand
 #endif
 
 		HandleFirstScene(out _);
+		HandlSplashVideoToStream();
 		var buildReport = BuildPipeline.BuildPlayer(GetEnabledScenes(), fixedBuildPath, buildTarget, buildOptions);
 #if !UNITY_EDITOR_LINUX
 		ResetSymbol(buildTarget);
@@ -654,6 +657,20 @@ static class BuildCommand
 			PlayerSettings.SetManagedStrippingLevel(tg, level);
 		}
 
+
+	}
+
+	private static void HandlSplashVideoToStream()
+	{
+		var path = "exts/apploge/splash.mp4";
+		if (TryGetEnv(VIDEO_PATH, out var v) && !string.IsNullOrEmpty(v) && File.Exists(v))
+			path = v;
+
+		if (File.Exists(path))
+		{
+			File.Copy(path, Path.Combine(Application.streamingAssetsPath, "splash.mp4"));
+			Console.WriteLine($"::Set Splash Video : {path}");
+		}
 
 	}
 
