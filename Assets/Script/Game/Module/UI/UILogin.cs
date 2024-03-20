@@ -30,6 +30,7 @@ namespace SGame
 			{
 				PlayerPrefs.SetString("user", m_view.m_account.text);
 
+				/*
 				WaitHttp.Request("login", HttpMethod.GET)
 					.SetData(0, "user_id", m_view.m_account.text)
 					.OnSuccess((w, data) =>
@@ -49,7 +50,8 @@ namespace SGame
 						log.Error(d);
 					})
 					.RunAndWait();
-
+				*/
+				EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, m_view.m_account.text);
 			}
 		}
 
