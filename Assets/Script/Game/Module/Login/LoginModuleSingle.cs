@@ -33,6 +33,8 @@ namespace SGame
 
 		IEnumerator RunScriptLogin()
 		{
+			GameObject go = null;
+#if !SVR_RELEASE
 			var asset = Assets.LoadAssetAsync(script, typeof(GameObject));
 			yield return asset;
 			if (!string.IsNullOrEmpty(asset.error))
@@ -41,13 +43,17 @@ namespace SGame
 				yield break;
 			}
 
-			GameObject go = GameObject.Instantiate(asset.asset as GameObject);
+			go = GameObject.Instantiate(asset.asset as GameObject);
 			var waitLogin = new WaitEvent<string>((int)GameEvent.ENTER_LOGIN);
-			yield return waitLogin;
+			yield return waitLogin; 
+#else
+			EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, "aaa");
+#endif
 			DataCenter.Instance.Initalize();
 			while (!DataCenter.Instance.IsInitAll)
 				yield return null;
-			GameObject.Destroy(go);
+			if (go)
+				GameObject.Destroy(go);
 		}
 
 		public void Shutdown()
