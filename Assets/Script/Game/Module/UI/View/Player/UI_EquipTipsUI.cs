@@ -9,6 +9,7 @@ namespace SGame.UI.Player
     {
         public Controller m_quality;
         public Controller m_lvmax;
+        public GGraph m_maskbg;
         public GTextField m_level;
         public GTextField m_attr;
         public GTextField m_qualitytips;
@@ -34,6 +35,7 @@ namespace SGame.UI.Player
 
             m_quality = GetControllerAt(0);
             m_lvmax = GetControllerAt(1);
+            m_maskbg = (GGraph)GetChildAt(0);
             m_level = (GTextField)GetChildAt(3);
             m_attr = (GTextField)GetChildAt(5);
             m_qualitytips = (GTextField)GetChildAt(6);
