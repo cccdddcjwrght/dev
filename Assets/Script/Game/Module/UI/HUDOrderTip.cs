@@ -18,16 +18,16 @@ public class HUDOrderTip : IUIScript
     {
         context.window.contentPane.touchable = false;
         _uiOrderTipUI = context.content as UI_OrderTip;
-        FoodType type = context.gameWorld.GetEntityManager().GetComponentData<FoodType>(context.entity);
+        FoodItem item = context.gameWorld.GetEntityManager().GetComponentData<FoodItem>(context.entity);
         if (ConfigSystem.Instance.TryGet<ItemRowData>((c) => (
-                    (ItemRowData)c).ItemId == type.Value,
+                    (ItemRowData)c).ItemId == item.itemID,
                 out var foodcfg))
         {
             _uiOrderTipUI.m_icon.url=string.Format("ui://Common/{0}",foodcfg.Icon);
         }
 
         context.window.AddEventListener("OrderNumUpdate", OnFoodNumUpdate);
-        _uiOrderTipUI.m_num.text = type.num.ToString();
+        _uiOrderTipUI.m_num.text = item.num.ToString();
     }
 
     void OnFoodNumUpdate(FairyGUI.EventContext uiContext)

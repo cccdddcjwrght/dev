@@ -109,7 +109,7 @@ namespace SGame
 				return null;
 			}
 			GameObject obj = GameObject.Instantiate(prefab);
-			if (reqType != RequestSpawnUIEffect.ReqType.REQ_3D)
+			if (reqType != RequestSpawnUIEffect.ReqType.REQ_3D && reqType != RequestSpawnUIEffect.ReqType.REQ_3DPARENT)
 			{
 				EffectMono mono = obj.AddComponent<EffectMono>();
 				mono.entity = effect;
@@ -220,8 +220,10 @@ namespace SGame
 								case RequestSpawnUIEffect.ReqType.REQ_3DPARENT:
 									{
 										// 自带父节点
-										obj.transform.parent = req.parent.transform;
-										SetupGameObject(obj, req.position + (Vector3)GetComponent<Translation>(req.entity).Value, req.scale, req.rotation);
+										//obj.transform.parent = req.parent.transform;
+										obj.transform.SetParent(req.parent.transform, false);
+										//SetupGameObject(obj, req.position + (Vector3)GetComponent<Translation>(req.entity).Value, req.scale, req.rotation);
+										SetupGameObject(obj.transform.GetChild(0).gameObject, req.position, req.scale, req.rotation);
 									}
 									break;
 
