@@ -150,7 +150,7 @@ namespace SGame.UI
 			UIWindow[] windows = m_groupVisible.ToComponentDataArray<UIWindow>();
 			foreach (var w in windows)
 			{
-				if (w != null && !w.Value.isHiding && w.Value.isShowing)
+				if (w != null && w.Value != null && !w.Value.isHiding && w.Value.isShowing)
 				{
 					ret.Add(w);
 				}
