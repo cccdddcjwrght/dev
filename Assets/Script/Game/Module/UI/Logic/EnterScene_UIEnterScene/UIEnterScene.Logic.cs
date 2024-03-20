@@ -41,17 +41,15 @@ namespace SGame.UI
 			}
 			else if (_nextScene < 0 && !string.IsNullOrEmpty(c_video_path))
 			{
-				if (c_video_path.StartsWith("http") || File.Exists(c_video_path))
-				{
-					ShowVideo().Start();
-					return;
-				}
+				ShowVideo().Start();
+				return;
 			}
 			SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		IEnumerator ShowVideo()
 		{
+			var flag = false;
 			var player = _player = new GameObject("_video").AddComponent<VideoPlayer>();
 			player.waitForFirstFrame = true;
 			player.aspectRatio = VideoAspectRatio.FitHorizontally;
@@ -64,9 +62,11 @@ namespace SGame.UI
 				   RenderTextureReadWrite.Default
 			);
 			player.loopPointReached += (v) => CompleteVideo();
-			m_view.m_loader.texture = new NTexture(player.targetTexture);
-			yield return null;
 			player.url = c_video_path;
+			player.prepareCompleted += (v) => flag = true;
+			m_view.m_loader.texture = new NTexture(player.targetTexture);
+			yield return new WaitForSeconds(3f);
+			if (!flag) CompleteVideo();
 		}
 
 		IEnumerator PlayEffect()
