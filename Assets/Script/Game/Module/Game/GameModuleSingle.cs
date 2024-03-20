@@ -43,6 +43,9 @@ namespace SGame
 		/// <returns></returns>
 		void InitModule()
 		{
+			// 角色模块初始化
+			CharacterModule.Instance.Initlaize();
+			
 			//处理模块
 			RequestExcuteSystem.Instance.Init(this.m_gameWorld);
 

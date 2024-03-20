@@ -91,16 +91,8 @@ namespace SGame
 
         private void OnDestroy()
         {
-            if (World.DefaultGameObjectInjectionWorld.IsCreated)
-            {
-                DespawnEntitySystem sys = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
-                if (entityManager.Exists(entity) && !entityManager.HasComponent<DespawningEntity>(entity))
-                {
-                    sys.DespawnEntity(entity);
-                }
-
-                ClearFood();
-            }
+            ClearFood();
+            ClearHudEntity();
         }
 
         /// <summary>

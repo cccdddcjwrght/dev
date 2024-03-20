@@ -163,7 +163,7 @@ namespace SGame
             
             // 获取数据
             //var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithNone<CharacterLoading>().ForEach((Entity e, in CharacterSpawn req) =>
+            Entities.WithNone<CharacterLoading, DespawningEntity>().ForEach((Entity e, in CharacterSpawn req) =>
             {
                 if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData))
                 {
@@ -196,7 +196,7 @@ namespace SGame
             }).WithoutBurst().WithStructuralChanges().Run();
             
             // 等待资源加载并生成对象
-            Entities.ForEach((Entity e, CharacterSpawnResult result, CharacterSpawn req,  in CharacterLoading loading) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, CharacterSpawnResult result, CharacterSpawn req,  in CharacterLoading loading) =>
             {
                 if (!loading.isDone)
                 {
@@ -263,7 +263,7 @@ namespace SGame
 			}).WithStructuralChanges().WithoutBurst().Run();
             
             // 等待角色创建完成
-            Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
+            Entities.WithNone<DespawningEntity, CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
             {
                 m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character, result = result});
                 EntityManager.AddComponent<CharacterInitalized>(entity);

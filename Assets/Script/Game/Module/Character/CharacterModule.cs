@@ -1,3 +1,4 @@
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
@@ -5,8 +6,15 @@ namespace SGame
 {
     public class CharacterModule : Singleton<CharacterModule>
     {
+        private EntityQuery m_characterQuery;
         public void Initlaize()
         {
+            EntityQueryDesc desc = new EntityQueryDesc()
+            {
+                Any = new ComponentType[] { typeof(CharacterSpawnSystem.CharacterSpawn), typeof(CharacterSpawnSystem.CharacterInitalized) },
+                None = new ComponentType[] { typeof(DespawningEntity) }
+            };
+            m_characterQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(desc);
         }
 
         /// <summary>
@@ -33,15 +41,7 @@ namespace SGame
             
             return EntityManager.HasComponent<CharacterSpawnSystem.CharacterInitalized>(e);
         }
-
-        /// <summary>
-        /// 清空所有角色 
-        /// </summary>
-        public void ClearAll()
-        {
-            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var spawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<CharacterSpawnSystem>();
-        }
+        
 
         /// <summary>
         /// 通过Entity获得对象
@@ -76,6 +76,22 @@ namespace SGame
             Character ret = entityManager.GetComponentObject<Character>(e);
             return ret;
         }
+
+        /// <summary>
+        /// 清空所有角色
+        /// </summary>
+        public void Clear()
+        {
+            var entities = m_characterQuery.ToEntityArray(Allocator.Temp);
+            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
+            foreach (var e in entities)
+            {
+                despawnSystem.DespawnEntity(e);
+            }
+            entities.Dispose();
+        }
+        
+        
 
         public bool DespawnCharacter(int charcterID)
         {
