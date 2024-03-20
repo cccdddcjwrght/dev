@@ -88,7 +88,7 @@ namespace SGame.UI{
 				head.m_frame.url=string.Format("ui://IconHead/{0}",headData.icon);
 			}
 			
-			if (_accountData.head == headData.id || _accountData.frame == headData.id)
+			if (_accountData.GetHead() == headData.id || _accountData.GetFrame() == headData.id)
 			{
 				obj.m_check.selectedIndex = 1;
 			}
