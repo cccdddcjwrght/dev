@@ -10,10 +10,52 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 245738382, guid: b20c2b512f92f504eaf8db9b1d939ab8, type: 3}
-  m_Name: 57d672aad84c4de88240889efd37cb2f
+  m_Name: 346a494eb74b4f90a9de03dda2dab90e
   m_EditorClassIdentifier: 
-  ident: 57d672aad84c4de88240889efd37cb2f
+  ident: 346a494eb74b4f90a9de03dda2dab90e
   groups:
+  - ident: 0
+    name: Base
+    visible: 1
+    combined: 0
+    tileSize: 1
+    tileHeight: 1
+    gridYPos: 0
+    brushSize: 1
+    showPreview: 1
+    tiles: []
+    combinedMeshNames: []
+    centreTiles: 1
+    enableColor: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - ident: 1
+    name: Area
+    visible: 1
+    combined: 0
+    tileSize: 1
+    tileHeight: 1
+    gridYPos: 0
+    brushSize: 1
+    showPreview: 1
+    tiles: []
+    combinedMeshNames: []
+    centreTiles: 1
+    enableColor: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - ident: 2
+    name: Floor
+    visible: 1
+    combined: 0
+    tileSize: 1
+    tileHeight: 1
+    gridYPos: 0
+    brushSize: 1
+    showPreview: 1
+    tiles: []
+    combinedMeshNames: []
+    centreTiles: 1
+    enableColor: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
   - ident: 0
     name: Base
     visible: 1
@@ -3273,6 +3315,20 @@ MonoBehaviour:
       - 
       meta: 
     - toolIdent: 6
+      data: 0500000010000000b400000000000000000000000000000000000000ca4b9da5
+      gridPos:
+        _x: 2
+        _y: 0
+        _z: 4
+        _defined: 1
+      offsPos: {x: 0, y: 0, z: 0}
+      extraData:
+      - c52f1426ef264ca79ca3923a35c4ac53
+      - 
+      - 
+      - 
+      meta: 
+    - toolIdent: 6
       data: 04000000210000000000000000000000000000000000000000000000be8f11f3
       gridPos:
         _x: -2
@@ -3343,15 +3399,15 @@ MonoBehaviour:
       - 
       meta: 
     - toolIdent: 6
-      data: 050000001a000000b400000000000000000000000000000000000000005cb41d
+      data: 050000001a0000000000000000000000000000000000000000000000005cb41d
       gridPos:
-        _x: 1
+        _x: 2
         _y: 0
-        _z: 4
+        _z: 5
         _defined: 1
       offsPos: {x: 0, y: 0, z: 0}
       extraData:
-      - e1bfcff1dcc041ef82436cbb008a875a
+      - 746c316b86224ae991ed2617ac5c3fa0
       - 
       - 
       - 
@@ -3361,25 +3417,11 @@ MonoBehaviour:
       gridPos:
         _x: 2
         _y: 0
-        _z: 4
+        _z: 3
         _defined: 1
       offsPos: {x: 0, y: 0, z: 0}
       extraData:
-      - 6e73f13f95124661825486af39239124
-      - 
-      - 
-      - 
-      meta: 
-    - toolIdent: 6
-      data: 0500000010000000b400000000000000000000000000000000000000ca4b9da5
-      gridPos:
-        _x: 3
-        _y: 0
-        _z: 4
-        _defined: 1
-      offsPos: {x: 0, y: 0, z: 0}
-      extraData:
-      - 6b0bd45bdb904243b49fb4ddf6b50da8
+      - 1462639382fd4f46a9eef454bbc1bdf7
       - 
       - 
       - 
