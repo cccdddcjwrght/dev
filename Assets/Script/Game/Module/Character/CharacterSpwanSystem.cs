@@ -152,12 +152,14 @@ namespace SGame
             // 触发事件
             foreach (var item in m_triggerInit)
             {
-                //log.Info("character init character =" + item.character.CharacterID + " pos=" + item.character.transform.position);
-                m_characters.Add(item.character.CharacterID, item.entity);
-                item.character.model.SetActive(true);
-                item.character.OnInitCharacter(item.entity, EntityManager);
-                item.result.entity = item.entity;
-                item.result.characterID = item.character.CharacterID;
+                if (EntityManager.Exists(item.entity) && !EntityManager.HasComponent<DespawningEntity>(item.entity))
+                {
+                    m_characters.Add(item.character.CharacterID, item.entity);
+                    item.character.model.SetActive(true);
+                    item.character.OnInitCharacter(item.entity, EntityManager);
+                    item.result.entity = item.entity;
+                    item.result.characterID = item.character.CharacterID;
+                }
             }
             m_triggerInit.Clear();
             

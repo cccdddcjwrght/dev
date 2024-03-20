@@ -83,9 +83,17 @@ namespace SGame
         public void Clear()
         {
             var entities = m_characterQuery.ToEntityArray(Allocator.Temp);
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
             var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
             foreach (var e in entities)
             {
+                if (entityManager.HasComponent<Character>(e))
+                {
+                    var character = entityManager.GetComponentObject<Character>(e);
+                    if (character != null)
+                        character.script.SetActive(false);
+                }
                 despawnSystem.DespawnEntity(e);
             }
             entities.Dispose();
