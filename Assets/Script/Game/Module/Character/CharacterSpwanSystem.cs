@@ -77,7 +77,6 @@ namespace SGame
         
         
         private static ILog log = LogManager.GetLogger("game.character");
-        private EndSimulationEntityCommandBufferSystem m_commandBuffer;
         private GameObject                             m_characterbase;
         private List<CharacterEvent>                           m_triggerInit;
         private int lasterCharacterID;
@@ -93,11 +92,9 @@ namespace SGame
         
         protected override void OnCreate()
         {
-            m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
             m_triggerInit = new List<CharacterEvent>();
             m_characters = new Dictionary<int, Entity>();
 
-            //Utils.CreateEntityQuery()
             m_prefabReadly = EntityManager.CreateEntityQuery(typeof(Prefab), typeof(CharacterAttribue));
             
             lasterCharacterID = 0;
@@ -157,6 +154,7 @@ namespace SGame
             {
                 //log.Info("character init character =" + item.character.CharacterID + " pos=" + item.character.transform.position);
                 m_characters.Add(item.character.CharacterID, item.entity);
+                item.character.model.SetActive(true);
                 item.character.OnInitCharacter(item.entity, EntityManager);
                 item.result.entity = item.entity;
                 item.result.characterID = item.character.CharacterID;
@@ -164,27 +162,27 @@ namespace SGame
             m_triggerInit.Clear();
             
             // 获取数据
-            var commandBuffer = m_commandBuffer.CreateCommandBuffer();
+            //var commandBuffer = m_commandBuffer.CreateCommandBuffer();
             Entities.WithNone<CharacterLoading>().ForEach((Entity e, in CharacterSpawn req) =>
             {
                 if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData))
                 {
                     log.Error("role data config not found=" + req.id);
-                    commandBuffer.DestroyEntity(e);
+                    EntityManager.DestroyEntity(e);
                     return;
                 }
                 
                 if (!ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config))
                 {
                     log.Error("role model config not found=" + roleData.Model + " role id=" + req.id);
-                    commandBuffer.DestroyEntity(e);
+                    EntityManager.DestroyEntity(e);
                     return;
                 }
 
                 if (string.IsNullOrEmpty(config.Part))
                 {
                     log.Error("role part is null" + config.Part + " role id=" + req.id + " model id=" + roleData.Model);
-                    commandBuffer.DestroyEntity(e);
+                    EntityManager.DestroyEntity(e);
                     return;
                 }
 
@@ -194,8 +192,8 @@ namespace SGame
                     modelId = config.ID,
                     aiPrefab  = LoadAI(config.Ai)
                 };
-                commandBuffer.AddComponent(e, loading);
-            }).WithoutBurst().Run();
+                EntityManager.AddComponentData(e, loading);
+            }).WithoutBurst().WithStructuralChanges().Run();
             
             // 等待资源加载并生成对象
             Entities.ForEach((Entity e, CharacterSpawnResult result, CharacterSpawn req,  in CharacterLoading loading) =>
@@ -240,6 +238,7 @@ namespace SGame
                 ani.transform.localPosition = Vector3.zero;
                 ani.transform.localScale = Vector3.one;
                 ani.name = "Model";
+                ani.SetActive(false);
                 if (config.RoleScaleLength == 3)
                 {
                     var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
@@ -267,9 +266,9 @@ namespace SGame
             Entities.WithNone<CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
             {
                 m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character, result = result});
-                commandBuffer.AddComponent<CharacterInitalized>(entity);
-                commandBuffer.RemoveComponent<CharacterSpawnResult>(entity);
-            }).WithoutBurst().Run();
+                EntityManager.AddComponent<CharacterInitalized>(entity);
+                EntityManager.RemoveComponent<CharacterSpawnResult>(entity);
+            }).WithStructuralChanges().WithoutBurst().Run();
         }
     }
 }

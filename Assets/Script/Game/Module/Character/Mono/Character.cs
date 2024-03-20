@@ -206,6 +206,11 @@ namespace SGame
             }
 
             m_food = EffectSystem.Instance.Spawn3d(config.ModelEffectID, GetSlot(SlotType.FOOD).gameObject);
+            if (m_food == Entity.Null)
+            {
+                log.Error("item effect id not found=" + itemId.ToString());
+            }
+            
             return m_food;
         }
 
