@@ -34,6 +34,7 @@ namespace SGame
 		SCENE_REWARD				= 113,//场景宝箱（int cellIndex,  , Action call ,[string assetPath = null]）
 		PREPARE_LEVEL_ROOM			= 114,//准备离开房间
 		GAME_MAIN_REFRESH           = 115,//游戏刷新       
+		GAME_ENTER_SCENE_EFFECT_END = 116,//进场表现结束
 
 		ORDER = 200, // 创建新订单 (int 订单ID)
 		ORDER_FOODMAKED				= 201, // 

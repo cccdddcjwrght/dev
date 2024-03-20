@@ -111,7 +111,7 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-
+			EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
 		}
 	}
 }
