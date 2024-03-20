@@ -16,7 +16,12 @@ namespace SGame.UI
 		private int _nextScene = 0;
 		private VideoPlayer _player;
 
-		readonly string c_video_path = Path.Combine(Application.streamingAssetsPath, "splash.mp4");
+		readonly string c_video_path =
+#if !UNITY_EDITOR
+					Path.Combine(Application.streamingAssetsPath, "splash.mp4");
+#else
+					"exts/apploge/splash.mp4";
+#endif
 
 		partial void InitLogic(UIContext context)
 		{
@@ -30,7 +35,7 @@ namespace SGame.UI
 					return;
 				}
 			}
-			else if (_nextScene < 0)
+			else if (_nextScene < 0 && File.Exists(c_video_path))
 			{
 				ShowVideo().Start();
 				return;
@@ -80,7 +85,7 @@ namespace SGame.UI
 			if (_player != null)
 			{
 				RenderTexture.ReleaseTemporary(_player.targetTexture);
-				_player.targetTexture = default ;
+				_player.targetTexture = default;
 				GameObject.Destroy(_player);
 			}
 		}
