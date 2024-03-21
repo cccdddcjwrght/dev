@@ -117,8 +117,10 @@ namespace SGame.Dining
 				if (DataCenter.IsNew)
 				{
 					DataCenter.IsNew = false;
+#if ENABLE_SPLASH
 					StaticDefine.G_WAIT_VIDEO = true;
-					UIUtils.OpenUI("enterscene", -1);
+					UIUtils.OpenUI("enterscene", -1); 
+#endif
 				}
 				yield return _currentRoom.Wait();
 				if (StaticDefine.G_WAIT_VIDEO)
