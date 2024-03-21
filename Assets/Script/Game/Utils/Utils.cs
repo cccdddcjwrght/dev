@@ -178,7 +178,7 @@ namespace SGame
 					if (b > 4)
 					{
 						a++;
-						if (a > 26)
+						if (a >= 26)
 						{
 							a = 0;
 							c++;
