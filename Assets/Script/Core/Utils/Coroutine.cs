@@ -65,6 +65,16 @@ public static class Coroutine
 		Mono.OnBlur(call);
 	}
 
+	static public void CallWhenPause(this Action call)
+	{
+		Mono.OnPause(call);
+	}
+
+	static public void CallWhenContinue(this Action call)
+	{
+		Mono.OnContinue(call);
+	}
+
 
 	static public IEnumerator WaitTime(this float time)
 	{
@@ -140,6 +150,9 @@ public static class Coroutine
 		static event Action OnFocused;
 		static event Action OnBlured;
 
+		static event Action OnPaused;
+		static event Action OnContinued;
+
 		static private Mono __;
 
 		static public Mono Get()
@@ -188,6 +201,18 @@ public static class Coroutine
 			OnBlured += action;
 		}
 
+		static public void OnPause(Action action)
+		{
+			OnPaused -= action;
+			OnPaused += action;
+		}
+
+		static public void OnContinue(Action action)
+		{
+			OnContinued -= action;
+			OnContinued += action;
+		}
+
 		private void OnApplicationQuit()
 		{
 			Quit();
@@ -199,6 +224,14 @@ public static class Coroutine
 				OnFocused?.Invoke();
 			else
 				OnBlured?.Invoke();
+		}
+
+		private void OnApplicationPause(bool pause)
+		{
+			if (pause)
+				OnPaused?.Invoke();
+			else
+				OnContinued?.Invoke();
 		}
 
 	}

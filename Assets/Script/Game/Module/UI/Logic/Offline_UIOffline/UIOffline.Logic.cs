@@ -18,29 +18,32 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
+			context.window.AddEventListener("OnRefresh", OnRefresh);
+			SetInfo();
+		}
+
+		void OnRefresh(EventContext data)
+		{
+			SetInfo();
+		}
+
+		void SetInfo()
+		{
 			var max = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.OfflineTime);
-			var rate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.OfflineAddition);
-			var min = GlobalDesginConfig.GetInt("min_offline_Value");
 			var val = Mathf.Clamp(StaticDefine.G_Offline_Time, 0, max);
+			var gold = DataCenter.CaluOfflineReward(StaticDefine.G_Offline_Time);
+
 			m_view.m_progress.max = max;
 			m_view.m_progress.value = val;
 			m_view.m_progress.SetText(Utils.FormatTime((int)val, needsec: false) + "/" + Utils.FormatTime((int)max, needsec: false));
-
-			var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
-
-			var gold = 0d;
-			if (ws?.Count > 0)
-				ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
-			else
-				gold = min;
-			gold = (ConstDefine.C_PER_SCALE * gold * val * rate).ToInt();
-
 			m_view.m_count.SetText(Utils.ConvertNumberStr(gold), false);
 
 			_isAd = DataCenter.AdUtil.IsAdCanPlay(c_ad_name);
 			m_view.m_state.selectedIndex = _isAd ? 1 : 0;
 			_gold = gold;
 		}
+
+
 
 		partial void UnInitLogic(UIContext context)
 		{

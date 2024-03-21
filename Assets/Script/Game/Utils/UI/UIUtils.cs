@@ -188,12 +188,22 @@ namespace SGame
 			if (!string.IsNullOrEmpty(name))
 			{
 				var mgr = UIModule.Instance.GetEntityManager();
-				var e = UIRequest.Create(mgr, GetUI(name));
-				if (mgr.Exists(e))
+
+				var e = UIModule.Instance.GetUI(name);
+				if (e != default && mgr.Exists(e))
 				{
-					if (data != default)
-						mgr.AddComponentObject(e, data);
+					TriggerUIEvent(e, "OnRefresh", data);
 					return e;
+				}
+				else
+				{
+					e = UIRequest.Create(mgr, GetUI(name));
+					if (mgr.Exists(e))
+					{
+						if (data != default)
+							mgr.AddComponentObject(e, data);
+						return e;
+					}
 				}
 			}
 			return default;
