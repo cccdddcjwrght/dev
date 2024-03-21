@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using log4net;
+using UnityEngine;
 
 namespace SGame
 {
@@ -16,7 +17,9 @@ namespace SGame
 		private static DelayExcuter _delayer = DelayExcuter.Instance;
 		private GameWorld _gameWorld;
 
-		public void Init(GameWorld world)
+		private static string path = "Assets/BuildAsset/VisualScript/Prefabs/ReqExcute.prefab";
+
+		public void Init(GameWorld world , ResourceManager resource)
 		{
 			this._gameWorld = world;
 			InitEvent();
@@ -30,6 +33,13 @@ namespace SGame
 			catch (Exception e)
 			{
 				log.Error(e.Message + "-" + e.StackTrace);
+			}
+
+			var go = resource.LoadPrefab(path) ;
+			if (go)
+			{
+				go = GameObject.Instantiate(go);
+				GameObject.DontDestroyOnLoad(go);
 			}
 		}
 

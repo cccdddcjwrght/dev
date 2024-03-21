@@ -47,7 +47,7 @@ namespace SGame
 			CharacterModule.Instance.Initlaize();
 			
 			//处理模块
-			RequestExcuteSystem.Instance.Init(this.m_gameWorld);
+			RequestExcuteSystem.Instance.Init(this.m_gameWorld , m_resourceManager);
 
 			//场景加载
 			SGame.SceneSystemV2.Instance.SetUISys(UIUtils.WaitUIWithAnimation, UIUtils.CloseUI);
