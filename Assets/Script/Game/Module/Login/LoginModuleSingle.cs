@@ -48,6 +48,7 @@ namespace SGame
 			yield return waitLogin; 
 #else
 			EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, "aaa");
+			yield return null;
 #endif
 			DataCenter.Instance.Initalize();
 			while (!DataCenter.Instance.IsInitAll)

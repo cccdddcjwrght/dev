@@ -13,7 +13,8 @@ namespace SDK.TDSDK
 		register,
 		login,
 		update,
-
+		enter_game,
+		guide_step,
 	}
 
 	public class PItem : IEquatable<PItem>
@@ -139,7 +140,7 @@ namespace SDK.TDSDK
 
 		partial void DoStart()
 		{
-			netType = Application.internetReachability.ToString(); 
+			netType = Application.internetReachability.ToString();
 			RegisterProperties();
 			RegisterEvent();
 			if (IsFirstStartApp())
@@ -179,12 +180,22 @@ namespace SDK.TDSDK
 		{
 			//通用打点接口
 			EventManager.Instance.Reg<string, object[]>(-1, TrackNormal);
+			EventManager.Instance.Reg(((int)GameEvent.DATA_INIT_COMPLETE), () =>
+			{
+				if (DataCenter.IsFirstLogin)
+					TrackNormal(TDEvent.register.ToString());
+				TrackNormal(TDEvent.login.ToString());
+			});
+
+			EventManager.Instance.Reg(((int)GameEvent.ENTER_GAME), () => TrackNormal(TDEvent.enter_game.ToString()));
+			EventManager.Instance.Reg<int>(((int)GameEvent.GUIDE_STEP), (a) => TrackNormal(TDEvent.guide_step.ToString(), "step", a));
+
 		}
 
 		private void RegisterProperties()
 		{
 			RegisterProperty("device_id", SystemInfo.deviceUniqueIdentifier, once: true);
-			RegisterProperty("instancing", get: (k) => SystemInfo.supportsInstancing ? 1 : 0 , upload:false).LinkEvent(TDEvent.login);
+			RegisterProperty("instancing", get: (k) => SystemInfo.supportsInstancing ? 1 : 0, upload: false).LinkEvent(TDEvent.login);
 		}
 
 		#endregion

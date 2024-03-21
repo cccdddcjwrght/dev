@@ -14,6 +14,8 @@ namespace SGame
 	{
 		private static ILog log = LogManager.GetLogger("game.datacetner");
 
+		public static bool IsFirstLogin { get; private set; }
+
 		public static bool IsNew { get; set; }
 
 		[SerializeField]
@@ -116,6 +118,7 @@ namespace SGame
 				IsNew = true;
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
 				OnFirstInit();
+				IsFirstLogin = true;
 			}
 			else
 			{

@@ -9,7 +9,6 @@ using Fibers;
 using System.IO;
 using SGame;
 using UnityEngine.Audio;
-using System.Globalization;
 using UnityEngine.SceneManagement;
 
 // 初始化完成状态
@@ -262,5 +261,6 @@ public class Game : SGame.MonoSingleton<Game>
 		ShutdownGameLoops();
 		ConfigSystem.Cleanup();
 	}
+
 
 }
