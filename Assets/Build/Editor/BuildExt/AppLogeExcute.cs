@@ -18,10 +18,12 @@ public class AppLogoExcute : IZEditor
 	static Dictionary<string, string[]> nameReplaceDic = new Dictionary<string, string[]>() {
 
 		{ "ui_bg" , new string[]{ "GameLoge_atlas_vm0m4", "Hotfix_atlas_cuja5", "Assets/BuildAsset/App/splash.png" } },
-		{ "ui_logo" , new string[]{ "GameLoge_atlas_vm0m1" , "Hotfix_atlas_cuja6" } },
+		{ "ui_logo" , new string[]{ "GameLoge_atlas_vm0m1" , "Hotfix_atlas_cuja6", "Assets/BuildAsset/App/logo/ui_loading_logo@en.png" } },
 		{ "ui_loading_1" , new string[]{ "GameLoge_atlas_vm0m2" , "Hotfix_atlas_cuja3" } },
 		{ "ui_loading_2" , new string[]{ "GameLoge_atlas_vm0m3" , "Hotfix_atlas_cuja4" } },
 		{ "icon1024x1024" , new string[]{ "Assets/BuildAsset/App/icon1024x1024.png" } },
+		{ "ui_loading_logo@en" , new string[]{ "Assets/BuildAsset/App/logo/ui_loading_logo@en.png" } },
+		{ "ui_loading_logo@hi" , new string[]{ "Assets/BuildAsset/App/logo/ui_loading_logo@hi.png" } },
 	};
 
 	[InitializeOnLoadMethod]
