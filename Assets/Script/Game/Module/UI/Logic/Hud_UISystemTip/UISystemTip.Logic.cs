@@ -8,7 +8,8 @@ namespace SGame.UI{
 	public partial class UISystemTip
 	{
 		partial void InitLogic(UIContext context)
-		{			
+		{
+			m_view.visible = false;
 			context.window.AddEventListener("UpdateTip", OnUpdateTip);
 			context.content.xy = Vector2.zero;
 			if (context.gameWorld.GetEntityManager().HasComponent<UIParam>(context.entity))
@@ -24,6 +25,7 @@ namespace SGame.UI{
 
 		void ShowText(string name)
 		{
+			if (string.IsNullOrEmpty(name)) return;
 			m_view.visible = true;
 			m_view.m_title.text = name;
 			m_view.m_myfloat.Stop(false, false);
