@@ -117,7 +117,7 @@ namespace SGame
 						return Error_Code.SHOP_IS_CD;
 					else if (goods.cfg.LimitNum > 0 && goods.buy >= goods.cfg.LimitNum)
 						return Error_Code.SHOP_BUY_LIMIT;
-					else if (goods.cfg.PurchaseType == 2 && !PropertyManager.Instance.CheckCount(2, goods.cfg.Price, 1))
+					else if (goods.free<=0 && goods.cfg.PurchaseType == 2 && !PropertyManager.Instance.CheckCount(2, goods.cfg.Price, 1))
 						return Error_Code.ITEM_DIAMOND_NOT_ENOUGH;
 				}
 				return default;
