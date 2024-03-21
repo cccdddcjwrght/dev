@@ -159,25 +159,37 @@ namespace SGame
 		}
 
 
-		static readonly char[] c_price = new char[] { default, 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B' };
+		static readonly string[] c_price = new string[] { default, "K", "M", "B", "T" };
 
 		public static string ConvertNumberStrLimit3(double number) => ConvertNumberStr(number, 3);
 
 		//把数值转成专用字符串表示
-		public static string ConvertNumberStr(double number, int limit = 0)
+		public static string ConvertNumberStr(double number, int limit = 3)
 		{
 			var unit = "";
 			if (number >= 1000)
 			{
-				int a, b;
-				a = b = 0;
+				int a, b, c;
+				a = -1;
+				b = c =0;
 				while (number >= 1000)
 				{
 					b++;
-					if (b > 9) { a++; b = 9; } //999P--->1KP
+					if (b > 4)
+					{
+						a++;
+						if (a > 26)
+						{
+							a = 0;
+							c++;
+						}
+					}
 					number = (number * 0.001d).Round();
 				}
-				unit = string.Format("{0}{1}", a > 0 ? c_price[a] : "", c_price[b]);//单位
+				if (b > 4)
+					unit = string.Format("{0}{1}", (char)(c+97) , (char)(a + 97));
+				else
+					unit = c_price[b];
 			}
 			if (limit > 0)
 				return number.Round().ToString($"G{limit}") + unit;
@@ -683,7 +695,7 @@ namespace SGame
 			if (tags == null || tags.Count == 0)
 				return false;
 			bool ret = tags.Contains(tag);
-			
+
 			//log.Info(string.Format("check tag pos {0}, map_pos={1}, ret={2}", pos, map_pos, ret));
 			return ret;
 		}
@@ -698,13 +710,13 @@ namespace SGame
 		public static string PickCharacterPart(string part, string key, out string ret)
 		{
 			part = part.ToLower();
-			string[] settings	= part.Split('|');
+			string[] settings = part.Split('|');
 			var currentCharacter = settings[0];
-			var keyvalue		= new Dictionary<string, string>();
+			var keyvalue = new Dictionary<string, string>();
 			ret = currentCharacter;
 			string value = "";
-			
-			for (int i = 1; i < settings.Length; )
+
+			for (int i = 1; i < settings.Length;)
 			{
 				string categoryName = settings[i++];
 				string elementName = settings[i++];
@@ -752,6 +764,6 @@ namespace SGame
 
 			yield return ani;
 		}
-		
+
 	}
 }
