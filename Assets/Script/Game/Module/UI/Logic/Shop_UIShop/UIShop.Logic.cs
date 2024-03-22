@@ -135,7 +135,7 @@ namespace SGame.UI
 			v.SetIcon(g.cfg.Icon, "Icon");
 			v.m_desc.SetTextByKey(g.cfg.ShopDes);
 			v.m_type.selectedIndex = g.type - 1;
-
+			v.m_hidebottom.selectedIndex = g.type == (int)EnumShopArea.Eq ? 0 : 1;
 			v.m_click.onClick.Clear();
 			v.m_click.onClick.Add(() => OnGoodsClick(g));
 
