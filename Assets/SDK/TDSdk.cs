@@ -183,9 +183,7 @@ namespace SDK.TDSDK
 			EventManager.Instance.Reg<string, object[]>(-1, TrackNormal);
 			EventManager.Instance.Reg(((int)GameEvent.LOGIN_COMPLETE), () =>
 			{
-				if (DataCenter.IsFirstLogin)
-					TrackNormal(TDEvent.register.ToString());
-				TrackNormal(TDEvent.login.ToString());
+				OnLogined(DataCenter.Instance.accountData.playerID.ToString());
 			});
 
 			EventManager.Instance.Reg(((int)GameEvent.ENTER_GAME), () => TrackNormal(TDEvent.enter_game.ToString()));
@@ -208,7 +206,12 @@ namespace SDK.TDSDK
 		{
 			var time = System.DateTime.Now;
 			Login(id);
-			UpdateDatas(true, GetProperty("server_id"));
+			if (DataCenter.IsFirstLogin)
+			{
+				TrackNormal(TDEvent.register.ToString());
+				UpdateData("register_time", time, true);
+				UpdateData("first_login_time", time, true);
+			}
 			UpdateData("last_login_time", time);
 			TrackNormal("login");
 		}
