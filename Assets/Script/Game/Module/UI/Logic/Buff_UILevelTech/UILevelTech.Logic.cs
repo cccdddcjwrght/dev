@@ -15,5 +15,13 @@ namespace SGame.UI{
 		partial void UnInitLogic(UIContext context){
 
 		}
+
+		partial void OnUICloseClick(ref bool state)
+		{
+			if (DataCenter.Instance.guideData.isGuide)
+			{
+				state = false;
+			}
+		}
 	}
 }
