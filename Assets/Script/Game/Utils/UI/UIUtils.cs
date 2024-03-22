@@ -527,6 +527,14 @@ namespace SGame
 				}
 			}
 		}
+		
+		public static float GetSafeUIOffset(bool needRootScale = true)
+		{
+			var offset = Screen.safeArea.y > 0 ? Screen.safeArea.y : Math.Max(0, Screen.height - Screen.safeArea.height - Screen.safeArea.y);
+			if (offset > 0 && needRootScale)
+				offset /= GRoot.inst.scaleY;
+			return offset;
+		}
 
 	}
 }

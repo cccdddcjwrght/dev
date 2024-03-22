@@ -20,7 +20,12 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 			m_context			= context;
 			context.onUpdate	+= onUpdate;
-
+			float offset = SGame.UIUtils.GetSafeUIOffset();
+			if (offset > 0)
+			{
+				m_view.m_top.y = offset+5 ; 
+			}
+			
 			m_itemProperty		= PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
 			m_userData			= DataCenter.Instance.GetUserData();
 			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
