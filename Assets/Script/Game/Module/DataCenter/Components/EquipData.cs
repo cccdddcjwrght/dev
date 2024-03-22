@@ -13,7 +13,7 @@ namespace SGame
 
 		public static class EquipUtil
 		{
-			readonly static int EQ_FROM_ID = nameof(EquipUtil).GetHashCode();
+			readonly static int EQ_FROM_ID = (int)EnumFrom.Equipment;
 
 			private static EquipData _data { get { return Instance.equipData; } }
 			private static StringBuilder _sb = new StringBuilder();
@@ -267,6 +267,23 @@ namespace SGame
 	}
 
 	[Serializable]
+	public class RoleData
+	{
+		/// <summary>
+		/// 角色类型ID
+		/// </summary>
+		public int	roleTypeID;
+		/// <summary>
+		/// 是否雇佣兵
+		/// </summary>
+		public bool isEmployee;
+		/// <summary>
+		/// 装备列表
+		/// </summary>
+		public List<BaseEquip> equips;
+	}
+
+	[Serializable]
 	public class EquipData
 	{
 		public EquipItem[] equipeds = new EquipItem[16];
@@ -277,34 +294,25 @@ namespace SGame
 
 	}
 
-	[Serializable]
-	public class EquipItem
+	public class BaseEquip
 	{
-		public int key;
 		public int cfgID;
 		public int level;
-		public int pos;
-		public byte isnew;
+		public int quality;
 
+		public EquipmentRowData cfg { get; set; }
 		public int type { get { return cfg.Type; } }
-		public int quality { get { return cfg.Quality; } }
-
-		private string _attrStr;
 
 		private Dictionary<string, string> _partData;
 
-		[NonSerialized]
-		public GameConfigs.EquipmentRowData cfg;
-
-
-		public EquipItem()
+		public BaseEquip Refresh()
 		{
-			key = (int)System.DateTime.Now.Ticks;
-		}
-
-		public EquipItem Refresh()
-		{
-			ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(cfgID, out cfg);
+			if (ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(cfgID, out var cfg))
+			{
+				if (quality <= 0)
+					quality = cfg.Quality;
+			}
+			this.cfg = cfg;
 			return this;
 		}
 
@@ -321,7 +329,6 @@ namespace SGame
 						try
 						{
 							var k = ss[i].ToLower();
-							//if (k.StartsWith("weapon")) continue;
 							_partData[k] = ss[i + 1];
 						}
 						catch (Exception)
@@ -347,9 +354,23 @@ namespace SGame
 			}
 		}
 
-		public string GetAttrStr()
+	}
+
+	[Serializable]
+	public class EquipItem : BaseEquip
+	{
+		public int key;
+		public int pos;
+		public byte isnew;
+		/// <summary>
+		/// 升级进度
+		/// </summary>
+		public int progress;
+
+
+		public EquipItem()
 		{
-			return _attrStr;
+			key = (int)System.DateTime.Now.Ticks;
 		}
 
 	}

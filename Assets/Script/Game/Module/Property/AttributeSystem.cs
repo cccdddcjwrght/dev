@@ -60,11 +60,13 @@ namespace SGame
 			| EnumTarget.Cook
 			| EnumTarget.Waiter
 			| EnumTarget.Machine
+			| EnumTarget.Employee
 			| EnumTarget.Game;
 
 		static ILog log = LogManager.GetLogger("game.attribute");
 
 		private Dictionary<int, Dictionary<int, AttributeList>> _groups = new Dictionary<int, Dictionary<int, AttributeList>>();
+		private Dictionary<int, AttributeList> _bind = new Dictionary<int, AttributeList>();
 
 		private Action<int> onUpdate;
 
@@ -105,8 +107,9 @@ namespace SGame
 		/// </summary>
 		/// <param name="roleID"></param>
 		/// <param name="attributeID"></param>
+		/// <param name="isemploy">是否雇佣关系</param>
 		/// <returns></returns>
-		public double GetValueByRoleID(int roleID, EnumAttribute attributeID)
+		public double GetValueByRoleID(int roleID, EnumAttribute attributeID, bool isemploy = false)
 		{
 			if (ConfigSystem.Instance.TryGet<RoleDataRowData>(roleID, out var cfg))
 			{
@@ -119,7 +122,7 @@ namespace SGame
 					case EnumRole.Car:
 						return GetValue(EnumTarget.Customer, attributeID, roleID);
 					case EnumRole.Player:
-						return GetValue(EnumTarget.Player, attributeID);
+						return GetValue(EnumTarget.Player, attributeID, isemploy ? roleID : 0);
 				}
 			}
 			return 0;
@@ -225,6 +228,9 @@ namespace SGame
 
 		public AttributeList GetAttributeList(int type, int id = 0)
 		{
+			/*if (_bind.TryGetValue(type, out var a))
+				return a;*/
+
 			var g = GetGroup(type);
 			if (g != null)
 			{
@@ -239,6 +245,15 @@ namespace SGame
 			if (!_groups.TryGetValue(type, out var group))
 				_groups[type] = group = new Dictionary<int, AttributeList>(); ;
 			return group;
+		}
+
+		public AttributeList LinkAttributeToTarget(EnumTarget target, int targetID, EnumTarget to)
+		{
+
+			var a = GetAttributeList((int)target, targetID);
+			if (a != null)
+				_bind[(int)to] = a;
+			return a;
 		}
 
 		#endregion
@@ -260,10 +275,11 @@ namespace SGame
 				if (ConfigSystem.Instance.TryGet<BuffRowData>(id, out var cfg))
 				{
 					var targets = GetTargets(cfg.Target, targetid != 0 ? targetid : cfg.TargetID);
+					var ct = GetCurrentTime();
 					time = time != 0 ? time : cfg.Time;
-					time = time > 0 ? GetCurrentTime() + time : time;
+					time = time > 0 ? ct + time : time;
 					if (targets?.Count > 0)
-						targets.ForEach(t => t.Change(cfg.Attribute, val == 0 ? cfg.Value : val, cfg.AddType, time, from));
+						targets.ForEach(t => t.SetTime(ct).Change(cfg.Attribute, val == 0 ? cfg.Value : val, cfg.AddType, time, from));
 				}
 			}
 		}
@@ -311,11 +327,23 @@ namespace SGame
 					if (item.Key.IsInState(e))
 					{
 						if (targetid != 0)
-						{ if (item.Value.TryGetValue(targetid, out var a)) ls.Add(a); }
+						{
+							if (item.Value.TryGetValue(targetid, out var a))
+								ls.Add(a);
+						}
 						else
 							ls.AddRange(item.Value.Values);
 					}
 				}
+
+				/*if (_bind.Count > 0)
+				{
+					foreach (var item in _bind)
+					{
+						if (item.Key.IsInState(e) && !ls.Contains(item.Value))
+							ls.Add(item.Value);
+					}
+				}*/
 
 				return ls;
 			}

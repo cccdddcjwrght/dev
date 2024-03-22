@@ -135,6 +135,10 @@ namespace SGame
 		/// 游戏全局
 		/// </summary>
 		Game = 1 << 9,//512
+		/// <summary>
+		/// 雇佣
+		/// </summary>
+		Employee = 1 << 10,//1024
 
 	}
 
@@ -164,6 +168,7 @@ namespace SGame
 		Customer = 3,
 		Car = 4,
 		Player=5,
+		Employee = 1000,
 	}
 
 
@@ -188,6 +193,23 @@ namespace SGame
 		Weapon		= 3,
 		RightWeapon = 4,
 		Shoes		= 5
+	}
+
+	/// <summary>
+	/// 来源
+	/// </summary>
+	public enum EnumFrom
+	{
+		None,
+		/// <summary>
+		/// 装备
+		/// </summary>
+		Equipment = 200001,
+		/// <summary>
+		/// 关卡科技
+		/// </summary>
+		LevelTech,
+
 	}
 
 }

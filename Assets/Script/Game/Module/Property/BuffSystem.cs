@@ -131,7 +131,7 @@ namespace SGame
 			if (data.id > 0)
 			{
 				var from = data.from;
-				if (from != 0)
+				if (data.isremove && from != 0)
 					attrSys.RemoveBuff(data.id, from, data.targetid);
 				if (!data.isremove)
 					attrSys.AddBuff(data.id, data.val, data.targetid, data.time, data.from);

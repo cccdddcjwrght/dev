@@ -24,8 +24,10 @@ namespace SGame
 		public double val;
 		public int deadtime;
 
+
 		public double modifiy;
 		public GameAttribute attribute;
+		public int count;
 
 
 		public void Excute(GameAttribute attribute)
@@ -41,15 +43,19 @@ namespace SGame
 					modifiy = (v * ConstDefine.C_PER_SCALE).Round();
 					break;
 			}
+			Readd();
+		}
 
+		public void Readd()
+		{
 			attribute.value += modifiy;
-
+			count++;
 		}
 
 		public void Reset(GameAttribute attribute = null)
 		{
 			attribute = attribute ?? this.attribute;
-			attribute.value -= modifiy;
+			attribute.value -= (modifiy * count);
 			this.attribute = null;
 		}
 
@@ -230,12 +236,14 @@ namespace SGame
 		private static Dictionary<int, int> _indexs;
 
 		private double[] _array;
-		
+
 		private List<AttributeUnit> _units = new List<AttributeUnit>();
 		private GameAttribute[] _values = new GameAttribute[0];
 		public int Count { get { return _values.Length; } }
 
 		public string key;
+
+		private int _ctime;
 
 		public double this[int id]
 		{
@@ -269,30 +277,65 @@ namespace SGame
 			}
 		}
 
-		public AttributeList Change(EnumAttribute id, double val, EnumCaluType addtype, int deadline = 0, int from = 0)
+		public AttributeList SetTime(int time)
 		{
-			Change((int)id, val, (int)addtype, deadline, from);
+			_ctime = time;
 			return this;
 		}
 
-		public AttributeList Change(int id, double val, int addtype, int deadline = 0, int from = 0)
+		public AttributeList Change(EnumAttribute id, double val, EnumCaluType addtype, int deadline = 0, int from = 0, int repeatType = 0)
+		{
+			return Change((int)id, val, (int)addtype, deadline, from, repeatType);
+		}
+
+		public AttributeList Change(int id, double val, int addtype, int deadline = 0, int from = 0, int repeatType = 0)
 		{
 			var a = GetAttribute(id);
 			if (a != null)
 			{
-				var unit = new AttributeUnit() { id = id, from = from, type = addtype, val = val, deadtime = deadline };
-				unit.Excute(a);
-				if (deadline != 0 || from != 0)
-					_units.Add(unit);
+				var flag = true;
+				if (from != 0)
+				{
+					var u = GetUnit(id, from);
+					if (u != null)
+					{
+						switch (repeatType)
+						{
+							case 0://时间刷新
+								u.deadtime = deadline;
+								break;
+							case 1://时间叠加
+								if (deadline > 0)
+									u.deadtime += deadline - _ctime;
+								break;
+							case 2: //数值叠加
+								u.Readd();
+								break;
+							case 3://都叠加
+								if (deadline > 0) u.deadtime += deadline - _ctime;
+								u.Readd();
+								break;
+						}
+						flag = false;
+					}
+				}
+
+				if (flag)
+				{
+					var unit = new AttributeUnit() { id = id, from = from, type = addtype, val = val, deadtime = deadline };
+					unit.Excute(a);
+					if (deadline != 0 || from != 0)
+						_units.Add(unit);
+				}
 #if DEBUG
-				GameDebug.Log($"<color='green'>[BUFF]</color>{key} -> ::attribute {a} change: {a.modify} - deadtime {deadline} "); 
+				GameDebug.Log($"<color='green'>[BUFF]</color>{key} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
 #endif
 
 			}
 			return this;
 		}
 
-		public void ResetByFrom(int from, int id = 0)
+		public AttributeList ResetByFrom(int from, int id = 0)
 		{
 			if (from != 0)
 			{
@@ -302,13 +345,23 @@ namespace SGame
 					if (u.from == from && (id == 0 || u.id == id))
 					{
 #if DEBUG
-						GameDebug.Log($"<color='red'>[BUFF]</color>{key} -> ::attribute {u.attribute} change : {u.modifiy}, val-> {u.attribute.value - u.modifiy}  "); 
+						GameDebug.Log($"<color='red'>[BUFF]</color>{key} -> ::attribute {u.attribute} change : {u.modifiy}, val-> {u.attribute.value - u.modifiy}  ");
 #endif
 						u.Reset();
 						_units.RemoveAt(i);
 					}
 				}
 			}
+			return this;
+		}
+
+		public AttributeUnit GetUnit(int id, int from)
+		{
+			if (_units?.Count > 0)
+			{
+				return _units.Find(u => u.id == id && u.from == from);
+			}
+			return default;
 		}
 
 		public AttributeList FromArray(double[] array)
@@ -360,7 +413,6 @@ namespace SGame
 		public void Clear()
 		{
 			_values = null;
-			//_indexs.Clear();
 		}
 
 		public AttributeList Copy()
