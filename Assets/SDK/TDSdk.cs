@@ -4,6 +4,7 @@ using System.Linq;
 using log4net;
 using SGame;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace SDK.TDSDK
 {
@@ -138,7 +139,7 @@ namespace SDK.TDSDK
 
 		#region Partial
 
-		partial void DoStart()
+		partial void DoAwake()
 		{
 			netType = Application.internetReachability.ToString();
 			RegisterProperties();
@@ -180,7 +181,7 @@ namespace SDK.TDSDK
 		{
 			//通用打点接口
 			EventManager.Instance.Reg<string, object[]>(-1, TrackNormal);
-			EventManager.Instance.Reg(((int)GameEvent.DATA_INIT_COMPLETE), () =>
+			EventManager.Instance.Reg(((int)GameEvent.LOGIN_COMPLETE), () =>
 			{
 				if (DataCenter.IsFirstLogin)
 					TrackNormal(TDEvent.register.ToString());

@@ -25,7 +25,8 @@ namespace SGame
 		ENTER_GAME					= 105, // 进入游戏
 		LANGUAGE_CHANGE				= 106, // 语言修改
 		GAME_START					= 107, // 游戏开始
-		DATA_INIT_COMPLETE			= 108, //数据初始化完成
+		DATA_INIT_COMPLETE			= 108, // 数据初始化完成
+		LOGIN_COMPLETE				= 109, // 登录完成
 
 		//场景=======================================
 		BEFORE_ENTER_ROOM			= 110, //进入场景之前

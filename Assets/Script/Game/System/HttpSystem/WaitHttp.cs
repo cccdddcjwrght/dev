@@ -339,7 +339,7 @@ namespace SGame
 			State = -1;
 			if (!string.IsNullOrEmpty(error))
 			{
-				UnityEngine.Debug.LogError("http error:" + error);
+				UnityEngine.Debug.LogWarning("http error:" + error);
 			}
 			_onFail?.Invoke(error ?? "http error");
 			_call?.Invoke(false);

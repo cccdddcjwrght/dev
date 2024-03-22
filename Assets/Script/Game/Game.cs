@@ -27,7 +27,7 @@ public class Game : SGame.MonoSingleton<Game>
 		var asset = Assets.LoadAsset("Assets/BuildAsset/Prefabs/Game.prefab", typeof(GameObject));
 		Instantiate(asset.asset);
 		//asset.Release();
-		
+
 		log.Info("Game Start Running");
 		yield return null;
 	}
@@ -58,7 +58,7 @@ public class Game : SGame.MonoSingleton<Game>
 	protected override void Awake()
 	{
 		base.Awake();
-		
+
 		Application.targetFrameRate = 100;
 		m_isInitalized = false;
 		m_initProcess = new Fibers.Fiber(InitProcess());
@@ -68,6 +68,8 @@ public class Game : SGame.MonoSingleton<Game>
 
 		//应用安卓退出键
 		Input.backButtonLeavesApp = true;
+		//不息屏
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 #if !UNITY_EDITOR
 #if GAME_GUIDE
@@ -87,7 +89,7 @@ public class Game : SGame.MonoSingleton<Game>
 	IEnumerator InitSystem()
 	{
 		//VersionUpdater.PreInitalize();
-		
+
 		// 资源加载初始化
 		ManifestRequest assetRequest = libx.Assets.Initialize();
 		yield return assetRequest;
@@ -120,7 +122,7 @@ public class Game : SGame.MonoSingleton<Game>
 
 		//语言初始化
 		LanagueSystem.Instance.Initalize("en");//Utils.GetLangName(DataCenter.Instance.setData.GetIntItemData("langue")));
-		
+
 		// 声音初始化
 		AssetRequest audioReq = Assets.LoadAssetAsync(AudioMixerPath, typeof(AudioMixer));
 		yield return audioReq;
@@ -133,6 +135,8 @@ public class Game : SGame.MonoSingleton<Game>
 
 		//埋点
 		new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr);
+
+
 
 	}
 
@@ -233,7 +237,7 @@ public class Game : SGame.MonoSingleton<Game>
 
 		// 更新计数器时间
 		GlobalTime.UpdateFrameTime();
-		
+
 		// 事件系统更新
 		eventManager.Update();
 

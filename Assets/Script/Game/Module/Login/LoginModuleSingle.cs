@@ -34,7 +34,7 @@ namespace SGame
 		IEnumerator RunScriptLogin()
 		{
 			GameObject go = null;
-#if !SVR_RELEASE
+#if !SVR_RELEASE && !Auto_Login && !AUTO_LOGIN
 			var asset = Assets.LoadAssetAsync(script, typeof(GameObject));
 			yield return asset;
 			if (!string.IsNullOrEmpty(asset.error))
@@ -53,6 +53,8 @@ namespace SGame
 			DataCenter.Instance.Initalize();
 			while (!DataCenter.Instance.IsInitAll)
 				yield return null;
+
+			EventManager.Instance.Trigger((int)GameEvent.LOGIN_COMPLETE);
 			if (go)
 				GameObject.Destroy(go);
 		}

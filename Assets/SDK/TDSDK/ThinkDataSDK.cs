@@ -99,6 +99,7 @@ namespace SDK.TDSDK
 				_isStarted = true;
 				IEnumerator Run()
 				{
+					OnAwake();
 					yield return null;
 					if (!_api.startManually)
 						TDAPI.Init();
@@ -215,6 +216,8 @@ namespace SDK.TDSDK
 
 		#region method
 
+		private void OnAwake() => DoAwake();
+
 		private void OnStart()
 		{
 			DoStart();
@@ -311,6 +314,7 @@ namespace SDK.TDSDK
 
 		#region 部分方法
 
+		partial void DoAwake();
 
 		partial void DoStart();
 
