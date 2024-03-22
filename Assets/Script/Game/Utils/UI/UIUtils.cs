@@ -445,6 +445,13 @@ namespace SGame
 			Entity ui = ShowHUD("update", pos, float3.zero);
 			return ui;
 		}
+		
+		public static Entity ShowSleepTip(Transform pos)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = ShowHUD("effect", pos, float3.zero);
+			return ui;
+		}
 
 		public static string Tips(this string tips, string pix = null)
 		{
