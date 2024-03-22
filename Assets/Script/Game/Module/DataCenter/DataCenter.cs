@@ -116,6 +116,7 @@ namespace SGame
 			if (loadtime == 0)
 			{
 				IsNew = true;
+				accountData.playerID = System.DateTime.Now.Ticks;
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
 				OnFirstInit();
 				IsFirstLogin = true;
