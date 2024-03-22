@@ -48,7 +48,9 @@ namespace SGame
         /// <summary>
         /// uiEnitty
         /// </summary>
-        public Entity m_hud { get; private set; }
+        public Entity m_hud { get; set; }
+        
+        public Entity m_effect{ get;  set; }
 
         /// <summary>
         /// 角色实例化ID
@@ -62,6 +64,7 @@ namespace SGame
 
         public int roleID = 0;
 
+        private bool isPlay=false;
         public Transform pos
         {
             get { return transform; }
@@ -205,6 +208,7 @@ namespace SGame
             
             return m_food;
         }
+        
 
         /// <summary>
         /// 设置速度属性
@@ -297,14 +301,6 @@ namespace SGame
             }
         }
 
-        /// <summary>
-        /// 存储当前hud
-        /// </summary>
-        /// <param name="hud"></param>
-        public void AddHudEntity(Entity hud)
-        {
-            m_hud = hud;
-        }
 
         /// <summary>
         /// 关闭当前hud
@@ -316,6 +312,16 @@ namespace SGame
                 UIUtils.CloseUI(m_hud);
                 m_hud = Entity.Null;
             }
+        }
+        
+        public bool CheckEntityNull(Entity e)
+        {
+            if (e != Entity.Null)
+            {
+                return false;
+            }
+
+            return true;
         }
         
         public bool isMoving
