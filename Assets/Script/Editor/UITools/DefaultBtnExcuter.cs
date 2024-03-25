@@ -56,6 +56,9 @@ public class DefaultBtnExcuter : IUIExcute
 				init.AppendLine($"\t\t\tUIListener.{method}(m_view.{name}, new EventCallback1(DoCloseUIClick));");
 				uninit.AppendLine($"\t\t\tUIListener.{method}(m_view.{name}, new EventCallback1(DoCloseUIClick),remove:true);");
 			}
+
+			if (UIImportUtils.G_MEMBER_CALL_STRS.Contains(callMethod)) return;
+			UIImportUtils.G_MEMBER_CALL_STRS.Add(callMethod);
 			call.AppendLine(callMethod);
 			call.AppendLine(pMethod);
 

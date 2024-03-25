@@ -45,6 +45,8 @@ public static class UIImportUtils
 	static public string CS_PIX = "UI_";
 	static private Dictionary<string, Type> TYPE_CACHES = new Dictionary<string, Type>();
 
+	static public List<string> G_MEMBER_CALL_STRS = new List<string>();
+
 	static public Type GetTypeByName(string name)
 	{
 		if (!string.IsNullOrEmpty(name))
@@ -67,8 +69,10 @@ public static class UIImportUtils
 	static public string GetMethodName(string name, string parentName)
 	{
 		var newName = name.Split('.').Last().Replace("m_", "");
+		if (name.LastIndexOf(".") != name.IndexOf("."))
+			newName = name.Replace(".", "_").Replace("m_", "");
+		
 		newName = (string.IsNullOrEmpty(parentName) ? "" : parentName + "_") + newName[0].ToString().ToUpper() + newName.Substring(1);
-
 		return RemoveMatchStr(newName.Replace("UI_", ""));
 	}
 
@@ -453,6 +457,7 @@ namespace __SPACE__{
 			var uicontent = C_UI_TEMP;
 			var members = new List<string[]>();
 			UIImportUtils.ReadMemberFromFile(assetfile, ref members);
+			UIImportUtils.G_MEMBER_CALL_STRS.Clear();
 			if (MemberHandler(members, out var init, out var uninit, out var call))
 			{
 				return uicontent
