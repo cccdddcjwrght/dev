@@ -2,6 +2,7 @@
 using System.Text;
 using System;
 using FairyGUI;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 
 public class DefaultCtrExcuter : IUIExcute
 {
@@ -14,7 +15,10 @@ public class DefaultCtrExcuter : IUIExcute
         var flag2 = Condition(type, name);
         if (flag2)
         {
+
 			var newName = UIImportUtils.GetMethodName(name, parentType);
+			if (newName.Contains("__")) return ;
+
 			var callMethod = $"\t\tvoid _On{newName}Changed(EventContext data){{\n\t\t\tOn{newName}Changed(data);\n\t\t}}";
             var pMethod = $"\t\tpartial void On{newName}Changed(EventContext data);";
 			var sMethod = $"\t\tvoid Switch{newName}Page(int index)=>m_view.{name}.selectedIndex=index;";
