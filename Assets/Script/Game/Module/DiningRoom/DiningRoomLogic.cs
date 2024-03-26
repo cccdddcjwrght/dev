@@ -259,11 +259,30 @@ namespace SGame.Dining
 		public int place;
 		public Action<int, int> onClick;
 
+		static private Vector3 g_size;
+		static private Vector3 g_center;
+
 		private void Awake()
 		{
+			if (g_size == Vector3.zero)
+			{
+				var ss = GlobalDesginConfig.GetStr("region_size")?.Split('|');
+				if (ss != null && ss.Length >= 3)
+					g_size = new Vector3(int.Parse(ss[0]), int.Parse(ss[1]), int.Parse(ss[2]));
+				else
+					g_size = new Vector3(0.9f, 0.5f, 0.9f);
+
+				ss = GlobalDesginConfig.GetStr("region_center")?.Split('|');
+				if (ss != null && ss.Length >= 3)
+					g_center = new Vector3(int.Parse(ss[0]), int.Parse(ss[1]), int.Parse(ss[2]));
+				else
+					g_center = new Vector3(0, 0.22f, 0);
+			}
+
+			var o = transform.gameObject.GetComponentInChildren<BoxCollider>();
 			var c = transform.gameObject.AddComponent<BoxCollider>();
-			c.size = new Vector3(0.9f, 0.2f, 0.9f);
-			c.center = new Vector3(0, 0.22f, 0);
+			c.size = o ? o.size : g_size;
+			c.center = o ? o.center : g_center;
 
 		}
 
@@ -497,6 +516,8 @@ namespace SGame.Dining
 			_eHandlers += EventManager.Instance.Reg<int2>(((int)GameEvent.WORK_COOK_START), OnWorktablekCook);
 			_eHandlers += EventManager.Instance.Reg<int2>(((int)GameEvent.WORK_COOK_COMPLETE), OnWorktablekCookComplete);
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_UP_STAR), OnWorkTableUpStar);
+			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_CLICK_SIMULATE), OnRegionClick);
+
 
 
 		}
@@ -615,7 +636,7 @@ namespace SGame.Dining
 				gindex = cs.First();
 				transform = transform ?? ls[0].transform?.parent;
 
-				if(transform == null)
+				if (transform == null)
 					log.Error($"点位->{cfg.ID} : 当前场景没有找到相关格子");
 
 				var h = transform.gameObject.AddComponent<RegionHit>();

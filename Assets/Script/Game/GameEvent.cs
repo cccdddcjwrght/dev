@@ -67,6 +67,7 @@ namespace SGame
 		WORK_TABLE_CLICK			= 2004,//工作台点击
 		WORK_TABLE_UP_STAR			= 2005,//工作台升星
 		WORK_TABLE_ALL_MAX_LV		= 2006,//所有工作台等级上限
+		WORK_TABLE_CLICK_SIMULATE	= 2007,//模拟工作台点击（int machinetype , int id）
 
 		WORK_COOK_START				= 2010,//工作台开始工作 （int2 cell）
 		WORK_COOK_COMPLETE			= 2011,//工作台工作完成 （int2 cell）
