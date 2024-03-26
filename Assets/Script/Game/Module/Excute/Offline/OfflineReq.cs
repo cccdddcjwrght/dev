@@ -36,7 +36,9 @@ namespace SGame
 				{
 					var flag = UIUtils.CheckUIIsOpen(offline_ui);
 
-					StaticDefine.G_Offline_Time = DataCenter.Instance.GetOfflineTime();
+					log.Info("[offlinetime end]->" + UnityEngine.Time.realtimeSinceStartup.ToString());
+
+					StaticDefine.G_Offline_Time = (int)UnityEngine.Time.realtimeSinceStartup - DataCenter.Instance.offlinetime;
 					if (StaticDefine.G_Offline_Time > minOfflineTime || flag)
 						11.Goto();
 					else
@@ -48,7 +50,10 @@ namespace SGame
 			static void OnPause()
 			{
 				if (DataCenter.Instance.offlinetime < 0)
-					DataCenter.Instance.offlinetime = GameServerTime.Instance.serverTime;
+				{
+					log.Info("[offlinetime start]->" + UnityEngine.Time.realtimeSinceStartup.ToString());
+					DataCenter.Instance.offlinetime = (int)UnityEngine.Time.realtimeSinceStartup;
+				}
 			}
 
 
