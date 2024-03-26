@@ -268,13 +268,13 @@ namespace SGame.Dining
 			{
 				var ss = GlobalDesginConfig.GetStr("region_size")?.Split('|');
 				if (ss != null && ss.Length >= 3)
-					g_size = new Vector3(int.Parse(ss[0]), int.Parse(ss[1]), int.Parse(ss[2]));
+					g_size = new Vector3(float.Parse(ss[0]), float.Parse(ss[1]), float.Parse(ss[2]));
 				else
 					g_size = new Vector3(0.9f, 0.5f, 0.9f);
 
 				ss = GlobalDesginConfig.GetStr("region_center")?.Split('|');
 				if (ss != null && ss.Length >= 3)
-					g_center = new Vector3(int.Parse(ss[0]), int.Parse(ss[1]), int.Parse(ss[2]));
+					g_center = new Vector3(float.Parse(ss[0]), float.Parse(ss[1]), float.Parse(ss[2]));
 				else
 					g_center = new Vector3(0, 0.22f, 0);
 			}
