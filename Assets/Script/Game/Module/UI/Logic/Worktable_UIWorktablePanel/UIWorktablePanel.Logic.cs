@@ -225,7 +225,20 @@ namespace SGame.UI
 			}
 		}
 
-
-
+		partial void OnClickBtnClick(EventContext data)
+		{
+			if (DataCenter.Instance.guideData.isGuide)
+			{
+				Debug.Log("-----------");
+				if (this.info.type == 1)
+				{
+					Unlock();
+				}
+				else if (this.info.type == 2)
+				{
+					UpLevel();
+				}
+			}
+		}
 	}
 }

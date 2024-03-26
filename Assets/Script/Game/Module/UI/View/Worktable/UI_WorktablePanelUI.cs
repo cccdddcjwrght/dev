@@ -18,6 +18,7 @@ namespace SGame.UI.Worktable
         public GLabel m_time;
         public GLabel m_price;
         public GTextField m_unlock;
+        public GLoader m_clickBtn;
         public GButton m_click;
         public GGroup m_info;
         public GList m_tips;
@@ -45,10 +46,11 @@ namespace SGame.UI.Worktable
             m_time = (GLabel)GetChildAt(10);
             m_price = (GLabel)GetChildAt(11);
             m_unlock = (GTextField)GetChildAt(13);
-            m_click = (GButton)GetChildAt(14);
-            m_info = (GGroup)GetChildAt(15);
-            m_tips = (GList)GetChildAt(16);
-            m_view = (GGroup)GetChildAt(17);
+            m_clickBtn = (GLoader)GetChildAt(14);
+            m_click = (GButton)GetChildAt(15);
+            m_info = (GGroup)GetChildAt(16);
+            m_tips = (GList)GetChildAt(17);
+            m_view = (GGroup)GetChildAt(18);
             m_t0 = GetTransitionAt(0);
         }
     }

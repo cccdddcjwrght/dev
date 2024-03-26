@@ -15,12 +15,14 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
 			m_view.m_pos.onChanged.Add(new EventCallback1(_OnPosChanged));
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
 			m_view.m_pos.onChanged.Remove(new EventCallback1(_OnPosChanged));
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 
 		}
@@ -48,6 +50,10 @@ namespace SGame.UI{
 		string GetPriceText()=>UIListener.GetText(m_view.m_price);
 		void SetUnlockText(string data)=>UIListener.SetText(m_view.m_unlock,data);
 		string GetUnlockText()=>UIListener.GetText(m_view.m_unlock);
+		void _OnClickBtnClick(EventContext data){
+			OnClickBtnClick(data);
+		}
+		partial void OnClickBtnClick(EventContext data);
 		void _OnClickClick(EventContext data){
 			OnClickClick(data);
 		}

@@ -17,6 +17,7 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			m_view.m_panel.m_type.onChanged.Add(new EventCallback1(_OnWorktablePanelTypeChanged));
 			m_view.m_panel.m_pos.onChanged.Add(new EventCallback1(_OnWorktablePanelPosChanged));
+			UIListener.Listener(m_view.m_panel.m_clickBtn, new EventCallback1(_OnWorktablePanelClickBtnClick));
 			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnWorktablePanelClickClick));
 			UIListener.ListenerIcon(m_view.m_panel, new EventCallback1(_OnPanelClick));
 
@@ -26,6 +27,7 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_panel.m_type.onChanged.Remove(new EventCallback1(_OnWorktablePanelTypeChanged));
 			m_view.m_panel.m_pos.onChanged.Remove(new EventCallback1(_OnWorktablePanelPosChanged));
+			UIListener.Listener(m_view.m_panel.m_clickBtn, new EventCallback1(_OnWorktablePanelClickBtnClick),remove:true);
 			UIListener.Listener(m_view.m_panel.m_click, new EventCallback1(_OnWorktablePanelClickClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_panel, new EventCallback1(_OnPanelClick),remove:true);
 
@@ -66,6 +68,10 @@ namespace SGame.UI{
 		string GetWorktablePanelPriceText()=>UIListener.GetText(m_view.m_panel.m_price);
 		void SetWorktablePanelUnlockText(string data)=>UIListener.SetText(m_view.m_panel.m_unlock,data);
 		string GetWorktablePanelUnlockText()=>UIListener.GetText(m_view.m_panel.m_unlock);
+		void _OnWorktablePanelClickBtnClick(EventContext data){
+			OnWorktablePanelClickBtnClick(data);
+		}
+		partial void OnWorktablePanelClickBtnClick(EventContext data);
 		void _OnWorktablePanelClickClick(EventContext data){
 			OnWorktablePanelClickClick(data);
 		}

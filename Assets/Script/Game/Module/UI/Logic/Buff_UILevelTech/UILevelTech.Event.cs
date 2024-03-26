@@ -63,6 +63,7 @@ namespace SGame.UI
 			UIListener.SetText(view.m_click, str);
 			view.m_click.onClick.Clear();
 			view.m_click.onClick.Add(() => OnItemClick(index, view, data));
+			view.m_clickBtn.onClick.Add(() => OnItemClick(index, view, data));
 			RefreshBtn(item);
 		}
 
