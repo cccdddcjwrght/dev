@@ -9,17 +9,34 @@ namespace SGame.UI
 
 	public partial class UIWorktablePanel
 	{
+		private LongPressGesture _press;
+		private float ct;
+		private float it;
+		private float minit;
+		private bool pressFlag;
+
 		partial void InitEvent(UIContext context)
 		{
+
+			ct = GlobalDesginConfig.GetFloat("worktable_longpress_check_time");
+			it = GlobalDesginConfig.GetFloat("worktable_longpress_interval");
+			minit = GlobalDesginConfig.GetFloat("worktable_longpress_interval_min");
+
+			ct = ct > 0 ? ct : 0.5f;
+			it = it > 0 ? it : 0.2f;
+			minit = minit > 0 ? minit : 0.05f;
+
 			m_view.SetPivot(0.5f, 1f, true);
 			if (info.id > 0 && info.type == 2)
 			{
-				new LongPressGesture(m_view.m_click)
+				_press = new LongPressGesture(m_view.m_click)
 				{
 					once = false,
-					interval = 0.1f,
-					trigger = 1f
-				}.onAction.Add(OnClickClick);
+					interval = it,
+					trigger = ct
+				};
+				_press.onBegin.Add(OnBegin);
+				_press.onEnd.Add(() => pressFlag = false);
 			}
 
 			GRoot.inst.onClick.Add(OnOtherUIClick);
@@ -33,6 +50,25 @@ namespace SGame.UI
 			GRoot.inst.onClick.Remove(OnOtherUIClick);
 
 			EventManager.Instance.UnReg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
+		}
+
+		void OnBegin()
+		{
+			pressFlag = true;
+
+			System.Collections.IEnumerator Run()
+			{
+				var interval = it;
+				while (pressFlag)
+				{
+					OnClickClick(null);
+					yield return new WaitForSeconds(interval);
+					if (interval >= minit)
+						interval -= (it - minit) * 0.1f;
+				}
+			}
+
+			Run().Start();
 		}
 
 		void OnGoldChange(double val, double change)

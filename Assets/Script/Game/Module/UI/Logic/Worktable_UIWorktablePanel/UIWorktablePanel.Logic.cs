@@ -182,6 +182,7 @@ namespace SGame.UI
 					EffectSystem.Instance.AddEffect(2, m_view.m_click);
 					return true;
 			}
+			pressFlag = false;
 			return false;
 		}
 
