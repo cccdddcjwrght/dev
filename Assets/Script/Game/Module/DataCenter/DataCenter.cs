@@ -131,6 +131,7 @@ namespace SGame
 					m_foodTipsGold = 0;
 					log.Info("FoodTip=" + m_foodTipsGold + " after=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
 				}
+				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, 9999999);
 			}
 			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 

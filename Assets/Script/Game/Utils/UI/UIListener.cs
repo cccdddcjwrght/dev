@@ -380,8 +380,9 @@ public class UIListener
 	static public GObject Listener(GObject gObject, object method, EventType eventType = EventType.Click, bool remove = false)
 	{
 		var cache = gObject;
-		if (gObject != null && method != null)
+		if (gObject != null && method != null )
 		{
+
 			var call = method as EventCallback1;
 			var itemRenderer = method as ListItemRenderer;
 			var com = gObject.asCom;
@@ -403,6 +404,8 @@ public class UIListener
 				else
 					clickItem = gObject;
 			}
+
+
 
 			EventListener eventListener = default;
 			switch (eventType)

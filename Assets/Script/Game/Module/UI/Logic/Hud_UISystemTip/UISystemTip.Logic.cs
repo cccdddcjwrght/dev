@@ -10,6 +10,7 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context)
 		{
 			m_view.visible = false;
+			m_view.z = -550;
 			context.window.AddEventListener("UpdateTip", OnUpdateTip);
 			context.content.xy = Vector2.zero;
 			if (context.gameWorld.GetEntityManager().HasComponent<UIParam>(context.entity))

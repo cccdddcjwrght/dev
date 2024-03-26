@@ -15,6 +15,8 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_quality.onChanged.Add(new EventCallback1(_OnQualityChanged));
 			m_view.m_lvmax.onChanged.Add(new EventCallback1(_OnLvmaxChanged));
+			m_view.m_progress.m_state.onChanged.Add(new EventCallback1(_Onuplevelprogress_StateChanged));
+			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
@@ -24,6 +26,8 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 			m_view.m_quality.onChanged.Remove(new EventCallback1(_OnQualityChanged));
 			m_view.m_lvmax.onChanged.Remove(new EventCallback1(_OnLvmaxChanged));
+			m_view.m_progress.m_state.onChanged.Remove(new EventCallback1(_Onuplevelprogress_StateChanged));
+			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick),remove:true);
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
@@ -50,10 +54,17 @@ namespace SGame.UI{
 		string GetNextlvattrText()=>UIListener.GetText(m_view.m_nextlvattr);
 		void SetCostText(string data)=>UIListener.SetText(m_view.m_cost,data);
 		string GetCostText()=>UIListener.GetText(m_view.m_cost);
+		void _Onuplevelprogress_StateChanged(EventContext data){
+			Onuplevelprogress_StateChanged(data);
+		}
+		partial void Onuplevelprogress_StateChanged(EventContext data);
+		void Switchuplevelprogress_StatePage(int index)=>m_view.m_progress.m_state.selectedIndex=index;
+		void _OnProgressClick(EventContext data){
+			OnProgressClick(data);
+		}
+		partial void OnProgressClick(EventContext data);
 		void SetProgressValue(float data)=>UIListener.SetValue(m_view.m_progress,data);
 		float GetProgressValue()=>UIListener.GetValue(m_view.m_progress);
-		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
-		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
 		void _OnClickClick(EventContext data){
 			OnClickClick(data);
 		}

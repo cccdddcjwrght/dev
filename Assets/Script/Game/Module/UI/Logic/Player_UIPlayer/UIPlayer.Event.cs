@@ -8,6 +8,8 @@ namespace SGame.UI
 
 	public partial class UIPlayer
 	{
+
+
 		partial void InitEvent(UIContext context)
 		{
 
@@ -23,45 +25,16 @@ namespace SGame.UI
 
 		}
 
-		partial void OnAttrbtnClick(EventContext data)
-		{
-		}
 
 		void OnEquipUpdate()
 		{
-			SetPlayerEquipsInfo();
-			OnDataRefresh();
+			SetEquipList();
 		}
 
 		private void OnPlayerEquipChange()
 		{
 			SetPlayerEquipsInfo();
-			RefreshModel();
 		}
 
-		partial void OnEq1Click(EventContext data)
-		{
-			OnEqClick(null, DataCenter.Instance.equipData.equipeds[1]);
-		}
-
-		partial void OnEq2Click(EventContext data)
-		{
-			OnEqClick(null, DataCenter.Instance.equipData.equipeds[2]);
-		}
-
-		partial void OnEq3Click(EventContext data)
-		{
-			OnEqClick(null, DataCenter.Instance.equipData.equipeds[3]);
-		}
-
-		partial void OnEq4Click(EventContext data)
-		{
-			OnEqClick(null, DataCenter.Instance.equipData.equipeds[4]);
-		}
-
-		partial void OnEq5Click(EventContext data)
-		{
-			OnEqClick(null, DataCenter.Instance.equipData.equipeds[5]);
-		}
 	}
 }

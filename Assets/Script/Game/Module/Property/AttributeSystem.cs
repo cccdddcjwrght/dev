@@ -350,6 +350,7 @@ namespace SGame
 			return default;
 		}
 
+
 		private int GetCurrentTime()
 		{
 			return (int)GlobalTime.passTime;

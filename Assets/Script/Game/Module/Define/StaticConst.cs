@@ -142,7 +142,21 @@ namespace SGame
 		#endregion
 
 		// 装备资源路径
+		#region Equip
+
 		public const string WEAPON_PATH = "Assets/BuildAsset/Prefabs/Equipments/";
+
+		/// <summary>
+		/// 装备升级品质材料数量
+		/// </summary>
+		public const int EQUIP_UP_QUALITY_MAT_COUNT = 3;
+
+		/// <summary>
+		/// 升级材料ID
+		/// </summary>
+		public const int EQUIP_UPLV_MAT = 99;
+
+		#endregion
 	}
 
 	/// <summary>
@@ -154,6 +168,14 @@ namespace SGame
 
 		public static bool G_WAIT_VIDEO = false;
 		public static bool G_VIDEO_COMPLETE = false;
+
+
+
+		/// <summary>
+		/// 装备等级上限
+		/// </summary>
+		public static int EQUIP_MAX_LEVEL;
+
 
 	}
 }

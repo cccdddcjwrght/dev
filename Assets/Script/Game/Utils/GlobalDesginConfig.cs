@@ -24,7 +24,7 @@ namespace GameConfigs
 		//获取判断第一行第一个值的类型，是否在服务器上已经存在
 		//类型是Int或Bool时返回一整行数据
 		//返回空值
-		public static int GetInt(string name)
+		public static int GetInt(string name , int def = 0)
 		{
 			//找到表里面的数值
 			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.Design_GlobalRowData val))
@@ -43,11 +43,11 @@ namespace GameConfigs
 			}
 
 			GameDebug.LogWarning("Parse Fail=" + name);
-			return 0;
+			return def;
 		}
 
 		//类型是float时输出数据
-		public static float GetFloat(string name)
+		public static float GetFloat(string name , float def = default)
 		{
 			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.Design_GlobalRowData val))
 			{
@@ -66,7 +66,7 @@ namespace GameConfigs
 			
 
 			GameDebug.LogWarning("Parse Fail=" + name);
-			return 0;
+			return def;
 		}
 
 

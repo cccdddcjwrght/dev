@@ -22,6 +22,7 @@ namespace SGame
 			{
 				_data.items?.ForEach(e => e.Refresh());
 				_data.equipeds.Foreach(e => e?.Refresh());
+				StaticDefine.EQUIP_MAX_LEVEL = ConfigSystem.Instance.GetConfigCount(typeof(EquipUpLevelCost));
 			}
 
 			static public void InitEquipEffects()
@@ -29,31 +30,40 @@ namespace SGame
 				OnRoleEquipChange();
 			}
 
-			static public string GetRoleEquipString()
+			static public string GetRoleEquipString() => GetRoleEquipString(0);
+
+			static public string GetRoleEquipString(int roleType)
 			{
 				#region 当前场景角色基模数据
-				if (_data.defaultEquipPart == null)
+				var parts = _data.defaultEquipPart;
+				if (_data.defaultEquipPart == null || roleType != 0)
 				{
-					_data.defaultEquipPart = new Dictionary<string, string>();
-					if (ConfigSystem.Instance.TryGet<GameConfigs.LevelRowData>(DataCenter.Instance.roomData.current.id, out var level))
+					parts = new Dictionary<string, string>();
+					if (roleType == 0)
 					{
-						if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(level.PlayerId, out var role))
+						if (ConfigSystem.Instance.TryGet<GameConfigs.LevelRowData>(DataCenter.Instance.roomData.current.id, out var level))
+							roleType = level.PlayerId;
+					}
+
+					if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(roleType, out var role))
+					{
+						if (ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
 						{
-							if (ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
+							var ss = model.Part.Split('|');
+							if (ss.Length % 2 == 1)
 							{
-								var ss = model.Part.Split('|');
-								if (ss.Length % 2 == 1)
-								{
-									for (int i = 1; i < ss.Length - 1; i += 2)
-										_data.defaultEquipPart[ss[i].ToLower()] = ss[i + 1];
-								}
+								for (int i = 1; i < ss.Length - 1; i += 2)
+									parts[ss[i].ToLower()] = ss[i + 1];
 							}
 						}
 					}
+					if (roleType == 0)
+						_data.defaultEquipPart = parts;
+
 				}
 				#endregion
 
-				var d = new Dictionary<string, string>(_data.defaultEquipPart);
+				var d = new Dictionary<string, string>(parts);
 				_data.equipeds.Foreach(e =>
 				{
 					if (e != null && e.cfgID > 0)
@@ -65,33 +75,50 @@ namespace SGame
 				return _sb.ToString();
 			}
 
-			static public int GetRoleEquipAddValue()
+			static public int GetRoleEquipAddValue(IList<BaseEquip> eqs = null)
 			{
 				var v = 0;
-				for (int i = 0; i < _data.equipeds.Length; i++)
+				eqs = eqs ?? _data.equipeds;
+				for (int i = 0; i < eqs.Count; i++)
 				{
-					var e = _data.equipeds[i];
+					var e = eqs[i];
 					if (e != null && e.cfgID > 0)
-						v += e.cfg.MainBuff(1);
+						v += e.attrVal;
 				}
 				return v;
 			}
 
-			static public List<int[]> GetEquipEffects(GameConfigs.EquipmentRowData equipment, bool needMainBuff = false, List<int[]> rets = null)
+			static public List<int[]> GetEquipEffects(EquipItem equip, List<int[]> rets = null, bool needmain = true)
+			{
+				if (equip != null && equip.cfg.IsValid())
+				{
+					rets = GetEquipEffects(equip.cfg, equip.quality, rets: rets);
+					if (rets != null && needmain)
+						rets.Add(new int[] { equip.attrID, equip.attrVal });
+				}
+				return rets;
+			}
+
+			static public List<int[]> GetEquipEffects(GameConfigs.EquipmentRowData equipment, int quality = 0, bool needMainBuff = false, List<int[]> rets = null)
 			{
 				if (equipment.IsValid())
 				{
+					quality = quality > 0 ? quality : equipment.Quality;
+
 					var list = rets ?? new List<int[]>();
-					if (equipment.Buff1Length > 0)
+					if (quality > 1 && equipment.Buff1Length > 0)
 						list.Add(equipment.GetBuff1Array());
-					if (equipment.Buff2Length > 0)
+					if (quality > 2 && equipment.Buff2Length > 0)
 						list.Add(equipment.GetBuff2Array());
-					if (equipment.Buff3Length > 0)
+					if (quality > 3 && equipment.Buff3Length > 0)
 						list.Add(equipment.GetBuff3Array());
-					if (equipment.Buff4Length > 0)
+					if (quality > 4 && equipment.Buff4Length > 0)
 						list.Add(equipment.GetBuff4Array());
-					if (equipment.Buff5Length > 0)
+					if (quality > 5 && equipment.Buff5Length > 0)
 						list.Add(equipment.GetBuff5Array());
+					/*
+					if (quality > 6 && equipment.Buff6Length > 0)
+						list.Add(equipment.GetBuff6Array());*/
 
 					if (needMainBuff)
 						list.Add(equipment.GetMainBuffArray());
@@ -139,6 +166,7 @@ namespace SGame
 							isnew = isnew ? (byte)1 : (byte)0
 						};
 						_data.items.Add(e);
+						e.quality = cfg.Quality;
 					}
 					if (triggerevent)
 					{
@@ -196,7 +224,6 @@ namespace SGame
 
 			static public void RemoveEquip(EquipItem equip, bool triggerevent = true)
 			{
-
 				var index = _data.items.IndexOf(equip);
 				if (index >= 0)
 				{
@@ -204,6 +231,65 @@ namespace SGame
 					if (triggerevent)
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 				}
+			}
+
+			static public int RecycleEquips(bool remove = false, bool triggerevent = true, params EquipItem[] equips)
+			{
+				if (equips?.Length > 0)
+				{
+					var count = 0;
+					equips.Foreach(e => count += RecycleEquip(e, remove, false));
+					if (count > 0)
+					{
+						PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, count);
+						if (triggerevent)
+							EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+					}
+					return count;
+				}
+				return 0;
+			}
+
+			static public int RecycleEquip(EquipItem equip, bool remove = false, bool triggerevent = true)
+			{
+				if (equip != null)
+				{
+					if (_data.items.Contains(equip))
+					{
+						var count = equip.progress;
+
+						if (equip.level > 1)
+						{
+							for (int i = 1; i < equip.level; i++)
+								count += GetUplevelConst(i, equip.quality);
+						}
+						if (triggerevent && count > 0)
+							PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, count);
+						if (remove)
+							RemoveEquip(equip, triggerevent);
+						return count;
+					}
+				}
+				return 0;
+			}
+
+			static public int GetUplevelConst(int level , int quality , EquipUpLevelCostRowData cfg = default)
+			{
+				var count = 0;
+				if (cfg.IsValid() || ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level, out  cfg))
+				{
+					switch (quality)
+					{
+						case 1: count = cfg.Quality1Need; break;
+						case 2: count = cfg.Quality2Need; break;
+						case 3: count = cfg.Quality3Need; break;
+						case 4: count = cfg.Quality4Need; break;
+						case 5: count = cfg.Quality5Need; break;
+						case 6: count = cfg.Quality6Need; break;
+						case 7: count = cfg.Quality7Need; break;
+					}
+				}
+				return count;
 			}
 
 			static public List<EquipItem> GetEquipDataByType(int type)
@@ -244,7 +330,7 @@ namespace SGame
 				if (!remove)
 				{
 					var list = new List<int[]>();
-					_data.equipeds.Foreach(e => GetEquipEffects(e != null ? e.cfg : default, true, list));
+					_data.equipeds.Foreach(e => GetEquipEffects(e, list));
 
 					if (list.Count > 0)
 					{
@@ -272,7 +358,7 @@ namespace SGame
 		/// <summary>
 		/// 角色类型ID
 		/// </summary>
-		public int	roleTypeID;
+		public int roleTypeID;
 		/// <summary>
 		/// 是否雇佣兵
 		/// </summary>
@@ -291,7 +377,6 @@ namespace SGame
 
 		[NonSerialized]
 		public Dictionary<string, string> defaultEquipPart;
-
 	}
 
 	public class BaseEquip
@@ -300,8 +385,26 @@ namespace SGame
 		public int level;
 		public int quality;
 
+		public byte isnew;
+
+
 		public EquipmentRowData cfg { get; set; }
+		public EquipUpLevelCostRowData lvcfg { get; set; }
+		public EquipUpLevelCostRowData nextlvcfg { get; set; }
+		public int upLvCost { get;private set; }
+
+
 		public int type { get { return cfg.Type; } }
+
+		public int attrID { get; private set; }
+		public int attrVal
+		{
+			get
+			{
+				return GetAttrVal();
+			}
+		}
+
 
 		private Dictionary<string, string> _partData;
 
@@ -311,9 +414,24 @@ namespace SGame
 			{
 				if (quality <= 0)
 					quality = cfg.Quality;
+				attrID = cfg.MainBuff(0);
 			}
+			ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level, out var lv);
+			ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level+1, out var nlv);
+
+			this.lvcfg = lv;
+			this.nextlvcfg = nlv;
 			this.cfg = cfg;
+			upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality , lvcfg);
+
 			return this;
+		}
+
+		public int GetAttrVal(bool needlv = true)
+		{
+
+			return cfg.MainBuff(1) + (needlv && lvcfg.IsValid() ? lvcfg.AddVal : 0);
+
 		}
 
 		public Dictionary<string, string> GetPartData()
@@ -341,6 +459,11 @@ namespace SGame
 			return _partData;
 		}
 
+		public bool IsMaxLv()
+		{
+			return level >= StaticDefine.EQUIP_MAX_LEVEL;
+		}
+
 		public void ReplacePart(in Dictionary<string, string> rets)
 		{
 			if (rets != null)
@@ -354,6 +477,10 @@ namespace SGame
 			}
 		}
 
+		public virtual BaseEquip Clone()
+		{
+			return new BaseEquip() { cfgID = cfgID, level = level, quality = quality, cfg = cfg };
+		}
 	}
 
 	[Serializable]
@@ -361,7 +488,6 @@ namespace SGame
 	{
 		public int key;
 		public int pos;
-		public byte isnew;
 		/// <summary>
 		/// 升级进度
 		/// </summary>
@@ -372,7 +498,6 @@ namespace SGame
 		{
 			key = (int)System.DateTime.Now.Ticks;
 		}
-
 	}
 
 }

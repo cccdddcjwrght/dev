@@ -9,15 +9,8 @@ namespace SGame.UI.Player
     {
         public Controller m_eqTab;
         public GLabel m_body;
-        public GComponent m_model;
-        public GButton m_attrbtn;
-        public GTextField m_attr;
-        public GGraph m_holder;
-        public UI_EqPos m_eq5;
-        public UI_EqPos m_eq4;
-        public UI_EqPos m_eq1;
-        public UI_EqPos m_eq2;
-        public UI_EqPos m_eq3;
+        public UI_EquipPage m_EquipPage;
+        public UI_EquipUpQuality m_EquipQuality;
         public GList m_tabs;
         public GList m_list;
         public const string URL = "ui://cmw7t1elk6220";
@@ -33,17 +26,10 @@ namespace SGame.UI.Player
 
             m_eqTab = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
-            m_model = (GComponent)GetChildAt(1);
-            m_attrbtn = (GButton)GetChildAt(4);
-            m_attr = (GTextField)GetChildAt(5);
-            m_holder = (GGraph)GetChildAt(7);
-            m_eq5 = (UI_EqPos)GetChildAt(9);
-            m_eq4 = (UI_EqPos)GetChildAt(10);
-            m_eq1 = (UI_EqPos)GetChildAt(11);
-            m_eq2 = (UI_EqPos)GetChildAt(12);
-            m_eq3 = (UI_EqPos)GetChildAt(13);
-            m_tabs = (GList)GetChildAt(14);
-            m_list = (GList)GetChildAt(15);
+            m_EquipPage = (UI_EquipPage)GetChildAt(1);
+            m_EquipQuality = (UI_EquipUpQuality)GetChildAt(2);
+            m_tabs = (GList)GetChildAt(4);
+            m_list = (GList)GetChildAt(5);
         }
     }
 }

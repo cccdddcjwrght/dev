@@ -16,7 +16,7 @@ namespace SGame.UI.Player
         public GTextField m_nextlvattr;
         public GTextField m_cost;
         public GLoader m_item;
-        public GProgressBar m_progress;
+        public UI_uplevelprogress m_progress;
         public GList m_list;
         public GButton m_click;
         public GButton m_up;
@@ -36,18 +36,18 @@ namespace SGame.UI.Player
             m_quality = GetControllerAt(0);
             m_lvmax = GetControllerAt(1);
             m_maskbg = (GGraph)GetChildAt(0);
-            m_level = (GTextField)GetChildAt(3);
-            m_attr = (GTextField)GetChildAt(5);
-            m_qualitytips = (GTextField)GetChildAt(6);
-            m_nextlvattr = (GTextField)GetChildAt(7);
-            m_cost = (GTextField)GetChildAt(8);
-            m_item = (GLoader)GetChildAt(10);
-            m_progress = (GProgressBar)GetChildAt(11);
-            m_list = (GList)GetChildAt(14);
-            m_click = (GButton)GetChildAt(15);
-            m_up = (GButton)GetChildAt(16);
-            m_close = (GButton)GetChildAt(17);
-            m_click2 = (GButton)GetChildAt(18);
+            m_level = (GTextField)GetChildAt(4);
+            m_attr = (GTextField)GetChildAt(6);
+            m_qualitytips = (GTextField)GetChildAt(7);
+            m_nextlvattr = (GTextField)GetChildAt(8);
+            m_cost = (GTextField)GetChildAt(9);
+            m_item = (GLoader)GetChildAt(11);
+            m_progress = (UI_uplevelprogress)GetChildAt(12);
+            m_list = (GList)GetChildAt(16);
+            m_click = (GButton)GetChildAt(17);
+            m_up = (GButton)GetChildAt(18);
+            m_close = (GButton)GetChildAt(19);
+            m_click2 = (GButton)GetChildAt(20);
         }
     }
 }
