@@ -1,0 +1,56 @@
+
+# excel文件的后缀
+excel_extension: "xlsx"
+
+# excel配置文件存放路径
+excel_rootPath: [".vs/doc/"]
+#excel临时输出目录
+excel_tempPath: "generated_Excel"
+
+# excel文件头的长度
+header_length: 4
+
+# 行数据忽略校验字符,如果行的第一格里面的数据是 这个字符 或者以 这个字符开头 的就会忽略不生效
+# 第一格空数据也会使这行不生效
+ignore_row_key: ["#", " ", "-"]
+# fbs文件输出目录
+output_fbs_rootPath: "generated_fbs"
+
+# 二进制文件输出路径
+output_bin_rootPath: ".vs/BuildAsset/configs/"
+
+# flat工具路径
+flat_path: "flatc/flatc"
+
+# excel配置支持的基本数据类型
+support_datatypes: ["string", "int", "float", "byte", "bool", "[int]", "[float]", "[string]"]
+
+# 对应不标准数据类型写法的兼容配置映射
+
+replace_dict:
+  boolean: "bool"
+  String: "string"
+  int[]: "[int]"
+  float[]: "[float]"  
+  string[]: "[string]"
+  String[]: "[string]"
+  Integer: "int"
+  Float: "float"
+  str: "string"
+  
+
+debug_code: false
+
+# 生成对应的语言
+#generate_lang_type: ["go", "rust", "python", "csharp", "bins", "fbs", "ts", "js"]
+generate_lang_type: ["python", "csharp", "bins", "fbs", "go"]
+
+# 名字空间
+name_space: "GameConfigs"
+
+#单独打包文件路径
+singlepath: false
+
+#输出C#语言的路径配置
+DST_PATH: ".vs/Script/Game/Config/"
+SRC_PATH: "./generated_csharp"
