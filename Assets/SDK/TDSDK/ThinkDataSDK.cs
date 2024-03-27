@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !TD_OFF
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,7 +59,7 @@ namespace SDK.TDSDK
 			}
 
 			var tokens = api.configs == null || api.configs.Length == 0 ? new TDTOKEN[1] : api.configs;
-			var tk = tokens[0] == null || tokens[0].appId == null ? new TDTOKEN("",serverUrl: "") : tokens[0];
+			var tk = tokens[0] == null || tokens[0].appId == null ? new TDTOKEN("", serverUrl: "") : tokens[0];
 			var appid = GetCfg<string>("td_appid", tk.appId);
 			var url = GetCfg<string>("td_url", tk.serverUrl);
 
@@ -109,7 +111,7 @@ namespace SDK.TDSDK
 		}
 
 
-		#region Data
+#region Data
 
 		public void UpdateData<T>(string key, T val, bool once = false)
 		{
@@ -138,9 +140,9 @@ namespace SDK.TDSDK
 			}
 		}
 
-		#endregion
+#endregion
 
-		#region Event
+#region Event
 
 
 		public void TrackNormal(string eventName, params object[] args)
@@ -162,7 +164,7 @@ namespace SDK.TDSDK
 		{
 			if (string.IsNullOrEmpty(eventName)) return;
 			var ps = args == null || args.Length == 0 ? null : ArgsToDic(args);
-			DoFillEventProperties(eventName,ref ps);
+			DoFillEventProperties(eventName, ref ps);
 			switch (type)
 			{
 				case TDEventEnum.Normal:
@@ -173,8 +175,8 @@ namespace SDK.TDSDK
 					TDAPI.Track(normalEvent);
 					break;
 				case TDEventEnum.Update:
-					var updatableEvent = new TDUpdatableEvent("UPDATABLE_EVENT", eventName) { Properties = ps};
-					updatableEvent.SetTime( DateTime.Now , TimeZoneInfo.Local) ;
+					var updatableEvent = new TDUpdatableEvent("UPDATABLE_EVENT", eventName) { Properties = ps };
+					updatableEvent.SetTime(DateTime.Now, TimeZoneInfo.Local);
 					TDAPI.Track(updatableEvent);
 					break;
 				case TDEventEnum.Overwrite:
@@ -194,9 +196,9 @@ namespace SDK.TDSDK
 			return default;
 		}
 
-		#endregion
+#endregion
 
-		#region 公共属性
+#region 公共属性
 
 		public Dictionary<string, object> GetDynamicSuperProperties()
 		{
@@ -211,9 +213,9 @@ namespace SDK.TDSDK
 			return properties;
 		}
 
-		#endregion
+#endregion
 
-		#region method
+#region method
 
 		private void OnStart()
 		{
@@ -307,9 +309,9 @@ namespace SDK.TDSDK
 
 
 
-		#endregion
+#endregion
 
-		#region 部分方法
+#region 部分方法
 
 
 		partial void DoStart();
@@ -340,7 +342,9 @@ namespace SDK.TDSDK
 		/// <param name="properties"></param>
 		partial void DoFillEventProperties(string eventName, ref Dictionary<string, object> properties);
 
-		#endregion
+#endregion
 
 	}
 }
+
+#endif

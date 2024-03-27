@@ -1,3 +1,5 @@
+#if !TD_OFF
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,7 +124,7 @@ namespace SDK.TDSDK
 	partial class ThinkDataSDK
 	{
 
-		#region Member
+#region Member
 		static ILog log = LogManager.GetLogger("TD.Common");
 
 		private DataCenter appData { get { return DataCenter.Instance; } }
@@ -134,9 +136,9 @@ namespace SDK.TDSDK
 
 		private string netType;
 
-		#endregion
+#endregion
 
-		#region Partial
+#region Partial
 
 		partial void DoStart()
 		{
@@ -172,9 +174,9 @@ namespace SDK.TDSDK
 			}
 		}
 
-		#endregion
+#endregion
 
-		#region Method
+#region Method
 
 		private void RegisterEvent()
 		{
@@ -198,9 +200,9 @@ namespace SDK.TDSDK
 			RegisterProperty("instancing", get: (k) => SystemInfo.supportsInstancing ? 1 : 0, upload: false).LinkEvent(TDEvent.login);
 		}
 
-		#endregion
+#endregion
 
-		#region Event
+#region Event
 
 
 		public void OnLogined(string id)
@@ -239,9 +241,9 @@ namespace SDK.TDSDK
 		}
 
 
-		#endregion
+#endregion
 
-		#region Private
+#region Private
 
 		private PItem RegisterProperty(string name, object val = null, System.Func<string, object> get = null, bool once = false, bool upload = true)
 		{
@@ -275,7 +277,9 @@ namespace SDK.TDSDK
 			return v == flag;
 		}
 
-		#endregion
+#endregion
 
 	}
 }
+
+#endif
