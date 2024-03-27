@@ -89,6 +89,7 @@ namespace SGame.UI
 
 		partial void OnLevelBtnClick(EventContext data)
 		{
+			/*
 			if (DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
 			{
 				SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
@@ -97,6 +98,8 @@ namespace SGame.UI
 			{
 				"@ui_worktable_goto_next_fail".Tips();
 			}
+			*/
+			SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
 		}
 
 		partial void UnInitEvent(UIContext context)

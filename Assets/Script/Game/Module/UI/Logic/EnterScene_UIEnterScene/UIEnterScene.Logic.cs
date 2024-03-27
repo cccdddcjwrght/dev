@@ -30,26 +30,68 @@ namespace SGame.UI
 			var path = GameConfigs.GlobalConfig.GetStr("splash_video");
 			if (!string.IsNullOrEmpty(path)) c_video_path = path;
 
-			m_view.m_loader.onClick.Add(OnClick);
+			m_view.m_loader.onClick.Add(OnClickClose);
+			m_view.m_btnGO.onClick.Add(OnClick);
+			m_view.m_btnClose.onClick.Add(OnClickClose);
+
 			_nextScene = (context.GetParam()?.Value as object[]).Val<int>(0);
-			if (_nextScene > 0)
+
+			//var currentLevel = _nextScene - 1;
+			UpdateLevelState(_nextScene - 1);
+			//m_view.m_level.selectedIndex = _nextScene - 1;
+			EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
+			/*
+if (_nextScene > 0)
+{
+	if (ConfigSystem.Instance.TryGet<RoomRowData>(_nextScene, out _))
+	{
+		PlayEffect().Start();
+		return;
+	}
+}
+else if (_nextScene < 0 && !string.IsNullOrEmpty(c_video_path))
+{
+	ShowVideo().Start();
+	return;
+}
+SGame.UIUtils.CloseUIByID(__id);
+*/
+		}
+
+		void UpdateLevelState(int level)
+		{
+			int canUnlock = 0;
+			if (DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
+				canUnlock = level + 1;
+			
+			var levels = new UI_LevelItem[] { m_view.m_level1, m_view.m_level2, m_view.m_level3, m_view.m_level4 };
+			for (int i = 0; i < levels.Length; i++)
 			{
-				if (ConfigSystem.Instance.TryGet<RoomRowData>(_nextScene, out _))
+				var l = i + 1;
+				if (canUnlock == l)
 				{
-					PlayEffect().Start();
-					return;
+					levels[i].m_state.selectedIndex = 3;
+					continue;
+				}
+
+				if (l < level)
+				{
+					levels[i].m_state.selectedIndex = 2;
+				}
+				else if (l == level)
+				{
+					levels[i].m_state.selectedIndex = 1;
+				}
+				else
+				{
+					levels[i].m_state.selectedIndex = 0;
 				}
 			}
-			else if (_nextScene < 0 && !string.IsNullOrEmpty(c_video_path))
-			{
-				ShowVideo().Start();
-				return;
-			}
-			SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		IEnumerator ShowVideo()
 		{
+			/*
 			var flag = false;
 			var player = _player = new GameObject("_video").AddComponent<VideoPlayer>();
 			player.waitForFirstFrame = true;
@@ -74,10 +116,15 @@ namespace SGame.UI
 					StaticDefine.G_VIDEO_COMPLETE = true;
 				}
 			}
+			*/
+			//CompleteVideo();
+			while (true)
+				yield return null;
 		}
 
 		IEnumerator PlayEffect()
 		{
+			/*
 			var wait = GlobalConfig.GetFloat("wait_scene_effect");
 			if (wait <= 0) wait = 6f;
 			var e = EffectSystem.Instance.AddEffect(7, m_view);
@@ -100,6 +147,9 @@ namespace SGame.UI
 
 			EffectSystem.Instance.ReleaseEffect(e);
 			SGame.UIUtils.CloseUIByID(__id);
+			*/
+			while (true)
+				yield return null;
 		}
 
 		void CompleteVideo()
@@ -117,8 +167,21 @@ namespace SGame.UI
 
 		void OnClick(EventContext e)
 		{
-			if (e.inputEvent.y < 100)
-				CompleteVideo();
+			if (!DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
+			{
+				"@ui_worktable_goto_next_fail".Tips();
+				return;
+			}
+			
+			//if (e.inputEvent.y < 100)
+				//CompleteVideo();
+			SGame.UIUtils.CloseUIByID(__id);
+			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
+		}
+
+		void OnClickClose()
+		{
+			SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		partial void UnInitLogic(UIContext context)

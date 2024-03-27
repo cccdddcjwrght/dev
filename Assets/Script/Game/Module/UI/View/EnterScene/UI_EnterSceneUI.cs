@@ -9,6 +9,14 @@ namespace SGame.UI.EnterScene
     {
         public GGraph m___effect;
         public GLoader m_loader;
+        public GButton m_btnGO;
+        public GTextField m_title;
+        public GTextField m_title2;
+        public UI_LevelItem m_level1;
+        public UI_LevelItem m_level2;
+        public UI_LevelItem m_level3;
+        public UI_LevelItem m_level4;
+        public GButton m_btnClose;
         public const string URL = "ui://cxpm3jfbicj20";
 
         public static UI_EnterSceneUI CreateInstance()
@@ -22,6 +30,14 @@ namespace SGame.UI.EnterScene
 
             m___effect = (GGraph)GetChildAt(0);
             m_loader = (GLoader)GetChildAt(1);
+            m_btnGO = (GButton)GetChildAt(3);
+            m_title = (GTextField)GetChildAt(6);
+            m_title2 = (GTextField)GetChildAt(7);
+            m_level1 = (UI_LevelItem)GetChildAt(8);
+            m_level2 = (UI_LevelItem)GetChildAt(9);
+            m_level3 = (UI_LevelItem)GetChildAt(10);
+            m_level4 = (UI_LevelItem)GetChildAt(11);
+            m_btnClose = (GButton)GetChildAt(12);
         }
     }
 }

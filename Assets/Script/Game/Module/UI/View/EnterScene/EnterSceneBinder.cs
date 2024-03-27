@@ -9,6 +9,7 @@ namespace SGame.UI.EnterScene
         public static void BindAll()
         {
             UIObjectFactory.SetPackageItemExtension(UI_EnterSceneUI.URL, typeof(UI_EnterSceneUI));
+            UIObjectFactory.SetPackageItemExtension(UI_LevelItem.URL, typeof(UI_LevelItem));
         }
     }
 }
