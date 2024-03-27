@@ -35,27 +35,20 @@ namespace SGame.UI
 			m_view.m_btnClose.onClick.Add(OnClickClose);
 
 			_nextScene = (context.GetParam()?.Value as object[]).Val<int>(0);
+			
+			if (_nextScene > 0)
+			{
+				UpdateLevelState(_nextScene - 1);
+				EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
 
-			//var currentLevel = _nextScene - 1;
-			UpdateLevelState(_nextScene - 1);
-			//m_view.m_level.selectedIndex = _nextScene - 1;
-			EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
-			/*
-if (_nextScene > 0)
-{
-	if (ConfigSystem.Instance.TryGet<RoomRowData>(_nextScene, out _))
-	{
-		PlayEffect().Start();
-		return;
-	}
-}
-else if (_nextScene < 0 && !string.IsNullOrEmpty(c_video_path))
-{
-	ShowVideo().Start();
-	return;
-}
-SGame.UIUtils.CloseUIByID(__id);
-*/
+				return;
+			}
+			else if (_nextScene < 0 && !string.IsNullOrEmpty(c_video_path))
+			{
+				ShowVideo().Start();
+				return;
+			}
+			SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		void UpdateLevelState(int level)
@@ -91,7 +84,6 @@ SGame.UIUtils.CloseUIByID(__id);
 
 		IEnumerator ShowVideo()
 		{
-			/*
 			var flag = false;
 			var player = _player = new GameObject("_video").AddComponent<VideoPlayer>();
 			player.waitForFirstFrame = true;
@@ -116,10 +108,8 @@ SGame.UIUtils.CloseUIByID(__id);
 					StaticDefine.G_VIDEO_COMPLETE = true;
 				}
 			}
-			*/
-			//CompleteVideo();
-			while (true)
-				yield return null;
+			
+			CompleteVideo();
 		}
 
 		IEnumerator PlayEffect()

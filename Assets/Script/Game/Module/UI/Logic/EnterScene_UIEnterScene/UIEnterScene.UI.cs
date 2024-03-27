@@ -16,8 +16,6 @@ namespace SGame.UI{
 
 		}
 		partial void UnInitUI(UIContext context){
-
 		}
-
 	}
 }
