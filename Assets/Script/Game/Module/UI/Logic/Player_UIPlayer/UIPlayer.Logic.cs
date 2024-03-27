@@ -22,6 +22,8 @@ namespace SGame.UI
 			m_view.m_list.itemRenderer = OnSetEquipInfo;
 			m_view.m_list.SetVirtual();
 
+			m_view.m_tabs.GetChildAt(2).touchable = false;
+
 			InitEquipPage();
 			InitUpQualityPage();
 		}
