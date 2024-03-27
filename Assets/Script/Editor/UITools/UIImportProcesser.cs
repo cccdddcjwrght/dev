@@ -144,6 +144,8 @@ public static class UIImportUtils
 				.Select(l => l.Replace("public", "").Replace(";", " " + typeName).Trim().Split(' '))
 				.ToList();
 		if (ms == null || ms.Count == 0) return;
+		if (ms.FindIndex(m => m[0] == "Controller" && m[1].EndsWith("__disable")) > -1) return ;
+
 		var rets = members ?? new List<string[]>();
 		var count = 0;
 		ms.ForEach(m =>

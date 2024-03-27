@@ -22,7 +22,7 @@ namespace SGame.UI
 			UIListener.ListenerClose(m_view.m_rate_2.m_bg, new EventCallback1(OnRateClose), false);
 		}
 
-		partial void OnBigGoods_ClickClick(EventContext data)
+		partial void OnBigGoods_Content_adgood_clickClick(EventContext data)
 		{
 			RequestExcuteSystem.BuyGoods(1);
 		}
