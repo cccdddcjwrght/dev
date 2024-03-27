@@ -11,6 +11,7 @@ namespace SGame.UI.Shop
         public Controller m_rate;
         public GLabel m_body;
         public UI_ShopBody m_content;
+        public GLoader m_clickBtn;
         public UI_Probability m_rate_2;
         public const string URL = "ui://aphwhwgnlxyle";
 
@@ -27,7 +28,8 @@ namespace SGame.UI.Shop
             m_rate = GetControllerAt(1);
             m_body = (GLabel)GetChildAt(0);
             m_content = (UI_ShopBody)GetChildAt(1);
-            m_rate_2 = (UI_Probability)GetChildAt(2);
+            m_clickBtn = (GLoader)GetChildAt(2);
+            m_rate_2 = (UI_Probability)GetChildAt(3);
         }
     }
 }

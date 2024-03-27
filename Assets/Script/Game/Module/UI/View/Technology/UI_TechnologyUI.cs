@@ -9,6 +9,7 @@ namespace SGame.UI.Technology
     {
         public GLabel m_techFrame;
         public GList m_techList;
+        public GLoader m_clickBtn;
         public const string URL = "ui://gnu1a8dnijal0";
 
         public static UI_TechnologyUI CreateInstance()
@@ -22,6 +23,7 @@ namespace SGame.UI.Technology
 
             m_techFrame = (GLabel)GetChildAt(0);
             m_techList = (GList)GetChildAt(1);
+            m_clickBtn = (GLoader)GetChildAt(2);
         }
     }
 }

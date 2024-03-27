@@ -435,6 +435,7 @@ namespace FairyGUI
             return obj;
         }
 
+
         /// <summary>
         /// Returns a visible child object with a certain name.
         /// </summary>

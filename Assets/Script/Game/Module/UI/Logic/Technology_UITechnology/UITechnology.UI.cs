@@ -13,13 +13,19 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 
 		}
 		void SetTechFrameText(string data)=>UIListener.SetText(m_view.m_techFrame,data);
 		string GetTechFrameText()=>UIListener.GetText(m_view.m_techFrame);
+		void _OnClickBtnClick(EventContext data){
+			OnClickBtnClick(data);
+		}
+		partial void OnClickBtnClick(EventContext data);
 
 	}
 }

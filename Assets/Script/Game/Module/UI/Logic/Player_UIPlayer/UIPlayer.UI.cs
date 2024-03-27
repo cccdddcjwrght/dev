@@ -44,6 +44,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_EquipQuality.m_cleareq, new EventCallback1(_OnEquipUpQuality_CleareqClick));
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick));
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick));
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -78,6 +79,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_EquipQuality.m_cleareq, new EventCallback1(_OnEquipUpQuality_CleareqClick),remove:true);
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick),remove:true);
+			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 
 		}
 		void _OnEqTabChanged(EventContext data){
@@ -201,6 +203,10 @@ namespace SGame.UI{
 		}
 		partial void OnEquipUpQuality_StateChanged(EventContext data);
 		void SwitchEquipUpQuality_StatePage(int index)=>m_view.m_EquipQuality.m_state.selectedIndex=index;
+		void SetEquipUpQuality_ProgressValue(float data)=>UIListener.SetValue(m_view.m_EquipQuality.m_progress,data);
+		float GetEquipUpQuality_ProgressValue()=>UIListener.GetValue(m_view.m_EquipQuality.m_progress);
+		void SetEquipUpQuality_ProgressText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_progress,data);
+		string GetEquipUpQuality_ProgressText()=>UIListener.GetText(m_view.m_EquipQuality.m_progress);
 		void _OnEquip_EquipQuality_selecteq_qualityChanged(EventContext data){
 			OnEquip_EquipQuality_selecteq_qualityChanged(data);
 		}
@@ -269,6 +275,10 @@ namespace SGame.UI{
 			OnEquipQualityClick(data);
 		}
 		partial void OnEquipQualityClick(EventContext data);
+		void _OnClickBtnClick(EventContext data){
+			OnClickBtnClick(data);
+		}
+		partial void OnClickBtnClick(EventContext data);
 
 	}
 }

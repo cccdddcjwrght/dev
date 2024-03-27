@@ -13,6 +13,7 @@ namespace SGame.UI.Player
         public UI_EquipUpQuality m_EquipQuality;
         public GList m_tabs;
         public GList m_list;
+        public GLoader m_clickBtn;
         public const string URL = "ui://cmw7t1elk6220";
 
         public static UI_PlayerUI CreateInstance()
@@ -30,6 +31,7 @@ namespace SGame.UI.Player
             m_EquipQuality = (UI_EquipUpQuality)GetChildAt(2);
             m_tabs = (GList)GetChildAt(4);
             m_list = (GList)GetChildAt(5);
+            m_clickBtn = (GLoader)GetChildAt(6);
         }
     }
 }

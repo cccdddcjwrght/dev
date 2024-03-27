@@ -19,7 +19,7 @@ namespace SGame.UI
 			leftList.opaque = false;
 			var headBtn = m_view.m_head;
 			leftList.itemRenderer += RenderListItem;
-			leftList.numItems = 3;
+			leftList.numItems = 4;
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
@@ -48,9 +48,9 @@ namespace SGame.UI
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			
-			leftList.GetChildAt(0).visible = 12.IsOpend(false);
-			leftList.GetChildAt(1).visible = 17.IsOpend(false);
-			leftList.GetChildAt(2).visible = 14.IsOpend(false);
+			leftList.GetChildAt(1).visible = 12.IsOpend(false);
+			leftList.GetChildAt(2).visible = 17.IsOpend(false);
+			leftList.GetChildAt(3).visible = 14.IsOpend(false);
 		}
 
 		private void RenderListItem(int index, GObject item)
@@ -60,9 +60,12 @@ namespace SGame.UI
 				switch (index)
 				{
 					case 0:
-						"player".Goto();
+						"shop".Goto();
 						break;
 					case 1:
+						"player".Goto();
+						break;
+					case 2:
 						"technology".Goto();
 						break;
 				}
