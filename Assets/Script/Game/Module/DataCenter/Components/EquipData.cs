@@ -88,7 +88,20 @@ namespace SGame
 				return v;
 			}
 
-			static public List<int[]> GetEquipEffects(EquipItem equip, List<int[]> rets = null, bool needmain = true)
+			static public List<int[]> GetEquipEffects(IList<BaseEquip> equips, bool needmain = false)
+			{
+				equips = equips ?? _data.equipeds;
+				if (equips?.Count > 0)
+				{
+					var list = new List<int[]>();
+					equips.Foreach(e => GetEquipEffects(e, list, needmain));
+					return list;
+				}
+				return default;
+			}
+
+
+			static public List<int[]> GetEquipEffects(BaseEquip equip, List<int[]> rets = null, bool needmain = true)
 			{
 				if (equip != null && equip.cfg.IsValid())
 				{
@@ -98,6 +111,7 @@ namespace SGame
 				}
 				return rets;
 			}
+
 
 			static public List<int[]> GetEquipEffects(GameConfigs.EquipmentRowData equipment, int quality = 0, bool needMainBuff = false, List<int[]> rets = null)
 			{
@@ -121,8 +135,10 @@ namespace SGame
 						list.Add(equipment.GetBuff6Array());*/
 
 					if (needMainBuff)
-						list.Add(equipment.GetMainBuffArray());
-
+					{
+						if (ConfigSystem.Instance.TryGet<EquipQualityRowData>(quality, out var cfg))
+							list.Add(cfg.GetMainBuffArray());
+					}
 					return list;
 				}
 				return rets;
@@ -165,8 +181,8 @@ namespace SGame
 							level = cfg.Level,
 							isnew = isnew ? (byte)1 : (byte)0
 						};
+						e.Refresh();
 						_data.items.Add(e);
-						e.quality = cfg.Quality;
 					}
 					if (triggerevent)
 					{
@@ -273,10 +289,10 @@ namespace SGame
 				return 0;
 			}
 
-			static public int GetUplevelConst(int level , int quality , EquipUpLevelCostRowData cfg = default)
+			static public int GetUplevelConst(int level, int quality, EquipUpLevelCostRowData cfg = default)
 			{
 				var count = 0;
-				if (cfg.IsValid() || ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level, out  cfg))
+				if (cfg.IsValid() || ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level, out cfg))
 				{
 					switch (quality)
 					{
@@ -323,6 +339,7 @@ namespace SGame
 			{
 				_data.items?.ForEach(e => e.isnew = 0);
 			}
+
 
 			static private void OnRoleEquipChange(bool remove = false)
 			{
@@ -391,47 +408,46 @@ namespace SGame
 		public EquipmentRowData cfg { get; set; }
 		public EquipUpLevelCostRowData lvcfg { get; set; }
 		public EquipUpLevelCostRowData nextlvcfg { get; set; }
-		public int upLvCost { get;private set; }
+		public EquipQualityRowData qcfg { get; set; }
 
-
+		public int upLvCost { get; private set; }
 		public int type { get { return cfg.Type; } }
-
 		public int attrID { get; private set; }
-		public int attrVal
-		{
-			get
-			{
-				return GetAttrVal();
-			}
-		}
+		public int attrVal { get { return GetAttrVal(); } }
 
 
 		private Dictionary<string, string> _partData;
+		private int _baseAttrVal;
 
 		public BaseEquip Refresh()
 		{
-			if (ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(cfgID, out var cfg))
-			{
-				if (quality <= 0)
-					quality = cfg.Quality;
-				attrID = cfg.MainBuff(0);
-			}
+			if (this.cfgID == 0) return this;
+			if (!this.cfg.IsValid() && ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(cfgID, out var cfg))
+				this.cfg = cfg;
+			if (quality <= 0)
+				quality = this.cfg.Quality;
 			ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level, out var lv);
-			ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level+1, out var nlv);
+			ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level + 1, out var nlv);
+			ConfigSystem.Instance.TryGet<EquipQualityRowData>(quality, out var qcfg);
 
 			this.lvcfg = lv;
 			this.nextlvcfg = nlv;
-			this.cfg = cfg;
-			upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality , lvcfg);
-
+			this.qcfg = qcfg;
+			upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality, lvcfg);
+			attrID = qcfg.IsValid() ? qcfg.MainBuff(0) : 0;
+			_baseAttrVal = qcfg.IsValid() ? qcfg.MainBuff(1) : 0;
 			return this;
 		}
 
 		public int GetAttrVal(bool needlv = true)
 		{
+			return _baseAttrVal + (needlv && qcfg.IsValid() ? qcfg.MainBuffAdd * (level - 1) : 0);
 
-			return cfg.MainBuff(1) + (needlv && lvcfg.IsValid() ? lvcfg.AddVal : 0);
+		}
 
+		public int GetNextAttrVal()
+		{
+			return _baseAttrVal + (qcfg.IsValid() ? qcfg.MainBuffAdd * level : 0);
 		}
 
 		public Dictionary<string, string> GetPartData()
@@ -461,7 +477,7 @@ namespace SGame
 
 		public bool IsMaxLv()
 		{
-			return level >= StaticDefine.EQUIP_MAX_LEVEL;
+			return level >= qcfg.LevelMax;
 		}
 
 		public void ReplacePart(in Dictionary<string, string> rets)
@@ -493,6 +509,8 @@ namespace SGame
 		/// </summary>
 		public int progress;
 
+		[NonSerialized]
+		public bool selected;
 
 		public EquipItem()
 		{

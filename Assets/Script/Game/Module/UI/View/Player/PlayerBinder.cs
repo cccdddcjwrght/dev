@@ -8,6 +8,7 @@ namespace SGame.UI.Player
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_PropertyInfoUI.URL, typeof(UI_PropertyInfoUI));
             UIObjectFactory.SetPackageItemExtension(UI_PlayerUI.URL, typeof(UI_PlayerUI));
             UIObjectFactory.SetPackageItemExtension(UI_EqPos.URL, typeof(UI_EqPos));
             UIObjectFactory.SetPackageItemExtension(UI_Equip.URL, typeof(UI_Equip));

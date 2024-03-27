@@ -32,6 +32,8 @@ namespace SGame.UI.Player
 			swipe.onMove.Add(OnTouchMove);
 			goWrapper = new GoWrapper();
 			m_holder.SetNativeObject(goWrapper);
+
+			m_attrbtn.onClick.Add(OnAttrBtnClick);
 			return this;
 		}
 
@@ -39,6 +41,7 @@ namespace SGame.UI.Player
 		{
 			goWrapper?.Dispose();
 			goWrapper = null;
+			m_attrbtn.onClick.Clear();
 		}
 
 		public UI_EquipPage SetInfo(RoleData role)
@@ -65,6 +68,11 @@ namespace SGame.UI.Player
 		{
 			CreateRole().Start();
 			return this;
+		}
+
+		private void OnAttrBtnClick()
+		{
+			SGame.UIUtils.OpenUI("propertyinfo", roleData);
 		}
 
 		IEnumerator CreateRole()

@@ -86,7 +86,7 @@ namespace SGame.UI
 				m_view.m_cost.SetText("x" + Utils.ConvertNumberStr(itemcount));
 				m_view.m_up.grayed = itemcount <= 0;
 				if (uplv)
-					m_view.m_nextlvattr.SetText("ui_equip_nextlv_tips".Local(null, buff.Describe, equip.GetAttrVal(false) + equip.nextlvcfg.AddVal), false);
+					m_view.m_nextlvattr.SetText("ui_equip_nextlv_tips".Local(null, equip.GetNextAttrVal()), false);
 
 			}
 			else

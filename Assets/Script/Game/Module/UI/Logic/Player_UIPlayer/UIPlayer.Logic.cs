@@ -6,7 +6,6 @@ namespace SGame.UI
 	using SGame;
 	using SGame.UI.Player;
 	using System.Collections.Generic;
-	using System.Net.NetworkInformation;
 	using GameConfigs;
 
 	public partial class UIPlayer
@@ -94,6 +93,7 @@ namespace SGame.UI
 			_eqs = eqs ?? DataCenter.Instance.equipData.items;
 			_eqs.Sort((a, b) =>
 			{
+				a.selected = b.selected = false;
 				var c = a.type.CompareTo(b.type);
 				if (c == 0)
 				{
@@ -109,10 +109,11 @@ namespace SGame.UI
 		void OnSetEquipInfo(int index, GObject gObject)
 		{
 
-			(gObject as UI_Equip).SetEquipInfo(_eqs[index]);
+			var info = _eqs[index];
+			(gObject as UI_Equip).SetEquipInfo(info);
 			(gObject as UI_Equip).onClick.Clear();
-			(gObject as UI_Equip).onClick.Add(() => OnEqClick(gObject, _eqs[index]));
-			(gObject as UI_Equip).m_select.selectedIndex = 0;
+			(gObject as UI_Equip).onClick.Add(() => OnEqClick(gObject, info));
+			(gObject as UI_Equip).m_select.selectedIndex = info.selected ? 1 : 0;
 		}
 
 		void OnEqClick(GObject gObject, EquipItem data)
@@ -141,30 +142,22 @@ namespace SGame.UI
 			var eq = gObject as UI_Equip;
 			if (_current == null)
 			{
-				if (data.quality >= 7)
-				{
-					"@ui_equip_max_quality".Tips();
-					return;
-				}
+				if (data.quality >= 7) { "@ui_equip_max_quality".Tips(); return; }
 				_current = data;
 				SwitchEquipUpQuality_StatePage(1);
 			}
 			else
 			{
-				var s = eq.m_select.selectedIndex == 0 ? 1 : 0;
-				if (s == 0) _mats.Remove(data);
+				var s = !data.selected;
+				if (!s) _mats.Remove(data);
 				else
 				{
-					if (_mats.Count >= ConstDefine.EQUIP_UP_QUALITY_MAT_COUNT)
-					{
-						"@ui_equip_mat_max".Tips();
-						return;
-					};
+					if (_mats.Count >= ConstDefine.EQUIP_UP_QUALITY_MAT_COUNT) { "@ui_equip_mat_max".Tips(); return; };
 					_mats.Add(data);
 				}
 				m_view.m_EquipQuality.m_progress.value = _mats.Count;
-				eq.m_select.selectedIndex = s;
-
+				data.selected = s;
+				eq.m_select.selectedIndex = s ? 1 : 0;
 			}
 		}
 
@@ -177,13 +170,13 @@ namespace SGame.UI
 				var next = _current.Clone();
 				next.quality++;
 				eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality);
-				m_view.m_EquipQuality.m_selecteq.SetEquipInfo(_current , true);
-				m_view.m_EquipQuality.m_nexteq.SetEquipInfo(next , true);
+				m_view.m_EquipQuality.m_selecteq.SetEquipInfo(_current, true);
+				m_view.m_EquipQuality.m_nexteq.SetEquipInfo(next, true);
 				if (effects.Count > 0)
 				{
 					var cfg = effects[effects.Count - 1];
 					if (ConfigSystem.Instance.TryGet<BuffRowData>(cfg[0], out var buff))
-						SetEquipUpQuality_NextattrText("@ui_equip_add_attr".Local(null,buff.Describe.Local(null, cfg[1])));
+						SetEquipUpQuality_NextattrText("@ui_equip_add_attr".Local(null, buff.Describe.Local(null, cfg[1])));
 				}
 			}
 			else
