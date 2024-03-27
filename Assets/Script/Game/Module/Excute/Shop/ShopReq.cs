@@ -4,14 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using libx;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace SGame
 {
 	public partial class RequestExcuteSystem
 	{
 		private static readonly string c_shop_cfg_path = Assets.updatePath + "/Shop.bytes";
+
+		static private string shop_lock = "shop";
 
 		[InitCall]
 		static void InitShop()
@@ -30,6 +32,11 @@ namespace SGame
 
 		static public void BuyGoods(int id)
 		{
+			UILockManager.Instance.Require(shop_lock);
+			0.Delay(() =>
+			{
+				UILockManager.Instance.Release(shop_lock);
+			}, 200);
 			var code = DataCenter.ShopUtil.IsCanBuy(id);
 			switch (code)
 			{
@@ -74,7 +81,7 @@ namespace SGame
 			var items = DataCenter.ShopUtil.GetGoodsItems(id);
 
 			DataCenter.ShopUtil.RecordBuyGoods(id);
-			if (cfg.PurchaseType == 2 && free <= 0 )
+			if (cfg.PurchaseType == 2 && free <= 0)
 				PropertyManager.Instance.Update(1, 2, cfg.Price, true);
 			for (int i = 0; i < items.Count; i++)
 				PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);
