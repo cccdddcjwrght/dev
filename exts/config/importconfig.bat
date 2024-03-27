@@ -1,5 +1,7 @@
 @echo off 
 
+cd /d "%~dp0"
+
 call updatesvn.bat
 
 set temp=.vs
@@ -28,7 +30,7 @@ goto end
 :set
 if exist %tpath% (set /p tool=<%tpath%)
 if not "%tool%"=="" (goto update)
-set /p tool=【导表工具路径Tool path】:
+set /p tool=【导表工具路径(richman_desgin\Tools\excel2Flat)Tool path】:
 
 
 if "%tool%"=="" (goto error_tool)
