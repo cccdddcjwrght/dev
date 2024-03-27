@@ -450,14 +450,13 @@ namespace __SPACE__{
 
 	static private string GenUIContent(string assetfile)
 	{
-
-		#region ���ɽ�����ش���
 		if (File.Exists(assetfile))
 		{
 			var uicontent = C_UI_TEMP;
 			var members = new List<string[]>();
 			UIImportUtils.ReadMemberFromFile(assetfile, ref members);
 			UIImportUtils.G_MEMBER_CALL_STRS.Clear();
+			if (members.Count == 0 || members.FindIndex(m => m[0] == "Controller" && m[1].EndsWith("__disable")) > -1) return default;
 			if (MemberHandler(members, out var init, out var uninit, out var call))
 			{
 				return uicontent
@@ -466,7 +465,6 @@ namespace __SPACE__{
 					.Replace(C_CALL, call.ToString());
 			}
 		}
-		#endregion
 		return default;
 	}
 

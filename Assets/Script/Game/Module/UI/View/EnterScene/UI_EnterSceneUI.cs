@@ -7,6 +7,7 @@ namespace SGame.UI.EnterScene
 {
     public partial class UI_EnterSceneUI : GComponent
     {
+        public Controller m___disable;
         public GGraph m___effect;
         public GLoader m_loader;
         public GButton m_btnGO;
@@ -28,6 +29,7 @@ namespace SGame.UI.EnterScene
         {
             base.ConstructFromXML(xml);
 
+            m___disable = GetControllerAt(0);
             m___effect = (GGraph)GetChildAt(0);
             m_loader = (GLoader)GetChildAt(1);
             m_btnGO = (GButton)GetChildAt(3);
