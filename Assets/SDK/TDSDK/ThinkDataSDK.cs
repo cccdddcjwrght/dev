@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !TD_OFF || TD_ON
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,7 +58,7 @@ namespace SDK.TDSDK
 			}
 
 			var tokens = api.configs == null || api.configs.Length == 0 ? new TDTOKEN[1] : api.configs;
-			var tk = tokens[0] == null || tokens[0].appId == null ? new TDTOKEN("",serverUrl: "") : tokens[0];
+			var tk = tokens[0] == null || tokens[0].appId == null ? new TDTOKEN("", serverUrl: "") : tokens[0];
 			var appid = GetCfg<string>("td_appid", tk.appId);
 			var url = GetCfg<string>("td_url", tk.serverUrl);
 
@@ -163,7 +164,7 @@ namespace SDK.TDSDK
 		{
 			if (string.IsNullOrEmpty(eventName)) return;
 			var ps = args == null || args.Length == 0 ? null : ArgsToDic(args);
-			DoFillEventProperties(eventName,ref ps);
+			DoFillEventProperties(eventName, ref ps);
 			switch (type)
 			{
 				case TDEventEnum.Normal:
@@ -174,8 +175,8 @@ namespace SDK.TDSDK
 					TDAPI.Track(normalEvent);
 					break;
 				case TDEventEnum.Update:
-					var updatableEvent = new TDUpdatableEvent("UPDATABLE_EVENT", eventName) { Properties = ps};
-					updatableEvent.SetTime( DateTime.Now , TimeZoneInfo.Local) ;
+					var updatableEvent = new TDUpdatableEvent("UPDATABLE_EVENT", eventName) { Properties = ps };
+					updatableEvent.SetTime(DateTime.Now, TimeZoneInfo.Local);
 					TDAPI.Track(updatableEvent);
 					break;
 				case TDEventEnum.Overwrite:
@@ -348,3 +349,5 @@ namespace SDK.TDSDK
 
 	}
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if !TD_OFF || TD_ON
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -283,3 +284,5 @@ namespace SDK.TDSDK
 
 	}
 }
+
+#endif
