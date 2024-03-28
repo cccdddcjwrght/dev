@@ -798,7 +798,7 @@ namespace SGame.Dining
 				var a = cell.GetBuildLayer()?.GetComponentInChildren<Animation>();
 				if (a)
 				{
-					var clip = a.GetClip("name");
+					var clip = a.GetClip(name);
 					if (clip != null)
 					{
 						var state = a.PlayQueued(name);
