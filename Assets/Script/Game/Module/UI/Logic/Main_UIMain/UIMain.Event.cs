@@ -65,6 +65,9 @@ namespace SGame.UI
 					case 1:
 						"technology".Goto();
 						break;
+					case 2:
+						"friend".Goto();
+						break;
 				}
 			});
 		}
