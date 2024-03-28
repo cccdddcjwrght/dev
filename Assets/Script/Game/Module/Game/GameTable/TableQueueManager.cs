@@ -57,6 +57,9 @@ namespace SGame
             table.LeaveChair(characterID, chairIndex);
             listData.RemoveAt(0);
             m_character2Table.Remove(characterID);
+            
+            // 桌子更新
+            EventManager.Instance.AsyncTrigger((int)GameEvent.TABLE_QUEUE_UPDATE, tableID);
             return true;
         }
 
@@ -107,13 +110,13 @@ namespace SGame
         /// <returns></returns>
         public int2 GetMapPos(int characterID)
         {
-            var tableID = GetTable(characterID);
-            var table = TableManager.Instance.Get(tableID);
-            var chairIndex = table.FindFirstChair(CHAIR_TYPE.CUSTOMER);
-            var chair = table.GetChair(chairIndex);
-            var pos = chair.map_pos;
+            var tableID     = GetTable(characterID);
+            var table          = TableManager.Instance.Get(tableID);
+            var chairIndex  = table.FindFirstChair(CHAIR_TYPE.CUSTOMER);
+            var chair          = table.GetChair(chairIndex);
+            var pos        = chair.map_pos;
 
-            int queueIndex = GetQueueIndex(characterID);
+            int queueIndex     = GetQueueIndex(characterID);
             pos.y += queueIndex;
             return pos;
         }

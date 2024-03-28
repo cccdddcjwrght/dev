@@ -101,6 +101,8 @@ namespace SGame
 		GUIDE_START                     = 9001,
 		GUIDE_STEP                      = 9002,
 
+		
+		TABLE_QUEUE_UPDATE				= 10000, // 点单排队 (int)TableID, 要排队的桌子ID
 
 	}
 }
