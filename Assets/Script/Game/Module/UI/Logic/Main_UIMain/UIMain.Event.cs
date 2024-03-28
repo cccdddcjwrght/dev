@@ -48,6 +48,7 @@ namespace SGame.UI
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			
+			leftList.GetChildAt(0).visible = 10.IsOpend(false);
 			leftList.GetChildAt(1).visible = 12.IsOpend(false);
 			leftList.GetChildAt(2).visible = 17.IsOpend(false);
 			leftList.GetChildAt(3).visible = 14.IsOpend(false);
