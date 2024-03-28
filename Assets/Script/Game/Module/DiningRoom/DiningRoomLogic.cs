@@ -768,15 +768,27 @@ namespace SGame.Dining
 			}
 		}
 
-		private void PlayClip(int pos, string name, bool loop = true)
+		private void PlayClip(int pos, string name, bool loop = true, bool errorStop = false)
 		{
 
 			var cell = _sceneGrid.GetCell(pos);
 			if (cell != null)
 			{
-				var state = cell.GetBuildLayer()?.GetComponentInChildren<Animation>()?.PlayQueued(name);
-				if (state != null)
-					state.wrapMode = loop ? WrapMode.Loop : WrapMode.Once;
+				var a = cell.GetBuildLayer()?.GetComponentInChildren<Animation>();
+				if (a)
+				{
+					var clip = a.GetClip("name");
+					if (clip != null)
+					{
+						var state = a.PlayQueued(name);
+						if (state != null)
+							state.wrapMode = loop ? WrapMode.Loop : WrapMode.Once;
+					}else
+					{
+						a.Rewind();
+						a.Stop();
+					}
+				}
 			}
 		}
 
