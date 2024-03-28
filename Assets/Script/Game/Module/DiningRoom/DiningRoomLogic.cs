@@ -780,12 +780,14 @@ namespace SGame.Dining
 					var clip = a.GetClip(name);
 					if (clip != null)
 					{
+						a.Stop();
 						var state = a.PlayQueued(name);
 						if (state != null)
 							state.wrapMode = loop ? WrapMode.Loop : WrapMode.Once;
-					}else
+					}
+					else
 					{
-						a.Rewind();
+						a.Play(a.clip.name);
 						a.Stop();
 					}
 				}
