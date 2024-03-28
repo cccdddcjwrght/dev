@@ -18,6 +18,8 @@ namespace SGame
 
 		public static bool IsNew { get; set; }
 
+		public int registertime;
+
 		[SerializeField]
 		private int loadtime;
 
@@ -113,9 +115,12 @@ namespace SGame
 		public void Initalize()
 		{
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
+			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
+
 			if (loadtime == 0)
 			{
 				IsNew = true;
+				registertime = GameServerTime.Instance.serverTime;
 				accountData.playerID = System.DateTime.Now.Ticks;
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
 				OnFirstInit();
@@ -133,7 +138,6 @@ namespace SGame
 				}
 				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, 9999999);
 			}
-			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 
 			var scene = roomData.roomID <= 0 ? 1 : roomData.roomID;
 			var ud = GetUserData();

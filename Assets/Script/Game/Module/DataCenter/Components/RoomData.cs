@@ -35,9 +35,11 @@ namespace SGame
 					}
 					else
 						d.rooms.Add(room);
+					d.time = GameServerTime.Instance.serverTime;
 					var user = Instance.GetUserData();
 					user.scene = id;
 					Instance.SetUserData(user);
+					EventManager.Instance.Trigger(((int)GameEvent.ENTER_NEW_ROOM));
 					return room;
 				}
 				return default;
@@ -46,7 +48,7 @@ namespace SGame
 			public static Room GetRoom(int id, bool isnew = false)
 			{
 				var r = Instance.roomData.rooms.Find(x => x.id == id);
-				return r ?? (isnew ? NewRoom(id , true) : null);
+				return r ?? (isnew ? NewRoom(id, true) : null);
 			}
 
 			public static Room EnterRoom(int id, bool isnew = false)
@@ -96,10 +98,10 @@ namespace SGame
 					{
 						room.techs.Add(id);
 						room.roomTechs.Remove(id);
+						//添加奖励
+						EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_REWARD), id);
 						if (!UseTechBuff(cfg))//buff触发
 						{
-							//添加奖励
-							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_REWARD), id);
 							if (cfg.RoleId == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子
 							{
 
@@ -168,6 +170,7 @@ namespace SGame
 	public class RoomData
 	{
 		public int roomID;
+		public int time;
 		public List<Room> rooms = new List<Room>();
 
 		public Room current

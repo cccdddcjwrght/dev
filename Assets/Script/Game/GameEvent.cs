@@ -36,6 +36,7 @@ namespace SGame
 		PREPARE_LEVEL_ROOM			= 114,//准备离开房间
 		GAME_MAIN_REFRESH           = 115,//游戏刷新       
 		GAME_ENTER_SCENE_EFFECT_END = 116,//进场表现结束
+		ENTER_NEW_ROOM				= 117,//进入新场景
 
 		ORDER = 200, // 创建新订单 (int 订单ID)
 		ORDER_FOODMAKED				= 201, // 
@@ -90,6 +91,7 @@ namespace SGame
 		EQUIP_REFRESH				= 6001,//装备刷新
 		EQUIP_ADD					= 6002,//装备添加
 		ROLE_EQUIP_CHANGE			= 6003,//装备穿戴变化
+		ROLE_EQUIP_PUTON			= 6004,//装备穿戴（int id）
 
 
 		//设置======================================
