@@ -511,6 +511,7 @@ namespace SGame.Dining
 					machine.Enable(state);
 					MarkWalkFlag(machine);
 					AddWorkers(region, machine);
+					PlayClip(machine.index, "idle");
 					return machine;
 				}
 			}
@@ -767,6 +768,23 @@ namespace SGame.Dining
 			}
 		}
 
+		private void PlayClip(int pos, string name, bool loop = true)
+		{
+
+			var cell = _sceneGrid.GetCell(pos);
+			if (cell != null)
+			{
+				var state = cell.GetBuildLayer()?.GetComponentInChildren<Animation>()?.PlayQueued(name);
+				if (state != null)
+					state.wrapMode = loop ? WrapMode.Loop : WrapMode.Once;
+			}
+		}
+
+		private void PlayClip(int2 pos, string name, bool loop = true)
+		{
+			PlayClip(_sceneGrid.PosToIndex(pos.x, pos.y), name, loop);
+		}
+
 		#endregion
 
 		#region Events
@@ -818,21 +836,15 @@ namespace SGame.Dining
 
 		private void OnWorktablekCook(int2 pos)
 		{
-			var cell = _sceneGrid.GetCell(pos.x, pos.y);
-			if (cell != null)
-			{
-				var state = cell.GetBuildLayer()?.GetComponentInChildren<Animation>()?.PlayQueued("cook");
-				if (state != null)
-					state.wrapMode = WrapMode.Loop;
-			}
+			PlayClip(pos, "cook");
 		}
 
 		private void OnWorktablekCookComplete(int2 pos)
 		{
-			var cell = _sceneGrid.GetCell(pos.x, pos.y);
-			if (cell != null)
-				cell.GetBuildLayer()?.GetComponentInChildren<Animation>()?.Stop();
+			PlayClip(pos, "idle");
 		}
+
+
 
 		#endregion
 
