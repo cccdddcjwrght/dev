@@ -35,9 +35,11 @@ namespace SGame.UI
 			m_view.m_btnClose.onClick.Add(OnClickClose);
 
 			_nextScene = (context.GetParam()?.Value as object[]).Val<int>(0);
+			m_view.m_show.selectedIndex = 0;
 			
 			if (_nextScene > 0)
 			{
+				m_view.m_show.selectedIndex = 1;
 				UpdateLevelState(_nextScene - 1);
 				EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
 
