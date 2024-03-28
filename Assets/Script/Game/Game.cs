@@ -131,10 +131,6 @@ public class Game : SGame.MonoSingleton<Game>
 		}
 		World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
 
-#if !TD_OFF
-		//埋点
-		new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr); 
-#endif
 
 	}
 
