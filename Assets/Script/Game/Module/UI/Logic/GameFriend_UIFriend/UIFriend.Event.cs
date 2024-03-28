@@ -8,10 +8,15 @@ namespace SGame.UI{
 	public partial class UIFriend
 	{
 		partial void InitEvent(UIContext context){
-
+			m_view.m_bg.
 		}
 		partial void UnInitEvent(UIContext context){
 
+		}
+
+		void OnClickClose()
+		{
+			
 		}
 	}
 }
