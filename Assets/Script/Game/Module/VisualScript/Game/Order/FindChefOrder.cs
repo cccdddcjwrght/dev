@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using log4net;
 using UnityEngine;
 using Unity.VisualScripting;
@@ -43,19 +44,21 @@ namespace SGame.VS
             {
                 var tableManager = TableManager.Instance;
                 var foodTypes = tableManager.GetOpenFoodTypes(); // 获得所有开启的食物
-                foreach (var foodType in foodTypes)
+                var orders = OrderManager.Instance.FindOrders(ORDER_PROGRESS.ORDED);
+                foreach (var id in orders)
                 {
-                    // 确定有空位
-                    resultChairData = tableManager.FindMachineChairFromFoodType(foodType);
-                    if (!resultChairData.IsNull)
+                    var item = OrderManager.Instance.Get(id);
+                    if (foodTypes.Contains(item.foodType))
                     {
-                        // 订单中查询
-                        resultValue = OrderManager.Instance.FindChefOrder(foodType);
-                        if (resultValue != null)
+                        resultChairData = tableManager.FindMachineChairFromFoodType(item.foodType);
+                        if (!resultChairData.IsNull)
+                        {
+                            resultValue = item;
                             return outputSuccess;
+                        }
                     }
                 }
-                
+
                 return outputFail;
             });
             
