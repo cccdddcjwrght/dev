@@ -7,7 +7,7 @@ namespace SGame.UI.GameFriend
 {
     public partial class UI_FriendUI : GComponent
     {
-        public GLabel m_bg;
+        public GLabel m_body;
         public GList m_listRecomment;
         public GList m_listFirends;
         public const string URL = "ui://nsy0h7irome20";
@@ -21,7 +21,7 @@ namespace SGame.UI.GameFriend
         {
             base.ConstructFromXML(xml);
 
-            m_bg = (GLabel)GetChildAt(0);
+            m_body = (GLabel)GetChildAt(0);
             m_listRecomment = (GList)GetChildAt(2);
             m_listFirends = (GList)GetChildAt(3);
         }

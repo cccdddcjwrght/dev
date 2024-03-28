@@ -13,13 +13,22 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
-		void SetBgText(string data)=>UIListener.SetText(m_view.m_bg,data);
-		string GetBgText()=>UIListener.GetText(m_view.m_bg);
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
+		}
+		partial void OnUICloseClick(ref bool state);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 
 	}
 }
