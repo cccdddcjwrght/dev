@@ -8,6 +8,7 @@ namespace SGame.UI.Common
     public partial class UI_RedpointUI : GComponent
     {
         public UI_Redpoint m_icon;
+        public Transition m_t0;
         public const string URL = "ui://2w8thcm7k6223lby";
 
         public static UI_RedpointUI CreateInstance()
@@ -20,6 +21,7 @@ namespace SGame.UI.Common
             base.ConstructFromXML(xml);
 
             m_icon = (UI_Redpoint)GetChildAt(0);
+            m_t0 = GetTransitionAt(0);
         }
     }
 }
