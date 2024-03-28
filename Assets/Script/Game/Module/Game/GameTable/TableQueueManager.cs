@@ -58,8 +58,16 @@ namespace SGame
             listData.RemoveAt(0);
             m_character2Table.Remove(characterID);
             
+            // 获取下一个角色
+            var nextcharacterID = 0;
+            if (listData.Count > 0)
+            {
+                nextcharacterID = listData[0];
+                table.SitChair(nextcharacterID, chairIndex);
+            }
+            
             // 桌子更新
-            EventManager.Instance.AsyncTrigger((int)GameEvent.TABLE_QUEUE_UPDATE, tableID);
+            EventManager.Instance.AsyncTrigger((int)GameEvent.TABLE_QUEUE_UPDATE, tableID, nextcharacterID);
             return true;
         }
 
@@ -149,6 +157,7 @@ namespace SGame
                 m_tableQqueue.Add(tableID, characterList);
             }
             
+            characterList.Add(characterID);
             if (characterList.Count == 1)
             {
                 var chairIndex = table.FindFirstChair(CHAIR_TYPE.CUSTOMER);
