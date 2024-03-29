@@ -18,10 +18,10 @@ namespace SGame.UI{
 
 		partial void OnUICloseClick(ref bool state)
 		{
-			//if (DataCenter.Instance.guideData.isGuide)
-			//{
-			//	state = false;
-			//}
+			if (DataCenter.Instance.guideData.isGuide)
+			{
+				state = false;
+			}
 		}
 	}
 }
