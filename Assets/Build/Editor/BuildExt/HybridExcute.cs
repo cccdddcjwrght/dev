@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using libx;
 using SGame;
 using UnityEditor;
@@ -11,6 +12,13 @@ using ZEditors;
 [ZEditor("Hotfix" , name = "ÈÈ¸ü")]
 public class HybridBuildExcute:IZEditor
 {
+
+	static public string Content = @"distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
+";
 
 	[InitializeOnLoadMethod]
 	static void Init()
@@ -26,6 +34,10 @@ public class HybridBuildExcute:IZEditor
 #else
 		HybridCLR.Editor.SettingsUtil.Enable = false;
 #endif
+		var dir = "Library/Bee/Android/Prj/IL2CPP/Gradle";
+		if(!Directory.Exists(dir))
+			Directory.CreateDirectory(dir);
+		File.WriteAllText(dir + "\\gradle\\wrapper\\gradle-wrapper.properties", Content);
 	}
 
 }

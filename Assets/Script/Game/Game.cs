@@ -119,10 +119,10 @@ public class Game : SGame.MonoSingleton<Game>
 
 		//字体
 		yield return FontManager.Instance.Initalize();
-
+		
 		//语言初始化
-		LanagueSystem.Instance.Initalize("en");//Utils.GetLangName(DataCenter.Instance.setData.GetIntItemData("langue")));
-
+		yield return LanguageUtil.InitLanguage();
+		LanagueSystem.Instance.Initalize(LanguageUtil.GetGameLanguage());
 		// 声音初始化
 		AssetRequest audioReq = Assets.LoadAssetAsync(AudioMixerPath, typeof(AudioMixer));
 		yield return audioReq;
@@ -133,9 +133,7 @@ public class Game : SGame.MonoSingleton<Game>
 		}
 		World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
 
-
-		SDK.SDKProxy.Init();
-
+		yield return SDK.SDKProxy.Init();
 	}
 
 	IEnumerator LoadScene()
