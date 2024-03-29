@@ -45,6 +45,7 @@ namespace SGame.UI{
 			GTextField update1Txt= item.asCom.GetChild("update1").asTextField;
 			//下一级值
 			GTextField update2Txt= item.asCom.GetChild("update2").asTextField;
+
 			int type =listData[index].ShowText;
 			if (type == 1)
 			{
@@ -57,6 +58,10 @@ namespace SGame.UI{
 				update2Txt.text = listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString();
 			}
 			desTxt.text=String.Format(UIListener.Local(listData[index].VaultDes), update1Txt.text);
+
+			GTextField unLockTxt = item.asCom.GetChild("unLock").asTextField;
+			unLockTxt.text = UIListener.Local("ui_vault_unlock");
+
 			//按钮
 			GButton    techBtn=item.asCom.GetChild("techBtn").asButton;
 			GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;
