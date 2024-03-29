@@ -12,15 +12,15 @@ public class HUDEffect : IUIScript
 {
     public static IUIScript Create() { return new HUDEffect(); }
     private static ILog log = LogManager.GetLogger("game.hud");
-    private UI_Effect effectUI;
+   // private UI_Effect effectUI;
     private Entity effect;
 
     public void OnInit(UIContext context)
     {
         context.onClose += OnClose;
         context.window.contentPane.touchable = false;
-        effectUI = context.content as UI_Effect;
-        effect = EffectSystem.Instance.AddEffect(8, effectUI);
+        //effectUI = context.content as UI_Effect;
+        //effect = EffectSystem.Instance.AddEffect(8, effectUI);
     }
 
     private void OnClose(UIContext obj)
