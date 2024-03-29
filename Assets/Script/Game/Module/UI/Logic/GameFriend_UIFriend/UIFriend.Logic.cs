@@ -15,7 +15,6 @@ namespace SGame.UI{
 
 		
 		//private static ILog log = LogManager.GetLogger("game.friend");
-		private FriendData m_data;
 		
 		partial void InitLogic(UIContext context){
 			//HttpSystem.Instance.Get("")
@@ -33,11 +32,13 @@ namespace SGame.UI{
 			var data = JsonUtility.FromJson<NetFriendData>(req.data);
 
 			var body = JsonUtility.FromJson<FriendData>(data.data);
-			m_data = body;
 			log.Info("recive http=" + req.data);
+			
+			FirendModule.Instance.SetData(body);
+			FirendModule.Instance.UpdateFriends();
 
-			m_view.m_listFirends.numItems = m_data.Friends.Count;
-			m_view.m_listRecomment.numItems = m_data.RecommendFriends.Count;
+			m_view.m_listFirends.numItems = body.Friends.Count;
+			m_view.m_listRecomment.numItems = body.RecommendFriends.Count;
 		}
 		
 		partial void UnInitLogic(UIContext context){
@@ -59,18 +60,9 @@ namespace SGame.UI{
 		private void ItemRenderFriend(int index, GObject item)
 		{
 			var view = (UI_FriendItem)item;
-			var data = m_data.Friends[index]; // [index];
+			var data = FirendModule.Instance.GetFriendData().Friends[index]; // [index];
 			view.name = data.name;     //index.ToString();
-
-
-			if (data.hireTime > 0)
-			{
-				view.m_state.selectedIndex = 1;
-			}
-			else
-			{
-				view.m_state.selectedIndex = 2;
-			}
+			view.m_state.selectedIndex = data.state;
 			//view
 			
 			//view.SetIcon(data.Icon);
@@ -90,10 +82,9 @@ namespace SGame.UI{
 		private void ItemRenderRecomment(int index, GObject item)
 		{
 			var view = (UI_FriendItem)item;
-			var data = m_data.RecommendFriends[index]; // [index];
-			view.name = data.name;            //index.ToString();
+			var data = FirendModule.Instance.GetFriendData().RecommendFriends[index]; 
+			view.name = data.name;						
 			view.m_state.selectedIndex = 0;
-
 			/*
 			view.SetIcon(data.Icon);
 			view.m_title.SetTextByKey(data.Name);

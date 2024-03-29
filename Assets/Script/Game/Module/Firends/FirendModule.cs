@@ -28,6 +28,12 @@ namespace SGame.Firend
 
         }
 
+        public void SetData(FriendData data)
+        {
+            m_friendData = data;
+        }
+        
+
         /// <summary>
         /// 更新好友状态
         /// </summary>
