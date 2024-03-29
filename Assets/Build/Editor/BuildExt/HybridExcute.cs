@@ -34,10 +34,6 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 #else
 		HybridCLR.Editor.SettingsUtil.Enable = false;
 #endif
-		var dir = "Library/Bee/Android/Prj/IL2CPP/Gradle";
-		if(!Directory.Exists(dir))
-			Directory.CreateDirectory(dir);
-		File.WriteAllText(dir + "\\gradle\\wrapper\\gradle-wrapper.properties", Content);
 	}
 
 }
