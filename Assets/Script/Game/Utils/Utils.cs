@@ -171,7 +171,7 @@ namespace SGame
 			{
 				int a, b, c;
 				a = -1;
-				b = c =0;
+				b = c = 0;
 				while (number >= 1000)
 				{
 					b++;
@@ -187,14 +187,21 @@ namespace SGame
 					number = (number * 0.001d).Round();
 				}
 				if (b > 4)
-					unit = string.Format("{0}{1}", (char)(c+97) , (char)(a + 97));
+					unit = string.Format("{0}{1}", (char)(c + 97), (char)(a + 97));
 				else
 					unit = c_price[b];
 			}
+			number = number.Round();
 			if (limit > 0)
-				return number.Round().ToString($"G{limit}") + unit;
+			{
+				if (number < Math.Pow(10, limit - 1))
+					return number.ToString($"G{limit}") + unit;
+				else
+					return ((int)number).ToString($"G{limit}") + unit;
+
+			}
 			else
-				return number.Round().ToString() + unit;
+				return number.ToString() + unit;
 		}
 
 		/// <summary>
