@@ -14,6 +14,8 @@ public class HUDOrderTip : IUIScript
     private static ILog log = LogManager.GetLogger("game.hud");
     private UI_OrderTip _uiOrderTipUI;
 
+    private static int baseOrder = 1000000;
+
     public void OnInit(UIContext context)
     {
         context.window.contentPane.touchable = false;
@@ -25,6 +27,12 @@ public class HUDOrderTip : IUIScript
         {
             _uiOrderTipUI.m_icon.url=string.Format("ui://Common/{0}",foodcfg.Icon);
         }
+
+
+        baseOrder -= 1;
+        context.window.sortingOrder = baseOrder;
+        
+        //context.window.fairyBatching = false;
 
         context.window.AddEventListener("OrderNumUpdate", OnFoodNumUpdate);
         _uiOrderTipUI.m_num.text = item.num.ToString();
