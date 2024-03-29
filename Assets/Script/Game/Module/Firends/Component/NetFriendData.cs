@@ -5,6 +5,18 @@ using UnityEngine;
 
 namespace SGame.Firend
 {
+    public enum FIREND_STATE : int
+    {
+        RECOMMEND = 0, // 可邀请
+        HIRING    = 1, // 雇佣中
+        CAN_HIRE  = 2, // 可雇佣
+        HIRE_CD   = 3, // 雇佣CD中
+        HIRED     = 4, // 已雇佣
+    }
+    
+    /// <summary>
+    /// 还有装备
+    /// </summary>
     [Serializable]
     public class FirendEquip
     {
@@ -13,22 +25,31 @@ namespace SGame.Firend
         public int level;
     }
     
+    /// <summary>
+    /// 好友数据
+    /// </summary>
     [Serializable]
-    public class FirendData
+    public class FirendItemData
     {
-        public int                player_id;
-        public int                roleID;
-        public string             name;
-        public List<FirendEquip>  equips;
-        public int                hireTime;
+        public int                player_id;     // 玩家ID
+        public int                icon_id;       // 头像ID
+        public int                roleID;        // 角色ID
+        public string             name;          // 角色名称
+        public long               hireTime = 0;  // 招募时间
+        public int                passLevel = 0; // 通关数量
+        public int                state = 0;     // 雇佣状态
+        public List<FirendEquip>  equips;        // 装备信息
     }
     
+    /// <summary>
+    /// 好友数据
+    /// </summary>
     [Serializable]
-    public class FriendBody
+    public class FriendData
     {
-        public List<FirendData>     Friends;
-        public List<FirendData>     RecommendFriends;
-        public List<FirendData>     HireFriends;
+        public List<FirendItemData>     Friends;
+        public List<FirendItemData>     RecommendFriends;
+        public long                     nextHireTime;          // 下次可雇佣时间
     }
     
     /// <summary>

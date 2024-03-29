@@ -101,6 +101,9 @@ namespace SGame
 		GUIDE_START                     = 9001,
 		GUIDE_STEP                      = 9002,
 
+		
+		// 好友系统
+		FRIEND_DATE_UPDATE				= 10000, // 好友数据更新
 
 	}
 }
