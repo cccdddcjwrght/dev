@@ -53,6 +53,15 @@ namespace SGame
         public Entity m_effect{ get;  set; }
 
         /// <summary>
+        /// 判断是否有HUD
+        /// </summary>
+        /// <returns></returns>
+        public bool HasHud()
+        {
+            return m_hud != Entity.Null && entityManager.Exists(m_hud);
+        }
+
+        /// <summary>
         /// 角色实例化ID
         /// </summary>
         public int CharacterID = 0;
