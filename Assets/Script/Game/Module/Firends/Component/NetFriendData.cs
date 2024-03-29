@@ -16,22 +16,13 @@ namespace SGame.Firend
     [Serializable]
     public class FirendData
     {
-        public int               player_id;
-        public int               roleID;
-        public string            name;
+        public int                player_id;
+        public int                roleID;
+        public string             name;
         public List<FirendEquip>  equips;
         public int                hireTime;
     }
-
-    [Serializable]
-    public class RecommendData
-    {
-        public int               player_id;
-        public int               roleID;
-        public string            name;
-        public List<FirendEquip>      equips;
-    }
-
+    
     [Serializable]
     public class FriendBody
     {
@@ -40,6 +31,9 @@ namespace SGame.Firend
         public List<FirendData>     HireFriends;
     }
     
+    /// <summary>
+    /// 好友网络数据
+    /// </summary>
     [Serializable]
     public class NetFriendData
     {
