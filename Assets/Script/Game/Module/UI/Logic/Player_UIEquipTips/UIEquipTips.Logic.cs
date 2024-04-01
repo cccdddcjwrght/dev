@@ -27,6 +27,8 @@ namespace SGame.UI
 		private LongPressGesture pressHandler;
 		private bool pressFlag;
 
+		private bool needRefreshPlayUI;
+
 		partial void InitLogic(UIContext context)
 		{
 
@@ -134,6 +136,7 @@ namespace SGame.UI
 			if (state)
 			{
 				changeVal = 1;
+				needRefreshPlayUI = true;
 				RequestExcuteSystem.EquipUpLevel(equip);
 			}
 			SetSimpleInfo(state);
@@ -177,7 +180,8 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-			EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
+			if (needRefreshPlayUI)
+				EventManager.Instance.Trigger(((int)GameEvent.ROLE_PROPERTY_REFRESH));
 		}
 
 	}

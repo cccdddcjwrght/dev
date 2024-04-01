@@ -93,6 +93,7 @@ namespace SGame
 		EQUIP_ADD					= 6002,//装备添加
 		ROLE_EQUIP_CHANGE			= 6003,//装备穿戴变化
 		ROLE_EQUIP_PUTON			= 6004,//装备穿戴（int id）
+		ROLE_PROPERTY_REFRESH		= 6005,//角色属性变化
 
 
 		//设置======================================

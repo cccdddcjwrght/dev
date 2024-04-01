@@ -53,14 +53,19 @@ namespace SGame.UI.Player
 		public UI_EquipPage SetEquipInfo()
 		{
 			var index = roleData == null ? 1 : 0;
-			m_attr.SetTextByKey("ui_player_base_attr", DataCenter.EquipUtil.GetRoleEquipAddValue(roleData != null ? roleData.equips : null));
-
+			RefreshAttr();
 			IList<BaseEquip> eqs = roleData != null ? roleData.equips : DataCenter.Instance.equipData.equipeds;
 			UIListenerExt.SetEquipInfo(m_eq1, eqs[index]);
 			UIListenerExt.SetEquipInfo(m_eq2, eqs[index + 1]);
 			UIListenerExt.SetEquipInfo(m_eq3, eqs[index + 2]);
 			UIListenerExt.SetEquipInfo(m_eq4, eqs[index + 3]);
 			UIListenerExt.SetEquipInfo(m_eq5, eqs[index + 4]);
+			return this;
+		}
+
+		public UI_EquipPage RefreshAttr()
+		{
+			m_attr.SetTextByKey("ui_player_base_attr", DataCenter.EquipUtil.GetRoleEquipAddValue(roleData != null ? roleData.equips : null));
 			return this;
 		}
 
