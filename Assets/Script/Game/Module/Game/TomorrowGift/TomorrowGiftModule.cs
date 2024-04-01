@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameConfigs;
 using log4net;
 using SGame;
 using UnityEngine;
@@ -26,6 +27,7 @@ namespace SGame
     
     public class TomorrowGiftModule : Singleton<TomorrowGiftModule>
     {
+        public const int GOOD_ITEM_ID = 103; // 商品ID
         private TomorrowGiftData m_data;
         private static ILog log = LogManager.GetLogger("game.tomorrowGift");
 
@@ -42,8 +44,8 @@ namespace SGame
                 // 明天时间
                 m_data.state = (int)TomorrowGiftData.STATE.WAIT_TAKE;
                 m_data.time = GameServerTime.Instance.nextDayTime;
-
-                TestTime();
+                
+                //TestTime();
             }
         }
 
@@ -65,12 +67,36 @@ namespace SGame
         {
             if (m_data.state != (int)TomorrowGiftData.STATE.WAIT_TAKE)
             {
-                log.Error("state not match=" + m_data.state);
+                log.Warn("state not match=" + m_data.state);
                 return false;
             }
             
+            if (time > 0)
+            {
+                log.Warn("time not zero");
+                return false;
+            }
+            
+            //RequestExcuteSystem.BuyGoods(GOOD_ITEM_ID);
+            if (!ConfigSystem.Instance.TryGet(GOOD_ITEM_ID, out ShopRowData config))
+            {
+                log.Error("good id not found=" + GOOD_ITEM_ID);
+                return false;
+                //PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum();
+            }
+
+            if (config.Item1Length != 3 || config.Item2Length != 3)
+            {
+                log.Error("item num not match!");
+                return false;
+            }
+            
+            var itemGroup = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
+            itemGroup.AddNum(config.Item1(1), config.Item1(2));
+            itemGroup.AddNum(config.Item2(1), config.Item2(2));
             m_data.state = (int)TomorrowGiftData.STATE.TAKED;
-            log.Info("Take TomorrowGift Finish!");
+            
+            log.Info("Tomorrow Git Add Success !");
             return true;
         }
 
