@@ -40,7 +40,7 @@ public class UIListener
 
 	private static string GetLanguage()
 	{
-		return "en";
+		return LanguageUtil.GetGameLanguage();
 	}
 
 	static public void LocalFont(GObject parent)
