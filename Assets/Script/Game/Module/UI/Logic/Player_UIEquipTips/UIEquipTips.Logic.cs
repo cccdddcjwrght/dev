@@ -63,7 +63,7 @@ namespace SGame.UI
 			if (m_view.m_lvmax.selectedIndex == 0)
 			{
 				itemcount = itemcount >= 0 ? itemcount : PropertyManager.Instance.GetGroup(1).GetNum(ConstDefine.EQUIP_UPLV_MAT);
-				m_view.m_up.SetIcon(Utils.GetItemIcon(1, ConstDefine.EQUIP_UPLV_MAT));
+				m_view.m_item.SetIcon(Utils.GetItemIcon(1, ConstDefine.EQUIP_UPLV_MAT));
 			}
 			SetSimpleInfo(true);
 		}

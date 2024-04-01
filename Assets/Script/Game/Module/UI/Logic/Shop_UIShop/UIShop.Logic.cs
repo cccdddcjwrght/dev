@@ -213,7 +213,6 @@ namespace SGame.UI
 		void OnTipsClick(ShopGoods goods)
 		{
 			var rates = goods.cfg.GetChestInfoArray();
-			m_view.m_rate_2.m_list.RemoveChildrenToPool();
 			m_view.m_rate_2.SetRates(rates);
 			m_view.m_rate.selectedIndex = 1;
 		}
