@@ -1,29 +1,50 @@
-﻿using SGame.UI.Common;
+﻿using GameConfigs;
+using SGame.UI.Common;
+using SGame.UI.Main;
 using Unity.Entities;
 
 namespace SGame.UI
 {
 	using FairyGUI;
 	using SGame;
+	using System.Collections.Generic;
 
 	public partial class UIMain
 	{
 		private EventHandleContainer m_handles = new EventHandleContainer();
 		private GList leftList;
+		private GList m_rightList;
 		private SetData m_setData;
+		
+		private List<FunctionConfigRowData> m_rightOpens = new List<FunctionConfigRowData>();
+
+		/// <summary>
+		/// 区域定义
+		/// </summary>
+		public enum AREA : int
+		{
+			LEFT = 101,
+			RIGHT = 102,
+		}
 
 		partial void InitEvent(UIContext context)
 		{
 			m_setData			= DataCenter.Instance.setData;
-			leftList= m_view.m_leftList.m_left;
-			leftList.opaque = false;
+			leftList			= m_view.m_leftList.m_left;
+			m_rightList			= m_view.m_rightList.m_right;
+			leftList.opaque		= false;
+			m_rightList.opaque	= false;
+			
 			var headBtn = m_view.m_head;
 			leftList.itemRenderer += RenderListItem;
 			leftList.numItems = 4;
+
+			m_rightList.itemRenderer = RenderRightItem;
+			
 			headBtn.onClick.Add(OnheadBtnClick);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
-			m_handles+=EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
+			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
+			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
+			m_handles	+=	EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 			OnHeadSetting();
 			OnEventRefreshItem();
 		}
@@ -52,6 +73,45 @@ namespace SGame.UI
 			leftList.GetChildAt(1).visible = 12.IsOpend(false);
 			leftList.GetChildAt(2).visible = 17.IsOpend(false);
 			leftList.GetChildAt(3).visible = 14.IsOpend(false);
+
+
+			// 处理右列表
+			m_rightOpens.Clear();
+			var configs = ConfigSystem.Instance.LoadConfig<FunctionConfig>();
+			for(int i = 0; i < configs.DatalistLength; i++)
+			{
+				var item = configs.Datalist(i);
+				if (item.Value.Parent == (int)AREA.RIGHT)
+				{
+					if (item.Value.Id.IsOpend(false))
+					{
+						m_rightOpens.Add(item.Value);
+					}
+				}
+			}
+			m_rightList.numItems = m_rightOpens.Count;
+		}
+
+		void OnRighMenuClick(EventContext context)
+		{
+			var index = (int)(context.sender as GComponent).data;
+			var config = m_rightOpens[index];
+			log.Info("click ui=" + config.Id);
+		}
+
+		private void RenderRightItem(int index, GObject item)
+		{
+			var config = m_rightOpens[index];
+			UI_ActBtn ui = item as UI_ActBtn;
+			ui.data = index;
+			ui.onClick.Set(OnRighMenuClick);
+			if (ui == null)
+			{
+				log.Error("item can not conver=" + config.Id);
+				return;
+			}
+
+			ui.icon = config.Icon;
 		}
 
 		private void RenderListItem(int index, GObject item)
