@@ -24,7 +24,7 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 	static void Init()
 	{
 		BuildCommand.DoBeforeBuild += BeforeBuildAsset;
-		//BuildCommand.DoBuildAsset = (v, c, p) => HotfixenuItems.OneKeyBuildHotfix(v, c);
+		BuildCommand.DoBuildAsset = (v, c, p) => HotfixenuItems.OneKeyBuildHotfix(v, c);
 	}
 
 	static void BeforeBuildAsset(Func<string, string> get)
@@ -35,16 +35,13 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 		HybridCLR.Editor.SettingsUtil.Enable = false;
 #endif
 
+#if USE_THIRD_SDK
 		var path = Application.dataPath + "\\Assets\\Plugins\\Android\\mainTemplate.gradle";
 		var s = File.Exists(path);
-		Debug.Log("=====>" + s);
-		if (s)
-			File.Delete(path);
+		if (s) File.Delete(path);
 		if (Application.isBatchMode)
-		{
-
-			GooglePlayServices.PlayServicesResolver.ResolveSync(true);
-		}
+			GooglePlayServices.PlayServicesResolver.ResolveSync(true); 
+#endif
 	}
 
 }
