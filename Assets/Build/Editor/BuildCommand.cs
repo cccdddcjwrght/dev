@@ -378,7 +378,7 @@ static class BuildCommand
 				Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected, set buildAppBundle to {value}.");
 				return;
 			}
-			else if(value == "pj")
+			else if (value == "pj")
 			{
 				EditorUserBuildSettings.exportAsGoogleAndroidProject = true;
 				Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected;set the value \"{value}\" == exportAsGoogleAndroidProject.");
@@ -674,7 +674,9 @@ static class BuildCommand
 
 		if (File.Exists(path))
 		{
-			File.Copy(path, Path.Combine(Application.streamingAssetsPath, "splash.mp4") , true);
+			if (!Directory.Exists(Application.streamingAssetsPath))
+				Directory.CreateDirectory(Application.streamingAssetsPath);
+			File.Copy(path, Path.Combine(Application.streamingAssetsPath, "splash.mp4"), true);
 			Console.WriteLine($"::Set Splash Video : {path}");
 		}
 
