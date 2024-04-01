@@ -307,7 +307,7 @@ public class UIListener
 		if (gObject != null)
 		{
 			const string def_pkg = "Icon";
-			var url = GetUIRes(pkg ?? gObject.packageItem.owner.name, icon, def_pkg) ?? GetUIResFromPkgs(icon);
+			var url = GetUIRes(pkg ?? gObject.packageItem?.owner?.name, icon, def_pkg) ?? GetUIResFromPkgs(icon);
 			if (string.IsNullOrEmpty(url)) return;
 			gObject.icon = url;
 			var com = gObject.asCom;
