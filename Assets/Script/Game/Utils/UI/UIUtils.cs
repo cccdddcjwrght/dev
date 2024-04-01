@@ -544,8 +544,8 @@ namespace SGame
 		/// <param name="frame"></param>
 		public static void SetHeadIcon(SGame.UI.Common.UI_HeadBtn head, int icon, int frame)
 		{
-			head.m_headImg.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
-			head.m_frame.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
+			//head.m_headImg.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
+			//head.m_frame.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
 		}
 	}
 }
