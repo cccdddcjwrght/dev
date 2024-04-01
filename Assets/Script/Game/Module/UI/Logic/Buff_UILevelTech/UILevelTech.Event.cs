@@ -62,6 +62,7 @@ namespace SGame.UI
 			UIListener.SetIconIndex(view.m_click, (int)data.Cost(1) - 1);
 			UIListener.SetText(view.m_click, str);
 			view.m_click.onClick.Clear();
+			view.m_clickBtn.onClick.Clear();
 			view.m_click.onClick.Add(() => OnItemClick(index, view, data));
 			view.m_clickBtn.onClick.Add(() => OnItemClick(index, view, data));
 			RefreshBtn(item);
