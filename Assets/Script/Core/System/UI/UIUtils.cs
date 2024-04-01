@@ -12,7 +12,7 @@ namespace SGame.UI
 		private const string RES_BUNDLE_FMT = ROOT_PATH + "UI/{0}";
 
 		private const string LOGO_PATH = "Assets/BuildAsset/App/logo/ui_loading_logo{lan}.png";
-		private const string LAN_DEF = "en";
+		private const string LAN_DEF = null;
 
 		static ILog log = LogManager.GetLogger("xl.ui");
 

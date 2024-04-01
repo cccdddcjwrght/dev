@@ -1,17 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using UnityEngine;
 
 namespace SGame
 {
 	public static class LanguageUtil
 	{
+		private static List<string> c_lan_list;
 
+		public static IEnumerator InitLanguage()
+		{
+			var req = libx.Assets.LoadAsset("Assets/BuildAsset/Log/lan.bytes", typeof(TextAsset));
+			yield return req;
+			if (string.IsNullOrEmpty(req.error))
+				c_lan_list = req.text?.Split('|', System.StringSplitOptions.RemoveEmptyEntries).ToList();
+		}
 
 		public static string GetGameLanguage(string def = default)
 		{
-			var lan = PlayerPrefs.GetString("__language", def ?? GetLanguage());
+			def = null;
+			if (c_lan_list == null)
+			{
+				var txt = Resources.Load<TextAsset>("lan");
+				if (txt != null)
+					c_lan_list = txt.text.Split('|', System.StringSplitOptions.RemoveEmptyEntries).ToList();
+				else
+					c_lan_list = new List<string>();
+			}
+
+			var lan = PlayerPrefs.GetString("__language");
+			if (string.IsNullOrEmpty(lan))
+			{
+				var ms = GetLanguage();
+				if (c_lan_list.Contains(ms.ToLower())) lan = ms;
+				else lan = def ?? c_lan_list.FirstOrDefault();
+				PlayerPrefs.SetString("__language", lan);
+			}
 			return lan;
 		}
 
@@ -138,7 +164,7 @@ namespace SGame
 			}
 			return MachineLanguage();
 		}
-	
-	
+
+
 	}
 }

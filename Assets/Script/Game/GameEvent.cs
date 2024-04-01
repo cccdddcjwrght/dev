@@ -86,7 +86,8 @@ namespace SGame
 		//Shop===============================================
 		SHOP_REFRESH				= 5001,//商城刷新
 		SHOP_GOODS_BUY_RESULT		= 5002,//商品购买
-		
+		SHOP_BOOST_BUY				= 5003,//buff购买(id,level)
+
 		//===================================================
 		EQUIP_REFRESH				= 6001,//装备刷新
 		EQUIP_ADD					= 6002,//装备添加

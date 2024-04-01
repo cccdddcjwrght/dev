@@ -88,7 +88,7 @@ namespace ZEditors
 		}
 
 	}
-
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 	public class ZEditorSymbol : Attribute
 	{
 		public string key;

@@ -6,7 +6,7 @@ namespace SDK
 {
 	public partial class SDKProxy
 	{
-		public static void Init()
+		public static IEnumerator Init()
 		{
 
 #if !TD_OFF || TD_ON
@@ -14,9 +14,10 @@ namespace SDK
 			new SDK.TDSDK.ThinkDataSDK().StartRun(GameConfigs.GlobalConfig.GetStr);
 #endif
 
-#if USE_THIRD_SDK
-			SDK.THSDK.THSdk.Instance.GetInstanceID();
+#if USE_THIRD_SDK 
+			yield return SDK.THSDK.THSdk.Instance.WaitInitCompleted();
 #endif
+			yield return null;
 
 		}
 	}

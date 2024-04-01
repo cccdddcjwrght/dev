@@ -367,6 +367,8 @@ static class BuildCommand
 
 	private static void HandleAndroidAppBundle()
 	{
+		EditorUserBuildSettings.buildAppBundle = false;
+		EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 		if (TryGetEnv(ANDROID_APP_BUNDLE, out string value))
 		{
 #if UNITY_2018_3_OR_NEWER
@@ -376,6 +378,11 @@ static class BuildCommand
 				Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected, set buildAppBundle to {value}.");
 				return;
 			}
+			else if (value == "pj")
+			{
+				EditorUserBuildSettings.exportAsGoogleAndroidProject = true;
+				Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected;set the value \"{value}\" == exportAsGoogleAndroidProject.");
+			}
 			else
 			{
 				Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected but the value \"{value}\" is not a boolean.");
@@ -384,7 +391,6 @@ static class BuildCommand
             Console.WriteLine($":: {ANDROID_APP_BUNDLE} env var detected but does not work with lower Unity version than 2018.3");
 #endif
 		}
-		EditorUserBuildSettings.buildAppBundle = false;
 	}
 
 	private static void HandleAndroidBundleVersionCode()
@@ -668,7 +674,9 @@ static class BuildCommand
 
 		if (File.Exists(path))
 		{
-			File.Copy(path, Path.Combine(Application.streamingAssetsPath, "splash.mp4"));
+			if (!Directory.Exists(Application.streamingAssetsPath))
+				Directory.CreateDirectory(Application.streamingAssetsPath);
+			File.Copy(path, Path.Combine(Application.streamingAssetsPath, "splash.mp4"), true);
 			Console.WriteLine($"::Set Splash Video : {path}");
 		}
 
