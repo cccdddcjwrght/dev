@@ -227,7 +227,7 @@ namespace SGame
 				}
 				catch (Exception e)
 				{
-					Debug.LogError($"event args error : {eventType}");
+					Debug.LogError($"event args error : {eventType}, err={e.Message}, stack={e.StackTrace}");
 				}
 			}
 

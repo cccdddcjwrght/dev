@@ -13,8 +13,8 @@ namespace SGame.UI.GameFriend
         public GButton m_head;
         public GTextField m_name;
         public GList m_equips;
-        public GImage m_btnNO;
-        public GImage m_btnYES;
+        public GButton m_btnNO;
+        public GButton m_btnYES;
         public GImage m_iconHiring;
         public GTextField m_titleHiring;
         public GTextField m_titleHiretoday;
@@ -37,8 +37,8 @@ namespace SGame.UI.GameFriend
             m_head = (GButton)GetChildAt(2);
             m_name = (GTextField)GetChildAt(3);
             m_equips = (GList)GetChildAt(4);
-            m_btnNO = (GImage)GetChildAt(5);
-            m_btnYES = (GImage)GetChildAt(6);
+            m_btnNO = (GButton)GetChildAt(5);
+            m_btnYES = (GButton)GetChildAt(6);
             m_iconHiring = (GImage)GetChildAt(7);
             m_titleHiring = (GTextField)GetChildAt(8);
             m_titleHiretoday = (GTextField)GetChildAt(9);
