@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using libx;
 using log4net;
 using UnityEngine;
 
@@ -19,15 +20,24 @@ namespace SGame.Firend
         /// 好友数据
         /// </summary>
         private FriendData m_friendData;
+        
+        void TestJsonData()
+        {
+            const string fileName = "Assets/BuildAsset/Json/TestFriendData.txt.bytes";
+            var req = Assets.LoadAsset(fileName, typeof(TextAsset));
+            var data = (req.asset as TextAsset).text;
+
+            m_friendData = JsonUtility.FromJson<FriendData>(data);
+        }
 
         /// <summary>
         /// 初始话
         /// </summary>
         public void Initalize()
         {
-
+            TestJsonData();
         }
-
+        
         public void SetData(FriendData data)
         {
             m_friendData = data;
@@ -61,11 +71,37 @@ namespace SGame.Firend
         /// 获得好友数据
         /// </summary>
         /// <returns></returns>
-        public FriendData GetFriendData()
+        public FriendData GetDatas()
         {
             return m_friendData;
         }
 
+        /// <summary>
+        /// 查找好友信息
+        /// </summary>
+        /// <param name="player_id"></param>
+        /// <returns></returns>
+        public FirendItemData GetFriendItem(int player_id)
+        {
+            var index = FindFirend(m_friendData.Friends, player_id);
+            if (index >= 0)
+            {
+                return m_friendData.Friends[index];
+            }
+
+            index = FindFirend(m_friendData.RecommendFriends, player_id);
+            if (index >= 0)
+                return m_friendData.RecommendFriends[index];
+
+            return null;
+        }
+
+        /// <summary>
+        /// 通关ID查找好友
+        /// </summary>
+        /// <param name="datas"></param>
+        /// <param name="player_id"></param>
+        /// <returns></returns>
         static int FindFirend(List<FirendItemData> datas, int player_id)
         {
             for (int i = 0; i < datas.Count; i++)

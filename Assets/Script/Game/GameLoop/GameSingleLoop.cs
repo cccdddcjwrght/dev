@@ -56,6 +56,7 @@ namespace SGame
 			AudioSystem.Instance.SetSoundVolume("BackgroundVolume",DataCenter.Instance.setData.musicVal);
 			AudioSystem.Instance.SetSoundVolume("UIVolume",DataCenter.Instance.setData.soundVal);
 	
+			Firend.FirendModule.Instance.Initalize();
 		}
 
 		/// <summary>
