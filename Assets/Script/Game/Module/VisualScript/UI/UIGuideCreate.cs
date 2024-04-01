@@ -66,12 +66,13 @@ namespace SGame.VS
                     resultmaskValue=new Vector2Int(uiMask.Index, uiMask.Version);
                 }
                 //手指
-                Entity ui = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiName)));
-                Vector2 p3 = flow.GetValue<Vector2>(uiPos);
-                mgr.AddComponentObject(ui, new UIPos() { pos = p3 });
-            
-
-                resultValue = new Vector2Int(ui.Index, ui.Version);
+                if (flow.GetValue<string>(uiName) != string.Empty) 
+                {
+                    Entity ui = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiName)));
+                    Vector2 p3 = flow.GetValue<Vector2>(uiPos);
+                    mgr.AddComponentObject(ui, new UIPos() { pos = p3 });
+                    resultValue = new Vector2Int(ui.Index, ui.Version);
+                }
                 return outputTrigger;
             });
             
