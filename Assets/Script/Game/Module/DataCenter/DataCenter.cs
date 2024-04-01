@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.Entities;
 using GameConfigs;
 using log4net;
+using System.Linq;
 
 namespace SGame
 {
@@ -27,28 +28,28 @@ namespace SGame
 		public Entity m_data;
 		[SerializeField]
 		public AccountData accountData = new AccountData();
-		
+
 		[SerializeField]
 		public AbilityData abilityData = new AbilityData();
-		
+
 		[SerializeField]
 		public SetData setData = new SetData();
-		
+
 		[SerializeField]
-		public GuideData guideData= new GuideData();
-		
+		public GuideData guideData = new GuideData();
+
 		[SerializeField]
-		public GameRecordData	m_gameRecord = new GameRecordData(); // 游戏统计数据包括 顾客数量, 厨师数量, 服务员数量
+		public GameRecordData m_gameRecord = new GameRecordData(); // 游戏统计数据包括 顾客数量, 厨师数量, 服务员数量
 
 
 		[SerializeField]
 		private ItemData itemData = new ItemData();
 
 		[SerializeField]
-		public double		m_foodTipsGold;
+		public double m_foodTipsGold;
 
-		private GameWorld	m_world;
-		static DataCenter	s_instance;
+		private GameWorld m_world;
+		static DataCenter s_instance;
 
 		public bool IsInitAll { get; private set; } = false;
 
@@ -122,9 +123,25 @@ namespace SGame
 				IsNew = true;
 				registertime = GameServerTime.Instance.serverTime;
 				accountData.playerID = System.DateTime.Now.Ticks;
+
 				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
+
+				var cfgstr = GlobalDesginConfig.GetStr("initial_items") ?? GlobalConfig.GetStr("initial_items");
+				if (!string.IsNullOrEmpty(cfgstr))
+				{
+					var group = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
+					var dic = cfgstr
+						.Split('|', StringSplitOptions.RemoveEmptyEntries)
+						.Select(s => s.Split('_', StringSplitOptions.RemoveEmptyEntries))
+						.Where(s => s.Length > 1)
+						.ToDictionary(s => int.Parse(s[0]), s => int.Parse(s[1]));
+					foreach (var item in dic)
+						group.SetNum(item.Key,item.Value);	
+				}
+
 				OnFirstInit();
 				IsFirstLogin = true;
+
 			}
 			else
 			{
@@ -136,7 +153,6 @@ namespace SGame
 					m_foodTipsGold = 0;
 					log.Info("FoodTip=" + m_foodTipsGold + " after=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
 				}
-				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, 9999999);
 			}
 
 			var scene = roomData.roomID <= 0 ? 1 : roomData.roomID;
@@ -146,10 +162,10 @@ namespace SGame
 
 			DoInit();
 			m_gameRecord.Initalize();
-			
+
 			IsInitAll = true;
 			loadtime = GameServerTime.Instance.serverTime;
-			
+
 			EventManager.Instance.Trigger(((int)GameEvent.DATA_INIT_COMPLETE));
 		}
 

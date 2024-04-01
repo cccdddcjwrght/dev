@@ -20,18 +20,16 @@ public struct EquipUpLevelCostRowData : IFlatbufferObject
   public EquipUpLevelCostRowData __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public int Level { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AddVal { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Quality1Need { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Quality2Need { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Quality3Need { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Quality4Need { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Quality5Need { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Quality6Need { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Quality7Need { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality1Need { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality2Need { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality3Need { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality4Need { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality5Need { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality6Need { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality7Need { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.EquipUpLevelCostRowData> CreateEquipUpLevelCostRowData(FlatBufferBuilder builder,
       int level = 0,
-      int AddVal = 0,
       int Quality1Need = 0,
       int Quality2Need = 0,
       int Quality3Need = 0,
@@ -39,7 +37,7 @@ public struct EquipUpLevelCostRowData : IFlatbufferObject
       int Quality5Need = 0,
       int Quality6Need = 0,
       int Quality7Need = 0) {
-    builder.StartTable(9);
+    builder.StartTable(8);
     EquipUpLevelCostRowData.AddQuality7Need(builder, Quality7Need);
     EquipUpLevelCostRowData.AddQuality6Need(builder, Quality6Need);
     EquipUpLevelCostRowData.AddQuality5Need(builder, Quality5Need);
@@ -47,21 +45,19 @@ public struct EquipUpLevelCostRowData : IFlatbufferObject
     EquipUpLevelCostRowData.AddQuality3Need(builder, Quality3Need);
     EquipUpLevelCostRowData.AddQuality2Need(builder, Quality2Need);
     EquipUpLevelCostRowData.AddQuality1Need(builder, Quality1Need);
-    EquipUpLevelCostRowData.AddAddVal(builder, AddVal);
     EquipUpLevelCostRowData.AddLevel(builder, level);
     return EquipUpLevelCostRowData.EndEquipUpLevelCostRowData(builder);
   }
 
-  public static void StartEquipUpLevelCostRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
+  public static void StartEquipUpLevelCostRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddLevel(FlatBufferBuilder builder, int level) { builder.AddInt(0, level, 0); }
-  public static void AddAddVal(FlatBufferBuilder builder, int AddVal) { builder.AddInt(1, AddVal, 0); }
-  public static void AddQuality1Need(FlatBufferBuilder builder, int Quality1Need) { builder.AddInt(2, Quality1Need, 0); }
-  public static void AddQuality2Need(FlatBufferBuilder builder, int Quality2Need) { builder.AddInt(3, Quality2Need, 0); }
-  public static void AddQuality3Need(FlatBufferBuilder builder, int Quality3Need) { builder.AddInt(4, Quality3Need, 0); }
-  public static void AddQuality4Need(FlatBufferBuilder builder, int Quality4Need) { builder.AddInt(5, Quality4Need, 0); }
-  public static void AddQuality5Need(FlatBufferBuilder builder, int Quality5Need) { builder.AddInt(6, Quality5Need, 0); }
-  public static void AddQuality6Need(FlatBufferBuilder builder, int Quality6Need) { builder.AddInt(7, Quality6Need, 0); }
-  public static void AddQuality7Need(FlatBufferBuilder builder, int Quality7Need) { builder.AddInt(8, Quality7Need, 0); }
+  public static void AddQuality1Need(FlatBufferBuilder builder, int Quality1Need) { builder.AddInt(1, Quality1Need, 0); }
+  public static void AddQuality2Need(FlatBufferBuilder builder, int Quality2Need) { builder.AddInt(2, Quality2Need, 0); }
+  public static void AddQuality3Need(FlatBufferBuilder builder, int Quality3Need) { builder.AddInt(3, Quality3Need, 0); }
+  public static void AddQuality4Need(FlatBufferBuilder builder, int Quality4Need) { builder.AddInt(4, Quality4Need, 0); }
+  public static void AddQuality5Need(FlatBufferBuilder builder, int Quality5Need) { builder.AddInt(5, Quality5Need, 0); }
+  public static void AddQuality6Need(FlatBufferBuilder builder, int Quality6Need) { builder.AddInt(6, Quality6Need, 0); }
+  public static void AddQuality7Need(FlatBufferBuilder builder, int Quality7Need) { builder.AddInt(7, Quality7Need, 0); }
   public static Offset<GameConfigs.EquipUpLevelCostRowData> EndEquipUpLevelCostRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipUpLevelCostRowData>(o);
