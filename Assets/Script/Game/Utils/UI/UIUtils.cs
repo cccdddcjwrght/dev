@@ -536,5 +536,20 @@ namespace SGame
 			return offset;
 		}
 
+		public static void SetUIListTouchEffect(string uiName, string uiPath, bool state) 
+		{
+			Entity e = GetUIEntity(uiName);
+			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
+			var item = ui.Value.contentPane.GetChildByPath(uiPath);
+			if (item == null)
+				Debug.Log("ui path not found={0}, {1}" + uiName + uiPath);
+
+			if (item is GList)
+			{
+				GList list = item as GList;
+				list.scrollPane.touchEffect = state;
+			}
+
+		}
 	}
 }
