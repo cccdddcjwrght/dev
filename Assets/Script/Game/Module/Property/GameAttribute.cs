@@ -307,7 +307,7 @@ namespace SGame
 								u.deadtime = deadline;
 								u.Reset();
 								u.val = val;
-								u.Excute(u.attribute);
+								u.Excute(a);
 								break;
 							case 1://时间叠加
 								if (deadline > 0)
