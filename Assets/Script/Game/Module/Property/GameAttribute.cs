@@ -32,6 +32,7 @@ namespace SGame
 
 		public void Excute(GameAttribute attribute)
 		{
+			count = 0;
 			this.attribute = attribute;
 			switch ((EnumCaluType)type)
 			{
@@ -57,6 +58,7 @@ namespace SGame
 			attribute = attribute ?? this.attribute;
 			attribute.value -= (modifiy * count);
 			this.attribute = null;
+			count = 0;
 		}
 
 		public bool IsCompleted(int time)
@@ -303,6 +305,9 @@ namespace SGame
 						{
 							case 0://时间刷新
 								u.deadtime = deadline;
+								u.Reset();
+								u.val = val;
+								u.Excute(u.attribute);
 								break;
 							case 1://时间叠加
 								if (deadline > 0)

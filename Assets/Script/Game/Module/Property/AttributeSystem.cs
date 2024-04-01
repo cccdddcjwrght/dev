@@ -279,7 +279,7 @@ namespace SGame
 					time = time != 0 ? time : cfg.Time;
 					time = time > 0 ? ct + time : time;
 					if (targets?.Count > 0)
-						targets.ForEach(t => t.SetTime(ct).Change(cfg.Attribute, val == 0 ? cfg.Value : val, cfg.AddType, time, from));
+						targets.ForEach(t => t.SetTime(ct).Change(cfg.Attribute, val == 0 ? cfg.Value : val, cfg.AddType, time, from, cfg.RepeatType));
 				}
 			}
 		}
