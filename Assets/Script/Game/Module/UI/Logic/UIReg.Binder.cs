@@ -36,6 +36,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("EquipTipsUI", "Player", ()=>new UIEquipTips());
 			context.uiModule.Reg("EnterSceneUI", "EnterScene", ()=>new UIEnterScene());SGame.UI.EnterScene.EnterSceneBinder.BindAll();;
 			context.uiModule.Reg("PropertyInfoUI", "Player", ()=>new UIPropertyInfo());
+			context.uiModule.Reg("TomorrowGiftUI", "TomorrowGift", ()=>new UITomorrowGift());SGame.UI.TomorrowGift.TomorrowGiftBinder.BindAll();;
 		}
 	}
 }

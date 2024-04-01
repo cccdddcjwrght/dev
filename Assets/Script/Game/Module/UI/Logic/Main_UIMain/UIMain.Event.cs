@@ -91,9 +91,13 @@ namespace SGame.UI
 				var item = configs.Datalist(i);
 				if (item.Value.Parent == (int)AREA.RIGHT)
 				{
+					// 明日礼包
 					if (item.Value.Id.IsOpend(false))
 					{
-						m_rightOpens.Add(new RightItem(){config = item.Value, second = 10});
+						if (item.Value.Id == 18 && !TomorrowGiftModule.Instance.IsFinished())
+						{
+							m_rightOpens.Add(new RightItem(){config = item.Value, second = TomorrowGiftModule.Instance.time});
+						}
 					}
 				}
 			}
@@ -102,8 +106,9 @@ namespace SGame.UI
 
 		void OnRighMenuClick(EventContext context)
 		{
-			var index = (int)(context.sender as GComponent).data;
-			var config = m_rightOpens[index];
+			//var index = (int)(context.sender as GComponent).data;
+			var config = (context.sender as GComponent).data as RightItem;// m_rightOpens[index];
+			SGame.UIUtils.OpenUI(config.config.Ui);
 			log.Info("click ui=" + config.config.Id);
 		}
 		
@@ -127,9 +132,11 @@ namespace SGame.UI
 				ui.m_content.text = Utils.FormatTime((int)config.second);
 			}).SetTarget(ui).OnComplete(() =>
 			{
+				ui.m_time.visible = false;
 				log.Info("counter dowm zero!");
 			});
-
+			
+			ui.m_time.visible = config.second > 0;
 			ui.m_content.text = Utils.FormatTime((int)config.second);
 			ui.icon = config.config.Icon;
 		}

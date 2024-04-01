@@ -15,7 +15,7 @@ namespace SGame
     {
         public enum STATE : uint
         {
-            UNINITALIZE = 0,    // 未初始化
+            UNINIT = 0,    // 未初始化
             WAIT_TAKE   = 1,    // 等待获取
             TAKED       = 2,   // 已经获取
         }
@@ -28,15 +28,22 @@ namespace SGame
     {
         private TomorrowGiftData m_data;
         private static ILog log = LogManager.GetLogger("game.tomorrowGift");
+
+        void TestTime()
+        {
+            m_data.time = GameServerTime.Instance.serverTime + 30;
+        }
         
         public void Initalize()
         {
             m_data = DataCenter.Instance.m_gameRecord.tomorrowGift;
-            if (m_data.state == (int)TomorrowGiftData.STATE.UNINITALIZE)
+            if (m_data.state == (int)TomorrowGiftData.STATE.UNINIT)
             {
                 // 明天时间
                 m_data.state = (int)TomorrowGiftData.STATE.WAIT_TAKE;
                 m_data.time = GameServerTime.Instance.nextDayTime;
+
+                TestTime();
             }
         }
 
@@ -47,7 +54,7 @@ namespace SGame
         {
             get { 
                 var stime = GameServerTime.Instance.serverTime;
-                return stime >= m_data.time ? stime - m_data.time : 0; 
+                return stime < m_data.time ? m_data.time - stime : 0; 
             }
         }
 
@@ -65,6 +72,11 @@ namespace SGame
             m_data.state = (int)TomorrowGiftData.STATE.TAKED;
             log.Info("Take TomorrowGift Finish!");
             return true;
+        }
+
+        public bool IsFinished()
+        {
+            return m_data.state == (int)TomorrowGiftData.STATE.TAKED;
         }
     }
 }
