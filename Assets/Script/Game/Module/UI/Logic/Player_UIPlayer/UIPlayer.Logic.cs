@@ -26,12 +26,14 @@ namespace SGame.UI
 
 			InitEquipPage();
 			InitUpQualityPage();
+
+			m_view.m_eqTab.selectedIndex = 0;
+			OnDataRefresh(false);
 		}
 
 		partial void DoShow(UIContext context)
 		{
-			m_view.m_eqTab.selectedIndex = 0;
-			OnDataRefresh(false);
+
 		}
 
 		partial void UnInitLogic(UIContext context)
