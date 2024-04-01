@@ -49,6 +49,7 @@ namespace SGame.Firend
         /// </summary>
         public void UpdateFriends()
         {
+            // 处理好友数据
             foreach (var item in m_friendData.Friends)
             {
                 // 好友数据 
@@ -65,6 +66,13 @@ namespace SGame.Firend
 
                 return item1.state < item2.state ? -1 : 1;
             });
+
+            // 处理邀请数据
+            foreach (var item in m_friendData.RecommendFriends)
+            {
+                item.state = (int)FIREND_STATE.RECOMMEND;
+                item.hireTime = 0;
+            }
         }
 
         /// <summary>

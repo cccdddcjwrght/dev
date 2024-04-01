@@ -1,4 +1,5 @@
 ﻿
+using SGame.UI.Common;
 namespace SGame.UI{
 	using FairyGUI;
 	using UnityEngine;
@@ -18,6 +19,12 @@ namespace SGame.UI{
 		partial void UnInitEvent(UIContext context){
 			m_eventUpdate.Close();
 			m_eventUpdate = null;
+		}
+
+		void SetHeadIcon(UI_HeadBtn head, int icon, int frame)
+		{
+			head.m_headImg.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
+			head.m_frame.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
 		}
 
 		/// <summary>
@@ -101,7 +108,7 @@ namespace SGame.UI{
 		{
 			var view = (UI_FriendItem)item;
 			var data = FirendModule.Instance.GetDatas().Friends[index]; // [index];
-			view.name = data.name;                                           //index.ToString();
+			view.m_name.text = data.name;
 			view.m_state.selectedIndex = data.state;
 			view.m_btnHire.data = data.player_id;
 			view.m_btnHire.onClick.Set(OnClickHire);
@@ -111,7 +118,7 @@ namespace SGame.UI{
 		{
 			var view = (UI_FriendItem)item;
 			var data = FirendModule.Instance.GetDatas().RecommendFriends[index]; 
-			view.name = data.name;						
+			view.m_name.text = data.name;
 			view.m_state.selectedIndex = (int)FIREND_STATE.RECOMMEND;
 			view.m_btnYES.data = data.player_id;
 			view.m_btnNO.data = data.player_id;

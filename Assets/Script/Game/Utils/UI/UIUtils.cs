@@ -536,5 +536,16 @@ namespace SGame
 			return offset;
 		}
 
+		/// <summary>
+		/// 设置UI头像框
+		/// </summary>
+		/// <param name="head"></param>
+		/// <param name="icon"></param>
+		/// <param name="frame"></param>
+		public static void SetHeadIcon(SGame.UI.Common.UI_HeadBtn head, int icon, int frame)
+		{
+			head.m_headImg.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
+			head.m_frame.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
+		}
 	}
 }
