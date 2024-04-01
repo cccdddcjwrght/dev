@@ -674,7 +674,7 @@ static class BuildCommand
 
 		if (File.Exists(path))
 		{
-			File.Copy(path, Path.Combine(Application.streamingAssetsPath, "splash.mp4"));
+			File.Copy(path, Path.Combine(Application.streamingAssetsPath, "splash.mp4") , true);
 			Console.WriteLine($"::Set Splash Video : {path}");
 		}
 

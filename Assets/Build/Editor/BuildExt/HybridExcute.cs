@@ -8,9 +8,9 @@ using UnityEditor;
 using UnityEngine;
 using ZEditors;
 
-[ZEditorSymbol("enable_hotfix",symbol = "ENABLE_HOTFIX")]
-[ZEditor("Hotfix" , name = "热更")]
-public class HybridBuildExcute:IZEditor
+[ZEditorSymbol("enable_hotfix", symbol = "ENABLE_HOTFIX")]
+[ZEditor("Hotfix", name = "热更")]
+public class HybridBuildExcute : IZEditor
 {
 
 	static public string Content = @"distributionBase=GRADLE_USER_HOME
@@ -24,16 +24,27 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 	static void Init()
 	{
 		BuildCommand.DoBeforeBuild += BeforeBuildAsset;
-		BuildCommand.DoBuildAsset = (v, c, p) => HotfixenuItems.OneKeyBuildHotfix(v, c);
+		//BuildCommand.DoBuildAsset = (v, c, p) => HotfixenuItems.OneKeyBuildHotfix(v, c);
 	}
 
-	static void BeforeBuildAsset(Func<string,string> get)
+	static void BeforeBuildAsset(Func<string, string> get)
 	{
 #if ENABLE_HOTFIX
 		HybridCLR.Editor.SettingsUtil.Enable = true;
 #else
 		HybridCLR.Editor.SettingsUtil.Enable = false;
 #endif
+
+		var path = Application.dataPath + "\\Assets\\Plugins\\Android\\mainTemplate.gradle";
+		var s = File.Exists(path);
+		Debug.Log("=====>" + s);
+		if (s)
+			File.Delete(path);
+		if (Application.isBatchMode)
+		{
+
+			GooglePlayServices.PlayServicesResolver.ResolveSync(true);
+		}
 	}
 
 }
