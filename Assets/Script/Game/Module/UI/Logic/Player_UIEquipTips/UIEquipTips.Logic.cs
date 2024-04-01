@@ -177,7 +177,8 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-
+			EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
 		}
+
 	}
 }
