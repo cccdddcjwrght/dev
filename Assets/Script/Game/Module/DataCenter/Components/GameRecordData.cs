@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
+using UnityEngine.Serialization;
 
 namespace SGame
 {
@@ -33,6 +34,9 @@ namespace SGame
     {
         // 保存角色信息
         public List<RecordRoleData>  roleDatas = new List<RecordRoleData>();
+
+        // 每日礼包
+        public TomorrowGiftData tomorrowGift = new TomorrowGiftData();                   
 
         public bool HasRecord()
         {

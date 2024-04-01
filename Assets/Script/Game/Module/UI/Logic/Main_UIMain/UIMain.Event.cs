@@ -1,4 +1,5 @@
-﻿using GameConfigs;
+﻿using System;
+using GameConfigs;
 using SGame.UI.Common;
 using SGame.UI.Main;
 using Unity.Entities;
@@ -8,6 +9,7 @@ namespace SGame.UI
 	using FairyGUI;
 	using SGame;
 	using System.Collections.Generic;
+	using UnityEngine;
 
 	public partial class UIMain
 	{
@@ -15,8 +17,14 @@ namespace SGame.UI
 		private GList leftList;
 		private GList m_rightList;
 		private SetData m_setData;
+
+		public class RightItem
+		{
+			public FunctionConfigRowData config; // 配置
+			public float				 second; // 倒计时
+		}
 		
-		private List<FunctionConfigRowData> m_rightOpens = new List<FunctionConfigRowData>();
+		private List<RightItem> m_rightOpens = new List<RightItem>();
 
 		/// <summary>
 		/// 区域定义
@@ -85,7 +93,7 @@ namespace SGame.UI
 				{
 					if (item.Value.Id.IsOpend(false))
 					{
-						m_rightOpens.Add(item.Value);
+						m_rightOpens.Add(new RightItem(){config = item.Value, second = 10});
 					}
 				}
 			}
@@ -96,22 +104,34 @@ namespace SGame.UI
 		{
 			var index = (int)(context.sender as GComponent).data;
 			var config = m_rightOpens[index];
-			log.Info("click ui=" + config.Id);
+			log.Info("click ui=" + config.config.Id);
 		}
-
+		
 		private void RenderRightItem(int index, GObject item)
 		{
 			var config = m_rightOpens[index];
 			UI_ActBtn ui = item as UI_ActBtn;
-			ui.data = index;
+			ui.data = config;
 			ui.onClick.Set(OnRighMenuClick);
 			if (ui == null)
 			{
-				log.Error("item can not conver=" + config.Id);
+				log.Error("item can not conver=" + config.config.Id);
 				return;
 			}
+			
+			// 倒计时
+			GTween.Kill(ui);
+			GTween.To(config.second, 0, config.second).OnUpdate((GTweener tweener) =>
+			{
+				config.second = Mathf.Max(0, config.second - Time.deltaTime);
+				ui.m_content.text = Utils.FormatTime((int)config.second);
+			}).SetTarget(ui).OnComplete(() =>
+			{
+				log.Info("counter dowm zero!");
+			});
 
-			ui.icon = config.Icon;
+			ui.m_content.text = Utils.FormatTime((int)config.second);
+			ui.icon = config.config.Icon;
 		}
 
 		private void RenderListItem(int index, GObject item)
