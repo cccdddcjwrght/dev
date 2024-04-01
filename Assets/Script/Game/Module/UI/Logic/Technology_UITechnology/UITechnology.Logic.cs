@@ -7,8 +7,9 @@ namespace SGame.UI{
 	using UnityEngine;
 	using SGame;
 	using SGame.UI.Technology;
-	
-	public partial class UITechnology
+    using GameConfigs;
+
+    public partial class UITechnology
 	{
 		private Entity  m_entity;
 		partial void InitLogic(UIContext context){
@@ -141,6 +142,11 @@ namespace SGame.UI{
 		/// <param name="from"></param>
 		public void OnClickTechBtn(int buffID,int buffValue,int from)
 		{
+			//如果是初始金币科技，先移除后再加上
+			if (ConfigSystem.Instance.TryGet<BuffRowData>(buffID, out var cfg))
+			{
+				if(cfg.Attribute == (int)EnumAttribute.LevelGold) EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(buffID, buffValue) { from = from, isremove = true });
+			}
 			EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(buffID, buffValue) { from = from });
 		}
 
