@@ -12,6 +12,7 @@ namespace SGame.UI.GameFriend
             UIObjectFactory.SetPackageItemExtension(UI_MyRole.URL, typeof(UI_MyRole));
             UIObjectFactory.SetPackageItemExtension(UI_FriendItem.URL, typeof(UI_FriendItem));
             UIObjectFactory.SetPackageItemExtension(UI_equip.URL, typeof(UI_equip));
+            UIObjectFactory.SetPackageItemExtension(UI_FriendDetailUI.URL, typeof(UI_FriendDetailUI));
         }
     }
 }

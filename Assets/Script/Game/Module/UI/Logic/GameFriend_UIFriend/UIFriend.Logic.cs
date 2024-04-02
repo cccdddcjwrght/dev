@@ -15,12 +15,7 @@ namespace SGame.UI{
 		//private static ILog log = LogManager.GetLogger("game.friend");
 		
 		partial void InitLogic(UIContext context){
-			m_view.m_listFirends.SetVirtual();
-			m_view.m_listRecomment.SetVirtual();
-			m_view.m_listFirends.itemRenderer	= ItemRenderFriend;
-			m_view.m_listRecomment.itemRenderer = ItemRenderRecomment;
 
-			OnFirendUpdate();
 			//FiberCtrl.Pool.Run(Run());
 		}
 

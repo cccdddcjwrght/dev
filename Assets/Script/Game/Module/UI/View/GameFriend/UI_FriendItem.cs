@@ -8,6 +8,7 @@ namespace SGame.UI.GameFriend
     public partial class UI_FriendItem : GComponent
     {
         public Controller m_state;
+        public Controller m___disable;
         public GImage m_bg;
         public GImage m_bgselected;
         public GButton m_head;
@@ -32,6 +33,7 @@ namespace SGame.UI.GameFriend
             base.ConstructFromXML(xml);
 
             m_state = GetControllerAt(0);
+            m___disable = GetControllerAt(1);
             m_bg = (GImage)GetChildAt(0);
             m_bgselected = (GImage)GetChildAt(1);
             m_head = (GButton)GetChildAt(2);
