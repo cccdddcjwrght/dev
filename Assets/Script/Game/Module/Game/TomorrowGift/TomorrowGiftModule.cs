@@ -30,6 +30,7 @@ namespace SGame
         public const int GOOD_ITEM_ID = 103; // 商品ID
         private TomorrowGiftData m_data;
         private static ILog log = LogManager.GetLogger("game.tomorrowGift");
+        private EventHanle m_enterGameEvent;
 
         void TestTime()
         {
@@ -45,8 +46,28 @@ namespace SGame
                 m_data.state = (int)TomorrowGiftData.STATE.WAIT_TAKE;
                 m_data.time = GameServerTime.Instance.nextDayTime;
                 
-                TestTime();
+                // TestTime();
             }
+
+            m_enterGameEvent = EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, OnFirstEnterRoom);
+        }
+
+        void OnFirstEnterRoom(int levelID)
+        {
+            m_enterGameEvent.Close();
+            m_enterGameEvent = null;
+
+            if (CanTake())
+            {
+                // 自动打开明日礼包
+                log.Info("Open tomorrowgift");
+                DelayExcuter.Instance.DelayOpen("tomorrowgift", "mainui");
+            }
+        }
+
+        public bool CanTake()
+        {
+            return time <= 0 && m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE;
         }
 
         /// <summary>

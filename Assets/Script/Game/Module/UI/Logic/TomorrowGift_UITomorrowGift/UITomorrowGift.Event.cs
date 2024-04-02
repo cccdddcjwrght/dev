@@ -24,7 +24,7 @@ namespace SGame.UI{
 
 
 			m_view.m_timegroup.visible = TomorrowGiftModule.Instance.time > 0;
-			m_view.m_btnOK.grayed = TomorrowGiftModule.Instance.time > 0;
+			//m_view.m_btnOK.grayed = TomorrowGiftModule.Instance.time > 0;
 			if (TomorrowGiftModule.Instance.time > 0)
 			{
 				GTween.To(0, 1, TomorrowGiftModule.Instance.time)
@@ -33,11 +33,11 @@ namespace SGame.UI{
 					.OnComplete(() =>
 					{
 						m_view.m_timegroup.visible = false;
-						m_view.m_btnOK.grayed = false;
 					});
 			}
 
 			UpdateItemNums();
+			UpdateTimeText();
 		}
 
 		/// <summary>
@@ -60,6 +60,10 @@ namespace SGame.UI{
 			var itemGroup = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
 			m_view.m_item1.m_title.text = config.Item1(2).ToString();
 			m_view.m_item2.m_title.text = config.Item2(2).ToString();
+			var icon1 = Utils.GetItemIcon(config.Item1(0), config.Item1(1));
+			var icon2 = Utils.GetItemIcon(config.Item2(0), config.Item2(1));
+			m_view.m_item1.SetIcon(icon1);
+			m_view.m_item2.SetIcon(icon2);
 		}
 
 		void UpdateTimeText()
