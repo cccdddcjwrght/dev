@@ -40,7 +40,7 @@ namespace SGame
 			{
 				var level = Instance.roomData.current.id;
 				var olds = _data.goods.ToDictionary(s => s.id);
-				var cfgs = GetShopCfgs(level, 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5, 9999);
+				var cfgs = GetShopCfgs(level, 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, 9999);
 				var list = new List<ShopGoods>();
 				if (cfgs != null && cfgs.Count > 0)
 				{
@@ -109,7 +109,7 @@ namespace SGame
 				return default;
 			}
 
-			static public int IsCanBuy(int id)
+			static public int IsCanBuy(int id , bool checkcfg = true)
 			{
 				if (_data.goodDic.TryGetValue(id, out var goods))
 				{
