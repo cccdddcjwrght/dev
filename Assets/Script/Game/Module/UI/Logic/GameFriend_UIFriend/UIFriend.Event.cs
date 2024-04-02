@@ -46,10 +46,9 @@ namespace SGame.UI{
 		/// <param name="context"></param>
 		void OnClickFriend(EventContext context)
 		{
-			var clickBtn = context.sender as GComponent;
+			var clickBtn = context.sender as UI_FriendItem;
 			if (clickBtn == null)
 			{
-				log.Error("OnClickHire Btn Is Null");
 				return;
 			}
 			
@@ -64,6 +63,8 @@ namespace SGame.UI{
 		/// <param name="context"></param>
 		void OnClickHire(EventContext context)
 		{
+			context.StopPropagation();
+			
 			var clickBtn = context.sender as GComponent;
 			if (clickBtn == null)
 			{
@@ -94,6 +95,8 @@ namespace SGame.UI{
 		/// <param name="context"></param>
 		void OnClickYesRecommend(EventContext context)
 		{
+			context.StopPropagation();
+
 			var component = context.sender as GComponent;
 			if (component == null)
 			{
@@ -111,6 +114,8 @@ namespace SGame.UI{
 		/// <param name="context"></param>
 		void OnClickNoRecommend(EventContext context)
 		{
+			context.StopPropagation();
+
 			var component = context.sender as GComponent;
 			if (component == null)
 			{
@@ -122,6 +127,10 @@ namespace SGame.UI{
 			FirendModule.Instance.RemoveFriend(playerId);
 		}
 
+		void OnClickHiring(EventContext context)
+		{
+			context.StopPropagation();
+		}
 		
 		private void ItemRenderFriend(int index, GObject item)
 		{
@@ -131,6 +140,7 @@ namespace SGame.UI{
 
 			view.m_btnHire.data = data.player_id;
 			view.m_btnHire.onClick.Set(OnClickHire);
+			view.m_btnHiring.onClick.Set(OnClickHiring);
 
 			view.data = data.player_id;
 			view.onClick.Set(OnClickFriend);
@@ -146,7 +156,8 @@ namespace SGame.UI{
 			view.m_btnNO.data = data.player_id;
 			view.m_btnYES.onClick.Set(OnClickYesRecommend);
 			view.m_btnNO.onClick.Set(OnClickNoRecommend);
-			
+			view.m_btnHiring.onClick.Set(OnClickHiring);
+
 			view.data = data.player_id;
 			view.onClick.Set(OnClickFriend);
 		}
