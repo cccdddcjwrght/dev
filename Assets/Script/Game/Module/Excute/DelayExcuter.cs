@@ -13,6 +13,7 @@ namespace SGame
 		struct Item : IEquatable<Item>
 		{
 			public string ui;
+			public int uiID;
 			public int funcID;
 			public int priority;
 			public bool isui;
@@ -67,7 +68,7 @@ namespace SGame
 
 			if (!string.IsNullOrEmpty(waitui) && ui != waitui && (!string.IsNullOrEmpty(ui) || call != null))
 			{
-				var d = new Item() { ui = ui, args = args, call = call };
+				var d = new Item() { ui = ui, args = args, call = call , uiID = UIUtils.GetUI(ui) };
 				InsertWaitlist(waitui, d, addtofirst);
 			}
 		}
@@ -121,7 +122,7 @@ namespace SGame
 			{
 				priority = Math.Max(0, last.priority) + 1;
 				var n = d.funcID != 0 ? Math.Abs(d.funcID) : !string.IsNullOrEmpty(ui) && ui.StartsWith("@") ? int.Parse(ui.Substring(startIndex: 1)) : 0;
-				if (d.isui && ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>(d.ui, out var cfg))
+				if (d.isui && ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>(d.uiID, out var cfg))
 					priority = cfg.Priority == 0 ? priority : cfg.Priority;
 				else if (n != 0
 					&& ConfigSystem.Instance.TryGet<GameConfigs.FunctionConfigRowData>(n, out var f)
