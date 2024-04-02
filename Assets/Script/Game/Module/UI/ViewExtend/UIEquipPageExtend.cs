@@ -88,12 +88,17 @@ namespace SGame.UI.Player
 			var go = wait.Current as GameObject;
 			if (go)
 			{
-				var old = goWrapper.wrapTarget;
-				if (old) GameObject.Destroy(old);
-				goWrapper.SetWrapTarget(go, false);
-				go.transform.localScale = Vector3.one * 300;
-				go.transform.localRotation = Quaternion.Euler(0, -145, 0);
-				go.SetLayer("UILight");
+				if (goWrapper != null)
+				{
+					var old = goWrapper.wrapTarget;
+					if (old) GameObject.Destroy(old);
+					goWrapper.SetWrapTarget(go, false);
+					go.transform.localScale = Vector3.one * 300;
+					go.transform.localRotation = Quaternion.Euler(0, -145, 0);
+					go.SetLayer("UILight");
+					yield break;
+				}
+				GameObject.Destroy(go);
 			}
 		}
 
