@@ -14,6 +14,7 @@ namespace SGame.UI.TomorrowGift
         public GTextField m_timelabel;
         public GTextField m_time;
         public GGroup m_timegroup;
+        public GComponent m_probablity;
         public const string URL = "ui://7crbg35hosc40";
 
         public static UI_TomorrowGiftUI CreateInstance()
@@ -32,6 +33,7 @@ namespace SGame.UI.TomorrowGift
             m_timelabel = (GTextField)GetChildAt(6);
             m_time = (GTextField)GetChildAt(7);
             m_timegroup = (GGroup)GetChildAt(8);
+            m_probablity = (GComponent)GetChildAt(10);
         }
     }
 }

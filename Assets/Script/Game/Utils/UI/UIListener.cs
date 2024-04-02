@@ -164,7 +164,7 @@ public class UIListener
 	}
 
 	/// <summary>
-	/// »ñÈ¡±¾µØ»¯ÎÄ±¾
+	/// è·å–æœ¬åœ°åŒ–æ–‡æœ¬
 	/// </summary>
 	/// <param name="str"></param>
 	/// <param name="def"></param>
@@ -181,7 +181,7 @@ public class UIListener
 	}
 
 	/// <summary>
-	/// »ñÈ¡±¾µØ»¯ÎÄ±¾
+	/// è·å–æœ¬åœ°åŒ–æ–‡æœ¬
 	/// </summary>
 	/// <param name="txt"></param>
 	/// <returns></returns>
@@ -191,7 +191,7 @@ public class UIListener
 	}
 
 	/// <summary>
-	/// ±¾µØ»¯²¢¸ñÊ½»¯
+	/// æœ¬åœ°åŒ–å¹¶æ ¼å¼åŒ–
 	/// </summary>
 	/// <param name="format"></param>
 	/// <param name="args"></param>
@@ -202,7 +202,7 @@ public class UIListener
 	}
 
 	/// <summary>
-	/// ¸ù¾İÇ°×º×Ô¶¯±¾µØ»¯
+	/// æ ¹æ®å‰ç¼€è‡ªåŠ¨æœ¬åœ°åŒ–
 	/// </summary>
 	/// <param name="txt"></param>
 	/// <returns></returns>
@@ -355,7 +355,7 @@ public class UIListener
 			if (c != null && c.pageCount > index)
 				c.selectedIndex = index;
 			else if (throwex)
-				throw new Exception($"{gObject} ²»´æÔÚ {ctr} ¿ØÖÆÆ÷»òÕß{index}Ô½½ç");
+				throw new Exception($"{gObject} ä¸å­˜åœ¨ {ctr} æ§åˆ¶å™¨æˆ–è€…{index}è¶Šç•Œ");
 		}
 	}
 

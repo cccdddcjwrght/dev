@@ -13,6 +13,7 @@ namespace SGame.UI.Main
         public GTextField m_content;
         public GGroup m_time;
         public GGroup m_body;
+        public GButton m_redpoint;
         public Transition m_t0;
         public const string URL = "ui://ktixaqljgmj1w";
 
@@ -31,6 +32,7 @@ namespace SGame.UI.Main
             m_content = (GTextField)GetChildAt(2);
             m_time = (GGroup)GetChildAt(3);
             m_body = (GGroup)GetChildAt(6);
+            m_redpoint = (GButton)GetChildAt(7);
             m_t0 = GetTransitionAt(0);
         }
     }

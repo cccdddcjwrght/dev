@@ -45,7 +45,7 @@ namespace SGame
                 m_data.state = (int)TomorrowGiftData.STATE.WAIT_TAKE;
                 m_data.time = GameServerTime.Instance.nextDayTime;
                 
-                //TestTime();
+                TestTime();
             }
         }
 
@@ -77,7 +77,8 @@ namespace SGame
                 return false;
             }
             
-            //RequestExcuteSystem.BuyGoods(GOOD_ITEM_ID);
+            RequestExcuteSystem.BuyGoods(GOOD_ITEM_ID);
+            /*
             if (!ConfigSystem.Instance.TryGet(GOOD_ITEM_ID, out ShopRowData config))
             {
                 log.Error("good id not found=" + GOOD_ITEM_ID);
@@ -94,6 +95,7 @@ namespace SGame
             var itemGroup = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
             itemGroup.AddNum(config.Item1(1), config.Item1(2));
             itemGroup.AddNum(config.Item2(1), config.Item2(2));
+            */
             m_data.state = (int)TomorrowGiftData.STATE.TAKED;
             
             log.Info("Tomorrow Git Add Success !");

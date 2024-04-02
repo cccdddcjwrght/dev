@@ -133,10 +133,13 @@ namespace SGame.UI
 			}).SetTarget(ui).OnComplete(() =>
 			{
 				ui.m_time.visible = false;
+				ui.m___redpoint.selectedIndex = 1;
 				log.Info("counter dowm zero!");
 			});
 			
 			ui.m_time.visible = config.second > 0;
+			ui.m___redpoint.selectedIndex = config.second > 0 ? 0 : 1;
+
 			ui.m_content.text = Utils.FormatTime((int)config.second);
 			ui.icon = config.config.Icon;
 		}
