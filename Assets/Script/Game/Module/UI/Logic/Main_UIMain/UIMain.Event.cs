@@ -159,7 +159,7 @@ namespace SGame.UI
 					case 2:
 						"technology".Goto();
 						break;
-					case 2:
+					case 3:
 						"friend".Goto();
 						break;
 				}
