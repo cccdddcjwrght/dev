@@ -14,18 +14,19 @@ namespace SGame.UI{
 		partial void InitEvent(UIContext context)
 		{
 			m_eventUpdate = EventManager.Instance.Reg((int)GameEvent.FRIEND_DATE_UPDATE, OnFirendUpdate);
+			m_view.m_listFirends.SetVirtual();
+			m_view.m_listRecomment.SetVirtual();
+			m_view.m_listFirends.itemRenderer	= ItemRenderFriend;
+			m_view.m_listRecomment.itemRenderer = ItemRenderRecomment;
+
+			OnFirendUpdate();
 		}
 		
 		partial void UnInitEvent(UIContext context){
 			m_eventUpdate.Close();
 			m_eventUpdate = null;
 		}
-
-		void SetHeadIcon(UI_HeadBtn head, int icon, int frame)
-		{
-			//head.m_headImg.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
-			//head.m_frame.url	= string.Format("ui://IconHead/{0}",_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
-		}
+		
 
 		/// <summary>
 		/// 刷新好友列表
@@ -37,6 +38,24 @@ namespace SGame.UI{
 			m_view.m_listRecomment.numItems = FirendModule.Instance.GetDatas().RecommendFriends.Count;
 			//m_view.m_listFirends.RefreshVirtualList();
 			//m_view.m_listRecomment.RefreshVirtualList();
+		}
+
+		/// <summary>
+		/// 点击好友详情
+		/// </summary>
+		/// <param name="context"></param>
+		void OnClickFriend(EventContext context)
+		{
+			var clickBtn = context.sender as GComponent;
+			if (clickBtn == null)
+			{
+				log.Error("OnClickHire Btn Is Null");
+				return;
+			}
+			
+			var player_id = (int)clickBtn.data;
+			log.Info("open friend =" + player_id);
+			SGame.UIUtils.OpenUI("frienddetail", new UIParam() {Value = player_id});
 		}
 
 		/// <summary>
@@ -112,6 +131,9 @@ namespace SGame.UI{
 
 			view.m_btnHire.data = data.player_id;
 			view.m_btnHire.onClick.Set(OnClickHire);
+
+			view.data = data.player_id;
+			view.onClick.Set(OnClickFriend);
 		}
 
 		private void ItemRenderRecomment(int index, GObject item)
@@ -124,6 +146,9 @@ namespace SGame.UI{
 			view.m_btnNO.data = data.player_id;
 			view.m_btnYES.onClick.Set(OnClickYesRecommend);
 			view.m_btnNO.onClick.Set(OnClickNoRecommend);
+			
+			view.data = data.player_id;
+			view.onClick.Set(OnClickFriend);
 		}
 	}
 }

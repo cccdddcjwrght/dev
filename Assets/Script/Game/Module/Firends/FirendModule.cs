@@ -197,7 +197,7 @@ namespace SGame.Firend
             index = FindFirend(m_friendData.RecommendFriends, player_id);
             if (index >= 0)
             {
-                m_friendData.RecommendFriends.RemoveAt(player_id);
+                m_friendData.RecommendFriends.RemoveAt(index);
                 EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
                 return;
             }
