@@ -107,9 +107,9 @@ namespace SGame.UI{
 		private void ItemRenderFriend(int index, GObject item)
 		{
 			var view = (UI_FriendItem)item;
-			var data = FirendModule.Instance.GetDatas().Friends[index]; // [index];
-			view.m_name.text = data.name;
-			view.m_state.selectedIndex = data.state;
+			var data = FirendModule.Instance.GetDatas().Friends[index]; 
+			view.SetData(data);
+
 			view.m_btnHire.data = data.player_id;
 			view.m_btnHire.onClick.Set(OnClickHire);
 		}
@@ -118,8 +118,8 @@ namespace SGame.UI{
 		{
 			var view = (UI_FriendItem)item;
 			var data = FirendModule.Instance.GetDatas().RecommendFriends[index]; 
-			view.m_name.text = data.name;
-			view.m_state.selectedIndex = (int)FIREND_STATE.RECOMMEND;
+			view.SetData(data);
+
 			view.m_btnYES.data = data.player_id;
 			view.m_btnNO.data = data.player_id;
 			view.m_btnYES.onClick.Set(OnClickYesRecommend);
