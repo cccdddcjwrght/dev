@@ -79,7 +79,7 @@ namespace SGame.UI{
 		{
 			if (TomorrowGiftModule.Instance.time > 0)
 			{
-				HudModule.Instance.SystemTips("@ui_tomorrowgift_tips1");
+				HudModule.Instance.SystemTips("ui_tomorrowgift_tips1".Local());
 				return;
 			}
 			
