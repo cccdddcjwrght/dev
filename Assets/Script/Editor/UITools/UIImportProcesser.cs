@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System;
 using System.Text.RegularExpressions;
+using System.Runtime.CompilerServices;
 
 public interface IUIExcute
 {
@@ -66,14 +67,27 @@ public static class UIImportUtils
 		return default;
 	}
 
-	static public string GetMethodName(string name, string parentName)
+	static public string GetMethodName(string name, string parentName, bool fullpath = false , [CallerMemberName] string callName = null )
 	{
 		var newName = name.Split('.').Last().Replace("m_", "");
-		if (name.LastIndexOf(".") != name.IndexOf("."))
+		if (fullpath || name.LastIndexOf(".") != name.IndexOf("."))
+		{
+			fullpath = true;
 			newName = name.Replace(".", "_").Replace("m_", "");
-		
+		}
 		newName = (string.IsNullOrEmpty(parentName) ? "" : parentName + "_") + newName[0].ToString().ToUpper() + newName.Substring(1);
-		return RemoveMatchStr(newName.Replace("UI_", ""));
+		var r = RemoveMatchStr(newName.Replace("UI_", ""));
+
+		if (!fullpath)
+		{
+			var f = callName + r;
+			if (G_MEMBER_CALL_STRS.Contains(f))
+				r = GetMethodName(name, parentName, true);
+			else
+				G_MEMBER_CALL_STRS.Add(f);
+		}
+		return r;
+
 	}
 
 	static public string RemoveMatchStr(string str)
@@ -144,7 +158,7 @@ public static class UIImportUtils
 				.Select(l => l.Replace("public", "").Replace(";", " " + typeName).Trim().Split(' '))
 				.ToList();
 		if (ms == null || ms.Count == 0) return;
-		if (ms.FindIndex(m => m[0] == "Controller" && m[1].EndsWith("__disable")) > -1) return ;
+		if (ms.FindIndex(m => m[0] == "Controller" && m[1].EndsWith("__disable")) > -1) return;
 
 		var rets = members ?? new List<string[]>();
 		var count = 0;
