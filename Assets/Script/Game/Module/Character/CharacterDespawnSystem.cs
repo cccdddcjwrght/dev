@@ -50,6 +50,9 @@ namespace SGame
                 if (item.gameObject != null)
                     GameObject.Destroy(item.gameObject);
             }
-        }
+
+			m_destoryGameObject.Clear();
+
+		}
     }
 }
