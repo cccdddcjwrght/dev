@@ -131,7 +131,7 @@ build-android-il2cpp:
   rules:
     - if: $CI_COMMIT_TITLE =~ /^.*@buildapk.*/ || $CI_COMMIT_BRANCH == "buildapk"
   tags:
-    - android-2021
+    - macMini
 
 build-ios-xcode:
   <<: *build
@@ -154,7 +154,7 @@ notice_apk_success:
   rules: 
     - if: $CI_COMMIT_BRANCH == 'buildapk' || $CI_COMMIT_TITLE =~ /^.*@buildapk.*/ || $CI_COMMIT_TITLE =~ /^.*@buildall.*/
   tags:
-    - android-2021
+    - macMini
 
 notice_apk_fail: 
   <<: 
@@ -169,7 +169,7 @@ notice_apk_fail:
     - if: $CI_COMMIT_BRANCH == 'buildapk' || $CI_COMMIT_TITLE =~ /^.*@buildapk.*/ || $CI_COMMIT_TITLE =~ /^.*@buildall.*/
   when: on_failure
   tags:
-    - android-2021
+    - macMini
 
 notice_ios_success: 
   <<: 
