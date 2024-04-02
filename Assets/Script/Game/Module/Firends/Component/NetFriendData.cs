@@ -33,6 +33,7 @@ namespace SGame.Firend
     {
         public int                player_id;     // 玩家ID
         public int                icon_id;       // 头像ID
+        public int                frame_id;      // 头像框ID
         public int                roleID;        // 角色ID
         public string             name;          // 角色名称
         public long               hireTime = 0;  // 招募时间

@@ -1,76 +1,74 @@
 {
-	"Friends": [
+"Friends": [
+{
+	"roleID": 1111,
+	"name": "111",
+	"hireTime": 1711952033,
+	"equips": [
 	{
-		"roleID": 1111,
-		"name": "111",
-		"hireTime": 1711952033,
-		"equips": [
-		{
-			"id": 1,
-			"quality": 2,
-			"level": 3
-		},
-		{
-			"id": 2,
-			"quality": 3,
-			"level": 3
-		},
-		{
-			"id": 3,
-			"quality": 1,
-			"level": 3
-		}
-		],
-		"player_id": 1111,
-		"icon_id": 1
+		"id": 10000111,
+		"quality": 2,
+		"level": 3
 	},
 	{
-		"roleID": 2222,
-		"name": "222",
-		"equips": [
-		{
-			"id": 1,
-			"quality": 1,
-			"level": 1
-		},
-		{
-			"id": 2,
-			"quality": 2,
-			"level": 3
-		},
-		{
-			"id": 3,
-			"quality": 3,
-			"level": 3
-		}
-		],
-		"player_id": 2222,
-		"icon_id": 2
+		"id": 10000121,
+		"quality": 3,
+		"level": 3
+	},
+	{
+		"id": 10000131,
+		"quality": 1,
+		"level": 3
 	}
 	],
-	"RecommendFriends": [
+	"player_id": 1111,
+	"icon_id": 1,
+	"frame_id": 13
+},
+{
+	"roleID": 2222,
+	"name": "222",
+	"equips": [
 	{
-		"roleID": 2,
-		"name": "2222",
-		"equips": [
-		{
-			"id": 1,
-			"quality": 1,
-			"level": 1
-		},
-		{
-			"id": 2,
-			"quality": 2,
-			"level": 3
-		},
-		{
-			"id": 3,
-			"quality": 3,
-			"level": 3
-		}
-		],
-		"player_id": 2,
-		"icon_id": 2
+		"id": 10000112,
+		"quality": 1,
+		"level": 1
+	},
+	{
+		"id": 10000122,
+		"quality": 2,
+		"level": 3
+	},
+	{
+		"id": 10000132,
+		"quality": 3,
+		"level": 3
 	}
-	]
+	],
+	"player_id": 2222,
+	"icon_id": 2,
+	"frame_id": 14
+}
+],
+"RecommendFriends": [
+{
+	"roleID": 2,
+	"name": "2222",
+	"equips": [
+	{
+		"id": 10000112,
+		"quality": 1,
+		"level": 1
+	},
+	{
+		"id":10000122,
+		"quality": 2,
+		"level": 3
+	}
+	],
+	"player_id": 2,
+	"icon_id": 4,
+	"frame_id": 15
+}
+]
 }
