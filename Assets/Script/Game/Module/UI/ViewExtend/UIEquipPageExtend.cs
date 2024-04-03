@@ -54,12 +54,25 @@ namespace SGame.UI.Player
 		{
 			var index = roleData == null ? 1 : 0;
 			RefreshAttr();
-			IList<BaseEquip> eqs = roleData != null ? roleData.equips : DataCenter.Instance.equipData.equipeds;
-			UIListenerExt.SetEquipInfo(m_eq1, eqs[index]);
-			UIListenerExt.SetEquipInfo(m_eq2, eqs[index + 1]);
-			UIListenerExt.SetEquipInfo(m_eq3, eqs[index + 2]);
-			UIListenerExt.SetEquipInfo(m_eq4, eqs[index + 3]);
-			UIListenerExt.SetEquipInfo(m_eq5, eqs[index + 4]);
+			if(roleData == null)
+			{
+				IList<BaseEquip> eqs = DataCenter.Instance.equipData.equipeds;
+
+				UIListenerExt.SetEquipInfo(m_eq1, eqs[1]);
+				UIListenerExt.SetEquipInfo(m_eq2, eqs[2]);
+				UIListenerExt.SetEquipInfo(m_eq3, eqs[3]);
+				UIListenerExt.SetEquipInfo(m_eq4, eqs[4]);
+				UIListenerExt.SetEquipInfo(m_eq5, eqs[5]);
+			}
+			else
+			{
+				for (int i = 1; i <=5; i++)
+				{
+					var e = roleData.equips.Find(e => e.type == i);
+					UIListenerExt.SetEquipInfo(GetChild("eq" + i), e , true);
+				}
+			}
+
 			return this;
 		}
 
