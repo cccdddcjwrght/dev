@@ -37,6 +37,7 @@ namespace SGame.Firend
         public int                roleID;        // 角色ID
         public string             name;          // 角色名称
         public int                hireTime = 0;  // 下次可招募时间(秒)
+        public int                hiringTime = 0;// 雇佣生效时间
         public int                passLevel = 0; // 通关数量
         public int                state = 0;     // 雇佣状态
         public List<FirendEquip>  equips;        // 装备信息
@@ -46,9 +47,19 @@ namespace SGame.Firend
         /// </summary>
         /// <param name="currentTime"></param>
         /// <returns></returns>
-        public int GetLeftTime(int currentTime)
+        public int GetDisableTime(int currentTime)
         {
             return currentTime >= hireTime ? 0 : hireTime - currentTime;
+        }
+
+        /// <summary>
+        /// 获取激活剩余时间
+        /// </summary>
+        /// <param name="currentTime"></param>
+        /// <returns></returns>
+        public int GetActiveTime(int currentTime)
+        {
+            return currentTime >= hiringTime ? 0 : hiringTime - currentTime;
         }
     }
     

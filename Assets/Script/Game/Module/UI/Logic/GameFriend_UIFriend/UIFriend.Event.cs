@@ -9,11 +9,12 @@ namespace SGame.UI{
 	
 	public partial class UIFriend
 	{
-		private EventHanle m_eventUpdate;
+		private EventHandleContainer m_eventContainer = new EventHandleContainer();
 		
 		partial void InitEvent(UIContext context)
 		{
-			m_eventUpdate = EventManager.Instance.Reg((int)GameEvent.FRIEND_DATE_UPDATE, OnFirendUpdate);
+			m_eventContainer  += EventManager.Instance.Reg((int)GameEvent.FRIEND_DATE_UPDATE, OnFirendUpdate); // 好友数据更新
+			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.CROSS_DAY, OnFirendUpdate);		   // 跨天更新
 			m_view.m_listFirends.SetVirtual();
 			m_view.m_listRecomment.SetVirtual();
 			m_view.m_listFirends.itemRenderer	= ItemRenderFriend;
@@ -23,11 +24,22 @@ namespace SGame.UI{
 		}
 		
 		partial void UnInitEvent(UIContext context){
-			m_eventUpdate.Close();
-			m_eventUpdate = null;
+			m_eventContainer.Close();
+			m_eventContainer = null;
+		}
+
+		void UpdateFrame(UIContext context)
+		{
+			// 跨天刷新
+			var datas = FriendModule.Instance.GetDatas();
+			var currentTime = GameServerTime.Instance.serverTime;
+			if (datas.nextHireTime != 0 && currentTime >= datas.nextHireTime)
+			{
+				// 跨天就更新界面
+				OnFirendUpdate();
+			}
 		}
 		
-
 		/// <summary>
 		/// 刷新好友列表
 		/// </summary>
