@@ -201,6 +201,7 @@ namespace SGame.Firend
             item.hireTime = GameServerTime.Instance.nextDayTime;
             item.hiringTime = serverTime + HIRING_TIME;
             m_friendData.nextHireTime = serverTime + HIRE_TIME_INTERVAL;
+            m_friendData.hiringTime = serverTime + HIRING_TIME;
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
         }
 
