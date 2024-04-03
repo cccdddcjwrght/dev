@@ -1,5 +1,6 @@
 ﻿using System;
 using GameConfigs;
+using SGame.Firend;
 using SGame.UI.Common;
 using SGame.UI.Main;
 using Unity.Entities;
@@ -85,6 +86,29 @@ namespace SGame.UI
 			leftList.GetChildAt(1).visible = 12.IsOpend(false);
 			leftList.GetChildAt(2).visible = 17.IsOpend(false);
 			leftList.GetChildAt(3).visible = 14.IsOpend(false);
+			
+			// 处理好友倒计时间
+			var friendItem = leftList.GetChildAt(3) as UI_ShowBtn;
+			GTween.Kill(friendItem);
+			if (friendItem.visible)
+			{
+				if (FriendModule.Instance.hiringTime > 0)
+				{
+					friendItem.m_ctrlTime.selectedIndex = 1;
+					GTween.To(0, 1, FriendModule.Instance.hiringTime)
+						.SetTarget(friendItem)
+						.OnUpdate(() =>
+						{
+							var t = FriendModule.Instance.hiringTime;
+							friendItem.m_content.text = Utils.FormatTime(t);
+						})
+						.OnComplete(() => friendItem.m_ctrlTime.selectedIndex = 0);
+				}
+				else
+				{
+					friendItem.m_ctrlTime.selectedIndex = 0;
+				}
+			}
 
 
 			// 处理右列表

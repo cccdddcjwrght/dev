@@ -44,6 +44,18 @@ namespace SGame.Firend
         }
 
         /// <summary>
+        /// 获取雇佣剩余时间
+        /// </summary>
+        public int hiringTime
+        {
+            get
+            {
+                int current = GameServerTime.Instance.serverTime;
+                return current >= m_friendData.hiringTime ? 0 : m_friendData.hiringTime - current;
+            }
+        }
+
+        /// <summary>
         /// 初始话
         /// </summary>
         public void Initalize()
@@ -215,6 +227,8 @@ namespace SGame.Firend
             m_friendData.nextHireTime = serverTime + HIRE_TIME_INTERVAL;
             m_friendData.hiringTime = serverTime + HIRING_TIME;
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
+            EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING);
+            EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         /// <summary>
