@@ -12,6 +12,7 @@ namespace SGame.UI
 
 	public partial class UIEquipTips
 	{
+		private bool showBtn;
 		private EquipItem equip;
 		private BuffRowData buff;
 		private List<int[]> effects;
@@ -29,6 +30,7 @@ namespace SGame.UI
 
 		private bool needRefreshPlayUI;
 
+
 		partial void InitLogic(UIContext context)
 		{
 
@@ -44,7 +46,11 @@ namespace SGame.UI
 
 			m_view.z = -500;
 			equip = (context.GetParam().Value as object[]).Val<EquipItem>(0);
+			showBtn = (context.GetParam().Value as object[]).Val<bool>(1 , true);
+
 			m_view.m_list.itemRenderer = OnSetEffect;
+			m_view.m_click.visible = m_view.m_click2.visible = m_view.m_up.visible = showBtn;
+
 			SetInfo();
 			SetEffectsInfo();
 		}
