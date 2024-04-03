@@ -7,7 +7,9 @@ namespace SGame.UI.Player
 {
     public partial class UI_EquipPage : GComponent
     {
-        public GComponent m_model;
+        public Controller m_bg;
+        public Controller m_pos;
+        public UI_bgclick m_model;
         public GButton m_attrbtn;
         public GTextField m_attr;
         public GGraph m_holder;
@@ -27,15 +29,17 @@ namespace SGame.UI.Player
         {
             base.ConstructFromXML(xml);
 
-            m_model = (GComponent)GetChildAt(0);
+            m_bg = GetControllerAt(0);
+            m_pos = GetControllerAt(1);
+            m_model = (UI_bgclick)GetChildAt(0);
             m_attrbtn = (GButton)GetChildAt(2);
             m_attr = (GTextField)GetChildAt(3);
-            m_holder = (GGraph)GetChildAt(5);
-            m_eq5 = (UI_EqPos)GetChildAt(7);
-            m_eq4 = (UI_EqPos)GetChildAt(8);
-            m_eq1 = (UI_EqPos)GetChildAt(9);
-            m_eq2 = (UI_EqPos)GetChildAt(10);
-            m_eq3 = (UI_EqPos)GetChildAt(11);
+            m_holder = (GGraph)GetChildAt(6);
+            m_eq5 = (UI_EqPos)GetChildAt(8);
+            m_eq4 = (UI_EqPos)GetChildAt(9);
+            m_eq1 = (UI_EqPos)GetChildAt(10);
+            m_eq2 = (UI_EqPos)GetChildAt(11);
+            m_eq3 = (UI_EqPos)GetChildAt(12);
         }
     }
 }
