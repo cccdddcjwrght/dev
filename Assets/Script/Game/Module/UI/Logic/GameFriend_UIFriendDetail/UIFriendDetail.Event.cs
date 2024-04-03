@@ -26,6 +26,13 @@ namespace SGame.UI{
 			m_view.m_btnDelete.onClick.Add(OnClickUnFriend);
 
 			m_playerID = (int)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
+			UpdateUIInfo();
+		}
+
+		void UpdateUIInfo()
+		{
+			var item = FirendModule.Instance.GetFriendItem(m_playerID);
+			m_view.m_title.text = item.name;
 			log.Info("UIFriendDetail OPEN FRIEND =" + m_playerID);
 			m_uiEquip.Init(null);
 			m_uiEquip.SetInfo(GetRoleData(m_playerID))
@@ -33,8 +40,11 @@ namespace SGame.UI{
 				.RefreshModel();
 
 			var scale = GlobalDesginConfig.GetFloat("friend_model_scale", 1.0f);
+			var yoffset = GlobalDesginConfig.GetFloat("friend_model_yoffset", 0);
 			m_uiEquip.m_holder.scale = new Vector2(scale, scale);
+			m_uiEquip.m_holder.y += yoffset;
 		}
+		
 
 		RoleData GetRoleData(int playerID)
 		{
