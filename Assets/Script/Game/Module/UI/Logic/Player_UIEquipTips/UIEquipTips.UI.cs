@@ -15,6 +15,7 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_quality.onChanged.Add(new EventCallback1(_OnQualityChanged));
 			m_view.m_lvmax.onChanged.Add(new EventCallback1(_OnLvmaxChanged));
+			m_view.m_hide.onChanged.Add(new EventCallback1(_OnHideChanged));
 			m_view.m_progress.m_state.onChanged.Add(new EventCallback1(_Onuplevelprogress_StateChanged));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
@@ -26,6 +27,7 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 			m_view.m_quality.onChanged.Remove(new EventCallback1(_OnQualityChanged));
 			m_view.m_lvmax.onChanged.Remove(new EventCallback1(_OnLvmaxChanged));
+			m_view.m_hide.onChanged.Remove(new EventCallback1(_OnHideChanged));
 			m_view.m_progress.m_state.onChanged.Remove(new EventCallback1(_Onuplevelprogress_StateChanged));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
@@ -44,6 +46,11 @@ namespace SGame.UI{
 		}
 		partial void OnLvmaxChanged(EventContext data);
 		void SwitchLvmaxPage(int index)=>m_view.m_lvmax.selectedIndex=index;
+		void _OnHideChanged(EventContext data){
+			OnHideChanged(data);
+		}
+		partial void OnHideChanged(EventContext data);
+		void SwitchHidePage(int index)=>m_view.m_hide.selectedIndex=index;
 		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
 		string GetLevelText()=>UIListener.GetText(m_view.m_level);
 		void SetAttrText(string data)=>UIListener.SetText(m_view.m_attr,data);

@@ -45,11 +45,13 @@ namespace SGame.UI
 
 
 			m_view.z = -500;
-			equip = (context.GetParam().Value as object[]).Val<EquipItem>(0);
-			showBtn = (context.GetParam().Value as object[]).Val<bool>(1 , true);
+			var eq = (context.GetParam().Value as object[]).Val<BaseEquip>(0);
+			if (eq is EquipItem) equip = eq as EquipItem;
+			else { equip = new EquipItem() { cfgID = eq.cfgID, level = eq.level, quality = eq.quality, progress = 0 }; equip.Refresh(); }
+			showBtn = (context.GetParam().Value as object[]).Val<bool>(1, true);
 
 			m_view.m_list.itemRenderer = OnSetEffect;
-			m_view.m_click.visible = m_view.m_click2.visible = m_view.m_up.visible = showBtn;
+			
 
 			SetInfo();
 			SetEffectsInfo();
@@ -103,7 +105,7 @@ namespace SGame.UI
 				m_view.m_progress.max = 1;
 				m_view.m_nextlvattr.SetTextByKey("ui_equip_lvmax");
 			}
-
+			m_view.m_hide.selectedIndex = showBtn ? 0 : 1;
 		}
 
 		void OnSetEffect(int index, GObject gObject)

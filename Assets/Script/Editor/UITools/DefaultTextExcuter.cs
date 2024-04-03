@@ -21,6 +21,7 @@ public class DefaultTextExcuter : IUIExcute
 			var callMethod = $"\t\tvoid Set{newName}Text(string data)=>UIListener.SetText(m_view.{name},data);";
 			var callMethod1 = $"\t\tstring Get{newName}Text()=>UIListener.GetText(m_view.{name});";
 
+
 			call.AppendLine(callMethod);
 			call.AppendLine(callMethod1);
 

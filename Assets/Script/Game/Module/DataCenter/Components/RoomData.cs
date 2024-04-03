@@ -13,6 +13,7 @@ namespace SGame
 	{
 		public RoomData roomData = new RoomData();
 
+
 		public static class RoomUtil
 		{
 
@@ -32,13 +33,11 @@ namespace SGame
 					{
 						d.roomID = id;
 						d.rooms.Insert(0, room);
+						room.isnew = true;
 					}
 					else
 						d.rooms.Add(room);
 					d.time = GameServerTime.Instance.serverTime;
-					var user = Instance.GetUserData();
-					user.scene = id;
-					Instance.SetUserData(user);
 					EventManager.Instance.Trigger(((int)GameEvent.ENTER_NEW_ROOM));
 					return room;
 				}
@@ -196,7 +195,8 @@ namespace SGame
 		[NonSerialized]
 		public Dictionary<int, RoomTechRowData> roomTechs;
 
-
+		[NonSerialized]
+		public bool isnew;
 
 	}
 

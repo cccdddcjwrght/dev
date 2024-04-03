@@ -18,6 +18,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
+			m_view.z = 500;
 			m_view.m_eqTab.selectedIndex = -1;
 			m_view.m_list.itemRenderer = OnSetEquipInfo;
 			m_view.m_list.SetVirtual();
@@ -85,6 +86,7 @@ namespace SGame.UI
 		void SetPlayerEquipsInfo()
 		{
 			m_view.m_EquipPage
+				.SetInfo(null)
 				.SetEquipInfo()
 				.RefreshModel();
 		}

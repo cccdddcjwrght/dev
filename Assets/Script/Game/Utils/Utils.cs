@@ -772,5 +772,32 @@ namespace SGame
 			yield return ani;
 		}
 
+		public static List<int[]> GetArrayList(params Func<int[]>[] calls) {
+
+			if(calls?.Length > 0)
+			{
+				var list = new List<int[]>();
+				for (int i = 0; i < calls.Length; i++)
+				{
+					var call = calls[i];
+					if (call != null)
+					{
+						try
+						{
+							var v = call();
+							list.Add(v);
+						}
+						catch (Exception e)
+						{
+							log.Info("error:"+e.Message);
+						}
+					}
+				}
+				return list;
+			}
+			return default;
+
+		}
+
 	}
 }

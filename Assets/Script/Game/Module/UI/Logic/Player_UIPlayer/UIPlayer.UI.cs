@@ -119,6 +119,8 @@ namespace SGame.UI{
 			OnEquipPage_ModelClick(data);
 		}
 		partial void OnEquipPage_ModelClick(EventContext data);
+		void SetEquipPage_EquipPage_modelText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_model,data);
+		string GetEquipPage_EquipPage_modelText()=>UIListener.GetText(m_view.m_EquipPage.m_model);
 		void _OnEquipPage_AttrbtnClick(EventContext data){
 			OnEquipPage_AttrbtnClick(data);
 		}

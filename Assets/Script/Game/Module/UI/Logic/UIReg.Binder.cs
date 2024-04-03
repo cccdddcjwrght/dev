@@ -40,6 +40,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("FriendDetailUI", "GameFriend", ()=>new UIFriendDetail());;
 			context.uiModule.Reg("FriendUI", "GameFriend", ()=>new UIFriend());SGame.UI.GameFriend.GameFriendBinder.BindAll();;
 			context.uiModule.Reg("RoomExclusiveUI", "RoomExclusive", () => new UIRoomExclusive()); SGame.UI.RoomExclusive.RoomExclusiveBinder.BindAll();
+			context.uiModule.Reg("WelcomeNewLevelUI", "EnterScene", ()=>new UIWelcomeNewLevel());
+			context.uiModule.Reg("LevelCompletedUI", "EnterScene", ()=>new UILevelCompleted());
 		}
 	}
 }

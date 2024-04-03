@@ -23,6 +23,7 @@ namespace SGame.Dining
 
 		private GameWorld _gameWorld;
 		private Entity _sceneFlag;
+		private Room _room;
 
 		private DiningRoomLogic _currentRoom;
 		private EventHandleContainer _eHandlers;
@@ -36,6 +37,9 @@ namespace SGame.Dining
 			_gameWorld = world;
 			InitEvents();
 			WorktableHud.Instance.Init();
+
+			EventManager.Instance.Reg(((int)GameEvent.WORK_TABLE_ALL_MAX_LV), OnWorktableAllMaxLv);
+
 		}
 
 		public IEnumerator LoadRoom(int roomID, Action<int> progress = null)
@@ -54,7 +58,7 @@ namespace SGame.Dining
 					if (progress != null)
 						req.onStateChange += progress;
 					lastLogic?.Close();
-					((Func<bool>)(() => req.isDone)).Wait(OnEnterRoomCompleted);
+					((Func<bool>)(() => req.isDone)).Wait(OnLoadCompleted);
 					if (lastLogic != null)
 						EventManager.Instance.Trigger(((int)GameEvent.PREPARE_LEVEL_ROOM));
 					_sceneFlag = _gameWorld.GetEntityManager().CreateEntity(typeof(LevelScene));
@@ -90,28 +94,37 @@ namespace SGame.Dining
 		}
 
 
-		private void OnEnterRoomCompleted()
+		private void OnLoadCompleted()
 		{
-			/*if (StaticDefine.G_WAIT_VIDEO)
+			if (_room != null)
 			{
-				StaticDefine.G_WAIT_VIDEO = false;
-				this.Call(OnEnterRoomCompleted, () => StaticDefine.G_VIDEO_COMPLETE);
+				if (!_room.isnew)
+					OnEnterRoomCompleted().Start();
+				else
+				{
+					StaticDefine.G_WAIT_WELCOME = true;
+					UIUtils.OpenUI("welcomenewlevel");
+					OnEnterRoomCompleted(true).Start();
+				}
 			}
-			else*/
-			{
-				log.Info("Enter Room :" + _currentRoom.cfgID);
-				EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
-				EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
-				_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
-				isEnterSceneCompleted = true;
-			}
+		}
+
+		private IEnumerator OnEnterRoomCompleted(bool wait = false)
+		{
+			if (wait)
+				yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
+			log.Info("Enter Room :" + _currentRoom.cfgID);
+			EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
+			EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
+			_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
+			isEnterSceneCompleted = true;
 		}
 
 		private IEnumerator Wait()
 		{
 			if (_currentRoom != null)
 			{
-				DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID, true);
+				_room = DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID, true);
 				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
 				UIUtils.OpenUI("scenedecorui");
 				if (DataCenter.IsNew)
@@ -123,14 +136,24 @@ namespace SGame.Dining
 #endif
 				}
 				yield return _currentRoom.Wait();
+
 				if (StaticDefine.G_WAIT_VIDEO)
 					yield return new WaitUntil(() => StaticDefine.G_VIDEO_COMPLETE);
+
 			}
 		}
 
 
 		#endregion
 
+		#region Event
+
+		private void OnWorktableAllMaxLv()
+		{
+			SGame.UIUtils.OpenUI("levelcomplete");
+		}
+
+		#endregion
 
 	}
 }

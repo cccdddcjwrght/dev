@@ -9,6 +9,7 @@ namespace SGame.UI.Player
     {
         public Controller m_quality;
         public Controller m_lvmax;
+        public Controller m_hide;
         public GGraph m_maskbg;
         public GTextField m_level;
         public GTextField m_attr;
@@ -35,6 +36,7 @@ namespace SGame.UI.Player
 
             m_quality = GetControllerAt(0);
             m_lvmax = GetControllerAt(1);
+            m_hide = GetControllerAt(2);
             m_maskbg = (GGraph)GetChildAt(0);
             m_level = (GTextField)GetChildAt(4);
             m_attr = (GTextField)GetChildAt(6);

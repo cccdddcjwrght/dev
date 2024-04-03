@@ -121,7 +121,7 @@ public class UIListener
 		if (string.IsNullOrEmpty(res) || _icon_Pkg.Count == 0) return default;
 		for (int i = 0; i < _icon_Pkg.Count; i++)
 		{
-			var url = GetUIRes(_icon_Pkg[i] , res);
+			var url = GetUIRes(_icon_Pkg[i], res);
 			if (url != null) return url;
 		}
 		return default;
@@ -227,10 +227,10 @@ public class UIListener
 		if (gObject != null)
 		{
 			txt = local ? AutoLocal(string.IsNullOrEmpty(txt) ? gObject.text : txt) : txt;
-			gObject.text = txt;
-			var com = gObject.asCom;
+			var com = gObject.asCom?.GetChild("body")?.asCom ?? gObject.asCom;
 			if (com != null)
 			{
+				com.text = txt;
 				var shadow = com.GetChild("shadow");
 				var outline = com.GetChild("outline");
 				var o1 = com.GetChild("__text");
@@ -244,6 +244,9 @@ public class UIListener
 				if (o3 != null) o3.text = txt;
 
 			}
+			else
+				gObject.text = txt;
+
 		}
 	}
 
@@ -313,7 +316,7 @@ public class UIListener
 			var com = gObject.asCom;
 			if (com != null)
 			{
-				var o = com.GetChild("__icon") ?? com.GetChild("icon");
+				var o = com.GetChild("__icon") ?? com.GetChild("icon") ?? com.GetChild("body");
 				if (o != null) o.icon = url;
 			}
 		}
@@ -380,7 +383,7 @@ public class UIListener
 	static public GObject Listener(GObject gObject, object method, EventType eventType = EventType.Click, bool remove = false)
 	{
 		var cache = gObject;
-		if (gObject != null && method != null )
+		if (gObject != null && method != null)
 		{
 
 			var call = method as EventCallback1;

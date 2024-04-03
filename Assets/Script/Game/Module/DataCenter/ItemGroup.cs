@@ -116,4 +116,15 @@ public class ItemGroup
 		return SetNum(id, GetNum(id) + add_value);
 	}
 
+	public List<ItemData.Value> GetDatas(bool clear = false)
+	{
+		if (m_itemData.Values.Count > 0)
+		{
+			var ret = new List<ItemData.Value>(m_itemData.Values);
+			if (clear)
+				m_itemData.Values.Clear();
+			return ret;
+		}
+		return default;
+	}
 }

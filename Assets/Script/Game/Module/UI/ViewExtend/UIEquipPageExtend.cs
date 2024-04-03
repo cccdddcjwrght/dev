@@ -102,7 +102,9 @@ namespace SGame.UI.Player
 			eqclick?.Invoke(index, context.sender as GObject);
 			if (roleData != null && roleData.isEmployee)
 			{
-				SGame.UIUtils.OpenUI("eqtipsui", roleData.equips.Find(e => e != null && e.type == index), false);
+				var e = roleData.equips.Find(e => e != null && e.type == index);
+				if (e != null)
+					SGame.UIUtils.OpenUI("eqtipsui", e, false);
 			}
 		}
 

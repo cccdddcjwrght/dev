@@ -10,7 +10,6 @@ namespace SGame.UI
 	{
 		partial void InitEvent(UIContext context)
 		{
-
 			m_view.m_maskbg.onClick.Add(DoCloseUIClick);
 
 		}
