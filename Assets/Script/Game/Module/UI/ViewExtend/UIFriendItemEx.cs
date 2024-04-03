@@ -35,7 +35,7 @@ namespace SGame.UI.GameFriend
                 GTween.ToDouble(0, 1, data.GetActiveTime(GameServerTime.Instance.serverTime) + 0.1f)
                     .SetTarget(this)
                     .OnUpdate(() => m_btnHiring.title = Utils.FormatTime(data.GetActiveTime(GameServerTime.Instance.serverTime)))
-                    .OnComplete(() => EventManager.Instance.Trigger((int)GameEvent.FRIEND_DATE_UPDATE));
+                    .OnComplete(() => EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE));
             }
         }
 

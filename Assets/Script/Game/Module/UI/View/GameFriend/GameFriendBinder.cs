@@ -8,6 +8,7 @@ namespace SGame.UI.GameFriend
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_Comfirm.URL, typeof(UI_Comfirm));
             UIObjectFactory.SetPackageItemExtension(UI_FriendUI.URL, typeof(UI_FriendUI));
             UIObjectFactory.SetPackageItemExtension(UI_MyRole.URL, typeof(UI_MyRole));
             UIObjectFactory.SetPackageItemExtension(UI_FriendItem.URL, typeof(UI_FriendItem));

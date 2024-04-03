@@ -13,6 +13,7 @@ namespace SGame.UI{
 	public partial class UIFriendDetail
 	{
 		private int m_playerID;
+		private FirendItemData m_friend;
 		private UI_EquipPage m_uiEquip
 		{
 			get
@@ -28,11 +29,42 @@ namespace SGame.UI{
 			
 			m_playerID = (int)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
 			UpdateUIInfo();
+
+			// 确认取消
+			m_view.m_comfirmDialog.m_btnOK.onClick.Add(OnClickComfirm);
+			m_view.m_comfirmDialog.m_btnCancle.onClick.Add(OnClickCancle);
+		}
+
+		void ShowComfirm(string name)
+		{
+			m_uiEquip.m_holder.visible = false;
+			m_view.m_comfirmDialog.m_titleName.text = name;
+			m_view.m_comfirm.selectedIndex = 1;
+		}
+
+		/// <summary>
+		/// 确认
+		/// </summary>
+		void OnClickComfirm()
+		{
+			FriendModule.Instance.RemoveFriend(m_playerID);
+			m_view.m_comfirm.selectedIndex = 0;
+			SGame.UIUtils.CloseUIByID(__id);
+		}
+
+		/// <summary>
+		/// 取消
+		/// </summary>
+		void OnClickCancle()
+		{
+			m_uiEquip.m_holder.visible = true;
+			m_view.m_comfirm.selectedIndex = 0;
 		}
 
 		void UpdateUIInfo()
 		{
 			var item = FriendModule.Instance.GetFriendItem(m_playerID);
+			m_friend = item;
 			m_view.m_recomment.selectedIndex = item.state == (int)FIREND_STATE.RECOMMEND ? 1 : 0;
 			
 			m_view.m_title.text = item.name;
@@ -88,8 +120,9 @@ namespace SGame.UI{
 
 		void OnClickUnFriend()
 		{
-			FriendModule.Instance.RemoveFriend(m_playerID);
-			SGame.UIUtils.CloseUIByID(__id);
+			ShowComfirm(m_friend.name);
+			//FriendModule.Instance.RemoveFriend(m_playerID);
+			//SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		void OnClickHire()

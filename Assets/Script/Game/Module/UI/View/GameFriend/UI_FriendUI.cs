@@ -12,8 +12,8 @@ namespace SGame.UI.GameFriend
         public GList m_listFirends;
         public GTextField m_title1;
         public GTextField m_title2;
-        public GTextField m_titleCount;
         public GTextField m_titleTime;
+        public GTextField m_titleCount;
         public const string URL = "ui://nsy0h7irome20";
 
         public static UI_FriendUI CreateInstance()
@@ -28,10 +28,10 @@ namespace SGame.UI.GameFriend
             m_body = (GLabel)GetChildAt(0);
             m_listRecomment = (GList)GetChildAt(2);
             m_listFirends = (GList)GetChildAt(3);
-            m_title1 = (GTextField)GetChildAt(5);
+            m_title1 = (GTextField)GetChildAt(4);
             m_title2 = (GTextField)GetChildAt(6);
-            m_titleCount = (GTextField)GetChildAt(7);
-            m_titleTime = (GTextField)GetChildAt(8);
+            m_titleTime = (GTextField)GetChildAt(7);
+            m_titleCount = (GTextField)GetChildAt(8);
         }
     }
 }

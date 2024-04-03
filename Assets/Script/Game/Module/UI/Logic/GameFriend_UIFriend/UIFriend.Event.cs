@@ -49,8 +49,9 @@ namespace SGame.UI{
 			var friends = FriendModule.Instance.GetDatas();
 			m_view.m_listFirends.numItems = friends.Friends.Count;
 			m_view.m_listRecomment.numItems = friends.RecommendFriends.Count;
+			m_view.m_listRecomment.ResizeToFit(3);
 
-			m_view.m_titleCount.text = string.Format("({0}/{1}", friends.Friends.Count, 100);
+			m_view.m_titleCount.text = string.Format("({0}/{1})", friends.Friends.Count, 100);
 			
 			// 显示倒计时
 			GTween.Kill(m_view);
@@ -61,7 +62,11 @@ namespace SGame.UI{
 				GTween.To(time, 0, time).OnUpdate(t =>
 				{
 					m_view.m_titleTime.text =  Utils.FormatTime(FriendModule.Instance.coldTime);
-				}).SetTarget(m_view).OnComplete(() => m_view.m_titleTime.text = "");
+				}).SetTarget(m_view).OnComplete(() =>
+				{
+					m_view.m_titleTime.text = "";
+					EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
+				});
 			}
 			else
 			{
