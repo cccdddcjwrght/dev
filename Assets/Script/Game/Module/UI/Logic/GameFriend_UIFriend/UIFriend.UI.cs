@@ -29,6 +29,14 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
+		void SetTitle1Text(string data)=>UIListener.SetText(m_view.m_title1,data);
+		string GetTitle1Text()=>UIListener.GetText(m_view.m_title1);
+		void SetTitle2Text(string data)=>UIListener.SetText(m_view.m_title2,data);
+		string GetTitle2Text()=>UIListener.GetText(m_view.m_title2);
+		void SetTitleCountText(string data)=>UIListener.SetText(m_view.m_titleCount,data);
+		string GetTitleCountText()=>UIListener.GetText(m_view.m_titleCount);
+		void SetTitleTimeText(string data)=>UIListener.SetText(m_view.m_titleTime,data);
+		string GetTitleTimeText()=>UIListener.GetText(m_view.m_titleTime);
 
 	}
 }

@@ -46,10 +46,27 @@ namespace SGame.UI{
 		void OnFirendUpdate()
 		{
 			FriendModule.Instance.UpdateFriends();
-			m_view.m_listFirends.numItems = FriendModule.Instance.GetDatas().Friends.Count;
-			m_view.m_listRecomment.numItems = FriendModule.Instance.GetDatas().RecommendFriends.Count;
-			//m_view.m_listFirends.RefreshVirtualList();
-			//m_view.m_listRecomment.RefreshVirtualList();
+			var friends = FriendModule.Instance.GetDatas();
+			m_view.m_listFirends.numItems = friends.Friends.Count;
+			m_view.m_listRecomment.numItems = friends.RecommendFriends.Count;
+
+			m_view.m_titleCount.text = string.Format("({0}/{1}", friends.Friends.Count, 100);
+			
+			// 显示倒计时
+			GTween.Kill(m_view);
+			int time = FriendModule.Instance.coldTime;
+			if (time > 0)
+			{
+				m_view.m_titleTime.text = Utils.FormatTime(time);
+				GTween.To(time, 0, time).OnUpdate(t =>
+				{
+					m_view.m_titleTime.text =  Utils.FormatTime(FriendModule.Instance.coldTime);
+				}).SetTarget(m_view).OnComplete(() => m_view.m_titleTime.text = "");
+			}
+			else
+			{
+				m_view.m_titleTime.text = "";
+			}
 		}
 
 		/// <summary>

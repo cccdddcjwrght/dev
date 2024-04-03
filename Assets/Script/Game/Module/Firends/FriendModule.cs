@@ -32,6 +32,18 @@ namespace SGame.Firend
         }
 
         /// <summary>
+        /// 整体剩余倒计时
+        /// </summary>
+        public int coldTime
+        {
+            get
+            {
+                int current = GameServerTime.Instance.serverTime;
+                return current >= m_friendData.nextHireTime ? 0 : m_friendData.nextHireTime - current;
+            }
+        }
+
+        /// <summary>
         /// 初始话
         /// </summary>
         public void Initalize()
