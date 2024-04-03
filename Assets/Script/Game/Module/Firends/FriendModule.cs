@@ -50,11 +50,12 @@ namespace SGame.Firend
         /// </summary>
         public void UpdateFriends()
         {
+            int currentTime = GetCurrentTime();
             // 处理好友数据
             foreach (var item in m_friendData.Friends)
             {
                 // 好友数据 
-                item.state = (int)GetHireState(item.hireTime);
+                item.state = (int)GetHireState(currentTime, item.hireTime);
             }
             
             // 对好友排序, 先按雇佣状态 再按关卡通关数
@@ -239,15 +240,13 @@ namespace SGame.Firend
         /// </summary>
         /// <param name="hireTime"></param>
         /// <returns></returns>
-        public FIREND_STATE GetHireState(int hireTime)
+        public FIREND_STATE GetHireState(int currentTime, int hireTime)
         {
-            int currentTime = GetCurrentTime();
-            
             // 24小时内已经雇佣了
             if (currentTime < hireTime)
             {
                 // 判断是否在雇佣CD中 
-                if (hireTime < m_friendData.nextHireTime)
+                if (currentTime < m_friendData.nextHireTime)
                 {
                     // 正在雇佣
                     return FIREND_STATE.HIRING;

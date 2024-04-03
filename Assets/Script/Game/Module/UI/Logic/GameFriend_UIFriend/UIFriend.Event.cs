@@ -86,7 +86,8 @@ namespace SGame.UI{
 				return;
 			}
 			
-			FriendModule.Instance.HireFriend(friendItem.player_id);
+			if (FriendModule.Instance.CanHire(friendItem.player_id))
+				FriendModule.Instance.HireFriend(friendItem.player_id);
 		}
 
 		/// <summary>
