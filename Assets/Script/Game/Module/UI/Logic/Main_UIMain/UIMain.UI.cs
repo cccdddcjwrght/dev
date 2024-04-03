@@ -19,6 +19,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick));
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
+			m_view.m_buff.m_markState.onChanged.Add(new EventCallback1(_OnBuffBtn_MarkStateChanged));
+			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick));
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
@@ -31,6 +33,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick),remove:true);
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
+			m_view.m_buff.m_markState.onChanged.Remove(new EventCallback1(_OnBuffBtn_MarkStateChanged));
+			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick),remove:true);
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
@@ -67,6 +71,19 @@ namespace SGame.UI{
 		partial void OnDiamondClick(EventContext data);
 		void SetDiamondText(string data)=>UIListener.SetText(m_view.m_Diamond,data);
 		string GetDiamondText()=>UIListener.GetText(m_view.m_Diamond);
+		void _OnBuffBtn_MarkStateChanged(EventContext data){
+			OnBuffBtn_MarkStateChanged(data);
+		}
+		partial void OnBuffBtn_MarkStateChanged(EventContext data);
+		void SwitchBuffBtn_MarkStatePage(int index)=>m_view.m_buff.m_markState.selectedIndex=index;
+		void SetBuffBtn_TimeText(string data)=>UIListener.SetText(m_view.m_buff.m_time,data);
+		string GetBuffBtn_TimeText()=>UIListener.GetText(m_view.m_buff.m_time);
+		void _OnBuffClick(EventContext data){
+			OnBuffClick(data);
+		}
+		partial void OnBuffClick(EventContext data);
+		void SetBuffText(string data)=>UIListener.SetText(m_view.m_buff,data);
+		string GetBuffText()=>UIListener.GetText(m_view.m_buff);
 		void _OnLevelBtnClick(EventContext data){
 			OnLevelBtnClick(data);
 		}

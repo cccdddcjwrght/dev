@@ -55,7 +55,8 @@ namespace SGame
 				yield return null;
 
 			TomorrowGiftModule.Instance.Initalize();
-			
+			ExclusiveModule.Instance.Initalize();
+
 			EventManager.Instance.Trigger((int)GameEvent.LOGIN_COMPLETE);
 			if (go)
 				GameObject.Destroy(go);

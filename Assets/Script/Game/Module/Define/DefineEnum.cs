@@ -209,6 +209,10 @@ namespace SGame
 		/// 关卡科技
 		/// </summary>
 		LevelTech,
+		/// <summary>
+		/// 开局奖励buff
+		/// </summary>
+		Exclusive,
 
 	}
 

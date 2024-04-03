@@ -110,5 +110,8 @@ namespace SGame
 		// 好友系统
 		FRIEND_DATE_UPDATE				= 10000, // 好友数据更新
 
+		//开局局内buff
+		ROOM_START_BUFF					= 11000, //添加buff
+
 	}
 }
