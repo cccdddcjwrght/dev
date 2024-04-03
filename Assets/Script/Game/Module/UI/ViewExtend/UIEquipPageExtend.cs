@@ -13,19 +13,22 @@ namespace SGame.UI.Player
 		private SwipeGesture swipe;
 		private RoleData roleData;
 
+		private Action<int, GObject> eqclick;
+
 		public UI_EquipPage Init(Action<int, GObject> eqclick)
 		{
 
+			this.eqclick = eqclick;
 			m_eq1.onClick.Clear();
-			m_eq1.onClick.Add(() => eqclick?.Invoke(1, m_eq1));
+			m_eq1.onClick.Add((e) => OnEqClick(1, e));
 			m_eq2.onClick.Clear();
-			m_eq2.onClick.Add(() => eqclick?.Invoke(2, m_eq2));
+			m_eq2.onClick.Add((e) => OnEqClick(2, e));
 			m_eq3.onClick.Clear();
-			m_eq3.onClick.Add(() => eqclick?.Invoke(3, m_eq3));
+			m_eq3.onClick.Add((e) => OnEqClick(3, e));
 			m_eq4.onClick.Clear();
-			m_eq4.onClick.Add(() => eqclick?.Invoke(4, m_eq4));
+			m_eq4.onClick.Add((e) => OnEqClick(4, e));
 			m_eq5.onClick.Clear();
-			m_eq5.onClick.Add(() => eqclick?.Invoke(5, m_eq5));
+			m_eq5.onClick.Add((e) => OnEqClick(5, e));
 
 
 			swipe = new SwipeGesture(m_model);
@@ -54,7 +57,7 @@ namespace SGame.UI.Player
 		{
 			var index = roleData == null ? 1 : 0;
 			RefreshAttr();
-			if(roleData == null)
+			if (roleData == null)
 			{
 				IList<BaseEquip> eqs = DataCenter.Instance.equipData.equipeds;
 
@@ -66,10 +69,10 @@ namespace SGame.UI.Player
 			}
 			else
 			{
-				for (int i = 1; i <=5; i++)
+				for (int i = 1; i <= 5; i++)
 				{
 					var e = roleData.equips.Find(e => e.type == i);
-					UIListenerExt.SetEquipInfo(GetChild("eq" + i), e , true);
+					UIListenerExt.SetEquipInfo(GetChild("eq" + i), e, true);
 				}
 			}
 
@@ -91,6 +94,16 @@ namespace SGame.UI.Player
 		private void OnAttrBtnClick()
 		{
 			SGame.UIUtils.OpenUI("propertyinfo", roleData);
+		}
+
+
+		private void OnEqClick(int index, EventContext context)
+		{
+			eqclick?.Invoke(index, context.sender as GObject);
+			if (roleData != null && roleData.isEmployee)
+			{
+				SGame.UIUtils.OpenUI("eqtipsui", roleData.equips.Find(e => e != null && e.type == index), false);
+			}
 		}
 
 		IEnumerator CreateRole()
