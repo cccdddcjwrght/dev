@@ -18,6 +18,8 @@ namespace SGame.UI
 		private GList m_rightList;
 		private SetData m_setData;
 
+		Action<bool> timer;
+
 		public class RightItem
 		{
 			public FunctionConfigRowData config; // 配置
@@ -53,8 +55,10 @@ namespace SGame.UI
 			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
 			m_handles	+=	EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
+			m_handles	+= EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
 			OnHeadSetting();
 			OnEventRefreshItem();
+			OnRefeshBuffTime();
 		}
 
 		private void OnHeadSetting()
@@ -161,8 +165,7 @@ namespace SGame.UI
 						break;
 					case 3:
 						"friend".Goto();
-						break;
-				}
+						break;				}
 			});
 		}
 
@@ -177,6 +180,30 @@ namespace SGame.UI
 		void OnheadBtnClick(EventContext context)
 		{
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));
+		}
+
+		/// <summary>
+		/// 刷新开局局内buff时间
+		/// </summary>
+		void OnRefeshBuffTime() 
+		{
+			bool checkTakeEffect = DataCenter.ExclusiveUtils.CheckBuffTakeEffect();
+			m_view.m_buff.visible = checkTakeEffect;
+			if (checkTakeEffect) 
+			{
+				var time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
+				timer = Utils.Timer(time, ()=> 
+				{
+					time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
+					m_view.m_buff.m_time.SetText(Utils.FormatTime(time));
+				}, m_view.m_buff, completed: ()=> BuffTimeFinish());
+			}
+		}
+
+		void BuffTimeFinish() 
+		{
+			m_view.m_buff.m_time.SetText("");
+			m_view.m_buff.visible = DataCenter.ExclusiveUtils.CheckBuffTakeEffect();
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)
@@ -201,6 +228,7 @@ namespace SGame.UI
 
 		partial void UnInitEvent(UIContext context)
 		{
+			timer?.Invoke(false);
 			m_handles.Close();
 		}
 
