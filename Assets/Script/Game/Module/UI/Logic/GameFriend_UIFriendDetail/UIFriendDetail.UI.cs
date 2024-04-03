@@ -13,17 +13,24 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
+			m_view.m_recomment.onChanged.Add(new EventCallback1(_OnRecommentChanged));
 			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick));
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick));
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick));
 
 		}
 		partial void UnInitUI(UIContext context){
+			m_view.m_recomment.onChanged.Remove(new EventCallback1(_OnRecommentChanged));
 			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick),remove:true);
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick),remove:true);
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick),remove:true);
 
 		}
+		void _OnRecommentChanged(EventContext data){
+			OnRecommentChanged(data);
+		}
+		partial void OnRecommentChanged(EventContext data);
+		void SwitchRecommentPage(int index)=>m_view.m_recomment.selectedIndex=index;
 		void _OnBtnCloseClick(EventContext data){
 			OnBtnCloseClick(data);
 		}

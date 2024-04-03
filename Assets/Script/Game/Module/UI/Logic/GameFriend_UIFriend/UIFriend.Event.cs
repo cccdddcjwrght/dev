@@ -33,9 +33,9 @@ namespace SGame.UI{
 		/// </summary>
 		void OnFirendUpdate()
 		{
-			FirendModule.Instance.UpdateFriends();
-			m_view.m_listFirends.numItems = FirendModule.Instance.GetDatas().Friends.Count;
-			m_view.m_listRecomment.numItems = FirendModule.Instance.GetDatas().RecommendFriends.Count;
+			FriendModule.Instance.UpdateFriends();
+			m_view.m_listFirends.numItems = FriendModule.Instance.GetDatas().Friends.Count;
+			m_view.m_listRecomment.numItems = FriendModule.Instance.GetDatas().RecommendFriends.Count;
 			//m_view.m_listFirends.RefreshVirtualList();
 			//m_view.m_listRecomment.RefreshVirtualList();
 		}
@@ -73,7 +73,7 @@ namespace SGame.UI{
 			}
 			
 			var player_id = (int)clickBtn.data;
-			var friendItem = FirendModule.Instance.GetFriendItem(player_id);
+			var friendItem = FriendModule.Instance.GetFriendItem(player_id);
 			if (friendItem == null)
 			{
 				log.Error("friend Item Is Null=" + player_id);
@@ -86,7 +86,7 @@ namespace SGame.UI{
 				return;
 			}
 			
-			FirendModule.Instance.HireFriend(friendItem.player_id);
+			FriendModule.Instance.HireFriend(friendItem.player_id);
 		}
 
 		/// <summary>
@@ -105,7 +105,7 @@ namespace SGame.UI{
 			}
 			
 			var playerId = (int)component.data;//as FirendItemData;
-			FirendModule.Instance.AddFriend(playerId);
+			FriendModule.Instance.AddFriend(playerId);
 		}
 
 		/// <summary>
@@ -124,7 +124,7 @@ namespace SGame.UI{
 			}
 			
 			var playerId = (int)component.data; //as FirendItemData;
-			FirendModule.Instance.RemoveFriend(playerId);
+			FriendModule.Instance.RemoveFriend(playerId);
 		}
 
 		void OnClickHiring(EventContext context)
@@ -135,7 +135,7 @@ namespace SGame.UI{
 		private void ItemRenderFriend(int index, GObject item)
 		{
 			var view = (UI_FriendItem)item;
-			var data = FirendModule.Instance.GetDatas().Friends[index]; 
+			var data = FriendModule.Instance.GetDatas().Friends[index]; 
 			view.SetData(data);
 
 			view.m_btnHire.data = data.player_id;
@@ -149,7 +149,7 @@ namespace SGame.UI{
 		private void ItemRenderRecomment(int index, GObject item)
 		{
 			var view = (UI_FriendItem)item;
-			var data = FirendModule.Instance.GetDatas().RecommendFriends[index]; 
+			var data = FriendModule.Instance.GetDatas().RecommendFriends[index]; 
 			view.SetData(data);
 
 			view.m_btnYES.data = data.player_id;
