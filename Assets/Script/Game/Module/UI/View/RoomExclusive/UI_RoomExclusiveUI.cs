@@ -9,7 +9,6 @@ namespace SGame.UI.RoomExclusive
     {
         public GGraph m_mask;
         public GTextField m_select;
-        public GTextField m_tip;
         public GList m_list;
         public GGroup m_group;
         public const string URL = "ui://z18uq7fxf6i31";
@@ -25,9 +24,8 @@ namespace SGame.UI.RoomExclusive
 
             m_mask = (GGraph)GetChildAt(0);
             m_select = (GTextField)GetChildAt(2);
-            m_tip = (GTextField)GetChildAt(3);
-            m_list = (GList)GetChildAt(4);
-            m_group = (GGroup)GetChildAt(5);
+            m_list = (GList)GetChildAt(3);
+            m_group = (GGroup)GetChildAt(4);
         }
     }
 }

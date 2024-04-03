@@ -34,7 +34,9 @@ namespace SGame.UI{
 
 				obj.data = exclusiveId;
 				obj.m_name.text = UIListener.Local(data.BuffName);
-				obj.m_info.text = UIListener.Local(data.BuffDesc);
+				obj.m_info.text = string.Format(UIListener.Local(data.BuffDesc), 
+					data.BuffValue == 0 ? data.BuffDuration : data.BuffValue,
+					data.BuffDuration);
 				obj.m_markState.selectedIndex = data.BuffMark;
 				obj.SetIcon(data.BuffIcon);
 			}
@@ -52,7 +54,8 @@ namespace SGame.UI{
 
 		void RefreshText() 
 		{
-			//m_view.title = UIListener.Local("");
+			m_view.title = UIListener.Local("ui_opening_title_1");
+			m_view.m_select.SetText(UIListener.Local("tips_opening_1"));
 		}
 
 
