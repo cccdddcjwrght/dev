@@ -82,6 +82,8 @@ namespace SGame.UI{
 			OnBuffClick(data);
 		}
 		partial void OnBuffClick(EventContext data);
+		void SetBuffText(string data)=>UIListener.SetText(m_view.m_buff,data);
+		string GetBuffText()=>UIListener.GetText(m_view.m_buff);
 		void _OnLevelBtnClick(EventContext data){
 			OnLevelBtnClick(data);
 		}

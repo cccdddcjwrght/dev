@@ -32,7 +32,7 @@ public class UIListener
 
 	static string C_REGEX_PATTERN = "%(.*)%";
 
-	static private List<string> _icon_Pkg = new List<string>() { "Icon", "IconEquip", "Common" };
+	static private List<string> _icon_Pkg = new List<string>() { "Icon", "IconEquip", "Common", "IconTech" };
 
 	#region AutoLocal
 
