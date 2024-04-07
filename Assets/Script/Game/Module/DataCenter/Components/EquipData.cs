@@ -375,7 +375,7 @@ namespace SGame
 			{
 				EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = EQ_FROM_ID });
 				if (!remove)
-					GetEquipBuffList(_data.equipeds).ForEach(buff => EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff));
+					GetEquipBuffList(_data.equipeds)?.ForEach(buff => EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff));
 			}
 
 		}
