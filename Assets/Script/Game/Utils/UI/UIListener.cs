@@ -31,10 +31,10 @@ public class UIListener
 
 	static string C_REGEX_PATTERN = "%(.*)%";
 
-	static private List<string> _icon_Pkg = new List<string>() { 
+	static private List<string> _icon_Pkg = new List<string>() {
 		"Icon",
-		"IconEquip", 
-		"Common", 
+		"IconEquip",
+		"Common",
 		"IconTech",
 		"IconLevel",
 
@@ -236,6 +236,8 @@ public class UIListener
 			var com = gObject.asCom?.GetChild("body")?.asCom ?? gObject.asCom;
 			if (com != null)
 			{
+				if (gObject != com)
+					txt = local ? AutoLocal(string.IsNullOrEmpty(txt) ? com.text : txt) : txt;
 				com.text = txt;
 				var shadow = com.GetChild("shadow");
 				var outline = com.GetChild("outline");
@@ -248,7 +250,6 @@ public class UIListener
 				if (o1 != null) o1.text = txt;
 				if (o2 != null) o2.text = txt;
 				if (o3 != null) o3.text = txt;
-
 			}
 			else
 				gObject.text = txt;
