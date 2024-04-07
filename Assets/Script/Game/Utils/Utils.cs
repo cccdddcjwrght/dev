@@ -286,6 +286,22 @@ namespace SGame
 			return GetMapTagFromRoleType((int)roleType);
 		}
 
+		/// <summary>
+		/// 获取玩家外观字符串
+		/// </summary>
+		/// <param name="isEmployee"></param>
+		/// <returns></returns>
+		public static string GetPlayerOutlookString(bool isEmployee)
+		{
+			/// 玩家自己外观
+			if (!isEmployee)
+			{
+				return DataCenter.EquipUtil.GetRoleEquipString();
+			}
+			
+			// 邀请好友外观
+			return DataCenter.EquipUtil.GetRoleEquipString();
+		}
 
 		#region 语言
 
