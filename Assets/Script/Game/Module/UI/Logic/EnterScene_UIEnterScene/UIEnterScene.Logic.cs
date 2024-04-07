@@ -18,6 +18,7 @@ namespace SGame.UI
 		private int _maxLv;
 		private int _curLv;
 
+		private bool _isLastScene;
 		private bool _canSwitch;
 		private VideoPlayer _player;
 
@@ -55,6 +56,8 @@ namespace SGame.UI
 				m_view.m_show.selectedIndex = 1;
 				(_maxLv, _curLv) = DataCenter.MachineUtil.GetRoomLvState();
 				_canSwitch = DataCenter.MachineUtil.CheckAllWorktableIsMaxLv();
+				_isLastScene = !ConfigSystem.Instance.TryGet<RoomRowData>(_nextScene, out _);
+
 				SetLevelList();
 				EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
 				return;
@@ -90,10 +93,10 @@ namespace SGame.UI
 					m_view.m_region.SetIcon(region.Icon);
 					m_view.m_title3.text = null;
 					m_view.SetText(region.ID + "." + region.Name.Local());
-					if (string.IsNullOrEmpty(region.Icon) || !ConfigSystem.Instance.TryGet<RegionRowData>(region.ID + 1, out var r))
+					if (string.IsNullOrEmpty(region.Icon) || _isLastScene)
 						m_view.m_title3.SetTextByKey("ui_enterscene_2");
 
-					m_view.m_btnGO.grayed = !_canSwitch;
+					m_view.m_btnGO.grayed = !_canSwitch || _isLastScene;
 					m_view.m_tips.visible = !_canSwitch;
 					m_view.m_tips.SetTextByKey("ui_enterscene_tips_1", cfg.LevelMax); 
 				}
@@ -220,6 +223,12 @@ namespace SGame.UI
 			if (!DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
 			{
 				"@ui_worktable_goto_next_fail".Tips();
+				return;
+			}
+
+			if (_isLastScene)
+			{
+				"@ui_enterscene_tips_2".Tips();
 				return;
 			}
 
