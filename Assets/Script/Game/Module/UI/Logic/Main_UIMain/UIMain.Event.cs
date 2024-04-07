@@ -24,7 +24,7 @@ namespace SGame.UI
 		public class RightItem
 		{
 			public FunctionConfigRowData config; // 配置
-			public float				 second; // 倒计时
+			public Func<int>		     second; // 倒计时
 		}
 		
 		private List<RightItem> m_rightOpens = new List<RightItem>();
@@ -124,7 +124,7 @@ namespace SGame.UI
 					{
 						if (item.Value.Id == 18 && !TomorrowGiftModule.Instance.IsFinished())
 						{
-							m_rightOpens.Add(new RightItem(){config = item.Value, second = TomorrowGiftModule.Instance.time});
+							m_rightOpens.Add(new RightItem(){config = item.Value, second = ()=> TomorrowGiftModule.Instance.time});
 						}
 					}
 				}
@@ -154,10 +154,10 @@ namespace SGame.UI
 			
 			// 倒计时
 			GTween.Kill(ui);
-			GTween.To(config.second, 0, config.second).OnUpdate((GTweener tweener) =>
+			var configTime = config.second();
+			GTween.To(0, 1, configTime).OnUpdate((GTweener tweener) =>
 			{
-				config.second = Mathf.Max(0, config.second - Time.deltaTime);
-				ui.m_content.text = Utils.FormatTime((int)config.second);
+				ui.m_content.text = Utils.FormatTime(config.second());
 			}).SetTarget(ui).OnComplete(() =>
 			{
 				ui.m_time.visible = false;
@@ -165,10 +165,9 @@ namespace SGame.UI
 				log.Info("counter dowm zero!");
 			});
 			
-			ui.m_time.visible = config.second > 0;
-			ui.m___redpoint.selectedIndex = config.second > 0 ? 0 : 1;
-
-			ui.m_content.text = Utils.FormatTime((int)config.second);
+			ui.m_time.visible = configTime > 0;
+			ui.m___redpoint.selectedIndex = configTime > 0 ? 0 : 1;
+			ui.m_content.text = Utils.FormatTime(configTime);
 			ui.icon = config.config.Icon;
 		}
 
