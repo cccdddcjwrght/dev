@@ -45,7 +45,7 @@ namespace SGame.UI
 
 
 			m_view.z = -500;
-			var eq = (context.GetParam().Value as object[]).Val<BaseEquip>(0) ?? (context.GetParam().Value as object[]).Val<EquipItem>(0);
+			var eq = (context.GetParam().Value as object[]).Val<BaseEquip>(0);
 			if (eq is EquipItem) equip = eq as EquipItem;
 			else { equip = new EquipItem() { cfgID = eq.cfgID, level = eq.level, quality = eq.quality, progress = 0 }; equip.Refresh(); }
 			showBtn = (context.GetParam().Value as object[]).Val<bool>(1, true);

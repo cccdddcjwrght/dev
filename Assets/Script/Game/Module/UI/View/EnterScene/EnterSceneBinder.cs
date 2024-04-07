@@ -10,6 +10,11 @@ namespace SGame.UI.EnterScene
         {
             UIObjectFactory.SetPackageItemExtension(UI_EnterSceneUI.URL, typeof(UI_EnterSceneUI));
             UIObjectFactory.SetPackageItemExtension(UI_LevelItem.URL, typeof(UI_LevelItem));
+            UIObjectFactory.SetPackageItemExtension(UI_LevelCompletedUI.URL, typeof(UI_LevelCompletedUI));
+            UIObjectFactory.SetPackageItemExtension(UI_WelcomeNewLevelUI.URL, typeof(UI_WelcomeNewLevelUI));
+            UIObjectFactory.SetPackageItemExtension(UI_RItem.URL, typeof(UI_RItem));
+            UIObjectFactory.SetPackageItemExtension(UI_Levelprogress.URL, typeof(UI_Levelprogress));
+            UIObjectFactory.SetPackageItemExtension(UI_pgbar.URL, typeof(UI_pgbar));
         }
     }
 }

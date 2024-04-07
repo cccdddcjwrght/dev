@@ -7,6 +7,7 @@ namespace SGame.UI.GameFriend
 {
     public partial class UI_FriendDetailUI : GComponent
     {
+        public Controller m_recomment;
         public GButton m_btnClose;
         public GTextField m_title;
         public GButton m_btnDelete;
@@ -23,6 +24,7 @@ namespace SGame.UI.GameFriend
         {
             base.ConstructFromXML(xml);
 
+            m_recomment = GetControllerAt(0);
             m_btnClose = (GButton)GetChildAt(1);
             m_title = (GTextField)GetChildAt(2);
             m_btnDelete = (GButton)GetChildAt(3);

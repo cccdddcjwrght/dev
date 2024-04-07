@@ -9,11 +9,12 @@ namespace SGame.UI{
 	
 	public partial class UIFriend
 	{
-		private EventHanle m_eventUpdate;
+		private EventHandleContainer m_eventContainer = new EventHandleContainer();
 		
 		partial void InitEvent(UIContext context)
 		{
-			m_eventUpdate = EventManager.Instance.Reg((int)GameEvent.FRIEND_DATE_UPDATE, OnFirendUpdate);
+			m_eventContainer  += EventManager.Instance.Reg((int)GameEvent.FRIEND_DATE_UPDATE, OnFirendUpdate); // 好友数据更新
+			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.CROSS_DAY, OnFirendUpdate);		   // 跨天更新
 			m_view.m_listFirends.SetVirtual();
 			m_view.m_listRecomment.SetVirtual();
 			m_view.m_listFirends.itemRenderer	= ItemRenderFriend;
@@ -23,21 +24,49 @@ namespace SGame.UI{
 		}
 		
 		partial void UnInitEvent(UIContext context){
-			m_eventUpdate.Close();
-			m_eventUpdate = null;
+			m_eventContainer.Close();
+			m_eventContainer = null;
+		}
+
+		void UpdateFrame(UIContext context)
+		{
+			// 跨天刷新
+			var datas = FriendModule.Instance.GetDatas();
+			var currentTime = GameServerTime.Instance.serverTime;
+			if (datas.nextHireTime != 0 && currentTime >= datas.nextHireTime)
+			{
+				// 跨天就更新界面
+				OnFirendUpdate();
+			}
 		}
 		
-
 		/// <summary>
 		/// 刷新好友列表
 		/// </summary>
 		void OnFirendUpdate()
 		{
-			FirendModule.Instance.UpdateFriends();
-			m_view.m_listFirends.numItems = FirendModule.Instance.GetDatas().Friends.Count;
-			m_view.m_listRecomment.numItems = FirendModule.Instance.GetDatas().RecommendFriends.Count;
-			//m_view.m_listFirends.RefreshVirtualList();
-			//m_view.m_listRecomment.RefreshVirtualList();
+			FriendModule.Instance.UpdateFriends();
+			var friends = FriendModule.Instance.GetDatas();
+			m_view.m_listFirends.numItems = friends.Friends.Count;
+			m_view.m_listRecomment.numItems = friends.RecommendFriends.Count;
+
+			m_view.m_titleCount.text = string.Format("({0}/{1}", friends.Friends.Count, 100);
+			
+			// 显示倒计时
+			GTween.Kill(m_view);
+			int time = FriendModule.Instance.coldTime;
+			if (time > 0)
+			{
+				m_view.m_titleTime.text = Utils.FormatTime(time);
+				GTween.To(time, 0, time).OnUpdate(t =>
+				{
+					m_view.m_titleTime.text =  Utils.FormatTime(FriendModule.Instance.coldTime);
+				}).SetTarget(m_view).OnComplete(() => m_view.m_titleTime.text = "");
+			}
+			else
+			{
+				m_view.m_titleTime.text = "";
+			}
 		}
 
 		/// <summary>
@@ -73,7 +102,7 @@ namespace SGame.UI{
 			}
 			
 			var player_id = (int)clickBtn.data;
-			var friendItem = FirendModule.Instance.GetFriendItem(player_id);
+			var friendItem = FriendModule.Instance.GetFriendItem(player_id);
 			if (friendItem == null)
 			{
 				log.Error("friend Item Is Null=" + player_id);
@@ -86,7 +115,8 @@ namespace SGame.UI{
 				return;
 			}
 			
-			FirendModule.Instance.HireFriend(friendItem.player_id);
+			if (FriendModule.Instance.CanHire(friendItem.player_id))
+				FriendModule.Instance.HireFriend(friendItem.player_id);
 		}
 
 		/// <summary>
@@ -105,7 +135,7 @@ namespace SGame.UI{
 			}
 			
 			var playerId = (int)component.data;//as FirendItemData;
-			FirendModule.Instance.AddFriend(playerId);
+			FriendModule.Instance.AddFriend(playerId);
 		}
 
 		/// <summary>
@@ -124,7 +154,7 @@ namespace SGame.UI{
 			}
 			
 			var playerId = (int)component.data; //as FirendItemData;
-			FirendModule.Instance.RemoveFriend(playerId);
+			FriendModule.Instance.RemoveFriend(playerId);
 		}
 
 		void OnClickHiring(EventContext context)
@@ -135,7 +165,7 @@ namespace SGame.UI{
 		private void ItemRenderFriend(int index, GObject item)
 		{
 			var view = (UI_FriendItem)item;
-			var data = FirendModule.Instance.GetDatas().Friends[index]; 
+			var data = FriendModule.Instance.GetDatas().Friends[index]; 
 			view.SetData(data);
 
 			view.m_btnHire.data = data.player_id;
@@ -149,7 +179,7 @@ namespace SGame.UI{
 		private void ItemRenderRecomment(int index, GObject item)
 		{
 			var view = (UI_FriendItem)item;
-			var data = FirendModule.Instance.GetDatas().RecommendFriends[index]; 
+			var data = FriendModule.Instance.GetDatas().RecommendFriends[index]; 
 			view.SetData(data);
 
 			view.m_btnYES.data = data.player_id;

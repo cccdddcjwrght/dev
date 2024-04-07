@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using FairyGUI;
 using GameConfigs;
 using SGame;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIListener
@@ -32,7 +31,14 @@ public class UIListener
 
 	static string C_REGEX_PATTERN = "%(.*)%";
 
-	static private List<string> _icon_Pkg = new List<string>() { "Icon", "IconEquip", "Common" };
+	static private List<string> _icon_Pkg = new List<string>() { 
+		"Icon",
+		"IconEquip", 
+		"Common", 
+		"IconTech",
+		"IconLevel",
+
+	};
 
 	#region AutoLocal
 
@@ -555,4 +561,37 @@ public static partial class UIListenerExt
 		return txt;
 	}
 
+	public static void SetBaseItem(this GObject gObject, params int[] args)
+	{
+		if (gObject != null && args?.Length > 1)
+		{
+			if (args.Length == 2)
+			{
+				gObject.SetIcon(Utils.GetItemIcon(1, args[0]));
+				gObject.SetText(Utils.ConvertNumberStr(args[1]));
+			}
+			else
+			{
+				gObject.SetIcon(Utils.GetItemIcon(args[0], args[1]));
+				gObject.SetText(Utils.ConvertNumberStr(args[2]));
+			}
+		}
+	}
+
+	public static void SetItem(this GObject gObject, params double[] args)
+	{
+		if (gObject != null && args?.Length > 1)
+		{
+			if (args.Length == 2)
+			{
+				gObject.SetIcon(Utils.GetItemIcon(1, (int)args[0]));
+				gObject.SetText(Utils.ConvertNumberStr(args[1]));
+			}
+			else
+			{
+				gObject.SetIcon(Utils.GetItemIcon((int)args[0], (int)args[1]));
+				gObject.SetText(Utils.ConvertNumberStr(args[2]));
+			}
+		}
+	}
 }

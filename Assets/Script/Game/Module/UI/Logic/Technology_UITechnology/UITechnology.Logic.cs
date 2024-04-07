@@ -36,7 +36,8 @@ namespace SGame.UI{
 			int levelIndex = listData[index].LevelIndex;
 			//图标
 			GLoader loader = item.asCom.GetChild("icon").asLoader;
-			loader.url = string.Format("ui://Technology/{0}", listData[index].VaultIcon);
+			loader.SetIcon(listData[index].VaultIcon);
+			//loader.url = string.Format("ui://Technology/{0}", listData[index].VaultIcon);
 			//等级
 			GTextField levelTxt = item.asCom.GetChild("level").asTextField;
 			levelTxt.text=string.Format(UIListener.Local("ui_main_btn_upgradelevel"),listData[index].abilitLevelList[levelIndex].level.ToString());

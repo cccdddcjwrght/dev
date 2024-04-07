@@ -52,7 +52,7 @@ namespace SGame
 		}
 
 
-		void Close()
+		public void Close()
 		{
 			if (_hud.IsExists())
 			{

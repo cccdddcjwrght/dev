@@ -28,8 +28,8 @@ namespace SGame.UI{
 			var body = JsonUtility.FromJson<FriendData>(data.data);
 			log.Info("recive http=" + req.data);
 			
-			FirendModule.Instance.SetData(body);
-			FirendModule.Instance.UpdateFriends();
+			FriendModule.Instance.SetData(body);
+			FriendModule.Instance.UpdateFriends();
 
 			m_view.m_listFirends.numItems = body.Friends.Count;
 			m_view.m_listRecomment.numItems = body.RecommendFriends.Count;

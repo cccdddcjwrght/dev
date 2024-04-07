@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 626936601732356636}
   - component: {fileID: 9185554735116511031}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 626936603249518771}
   - component: {fileID: 626936603249518764}
   - component: {fileID: 778514685316410131}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Entity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff5258f3d7fc43358fe8c493f7c31c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 5
+  Value: 2
 --- !u!114 &626936603249518764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 1830705495850699948}
   - component: {fileID: 4671785455960894056}
   - component: {fileID: 2262062511961585330}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,5 +215,5 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 75
   m_AdditionalVertexStreams: {fileID: 0}

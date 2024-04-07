@@ -15,11 +15,11 @@ namespace SGame.UI.GameFriend
         public GList m_equips;
         public GButton m_btnNO;
         public GButton m_btnYES;
-        public GImage m_iconHiring;
-        public GTextField m_titleHiring;
         public GTextField m_titleHiretoday;
         public GButton m_btnHire;
         public GButton m_btnHiring;
+        public GImage m_iconHiring;
+        public GTextField m_titleHiring;
         public const string URL = "ui://nsy0h7irome22";
 
         public static UI_FriendItem CreateInstance()
@@ -39,11 +39,11 @@ namespace SGame.UI.GameFriend
             m_equips = (GList)GetChildAt(4);
             m_btnNO = (GButton)GetChildAt(5);
             m_btnYES = (GButton)GetChildAt(6);
-            m_iconHiring = (GImage)GetChildAt(7);
-            m_titleHiring = (GTextField)GetChildAt(8);
-            m_titleHiretoday = (GTextField)GetChildAt(9);
-            m_btnHire = (GButton)GetChildAt(10);
-            m_btnHiring = (GButton)GetChildAt(11);
+            m_titleHiretoday = (GTextField)GetChildAt(7);
+            m_btnHire = (GButton)GetChildAt(8);
+            m_btnHiring = (GButton)GetChildAt(9);
+            m_iconHiring = (GImage)GetChildAt(10);
+            m_titleHiring = (GTextField)GetChildAt(11);
         }
     }
 }

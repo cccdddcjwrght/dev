@@ -18,6 +18,7 @@ namespace SGame
 
 		UI_INPUT_LOCK				= 14,       // 锁定UI输入
 		UI_INPUT_UNLOCK				= 15,     // UI输入解锁
+		CROSS_DAY					= 16,	  // 跨天事件
 								   //登录======================================
 		HOTFIX_DONE = 100, // 热更新结束
 		LOGIN_READLY				= 101, // 登录准备好了

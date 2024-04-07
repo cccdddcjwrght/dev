@@ -110,12 +110,16 @@ public class CharacterGenerator
             string categoryName = settings[i++];
             string elementName = settings[i++];
             CharacterElement element = null;
-            foreach (CharacterElement e in sortedElements[currentCharacter][categoryName])
-            {
-                if (e.name != elementName) continue;
-                element = e;
-                break;
-            }
+			var elements = sortedElements[currentCharacter];
+			if (elements.ContainsKey(categoryName))
+			{
+				foreach (CharacterElement e in elements[categoryName])
+				{
+					if (e.name != elementName) continue;
+					element = e;
+					break;
+				}
+			}
             if (element == null) throw new Exception("Element not found: " + elementName);
             currentConfiguration.Add(categoryName, element);
         }

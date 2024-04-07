@@ -11,10 +11,11 @@ namespace SGame.Firend
     /// <summary>
     /// 好友模块 
     /// </summary>
-    public class FirendModule : Singleton<FirendModule>
+    public class FriendModule : Singleton<FriendModule>
     {
         private static ILog log = LogManager.GetLogger("game.friend");
-        private const int HIRE_TIME_INTERVAL = 300; // 下次时间间隔 单位秒
+        private static int HIRE_TIME_INTERVAL = 300; // 下次时间间隔 单位秒
+        private static int HIRING_TIME = 100;
         
         /// <summary>
         /// 好友数据
@@ -31,10 +32,24 @@ namespace SGame.Firend
         }
 
         /// <summary>
+        /// 整体剩余倒计时
+        /// </summary>
+        public int coldTime
+        {
+            get
+            {
+                int current = GameServerTime.Instance.serverTime;
+                return current >= m_friendData.nextHireTime ? 0 : m_friendData.nextHireTime - current;
+            }
+        }
+
+        /// <summary>
         /// 初始话
         /// </summary>
         public void Initalize()
         {
+            HIRE_TIME_INTERVAL = GameConfigs.GlobalDesginConfig.GetInt("friend_hire_time", 30);
+            HIRING_TIME = GameConfigs.GlobalDesginConfig.GetInt("friend_hiring_time", 10);
             TestJsonData();
         }
         
@@ -49,11 +64,13 @@ namespace SGame.Firend
         /// </summary>
         public void UpdateFriends()
         {
+            int currentTime = GetCurrentTime();
             // 处理好友数据
+            bool isFree = currentTime >= m_friendData.nextHireTime;
             foreach (var item in m_friendData.Friends)
             {
                 // 好友数据 
-                item.state = (int)GetHireState(item.hireTime);
+                item.state = (int)GetHireState(isFree, item.GetActiveTime(currentTime), item.GetDisableTime(currentTime));
             }
             
             // 对好友排序, 先按雇佣状态 再按关卡通关数
@@ -146,19 +163,36 @@ namespace SGame.Firend
         /// 获取当前时间
         /// </summary>
         /// <returns></returns>
-        public long GetCurrentTime()
+        public int GetCurrentTime()
         {
-            return DateTime.Now.Ticks;
+            return GameServerTime.Instance.serverTime;
         }
-
+        
         /// <summary>
-        /// 获得下次雇佣时间
+        /// 判断是否能雇佣
         /// </summary>
-        /// <param name="hireTime"></param>
+        /// <param name="player_id"></param>
         /// <returns></returns>
-        public long GetNextHireTime(long hireTime)
+        public bool CanHire(int player_id)
         {
-            return hireTime + new TimeSpan(0, 0, HIRE_TIME_INTERVAL).Ticks;
+            var friend = GetFriendItem(player_id);
+            if (friend == null)
+            {
+                log.Error("player id not found=" + player_id);
+                return false;
+            }
+            
+            if (friend.state == (int)FIREND_STATE.RECOMMEND)
+                return false;
+
+            int currentTime = GetCurrentTime();
+            if (currentTime < m_friendData.nextHireTime)
+                return false;
+
+            if (friend.GetDisableTime(currentTime) > 0)
+                return false;
+
+            return true;
         }
 
         /// <summary>
@@ -175,8 +209,11 @@ namespace SGame.Firend
             }
 
             var item = m_friendData.Friends[index];
-            item.hireTime = GetCurrentTime();
-            m_friendData.nextHireTime = GetNextHireTime(item.hireTime);// + new TimeSpan()
+            var serverTime = GetCurrentTime();
+            item.hireTime = GameServerTime.Instance.nextDayTime;
+            item.hiringTime = serverTime + HIRING_TIME;
+            m_friendData.nextHireTime = serverTime + HIRE_TIME_INTERVAL;
+            m_friendData.hiringTime = serverTime + HIRING_TIME;
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
         }
 
@@ -206,54 +243,25 @@ namespace SGame.Firend
         }
 
         /// <summary>
-        /// 24小时刷新雇佣时间
-        /// </summary>
-        /// <param name="lastHireTiem"></param>
-        /// <returns></returns>
-        public bool CanHire24Hour(long lastHireTime)
-        {
-            long serverTime = GetCurrentTime();
-            var d1 = new DateTime(serverTime);
-            //d1.DayOfYear
-            var d2 = new DateTime(lastHireTime);
-            if (d1.Date == d2.Date)
-            {
-                // 日期相同, 不能雇佣
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// 获得雇佣状态
         /// </summary>
-        /// <param name="hireTime"></param>
+        /// <param name="isFree">是否能使用</param>
+        /// <param name="hiringTime">雇佣中的时间</param>
+        /// <param name="disableTime">禁用时间</param>
         /// <returns></returns>
-        public FIREND_STATE GetHireState(long hireTime)
+        public FIREND_STATE GetHireState(bool isFree, int hiringTime, int disableTime)
         {
-            // 24小时内已经雇佣了
-            if (!CanHire24Hour(hireTime))
-            {
-                // 判断是否在雇佣CD中 
-                if (hireTime < m_friendData.nextHireTime)
-                {
-                    // 正在雇佣
-                    return FIREND_STATE.HIRING;
-                }
-                
-                // 已经雇佣过了
-                return FIREND_STATE.HIRED;
-            }
-            
+            if (hiringTime > 0)
+                return FIREND_STATE.HIRING;
 
-            // 雇佣在CD中
-            if (hireTime < m_friendData.nextHireTime)
+            if (disableTime > 0)
+                return FIREND_STATE.HIRED;
+
+            if (!isFree)
             {
                 return FIREND_STATE.HIRE_CD;
             }
-            
-            // 可以雇佣
+
             return FIREND_STATE.CAN_HIRE;
         }
     }

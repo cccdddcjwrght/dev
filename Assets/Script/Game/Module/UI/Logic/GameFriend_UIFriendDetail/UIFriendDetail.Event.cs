@@ -24,14 +24,17 @@ namespace SGame.UI{
 			context.window.AddEventListener("OnMaskClick", OnMaskClick);
 			m_view.m_btnClose.onClick.Add(OnMaskClick);
 			m_view.m_btnDelete.onClick.Add(OnClickUnFriend);
-
+			m_view.m_btnOK.onClick.Add(OnClickHire);
+			
 			m_playerID = (int)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
 			UpdateUIInfo();
 		}
 
 		void UpdateUIInfo()
 		{
-			var item = FirendModule.Instance.GetFriendItem(m_playerID);
+			var item = FriendModule.Instance.GetFriendItem(m_playerID);
+			m_view.m_recomment.selectedIndex = item.state == (int)FIREND_STATE.RECOMMEND ? 1 : 0;
+			
 			m_view.m_title.text = item.name;
 			log.Info("UIFriendDetail OPEN FRIEND =" + m_playerID);
 			m_uiEquip.Init(null);
@@ -43,12 +46,18 @@ namespace SGame.UI{
 			var yoffset = GlobalDesginConfig.GetFloat("friend_model_yoffset", 0);
 			m_uiEquip.m_holder.scale = new Vector2(scale, scale);
 			m_uiEquip.m_holder.y += yoffset;
+			m_view.m_btnOK.grayed = !FriendModule.Instance.CanHire(m_playerID);
 		}
 		
 
+		/// <summary>
+		/// 好友结构转角色结构
+		/// </summary>
+		/// <param name="playerID"></param>
+		/// <returns></returns>
 		RoleData GetRoleData(int playerID)
 		{
-			var item = FirendModule.Instance.GetFriendItem(playerID);
+			var item = FriendModule.Instance.GetFriendItem(playerID);
 
 			List<BaseEquip> equips = new List<BaseEquip>();
 
@@ -79,7 +88,16 @@ namespace SGame.UI{
 
 		void OnClickUnFriend()
 		{
-			FirendModule.Instance.RemoveFriend(m_playerID);
+			FriendModule.Instance.RemoveFriend(m_playerID);
+			SGame.UIUtils.CloseUIByID(__id);
+		}
+
+		void OnClickHire()
+		{
+			if (!FriendModule.Instance.CanHire(m_playerID))
+				return;
+			
+			FriendModule.Instance.HireFriend(m_playerID);
 			SGame.UIUtils.CloseUIByID(__id);
 		}
 

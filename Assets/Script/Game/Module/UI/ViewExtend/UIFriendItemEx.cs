@@ -9,6 +9,7 @@ namespace SGame.UI.GameFriend
     using SGame.Firend;
     using FairyGUI;
     using SGame.UI.Common;
+        
     public partial class UI_FriendItem
     {
         private static ILog log = LogManager.GetLogger("game.ui");
@@ -26,6 +27,16 @@ namespace SGame.UI.GameFriend
             m_equips.numItems = data.equips.Count;
             
             (m_head as UI_HeadBtn).SetHeadIcon(data.icon_id, data.frame_id);
+
+            GTween.Kill(this);
+            if (data.state == (int)FIREND_STATE.HIRING)
+            {
+                // 雇佣中,更新倒计时
+                GTween.ToDouble(0, 1, data.GetActiveTime(GameServerTime.Instance.serverTime) + 0.1f)
+                    .SetTarget(this)
+                    .OnUpdate(() => m_btnHiring.title = Utils.FormatTime(data.GetActiveTime(GameServerTime.Instance.serverTime)))
+                    .OnComplete(() => EventManager.Instance.Trigger((int)GameEvent.FRIEND_DATE_UPDATE));
+            }
         }
 
         void RenderiEquips(int index, GObject item)

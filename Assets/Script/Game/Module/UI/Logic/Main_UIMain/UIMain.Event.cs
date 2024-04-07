@@ -191,6 +191,8 @@ namespace SGame.UI
 			m_view.m_buff.visible = checkTakeEffect;
 			if (checkTakeEffect) 
 			{
+				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(DataCenter.Instance.exclusiveData.cfgId, out var data))
+					m_view.m_buff.SetIcon(data.BuffIcon);
 				var time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
 				timer = Utils.Timer(time, ()=> 
 				{

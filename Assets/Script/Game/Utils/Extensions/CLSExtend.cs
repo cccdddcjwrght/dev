@@ -25,6 +25,7 @@ namespace SGame
 				var v = list[index];
 				try
 				{
+					if (v is T t) return t;
 					return (T)Convert.ChangeType(v, typeof(T));
 				}
 				catch { }

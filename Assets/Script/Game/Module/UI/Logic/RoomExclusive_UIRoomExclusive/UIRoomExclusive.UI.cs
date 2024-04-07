@@ -29,8 +29,6 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetSelectText(string data)=>UIListener.SetText(m_view.m_select,data);
 		string GetSelectText()=>UIListener.GetText(m_view.m_select);
-		void SetTipText(string data)=>UIListener.SetText(m_view.m_tip,data);
-		string GetTipText()=>UIListener.GetText(m_view.m_tip);
 
 	}
 }
