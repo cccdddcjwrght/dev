@@ -44,3 +44,6 @@ BUILD_APP_BUNDLE=true
 #安卓才有用
 #cpu架构类型: armv7, arm64, x86, x86_64, all;    不配置就使用工程默认设置，可组合使用,逗号分隔，如：armv7,arm64
 CPU_TYPE=armv7,arm64
+
+#调试符号文件导出，当BuildOptions包含Development时生效
+DEBUG_SYMBOL=1

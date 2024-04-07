@@ -34,6 +34,8 @@ static class BuildCommand
 
 	private const string KEYSTORE = "keys/user.keystore";
 	private const string BUILD_OPTIONS_ENV_VAR = "BuildOptions";
+	private const string BUILD_OPTIONS_SYMBOL = "DEBUG_SYMBOL";
+
 	private const string ANDROID_BUNDLE_VERSION_CODE = "VERSION_BUILD_VAR";
 	private const string ANDROID_APP_BUNDLE = "BUILD_APP_BUNDLE";
 	private const string SCRIPTING_BACKEND_ENV_VAR = "SCRIPTING_BACKEND";
@@ -206,8 +208,10 @@ static class BuildCommand
 
 
 			if ((allOptions & BuildOptions.Development) == BuildOptions.Development)
-				EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
-
+			{
+				if (TryGetEnv(BUILD_OPTIONS_SYMBOL, out string v) && !string.IsNullOrEmpty(v))
+					EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
+			}
 			return allOptions;
 		}
 
