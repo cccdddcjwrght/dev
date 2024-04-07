@@ -112,8 +112,8 @@ namespace SGame
 		// 好友系统
 		FRIEND_DATE_UPDATE				= 10000, // 好友数据更新
 		FRIEND_HIRING					= 10001, // 好友雇佣 (int playerID, int roleID, RoleData equipData)
-		FIREND_HIRING_TIMEOUT			= 10002, // 好友雇佣倒计时结束
-		FIREND_HIRING_FINISH			= 10003, // 雇佣好友正式删除
+		FRIEND_HIRING_TIMEOUT			= 10002, // 好友雇佣倒计时结束
+		FRIEND_HIRING_FINISH			= 10003, // 雇佣好友正式删除
 
 		//开局局内buff
 		ROOM_START_BUFF					= 11000, //添加buff

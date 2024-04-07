@@ -30,13 +30,19 @@ public struct EquipQualityRowData : IFlatbufferObject
   public int[] GetMainBuffArray() { return __p.__vector_as_array<int>(6); }
   public int LevelMax { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int MainBuffAdd { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AdvanceType { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AdvanceValue { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.EquipQualityRowData> CreateEquipQualityRowData(FlatBufferBuilder builder,
       int Id = 0,
       VectorOffset MainBuffOffset = default(VectorOffset),
       int LevelMax = 0,
-      int MainBuffAdd = 0) {
-    builder.StartTable(4);
+      int MainBuffAdd = 0,
+      int AdvanceType = 0,
+      int AdvanceValue = 0) {
+    builder.StartTable(6);
+    EquipQualityRowData.AddAdvanceValue(builder, AdvanceValue);
+    EquipQualityRowData.AddAdvanceType(builder, AdvanceType);
     EquipQualityRowData.AddMainBuffAdd(builder, MainBuffAdd);
     EquipQualityRowData.AddLevelMax(builder, LevelMax);
     EquipQualityRowData.AddMainBuff(builder, MainBuffOffset);
@@ -44,7 +50,7 @@ public struct EquipQualityRowData : IFlatbufferObject
     return EquipQualityRowData.EndEquipQualityRowData(builder);
   }
 
-  public static void StartEquipQualityRowData(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void StartEquipQualityRowData(FlatBufferBuilder builder) { builder.StartTable(6); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddMainBuff(FlatBufferBuilder builder, VectorOffset MainBuffOffset) { builder.AddOffset(1, MainBuffOffset.Value, 0); }
   public static VectorOffset CreateMainBuffVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
@@ -52,6 +58,8 @@ public struct EquipQualityRowData : IFlatbufferObject
   public static void StartMainBuffVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddLevelMax(FlatBufferBuilder builder, int LevelMax) { builder.AddInt(2, LevelMax, 0); }
   public static void AddMainBuffAdd(FlatBufferBuilder builder, int MainBuffAdd) { builder.AddInt(3, MainBuffAdd, 0); }
+  public static void AddAdvanceType(FlatBufferBuilder builder, int AdvanceType) { builder.AddInt(4, AdvanceType, 0); }
+  public static void AddAdvanceValue(FlatBufferBuilder builder, int AdvanceValue) { builder.AddInt(5, AdvanceValue, 0); }
   public static Offset<GameConfigs.EquipQualityRowData> EndEquipQualityRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipQualityRowData>(o);

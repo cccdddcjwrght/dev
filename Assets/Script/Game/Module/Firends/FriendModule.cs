@@ -365,7 +365,7 @@ namespace SGame.Firend
                 if (m_friendData.hiringTime > 0 && m_friendData.hiringTime <= GetCurrentTime())
                 {
                     m_friendData.hiringTime = 0;
-                    EventManager.Instance.AsyncTrigger((int)GameEvent.FIREND_HIRING_TIMEOUT);
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING_TIMEOUT);
                 }
             }
         }
