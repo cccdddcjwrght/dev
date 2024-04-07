@@ -11,7 +11,7 @@ namespace SGame.Firend
     /// <summary>
     /// 好友模块 
     /// </summary>
-    public class FriendModule : Singleton<FriendModule>
+    public class FriendModule : MonoSingleton<FriendModule>
     {
         private static ILog log = LogManager.GetLogger("game.friend");
         private static int HIRE_TIME_INTERVAL = 300; // 下次时间间隔 单位秒
@@ -64,7 +64,7 @@ namespace SGame.Firend
             HIRING_TIME = GameConfigs.GlobalDesginConfig.GetInt("friend_hiring_time", 10);
             TestJsonData();
 
-            EventManager.Instance.Reg<int>((int)GameEvent.ENTER_LOGIN, OnEventBeforeEnterRoom);
+            EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEventBeforeEnterRoom);
         }
 
         void OnEventBeforeEnterRoom(int roomID)
@@ -87,7 +87,7 @@ namespace SGame.Firend
                 if (currentTime < friend.hiringTime)
                 {
                     /// 只有一个满足
-                    EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, GetRoleData(friend.player_id));
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, friend.player_id, friend.roleID, GetRoleData(friend.player_id));
                     log.Info("Friend Resend Hiring ID = " + friend.player_id);
                     return;
                 }
@@ -256,7 +256,7 @@ namespace SGame.Firend
             m_friendData.nextHireTime = serverTime + HIRE_TIME_INTERVAL;
             m_friendData.hiringTime = serverTime + HIRING_TIME;
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
-            EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, GetRoleData(player_id));
+            EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, player_id, item.roleID, GetRoleData(player_id));
             EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
@@ -338,6 +338,18 @@ namespace SGame.Firend
                 equips = equips
             };
             return roleData;
+        }
+
+        private void Update()
+        {
+            if (m_friendData != null)
+            {
+                if (m_friendData.hiringTime > 0 && m_friendData.hiringTime <= GetCurrentTime())
+                {
+                    m_friendData.hiringTime = 0;
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.FIREND_HIRING_TIMEOUT);
+                }
+            }
         }
     }
 }
