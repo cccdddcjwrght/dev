@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net;
 using System.Text;
 using UnityEditor.Build;
+using Firebase;
 
 static class BuildCommand
 {
@@ -206,12 +207,6 @@ static class BuildCommand
 				}
 			}
 
-
-			if ((allOptions & BuildOptions.Development) == BuildOptions.Development)
-			{
-				if (TryGetEnv(BUILD_OPTIONS_SYMBOL, out string v) && !string.IsNullOrEmpty(v))
-					EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
-			}
 			return allOptions;
 		}
 
@@ -704,6 +699,9 @@ static class BuildCommand
 		}
 		Console.WriteLine($"::Set Cpu type : {target}");
 		PlayerSettings.Android.targetArchitectures = target;
+
+		if (TryGetEnv(BUILD_OPTIONS_SYMBOL, out string s) && !string.IsNullOrEmpty(s))
+			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
 	}
 
 	#endregion
