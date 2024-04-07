@@ -218,6 +218,7 @@ namespace SGame.UI
 				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(DataCenter.Instance.exclusiveData.cfgId, out var data))
 					m_view.m_buff.SetIcon(data.BuffIcon);
 				var time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
+				m_view.m_buff.m_isTime.selectedIndex = time > 0 ? 0 : 1;
 				timer = Utils.Timer(time, ()=> 
 				{
 					time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
@@ -228,7 +229,7 @@ namespace SGame.UI
 
 		void BuffTimeFinish() 
 		{
-			m_view.m_buff.m_time.SetText("");
+			m_view.m_buff.m_isTime.selectedIndex = 1;
 			m_view.m_buff.visible = DataCenter.ExclusiveUtils.CheckBuffTakeEffect();
 		}
 
