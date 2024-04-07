@@ -51,6 +51,13 @@ namespace SGame.VS
         public ValueInput hasAttribute { get; private set; }
         
         /// <summary>
+        /// 是否是雇佣好友
+        /// </summary>
+        /// <returns></returns>
+        [DoNotSerialize]
+        public ValueInput m_isEmployee { get; private set; }
+        
+        /// <summary>
         /// 创建的角色Entity
         /// </summary>
         public ValueOutput m_characterEntity { get; private set; }
@@ -63,12 +70,13 @@ namespace SGame.VS
                 var id =  flow.GetValue<int>(roleID);
                 var tag = flow.GetValue<string>(mapTag);
                 var attr = flow.GetValue<bool>(hasAttribute);
+                var isEmployee = flow.GetValue<bool>(m_isEmployee);
 
                 if (string.IsNullOrEmpty(tag))
                 {
                     // 直接使用地址
                     var pos = flow.GetValue<int2>(mapPos);
-                    m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
+                    m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr, isEmployee);
                 }
                 else
                 {
@@ -78,7 +86,7 @@ namespace SGame.VS
                     {
                         var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count);
                         var pos = map_pos[posIndex];
-                        m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr);
+                        m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr, isEmployee);
                     }
                     else
                     {
@@ -92,6 +100,7 @@ namespace SGame.VS
             mapPos      = ValueInput<int2>("mapPos", int2.zero);
             mapTag      = ValueInput<string>("mapTag", "");
             hasAttribute = ValueInput<bool>("hasAttribute", true);
+            m_isEmployee = ValueInput<bool>("isEmployee", false);
             m_characterEntity = ValueOutput<CharacterSpawnResult>("Result", (flow)=> m_spwanResult);
             outputTrigger = ControlOutput("Output");
         }

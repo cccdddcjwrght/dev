@@ -63,6 +63,35 @@ namespace SGame.Firend
             HIRE_TIME_INTERVAL = GameConfigs.GlobalDesginConfig.GetInt("friend_hire_time", 30);
             HIRING_TIME = GameConfigs.GlobalDesginConfig.GetInt("friend_hiring_time", 10);
             TestJsonData();
+
+            EventManager.Instance.Reg<int>((int)GameEvent.ENTER_LOGIN, OnEventBeforeEnterRoom);
+        }
+
+        void OnEventBeforeEnterRoom(int roomID)
+        {
+            /// 重新发送好友雇佣信息
+            ReSendFriendHiring();
+        }
+
+        /// <summary>
+        /// 重新发送好友雇佣信息
+        /// </summary>
+        void ReSendFriendHiring()
+        {
+            int currentTime = GetCurrentTime();
+            if (currentTime >= m_friendData.hiringTime)
+                return;
+            
+            foreach (var friend in m_friendData.Friends)
+            {
+                if (currentTime < friend.hiringTime)
+                {
+                    /// 只有一个满足
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, GetRoleData(friend.player_id));
+                    log.Info("Friend Resend Hiring ID = " + friend.player_id);
+                    return;
+                }
+            }
         }
         
         public void SetData(FriendData data)

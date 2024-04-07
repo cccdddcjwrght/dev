@@ -29,15 +29,19 @@ namespace SGame
             // 是否使用属性系统
             public bool hasAttribute;
 
-            public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true)
+            // 是否是雇佣好友
+            public bool isEmployee;
+
+            public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true, bool isEmployee = false)
             {
                 var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 var entity = mgr.CreateEntity(typeof(CharacterSpawn));
                 mgr.SetComponentData(entity, new CharacterSpawn()
                 {
-                    id = id,
-                    pos = pos,
-                    hasAttribute = hasAttriburte
+                    id          = id,
+                    pos         = pos,
+                    hasAttribute = hasAttriburte,
+                    isEmployee  = isEmployee
                 });
 
                 var request = new CharacterSpawnResult()
@@ -253,6 +257,7 @@ namespace SGame
                 c.CharacterID = lasterCharacterID;
                 c.roleType = roleData.Type;
                 c.roleID = roleData.Id;
+                c.isEmployee = req.isEmployee;
 
 				//TODO:先不使用CommandBuff处理
 

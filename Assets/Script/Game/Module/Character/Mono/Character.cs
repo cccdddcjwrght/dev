@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections;
 using Fibers;
 using GameConfigs;
@@ -62,7 +62,15 @@ namespace SGame
         /// </summary>
         public int roleType = 0;
 
+        /// <summary>
+        /// 角色属性配置表的ID
+        /// </summary>
         public int roleID = 0;
+
+        /// <summary>
+        /// 是否是雇员
+        /// </summary>
+        public bool isEmployee = false;
 
         private bool isPlay=false;
         public Transform pos
