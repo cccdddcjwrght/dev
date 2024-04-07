@@ -13,6 +13,7 @@ using FairyGUI;
 using GameTools;
 using SGame.UI;
 using System.Collections;
+using SGame.Firend;
 
 namespace SGame
 {
@@ -300,7 +301,16 @@ namespace SGame
 			}
 			
 			// 邀请好友外观
-			return DataCenter.EquipUtil.GetRoleEquipString();
+			var friend = FriendModule.Instance.GetHiringFriend();
+			if (friend == null)
+			{
+				log.Error("NOT FOUND HIRING FRIEND！");
+				return DataCenter.EquipUtil.GetRoleEquipString();
+			}
+			
+			// 获得好友装备信息
+			var roleData = FriendModule.Instance.GetRoleData(friend.player_id);
+			return DataCenter.EquipUtil.GetRoleEquipString(friend.roleID, roleData.equips);
 		}
 
 		#region 语言

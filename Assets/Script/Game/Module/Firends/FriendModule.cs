@@ -340,6 +340,24 @@ namespace SGame.Firend
             return roleData;
         }
 
+        /// <summary>
+        /// 获取正在雇佣的好友信息
+        /// </summary>
+        /// <returns></returns>
+        public FirendItemData GetHiringFriend()
+        {
+            var currentTime = GetCurrentTime();
+            foreach (var friend in m_friendData.Friends)
+            {
+                if (friend.hiringTime > currentTime)
+                {
+                    return friend;
+                }
+            }
+
+            return null;
+        }
+
         private void Update()
         {
             if (m_friendData != null)
