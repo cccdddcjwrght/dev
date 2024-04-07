@@ -128,7 +128,22 @@ public class SceneAssetProcessor
 					if (File.Exists(mpath))
 						mat = AssetDatabase.LoadAssetAtPath<Material>(mpath);
 					if (mat == null) mat = CreateMat(matname, dir + "/" + matname + ".mat", tpath);
-					mats.Add(matname, mat);
+					if (mat == null)
+					{
+						var md = dir + "/mats/";
+						tpath = opath + "/" + o.name + ".png";
+						if (File.Exists(tpath))
+						{
+							mpath = md + o.name + ".mat";
+							if (File.Exists(mpath))
+								mat = AssetDatabase.LoadAssetAtPath<Material>(mpath);
+							else if (!Directory.Exists(md))
+								Directory.CreateDirectory(md);
+							mats[o.name] = mat = CreateMat(matname, mpath, tpath);
+						}
+					}
+					else
+						mats.Add(matname, mat);
 				}
 
 				if (o.name.Contains("wall"))
