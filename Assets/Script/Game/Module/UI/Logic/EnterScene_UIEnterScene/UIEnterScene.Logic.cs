@@ -109,7 +109,7 @@ namespace SGame.UI
 			var view = gObject as UI_LevelItem;
 			var room = DataCenter.RoomUtil.GetRoom(0);
 			view.SetIcon(cfg.Icon);
-			view.m_progress.SetText(cfg.ID + "." + cfg.Name.Local(), false);
+			view.m_progress.SetText(cfg.SubId + "." + cfg.Name.Local(), false);
 			view.m_left.selectedIndex = index % 2;
 			view.m_progress.max = 1;
 			view.m_progress.value = 0;
