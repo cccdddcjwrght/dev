@@ -47,9 +47,12 @@ namespace SGame.UI
 
 		partial void UnInitEvent(UIContext context)
 		{
+			_press?.Dispose();
+
 			GRoot.inst.onClick.Remove(OnOtherUIClick);
 
 			EventManager.Instance.UnReg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
+			pressFlag = false;
 		}
 
 		void OnBegin()
