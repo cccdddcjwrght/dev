@@ -30,7 +30,7 @@ namespace SGame.UI
 			var item = gObject as UI_RItem;
 			var d = data as int[];
 			item.SetIcon(Utils.GetItemIcon(d[0], d[1]));
-			item.SetText("x" + Utils.ConvertNumberStr(d[2]), false);
+			item.m_body.SetText("x" + Utils.ConvertNumberStr(d[2]), false);
 		}
 
 		partial void OnClickClick(EventContext data)

@@ -105,7 +105,12 @@ namespace SGame.UI
 				m_view.m_progress.max = 1;
 				m_view.m_nextlvattr.SetTextByKey("ui_equip_lvmax");
 			}
-			m_view.m_hide.selectedIndex = showBtn ? 0 : 1;
+			if (!showBtn)
+			{
+				m_view.m_hide.selectedIndex = 1;
+				m_view.m_progress.value = 1;
+				m_view.m_progress.max = 1;
+			}
 		}
 
 		void OnSetEffect(int index, GObject gObject)
