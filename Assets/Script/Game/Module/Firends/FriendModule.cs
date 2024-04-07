@@ -227,7 +227,7 @@ namespace SGame.Firend
             m_friendData.nextHireTime = serverTime + HIRE_TIME_INTERVAL;
             m_friendData.hiringTime = serverTime + HIRING_TIME;
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
-            EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING);
+            EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, GetRoleData(player_id));
             EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
@@ -277,6 +277,38 @@ namespace SGame.Firend
             }
 
             return FIREND_STATE.CAN_HIRE;
+        }
+        
+        /// <summary>
+        /// 好友结构转角色结构
+        /// </summary>
+        /// <param name="playerID"></param>
+        /// <returns></returns>
+        public RoleData GetRoleData(int playerID)
+        {
+            var item = FriendModule.Instance.GetFriendItem(playerID);
+
+            List<BaseEquip> equips = new List<BaseEquip>();
+
+            foreach (var e in item.equips)
+            {
+                BaseEquip equip = new BaseEquip()
+                {
+                    cfgID = e.id,
+                    level = e.level,
+                    quality = e.quality,
+                };
+                equip.Refresh();
+                equips.Add(equip);
+            }
+
+            RoleData roleData = new RoleData()
+            {
+                roleTypeID = item.roleID,
+                isEmployee = true,
+                equips = equips
+            };
+            return roleData;
         }
     }
 }

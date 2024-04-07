@@ -89,29 +89,7 @@ namespace SGame.UI{
 		/// <returns></returns>
 		RoleData GetRoleData(int playerID)
 		{
-			var item = FriendModule.Instance.GetFriendItem(playerID);
-
-			List<BaseEquip> equips = new List<BaseEquip>();
-
-			foreach (var e in item.equips)
-			{
-				BaseEquip equip = new BaseEquip()
-				{
-					cfgID = e.id,
-					level = e.level,
-					quality = e.quality,
-				};
-				equip.Refresh();
-				equips.Add(equip);
-			}
-
-			RoleData roleData = new RoleData()
-			{
-				roleTypeID = item.roleID,
-				isEmployee = true,
-				equips = equips
-			};
-			return roleData;
+			return FriendModule.Instance.GetRoleData(playerID);
 		}
 		
 		partial void UnInitEvent(UIContext context){
