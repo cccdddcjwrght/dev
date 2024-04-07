@@ -111,7 +111,7 @@ namespace SGame.UI.Player
 		IEnumerator CreateRole()
 		{
 			yield return null;
-			var wait = Utils.GenCharacter(DataCenter.EquipUtil.GetRoleEquipString(roleData != null ? roleData.roleTypeID : 0));
+			var wait = Utils.GenCharacter(DataCenter.EquipUtil.GetRoleEquipString(roleData != null ? roleData.roleTypeID : 0, roleData?.equips));
 			yield return wait;
 			var go = wait.Current as GameObject;
 			if (go)
