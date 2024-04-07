@@ -204,6 +204,10 @@ static class BuildCommand
 				}
 			}
 
+
+			if ((allOptions & BuildOptions.Development) == BuildOptions.Development)
+				EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
+
 			return allOptions;
 		}
 
