@@ -44,6 +44,8 @@ namespace SGame
 
 		[SerializeField]
 		private ItemData itemData = new ItemData();
+		[SerializeField]
+		private ItemData cacheItem = new ItemData();
 
 		[SerializeField]
 		public double m_foodTipsGold;
@@ -115,33 +117,19 @@ namespace SGame
 
 		public void Initalize()
 		{
-			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
 			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 
+			PropertyManager.Instance.InitCache(cacheItem);
+			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
+			PropertyManager.Instance.CombineCache2Items();
 			if (loadtime == 0)
 			{
 				IsNew = true;
 				registertime = GameServerTime.Instance.serverTime;
 				accountData.playerID = System.DateTime.Now.Ticks;
-
-				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
-
-				var cfgstr = GlobalDesginConfig.GetStr("initial_items") ?? GlobalConfig.GetStr("initial_items");
-				if (!string.IsNullOrEmpty(cfgstr))
-				{
-					var group = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
-					var dic = cfgstr
-						.Split('|', StringSplitOptions.RemoveEmptyEntries)
-						.Select(s => s.Split('_', StringSplitOptions.RemoveEmptyEntries))
-						.Where(s => s.Length > 1)
-						.ToDictionary(s => int.Parse(s[0]), s => int.Parse(s[1]));
-					foreach (var item in dic)
-						group.SetNum(item.Key,item.Value);	
-				}
-
+				InitItem();
 				OnFirstInit();
 				IsFirstLogin = true;
-
 			}
 			else
 			{
@@ -167,6 +155,24 @@ namespace SGame
 			loadtime = GameServerTime.Instance.serverTime;
 
 			EventManager.Instance.Trigger(((int)GameEvent.DATA_INIT_COMPLETE));
+		}
+
+		private void InitItem()
+		{
+			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, GlobalDesginConfig.GetInt("initial_gems"));
+
+			var cfgstr = GlobalDesginConfig.GetStr("initial_items") ?? GlobalConfig.GetStr("initial_items");
+			if (!string.IsNullOrEmpty(cfgstr))
+			{
+				var group = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
+				var dic = cfgstr
+					.Split('|', StringSplitOptions.RemoveEmptyEntries)
+					.Select(s => s.Split('_', StringSplitOptions.RemoveEmptyEntries))
+					.Where(s => s.Length > 1)
+					.ToDictionary(s => int.Parse(s[0]), s => int.Parse(s[1]));
+				foreach (var item in dic)
+					group.SetNum(item.Key, item.Value);
+			}
 		}
 
 		public void Update()

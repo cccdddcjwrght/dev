@@ -9,12 +9,23 @@ namespace SGame.UI
 	using System.IO;
 	using UnityEngine.Video;
 	using System.Collections;
+	using System.Collections.Generic;
 
 	public partial class UIEnterScene
 	{
 
 		private int _nextScene = 0;
+		private int _maxLv;
+		private int _curLv;
+
+		private bool _canSwitch;
 		private VideoPlayer _player;
+
+		#region Scene
+
+		private List<GameConfigs.RoomRowData> _sceneCfgs;
+
+		#endregion
 
 		#region path
 		string c_video_path =
@@ -25,6 +36,8 @@ namespace SGame.UI
 #endif
 		#endregion
 
+		#region Init
+
 		partial void InitLogic(UIContext context)
 		{
 			var path = GameConfigs.GlobalConfig.GetStr("splash_video");
@@ -32,17 +45,18 @@ namespace SGame.UI
 
 			m_view.m_loader.onClick.Add(OnClickClose);
 			m_view.m_btnGO.onClick.Add(OnClick);
-			m_view.m_btnClose.onClick.Add(OnClickClose);
+			m_view.m_close.onClick.Add(OnClickClose);
 
 			_nextScene = (context.GetParam()?.Value as object[]).Val<int>(0);
 			m_view.m_show.selectedIndex = 0;
-			
+
 			if (_nextScene > 0)
 			{
 				m_view.m_show.selectedIndex = 1;
-				UpdateLevelState(_nextScene - 1);
+				(_maxLv, _curLv) = DataCenter.MachineUtil.GetRoomLvState();
+				_canSwitch = DataCenter.MachineUtil.CheckAllWorktableIsMaxLv();
+				SetLevelList();
 				EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
-
 				return;
 			}
 			else if (_nextScene < 0 && !string.IsNullOrEmpty(c_video_path))
@@ -53,37 +67,80 @@ namespace SGame.UI
 			SGame.UIUtils.CloseUIByID(__id);
 		}
 
-		void UpdateLevelState(int level)
+		partial void UnInitLogic(UIContext context)
 		{
-			int canUnlock = 0;
-			if (DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
-				canUnlock = level + 1;
-			
-			var levels = new UI_LevelItem[] { m_view.m_level1, m_view.m_level2, m_view.m_level3, m_view.m_level4 };
-			for (int i = 0; i < levels.Length; i++)
-			{
-				var l = i + 1;
-				if (canUnlock == l)
-				{
-					levels[i].m_state.selectedIndex = 3;
-					continue;
-				}
 
-				if (l < level)
-				{
-					levels[i].m_state.selectedIndex = 2;
-				}
-				else if (l == level)
-				{
-					levels[i].m_state.selectedIndex = 1;
-				}
-				else
-				{
-					levels[i].m_state.selectedIndex = 0;
-				}
-			}
 		}
 
+		#endregion
+
+		#region List
+
+		void SetLevelList()
+		{
+			var c = _nextScene - 1;
+			if (ConfigSystem.Instance.TryGet<RoomRowData>(c, out var cfg))
+			{
+				if (ConfigSystem.Instance.TryGet<RegionRowData>(cfg.RegionId, out var region))
+				{
+					_sceneCfgs = ConfigSystem.Instance.Finds<RoomRowData>((c) => c.RegionId == region.ID);
+					_sceneCfgs.Reverse();
+					SGame.UIUtils.AddListItems(m_view.m_list, _sceneCfgs, OnSetRoomInfo);
+					m_view.m_list.ScrollToView(_sceneCfgs.FindIndex(v => v.ID == c));
+					m_view.m_region.SetIcon(region.Icon);
+					m_view.m_title3.text = null;
+					m_view.SetText(region.ID + "." + region.Name.Local());
+					if (string.IsNullOrEmpty(region.Icon) || !ConfigSystem.Instance.TryGet<RegionRowData>(region.ID + 1, out var r))
+						m_view.m_title3.SetTextByKey("ui_enterscene_2");
+
+					m_view.m_btnGO.grayed = !_canSwitch;
+					m_view.m_tips.visible = !_canSwitch;
+					m_view.m_tips.SetTextByKey("ui_enterscene_tips_1", cfg.LevelMax); 
+				}
+			}
+
+		}
+
+
+		void OnSetRoomInfo(int index, object data, GObject gObject)
+		{
+
+			var cfg = (GameConfigs.RoomRowData)data;
+			var view = gObject as UI_LevelItem;
+			var room = DataCenter.RoomUtil.GetRoom(0);
+			view.SetIcon(cfg.Icon);
+			view.m_progress.SetText(cfg.ID + "." + cfg.Name.Local(), false);
+			view.m_left.selectedIndex = index % 2;
+			view.m_progress.max = 1;
+			view.m_progress.value = 0;
+
+			view.m_chest.SetBaseItem(cfg.GetReward1Array());
+			var cscene = _nextScene - 1;
+			if (cfg.ID < cscene)
+			{
+				view.m_state.selectedIndex = 2;
+				view.m_progress.value = 1;
+			}
+			else if (cfg.ID == cscene)
+			{
+				view.m_state.selectedIndex = 1;
+				view.m_progress.max = _maxLv;
+				view.m_progress.value = _curLv;
+			}
+			else if (cfg.ID == _nextScene && _canSwitch)
+			{
+				view.m_state.selectedIndex = 3;
+			}
+			else
+			{
+				view.m_state.selectedIndex = 0;
+			}
+
+		}
+
+		#endregion
+
+		#region Video
 		IEnumerator ShowVideo()
 		{
 			var flag = false;
@@ -110,7 +167,7 @@ namespace SGame.UI
 					StaticDefine.G_VIDEO_COMPLETE = true;
 				}
 			}
-			
+
 			CompleteVideo();
 		}
 
@@ -164,20 +221,22 @@ namespace SGame.UI
 				"@ui_worktable_goto_next_fail".Tips();
 				return;
 			}
-			
-			//if (e.inputEvent.y < 100)
-				//CompleteVideo();
+
+#if !SVR_RELEASE
+			if (e.inputEvent.y < 100) CompleteVideo();
+#endif
 			SGame.UIUtils.CloseUIByID(__id);
 			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 		}
+		#endregion
 
+		#region Private
 		void OnClickClose()
 		{
 			SGame.UIUtils.CloseUIByID(__id);
 		}
+		#endregion
 
-		partial void UnInitLogic(UIContext context)
-		{
-		}
+
 	}
 }

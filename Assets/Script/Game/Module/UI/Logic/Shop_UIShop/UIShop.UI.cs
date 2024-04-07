@@ -99,8 +99,8 @@ namespace SGame.UI{
 			OnShopBody_AdgoodClick(data);
 		}
 		partial void OnShopBody_AdgoodClick(EventContext data);
-		void SetShopBody_AdgoodText(string data)=>UIListener.SetText(m_view.m_content.m_adgood,data);
-		string GetShopBody_AdgoodText()=>UIListener.GetText(m_view.m_content.m_adgood);
+		void SetShopBody_Content_adgoodText(string data)=>UIListener.SetText(m_view.m_content.m_adgood,data);
+		string GetShopBody_Content_adgoodText()=>UIListener.GetText(m_view.m_content.m_adgood);
 		void _OnContentClick(EventContext data){
 			OnContentClick(data);
 		}

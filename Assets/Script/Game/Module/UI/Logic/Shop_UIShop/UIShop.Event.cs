@@ -19,7 +19,7 @@ namespace SGame.UI
 		{
 			EventManager.Instance.UnReg<int>(((int)GameEvent.SHOP_GOODS_BUY_RESULT), OnGoodsBuyResult);
 			EventManager.Instance.UnReg(((int)GameEvent.SHOP_REFRESH), OnShopRefresh);
-			UIListener.ListenerClose(m_view.m_rate_2.m_bg, new EventCallback1(OnRateClose), false);
+			UIListener.ListenerClose(m_view.m_rate_2.m_bg, new EventCallback1(OnRateClose), remove: false);
 		}
 
 		partial void OnBigGoods_Content_adgood_clickClick(EventContext data)

@@ -340,6 +340,14 @@ namespace SGame
 				return false;
 			}
 
+			public static (int,int) GetRoomLvState()
+			{
+				var ws = GetWorktables(w => !w.isTable);
+				if (ws?.Count > 0)
+					return (ws.Sum(w => w.maxlv) , ws.Sum(w=>w.level));
+				return (0,0);
+			}
+
 			private static Worktable AddWorktable(int id, int scene)
 			{
 				var val = new Worktable()

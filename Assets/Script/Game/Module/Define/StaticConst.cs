@@ -168,8 +168,10 @@ namespace SGame
 
 		public static bool G_WAIT_VIDEO = false;
 		public static bool G_VIDEO_COMPLETE = false;
-
-
+		/// <summary>
+		/// 等待欢迎界面关闭
+		/// </summary>
+		public static bool G_WAIT_WELCOME = false;
 
 		/// <summary>
 		/// 装备等级上限

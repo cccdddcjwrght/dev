@@ -32,8 +32,10 @@ namespace SGame
 
 			static public string GetRoleEquipString() => GetRoleEquipString(0);
 
-			static public string GetRoleEquipString(int roleType)
+			static public string GetRoleEquipString(int roleType , IList<BaseEquip> eqs = null)
 			{
+				eqs = eqs ?? _data.equipeds;
+
 				#region 当前场景角色基模数据
 				var parts = _data.defaultEquipPart;
 				if (_data.defaultEquipPart == null || roleType != 0)
@@ -64,7 +66,7 @@ namespace SGame
 				#endregion
 
 				var d = new Dictionary<string, string>(parts);
-				_data.equipeds.Foreach(e =>
+				eqs.Foreach(e =>
 				{
 					if (e != null && e.cfgID > 0)
 						e.ReplacePart(d);
