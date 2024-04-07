@@ -32,7 +32,7 @@ namespace SGame
 
 			static public string GetRoleEquipString() => GetRoleEquipString(0);
 
-			static public string GetRoleEquipString(int roleType , IList<BaseEquip> eqs = null)
+			static public string GetRoleEquipString(int roleType, IList<BaseEquip> eqs = null)
 			{
 				eqs = eqs ?? _data.equipeds;
 
@@ -221,7 +221,7 @@ namespace SGame
 					OnRoleEquipChange();
 					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 					EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
-					EventManager.Instance.Trigger<int>((int)GameEvent.ROLE_EQUIP_PUTON , equip.cfgID);
+					EventManager.Instance.Trigger<int>((int)GameEvent.ROLE_EQUIP_PUTON, equip.cfgID);
 
 				}
 			}
@@ -345,29 +345,37 @@ namespace SGame
 				_data.items?.ForEach(e => e.isnew = 0);
 			}
 
+			/// <summary>
+			/// 获取装备buff列表
+			/// </summary>
+			/// <param name="equips"></param>
+			/// <param name="from"></param>
+			/// <returns></returns>
+			static public List<BuffData> GetEquipBuffList(IList<BaseEquip> equips, int from = 0)
+			{
+				if (equips?.Count > 0)
+				{
+					var list = new List<int[]>();
+					equips.Foreach(e => GetEquipEffects(e, list));
+
+					if (list.Count > 0)
+					{
+						return list.GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(kv => new BuffData()
+						{
+							id = kv.Key,
+							val = kv.Value,
+							from = from == 0 ? EQ_FROM_ID : from,
+						}).ToList();
+					}
+				}
+				return default;
+			}
 
 			static private void OnRoleEquipChange(bool remove = false)
 			{
 				EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = EQ_FROM_ID });
 				if (!remove)
-				{
-					var list = new List<int[]>();
-					_data.equipeds.Foreach(e => GetEquipEffects(e, list));
-
-					if (list.Count > 0)
-					{
-						var buffs = list.GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(kv => new BuffData()
-						{
-							id = kv.Key,
-							val = kv.Value,
-							from = EQ_FROM_ID,
-						}).All(buff =>
-						{
-							EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff);
-							return true;
-						});
-					}
-				}
+					GetEquipBuffList(_data.equipeds).ForEach(buff => EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff));
 			}
 
 		}

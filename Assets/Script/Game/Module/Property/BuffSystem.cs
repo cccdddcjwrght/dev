@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameConfigs;
+using log4net;
 
 namespace SGame
 {
 	internal class BuffSystem : Singleton<BuffSystem>
 	{
+		private static ILog log = LogManager.GetLogger("zcf.buff");
+
+
 		static EnumTarget _TypeFollowLevel = EnumTarget.Machine | EnumTarget.Player | EnumTarget.Cook | EnumTarget.Waiter | EnumTarget.Customer | EnumTarget.Investor;
 
 		private AttributeSystem attrSys { get { return AttributeSystem.Instance; } }
@@ -19,6 +23,10 @@ namespace SGame
 			EventManager.Instance.Reg<int>(((int)GameEvent.BEFORE_ENTER_ROOM), OnEnterRoom);
 			//监听buff添加
 			EventManager.Instance.Reg<BuffData>(((int)GameEvent.BUFF_TRIGGER), OnBuffAdd);
+			EventManager.Instance.Reg<int, int, RoleData>(((int)GameEvent.FRIEND_HIRING), (id, type, data) => OnRoleAdd(data));
+			EventManager.Instance.Reg<RoleData>(((int)GameEvent.BUFF_ADD_ROLE), OnRoleAdd);
+
+
 			//全局
 			InitGlobalAttribute();
 		}
@@ -120,6 +128,30 @@ namespace SGame
 		private void OnEnterRoom(int scene)
 		{
 			ReInitRoomAttribute(scene);
+		}
+
+		private void OnRoleAdd(RoleData data)
+		{
+
+			if (data != null && data.roleTypeID > 0)
+			{
+				if (ConfigSystem.Instance.TryGet<RoleDataRowData>(data.roleTypeID, out var cfg))
+				{
+					//主角
+					attrSys.Register(((int)EnumTarget.Player), data.roleTypeID, CreateAttribute(1, data.roleTypeID));
+					if (data.equips?.Count > 0)
+					{
+						DataCenter.EquipUtil.GetEquipBuffList(data.equips).ForEach(buff =>
+						{
+							buff.targetid = data.roleTypeID;
+							OnBuffAdd(buff);
+						});
+					}
+				}
+				else
+					log.Error($"RoleTypeID:{data.roleTypeID} not find");
+			}
+
 		}
 
 		/// <summary>
