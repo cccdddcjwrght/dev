@@ -116,16 +116,17 @@ namespace SGame.UI
 
 			view.m_chest.SetBaseItem(cfg.GetReward1Array());
 			var cscene = _nextScene - 1;
-			if (cfg.ID < cscene)
+
+			if (cfg.ID == cscene)
+			{
+				view.m_state.selectedIndex = _canSwitch ? 2 : 1;
+				view.m_progress.max = _maxLv;
+				view.m_progress.value = _canSwitch ? _maxLv : _curLv;
+			}
+			else if (cfg.ID < cscene)
 			{
 				view.m_state.selectedIndex = 2;
 				view.m_progress.value = 1;
-			}
-			else if (cfg.ID == cscene)
-			{
-				view.m_state.selectedIndex = 1;
-				view.m_progress.max = _maxLv;
-				view.m_progress.value = _curLv;
 			}
 			else if (cfg.ID == _nextScene && _canSwitch)
 			{
