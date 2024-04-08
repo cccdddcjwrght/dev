@@ -101,6 +101,46 @@ public struct EquipmentRowData : IFlatbufferObject
   public ArraySegment<byte>? GetBuff6Bytes() { return __p.__vector_as_arraysegment(34); }
 #endif
   public int[] GetBuff6Array() { return __p.__vector_as_array<int>(34); }
+  public int Part1(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Part1Length { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetPart1Bytes() { return __p.__vector_as_span<int>(36, 4); }
+#else
+  public ArraySegment<byte>? GetPart1Bytes() { return __p.__vector_as_arraysegment(36); }
+#endif
+  public int[] GetPart1Array() { return __p.__vector_as_array<int>(36); }
+  public int Part2(int j) { int o = __p.__offset(38); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Part2Length { get { int o = __p.__offset(38); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetPart2Bytes() { return __p.__vector_as_span<int>(38, 4); }
+#else
+  public ArraySegment<byte>? GetPart2Bytes() { return __p.__vector_as_arraysegment(38); }
+#endif
+  public int[] GetPart2Array() { return __p.__vector_as_array<int>(38); }
+  public int Part3(int j) { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Part3Length { get { int o = __p.__offset(40); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetPart3Bytes() { return __p.__vector_as_span<int>(40, 4); }
+#else
+  public ArraySegment<byte>? GetPart3Bytes() { return __p.__vector_as_arraysegment(40); }
+#endif
+  public int[] GetPart3Array() { return __p.__vector_as_array<int>(40); }
+  public int Part4(int j) { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Part4Length { get { int o = __p.__offset(42); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetPart4Bytes() { return __p.__vector_as_span<int>(42, 4); }
+#else
+  public ArraySegment<byte>? GetPart4Bytes() { return __p.__vector_as_arraysegment(42); }
+#endif
+  public int[] GetPart4Array() { return __p.__vector_as_array<int>(42); }
+  public int Part5(int j) { int o = __p.__offset(44); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Part5Length { get { int o = __p.__offset(44); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetPart5Bytes() { return __p.__vector_as_span<int>(44, 4); }
+#else
+  public ArraySegment<byte>? GetPart5Bytes() { return __p.__vector_as_arraysegment(44); }
+#endif
+  public int[] GetPart5Array() { return __p.__vector_as_array<int>(44); }
 
   public static Offset<GameConfigs.EquipmentRowData> CreateEquipmentRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -118,8 +158,18 @@ public struct EquipmentRowData : IFlatbufferObject
       VectorOffset Buff3Offset = default(VectorOffset),
       VectorOffset Buff4Offset = default(VectorOffset),
       VectorOffset Buff5Offset = default(VectorOffset),
-      VectorOffset Buff6Offset = default(VectorOffset)) {
-    builder.StartTable(16);
+      VectorOffset Buff6Offset = default(VectorOffset),
+      VectorOffset Part1Offset = default(VectorOffset),
+      VectorOffset Part2Offset = default(VectorOffset),
+      VectorOffset Part3Offset = default(VectorOffset),
+      VectorOffset Part4Offset = default(VectorOffset),
+      VectorOffset Part5Offset = default(VectorOffset)) {
+    builder.StartTable(21);
+    EquipmentRowData.AddPart5(builder, Part5Offset);
+    EquipmentRowData.AddPart4(builder, Part4Offset);
+    EquipmentRowData.AddPart3(builder, Part3Offset);
+    EquipmentRowData.AddPart2(builder, Part2Offset);
+    EquipmentRowData.AddPart1(builder, Part1Offset);
     EquipmentRowData.AddBuff6(builder, Buff6Offset);
     EquipmentRowData.AddBuff5(builder, Buff5Offset);
     EquipmentRowData.AddBuff4(builder, Buff4Offset);
@@ -139,7 +189,7 @@ public struct EquipmentRowData : IFlatbufferObject
     return EquipmentRowData.EndEquipmentRowData(builder);
   }
 
-  public static void StartEquipmentRowData(FlatBufferBuilder builder) { builder.StartTable(16); }
+  public static void StartEquipmentRowData(FlatBufferBuilder builder) { builder.StartTable(21); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddDescription(FlatBufferBuilder builder, StringOffset DescriptionOffset) { builder.AddOffset(2, DescriptionOffset.Value, 0); }
@@ -174,6 +224,26 @@ public struct EquipmentRowData : IFlatbufferObject
   public static VectorOffset CreateBuff6Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateBuff6VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartBuff6Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddPart1(FlatBufferBuilder builder, VectorOffset Part1Offset) { builder.AddOffset(16, Part1Offset.Value, 0); }
+  public static VectorOffset CreatePart1Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreatePart1VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartPart1Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddPart2(FlatBufferBuilder builder, VectorOffset Part2Offset) { builder.AddOffset(17, Part2Offset.Value, 0); }
+  public static VectorOffset CreatePart2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreatePart2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartPart2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddPart3(FlatBufferBuilder builder, VectorOffset Part3Offset) { builder.AddOffset(18, Part3Offset.Value, 0); }
+  public static VectorOffset CreatePart3Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreatePart3VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartPart3Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddPart4(FlatBufferBuilder builder, VectorOffset Part4Offset) { builder.AddOffset(19, Part4Offset.Value, 0); }
+  public static VectorOffset CreatePart4Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreatePart4VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartPart4Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddPart5(FlatBufferBuilder builder, VectorOffset Part5Offset) { builder.AddOffset(20, Part5Offset.Value, 0); }
+  public static VectorOffset CreatePart5Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreatePart5VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartPart5Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.EquipmentRowData> EndEquipmentRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipmentRowData>(o);
