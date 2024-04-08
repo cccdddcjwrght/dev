@@ -147,7 +147,7 @@ namespace SGame.Firend
         /// </summary>
         /// <param name="player_id"></param>
         /// <returns></returns>
-        public FirendItemData GetFriendItem(int player_id)
+        public FriendItemData GetFriendItem(int player_id)
         {
             var index = FindFirend(m_friendData.Friends, player_id);
             if (index >= 0)
@@ -168,7 +168,7 @@ namespace SGame.Firend
         /// <param name="datas"></param>
         /// <param name="player_id"></param>
         /// <returns></returns>
-        static int FindFirend(List<FirendItemData> datas, int player_id)
+        static int FindFirend(List<FriendItemData> datas, int player_id)
         {
             for (int i = 0; i < datas.Count; i++)
             {
@@ -344,7 +344,7 @@ namespace SGame.Firend
         /// 获取正在雇佣的好友信息
         /// </summary>
         /// <returns></returns>
-        public FirendItemData GetHiringFriend()
+        public FriendItemData GetHiringFriend()
         {
             var currentTime = GetCurrentTime();
             foreach (var friend in m_friendData.Friends)

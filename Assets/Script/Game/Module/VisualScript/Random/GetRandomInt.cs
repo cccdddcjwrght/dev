@@ -33,6 +33,10 @@ namespace SGame.VS
         
         [DoNotSerialize]
         public ValueInput m_MaxValue { get; private set; }
+        
+        // 是否包含MAX元素
+        [DoNotSerialize]
+        public ValueInput m_IncludeMax { get; private set; }
 
         [DoNotSerialize]
         public ValueOutput m_OutValue;
@@ -46,13 +50,19 @@ namespace SGame.VS
             {
                 var min = flow.GetValue<int>(m_MinValue);
                 var max = flow.GetValue<int>(m_MaxValue);
-                _value = RandomSystem.Instance.NextInt(min, max + 1);
+                var includeMax = flow.GetValue<bool>(m_IncludeMax);
+                
+                if (includeMax)
+                    _value = RandomSystem.Instance.NextInt(min, max + 1);
+                else
+                    _value = RandomSystem.Instance.NextInt(min, max);
                 return outputSuccess;
             });
 
             outputSuccess    = ControlOutput("Success");
             m_MinValue       = ValueInput<int>("min", 0);
             m_MaxValue       = ValueInput<int>("max", 1);
+            m_IncludeMax     = ValueInput<bool>("includeMax", true);
             m_OutValue       = ValueOutput<int>("value", (flow) => _value);
         }
     }

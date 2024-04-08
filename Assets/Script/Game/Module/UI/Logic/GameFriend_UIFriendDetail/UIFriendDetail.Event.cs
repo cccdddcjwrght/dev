@@ -13,7 +13,7 @@ namespace SGame.UI{
 	public partial class UIFriendDetail
 	{
 		private int m_playerID;
-		private FirendItemData m_friend;
+		private FriendItemData m_friend;
 		private UI_EquipPage m_uiEquip
 		{
 			get

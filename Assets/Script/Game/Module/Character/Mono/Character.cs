@@ -70,7 +70,12 @@ namespace SGame
         /// <summary>
         /// 是否是雇员
         /// </summary>
-        public bool isEmployee = false;
+        public bool isEmployee => playerID != 0;
+
+        /// <summary>
+        /// 好友顾客ID, 每个玩家的唯一ID， 0表示没有
+        /// </summary>
+        public int playerID = 0;
 
         private bool isPlay=false;
         public Transform pos

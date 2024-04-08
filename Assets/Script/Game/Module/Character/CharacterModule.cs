@@ -23,9 +23,9 @@ namespace SGame
         /// <param name="id"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttribute = true, bool isEmployee = false)
+        public CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttribute = true, int playerID = 0)
         {
-            return CharacterSpawnSystem.CharacterSpawn.Create(id, pos, hasAttribute, isEmployee);
+            return CharacterSpawnSystem.CharacterSpawn.Create(id, pos, hasAttribute, playerID);
         }
 
         /// <summary>
