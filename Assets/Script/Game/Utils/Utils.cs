@@ -313,6 +313,28 @@ namespace SGame
 			return DataCenter.EquipUtil.GetRoleEquipString(friend.roleID, roleData.equips);
 		}
 
+		/// <summary>
+		/// 通过好友ID获得角色外观
+		/// </summary>
+		/// <param name="playerID"></param>
+		/// <returns></returns>
+		public static string GetOutlookStringFromPlayerID(int playerID)
+		{
+			// 玩家外观
+			if (playerID == 0)
+				return GetPlayerOutlookString(false);
+			
+			var friend = FriendModule.Instance.GetFriendItem(playerID);
+			if (friend == null)
+			{
+				log.Error("friend not found=" + playerID);
+				return null;
+			}
+			
+			var roleData = FriendModule.Instance.GetRoleData(playerID);
+			return DataCenter.EquipUtil.GetRoleEquipString(friend.roleID, roleData.equips);
+		}
+
 		#region 语言
 
 		//本机语言
