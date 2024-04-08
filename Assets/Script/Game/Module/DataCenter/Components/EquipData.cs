@@ -386,6 +386,10 @@ namespace SGame
 	public class RoleData
 	{
 		/// <summary>
+		/// 实例ID
+		/// </summary>
+		public int entityID;
+		/// <summary>
 		/// 角色类型ID
 		/// </summary>
 		public int roleTypeID;
