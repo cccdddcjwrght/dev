@@ -135,8 +135,8 @@ namespace SGame
 					}
 
 					w.Refresh();
-					w.addMachine	= Math.Min(w.max, w.lvcfg.Num) - pmac;
-					w.addProfit		= (w.lvcfg.ShopPriceStarRatio - prp) / 100;
+					w.addMachine = Math.Min(w.max, w.lvcfg.Num) - pmac;
+					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 100;
 
 					//升级消耗
 					PropertyManager.Instance.Update((int)w.lvcfg.UpgradePrice(0), (int)w.lvcfg.UpgradePrice(1), cost, true);
@@ -148,6 +148,13 @@ namespace SGame
 							PropertyManager.Instance.UpdateByArgs(false, cfg.GetStarRewardArray());
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UP_STAR), id, w.lvcfg.MachineStar);
 					}
+
+					if (!w.isTable)
+					{
+						if (CheckAllWorktableIsMaxLv())
+							EventManager.Instance.AsyncTrigger(((int)GameEvent.WORK_TABLE_ALL_MAX_LV));
+					}
+
 					return w;
 				}
 				return default;
@@ -334,18 +341,18 @@ namespace SGame
 
 			public static bool CheckAllWorktableIsMaxLv()
 			{
-				var ws = GetWorktables(w => !w.isTable );
+				var ws = GetWorktables(w => !w.isTable);
 				if (ws?.Count > 0)
 					return ws.All(w => w.level >= w.maxlv);
 				return false;
 			}
 
-			public static (int,int) GetRoomLvState()
+			public static (int, int) GetRoomLvState()
 			{
 				var ws = GetWorktables(w => !w.isTable);
 				if (ws?.Count > 0)
-					return (ws.Sum(w => w.maxlv) , ws.Sum(w=>w.level));
-				return (0,0);
+					return (ws.Sum(w => w.maxlv), ws.Sum(w => w.level));
+				return (0, 0);
 			}
 
 			private static Worktable AddWorktable(int id, int scene)

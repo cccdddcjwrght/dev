@@ -150,6 +150,12 @@ namespace SGame.Dining
 
 		private void OnWorktableAllMaxLv()
 		{
+			ShowCompletedUI().Start();
+		}
+
+		IEnumerator ShowCompletedUI()
+		{
+			yield return null;
 			WorktableHud.Instance.Close();
 			SGame.UIUtils.OpenUI("levelcomplete");
 		}
