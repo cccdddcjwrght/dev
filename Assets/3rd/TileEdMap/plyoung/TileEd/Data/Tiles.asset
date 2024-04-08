@@ -13,30 +13,6 @@ MonoBehaviour:
   m_Name: Tiles
   m_EditorClassIdentifier: 
   tileSets:
-  - ident: 1
-    name: Terrain
-    type: 0
-    autoType: 0
-    tiles: []
-    transitions: []
-    wallSystem: 0
-    setTag: 0
-    floorTag: Untagged
-    wallTag: Untagged
-    setLayer: 0
-    floorLayer: 0
-    wallLayer: 0
-    setStaticFlags: 1
-    floorStaticFlags: -1
-    wallStaticFlags: -1
-    setNavArea: 1
-    floorNavArea: 0
-    wallNavArea: 0
-    setSort: 0
-    floorSortLayeId: 0
-    wallSortLayeId: 0
-    floorSortOrder: 0
-    wallSortOrder: 0
   - ident: 2
     name: Tile
     type: 0
@@ -45,26 +21,6 @@ MonoBehaviour:
     - ident: 1
       prefab:
       - {fileID: 5896823224276117340, guid: 6dce75afd6abda84e94fb24e9f942ef6, type: 3}
-      tileIdx: -1
-      transitionIdx: -1
-      targetTransSet: 2
-      isRotating: 1
-      setTag: 0
-      tag: Untagged
-      setLayer: 0
-      layer: 0
-      setStaticFlags: 0
-      staticFlags: -1
-      setNavArea: 0
-      navArea: 1
-      setSort: 0
-      sortLayerId: 0
-      sortOrder: 0
-      customThumb: {fileID: 0}
-      meta: 
-    - ident: 2
-      prefab:
-      - {fileID: 1356280647843420284, guid: 5d6e3280851fd5f42ac2a8feedd9d641, type: 3}
       tileIdx: -1
       transitionIdx: -1
       targetTransSet: 2
