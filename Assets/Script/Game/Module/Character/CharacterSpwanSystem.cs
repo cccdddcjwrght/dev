@@ -195,11 +195,18 @@ namespace SGame
                     return;
                 }
 
+                string configAI = config.Ai;
+                if (req.playerID != 0 && !string.IsNullOrEmpty(config.FriendAI))
+                {
+                    // 好友AI
+                    configAI = config.FriendAI;
+                }
+
                 CharacterLoading loading = new CharacterLoading()
                 {
                     gen       = CharacterGenerator.CreateWithConfig(config.Part),
-                    modelId = config.ID,
-                    aiPrefab  = LoadAI(config.Ai)
+                    modelId   = config.ID,
+                    aiPrefab  = LoadAI(configAI)
                 };
                 EntityManager.AddComponentData(e, loading);
             }).WithoutBurst().WithStructuralChanges().Run();
