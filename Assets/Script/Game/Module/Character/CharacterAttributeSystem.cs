@@ -23,18 +23,19 @@ namespace SGame
             // 计算速度属性
             Entities.WithNone<DisableAttributeTag, DespawningEntity>().WithAll<CharacterSpawnSystem.CharacterInitalized>().ForEach((
                 Entity e, 
+                Character character,
                 ref Speed speed, 
                 in CharacterAttribue attr
-                ) =>
+            ) =>
             {
-                var v = AttributeSystem.Instance.GetValueByRoleID(attr.roleID, EnumAttribute.Speed);
+                var v = AttributeSystem.Instance.GetValueByRoleID(attr.roleID, EnumAttribute.Speed, character.isEmployee);
                 if (v <= 0)
                 {
                     // 速度异常表示没有读取成功
                     log.Warn("Role Speed Is Zero RoleID=" + attr.roleID);
                     v = 10;
                 }
-                speed.Value = (float)(v);
+                speed.Value = (float)(v) + character.externSpeed;
             }).WithoutBurst().Run();
         }
     }

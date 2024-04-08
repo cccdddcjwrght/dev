@@ -73,6 +73,11 @@ namespace SGame
         public bool isEmployee => playerID != 0;
 
         /// <summary>
+        /// 额外添加的速度, 用于好友通过脚本设置 
+        /// </summary>
+        public float  externSpeed = 0;
+
+        /// <summary>
         /// 好友顾客ID, 每个玩家的唯一ID， 0表示没有
         /// </summary>
         public int playerID = 0;
