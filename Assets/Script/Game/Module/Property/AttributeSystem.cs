@@ -6,6 +6,7 @@ using GameConfigs;
 using log4net;
 using Unity.Entities.UniversalDelegates;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 
 namespace SGame
 {
@@ -102,6 +103,14 @@ namespace SGame
 			return 0;
 		}
 
+		public double GetValueByID(int type, int attributeID, int entityID)
+		{
+			var list = GetAttributeListByEntityID(type, entityID);
+			if (list != null)
+				return list[attributeID];
+			return 0;
+		}
+
 		/// <summary>
 		/// 根据RoleID 获取属性
 		/// </summary>
@@ -126,6 +135,13 @@ namespace SGame
 				}
 			}
 			return 0;
+		}
+
+		public double GetValueByRoleEntityID(int id, EnumAttribute attributeID)
+		{
+			if (id != 0)
+				return GetValue((int)EnumTarget.Player, (int)attributeID, id);
+			return default;
 		}
 
 		#endregion
@@ -228,15 +244,20 @@ namespace SGame
 
 		public AttributeList GetAttributeList(int type, int id = 0)
 		{
-			/*if (_bind.TryGetValue(type, out var a))
-				return a;*/
-
 			var g = GetGroup(type);
 			if (g != null)
 			{
 				g.TryGetValue(id, out var list);
 				return list;
 			}
+			return default;
+		}
+
+		public AttributeList GetAttributeListByEntityID(int type, int id)
+		{
+			var g = GetGroup(type);
+			if (g != null)
+				return g.Values.FirstOrDefault(v => v.entityID == id);
 			return default;
 		}
 

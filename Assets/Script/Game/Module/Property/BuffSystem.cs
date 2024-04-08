@@ -86,10 +86,11 @@ namespace SGame
 			}
 		}
 
-		private AttributeList CreateAttribute(int type, int id)
+		private AttributeList CreateAttribute(int type, int id, int eid = 0)
 		{
 
 			var attr = new AttributeList();
+			attr.entityID = eid;
 			switch (type)
 			{
 				case 0://工作台
@@ -106,6 +107,9 @@ namespace SGame
 						attr[((int)EnumAttribute.ImmediatelyCompleteRate)] = r.Instant;
 						attr[((int)EnumAttribute.PerfectCompleteRate)] = r.Perfect;
 						attr[((int)EnumAttribute.Price)] = r.Price;
+
+						attr[((int)EnumAttribute.Gratuity)] = r.TipRatio;
+						attr[((int)EnumAttribute.GratuityRate)] = r.Tip;
 					}
 					break;
 				case 2://客人
@@ -137,13 +141,25 @@ namespace SGame
 			{
 				if (ConfigSystem.Instance.TryGet<RoleDataRowData>(data.roleTypeID, out var cfg))
 				{
-					//主角
-					attrSys.Register(((int)EnumTarget.Player), data.roleTypeID, CreateAttribute(1, data.roleTypeID));
+					var eid = data.entityID != 0 ? data.entityID : data.roleTypeID;
+					switch ((EnumRole)cfg.Type)
+					{
+						case EnumRole.Player:
+						case EnumRole.Cook:
+						case EnumRole.Waiter:
+							attrSys.Register(1 << (data.roleTypeID - 1), eid, CreateAttribute(1, data.roleTypeID, data.entityID));
+							break;
+						case EnumRole.Customer:
+						case EnumRole.Car:
+							attrSys.Register((int)EnumTarget.Customer, eid, CreateAttribute(2, data.roleTypeID, data.entityID));
+							break;
+					}
+
 					if (data.equips?.Count > 0)
 					{
 						DataCenter.EquipUtil.GetEquipBuffList(data.equips).ForEach(buff =>
 						{
-							buff.targetid = data.roleTypeID;
+							buff.targetid = eid;
 							OnBuffAdd(buff);
 						});
 					}

@@ -243,6 +243,7 @@ namespace SGame
 		private GameAttribute[] _values = new GameAttribute[0];
 		public int Count { get { return _values.Length; } }
 
+		public int entityID;
 		public string key;
 
 		private int _ctime;
