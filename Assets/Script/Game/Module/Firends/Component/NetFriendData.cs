@@ -29,7 +29,7 @@ namespace SGame.Firend
     /// 好友数据
     /// </summary>
     [Serializable]
-    public class FirendItemData
+    public class FriendItemData
     {
         public int                player_id;     // 玩家ID
         public int                icon_id;       // 头像ID
@@ -69,8 +69,8 @@ namespace SGame.Firend
     [Serializable]
     public class FriendData
     {
-        public List<FirendItemData>     Friends;
-        public List<FirendItemData>     RecommendFriends;
+        public List<FriendItemData>     Friends;
+        public List<FriendItemData>     RecommendFriends;
         public int                      nextHireTime;          // 下次可雇佣时间
         public int                      hiringTime;            //  好友雇佣到时间
     }

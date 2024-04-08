@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections.Generic;
+using SGame.Firend;
 using Unity.Entities;
 
 namespace SGame.VS
@@ -58,6 +59,13 @@ namespace SGame.VS
         public ValueInput m_isEmployee { get; private set; }
         
         /// <summary>
+        /// 是否是雇佣好友
+        /// </summary>
+        /// <returns></returns>
+        [DoNotSerialize]
+        public ValueInput m_playerID { get; private set; }
+        
+        /// <summary>
         /// 创建的角色Entity
         /// </summary>
         public ValueOutput m_characterEntity { get; private set; }
@@ -67,16 +75,31 @@ namespace SGame.VS
         {
             inputTrigger = ControlInput("Input", (flow) =>
             {
-                var id =  flow.GetValue<int>(roleID);
-                var tag = flow.GetValue<string>(mapTag);
-                var attr = flow.GetValue<bool>(hasAttribute);
-                var isEmployee = flow.GetValue<bool>(m_isEmployee);
+                var id          = flow.GetValue<int>(roleID);
+                var tag         = flow.GetValue<string>(mapTag);
+                var attr        = flow.GetValue<bool>(hasAttribute);
+                var isEmployee  = flow.GetValue<bool>(m_isEmployee);
+                var playerID    = flow.GetValue<int>(m_playerID);
+                if (isEmployee)
+                {
+                    // 雇员ID则直接改变玩家ID
+                    var friend = FriendModule.Instance.GetHiringFriend();
+                    if (friend != null)
+                    {
+                        playerID = friend.player_id;
+                    }
+                    else
+                    {
+                        // 找不到雇员ID
+                        log.Error("not found Hiring Friend!");
+                    }
+                }
 
                 if (string.IsNullOrEmpty(tag))
                 {
                     // 直接使用地址
                     var pos = flow.GetValue<int2>(mapPos);
-                    m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr, isEmployee);
+                    m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr, playerID);
                 }
                 else
                 {
@@ -86,7 +109,7 @@ namespace SGame.VS
                     {
                         var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count);
                         var pos = map_pos[posIndex];
-                        m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr, isEmployee);
+                        m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.CellToVector(pos.x, pos.y), attr, playerID);
                     }
                     else
                     {
@@ -96,11 +119,12 @@ namespace SGame.VS
                 return outputTrigger;
             });
             
-            roleID      = ValueInput<int>("roleID", 0);
-            mapPos      = ValueInput<int2>("mapPos", int2.zero);
-            mapTag      = ValueInput<string>("mapTag", "");
-            hasAttribute = ValueInput<bool>("hasAttribute", true);
-            m_isEmployee = ValueInput<bool>("isEmployee", false);
+            roleID          = ValueInput<int>("roleID", 0);
+            mapPos          = ValueInput<int2>("mapPos", int2.zero);
+            mapTag          = ValueInput<string>("mapTag", "");
+            hasAttribute    = ValueInput<bool>("hasAttribute", true);
+            m_isEmployee    = ValueInput<bool>("isEmployee", false);
+            m_playerID      = ValueInput<int>("playerID", 0);
             m_characterEntity = ValueOutput<CharacterSpawnResult>("Result", (flow)=> m_spwanResult);
             outputTrigger = ControlOutput("Output");
         }

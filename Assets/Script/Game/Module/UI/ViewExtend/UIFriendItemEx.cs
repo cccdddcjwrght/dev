@@ -13,9 +13,9 @@ namespace SGame.UI.GameFriend
     public partial class UI_FriendItem
     {
         private static ILog log = LogManager.GetLogger("game.ui");
-        private FirendItemData m_friendData;
+        private FriendItemData m_friendData;
 
-        public void SetData(FirendItemData data)
+        public void SetData(FriendItemData data)
         {
             m_friendData = data;
             
