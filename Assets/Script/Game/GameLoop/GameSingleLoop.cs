@@ -57,6 +57,9 @@ namespace SGame
 			AudioSystem.Instance.SetSoundVolume("UIVolume",DataCenter.Instance.setData.soundVal);
 	
 			Firend.FriendModule.Instance.Initalize();
+
+			ExclusiveModule.Instance.Initalize();
+			ReputationModule.Instance.Initalize();
 		}
 
 		/// <summary>
@@ -137,6 +140,7 @@ namespace SGame
 			uiModule.Reg("FloatText", "Hud", HUDFloatText.Create);
 			uiModule.Reg("OrderTip", "Hud", HUDOrderTip.Create);
 			uiModule.Reg("Effect", "Hud", HUDEffect.Create);
+			uiModule.Reg("ReputationTip", "Hud", HUDReputationTip.Create);
 
 			//uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			SGame.UI.Login.LoginBinder.BindAll();

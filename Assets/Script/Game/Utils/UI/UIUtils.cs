@@ -453,11 +453,20 @@ namespace SGame
 			return ui;
 		}
 
+		public static Entity ShowReputationTip(Transform pos, int characterID) 
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = ShowHUD("reputationtip", pos, float3.zero);
+			ReputationModule.Instance.AddLikeNum(characterID);
+			return ui;
+		}
+
 		public static string Tips(this string tips, string pix = null)
 		{
 			HudModule.Instance.SystemTips(UIListener.AutoLocal(pix + tips));
 			return tips;
 		}
+
 
 		public static string ErrorTips(this string tips, bool local = true)
 		{

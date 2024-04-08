@@ -51,6 +51,14 @@ namespace SGame
 		/// 关卡初始金币加成
 		/// </summary>
 		LevelGold=108,
+		/// <summary>
+		/// 好评几率
+		/// </summary>
+		LikeRate = 109,
+		/// <summary>
+		/// 好评数量
+		/// </summary>
+		LikeNum = 110,
 
 		//======================================
 		/// <summary>
@@ -213,6 +221,10 @@ namespace SGame
 		/// 开局奖励buff
 		/// </summary>
 		Exclusive,
+		/// <summary>
+		/// 关卡好评buff
+		/// </summary>
+		RoomLike,
 
 	}
 

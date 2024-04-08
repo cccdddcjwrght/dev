@@ -53,13 +53,16 @@ namespace SGame.UI
 			m_rightList.itemRenderer = RenderRightItem;
 			
 			headBtn.onClick.Add(OnheadBtnClick);
+			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
 			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
 			m_handles	+=	EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 			m_handles	+= EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
+			m_handles   +=	EventManager.Instance.Reg((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
 			OnHeadSetting();
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
+			OnRefreshLikeTime();
 		}
 
 		private void OnHeadSetting()
@@ -205,6 +208,11 @@ namespace SGame.UI
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));
 		}
 
+		void OnRoomLikeClick() 
+		{
+			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("goodreputation"));
+		}
+
 		/// <summary>
 		/// 刷新开局局内buff时间
 		/// </summary>
@@ -230,6 +238,31 @@ namespace SGame.UI
 		{
 			m_view.m_buff.m_isTime.selectedIndex = 1;
 			m_view.m_buff.visible = DataCenter.ExclusiveUtils.CheckBuffTakeEffect();
+		}
+
+		/// <summary>
+		/// 好评buff生效时间
+		/// </summary>
+		void OnRefreshLikeTime() 
+		{
+			var validTime = DataCenter.ReputationUtils.GetBuffValidTime();
+			m_view.m_likeBtn.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
+			m_view.m_likeBtn.m_state.selectedIndex = validTime > 0 ? 1 : 0;
+			if (validTime > 0)
+			{
+				timer = Utils.Timer(validTime, () =>
+				{
+					validTime = DataCenter.ReputationUtils.GetBuffValidTime();
+					m_view.m_likeBtn.m_time.SetText(Utils.FormatTime(validTime));
+				}, completed: () => OnLikeFinish());
+			}
+		}
+
+		void OnLikeFinish() 
+		{
+			m_view.m_likeBtn.m_state.selectedIndex = 0;
+			m_view.m_likeBtn.m_progress.fillAmount = 0;
+			DataCenter.ReputationUtils.Reset();
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)

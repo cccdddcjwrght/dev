@@ -118,5 +118,8 @@ namespace SGame
 		//开局局内buff
 		ROOM_START_BUFF					= 11000, //添加buff
 
+		//关卡内好评
+		ROOM_LIKE_ADD					= 12000, //好评数量增加
+
 	}
 }

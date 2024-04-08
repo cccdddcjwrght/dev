@@ -33,8 +33,16 @@ namespace SGame {
                         _data.rooms.Add(scene);
                     _data.cfgId = exclusiveId;
                     _data.time = GameServerTime.Instance.serverTime;
-                    EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(exclusive.BuffId, exclusive.BuffValue, 0, exclusive.BuffDuration) { from = EXCLUSIVE_FORM });
-                    EventManager.Instance.Trigger((int)GameEvent.ROOM_START_BUFF);
+
+                    if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(exclusive.BuffId, out var buffData))
+                    {
+                        if (buffData.Attribute == (int)EnumAttribute.LevelGold)
+                            PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, exclusive.BuffValue);
+                        else
+                            EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(exclusive.BuffId, exclusive.BuffValue, 0, exclusive.BuffDuration) { from = EXCLUSIVE_FORM });
+
+                        EventManager.Instance.Trigger((int)GameEvent.ROOM_START_BUFF);
+                    }
                 }
             }
 
@@ -49,7 +57,7 @@ namespace SGame {
                 for (int i = 0; i < len; i++)
                     weights.Add(exclusiveConfigs.Datalist(i).Value.Weight);
                 var rand = new Randoms.Random();
-                var ws = rand.NextWeights(weights, 3, false).GroupBy(v => v);
+                var ws = rand.NextWeights(weights, 3, true).GroupBy(v => v);
                 var rets = new List<RoomExclusiveRowData>();
                 foreach (var item in ws)
                 {

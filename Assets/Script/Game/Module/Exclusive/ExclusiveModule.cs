@@ -27,15 +27,24 @@ namespace SGame
         {
             if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(m_data.cfgId, out var data)) 
             {
-                double endTime = m_data.time + data.BuffDuration;
-                bool isAdd = endTime > GameServerTime.Instance.serverTime;
-                if (isAdd || data.BuffDuration <= 0) 
+                bool flag = true;
+                if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(m_data.cfgId, out var buffData))
                 {
-                    EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(data.BuffId, data.BuffValue, 0, (int)(endTime - GameServerTime.Instance.serverTime))
-                    { from = DataCenter.ExclusiveUtils.EXCLUSIVE_FORM });
-
-                    EventManager.Instance.Trigger((int)GameEvent.ROOM_START_BUFF);
+                    if (buffData.Attribute == (int)EnumAttribute.LevelGold)
+                        flag = false;
                 }
+
+                if (flag) 
+                {
+                    double endTime = m_data.time + data.BuffDuration;
+                    bool isAdd = endTime > GameServerTime.Instance.serverTime;
+                    if ((isAdd || data.BuffDuration <= 0))
+                    {
+                        EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(data.BuffId, data.BuffValue, 0, (int)(endTime - GameServerTime.Instance.serverTime))
+                        { from = DataCenter.ExclusiveUtils.EXCLUSIVE_FORM });
+                    }
+                }
+                EventManager.Instance.Trigger((int)GameEvent.ROOM_START_BUFF);
             } 
             
             if (CheckOpen())

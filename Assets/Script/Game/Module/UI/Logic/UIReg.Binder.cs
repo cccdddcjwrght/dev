@@ -42,6 +42,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("RoomExclusiveUI", "RoomExclusive", () => new UIRoomExclusive()); SGame.UI.RoomExclusive.RoomExclusiveBinder.BindAll();
 			context.uiModule.Reg("WelcomeNewLevelUI", "EnterScene", ()=>new UIWelcomeNewLevel());
 			context.uiModule.Reg("LevelCompletedUI", "EnterScene", ()=>new UILevelCompleted());
+			context.uiModule.Reg("GoodReputationUI", "Reputation", () => new UIGoodReputation()); SGame.UI.Reputation.ReputationBinder.BindAll();
 		}
 	}
 }

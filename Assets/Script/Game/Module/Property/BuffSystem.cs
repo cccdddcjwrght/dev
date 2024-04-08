@@ -119,6 +119,8 @@ namespace SGame
 						attr[((int)EnumAttribute.Gratuity)] = r.TipRatio;
 						attr[((int)EnumAttribute.GratuityRate)] = r.Tip;
 						attr[((int)EnumAttribute.Price)] = r.Price;
+						attr[((int)EnumAttribute.LikeRate)] = r.LikeRatio;
+						attr[((int)EnumAttribute.LikeNum)] = r.LikeNum;
 					}
 					break;
 			}

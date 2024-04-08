@@ -20,7 +20,10 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
 			m_view.m_buff.m_markState.onChanged.Add(new EventCallback1(_OnBuffBtn_MarkStateChanged));
+			m_view.m_buff.m_isTime.onChanged.Add(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
+			m_view.m_likeBtn.m_state.onChanged.Add(new EventCallback1(_OnLikeBtn_StateChanged));
+			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick));
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick));
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
@@ -34,7 +37,10 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
 			m_view.m_buff.m_markState.onChanged.Remove(new EventCallback1(_OnBuffBtn_MarkStateChanged));
+			m_view.m_buff.m_isTime.onChanged.Remove(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
+			m_view.m_likeBtn.m_state.onChanged.Remove(new EventCallback1(_OnLikeBtn_StateChanged));
+			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick),remove:true);
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick),remove:true);
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
@@ -76,6 +82,11 @@ namespace SGame.UI{
 		}
 		partial void OnBuffBtn_MarkStateChanged(EventContext data);
 		void SwitchBuffBtn_MarkStatePage(int index)=>m_view.m_buff.m_markState.selectedIndex=index;
+		void _OnBuffBtn_IsTimeChanged(EventContext data){
+			OnBuffBtn_IsTimeChanged(data);
+		}
+		partial void OnBuffBtn_IsTimeChanged(EventContext data);
+		void SwitchBuffBtn_IsTimePage(int index)=>m_view.m_buff.m_isTime.selectedIndex=index;
 		void SetBuffBtn_TimeText(string data)=>UIListener.SetText(m_view.m_buff.m_time,data);
 		string GetBuffBtn_TimeText()=>UIListener.GetText(m_view.m_buff.m_time);
 		void _OnBuffClick(EventContext data){
@@ -84,6 +95,19 @@ namespace SGame.UI{
 		partial void OnBuffClick(EventContext data);
 		void SetBuffText(string data)=>UIListener.SetText(m_view.m_buff,data);
 		string GetBuffText()=>UIListener.GetText(m_view.m_buff);
+		void _OnLikeBtn_StateChanged(EventContext data){
+			OnLikeBtn_StateChanged(data);
+		}
+		partial void OnLikeBtn_StateChanged(EventContext data);
+		void SwitchLikeBtn_StatePage(int index)=>m_view.m_likeBtn.m_state.selectedIndex=index;
+		void SetLikeBtn_ProgressValue(float data)=>UIListener.SetValue(m_view.m_likeBtn.m_progress,data);
+		float GetLikeBtn_ProgressValue()=>UIListener.GetValue(m_view.m_likeBtn.m_progress);
+		void SetLikeBtn_TimeText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_time,data);
+		string GetLikeBtn_TimeText()=>UIListener.GetText(m_view.m_likeBtn.m_time);
+		void _OnLikeBtnClick(EventContext data){
+			OnLikeBtnClick(data);
+		}
+		partial void OnLikeBtnClick(EventContext data);
 		void _OnLevelBtnClick(EventContext data){
 			OnLevelBtnClick(data);
 		}

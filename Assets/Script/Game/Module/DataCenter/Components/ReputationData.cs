@@ -1,0 +1,112 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+namespace SGame 
+{
+    partial class DataCenter 
+    {
+        public ReputationData reputationData = new ReputationData();
+
+        public static class ReputationUtils 
+        {
+            public static ReputationData _data = Instance.reputationData;
+
+            /// <summary>
+            /// 获取随机三个好评buff
+            /// </summary>
+            public static List<int> GetRandomBuffList()
+            {
+                var exclusiveConfigs = ConfigSystem.Instance.LoadConfig<GameConfigs.RoomExclusive>();
+                int len = exclusiveConfigs.DatalistLength;
+                var weights = new List<int>();
+                for (int i = 0; i < len; i++)
+                    weights.Add(exclusiveConfigs.Datalist(i).Value.Weight);
+                var rand = new Randoms.Random();
+                var ws = rand.NextWeights(weights, 3, true).GroupBy(v => v);
+                var rets = new List<GameConfigs.RoomLikeRowData>();
+                foreach (var item in ws)
+                {
+                    var exs = ConfigSystem.Instance.Finds<GameConfigs.RoomLikeRowData>(r => r.LikeId == item.Key + 1);
+                    rand.NextItem(exs, item.Count(), ref rets);
+                }
+                return rets.Select(s => s.LikeId).ToList();
+            }
+
+            /// <summary>
+            /// 好评进度满了随机选择一个buff
+            /// </summary>
+            public static void RandomSelect() 
+            {
+                if (_data.randomBuffs?.Count > 0)
+                {
+                    int random = Random.Range(0, _data.randomBuffs.Count);
+                    _data.cfgId = _data.randomBuffs[random];
+                    _data.startTime = GameServerTime.Instance.serverTime;
+
+                    AddBuff(_data.cfgId);
+                }
+            }
+
+            public static void AddBuff(int likeId) 
+            {
+                if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(likeId, out var data)) 
+                {
+                    int validTime = GetBuffValidTime();
+                    int duration = validTime > 0 ? validTime : data.BuffDuration;
+
+                    EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(data.BuffId, data.BuffValue, 0, duration)
+                    { from = (int)EnumFrom.RoomLike });
+                }
+            }
+
+            public static int GetBuffValidTime() 
+            {
+                if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(_data.cfgId, out var roomLikeData)) 
+                {
+                    var endTime = _data.startTime + roomLikeData.BuffDuration;
+                    if (endTime > GameServerTime.Instance.serverTime) return (int)endTime - GameServerTime.Instance.serverTime;
+                }
+                return 0;
+            }
+
+            public static void Reset() 
+            {
+                _data.cfgId     = 0;
+                _data.progress  = 0;
+                _data.startTime = 0;
+                _data.randomBuffs.Clear();
+            }
+        }
+
+    }
+
+    [Serializable]
+    public class ReputationData 
+    {
+        /// <summary>
+        /// 好评随机buff选择
+        /// </summary>
+        public List<int> randomBuffs = new List<int>();
+
+        /// <summary>
+        /// 好评buff开始时间
+        /// </summary>
+        public double startTime;
+
+        /// <summary>
+        /// 好评进度
+        /// </summary>
+        public int progress;
+
+        /// <summary>
+        /// 当前触发的好评buff id
+        /// </summary>
+        public int cfgId;
+    }
+}
+
+
