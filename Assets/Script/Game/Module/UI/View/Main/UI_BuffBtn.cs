@@ -9,8 +9,11 @@ namespace SGame.UI.Main
     {
         public Controller m_markState;
         public Controller m_isTime;
+        public Controller m_tipState;
         public GLoader m_mark;
         public GTextField m_time;
+        public GTextField m_info;
+        public GGroup m_tip;
         public const string URL = "ui://ktixaqljggghlb0";
 
         public static UI_BuffBtn CreateInstance()
@@ -24,8 +27,11 @@ namespace SGame.UI.Main
 
             m_markState = GetControllerAt(1);
             m_isTime = GetControllerAt(2);
+            m_tipState = GetControllerAt(3);
             m_mark = (GLoader)GetChildAt(3);
             m_time = (GTextField)GetChildAt(4);
+            m_info = (GTextField)GetChildAt(7);
+            m_tip = (GGroup)GetChildAt(8);
         }
     }
 }

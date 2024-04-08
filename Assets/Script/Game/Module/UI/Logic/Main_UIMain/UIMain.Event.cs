@@ -53,7 +53,10 @@ namespace SGame.UI
 			m_rightList.itemRenderer = RenderRightItem;
 			
 			headBtn.onClick.Add(OnheadBtnClick);
+			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
+			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
+
 			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
 			m_handles	+=	EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
@@ -208,6 +211,24 @@ namespace SGame.UI
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));
 		}
 
+		Action<bool> m_buffTimer;
+		//buff描述tip，应该写个通用的
+		void OnBuffShowTipClick(EventContext context) 
+		{
+			//显示tip
+			m_view.m_buff.m_tipState.selectedIndex = (m_view.m_buff.m_tipState.selectedIndex + 1) % 2;
+
+			m_buffTimer?.Invoke(false);
+			if(m_view.m_buff.m_tipState.selectedIndex == 1) m_buffTimer = Utils.Timer(3, null, completed: () => { OnBuffFoucsOutClick(null); });
+		}
+
+		void OnBuffFoucsOutClick(EventContext context) 
+		{
+			m_buffTimer?.Invoke(false);
+			m_view.m_buff.m_tipState.selectedIndex = 0;
+		}
+
+
 		void OnRoomLikeClick() 
 		{
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("goodreputation"));
@@ -223,7 +244,12 @@ namespace SGame.UI
 			if (checkTakeEffect) 
 			{
 				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(DataCenter.Instance.exclusiveData.cfgId, out var data))
+				{
 					m_view.m_buff.SetIcon(data.BuffIcon);
+					m_view.m_buff.m_info.SetText(string.Format(UIListener.Local(data.BuffDesc),
+					data.BuffValue == 0 ? data.BuffDuration : data.BuffValue,
+					data.BuffDuration));
+				}
 				var time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
 				m_view.m_buff.m_isTime.selectedIndex = time > 0 ? 0 : 1;
 				timer = Utils.Timer(time, ()=> 
@@ -288,6 +314,7 @@ namespace SGame.UI
 		partial void UnInitEvent(UIContext context)
 		{
 			timer?.Invoke(false);
+			m_buffTimer?.Invoke(false);
 			m_handles.Close();
 		}
 
