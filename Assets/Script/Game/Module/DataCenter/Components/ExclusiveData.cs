@@ -78,7 +78,7 @@ namespace SGame {
                 if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(_data.cfgId, out var data)) 
                 {
                     double endTime = _data.time + data.BuffDuration;
-                    isTakeEffect = endTime > GameServerTime.Instance.serverTime || data.BuffDuration <= 0;
+                    isTakeEffect = endTime > GameServerTime.Instance.serverTime;
                 }
                 return isTakeEffect;
             }

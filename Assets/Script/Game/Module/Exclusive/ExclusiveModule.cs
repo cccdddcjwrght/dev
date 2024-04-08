@@ -54,8 +54,7 @@ namespace SGame
 
         bool CheckOpen() 
         {
-            //return false;
-            return m_data.cfgId == 0 && "exclusiveui".IsOpend(false);
+            return m_data.cfgId == 0 && 19.IsOpend(false);
         }
     }
 }
