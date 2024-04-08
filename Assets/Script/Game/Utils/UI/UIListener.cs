@@ -233,9 +233,9 @@ public class UIListener
 		if (gObject != null)
 		{
 			txt = local ? AutoLocal(string.IsNullOrEmpty(txt) ? gObject.text : txt) : txt;
-			var com =  gObject.asCom;
+			var com = gObject.asCom;
 			if (com != null && com.GetChild("title") == null)
-				com = com.GetChild("body")?.asCom;
+				com = com.GetChild("body")?.asCom ?? com;
 			if (com != null)
 			{
 				if (gObject != com)
