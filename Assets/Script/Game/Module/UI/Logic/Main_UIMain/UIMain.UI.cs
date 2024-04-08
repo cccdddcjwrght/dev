@@ -108,6 +108,8 @@ namespace SGame.UI{
 			OnLikeBtnClick(data);
 		}
 		partial void OnLikeBtnClick(EventContext data);
+		void SetLikeBtnText(string data)=>UIListener.SetText(m_view.m_likeBtn,data);
+		string GetLikeBtnText()=>UIListener.GetText(m_view.m_likeBtn);
 		void _OnLevelBtnClick(EventContext data){
 			OnLevelBtnClick(data);
 		}
