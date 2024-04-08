@@ -91,6 +91,9 @@ namespace SGame
 		IEnumerator Logic()
 		{
 			InitModule();
+			// 初始化MASK
+			UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("mask"));
+
 
 			EventManager.Instance.Reg<int>(((int)GameEvent.ENTER_ROOM), OnEnterRoom);
 
@@ -98,8 +101,7 @@ namespace SGame
 			var ud = DataCenter.Instance.GetUserData();
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(ud.scene, OnStageChange);
 
-			// 初始化MASK
-			UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("mask"));
+
 
 			// 初始化角色系统
 			m_hudModule = new HudModule(m_gameWorld);
