@@ -16,8 +16,16 @@ namespace SGame.UI
 		partial void InitLogic(UIContext context)
 		{
 			ConfigSystem.Instance.TryGet<RoomRowData>(DataCenter.Instance.roomData.current.id, out _cfg);
+
+			if (string.IsNullOrEmpty(_cfg.Decor))
+			{
+				SGame.UIUtils.CloseUI(context.entity);
+				return;
+			}
+			
 			_adjust = _cfg.Adjust == 0 ? 1 : _cfg.Adjust;
 			m_view.m_loader.visible = false;
+
 			var child = _wall = SGame.UIUtils.AddListItem(m_view, res: _cfg.Decor);
 			child.pivotAsAnchor= true;
 			child.SetPivot(0.5f, 0.5f);
