@@ -215,6 +215,31 @@ namespace SGame.Firend
         {
             return GameServerTime.Instance.serverTime;
         }
+
+        /// <summary>
+        /// 可添加好友数量
+        /// </summary>
+        /// <returns></returns>
+        public int GetRecommendNum()
+        {
+            return m_friendData.RecommendFriends.Count;
+        }
+
+        /// <summary>
+        /// 是否拥有可雇佣好友
+        /// </summary>
+        /// <returns></returns>
+        public bool HasCanHirePlayer()
+        {
+            foreach (var f in m_friendData.Friends)
+            {
+                if (CanHire(f.player_id))
+                    return true;
+            }
+
+            return false;
+        }
+        
         
         /// <summary>
         /// 判断是否能雇佣

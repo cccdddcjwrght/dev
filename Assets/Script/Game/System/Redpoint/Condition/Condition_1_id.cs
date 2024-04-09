@@ -6,8 +6,8 @@ using UnityEngine;
 namespace SGame
 {
 	/// <summary>
-	/// id£º1
-	/// ÉÌ³ÇÀïÃæÊÇ·ñÓĞÃâ·ÑÉÌÆ·¹ºÂò
+	/// idï¼š1
+	/// å•†åŸé‡Œé¢æ˜¯å¦æœ‰å…è´¹å•†å“è´­ä¹°
 	/// </summary>
 	public class Condition_1_id : IConditonCalculator
 	{
