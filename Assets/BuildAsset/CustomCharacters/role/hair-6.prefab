@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4299577619636913658
+--- !u!1 &8345917839870594272
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8453166702354597112}
-  - component: {fileID: 730412958108174495}
-  - component: {fileID: 8892468076017939817}
+  - component: {fileID: 7033098484948904279}
+  - component: {fileID: 224675850585422019}
+  - component: {fileID: 2169214515068699707}
   m_Layer: 0
   m_Name: hair-6
   m_TagString: Untagged
@@ -18,28 +18,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8453166702354597112
+--- !u!4 &7033098484948904279
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4299577619636913658}
+  m_GameObject: {fileID: 8345917839870594272}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 9.2986736e-11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &730412958108174495
+--- !u!137 &224675850585422019
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4299577619636913658}
+  m_GameObject: {fileID: 8345917839870594272}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -53,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 464065929672770425, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  - {fileID: 3634712980010236341, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,19 +104,23 @@ SkinnedMeshRenderer:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.00339064, y: 0.00000059604645, z: 0.6726441}
-    m_Extent: {x: 0.26611337, y: 0.2628721, z: 0.16046315}
+    m_Center: {x: 0.034654975, y: 0.0000005364418, z: 0.62170565}
+    m_Extent: {x: 0.2352547, y: 0.23213878, z: 0.2759059}
   m_DirtyAABB: 0
---- !u!114 &8892468076017939817
+--- !u!114 &2169214515068699707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4299577619636913658}
+  m_GameObject: {fileID: 8345917839870594272}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15682c8cc05f5d4498e30fec0f70ad53, type: 3}
@@ -128,14 +132,19 @@ MonoBehaviour:
   - Bip001 Spine
   - Bip001 Neck
   - Bip001 Head
+  - Bip001 HeadNub
   - Bip001 L Clavicle
   - Bip001 L UpperArm
   - Bip001 L Forearm
   - Bip001 L Hand
+  - Bip001 L Finger0
+  - Bip001 L Finger0Nub
   - Bip001 R Clavicle
   - Bip001 R UpperArm
   - Bip001 R Forearm
   - Bip001 R Hand
+  - Bip001 R Finger0
+  - Bip001 R Finger0Nub
   - Bip001 L Thigh
   - Bip001 L Calf
   - Bip001 L Foot
@@ -146,7 +155,5 @@ MonoBehaviour:
   - Bip001 R Foot
   - Bip001 R Toe0
   - Bip001 R Toe0Nub
-  - Bip001 HeadNub
   materials:
   - {fileID: 2100000, guid: 165100f45e8fa8f40938656458f3915d, type: 2}
-  - {fileID: 2100000, guid: a874265666b5a5e4586eb133c23e8602, type: 2}
