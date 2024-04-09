@@ -47,8 +47,9 @@ namespace SGame.UI{
 			m_fiber.Step();
 		}
 		
-		partial void UnInitEvent(UIContext context){
-
+		partial void UnInitEvent(UIContext context)
+		{
+			context.onUpdate -= OnUpdate;
 		}
 	}
 }

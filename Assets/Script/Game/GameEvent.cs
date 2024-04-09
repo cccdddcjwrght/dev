@@ -39,12 +39,12 @@ namespace SGame
 		GAME_ENTER_SCENE_EFFECT_END = 116,//进场表现结束
 		ENTER_NEW_ROOM				= 117,//进入新场景
 
-		ORDER = 200, // 创建新订单 (int 订单ID)
-		ORDER_FOODMAKED				= 201, // 
-		ORDER_FINSIH				= 202, // 订单完成 (int 订单ID)
-		ORDER_INSTANT				= 203, // 订单立即完成 (int 订单ID)
-		ORDER_PERFECT				= 204, // 订单完美制作 (int 订单ID)
-		ORDER_START					= 205, // 顾客创建订单 (int 顾客实例ID)
+		ORDER = 200,                             // 创建新订单 (int 订单ID)
+		ORDER_FOODMAKED				= 201,       // 
+		ORDER_FINSIH				= 202,       // 订单完成 (int 订单ID)
+		ORDER_INSTANT				= 203,       // 订单立即完成 (int 订单ID)
+		ORDER_PERFECT				= 204,       // 订单完美制作 (int 订单ID)
+		ORDER_START					= 205,       // 顾客创建订单 (int 顾客实例ID)
 		
 		/// 角色
 		CHARACTER_CREATE			= 301, // 角色创建 (int 角色实例ID)
@@ -55,6 +55,7 @@ namespace SGame
 		/// </summary>
 		MACHINE_ADD					= 400, // 工作机器添加 (int 座位ID, int 食物类型)
 		FOOD_TIP_CLICK				= 401, // 食物小费点击 (Entity 小费对象)
+		FOOD_TIP_CREATE				= 402, // 游戏小费创建(int playerID) 
 
 		ITEM_CHANGE					= 999,  //道具变化（int id , long new , long old）
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
@@ -116,7 +117,6 @@ namespace SGame
 		FRIEND_HIRING_FINISH			= 10003, // 雇佣好友正式删除
 		
 		FRIEND_CUSTOMER_ENTER			= 10004, // 好友顾客入场(int playerID)
-		FOOD_TIP_CREATE					= 11000, // 游戏小费创建(int playerID) 
 
 		//开局局内buff
 		ROOM_START_BUFF					= 11000, //添加buff
