@@ -28,6 +28,7 @@ public class HUDOrderTip : IUIScript
 
         context.window.AddEventListener("OrderNumUpdate", OnFoodNumUpdate);
         _uiOrderTipUI.m_num.text = item.num.ToString();
+        _uiOrderTipUI.m_friend.selectedIndex = item.isFriend ? 1 : 0;
     }
 
     void OnFoodNumUpdate(FairyGUI.EventContext uiContext)

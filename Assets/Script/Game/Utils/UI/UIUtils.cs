@@ -427,15 +427,14 @@ namespace SGame
 		public static Entity ShowOrderTips(
 			int foodType,
 			int foodNum,
-			Transform pos)
+			Transform pos,
+			bool isFriend = false)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("ordertip", pos, float3.zero);
 			entityManager.AddComponent<Translation>(ui);
-			entityManager.AddComponent<FoodItem>(ui);
+			entityManager.AddComponentData<FoodItem>(ui, new FoodItem { itemID = foodType, num = foodNum, isFriend = isFriend});
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
-			entityManager.SetComponentData(ui, new FoodItem { itemID = foodType, num = foodNum });
-
 			return ui;
 		}
 
