@@ -96,7 +96,7 @@ namespace SGame
                 {
                     t1.name = data1.BuffName;
                     t1.multiple = data1.BuffValue;
-                    t1.time = exclusiveData.endTime;
+                    t1.time = exclusiveData.endTime - GameServerTime.Instance.serverTime;
                     t1.isEver = data1.BuffDuration <= 0;
                 }
             }
@@ -110,15 +110,14 @@ namespace SGame
                 {
                     t2.name = data2.BuffName;
                     t2.multiple = data2.BuffValue;
-                    t2.time = reputationData.endTime;
+                    t2.time = reputationData.endTime - GameServerTime.Instance.serverTime;
                     t2.isEver = data2.BuffDuration <= 0;
                 }
             }
 
             for (int i = 0; i < m_RoomTypeList.Count; i++)
             {
-                if (m_RoomTypeList[i].time > GameServerTime.Instance.serverTime ||
-                    m_RoomTypeList[i].isEver)
+                if (m_RoomTypeList[i].time > 0 || m_RoomTypeList[i].isEver)
                     m_TotalList.Add(m_RoomTypeList[i]);
             }
 

@@ -25,7 +25,12 @@ namespace SGame.UI{
 			var item = gObject as UI_BoosItem;
 			item.m_name.SetText(UIListener.Local(data.name));
 			item.m_multiple.SetText(string.Format("X{0}",data.multiple));
-			item.m_duration.SetText(data.time.ToString());
+			int startTime = GameServerTime.Instance.serverTime;
+			Utils.Timer(data.time, () =>
+			{
+				int time = GameServerTime.Instance.serverTime - startTime;
+				item.m_duration.SetText(Utils.FormatTime(data.time - time));
+			}, item);
 		}
 
 		partial void UnInitLogic(UIContext context){
