@@ -114,6 +114,9 @@ namespace SGame
 		FRIEND_HIRING					= 10001, // 好友雇佣 (int playerID, int roleID, RoleData equipData)
 		FRIEND_HIRING_TIMEOUT			= 10002, // 好友雇佣倒计时结束
 		FRIEND_HIRING_FINISH			= 10003, // 雇佣好友正式删除
+		
+		FRIEND_CUSTOMER_ENTER			= 10004, // 好友顾客入场(int playerID)
+		FOOD_TIP_CREATE					= 11000, // 游戏小费创建(int playerID) 
 
 		//开局局内buff
 		ROOM_START_BUFF					= 11000, //添加buff
