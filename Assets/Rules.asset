@@ -82,6 +82,10 @@ MonoBehaviour:
     searchPattern: '*.png'
     nameBy: 0
     assetBundleName: applogo
+  - searchPath: Assets/BuildAsset/Json
+    searchPattern: '*.bytes'
+    nameBy: 2
+    assetBundleName: 
   ruleAssets:
   - bundle: applogo.unity3d
     path: assets/buildasset/app/logo/ui_loading_logo@en.png
