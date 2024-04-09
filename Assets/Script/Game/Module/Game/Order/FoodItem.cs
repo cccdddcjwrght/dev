@@ -11,5 +11,6 @@ namespace SGame
         // 食物类型
         public int itemID; // 道具ID
         public int num;    // 道具数量
+        public bool isFriend; // 是否是好友
     }
 }
