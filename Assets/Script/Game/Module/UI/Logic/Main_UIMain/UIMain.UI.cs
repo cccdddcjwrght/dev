@@ -20,6 +20,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
 			m_view.m_buff.m_markState.onChanged.Add(new EventCallback1(_OnBuffBtn_MarkStateChanged));
+			m_view.m_buff.m_isTime.onChanged.Add(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick));
@@ -34,6 +35,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
 			m_view.m_buff.m_markState.onChanged.Remove(new EventCallback1(_OnBuffBtn_MarkStateChanged));
+			m_view.m_buff.m_isTime.onChanged.Remove(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick),remove:true);
@@ -76,6 +78,11 @@ namespace SGame.UI{
 		}
 		partial void OnBuffBtn_MarkStateChanged(EventContext data);
 		void SwitchBuffBtn_MarkStatePage(int index)=>m_view.m_buff.m_markState.selectedIndex=index;
+		void _OnBuffBtn_IsTimeChanged(EventContext data){
+			OnBuffBtn_IsTimeChanged(data);
+		}
+		partial void OnBuffBtn_IsTimeChanged(EventContext data);
+		void SwitchBuffBtn_IsTimePage(int index)=>m_view.m_buff.m_isTime.selectedIndex=index;
 		void SetBuffBtn_TimeText(string data)=>UIListener.SetText(m_view.m_buff.m_time,data);
 		string GetBuffBtn_TimeText()=>UIListener.GetText(m_view.m_buff.m_time);
 		void _OnBuffClick(EventContext data){

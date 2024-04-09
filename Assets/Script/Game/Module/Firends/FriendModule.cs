@@ -21,7 +21,8 @@ namespace SGame.Firend
         /// 好友数据
         /// </summary>
         private FriendData m_friendData;
-        
+        private Dictionary<int, FriendItemData> m_hirstory = new Dictionary<int, FriendItemData>();
+
         void TestJsonData()
         {
             const string fileName = "Assets/BuildAsset/Json/TestFriendData.txt.bytes";
@@ -63,6 +64,12 @@ namespace SGame.Firend
             HIRE_TIME_INTERVAL = GameConfigs.GlobalDesginConfig.GetInt("friend_hire_time", 30);
             HIRING_TIME = GameConfigs.GlobalDesginConfig.GetInt("friend_hiring_time", 10);
             TestJsonData();
+            
+            // 添加好友历史记录
+            foreach (var f in m_friendData.RecommendFriends)
+                m_hirstory.Add(f.player_id, f);
+            foreach (var f in m_friendData.Friends)
+                m_hirstory.Add(f.player_id, f);
 
             EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEventBeforeEnterRoom);
         }
@@ -368,6 +375,21 @@ namespace SGame.Firend
                     EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING_TIMEOUT);
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取历史出现过的好友纪律
+        /// </summary>
+        /// <param name="playerID"></param>
+        /// <returns></returns>
+        public FriendItemData GetFriendInHirstory(int playerID)
+        {
+            if (m_hirstory.TryGetValue(playerID, out FriendItemData friendData))
+            {
+                return friendData;
+            }
+
+            return null;
         }
     }
 }
