@@ -42,20 +42,27 @@ namespace SGame
         public void Initalize()
         {
             m_data = DataCenter.Instance.m_gameRecord.tomorrowGift;
-            if (m_data.state == (int)TomorrowGiftData.STATE.UNINIT)
-            {
-                // 明天时间
-                m_data.state = (int)TomorrowGiftData.STATE.WAIT_TAKE;
-                m_data.time = GameServerTime.Instance.nextDayTime;
-                
-                // TestTime();
-            }
+            UpdateState();
 
             m_enterGameEvent = EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, OnFirstEnterRoom);
         }
 
+        public void UpdateState()
+        {
+            // 时间未初始化
+            if (m_data.state == (int)TomorrowGiftData.STATE.UNINIT && 
+                OPEN_ID.IsOpend(false))
+            {
+                // 明天时间
+                m_data.state = (int)TomorrowGiftData.STATE.WAIT_TAKE;
+                m_data.time = GameServerTime.Instance.nextDayTime;
+            }
+        }
+
         void OnFirstEnterRoom(int levelID)
         {
+            UpdateState();
+            
             m_enterGameEvent.Close();
             m_enterGameEvent = null;
 

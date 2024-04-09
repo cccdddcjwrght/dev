@@ -130,6 +130,7 @@ namespace SGame.UI
 					// 明日礼包
 					if (item.Value.Id.IsOpend(false))
 					{
+						TomorrowGiftModule.Instance.UpdateState();
 						if (item.Value.Id == 18 && !TomorrowGiftModule.Instance.IsFinished())
 						{
 							m_rightOpens.Add(new RightItem(){config = item.Value, second = ()=> TomorrowGiftModule.Instance.time});
