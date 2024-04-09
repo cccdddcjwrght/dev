@@ -74,9 +74,8 @@ namespace SGame
         {
             if (m_data.progress < maxLikeNum)
             {
-                int likeNum = 1;
-                //int likeNum = (int)AttributeSystem.Instance.GetValueByRoleID(characterID, EnumAttribute.LikeNum);
-                //m_data.progress += likeNum;
+                //int likeNum = 1;
+                int likeNum = (int)AttributeSystem.Instance.GetValueByRoleID(characterID, EnumAttribute.LikeNum);
                 m_data.progress += likeNum;
                 if (m_data.progress >= maxLikeNum) DataCenter.ReputationUtils.RandomSelect();
 
