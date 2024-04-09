@@ -43,6 +43,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("WelcomeNewLevelUI", "EnterScene", ()=>new UIWelcomeNewLevel());
 			context.uiModule.Reg("LevelCompletedUI", "EnterScene", ()=>new UILevelCompleted());
 			context.uiModule.Reg("GoodReputationUI", "Reputation", () => new UIGoodReputation()); SGame.UI.Reputation.ReputationBinder.BindAll();
+			context.uiModule.Reg("FriendTipUI", "Hud", ()=>new UIFriendTip());
 		}
 	}
 }
