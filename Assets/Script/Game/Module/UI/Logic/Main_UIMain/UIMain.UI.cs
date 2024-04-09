@@ -21,6 +21,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
 			m_view.m_buff.m_markState.onChanged.Add(new EventCallback1(_OnBuffBtn_MarkStateChanged));
 			m_view.m_buff.m_isTime.onChanged.Add(new EventCallback1(_OnBuffBtn_IsTimeChanged));
+			m_view.m_buff.m_tipState.onChanged.Add(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
 			m_view.m_likeBtn.m_state.onChanged.Add(new EventCallback1(_OnLikeBtn_StateChanged));
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick));
@@ -38,6 +39,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
 			m_view.m_buff.m_markState.onChanged.Remove(new EventCallback1(_OnBuffBtn_MarkStateChanged));
 			m_view.m_buff.m_isTime.onChanged.Remove(new EventCallback1(_OnBuffBtn_IsTimeChanged));
+			m_view.m_buff.m_tipState.onChanged.Remove(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
 			m_view.m_likeBtn.m_state.onChanged.Remove(new EventCallback1(_OnLikeBtn_StateChanged));
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick),remove:true);
@@ -87,8 +89,15 @@ namespace SGame.UI{
 		}
 		partial void OnBuffBtn_IsTimeChanged(EventContext data);
 		void SwitchBuffBtn_IsTimePage(int index)=>m_view.m_buff.m_isTime.selectedIndex=index;
+		void _OnBuffBtn_TipStateChanged(EventContext data){
+			OnBuffBtn_TipStateChanged(data);
+		}
+		partial void OnBuffBtn_TipStateChanged(EventContext data);
+		void SwitchBuffBtn_TipStatePage(int index)=>m_view.m_buff.m_tipState.selectedIndex=index;
 		void SetBuffBtn_TimeText(string data)=>UIListener.SetText(m_view.m_buff.m_time,data);
 		string GetBuffBtn_TimeText()=>UIListener.GetText(m_view.m_buff.m_time);
+		void SetBuffBtn_InfoText(string data)=>UIListener.SetText(m_view.m_buff.m_info,data);
+		string GetBuffBtn_InfoText()=>UIListener.GetText(m_view.m_buff.m_info);
 		void _OnBuffClick(EventContext data){
 			OnBuffClick(data);
 		}
@@ -108,8 +117,6 @@ namespace SGame.UI{
 			OnLikeBtnClick(data);
 		}
 		partial void OnLikeBtnClick(EventContext data);
-		void SetLikeBtnText(string data)=>UIListener.SetText(m_view.m_likeBtn,data);
-		string GetLikeBtnText()=>UIListener.GetText(m_view.m_likeBtn);
 		void _OnLevelBtnClick(EventContext data){
 			OnLevelBtnClick(data);
 		}

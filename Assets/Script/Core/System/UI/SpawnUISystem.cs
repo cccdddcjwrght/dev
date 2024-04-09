@@ -76,6 +76,13 @@ namespace SGame.UI
             // 1. 生成Package加载
             Entities.WithNone<UIWindow, UIInitalized, DespawningEntity>().ForEach((Entity e, UIRequest request) =>
             {
+                if (request.configId == 0 && (string.IsNullOrEmpty(request.comName) || string.IsNullOrEmpty(request.pkgName)))
+                {
+                    log.Error("GET UI CONFIG ID IS ZERO");
+                    comamndBuffer.DestroyEntity(e);
+                    return;
+                }
+                
                 if (request.configId != 0 && m_preprocess != null)
                 {
                     string comName;
