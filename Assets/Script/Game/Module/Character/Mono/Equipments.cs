@@ -34,7 +34,7 @@ namespace SGame
         public void UpdateModel()
         {
             m_slots.Clear();// = new Dictionary<SlotType, Transform>();
-            var weapon      = transform.FindRecursive("weapon");
+            var weapon      = transform.FindRecursive("weapon-2");
             var glasses     = transform.FindRecursive("glasses");
             var good        = transform.FindRecursive("goods");
             
