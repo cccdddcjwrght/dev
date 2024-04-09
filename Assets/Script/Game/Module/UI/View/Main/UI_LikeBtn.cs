@@ -10,6 +10,8 @@ namespace SGame.UI.Main
         public Controller m_state;
         public GLoader m_progress;
         public GTextField m_time;
+        public GTextField m_num;
+        public Transition m_add;
         public const string URL = "ui://ktixaqlj9ehblb1";
 
         public static UI_LikeBtn CreateInstance()
@@ -24,6 +26,8 @@ namespace SGame.UI.Main
             m_state = GetControllerAt(1);
             m_progress = (GLoader)GetChildAt(1);
             m_time = (GTextField)GetChildAt(4);
+            m_num = (GTextField)GetChildAt(6);
+            m_add = GetTransitionAt(0);
         }
     }
 }

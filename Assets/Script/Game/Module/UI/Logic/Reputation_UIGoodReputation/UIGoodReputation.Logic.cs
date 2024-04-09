@@ -44,6 +44,7 @@ namespace SGame.UI{
 			var validTime = DataCenter.ReputationUtils.GetBuffValidTime();
 			m_view.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
 			m_view.m_state.selectedIndex = validTime > 0 ? 1 : 0;
+			m_view.SetIcon(ReputationModule.Instance.icon);
 			if (validTime > 0) 
 			{
 				timer = Utils.Timer(validTime, () =>

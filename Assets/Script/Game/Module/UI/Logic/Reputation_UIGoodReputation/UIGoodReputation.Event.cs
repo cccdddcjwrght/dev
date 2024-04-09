@@ -9,10 +9,10 @@ namespace SGame.UI{
 	{
 		private EventHandleContainer m_eventContainer = new EventHandleContainer();
 		partial void InitEvent(UIContext context){
-			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.ROOM_LIKE_ADD, OnLikeAdd);
+			m_eventContainer += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnLikeAdd);
 		}
 
-		void OnLikeAdd() 
+		void OnLikeAdd(int likeNum) 
 		{
 			RefreshTime();
 		}

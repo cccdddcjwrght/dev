@@ -16,6 +16,7 @@ namespace SGame.UI.Main
         public GButton m_Diamond;
         public UI_BuffBtn m_buff;
         public UI_LikeBtn m_likeBtn;
+        public UI_TotalBtn m_totalBtn;
         public GButton m_levelBtn;
         public GButton m_taskRewardBtn;
         public GButton m_AdBtn;
@@ -41,9 +42,10 @@ namespace SGame.UI.Main
             m_Diamond = (GButton)GetChildAt(5);
             m_buff = (UI_BuffBtn)GetChildAt(6);
             m_likeBtn = (UI_LikeBtn)GetChildAt(7);
-            m_levelBtn = (GButton)GetChildAt(8);
-            m_taskRewardBtn = (GButton)GetChildAt(9);
-            m_AdBtn = (GButton)GetChildAt(10);
+            m_totalBtn = (UI_TotalBtn)GetChildAt(8);
+            m_levelBtn = (GButton)GetChildAt(9);
+            m_taskRewardBtn = (GButton)GetChildAt(10);
+            m_AdBtn = (GButton)GetChildAt(11);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }

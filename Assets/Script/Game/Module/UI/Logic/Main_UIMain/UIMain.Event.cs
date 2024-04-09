@@ -56,16 +56,18 @@ namespace SGame.UI
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
+			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
 
-			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
-			m_handles	+=	EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
-			m_handles	+=	EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
-			m_handles	+= EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
-			m_handles   +=	EventManager.Instance.Reg((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
+			m_handles += EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
+			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
+
 			OnHeadSetting();
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
-			OnRefreshLikeTime();
+			OnRefreshLikeTime(0);
 		}
 
 		private void OnHeadSetting()
@@ -228,6 +230,10 @@ namespace SGame.UI
 			m_view.m_buff.m_tipState.selectedIndex = 0;
 		}
 
+		void OnOpenTotalClick() 
+		{
+			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("totalBoost"));
+		}
 
 		void OnRoomLikeClick() 
 		{
@@ -258,6 +264,7 @@ namespace SGame.UI
 					m_view.m_buff.m_time.SetText(Utils.FormatTime(time));
 				}, m_view.m_buff, completed: ()=> BuffTimeFinish());
 			}
+			OnRefreshTotalState();
 		}
 
 		void BuffTimeFinish() 
@@ -269,7 +276,7 @@ namespace SGame.UI
 		/// <summary>
 		/// 好评buff生效时间
 		/// </summary>
-		void OnRefreshLikeTime() 
+		void OnRefreshLikeTime(int likeNum) 
 		{
 			var validTime = DataCenter.ReputationUtils.GetBuffValidTime();
 			m_view.m_likeBtn.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
@@ -282,6 +289,13 @@ namespace SGame.UI
 					m_view.m_likeBtn.m_time.SetText(Utils.FormatTime(validTime));
 				}, completed: () => OnLikeFinish());
 			}
+
+			if (likeNum > 0) 
+			{
+				m_view.m_likeBtn.m_add.Play();
+				m_view.m_likeBtn.m_num.SetText(string.Format("+{0}", likeNum));
+			}
+			OnRefreshTotalState();
 		}
 
 		void OnLikeFinish() 
@@ -289,6 +303,12 @@ namespace SGame.UI
 			m_view.m_likeBtn.m_state.selectedIndex = 0;
 			m_view.m_likeBtn.m_progress.fillAmount = 0;
 			DataCenter.ReputationUtils.Reset();
+		}
+
+		void OnRefreshTotalState() 
+		{
+			m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
+			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)

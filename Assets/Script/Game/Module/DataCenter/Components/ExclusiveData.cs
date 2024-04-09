@@ -32,7 +32,7 @@ namespace SGame {
                     if (!_data.rooms.Contains(scene))
                         _data.rooms.Add(scene);
                     _data.cfgId = exclusiveId;
-                    _data.time = GameServerTime.Instance.serverTime;
+                    _data.endTime = GameServerTime.Instance.serverTime + exclusive.BuffDuration;
 
                     if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(exclusive.BuffId, out var buffData))
                     {
@@ -77,7 +77,7 @@ namespace SGame {
                 bool isTakeEffect = false;
                 if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(_data.cfgId, out var data)) 
                 {
-                    double endTime = _data.time + data.BuffDuration;
+                    double endTime = _data.endTime;
                     isTakeEffect = endTime > GameServerTime.Instance.serverTime;
                 }
                 return isTakeEffect;
@@ -92,7 +92,7 @@ namespace SGame {
                 if (!CheckBuffTakeEffect()) return -1;
                 if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(_data.cfgId, out var data)) 
                 {
-                    int endTime = (int)(_data.time + data.BuffDuration);
+                    int endTime = (int)_data.endTime;
                     return Math.Max(endTime - GameServerTime.Instance.serverTime, 0);
                 }
                 return -1;
@@ -100,7 +100,7 @@ namespace SGame {
 
             public static void Clear() 
             {
-                _data.rewardBuffs.Clear();
+                _data.randomBuffs.Clear();
                 _data.cfgId = 0;
             }
         }
@@ -112,15 +112,14 @@ namespace SGame {
         //已选择奖励的关卡id
         public List<int> rooms = new List<int>();
 
-        //开局随机的奖励buff
-        public List<int> rewardBuffs = new List<int>();
-        
-        //当前选择的开局奖励buff
+        //随机的奖励buff
+        public List<int> randomBuffs = new List<int>();
+
+        //选择的buff
         public int cfgId;
 
-        //选择开局buff的开始时间
-        public double time;
+        //结束时间
+        public int endTime;
     }
-
 } 
 

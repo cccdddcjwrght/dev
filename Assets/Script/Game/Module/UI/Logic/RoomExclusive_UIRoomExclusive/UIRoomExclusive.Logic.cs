@@ -13,10 +13,10 @@ namespace SGame.UI{
 		List<int> m_RoomExclusiveRowDatas;
 		partial void InitLogic(UIContext context){
 
-			m_RoomExclusiveRowDatas = DataCenter.Instance.exclusiveData.rewardBuffs?.Count <= 0 ?
+			m_RoomExclusiveRowDatas = DataCenter.Instance.exclusiveData.randomBuffs?.Count <= 0 ?
 					DataCenter.ExclusiveUtils.GetRandomRewardList():
-					DataCenter.Instance.exclusiveData.rewardBuffs;
-			DataCenter.Instance.exclusiveData.rewardBuffs = m_RoomExclusiveRowDatas;
+					DataCenter.Instance.exclusiveData.randomBuffs;
+			DataCenter.Instance.exclusiveData.randomBuffs = m_RoomExclusiveRowDatas;
 
 			m_view.m_list.itemRenderer = OnItemRenderer;
 			m_view.m_list.onClickItem.Add(OnClick);

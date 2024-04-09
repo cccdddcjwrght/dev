@@ -36,7 +36,7 @@ namespace SGame
 
                 if (flag) 
                 {
-                    double endTime = m_data.time + data.BuffDuration;
+                    double endTime = m_data.endTime;
                     bool isAdd = endTime > GameServerTime.Instance.serverTime;
                     if ((isAdd || data.BuffDuration <= 0))
                     {

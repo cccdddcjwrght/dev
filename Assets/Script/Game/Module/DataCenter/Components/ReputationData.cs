@@ -10,6 +10,7 @@ namespace SGame
     partial class DataCenter 
     {
         public ReputationData reputationData = new ReputationData();
+        
 
         public static class ReputationUtils 
         {
@@ -20,11 +21,11 @@ namespace SGame
             /// </summary>
             public static List<int> GetRandomBuffList()
             {
-                var exclusiveConfigs = ConfigSystem.Instance.LoadConfig<GameConfigs.RoomExclusive>();
-                int len = exclusiveConfigs.DatalistLength;
+                var roomLikeConfigs = ConfigSystem.Instance.LoadConfig<GameConfigs.RoomLike>();
+                int len = roomLikeConfigs.DatalistLength;
                 var weights = new List<int>();
                 for (int i = 0; i < len; i++)
-                    weights.Add(exclusiveConfigs.Datalist(i).Value.Weight);
+                    weights.Add(roomLikeConfigs.Datalist(i).Value.Weight);
                 var rand = new Randoms.Random();
                 var ws = rand.NextWeights(weights, 3, true).GroupBy(v => v);
                 var rets = new List<GameConfigs.RoomLikeRowData>();
@@ -45,7 +46,11 @@ namespace SGame
                 {
                     int random = Random.Range(0, _data.randomBuffs.Count);
                     _data.cfgId = _data.randomBuffs[random];
-                    _data.startTime = GameServerTime.Instance.serverTime;
+
+                    int buffDuration = 0;
+                    if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(_data.cfgId, out var data))
+                        buffDuration = data.BuffDuration;
+                    _data.endTime = GameServerTime.Instance.serverTime + buffDuration;
 
                     AddBuff(_data.cfgId);
                 }
@@ -67,17 +72,23 @@ namespace SGame
             {
                 if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(_data.cfgId, out var roomLikeData)) 
                 {
-                    var endTime = _data.startTime + roomLikeData.BuffDuration;
+                    var endTime = _data.endTime;
                     if (endTime > GameServerTime.Instance.serverTime) return (int)endTime - GameServerTime.Instance.serverTime;
                 }
                 return 0;
             }
 
+
             public static void Reset() 
             {
                 _data.cfgId     = 0;
                 _data.progress  = 0;
-                _data.startTime = 0;
+                _data.endTime   = 0;
+            }
+
+            public static void Clear() 
+            {
+                Reset();
                 _data.randomBuffs.Clear();
             }
         }
@@ -85,28 +96,22 @@ namespace SGame
     }
 
     [Serializable]
-    public class ReputationData 
+    public class ReputationData
     {
-        /// <summary>
-        /// 好评随机buff选择
-        /// </summary>
+        //随机的奖励buff
         public List<int> randomBuffs = new List<int>();
 
-        /// <summary>
-        /// 好评buff开始时间
-        /// </summary>
-        public double startTime;
+        //选择的buff
+        public int cfgId;
 
+        //结束时间
+        public int endTime;
         /// <summary>
         /// 好评进度
         /// </summary>
         public int progress;
-
-        /// <summary>
-        /// 当前触发的好评buff id
-        /// </summary>
-        public int cfgId;
     }
+
 }
 
 
