@@ -41,6 +41,21 @@ namespace SGame
 			return def;
 		}
 
+		static public double GetDoubleValue(string key, double def = default)
+		{
+			var data = Instance.cacheData;
+			if (!string.IsNullOrEmpty(key))
+			{
+				var index = data.datas.FindIndex(v => v.key == key);
+				if (index >= 0)
+				{
+					return data.datas[index].dval;
+				}
+			}
+			return def;
+		}
+
+
 		static public void SetStrValue(string key, string val) {
 			var data = Instance.cacheData;
 			if (!string.IsNullOrEmpty(key))
@@ -65,6 +80,20 @@ namespace SGame
 					item.val = val;
 			}
 		}
+
+		static public void SetDoubleValue(string key, double val)
+		{
+			var data = Instance.cacheData;
+			if (!string.IsNullOrEmpty(key))
+			{
+				var item = data.datas.Find(v => v.key == key);
+				if (item == null)
+					data.datas.Add(new CacheItem() { key = key, dval = val });
+				else
+					item.dval = val;
+			}
+		}
+
 
 		#endregion
 
@@ -91,6 +120,7 @@ namespace SGame
 		public string key;
 		public string str;
 		public int val;
+		public double dval;
 
 		[System.NonSerialized]
 		public bool save;
