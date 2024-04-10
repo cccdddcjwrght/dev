@@ -11,7 +11,9 @@ namespace SGame.UI.Player
         public GLabel m_body;
         public UI_EquipPage m_EquipPage;
         public UI_EquipUpQuality m_EquipQuality;
-        public GList m_tabs;
+        public GButton m_info;
+        public GButton m_equipup;
+        public GButton m_suit;
         public GList m_list;
         public GLoader m_clickBtn;
         public const string URL = "ui://cmw7t1elk6220";
@@ -29,9 +31,11 @@ namespace SGame.UI.Player
             m_body = (GLabel)GetChildAt(0);
             m_EquipPage = (UI_EquipPage)GetChildAt(1);
             m_EquipQuality = (UI_EquipUpQuality)GetChildAt(2);
-            m_tabs = (GList)GetChildAt(4);
-            m_list = (GList)GetChildAt(5);
-            m_clickBtn = (GLoader)GetChildAt(6);
+            m_info = (GButton)GetChildAt(4);
+            m_equipup = (GButton)GetChildAt(5);
+            m_suit = (GButton)GetChildAt(6);
+            m_list = (GList)GetChildAt(7);
+            m_clickBtn = (GLoader)GetChildAt(8);
         }
     }
 }

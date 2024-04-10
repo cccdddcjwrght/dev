@@ -43,9 +43,9 @@ namespace SGame.UI.Player
             m_type = GetControllerAt(8);
             m_bg = (GImage)GetChildAt(0);
             m_quality_2 = (GLoader)GetChildAt(1);
-            m_level = (GTextField)GetChildAt(5);
-            m_count = (GTextField)GetChildAt(10);
-            m___icon = (GLoader)GetChildAt(11);
+            m_level = (GTextField)GetChildAt(6);
+            m_count = (GTextField)GetChildAt(11);
+            m___icon = (GLoader)GetChildAt(12);
         }
     }
 }

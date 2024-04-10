@@ -9,6 +9,8 @@ namespace SGame.UI.EnterScene
     {
         public GList m_list;
         public GButton m_click;
+        public Transition m_doshow;
+        public Transition m_dohide;
         public const string URL = "ui://cxpm3jfbudvnl";
 
         public static UI_LevelCompletedUI CreateInstance()
@@ -22,6 +24,8 @@ namespace SGame.UI.EnterScene
 
             m_list = (GList)GetChildAt(5);
             m_click = (GButton)GetChildAt(6);
+            m_doshow = GetTransitionAt(0);
+            m_dohide = GetTransitionAt(1);
         }
     }
 }

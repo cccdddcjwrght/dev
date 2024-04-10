@@ -16,9 +16,12 @@ namespace SGame.UI
 
 		private List<EquipItem> _eqs;
 
+
 		private EquipItem _current;
 		private List<EquipItem> _mats = new List<EquipItem>();
 		private List<object> _items = new List<object>();
+
+		private List<EquipItem> _suitItems;
 
 		private static ItemData.Value _emptyItem = new ItemData.Value();
 
@@ -28,7 +31,6 @@ namespace SGame.UI
 			m_view.m_eqTab.selectedIndex = -1;
 			m_view.m_list.itemRenderer = OnSetEquipInfo;
 			m_view.m_list.SetVirtual();
-			m_view.m_tabs.GetChildAt(2).touchable = false;
 
 			InitEquipPage();
 			InitUpQualityPage();
@@ -50,10 +52,11 @@ namespace SGame.UI
 
 		partial void OnEqTabChanged(EventContext data)
 		{
-			switch (m_view.m_tabs.selectedIndex)
+			switch (m_view.m_eqTab.selectedIndex)
 			{
 				case 0: OnEquipPage(); break;
 				case 1: OnUpQualityPage(); break;
+				case 2: OnEquipSuitPage(); break;
 			}
 		}
 
@@ -72,14 +75,18 @@ namespace SGame.UI
 			SetEquipList();
 		}
 
+		private void OnEquipSuitPage()
+		{
+			SetEquipList(GetSuitItems(), true);
+		}
+
 		private void InitUpQualityPage()
 		{
-			//m_view.m_EquipQuality.m_progress.max = ConstDefine.EQUIP_UP_QUALITY_MAT_COUNT;
 		}
 
 		private void OnUpQualityPage()
 		{
-			//m_view.m_EquipQuality.m_progress.value = 0;
+			SetEquipList();
 			SwitchEquipUpQuality_StatePage(0);
 		}
 
@@ -232,24 +239,48 @@ namespace SGame.UI
 
 		#endregion
 
-		#region Base
-		void SetEquipList(List<EquipItem> eqs = null)
+		#region Suit
+
+		private List<EquipItem> GetSuitItems()
 		{
-			_eqs = eqs ?? DataCenter.Instance.equipData.items;
-			_eqs.Sort((a, b) =>
+			var list = DataCenter.Instance.equipData.items.FindAll(e => e.type > 4);
+			if (_suitItems == null)
 			{
-				a.selected = b.selected = false;
-				var c = a.type.CompareTo(b.type);
-				if (c == 0)
+				_suitItems = ConfigSystem.Instance
+					.Finds<GameConfigs.ItemRowData>(c => c.Type == 6 || c.Type == 7)
+					.Select(c => new EquipItem().Convert(c.ItemId, 0, 1))
+					.ToList();
+			}
+			_suitItems.ForEach(i => i.Refresh());
+			list.AddRange(_suitItems.FindAll(s => s.count > 0));
+			return list;
+		}
+
+		#endregion
+
+		#region Base
+		void SetEquipList(List<EquipItem> eqs = null, bool nodef = false)
+		{
+			_eqs = eqs ?? (nodef ? null : DataCenter.Instance.equipData.items.FindAll(e => e.type < 5));
+			if (_eqs != null)
+			{
+				_eqs.Sort((a, b) =>
 				{
-					c = -a.quality.CompareTo(b.quality);
-					if (c == 0) c = a.cfgID.CompareTo(b.cfgID);
-				}
-				return c;
+					a.selected = b.selected = false;
+					var c = a.type.CompareTo(b.type);
+					if (c == 0)
+					{
+						c = -a.quality.CompareTo(b.quality);
+						if (c == 0) c = a.cfgID.CompareTo(b.cfgID);
+					}
+					return c;
 
-			});
+				});
 
-			m_view.m_list.numItems = _eqs.Count;
+				m_view.m_list.numItems = _eqs.Count;
+			}
+			else
+				m_view.m_list.numItems = 0;
 		}
 
 		void OnSetEquipInfo(int index, GObject gObject)
@@ -281,7 +312,7 @@ namespace SGame.UI
 				if (gObject != null)
 					UIListener.SetControllerSelect(gObject, "__redpoint", 0, false);
 			}
-		} 
+		}
 		#endregion
 
 

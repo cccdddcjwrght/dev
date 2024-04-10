@@ -557,7 +557,7 @@ namespace SGame
 			return this;
 		}
 
-		public BaseEquip Refresh()
+		public virtual BaseEquip Refresh()
 		{
 			if (this.cfgID == 0) return this;
 			if (!this.cfg.IsValid() && ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(cfgID, out var cfg))
@@ -681,6 +681,21 @@ namespace SGame
 			key = (int)System.DateTime.Now.Ticks;
 		}
 
+
+		public override BaseEquip Refresh()
+		{
+			if (type > 10)
+			{
+				if (cfgID > 0)
+				{
+					count = PropertyManager.Instance.GetItem(cfgID).num;
+					if (icon == null && ConfigSystem.Instance.TryGet<ItemRowData>(cfgID, out var c))
+						icon = c.Icon;
+				}
+			}
+			else base.Refresh();
+			return this;
+		}
 
 		public EquipItem Convert(int id, double num, int type)
 		{

@@ -51,7 +51,7 @@ namespace SGame.UI
 			showBtn = (context.GetParam().Value as object[]).Val<bool>(1, true);
 
 			m_view.m_list.itemRenderer = OnSetEffect;
-
+			m_view.m_flag.selectedIndex = showBtn ? 0 : 1;
 			SetInfo();
 			SetEffectsInfo();
 		}
