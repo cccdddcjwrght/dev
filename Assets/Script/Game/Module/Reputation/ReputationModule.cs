@@ -87,6 +87,7 @@ namespace SGame
         public List<TotalItem> GetVailedBuffList()
         {
             m_TotalList.Clear();
+            m_RoomTypeList.ForEach((r) => r.Reset());
 
             var t1 = m_RoomTypeList.Find((t) => t.roomBuffEnum == RoomBuffEnum.Exclusive);
             var exclusiveData = DataCenter.Instance.exclusiveData;
@@ -96,7 +97,7 @@ namespace SGame
                     && buffRowData.Attribute == (int)EnumAttribute.Price)
                 {
                     t1.name = data1.BuffName;
-                    t1.multiple = data1.BuffValue;
+                    t1.multiple = data1.BuffValue * 0.0001f;
                     t1.time = exclusiveData.endTime - GameServerTime.Instance.serverTime;
                     t1.isEver = data1.BuffDuration <= 0;
                 }
@@ -110,7 +111,7 @@ namespace SGame
                     && buffRowData.Attribute == (int)EnumAttribute.Price)
                 {
                     t2.name = data2.BuffName;
-                    t2.multiple = data2.BuffValue;
+                    t2.multiple = data2.BuffValue * 0.0001f;
                     t2.time = reputationData.endTime - GameServerTime.Instance.serverTime;
                     t2.isEver = data2.BuffDuration <= 0;
                 }
@@ -159,5 +160,14 @@ namespace SGame
         /// ÀàÐÍ
         /// </summary>
         public RoomBuffEnum roomBuffEnum;
+
+        public void Reset() 
+        {
+            name        = string.Empty;
+            multiple    = 0;
+            time        = 0;
+            isEver      = false;
+
+        }
     }
 }

@@ -26,11 +26,27 @@ namespace SGame.UI{
 			item.m_name.SetText(UIListener.Local(data.name));
 			item.m_multiple.SetText(string.Format("X{0}",data.multiple));
 			int startTime = GameServerTime.Instance.serverTime;
-			Utils.Timer(data.time, () =>
+			if (data.time > 0)
 			{
-				int time = GameServerTime.Instance.serverTime - startTime;
-				item.m_duration.SetText(Utils.FormatTime(data.time - time));
-			}, item);
+				Utils.Timer(data.time, () =>
+				{
+					int time = GameServerTime.Instance.serverTime - startTime;
+					item.m_duration.SetText(Utils.FormatTime(data.time - time));
+				}, item, completed: () => TimeDoFinish());
+			}
+			else 
+			{
+				item.m_duration.SetText("∞");
+			}
+		
+		}
+
+		void TimeDoFinish() 
+		{
+			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
+			m_view.m_list.numItems = m_TotalItems.Count;
+			if (m_TotalItems.Count <= 0)
+				SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		partial void UnInitLogic(UIContext context){
