@@ -146,10 +146,14 @@ namespace SGame
 					var eid = data.entityID != 0 ? data.entityID : data.roleTypeID;
 					switch ((EnumRole)cfg.Type)
 					{
-						case EnumRole.Player:
 						case EnumRole.Cook:
+							attrSys.Register((int)EnumTarget.Cook, eid, CreateAttribute(1, data.roleTypeID, data.entityID));
+							break;
 						case EnumRole.Waiter:
-							attrSys.Register(1 << (data.roleTypeID - 1), eid, CreateAttribute(1, data.roleTypeID, data.entityID));
+							attrSys.Register((int)EnumTarget.Waiter, eid, CreateAttribute(1, data.roleTypeID, data.entityID));
+							break;
+						case EnumRole.Player:
+							attrSys.Register((int)EnumTarget.Player, eid, CreateAttribute(1, data.roleTypeID, data.entityID));
 							break;
 						case EnumRole.Customer:
 						case EnumRole.Car:
