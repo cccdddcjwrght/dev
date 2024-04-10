@@ -215,6 +215,7 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
+			if (m_view == null) return;
 			if (this.info.type == 1)
 			{
 				Unlock();

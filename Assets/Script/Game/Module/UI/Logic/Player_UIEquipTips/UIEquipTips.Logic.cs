@@ -51,7 +51,6 @@ namespace SGame.UI
 			showBtn = (context.GetParam().Value as object[]).Val<bool>(1, true);
 
 			m_view.m_list.itemRenderer = OnSetEffect;
-			
 
 			SetInfo();
 			SetEffectsInfo();
@@ -87,8 +86,8 @@ namespace SGame.UI
 		void SetSimpleInfo(bool uplv = true)
 		{
 			m_view.m_lvmax.selectedIndex = equip.IsMaxLv() ? 1 : 0;
+			m_view.m_funcType.selectedIndex = equip.level > 1 || equip.progress > 0 ? 0 : 1;
 			if (buff.IsValid()) m_view.m_attr.SetTextByKey(buff.Describe, equip.attrVal);
-			m_view.m_level.SetText(equip.level.ToString(), false);
 			if (m_view.m_lvmax.selectedIndex == 0)
 			{
 				m_view.m_progress.value = equip.progress;
@@ -115,8 +114,11 @@ namespace SGame.UI
 
 		void OnSetEffect(int index, GObject gObject)
 		{
-
+			var q = index + 1;
+			var g = gObject as UI_attrlabel;
 			var cfg = effects[index];
+			g.m_quality.selectedIndex = q + 1;
+			g.m_lock.selectedIndex = q >= equip.quality ? 1 : 0;
 			if (ConfigSystem.Instance.TryGet<BuffRowData>(cfg[0], out var buff))
 				gObject.SetTextByKey(buff.Describe, cfg[1]);
 
@@ -134,6 +136,14 @@ namespace SGame.UI
 		partial void OnClick2Click(EventContext data)
 		{
 			OnClickClick(null);
+		}
+
+		partial void OnFuncClick(EventContext data)
+		{
+			var index = m_view.m_funcType.selectedIndex;
+			var eq = equip;
+			SGame.UIUtils.OpenUI("equipreset", eq, index);
+			DoCloseUIClick(null);
 		}
 
 		partial void OnUpClick(EventContext data)
@@ -193,6 +203,11 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
+			equip = null;
+			buff = default;
+			effects = default;
+			pressHandler?.Dispose();
+			pressHandler = null;
 			if (needRefreshPlayUI)
 				EventManager.Instance.Trigger(((int)GameEvent.ROLE_PROPERTY_REFRESH));
 		}

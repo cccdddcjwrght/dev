@@ -16,24 +16,32 @@ namespace SGame.UI{
 			m_view.m_quality.onChanged.Add(new EventCallback1(_OnQualityChanged));
 			m_view.m_lvmax.onChanged.Add(new EventCallback1(_OnLvmaxChanged));
 			m_view.m_hide.onChanged.Add(new EventCallback1(_OnHideChanged));
+			m_view.m_funcType.onChanged.Add(new EventCallback1(_OnFuncTypeChanged));
+			m_view.m_flag.onChanged.Add(new EventCallback1(_OnFlagChanged));
+			m_view.m_part.onChanged.Add(new EventCallback1(_OnPartChanged));
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_progress.m_state.onChanged.Add(new EventCallback1(_Onuplevelprogress_StateChanged));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick));
-			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_click2, new EventCallback1(_OnClick2Click));
+			UIListener.Listener(m_view.m_func, new EventCallback1(_OnFuncClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_quality.onChanged.Remove(new EventCallback1(_OnQualityChanged));
 			m_view.m_lvmax.onChanged.Remove(new EventCallback1(_OnLvmaxChanged));
 			m_view.m_hide.onChanged.Remove(new EventCallback1(_OnHideChanged));
+			m_view.m_funcType.onChanged.Remove(new EventCallback1(_OnFuncTypeChanged));
+			m_view.m_flag.onChanged.Remove(new EventCallback1(_OnFlagChanged));
+			m_view.m_part.onChanged.Remove(new EventCallback1(_OnPartChanged));
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_progress.m_state.onChanged.Remove(new EventCallback1(_Onuplevelprogress_StateChanged));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick),remove:true);
-			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_click2, new EventCallback1(_OnClick2Click),remove:true);
+			UIListener.Listener(m_view.m_func, new EventCallback1(_OnFuncClick),remove:true);
 
 		}
 		void _OnQualityChanged(EventContext data){
@@ -51,8 +59,32 @@ namespace SGame.UI{
 		}
 		partial void OnHideChanged(EventContext data);
 		void SwitchHidePage(int index)=>m_view.m_hide.selectedIndex=index;
-		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
-		string GetLevelText()=>UIListener.GetText(m_view.m_level);
+		void _OnFuncTypeChanged(EventContext data){
+			OnFuncTypeChanged(data);
+		}
+		partial void OnFuncTypeChanged(EventContext data);
+		void SwitchFuncTypePage(int index)=>m_view.m_funcType.selectedIndex=index;
+		void _OnFlagChanged(EventContext data){
+			OnFlagChanged(data);
+		}
+		partial void OnFlagChanged(EventContext data);
+		void SwitchFlagPage(int index)=>m_view.m_flag.selectedIndex=index;
+		void _OnPartChanged(EventContext data){
+			OnPartChanged(data);
+		}
+		partial void OnPartChanged(EventContext data);
+		void SwitchPartPage(int index)=>m_view.m_part.selectedIndex=index;
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
+		}
+		partial void OnUICloseClick(ref bool state);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
+		void SetLevelpstrText(string data)=>UIListener.SetText(m_view.m_levelpstr,data);
+		string GetLevelpstrText()=>UIListener.GetText(m_view.m_levelpstr);
 		void SetAttrText(string data)=>UIListener.SetText(m_view.m_attr,data);
 		string GetAttrText()=>UIListener.GetText(m_view.m_attr);
 		void SetQualitytipsText(string data)=>UIListener.SetText(m_view.m_qualitytips,data);
@@ -86,21 +118,18 @@ namespace SGame.UI{
 		partial void OnUpClick(EventContext data);
 		void SetUpText(string data)=>UIListener.SetText(m_view.m_up,data);
 		string GetUpText()=>UIListener.GetText(m_view.m_up);
-		void DoCloseUIClick(EventContext data){
-			 bool __closestate = true;
-			 OnUICloseClick(ref __closestate);
-			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
-			 
-		}
-		partial void OnUICloseClick(ref bool state);
-		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
-		string GetCloseText()=>UIListener.GetText(m_view.m_close);
 		void _OnClick2Click(EventContext data){
 			OnClick2Click(data);
 		}
 		partial void OnClick2Click(EventContext data);
 		void SetClick2Text(string data)=>UIListener.SetText(m_view.m_click2,data);
 		string GetClick2Text()=>UIListener.GetText(m_view.m_click2);
+		void _OnFuncClick(EventContext data){
+			OnFuncClick(data);
+		}
+		partial void OnFuncClick(EventContext data);
+		void SetFuncText(string data)=>UIListener.SetText(m_view.m_func,data);
+		string GetFuncText()=>UIListener.GetText(m_view.m_func);
 
 	}
 }

@@ -156,6 +156,11 @@ namespace SGame
 		/// </summary>
 		public const int EQUIP_UPLV_MAT = 99;
 
+		/// <summary>
+		/// 升品材料
+		/// </summary>
+		public const int EQUIP_UPQUALITY_MAT = 100;
+
 		#endregion
 	}
 

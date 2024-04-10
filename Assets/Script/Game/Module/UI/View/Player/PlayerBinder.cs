@@ -10,7 +10,6 @@ namespace SGame.UI.Player
         {
             UIObjectFactory.SetPackageItemExtension(UI_PropertyInfoUI.URL, typeof(UI_PropertyInfoUI));
             UIObjectFactory.SetPackageItemExtension(UI_PlayerUI.URL, typeof(UI_PlayerUI));
-            UIObjectFactory.SetPackageItemExtension(UI_EqPos.URL, typeof(UI_EqPos));
             UIObjectFactory.SetPackageItemExtension(UI_Equip.URL, typeof(UI_Equip));
             UIObjectFactory.SetPackageItemExtension(UI_bgclick.URL, typeof(UI_bgclick));
             UIObjectFactory.SetPackageItemExtension(UI_EquipPage.URL, typeof(UI_EquipPage));
@@ -20,6 +19,10 @@ namespace SGame.UI.Player
             UIObjectFactory.SetPackageItemExtension(UI_GiftBody.URL, typeof(UI_GiftBody));
             UIObjectFactory.SetPackageItemExtension(UI_EquipTipsUI.URL, typeof(UI_EquipTipsUI));
             UIObjectFactory.SetPackageItemExtension(UI_uplevelprogress.URL, typeof(UI_uplevelprogress));
+            UIObjectFactory.SetPackageItemExtension(UI_attrlabel.URL, typeof(UI_attrlabel));
+            UIObjectFactory.SetPackageItemExtension(UI_MatDiv.URL, typeof(UI_MatDiv));
+            UIObjectFactory.SetPackageItemExtension(UI_UpQualityTipUI.URL, typeof(UI_UpQualityTipUI));
+            UIObjectFactory.SetPackageItemExtension(UI_EquipResetUI.URL, typeof(UI_EquipResetUI));
         }
     }
 }

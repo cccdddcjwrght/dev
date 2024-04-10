@@ -90,30 +90,37 @@ namespace SGame
 				return v;
 			}
 
-			static public List<int[]> GetEquipEffects(IList<BaseEquip> equips, bool needmain = false)
+			static public List<int[]> GetEquipEffects(IList<BaseEquip> equips, bool needmain = false, bool valid = true, bool pack = false)
 			{
 				equips = equips ?? _data.equipeds;
 				if (equips?.Count > 0)
 				{
 					var list = new List<int[]>();
-					equips.Foreach(e => GetEquipEffects(e, list, needmain));
+					equips.Foreach(e => GetEquipEffects(e, list, needmain, valid));
+					if (pack)
+					{
+						return list
+							.GroupBy(v => v[0])
+							.ToDictionary(v => v.Key, v => v.Sum(i => i[1]))
+							.Select(v => new int[] { v.Key, v.Value })
+							.ToList();
+					}
 					return list;
 				}
 				return default;
 			}
 
-
-			static public List<int[]> GetEquipEffects(BaseEquip equip, List<int[]> rets = null, bool needmain = true)
+			static public List<int[]> GetEquipEffects(BaseEquip equip, List<int[]> rets = null, bool needmain = true, bool valid = false)
 			{
 				if (equip != null && equip.cfg.IsValid())
 				{
-					rets = GetEquipEffects(equip.cfg, equip.quality, rets: rets);
-					if (rets != null && needmain)
+					rets = rets ?? new List<int[]>();
+					rets.AddRange(equip.GetEffects(valid));
+					if (needmain)
 						rets.Add(new int[] { equip.attrID, equip.attrVal });
 				}
 				return rets;
 			}
-
 
 			static public List<int[]> GetEquipEffects(GameConfigs.EquipmentRowData equipment, int quality = 0, bool needMainBuff = false, List<int[]> rets = null)
 			{
@@ -144,6 +151,89 @@ namespace SGame
 					return list;
 				}
 				return rets;
+			}
+
+			static public List<int[]> ConvertId2Effects(int part, ulong id)
+			{
+				if (part > 0 && id > 0)
+				{
+					if (ConfigSystem.Instance.TryGet<EquipBuffRowData>(part, out var cfg))
+					{
+						var effects = Utils.GetArrayList(
+							cfg.GetBuff1Array,
+							cfg.GetBuff2Array,
+							cfg.GetBuff3Array,
+							cfg.GetBuff4Array,
+							cfg.GetBuff5Array,
+							cfg.GetBuff6Array
+						);
+						var list = new List<int[]>();
+						for (int i = 0; i < effects.Count && id > 0; i++)
+						{
+							var index = id;
+							id = id / 100;
+							index -= id * 100;
+							if (index > 0)
+							{
+								index--;
+								list.Add(new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
+							}
+						}
+						return list;
+					}
+				}
+				return default;
+			}
+
+			static public ulong RandomEffects(int part, out List<int[]> rets)
+			{
+				rets = new List<int[]>();
+				return RandomEffects(part, rets);
+			}
+
+			static public ulong RandomEffects(int part, List<int[]> rets = null)
+			{
+				if (part > 0)
+				{
+					if (ConfigSystem.Instance.TryGet<EquipBuffRowData>(part, out var cfg))
+					{
+						ulong id = 0;
+						var effects = Utils.GetArrayList(
+							cfg.GetBuff1Array,
+							cfg.GetBuff2Array,
+							cfg.GetBuff3Array,
+							cfg.GetBuff4Array,
+							cfg.GetBuff5Array,
+							cfg.GetBuff6Array
+						);
+
+						var ws = Utils.GetArrayList(
+							cfg.GetWeight1Array,
+							cfg.GetWeight2Array,
+							cfg.GetWeight3Array,
+							cfg.GetWeight4Array,
+							cfg.GetWeight5Array,
+							cfg.GetWeight6Array
+						);
+
+						for (int i = 0; i < effects.Count; i++)
+						{
+							var bs = effects[i];
+							var w = ws[i];
+							var index = SGame.Randoms.Random._R.NextWeight(w);
+							if (bs.Length > index * 2)
+							{
+								id = (id * 100) + ((ulong)index + 1);
+								if (rets != null)
+									rets.Add(new int[] { bs[index * 2], bs[index * 2 + 1] });
+							}
+						}
+
+						return id;
+
+					}
+				}
+				return 0;
 			}
 
 			static public void AddEquips(bool isnew, params int[] ids)
@@ -245,20 +335,25 @@ namespace SGame
 
 			static public void RemoveEquip(EquipItem equip, bool triggerevent = true)
 			{
-				var index = _data.items.IndexOf(equip);
-				if (index >= 0)
+				if (equip != null)
 				{
-					_data.items.RemoveAt(index);
-					if (triggerevent)
-						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+
+					if (equip.pos != 0) PutOff(equip, false);
+					var index = _data.items.IndexOf(equip);
+					if (index >= 0)
+					{
+						_data.items.RemoveAt(index);
+						if (triggerevent)
+							EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+					}
 				}
 			}
 
-			static public int RecycleEquips(bool remove = false, bool triggerevent = true, params EquipItem[] equips)
+			static public double RecycleEquips(bool remove = false, bool triggerevent = true, params EquipItem[] equips)
 			{
 				if (equips?.Length > 0)
 				{
-					var count = 0;
+					double count = 0;
 					equips.Foreach(e => count += RecycleEquip(e, remove, false));
 					if (count > 0)
 					{
@@ -271,13 +366,13 @@ namespace SGame
 				return 0;
 			}
 
-			static public int RecycleEquip(EquipItem equip, bool remove = false, bool triggerevent = true)
+			static public double RecycleEquip(EquipItem equip, bool remove = false, bool triggerevent = true)
 			{
 				if (equip != null)
 				{
-					if (_data.items.Contains(equip))
+					if (_data.items.Contains(equip) || equip.pos != 0)
 					{
-						var count = equip.progress;
+						double count = equip.progress;
 
 						if (equip.level > 1)
 						{
@@ -355,15 +450,13 @@ namespace SGame
 			{
 				if (equips?.Count > 0)
 				{
-					var list = new List<int[]>();
-					equips.Foreach(e => GetEquipEffects(e, list));
-
+					var list = GetEquipEffects(equips, true, true, true);
 					if (list.Count > 0)
 					{
-						return list.GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(kv => new BuffData()
+						return list.Select(kv => new BuffData()
 						{
-							id = kv.Key,
-							val = kv.Value,
+							id = kv[0],
+							val = kv[1],
 							from = from == 0 ? EQ_FROM_ID : from,
 						}).ToList();
 					}
@@ -418,9 +511,14 @@ namespace SGame
 		public int cfgID;
 		public int level;
 		public int quality;
+		public ulong effectID;
 
 		public byte isnew;
 
+		[NonSerialized]
+		public string icon;
+		[NonSerialized]
+		public double count;
 
 		public EquipmentRowData cfg { get; set; }
 		public EquipUpLevelCostRowData lvcfg { get; set; }
@@ -428,13 +526,36 @@ namespace SGame
 		public EquipQualityRowData qcfg { get; set; }
 
 		public int upLvCost { get; private set; }
-		public int type { get { return cfg.Type; } }
+		public int type { get { return cfg.IsValid() ? cfg.Type : _type; } }
 		public int attrID { get; private set; }
 		public int attrVal { get { return GetAttrVal(); } }
 
 
+		protected int _type;
+
 		private Dictionary<string, string> _partData;
 		private int _baseAttrVal;
+		private List<int[]> _effects;
+
+		public BaseEquip UpQuality()
+		{
+			if (quality < (int)EnumQuality.Max)
+			{
+				quality++;
+				Refresh();
+			}
+			return this;
+		}
+
+		public BaseEquip UpLevel()
+		{
+			if (qcfg.IsValid() && level < qcfg.LevelMax)
+			{
+				level++;
+				Refresh();
+			}
+			return this;
+		}
 
 		public BaseEquip Refresh()
 		{
@@ -453,6 +574,13 @@ namespace SGame
 			upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality, lvcfg);
 			attrID = qcfg.IsValid() ? qcfg.MainBuff(0) : 0;
 			_baseAttrVal = qcfg.IsValid() ? qcfg.MainBuff(1) : 0;
+			if (type > 0)
+			{
+				if (effectID == 0)
+					effectID = DataCenter.EquipUtil.RandomEffects(this.cfg.Type, out _effects);
+				else if (_effects == null)
+					_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
+			}
 			return this;
 		}
 
@@ -510,9 +638,26 @@ namespace SGame
 			}
 		}
 
+		public List<int[]> GetEffects(bool valid = false)
+		{
+			if (_effects == null && effectID > 0)
+				_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
+			if (valid)
+				return _effects.Take(quality - 1).ToList();
+			return _effects;
+		}
+
 		public virtual BaseEquip Clone()
 		{
-			return new BaseEquip() { cfgID = cfgID, level = level, quality = quality, cfg = cfg };
+			return new BaseEquip()
+			{
+				cfgID = cfgID,
+				level = level,
+				quality = quality,
+				cfg = cfg,
+				effectID = effectID,
+				_effects = _effects
+			};
 		}
 	}
 
@@ -529,10 +674,34 @@ namespace SGame
 		[NonSerialized]
 		public bool selected;
 
+
+
 		public EquipItem()
 		{
 			key = (int)System.DateTime.Now.Ticks;
 		}
+
+
+		public EquipItem Convert(int id, double num, int type)
+		{
+			cfgID = id;
+			count = num;
+			_type = 1000 + type;
+			if (ConfigSystem.Instance.TryGet<ItemRowData>(cfgID, out var c))
+			{
+				_type = _type * 100 + c.Type;
+				icon = c.Icon;
+			}
+
+			return this;
+		}
+
+		public EquipItem Convert(ItemData.Value item)
+		{
+			Convert(item.id, item.num, (int)item.type);
+			return this;
+		}
+
 	}
 
 }

@@ -127,4 +127,14 @@ public class ItemGroup
 		}
 		return default;
 	}
+
+	public ItemData.Value GetItem(int id)
+	{
+		if (m_values.TryGetValue(id, out int value))
+		{
+			return m_itemData.Values[value];
+		}
+		return default;
+	}
+
 }

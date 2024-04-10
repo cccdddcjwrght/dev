@@ -22,7 +22,7 @@ namespace SGame.UI
 			roleData = (context.GetParam()?.Value as object[]).Val<SGame.RoleData>(0);
 
 			_mainVal = DataCenter.EquipUtil.GetRoleEquipAddValue(roleData?.equips);
-			_effects = DataCenter.EquipUtil.GetEquipEffects(roleData?.equips).GroupBy(v => v[0]).ToDictionary(v => v.Key, v => v.Sum(i => i[1])).Select(v => new int[] { v.Key, v.Value }).ToList();
+			_effects = DataCenter.EquipUtil.GetEquipEffects(roleData?.equips,pack:true);
 
 			m_view.SetTextByKey("ui_player_base_attr", _mainVal);
 			m_view.m_list.itemRenderer = OnSetInfo;

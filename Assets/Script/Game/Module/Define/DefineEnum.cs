@@ -15,6 +15,18 @@ namespace SGame
 		Orange = 4,
 	}
 
+	public enum EnumQuality
+	{
+		None = 0,
+		White = 1,
+		Green,
+		Blue,
+		Purple,
+		Orange,
+		Red,
+		Max = 7
+	}
+
 	/// <summary>
 	/// 属性枚举
 	/// </summary>
@@ -50,7 +62,7 @@ namespace SGame
 		/// <summary>
 		/// 关卡初始金币加成
 		/// </summary>
-		LevelGold=108,
+		LevelGold = 108,
 		/// <summary>
 		/// 好评几率
 		/// </summary>
@@ -175,12 +187,12 @@ namespace SGame
 		Waiter = 2,
 		Customer = 3,
 		Car = 4,
-		Player=5,
+		Player = 5,
 		Employee = 1000,
 	}
 
 
-	public enum EnumShopArea:int
+	public enum EnumShopArea : int
 	{
 		None = 0,
 		Ad = 1,
@@ -195,12 +207,12 @@ namespace SGame
 	/// </summary>
 	public enum EquipType
 	{
-		None		= 0,
-		Hair		= 1,
-		Clothes		= 2,
-		Weapon		= 3,
+		None = 0,
+		Hair = 1,
+		Clothes = 2,
+		Weapon = 3,
 		RightWeapon = 4,
-		Shoes		= 5
+		Shoes = 5
 	}
 
 	/// <summary>

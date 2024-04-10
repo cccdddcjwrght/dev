@@ -40,6 +40,13 @@ namespace SGame
 			return group;
 		}
 
+		public ItemData.Value GetItem(int id, int type = 1)
+		{
+			var g = GetGroup(type);
+			if (g != null) return g.GetItem(id);
+			return default;
+		}
+
 		public bool CheckCount(int id, double num, PropertyGroup type)
 		{
 			return CheckCount(id, num, (int)type);

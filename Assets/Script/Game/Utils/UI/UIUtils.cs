@@ -460,7 +460,7 @@ namespace SGame
 			Entity ui = ShowHUD("update", pos, float3.zero);
 			return ui;
 		}
-		
+
 		public static Entity ShowSleepTip(Transform pos)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -468,7 +468,7 @@ namespace SGame
 			return ui;
 		}
 
-		public static Entity ShowReputationTip(Transform pos, int characterID) 
+		public static Entity ShowReputationTip(Transform pos, int characterID)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("reputationtip", pos, float3.zero);
@@ -519,17 +519,18 @@ namespace SGame
 			return true;
 		}
 
-		static public GObject AddListItem(GComponent list, Action<int, object, GObject> onAdded = null, object data = null, string res = null)
+		static public GObject AddListItem(GComponent list, Action<int, object, GObject> onAdded = null, object data = null, object res = null)
 		{
 			if (list != null)
 			{
 				GObject item = default;
 				var index = list.numChildren;
+				var r = res == null ? null : res is Func<object, string> ? (res as Func<object, string>)(data) : res.ToString();
 				if (list is GList gList)
-				{ index = gList.numItems; item = gList.AddItemFromPool(res); }
-				else if (!string.IsNullOrEmpty(res))
+				{ index = gList.numItems; item = gList.AddItemFromPool(r); }
+				else if (!string.IsNullOrEmpty(r))
 				{
-					item = UIPackage.CreateObjectFromURL(res);
+					item = UIPackage.CreateObjectFromURL(r);
 					if (item != null)
 						list.AddChild(item);
 				}
@@ -540,7 +541,7 @@ namespace SGame
 			return default;
 		}
 
-		static public void AddListItems<T>(GComponent list, IList<T> datas, Action<int, object, GObject> onAdded = null, List<GObject> rets = default, string res = null)
+		static public void AddListItems<T>(GComponent list, IList<T> datas, Action<int, object, GObject> onAdded = null, List<GObject> rets = default, object res = null)
 		{
 			if (datas?.Count > 0 && list != null)
 			{
@@ -551,7 +552,7 @@ namespace SGame
 				}
 			}
 		}
-		
+
 		public static float GetSafeUIOffset(bool needRootScale = true)
 		{
 			var offset = Screen.safeArea.y > 0 ? Screen.safeArea.y : Math.Max(0, Screen.height - Screen.safeArea.height - Screen.safeArea.y);
@@ -560,7 +561,7 @@ namespace SGame
 			return offset;
 		}
 
-		public static void SetUIListTouchEffect(string uiName, string uiPath, bool state) 
+		public static void SetUIListTouchEffect(string uiName, string uiPath, bool state)
 		{
 			Entity e = GetUIEntity(uiName);
 			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);

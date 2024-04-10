@@ -7,6 +7,9 @@ namespace SGame.UI
 	using SGame.UI.Player;
 	using System.Collections.Generic;
 	using GameConfigs;
+	using System;
+	using SGame.UI.Main;
+	using System.Linq;
 
 	public partial class UIPlayer
 	{
@@ -15,6 +18,9 @@ namespace SGame.UI
 
 		private EquipItem _current;
 		private List<EquipItem> _mats = new List<EquipItem>();
+		private List<object> _items = new List<object>();
+
+		private static ItemData.Value _emptyItem = new ItemData.Value();
 
 		partial void InitLogic(UIContext context)
 		{
@@ -22,7 +28,6 @@ namespace SGame.UI
 			m_view.m_eqTab.selectedIndex = -1;
 			m_view.m_list.itemRenderer = OnSetEquipInfo;
 			m_view.m_list.SetVirtual();
-
 			m_view.m_tabs.GetChildAt(2).touchable = false;
 
 			InitEquipPage();
@@ -30,11 +35,6 @@ namespace SGame.UI
 
 			m_view.m_eqTab.selectedIndex = 0;
 			OnDataRefresh(false);
-		}
-
-		partial void DoShow(UIContext context)
-		{
-
 		}
 
 		partial void UnInitLogic(UIContext context)
@@ -74,12 +74,12 @@ namespace SGame.UI
 
 		private void InitUpQualityPage()
 		{
-			m_view.m_EquipQuality.m_progress.max = ConstDefine.EQUIP_UP_QUALITY_MAT_COUNT;
+			//m_view.m_EquipQuality.m_progress.max = ConstDefine.EQUIP_UP_QUALITY_MAT_COUNT;
 		}
 
 		private void OnUpQualityPage()
 		{
-			m_view.m_EquipQuality.m_progress.value = 0;
+			//m_view.m_EquipQuality.m_progress.value = 0;
 			SwitchEquipUpQuality_StatePage(0);
 		}
 
@@ -93,7 +93,146 @@ namespace SGame.UI
 
 		#endregion
 
+		#region Quality
 
+		private void SetQualityNextInfo()
+		{
+			const string pstr = "+ {0}%";
+
+			var next = _current.Clone().UpQuality();
+			next.level = 1;
+
+			m_view.m_EquipQuality.m_nexteq.SetEquipInfo(next, true);
+			m_view.m_EquipQuality.m_curattr.SetText(string.Format(pstr, _current.GetAttrVal(false)), false);
+			m_view.m_EquipQuality.m_nextattr.SetText(string.Format(pstr, next.GetAttrVal(false)), false);
+			m_view.m_EquipQuality.m_addeffect.SetInfo(next);
+
+		}
+
+		private List<EquipItem> SetQualityMats()
+		{
+			var matcount = _current.qcfg.AdvanceValue;
+			var eqs = default(List<EquipItem>);
+			_items.Clear(); _items.Add(_current); _items.Add(0);
+
+			switch (_current.qcfg.AdvanceType)
+			{
+				case 1:
+					eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality);
+					break;
+				case 2:
+					eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality && _current.type == e.type);
+					break;
+				case 3:
+					matcount = 1;
+					var item = PropertyManager.Instance.GetItem(ConstDefine.EQUIP_UPQUALITY_MAT);
+					eqs = new List<EquipItem>();
+					if (item.num > 0) eqs.Add(new EquipItem().Convert(item));
+					break;
+			}
+
+			if (matcount > 0)
+			{
+				for (int i = 0; i < matcount; i++)
+					_items.Add(null);
+			}
+
+			m_view.m_EquipQuality.m_list.RemoveChildrenToPool();
+			SGame.UIUtils.AddListItems(m_view.m_EquipQuality.m_list, _items, (index, data, gObject) =>
+			{
+
+				if (data is BaseEquip eq)
+				{
+					(gObject as UI_Equip)?.SetEquipInfo(eq, true);
+					gObject.onClick.Clear();
+					gObject.onClick.Add(() => SwitchEquipUpQuality_StatePage(0));
+				}
+				else if (data is int)
+					(gObject as UI_MatDiv).m_type.selectedIndex = _items.Count > 3 ? 0 : 1;
+				else
+					(gObject as UI_Equip)?.SetEquipInfo(null, true, 0);
+
+
+			}, null, new Func<object, string>(GetMatRes));
+
+			return eqs;
+		}
+
+		string GetMatRes(object data)
+		{
+
+			if (data is int) return "ui://Player/MatDiv";
+			return "ui://Player/Equip";
+		}
+
+		void EquipSelectUp(GObject gObject, EquipItem data)
+		{
+			var eq = gObject as UI_Equip;
+			if (_current == null)
+			{
+				if (data.quality >= 7) { "@ui_equip_max_quality".Tips(); return; }
+				_current = data;
+				SwitchEquipUpQuality_StatePage(1);
+			}
+			else
+			{
+				var s = !data.selected;
+				var index = _items.IndexOf(data);
+				var list = m_view.m_EquipQuality.m_list;
+				if (!s)
+				{
+					_items[index] = null;
+					_mats.Remove(data);
+				}
+				else
+				{
+					if ((index = _items.IndexOf(null)) < 0) { "@ui_equip_mat_max".Tips(); return; };
+					_items[index] = data;
+					_mats.Add(data);
+				}
+				list.GetChildAt(index).SetEquipInfo(_items[index] as EquipItem, true, needcount: _current.qcfg.AdvanceValue);
+				data.selected = s;
+				eq.m_select.selectedIndex = s ? 1 : 0;
+
+			}
+		}
+
+		partial void OnEquipUpQuality_StateChanged(EventContext data)
+		{
+
+			var eqs = default(List<EquipItem>);
+			if (m_view.m_EquipQuality.m_state.selectedIndex == 1)
+			{
+				SetQualityNextInfo();
+				eqs = SetQualityMats();
+			}
+			else
+			{
+				_current = null;
+				_mats?.Clear();
+				_items?.Clear();
+				m_view.m_EquipQuality.m_list.RemoveChildrenToPool();
+			}
+			SetEquipList(eqs);
+		}
+
+		partial void OnEquipUpQuality_ClickClick(EventContext data)
+		{
+			if (_current == null)
+			{ "@ui_equip_tips1".Tips(); return; }
+			else if (_items.IndexOf(null) >= 0)
+			{ "@ui_equip_tips2".Tips(); return; }
+			else if (
+				_current.qcfg.AdvanceType == 3
+				&& _current.qcfg.AdvanceValue > PropertyManager.Instance.GetItem(ConstDefine.EQUIP_UPQUALITY_MAT).num)
+			{ "@ui_equip_tips2".Tips(); return; }
+			RequestExcuteSystem.EquipUpQuality(_current, _mats);
+			SwitchEquipUpQuality_StatePage(0);
+		}
+
+		#endregion
+
+		#region Base
 		void SetEquipList(List<EquipItem> eqs = null)
 		{
 			_eqs = eqs ?? DataCenter.Instance.equipData.items;
@@ -109,6 +248,7 @@ namespace SGame.UI
 				return c;
 
 			});
+
 			m_view.m_list.numItems = _eqs.Count;
 		}
 
@@ -126,13 +266,13 @@ namespace SGame.UI
 		{
 			switch (m_view.m_eqTab.selectedIndex)
 			{
-				case 0: EquipOnOnOff(gObject, data); break;
+				case 0: EquipOnOrOff(gObject, data); break;
 				case 1: EquipSelectUp(gObject, data); break;
 			}
 
 		}
 
-		void EquipOnOnOff(GObject gObject, EquipItem data)
+		void EquipOnOrOff(GObject gObject, EquipItem data)
 		{
 			if (data != null && data.cfgID > 0)
 			{
@@ -141,69 +281,9 @@ namespace SGame.UI
 				if (gObject != null)
 					UIListener.SetControllerSelect(gObject, "__redpoint", 0, false);
 			}
-		}
+		} 
+		#endregion
 
-		void EquipSelectUp(GObject gObject, EquipItem data)
-		{
-			var eq = gObject as UI_Equip;
-			if (_current == null)
-			{
-				if (data.quality >= 7) { "@ui_equip_max_quality".Tips(); return; }
-				_current = data;
-				SwitchEquipUpQuality_StatePage(1);
-			}
-			else
-			{
-				var s = !data.selected;
-				if (!s) _mats.Remove(data);
-				else
-				{
-					if (_mats.Count >= ConstDefine.EQUIP_UP_QUALITY_MAT_COUNT) { "@ui_equip_mat_max".Tips(); return; };
-					_mats.Add(data);
-				}
-				m_view.m_EquipQuality.m_progress.value = _mats.Count;
-				data.selected = s;
-				eq.m_select.selectedIndex = s ? 1 : 0;
-			}
-		}
 
-		partial void OnEquipUpQuality_StateChanged(EventContext data)
-		{
-			var eqs = default(List<EquipItem>);
-			if (m_view.m_EquipQuality.m_state.selectedIndex == 1)
-			{
-				var effects = DataCenter.EquipUtil.GetEquipEffects(_current.cfg, _current.quality + 1);
-				var next = _current.Clone();
-				next.quality++;
-				eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality);
-				m_view.m_EquipQuality.m_selecteq.SetEquipInfo(_current, true);
-				m_view.m_EquipQuality.m_nexteq.SetEquipInfo(next, true);
-				if (effects.Count > 0)
-				{
-					var cfg = effects[effects.Count - 1];
-					if (ConfigSystem.Instance.TryGet<BuffRowData>(cfg[0], out var buff))
-						SetEquipUpQuality_NextattrText("@ui_equip_add_attr".Local(null, buff.Describe.Local(null, cfg[1])));
-				}
-			}
-			else
-			{
-				_current = null;
-				m_view.m_EquipQuality.m_progress.value = 0;
-				m_view.m_EquipQuality.m_nextattr.SetText(null, false);
-				eqs = DataCenter.Instance.equipData.items;
-				_mats?.Clear();
-			}
-			SetEquipList(eqs);
-		}
-
-		partial void OnEquipUpQuality_ClickClick(EventContext data)
-		{
-			if (_current == null)
-			{ "@ui_equip_tips1".Tips(); return; }
-			else if (_mats.Count < ConstDefine.EQUIP_UP_QUALITY_MAT_COUNT)
-			{ "@ui_equip_tips2".Tips(); return; }
-			RequestExcuteSystem.EquipUpQuality(_current, _mats);
-			SwitchEquipUpQuality_StatePage(0);
-		}
 	}
 }
