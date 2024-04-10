@@ -64,6 +64,7 @@ namespace SGame
                     EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(data.BuffId, data.BuffValue, 0, duration)
                     { from = (int)EnumFrom.RoomLike });
                 }
+                EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_ADD);
             }
 
             public static int GetBuffValidTime() 
@@ -71,7 +72,7 @@ namespace SGame
                 if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(_data.cfgId, out var roomLikeData)) 
                 {
                     var endTime = _data.endTime;
-                    if (endTime > GameServerTime.Instance.serverTime) return (int)endTime - GameServerTime.Instance.serverTime;
+                    if (endTime > GameServerTime.Instance.serverTime) return endTime - GameServerTime.Instance.serverTime;
                 }
                 return 0;
             }

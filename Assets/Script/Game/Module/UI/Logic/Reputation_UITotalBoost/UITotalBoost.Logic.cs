@@ -10,13 +10,15 @@ namespace SGame.UI{
 	{
 		private List<TotalItem> m_TotalItems;
 		partial void InitLogic(UIContext context){
-			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
-
 			m_view.m_list.itemRenderer = OnItemRenderer;
+			RefreshTotalList();
+		}
+
+		void RefreshTotalList() 
+		{
+			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_list.numItems = m_TotalItems.Count;
-
 			m_view.m_totalNum.SetText(string.Format("X{0}", ReputationModule.Instance.GetTotalValue().ToString()));
-
 		}
 
 		void OnItemRenderer(int index, GObject gObject) 
@@ -31,8 +33,9 @@ namespace SGame.UI{
 				Utils.Timer(data.time, () =>
 				{
 					int time = GameServerTime.Instance.serverTime - startTime;
-					item.m_duration.SetText(Utils.FormatTime(data.time - time));
-				}, item, completed: () => TimeDoFinish());
+					int countDownTime = data.time - time;
+					item.m_duration.SetText(Utils.FormatTime(Mathf.Max(countDownTime, 0)));
+				}, item);
 			}
 			else 
 			{
@@ -43,10 +46,8 @@ namespace SGame.UI{
 
 		void TimeDoFinish() 
 		{
-			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
-			m_view.m_list.numItems = m_TotalItems.Count;
-			if (m_TotalItems.Count <= 0)
-				SGame.UIUtils.CloseUIByID(__id);
+			RefreshTotalList();
+			if (m_TotalItems.Count <= 0) SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		partial void UnInitLogic(UIContext context){

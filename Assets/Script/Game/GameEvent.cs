@@ -118,11 +118,11 @@ namespace SGame
 		
 		FRIEND_CUSTOMER_ENTER			= 10004, // 好友顾客入场(int playerID)
 
-		//开局局内buff
-		ROOM_START_BUFF					= 11000, //添加buff
-
-		//关卡内好评
-		ROOM_LIKE_ADD					= 12000, //好评数量增加
+		//关卡内buff
+		ROOM_START_BUFF					= 11000, //开局选择buff
+		ROOM_LIKE_ADD					= 11001, //好评数量增加
+		ROOM_BUFF_RESET					= 11002, //局内buff重置
+		ROOM_BUFF_ADD					= 11003, //好评buff添加
 
 	}
 }

@@ -20,7 +20,6 @@ namespace SGame.UI{
 			DataCenter.Instance.reputationData.randomBuffs = m_RoomLikeIds;
 
 			m_view.m_list.itemRenderer = OnRendererItem;
-			m_view.m_list.numItems = m_RoomLikeIds.Count;
 
 			RefreshTime();
 			RefreshText();
@@ -43,6 +42,7 @@ namespace SGame.UI{
 		//buff效果倒计时
 		void RefreshTime() 
 		{
+			m_view.m_list.numItems = m_RoomLikeIds.Count;
 			var validTime = DataCenter.ReputationUtils.GetBuffValidTime();
 			m_view.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
 			m_view.m_state.selectedIndex = validTime > 0 ? 1 : 0;
@@ -53,17 +53,18 @@ namespace SGame.UI{
 				{
 					validTime = DataCenter.ReputationUtils.GetBuffValidTime();
 					m_view.m_time.SetText(Utils.FormatTime(validTime));
-				}, completed: ()=> OnTimeFinish());
+				});
 			}
 		}
 
 		void OnTimeFinish() 
 		{
-			m_view.m_state.selectedIndex = 0;
-			m_view.m_progress.fillAmount = 0;
-
-			DataCenter.ReputationUtils.Reset();
-			m_view.m_list.numItems = m_RoomLikeIds.Count;
+			if (DataCenter.ReputationUtils.GetBuffValidTime() <= 0) 
+			{
+				m_view.m_state.selectedIndex = 0;
+				m_view.m_progress.fillAmount = 0;
+				m_view.m_list.numItems = m_RoomLikeIds.Count;
+			}
 		}
 
 		void RefreshText() 

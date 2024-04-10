@@ -273,6 +273,7 @@ namespace SGame.UI
 			m_view.m_buff.m_isTime.selectedIndex = 1;
 			m_view.m_buff.visible = false;
 			OnRefreshTotalState();
+			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
 
 		/// <summary>
@@ -306,6 +307,7 @@ namespace SGame.UI
 			m_view.m_likeBtn.m_progress.fillAmount = 0;
 			DataCenter.ReputationUtils.Reset();
 			OnRefreshTotalState();
+			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
 
 		void OnRefreshTotalState() 
