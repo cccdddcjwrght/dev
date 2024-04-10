@@ -69,10 +69,11 @@ namespace SGame.Firend
     [Serializable]
     public class FriendData
     {
-        public List<FriendItemData>     Friends;
-        public List<FriendItemData>     RecommendFriends;
+        public List<FriendItemData>     Friends = new List<FriendItemData>();
+        public List<FriendItemData>     RecommendFriends = new List<FriendItemData>();
         public int                      nextHireTime;          // 下次可雇佣时间
         public int                      hiringTime;            //  好友雇佣到时间
+        public int                      hiringPlayerID;        //  正在雇佣的好友ID
     }
     
     /// <summary>

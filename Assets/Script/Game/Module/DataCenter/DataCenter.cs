@@ -6,6 +6,7 @@ using Unity.Entities;
 using GameConfigs;
 using log4net;
 using System.Linq;
+using SGame.Firend;
 
 namespace SGame
 {
@@ -49,6 +50,9 @@ namespace SGame
 
 		[SerializeField]
 		public double m_foodTipsGold;
+
+		[SerializeField]
+		public FriendData m_friendData = new FriendData(); // 好友数据
 
 		private GameWorld m_world;
 		static DataCenter s_instance;

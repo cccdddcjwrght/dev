@@ -16,20 +16,23 @@ namespace SGame.Firend
         private static ILog log = LogManager.GetLogger("game.friend");
         private static int HIRE_TIME_INTERVAL = 300; // 下次时间间隔 单位秒
         private static int HIRING_TIME = 100;
-        
+
         /// <summary>
         /// 好友数据
         /// </summary>
-        private FriendData m_friendData;
+        private FriendData m_friendData { get { return SGame.DataCenter.Instance.m_friendData; } }
         private Dictionary<int, FriendItemData> m_hirstory = new Dictionary<int, FriendItemData>();
 
         void TestJsonData()
         {
-            const string fileName = "Assets/BuildAsset/Json/TestFriendData.txt.bytes";
-            var req = Assets.LoadAsset(fileName, typeof(TextAsset));
-            var data = (req.asset as TextAsset).text;
+            if (m_friendData == null || (m_friendData.RecommendFriends.Count == 0 && m_friendData.Friends.Count == 0))
+            {
+                const string fileName = "Assets/BuildAsset/Json/TestFriendData.txt.bytes";
+                var req = Assets.LoadAsset(fileName, typeof(TextAsset));
+                var data = (req.asset as TextAsset).text;
 
-            m_friendData = JsonUtility.FromJson<FriendData>(data);
+                DataCenter.Instance.m_friendData = JsonUtility.FromJson<FriendData>(data);
+            }
         }
 
         /// <summary>
@@ -103,7 +106,7 @@ namespace SGame.Firend
         
         public void SetData(FriendData data)
         {
-            m_friendData = data;
+            DataCenter.Instance.m_friendData = data;
         }
         
 
@@ -287,6 +290,7 @@ namespace SGame.Firend
             item.hiringTime = serverTime + HIRING_TIME;
             m_friendData.nextHireTime = serverTime + HIRE_TIME_INTERVAL;
             m_friendData.hiringTime = serverTime + HIRING_TIME;
+            m_friendData.hiringPlayerID = player_id;
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, player_id, item.roleID, GetRoleData(player_id));
             EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
@@ -378,6 +382,9 @@ namespace SGame.Firend
         /// <returns></returns>
         public FriendItemData GetHiringFriend()
         {
+            if (m_hirstory.TryGetValue(m_friendData.nextHireTime, out FriendItemData ret))
+                return ret;
+            
             var currentTime = GetCurrentTime();
             foreach (var friend in m_friendData.Friends)
             {
@@ -397,6 +404,7 @@ namespace SGame.Firend
                 if (m_friendData.hiringTime > 0 && m_friendData.hiringTime <= GetCurrentTime())
                 {
                     m_friendData.hiringTime = 0;
+                    m_friendData.hiringPlayerID = 0;
                     EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING_TIMEOUT);
                 }
             }

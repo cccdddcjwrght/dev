@@ -32,7 +32,7 @@ namespace SGame
                 if (v <= 0)
                 {
                     // 速度异常表示没有读取成功
-                    log.Warn("Role Speed Is Zero RoleID=" + attr.roleID);
+                    log.Warn("Role Speed Is Zero RoleID=" + attr.roleID + " employee=" + character.isEmployee);
                     v = 10;
                 }
                 speed.Value = (float)(v) + character.externSpeed;
