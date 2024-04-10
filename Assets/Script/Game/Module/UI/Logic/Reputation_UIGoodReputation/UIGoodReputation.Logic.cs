@@ -61,6 +61,8 @@ namespace SGame.UI{
 		{
 			m_view.m_state.selectedIndex = 0;
 			m_view.m_progress.fillAmount = 0;
+
+			DataCenter.ReputationUtils.Reset();
 			m_view.m_list.numItems = m_RoomLikeIds.Count;
 		}
 
