@@ -14,6 +14,7 @@ namespace SGame
 
     public class ReputationModule : Singleton<ReputationModule>
     {
+        private const float PERCENTAGE_VALUE = 0.01f;
         private static ILog log = LogManager.GetLogger("game.reputation");
         private ReputationData m_data;
 
@@ -97,7 +98,7 @@ namespace SGame
                     && buffRowData.Attribute == (int)EnumAttribute.Price)
                 {
                     t1.name = data1.BuffName;
-                    t1.multiple = data1.BuffValue * 0.0001f;
+                    t1.multiple = data1.BuffValue * PERCENTAGE_VALUE;
                     t1.time = exclusiveData.endTime - GameServerTime.Instance.serverTime;
                     t1.isEver = data1.BuffDuration <= 0;
                 }
@@ -111,7 +112,7 @@ namespace SGame
                     && buffRowData.Attribute == (int)EnumAttribute.Price)
                 {
                     t2.name = data2.BuffName;
-                    t2.multiple = data2.BuffValue * 0.0001f;
+                    t2.multiple = data2.BuffValue * PERCENTAGE_VALUE;
                     t2.time = reputationData.endTime - GameServerTime.Instance.serverTime;
                     t2.isEver = data2.BuffDuration <= 0;
                 }

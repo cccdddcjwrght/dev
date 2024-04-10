@@ -264,14 +264,15 @@ namespace SGame.UI
 					time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
 					m_view.m_buff.m_time.SetText(Utils.FormatTime(time));
 				}, m_view.m_buff, completed: ()=> BuffTimeFinish());
+				OnRefreshTotalState();
 			}
-			//OnRefreshTotalState();
 		}
 
 		void BuffTimeFinish() 
 		{
 			m_view.m_buff.m_isTime.selectedIndex = 1;
-			m_view.m_buff.visible = DataCenter.ExclusiveUtils.CheckBuffTakeEffect();
+			m_view.m_buff.visible = false;
+			OnRefreshTotalState();
 		}
 
 		/// <summary>

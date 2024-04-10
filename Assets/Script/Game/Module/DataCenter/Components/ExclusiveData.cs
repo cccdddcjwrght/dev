@@ -89,13 +89,13 @@ namespace SGame {
             /// <returns></returns>
             public static int GetBuffResiduTime() 
             {
-                if (!CheckBuffTakeEffect()) return -1;
+                //if (!CheckBuffTakeEffect()) return 0;
                 if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(_data.cfgId, out var data)) 
                 {
                     int endTime = (int)_data.endTime;
                     return Math.Max(endTime - GameServerTime.Instance.serverTime, 0);
                 }
-                return -1;
+                return 0;
             }
 
             public static void Clear() 
