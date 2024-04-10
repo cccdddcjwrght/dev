@@ -259,11 +259,11 @@ namespace SGame.UI
 				}
 				var time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
 				m_view.m_buff.m_isTime.selectedIndex = time > 0 ? 0 : 1;
-				timer = Utils.Timer(time, ()=> 
+				Utils.Timer(time, ()=> 
 				{
 					time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
 					m_view.m_buff.m_time.SetText(Utils.FormatTime(time));
-				}, m_view.m_buff, completed: ()=> BuffTimeFinish());
+				}, m_view, completed: ()=> BuffTimeFinish());
 				OnRefreshTotalState();
 			}
 		}
@@ -286,11 +286,11 @@ namespace SGame.UI
 			m_view.m_likeBtn.m_state.selectedIndex = validTime > 0 ? 1 : 0;
 			if (validTime > 0)
 			{
-				timer = Utils.Timer(validTime, () =>
+				Utils.Timer(validTime, () =>
 				{
 					validTime = DataCenter.ReputationUtils.GetBuffValidTime();
 					m_view.m_likeBtn.m_time.SetText(Utils.FormatTime(validTime));
-				}, completed: () => OnLikeFinish());
+				}, m_view, completed: () => OnLikeFinish());
 			}
 
 			if (likeNum > 0) 
