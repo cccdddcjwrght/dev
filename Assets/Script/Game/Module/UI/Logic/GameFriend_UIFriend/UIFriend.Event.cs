@@ -58,7 +58,7 @@ namespace SGame.UI{
 			else
 			{
 				m_view.m_empty.selectedIndex = 1;
-				m_view.m_friendGroup.y = 315;
+				m_view.m_friendGroup.y = m_view.m_topBar.y;
 			}
 			
 			m_view.m_listFirends.numItems = friends.Friends.Count;

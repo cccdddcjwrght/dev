@@ -10,9 +10,10 @@ namespace SGame.UI.GameFriend
         public Controller m_empty;
         public Controller m_emptyFriend;
         public GLabel m_body;
+        public GImage m_topBar;
+        public GTextField m_title1;
         public GList m_listRecomment;
         public GList m_listFirends;
-        public GTextField m_title1;
         public GTextField m_title2;
         public GTextField m_titleTime;
         public GTextField m_titleCount;
@@ -31,9 +32,10 @@ namespace SGame.UI.GameFriend
             m_empty = GetControllerAt(0);
             m_emptyFriend = GetControllerAt(1);
             m_body = (GLabel)GetChildAt(0);
-            m_listRecomment = (GList)GetChildAt(2);
-            m_listFirends = (GList)GetChildAt(3);
-            m_title1 = (GTextField)GetChildAt(4);
+            m_topBar = (GImage)GetChildAt(1);
+            m_title1 = (GTextField)GetChildAt(2);
+            m_listRecomment = (GList)GetChildAt(3);
+            m_listFirends = (GList)GetChildAt(4);
             m_title2 = (GTextField)GetChildAt(6);
             m_titleTime = (GTextField)GetChildAt(7);
             m_titleCount = (GTextField)GetChildAt(8);
