@@ -19,6 +19,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick));
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick));
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_comfirmDialog.m_btnCancle, new EventCallback1(_OnComfirm_BtnCancleClick));
+			UIListener.Listener(m_view.m_comfirmDialog.m_btnOK, new EventCallback1(_OnComfirm_BtnOKClick));
 			UIListener.ListenerIcon(m_view.m_comfirmDialog, new EventCallback1(_OnComfirmDialogClick));
 
 		}
@@ -29,6 +31,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick),remove:true);
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick),remove:true);
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_comfirmDialog.m_btnCancle, new EventCallback1(_OnComfirm_BtnCancleClick),remove:true);
+			UIListener.Listener(m_view.m_comfirmDialog.m_btnOK, new EventCallback1(_OnComfirm_BtnOKClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_comfirmDialog, new EventCallback1(_OnComfirmDialogClick),remove:true);
 
 		}
@@ -71,6 +75,18 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetComfirm_TitleNameText(string data)=>UIListener.SetText(m_view.m_comfirmDialog.m_titleName,data);
 		string GetComfirm_TitleNameText()=>UIListener.GetText(m_view.m_comfirmDialog.m_titleName);
+		void _OnComfirm_BtnCancleClick(EventContext data){
+			OnComfirm_BtnCancleClick(data);
+		}
+		partial void OnComfirm_BtnCancleClick(EventContext data);
+		void SetComfirm_ComfirmDialog_btnCancleText(string data)=>UIListener.SetText(m_view.m_comfirmDialog.m_btnCancle,data);
+		string GetComfirm_ComfirmDialog_btnCancleText()=>UIListener.GetText(m_view.m_comfirmDialog.m_btnCancle);
+		void _OnComfirm_BtnOKClick(EventContext data){
+			OnComfirm_BtnOKClick(data);
+		}
+		partial void OnComfirm_BtnOKClick(EventContext data);
+		void SetComfirm_ComfirmDialog_btnOKText(string data)=>UIListener.SetText(m_view.m_comfirmDialog.m_btnOK,data);
+		string GetComfirm_ComfirmDialog_btnOKText()=>UIListener.GetText(m_view.m_comfirmDialog.m_btnOK);
 		void _OnComfirmDialogClick(EventContext data){
 			OnComfirmDialogClick(data);
 		}

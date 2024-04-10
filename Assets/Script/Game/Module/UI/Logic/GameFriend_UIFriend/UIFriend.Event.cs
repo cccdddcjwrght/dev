@@ -47,9 +47,33 @@ namespace SGame.UI{
 		{
 			FriendModule.Instance.UpdateFriends();
 			var friends = FriendModule.Instance.GetDatas();
+			
+			m_view.m_friendGroup.relations.ClearAll();
+			if (friends.RecommendFriends.Count > 0)
+			{
+				m_view.m_empty.selectedIndex = 0;
+				m_view.m_friendGroup.relations.Add(m_view.m_listRecomment, RelationType.Top_Bottom);
+				m_view.m_friendGroup.y = m_view.m_listRecomment.y + m_view.m_listRecomment.height + 30;
+			}
+			else
+			{
+				m_view.m_empty.selectedIndex = 1;
+				m_view.m_friendGroup.y = 320;
+			}
+			
 			m_view.m_listFirends.numItems = friends.Friends.Count;
 			m_view.m_listRecomment.numItems = friends.RecommendFriends.Count;
-			m_view.m_listRecomment.ResizeToFit(3);
+
+			if (friends.Friends.Count > 0)
+			{
+				m_view.m_emptyFriend.selectedIndex = 0;
+				m_view.m_listRecomment.ResizeToFit(3);
+			}
+			else
+			{
+				m_view.m_emptyFriend.selectedIndex = 1;
+				m_view.m_listRecomment.ResizeToFit(5);
+			}
 
 			m_view.m_titleCount.text = string.Format("({0}/{1})", friends.Friends.Count, 100);
 			

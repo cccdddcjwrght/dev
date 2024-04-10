@@ -13,13 +13,27 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
+			m_view.m_empty.onChanged.Add(new EventCallback1(_OnEmptyChanged));
+			m_view.m_emptyFriend.onChanged.Add(new EventCallback1(_OnEmptyFriendChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
+			m_view.m_empty.onChanged.Remove(new EventCallback1(_OnEmptyChanged));
+			m_view.m_emptyFriend.onChanged.Remove(new EventCallback1(_OnEmptyFriendChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
+		void _OnEmptyChanged(EventContext data){
+			OnEmptyChanged(data);
+		}
+		partial void OnEmptyChanged(EventContext data);
+		void SwitchEmptyPage(int index)=>m_view.m_empty.selectedIndex=index;
+		void _OnEmptyFriendChanged(EventContext data){
+			OnEmptyFriendChanged(data);
+		}
+		partial void OnEmptyFriendChanged(EventContext data);
+		void SwitchEmptyFriendPage(int index)=>m_view.m_emptyFriend.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
