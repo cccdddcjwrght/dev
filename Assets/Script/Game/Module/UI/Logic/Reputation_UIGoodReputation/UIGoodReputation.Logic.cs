@@ -33,7 +33,9 @@ namespace SGame.UI{
 			if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(roomLikeId, out var roomLikeData)) 
 			{
 				item.m_icon.SetIcon(roomLikeData.BuffIcon);
-				item.m_info.SetText(UIListener.Local(roomLikeData.BuffDesc));
+				item.m_info.SetText(string.Format(UIListener.Local(roomLikeData.BuffDesc),
+					roomLikeData.BuffValue == 0 ? roomLikeData.BuffDuration : roomLikeData.BuffValue,
+					roomLikeData.BuffDuration));
 			}
 			item.m_inforce.selectedIndex = roomLikeId == DataCenter.Instance.reputationData.cfgId ? 1 : 0;
 		}

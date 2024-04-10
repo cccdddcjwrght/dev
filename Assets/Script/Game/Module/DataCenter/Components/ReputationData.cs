@@ -42,18 +42,16 @@ namespace SGame
             /// </summary>
             public static void RandomSelect() 
             {
-                if (_data.randomBuffs?.Count > 0)
-                {
-                    int random = Random.Range(0, _data.randomBuffs.Count);
-                    _data.cfgId = _data.randomBuffs[random];
+                if (_data.randomBuffs.Count <= 0)
+                    _data.randomBuffs = GetRandomBuffList();
 
-                    int buffDuration = 0;
-                    if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(_data.cfgId, out var data))
-                        buffDuration = data.BuffDuration;
-                    _data.endTime = GameServerTime.Instance.serverTime + buffDuration;
-
-                    AddBuff(_data.cfgId);
-                }
+                int random = Random.Range(0, _data.randomBuffs.Count);
+                _data.cfgId = _data.randomBuffs[random];
+                int buffDuration = 0;
+                if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(_data.cfgId, out var data))
+                    buffDuration = data.BuffDuration;
+                _data.endTime = GameServerTime.Instance.serverTime + buffDuration;
+                AddBuff(_data.cfgId);
             }
 
             public static void AddBuff(int likeId) 

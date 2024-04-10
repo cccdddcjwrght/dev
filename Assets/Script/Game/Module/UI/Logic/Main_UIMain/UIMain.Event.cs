@@ -265,7 +265,7 @@ namespace SGame.UI
 					m_view.m_buff.m_time.SetText(Utils.FormatTime(time));
 				}, m_view.m_buff, completed: ()=> BuffTimeFinish());
 			}
-			OnRefreshTotalState();
+			//OnRefreshTotalState();
 		}
 
 		void BuffTimeFinish() 
@@ -304,6 +304,7 @@ namespace SGame.UI
 			m_view.m_likeBtn.m_state.selectedIndex = 0;
 			m_view.m_likeBtn.m_progress.fillAmount = 0;
 			DataCenter.ReputationUtils.Reset();
+			OnRefreshTotalState();
 		}
 
 		void OnRefreshTotalState() 
