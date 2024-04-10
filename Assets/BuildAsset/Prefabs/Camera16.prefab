@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 50
-    OrthographicSize: 10
-    NearClipPlane: 0.1
+    OrthographicSize: 13
+    NearClipPlane: -10
     FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
@@ -320,9 +320,9 @@ MonoBehaviour:
     name: zm
     isEnable: 1
     isUselimit: 1
-    startValue: 6
-    minValue: 6
-    maxValue: 6
+    startValue: 10
+    minValue: -10
+    maxValue: 15
     currentValue: 0
     inputValue: 0
     wrapValue: 0
