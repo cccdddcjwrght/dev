@@ -530,7 +530,9 @@ namespace SGame
 		public EquipUpLevelCostRowData nextlvcfg;
 		[NonSerialized]
 		public EquipQualityRowData qcfg;
-
+		[NonSerialized]
+		public List<int[]> mats;
+		
 		public int upLvCost { get; private set; }
 		public int type { get { return cfg.IsValid() ? cfg.Type : _type; } }
 		public string name { get { return cfg.IsValid() && _name == null ? cfg.Name : _name; } }
@@ -657,6 +659,20 @@ namespace SGame
 			return _effects;
 		}
 
+		public bool CheckMats()
+		{
+			if(mats?.Count > 0)
+			{
+				foreach (var item in mats)
+				{
+					if (!PropertyManager.Instance.CheckCountByArgs(item))
+						return false;
+				}
+				return true;
+			}
+			return false;
+		}
+
 		public virtual BaseEquip Clone()
 		{
 			return new BaseEquip()
@@ -706,10 +722,17 @@ namespace SGame
 						_type = _type * 100 + c.Type;
 						if (c.Type == 6 && c.TypeId > 0)
 						{
-							ConfigSystem.Instance.TryGet<EquipmentRowData>(c.TypeId, out var eq);
-							cfg = eq;
-							if (cfg.IsValid())
+							if (ConfigSystem.Instance.TryGet<EquipmentRowData>(c.TypeId, out cfg))
+							{
 								quality = cfg.Quality;
+								mats = Utils.GetArrayList(
+									cfg.GetPart1Array,
+									cfg.GetPart2Array,
+									cfg.GetPart3Array,
+									cfg.GetPart4Array,
+									cfg.GetPart5Array
+								);
+							}
 						}
 					}
 				}

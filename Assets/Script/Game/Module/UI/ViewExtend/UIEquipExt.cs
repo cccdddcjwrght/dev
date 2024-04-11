@@ -51,7 +51,8 @@ partial class UIListenerExt
 				UIListener.SetControllerSelect(gObject, "suitmat", issuit ? 1 : 0, false);
 				UIListener.SetTextWithName(gObject, "count", equip.count == 0 ? "" : Utils.ConvertNumberStr(equip.count));
 
-				if (!hidered) UIListener.SetControllerSelect(gObject, "__redpoint", equip.isnew, false);
+				if (!hidered)
+					UIListener.SetControllerSelect(gObject, "__redpoint", (equip.isnew == 1 || equip.CheckMats()) ? 1 : 0, false);
 				if (equip.qcfg.IsValid())
 					UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax));
 			}
