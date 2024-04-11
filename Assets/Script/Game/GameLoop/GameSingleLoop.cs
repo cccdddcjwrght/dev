@@ -60,6 +60,8 @@ namespace SGame
 
 			ExclusiveModule.Instance.Initalize();
 			ReputationModule.Instance.Initalize();
+			
+			NewbieGiftModule.Instance.Initalize();
 		}
 
 		/// <summary>

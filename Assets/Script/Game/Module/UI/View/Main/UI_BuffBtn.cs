@@ -30,8 +30,8 @@ namespace SGame.UI.Main
             m_tipState = GetControllerAt(3);
             m_mark = (GLoader)GetChildAt(3);
             m_time = (GTextField)GetChildAt(4);
-            m_info = (GTextField)GetChildAt(6);
-            m_tip = (GGroup)GetChildAt(7);
+            m_info = (GTextField)GetChildAt(7);
+            m_tip = (GGroup)GetChildAt(8);
         }
     }
 }
