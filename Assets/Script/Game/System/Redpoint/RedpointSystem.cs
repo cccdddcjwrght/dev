@@ -746,8 +746,8 @@ namespace SGame
 					if (c.IsValid())
 					{
 						var flag = c.Type > 100 || c.DependsLength == 0;
-						var data = _datas[c.Id] = CreateData(c, !flag);
-						if (flag || IsDontCheckConditionType(c.Type, c.Id)) continue;
+						var data = _datas[c.Id] = CreateData(c, flag);
+						if (!flag || IsDontCheckConditionType(c.Type, c.Id)) continue;
 						var r = new Redpoint() { id = c.Id };
 						var h = InitEventListen(c);
 						var e = EntityManager.CreateEntity();

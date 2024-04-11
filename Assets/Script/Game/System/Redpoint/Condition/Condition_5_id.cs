@@ -15,7 +15,14 @@ namespace SGame
 	{
 		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			return DataCenter.Instance.equipData.items.Any(e => e.isnew > 0);
+			var items = DataCenter.Instance.equipData.items;
+			var l = items.Count;
+
+			for (int i = 0; i < l; i++)
+			{
+				if (items[i].isnew == 1) return true;
+			}
+			return false;
 		}
 	}
 
