@@ -28,7 +28,7 @@ namespace SGame.UI
 			m_view.m_tips.SetTextByKey(equip.cfg.Description);
 			m_view.m_flag.selectedIndex = showBtn ? 0 : 1;
 			m_view.m_funcType.selectedIndex = equip.level > 0 ? 1 : 0;
-			m_view.m_body.SetText(equip.name);
+			m_view.m_body.SetTextByKey(equip.name);
 
 		}
 
