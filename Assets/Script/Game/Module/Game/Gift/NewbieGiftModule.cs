@@ -84,10 +84,16 @@ namespace SGame
                 return false;
             
             // 获取礼物
-            RequestExcuteSystem.BuyGoods(GOOD_ITEM_ID);
+            RequestExcuteSystem.BuyGoods(GOOD_ITEM_ID, (ret) =>
+            {
+                if (ret)
+                {
+                    DataCenter.SetIntValue(KEY_NAME, 1);
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
+                }
+            });
             
             // 设置已获取标记
-            DataCenter.SetIntValue(KEY_NAME, 1);
             return true;
         }
     }

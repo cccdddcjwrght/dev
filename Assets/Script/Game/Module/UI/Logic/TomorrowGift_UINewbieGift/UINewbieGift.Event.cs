@@ -47,7 +47,6 @@ namespace SGame.UI{
 			if (NewbieGiftModule.Instance.TakeGift())
 			{
 				SGame.UIUtils.CloseUIByID(__id);
-				EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
 			}
 		}
 		
