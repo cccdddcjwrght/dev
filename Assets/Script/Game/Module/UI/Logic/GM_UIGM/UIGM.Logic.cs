@@ -82,8 +82,11 @@ namespace SGame.UI
 									if (nField == null) nField = GetNameField(c.GetType());
 									if (idField == null || nField == null) return;
 
-									ls.Add(nField.GetGetMethod()?.Invoke(c, Array.Empty<object>()).ToString());
-									vs.Add(idField.GetGetMethod()?.Invoke(c, Array.Empty<object>()).ToString());
+									var n = nField.GetGetMethod()?.Invoke(c, Array.Empty<object>()).ToString().Local();
+									var id = idField.GetGetMethod()?.Invoke(c, Array.Empty<object>()).ToString();
+									n = id + "|" + n;
+									ls.Add(n);
+									vs.Add(id);
 								}
 								else
 									log.Info($"不存在表名为{cfg.Cfg}的表");
@@ -158,6 +161,9 @@ namespace SGame.UI
 				case "item":
 					DoItem(ss);
 					break;
+				case "eq":
+					DoEquip(ss);
+					break;
 			}
 
 
@@ -169,6 +175,14 @@ namespace SGame.UI
 			var num = ss.Val<int>(2, 1);
 			if (id > 0)
 				PropertyManager.Instance.Update(1, id, num);
+		}
+
+		private void DoEquip(string[] ss)
+		{
+
+			var id = ss.Val<int>(1);
+			if (id > 0)
+				DataCenter.EquipUtil.AddEquip(id);
 		}
 
 		private void DoEvent(string[] ss)
