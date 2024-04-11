@@ -30,7 +30,7 @@ namespace SGame
 
 		}
 
-		static public void BuyGoods(int id)
+		static public void BuyGoods(int id , Action<bool> call = null)
 		{
 			UILockManager.Instance.Require(shop_lock);
 			0.Delay(() =>
@@ -52,18 +52,18 @@ namespace SGame
 						{
 							case 1:
 								if (!DataCenter.IsIgnoreAd())
-									Utils.PlayAd(cfg.Price.ToString(), (s, t) => DoBuyGoods(goods));
+									Utils.PlayAd(cfg.Price.ToString(), (s, t) => DoBuyGoods(goods,s , call));
 								else
 								{
 									log.Info("no ad , free");
-									DoBuyGoods(goods);
+									DoBuyGoods(goods, true ,call);
 								}
 								break;
 							case 3:
-								Utils.Pay((cfg.Price == 0 ? cfg.Id : cfg.Price).ToString(), (s, t) => DoBuyGoods(goods));
+								Utils.Pay((cfg.Price == 0 ? cfg.Id : cfg.Price).ToString(), (s, t) => DoBuyGoods(goods,s,call));
 								break;
 							default:
-								DoBuyGoods(goods);
+								DoBuyGoods(goods , true , call);
 								break;
 						}
 					}
@@ -72,22 +72,25 @@ namespace SGame
 			}
 		}
 
-		static private void DoBuyGoods(ShopGoods goods)
+		static private void DoBuyGoods(ShopGoods goods , bool state , Action<bool> call = null)
 		{
 
-			var cfg = goods.cfg;
-			var id = goods.id;
-			var free = goods.free;
-			var items = DataCenter.ShopUtil.GetGoodsItems(id);
+			if (state)
+			{
+				var cfg = goods.cfg;
+				var id = goods.id;
+				var free = goods.free;
+				var items = DataCenter.ShopUtil.GetGoodsItems(id);
 
-			DataCenter.ShopUtil.RecordBuyGoods(id);
-			if (cfg.PurchaseType == 2 && free <= 0)
-				PropertyManager.Instance.Update(1, 2, cfg.Price, true);
-			for (int i = 0; i < items.Count; i++)
-				PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);
+				DataCenter.ShopUtil.RecordBuyGoods(id);
+				if (cfg.PurchaseType == 2 && free <= 0)
+					PropertyManager.Instance.Update(1, 2, cfg.Price, true);
+				for (int i = 0; i < items.Count; i++)
+					PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);
 
-			EventManager.Instance.Trigger(((int)GameEvent.SHOP_GOODS_BUY_RESULT), id);
-
+				EventManager.Instance.Trigger(((int)GameEvent.SHOP_GOODS_BUY_RESULT), id);
+			}
+			call?.Invoke(state);
 		}
 
 	}
