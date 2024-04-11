@@ -49,6 +49,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("FriendUI", "GameFriend", ()=>new UIFriend());SGame.UI.GameFriend.GameFriendBinder.BindAll();;
 			context.uiModule.Reg("NewbieGiftUI", "TomorrowGift", ()=>new UINewbieGift());
 			context.uiModule.Reg("SuitUI", "Player", ()=>new UISuit());
+			context.uiModule.Reg("GMUI", "GM", ()=>new UIGM());SGame.UI.GM.GMBinder.BindAll();;
 		}
 	}
 }

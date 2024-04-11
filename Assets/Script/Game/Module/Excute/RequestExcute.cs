@@ -41,6 +41,10 @@ namespace SGame
 				go = GameObject.Instantiate(go);
 				GameObject.DontDestroyOnLoad(go);
 			}
+
+#if !SVR_RELEASE
+			UIUtils.OpenUI("gmui");
+#endif
 		}
 
 		private void InitEvent()
