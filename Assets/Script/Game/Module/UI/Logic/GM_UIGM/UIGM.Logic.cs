@@ -181,8 +181,10 @@ namespace SGame.UI
 		{
 
 			var id = ss.Val<int>(1);
+			var count = ss.Val<int>(2,1);
+
 			if (id > 0)
-				DataCenter.EquipUtil.AddEquip(id);
+				DataCenter.EquipUtil.AddEquip(id,count);
 		}
 
 		private void DoEvent(string[] ss)
