@@ -355,7 +355,9 @@ namespace SGame.UI
 		{
 			data.isnew = 0;
 			if (gObject != null)
-				UIListener.SetControllerSelect(gObject, "__redpoint", 0, false);
+			{
+				UIListener.SetControllerSelect(gObject, "__redpoint", data.CheckMats() ? 1 : 0, false);
+			}
 		}
 		#endregion
 
