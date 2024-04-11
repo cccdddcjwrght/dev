@@ -83,6 +83,7 @@ namespace SGame.UI
 			{
 				14.ToAudioID().PlayAudio();
 				DataCenter.RoomUtil.AddTech(data.Id);
+				DataCenter.PiggyBankUtils.AddPiggyBankValue();
 				PropertyManager.Instance.UpdateByArgs(true, data.GetCostArray());
 				item.m_state.selectedIndex = 1;
 				_count--;

@@ -124,5 +124,7 @@ namespace SGame
 		ROOM_BUFF_RESET					= 11002, //局内buff重置
 		ROOM_BUFF_ADD					= 11003, //好评buff添加
 
+		PIGGYBANK_UPDATE				= 12000, //存钱罐刷新
+
 	}
 }

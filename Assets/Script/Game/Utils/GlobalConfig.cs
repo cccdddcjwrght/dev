@@ -16,7 +16,8 @@ namespace GameConfigs
 		{
 			VInt = 0,
 			VStr = 1,
-			VFloat = 2
+			VFloat = 2,
+			VIntArray =3
 		}
 
 		private static Dictionary<string, string> _iniCfgs = null;
@@ -141,6 +142,30 @@ namespace GameConfigs
 			}
 			if (_iniCfgs.Count == 0) return false;
 			return _iniCfgs.TryGetValue(key, out val);
+		}
+
+		public static int[] GetIntArray(string name)
+		{
+			if (SGame.ConfigSystem.Instance.TryGet(name, out GameConfigs.Design_GlobalRowData val))
+			{
+				if (val.Type == (int)VType.VIntArray)
+				{
+					bool flag = val.Value.StartsWith('[') && val.Value.EndsWith(']');
+					if (flag)
+					{
+						var str = val.Value.TrimStart('[').TrimEnd(']');
+						string[] strNums = str.Split(',');
+						int[] array = strNums.Select(s => int.Parse(s)).ToArray();
+						return array;
+					}
+				}
+				else
+				{
+					GameDebug.LogWarning("Type Not Match=" + VType.VIntArray.ToString());
+				}
+			}
+			GameDebug.LogWarning("Parse Fail=" + name);
+			return default;
 		}
 
 	}
