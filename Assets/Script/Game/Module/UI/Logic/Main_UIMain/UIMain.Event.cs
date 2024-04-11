@@ -67,6 +67,11 @@ namespace SGame.UI
 
 		void RegisterUIState()
 		{
+			if (m_rightIcons != null)
+				return;
+
+			m_rightIcons = new CheckingManager();
+			
 			// 新手礼包
 			m_rightIcons.Register(3, NewbieGiftModule.OPEN_ID, NewbieGiftModule.Instance.CanTake);
 			
@@ -130,6 +135,12 @@ namespace SGame.UI
 			// 处理右列表
 			for (int i = 0; i < m_rightList.numItems; i++)
 			{
+				var item = m_rightIcons.GetData(i);
+				if (item != null && item.config.FirstOpen > 0)
+				{
+					if (m_rightIcons.IsFirstVisible(i))
+						m_rightIcons.OpenUI(i);
+				}
 				m_rightList.GetChildAt(i).visible = m_rightIcons.IsVisible(i);
 			}
 		}

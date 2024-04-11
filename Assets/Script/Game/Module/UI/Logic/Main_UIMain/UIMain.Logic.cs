@@ -21,6 +21,7 @@ namespace SGame.UI{
 			public FunctionConfigRowData config;		// 配置信息
 			public Func<bool>			 funcCanShow;	// 额外判定是否可显示
 			public Func<int>		     funcTime;		// 倒计时
+			public bool                  previewShow = true;
 		}
 		private Dictionary<int, CheckItem> m_data = new Dictionary<int, CheckItem>();
 
@@ -76,8 +77,10 @@ namespace SGame.UI{
 		{
 			var item = GetData(index);
 			if (item == null)
+			{
 				return false;
-
+			}
+			
 			if (!item.funcID.IsOpend(false))
 				return false;
 
@@ -85,6 +88,40 @@ namespace SGame.UI{
 				return item.funcCanShow();
 
 			return true;
+		}
+
+		/// <summary>
+		/// 判断是否首次显示
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		public bool IsFirstVisible(int index)
+		{
+			var item = GetData(index);
+			if (item == null)
+				return false;
+
+			bool previewShow = item.previewShow;
+			bool visible = IsVisible(index);
+			item.previewShow = visible;
+
+			return previewShow == false && visible == true;
+		}
+
+		/// <summary>
+		/// 开启UI
+		/// </summary>
+		/// <param name="index"></param>
+		public void OpenUI(int index)
+		{
+			var item = GetData(index);
+			if (item == null)
+				return;
+
+			if (!string.IsNullOrEmpty(item.config.Ui))
+			{
+				SGame.UIUtils.OpenUI(item.config.Ui);
+			}
 		}
 	}
 
@@ -98,7 +135,7 @@ namespace SGame.UI{
 		/// <summary>
 		/// 右边栏ICON
 		/// </summary>
-		private CheckingManager m_rightIcons = new CheckingManager();
+		private static CheckingManager m_rightIcons = null;//new CheckingManager();
 
 		/// <summary>
 		/// 初始化右边栏数据
