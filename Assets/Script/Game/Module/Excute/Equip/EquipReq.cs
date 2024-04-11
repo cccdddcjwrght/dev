@@ -73,6 +73,36 @@ namespace SGame
 			}
 		}
 
+
+		static public void PutOnOrOffSuit(EquipItem suit)
+		{
+			if (suit.pos == 0)
+				DataCenter.EquipUtil.PutOn(suit);
+			else
+				DataCenter.EquipUtil.PutOff(suit);
+		}
+
+		static public bool SuitCompose(EquipItem suitmat, List<int[]> mats)
+		{
+			if (suitmat != null && mats?.Count > 0)
+			{
+				if (suitmat.count > 0)
+				{
+					for (int i = 0; i < mats.Count; i++)
+					{
+						if (!PropertyManager.Instance.CheckCountByArgs(mats[i]))
+						{ "@ui_suit_mat_not_enough".Tips(); return false; }
+					}
+					for (int i = 0; i < mats.Count; i++)
+						PropertyManager.Instance.UpdateByArgs(true, mats[i]);
+					PropertyManager.Instance.Update(1, suitmat.cfgID, 1, true);
+					DataCenter.EquipUtil.AddEquip(suitmat.cfg.Id, 1, cfg: suitmat.cfg);
+					return true;
+				}
+			}
+			return false;
+		}
+
 		static public int EquipAddExp(EquipItem equip, int exp, out bool uplv)
 		{
 			uplv = false;

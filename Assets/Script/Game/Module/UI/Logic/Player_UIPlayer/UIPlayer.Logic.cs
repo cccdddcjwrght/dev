@@ -37,6 +37,11 @@ namespace SGame.UI
 
 			m_view.m_eqTab.selectedIndex = 0;
 			OnDataRefresh(false);
+
+			m_view.m_suit.onClick.AddCapture(OnCheckTabOpen);
+			m_view.m_equipup.onClick.AddCapture(OnCheckTabOpen);
+
+
 		}
 
 		partial void UnInitLogic(UIContext context)
@@ -241,6 +246,23 @@ namespace SGame.UI
 
 		#region Suit
 
+		private void EquipClickOnSuit(GObject gObject, EquipItem data)
+		{
+			if (data != null && data.cfgID > 0)
+			{
+				if (data.pos > 0)
+				{
+					EquipOnOrOff(gObject, data);
+					return;
+				}
+				if (data.cfg.IsValid())
+				{
+					SGame.UIUtils.OpenUI("suitui", data);
+					HideRed(gObject, data);
+				}
+			}
+		}
+
 		private List<EquipItem> GetSuitItems()
 		{
 			var list = DataCenter.Instance.equipData.items.FindAll(e => e.type > 4);
@@ -259,15 +281,28 @@ namespace SGame.UI
 		#endregion
 
 		#region Base
+
+		void OnCheckTabOpen(EventContext context)
+		{
+
+			if (context != null && context.sender != null)
+			{
+				if ((context.sender as GObject)?.name.IsOpend() == false)
+				{
+					context.StopPropagation();
+				}
+			}
+		}
+
 		void SetEquipList(List<EquipItem> eqs = null, bool nodef = false)
 		{
-			_eqs = eqs ?? (nodef ? null : DataCenter.Instance.equipData.items.FindAll(e => e.type < 5));
+			_eqs = eqs ?? (nodef ? null : DataCenter.Instance.equipData.items.FindAll(e => e.type > 0 && e.type < 5));
 			if (_eqs != null)
 			{
 				_eqs.Sort((a, b) =>
 				{
 					a.selected = b.selected = false;
-					var c = a.type.CompareTo(b.type);
+					var c = a.realType.CompareTo(b.realType);
 					if (c == 0)
 					{
 						c = -a.quality.CompareTo(b.quality);
@@ -299,6 +334,7 @@ namespace SGame.UI
 			{
 				case 0: EquipOnOrOff(gObject, data); break;
 				case 1: EquipSelectUp(gObject, data); break;
+				case 2: EquipClickOnSuit(gObject, data); break;
 			}
 
 		}
@@ -307,11 +343,19 @@ namespace SGame.UI
 		{
 			if (data != null && data.cfgID > 0)
 			{
-				data.isnew = 0;
-				SGame.UIUtils.OpenUI("eqtipsui", data);
-				if (gObject != null)
-					UIListener.SetControllerSelect(gObject, "__redpoint", 0, false);
+				if (data.type > 4)
+					SGame.UIUtils.OpenUI("suitui", data);
+				else
+					SGame.UIUtils.OpenUI("eqtipsui", data);
+				HideRed(gObject, data);
 			}
+		}
+
+		void HideRed(GObject gObject, EquipItem data)
+		{
+			data.isnew = 0;
+			if (gObject != null)
+				UIListener.SetControllerSelect(gObject, "__redpoint", 0, false);
 		}
 		#endregion
 

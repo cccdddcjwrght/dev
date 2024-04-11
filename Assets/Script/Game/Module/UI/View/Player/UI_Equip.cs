@@ -16,6 +16,8 @@ namespace SGame.UI.Player
         public Controller m_lvstate;
         public Controller m_select;
         public Controller m_type;
+        public Controller m_suitmat;
+        public Controller m_mask;
         public GImage m_bg;
         public GLoader m_quality_2;
         public GTextField m_level;
@@ -41,11 +43,13 @@ namespace SGame.UI.Player
             m_lvstate = GetControllerAt(6);
             m_select = GetControllerAt(7);
             m_type = GetControllerAt(8);
+            m_suitmat = GetControllerAt(9);
+            m_mask = GetControllerAt(10);
             m_bg = (GImage)GetChildAt(0);
             m_quality_2 = (GLoader)GetChildAt(1);
-            m_level = (GTextField)GetChildAt(6);
-            m_count = (GTextField)GetChildAt(11);
-            m___icon = (GLoader)GetChildAt(12);
+            m_level = (GTextField)GetChildAt(5);
+            m_count = (GTextField)GetChildAt(10);
+            m___icon = (GLoader)GetChildAt(11);
         }
     }
 }

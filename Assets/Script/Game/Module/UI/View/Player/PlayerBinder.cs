@@ -23,6 +23,7 @@ namespace SGame.UI.Player
             UIObjectFactory.SetPackageItemExtension(UI_MatDiv.URL, typeof(UI_MatDiv));
             UIObjectFactory.SetPackageItemExtension(UI_UpQualityTipUI.URL, typeof(UI_UpQualityTipUI));
             UIObjectFactory.SetPackageItemExtension(UI_EquipResetUI.URL, typeof(UI_EquipResetUI));
+            UIObjectFactory.SetPackageItemExtension(UI_SuitUI.URL, typeof(UI_SuitUI));
         }
     }
 }

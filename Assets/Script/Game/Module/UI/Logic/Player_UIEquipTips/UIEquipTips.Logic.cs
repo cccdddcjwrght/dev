@@ -65,7 +65,7 @@ namespace SGame.UI
 			ConfigSystem.Instance.TryGet<BuffRowData>(equip.attrID, out buff);
 
 			m_view.SetEquipInfo(equip);
-			m_view.m_qualitytips.SetTextByKey("ui_quality_name_" + equip.cfg.Quality);
+			m_view.m_qualitytips.SetTextByKey("ui_quality_name_" + equip.quality);
 			m_view.m_click.SetTextByKey(equip.pos == 0 ? "ui_equip_on" : "ui_equip_off");
 			m_view.m_click2.SetText(m_view.m_click.text);
 

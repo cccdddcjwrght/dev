@@ -30,7 +30,10 @@ namespace SGame.UI
 
 		void OnEquipUpdate()
 		{
-			SetEquipList();
+			if (m_view.m_eqTab.selectedIndex == 2)
+				OnEquipSuitPage();
+			else
+				SetEquipList();
 		}
 
 		private void OnPlayerEquipChange()

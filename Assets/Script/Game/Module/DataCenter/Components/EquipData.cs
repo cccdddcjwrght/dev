@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameConfigs;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -115,8 +116,9 @@ namespace SGame
 				if (equip != null && equip.cfg.IsValid())
 				{
 					rets = rets ?? new List<int[]>();
-					rets.AddRange(equip.GetEffects(valid));
-					if (needmain)
+					if (equip.effectID > 0)
+						rets.AddRange(equip.GetEffects(valid));
+					if (needmain && equip.attrID > 0)
 						rets.Add(new int[] { equip.attrID, equip.attrVal });
 				}
 				return rets;
@@ -270,7 +272,7 @@ namespace SGame
 						{
 							cfgID = eq,
 							cfg = cfg,
-							level = cfg.Level,
+							level = Math.Max(cfg.Level, 1),
 							isnew = isnew ? (byte)1 : (byte)0
 						};
 						e.Refresh();
@@ -520,18 +522,26 @@ namespace SGame
 		[NonSerialized]
 		public double count;
 
-		public EquipmentRowData cfg { get; set; }
-		public EquipUpLevelCostRowData lvcfg { get; set; }
-		public EquipUpLevelCostRowData nextlvcfg { get; set; }
-		public EquipQualityRowData qcfg { get; set; }
+		[NonSerialized]
+		public EquipmentRowData cfg;
+		[NonSerialized]
+		public EquipUpLevelCostRowData lvcfg;
+		[NonSerialized]
+		public EquipUpLevelCostRowData nextlvcfg;
+		[NonSerialized]
+		public EquipQualityRowData qcfg;
 
 		public int upLvCost { get; private set; }
 		public int type { get { return cfg.IsValid() ? cfg.Type : _type; } }
+		public string name { get { return cfg.IsValid() && _name == null ? cfg.Name : _name; } }
+
 		public int attrID { get; private set; }
 		public int attrVal { get { return GetAttrVal(); } }
-
+		public int realType { get { return _type > 0 ? _type : type; } }
 
 		protected int _type;
+		protected string _name;
+
 
 		private Dictionary<string, string> _partData;
 		private int _baseAttrVal;
@@ -560,26 +570,26 @@ namespace SGame
 		public virtual BaseEquip Refresh()
 		{
 			if (this.cfgID == 0) return this;
-			if (!this.cfg.IsValid() && ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(cfgID, out var cfg))
-				this.cfg = cfg;
-			if (quality <= 0)
-				quality = this.cfg.Quality;
-			ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level, out var lv);
-			ConfigSystem.Instance.TryGet<EquipUpLevelCostRowData>(level + 1, out var nlv);
-			ConfigSystem.Instance.TryGet<EquipQualityRowData>(quality, out var qcfg);
+			if (!this.cfg.IsValid()) ConfigSystem.Instance.TryGet(cfgID, out cfg);
+			if (quality <= 0) quality = this.cfg.Quality;
 
-			this.lvcfg = lv;
-			this.nextlvcfg = nlv;
-			this.qcfg = qcfg;
+			ConfigSystem.Instance.TryGet(level, out lvcfg);
+			ConfigSystem.Instance.TryGet(level + 1, out nextlvcfg);
+			ConfigSystem.Instance.TryGet(quality, out qcfg);
+
 			upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality, lvcfg);
 			attrID = qcfg.IsValid() ? qcfg.MainBuff(0) : 0;
 			_baseAttrVal = qcfg.IsValid() ? qcfg.MainBuff(1) : 0;
 			if (type > 0)
 			{
-				if (effectID == 0)
-					effectID = DataCenter.EquipUtil.RandomEffects(this.cfg.Type, out _effects);
-				else if (_effects == null)
-					_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
+				if (type < 5)
+				{
+					this.level = Math.Max(1, this.level);
+					if (effectID == 0)
+						effectID = DataCenter.EquipUtil.RandomEffects(this.cfg.Type, out _effects);
+					else if (_effects == null)
+						_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
+				}
 			}
 			return this;
 		}
@@ -642,7 +652,7 @@ namespace SGame
 		{
 			if (_effects == null && effectID > 0)
 				_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
-			if (valid)
+			if (valid && _effects != null)
 				return _effects.Take(quality - 1).ToList();
 			return _effects;
 		}
@@ -684,13 +694,24 @@ namespace SGame
 
 		public override BaseEquip Refresh()
 		{
-			if (type > 10)
+			if (realType > 100)
 			{
 				if (cfgID > 0)
 				{
 					count = PropertyManager.Instance.GetItem(cfgID).num;
 					if (icon == null && ConfigSystem.Instance.TryGet<ItemRowData>(cfgID, out var c))
+					{
 						icon = c.Icon;
+						_name = c.Name;
+						_type = _type * 100 + c.Type;
+						if (c.Type == 6 && c.TypeId > 0)
+						{
+							ConfigSystem.Instance.TryGet<EquipmentRowData>(c.TypeId, out var eq);
+							cfg = eq;
+							if (cfg.IsValid())
+								quality = cfg.Quality;
+						}
+					}
 				}
 			}
 			else base.Refresh();
@@ -700,14 +721,10 @@ namespace SGame
 		public EquipItem Convert(int id, double num, int type)
 		{
 			cfgID = id;
-			count = num;
 			_type = 1000 + type;
-			if (ConfigSystem.Instance.TryGet<ItemRowData>(cfgID, out var c))
-			{
-				_type = _type * 100 + c.Type;
-				icon = c.Icon;
-			}
-
+			Refresh();
+			if (num != 0)
+				count = num;
 			return this;
 		}
 

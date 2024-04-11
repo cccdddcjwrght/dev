@@ -5,6 +5,7 @@ using System.Text;
 using FairyGUI;
 using SGame.UI;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace SGame
@@ -143,7 +144,6 @@ namespace SGame
 		};
 
 		private Dictionary<int, RPData> _datas = new Dictionary<int, RPData>();
-
 		private Dictionary<string, List<GameConfigs.RedConfigRowData>> _enableCheckGroup = new Dictionary<string, List<GameConfigs.RedConfigRowData>>();
 		private Dictionary<string, List<GameConfigs.RedConfigRowData>> _hideCheckGroup = new Dictionary<string, List<GameConfigs.RedConfigRowData>>();
 		private EndSimulationEntityCommandBufferSystem _commandBuffSys;
@@ -586,7 +586,7 @@ namespace SGame
 						if (OnCalculation != null)
 							status = OnCalculation(cfg, null, null);
 						redpoint.status = (byte)(status ? 1 : 0);
-						redpoint.time = (cfg.Interval == 0 ? __red_check_time : cfg.Interval) + Mathf.FloorToInt((float)Time.ElapsedTime) * 1000;
+						redpoint.time = (cfg.Interval == 0 ? __red_check_time : cfg.Interval) + (int)math.floor(Time.ElapsedTime) * 1000;
 						return old == redpoint.status ? 0 : 1;
 					}
 				}
@@ -707,8 +707,9 @@ namespace SGame
 
 		private GameConfigs.RedConfigRowData GetConfig(int id)
 		{
-			ConfigSystem.Instance.TryGet<GameConfigs.RedConfigRowData>(id, out var data);
-			return data;
+			if (_datas.TryGetValue(id, out var cfg))
+				return cfg.cfg;
+			return default;
 		}
 
 		protected void Init()
@@ -742,16 +743,16 @@ namespace SGame
 				for (int i = 0; i < all.DatalistLength; i++)
 				{
 					var c = all.Datalist(i).Value;
-					if (c.IsValid() && (c.Type > 100 || c.DependsLength == 0))
+					if (c.IsValid())
 					{
-						var data = CreateData(c);
-						if (IsDontCheckConditionType(c.Type, c.Id)) continue;
+						var flag = c.Type > 100 || c.DependsLength == 0;
+						var data = _datas[c.Id] = CreateData(c, !flag);
+						if (flag || IsDontCheckConditionType(c.Type, c.Id)) continue;
 						var r = new Redpoint() { id = c.Id };
 						var h = InitEventListen(c);
 						var e = EntityManager.CreateEntity();
 						data.ehandler = h;
 						data.node = e;
-						_datas[c.Id] = data;
 
 						this.EntityManager.AddComponentData(e, r);
 						this.EntityManager.AddComponent<RedCheck>(e);
@@ -795,15 +796,15 @@ namespace SGame
 			};
 		}
 
-		private RPData CreateData(GameConfigs.RedConfigRowData cfg)
+		private RPData CreateData(GameConfigs.RedConfigRowData cfg, bool needcall = true)
 		{
 			if (cfg.IsValid())
 				return new RPData()
 				{
 					id = cfg.Id,
 					cfg = cfg,
-					key = __red_key + cfg.Id,
-					clickCall = (e) => OnItemClick(cfg.Id, e)
+					key = needcall ? __red_key + cfg.Id : null,
+					clickCall = needcall ? (e) => OnItemClick(cfg.Id, e) : default
 				};
 			return default;
 		}
