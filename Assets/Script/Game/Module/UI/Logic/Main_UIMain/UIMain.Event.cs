@@ -20,15 +20,8 @@ namespace SGame.UI
 		private SetData m_setData;
 
 		Action<bool> timer;
-
-		public class RightItem
-		{
-			public FunctionConfigRowData config; // 配置
-			public Func<int>		     second; // 倒计时
-		}
 		
-		private List<RightItem> m_rightOpens = new List<RightItem>();
-
+		
 		/// <summary>
 		/// 区域定义
 		/// </summary>
@@ -45,12 +38,14 @@ namespace SGame.UI
 			m_rightList			= m_view.m_rightList.m_right;
 			leftList.opaque		= false;
 			m_rightList.opaque	= false;
+			RegisterUIState();
 			
 			var headBtn = m_view.m_head;
 			leftList.itemRenderer += RenderListItem;
 			leftList.numItems = 4;
 
 			m_rightList.itemRenderer = RenderRightItem;
+			m_rightList.numItems = 6;
 			
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
@@ -68,6 +63,19 @@ namespace SGame.UI
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
+		}
+
+		void RegisterUIState()
+		{
+			// 新手礼包
+			m_rightIcons.Register(3, 20, NewbieGiftModule.Instance.CanTake);
+			
+			// 明日礼包
+			m_rightIcons.Register(4, 18, () =>
+			{
+				TomorrowGiftModule.Instance.UpdateState();
+				return !TomorrowGiftModule.Instance.IsFinished();
+			}, ()=> TomorrowGiftModule.Instance.time);
 		}
 
 		private void OnHeadSetting()
@@ -120,38 +128,24 @@ namespace SGame.UI
 
 
 			// 处理右列表
-			m_rightOpens.Clear();
-			var configs = ConfigSystem.Instance.LoadConfig<FunctionConfig>();
-			for(int i = 0; i < configs.DatalistLength; i++)
+			for (int i = 0; i < m_rightList.numItems; i++)
 			{
-				var item = configs.Datalist(i);
-				if (item.Value.Parent == (int)AREA.RIGHT)
-				{
-					// 明日礼包
-					if (item.Value.Id.IsOpend(false))
-					{
-						TomorrowGiftModule.Instance.UpdateState();
-						if (item.Value.Id == 18 && !TomorrowGiftModule.Instance.IsFinished())
-						{
-							m_rightOpens.Add(new RightItem(){config = item.Value, second = ()=> TomorrowGiftModule.Instance.time});
-						}
-					}
-				}
+				m_rightList.GetChildAt(i).visible = m_rightIcons.IsVisible(i);
 			}
-			m_rightList.numItems = m_rightOpens.Count;
 		}
 
 		void OnRighMenuClick(EventContext context)
 		{
 			//var index = (int)(context.sender as GComponent).data;
-			var config = (context.sender as GComponent).data as RightItem;// m_rightOpens[index];
+			var config = (context.sender as GComponent).data as CheckingManager.CheckItem;// m_rightOpens[index];
 			SGame.UIUtils.OpenUI(config.config.Ui);
 			log.Info("click ui=" + config.config.Id);
 		}
 		
 		private void RenderRightItem(int index, GObject item)
 		{
-			var config = m_rightOpens[index];
+			//m_rightIcons.GetData(index);
+			var config = m_rightIcons.GetData(index);//m_rightOpens[index];
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
 			ui.onClick.Set(OnRighMenuClick);
@@ -161,23 +155,31 @@ namespace SGame.UI
 				return;
 			}
 			
-			// 倒计时
-			GTween.Kill(ui);
-			var configTime = config.second();
-			GTween.To(0, 1, configTime).OnUpdate((GTweener tweener) =>
+			// 倒计时刷新
+			if (config.funcTime != null)
 			{
-				ui.m_content.text = Utils.FormatTime(config.second());
-			}).SetTarget(ui).OnComplete(() =>
+				GTween.Kill(ui);
+				var configTime = config.funcTime();
+				GTween.To(0, 1, configTime).OnUpdate((GTweener tweener) =>
+				{
+					ui.m_content.text = Utils.FormatTime(config.funcTime());
+				}).SetTarget(ui).OnComplete(() =>
+				{
+					ui.m_ctrlTime.selectedIndex = 0;
+					//ui.m___redpoint.selectedIndex = 1;
+					log.Info("counter dowm zero!");
+				});
+				ui.m_ctrlTime.selectedIndex = configTime > 0 ? 1 : 0;
+				ui.m_content.text = Utils.FormatTime(configTime);
+			}
+			else
 			{
-				ui.m_time.visible = false;
-				ui.m___redpoint.selectedIndex = 1;
-				log.Info("counter dowm zero!");
-			});
-			
-			ui.m_time.visible = configTime > 0;
-			ui.m___redpoint.selectedIndex = configTime > 0 ? 0 : 1;
-			ui.m_content.text = Utils.FormatTime(configTime);
-			ui.icon = config.config.Icon;
+				// 没有倒计时
+				ui.m_ctrlTime.selectedIndex = 0;
+			}
+			//ui.m___redpoint.selectedIndex = configTime > 0 ? 0 : 1;
+			//ui.m_content.text = Utils.FormatTime(configTime);
+			//ui.icon = config.config.Icon;
 		}
 
 		private void RenderListItem(int index, GObject item)

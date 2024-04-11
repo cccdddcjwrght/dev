@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using GameConfigs;
+using SGame.Firend;
 namespace SGame.UI{
 	using log4net;
 	using SGame;
