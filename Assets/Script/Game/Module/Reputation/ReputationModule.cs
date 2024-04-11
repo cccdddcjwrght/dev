@@ -32,6 +32,16 @@ namespace SGame
             }
         }
 
+        public GameConfigs.RoomLikeRowData roomLikeData 
+        {
+            get 
+            {
+                if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(m_data.cfgId, out var data))
+                    return data;
+                return default;
+            }
+        }
+
         public string icon 
         {
             get 
