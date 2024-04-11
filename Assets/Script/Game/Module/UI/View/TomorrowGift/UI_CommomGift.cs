@@ -7,9 +7,7 @@ namespace SGame.UI.TomorrowGift
 {
     public partial class UI_CommomGift : GComponent
     {
-        public GLoader m_icon;
         public GList m_GiftItems;
-        public GComponent m_probablity;
         public const string URL = "ui://7crbg35hk51rc";
 
         public static UI_CommomGift CreateInstance()
@@ -21,9 +19,7 @@ namespace SGame.UI.TomorrowGift
         {
             base.ConstructFromXML(xml);
 
-            m_icon = (GLoader)GetChildAt(0);
-            m_GiftItems = (GList)GetChildAt(1);
-            m_probablity = (GComponent)GetChildAt(2);
+            m_GiftItems = (GList)GetChildAt(0);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("game.tomorrowGift");
         private EventHanle m_enterGameEvent;
 
-        private const int OPEN_ID = 18;
+        public const int OPEN_ID = 18;
 
         void TestTime()
         {

@@ -13,24 +13,17 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
-			m_view.m_showTime.onChanged.Add(new EventCallback1(_OnShowTimeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_gift, new EventCallback1(_OnGiftClick));
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick));
 
 		}
 		partial void UnInitUI(UIContext context){
-			m_view.m_showTime.onChanged.Remove(new EventCallback1(_OnShowTimeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_gift, new EventCallback1(_OnGiftClick),remove:true);
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick),remove:true);
 
 		}
-		void _OnShowTimeChanged(EventContext data){
-			OnShowTimeChanged(data);
-		}
-		partial void OnShowTimeChanged(EventContext data);
-		void SwitchShowTimePage(int index)=>m_view.m_showTime.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

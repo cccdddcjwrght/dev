@@ -68,10 +68,10 @@ namespace SGame.UI
 		void RegisterUIState()
 		{
 			// 新手礼包
-			m_rightIcons.Register(3, 20, NewbieGiftModule.Instance.CanTake);
+			m_rightIcons.Register(3, NewbieGiftModule.OPEN_ID, NewbieGiftModule.Instance.CanTake);
 			
 			// 明日礼包
-			m_rightIcons.Register(4, 18, () =>
+			m_rightIcons.Register(4, TomorrowGiftModule.OPEN_ID, () =>
 			{
 				TomorrowGiftModule.Instance.UpdateState();
 				return !TomorrowGiftModule.Instance.IsFinished();
@@ -146,6 +146,9 @@ namespace SGame.UI
 		{
 			//m_rightIcons.GetData(index);
 			var config = m_rightIcons.GetData(index);//m_rightOpens[index];
+			if (config == null)
+				return;
+			
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
 			ui.onClick.Set(OnRighMenuClick);
@@ -179,7 +182,7 @@ namespace SGame.UI
 			}
 			//ui.m___redpoint.selectedIndex = configTime > 0 ? 0 : 1;
 			//ui.m_content.text = Utils.FormatTime(configTime);
-			//ui.icon = config.config.Icon;
+			ui.icon = config.config.Icon;
 		}
 
 		private void RenderListItem(int index, GObject item)

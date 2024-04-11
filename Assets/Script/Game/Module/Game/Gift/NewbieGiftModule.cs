@@ -10,12 +10,46 @@ namespace SGame
 {
     public class NewbieGiftModule : Singleton<NewbieGiftModule>
     {
-        public const int        GOOD_ITEM_ID = 104;             // 商品ID
+        private static int _GOOD_ITEM_ID = -1;
+        private static int _OPEN_ID = -1;
+        
+        /// <summary>
+        /// 奖励商品ID
+        /// </summary>
+        public static int GOOD_ITEM_ID
+        {
+            get
+            {
+                if (_GOOD_ITEM_ID < 0)
+                {
+                    _GOOD_ITEM_ID = GlobalDesginConfig.GetInt("newbie_gift_goods");
+                }
+
+                return _GOOD_ITEM_ID;
+            }
+        }
+
+        /// <summary>
+        /// 功能定义ID
+        /// </summary>
+        public static int OPEN_ID
+        {
+            get
+            {
+                if (_OPEN_ID < 0)
+                {
+                    _OPEN_ID = GlobalDesginConfig.GetInt("newbie_gift_func");
+                }
+
+                return _OPEN_ID;
+            }
+        }
+
+        
         private const string    KEY_NAME = "newibiegift.taked"; // 存储名字
         private static ILog     log = LogManager.GetLogger("game.tomorrowGift");
         private EventHanle m_enterGameEvent;
 
-        private const int OPEN_ID = 18;
         
         
         public void Initalize()
