@@ -8,6 +8,8 @@ namespace SGame.UI.TomorrowGift
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_NewbieGiftUI.URL, typeof(UI_NewbieGiftUI));
+            UIObjectFactory.SetPackageItemExtension(UI_CommomGift.URL, typeof(UI_CommomGift));
             UIObjectFactory.SetPackageItemExtension(UI_TomorrowGiftUI.URL, typeof(UI_TomorrowGiftUI));
             UIObjectFactory.SetPackageItemExtension(UI_Item.URL, typeof(UI_Item));
         }
