@@ -45,7 +45,6 @@ namespace SGame.UI
 			leftList.numItems = 4;
 
 			m_rightList.itemRenderer = RenderRightItem;
-			m_rightList.numItems = 6;
 			
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
@@ -63,6 +62,7 @@ namespace SGame.UI
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
+			m_rightList.numItems = 6;
 		}
 
 		void RegisterUIState()
