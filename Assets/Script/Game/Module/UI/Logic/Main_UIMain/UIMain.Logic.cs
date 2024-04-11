@@ -1,22 +1,113 @@
 ﻿
+using log4net;
+using UnityEngine;
 namespace SGame.UI{
-	using FairyGUI;
-	using UnityEngine;
 	using SGame;
-	using SGame.UI.Main;
-	using Fibers;
 	using System;
-	using System.Collections;
+	using System.Collections.Generic;
 	using Unity.Entities;
-	using Unity.Mathematics;
-	using Unity.Transforms;
-	
+	using GameConfigs;
+
+	/// <summary>
+	/// 主界面检测管理类, 管理是否开启, 与倒计时处理
+	/// </summary>
+	public class CheckingManager// : Singleton<CheckingManager>
+	{
+		private static ILog log = LogManager.GetLogger("game.mainui");
+		
+		public class CheckItem
+		{
+			public int					 funcID;		// 功能ID
+			public FunctionConfigRowData config;		// 配置信息
+			public Func<bool>			 funcCanShow;	// 额外判定是否可显示
+			public Func<int>		     funcTime;		// 倒计时
+		}
+		private Dictionary<int, CheckItem> m_data = new Dictionary<int, CheckItem>();
+
+		/// <summary>
+		/// 注册信息
+		/// </summary>
+		/// <param name="index">UI索引</param>
+		/// <param name="funcID">功能ID</param>
+		/// <param name="canShow">额外判定是否开启</param>
+		/// <param name="funcTime">倒计时</param>
+		public void Register(int index, int funcID, Func<bool> canShow = null, Func<int> funcTime = null)
+		{
+			if (m_data.ContainsKey(index))
+			{
+				log.Error("repeate mainui key=" + index);
+				return;
+			}
+
+			if (!ConfigSystem.Instance.TryGet(funcID, out FunctionConfigRowData config))
+			{
+				log.Error("function id not found=" + funcID);
+				return;
+			}
+			
+			m_data.Add(index, new CheckItem()
+			{
+				funcID = funcID,
+				config = config,
+				funcCanShow = canShow,
+				funcTime =  funcTime
+			});
+		}
+
+		/// <summary>
+		/// 获得数据
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		public CheckItem GetData(int index)
+		{
+			if (m_data.TryGetValue(index, out CheckItem item))
+				return item;
+			
+			return null;
+		}
+
+		/// <summary>
+		/// 判断UI索引是否可显示
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		public bool IsVisible(int index)
+		{
+			var item = GetData(index);
+			if (item == null)
+				return false;
+
+			if (!item.funcID.IsOpend(false))
+				return false;
+
+			if (item.funcCanShow != null)
+				return item.funcCanShow();
+
+			return true;
+		}
+	}
+
 	public partial class UIMain
 	{
 		private UserData         m_userData;
 		private UIContext        m_context;
 		private ItemGroup        m_itemProperty;
+		
 
+		/// <summary>
+		/// 右边栏ICON
+		/// </summary>
+		private CheckingManager m_rightIcons;
+
+		/// <summary>
+		/// 初始化右边栏数据
+		/// </summary>
+		void InitRightItem(int index, int funcID, Func<int> timeCounter)
+		{
+			
+		}
+		
 		partial void InitLogic(UIContext context){
 			m_context			= context;
 			context.onUpdate	+= onUpdate;
