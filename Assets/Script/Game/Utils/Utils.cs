@@ -797,13 +797,25 @@ namespace SGame
 		/// <returns></returns>
 		public static IEnumerator GenCharacter(string part)
 		{
-			var weaponStr = Utils.PickCharacterPart(part, "weapon", out string newPart);
+			var data = CharacterPartGen.ParseString(part);
+			List<string> weapons = data.GetValues("weapon");
+			List<string> effects = data.GetValues("effect");
+			data.RemoveDatas("weapon");
+			data.RemoveDatas("effect");
+			var newPart = data.ToPartString();
 			var gen = CharacterGenerator.CreateWithConfig(newPart);
 			while (gen.ConfigReady == false)
 				yield return null;
-
+			
+			
 			var ani = gen.Generate();
-			if (!string.IsNullOrEmpty(weaponStr))
+			Equipments equip = ani.GetComponent<Equipments>();
+			if (equip == null)
+				equip = ani.AddComponent<Equipments>();
+			yield return null;
+			
+			// 设置武器
+			foreach (var weaponStr in weapons)
 			{
 				if (!int.TryParse(weaponStr, out int weaponID))
 				{
@@ -811,9 +823,21 @@ namespace SGame
 				}
 				else
 				{
-					Equipments equip = ani.AddComponent<Equipments>();
 					yield return null;
 					equip.SetWeapon(weaponID);
+				}
+			}
+
+			// 设置特效
+			foreach (var effectStr in effects)
+			{
+				if (!int.TryParse(effectStr, out int effectID))
+				{
+					log.Error("parse weapon id fail=" + effectStr);
+				}
+				else
+				{
+					equip.SetEffect(effectID);
 				}
 			}
 

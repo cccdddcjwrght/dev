@@ -11,7 +11,9 @@ using Unity.VisualScripting;
 using SGame.VS;
 using Unity.Mathematics;
 using Unity.Transforms;
+using System.Collections.Generic;
 
+    
 namespace SGame
 {
     /// <summary>
@@ -376,12 +378,19 @@ namespace SGame
         /// <returns></returns>
         IEnumerator ChangLooking(string part)
         {
-            var weaponStr = Utils.PickCharacterPart(part, "weapon", out string newPart);
+            var data = CharacterPartGen.ParseString(part);
+            List<string> weapons = data.GetValues("weapon");
+            List<string> effects = data.GetValues("effect");
+            data.RemoveDatas("weapon");
+            data.RemoveDatas("effect");
+            var newPart = data.ToPartString();
             var gen = CharacterGenerator.CreateWithConfig(newPart);
             while (gen.ConfigReady == false)
                 yield return null;
-
+			
             var ani = gen.Generate();
+
+
             ani.transform.SetParent(transform, false);
             ani.transform.localRotation = Quaternion.identity;
             ani.transform.localPosition = Vector3.zero;
@@ -399,23 +408,36 @@ namespace SGame
             GameObject.Destroy(model);
             yield return null;
             m_slot.Clear();
+            m_slot.UpdateModel();
             model = ani;
-
-            if (!string.IsNullOrEmpty(weaponStr))
+            
+            // 设置武器
+            foreach (var weaponStr in weapons)
             {
-                // 有武器
                 if (!int.TryParse(weaponStr, out int weaponID))
                 {
                     log.Error("parse weapon id fail=" + weaponStr);
-                    yield break;
                 }
-                
-                m_slot.SetWeapon(weaponID);
+                else
+                {
+                    yield return null;
+                    m_slot.SetWeapon(weaponID);
+                }
             }
-            else
+
+            // 设置特效
+            foreach (var effectStr in effects)
             {
-                m_slot.SetWeapon(0);
+                if (!int.TryParse(effectStr, out int effectID))
+                {
+                    log.Error("parse weapon id fail=" + effectStr);
+                }
+                else
+                {
+                    m_slot.SetEffect(effectID);
+                }
             }
+
             modelAnimator = ani.GetComponent<Animator>();
         }
     }

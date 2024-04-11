@@ -64,13 +64,13 @@ class TesetCharacterGame : MonoBehaviour
         for (int i = 0; i < configs.DatalistLength; i++)
         {
             var item = configs.Datalist(i);
-            if (item.Value.Slot == (int)SlotType.WEAPON)
+            if (item.Value.Slot == (int)SlotType.RWEAPON)
             {
                 weapons.Add(item.Value.ItemId);
             }
         }
         
-        m_slotIndex.Add(SlotType.WEAPON, new EquipData()
+        m_slotIndex.Add(SlotType.RWEAPON, new EquipData()
         {
             equipId = weapons
         });
@@ -159,7 +159,7 @@ class TesetCharacterGame : MonoBehaviour
         AddCategory("body", "Body", null);
         AddCategory("clothes", "clothes", null);
         AddCategory("makeup", "Makeup", null);
-        AddEquipCategory(SlotType.WEAPON, "weapon");
+        AddEquipCategory(SlotType.RWEAPON, "weapon");
         DrawAnimation();
 
         // Buttons for saving and deleting configurations.
