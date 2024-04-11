@@ -398,7 +398,7 @@ namespace SGame
 
             GameObject.Destroy(model);
             yield return null;
-            m_slot.UpdateModel();
+            m_slot.Clear();
             model = ani;
 
             if (!string.IsNullOrEmpty(weaponStr))
