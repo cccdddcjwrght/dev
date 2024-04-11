@@ -111,6 +111,8 @@ namespace SGame.UI{
 		}
 		partial void OnLikeBtn_StateChanged(EventContext data);
 		void SwitchLikeBtn_StatePage(int index)=>m_view.m_likeBtn.m_state.selectedIndex=index;
+		void SetLikeBtn_InfoText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_info,data);
+		string GetLikeBtn_InfoText()=>UIListener.GetText(m_view.m_likeBtn.m_info);
 		void SetLikeBtn_ProgressValue(float data)=>UIListener.SetValue(m_view.m_likeBtn.m_progress,data);
 		float GetLikeBtn_ProgressValue()=>UIListener.GetValue(m_view.m_likeBtn.m_progress);
 		void SetLikeBtn_TimeText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_time,data);
