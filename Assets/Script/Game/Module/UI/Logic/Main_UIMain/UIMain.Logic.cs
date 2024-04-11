@@ -93,12 +93,12 @@ namespace SGame.UI{
 		private UserData         m_userData;
 		private UIContext        m_context;
 		private ItemGroup        m_itemProperty;
-		
+
 
 		/// <summary>
 		/// 右边栏ICON
 		/// </summary>
-		private CheckingManager m_rightIcons;
+		private CheckingManager m_rightIcons = new CheckingManager();
 
 		/// <summary>
 		/// 初始化右边栏数据
