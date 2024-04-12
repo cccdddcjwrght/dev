@@ -10,8 +10,9 @@ namespace SGame
 {
     public class NewbieGiftModule : Singleton<NewbieGiftModule>
     {
-        private static int _GOOD_ITEM_ID = -1;
-        private static int _OPEN_ID = -1;
+        private static int _GOOD_ITEM_ID    = -1;
+        private static int _OPEN_ID         = -1;
+        public const string DAY_TIME_KEY = "newbie.daytime";   // 记录同一天数据
         
         /// <summary>
         /// 奖励商品ID
@@ -57,12 +58,27 @@ namespace SGame
             m_enterGameEvent = EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, OnFirstEnterRoom);
         }
 
+        /// <summary>
+        /// 判断是否是同一天
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSameDay()
+        {
+            var daytime = DataCenter.GetIntValue(DAY_TIME_KEY, 0);
+            if (daytime == 0)
+                return false; // 不是同一天
+
+            // 小于明天就是同一天
+            int currentTime = GameServerTime.Instance.serverTime;
+            return currentTime < daytime;
+        }
+
         void OnFirstEnterRoom(int levelID)
         {
             m_enterGameEvent.Close();
             m_enterGameEvent = null;
 
-            if (CanTake())
+            if (CanTake() && !IsSameDay())
             {
                 // 自动打开明日礼包
                 log.Info("Open newbiegift");

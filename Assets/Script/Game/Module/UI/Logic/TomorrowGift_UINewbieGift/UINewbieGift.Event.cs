@@ -30,7 +30,12 @@ namespace SGame.UI{
 			m_view.m_btnOK.text = LanagueSystem.Instance.GetValue(config.ShopName);
 			
 			m_view.m_gift.Initalize(NewbieGiftModule.GOOD_ITEM_ID, OnRateOpen);
+			
+			// 更新每日自动打开时间
+			DataCenter.SetIntValue(NewbieGiftModule.DAY_TIME_KEY, GameServerTime.Instance.serverTime);
+			// var daytime = DataCenter.GetIntValue(NewbieGiftModule.DAY_TIME_KEY, 0);
 		}
+		
 		partial void UnInitEvent(UIContext context){
 
 		}
