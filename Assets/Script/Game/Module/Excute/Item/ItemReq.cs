@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameConfigs;
+using Unity.VisualScripting;
 
 namespace SGame
 {
@@ -41,7 +42,10 @@ namespace SGame
 			{
 				_chestQueues.Enqueue(new ItemData.Value() { id = item.ItemId, num = item.TypeId });
 				if (!UIUtils.CheckUIIsOpen("eqgiftui"))
+				{
+					//_delayer.DelayOpen("eqgiftui", "mainui" , false , null , _chestQueues);
 					UIUtils.OpenUI("eqgiftui", _chestQueues);
+				}
 			}
 		}
 

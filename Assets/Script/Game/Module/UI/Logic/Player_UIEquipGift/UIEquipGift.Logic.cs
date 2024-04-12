@@ -37,6 +37,7 @@ namespace SGame.UI
 			_icon = m_view.m_body.GetChild("icon");
 			_list.itemRenderer = OnSetEquipInfo;
 			context.onShown += OnShow;
+			m_view.m_body.visible = false;
 			_mask = true;
 		}
 
@@ -48,7 +49,7 @@ namespace SGame.UI
 
 		private void OnShow(UIContext context)
 		{
-			OpenChest();
+			this.Delay(OpenChest, 100);
 		}
 
 		private void OpenChest()
@@ -71,6 +72,7 @@ namespace SGame.UI
 
 		private bool SetInfo(int id)
 		{
+			m_view.m_body.visible = true;
 			_eqs = GetRandomEqs(id, out var chest);
 			if (_eqs != null)
 			{

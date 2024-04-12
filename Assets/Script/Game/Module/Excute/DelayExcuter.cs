@@ -170,7 +170,7 @@ namespace SGame
 					var flag = false;
 
 					if (ui.isui)
-						SGame.UIUtils.OpenUI(ui.ui);
+						SGame.UIUtils.OpenUI(ui.ui , ui.args);
 					else if (ui.funcID > 0)
 						FunctionSystem.Instance.Goto(ui.funcID);
 					else
