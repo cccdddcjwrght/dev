@@ -41,7 +41,7 @@ namespace SGame.UI{
 
 			m_view.m_buyBtn.enabled = DataCenter.PiggyBankUtils.CheckBuyPiggyBank();
 			string priceStr = DataCenter.PiggyBankUtils.GetNextFreeRefreshTime() > 0 ?
-				DataCenter.PiggyBankUtils.shopRowData.Price.ToString() : "Free";
+				DataCenter.PiggyBankUtils.shopRowData.Price.ToString() : UIListener.Local("ui_piggybank_btn");
 			m_view.m_buyBtn.SetText(priceStr);
 		}
 
@@ -59,7 +59,7 @@ namespace SGame.UI{
 				Utils.Timer(time, () =>
 				{
 					time = DataCenter.PiggyBankUtils.GetNextFreeRefreshTime();
-					m_view.m_time.SetText(Utils.FormatTime(time));
+					m_view.m_time.SetText(string.Format(UIListener.Local("ui_piggybank_btn_tips"), Utils.FormatTime(time)));
 				}, m_view, completed: () => { m_view.m_time.visible = false; });
 			}
 		}
