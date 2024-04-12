@@ -321,7 +321,10 @@ namespace SGame.UI
 				m_view.m_likeBtn.m_num.SetText(string.Format("+{0}", likeNum));
 				if (DataCenter.Instance.reputationData.progress >= ReputationModule.Instance.maxLikeNum)
 				{
-
+					var data = ReputationModule.Instance.roomLikeData;
+					m_view.m_likeBtn.m_info.SetText(string.Format("{0}:{1}", UIListener.Local(data.BuffName),
+						string.Format(UIListener.Local(data.BuffDesc),data.BuffValue == 0 ? data.BuffDuration : data.BuffValue,data.BuffDuration)));
+					m_view.m_likeBtn.m_play.Play();
 				}
 			}
 			OnRefreshTotalState();

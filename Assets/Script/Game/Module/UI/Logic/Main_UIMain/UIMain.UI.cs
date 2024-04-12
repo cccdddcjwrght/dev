@@ -117,6 +117,8 @@ namespace SGame.UI{
 		string GetLikeBtn_TimeText()=>UIListener.GetText(m_view.m_likeBtn.m_time);
 		void SetLikeBtn_NumText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_num,data);
 		string GetLikeBtn_NumText()=>UIListener.GetText(m_view.m_likeBtn.m_num);
+		void SetLikeBtn_InfoText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_info,data);
+		string GetLikeBtn_InfoText()=>UIListener.GetText(m_view.m_likeBtn.m_info);
 		void _OnLikeBtnClick(EventContext data){
 			OnLikeBtnClick(data);
 		}

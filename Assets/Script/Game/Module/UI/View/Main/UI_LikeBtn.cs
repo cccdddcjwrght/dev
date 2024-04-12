@@ -12,7 +12,10 @@ namespace SGame.UI.Main
         public GTextField m_time;
         public GTextField m_num;
         public GGroup m_content;
+        public GTextField m_info;
+        public GGroup m_tip;
         public Transition m_add;
+        public Transition m_play;
         public const string URL = "ui://ktixaqlj9ehblb1";
 
         public static UI_LikeBtn CreateInstance()
@@ -29,7 +32,10 @@ namespace SGame.UI.Main
             m_time = (GTextField)GetChildAt(4);
             m_num = (GTextField)GetChildAt(6);
             m_content = (GGroup)GetChildAt(7);
+            m_info = (GTextField)GetChildAt(10);
+            m_tip = (GGroup)GetChildAt(11);
             m_add = GetTransitionAt(0);
+            m_play = GetTransitionAt(1);
         }
     }
 }
