@@ -49,6 +49,11 @@ namespace SGame
                 return m_data.progress >= PIGGYBANK_MID;
             }
 
+            public static bool CheckPiggyBankIsFull() 
+            {
+                return m_data.progress >= PIGGYBANK_MAX;
+            }
+
             //¹ºÂò
             public static void BuyPiggyBank() 
             {

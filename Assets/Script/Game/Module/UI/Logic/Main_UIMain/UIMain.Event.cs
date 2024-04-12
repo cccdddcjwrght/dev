@@ -57,11 +57,13 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
 			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnRefreshPiggyBankRedDot);
 
 			OnHeadSetting();
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
+			OnRefreshPiggyBankRedDot();
 			m_rightList.numItems = 6;
 		}
 
@@ -72,8 +74,9 @@ namespace SGame.UI
 
 			m_rightIcons = new CheckingManager();
 
+			//存钱罐
 			m_rightIcons.Register(2, PiggyBankModule.PIGGYBANK_OEPNID, PiggyBankModule.Instance.CanTake);
-			
+
 			// 新手礼包
 			m_rightIcons.Register(3, NewbieGiftModule.OPEN_ID, NewbieGiftModule.Instance.CanTake);
 			
@@ -337,6 +340,12 @@ namespace SGame.UI
 		{
 			m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
+		}
+
+		void OnRefreshPiggyBankRedDot() 
+		{
+			m_rightList.GetChildAt(2).asButton.GetController("__redpoint").selectedIndex =
+				DataCenter.PiggyBankUtils.CheckPiggyBankIsFull() ? 1 : 0;
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)
