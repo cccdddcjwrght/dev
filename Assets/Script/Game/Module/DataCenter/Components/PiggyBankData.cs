@@ -60,7 +60,7 @@ namespace SGame
                 //有免费次数
                 if (GetNextFreeRefreshTime() <= 0)
                 {
-                    m_data.nextRefreshTime = GameServerTime.Instance.serverTime + 86400;
+                    m_data.nextRefreshTime = GameServerTime.Instance.nextDayTime;
                     BuySuccessResult();
                     EventManager.Instance.Trigger((int)GameEvent.PIGGYBANK_UPDATE);
                     return;
@@ -93,6 +93,11 @@ namespace SGame
                 return Mathf.Max(m_data.nextRefreshTime - GameServerTime.Instance.serverTime, 0);
             }
 
+            //检测是否同一天
+            public static bool CheckIsSameDay() 
+            {
+                return GameServerTime.Instance.serverTime >= m_data.nextDayTime;
+            }
             
             public static void Reset() 
             {
@@ -117,10 +122,11 @@ namespace SGame
             m_enterGameEvent.Close();
             m_enterGameEvent = null;
 
-            if (CanTake()) 
+            if (CanTake() && DataCenter.PiggyBankUtils.CheckIsSameDay()) 
             {
                 log.Info("Open piggybank");
                 DelayExcuter.Instance.DelayOpen("piggybank", "mainui");
+                DataCenter.Instance.piggybankData.nextDayTime = GameServerTime.Instance.nextDayTime;
             }
         }
 
@@ -128,6 +134,7 @@ namespace SGame
         {
             return PIGGYBANK_OEPNID.IsOpend(false);
         }
+
     }
 
     [System.Serializable]
@@ -141,6 +148,8 @@ namespace SGame
         public int nextRefreshTime;
         //是否打破过存储罐
         public bool isBroken;
+
+        public int nextDayTime;
     }
 }
 
