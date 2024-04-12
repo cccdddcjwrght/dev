@@ -191,13 +191,13 @@ namespace SGame
                 return;
             }
             
-            if (!ConfigSystem.Instance.TryGet(effectId, out EquipRowData config))
+            if (!ConfigSystem.Instance.TryGet(effectId, out GameConfigs.effectsRowData config))
             {
                 log.Error("effect id not found=" + effectId.ToString());
                 return;
             }
             
-            var slotType        = (SlotType)config.Slot;
+            var slotType        = (SlotType)config.CharacterSlotType;
             Transform slot      = GetSlot(slotType);
             var eff = EffectSystem.Instance.Spawn3d(effectId, slot.gameObject);
             ClearEffect(slotType);
