@@ -32,6 +32,8 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("game.tomorrowGift");
         private EventHanle m_enterGameEvent;
 
+        private const int OPEN_ID = 18;
+
         void TestTime()
         {
             m_data.time = GameServerTime.Instance.serverTime + 30;
@@ -67,7 +69,7 @@ namespace SGame
 
         public bool CanTake()
         {
-            return time <= 0 && m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE;
+            return OPEN_ID.IsOpend(false) && time <= 0 && m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE;
         }
 
         /// <summary>
