@@ -47,6 +47,8 @@ namespace SGame
 		private ItemData itemData = new ItemData();
 		[SerializeField]
 		private ItemData cacheItem = new ItemData();
+		[SerializeField]
+		private ItemData m_growGiftData = new ItemData(); // 成长礼包数据
 
 		[SerializeField]
 		public double m_foodTipsGold;
@@ -126,6 +128,9 @@ namespace SGame
 			PropertyManager.Instance.InitCache(cacheItem);
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
 			PropertyManager.Instance.CombineCache2Items();
+			
+			PropertyManager.Instance.GetGroup(PropertyGroup.GROW_GIFT).Initalize(m_growGiftData);
+			
 			if (loadtime == 0)
 			{
 				IsNew = true;

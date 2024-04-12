@@ -52,6 +52,9 @@ namespace SGame
 			
 			// 初始化语言
 			DataCenter.Instance.setData.InitItemDataDic();
+			
+			// 活动时间系统
+			ActiveTimeSystem.Instance.Initalize();
 
 			AudioSystem.Instance.SetSoundVolume("BackgroundVolume",DataCenter.Instance.setData.musicVal);
 			AudioSystem.Instance.SetSoundVolume("UIVolume",DataCenter.Instance.setData.soundVal);

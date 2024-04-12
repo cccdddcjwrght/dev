@@ -8,5 +8,6 @@ namespace SGame
     public enum PropertyGroup : uint
     {
 		ITEM = 1,		// 道具
+		GROW_GIFT = 2,  // 成长礼包目标统计数据
 	}
 }
