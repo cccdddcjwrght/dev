@@ -158,7 +158,7 @@ namespace SGame.UI
 			var v = gObject as UI_Goods;
 			var time = g.CDTime();
 
-
+			v.m_saled.selectedIndex = 0;
 			if (g.free > 0)
 			{
 				v.m_currency.selectedIndex = 0;
@@ -184,7 +184,6 @@ namespace SGame.UI
 			}
 			if (time > 0)
 			{
-				v.m_cd.selectedIndex = 1;
 				v.m_time.SetText(Utils.FormatTime(time), false);
 				Utils.Timer(time, () =>
 				{
