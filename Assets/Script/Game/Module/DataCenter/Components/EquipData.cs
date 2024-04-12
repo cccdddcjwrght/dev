@@ -126,7 +126,7 @@ namespace SGame
 
 			static public List<int[]> GetEquipEffects(GameConfigs.EquipmentRowData equipment, int quality = 0, bool needMainBuff = false, List<int[]> rets = null)
 			{
-				if (equipment.IsValid())
+				/*if (equipment.IsValid())
 				{
 					quality = quality > 0 ? quality : equipment.Quality;
 
@@ -141,9 +141,7 @@ namespace SGame
 						list.Add(equipment.GetBuff4Array());
 					if (quality > 5 && equipment.Buff5Length > 0)
 						list.Add(equipment.GetBuff5Array());
-					/*
-					if (quality > 6 && equipment.Buff6Length > 0)
-						list.Add(equipment.GetBuff6Array());*/
+
 
 					if (needMainBuff)
 					{
@@ -151,7 +149,7 @@ namespace SGame
 							list.Add(cfg.GetMainBuffArray());
 					}
 					return list;
-				}
+				}*/
 				return rets;
 			}
 
