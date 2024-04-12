@@ -12,8 +12,15 @@ using UnityEngine;
 
 namespace SGame
 {
+
+	public interface IRedText
+	{
+		string text { get; }
+	}
+
 	public interface IConditonCalculator
 	{
+
 		public bool Do(IFlatbufferObject cfg, object target, string args);
 
 	}
@@ -69,7 +76,11 @@ namespace SGame
 			OnCalculation = (c, t, a) =>
 			{
 				var condition = GetConditonCalculator(GetConditionKey(c, null));
-				return condition?.Do(c, t, a) == true;
+				var ret = condition?.Do(c, t, a) == true;
+				var cfg = (RedConfigRowData)c;
+				if (condition is IRedText txt)
+					SetText(cfg.Id, txt.text);
+				return ret;
 			};
 		}
 

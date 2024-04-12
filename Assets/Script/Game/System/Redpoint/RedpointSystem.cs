@@ -147,6 +147,7 @@ namespace SGame
 		private Dictionary<string, List<GameConfigs.RedConfigRowData>> _enableCheckGroup = new Dictionary<string, List<GameConfigs.RedConfigRowData>>();
 		private Dictionary<string, List<GameConfigs.RedConfigRowData>> _hideCheckGroup = new Dictionary<string, List<GameConfigs.RedConfigRowData>>();
 		private EndSimulationEntityCommandBufferSystem _commandBuffSys;
+		private Dictionary<int, string> _texts = new Dictionary<int, string>();
 
 		protected bool _isInited = false;
 
@@ -463,7 +464,8 @@ namespace SGame
 						item.visible = true;
 						if (old == null) child.AddChild(item);
 						SetPos(item, data.Postion, data.Offset(0), data.Offset(1));
-
+						if (item != null && GetText(data.Id, out var txt))
+							item.SetText(txt);
 					}
 					else if (old != null)
 					{
@@ -809,6 +811,15 @@ namespace SGame
 			return default;
 		}
 
+		protected void SetText(int id, string txt)
+		{
+			_texts[id] = txt;
+		}
+
+		public bool GetText(int id, out string txt)
+		{
+			return _texts.TryGetValue(id, out txt);
+		}
 
 
 		private void LoadOrSaveLocalRedStatus(int id, out List<int> status)
