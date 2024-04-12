@@ -62,6 +62,8 @@ namespace SGame
 			ReputationModule.Instance.Initalize();
 			
 			NewbieGiftModule.Instance.Initalize();
+
+			PiggyBankModule.Instance.Initalize();
 		}
 
 		/// <summary>

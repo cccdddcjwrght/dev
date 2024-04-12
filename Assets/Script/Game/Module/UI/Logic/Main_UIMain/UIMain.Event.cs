@@ -71,6 +71,8 @@ namespace SGame.UI
 				return;
 
 			m_rightIcons = new CheckingManager();
+
+			m_rightIcons.Register(2, PiggyBankModule.PIGGYBANK_OEPNID, PiggyBankModule.Instance.CanTake);
 			
 			// 新手礼包
 			m_rightIcons.Register(3, NewbieGiftModule.OPEN_ID, NewbieGiftModule.Instance.CanTake);

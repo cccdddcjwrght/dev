@@ -1,4 +1,5 @@
 using GameConfigs;
+using log4net;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SGame
 
         public static class PiggyBankUtils 
         {
-            public static int PIGGYBANK_ADD = 100;//GlobalDesginConfig.GetInt("piggybank_add");
+            public static int PIGGYBANK_ADD = GlobalDesginConfig.GetInt("piggybank_add");
             public static int PIGGYBANK_MID = GlobalDesginConfig.GetInt("piggybank_mid");
             public static int PIGGYBANK_MAX = GlobalDesginConfig.GetInt("piggybank_max");
 
@@ -36,6 +37,8 @@ namespace SGame
 
             public static void AddPiggyBankValue() 
             {
+                if (!PiggyBankModule.Instance.CanTake()) return;
+
                 m_data.progress += PIGGYBANK_ADD;
                 m_data.progress = Mathf.Min(m_data.progress, PIGGYBANK_MAX);
                 EventManager.Instance.Trigger((int)GameEvent.PIGGYBANK_UPDATE);
@@ -91,6 +94,34 @@ namespace SGame
                 m_data.progress = 0;
                 m_data.stage    = 0;
             }
+        }
+    }
+
+    public class PiggyBankModule : Singleton<PiggyBankModule> 
+    {
+        private static ILog log = LogManager.GetLogger("game.piggybank");
+        public const int PIGGYBANK_OEPNID = 21;
+        private EventHanle m_enterGameEvent;
+        public void Initalize()
+        {
+            m_enterGameEvent = EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, OnFirstEnterRoom);
+        }
+
+        void OnFirstEnterRoom(int scene) 
+        {
+            m_enterGameEvent.Close();
+            m_enterGameEvent = null;
+
+            if (CanTake()) 
+            {
+                log.Info("Open piggybank");
+                DelayExcuter.Instance.DelayOpen("piggybank", "mainui");
+            }
+        }
+
+        public bool CanTake()
+        {
+            return PIGGYBANK_OEPNID.IsOpend(false);
         }
     }
 
