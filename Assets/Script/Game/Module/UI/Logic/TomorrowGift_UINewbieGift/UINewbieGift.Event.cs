@@ -32,7 +32,8 @@ namespace SGame.UI{
 			m_view.m_gift.Initalize(NewbieGiftModule.GOOD_ITEM_ID, OnRateOpen);
 			
 			// 更新每日自动打开时间
-			DataCenter.SetIntValue(NewbieGiftModule.DAY_TIME_KEY, GameServerTime.Instance.serverTime);
+			DataCenter.SetIntValue(NewbieGiftModule.DAY_TIME_KEY, GameServerTime.Instance.nextDayTime);
+			m_view.m_btnOK.text = DataCenter.ShopUtil.GetGoodsPriceStr(config.Id, config.Price);
 			// var daytime = DataCenter.GetIntValue(NewbieGiftModule.DAY_TIME_KEY, 0);
 		}
 		
