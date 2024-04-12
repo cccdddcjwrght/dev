@@ -305,6 +305,7 @@ namespace SGame.UI
 			var validTime = DataCenter.ReputationUtils.GetBuffValidTime();
 			m_view.m_likeBtn.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
 			m_view.m_likeBtn.m_state.selectedIndex = validTime > 0 ? 1 : 0;
+			m_view.m_likeBtn.SetIcon(ReputationModule.Instance.icon);
 			if (validTime > 0)
 			{
 				Utils.Timer(validTime, () =>
@@ -320,8 +321,7 @@ namespace SGame.UI
 				m_view.m_likeBtn.m_num.SetText(string.Format("+{0}", likeNum));
 				if (DataCenter.Instance.reputationData.progress >= ReputationModule.Instance.maxLikeNum)
 				{
-					m_view.m_likeBtn.m_info.SetText(UIListener.Local(ReputationModule.Instance.roomLikeData.BuffName));
-					m_view.m_likeBtn.m_play.Play();
+
 				}
 			}
 			OnRefreshTotalState();
@@ -332,6 +332,7 @@ namespace SGame.UI
 			m_view.m_likeBtn.m_state.selectedIndex = 0;
 			m_view.m_likeBtn.m_progress.fillAmount = 0;
 			DataCenter.ReputationUtils.Reset();
+			m_view.m_likeBtn.SetIcon(ReputationModule.Instance.icon);
 			OnRefreshTotalState();
 			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
