@@ -21,7 +21,7 @@ namespace SGame.UI
 
 			var list = Utils.GetArrayList(cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
 			PropertyManager.Instance.Insert2Cache(list);
-			SGame.UIUtils.AddListItems(m_view.m_list, list, OnSetReward);
+			SGame.UIUtils.AddListItems(m_view.m_body.m_list, list, OnSetReward);
 
 		}
 
@@ -33,7 +33,7 @@ namespace SGame.UI
 			item.SetText("x" + Utils.ConvertNumberStr(d[2]), false);
 		}
 
-		partial void OnClickClick(EventContext data)
+		partial void OnLevelCompletedBody_ClickClick(EventContext data)
 		{
 			PropertyManager.Instance.CombineCache2Items();
 			DelayExcuter.Instance.DelayOpen(null, "mainui", true, () =>

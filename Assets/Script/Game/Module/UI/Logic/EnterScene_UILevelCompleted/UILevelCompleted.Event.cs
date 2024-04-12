@@ -9,7 +9,7 @@ namespace SGame.UI{
 	{
 		partial void InitEvent(UIContext context){
 
-			m_view.AddEventListener("OnMaskClick", _OnClickClick);
+			m_view.AddEventListener("OnMaskClick", _OnLevelCompletedBody_ClickClick);
 
 		}
 		partial void UnInitEvent(UIContext context){

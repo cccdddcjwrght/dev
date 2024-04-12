@@ -54,6 +54,7 @@ public struct effectsRowData : IFlatbufferObject
   public ArraySegment<byte>? GetEulerAngleBytes() { return __p.__vector_as_arraysegment(18); }
 #endif
   public float[] GetEulerAngleArray() { return __p.__vector_as_array<float>(18); }
+  public int CharacterSlotType { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.effectsRowData> CreateeffectsRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -63,8 +64,10 @@ public struct effectsRowData : IFlatbufferObject
       int loop = 0,
       VectorOffset PositionOffset = default(VectorOffset),
       VectorOffset ScaleOffset = default(VectorOffset),
-      VectorOffset EulerAngleOffset = default(VectorOffset)) {
-    builder.StartTable(8);
+      VectorOffset EulerAngleOffset = default(VectorOffset),
+      int CharacterSlotType = 0) {
+    builder.StartTable(9);
+    effectsRowData.AddCharacterSlotType(builder, CharacterSlotType);
     effectsRowData.AddEulerAngle(builder, EulerAngleOffset);
     effectsRowData.AddScale(builder, ScaleOffset);
     effectsRowData.AddPosition(builder, PositionOffset);
@@ -76,7 +79,7 @@ public struct effectsRowData : IFlatbufferObject
     return effectsRowData.EndeffectsRowData(builder);
   }
 
-  public static void StarteffectsRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StarteffectsRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddPrefab(FlatBufferBuilder builder, StringOffset PrefabOffset) { builder.AddOffset(1, PrefabOffset.Value, 0); }
   public static void AddAutoFinish(FlatBufferBuilder builder, int AutoFinish) { builder.AddInt(2, AutoFinish, 0); }
@@ -94,6 +97,7 @@ public struct effectsRowData : IFlatbufferObject
   public static VectorOffset CreateEulerAngleVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateEulerAngleVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartEulerAngleVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddCharacterSlotType(FlatBufferBuilder builder, int CharacterSlotType) { builder.AddInt(8, CharacterSlotType, 0); }
   public static Offset<GameConfigs.effectsRowData> EndeffectsRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.effectsRowData>(o);

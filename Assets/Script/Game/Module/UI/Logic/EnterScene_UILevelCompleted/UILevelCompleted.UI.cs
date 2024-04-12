@@ -13,19 +13,28 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
-			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
+			UIListener.Listener(m_view.m_body.m_click, new EventCallback1(_OnLevelCompletedBody_ClickClick));
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
-			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
+			UIListener.Listener(m_view.m_body.m_click, new EventCallback1(_OnLevelCompletedBody_ClickClick),remove:true);
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
-		void _OnClickClick(EventContext data){
-			OnClickClick(data);
+		void _OnLevelCompletedBody_ClickClick(EventContext data){
+			OnLevelCompletedBody_ClickClick(data);
 		}
-		partial void OnClickClick(EventContext data);
-		void SetClickText(string data)=>UIListener.SetText(m_view.m_click,data);
-		string GetClickText()=>UIListener.GetText(m_view.m_click);
+		partial void OnLevelCompletedBody_ClickClick(EventContext data);
+		void SetLevelCompletedBody_Body_clickText(string data)=>UIListener.SetText(m_view.m_body.m_click,data);
+		string GetLevelCompletedBody_Body_clickText()=>UIListener.GetText(m_view.m_body.m_click);
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
+		}
+		partial void OnUICloseClick(ref bool state);
 
 	}
 }
