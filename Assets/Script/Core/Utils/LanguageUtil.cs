@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -10,12 +11,17 @@ namespace SGame
 	{
 		private static List<string> c_lan_list;
 
+		private static readonly string c_lan_file = Application.persistentDataPath + "/lan.bytes";
+
 		public static IEnumerator InitLanguage()
 		{
 			var req = libx.Assets.LoadAsset("Assets/BuildAsset/Log/lan.bytes", typeof(TextAsset));
 			yield return req;
 			if (string.IsNullOrEmpty(req.error))
+			{
 				c_lan_list = req.text?.Split('|', System.StringSplitOptions.RemoveEmptyEntries).ToList();
+				File.WriteAllText(c_lan_file, req.text);
+			}
 		}
 
 		public static string GetGameLanguage(string def = default)
@@ -23,9 +29,20 @@ namespace SGame
 			def = null;
 			if (c_lan_list == null)
 			{
-				var txt = Resources.Load<TextAsset>("lan");
-				if (txt != null)
-					c_lan_list = txt.text.Split('|', System.StringSplitOptions.RemoveEmptyEntries).ToList();
+				string context = default;
+				if (File.Exists(c_lan_file))
+					context = File.ReadAllText(c_lan_file);
+				if (string.IsNullOrEmpty(context))
+				{
+					var txt = Resources.Load<TextAsset>("lan");
+					if (txt != null)
+					{
+						context = txt.text;
+						File.WriteAllText(c_lan_file, context);
+					}
+				}
+				if (!string.IsNullOrEmpty(context))
+					c_lan_list = context.Split('|', System.StringSplitOptions.RemoveEmptyEntries).ToList();
 				else
 					c_lan_list = new List<string>();
 			}
