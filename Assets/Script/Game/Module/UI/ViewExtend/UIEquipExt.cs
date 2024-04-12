@@ -4,6 +4,7 @@ using FairyGUI;
 using GameConfigs;
 using SGame;
 using SGame.UI;
+using Unity.VisualScripting;
 using UnityEngine;
 
 partial class UIListenerExt
@@ -44,17 +45,17 @@ partial class UIListenerExt
 			{
 				UIListener.SetControllerSelect(gObject, "type", 1, false);
 				SetEquipInfo(gObject, equip.cfg, false);
-				UIListener.SetTextWithName(gObject, "level", equip.level.ToString());
+				UIListener.SetTextWithName(gObject, "level", equip.level.ToString() , false);
 				UIListener.SetControllerSelect(gObject, "quality", equip.quality, false);
 				UIListener.SetTextWithName(gObject, "qname", $"ui_quality_name_{equip.quality}".Local());
-				UIListener.SetTextWithName(gObject, "attribute", "+" + equip.GetAttrVal() + "%");
+				UIListener.SetTextWithName(gObject, "attribute", "+" + equip.GetAttrVal() + "%" , false);
 				UIListener.SetControllerSelect(gObject, "suitmat", issuit ? 1 : 0, false);
-				UIListener.SetTextWithName(gObject, "count", equip.count == 0 ? "" : Utils.ConvertNumberStr(equip.count));
+				UIListener.SetTextWithName(gObject, "count", equip.count == 0 ? "" : Utils.ConvertNumberStr(equip.count) , false);
 
 				if (!hidered)
 					UIListener.SetControllerSelect(gObject, "__redpoint", (equip.isnew == 1 || equip.CheckMats()) ? 1 : 0, false);
 				if (equip.qcfg.IsValid())
-					UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax));
+					UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax) , false);
 			}
 			else
 			{
@@ -69,7 +70,7 @@ partial class UIListenerExt
 					var f = equip.count >= needcount;
 					var n = Utils.ConvertNumberStr(needcount);
 					var s = needcount == 1 ? null : (equip.count >= needcount ? "ui_equip_mat_tips1" : "ui_equip_mat_tips2").Local(null, c, n);
-					UIListener.SetTextWithName(gObject, "count", s);
+					UIListener.SetTextWithName(gObject, "count", s , false);
 					if (showmask)
 						UIListener.SetControllerSelect(gObject, "mask", needcount > equip.count ? 1 : 0, false);
 					return f;
@@ -79,6 +80,14 @@ partial class UIListenerExt
 		}
 		return false;
 
+	}
+
+	static public void RefreshLevel(this GObject gObject, BaseEquip equip)
+	{
+		if (equip == null || gObject == null) return;
+		UIListener.SetTextWithName(gObject, "level", equip.level.ToString());
+		if (equip.qcfg.IsValid())
+			UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax));
 	}
 
 }

@@ -87,6 +87,7 @@ namespace SGame.UI
 		{
 			m_view.m_lvmax.selectedIndex = equip.IsMaxLv() ? 1 : 0;
 			m_view.m_funcType.selectedIndex = equip.level > 1 || equip.progress > 0 ? 0 : 1;
+			m_view.RefreshLevel(equip);
 			if (buff.IsValid()) m_view.m_attr.SetTextByKey(buff.Describe, equip.attrVal);
 			if (m_view.m_lvmax.selectedIndex == 0)
 			{

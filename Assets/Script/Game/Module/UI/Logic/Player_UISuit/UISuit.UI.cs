@@ -65,8 +65,10 @@ namespace SGame.UI{
 		partial void OnClickClick(EventContext data);
 		void SetClickText(string data)=>UIListener.SetText(m_view.m_click,data);
 		string GetClickText()=>UIListener.GetText(m_view.m_click);
-		void SetTipsText(string data)=>UIListener.SetText(m_view.m_tips,data);
-		string GetTipsText()=>UIListener.GetText(m_view.m_tips);
+		void Set__titleText(string data)=>UIListener.SetText(m_view.m___title,data);
+		string Get__titleText()=>UIListener.GetText(m_view.m___title);
+		void Set__textText(string data)=>UIListener.SetText(m_view.m___text,data);
+		string Get__textText()=>UIListener.GetText(m_view.m___text);
 
 	}
 }

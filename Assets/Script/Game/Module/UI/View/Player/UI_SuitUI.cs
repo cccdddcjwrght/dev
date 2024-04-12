@@ -14,7 +14,8 @@ namespace SGame.UI.Player
         public GLabel m_body;
         public GButton m_click;
         public GList m_list;
-        public GTextField m_tips;
+        public GTextField m___title;
+        public GTextField m___text;
         public const string URL = "ui://cmw7t1elwaj649";
 
         public static UI_SuitUI CreateInstance()
@@ -33,7 +34,8 @@ namespace SGame.UI.Player
             m_body = (GLabel)GetChildAt(0);
             m_click = (GButton)GetChildAt(7);
             m_list = (GList)GetChildAt(9);
-            m_tips = (GTextField)GetChildAt(10);
+            m___title = (GTextField)GetChildAt(10);
+            m___text = (GTextField)GetChildAt(11);
         }
     }
 }

@@ -371,12 +371,12 @@ public class UIListener
 		}
 	}
 
-	static public void SetTextWithName(GObject gObject, string labelName, string text)
+	static public void SetTextWithName(GObject gObject, string labelName, string text , bool local = true)
 	{
 		if (!string.IsNullOrEmpty(labelName) && gObject is GComponent com)
 		{
 			var c = com.GetChildByPath(labelName);
-			if (c != null) SetText(c, text);
+			if (c != null) SetText(c, text , local);
 		}
 	}
 

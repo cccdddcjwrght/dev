@@ -22,10 +22,9 @@ namespace SGame.UI
 			var showBtn = (context.GetParam().Value as object[]).Val<bool>(1, true);
 			if (eq is EquipItem) equip = eq as EquipItem;
 			else equip = new EquipItem() { cfgID = eq.cfgID, level = eq.level, quality = eq.quality, progress = 0 }.Refresh() as EquipItem;
-			var n = equip.cfg.Name.Local();
 			m_view.m_funcType.selectedIndex = -1;
 			m_view.SetEquipInfo(equip, true);
-			m_view.m_tips.SetTextByKey(equip.cfg.Description);
+			m_view.SetTextByKey(equip.cfg.Description);
 			m_view.m_flag.selectedIndex = showBtn ? 0 : 1;
 			m_view.m_funcType.selectedIndex = equip.level > 0 ? 1 : 0;
 			m_view.m_body.SetTextByKey(equip.name);
