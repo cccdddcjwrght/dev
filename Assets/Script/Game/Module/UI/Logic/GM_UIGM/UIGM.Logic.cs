@@ -172,7 +172,7 @@ namespace SGame.UI
 		private void DoItem(string[] ss)
 		{
 			var id = ss.Val<int>(1);
-			var num = ss.Val<int>(2, 1);
+			var num = ss.Val<double>(2, 1);
 			if (id > 0)
 				PropertyManager.Instance.Update(1, id, num);
 		}
