@@ -114,8 +114,7 @@ namespace SGame.UI{
 						LevelValue,
 						listData[index].ID
 					);
-				
-				
+					EventManager.Instance.Trigger((int)GameEvent.TECH_LEVEL, listData[index].ID, listData[index].LevelIndex);
 					PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, -itemNum);
 					m_view.m_techList.numItems = m_AbilityData.len; 
 				}
@@ -143,11 +142,6 @@ namespace SGame.UI{
 		/// <param name="from"></param>
 		public void OnClickTechBtn(int buffID,int buffValue,int from)
 		{
-			//如果是初始金币科技，先移除后再加上
-			if (ConfigSystem.Instance.TryGet<BuffRowData>(buffID, out var cfg))
-			{
-				if(cfg.Attribute == (int)EnumAttribute.LevelGold) EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(buffID, buffValue) { from = from, isremove = true });
-			}
 			EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData(buffID, buffValue) { from = from });
 		}
 

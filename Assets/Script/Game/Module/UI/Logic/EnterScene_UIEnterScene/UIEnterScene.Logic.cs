@@ -148,6 +148,7 @@ namespace SGame.UI
 		IEnumerator ShowVideo()
 		{
 			var flag = false;
+			EventManager.Instance.Trigger((int)GameEvent.GAME_ENTER_SCENE_EFFECT_STATR);
 			var player = _player = new GameObject("_video").AddComponent<VideoPlayer>();
 			player.waitForFirstFrame = true;
 			player.aspectRatio = VideoAspectRatio.FitHorizontally;
@@ -207,7 +208,6 @@ namespace SGame.UI
 
 		void CompleteVideo()
 		{
-			EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
 			StaticDefine.G_VIDEO_COMPLETE = true;
 			SGame.UIUtils.CloseUIByID(__id);
 			if (_player != null)
@@ -215,6 +215,7 @@ namespace SGame.UI
 				RenderTexture.ReleaseTemporary(_player.targetTexture);
 				_player.targetTexture = default;
 				GameObject.Destroy(_player);
+				EventManager.Instance.Trigger(((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END));
 			}
 		}
 
@@ -236,6 +237,7 @@ namespace SGame.UI
 			if (e.inputEvent.y < 100) CompleteVideo();
 #endif
 			SGame.UIUtils.CloseUIByID(__id);
+			EventManager.Instance.Trigger((int)GameEvent.BEFORE_ENTER_BURYINGPOINT, DataCenter.Instance.roomData.roomID);
 			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 		}
 		#endregion

@@ -32,6 +32,7 @@ namespace SGame
 			equip.level = 1;
 			equip.progress = 0;
 			equip.Refresh();
+			EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, SDK.TDSDK.TDEvent.equipment_merge.ToString(), equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 			DataCenter.EquipUtil.RemoveEquips(eqs);
 			log.Info($"[equip] recycle mat:{count}");
 
@@ -47,7 +48,7 @@ namespace SGame
 				equip.progress = 0;
 				equip.Refresh();
 				EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
-
+				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, SDK.TDSDK.TDEvent.equipment_upgrade.ToString(), equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 			}
 		}
 
@@ -56,6 +57,7 @@ namespace SGame
 			if (equip != null && equip.cfg.IsValid() && (equip.level > 1 || equip.progress > 0))
 			{
 				DataCenter.EquipUtil.RecycleEquip(equip, false, true);
+				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, SDK.TDSDK.TDEvent.equipment_reset.ToString(), equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 				equip.level = 1;
 				equip.progress = 0;
 				equip.Refresh();
@@ -70,6 +72,7 @@ namespace SGame
 				if (equip.pos > 0) DataCenter.EquipUtil.PutOff(equip, true);
 				PropertyManager.Instance.UpdateByArgs(false, equip.qcfg.GetBreakRewardArray());
 				DataCenter.EquipUtil.RecycleEquip(equip, true, true);
+				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, SDK.TDSDK.TDEvent.equipment_decompose.ToString(), equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 			}
 		}
 

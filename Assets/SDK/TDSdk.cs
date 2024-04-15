@@ -17,6 +17,16 @@ namespace SDK.TDSDK
 		update,
 		enter_game,
 		guide_step,
+		open_show_begin,
+		open_show_end,
+		shop_buy,
+		level_finish,
+		machine_star,
+		equipment_upgrade,
+		equipment_merge,
+		equipment_reset,
+		equipment_decompose,
+		ability_update,
 	}
 
 	public class PItem : IEquatable<PItem>
@@ -188,8 +198,33 @@ namespace SDK.TDSDK
 			});
 
 			EventManager.Instance.Reg(((int)GameEvent.ENTER_GAME), () => TrackNormal(TDEvent.enter_game.ToString()));
-			EventManager.Instance.Reg<int>(((int)GameEvent.GUIDE_STEP), (a) => TrackNormal(TDEvent.guide_step.ToString(), "step", a));
+			EventManager.Instance.Reg<int>(((int)GameEvent.GUIDE_STEP), (a) => TrackNormal(TDEvent.guide_step.ToString(), "guide_id", a));
 
+			//开场动画埋点，开始和结束
+			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_SCENE_EFFECT_STATR, () => TrackNormal(TDEvent.open_show_begin.ToString()));
+			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END, () => TrackNormal(TDEvent.open_show_end.ToString()));
+
+			EventManager.Instance.Reg<int, int, float>((int)GameEvent.SHOP_BUY_BURYINGPOINT, (cfgId, type, price) => TrackNormal(TDEvent.shop_buy.ToString(),
+				"goods_id", cfgId, "purchase_type", type, "purchase_price", price));
+
+			//点击下一关卡埋点
+			EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_BURYINGPOINT, (cfgId) =>
+			{
+				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomRowData>(cfgId, out var data)) { TrackNormal(TDEvent.level_finish.ToString(), "level_sub_id", data.SubId, "level_region_id",data.RegionId); }
+			});
+		
+			//工作台升星埋点
+			EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, (machineCfgId, machineStar) => TrackNormal(TDEvent.machine_star.ToString(),
+				 "machine_id", machineCfgId,
+				 "machine_star", machineStar));
+
+			//装备升级，品质提升，重置，分解埋点
+			EventManager.Instance.Reg<string, int, int, int, int>((int)GameEvent.EQUIP_BURYINGPOINT, (id, e1, e2, e3, e4) => OnEquiped(id, e1, e2, e3, e4));
+
+			//全局科技埋点
+			EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (techId, techLevel) => TrackNormal(TDEvent.ability_update.ToString(),
+				"ability_id", techId, 
+				"ability_level", techLevel));
 		}
 
 		private void RegisterProperties()
@@ -214,6 +249,7 @@ namespace SDK.TDSDK
 				UpdateData("first_login_time", time, true);
 			}
 			UpdateData("last_login_time", time);
+			UpdateData("current_level", DataCenter.Instance.roomData.roomID);
 			TrackNormal("login");
 		}
 
@@ -241,6 +277,14 @@ namespace SDK.TDSDK
 				if (_onceCaches.Count > 0)
 					UpdateDatas(_onceCaches, true);
 			}
+		}
+
+		public void OnEquiped(string id, int equipCfgId, int equipLevel, int equipQuality, int equipPos) 
+		{
+			TrackNormal(id.ToString(), "equipment_id", equipCfgId,
+				"equipment_level", equipLevel,
+				"equipment_quality", equipQuality,
+				"equipment_type", equipPos);
 		}
 
 

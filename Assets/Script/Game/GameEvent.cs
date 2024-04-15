@@ -38,6 +38,8 @@ namespace SGame
 		GAME_MAIN_REFRESH           = 115,//游戏刷新       
 		GAME_ENTER_SCENE_EFFECT_END = 116,//进场表现结束
 		ENTER_NEW_ROOM				= 117,//进入新场景
+		GAME_ENTER_SCENE_EFFECT_STATR =118,//进场表现开始
+		BEFORE_ENTER_BURYINGPOINT   = 119,//进入下一关前埋点
 
 		ORDER = 200,                             // 创建新订单 (int 订单ID)
 		ORDER_FOODMAKED				= 201,       // 
@@ -85,11 +87,13 @@ namespace SGame
 		TECH_ADD_REWARD				= 4001,//科技添加奖励 （int tech)
 		TECH_ADD_TABLE				= 4002,//科技添加桌子 （int roommachine)
 		TECH_ADD_ROLE				= 4003,//科技添加角色 （int roletype,int count,int tableid)
+		TECH_LEVEL					= 4004,//全局科技升级
 
 		//Shop===============================================
 		SHOP_REFRESH				= 5001,//商城刷新
 		SHOP_GOODS_BUY_RESULT		= 5002,//商品购买
 		SHOP_BOOST_BUY				= 5003,//buff购买(id,level)
+		SHOP_BUY_BURYINGPOINT		= 5004,//商品购买埋点
 
 		//===================================================
 		EQUIP_REFRESH				= 6001,//装备刷新
@@ -97,7 +101,7 @@ namespace SGame
 		ROLE_EQUIP_CHANGE			= 6003,//装备穿戴变化
 		ROLE_EQUIP_PUTON			= 6004,//装备穿戴（int id）
 		ROLE_PROPERTY_REFRESH		= 6005,//角色属性变化
-
+		EQUIP_BURYINGPOINT			= 6006,//装备埋点
 
 		//设置======================================
 		SETTING_UPDATE_INT = 8001,     //(int)设置更新
