@@ -12,6 +12,7 @@ namespace SGame.UI.GrowGift
         public GButton m_btnCollect;
         public GButton m_btnBuy;
         public GRichTextField m_lblTime;
+        public GList m_listRewards;
         public const string URL = "ui://862omg9yjfxh0";
 
         public static UI_GrowGiftUI CreateInstance()
@@ -28,6 +29,7 @@ namespace SGame.UI.GrowGift
             m_btnCollect = (GButton)GetChildAt(1);
             m_btnBuy = (GButton)GetChildAt(2);
             m_lblTime = (GRichTextField)GetChildAt(3);
+            m_listRewards = (GList)GetChildAt(4);
         }
     }
 }
