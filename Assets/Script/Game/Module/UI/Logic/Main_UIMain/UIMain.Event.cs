@@ -86,6 +86,10 @@ namespace SGame.UI
 				TomorrowGiftModule.Instance.UpdateState();
 				return !TomorrowGiftModule.Instance.IsFinished();
 			}, ()=> TomorrowGiftModule.Instance.time);
+			
+			// 成长礼包
+			m_rightIcons.Register(5, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0));
+			m_rightIcons.Register(6, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1));
 		}
 
 		private void OnHeadSetting()
