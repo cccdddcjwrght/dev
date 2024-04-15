@@ -66,7 +66,8 @@ namespace SGame
 			
 			NewbieGiftModule.Instance.Initalize();
 
-			PiggyBankModule.Instance.Initalize();
+PiggyBankModule.Instance.Initalize();
+			GrowGiftModule.Instance.Initialize();
 		}
 
 		/// <summary>
