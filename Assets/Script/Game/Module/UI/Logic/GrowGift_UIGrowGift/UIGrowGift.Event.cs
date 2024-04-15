@@ -8,6 +8,7 @@ namespace SGame.UI{
 	public partial class UIGrowGift
 	{
 		private int m_goodsID = 0;
+		private GrowGiftData m_datas;
 		partial void InitEvent(UIContext context)
 		{
 			var entityManager = context.gameWorld.GetEntityManager();
@@ -18,6 +19,10 @@ namespace SGame.UI{
 
 
 			m_goodsID = GrowGiftModule.Instance.GetActiveGoodID(index);
+			m_datas = GrowGiftModule.Instance.GetGiftData(m_goodsID);
+
+			m_view.m_listRewards.itemRenderer = OnRenderRewards;
+			m_view.m_listRewards.numItems = m_datas.m_rewards.Count;
 			log.Error("open ui param =" + index + " goodsID=" + m_goodsID);
 		}
 
