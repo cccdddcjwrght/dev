@@ -11,10 +11,25 @@ namespace SGame
     /// </summary>
     public class GrowGiftModule : Singleton<GrowGiftModule>
     {
-        // 重新组织配置数据
-        public const int OPEND_ID = 50;
+        private static int _OPEND_ID = -1;
         
-        public const int GOODS_ID = 102;
+        // 重新组织配置数据
+        public static int OPEND_ID
+        {
+            get
+            {
+                if (_OPEND_ID < 0)
+                {
+                    _OPEND_ID = GlobalDesginConfig.GetInt("growgift_func", 0);
+                    if (_OPEND_ID == 0)
+                    {
+                        log.Error("growgift_func open id not found");
+                    }
+                }
+
+                return _OPEND_ID;
+            }
+        }
         
         SortedDictionary<int, GrowGfitData> m_configDatas = new SortedDictionary<int, GrowGfitData>();
 
@@ -97,10 +112,16 @@ namespace SGame
         /// <summary>
         /// 根据礼包ID, 获取整个礼包的数据
         /// </summary>
-        /// <param name="goodID">商品ID</param>
+        /// <param name="goodsID">商品ID</param>
         /// <returns></returns>
-        public GrowGfitData GetGiftData(int goodID)
+        public GrowGfitData GetGiftData(int goodsID)
         {
+            if (m_configDatas.TryGetValue(goodsID, out GrowGfitData config))
+            {
+                return config;
+            }
+            
+            log.Info("goodsID not found=" + goodsID);
             return null;
         }
         
