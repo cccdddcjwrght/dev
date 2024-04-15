@@ -11,6 +11,7 @@ namespace SGame.UI{
 		private List<TotalItem> m_TotalItems;
 		partial void InitLogic(UIContext context){
 			m_view.m_list.itemRenderer = OnItemRenderer;
+			m_view.m_body.SetText(UIListener.Local("ui_like_title_3"));
 			RefreshTotalList();
 		}
 
