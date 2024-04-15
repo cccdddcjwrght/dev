@@ -126,5 +126,7 @@ namespace SGame
 
 		PIGGYBANK_UPDATE				= 12000, //存钱罐刷新
 
+		ACTIVITY_OPEN					= 13000, // 活动开启(int activeID)
+		ACTIVITY_CLOSE					= 13001, // 活动结束(int activeID)
 	}
 }

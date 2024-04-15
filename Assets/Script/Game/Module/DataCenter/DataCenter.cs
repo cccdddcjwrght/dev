@@ -47,8 +47,9 @@ namespace SGame
 		private ItemData itemData = new ItemData();
 		[SerializeField]
 		private ItemData cacheItem = new ItemData();
+
 		[SerializeField]
-		private ItemData m_growGiftData = new ItemData(); // 成长礼包数据
+		public GrowGiftRecord m_growData = new GrowGiftRecord();
 
 		[SerializeField]
 		public double m_foodTipsGold;
