@@ -23,7 +23,13 @@ namespace SGame.UI
 			PropertyManager.Instance.Insert2Cache(list);
 			SGame.UIUtils.AddListItems(m_view.m_body.m_list, list, OnSetReward);
 
+			EffectSystem.Instance.AddEffect(9, m_view.m_body, m_view);
+			this.Delay(AddEffect, 300);
+
+
 		}
+
+		void AddEffect() => EffectSystem.Instance.AddEffect(10, m_view.m_body.m___effect1, m_view);
 
 		void OnSetReward(int index, object data, GObject gObject)
 		{
@@ -45,7 +51,7 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-
+			EffectSystem.Instance.ReleaseEffect(m_view);
 		}
 
 	}

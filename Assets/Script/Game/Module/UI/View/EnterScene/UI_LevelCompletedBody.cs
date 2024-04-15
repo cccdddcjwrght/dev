@@ -7,6 +7,8 @@ namespace SGame.UI.EnterScene
 {
     public partial class UI_LevelCompletedBody : GLabel
     {
+        public GGraph m___effect;
+        public GGraph m___effect1;
         public GList m_list;
         public GButton m_click;
         public Transition m_doshow;
@@ -22,8 +24,10 @@ namespace SGame.UI.EnterScene
         {
             base.ConstructFromXML(xml);
 
-            m_list = (GList)GetChildAt(6);
-            m_click = (GButton)GetChildAt(7);
+            m___effect = (GGraph)GetChildAt(0);
+            m___effect1 = (GGraph)GetChildAt(1);
+            m_list = (GList)GetChildAt(8);
+            m_click = (GButton)GetChildAt(9);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }
