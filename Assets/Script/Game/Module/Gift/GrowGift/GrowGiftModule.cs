@@ -12,7 +12,10 @@ namespace SGame
     public class GrowGiftModule : Singleton<GrowGiftModule>
     {
         // 重新组织配置数据
-        //private Dictionary<int, GrowGfitData> m_configDatas = new Dictionary<int, GrowGfitData>();
+        public const int OPEND_ID = 50;
+        
+        public const int GOODS_ID = 102;
+        
         SortedDictionary<int, GrowGfitData> m_configDatas = new SortedDictionary<int, GrowGfitData>();
 
         private static ILog log = LogManager.GetLogger("game.growgift");
@@ -26,10 +29,31 @@ namespace SGame
             EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, (a, b) => RecordTargetNum(GrowTargetID.STAR_UP));
         }
 
+        public bool IsOpend()
+        {
+            return OPEND_ID.IsOpend(false);
+        }
+
+        /// <summary>
+        /// 判断第N个成长礼包是否开启
+        /// </summary>
+        /// <param name="opendIndex"></param>
+        /// <returns></returns>
+        public bool IsOpend(int opendIndex)
+        {
+            if (!IsOpend())
+                return false;
+
+            return GetActiveGoodID(opendIndex) > 0;
+        }
+
+        /// <summary>
+        /// 通过配置表初始化数据
+        /// </summary>
         void InitConfigs()
         {
             var configs = ConfigSystem.Instance.LoadConfig<ProgressPack>();
-            GrowGfitData value = null;//new GrowGfitData() {}
+            GrowGfitData value = null;
             for (int i = 0; i < configs.DatalistLength; i++)
             {
                 var item = configs.Datalist(i);
@@ -50,12 +74,12 @@ namespace SGame
                 
                 value.m_rewards.Add(new GiftReward()
                 {
-                    configID = item.Value.Id,
-                    conditionType = item.Value.Type,
-                    conditionValue = item.Value.Value,
-                    desc = item.Value.Des,
-                    isFree = item.Value.Pay == 0,
-                    reward = new ItemData.Value(){id = item.Value.Reward(1), num = item.Value.Reward(2), type = (PropertyGroup)item.Value.Reward(0)}
+                    configID        = item.Value.Id,
+                    conditionType   = item.Value.Type,
+                    conditionValue  = item.Value.Value,
+                    desc            = item.Value.Des,
+                    isFree          = item.Value.Pay == 0,
+                    reward          = new ItemData.Value(){id = item.Value.Reward(1), num = item.Value.Reward(2), type = (PropertyGroup)item.Value.Reward(0)}
                 });
             }
         }

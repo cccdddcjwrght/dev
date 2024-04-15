@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 // 成长礼包配置数据重新组织
 namespace SGame
@@ -14,6 +15,22 @@ namespace SGame
         public string         desc;              // 描述信息
         public bool           isFree;            // 是否免费
         public ItemData.Value reward;            // 奖励数据
+
+        /// <summary>
+        /// 获取条件达成进度[0-100]
+        /// </summary>
+        /// <returns></returns>
+        public int GetConditionProgress()
+        {
+            var itemGroup = PropertyManager.Instance.GetGroup(PropertyGroup.GROW_GIFT);
+            var value = itemGroup.GetNum(conditionType);
+            var baseValue = (double)conditionValue;
+            if (baseValue <= value)
+                return 100;
+
+            int ret = (int)(value / baseValue);
+            return ret;
+        }
     }
 
     // 成长礼包数据
