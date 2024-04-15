@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameConfigs;
 using log4net;
 using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 namespace SGame
@@ -15,6 +16,10 @@ namespace SGame
         private static int _OPEND_ID = -1;
         public const int ACTIVE_TYPE = 1; // 活动类型
 
+        /// <summary>
+        /// 获得动态数据
+        /// </summary>
+        /// <returns></returns>
         public GrowGiftRecord GetData()
         {
             return DataCenter.Instance.m_growData;
@@ -38,7 +43,7 @@ namespace SGame
             }
         }
         
-        SortedDictionary<int, GrowGfitData> m_configDatas = new SortedDictionary<int, GrowGfitData>();
+        SortedDictionary<int, GrowGiftData> m_configDatas = new SortedDictionary<int, GrowGiftData>();
 
         private static ILog log = LogManager.GetLogger("game.growgift");
         
@@ -52,8 +57,58 @@ namespace SGame
             
             // 统计升星数据 
             EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, (a, b) => RecordTargetNum(GrowTargetID.STAR_UP));
+
+            EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_OPEN, OnActivityOpend);
+            EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_CLOSE, OnActivityClosed);
+
+        }
+
+        /// <summary>
+        /// 活动开启
+        /// </summary>
+        /// <param name="activityID"></param>
+        void OnActivityOpend(int activityID)
+        {
+            // 不是我们的模块
+            var config = FindGiftConfig(activityID);
+            if (config == null)
+                return;
             
-            //EventManager.Instance.Reg<int, int>
+            
+            var data = GetData();
+            if (data.GetItem(config.shopID) != null)
+            {
+                // 活动重复开启?
+                log.Error("growgift active repeate open =" + config.shopID + " activityID=" + activityID);
+                return;
+            }
+            
+            // 新的活动有效, 创建活动数据
+            data.AddNewItem(config.shopID, config.activeID);
+            var newGift = GrowGiftItem.Create(config.shopID, config.activeID);
+
+            // 刷新主界面
+            EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
+        }
+
+        /// <summary>
+        /// 活动结束
+        /// </summary>
+        /// <param name="activityID"></param>
+        void OnActivityClosed(int activityID)
+        {
+            // 不是我们的模块
+            var config = FindGiftConfig(activityID);
+            if (config == null)
+                return;
+            
+            var data = GetData();
+            var item = data.GetItem(config.shopID);
+            if (item != null)
+            {
+                data.Values.Remove(item);
+                EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
+            }
         }
 
         public bool IsOpend()
@@ -81,13 +136,13 @@ namespace SGame
         {
             // 初始化配置表
             var configs = ConfigSystem.Instance.LoadConfig<ProgressPack>();
-            GrowGfitData value = null;
+            GrowGiftData value = null;
             for (int i = 0; i < configs.DatalistLength; i++)
             {
                 var item = configs.Datalist(i);
                 if (value == null || value.shopID != item.Value.ShopId)
                 {
-                    value = new GrowGfitData()
+                    value = new GrowGiftData()
                     {
                         shopID = item.Value.ShopId,
                         activeID =  item.Value.ActiveID,
@@ -111,22 +166,10 @@ namespace SGame
                     reward          = new ItemData.Value(){id = item.Value.Reward(1), num = item.Value.Reward(2), type = (PropertyGroup)item.Value.Reward(0)}
                 });
             }
-            
-            // updatefree
-            foreach (var item in m_configDatas)
-            {
-                item.Value.isAllFree = IsAllFree(item.Value.m_rewards);
-            }
         }
 
         void InitRecordData()
         {
-            // updatefree
-            foreach (var item in m_configDatas)
-            {
-                item.Value.isAllFree = IsAllFree(item.Value.m_rewards);
-            }
-
             // 删除不在活动中的对象
             int currentTime = GameServerTime.Instance.serverTime;
             var datas = GetData();
@@ -146,8 +189,7 @@ namespace SGame
                 {
                     if (GetGiftRecord(item.Value.shopID) == null)
                     {
-                        var newItem = GrowGiftItem.Create(item.Value.shopID, item.Value.activeID);
-                        datas.Values.Add(newItem);
+                        datas.AddNewItem(item.Value.shopID, item.Value.activeID);
                     }
                 }
             }
@@ -197,9 +239,9 @@ namespace SGame
         /// </summary>
         /// <param name="goodsID">商品ID</param>
         /// <returns></returns>
-        public GrowGfitData GetGiftData(int goodsID)
+        public GrowGiftData GetGiftData(int goodsID)
         {
-            if (m_configDatas.TryGetValue(goodsID, out GrowGfitData config))
+            if (m_configDatas.TryGetValue(goodsID, out GrowGiftData config))
             {
                 return config;
             }
@@ -224,6 +266,22 @@ namespace SGame
         }
 
         /// <summary>
+        /// 通过活动ID找到对应的配置
+        /// </summary>
+        /// <param name="activeID"></param>
+        /// <returns></returns>
+        public GrowGiftData FindGiftConfig(int activeID)
+        {
+            foreach (var value in m_configDatas.Values)
+            {
+                if (value.activeID == activeID)
+                    return value;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// 判断是否已经获得奖励
         /// </summary>
         /// <param name="configID"></param>
@@ -234,22 +292,23 @@ namespace SGame
         }
 
         /// <summary>
-        /// 判断商品是否购买
+        /// 购买商品
         /// </summary>
         /// <param name="goodsID"></param>
         /// <returns></returns>
-        public bool IsBuy(int goodsID)
+        public bool BuyGoods(int goodsID)
         {
-            if (m_configDatas.TryGetValue(goodsID, out GrowGfitData config))
-            {
-                log.Error("config id not found=" + goodsID);
-                return false;
-            }
+            return true;
+        }
 
-            if (config.isAllFree)
-                return true;
-            
-            return DataCenter.ShopUtil.IsHasBuy(goodsID);
+        /// <summary>
+        /// 获取奖励
+        /// </summary>
+        /// <param name="configID"></param>
+        /// <returns></returns>
+        public bool TakedReward(int configID)
+        {
+            return false;
         }
 
         public bool OnOpend()

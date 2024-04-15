@@ -98,5 +98,23 @@ namespace SGame
 
             return null;
         }
+
+        public bool AddNewItem(int goodsID, int activityID)
+        {
+            GrowGiftItem item = GrowGiftItem.Create(goodsID, activityID);
+            Values.Add(item);
+            return true;
+        }
+
+        public GrowGiftItem GetItemFromActivityID(int activityID)
+        {
+            foreach (var item in Values)
+            {
+                if (item.activlityID == activityID)
+                    return item;
+            }
+
+            return null;
+        }
     }
 }
