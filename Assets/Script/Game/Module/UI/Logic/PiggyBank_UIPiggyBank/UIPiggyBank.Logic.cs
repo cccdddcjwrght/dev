@@ -36,6 +36,7 @@ namespace SGame.UI{
 		{
 			var data = DataCenter.Instance.piggybankData;
 			m_view.m_progress.value = data.progress;
+			m_view.m_progress.m_value.SetText(data.progress.ToString());
 			m_view.m_state.selectedIndex = data.progress >= DataCenter.PiggyBankUtils.PIGGYBANK_MID ?
 				data.progress >= DataCenter.PiggyBankUtils.PIGGYBANK_MAX ? 2 : 1 : 0;
 

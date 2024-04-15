@@ -9,6 +9,7 @@ namespace SGame.UI.PiggyBank
     {
         public GTextField m_midValue;
         public GTextField m_maxValue;
+        public GTextField m_value;
         public const string URL = "ui://k2a58dz5a9b7r";
 
         public static UI_PiggyBankProgress CreateInstance()
@@ -22,6 +23,7 @@ namespace SGame.UI.PiggyBank
 
             m_midValue = (GTextField)GetChildAt(4);
             m_maxValue = (GTextField)GetChildAt(6);
+            m_value = (GTextField)GetChildAt(8);
         }
     }
 }

@@ -63,8 +63,8 @@ namespace SGame.UI
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
-			OnRefreshPiggyBankRedDot();
 			m_rightList.numItems = 6;
+			OnRefreshPiggyBankRedDot();
 		}
 
 		void RegisterUIState()
@@ -348,8 +348,13 @@ namespace SGame.UI
 
 		void OnRefreshPiggyBankRedDot() 
 		{
-			m_rightList.GetChildAt(2).asButton.GetController("__redpoint").selectedIndex =
+			GButton btn = m_rightList.GetChildAt(2).asButton;
+			btn.GetController("__redpoint").selectedIndex =
 				DataCenter.PiggyBankUtils.CheckPiggyBankIsFull() ? 1 : 0;
+			btn.GetController("ctrlTime").selectedIndex = 1;
+			btn.GetChild("content").SetText(string.Format("{0}/{1}",
+				DataCenter.Instance.piggybankData.progress,
+				DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)
