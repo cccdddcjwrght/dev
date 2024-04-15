@@ -16,7 +16,7 @@ namespace SGame
         {
             UNLOCK1     = 0, // 未解锁, 未达成 
             UNLOCK2     = 1, // 未解锁, 达成
-            UNFINISHED  = 2, // 已解锁, 未达成
+            UNFINISH    = 2, // 已解锁, 未达成
             CANTAKE     = 3, // 已解锁, 已达成(但未领取)
             FINISH      = 4, // 已领取
         }
@@ -80,7 +80,7 @@ namespace SGame
             }
 
             if (progress < 100)
-                return State.UNFINISHED;
+                return State.UNFINISH;
             
             var data = DataCenter.Instance.m_growData.GetItem(goodsID);
             bool isTaked = data.IsTaked(configID);

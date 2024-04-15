@@ -45,7 +45,8 @@ namespace SGame.UI
 			leftList.numItems = 4;
 
 			m_rightList.itemRenderer = RenderRightItem;
-			
+			m_rightList.numItems = 7;
+
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
@@ -63,7 +64,6 @@ namespace SGame.UI
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
-			m_rightList.numItems = 7;
 			OnRefreshPiggyBankRedDot();
 		}
 
@@ -88,8 +88,8 @@ namespace SGame.UI
 			}, ()=> TomorrowGiftModule.Instance.time);
 			
 			// 成长礼包
-			m_rightIcons.Register(5, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0));
-			m_rightIcons.Register(6, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1));
+			m_rightIcons.Register(5, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0), null, 0);
+			m_rightIcons.Register(6, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1), null, 1);
 		}
 
 		private void OnHeadSetting()
@@ -156,10 +156,11 @@ namespace SGame.UI
 
 		void OnRighMenuClick(EventContext context)
 		{
-			//var index = (int)(context.sender as GComponent).data;
-			var config = (context.sender as GComponent).data as CheckingManager.CheckItem;// m_rightOpens[index];
-			SGame.UIUtils.OpenUI(config.config.Ui);
-			log.Info("click ui=" + config.config.Id);
+			var index = (int)(context.sender as GComponent).data;
+			//var config = (context.sender as GComponent).data as CheckingManager.CheckItem;// m_rightOpens[index];
+			//SGame.UIUtils.OpenUI(config.config.Ui);
+			//log.Info("click ui=" + config.config.Id);
+			m_rightIcons.OpenUI(index);
 		}
 		
 		private void RenderRightItem(int index, GObject item)
@@ -170,7 +171,7 @@ namespace SGame.UI
 				return;
 			
 			UI_ActBtn ui = item as UI_ActBtn;
-			ui.data = config;
+			ui.data = index;
 			ui.onClick.Set(OnRighMenuClick);
 			if (ui == null)
 			{

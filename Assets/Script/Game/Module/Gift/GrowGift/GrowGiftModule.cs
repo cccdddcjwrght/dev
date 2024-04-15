@@ -43,13 +43,18 @@ namespace SGame
             // 初始配置表
             InitConfigs();
 
-            // 初始化存储数据
-            InitRecordData();
-            
             // 统计升星数据 
             EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, (a, b) => RecordTargetNum(GrowTargetID.STAR_UP));
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_OPEN, OnActivityOpend);
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_CLOSE, OnActivityClosed);
+            EventManager.Instance.Reg((int)GameEvent.DATA_INIT_COMPLETE, OnDataInitalizeFinish);
+
+        }
+
+        void OnDataInitalizeFinish()
+        {
+            // 初始化数据
+            InitRecordData();
         }
         
         /// <summary>

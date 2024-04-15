@@ -7,7 +7,11 @@ namespace SGame.UI.GrowGift
 {
     public partial class UI_GrowGiftUI : GComponent
     {
+        public Controller m_buy;
         public GLabel m_body;
+        public GButton m_btnCollect;
+        public GButton m_btnBuy;
+        public GRichTextField m_lblTime;
         public const string URL = "ui://862omg9yjfxh0";
 
         public static UI_GrowGiftUI CreateInstance()
@@ -19,7 +23,11 @@ namespace SGame.UI.GrowGift
         {
             base.ConstructFromXML(xml);
 
+            m_buy = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
+            m_btnCollect = (GButton)GetChildAt(1);
+            m_btnBuy = (GButton)GetChildAt(2);
+            m_lblTime = (GRichTextField)GetChildAt(3);
         }
     }
 }
