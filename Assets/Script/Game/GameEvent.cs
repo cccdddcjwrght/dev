@@ -131,6 +131,7 @@ namespace SGame
 		PIGGYBANK_UPDATE				= 12000, //存钱罐刷新
 
 
+
 		//宠物==========================================
 		PET_LIST_REFRESH				= 13000, //宠物列表刷新
 		PET_REFRESH						= 13001, //宠物刷新
@@ -139,5 +140,7 @@ namespace SGame
 
 		ACTIVITY_OPEN					= 14000, // 活动开启(int activeID)
 		ACTIVITY_CLOSE					= 14001, // 活动结束(int activeID)
+		
+		GROW_GIFT_UPDATE				= 14000, // 成长礼包数据刷新
 	}
 }

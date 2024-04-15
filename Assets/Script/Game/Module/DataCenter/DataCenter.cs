@@ -130,8 +130,6 @@ namespace SGame
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
 			PropertyManager.Instance.CombineCache2Items();
 			
-			PropertyManager.Instance.GetGroup(PropertyGroup.GROW_GIFT).Initalize(m_growGiftData);
-			
 			if (loadtime == 0)
 			{
 				IsNew = true;
