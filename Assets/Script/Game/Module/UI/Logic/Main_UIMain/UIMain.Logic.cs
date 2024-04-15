@@ -22,6 +22,7 @@ namespace SGame.UI{
 			public Func<bool>			 funcCanShow;	// 额外判定是否可显示
 			public Func<int>		     funcTime;		// 倒计时
 			public bool                  previewShow = true;
+			public object				 param;         // 额外参数
 		}
 		private Dictionary<int, CheckItem> m_data = new Dictionary<int, CheckItem>();
 
@@ -32,7 +33,7 @@ namespace SGame.UI{
 		/// <param name="funcID">功能ID</param>
 		/// <param name="canShow">额外判定是否开启</param>
 		/// <param name="funcTime">倒计时</param>
-		public void Register(int index, int funcID, Func<bool> canShow = null, Func<int> funcTime = null)
+		public void Register(int index, int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null)
 		{
 			if (m_data.ContainsKey(index))
 			{
@@ -51,7 +52,8 @@ namespace SGame.UI{
 				funcID = funcID,
 				config = config,
 				funcCanShow = canShow,
-				funcTime =  funcTime
+				funcTime =  funcTime,
+				param = param,
 			});
 		}
 
@@ -85,7 +87,10 @@ namespace SGame.UI{
 				return false;
 
 			if (item.funcCanShow != null)
-				return item.funcCanShow();
+			{
+				var ret = item.funcCanShow();
+				return ret;
+			}
 
 			return true;
 		}
@@ -120,7 +125,10 @@ namespace SGame.UI{
 
 			if (!string.IsNullOrEmpty(item.config.Ui))
 			{
-				SGame.UIUtils.OpenUI(item.config.Ui);
+				if (item.param != null)
+					SGame.UIUtils.OpenUI(item.config.Ui, item.param);
+				else
+					SGame.UIUtils.OpenUI(item.config.Ui);
 			}
 		}
 	}
