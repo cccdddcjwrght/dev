@@ -166,6 +166,8 @@ public class SceneAssetProcessor
 			tpath = Directory.GetFiles(_currentObjPath, "scene*.png").FirstOrDefault();
 		if (File.Exists(tpath))
 		{
+
+			SetTextureSetting(tpath);
 			var tex = AssetDatabase.LoadAssetAtPath<Texture>(tpath);
 			if (tex != null)
 			{
@@ -178,6 +180,16 @@ public class SceneAssetProcessor
 		}
 
 		return mat;
+	}
+
+	static void SetTextureSetting(string texture) {
+
+		var tp = AssetImporter.GetAtPath(texture) as TextureImporter;
+		if (tp != null)
+		{
+			tp.mipmapEnabled = false;
+		}
+
 	}
 
 	static void CreateWall(GameObject o, Material mat, int index, string savepath, Vector3 local = default, Vector3 scale = default)
