@@ -14,6 +14,7 @@ namespace SGame.UI
 
 		private List<BaseEquip> items;
 
+		private bool needRefreshPlayUI;
 		partial void InitLogic(UIContext context)
 		{
 			var args = context.GetParam()?.Value.To<object[]>();
@@ -66,19 +67,22 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
+			needRefreshPlayUI = true;
 			RequestExcuteSystem.EquipRemake(equip);
 			DoCloseUIClick(null);
 		}
 
 		partial void OnClick2Click(EventContext data)
 		{
+			needRefreshPlayUI = true;
 			RequestExcuteSystem.EquipDecompose(equip);
 			DoCloseUIClick(null);
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
-
+			if (needRefreshPlayUI)
+				EventManager.Instance.Trigger(((int)GameEvent.ROLE_PROPERTY_REFRESH));
 		}
 	}
 }
