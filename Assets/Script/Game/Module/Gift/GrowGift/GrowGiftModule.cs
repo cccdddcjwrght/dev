@@ -14,16 +14,6 @@ namespace SGame
     public class GrowGiftModule : Singleton<GrowGiftModule>
     {
         private static int _OPEND_ID = -1;
-        public const int ACTIVE_TYPE = 1; // 活动类型
-
-        /// <summary>
-        /// 获得动态数据
-        /// </summary>
-        /// <returns></returns>
-        public GrowGiftRecord GetData()
-        {
-            return DataCenter.Instance.m_growData;
-        }
         
         // 重新组织配置数据
         public static int OPEND_ID
@@ -44,6 +34,7 @@ namespace SGame
         }
         
         SortedDictionary<int, GrowGiftData> m_configDatas = new SortedDictionary<int, GrowGiftData>();
+        private Dictionary<int, GiftReward> m_configRewards = new Dictionary<int, GiftReward>();
 
         private static ILog log = LogManager.GetLogger("game.growgift");
         
@@ -57,10 +48,17 @@ namespace SGame
             
             // 统计升星数据 
             EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, (a, b) => RecordTargetNum(GrowTargetID.STAR_UP));
-
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_OPEN, OnActivityOpend);
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_CLOSE, OnActivityClosed);
-
+        }
+        
+        /// <summary>
+        /// 获得动态数据
+        /// </summary>
+        /// <returns></returns>
+        public GrowGiftRecord GetData()
+        {
+            return DataCenter.Instance.m_growData;
         }
 
         /// <summary>
@@ -154,17 +152,20 @@ namespace SGame
                         return;
                     }
                 }
-                
-                value.m_rewards.Add(new GiftReward()
+
+                var giftReward = new GiftReward()
                 {
-                    goodsID         = item.Value.ShopId,
-                    configID        = item.Value.Id,
-                    conditionType   = item.Value.Type,
-                    conditionValue  = item.Value.Value,
-                    desc            = item.Value.Des,
-                    isFree          = item.Value.Pay == 0,
-                    reward          = new ItemData.Value(){id = item.Value.Reward(1), num = item.Value.Reward(2), type = (PropertyGroup)item.Value.Reward(0)}
-                });
+                    goodsID = item.Value.ShopId,
+                    configID = item.Value.Id,
+                    conditionType = item.Value.Type,
+                    conditionValue = item.Value.Value,
+                    desc = item.Value.Des,
+                    isFree = item.Value.Pay == 0,
+                    reward = new ItemData.Value() { id = item.Value.Reward(1), num = item.Value.Reward(2), type = (PropertyGroup)item.Value.Reward(0) }
+                };
+                
+                value.m_rewards.Add(giftReward);
+                m_configRewards.Add(giftReward.configID, giftReward);
             }
         }
 
@@ -187,7 +188,7 @@ namespace SGame
             {
                 if (ActiveTimeSystem.Instance.IsActive(item.Value.activeID, currentTime))
                 {
-                    if (GetGiftRecord(item.Value.shopID) == null)
+                    if (item.Value.GetDynamicData() == null)
                     {
                         datas.AddNewItem(item.Value.shopID, item.Value.activeID);
                     }
@@ -195,20 +196,6 @@ namespace SGame
             }
         }
 
-        /// <summary>
-        /// 判断是否是全免费的
-        /// </summary>
-        /// <param name="rewards"></param>
-        /// <returns></returns>
-        bool IsAllFree(List<GiftReward> rewards)
-        {
-            foreach (var item in rewards)
-                if (!item.isFree)
-                    return false;
-
-            return true;
-        }
-        
         /// <summary>
         /// 统计目标
         /// </summary>
@@ -223,16 +210,7 @@ namespace SGame
                 group.AddNum((int)id, 1);
             }
         }
-
-        /// <summary>
-        /// 找到东岱数据
-        /// </summary>
-        /// <param name="goodsID"></param>
-        /// <returns></returns>
-        public GrowGiftItem GetGiftRecord(int goodsID)
-        {
-            return GetData().GetItem(goodsID);
-        }
+        
 
         /// <summary>
         /// 根据礼包ID, 获取整个礼包的数据
@@ -298,6 +276,30 @@ namespace SGame
         /// <returns></returns>
         public bool BuyGoods(int goodsID)
         {
+            //GROW_GIFT_UPDATE
+            var config = GetGiftData(goodsID);
+            if (config == null)
+            {
+                log.Error("goodsID not found=" + goodsID);
+                return false;
+            }
+
+            ///var data = config.GetDynamicData();
+            if (config.IsAllBuyed())
+            {
+                log.Error("goodsID already buy=" + goodsID);
+                return false;
+            }
+            
+            RequestExcuteSystem.BuyGoods(config.shopID, (success) =>
+            {
+                if (success)
+                {
+                    // 购买成功 
+                    config.GetDynamicData().isBuy = true;                                // 标记已购买
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.GROW_GIFT_UPDATE); // 刷新UI
+                }
+            });
             return true;
         }
 
@@ -308,21 +310,32 @@ namespace SGame
         /// <returns></returns>
         public bool TakedReward(int configID)
         {
-            return false;
-        }
+            if (!m_configRewards.TryGetValue(configID, out GiftReward reward))
+            {
+                log.Error("config ID not found=" + configID);
+                return false;
+            }
 
-        public bool OnOpend()
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// 更新数据
-        /// </summary>
-        public void UpdateData()
-        {
+            var state = reward.GetState();
+            if (state != GiftReward.State.CANTAKE)
+            {
+                log.Warn("state not match=" + state.ToString());
+                return false;
+            }
             
+            // 领取奖励
+            var itemGroup = PropertyManager.Instance.GetGroup(reward.reward.type);
+            if (!itemGroup.AddNum(reward.reward.id, reward.reward.num))
+            {
+                log.Error("Add Item Fail=" + reward.reward.id + " num=" + reward.reward.num);
+                return false;
+            }
+            
+            // 成功领取奖励
+            var data = reward.GetDynamicData();
+            data.takedID.Add(configID);
+            EventManager.Instance.AsyncTrigger((int)GameEvent.GROW_GIFT_UPDATE); // 刷新UI
+            return true;
         }
-        // public bool CollectReward(int goodsID, int 
     }
 }

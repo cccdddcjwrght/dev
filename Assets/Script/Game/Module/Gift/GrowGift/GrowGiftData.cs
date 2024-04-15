@@ -67,8 +67,9 @@ namespace SGame
         /// </summary>
         /// <param name="isBuyed"></param>
         /// <returns></returns>
-        public State GetState(bool isBuyed)
+        public State GetState()
         {
+            var isBuyed = IsBuyed();
             int progress = GetConditionProgress();
             if (isBuyed == false)
             {
@@ -86,6 +87,15 @@ namespace SGame
             return isTaked ? State.FINISH : State.CANTAKE;
         }
         
+        /// <summary>
+        /// 获取动态数据
+        /// </summary>
+        /// <returns></returns>
+        public GrowGiftItem GetDynamicData()
+        {
+            var data = DataCenter.Instance.m_growData.GetItem(goodsID);
+            return data;
+        }
     }
 
     // 成长礼包数据
@@ -104,6 +114,16 @@ namespace SGame
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// 获取动态数据
+        /// </summary>
+        /// <returns></returns>
+        public GrowGiftItem GetDynamicData()
+        {
+            var data = DataCenter.Instance.m_growData.GetItem(shopID);
+            return data;
         }
     }
 }

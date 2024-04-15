@@ -128,5 +128,7 @@ namespace SGame
 
 		ACTIVITY_OPEN					= 13000, // 活动开启(int activeID)
 		ACTIVITY_CLOSE					= 13001, // 活动结束(int activeID)
+		
+		GROW_GIFT_UPDATE				= 14000, // 成长礼包数据刷新
 	}
 }
