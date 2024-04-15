@@ -89,7 +89,7 @@ namespace SGame
     }
 
     // 成长礼包数据
-    public class GrowGfitData
+    public class GrowGiftData
     {
         public int shopID;                 // 商品ID
         public int activeID;               // 活动ID
