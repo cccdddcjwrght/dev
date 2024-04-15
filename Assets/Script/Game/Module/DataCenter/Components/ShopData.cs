@@ -109,7 +109,7 @@ namespace SGame
 				return default;
 			}
 
-			static public int IsCanBuy(int id , bool checkcfg = true)
+			static public int IsCanBuy(int id, bool checkcfg = true)
 			{
 				if (_data.goodDic.TryGetValue(id, out var goods))
 				{
@@ -117,7 +117,7 @@ namespace SGame
 						return Error_Code.SHOP_IS_CD;
 					else if (goods.cfg.LimitNum > 0 && goods.buy >= goods.cfg.LimitNum)
 						return Error_Code.SHOP_BUY_LIMIT;
-					else if (goods.free<=0 && goods.cfg.PurchaseType == 2 && !PropertyManager.Instance.CheckCount(2, goods.cfg.Price, 1))
+					else if (goods.free <= 0 && goods.cfg.PurchaseType == 2 && !PropertyManager.Instance.CheckCount(2, goods.cfg.Price, 1))
 						return Error_Code.ITEM_DIAMOND_NOT_ENOUGH;
 				}
 				return default;
@@ -137,6 +137,7 @@ namespace SGame
 						goods.buy += 1;
 						goods.cd = goods.buy >= goods.cfg.LimitNum ? GameServerTime.Instance.nextDayTime : GameServerTime.Instance.serverTime + goods.cfg.Cd;
 					}
+					goods.buytime++;
 				}
 				return goods;
 			}
@@ -154,6 +155,20 @@ namespace SGame
 			{
 				if (_data.goods?.Count > 0)
 					return _data.goods.Any(g => g.free > 0 || (g.cfg.PurchaseType == 1 && !g.IsSaled() && g.CDTime() <= 0));
+				return false;
+			}
+
+			/// <summary>
+			/// 检测是否购买
+			/// </summary>
+			/// <param name="goodsID"></param>
+			/// <returns></returns>
+			static public bool IsHasBuy(int goodsID)
+			{
+				if (goodsID != 0 && _data.goodDic.TryGetValue(goodsID, out var g))
+				{
+					return g.buytime > 0;
+				}
 				return false;
 			}
 
@@ -208,6 +223,8 @@ namespace SGame
 		public int free;//免费次数
 		public int buy;//非免费购买次数
 		public int cd;//下次购买时间
+
+		public int buytime;
 
 		[System.NonSerialized]
 		public ShopRowData cfg;
