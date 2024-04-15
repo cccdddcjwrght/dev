@@ -64,7 +64,7 @@ partial class UIListenerExt
 				if (!hidered) UIListener.SetControllerSelect(gObject, "__redpoint", equip.isnew, false);
 				var c = Utils.ConvertNumberStr(equip.count);
 				if (needcount <= 0)
-					UIListener.SetTextWithName(gObject, "count", c);
+					UIListener.SetTextWithName(gObject, "count", equip.count > 0 ? c : $"[color=#ff0000]{c}[/color]");
 				else
 				{
 					var f = equip.count >= needcount;

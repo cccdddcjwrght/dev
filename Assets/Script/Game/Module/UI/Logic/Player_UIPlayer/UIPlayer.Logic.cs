@@ -137,9 +137,9 @@ namespace SGame.UI
 					break;
 				case 3:
 					matcount = 1;
-					var item = PropertyManager.Instance.GetItem(ConstDefine.EQUIP_UPQUALITY_MAT);
-					eqs = new List<EquipItem>();
-					if (item.num > 0) eqs.Add(new EquipItem().Convert(item));
+					eqs = eqs ?? new List<EquipItem>();
+					eqs.Clear();
+					eqs.Add(new EquipItem().Convert(ConstDefine.EQUIP_UPQUALITY_MAT , 0 , 1));
 					break;
 			}
 
