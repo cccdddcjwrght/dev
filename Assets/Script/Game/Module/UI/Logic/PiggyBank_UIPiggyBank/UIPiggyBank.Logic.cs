@@ -20,6 +20,8 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 			m_context = context;
 
+			m_view.m_progress.m_midValue.SetText(DataCenter.PiggyBankUtils.PIGGYBANK_MID.ToString());
+			m_view.m_progress.m_maxValue.SetText(DataCenter.PiggyBankUtils.PIGGYBANK_MAX.ToString());
 			m_view.m_progress.max = DataCenter.PiggyBankUtils.PIGGYBANK_MAX;
 			RefreshAll();
 			RefreshText();
@@ -35,7 +37,7 @@ namespace SGame.UI{
 		void RefreshProgress() 
 		{
 			var data = DataCenter.Instance.piggybankData;
-			m_view.m_progress.value = data.progress;
+			m_view.m_progress.value = data.progress; 
 			m_view.m_progress.m_value.SetText(data.progress.ToString());
 			m_view.m_state.selectedIndex = data.progress >= DataCenter.PiggyBankUtils.PIGGYBANK_MID ?
 				data.progress >= DataCenter.PiggyBankUtils.PIGGYBANK_MAX ? 2 : 1 : 0;
