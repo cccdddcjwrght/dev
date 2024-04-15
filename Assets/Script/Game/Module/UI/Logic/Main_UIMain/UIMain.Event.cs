@@ -63,7 +63,7 @@ namespace SGame.UI
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
-			m_rightList.numItems = 6;
+			m_rightList.numItems = 7;
 			OnRefreshPiggyBankRedDot();
 		}
 

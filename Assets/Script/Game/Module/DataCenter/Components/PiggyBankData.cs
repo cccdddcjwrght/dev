@@ -54,10 +54,10 @@ namespace SGame
                 return m_data.progress >= PIGGYBANK_MAX;
             }
 
-            //¹ºÂò
+            //è´­ä¹°
             public static void BuyPiggyBank() 
             {
-                //ÓĞÃâ·Ñ´ÎÊı
+                //æœ‰å…è´¹æ¬¡æ•°
                 if (GetNextFreeRefreshTime() <= 0)
                 {
                     m_data.nextRefreshTime = GameServerTime.Instance.nextDayTime;
@@ -93,7 +93,7 @@ namespace SGame
                 return Mathf.Max(m_data.nextRefreshTime - GameServerTime.Instance.serverTime, 0);
             }
 
-            //¼ì²âÊÇ·ñÍ¬Ò»Ìì
+            //æ£€æµ‹æ˜¯å¦åŒä¸€å¤©
             public static bool CheckIsSameDay() 
             {
                 return GameServerTime.Instance.serverTime >= m_data.nextDayTime;
@@ -140,13 +140,13 @@ namespace SGame
     [System.Serializable]
     public class PiggyBankData
     {
-        //´æÇ®¹Ş½ø¶È
+        //å­˜é’±ç½è¿›åº¦
         public int progress;
-        //ÆÆËğ½×¶Î
+        //ç ´æŸé˜¶æ®µ
         public int stage;
-        //ÏÂÒ»´ÎÃâ·ÑË¢ĞÂÊ±¼ä
+        //ä¸‹ä¸€æ¬¡å…è´¹åˆ·æ–°æ—¶é—´
         public int nextRefreshTime;
-        //ÊÇ·ñ´òÆÆ¹ı´æ´¢¹Ş
+        //æ˜¯å¦æ‰“ç ´è¿‡å­˜å‚¨ç½
         public bool isBroken;
 
         public int nextDayTime;

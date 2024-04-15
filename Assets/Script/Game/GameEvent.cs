@@ -135,5 +135,9 @@ namespace SGame
 		PET_LIST_REFRESH				= 13000, //宠物列表刷新
 		PET_REFRESH						= 13001, //宠物刷新
 		PET_ADD							= 13002, //宠物添加
+
+
+		ACTIVITY_OPEN					= 14000, // 活动开启(int activeID)
+		ACTIVITY_CLOSE					= 14001, // 活动结束(int activeID)
 	}
 }
