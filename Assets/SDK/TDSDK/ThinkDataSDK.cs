@@ -21,6 +21,7 @@ using TDMODE = ThinkingData.Analytics.TDMode;
 using TDTIME = ThinkingData.Analytics.TDTimeZone;
 using TDNetworkType = ThinkingData.Analytics.TDNetworkType;
 using TDAutoTrackEventType = ThinkingData.Analytics.TDAutoTrackEventType;
+using SGame;
 
 namespace SDK.TDSDK
 {
@@ -202,7 +203,11 @@ namespace SDK.TDSDK
 
 		public Dictionary<string, object> GetDynamicSuperProperties()
 		{
-			var ps = new Dictionary<string, object>();
+			var ps = new Dictionary<string, object>() 
+			{
+				{"current_level", DataCenter.Instance.roomData.roomID },
+				{"current_diamond", PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.DIAMOND)},
+			};
 			DoGetDynamicSuperProperties(ref ps);
 			return ps;
 		}
