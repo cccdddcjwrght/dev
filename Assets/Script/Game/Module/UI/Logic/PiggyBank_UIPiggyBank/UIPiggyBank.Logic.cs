@@ -104,7 +104,8 @@ namespace SGame.UI{
 		/// </summary>
 		public void ResetEffect() 
 		{
-			m_view.m_stage.selectedIndex = 6; //破损状态
+			//破损状态
+			Utils.Timer(0.2f, null, m_view, completed: () => m_view.m_stage.selectedIndex = 6);
 			Utils.Timer(1f, null, m_view, completed: () =>
 			{
 				EffectSystem.Instance.AddEffect(200002, m_view.m___effect);
