@@ -181,6 +181,25 @@ namespace SGame
             log.Info("Open GrowGift=" + data.goodsID);
         }
 
+
+        /// <summary>
+        /// 获取活动剩余时间
+        /// </summary>
+        /// <param name="index">第几个活动 </param>
+        /// <returns></returns>
+        public int GetActiveTime(int index)
+        {
+            var data = GetData();
+            if (index < 0 || index >= data.Values.Count)
+            {
+                return 0;
+            }
+
+            var giftData = data.Values[index];
+            int currentTime = GameServerTime.Instance.serverTime;
+            return ActiveTimeSystem.Instance.GetLeftTime(giftData.activlityID, currentTime);
+        }
+
         /// <summary>
         /// 刷新活动数据
         /// </summary>

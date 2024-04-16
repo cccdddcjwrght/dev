@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
+using Cinemachine;
 using log4net;
 using SGame;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SGame
@@ -25,6 +27,15 @@ namespace SGame
             public int tMax; // 最大时间
             
             public static  TimeRange Zero { get { return new TimeRange() { tMin = 0, tMax = 0 }; } }
+
+            public bool Equals(TimeRange other)
+            {
+                return this.tMin == other.tMin && this.tMax == other.tMax;
+
+            }
+
+            public static bool operator == (TimeRange first, TimeRange other) => first.Equals(other);
+            public static bool operator != (TimeRange lhs, TimeRange rhs) => !(lhs == rhs);
         }
 
         private Dictionary<int, TimeRange> m_datas = new Dictionary<int, TimeRange>();
@@ -118,6 +129,21 @@ namespace SGame
             
             log.Error("active id not found=" + id.ToString());
             return TimeRange.Zero;
+        }
+
+        /// <summary>
+        /// 获取活动剩余时间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="currentTime">当前时间</param>
+        /// <returns></returns>
+        public int GetLeftTime(int id, int currentTime)
+        {
+            if (!IsActive(id, currentTime))
+                return 0;
+            
+            var timeRange = GetTimeRange(id);
+            return timeRange.tMax - currentTime;
         }
     }
 }

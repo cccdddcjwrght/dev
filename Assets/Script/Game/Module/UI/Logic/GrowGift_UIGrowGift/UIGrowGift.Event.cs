@@ -13,6 +13,8 @@ namespace SGame.UI{
 		
 		private GrowGiftData m_datas;
 		private EventHandleContainer m_eventContainer;
+		
+		
 		partial void InitEvent(UIContext context)
 		{
 			var entityManager = context.gameWorld.GetEntityManager();
@@ -32,8 +34,38 @@ namespace SGame.UI{
 			m_view.m_btnCollect.onClick.Set(OnClickOneKeyTakeAll);
 			m_eventContainer = new EventHandleContainer();
 			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.GROW_GIFT_REFRESH, RefreshUI);
-
+			
+			// 倒计时刷新
+			GTween.To(0, 1, GetLeftTime())
+				.SetTarget(m_view, TweenPropType.None)
+				.OnUpdate(UpdateTimeText)
+				.OnComplete(() =>
+				{
+					// 解锁关闭UI
+					SGame.UIUtils.CloseUIByID(__id);
+				});
+			UpdateTimeText();
 			RefreshUI();
+		}
+		
+		/// <summary>
+		/// 获得活动剩余时间
+		/// </summary>
+		/// <returns></returns>
+		int GetLeftTime()
+		{
+			int currentTime = GameServerTime.Instance.serverTime;
+			return ActiveTimeSystem.Instance.GetLeftTime(m_datas.activeID, currentTime);
+		}
+
+		/// <summary>
+		/// 刷新时间UI
+		/// </summary>
+		void UpdateTimeText()
+		{
+			var timeStr = string.Format(LanagueSystem.Instance.GetValue("ui_progresspack_tips"), Utils.FormatTime(GetLeftTime()));
+
+			m_view.m_lblTime.text = timeStr;
 		}
 
 		void OnClickBuy()
