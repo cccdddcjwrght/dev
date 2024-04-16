@@ -10,7 +10,7 @@ namespace SGame.UI{
 		private EventHandleContainer m_handles = new EventHandleContainer();
 		partial void InitEvent(UIContext context) {
 			m_handles += EventManager.Instance.Reg<int>(((int)GameEvent.SHOP_GOODS_BUY_RESULT), OnPiggyBankBuyResult);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, RefreshAll);
+			//m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, RefreshAll);
 		}
 
 		void OnPiggyBankBuyResult(int shopId) 

@@ -23,6 +23,8 @@ namespace SGame.UI{
 			m_view.m_progress.m_midValue.SetText(DataCenter.PiggyBankUtils.PIGGYBANK_MID.ToString());
 			m_view.m_progress.m_maxValue.SetText(DataCenter.PiggyBankUtils.PIGGYBANK_MAX.ToString());
 			m_view.m_progress.max = DataCenter.PiggyBankUtils.PIGGYBANK_MAX;
+			m_view.m_progress.m_valueIcon.x = m_view.m_progress.width * ((float)DataCenter.PiggyBankUtils.PIGGYBANK_MID / DataCenter.PiggyBankUtils.PIGGYBANK_MAX);
+
 			RefreshAll();
 			RefreshText();
 		}
@@ -81,7 +83,38 @@ namespace SGame.UI{
 		partial void OnBuyBtnClick(EventContext data) 
 		{
 			DataCenter.PiggyBankUtils.BuyPiggyBank();
+			PlayHammerTranslation();
 		}
+
+		public void PlayHammerTranslation() 
+		{
+			m_view.m_hammer.visible = true;
+			bool isReset = DataCenter.Instance.piggybankData.stage == 0;
+			m_view.m_hammer.m_hammer.Play(() =>
+			{
+				EffectSystem.Instance.AddEffect(200001, m_view.m___effect);
+				m_view.m_hammer.visible = false;
+				if (isReset) ResetEffect();
+				else RefreshAll();
+			});
+		}
+
+		/// <summary>
+		/// 存钱罐重置特效
+		/// </summary>
+		public void ResetEffect() 
+		{
+			m_view.m_stage.selectedIndex = 6; //破损状态
+			Utils.Timer(1f, null, m_view, completed: () =>
+			{
+				EffectSystem.Instance.AddEffect(200002, m_view.m___effect);
+				Utils.Timer(0.5f, null, m_view, completed: () =>
+				{
+					RefreshAll();
+				});
+			});
+		}
+
 
 		partial void UnInitLogic(UIContext context){
 

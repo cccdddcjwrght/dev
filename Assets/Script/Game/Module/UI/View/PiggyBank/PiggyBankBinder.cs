@@ -11,6 +11,7 @@ namespace SGame.UI.PiggyBank
             UIObjectFactory.SetPackageItemExtension(UI_PiggyBankUI.URL, typeof(UI_PiggyBankUI));
             UIObjectFactory.SetPackageItemExtension(UI_PiggyBankProgress.URL, typeof(UI_PiggyBankProgress));
             UIObjectFactory.SetPackageItemExtension(UI_UseHelpUI.URL, typeof(UI_UseHelpUI));
+            UIObjectFactory.SetPackageItemExtension(UI_piggybank_hammer.URL, typeof(UI_piggybank_hammer));
         }
     }
 }

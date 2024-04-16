@@ -17,6 +17,8 @@ namespace SGame.UI.PiggyBank
         public UI_PiggyBankProgress m_progress;
         public GButton m_buyBtn;
         public GTextField m_time;
+        public UI_piggybank_hammer m_hammer;
+        public GGraph m___effect;
         public GGroup m_group;
         public const string URL = "ui://k2a58dz5a9b7p";
 
@@ -39,7 +41,9 @@ namespace SGame.UI.PiggyBank
             m_progress = (UI_PiggyBankProgress)GetChildAt(8);
             m_buyBtn = (GButton)GetChildAt(9);
             m_time = (GTextField)GetChildAt(10);
-            m_group = (GGroup)GetChildAt(12);
+            m_hammer = (UI_piggybank_hammer)GetChildAt(12);
+            m___effect = (GGraph)GetChildAt(13);
+            m_group = (GGroup)GetChildAt(14);
         }
     }
 }

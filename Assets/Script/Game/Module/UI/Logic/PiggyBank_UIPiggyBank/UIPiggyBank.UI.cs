@@ -20,6 +20,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_tipBtn, new EventCallback1(_OnTipBtnClick));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
 			UIListener.Listener(m_view.m_buyBtn, new EventCallback1(_OnBuyBtnClick));
+			UIListener.ListenerIcon(m_view.m_hammer, new EventCallback1(_OnHammerClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -30,6 +31,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_tipBtn, new EventCallback1(_OnTipBtnClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
 			UIListener.Listener(m_view.m_buyBtn, new EventCallback1(_OnBuyBtnClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_hammer, new EventCallback1(_OnHammerClick),remove:true);
 
 		}
 		void _OnStateChanged(EventContext data){
@@ -63,6 +65,8 @@ namespace SGame.UI{
 		string GetPiggyBankProgress_MidValueText()=>UIListener.GetText(m_view.m_progress.m_midValue);
 		void SetPiggyBankProgress_MaxValueText(string data)=>UIListener.SetText(m_view.m_progress.m_maxValue,data);
 		string GetPiggyBankProgress_MaxValueText()=>UIListener.GetText(m_view.m_progress.m_maxValue);
+		void SetPiggyBankProgress_ValueText(string data)=>UIListener.SetText(m_view.m_progress.m_value,data);
+		string GetPiggyBankProgress_ValueText()=>UIListener.GetText(m_view.m_progress.m_value);
 		void _OnProgressClick(EventContext data){
 			OnProgressClick(data);
 		}
@@ -79,6 +83,10 @@ namespace SGame.UI{
 		string GetBuyBtnText()=>UIListener.GetText(m_view.m_buyBtn);
 		void SetTimeText(string data)=>UIListener.SetText(m_view.m_time,data);
 		string GetTimeText()=>UIListener.GetText(m_view.m_time);
+		void _OnHammerClick(EventContext data){
+			OnHammerClick(data);
+		}
+		partial void OnHammerClick(EventContext data);
 
 	}
 }
