@@ -99,11 +99,11 @@ namespace SGame
             return null;
         }
 
-        public bool AddNewItem(int goodsID, int activityID)
+        public GrowGiftItem AddNewItem(int goodsID, int activityID)
         {
             GrowGiftItem item = GrowGiftItem.Create(goodsID, activityID);
             Values.Add(item);
-            return true;
+            return item;
         }
 
         public GrowGiftItem GetItemFromActivityID(int activityID)
