@@ -20,7 +20,8 @@ namespace SGame.UI
 		private SetData m_setData;
 
 		Action<bool> timer;
-		
+
+		private const int RIGHT_ITEM_NUM = 7;
 		
 		/// <summary>
 		/// 区域定义
@@ -45,7 +46,7 @@ namespace SGame.UI
 			leftList.numItems = 4;
 
 			m_rightList.itemRenderer = RenderRightItem;
-			m_rightList.numItems = 7;
+			m_rightList.numItems = RIGHT_ITEM_NUM;
 
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
@@ -153,6 +154,8 @@ namespace SGame.UI
 				}
 				m_rightList.GetChildAt(i).visible = m_rightIcons.IsVisible(i);
 			}
+
+			m_rightList.numItems = RIGHT_ITEM_NUM;
 		}
 
 		void OnRighMenuClick(EventContext context)
