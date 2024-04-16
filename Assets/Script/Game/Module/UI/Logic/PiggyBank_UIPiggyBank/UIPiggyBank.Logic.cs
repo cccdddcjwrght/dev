@@ -92,11 +92,11 @@ namespace SGame.UI{
 			bool isReset = DataCenter.Instance.piggybankData.stage == 0;
 			m_view.m_hammer.m_hammer.Play(() =>
 			{
-				EffectSystem.Instance.AddEffect(200001, m_view.m___effect);
-				m_view.m_hammer.visible = false;
 				if (isReset) ResetEffect();
 				else RefreshAll();
 			});
+			Utils.Timer(0.5f, null, m_view, completed: () => EffectSystem.Instance.AddEffect(200001, m_view.m___effect));
+			Utils.Timer(1.75f, null, m_view, completed: () => m_view.m_hammer.visible = false);
 		}
 
 		/// <summary>
