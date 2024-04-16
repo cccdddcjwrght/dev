@@ -92,9 +92,22 @@ namespace SGame.UI{
 			else
 				m_view.m_buy.selectedIndex = 0;
 			
-			m_view.m_listRewards.numItems = m_datas.m_rewards.Count;
-			
 			m_view.m_btnBuy.text = DataCenter.ShopUtil.GetGoodsPriceStr(m_datas.shopID, m_datas.price);
+			
+			// 对数据进行排序
+			m_datas.m_rewards.Sort((a, b) =>
+			{
+				var state1 = a.GetState();
+				var state2 = b.GetState();
+				if (state1 == GiftReward.State.FINISH)
+					return 1;
+				if (state2 == GiftReward.State.FINISH)
+					return -1;
+
+				return 0;
+			});
+			
+			m_view.m_listRewards.numItems = m_datas.m_rewards.Count;
 		}
 		
 
@@ -142,7 +155,7 @@ namespace SGame.UI{
 			// ICON 数量
 			var icon = Utils.GetItemIcon((int)data.reward.type, data.reward.id); //data[0], data[1]);
 			item.m_gift_icon.SetIcon(icon);
-			item.m_gift_icon.text = ((int)data.reward.num).ToString();
+			item.m_gift_icon.m_title.text = ((int)data.reward.num).ToString();
 
 			// 变灰
 			if (state == GiftReward.State.FINISH)
