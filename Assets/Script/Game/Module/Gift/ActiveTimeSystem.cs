@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using log4net;
 using SGame;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace SGame
         {
             public int tMin; // 最小时间
             public int tMax; // 最大时间
+            
+            public static  TimeRange Zero { get { return new TimeRange() { tMin = 0, tMax = 0 }; } }
         }
 
         private Dictionary<int, TimeRange> m_datas = new Dictionary<int, TimeRange>();
@@ -99,6 +102,22 @@ namespace SGame
             
             log.Error("active id not found=" + id.ToString());
             return false;
+        }
+
+        /// <summary>
+        /// 获得活动时间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public TimeRange GetTimeRange(int id)
+        {
+            if (m_datas.TryGetValue(id, out TimeRange value))
+            {
+                return value;
+            }
+            
+            log.Error("active id not found=" + id.ToString());
+            return TimeRange.Zero;
         }
     }
 }

@@ -54,7 +54,7 @@ namespace SGame
         void OnDataInitalizeFinish()
         {
             // 初始化数据
-            InitRecordData();
+            RefreshRecordData();
         }
         
         /// <summary>
@@ -76,19 +76,8 @@ namespace SGame
             var config = FindGiftConfig(activityID);
             if (config == null)
                 return;
-            
-            
-            var data = GetData();
-            if (data.GetItem(config.shopID) != null)
-            {
-                // 活动重复开启?
-                log.Error("growgift active repeate open =" + config.shopID + " activityID=" + activityID);
-                return;
-            }
-            
-            // 新的活动有效, 创建活动数据
-            data.AddNewItem(config.shopID, config.activeID);
-            var newGift = GrowGiftItem.Create(config.shopID, config.activeID);
+
+            RefreshRecordData();
 
             // 刷新主界面
             EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
@@ -104,14 +93,9 @@ namespace SGame
             var config = FindGiftConfig(activityID);
             if (config == null)
                 return;
-            
-            var data = GetData();
-            var item = data.GetItem(config.shopID);
-            if (item != null)
-            {
-                data.Values.Remove(item);
-                EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
-            }
+
+            RefreshRecordData();
+            EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         public bool IsOpend()
@@ -174,16 +158,48 @@ namespace SGame
             }
         }
 
-        void InitRecordData()
+        /// <summary>
+        /// 关闭活动
+        /// </summary>
+        /// <param name="data"></param>
+        void OnCloseGrowGift(GrowGiftItem data)
         {
+            log.Info("Close GrowGift=" + data.goodsID);
+        }
+
+        /// <summary>
+        /// 打开活动
+        /// </summary>
+        /// <param name="data"></param>
+        void OnOpenGrowGift(GrowGiftItem data)
+        {
+            log.Info("Open GrowGift=" + data.goodsID);
+        }
+
+        /// <summary>
+        /// 刷新活动数据
+        /// </summary>
+        void RefreshRecordData()
+        {
+            // 未开启时不处理
+            if (!OPEND_ID.IsOpend(false))
+            {
+                return;
+            }
+            
             // 删除不在活动中的对象
             int currentTime = GameServerTime.Instance.serverTime;
             var datas = GetData();
+            List<GrowGiftItem> removeGifts = new List<GrowGiftItem>();
+            List<GrowGiftItem> addGifts     = new List<GrowGiftItem>();
+
+            
             for (int i = datas.Values.Count - 1; i >= 0; i--)
             {
                 var data = datas.Values[i];
                 if (!ActiveTimeSystem.Instance.IsActive(data.activlityID, currentTime))
                 {
+                    removeGifts.Add(data);
                     datas.Values.RemoveAt(i);
                 }
             }
@@ -195,10 +211,17 @@ namespace SGame
                 {
                     if (item.Value.GetDynamicData() == null)
                     {
-                        datas.AddNewItem(item.Value.shopID, item.Value.activeID);
+                        var newItem = datas.AddNewItem(item.Value.shopID, item.Value.activeID);
+                        addGifts.Add(newItem);
                     }
                 }
             }
+
+            foreach (var item in removeGifts)
+                OnCloseGrowGift(item);
+            
+            foreach (var item in addGifts)
+                OnOpenGrowGift(item);
         }
 
         /// <summary>
