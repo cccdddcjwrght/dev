@@ -19,6 +19,11 @@ namespace SGame
         public List<int> takedID = new List<int>();
 
         /// <summary>
+        /// 保存红点状态, ID对应的是配置表上的ID
+        /// </summary>
+        //public List<int> redotID = new List<int>();
+
+        /// <summary>
         /// 活动用的道具ID
         /// </summary>
         public int goodsID;

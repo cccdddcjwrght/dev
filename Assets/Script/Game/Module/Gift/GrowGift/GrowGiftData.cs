@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 // 成长礼包配置数据重新组织
 namespace SGame
@@ -29,7 +30,6 @@ namespace SGame
         public bool           isFree;            // 是否免费
         public ItemData.Value reward;            // 奖励数据
         
-        
         /// <summary>
         /// 获得当前值
         /// </summary>
@@ -56,6 +56,15 @@ namespace SGame
             // 判断
             var data = GetDynamicData();
             return data.isBuy;
+        }
+
+        /// <summary>
+        /// 是否已经显示过红点
+        /// </summary>
+        /// <returns></returns>
+        public bool HasRedot()
+        {
+            return GetState() == State.CANTAKE;
         }
 
         /// <summary>
@@ -127,5 +136,37 @@ namespace SGame
             var data = DataCenter.Instance.m_growData.GetItem(shopID);
             return data;
         }
+
+        /// <summary>
+        /// 判断是否有红点
+        /// </summary>
+        /// <returns></returns>
+        public bool HasReddot()
+        {
+            foreach (var reward in m_rewards)
+            {
+                if (reward.HasRedot())
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 获取可领取数量
+        /// </summary>
+        /// <returns></returns>
+        public int GetReddotNum()
+        {
+            int num = 0;
+            foreach (var reward in m_rewards)
+            {
+                if (reward.HasRedot())
+                    return num++;
+            }
+
+            return num;
+        }
+        
     }
 }
