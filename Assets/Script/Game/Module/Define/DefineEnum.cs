@@ -240,4 +240,22 @@ namespace SGame
 
 	}
 
+	/// <summary>
+	/// 物品道具类型
+	/// </summary>
+	public enum EnumItemType
+	{
+		None = 0,
+		Normal,
+		Buff,
+		Chest,
+		EqLvMat,
+		EqUpMat,
+		SuitBook,
+		SuitMat,
+		PetUpMat,
+		ChestKey,
+		PetEgg = 10,
+	}
+
 }

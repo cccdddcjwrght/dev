@@ -299,7 +299,7 @@ namespace SGame
 			{
 				return DataCenter.EquipUtil.GetRoleEquipString();
 			}
-			
+
 			// 邀请好友外观
 			var friend = FriendModule.Instance.GetHiringFriend();
 			if (friend == null)
@@ -307,7 +307,7 @@ namespace SGame
 				log.Error("NOT FOUND HIRING FRIEND！");
 				return DataCenter.EquipUtil.GetRoleEquipString();
 			}
-			
+
 			// 获得好友装备信息
 			var roleData = FriendModule.Instance.GetRoleData(friend.player_id);
 			return DataCenter.EquipUtil.GetRoleEquipString(friend.roleID, roleData.equips);
@@ -323,14 +323,14 @@ namespace SGame
 			// 玩家外观
 			if (playerID == 0)
 				return GetPlayerOutlookString(false);
-			
+
 			var friend = FriendModule.Instance.GetFriendItem(playerID);
 			if (friend == null)
 			{
 				log.Error("friend not found=" + playerID);
 				return null;
 			}
-			
+
 			var roleData = FriendModule.Instance.GetRoleData(playerID);
 			return DataCenter.EquipUtil.GetRoleEquipString(friend.roleID, roleData.equips);
 		}
@@ -806,14 +806,14 @@ namespace SGame
 			var gen = CharacterGenerator.CreateWithConfig(newPart);
 			while (gen.ConfigReady == false)
 				yield return null;
-			
-			
+
+
 			var ani = gen.Generate();
 			Equipments equip = ani.GetComponent<Equipments>();
 			if (equip == null)
 				equip = ani.AddComponent<Equipments>();
 			yield return null;
-			
+
 			// 设置武器
 			foreach (var weaponStr in weapons)
 			{
@@ -844,9 +844,10 @@ namespace SGame
 			yield return ani;
 		}
 
-		public static List<int[]> GetArrayList(params Func<int[]>[] calls) {
+		public static List<int[]> GetArrayList(params Func<int[]>[] calls)
+		{
 
-			if(calls?.Length > 0)
+			if (calls?.Length > 0)
 			{
 				var list = new List<int[]>();
 				for (int i = 0; i < calls.Length; i++)
@@ -861,7 +862,7 @@ namespace SGame
 						}
 						catch (Exception e)
 						{
-							log.Info("error:"+e.Message);
+							log.Info("error:" + e.Message);
 						}
 					}
 				}
@@ -890,6 +891,42 @@ namespace SGame
 
 			// 非首次, 数据不用刷新
 			return false;
+		}
+
+		static public List<int[]> ConvertId2Effects(ulong effectID, List<int[]> effects)
+		{
+			var list = new List<int[]>();
+			for (int i = 0; i < effects.Count && effectID > 0; i++)
+			{
+				var index = effectID;
+				effectID = effectID / 100;
+				index -= effectID * 100;
+				if (index > 0)
+				{
+					index--;
+					list.Add(new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
+				}
+			}
+			return list;
+		}
+
+		static public ulong RandomEffectID(List<int[]> effects , List<int[]> weights , List<int[]> rets = null)
+		{
+			if (effects == null || weights == null || effects.Count != weights.Count) return 0;
+			ulong id = 0;
+			for (int i = 0; i < effects.Count; i++)
+			{
+				var bs = effects[i];
+				var w = weights[i];
+				var index = SGame.Randoms.Random._R.NextWeight(w);
+				if (bs.Length > index * 2)
+				{
+					id = (id * 100) + ((ulong)index + 1);
+					if (rets != null)
+						rets.Add(new int[] { bs[index * 2], bs[index * 2 + 1] });
+				}
+			}
+			return 0;
 		}
 
 	}
