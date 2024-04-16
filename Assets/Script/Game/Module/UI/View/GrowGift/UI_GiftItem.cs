@@ -9,6 +9,7 @@ namespace SGame.UI.GrowGift
     {
         public Controller m_state;
         public GProgressBar m_progress;
+        public UI_Item m_gift_icon;
         public const string URL = "ui://862omg9yjfxh6";
 
         public static UI_GiftItem CreateInstance()
@@ -22,6 +23,7 @@ namespace SGame.UI.GrowGift
 
             m_state = GetControllerAt(0);
             m_progress = (GProgressBar)GetChildAt(3);
+            m_gift_icon = (UI_Item)GetChildAt(5);
         }
     }
 }

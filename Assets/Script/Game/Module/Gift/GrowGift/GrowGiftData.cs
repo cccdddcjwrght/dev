@@ -28,24 +28,20 @@ namespace SGame
         public string         desc;              // 描述信息
         public bool           isFree;            // 是否免费
         public ItemData.Value reward;            // 奖励数据
-
+        
+        
         /// <summary>
-        /// 获取条件达成进度[0-100]
+        /// 获得当前值
         /// </summary>
         /// <returns></returns>
         public int GetConditionProgress()
         {
             // 获得动态数据
-            var data = DataCenter.Instance.m_growData.GetItem(goodsID);
+            var data = GetDynamicData(); //DataCenter.Instance.m_growData.GetItem(goodsID);
             var itemGroup = data.GetOrCrateGroup();
             
             var value = itemGroup.GetNum(conditionType);
-            var baseValue = (double)conditionValue;
-            if (baseValue <= value)
-                return 100;
-
-            int ret = (int)(value / baseValue);
-            return ret;
+            return (int)value;
         }
 
         /// <summary>
@@ -58,7 +54,7 @@ namespace SGame
                 return true;
             
             // 判断
-            var data = DataCenter.Instance.m_growData.GetItem(goodsID);
+            var data = GetDynamicData();
             return data.isBuy;
         }
 
@@ -70,21 +66,26 @@ namespace SGame
         public State GetState()
         {
             var isBuyed = IsBuyed();
-            int progress = GetConditionProgress();
+            bool isFinish = IsConditionFinish();
             if (isBuyed == false)
             {
-                if (progress < 100)
+                if (!isFinish)
                     return State.UNLOCK1;
 
                 return State.UNLOCK2;
             }
 
-            if (progress < 100)
+            if (!isFinish)
                 return State.UNFINISH;
             
             var data = DataCenter.Instance.m_growData.GetItem(goodsID);
             bool isTaked = data.IsTaked(configID);
             return isTaked ? State.FINISH : State.CANTAKE;
+        }
+
+        public bool IsConditionFinish()
+        {
+            return GetConditionProgress() >= conditionValue;
         }
         
         /// <summary>
@@ -102,6 +103,7 @@ namespace SGame
     public class GrowGiftData
     {
         public int shopID;                 // 商品ID
+        public float price;                // 价格
         public int activeID;               // 活动ID
         public List<GiftReward> m_rewards; // 奖励数据
 
