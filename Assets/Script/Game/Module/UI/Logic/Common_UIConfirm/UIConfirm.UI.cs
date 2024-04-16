@@ -307,8 +307,6 @@ namespace SGame.UI{
 		string GetConfirmBody_TipsText()=>UIListener.GetText(m_view.m_body.m_tips);
 		void SetConfirmBody_TextText(string data)=>UIListener.SetText(m_view.m_body.m_text,data);
 		string GetConfirmBody_TextText()=>UIListener.GetText(m_view.m_body.m_text);
-		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
-		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 
 	}
 }
