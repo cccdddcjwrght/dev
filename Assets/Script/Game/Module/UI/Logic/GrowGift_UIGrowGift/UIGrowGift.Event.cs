@@ -88,7 +88,14 @@ namespace SGame.UI{
 		{
 			// 设置购买状态
 			if (m_datas.IsAllBuyed())
-				m_view.m_buy.selectedIndex = 1;
+			{
+				if (m_datas.HasReddot())
+					m_view.m_buy.selectedIndex = 1;
+				else
+				{
+					m_view.m_buy.selectedIndex = 2;
+				}
+			}
 			else
 				m_view.m_buy.selectedIndex = 0;
 			

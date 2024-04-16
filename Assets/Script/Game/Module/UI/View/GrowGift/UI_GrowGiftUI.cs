@@ -10,6 +10,7 @@ namespace SGame.UI.GrowGift
         public Controller m_buy;
         public GLabel m_body;
         public GButton m_btnCollect;
+        public GButton m_btnDisable;
         public GButton m_btnBuy;
         public GRichTextField m_lblTime;
         public GList m_listRewards;
@@ -27,9 +28,10 @@ namespace SGame.UI.GrowGift
             m_buy = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
             m_btnCollect = (GButton)GetChildAt(2);
-            m_btnBuy = (GButton)GetChildAt(3);
-            m_lblTime = (GRichTextField)GetChildAt(4);
-            m_listRewards = (GList)GetChildAt(5);
+            m_btnDisable = (GButton)GetChildAt(3);
+            m_btnBuy = (GButton)GetChildAt(4);
+            m_lblTime = (GRichTextField)GetChildAt(5);
+            m_listRewards = (GList)GetChildAt(6);
         }
     }
 }

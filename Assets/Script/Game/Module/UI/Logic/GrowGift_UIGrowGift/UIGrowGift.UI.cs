@@ -16,6 +16,7 @@ namespace SGame.UI{
 			m_view.m_buy.onChanged.Add(new EventCallback1(_OnBuyChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_btnCollect, new EventCallback1(_OnBtnCollectClick));
+			UIListener.Listener(m_view.m_btnDisable, new EventCallback1(_OnBtnDisableClick));
 			UIListener.Listener(m_view.m_btnBuy, new EventCallback1(_OnBtnBuyClick));
 
 		}
@@ -23,6 +24,7 @@ namespace SGame.UI{
 			m_view.m_buy.onChanged.Remove(new EventCallback1(_OnBuyChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_btnCollect, new EventCallback1(_OnBtnCollectClick),remove:true);
+			UIListener.Listener(m_view.m_btnDisable, new EventCallback1(_OnBtnDisableClick),remove:true);
 			UIListener.Listener(m_view.m_btnBuy, new EventCallback1(_OnBtnBuyClick),remove:true);
 
 		}
@@ -46,6 +48,12 @@ namespace SGame.UI{
 		partial void OnBtnCollectClick(EventContext data);
 		void SetBtnCollectText(string data)=>UIListener.SetText(m_view.m_btnCollect,data);
 		string GetBtnCollectText()=>UIListener.GetText(m_view.m_btnCollect);
+		void _OnBtnDisableClick(EventContext data){
+			OnBtnDisableClick(data);
+		}
+		partial void OnBtnDisableClick(EventContext data);
+		void SetBtnDisableText(string data)=>UIListener.SetText(m_view.m_btnDisable,data);
+		string GetBtnDisableText()=>UIListener.GetText(m_view.m_btnDisable);
 		void _OnBtnBuyClick(EventContext data){
 			OnBtnBuyClick(data);
 		}

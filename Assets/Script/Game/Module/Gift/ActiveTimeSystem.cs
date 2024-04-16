@@ -119,24 +119,23 @@ namespace SGame
                 return false;
             }
             
-            if (!DateTime.TryParse(time1, out DateTime date1))
+            if (!DateTime.TryParse(time1, out DateTime date1)) 
             {
                 log.Error(string.Format("pase time fail id={0}, timeformat={1}", id, time1));
                 return false;
             }
-            
             if (!DateTime.TryParse(time2, out DateTime date2))
             {
                 log.Error(string.Format("pase time fail id={0}, timeformat={1}", id, time2));
                 return false;
             }
-            
-            log.Info(string.Format("add time id={0}, time1={1}, time2={2}", id, date1.ToString(), date2.ToString()));
-            
+
             var timeOffset1 = new DateTimeOffset(date1);
             var timeOffset2 = new DateTimeOffset(date2);
             int offset1 = (int)timeOffset1.ToUnixTimeSeconds();
             int offset2 = (int)timeOffset2.ToUnixTimeSeconds();
+            log.Info(string.Format("add time id={0}, time1={1}, time2={2} value1={3} value2={4}", id, date1.ToString(), date2.ToString(), offset1, offset2));
+
             if (offset1 >= offset2)
             {
                 log.Error(string.Format("time1={0} lagre than time2={1}", offset1, offset2));
