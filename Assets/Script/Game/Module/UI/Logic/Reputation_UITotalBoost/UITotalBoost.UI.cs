@@ -13,12 +13,10 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
-			UIListener.ListenerClose(m_view.m_mask, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
-			UIListener.ListenerClose(m_view.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
