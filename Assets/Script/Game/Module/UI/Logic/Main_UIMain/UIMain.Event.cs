@@ -88,8 +88,8 @@ namespace SGame.UI
 			}, ()=> TomorrowGiftModule.Instance.time);
 			
 			// 成长礼包
-			m_rightIcons.Register(5, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0), null, 0);
-			m_rightIcons.Register(6, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1), null, 1);
+			m_rightIcons.Register(5, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0), ()=>GrowGiftModule.Instance.GetActiveTime(0), 0);
+			m_rightIcons.Register(6, GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1), ()=>GrowGiftModule.Instance.GetActiveTime(1), 1);
 		}
 
 		private void OnHeadSetting()

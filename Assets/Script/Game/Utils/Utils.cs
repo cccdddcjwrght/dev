@@ -871,5 +871,25 @@ namespace SGame
 
 		}
 
+		/// <summary>
+		/// 判断某个模块是否每日首次登录
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		public static bool IsFirstLoginInDay(string key)
+		{
+			// 当前时间
+			int currentTime = GameServerTime.Instance.serverTime;
+			int value = DataCenter.GetIntValue(key, 0);
+			if (value <= 0 || currentTime < value)
+			{
+				// 重置下次
+				DataCenter.SetIntValue(key, GameServerTime.Instance.nextDayTime);
+				return true;
+			}
+
+			return false;
+		}
+
 	}
 }
