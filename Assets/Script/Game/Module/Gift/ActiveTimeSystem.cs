@@ -71,7 +71,7 @@ namespace SGame
             }
             m_timeInterval = 0;
         }
-
+        
         void Update()
         {
             m_timeInterval -= Time.deltaTime;
@@ -83,6 +83,9 @@ namespace SGame
             
             // 统计事件
             var currentTime = GameServerTime.Instance.serverTime;
+            if (currentTime == 0)
+                return;
+            
             for (int i = 0; i < m_active.Count; i++)
             {
                 var value = m_active[i];

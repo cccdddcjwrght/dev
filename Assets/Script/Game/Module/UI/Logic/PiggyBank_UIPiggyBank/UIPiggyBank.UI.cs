@@ -63,6 +63,8 @@ namespace SGame.UI{
 		string GetPiggyBankProgress_MidValueText()=>UIListener.GetText(m_view.m_progress.m_midValue);
 		void SetPiggyBankProgress_MaxValueText(string data)=>UIListener.SetText(m_view.m_progress.m_maxValue,data);
 		string GetPiggyBankProgress_MaxValueText()=>UIListener.GetText(m_view.m_progress.m_maxValue);
+		void SetPiggyBankProgress_ValueText(string data)=>UIListener.SetText(m_view.m_progress.m_value,data);
+		string GetPiggyBankProgress_ValueText()=>UIListener.GetText(m_view.m_progress.m_value);
 		void _OnProgressClick(EventContext data){
 			OnProgressClick(data);
 		}

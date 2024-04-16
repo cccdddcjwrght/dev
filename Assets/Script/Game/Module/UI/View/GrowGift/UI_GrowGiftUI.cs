@@ -26,10 +26,10 @@ namespace SGame.UI.GrowGift
 
             m_buy = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
-            m_btnCollect = (GButton)GetChildAt(1);
-            m_btnBuy = (GButton)GetChildAt(2);
-            m_lblTime = (GRichTextField)GetChildAt(3);
-            m_listRewards = (GList)GetChildAt(4);
+            m_btnCollect = (GButton)GetChildAt(2);
+            m_btnBuy = (GButton)GetChildAt(3);
+            m_lblTime = (GRichTextField)GetChildAt(4);
+            m_listRewards = (GList)GetChildAt(5);
         }
     }
 }

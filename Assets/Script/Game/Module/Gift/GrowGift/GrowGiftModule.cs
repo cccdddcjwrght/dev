@@ -383,11 +383,12 @@ namespace SGame
             
             // 领取奖励
             var itemGroup = PropertyManager.Instance.GetGroup(reward.reward.type);
-            if (!itemGroup.AddNum(reward.reward.id, reward.reward.num))
-            {
-                log.Error("Add Item Fail=" + reward.reward.id + " num=" + reward.reward.num);
-                return false;
-            }
+            //if (!itemGroup.AddNum(reward.reward.id, reward.reward.num))
+            itemGroup.AddNum(reward.reward.id, reward.reward.num);
+            //{
+                //log.Error("Add Item Fail=" + reward.reward.id + " num=" + reward.reward.num);
+                //return false;
+            //}
             
             // 成功领取奖励
             var data = reward.GetDynamicData();
