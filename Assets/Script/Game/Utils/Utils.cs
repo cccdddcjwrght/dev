@@ -881,13 +881,14 @@ namespace SGame
 			// 当前时间
 			int currentTime = GameServerTime.Instance.serverTime;
 			int value = DataCenter.GetIntValue(key, 0);
-			if (value <= 0 || currentTime < value)
+			if (value <= 0 || currentTime >= value)
 			{
-				// 重置下次
+				// 首次
 				DataCenter.SetIntValue(key, GameServerTime.Instance.nextDayTime);
 				return true;
 			}
 
+			// 非首次, 数据不用刷新
 			return false;
 		}
 

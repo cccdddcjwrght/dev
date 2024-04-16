@@ -14,7 +14,8 @@ namespace SGame
     public class GrowGiftModule : Singleton<GrowGiftModule>
     {
         private static int _OPEND_ID = -1;
-        
+        public const string DAY_TIME_KEY = "growgift.daytime"; // 记录同一天数据
+
         // 重新组织配置数据
         public static int OPEND_ID
         {
@@ -48,8 +49,21 @@ namespace SGame
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_OPEN, OnActivityOpend);
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_CLOSE, OnActivityClosed);
             EventManager.Instance.Reg((int)GameEvent.DATA_INIT_COMPLETE, OnDataInitalizeFinish);
-
+            EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, OnFirstEnterRoom);
         }
+
+        void OnFirstEnterRoom(int levelID)
+        {
+            if (!IsOpend(0))
+                return;
+
+            if (Utils.IsFirstLoginInDay(DAY_TIME_KEY))
+            {
+                // 自动打开成长礼包
+                DelayExcuter.Instance.DelayOpen("growgift", "mainui", false, null, 0);
+            }
+        }
+
 
         void OnDataInitalizeFinish()
         {
@@ -380,6 +394,24 @@ namespace SGame
             data.takedID.Add(configID);
             //EventManager.Instance.AsyncTrigger((int)GameEvent.GROW_GIFT_REFRESH); // 刷新UI
             return true;
+        }
+
+        /// <summary>
+        /// 判断是否存在红点
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool RedDot(int index)
+        {
+            var data = GetData();
+            if (index >= data.Values.Count)
+            {
+                return false;
+            }
+
+            var rewardItem = data.Values[index];
+            var giftData = GetGiftData(rewardItem.goodsID);
+            return giftData.HasReddot();
         }
     }
 }

@@ -22,8 +22,8 @@ namespace SGame.UI.GrowGift
             base.ConstructFromXML(xml);
 
             m_state = GetControllerAt(0);
-            m_progress = (GProgressBar)GetChildAt(3);
-            m_gift_icon = (UI_Item)GetChildAt(5);
+            m_progress = (GProgressBar)GetChildAt(4);
+            m_gift_icon = (UI_Item)GetChildAt(6);
         }
     }
 }
