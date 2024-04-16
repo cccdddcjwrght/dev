@@ -6,6 +6,7 @@ using System.Timers;
 using Cinemachine;
 using log4net;
 using SGame;
+using SGame.VS;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,10 +15,12 @@ namespace SGame
     /// <summary>
     /// 活动时间系统, 用于判断时间区间内活动是否开启
     /// </summary>
-    public class ActiveTimeSystem : Singleton<ActiveTimeSystem>
+    public class ActiveTimeSystem : MonoSingleton<ActiveTimeSystem>
     {
         private static ILog log = LogManager.GetLogger("game.activetime");
-        
+
+        private const float UPDATE_TICK = 1.0f; // 每秒更新
+
         /// <summary>
         /// 时间结构提
         /// </summary>
@@ -37,8 +40,20 @@ namespace SGame
             public static bool operator == (TimeRange first, TimeRange other) => first.Equals(other);
             public static bool operator != (TimeRange lhs, TimeRange rhs) => !(lhs == rhs);
         }
-
-        private Dictionary<int, TimeRange> m_datas = new Dictionary<int, TimeRange>();
+        
+        // 激活数据
+        public struct ActiveData
+        {
+            public int          configID;
+            public bool         isActive;  // 当前是否激活
+            public TimeRange    timeRange; // 时间区域
+        }
+        
+        
+        private Dictionary<int, TimeRange> m_datas  = new Dictionary<int, TimeRange>();   // 用于判定是否在活动中
+        private List<ActiveData>           m_active = new List<ActiveData>();             // 用于触发活动事件
+        private float                      m_timeInterval = 0;
+        
 
         /// <summary>
         /// 初始化
@@ -54,7 +69,37 @@ namespace SGame
                     AddTimeRange(config.Value.Id, config.Value.BeginTime, config.Value.EndTime);
                 }
             }
+            m_timeInterval = 0;
         }
+
+        void Update()
+        {
+            m_timeInterval -= Time.deltaTime;
+            if (m_timeInterval > 0)
+            {
+                return;
+            }
+            m_timeInterval = UPDATE_TICK;
+            
+            // 统计事件
+            var currentTime = GameServerTime.Instance.serverTime;
+            for (int i = 0; i < m_active.Count; i++)
+            {
+                var value = m_active[i];
+                var isActive =  currentTime >= value.timeRange.tMin && currentTime <= value.timeRange.tMax;
+                if (isActive != value.isActive)
+                {
+                    value.isActive = isActive;
+                    m_active[i] = value;
+                    
+                    if (isActive == true)
+                        EventManager.Instance.Trigger((int)GameEvent.ACTIVITY_OPEN, value.configID);
+                    else
+                        EventManager.Instance.Trigger((int)GameEvent.ACTIVITY_CLOSE, value.configID);
+                }
+            }
+        }
+        
 
         /// <summary>
         /// 添加活动时间
@@ -94,10 +139,13 @@ namespace SGame
                 log.Error(string.Format("time1={0} lagre than time2={1}", offset1, offset2));
                 return false;
             }
-
-            m_datas.Add(id, new TimeRange(){tMin = offset1, tMax = offset2});
+            var timeRange = new TimeRange() { tMin = offset1, tMax = offset2 };
+            m_datas.Add(id, timeRange);
+            m_active.Add(new ActiveData(){configID = id, isActive = false, timeRange = timeRange});
             return true;
         }
+        
+        
         
         /// <summary>
         /// 判断某个时间是否在活动内
