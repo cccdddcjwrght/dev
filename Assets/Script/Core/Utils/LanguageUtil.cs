@@ -59,7 +59,7 @@ namespace SGame
 		}
 
 
-		//±¾»úÓïÑÔ
+		//æœ¬æœºè¯­è¨€
 		public static string MachineLanguage()
 		{
 			switch (Application.systemLanguage)

@@ -8,6 +8,9 @@ namespace SGame.UI{
 	public partial class UIGrowGift
 	{
 		private int m_goodsID = 0;
+		private const string RISING_STAR_TEXT		= "progresspack_mission_1";
+		private const string RISING_STAR_GREYTEXT	= "progresspack_mission_1_1";
+		
 		private GrowGiftData m_datas;
 		private EventHandleContainer m_eventContainer;
 		partial void InitEvent(UIContext context)
@@ -108,6 +111,19 @@ namespace SGame.UI{
 			var icon = Utils.GetItemIcon((int)data.reward.type, data.reward.id); //data[0], data[1]);
 			item.m_gift_icon.SetIcon(icon);
 			item.m_gift_icon.text = ((int)data.reward.num).ToString();
+
+			// 变灰
+			if (state == GiftReward.State.FINISH)
+			{
+				item.grayed = true;
+				item.title = string.Format(LanagueSystem.Instance.GetValue(RISING_STAR_GREYTEXT), data.conditionValue);
+			}
+			else
+			{
+				item.grayed = false;
+				item.title = string.Format(LanagueSystem.Instance.GetValue(RISING_STAR_TEXT), data.conditionValue);
+
+			}
 		}
 		
 		partial void UnInitEvent(UIContext context){
