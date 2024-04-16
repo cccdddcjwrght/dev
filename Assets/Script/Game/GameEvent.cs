@@ -63,8 +63,9 @@ namespace SGame
 		PROPERTY_GOLD				= 1000, // 金币属性添加   (int add_gold, long new_gold, int player_id)
 		PROPERTY_GOLD_CHANGE		= 1001, // 金币更改 (double newValue, double addValue)
 		PROPERTY_DIAMOND_CHANGE		= 1002, // 钻石更改 (double newValue, double addValue)
+		ITEM_CHANGE_BURYINGPOINT	= 1003, // 道具变化埋点
 
-		
+
 		//操作台=============================================
 		WORK_TABLE_ENABLE			= 2001,//操作台解锁
 		WORK_TABLE_UPLEVEL			= 2002,//操作台升级

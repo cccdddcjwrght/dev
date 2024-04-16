@@ -83,6 +83,10 @@ public class ItemGroup
 			m_values.Add(id, m_itemData.Values.Count - 1);
 		}
 
+		//除了金币 其他物品数量变化需要埋点
+		if(id != (int)ItemID.GOLD)
+			EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (int)SDK.TDSDK.TableType.item, id, (int)(value - oldValue), (int)value);
+
 		onValueUpdate?.Invoke(id, value, oldValue);
 
 		return true;

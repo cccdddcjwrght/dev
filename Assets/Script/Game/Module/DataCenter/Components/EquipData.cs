@@ -282,6 +282,8 @@ namespace SGame
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 					}
 				}
+				//装备数量变化埋点
+				EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (int)SDK.TDSDK.TableType.equip, eq, count, GetEquipNum(eq));
 			}
 
 			static public void RemoveEquips(params EquipItem[] equips)
@@ -381,8 +383,11 @@ namespace SGame
 						}
 						if (triggerevent && count > 0)
 							PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, count);
-						if (remove)
+						if (remove) 
+						{
 							RemoveEquip(equip, triggerevent);
+							EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (int)SDK.TDSDK.TableType.equip, equip.cfgID, -1, GetEquipNum(equip.cfgID));
+						}
 						return count;
 					}
 				}
@@ -462,6 +467,14 @@ namespace SGame
 					}
 				}
 				return default;
+			}
+
+			static public int GetEquipNum(int id) 
+			{
+				int num = 0;
+				num += _data.items.Count((e) => e.cfgID == id);
+				num += _data.equipeds.Count((e) => e.cfgID == id);
+				return num;
 			}
 
 			static private void OnRoleEquipChange(bool remove = false)

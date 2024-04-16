@@ -19,6 +19,8 @@ namespace SDK.TDSDK
 		guide_step,
 		open_show_begin,
 		open_show_end,
+		item_get,
+		item_cost,
 		shop_buy,
 		level_finish,
 		machine_star,
@@ -27,6 +29,13 @@ namespace SDK.TDSDK
 		equipment_reset,
 		equipment_decompose,
 		ability_update,
+	}
+
+	public enum TableType 
+	{
+		item	= 1,
+		equip	= 2,
+		pet		= 3,
 	}
 
 	public class PItem : IEquatable<PItem>
@@ -204,6 +213,8 @@ namespace SDK.TDSDK
 			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_SCENE_EFFECT_STATR, () => TrackNormal(TDEvent.open_show_begin.ToString()));
 			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END, () => TrackNormal(TDEvent.open_show_end.ToString()));
 
+			EventManager.Instance.Reg<int, int, int, int>((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (c1, c2, c3, c4) => OnChangeItemed(c1, c2, c3, c4));
+
 			EventManager.Instance.Reg<int, int, float>((int)GameEvent.SHOP_BUY_BURYINGPOINT, (cfgId, type, price) => TrackNormal(TDEvent.shop_buy.ToString(),
 				"goods_id", cfgId, "purchase_type", type, "purchase_price", price));
 
@@ -277,6 +288,12 @@ namespace SDK.TDSDK
 				if (_onceCaches.Count > 0)
 					UpdateDatas(_onceCaches, true);
 			}
+		}
+
+		public void OnChangeItemed(int type, int id, int changeNum, int num) 
+		{
+			if(changeNum > 0) TrackNormal(TDEvent.item_get.ToString(), "item_type", type, "item_id", id, "item_get_num", changeNum, "item_get_after", num);
+			else if(changeNum < 0) TrackNormal(TDEvent.item_cost.ToString(), "item_type", type, "item_id", id, "item_cost_num", changeNum, "item_cost_after", num);
 		}
 
 		public void OnEquiped(string id, int equipCfgId, int equipLevel, int equipQuality, int equipPos) 
