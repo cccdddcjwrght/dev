@@ -433,7 +433,7 @@ namespace SGame
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("ordertip", pos, float3.zero);
 			entityManager.AddComponent<Translation>(ui);
-			entityManager.AddComponentData<FoodItem>(ui, new FoodItem { itemID = foodType, num = foodNum, isFriend = isFriend});
+			entityManager.AddComponentData<FoodItem>(ui, new FoodItem { itemID = foodType, num = foodNum, isFriend = isFriend });
 			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
 			return ui;
 		}
@@ -576,5 +576,22 @@ namespace SGame
 			}
 
 		}
+
+
+		/// <summary>
+		/// 简单弹出框
+		/// </summary>
+		/// <param name="title">标题</param>
+		/// <param name="text">文本</param>
+		/// <param name="call">点击回调，-1关闭，0：点击第一个按钮，1：点击第二个按钮</param>
+		/// <param name="btns">按钮名列表</param>
+		/// <param name="other">其他参数，成对出现 k1,v1,k2,v2.....</param>
+		public static void Confirm(string title, string text, Action<int> call = null, string[] btns = null, object[] other = null)
+		{
+			var list = new List<object>() { "title", title, "text", text, "call", call, "btns", btns };
+			if (other != null && other.Length > 0) list.AddRange(other);
+			OpenUI("confirm", list.ToArray());
+		}
+
 	}
 }

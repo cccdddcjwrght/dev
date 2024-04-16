@@ -5,7 +5,7 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.Buff
 {
-    public partial class UI_ClickBtn : GButton
+    public partial class UI_BuffClickBtn : GButton
     {
         public Controller m_bgSize;
         public Controller m_txtSize;
@@ -19,9 +19,9 @@ namespace SGame.UI.Buff
         public GTextField m_shadow;
         public const string URL = "ui://g406runab32e8";
 
-        public static UI_ClickBtn CreateInstance()
+        public static UI_BuffClickBtn CreateInstance()
         {
-            return (UI_ClickBtn)UIPackage.CreateObject("Buff", "ClickBtn");
+            return (UI_BuffClickBtn)UIPackage.CreateObject("Buff", "BuffClickBtn");
         }
 
         public override void ConstructFromXML(XML xml)

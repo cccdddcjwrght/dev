@@ -371,12 +371,12 @@ public class UIListener
 		}
 	}
 
-	static public void SetTextWithName(GObject gObject, string labelName, string text , bool local = true)
+	static public void SetTextWithName(GObject gObject, string labelName, string text, bool local = true)
 	{
 		if (!string.IsNullOrEmpty(labelName) && gObject is GComponent com)
 		{
 			var c = com.GetChildByPath(labelName);
-			if (c != null) SetText(c, text , local);
+			if (c != null) SetText(c, text, local);
 		}
 	}
 
@@ -513,6 +513,8 @@ public class UIListener
 				var mask = com.GetChild("closeBg");
 				if (mask != null)
 					Listener(mask, method, remove: remove);
+				if (icon == null && mask == null && com.GetChild("body") != null)
+					ListenerClose(com.GetChild("body"), method, remove);
 			}
 		}
 	}

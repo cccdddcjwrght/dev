@@ -17,6 +17,11 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_HeadBtn.URL, typeof(UI_HeadBtn));
             UIObjectFactory.SetPackageItemExtension(UI_Currency.URL, typeof(UI_Currency));
             UIObjectFactory.SetPackageItemExtension(UI_RedpointUI.URL, typeof(UI_RedpointUI));
+            UIObjectFactory.SetPackageItemExtension(UI_AdaptiveBtn.URL, typeof(UI_AdaptiveBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_BgIconBtn.URL, typeof(UI_BgIconBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_BgIconTab.URL, typeof(UI_BgIconTab));
+            UIObjectFactory.SetPackageItemExtension(UI_ConfirmUI.URL, typeof(UI_ConfirmUI));
+            UIObjectFactory.SetPackageItemExtension(UI_ConfirmBody.URL, typeof(UI_ConfirmBody));
             UIObjectFactory.SetPackageItemExtension(UI_TabBtn.URL, typeof(UI_TabBtn));
             UIObjectFactory.SetPackageItemExtension(UI_MaskUI.URL, typeof(UI_MaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_ColorText.URL, typeof(UI_ColorText));

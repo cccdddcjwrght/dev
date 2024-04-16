@@ -83,7 +83,7 @@ public static class ArrayPool<T>
 
 public static class ArrayArgsExtend
 {
-	static public object GetArg(this IList args, string key)
+	static public object GetArg(this IList args, string key , object def = null)
 	{
 		if (!string.IsNullOrEmpty(key) && args != null && args.Count > 0 && args.Count % 2 == 0)
 		{
@@ -91,7 +91,7 @@ public static class ArrayArgsExtend
 			if (idx % 2 == 0)
 				return args[idx + 1];
 		}
-		return default;
+		return def;
 	}
 
 	static public bool GetBool(this IList args, string key)

@@ -196,7 +196,7 @@ namespace SGame
 			return Math.Ceiling(number);
 		}
 
-		static public T To<T>(this object val)
+		static public T To<T>(this object val , T def = default)
 		{
 			if (val == null) return default;
 			if(val is T v) return v;
@@ -207,7 +207,7 @@ namespace SGame
 			catch (Exception e)
 			{
 			}
-			return default;
+			return def;
 		}
 
 	}
