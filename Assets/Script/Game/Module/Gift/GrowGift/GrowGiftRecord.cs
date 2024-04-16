@@ -10,6 +10,7 @@ namespace SGame
     /// <summary>
     /// 每个活动的数据存储
     /// </summary>
+    [Serializable]
     public class GrowGiftItem
     {
         /// <summary>
@@ -83,7 +84,7 @@ namespace SGame
     /// <summary>
     /// 成长礼包数据
     /// </summary>
-    [SerializeField]
+    [Serializable]
     public class GrowGiftRecord
     {
         public List<GrowGiftItem> Values = new List<GrowGiftItem>();

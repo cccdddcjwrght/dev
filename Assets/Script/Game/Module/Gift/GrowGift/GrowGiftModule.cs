@@ -77,10 +77,8 @@ namespace SGame
             if (config == null)
                 return;
 
-            RefreshRecordData();
-
-            // 刷新主界面
-            EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
+            if (RefreshRecordData())
+                EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         /// <summary>
@@ -94,8 +92,8 @@ namespace SGame
             if (config == null)
                 return;
 
-            RefreshRecordData();
-            EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
+            if (RefreshRecordData())
+                EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         public bool IsOpend()
@@ -129,11 +127,18 @@ namespace SGame
                 var item = configs.Datalist(i);
                 if (value == null || value.shopID != item.Value.ShopId)
                 {
+                    if (!ConfigSystem.Instance.TryGet(item.Value.ShopId, out GameConfigs.ShopRowData shopConfig))
+                    {
+                        log.Error("shop id not found=" + item.Value.ShopId);
+                        return;
+                    }
+                    
                     value = new GrowGiftData()
                     {
-                        shopID = item.Value.ShopId,
-                        activeID =  item.Value.ActiveID,
-                        m_rewards = new List<GiftReward>(),
+                        shopID      = item.Value.ShopId,
+                        activeID    = item.Value.ActiveID,
+                        price       = shopConfig.Price,
+                        m_rewards   = new List<GiftReward>(),
                     };
                     if (!m_configDatas.TryAdd(item.Value.ShopId, value))
                     {
@@ -179,12 +184,12 @@ namespace SGame
         /// <summary>
         /// 刷新活动数据
         /// </summary>
-        void RefreshRecordData()
+        bool RefreshRecordData()
         {
             // 未开启时不处理
             if (!OPEND_ID.IsOpend(false))
             {
-                return;
+                return false;
             }
             
             // 删除不在活动中的对象
@@ -222,6 +227,8 @@ namespace SGame
             
             foreach (var item in addGifts)
                 OnOpenGrowGift(item);
+
+            return removeGifts.Count > 0 || addGifts.Count > 0;
         }
 
         /// <summary>
@@ -286,17 +293,7 @@ namespace SGame
 
             return null;
         }
-
-        /// <summary>
-        /// 判断是否已经获得奖励
-        /// </summary>
-        /// <param name="configID"></param>
-        /// <returns></returns>
-        public bool IsGetReward(bool configID)
-        {
-            return false;
-        }
-
+        
         /// <summary>
         /// 购买商品
         /// </summary>
@@ -325,7 +322,7 @@ namespace SGame
                 {
                     // 购买成功 
                     config.GetDynamicData().isBuy = true;                                // 标记已购买
-                    EventManager.Instance.AsyncTrigger((int)GameEvent.GROW_GIFT_UPDATE); // 刷新UI
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.GROW_GIFT_REFRESH); // 刷新UI
                 }
             });
             return true;
@@ -362,7 +359,7 @@ namespace SGame
             // 成功领取奖励
             var data = reward.GetDynamicData();
             data.takedID.Add(configID);
-            EventManager.Instance.AsyncTrigger((int)GameEvent.GROW_GIFT_UPDATE); // 刷新UI
+            //EventManager.Instance.AsyncTrigger((int)GameEvent.GROW_GIFT_REFRESH); // 刷新UI
             return true;
         }
     }
