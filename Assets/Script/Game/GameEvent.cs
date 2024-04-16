@@ -130,5 +130,10 @@ namespace SGame
 
 		PIGGYBANK_UPDATE				= 12000, //存钱罐刷新
 
+
+		//宠物==========================================
+		PET_LIST_REFRESH				= 13000, //宠物列表刷新
+		PET_REFRESH						= 13001, //宠物刷新
+		PET_ADD							= 13002, //宠物添加
 	}
 }
