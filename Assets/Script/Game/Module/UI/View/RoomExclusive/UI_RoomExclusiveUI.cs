@@ -7,7 +7,6 @@ namespace SGame.UI.RoomExclusive
 {
     public partial class UI_RoomExclusiveUI : GLabel
     {
-        public GGraph m_mask;
         public GTextField m_select;
         public GList m_list;
         public GGroup m_group;
@@ -22,10 +21,9 @@ namespace SGame.UI.RoomExclusive
         {
             base.ConstructFromXML(xml);
 
-            m_mask = (GGraph)GetChildAt(0);
-            m_select = (GTextField)GetChildAt(2);
-            m_list = (GList)GetChildAt(3);
-            m_group = (GGroup)GetChildAt(4);
+            m_select = (GTextField)GetChildAt(1);
+            m_list = (GList)GetChildAt(2);
+            m_group = (GGroup)GetChildAt(3);
         }
     }
 }
