@@ -24,7 +24,9 @@ namespace SGame
 
 		[SerializeField]
 		private int loadtime;
-
+		
+		public bool isFirst { get { return loadtime == 0; } }
+		
 		// 用户数据
 		public Entity m_data;
 		[SerializeField]
@@ -134,7 +136,8 @@ namespace SGame
 			{
 				IsNew = true;
 				registertime = GameServerTime.Instance.serverTime;
-				accountData.playerID = System.DateTime.Now.Ticks;
+				if (accountData.playerID == 0)
+					accountData.playerID = System.DateTime.Now.Ticks;
 				InitItem();
 				OnFirstInit();
 				IsFirstLogin = true;

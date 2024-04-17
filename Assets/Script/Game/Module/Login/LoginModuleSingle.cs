@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Fibers;
+using Http;
 using libx;
 using log4net;
+using SGame.Http;
 using UnityEngine;
 using Unity.Entities;
 using SGame.UI;
@@ -45,7 +47,10 @@ namespace SGame
 
 			go = GameObject.Instantiate(asset.asset as GameObject);
 			var waitLogin = new WaitEvent<string>((int)GameEvent.ENTER_LOGIN);
-			yield return waitLogin; 
+			yield return waitLogin;
+#if USER_SYNC
+			yield return UserSync();
+#endif			
 #else
 			EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, "aaa");
 			yield return null;
@@ -59,6 +64,46 @@ namespace SGame
 			EventManager.Instance.Trigger((int)GameEvent.LOGIN_COMPLETE);
 			if (go)
 				GameObject.Destroy(go);
+		}
+		
+		/// <summary>
+		/// 用户数据同步功能, 首次登录, 若服务器有数据, 就使用服务器数据
+		/// </summary>
+		/// <returns></returns>
+		IEnumerator UserSync(string userName)
+		{
+			if (!DataCenter.Instance.isFirst)
+			{
+				// 本地有数据, 不处理
+				yield break;
+			}
+
+			// 唯一化用户ID
+			var playerID = userName.GetHashCode();
+			DataCenter.Instance.accountData.playerID = playerID;
+			
+			// 请求服务器
+			HttpPackage pkg = new HttpPackage();
+			pkg.data = playerID.ToString();
+			var result = HttpSystem.Instance.Post("getData", pkg.ToJson());
+			yield return result;
+			if (!string.IsNullOrEmpty(result.error))
+			{
+				log.Error("get user sync data fail=" + result.error);
+				yield break;
+			}
+			
+			pkg = JsonUtility.FromJson<HttpPackage>(result.data);
+			if (string.IsNullOrEmpty(pkg.data))
+			{
+				// 新用户, 不用管
+				yield break;
+			}
+			
+			// 老用户, 将数据同步回来, 并重新加载
+			PlayerPrefs.SetString(DataCenterExtension.__DKey, pkg.data);
+			DataCenter.Instance.Load();
+			log.Info("Recovert Player Success=" + userName + " lasttime=" + DataCenter.Instance.accountData.lasttime);
 		}
 
 		public void Shutdown()
