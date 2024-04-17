@@ -237,7 +237,6 @@ namespace SGame.UI
 			if (e.inputEvent.y < 100) CompleteVideo();
 #endif
 			SGame.UIUtils.CloseUIByID(__id);
-			EventManager.Instance.Trigger((int)GameEvent.BEFORE_ENTER_BURYINGPOINT, DataCenter.Instance.roomData.roomID);
 			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 		}
 		#endregion
