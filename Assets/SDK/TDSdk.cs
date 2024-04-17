@@ -215,13 +215,15 @@ namespace SDK.TDSDK
 
 			EventManager.Instance.Reg<int, int, int, int>((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (c1, c2, c3, c4) => OnChangeItemed(c1, c2, c3, c4));
 
-			EventManager.Instance.Reg<int, int, float>((int)GameEvent.SHOP_BUY_BURYINGPOINT, (cfgId, type, price) => TrackNormal(TDEvent.shop_buy.ToString(),
-				"goods_id", cfgId, "purchase_type", type, "purchase_price", price));
+			EventManager.Instance.Reg<int>((int)GameEvent.SHOP_GOODS_BUY_RESULT, (cfgId) => {
+				if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(cfgId, out var data)) 
+					TrackNormal(TDEvent.shop_buy.ToString(), "goods_id", cfgId, "purchase_type", data.PurchaseType, "purchase_price", data.Price);
+			});
 
 			//点击下一关卡埋点
-			EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_BURYINGPOINT, (cfgId) =>
+			EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, () =>
 			{
-				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomRowData>(cfgId, out var data)) { TrackNormal(TDEvent.level_finish.ToString(), "level_sub_id", data.SubId, "level_region_id",data.RegionId); }
+				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomRowData>(DataCenter.Instance.roomData.roomID, out var data)) { TrackNormal(TDEvent.level_finish.ToString(), "level_sub_id", data.SubId, "level_region_id",data.RegionId); }
 			});
 		
 			//工作台升星埋点

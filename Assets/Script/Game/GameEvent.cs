@@ -41,7 +41,6 @@ namespace SGame
 		GAME_ENTER_SCENE_EFFECT_END = 116,//进场表现结束
 		ENTER_NEW_ROOM				= 117,//进入新场景
 		GAME_ENTER_SCENE_EFFECT_STATR =118,//进场表现开始
-		BEFORE_ENTER_BURYINGPOINT   = 119,//进入下一关前埋点
 
 		ORDER = 200,                             // 创建新订单 (int 订单ID)
 		ORDER_FOODMAKED				= 201,       // 
@@ -96,7 +95,6 @@ namespace SGame
 		SHOP_REFRESH				= 5001,//商城刷新
 		SHOP_GOODS_BUY_RESULT		= 5002,//商品购买
 		SHOP_BOOST_BUY				= 5003,//buff购买(id,level)
-		SHOP_BUY_BURYINGPOINT		= 5004,//商品购买埋点
 
 		//===================================================
 		EQUIP_REFRESH				= 6001,//装备刷新
