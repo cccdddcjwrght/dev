@@ -54,6 +54,36 @@ namespace SGame
 		const string __DKey = "__Data";
 		static int __state = 0;
 
+		static string GetStrData(this DataCenter data, string key = null)
+		{
+			var str = "";
+#if !SVR_RELEASE
+
+#if LOCAL_DATA
+		var p = Application.persistentDataPath + "/data_" + key;
+		if (!string.IsNullOrEmpty(key) && File.Exists(p))
+			str = File.ReadAllText(p);
+		else 
+#endif
+			str = PlayerPrefs.GetString(key ?? __DKey, null);
+#else
+		str = PlayerPrefs.GetString(key ?? __DKey, null);
+#endif
+			return str;
+		}
+
+		public static bool LoadDataFromStr(this DataCenter data, string str)
+		{
+			var ret = !string.IsNullOrEmpty(str);
+			if (ret)
+				JsonUtility.FromJsonOverwrite(str, data);
+			if (0 == __state++)
+				SetTimer();
+
+			return ret;
+		}
+		
+
 		public static bool LoadData(this DataCenter data, string key = null)
 		{
 			var str = "";
@@ -102,7 +132,10 @@ namespace SGame
 		static void SetTimer()
 		{
 			new Action(() => SaveData(DataCenter.Instance)).CallWhenQuit();
-			0.Loop(() => SaveData(DataCenter.Instance), () => true, 10000, 10000);
+			0.Loop(() =>
+			{
+				SaveData(DataCenter.Instance);
+			}, () => true, 10000, 10000);
 		}
 	}
 }
