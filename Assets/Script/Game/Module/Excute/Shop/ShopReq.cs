@@ -89,7 +89,6 @@ namespace SGame
 					PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);
 
 				EventManager.Instance.Trigger(((int)GameEvent.SHOP_GOODS_BUY_RESULT), id);
-				EventManager.Instance.Trigger((int)GameEvent.SHOP_BUY_BURYINGPOINT, cfg.Id, cfg.PurchaseType, cfg.Price);
 			}
 			call?.Invoke(state);
 		}

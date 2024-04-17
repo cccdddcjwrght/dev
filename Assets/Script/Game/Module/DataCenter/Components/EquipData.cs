@@ -472,8 +472,8 @@ namespace SGame
 			static public int GetEquipNum(int id) 
 			{
 				int num = 0;
-				num += _data.items.Count((e) => e.cfgID == id);
-				num += _data.equipeds.Count((e) => e.cfgID == id);
+				num += _data.items.Count((e) => e?.cfgID == id);
+				num += _data.equipeds.Count((e) => e?.cfgID == id);
 				return num;
 			}
 
