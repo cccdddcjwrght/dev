@@ -324,7 +324,7 @@ namespace SGame
 			if (playerID == 0)
 				return GetPlayerOutlookString(false);
 
-			var friend = FriendModule.Instance.GetFriendItem(playerID);
+			var friend = FriendModule.Instance.GetFriendInHirstory(playerID);
 			if (friend == null)
 			{
 				log.Error("friend not found=" + playerID);

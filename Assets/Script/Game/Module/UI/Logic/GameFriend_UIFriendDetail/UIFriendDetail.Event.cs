@@ -63,7 +63,7 @@ namespace SGame.UI{
 
 		void UpdateUIInfo()
 		{
-			var item = FriendModule.Instance.GetFriendItem(m_playerID);
+			var item = FriendModule.Instance.GetFriendInHirstory(m_playerID);
 			m_friend = item;
 			m_view.m_recomment.selectedIndex = item.state == (int)FIREND_STATE.RECOMMEND ? 1 : 0;
 			

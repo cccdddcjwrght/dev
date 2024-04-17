@@ -16,12 +16,22 @@ namespace SGame.Firend
         private static ILog log = LogManager.GetLogger("game.friend");
         private static int HIRE_TIME_INTERVAL = 300; // 下次时间间隔 单位秒
         private static int HIRING_TIME = 100;
+        private const int OPEN_ID = 14;
 
         /// <summary>
         /// 好友数据
         /// </summary>
         private FriendData m_friendData { get { return SGame.DataCenter.Instance.m_friendData; } }
         private Dictionary<int, FriendItemData> m_hirstory = new Dictionary<int, FriendItemData>();
+
+        /// <summary>
+        /// 判断是否开启
+        /// </summary>
+        /// <returns></returns>
+        public bool IsOpened()
+        {
+            return OPEN_ID.IsOpend(false);
+        }
 
         void TestJsonData()
         {
@@ -351,7 +361,7 @@ namespace SGame.Firend
         /// <returns></returns>
         public RoleData GetRoleData(int playerID)
         {
-            var item = FriendModule.Instance.GetFriendItem(playerID);
+            var item = FriendModule.Instance.GetFriendInHirstory(playerID);
 
             List<BaseEquip> equips = new List<BaseEquip>();
 
@@ -423,6 +433,15 @@ namespace SGame.Firend
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 是否拥有好友顾客
+        /// </summary>
+        /// <returns></returns>
+        public bool HasFriend()
+        {
+            return m_friendData.Friends.Count > 0;
         }
     }
 }
