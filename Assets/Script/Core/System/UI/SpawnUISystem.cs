@@ -106,6 +106,7 @@ namespace SGame.UI
                 };
                 comamndBuffer.AddComponent<UIWindow>(e);
                 comamndBuffer.SetComponent(e, ui);
+				UIRequestMgr.Remove(request.configId);
             }
             ).WithStructuralChanges().WithoutBurst().Run();
             

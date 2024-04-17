@@ -76,10 +76,10 @@ namespace SGame.UI
 			_eqs = GetRandomEqs(id, out var chest);
 			if (_eqs != null)
 			{
+				ReleaseEffect();
 				DataCenter.EquipUtil.AddEquips(true, _eqs.ToArray());
 				_list.numItems = (int)(_eqs?.Count);
 				m_view.m_type.SetSelectedPage(id.ToString());
-
 
 				_count--;
 				_mask = true;
@@ -135,13 +135,18 @@ namespace SGame.UI
 
 		void CloseUI(bool imm = false)
 		{
-			if (_effect != default)
-				EffectSystem.Instance.ReleaseEffect(_effect);
-			_effect = default;
+			ReleaseEffect();
 			if (imm)
 				SGame.UIUtils.CloseUIByID(__id);
 			else
 				m_view.m_t1.Play(() => SGame.UIUtils.CloseUIByID(__id));
+		}
+
+		void ReleaseEffect()
+		{
+			if (_effect != default)
+				EffectSystem.Instance.ReleaseEffect(_effect);
+			_effect = default;
 		}
 
 	}
