@@ -48,7 +48,7 @@ namespace SGame
 			go = GameObject.Instantiate(asset.asset as GameObject);
 			var waitLogin = new WaitEvent<string>((int)GameEvent.ENTER_LOGIN);
 			yield return waitLogin;
-#if USER_SYNC
+#if DATA_SYNC
 			yield return UserSync();
 #endif			
 #else
