@@ -172,12 +172,9 @@ namespace SGame
 						{
 							var index = id;
 							id = id / 100;
-							index -= id * 100;
-							if (index > 0)
-							{
-								index--;
-								list.Add(new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
-							}
+							index = index - id * 100 - 1;
+							if (index >= 0)
+								list.Insert(0, new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
 						}
 						return list;
 					}
@@ -276,6 +273,8 @@ namespace SGame
 						e.Refresh();
 						_data.items.Add(e);
 					}
+					EventManager.Instance.Trigger((int)GameEvent.EQUIP_NUM_UPDATE, eq, count);
+
 					if (triggerevent)
 					{
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_ADD));
@@ -347,6 +346,7 @@ namespace SGame
 						_data.items.RemoveAt(index);
 						if (triggerevent)
 							EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+						EventManager.Instance.Trigger((int)GameEvent.EQUIP_NUM_UPDATE, equip.cfgID, -1);
 					}
 				}
 			}
@@ -383,7 +383,7 @@ namespace SGame
 						}
 						if (triggerevent && count > 0)
 							PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, count);
-						if (remove) 
+						if (remove)
 						{
 							RemoveEquip(equip, triggerevent);
 							EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, 2, equip.cfgID, -1, GetEquipNum(equip.cfgID));
@@ -469,7 +469,7 @@ namespace SGame
 				return default;
 			}
 
-			static public int GetEquipNum(int id) 
+			static public int GetEquipNum(int id)
 			{
 				int num = 0;
 				num += _data.items.Count((e) => e?.cfgID == id);
@@ -543,7 +543,7 @@ namespace SGame
 		public EquipQualityRowData qcfg;
 		[NonSerialized]
 		public List<int[]> mats;
-		
+
 		public int upLvCost { get; private set; }
 		public int type { get { return cfg.IsValid() ? cfg.Type : _type; } }
 		public string name { get { return cfg.IsValid() && _name == null ? cfg.Name : _name; } }
@@ -672,7 +672,7 @@ namespace SGame
 
 		public bool CheckMats()
 		{
-			if(mats?.Count > 0)
+			if (mats?.Count > 0)
 			{
 				foreach (var item in mats)
 				{

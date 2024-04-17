@@ -103,6 +103,7 @@ namespace SGame
 		ROLE_EQUIP_PUTON			= 6004,//装备穿戴（int id）
 		ROLE_PROPERTY_REFRESH		= 6005,//角色属性变化
 		EQUIP_BURYINGPOINT			= 6006,//装备埋点
+		EQUIP_NUM_UPDATE			= 6007,//装备数量变化（int id , int count）
 
 		//设置======================================
 		SETTING_UPDATE_INT = 8001,     //(int)设置更新

@@ -900,23 +900,21 @@ namespace SGame
 			{
 				var index = effectID;
 				effectID = effectID / 100;
-				index -= effectID * 100;
-				if (index > 0)
-				{
-					index--;
-					list.Add(new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
-				}
+				index = index - effectID * 100 - 1;
+				if (index >= 0)
+					list.Insert(0 , new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
 			}
 			return list;
 		}
 
-		static public ulong RandomEffectID(List<int[]> effects , List<int[]> weights , List<int[]> rets = null)
+		static public ulong RandomEffectID(List<int[]> effects, List<int[]> weights, List<int[]> rets = null)
 		{
 			if (effects == null || weights == null || effects.Count != weights.Count) return 0;
 			ulong id = 0;
 			for (int i = 0; i < effects.Count; i++)
 			{
 				var bs = effects[i];
+				if (bs == null || bs.Length == 0) break;
 				var w = weights[i];
 				var index = SGame.Randoms.Random._R.NextWeight(w);
 				if (bs.Length > index * 2)
@@ -926,7 +924,7 @@ namespace SGame
 						rets.Add(new int[] { bs[index * 2], bs[index * 2 + 1] });
 				}
 			}
-			return 0;
+			return id;
 		}
 
 	}

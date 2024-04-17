@@ -189,7 +189,7 @@ namespace SGame
 				if (cfg.IsValid() || ConfigSystem.Instance.TryGet<ShopRowData>(goods.id, out cfg))
 				{
 					goods.cfg = cfg;
-					goods.price = (float)Math.Floor(cfg.Price * 100) * 0.001f;
+					goods.price = ((int)Math.Floor(cfg.Price * 100));
 					goods.pricestr = cfg.PurchaseType == 3 ? GetGoodsPriceStr(cfg.Id, cfg.Price) : default;
 				}
 			}
@@ -217,7 +217,7 @@ namespace SGame
 	{
 		public int id;
 		public int type;
-		public float price;
+		public int price; //扩大了100倍，减少浮点误差
 		public string pricestr;
 
 		public int free;//免费次数
