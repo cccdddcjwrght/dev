@@ -283,7 +283,7 @@ namespace SGame
 					}
 				}
 				//装备数量变化埋点
-				EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (int)SDK.TDSDK.TableType.equip, eq, count, GetEquipNum(eq));
+				EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, 2, eq, count, GetEquipNum(eq));
 			}
 
 			static public void RemoveEquips(params EquipItem[] equips)
@@ -386,7 +386,7 @@ namespace SGame
 						if (remove) 
 						{
 							RemoveEquip(equip, triggerevent);
-							EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (int)SDK.TDSDK.TableType.equip, equip.cfgID, -1, GetEquipNum(equip.cfgID));
+							EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, 2, equip.cfgID, -1, GetEquipNum(equip.cfgID));
 						}
 						return count;
 					}
