@@ -28,7 +28,7 @@ namespace SGame.Firend
         /// 判断是否开启
         /// </summary>
         /// <returns></returns>
-        public bool IsOpened()
+        public static bool IsOpened()
         {
             return OPEN_ID.IsOpend(false);
         }
