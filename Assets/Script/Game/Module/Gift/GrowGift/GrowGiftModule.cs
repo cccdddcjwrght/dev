@@ -216,10 +216,12 @@ namespace SGame
         bool RefreshRecordData()
         {
             // 未开启时不处理
+            /*
             if (!OPEND_ID.IsOpend(false))
             {
                 return false;
             }
+            */
             
             // 删除不在活动中的对象
             int currentTime = GameServerTime.Instance.serverTime;
