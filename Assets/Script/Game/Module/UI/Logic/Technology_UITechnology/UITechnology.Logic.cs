@@ -98,7 +98,6 @@ namespace SGame.UI{
 
 			techBtn.onClick.Set(()=>
 			{
-
 				if (PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.DIAMOND) >= itemNum)
 				{
 					if (listData[index].IsLock == false)
@@ -114,7 +113,7 @@ namespace SGame.UI{
 						LevelValue,
 						listData[index].ID
 					);
-					EventManager.Instance.Trigger((int)GameEvent.TECH_LEVEL, listData[index].ID, listData[index].LevelIndex);
+					EventManager.Instance.Trigger((int)GameEvent.TECH_LEVEL, listData[index].ID, listData[index].abilitLevelList[listData[index].LevelIndex].level);
 					PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.DIAMOND, -itemNum);
 					m_view.m_techList.numItems = m_AbilityData.len; 
 				}

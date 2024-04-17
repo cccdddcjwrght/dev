@@ -40,7 +40,8 @@ namespace SGame
 		GAME_MAIN_REFRESH           = 115,//游戏刷新       
 		GAME_ENTER_SCENE_EFFECT_END = 116,//进场表现结束
 		ENTER_NEW_ROOM				= 117,//进入新场景
-		GAME_ENTER_SCENE_EFFECT_STATR =118,//进场表现开始
+		GAME_ENTER_VIEW_STATR		= 118,//进场视频开始
+		GAME_ENTER_VIEW_END			= 119,//进场视频结束
 
 		ORDER = 200,                             // 创建新订单 (int 订单ID)
 		ORDER_FOODMAKED				= 201,       // 

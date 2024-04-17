@@ -210,10 +210,14 @@ namespace SDK.TDSDK
 			EventManager.Instance.Reg<int>(((int)GameEvent.GUIDE_STEP), (a) => TrackNormal(TDEvent.guide_step.ToString(), "guide_id", a));
 
 			//开场动画埋点，开始和结束
-			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_SCENE_EFFECT_STATR, () => TrackNormal(TDEvent.open_show_begin.ToString()));
-			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_SCENE_EFFECT_END, () => TrackNormal(TDEvent.open_show_end.ToString()));
+			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_VIEW_STATR, () => TrackNormal(TDEvent.open_show_begin.ToString()));
+			EventManager.Instance.Reg((int)GameEvent.GAME_ENTER_VIEW_END, () => TrackNormal(TDEvent.open_show_end.ToString()));
 
 			EventManager.Instance.Reg<int, int, int, int>((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, (c1, c2, c3, c4) => OnChangeItemed(c1, c2, c3, c4));
+			EventManager.Instance.Reg<int, int>((int)GameEvent.EQUIP_NUM_UPDATE, (cfgId, cNum) =>
+			{
+				OnChangeItemed((int)TableType.equip, cfgId, cNum, DataCenter.EquipUtil.GetEquipNum(cfgId));
+			});
 
 			EventManager.Instance.Reg<int>((int)GameEvent.SHOP_GOODS_BUY_RESULT, (cfgId) => {
 				if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(cfgId, out var data)) 
@@ -235,7 +239,8 @@ namespace SDK.TDSDK
 			EventManager.Instance.Reg<string, int, int, int, int>((int)GameEvent.EQUIP_BURYINGPOINT, (id, e1, e2, e3, e4) => OnEquiped(id, e1, e2, e3, e4));
 
 			//全局科技埋点
-			EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (techId, techLevel) => TrackNormal(TDEvent.ability_update.ToString(),
+			EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (techId, techLevel) => 
+			TrackNormal(TDEvent.ability_update.ToString(),
 				"ability_id", techId, 
 				"ability_level", techLevel));
 		}
