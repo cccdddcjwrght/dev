@@ -304,7 +304,7 @@ namespace SGame
 					{ log.Error("装备格子不对，无法装备"); return; }
 
 					PutOff(_data.equipeds[pos], false);
-					RemoveEquip(equip, false);
+					RemoveEquip(equip, false , true);
 
 					equip.pos = pos;
 					_data.equipeds[pos] = equip;
@@ -334,7 +334,7 @@ namespace SGame
 				}
 			}
 
-			static public void RemoveEquip(EquipItem equip, bool triggerevent = true)
+			static public void RemoveEquip(EquipItem equip, bool triggerevent = true, bool isputon = false)
 			{
 				if (equip != null)
 				{
@@ -346,7 +346,8 @@ namespace SGame
 						_data.items.RemoveAt(index);
 						if (triggerevent)
 							EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
-						EventManager.Instance.Trigger((int)GameEvent.EQUIP_NUM_UPDATE, equip.cfgID, -1);
+						if (!isputon)
+							EventManager.Instance.Trigger((int)GameEvent.EQUIP_NUM_UPDATE, equip.cfgID, -1);
 					}
 				}
 			}
