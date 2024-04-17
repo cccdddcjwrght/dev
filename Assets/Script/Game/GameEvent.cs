@@ -16,9 +16,11 @@ namespace SGame
 		UI_SHOW						= 12,//(UIContext context)
 		UI_HIDE						= 13,//(UIContext context)
 
-		UI_INPUT_LOCK				= 14,       // 锁定UI输入
+		UI_INPUT_LOCK				= 14,     // 锁定UI输入
 		UI_INPUT_UNLOCK				= 15,     // UI输入解锁
 		CROSS_DAY					= 16,	  // 跨天事件
+		
+		APP_PAUSE					= 17,     // 游戏中断(bool isPause)
 								   //登录======================================
 		HOTFIX_DONE = 100, // 热更新结束
 		LOGIN_READLY				= 101, // 登录准备好了

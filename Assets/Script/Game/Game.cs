@@ -261,6 +261,10 @@ public class Game : SGame.MonoSingleton<Game>
 		ShutdownGameLoops();
 		ConfigSystem.Cleanup();
 	}
-
+	
+	private void OnApplicationPause(bool isPause)
+	{
+		EventManager.Instance.Trigger((int)GameEvent.APP_PAUSE, isPause);
+	}
 
 }
