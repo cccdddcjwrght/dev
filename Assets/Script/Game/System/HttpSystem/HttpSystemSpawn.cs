@@ -49,9 +49,11 @@ namespace SGame.Http
 				data.request.SetRequestHeader("Authorization", "token " + req.token);
 				data.request.certificateHandler = DefultCertificateHandler.Current;
 				data.result = data.request.SendWebRequest();
-				commandBuffer.AddComponent(e, data);
-				commandBuffer.RemoveComponent<HttpRequest>(e);
-			}).WithoutBurst().Run();
+				EntityManager.AddComponentData(e, data);
+				EntityManager.RemoveComponent<HttpRequest>(e);
+				//commandBuffer.AddComponent(e, data);
+				//commandBuffer.RemoveComponent<HttpRequest>(e);
+			}).WithoutBurst().WithStructuralChanges().Run();
 		}
 
 		////// 数据 /////////////////////////////////////////////////

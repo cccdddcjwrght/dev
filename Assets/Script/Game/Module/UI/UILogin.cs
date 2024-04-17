@@ -28,8 +28,6 @@ namespace SGame
 		// 按下按钮
 		public void OnClick()
 		{
-			EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, "aaa");
-			
 			if (!string.IsNullOrEmpty(m_view.m_account.text))
 			{
 				PlayerPrefs.SetString("user", m_view.m_account.text);
@@ -57,9 +55,9 @@ namespace SGame
 				// 	})
 				// 	.Timeout(3f)
 				// 	.RunAndWait();
-
 			}
 			
+			EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, m_view.m_account.text);
 		}
 
 		public static IUIScript Create() { return new UILogin(); }

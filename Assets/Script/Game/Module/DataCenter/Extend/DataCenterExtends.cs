@@ -51,8 +51,46 @@ namespace SGame
 
 	public static partial class DataCenterExtension
 	{
-		public const string __DKey = "__Data";
+		private const string __DKey = "__Data";
 		static int __state = 0;
+
+		/// <summary>
+		/// 从磁盘加载
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		public static string GetStrFromDisk(string key = null)
+		{
+			var str = "";
+#if !SVR_RELEASE
+
+#if LOCAL_DATA
+		var p = Application.persistentDataPath + "/data_" + key;
+		if (!string.IsNullOrEmpty(key) && File.Exists(p))
+			str = File.ReadAllText(p);
+		else 
+#endif
+			str = PlayerPrefs.GetString(key ?? __DKey, null);
+#else
+		str = PlayerPrefs.GetString(key ?? __DKey, null);
+#endif
+			return str;
+		}
+
+		/// <summary>
+		/// 写入磁盘
+		/// </summary>
+		/// <param name="str"></param>
+		/// <param name="key"></param>
+		public static void SaveStrToDisk(string str, string key = null)
+		{
+			PlayerPrefs.SetString(key ?? __DKey, str);
+			PlayerPrefs.Save();
+#if !SVR_RELEASE
+			var path = Application.persistentDataPath + "/data_" + key;
+			System.IO.File.WriteAllText(path, str);
+#endif			
+		}
 
 		public static bool LoadData(this DataCenter data, string key = null)
 		{
@@ -102,7 +140,14 @@ namespace SGame
 		static void SetTimer()
 		{
 			new Action(() => SaveData(DataCenter.Instance)).CallWhenQuit();
-			0.Loop(() => SaveData(DataCenter.Instance), () => true, 10000, 10000);
+			0.Loop(() =>
+			{
+				SaveData(DataCenter.Instance);
+				
+				#if DATA_SYNC 
+					DataSyncModule.SendDataToServer();
+				#endif
+			}, () => true, 10000, 10000);
 		}
 	}
 }
