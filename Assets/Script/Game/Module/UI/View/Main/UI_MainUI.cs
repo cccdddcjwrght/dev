@@ -10,7 +10,7 @@ namespace SGame.UI.Main
         public Controller m_main;
         public GLoader m_top;
         public UI_ActBtnList m_rightList;
-        public UI_ShowBtnList m_leftList;
+        public UI_ActBtnList m_leftList;
         public GButton m_head;
         public GButton m_Gold;
         public GButton m_Diamond;
@@ -36,7 +36,7 @@ namespace SGame.UI.Main
             m_main = GetControllerAt(0);
             m_top = (GLoader)GetChildAt(0);
             m_rightList = (UI_ActBtnList)GetChildAt(1);
-            m_leftList = (UI_ShowBtnList)GetChildAt(2);
+            m_leftList = (UI_ActBtnList)GetChildAt(2);
             m_head = (GButton)GetChildAt(3);
             m_Gold = (GButton)GetChildAt(4);
             m_Diamond = (GButton)GetChildAt(5);

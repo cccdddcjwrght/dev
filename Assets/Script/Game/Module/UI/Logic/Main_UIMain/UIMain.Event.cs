@@ -33,22 +33,21 @@ namespace SGame.UI
 		}
 
 		private List<CheckingManager.CheckItem> m_RightIconDatas;
+		private List<CheckingManager.CheckItem> m_LeftIconDatas;
+
 
 		partial void InitEvent(UIContext context)
 		{
 			m_setData			= DataCenter.Instance.setData;
-			leftList			= m_view.m_leftList.m_left;
+			leftList			= m_view.m_leftList.m_right;
 			m_rightList			= m_view.m_rightList.m_right;
 			leftList.opaque		= false;
 			m_rightList.opaque	= false;
 			RegisterUIState();
 			
 			var headBtn = m_view.m_head;
-			leftList.itemRenderer += RenderListItem;
-			leftList.numItems = 4;
-
-			m_rightList.itemRenderer = RenderRightItem;
-			//m_rightList.numItems = RIGHT_ITEM_NUM;
+			leftList.itemRenderer	 = (index, gobject) => RenderNormalItem(m_LeftIconDatas, index, gobject);//+= RenderListItem;
+			m_rightList.itemRenderer = (index, gobject) => RenderNormalItem(m_RightIconDatas, index, gobject);;
 
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
@@ -92,12 +91,21 @@ namespace SGame.UI
 			// 成长礼包
 			m_funcManager.Register(GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0), ()=>GrowGiftModule.Instance.GetActiveTime(0), 0, "growgift1");
 			m_funcManager.Register(GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1), ()=>GrowGiftModule.Instance.GetActiveTime(1), 1, "growgift2");
+			
+			// 左排
+			m_funcManager.Register(10); 
+			m_funcManager.Register(12);
+			m_funcManager.Register(17);
+			m_funcManager.Register(14, null, ()=>FriendModule.Instance.hiringTime); // 好友
 		}
 
 		void UpdateUIState()
 		{
 			m_RightIconDatas = m_funcManager.GetDatas((int)AREA.RIGHT);
 			m_rightList.numItems = m_RightIconDatas.Count;
+
+			m_LeftIconDatas = m_funcManager.GetDatas((int)AREA.LEFT);
+			leftList.numItems = m_LeftIconDatas.Count;
 		}
 
 		private void OnHeadSetting()
@@ -121,36 +129,7 @@ namespace SGame.UI
 			adBtn.visible = 16.IsOpend(false);
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
 
-			leftList.GetChildAt(0).visible = 10.IsOpend(false);
-			leftList.GetChildAt(1).visible = 12.IsOpend(false);
-			leftList.GetChildAt(2).visible = 17.IsOpend(false);
-			leftList.GetChildAt(3).visible = 14.IsOpend(false);
-			
-			// 处理好友倒计时间
-			var friendItem = leftList.GetChildAt(3) as UI_ShowBtn;
-			GTween.Kill(friendItem);
-			if (friendItem.visible)
-			{
-				if (FriendModule.Instance.hiringTime > 0)
-				{
-					friendItem.m_ctrlTime.selectedIndex = 1;
-					GTween.To(0, 1, FriendModule.Instance.hiringTime)
-						.SetTarget(friendItem)
-						.OnUpdate(() =>
-						{
-							var t = FriendModule.Instance.hiringTime;
-							friendItem.m_content.text = Utils.FormatTime(t);
-						})
-						.OnComplete(() => friendItem.m_ctrlTime.selectedIndex = 0);
-				}
-				else
-				{
-					friendItem.m_ctrlTime.selectedIndex = 0;
-				}
-			}
-
-
-			// 处理右列表
+			// 处理左右列表
 			UpdateUIState();
 		}
 
@@ -206,32 +185,6 @@ namespace SGame.UI
 			}
 
 			ui.icon = config.config.Icon;
-		}
-		
-		private void RenderRightItem(int index, GObject item)
-		{
-			RenderNormalItem(m_RightIconDatas, index, item);
-		}
-
-		private void RenderListItem(int index, GObject item)
-		{
-			item.onClick.Add(() =>
-			{
-				switch (index)
-				{
-					case 0:
-						"shop".Goto();
-						break;
-					case 1:
-						"player".Goto();
-						break;
-					case 2:
-						"technology".Goto();
-						break;
-					case 3:
-						"friend".Goto();
-						break;				}
-			});
 		}
 
 
