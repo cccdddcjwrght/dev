@@ -61,13 +61,12 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
 			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnRefreshPiggyBankRedDot);
+			//m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnRefreshPiggyBankRedDot);
 
 			OnHeadSetting();
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
-			OnRefreshPiggyBankRedDot();
 		}
 
 		void RegisterUIState()
@@ -354,18 +353,7 @@ namespace SGame.UI
 			m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 		}
-
-		void OnRefreshPiggyBankRedDot() 
-		{
-			GButton btn = m_rightList.GetChildAt(2).asButton;
-			btn.GetController("__redpoint").selectedIndex =
-				DataCenter.PiggyBankUtils.CheckPiggyBankIsFull() ? 1 : 0;
-			btn.GetController("ctrlTime").selectedIndex = 1;
-			btn.GetChild("content").SetText(string.Format("{0}/{1}",
-				DataCenter.Instance.piggybankData.progress,
-				DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
-		}
-
+		
 		partial void OnTaskRewardBtnClick(EventContext data)
 		{
 			"leveltech".Goto();

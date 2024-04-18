@@ -34,16 +34,18 @@ namespace SGame.UI{
 			/// <returns></returns>
 			public bool IsVisible()
 			{
-				if (!funcID.IsOpend(false))
-					return false;
-
 				if (funcCanShow != null)
 				{
 					var ret = funcCanShow();
 					return ret;
 				}
 
-				return true;
+				return funcID.IsOpend(false);
+			}
+
+			public void Goto()
+			{
+				config.Uniqid.Goto();
 			}
 
 			/// <summary>
@@ -67,6 +69,17 @@ namespace SGame.UI{
 					else
 						SGame.UIUtils.OpenUI(config.Ui);
 				}
+			}
+
+			/// <summary>
+			/// 首次打开触发功能开启UI
+			/// </summary>
+			public void FuncOpenUI()
+			{
+				/*
+				if (config.FirstOpen > 0)
+					OpenUI();
+					*/
 			}
 		}
 		private Dictionary<int, List<CheckItem>> m_data = new Dictionary<int, List<CheckItem>>();
@@ -99,11 +112,12 @@ namespace SGame.UI{
 				}
 			}
 
+			ret.Sort((a, b) => a.order - b.order);
+
 			/// 首次弹窗
 			foreach (var item in showUI.Values)
 			{
-				if (item.config.FirstOpen > 0)
-					item.OpenUI();
+				item.FuncOpenUI();
 			}
 			return ret;
 		}
