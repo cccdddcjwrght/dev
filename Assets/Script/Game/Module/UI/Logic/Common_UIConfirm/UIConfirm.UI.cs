@@ -20,6 +20,8 @@ namespace SGame.UI{
 			m_view.m_body.m_clickstate.onChanged.Add(new EventCallback1(_OnConfirmBody_ClickstateChanged));
 			m_view.m_body.m_textsize.onChanged.Add(new EventCallback1(_OnConfirmBody_TextsizeChanged));
 			m_view.m_body.m_body.m_size.onChanged.Add(new EventCallback1(_OnPopupBody_body_sizeChanged));
+			m_view.m_body.m_body.m_type.onChanged.Add(new EventCallback1(_OnPopupBody_body_typeChanged));
+			m_view.m_body.m_body.m_hideclose.onChanged.Add(new EventCallback1(_OnPopupBody_body_hidecloseChanged));
 			UIListener.ListenerClose(m_view.m_body.m_body.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerClose(m_view.m_body.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_body.m_ok.m_bgSize.onChanged.Add(new EventCallback1(_OnClickBtn_Body_ok_bgSizeChanged));
@@ -63,6 +65,8 @@ namespace SGame.UI{
 			m_view.m_body.m_clickstate.onChanged.Remove(new EventCallback1(_OnConfirmBody_ClickstateChanged));
 			m_view.m_body.m_textsize.onChanged.Remove(new EventCallback1(_OnConfirmBody_TextsizeChanged));
 			m_view.m_body.m_body.m_size.onChanged.Remove(new EventCallback1(_OnPopupBody_body_sizeChanged));
+			m_view.m_body.m_body.m_type.onChanged.Remove(new EventCallback1(_OnPopupBody_body_typeChanged));
+			m_view.m_body.m_body.m_hideclose.onChanged.Remove(new EventCallback1(_OnPopupBody_body_hidecloseChanged));
 			UIListener.ListenerClose(m_view.m_body.m_body.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerClose(m_view.m_body.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_body.m_ok.m_bgSize.onChanged.Remove(new EventCallback1(_OnClickBtn_Body_ok_bgSizeChanged));
@@ -133,6 +137,16 @@ namespace SGame.UI{
 		}
 		partial void OnPopupBody_body_sizeChanged(EventContext data);
 		void SwitchPopupBody_body_sizePage(int index)=>m_view.m_body.m_body.m_size.selectedIndex=index;
+		void _OnPopupBody_body_typeChanged(EventContext data){
+			OnPopupBody_body_typeChanged(data);
+		}
+		partial void OnPopupBody_body_typeChanged(EventContext data);
+		void SwitchPopupBody_body_typePage(int index)=>m_view.m_body.m_body.m_type.selectedIndex=index;
+		void _OnPopupBody_body_hidecloseChanged(EventContext data){
+			OnPopupBody_body_hidecloseChanged(data);
+		}
+		partial void OnPopupBody_body_hidecloseChanged(EventContext data);
+		void SwitchPopupBody_body_hideclosePage(int index)=>m_view.m_body.m_body.m_hideclose.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
@@ -307,6 +321,8 @@ namespace SGame.UI{
 		string GetConfirmBody_TipsText()=>UIListener.GetText(m_view.m_body.m_tips);
 		void SetConfirmBody_TextText(string data)=>UIListener.SetText(m_view.m_body.m_text,data);
 		string GetConfirmBody_TextText()=>UIListener.GetText(m_view.m_body.m_text);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 
 	}
 }

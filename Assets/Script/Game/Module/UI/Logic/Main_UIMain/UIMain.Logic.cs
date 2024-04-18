@@ -14,6 +14,8 @@ namespace SGame.UI{
 	public class CheckingManager// : Singleton<CheckingManager>
 	{
 		private static ILog log = LogManager.GetLogger("game.mainui");
+		public const int LEFT_BAR_ID	= 101;
+		public const int RIRIGHT_BAR_ID = 102;
 		
 		public class CheckItem
 		{
@@ -21,10 +23,102 @@ namespace SGame.UI{
 			public FunctionConfigRowData config;		// 配置信息
 			public Func<bool>			 funcCanShow;	// 额外判定是否可显示
 			public Func<int>		     funcTime;		// 倒计时
-			public bool                  previewShow = true;
+			public int                   visibaleCount = 0; // 显示次数统计 0 未显示, 1 首次显示, 2多次显示
 			public object				 param;         // 额外参数
+			public int order => config.Order;			// 排序
+			
+			/// <summary>
+			/// 判断UI索引是否可显示
+			/// </summary>
+			/// <param name="index"></param>
+			/// <returns></returns>
+			public bool IsVisible()
+			{
+				if (!funcID.IsOpend(false))
+					return false;
+
+				if (funcCanShow != null)
+				{
+					var ret = funcCanShow();
+					return ret;
+				}
+
+				return true;
+			}
+
+			/// <summary>
+			/// 判断是否首次显示
+			/// </summary>
+			/// <param name="index"></param>
+			/// <returns></returns>
+			public bool IsFirstVisible => visibaleCount == 1;
+
+
+			/// <summary>
+			/// 开启UI
+			/// </summary>
+			/// <param name="index"></param>
+			public void OpenUI()
+			{
+				if (!string.IsNullOrEmpty(config.Ui))
+				{
+					if (param != null)
+						SGame.UIUtils.OpenUI(config.Ui, param);
+					else
+						SGame.UIUtils.OpenUI(config.Ui);
+				}
+			}
 		}
-		private Dictionary<int, CheckItem> m_data = new Dictionary<int, CheckItem>();
+		private Dictionary<int, List<CheckItem>> m_data = new Dictionary<int, List<CheckItem>>();
+
+		/// <summary>
+		/// 获取某个栏位的UI
+		/// </summary>
+		/// <param name="parentID"></param>
+		/// <returns></returns>
+		public List<CheckItem> GetDatas(int parentID)
+		{
+			var items = GetOrCreateItem(parentID);
+			var ret = new List<CheckItem>();
+			Dictionary<int, CheckItem> showUI = new Dictionary<int, CheckItem>();
+			foreach (var item in items)
+			{
+				if (item.IsVisible())
+				{
+					if (item.visibaleCount == 0)
+					{
+						// 首次显示
+						showUI.TryAdd(item.funcID, item);
+						item.visibaleCount = 1;
+					}
+					else
+					{
+						item.visibaleCount = 2;
+					}
+					ret.Add(item);
+				}
+			}
+
+			/// 首次弹窗
+			foreach (var item in showUI.Values)
+			{
+				if (item.config.FirstOpen > 0)
+					item.OpenUI();
+			}
+			return ret;
+		}
+
+		List<CheckItem> GetOrCreateItem(int parentID)
+		{
+			if (m_data.TryGetValue(parentID, out List<CheckItem> item))
+			{
+				return item;
+			}
+
+			item = new List<CheckItem>();
+			m_data.Add(parentID, item);
+			return item;
+		}
 
 		/// <summary>
 		/// 注册信息
@@ -33,103 +127,29 @@ namespace SGame.UI{
 		/// <param name="funcID">功能ID</param>
 		/// <param name="canShow">额外判定是否开启</param>
 		/// <param name="funcTime">倒计时</param>
-		public void Register(int index, int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null)
+		public void Register(int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null)
 		{
-			if (m_data.ContainsKey(index))
-			{
-				log.Error("repeate mainui key=" + index);
-				return;
-			}
-
 			if (!ConfigSystem.Instance.TryGet(funcID, out FunctionConfigRowData config))
 			{
 				log.Error("function id not found=" + funcID);
 				return;
 			}
-			
-			m_data.Add(index, new CheckItem()
+
+			if (config.Parent == 0)
 			{
-				funcID = funcID,
-				config = config,
-				funcCanShow = canShow,
-				funcTime =  funcTime,
-				param = param,
-			});
-		}
-
-		/// <summary>
-		/// 获得数据
-		/// </summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
-		public CheckItem GetData(int index)
-		{
-			if (m_data.TryGetValue(index, out CheckItem item))
-				return item;
-			
-			return null;
-		}
-
-		/// <summary>
-		/// 判断UI索引是否可显示
-		/// </summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
-		public bool IsVisible(int index)
-		{
-			var item = GetData(index);
-			if (item == null)
-			{
-				return false;
-			}
-			
-			if (!item.funcID.IsOpend(false))
-				return false;
-
-			if (item.funcCanShow != null)
-			{
-				var ret = item.funcCanShow();
-				return ret;
-			}
-
-			return true;
-		}
-
-		/// <summary>
-		/// 判断是否首次显示
-		/// </summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
-		public bool IsFirstVisible(int index)
-		{
-			var item = GetData(index);
-			if (item == null)
-				return false;
-
-			bool previewShow = item.previewShow;
-			bool visible = IsVisible(index);
-			item.previewShow = visible;
-
-			return previewShow == false && visible == true;
-		}
-
-		/// <summary>
-		/// 开启UI
-		/// </summary>
-		/// <param name="index"></param>
-		public void OpenUI(int index)
-		{
-			var item = GetData(index);
-			if (item == null)
+				log.Error("parent is zero function id=" + funcID);
 				return;
-
-			if (!string.IsNullOrEmpty(item.config.Ui))
-			{
-				if (item.param != null)
-					SGame.UIUtils.OpenUI(item.config.Ui, item.param);
-				else
-					SGame.UIUtils.OpenUI(item.config.Ui);
 			}
+
+			var item = GetOrCreateItem(config.Parent);
+			item.Add(new CheckItem()
+			{
+				funcID		= funcID,
+				config		= config,
+				funcCanShow = canShow,
+				funcTime	= funcTime,
+				param		= param,
+			});
 		}
 	}
 
@@ -143,7 +163,7 @@ namespace SGame.UI{
 		/// <summary>
 		/// 右边栏ICON
 		/// </summary>
-		private static CheckingManager m_rightIcons = null;//new CheckingManager();
+		private static CheckingManager m_funcManager = null;//new CheckingManager();
 
 		/// <summary>
 		/// 初始化右边栏数据

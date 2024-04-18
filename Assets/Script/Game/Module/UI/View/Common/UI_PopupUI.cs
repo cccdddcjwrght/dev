@@ -8,6 +8,8 @@ namespace SGame.UI.Common
     public partial class UI_PopupUI : GLabel
     {
         public Controller m_size;
+        public Controller m_type;
+        public Controller m_hideclose;
         public GGraph m_closeBg;
         public GLoader m_bg;
         public GButton m_close;
@@ -23,9 +25,11 @@ namespace SGame.UI.Common
             base.ConstructFromXML(xml);
 
             m_size = GetControllerAt(0);
+            m_type = GetControllerAt(1);
+            m_hideclose = GetControllerAt(2);
             m_closeBg = (GGraph)GetChildAt(0);
             m_bg = (GLoader)GetChildAt(1);
-            m_close = (GButton)GetChildAt(3);
+            m_close = (GButton)GetChildAt(5);
         }
     }
 }
