@@ -265,6 +265,7 @@ namespace SDK.TDSDK
 				TrackNormal(TDEvent.register.ToString());
 				UpdateData("register_time", time, true);
 				UpdateData("first_login_time", time, true);
+				UpdateData("role_name", DataCenter.Instance.accountData.playerName, true);
 			}
 			UpdateData("last_login_time", time);
 			UpdateData("current_level", DataCenter.Instance.roomData.roomID);
