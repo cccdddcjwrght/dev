@@ -90,8 +90,8 @@ namespace SGame.UI
 			}, ()=> TomorrowGiftModule.Instance.time);
 			
 			// 成长礼包
-			m_funcManager.Register(GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0), ()=>GrowGiftModule.Instance.GetActiveTime(0), 0);
-			m_funcManager.Register(GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1), ()=>GrowGiftModule.Instance.GetActiveTime(1), 1);
+			m_funcManager.Register(GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(0), ()=>GrowGiftModule.Instance.GetActiveTime(0), 0, "growgift1");
+			m_funcManager.Register(GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1), ()=>GrowGiftModule.Instance.GetActiveTime(1), 1, "growgift2");
 		}
 
 		void UpdateUIState()
@@ -172,6 +172,10 @@ namespace SGame.UI
 
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
+			
+			if (!string.IsNullOrEmpty(config.uiname))
+				item.name = config.uiname;
+			
 			ui.onClick.Set(OnRighMenuClick);
 			if (ui == null)
 			{
