@@ -237,6 +237,10 @@ namespace SGame
 		/// 关卡好评buff
 		/// </summary>
 		RoomLike,
+		/// <summary>
+		/// 广告buff
+		/// </summary>
+		Ad,
 
 	}
 

@@ -108,6 +108,31 @@ namespace SGame.UI
 			m_view.m_list.RemoveChildrenToPool();
 			m_view.m_list.numItems = stars.Length;
 
+			AdRefresh();
+		}
+
+		//广告刷新（超过工作台一半等级显示广告按钮）
+		private void AdRefresh() 
+		{
+			var lvMax = data.level >= data.maxlv;
+			//广告配置条件（次数，cd时间）
+			var isCanPlay = DataCenter.AdUtil.IsAdCanPlay("Table_Level");
+			//出现条件
+			var isCondition = data.level >= (int)(data.maxlv * AdModule.Instance.AD_MACHINE_RATION) &&
+				data.level >= AdModule.Instance.AD_MACHINE_UP;
+			var isShow = isCanPlay && isCondition && !lvMax;
+			m_view.m_isAd.selectedIndex = isShow ? 1 : 0;
+
+			m_view.m_type.selectedIndex = 0;
+			if (isShow) 
+			{
+				int adAddLv = Mathf.Min(AdModule.Instance.AD_MACHINE_NUM, data.maxlv - data.level);
+				UIListener.SetText(m_view.m_adBtn, string.Format("+{0} LEVELS", adAddLv.ToString()));
+				UIListener.SetControllerSelect(m_view.m_adBtn, "hasIcon", 0);
+				UIListener.SetControllerSelect(m_view.m_adBtn, "gray", 0);
+				UIListener.SetControllerSelect(m_view.m_adBtn, "iconImage", 2);
+				m_view.m_type.selectedIndex = 2;
+			}
 		}
 
 		private void RefreshClick()
@@ -230,7 +255,6 @@ namespace SGame.UI
 		{
 			if (DataCenter.Instance.guideData.isGuide)
 			{
-				Debug.Log("-----------");
 				if (this.info.type == 1)
 				{
 					Unlock();
@@ -241,5 +265,24 @@ namespace SGame.UI
 				}
 			}
 		}
-	}
+
+		partial void OnAdBtnClick(EventContext data)
+		{
+			if (DataCenter.IsIgnoreAd()) { AdUpdateLevel(); return; }
+			Utils.PlayAd("Table_Level", (state, t) => {
+				if (!state) return;
+				AdUpdateLevel();
+			});
+        }
+
+		//广告升级
+		void AdUpdateLevel() 
+		{
+			DataCenter.AdUtil.RecordPlayAD("Table_Level");
+			var upNum = AdModule.Instance.AD_MACHINE_NUM;
+			var level = Mathf.Min(upNum, data.maxlv - data.level); 
+			DataCenter.MachineUtil.UpdateLevel(info.id, 0, level);
+			LevelRefresh();
+		}
+    }
 }

@@ -9,10 +9,11 @@ namespace SGame.UI.Common
     {
         public Controller m_iconShow;
         public Controller m_redPointShow;
-        public GImage m_bg;
+        public Controller m_isTime;
         public GImage m_redPoint;
         public GTextField m_boostTxt;
         public GTextField m_timeTxt;
+        public GTextField m_time;
         public const string URL = "ui://2w8thcm7k0s63lb3";
 
         public static UI_AdBtn CreateInstance()
@@ -26,10 +27,11 @@ namespace SGame.UI.Common
 
             m_iconShow = GetControllerAt(1);
             m_redPointShow = GetControllerAt(2);
-            m_bg = (GImage)GetChildAt(0);
+            m_isTime = GetControllerAt(3);
             m_redPoint = (GImage)GetChildAt(2);
             m_boostTxt = (GTextField)GetChildAt(3);
             m_timeTxt = (GTextField)GetChildAt(4);
+            m_time = (GTextField)GetChildAt(6);
         }
     }
 }

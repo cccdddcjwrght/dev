@@ -9,6 +9,7 @@ namespace SGame.UI.Worktable
     {
         public Controller m_type;
         public Controller m_pos;
+        public Controller m_isAd;
         public GGraph m_right;
         public GGraph m_left;
         public GTextField m_level;
@@ -22,6 +23,8 @@ namespace SGame.UI.Worktable
         public GButton m_click;
         public GGroup m_info;
         public GList m_tips;
+        public GButton m_adBtn;
+        public GLoader m_adArea;
         public GGroup m_view;
         public Transition m_t0;
         public const string URL = "ui://m8rpv7f9b32eb";
@@ -37,8 +40,9 @@ namespace SGame.UI.Worktable
 
             m_type = GetControllerAt(0);
             m_pos = GetControllerAt(1);
-            m_right = (GGraph)GetChildAt(3);
-            m_left = (GGraph)GetChildAt(4);
+            m_isAd = GetControllerAt(2);
+            m_right = (GGraph)GetChildAt(0);
+            m_left = (GGraph)GetChildAt(1);
             m_level = (GTextField)GetChildAt(5);
             m_list = (GList)GetChildAt(7);
             m_progress = (GProgressBar)GetChildAt(8);
@@ -50,7 +54,9 @@ namespace SGame.UI.Worktable
             m_click = (GButton)GetChildAt(15);
             m_info = (GGroup)GetChildAt(16);
             m_tips = (GList)GetChildAt(17);
-            m_view = (GGroup)GetChildAt(18);
+            m_adBtn = (GButton)GetChildAt(18);
+            m_adArea = (GLoader)GetChildAt(19);
+            m_view = (GGroup)GetChildAt(20);
             m_t0 = GetTransitionAt(0);
         }
     }

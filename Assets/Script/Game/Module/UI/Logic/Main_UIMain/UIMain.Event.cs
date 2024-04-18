@@ -66,6 +66,9 @@ namespace SGame.UI
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
+			//OnRefreshPiggyBankRedDot();
+			OnRefreshAdTime();
+
 		}
 
 		void RegisterUIState()
@@ -227,10 +230,36 @@ namespace SGame.UI
 			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("goodreputation"));
 		}
 
-		/// <summary>
-		/// 刷新开局局内buff时间
-		/// </summary>
-		void OnRefeshBuffTime() 
+        partial void OnAdBtnClick(EventContext data)
+        {
+			if (DataCenter.AdUtil.IsAdCanPlay("Ad_Buff")) 
+			{
+				if (DataCenter.IsIgnoreAd())
+				{
+					AdPlayCallback();
+					return;
+				}
+
+				Utils.PlayAd("Ad_Buff", (state, t) =>
+				{
+					if (!state) return;
+					AdPlayCallback();
+				});
+			}
+        }
+
+		void AdPlayCallback()
+		{
+			DataCenter.AdUtil.RecordPlayAD("Ad_Buff");
+			AdModule.Instance.AddBuff();
+			OnRefreshAdTime();
+		}
+
+
+        /// <summary>
+        /// 刷新开局局内buff时间
+        /// </summary>
+        void OnRefeshBuffTime() 
 		{
 			bool checkTakeEffect = DataCenter.ExclusiveUtils.CheckBuffTakeEffect();
 			m_view.m_buff.visible = checkTakeEffect;
@@ -310,7 +339,33 @@ namespace SGame.UI
 			m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 		}
-		
+
+		//void OnRefreshPiggyBankRedDot() 
+		//{
+		//	GButton btn = m_rightList.GetChildAt(2).asButton;
+		//	btn.GetController("__redpoint").selectedIndex =
+		//		DataCenter.PiggyBankUtils.CheckPiggyBankIsFull() ? 1 : 0;
+		//	btn.GetController("ctrlTime").selectedIndex = 1;
+		//	btn.GetChild("content").SetText(string.Format("{0}/{1}",
+		//		DataCenter.Instance.piggybankData.progress,
+		//		DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
+		//}
+
+		void OnRefreshAdTime() 
+		{
+			var time = DataCenter.AdUtil.GetSustainTime("Ad_Buff");
+			if (time > 0) 
+			{
+				UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 1);
+				timer?.Invoke(false);
+				timer = Utils.Timer(time, () =>
+				{
+					time = DataCenter.AdUtil.GetSustainTime("Ad_Buff");
+					UIListener.SetTextWithName(m_view.m_AdBtn, "time", Utils.TimeFormat(time));
+				},m_view, completed: ()=> UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 0));
+			}
+		}
+
 		partial void OnTaskRewardBtnClick(EventContext data)
 		{
 			"leveltech".Goto();
