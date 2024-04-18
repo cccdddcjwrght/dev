@@ -46,14 +46,15 @@ public struct ADConfigRowData : IFlatbufferObject
   public int LimitType { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Limit { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Interval { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Rewards(int j) { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int RewardsLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int Sustain { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Rewards(int j) { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int RewardsLength { get { int o = __p.__offset(24); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetRewardsBytes() { return __p.__vector_as_span<int>(22, 4); }
+  public Span<int> GetRewardsBytes() { return __p.__vector_as_span<int>(24, 4); }
 #else
-  public ArraySegment<byte>? GetRewardsBytes() { return __p.__vector_as_arraysegment(22); }
+  public ArraySegment<byte>? GetRewardsBytes() { return __p.__vector_as_arraysegment(24); }
 #endif
-  public int[] GetRewardsArray() { return __p.__vector_as_array<int>(22); }
+  public int[] GetRewardsArray() { return __p.__vector_as_array<int>(24); }
 
   public static Offset<GameConfigs.ADConfigRowData> CreateADConfigRowData(FlatBufferBuilder builder,
       StringOffset IDOffset = default(StringOffset),
@@ -65,9 +66,11 @@ public struct ADConfigRowData : IFlatbufferObject
       int LimitType = 0,
       int Limit = 0,
       int Interval = 0,
+      int Sustain = 0,
       VectorOffset RewardsOffset = default(VectorOffset)) {
-    builder.StartTable(10);
+    builder.StartTable(11);
     ADConfigRowData.AddRewards(builder, RewardsOffset);
+    ADConfigRowData.AddSustain(builder, Sustain);
     ADConfigRowData.AddInterval(builder, Interval);
     ADConfigRowData.AddLimit(builder, Limit);
     ADConfigRowData.AddLimitType(builder, LimitType);
@@ -80,7 +83,7 @@ public struct ADConfigRowData : IFlatbufferObject
     return ADConfigRowData.EndADConfigRowData(builder);
   }
 
-  public static void StartADConfigRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
+  public static void StartADConfigRowData(FlatBufferBuilder builder) { builder.StartTable(11); }
   public static void AddID(FlatBufferBuilder builder, StringOffset IDOffset) { builder.AddOffset(0, IDOffset.Value, 0); }
   public static void AddDesc(FlatBufferBuilder builder, StringOffset DescOffset) { builder.AddOffset(1, DescOffset.Value, 0); }
   public static void AddAd(FlatBufferBuilder builder, StringOffset AdOffset) { builder.AddOffset(2, AdOffset.Value, 0); }
@@ -90,7 +93,8 @@ public struct ADConfigRowData : IFlatbufferObject
   public static void AddLimitType(FlatBufferBuilder builder, int LimitType) { builder.AddInt(6, LimitType, 0); }
   public static void AddLimit(FlatBufferBuilder builder, int Limit) { builder.AddInt(7, Limit, 0); }
   public static void AddInterval(FlatBufferBuilder builder, int Interval) { builder.AddInt(8, Interval, 0); }
-  public static void AddRewards(FlatBufferBuilder builder, VectorOffset RewardsOffset) { builder.AddOffset(9, RewardsOffset.Value, 0); }
+  public static void AddSustain(FlatBufferBuilder builder, int Sustain) { builder.AddInt(9, Sustain, 0); }
+  public static void AddRewards(FlatBufferBuilder builder, VectorOffset RewardsOffset) { builder.AddOffset(10, RewardsOffset.Value, 0); }
   public static VectorOffset CreateRewardsVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRewardsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRewardsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
