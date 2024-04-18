@@ -161,11 +161,18 @@ namespace SGame
             {
                 if (EntityManager.Exists(item.entity) && !EntityManager.HasComponent<DespawningEntity>(item.entity))
                 {
-                    m_characters.Add(item.character.CharacterID, item.entity);
-                    item.character.model.SetActive(true);
-                    item.character.OnInitCharacter(item.entity, EntityManager);
-                    item.result.entity = item.entity;
-                    item.result.characterID = item.character.CharacterID;
+                    if (item.character != null && item.character.model != null)
+                    {
+                        m_characters.Add(item.character.CharacterID, item.entity);
+                        item.character.model.SetActive(true);
+                        item.character.OnInitCharacter(item.entity, EntityManager);
+                        item.result.entity = item.entity;
+                        item.result.characterID = item.character.CharacterID;
+                    }
+                    else
+                    {
+                        log.Warn("character already destory!");
+                    }
                 }
             }
             m_triggerInit.Clear();
