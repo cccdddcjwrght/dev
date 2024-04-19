@@ -29,6 +29,9 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick));
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
+			UIListener.Listener(m_view.m_skillBtn, new EventCallback1(_OnSkillBtnClick));
+			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick));
+			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -48,6 +51,9 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
 			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick),remove:true);
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
+			UIListener.Listener(m_view.m_skillBtn, new EventCallback1(_OnSkillBtnClick),remove:true);
+			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick),remove:true);
+			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick),remove:true);
 
 		}
 		void _OnMainChanged(EventContext data){
@@ -149,6 +155,24 @@ namespace SGame.UI{
 		partial void OnAdBtnClick(EventContext data);
 		void SetAdBtnText(string data)=>UIListener.SetText(m_view.m_AdBtn,data);
 		string GetAdBtnText()=>UIListener.GetText(m_view.m_AdBtn);
+		void _OnSkillBtnClick(EventContext data){
+			OnSkillBtnClick(data);
+		}
+		partial void OnSkillBtnClick(EventContext data);
+		void SetSkillBtnText(string data)=>UIListener.SetText(m_view.m_skillBtn,data);
+		string GetSkillBtnText()=>UIListener.GetText(m_view.m_skillBtn);
+		void _OnEquipBtnClick(EventContext data){
+			OnEquipBtnClick(data);
+		}
+		partial void OnEquipBtnClick(EventContext data);
+		void SetEquipBtnText(string data)=>UIListener.SetText(m_view.m_equipBtn,data);
+		string GetEquipBtnText()=>UIListener.GetText(m_view.m_equipBtn);
+		void _OnInvestBtnClick(EventContext data){
+			OnInvestBtnClick(data);
+		}
+		partial void OnInvestBtnClick(EventContext data);
+		void SetInvestBtnText(string data)=>UIListener.SetText(m_view.m_InvestBtn,data);
+		string GetInvestBtnText()=>UIListener.GetText(m_view.m_InvestBtn);
 
 	}
 }

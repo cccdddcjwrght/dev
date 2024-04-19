@@ -16,6 +16,9 @@ namespace SGame.UI{
 		private static ILog log = LogManager.GetLogger("game.mainui");
 		public const int LEFT_BAR_ID	= 101;
 		public const int RIRIGHT_BAR_ID = 102;
+
+		private static bool IS_FIRST_ENTER	= true; // 是否是第一次进入界面
+		
 		
 		public class CheckItem
 		{
@@ -84,17 +87,75 @@ namespace SGame.UI{
 			}
 
 			/// <summary>
-			/// 首次打开触发功能开启UI
+			/// 检测登录是否弹框
 			/// </summary>
-			public void FuncOpenUI()
+			/// <returns></returns>
+			bool CheckLogin()
 			{
-				/*
-				if (config.FirstOpen > 0)
-					OpenUI();
-					*/
+				if (config.LoginShow <= 0)
+					return false;
+
+				if (config.LoginShow == 2) // 每次登录都弹
+				{
+					return IS_FIRST_ENTER == true;
+				}
+
+				if (config.LoginShow == 1) // 每日只弹一次
+				{
+					if (IS_FIRST_ENTER)
+					{
+						string key		= "FunctionMenu.dayopen_" + funcID;		// 每日弹窗
+						return Utils.IsFirstLoginInDay(key);
+					}
+				}
+				return false;
+			}
+
+			/// <summary>
+			/// 检测是否首次打开
+			/// </summary>
+			/// <returns></returns>
+			bool CheckFirstOpen()
+			{
+				if (config.FirstOpen <= 0)
+					return false;
+				
+				// 判断历史上是否开启过
+				string key = "FunctionMenu.firstOpen_" + funcID; // 
+				if (DataCenter.GetIntValue(key, 0) != 0)
+				{
+					return false;
+				}
+
+				DataCenter.SetIntValue(key, 1);
+				return true;
+			}
+			
+			/// <summary>
+			/// UI自动开启功能 
+			/// </summary>
+			public void AutoOpenUI()
+			{
+				bool loginOpen		= CheckLogin();				// 登录弹窗
+				bool checkFirstOpen = CheckFirstOpen();			// 首次开启弹窗
+				if (loginOpen || checkFirstOpen)
+				{
+					if (!string.IsNullOrEmpty(config.Ui))
+					{
+						if (param != null)
+							DelayExcuter.Instance.DelayOpen(config.Ui, "mainui", false, null, param);
+						else
+							DelayExcuter.Instance.DelayOpen(config.Ui, "mainui");
+					}
+				}
 			}
 		}
 		private Dictionary<int, List<CheckItem>> m_data = new Dictionary<int, List<CheckItem>>();
+
+		public void UpdateState()
+		{
+			IS_FIRST_ENTER = false;
+		}
 
 		/// <summary>
 		/// 获取某个栏位的UI
@@ -105,7 +166,11 @@ namespace SGame.UI{
 		{
 			var items = GetOrCreateItem(parentID);
 			var ret = new List<CheckItem>();
+			
+			// 相同的功能ID, 只存在一个, 比如成长礼包是相同的功能ID
 			Dictionary<int, CheckItem> showUI = new Dictionary<int, CheckItem>();
+			
+			// 遍历功能, 判断是否达到开启条件
 			foreach (var item in items)
 			{
 				if (item.IsVisible())
@@ -124,12 +189,13 @@ namespace SGame.UI{
 				}
 			}
 
+			// 对开启的功能排序
 			ret.Sort((a, b) => a.order - b.order);
 
 			/// 首次弹窗
 			foreach (var item in showUI.Values)
 			{
-				item.FuncOpenUI();
+				item.AutoOpenUI();
 			}
 			return ret;
 		}

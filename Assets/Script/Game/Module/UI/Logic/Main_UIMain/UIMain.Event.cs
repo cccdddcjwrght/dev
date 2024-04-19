@@ -109,6 +109,8 @@ namespace SGame.UI
 
 			m_LeftIconDatas = m_funcManager.GetDatas((int)AREA.LEFT);
 			leftList.numItems = m_LeftIconDatas.Count;
+
+			m_funcManager.UpdateState();
 		}
 
 		private void OnHeadSetting()
