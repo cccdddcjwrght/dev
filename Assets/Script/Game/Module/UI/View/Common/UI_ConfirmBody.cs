@@ -15,8 +15,9 @@ namespace SGame.UI.Common
         public UI_ClickBtn m_click1;
         public UI_ClickBtn m_click2;
         public GLoader m_context;
-        public GTextField m_tips;
-        public GTextField m_text;
+        public GLoader m_top;
+        public GRichTextField m_tips;
+        public GRichTextField m_text;
         public const string URL = "ui://2w8thcm7l7ed3ldx";
 
         public static UI_ConfirmBody CreateInstance()
@@ -36,8 +37,9 @@ namespace SGame.UI.Common
             m_click1 = (UI_ClickBtn)GetChildAt(2);
             m_click2 = (UI_ClickBtn)GetChildAt(3);
             m_context = (GLoader)GetChildAt(6);
-            m_tips = (GTextField)GetChildAt(7);
-            m_text = (GTextField)GetChildAt(8);
+            m_top = (GLoader)GetChildAt(7);
+            m_tips = (GRichTextField)GetChildAt(8);
+            m_text = (GRichTextField)GetChildAt(9);
         }
     }
 }

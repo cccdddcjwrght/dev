@@ -32,6 +32,13 @@ namespace SGame.UI
 			RIGHT = 102,
 		}
 
+		public enum FUNC_ID : int
+		{
+			TECH	   = 17, // 全局科技skill
+			ROLE_EQUIP = 12, // 角色装备
+			MAP		   = 15, // 地图
+		}
+
 		private List<CheckingManager.CheckItem> m_RightIconDatas;
 		private List<CheckingManager.CheckItem> m_LeftIconDatas;
 
@@ -342,17 +349,6 @@ namespace SGame.UI
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 		}
 
-		//void OnRefreshPiggyBankRedDot() 
-		//{
-		//	GButton btn = m_rightList.GetChildAt(2).asButton;
-		//	btn.GetController("__redpoint").selectedIndex =
-		//		DataCenter.PiggyBankUtils.CheckPiggyBankIsFull() ? 1 : 0;
-		//	btn.GetController("ctrlTime").selectedIndex = 1;
-		//	btn.GetChild("content").SetText(string.Format("{0}/{1}",
-		//		DataCenter.Instance.piggybankData.progress,
-		//		DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
-		//}
-
 		void OnRefreshAdTime() 
 		{
 			var time = DataCenter.AdUtil.GetSustainTime("Ad_Buff");
@@ -375,16 +371,6 @@ namespace SGame.UI
 
 		partial void OnLevelBtnClick(EventContext data)
 		{
-			/*
-			if (DataCenter.MachineUtil.CheckAllWorktableIsMaxLv())
-			{
-				SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
-			}
-			else
-			{
-				"@ui_worktable_goto_next_fail".Tips();
-			}
-			*/
 			SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
 		}
 

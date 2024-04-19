@@ -31,8 +31,8 @@ namespace SGame.UI.Main
             m_timeColor = GetControllerAt(1);
             m_ctrlTime = GetControllerAt(2);
             m_effect = (GGraph)GetChildAt(0);
-            m_content = (GTextField)GetChildAt(2);
-            m_time = (GGroup)GetChildAt(3);
+            m_content = (GTextField)GetChildAt(4);
+            m_time = (GGroup)GetChildAt(5);
             m_body = (GGroup)GetChildAt(6);
             m_redpoint = (GButton)GetChildAt(7);
             m_t0 = GetTransitionAt(0);
