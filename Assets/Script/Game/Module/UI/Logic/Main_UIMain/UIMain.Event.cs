@@ -32,13 +32,6 @@ namespace SGame.UI
 			RIGHT = 102,
 		}
 
-		public enum FUNC_ID : int
-		{
-			TECH	   = 17, // 全局科技skill
-			ROLE_EQUIP = 12, // 角色装备
-			MAP		   = 15, // 地图
-		}
-
 		private List<CheckingManager.CheckItem> m_RightIconDatas;
 		private List<CheckingManager.CheckItem> m_LeftIconDatas;
 
@@ -103,10 +96,8 @@ namespace SGame.UI
 			m_funcManager.Register(GrowGiftModule.OPEND_ID, ()=>GrowGiftModule.Instance.IsOpend(1), ()=>GrowGiftModule.Instance.GetActiveTime(1), 1, "growgift2");
 			
 			// 左排
-			m_funcManager.Register(10); 
-			m_funcManager.Register(12);
-			m_funcManager.Register(17);
-			m_funcManager.Register(14, null, ()=>FriendModule.Instance.hiringTime); // 好友
+			m_funcManager.Register((int)FunctionID.SHOP);
+			m_funcManager.Register((int)FunctionID.FRIEND, null, ()=>FriendModule.Instance.hiringTime); // 好友
 		}
 
 		void UpdateUIState()
@@ -127,20 +118,28 @@ namespace SGame.UI
 			head.m_frame.url=string.Format("ui://IconHead/{0}",m_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
 		}
 
+		bool CheckFuncOpen(FunctionID fid)
+		{
+			return ((int)fid).IsOpend(false);
+		}
+
 		private void OnEventRefreshItem()
 		{
 			if (DataCenter.Instance.guideData.isGuide)
 			{
 				var levelBtn = m_view.m_levelBtn;
-				levelBtn.visible = 15.IsOpend(false);
+				levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
 				var leveltechBtn = m_view.m_taskRewardBtn;
-				leveltechBtn.visible = 13.IsOpend(false);
+				leveltechBtn.visible = CheckFuncOpen(FunctionID.LEVEL_TECH);
 			}
 		
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
-
+			
+			m_view.m_skillBtn.visible		= CheckFuncOpen(FunctionID.TECH);
+			m_view.m_equipBtn.visible		= CheckFuncOpen(FunctionID.ROLE_EQUIP);
+			
 			// 处理左右列表
 			UpdateUIState();
 		}
