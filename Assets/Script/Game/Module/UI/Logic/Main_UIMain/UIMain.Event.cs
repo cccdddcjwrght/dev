@@ -54,6 +54,9 @@ namespace SGame.UI
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
+			
+			m_view.m_skillBtn.onClick.Add(()=>OpenUI(FunctionID.TECH));
+			m_view.m_equipBtn.onClick.Add(()=>OpenUI(FunctionID.ROLE_EQUIP));
 
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
@@ -69,6 +72,25 @@ namespace SGame.UI
 			//OnRefreshPiggyBankRedDot();
 			OnRefreshAdTime();
 
+		}
+
+		void OpenUI(FunctionID id)
+		{
+			int funcID = (int)id;
+			if (!ConfigSystem.Instance.TryGet(funcID, out FunctionConfigRowData config))
+			{
+				log.Error("function id not found=" + funcID);
+				return;
+			}
+
+			if (!CheckFuncOpen(id, true))
+				return;
+			SGame.UIUtils.OpenUI(config.Ui);
+		}
+		
+		bool CheckFuncOpen(FunctionID fid, bool showtips = false)
+		{
+			return ((int)fid).IsOpend(showtips);
 		}
 
 		void RegisterUIState()
@@ -116,11 +138,6 @@ namespace SGame.UI
 			var head = m_view.m_head as UI_HeadBtn;
 			head.m_headImg.url=string.Format("ui://IconHead/{0}",m_setData.GetHeadFrameIcon(1,DataCenter.Instance.accountData.GetHead()));
 			head.m_frame.url=string.Format("ui://IconHead/{0}",m_setData.GetHeadFrameIcon(2,DataCenter.Instance.accountData.GetFrame()));
-		}
-
-		bool CheckFuncOpen(FunctionID fid)
-		{
-			return ((int)fid).IsOpend(false);
 		}
 
 		private void OnEventRefreshItem()
