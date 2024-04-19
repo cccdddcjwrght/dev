@@ -296,7 +296,7 @@ namespace SGame.UI{
 		private  void onUpdate(UIContext context)
 		{
 			UserSetting setting = DataCenter.Instance.GetUserSetting();
-			
+			OnRefreshAdState();
 		}
 		
 		partial void UnInitLogic(UIContext context)

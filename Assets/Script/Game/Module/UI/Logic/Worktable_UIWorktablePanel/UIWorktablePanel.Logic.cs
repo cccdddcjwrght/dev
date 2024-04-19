@@ -116,7 +116,7 @@ namespace SGame.UI
 		{
 			var lvMax = data.level >= data.maxlv;
 			//广告配置条件（次数，cd时间）
-			var isCanPlay = DataCenter.AdUtil.IsAdCanPlay("Table_Level");
+			var isCanPlay = DataCenter.AdUtil.IsAdCanPlay(AdType.Table.ToString());
 			//出现条件
 			var isCondition = data.level >= (int)(data.maxlv * AdModule.Instance.AD_MACHINE_RATION) &&
 				data.level >= AdModule.Instance.AD_MACHINE_UP;
@@ -268,17 +268,12 @@ namespace SGame.UI
 
 		partial void OnAdBtnClick(EventContext data)
 		{
-			if (DataCenter.IsIgnoreAd()) { AdUpdateLevel(); return; }
-			Utils.PlayAd("Table_Level", (state, t) => {
-				if (!state) return;
-				AdUpdateLevel();
-			});
+			AdModule.Instance.PlayAd(AdType.Table.ToString(), () => AdUpdateLevel());
         }
 
 		//广告升级
 		void AdUpdateLevel() 
 		{
-			DataCenter.AdUtil.RecordPlayAD("Table_Level");
 			var upNum = AdModule.Instance.AD_MACHINE_NUM;
 			var level = Mathf.Min(upNum, data.maxlv - data.level); 
 			DataCenter.MachineUtil.UpdateLevel(info.id, 0, level);

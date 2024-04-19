@@ -55,8 +55,8 @@ namespace SGame
 					}
 				}
 				return 0;
-
 			}
+
 
 			public static void RecordPlayAD(string id)
 			{
@@ -75,10 +75,6 @@ namespace SGame
 						ad.count += 1;
 						if (cfg.Interval > 0)
 							ad.time = GameServerTime.Instance.serverTime + cfg.Interval;
-
-						var stime = GetSustainTime(id);
-						if (stime > 0) ad.stime = GameServerTime.Instance.serverTime + cfg.Sustain + stime;
-						else ad.stime = GameServerTime.Instance.serverTime + cfg.Sustain;
 
 						_data.items[index] = ad;
 						DataCenter.SetStrValue("@adinfo", JsonUtility.ToJson(_data));
@@ -100,20 +96,21 @@ namespace SGame
 				return IsAdEnable(id) && GetAdLimit(id) != 0 && GetAdInterval(id) <= 0;
 			}
 
-			public static int GetSustainTime(string id)
+
+			public static int GetAdIntervalTime(string id)
 			{
-				if (!string.IsNullOrEmpty(id))
-				{
-					var datas = DataCenter.Instance.addatas;
-					if (ConfigSystem.Instance.TryGet<GameConfigs.ADConfigRowData>(id, out var cfg))
-					{
-						var index = datas.items?.FindIndex(a => a.id == id);
-						if(index >= 0)
-							return datas.items[index.Value].stime - GameServerTime.Instance.serverTime;
-					}
-				}
-				return 0;
+				if (ConfigSystem.Instance.TryGet<GameConfigs.ADConfigRowData>(id, out var data))
+					return data.Interval;
+				return default;
 			}
+
+			public static int GetAdSustainTime(string id)
+			{
+				if (ConfigSystem.Instance.TryGet<GameConfigs.ADConfigRowData>(id, out var data))
+					return data.Sustain;
+				return default;
+			}
+
 		}
 
 	}
@@ -143,8 +140,8 @@ namespace SGame
 	{
 		public string id;
 		public int count;
-		public int time;  //间隔时间
-		public int stime; //生效时间
+		public int time;
+
 	}
 
 }

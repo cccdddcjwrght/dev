@@ -241,29 +241,21 @@ namespace SGame.UI
 
         partial void OnAdBtnClick(EventContext data)
         {
-			if (DataCenter.AdUtil.IsAdCanPlay("Ad_Buff")) 
+			AdModule.Instance.PlayAd(AdType.Buff.ToString(), () =>
 			{
-				if (DataCenter.IsIgnoreAd())
-				{
-					AdPlayCallback();
-					return;
-				}
-
-				Utils.PlayAd("Ad_Buff", (state, t) =>
-				{
-					if (!state) return;
-					AdPlayCallback();
-				});
-			}
+				AdModule.Instance.AddBuff(true);
+				OnRefreshAdTime();
+			});
         }
 
-		void AdPlayCallback()
-		{
-			DataCenter.AdUtil.RecordPlayAD("Ad_Buff");
-			AdModule.Instance.AddBuff();
-			OnRefreshAdTime();
-		}
-
+        partial void OnInvestBtnClick(EventContext data)
+        {
+			AdModule.Instance.PlayAd(AdType.Invest.ToString(), () =>
+			{
+				var value = AdModule.Instance.GetAdAddCoinNum();
+				PropertyManager.Instance.Update(1, 1, value);
+			});
+        }
 
         /// <summary>
         /// 刷新开局局内buff时间
@@ -349,16 +341,41 @@ namespace SGame.UI
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 		}
 
+		void OnRefreshAdState() 
+		{
+			AdModule.Instance.GetAdShowTime(AdType.Invest.ToString(), out bool state, out int time);
+			m_view.m_InvestBtn.visible = state;
+			if (state) 
+			{
+				var btn = m_view.m_InvestBtn as UI_InvestMan;
+				btn.m_bar.fillAmount = (float)time / DataCenter.AdUtil.GetAdSustainTime(AdType.Invest.ToString());
+				var value = AdModule.Instance.GetAdAddCoinNum();
+				btn.SetText(string.Format("+{0}", value.ToString()));
+			}
+		}
+
+		//void OnRefreshPiggyBankRedDot() 
+		//{
+		//	GButton btn = m_rightList.GetChildAt(2).asButton;
+		//	btn.GetController("__redpoint").selectedIndex =
+		//		DataCenter.PiggyBankUtils.CheckPiggyBankIsFull() ? 1 : 0;
+		//	btn.GetController("ctrlTime").selectedIndex = 1;
+		//	btn.GetChild("content").SetText(string.Format("{0}/{1}",
+		//		DataCenter.Instance.piggybankData.progress,
+		//		DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
+		//}
+
 		void OnRefreshAdTime() 
 		{
-			var time = DataCenter.AdUtil.GetSustainTime("Ad_Buff");
+			var time = AdModule.Instance.GetBuffTime();
 			if (time > 0) 
 			{
 				UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 1);
+				UIListener.SetTextWithName(m_view.m_AdBtn, "time", Utils.TimeFormat(time));
 				timer?.Invoke(false);
 				timer = Utils.Timer(time, () =>
 				{
-					time = DataCenter.AdUtil.GetSustainTime("Ad_Buff");
+					time = AdModule.Instance.GetBuffTime();
 					UIListener.SetTextWithName(m_view.m_AdBtn, "time", Utils.TimeFormat(time));
 				},m_view, completed: ()=> UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 0));
 			}
