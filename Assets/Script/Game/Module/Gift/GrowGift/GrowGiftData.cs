@@ -64,7 +64,8 @@ namespace SGame
         /// <returns></returns>
         public bool HasRedot()
         {
-            return GetState() == State.CANTAKE;
+            var s = GetState();
+            return s == State.CANTAKE || s == State.UNLOCK2;
         }
 
         /// <summary>

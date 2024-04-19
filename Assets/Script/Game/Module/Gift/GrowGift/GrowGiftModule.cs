@@ -45,23 +45,8 @@ namespace SGame
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_OPEN, OnActivityOpend);
             EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_CLOSE, OnActivityClosed);
             EventManager.Instance.Reg((int)GameEvent.DATA_INIT_COMPLETE, OnDataInitalizeFinish);
-            //EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, OnFirstEnterRoom);
         }
-
-        /*
-        void OnFirstEnterRoom(int levelID)
-        {
-            if (!IsOpend(0))
-                return;
-
-            if (Utils.IsFirstLoginInDay(DAY_TIME_KEY))
-            {
-                // 自动打开成长礼包
-                DelayExcuter.Instance.DelayOpen("growgift", "mainui", false, null, 0);
-            }
-        }
-        */
-
+        
 
         void OnDataInitalizeFinish()
         {
