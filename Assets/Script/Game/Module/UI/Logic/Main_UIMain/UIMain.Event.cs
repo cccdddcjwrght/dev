@@ -268,6 +268,7 @@ namespace SGame.UI
         {
 			AdModule.Instance.PlayAd(AdType.Invest.ToString(), () =>
 			{
+				AdModule.Instance.RecordEnterTime(AdType.Invest.ToString());
 				var value = AdModule.Instance.GetAdAddCoinNum();
 				PropertyManager.Instance.Update(1, 1, value);
 			});

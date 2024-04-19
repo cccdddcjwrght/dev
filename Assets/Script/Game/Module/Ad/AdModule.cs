@@ -29,14 +29,15 @@ namespace SGame
 
         private EventHandleContainer m_handles = new EventHandleContainer();
 
-        int m_EnterTime;
-        int m_vaildEndTime;
+        Dictionary<string, int> m_IntervalTimeDict = new Dictionary<string, int>();
+        Dictionary<string, int> m_ShowTimeDict = new Dictionary<string, int>();
+
 
         public void Initalize() 
         {
             m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM,(s)=> { 
                 AddBuff();
-                RecordEnterTime();
+                RecordEnterTime(AdType.Invest.ToString());
             });
         }
 
@@ -60,9 +61,10 @@ namespace SGame
             return DataCenter.GetIntValue(AD_BUFF_TIME) - GameServerTime.Instance.serverTime;
         }
 
-        public void RecordEnterTime() 
+        public void RecordEnterTime(string id) 
         {
-            m_EnterTime = GameServerTime.Instance.serverTime;
+            m_IntervalTimeDict[id] = GameServerTime.Instance.serverTime;
+            m_ShowTimeDict[id] = 0;
         }
 
         public void GetAdShowTime(string id, out bool state, out int time) 
@@ -74,18 +76,18 @@ namespace SGame
             int interval = DataCenter.AdUtil.GetAdIntervalTime(id);
             int sustain = DataCenter.AdUtil.GetAdSustainTime(id);
 
-            state = serverTime > m_EnterTime + interval;
+            state = serverTime > m_IntervalTimeDict[id] + interval;
             if (!state) return;
 
-            if (m_vaildEndTime == 0) 
-                m_vaildEndTime = serverTime + sustain;
+            if (m_ShowTimeDict[id] == 0)
+                m_ShowTimeDict[id] = serverTime + sustain;
             
-            if (m_vaildEndTime > 0 && m_vaildEndTime > serverTime) 
-                time = m_vaildEndTime - serverTime;
-            if (serverTime > m_vaildEndTime) 
+            if (m_ShowTimeDict[id] > 0 && m_ShowTimeDict[id] > serverTime) 
+                time = m_ShowTimeDict[id] - serverTime;
+            if (serverTime > m_ShowTimeDict[id]) 
             {
-                m_EnterTime = serverTime;
-                m_vaildEndTime = 0;
+                m_IntervalTimeDict[id] = serverTime;
+                m_ShowTimeDict[id] = 0;
             }
         }
 
