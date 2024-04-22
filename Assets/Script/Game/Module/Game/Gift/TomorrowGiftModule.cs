@@ -30,21 +30,13 @@ namespace SGame
         public const int GOOD_ITEM_ID = 103; // 商品ID
         private TomorrowGiftData m_data;
         private static ILog log = LogManager.GetLogger("game.tomorrowGift");
-        private EventHanle m_enterGameEvent;
 
         public const int OPEN_ID = 18;
 
-        void TestTime()
-        {
-            m_data.time = GameServerTime.Instance.serverTime + 30;
-        }
-        
         public void Initalize()
         {
             m_data = DataCenter.Instance.m_gameRecord.tomorrowGift;
             UpdateState();
-
-            m_enterGameEvent = EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, OnFirstEnterRoom);
         }
 
         public void UpdateState()
@@ -59,24 +51,9 @@ namespace SGame
             }
         }
 
-        void OnFirstEnterRoom(int levelID)
+        public bool CanShow()
         {
-            UpdateState();
-            
-            m_enterGameEvent.Close();
-            m_enterGameEvent = null;
-
-            if (CanTake())
-            {
-                // 自动打开明日礼包
-                log.Info("Open tomorrowgift");
-                DelayExcuter.Instance.DelayOpen("tomorrowgift", "mainui");
-            }
-        }
-
-        public bool CanTake()
-        {
-            return OPEN_ID.IsOpend(false) && time <= 0 && m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE;
+            return m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE;
         }
 
         /// <summary>
@@ -108,33 +85,10 @@ namespace SGame
             }
             
             RequestExcuteSystem.BuyGoods(GOOD_ITEM_ID);
-            /*
-            if (!ConfigSystem.Instance.TryGet(GOOD_ITEM_ID, out ShopRowData config))
-            {
-                log.Error("good id not found=" + GOOD_ITEM_ID);
-                return false;
-                //PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum();
-            }
-
-            if (config.Item1Length != 3 || config.Item2Length != 3)
-            {
-                log.Error("item num not match!");
-                return false;
-            }
-            
-            var itemGroup = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
-            itemGroup.AddNum(config.Item1(1), config.Item1(2));
-            itemGroup.AddNum(config.Item2(1), config.Item2(2));
-            */
             m_data.state = (int)TomorrowGiftData.STATE.TAKED;
             
             log.Info("Tomorrow Git Add Success !");
             return true;
-        }
-
-        public bool IsFinished()
-        {
-            return m_data.state == (int)TomorrowGiftData.STATE.TAKED;
         }
     }
 }

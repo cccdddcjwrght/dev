@@ -108,7 +108,7 @@ namespace SGame.UI
 			m_funcManager.Register(TomorrowGiftModule.OPEN_ID, () =>
 			{
 				TomorrowGiftModule.Instance.UpdateState();
-				return !TomorrowGiftModule.Instance.IsFinished();
+				return TomorrowGiftModule.Instance.CanShow();
 			}, ()=> TomorrowGiftModule.Instance.time);
 			
 			// 成长礼包

@@ -54,9 +54,7 @@ namespace SGame
 			DataCenter.Instance.Initalize();
 			while (!DataCenter.Instance.IsInitAll)
 				yield return null;
-
-			TomorrowGiftModule.Instance.Initalize();
-
+			
 			EventManager.Instance.Trigger((int)GameEvent.LOGIN_COMPLETE);
 			if (go)
 				GameObject.Destroy(go);
