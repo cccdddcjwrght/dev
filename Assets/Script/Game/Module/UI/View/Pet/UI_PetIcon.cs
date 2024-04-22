@@ -11,7 +11,9 @@ namespace SGame.UI.Pet
         public Controller m_step;
         public Controller m_selected;
         public Controller m___redpoint;
+        public Controller m_stepState;
         public GLoader m_bg;
+        public GTextField m_count;
         public const string URL = "ui://srlw77obl7ed1l";
 
         public static UI_PetIcon CreateInstance()
@@ -27,7 +29,9 @@ namespace SGame.UI.Pet
             m_step = GetControllerAt(1);
             m_selected = GetControllerAt(2);
             m___redpoint = GetControllerAt(3);
+            m_stepState = GetControllerAt(5);
             m_bg = (GLoader)GetChildAt(0);
+            m_count = (GTextField)GetChildAt(4);
         }
     }
 }

@@ -241,6 +241,10 @@ namespace SGame
 		/// 广告buff
 		/// </summary>
 		Ad,
+		/// <summary>
+		/// 宠物
+		/// </summary>
+		Pet,
 
 	}
 

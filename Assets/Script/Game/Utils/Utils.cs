@@ -662,6 +662,19 @@ namespace SGame
 
 		#endregion
 
+		static public string GetItemName(int type, int id)
+		{
+			var icon = string.Empty;
+			switch (type)
+			{
+				case 1:
+					if (ConfigSystem.Instance.TryGet<ItemRowData>(id, out var item))
+						icon = item.Name;
+					break;
+			}
+			return icon;
+		}
+
 		static public string GetItemIcon(int type, int id)
 		{
 			var icon = string.Empty;
@@ -902,7 +915,7 @@ namespace SGame
 				effectID = effectID / 100;
 				index = index - effectID * 100 - 1;
 				if (index >= 0)
-					list.Insert(0 , new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
+					list.Insert(0, new int[] { effects[i][index * 2], effects[i][index * 2 + 1] });
 			}
 			return list;
 		}
@@ -925,6 +938,64 @@ namespace SGame
 				}
 			}
 			return id;
+		}
+
+		static public List<int[]> CombineBuffInfo(List<int[]> list)
+		{
+			return list
+				.GroupBy(v => v[0])
+				.ToDictionary(v => v.Key, v => v.Sum(i => i[1]))
+				.Select(v => new int[] { v.Key, v.Value })
+				.ToList();
+		}
+
+		static public List<BuffData> ToBuffDatas(List<int[]> list , int from = 0) {
+
+			if (list != null)
+			{
+				return CombineBuffInfo(list).Select(kv=>new BuffData() {
+					id = kv[0],
+					val = kv[1],
+					from = from,
+				}).ToList();
+			}
+			return default;
+
+		}
+
+		static public bool GotoTips(object target, string tips, Action<int> call = null)
+		{
+			if (target == null) return false;
+			tips = tips + "\n" + "ui_goto_get".Local();
+			call = call ?? new Action<int>((index) =>
+			{
+				if (index == 0)
+				{
+					if (target is int id) id.Goto();
+					else if (target is string s) s.Goto();
+					else if (target is bool b && b) "shop".Goto();//默认跳转商城
+				}
+
+			});
+			SGame.UIUtils.Confirm("@ui_goto_title", tips, call, new string[] { "@ui_common_ok", "@ui_common_cancel" });
+			return true;
+		}
+
+		static public bool CheckItemCount(int id, double need, object tips = null, object go = null, Action<int> call = null)
+		{
+			if (id != 0 && need > 0)
+			{
+				var item = PropertyManager.Instance.GetItem(id);
+				var num = item.num;
+				if (need > num)
+				{
+					var t = false.Equals(tips) ? null : tips != null ? tips.ToString() : "item_not_enough".Local(null, GetItemName(1, id));
+					if (go == null || !GotoTips(go, t, call))
+						t.Tips();
+					return false;
+				}
+			}
+			return true;
 		}
 
 	}

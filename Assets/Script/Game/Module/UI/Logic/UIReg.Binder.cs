@@ -54,6 +54,10 @@ namespace SGame.UI{
 			context.uiModule.Reg("UseHelpUI", "PiggyBank", ()=>new UIUseHelp());
 			context.uiModule.Reg("ConfirmUI", "Common", ()=>new UIConfirm());
 			context.uiModule.Reg("GrowGiftUI", "GrowGift", ()=>new UIGrowGift());SGame.UI.GrowGift.GrowGiftBinder.BindAll();;
+			context.uiModule.Reg("PetUI", "Pet", ()=>new UIPet());SGame.UI.Pet.PetBinder.BindAll();;
+			context.uiModule.Reg("PetBornUI", "Pet", ()=>new UIPetBorn());
+			context.uiModule.Reg("PetTipsUI", "Pet", ()=>new UIPetTips());
+			context.uiModule.Reg("RandomSelectUI", "Pet", ()=>new UIRandomSelect());
 		}
 	}
 }

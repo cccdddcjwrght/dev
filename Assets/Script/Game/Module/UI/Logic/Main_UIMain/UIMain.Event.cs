@@ -118,6 +118,7 @@ namespace SGame.UI
 			// 左排
 			m_funcManager.Register((int)FunctionID.SHOP);
 			m_funcManager.Register((int)FunctionID.FRIEND, null, ()=>FriendModule.Instance.hiringTime); // 好友
+			m_funcManager.Register((int)24 );
 		}
 
 		void UpdateUIState()

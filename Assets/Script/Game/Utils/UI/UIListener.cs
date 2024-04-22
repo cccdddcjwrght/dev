@@ -371,6 +371,19 @@ public class UIListener
 		}
 	}
 
+	static public void SetControllerName(GObject gObject, string ctr, string name, bool throwex = true)
+	{
+		if (!string.IsNullOrEmpty(ctr) && gObject != null && gObject is GComponent com)
+		{
+			var c = com.GetController(ctr);
+			if (c != null)
+				c.selectedPage = name;
+			else if (throwex)
+				throw new Exception($"{gObject} 不存在 {ctr} 控制器");
+		}
+	}
+
+
 	static public void SetTextWithName(GObject gObject, string labelName, string text, bool local = true)
 	{
 		if (!string.IsNullOrEmpty(labelName) && gObject is GComponent com)

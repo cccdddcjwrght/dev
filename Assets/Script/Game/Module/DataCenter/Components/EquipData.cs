@@ -74,7 +74,11 @@ namespace SGame
 				});
 				_sb.Clear();
 				_sb.Append("role");
+
 				d.ToList().ForEach(kv => _sb.AppendFormat("|{0}|{1}", kv.Key, kv.Value));
+				if (roleType == 0)
+					_sb.AppendFormat("|pet|{0}", Instance.petData.petID);
+
 				return _sb.ToString();
 			}
 
@@ -302,7 +306,7 @@ namespace SGame
 					{ log.Error("装备格子不对，无法装备"); return; }
 
 					PutOff(_data.equipeds[pos], false);
-					RemoveEquip(equip, false , true);
+					RemoveEquip(equip, false, true);
 
 					equip.pos = pos;
 					_data.equipeds[pos] = equip;

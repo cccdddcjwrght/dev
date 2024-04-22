@@ -8,10 +8,12 @@ namespace SGame.UI.Pet
     public partial class UI_PetUI : GLabel
     {
         public Controller m_tab;
+        public Controller m_type;
         public GLabel m_body;
         public UI_PetInfo m_pet;
         public UI_PetEgg m_egg;
         public GList m_list;
+        public UI_PetMedalList m_top;
         public const string URL = "ui://srlw77obl7ed12";
 
         public static UI_PetUI CreateInstance()
@@ -24,10 +26,12 @@ namespace SGame.UI.Pet
             base.ConstructFromXML(xml);
 
             m_tab = GetControllerAt(0);
+            m_type = GetControllerAt(1);
             m_body = (GLabel)GetChildAt(0);
             m_pet = (UI_PetInfo)GetChildAt(2);
             m_egg = (UI_PetEgg)GetChildAt(3);
             m_list = (GList)GetChildAt(6);
+            m_top = (UI_PetMedalList)GetChildAt(8);
         }
     }
 }

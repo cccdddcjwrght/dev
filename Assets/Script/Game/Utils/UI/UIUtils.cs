@@ -195,7 +195,7 @@ namespace SGame
 					TriggerUIEvent(e, "OnRefresh", data);
 					return e;
 				}
-				else if(!UIRequestMgr.Check(uid))
+				else if (!UIRequestMgr.Check(uid))
 				{
 					e = UIRequest.Create(mgr, uid);
 					if (mgr.Exists(e))
@@ -519,15 +519,15 @@ namespace SGame
 			return true;
 		}
 
-		static public GObject AddListItem(GComponent list, Action<int, object, GObject> onAdded = null, object data = null, object res = null)
+		static public GObject AddListItem(GComponent list, Action<int, object, GObject> onAdded = null, object data = null, object res = null, int idx = -1)
 		{
 			if (list != null)
 			{
 				GObject item = default;
-				var index = list.numChildren;
+				var index = idx >= 0 ? idx : list.numChildren;
 				var r = res == null ? null : res is Func<object, string> ? (res as Func<object, string>)(data) : res.ToString();
 				if (list is GList gList)
-				{ index = gList.numItems; item = gList.AddItemFromPool(r); }
+				{ index = idx >= 0 ? idx : gList.numItems; item = gList.AddItemFromPool(r); }
 				else if (!string.IsNullOrEmpty(r))
 				{
 					item = UIPackage.CreateObjectFromURL(r);
@@ -541,14 +541,18 @@ namespace SGame
 			return default;
 		}
 
-		static public void AddListItems<T>(GComponent list, IList<T> datas, Action<int, object, GObject> onAdded = null, List<GObject> rets = default, object res = null)
+		static public void AddListItems<T>(GComponent list, IList<T> datas, Action<int, object, GObject> onAdded = null, List<GObject> rets = default, object res = null, bool ignoreNull = false, bool useIdx = false)
 		{
 			if (datas?.Count > 0 && list != null)
 			{
 				for (int i = 0; i < datas.Count; i++)
 				{
-					var g = AddListItem(list, onAdded, datas[i], res);
-					if (rets != null) rets.Add(g);
+					var d = datas[i];
+					if (!ignoreNull || d != null)
+					{
+						var g = AddListItem(list, onAdded, datas[i], res, idx: useIdx ? i : -1);
+						if (rets != null) rets.Add(g);
+					}
 				}
 			}
 		}

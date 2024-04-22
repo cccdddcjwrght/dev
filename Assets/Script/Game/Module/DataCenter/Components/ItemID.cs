@@ -8,7 +8,9 @@ namespace SGame
     public enum ItemID : uint
     {
         GOLD = 1,		// 金币
-        DIAMOND =2,      //钻石
-		UPLV	= 99,	//装备升级材料
-    }
+        DIAMOND =2,     //钻石
+		MEDAL_1 = 3,	//铜勋章
+
+		UPLV = 99,   //装备升级材料
+	}
 }

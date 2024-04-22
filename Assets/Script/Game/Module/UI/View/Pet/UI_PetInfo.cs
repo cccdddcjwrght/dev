@@ -9,6 +9,7 @@ namespace SGame.UI.Pet
     {
         public Controller m_quality;
         public Controller m_step;
+        public Controller m_lock;
         public UI_PetModel m_model;
         public GList m_bufflist;
         public const string URL = "ui://srlw77obl7ed1j";
@@ -24,6 +25,7 @@ namespace SGame.UI.Pet
 
             m_quality = GetControllerAt(0);
             m_step = GetControllerAt(1);
+            m_lock = GetControllerAt(2);
             m_model = (UI_PetModel)GetChildAt(1);
             m_bufflist = (GList)GetChildAt(3);
         }

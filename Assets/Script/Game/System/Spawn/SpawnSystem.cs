@@ -258,6 +258,7 @@ namespace SGame
 			{
 				yield return WaitLoaded(e);
 				complete?.Invoke(true, e);
+				yield return GetObject(e);
 			}
 			else
 				complete?.Invoke(false, default);

@@ -9,20 +9,23 @@ namespace SGame.UI
 
 	public partial class UIConfirm
 	{
+		private object[] _args;
 		private Action<int> _onClick;
+
+		private bool _clickClose = true;
 
 		partial void InitLogic(UIContext context)
 		{
 
-			var args = context.GetParam()?.Value.To<object[]>();
+			var args = _args = context.GetParam()?.Value.To<object[]>();
 
 			var type = args.GetArg("type").To<int>();
-			var title = args.GetArg("title" , "@ui_common_confirm_title")?.ToString();
+			var title = args.GetArg("title", "@ui_common_confirm_title")?.ToString();
 			var text = args.GetArg("text")?.ToString();
 			var btn = args.GetArg("btns").To<string[]>();
 			var desc = args.GetArg("desc")?.ToString();
-
 			_onClick = args.GetArg("call").To<Action<int>>();
+			_clickClose = args.GetArg("clickclose", true).To<bool>();
 
 			SetContext(args.GetArg("context")?.ToString(), args.GetArg("contextcall").To<Action<GComponent>>());
 			SetBtns(btn);
@@ -63,14 +66,16 @@ namespace SGame.UI
 
 		partial void OnConfirmBody_Click2Click(EventContext data)
 		{
-			_onClick?.Invoke(1);
+			var call = _onClick;
 			DoCloseUIClick(null);
+			call?.Invoke(1);
 		}
 
 		partial void OnConfirmBody_Click1Click(EventContext data)
 		{
-			_onClick?.Invoke(0);
-			DoCloseUIClick(null);
+			var call = _onClick;
+			if (_clickClose) DoCloseUIClick(null);
+			call?.Invoke(0);
 		}
 
 		partial void OnConfirmBody_OkClick(EventContext data)
@@ -85,7 +90,9 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-
+			_args = null;
+			_clickClose = false;
+			_onClick = null;
 		}
 	}
 }

@@ -15,6 +15,8 @@ namespace SGame
 	{
 		private static ILog log = LogManager.GetLogger("request.excute");
 		private static DelayExcuter _delayer = DelayExcuter.Instance;
+		private static EventManager _eMgr = EventManager.Instance;
+
 		private GameWorld _gameWorld;
 
 		private static string path = "Assets/BuildAsset/VisualScript/Prefabs/ReqExcute.prefab";
