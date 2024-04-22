@@ -151,7 +151,8 @@ namespace SGame.UI
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			adBtn.GetChild("boostTxt").SetText(UIListener.Local("ui_vault_title") + "X" + AdModule.Instance.AD_BOOST_RATIO * 0.01);
-			adBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.AD_BOOST_TIME));
+			adBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.AD_BOOST_TIME, formats:
+				AdModule.Instance.AD_BOOST_TIME % 60 == 0 ? new string[] { "{0}min" } : new string[] { "{0}min{1}s" }));
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
 			
 			m_view.m_skillBtn.visible		= CheckFuncOpen(FunctionID.TECH);

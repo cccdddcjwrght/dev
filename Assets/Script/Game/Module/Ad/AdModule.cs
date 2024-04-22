@@ -52,9 +52,9 @@ namespace SGame
                 else 
                 {
                     var residueTime = endTime - serverTime;
-                    int addTime = 0;
-                    if(residueTime < AD_BOOST_TIME)
-                        addTime = Math.Min((AD_BOOST_TIME - residueTime), AD_BOOST_TIME);
+                    int addTime = AD_BOOST_TIME;
+                    if(residueTime + AD_BOOST_TIME > AD_BUFF_MAX_TIME)
+                        addTime = AD_BUFF_MAX_TIME - residueTime;
                     DataCenter.SetIntValue(AD_BUFF_TIME, endTime + addTime); 
                 }
             }
