@@ -372,11 +372,14 @@ namespace SGame.UI
 
         void OnUpdatePiggyProgress()
         {
-            GButton btn = m_rightList.GetChildAt(0).asButton;
-            btn.GetController("ctrlTime").selectedIndex = 1;
-            btn.GetChild("content").SetText(string.Format("{0}/{1}",
-                DataCenter.Instance.piggybankData.progress,
-                DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
+			if (PiggyBankModule.Instance.CanTake()) 
+			{
+				GButton btn = m_rightList.GetChildAt(0).asButton;
+				btn.GetController("ctrlTime").selectedIndex = 1;
+				btn.GetChild("content").SetText(string.Format("{0}/{1}",
+					DataCenter.Instance.piggybankData.progress,
+					DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
+			}
         }
 
         void OnRefreshAdTime() 
