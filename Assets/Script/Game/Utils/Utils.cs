@@ -909,8 +909,9 @@ namespace SGame
 		static public List<int[]> ConvertId2Effects(ulong effectID, List<int[]> effects)
 		{
 			var list = new List<int[]>();
-			for (int i = 0; i < effects.Count && effectID > 0; i++)
+			for (int i = effects.Count - 1; i >= 0 && effectID > 0; i--)
 			{
+				if (effects[i] == null) continue;
 				var index = effectID;
 				effectID = effectID / 100;
 				index = index - effectID * 100 - 1;

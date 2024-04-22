@@ -79,7 +79,7 @@ namespace SGame.UI
 				else
 				{
 					if (!flag)
-						flag = lastIndex == 30;
+						flag = lastIndex == 40;
 					else
 					{
 						step = Math.Max(5, step - 0.2f);
