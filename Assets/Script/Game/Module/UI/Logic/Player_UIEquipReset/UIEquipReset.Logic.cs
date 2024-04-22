@@ -28,7 +28,7 @@ namespace SGame.UI
 
 		private void SetResetInfo()
 		{
-
+			m_view.SetTextByKey( "ui_equip_remake_title" );
 			var next = equip.Clone().Refresh();
 			var count = DataCenter.EquipUtil.RecycleEquip(equip, false, false);
 			next.level = 1;
@@ -41,6 +41,8 @@ namespace SGame.UI
 
 		private void SetDecomposeInfo()
 		{
+			m_view.SetTextByKey("ui_equip_decompose_title");
+
 			var reward = equip.qcfg.GetBreakRewardArray();
 			var count = DataCenter.EquipUtil.RecycleEquip(equip, false, false);
 			items = new List<BaseEquip>() { new EquipItem().Convert(reward[1], reward[2], reward[0]) };
