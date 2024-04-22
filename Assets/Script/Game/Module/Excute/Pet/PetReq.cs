@@ -25,7 +25,8 @@ namespace SGame
 
 		}
 
-		static public void SetEggToBorn(PetItem egg) {
+		static public void SetEggToBorn(PetItem egg)
+		{
 
 			if (egg != null && egg.type == 1)
 			{
@@ -139,8 +140,10 @@ namespace SGame
 				ExchangeRowData eCfg;
 
 				if (ConfigSystem.Instance.TryGet<ExchangeRowData>(costID, out eCfg))
-					call = new Action<int>((i) => MedalExchange(i == 0 ? eCfg : default));
-
+				{
+					if (PropertyManager.Instance.GetItem(eCfg.Ingredient).num >= eCfg.Num)
+						call = new Action<int>((i) => MedalExchange(i == 0 ? eCfg : default));
+				}
 				if (Utils.CheckItemCount(costID, cost, go: go, call: call))
 				{
 					var es = pet.Evo(out var isevo);

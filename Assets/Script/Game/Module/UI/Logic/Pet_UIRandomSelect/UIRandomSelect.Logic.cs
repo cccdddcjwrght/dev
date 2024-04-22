@@ -61,7 +61,7 @@ namespace SGame.UI
 		System.Collections.IEnumerator Loop()
 		{
 			var step = 0f;
-			var max = 20;
+			var max = 40;
 			var time = 3f;
 			var flag = false;
 			while (true)
@@ -75,14 +75,14 @@ namespace SGame.UI
 
 				yield return null;
 				time -= Time.deltaTime;
-				if (time > 0) step += 0.1f;
+				if (time > 0) step += 0.2f;
 				else
 				{
 					if (!flag)
-						flag = lastIndex == 40;
+						flag = lastIndex == 45;
 					else
 					{
-						step = Math.Max(5, step - 0.2f);
+						step = Math.Max(10, step - 0.2f);
 						if (lastIndex == 2) break;
 
 					}

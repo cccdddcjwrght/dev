@@ -15,7 +15,7 @@ namespace SGame.UI
 		{
 
 			var pet = context.GetParam()?.Value.To<object[]>().Val<PetItem>(0);
-			m_view.SetText(pet.name);
+			m_view.SetTextByKey(pet.name);
 			m_view.m_model.SetPetInfo(pet);
 			Utils.Timer(0.3f, () =>
 			{
