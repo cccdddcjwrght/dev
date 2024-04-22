@@ -950,11 +950,13 @@ namespace SGame
 				.ToList();
 		}
 
-		static public List<BuffData> ToBuffDatas(List<int[]> list , int from = 0) {
+		static public List<BuffData> ToBuffDatas(List<int[]> list, int from = 0)
+		{
 
 			if (list != null)
 			{
-				return CombineBuffInfo(list).Select(kv=>new BuffData() {
+				return CombineBuffInfo(list).Select(kv => new BuffData()
+				{
 					id = kv[0],
 					val = kv[1],
 					from = from,
@@ -964,7 +966,7 @@ namespace SGame
 
 		}
 
-		static public bool GotoTips(object target, string tips, Action<int> call = null)
+		static public bool GotoTips(object target, string tips, Action<int> call = null, bool ignoreConfirm = false)
 		{
 			if (target == null) return false;
 			tips = tips + "\n" + "ui_goto_get".Local();
@@ -978,11 +980,13 @@ namespace SGame
 				}
 
 			});
-			SGame.UIUtils.Confirm("@ui_goto_title", tips, call, new string[] { "@ui_common_ok", "@ui_common_cancel" });
+			if (!ignoreConfirm)
+				SGame.UIUtils.Confirm("@ui_goto_title", tips, call, new string[] { "@ui_common_ok", "@ui_common_cancel" });
+			else call(0);
 			return true;
 		}
 
-		static public bool CheckItemCount(int id, double need, object tips = null, object go = null, Action<int> call = null)
+		static public bool CheckItemCount(int id, double need, object tips = null, object go = null, Action<int> call = null, bool ignorConfirm = false)
 		{
 			if (id != 0 && need > 0)
 			{
@@ -991,7 +995,7 @@ namespace SGame
 				if (need > num)
 				{
 					var t = false.Equals(tips) ? null : tips != null ? tips.ToString() : "item_not_enough".Local(null, GetItemName(1, id));
-					if (go == null || !GotoTips(go, t, call))
+					if (go == null || !GotoTips(go, t, call, ignorConfirm))
 						t.Tips();
 					return false;
 				}

@@ -66,7 +66,6 @@ namespace SGame.UI
 			var flag = false;
 			while (true)
 			{
-
 				if (_imm)
 				{
 					m_view.m_list.ScrollToView(m_view.m_list.numItems - 1);
@@ -91,11 +90,14 @@ namespace SGame.UI
 				m_view.m_list.RefreshVirtualList();
 			}
 
+			yield return new WaitForSeconds(0.1f);
 			var cs = m_view.m_list.GetChildren();
 			foreach (var item in cs)
 			{
 				if (item.name == "select")
 				{
+					m_view.AddChild(item);
+					item.Center();
 					item.asCom.GetController("select").selectedIndex = 1;
 					_effect = EffectSystem.Instance.AddEffect(11, item);
 				}

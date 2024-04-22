@@ -144,7 +144,7 @@ namespace SGame
 					if (PropertyManager.Instance.GetItem(eCfg.Ingredient).num >= eCfg.Num)
 						call = new Action<int>((i) => MedalExchange(i == 0 ? eCfg : default));
 				}
-				if (Utils.CheckItemCount(costID, cost, go: go, call: call))
+				if (Utils.CheckItemCount(costID, cost, go: go, call: call , ignorConfirm:true))
 				{
 					var es = pet.Evo(out var isevo);
 					PropertyManager.Instance.Update(1, costID, cost, true);
