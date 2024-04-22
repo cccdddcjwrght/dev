@@ -150,6 +150,8 @@ namespace SGame.UI
 		
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
+			adBtn.GetChild("boostTxt").SetText(UIListener.Local("ui_vault_title") + "X" + AdModule.Instance.AD_BOOST_RATIO * 0.01);
+			adBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.AD_BOOST_TIME));
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
 			
 			m_view.m_skillBtn.visible		= CheckFuncOpen(FunctionID.TECH);
@@ -305,7 +307,6 @@ namespace SGame.UI
 			m_view.m_buff.m_isTime.selectedIndex = 1;
 			m_view.m_buff.visible = false;
 			OnRefreshTotalState();
-			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
 
 		/// <summary>
@@ -348,13 +349,13 @@ namespace SGame.UI
 			DataCenter.ReputationUtils.Reset();
 			m_view.m_likeBtn.SetIcon(ReputationModule.Instance.icon);
 			OnRefreshTotalState();
-			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
 
 		void OnRefreshTotalState() 
 		{
 			m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
+			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
 
 		void OnRefreshAdState() 
@@ -394,8 +395,13 @@ namespace SGame.UI
 				{
 					time = AdModule.Instance.GetBuffTime();
 					UIListener.SetTextWithName(m_view.m_AdBtn, "time", Utils.TimeFormat(time));
-				},m_view, completed: ()=> UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 0));
+				},m_view, completed: ()=>
+				{
+					UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 0);
+					OnRefreshTotalState();
+				});
 			}
+			OnRefreshTotalState();
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)

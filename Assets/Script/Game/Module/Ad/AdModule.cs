@@ -23,6 +23,7 @@ namespace SGame
         public readonly int     AD_MACHINE_NUM      = GlobalDesginConfig.GetInt("ad_machine_num");
         public readonly int     AD_BOOST_RATIO      = GlobalDesginConfig.GetInt("ad_boost_ratio");
         public readonly int     AD_BOOST_TIME       = GlobalDesginConfig.GetInt("ad_boost_time");
+        public readonly int     AD_BUFF_MAX_TIME    = GlobalDesginConfig.GetInt("ad_buff_max_time");
 
         public const int AD_BUFF_ID = 7;
         public const string AD_BUFF_TIME = "ad.bufftime";
@@ -48,7 +49,14 @@ namespace SGame
             if (isRecord)
             {
                 if (serverTime > endTime) DataCenter.SetIntValue(AD_BUFF_TIME, serverTime + AD_BOOST_TIME);
-                else DataCenter.SetIntValue(AD_BUFF_TIME, endTime + AD_BOOST_TIME);
+                else 
+                {
+                    var residueTime = endTime - serverTime;
+                    int addTime = 0;
+                    if(residueTime < AD_BOOST_TIME)
+                        addTime = Math.Min((AD_BOOST_TIME - residueTime), AD_BOOST_TIME);
+                    DataCenter.SetIntValue(AD_BUFF_TIME, endTime + addTime); 
+                }
             }
 
             var time = DataCenter.GetIntValue(AD_BUFF_TIME) - serverTime;

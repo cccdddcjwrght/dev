@@ -10,6 +10,7 @@ namespace SGame
     {
         Exclusive,      //开局buff
         RoomLike,       //好评buff
+        AdBuff,         //广告buff
     }
 
     public class ReputationModule : Singleton<ReputationModule>
@@ -70,6 +71,7 @@ namespace SGame
             {
                 new TotalItem(){ roomBuffEnum = RoomBuffEnum.Exclusive },
                 new TotalItem(){ roomBuffEnum = RoomBuffEnum.RoomLike},
+                new TotalItem(){ roomBuffEnum = RoomBuffEnum.AdBuff },
             };
         }
 
@@ -133,6 +135,16 @@ namespace SGame
                     t2.time = reputationData.endTime - GameServerTime.Instance.serverTime;
                     t2.isEver = data2.BuffDuration <= 0;
                 }
+            }
+
+            var t3 = m_RoomTypeList.Find((t) => t.roomBuffEnum == RoomBuffEnum.AdBuff);
+            if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(AdModule.AD_BUFF_ID, out var data3)) 
+            {
+
+                t3.name = UIListener.Local("ui_boosts_name_1");
+                t3.multiple = AdModule.Instance.AD_BOOST_RATIO * PERCENTAGE_VALUE;
+                t3.time = AdModule.Instance.GetBuffTime();
+                t3.isEver = false;
             }
 
             for (int i = 0; i < m_RoomTypeList.Count; i++)
