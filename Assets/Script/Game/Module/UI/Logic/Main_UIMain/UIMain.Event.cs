@@ -63,15 +63,13 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
 			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
-			//m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnRefreshPiggyBankRedDot);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnUpdatePiggyProgress);
 
 			OnHeadSetting();
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
-			//OnRefreshPiggyBankRedDot();
 			OnRefreshAdTime();
-
 		}
 
 		void OpenUI(FunctionID id)
@@ -159,6 +157,7 @@ namespace SGame.UI
 			
 			// 处理左右列表
 			UpdateUIState();
+			OnUpdatePiggyProgress();
 		}
 
 		void OnRighMenuClick(EventContext context)
@@ -371,18 +370,16 @@ namespace SGame.UI
 			}
 		}
 
-		//void OnRefreshPiggyBankRedDot() 
-		//{
-		//	GButton btn = m_rightList.GetChildAt(2).asButton;
-		//	btn.GetController("__redpoint").selectedIndex =
-		//		DataCenter.PiggyBankUtils.CheckPiggyBankIsFull() ? 1 : 0;
-		//	btn.GetController("ctrlTime").selectedIndex = 1;
-		//	btn.GetChild("content").SetText(string.Format("{0}/{1}",
-		//		DataCenter.Instance.piggybankData.progress,
-		//		DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
-		//}
+        void OnUpdatePiggyProgress()
+        {
+            GButton btn = m_rightList.GetChildAt(0).asButton;
+            btn.GetController("ctrlTime").selectedIndex = 1;
+            btn.GetChild("content").SetText(string.Format("{0}/{1}",
+                DataCenter.Instance.piggybankData.progress,
+                DataCenter.PiggyBankUtils.PIGGYBANK_MAX));
+        }
 
-		void OnRefreshAdTime() 
+        void OnRefreshAdTime() 
 		{
 			var time = AdModule.Instance.GetBuffTime();
 			if (time > 0) 
