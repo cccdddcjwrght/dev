@@ -172,7 +172,7 @@ namespace SGame
 							cfg.GetBuff6Array
 						);
 						var list = new List<int[]>();
-						for (int i = 0; i < effects.Count && id > 0; i++)
+						for (int i = effects.Count - 1; i >=0 && id > 0; i--)
 						{
 							var index = id;
 							id = id / 100;
