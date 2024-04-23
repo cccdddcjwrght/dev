@@ -159,7 +159,7 @@ namespace SGame
 		}
 
 		//根据ui名称获取到相应的坐标位置
-		public static Vector2 GetUIPosition(string uiName, string uiPath)
+		public static Vector2 GetUIPosition(string uiName, string uiPath, bool isCenter = false)
 		{
 			Entity e = GetUIEntity(uiName);
 			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
@@ -172,6 +172,11 @@ namespace SGame
 
 			Vector2 ret = item.LocalToGlobal(Vector2.zero);
 			ret = GRoot.inst.GlobalToLocal(ret);
+			if (isCenter) 
+			{
+				ret.x += item.width * 0.5f;
+				ret.y += item.height * 0.5f;
+			}
 
 			return ret;
 		}
@@ -565,9 +570,11 @@ namespace SGame
 			return offset;
 		}
 
-		public static void SetUIListTouchEffect(string uiName, string uiPath, bool state)
+		public static void SetUIListTouchEffect(string uiName, string uiPath, bool state, float value = 0)
 		{
 			Entity e = GetUIEntity(uiName);
+			if (e == Entity.Null) 
+				return;
 			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
 			var item = ui.Value.contentPane.GetChildByPath(uiPath);
 			if (item == null)
@@ -577,8 +584,25 @@ namespace SGame
 			{
 				GList list = item as GList;
 				list.scrollPane.touchEffect = state;
+				if(value != 0) 
+					list.scrollPane.SetPercY(value, false);
 			}
+		}
 
+		public static Vector2Int GetUISize(string uiName, string uiPath, int width, int height) 
+		{
+			if (width != 0 && height != 0)
+				return new Vector2Int(width, height);
+
+			Entity e = GetUIEntity(uiName);
+			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
+			var item = ui.Value.contentPane.GetChildByPath(uiPath);
+			if (item == null)
+			{
+				Debug.Log("ui path not found={0}, {1}" + uiName + uiPath);
+				return new Vector2Int(0, 0);
+			}
+			return new Vector2Int((int)item.width, (int)item.height);
 		}
 
 
