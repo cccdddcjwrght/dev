@@ -230,6 +230,21 @@ namespace SGame
                 {
                     return;
                 }
+
+                if (!string.IsNullOrEmpty(loading.aiPrefab.error))
+                {
+                    log.Error("prefab load fail=" + loading.aiPrefab.error);
+                    EntityManager.DestroyEntity(e);
+                    return;
+                }
+                var aiPrefab = loading.aiPrefab.asset as GameObject;
+                if (aiPrefab == null)
+                {
+                    log.Error("ai prefab load null=" + loading.aiPrefab.error);
+                    EntityManager.DestroyEntity(e);
+                    return;
+                }
+                
                 ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData);
                 ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
 
