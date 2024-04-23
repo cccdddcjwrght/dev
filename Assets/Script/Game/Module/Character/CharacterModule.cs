@@ -80,7 +80,7 @@ namespace SGame
         /// <summary>
         /// 清空所有角色
         /// </summary>
-        public void Clear()
+        public void Clear(bool isImmediately)
         {
             var entities = m_characterQuery.ToEntityArray(Allocator.Temp);
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -94,12 +94,14 @@ namespace SGame
                     if (character != null)
                         character.script.SetActive(false);
                 }
-                despawnSystem.DespawnEntity(e);
+
+                if (isImmediately)
+                    entityManager.AddComponent<DespawningEntity>(e); // 立马设置 
+                else
+                    despawnSystem.DespawnEntity(e);
             }
             entities.Dispose();
         }
-        
-        
 
         public bool DespawnCharacter(int charcterID)
         {

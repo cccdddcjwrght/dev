@@ -151,6 +151,11 @@ namespace SGame
             return Assets.LoadAssetAsync(path, typeof(GameObject));
         }
 
+        public void Clear()
+        {
+            
+        }
+
         protected override void OnUpdate()
         {
             if (CharacterGenerator.ReadyToUse == false)
