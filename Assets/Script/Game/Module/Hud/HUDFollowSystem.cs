@@ -58,7 +58,7 @@ namespace SGame.UI
             }).WithoutBurst().Run();
 
             var translationQuery = GetComponentDataFromEntity<Translation>();
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, HUDFlowE flow, ref Translation trans) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e,  ref Translation trans, in HUDFlowE flow) =>
             {
                 if (flow.Value != Entity.Null && translationQuery.HasComponent(flow.Value))
                 {

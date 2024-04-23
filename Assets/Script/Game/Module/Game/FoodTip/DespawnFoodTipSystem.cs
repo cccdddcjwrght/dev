@@ -25,7 +25,7 @@ namespace SGame
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithAll<DespawningEntity>().ForEach((Entity e, FoodTips tip) =>
+            Entities.WithAll<DespawningEntity>().ForEach((Entity e, in FoodTips tip) =>
             {
                 if (EntityManager.Exists(tip.ui))
                 {

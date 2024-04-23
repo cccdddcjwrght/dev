@@ -167,7 +167,7 @@ namespace SGame
 				}
 			}).WithoutBurst().Run();
 
-			Entities.ForEach((Entity e, SpawnReq req) =>
+			Entities.ForEach((Entity e, in SpawnReq req) =>
 			{
 				cb.RemoveComponent<SpawnReq>(e);
 				Spawn(

@@ -224,7 +224,7 @@ namespace SGame
             }).WithoutBurst().WithStructuralChanges().Run();
             
             // 等待资源加载并生成对象
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, CharacterSpawnResult result, CharacterSpawn req,  in CharacterLoading loading) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, CharacterSpawnResult result, in CharacterSpawn req,  in CharacterLoading loading) =>
             {
                 if (!loading.isDone)
                 {
