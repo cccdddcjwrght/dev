@@ -1,5 +1,7 @@
+using log4net;
 using SGame;
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace SGame.VS
 {
@@ -16,6 +18,8 @@ namespace SGame.VS
         // 成功返回流程
         [DoNotSerialize]
         public ControlOutput    output;
+
+        private static ILog log = LogManager.GetLogger("game.character");
         
         /// <summary>
         /// The value to return if the variable is not defined.
@@ -38,12 +42,20 @@ namespace SGame.VS
 
                 if (customID != 0)
                 {
-                    CharacterModule.Instance.DespawnCharacter(customID);
+                    if (!CharacterModule.Instance.DespawnCharacter(customID))
+                    {
+                        log.Error("DespawnCharacter Fail=" + customID);
+                    }
+                    return output;
                 }
 
                 if (character != null)
                 {
-                    CharacterModule.Instance.DespawnCharacter(character.CharacterID);
+                    if (!CharacterModule.Instance.DespawnCharacter(character.CharacterID))
+                    {
+                        log.Error("DespawnCharacter Fail2=" + character.CharacterID);
+                    }
+                    return output;
                 }
 
                 return output;
