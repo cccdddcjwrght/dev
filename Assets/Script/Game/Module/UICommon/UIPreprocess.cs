@@ -15,7 +15,7 @@ namespace SGame
 		private static ILog log = LogManager.GetLogger("xl.ui");
 
 		// 初始化UI状态, 包括是否全屏等等
-		public void Init(UIContext context, EntityCommandBuffer commandBuffer)
+		public void Init(UIContext context)
 		{
 			if (context.configID != 0)
 			{
@@ -59,7 +59,7 @@ namespace SGame
 				else if (ui.Type == (int)UIType.HUD)
 				{
 					context.window.isFullScreen = false;
-					HUDSetup(context, commandBuffer);
+					HUDSetup(context);
 				}
 
 
@@ -105,28 +105,24 @@ namespace SGame
 		/// </summary>
 		/// <param name="context"></param>
 		/// <param name="commandBuffer"></param>
-		void HUDSetup(UIContext context, EntityCommandBuffer commandBuffer)
+		void HUDSetup(UIContext context)
 		{
 			var entityManager = context.gameWorld.GetEntityManager();
 			var ui = context.entity;
-			//entityManager.HasComponent<HUDSync>()
+			
 			// 添加同步功能
-			commandBuffer.AddComponent<HUDSync>(ui);
-
-			// 设置父节点
-			//HudModule.Instance.GetHUD().Value.contentPane.AddChild(context.window);
-			//HudModule.Instance.GetHUD().Value.container.AddChild(context.window);
+			entityManager.AddComponent<HUDSync>(ui);
 
 			// 添加3D 信息
 			if (!entityManager.HasComponent<LocalToWorld>(ui))
-				commandBuffer.AddComponent<LocalToWorld>(ui);
+				entityManager.AddComponent<LocalToWorld>(ui);
 			if (!entityManager.HasComponent<Translation>(ui))
-				commandBuffer.AddComponent<Translation>(ui);
+				entityManager.AddComponent<Translation>(ui);
 			if (!entityManager.HasComponent<Rotation>(ui))
-				commandBuffer.AddComponent<Rotation>(ui);
+				entityManager.AddComponent<Rotation>(ui);
 		}
 
-		public void AfterShow(UIContext context, EntityCommandBuffer commandBuffer)
+		public void AfterShow(UIContext context)
 		{
 			if (context.configID != 0)
 			{
@@ -145,13 +141,11 @@ namespace SGame
 					{
 						var flow = entityManager.GetComponentObject<HUDFlow>(e);
 						Translation t = new Translation() { Value = (float3)flow.Value.position + flow.offset };
-						commandBuffer.SetComponent(e, t);
+						entityManager.SetComponentData(e, t);
 
 						var uiwindow = context.window;
 						Vector2 pos = SGame.UIUtils.GetUIPosition(uiwindow.parent, t.Value, PositionType.POS3D);
 						uiwindow.xy = pos;
-
-						//log.Info(string.Format("entity pre init = {0}  pos = {1}", e, pos));
 					}
 				}
 			}

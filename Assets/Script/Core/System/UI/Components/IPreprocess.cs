@@ -7,9 +7,9 @@ namespace SGame.UI
     /// </summary>
     public interface IPreprocess
     {
-        void Init(UIContext context, EntityCommandBuffer comamndBuffer);
+        void Init(UIContext context);
 
-        void AfterShow(UIContext context, EntityCommandBuffer comamndBuffer);
+        void AfterShow(UIContext context);
 
         bool GetUIInfo(int configId, out string comName, out string pkgName);
     }

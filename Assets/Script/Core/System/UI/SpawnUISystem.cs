@@ -71,7 +71,7 @@ namespace SGame.UI
             if (!isInit)
                 return;
             
-            EntityCommandBuffer comamndBuffer = m_commandSystem.CreateCommandBuffer();// new EntityCommandBuffer(Allocator.Temp);
+            //EntityCommandBuffer comamndBuffer = m_commandSystem.CreateCommandBuffer();// new EntityCommandBuffer(Allocator.Temp);
 
             // 1. 生成Package加载
             Entities.WithNone<UIWindow, UIInitalized, DespawningEntity>().ForEach((Entity e, UIRequest request) =>
@@ -79,7 +79,7 @@ namespace SGame.UI
                 if (request.configId == 0 && (string.IsNullOrEmpty(request.comName) || string.IsNullOrEmpty(request.pkgName)))
                 {
                     log.Error("GET UI CONFIG ID IS ZERO");
-                    comamndBuffer.DestroyEntity(e);
+                    EntityManager.DestroyEntity(e);
                     return;
                 }
                 
@@ -96,7 +96,7 @@ namespace SGame.UI
                     else
                     {
                         log.Error("Get UIInfo Fail ID=" + request.configId);
-                        comamndBuffer.DestroyEntity(e);
+                        EntityManager.DestroyEntity(e);
                         return;
                     }
                 }
@@ -104,8 +104,7 @@ namespace SGame.UI
                 {
                     uiPackage = m_packageRequest.Load(request.pkgName)
                 };
-                comamndBuffer.AddComponent<UIWindow>(e);
-                comamndBuffer.SetComponent(e, ui);
+                EntityManager.AddComponentData(e, ui);
 				UIRequestMgr.Remove(request.configId);
             }
             ).WithStructuralChanges().WithoutBurst().Run();
@@ -117,7 +116,7 @@ namespace SGame.UI
                     if (!string.IsNullOrEmpty(window.uiPackage.error))
                     {
                         log.Error("Load UI Package Fail=" + window.uiPackage.error);
-                        comamndBuffer.AddComponent<DespawningEntity>(e);
+                        EntityManager.AddComponent<DespawningEntity>(e);
                         return;
                     }
 
@@ -132,7 +131,7 @@ namespace SGame.UI
                         if (window.gObject == null)
                         {
                             log.Error("Package " + request.pkgName + " ui=" + request.comName + " not found");
-                            comamndBuffer.DestroyEntity(e);
+                            EntityManager.DestroyEntity(e);
                             return;
                         }
                     }
@@ -153,9 +152,9 @@ namespace SGame.UI
                     fui.Initalize(script, context);
                     if (m_preprocess != null)
                     {
-                        m_preprocess.Init(context, comamndBuffer);
+                        m_preprocess.Init(context);
                         fui.Show();
-                        m_preprocess.AfterShow(context, comamndBuffer);
+                        m_preprocess.AfterShow(context);
                     }
                     else
                     {
@@ -163,8 +162,8 @@ namespace SGame.UI
                     }
 
                     // 5. 设置加载完成标记
-                    comamndBuffer.RemoveComponent<UIRequest>(e);
-                    comamndBuffer.AddComponent<UIInitalized>(e);
+                    EntityManager.RemoveComponent<UIRequest>(e);
+                    EntityManager.AddComponent<UIInitalized>(e);
                 }
             ).WithStructuralChanges().WithoutBurst().Run();
             

@@ -13,7 +13,7 @@ namespace SGame.Hotfix
         private static ILog log = LogManager.GetLogger("hotfix");
         
         // 初始化UI状态, 包括是否全屏等等
-        public void Init(UIContext context, EntityCommandBuffer commandBuffer)
+        public void Init(UIContext context)
         {
             if (context.configID == Define.HOTFIX_UI_ID)
             {
@@ -25,7 +25,7 @@ namespace SGame.Hotfix
 			}
 		}
         
-        public void AfterShow(UIContext context, EntityCommandBuffer commandBuffer)
+        public void AfterShow(UIContext context)
         {
             
         }
