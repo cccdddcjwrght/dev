@@ -369,7 +369,7 @@ namespace SGame.UI
 				var btn = m_view.m_InvestBtn as UI_InvestMan;
 				btn.m_bar.fillAmount = (float)time / DataCenter.AdUtil.GetAdSustainTime(AdType.Invest.ToString());
 				var value = AdModule.Instance.GetAdAddCoinNum();
-				btn.SetText(string.Format("+{0}", value.ToString()));
+				btn.SetText(string.Format("+{0}", Utils.ConvertNumberStr(value)));
 			}
 		}
 
