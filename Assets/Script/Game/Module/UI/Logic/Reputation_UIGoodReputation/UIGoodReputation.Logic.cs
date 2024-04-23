@@ -31,7 +31,13 @@ namespace SGame.UI{
 			int roomLikeId = m_RoomLikeIds[index];
 			if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(roomLikeId, out var roomLikeData)) 
 			{
-				item.m_icon.SetIcon(roomLikeData.BuffIcon);
+				var buffIcon = roomLikeData.BuffIcon;
+				if (buffIcon == string.Empty)
+				{
+					if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(roomLikeData.BuffId, out var buffData)) 
+						buffIcon = buffData.Icon;
+				}
+				item.m_icon.SetIcon(buffIcon);
 				item.m_info.SetText(string.Format(UIListener.Local(roomLikeData.BuffDesc),
 					roomLikeData.BuffValue == 0 ? roomLikeData.BuffDuration : roomLikeData.BuffValue,
 					roomLikeData.BuffDuration));

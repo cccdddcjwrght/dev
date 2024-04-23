@@ -48,7 +48,11 @@ namespace SGame
             get 
             {
                 if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(m_data.cfgId, out var data))
-                    return data.BuffIcon;
+                {
+                    if(data.BuffIcon != string.Empty) return data.BuffIcon;
+                    if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(data.BuffId, out var buffData))
+                        return buffData.Icon;
+                }
                 return "ui_like_praise";
             }
         }
