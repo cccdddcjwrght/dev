@@ -64,6 +64,7 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
 			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnUpdatePiggyProgress);
+			m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id,level) => RefreshAdBtn());
 
 			OnHeadSetting();
 			OnEventRefreshItem();
@@ -151,9 +152,8 @@ namespace SGame.UI
 		
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
-			adBtn.GetChild("boostTxt").SetText(UIListener.Local("ui_vault_title") + "X" + AdModule.Instance.AD_BOOST_RATIO * 0.01);
-			adBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.AD_BOOST_TIME, formats:
-				AdModule.Instance.AD_BOOST_TIME % 60 == 0 ? new string[] { "{0}min" } : new string[] { "{0}min{1}s" }));
+			RefreshAdBtn();
+
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
 			
 			m_view.m_skillBtn.visible		= CheckFuncOpen(FunctionID.TECH);
@@ -404,6 +404,13 @@ namespace SGame.UI
 				});
 			}
 			OnRefreshTotalState();
+		}
+
+		void RefreshAdBtn() 
+		{
+			m_view.m_AdBtn.GetChild("boostTxt").SetText(UIListener.Local("ui_ad_boost") + "x" + AdModule.Instance.GetAdRatio() * ConstDefine.C_PER_SCALE);
+			m_view.m_AdBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.GetAdDuration(), formats:
+				AdModule.Instance.GetAdDuration() % 60 == 0 ? new string[] { "{0}min" } : new string[] { "{0}min{1}s" }));
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)

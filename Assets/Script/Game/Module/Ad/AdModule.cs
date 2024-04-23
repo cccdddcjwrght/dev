@@ -21,8 +21,8 @@ namespace SGame
         public readonly float   AD_MACHINE_RATION   = GlobalDesginConfig.GetFloat("ad_machine_ratio");
         public readonly int     AD_MACHINE_UP       = GlobalDesginConfig.GetInt("ad_machine_up");
         public readonly int     AD_MACHINE_NUM      = GlobalDesginConfig.GetInt("ad_machine_num");
-        public readonly int     AD_BOOST_RATIO      = GlobalDesginConfig.GetInt("ad_boost_ratio");
-        public readonly int     AD_BOOST_TIME       = GlobalDesginConfig.GetInt("ad_boost_time");
+        //public readonly int     AD_BOOST_RATIO      = GlobalDesginConfig.GetInt("ad_boost_ratio");
+        //public readonly int     AD_BOOST_TIME       = GlobalDesginConfig.GetInt("ad_boost_time");
         public readonly int     AD_BUFF_MAX_TIME    = GlobalDesginConfig.GetInt("ad_buff_max_time");
 
         public const int AD_BUFF_ID = 7;
@@ -48,12 +48,13 @@ namespace SGame
             var serverTime = GameServerTime.Instance.serverTime;
             if (isRecord)
             {
-                if (serverTime > endTime) DataCenter.SetIntValue(AD_BUFF_TIME, serverTime + AD_BOOST_TIME);
+                if (serverTime > endTime) DataCenter.SetIntValue(AD_BUFF_TIME, serverTime + GetAdDuration());
                 else 
                 {
                     var residueTime = endTime - serverTime;
-                    int addTime = AD_BOOST_TIME;
-                    if(residueTime + AD_BOOST_TIME > AD_BUFF_MAX_TIME)
+                    Debug.Log((int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdTime));
+                    int addTime = GetAdDuration();
+                    if (residueTime + addTime > AD_BUFF_MAX_TIME)
                         addTime = AD_BUFF_MAX_TIME - residueTime;
                     DataCenter.SetIntValue(AD_BUFF_TIME, endTime + addTime); 
                 }
@@ -61,7 +62,7 @@ namespace SGame
 
             var time = DataCenter.GetIntValue(AD_BUFF_TIME) - serverTime;
             if(time > 0) 
-                EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(AD_BUFF_ID, AD_BOOST_RATIO, 0, time){ from = (int)EnumFrom.Ad });
+                EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(AD_BUFF_ID, GetAdRatio(), 0, time){ from = (int)EnumFrom.Ad });
         }
 
         public int GetBuffTime() 
@@ -103,10 +104,21 @@ namespace SGame
         {
             var min = GlobalDesginConfig.GetInt("min_offline_Value");
             var rate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Gold);
+            //var adRate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
             var gold = (double)min;
             var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
             if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
             return (ConstDefine.C_PER_SCALE * gold * rate).ToInt();
+        }
+
+        public int GetAdDuration() 
+        {
+            return (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdTime);
+        }
+
+        public int GetAdRatio() 
+        {
+            return (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
         }
 
         public void PlayAd(string id, Action complete) 

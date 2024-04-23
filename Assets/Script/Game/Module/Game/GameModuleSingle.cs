@@ -63,6 +63,9 @@ namespace SGame
 
 			// 初始化桌子系统
 			TableManager.Instance.Initalize();
+
+			//科技数据初始化
+			DataCenter.Instance.abilityData.InitAbilityList();
 		}
 
 		IEnumerator TestData()
