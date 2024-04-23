@@ -77,7 +77,7 @@ namespace SGame
 					worktable = GetWorktable(cfg.Machine, cfg.Scene, false);
 					if (worktable != null)
 					{
-						var m = worktable.stations?.Find(s => s.id == id);
+						var m = FindMachine(worktable , id);
 						if (m == null && cfg.Enable == 1)
 						{
 							m = CreateMachine(id, ref worktable.stations);
@@ -92,13 +92,34 @@ namespace SGame
 				return default;
 			}
 
+			public static Machine FindMachine(Worktable worktable , int id)
+			{
+				if(worktable!= null)
+				{
+					for (int i = 0; i < worktable.stations.Count; i++)
+					{
+						var s = worktable.stations[i];
+						if (s.id == id) return s;
+					}
+				}
+				return default;
+			}
+
 			public static Worktable GetWorktable(int id, int scene = 0, bool ifMissAdd = false)
 			{
-				var val = GetWorktables()?.Find(m => m.id == id);
-				if (ifMissAdd && (val == null || val.id == 0))
+				var ls = GetWorktables();
+				var val = default(Worktable);
+				if(ls != null && ls.Count > 0)
 				{
-					val = AddWorktable(id, scene);
+					for (int i = 0; i < ls.Count; i++)
+					{
+						var w = ls[i];
+						if (w != null && w.id == id)
+						{ val = w; break; }
+					}
 				}
+				if (ifMissAdd && (val == null || val.id == 0))
+				{ val = AddWorktable(id, scene); }
 				if (!val.cfg.IsValid())
 					val.Refresh();
 				return val;

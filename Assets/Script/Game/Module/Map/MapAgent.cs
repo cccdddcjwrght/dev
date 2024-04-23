@@ -17,6 +17,7 @@ namespace GameTools
 		public bool checkHoldCost = true;
 		[SerializeField]
 		private Maps.Grid _grid;
+		private int _gflag = 0;
 
 		public int version { get; set; } = 1;
 		public Vector2Int mapSize { get; set; }
@@ -26,8 +27,9 @@ namespace GameTools
 		{
 			get
 			{
-				if (_grid == null)
+				if (_gflag == 0)
 				{
+					_gflag = 1;
 					_grid = transform.GetComponent<Maps.Grid>() ?? GameObject.FindObjectOfType<Maps.Grid>(true);
 					Init();
 				}
@@ -119,13 +121,16 @@ namespace GameTools
 
 		private void Awake()
 		{
+			_gflag = 0;
 			grid?.Refresh();
 			Init();
+			_gflag = _grid == null ? 0 : 1;
 			AStar.Init(this);
 			agent = this;
 			checkHoldCost = GlobalConfig.GetInt("checkholdcost") == 1;
 		}
 
+#if UNITY_EDITOR
 		private void Update()
 		{
 			if (Input.GetMouseButtonDown(0))
@@ -141,6 +146,7 @@ namespace GameTools
 				}
 			}
 		}
+#endif
 		#endregion
 
 		#region Static

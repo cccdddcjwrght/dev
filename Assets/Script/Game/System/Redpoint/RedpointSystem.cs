@@ -329,27 +329,31 @@ namespace SGame
 		{
 			if (data.IsValid() && !string.IsNullOrEmpty(data.Ui) && !string.IsNullOrEmpty(data.Path))
 			{
-				if (CheckUIState(data.Ui) == true)
+				var _ui = data.Ui;
+
+				if (CheckUIState(_ui) == true)
 				{
+					var _f = data.Filter;
+					var _c = data.Ctr;
 					var cpath = data.Path;
-					var e = GetUI(data.Ui);
+					var e = GetUI(_ui);
 					if (EntityManager.HasComponent<UIWindow>(e))
 					{
 						var w = EntityManager.GetComponentData<UIWindow>(e);
 						if (w != null)
 						{
 							var p = w.Value.contentPane;
-							var fstate = string.IsNullOrEmpty(data.Filter);
+							var fstate = string.IsNullOrEmpty(_f);
 							if (cpath[0] == '*')
 							{
-								if (!string.IsNullOrEmpty(data.Ctr))
+								if (!string.IsNullOrEmpty(_c))
 								{
-									var gos = GameObject.FindGameObjectsWithTag(data.Ctr);
+									var gos = GameObject.FindGameObjectsWithTag(_c);
 									if (gos?.Length > 0)
 									{
 										for (int i = 0; i < gos.Length; i++)
 										{
-											if (gos[i].activeInHierarchy && (!fstate || gos[i].name.Contains(data.Filter) || gos[i].transform.Find(data.Filter)))
+											if (gos[i].activeInHierarchy && (!fstate || gos[i].name.Contains(_f) || gos[i].transform.Find(_f)))
 												SetRedOnGameObject(gos[i], OnCalculation?.Invoke(data, gos[i], null) == true, data);
 										}
 									}
@@ -367,7 +371,7 @@ namespace SGame
 									{
 										foreach (var item in list.GetChildren())
 										{
-											if (item is GComponent && (fstate || item.name.Contains(data.Filter)))
+											if (item is GComponent && (fstate || item.name.Contains(_f)))
 											{
 												status = _stateCache.Contains(data.Id + item.name);
 												SetRedPointState(item.asCom, !status && OnCalculation?.Invoke(data, item, item.name) == true, data);
@@ -379,7 +383,7 @@ namespace SGame
 								{
 									var child = p.GetChildByPath(path)?.asCom;
 									if (child != null) SetRedPointState(child, status, data);
-									else GameDebug.LogWarning($"没有在界面[{data.Ui}]找到路径[{cpath}]的对象");
+									else GameDebug.LogWarning($"没有在界面[{_ui}]找到路径[{cpath}]的对象");
 								}
 							}
 						}

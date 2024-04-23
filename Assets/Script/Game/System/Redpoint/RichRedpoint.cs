@@ -30,6 +30,8 @@ namespace SGame
 	public class RichRedpoint : RedpointSystem
 	{
 		private static ILog log = LogManager.GetLogger("redpoint");
+		private static Dictionary<int, string> _keys = new Dictionary<int, string>();
+
 
 		private Dictionary<string, object> _calcus = new Dictionary<string, object>();
 		private Dictionary<int, Entity> _hudID = new Dictionary<int, Entity>();
@@ -75,9 +77,9 @@ namespace SGame
 		{
 			OnCalculation = (c, t, a) =>
 			{
-				var condition = GetConditonCalculator(GetConditionKey(c, null));
-				var ret = condition?.Do(c, t, a) == true;
 				var cfg = (RedConfigRowData)c;
+				var condition = GetConditonCalculator(GetConditionKey(c, null, cfg.Id));
+				var ret = condition?.Do(c, t, a) == true;
 				if (condition is IRedText txt)
 					SetText(cfg.Id, txt.text);
 				return ret;
@@ -137,29 +139,35 @@ namespace SGame
 
 		#region Static
 
-		private static string GetConditionKey(object obj, string ext)
+		private static string GetConditionKey(object obj, string ext, int token = 0)
 		{
 			string key = null;
-			if (obj is int || obj is string)
-				key = obj.ToString() + "_" + (ext ?? "id");
-			else if (obj is IFlatbufferObject)
+			if (token == 0 || !_keys.TryGetValue(token, out key))
 			{
-				var type = -1;
-				var id = 0;
-				if (obj is RedConfigRowData red)
+				if (obj is int || obj is string)
+					key = obj.ToString() + "_" + (ext ?? "id");
+				else if (obj is IFlatbufferObject)
 				{
-					id = red.Id;
-					type = red.Type;
-				}
+					var type = -1;
+					var id = 0;
+					if (obj is RedConfigRowData red)
+					{
+						id = red.Id;
+						type = red.Type;
+					}
 
-				if (type >= 0)
-				{
-					if (type < 101) key = id + "_id";
-					else key = type.ToString();
-				}
+					if (type >= 0)
+					{
+						if (type < 101) key = id + "_id";
+						else key = type.ToString();
+					}
 
+				}
+				key = "condition_" + key;
+				if (token != 0)
+					_keys[token] = key;
 			}
-			return key == null ? null : "condition_" + key;
+			return key;
 		}
 
 
