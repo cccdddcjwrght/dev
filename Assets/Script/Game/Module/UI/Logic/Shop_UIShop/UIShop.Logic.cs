@@ -10,6 +10,9 @@ namespace SGame.UI
 	using System.Linq;
 	using Cs;
 	using GameConfigs;
+	using Unity.Entities.UniversalDelegates;
+	using System.Xml.Linq;
+	using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 
 	public partial class UIShop
 	{
@@ -110,19 +113,58 @@ namespace SGame.UI
 			v.m_click.onClick?.Clear();
 			v.m_click.onClick.Add(() => OnGoodsClick(g));
 			v.m_items.RemoveChildrenToPool();
-			SGame.UIUtils.AddListItems(v.m_items, DataCenter.ShopUtil.GetGoodsItems(g.id), OnSetGoodsItem);
 
-			if (g.cfg.LimitType != 0)
+			SGame.UIUtils.AddListItems(v.m_items, DataCenter.ShopUtil.GetGoodsItems(g.id), OnSetGoodsItem);
+			v.m_count.visible = g.cfg.LimitType != 0;
+
+			_refreshCall[g.id] = () => DoGiftRefresh(g, v);
+			_refreshCall[g.id].Invoke();
+		}
+
+		void DoGiftRefresh(ShopGoods g, UI_BigGoods v)
+		{
+			var time = g.CDTime();
+			v.m_saled.selectedIndex = 0;
+			v.m_cd.selectedIndex = 0;
+			v.m_currency.selectedIndex = 0;
+			if (g.free > 0)
 			{
-				_refreshCall[g.id] = () =>
-				{
-					v.m_count.SetText((g.cfg.LimitNum - g.buy) + "/" + g.cfg.LimitNum, false);
-					v.m_saled.selectedIndex = g.buy >= g.cfg.LimitNum ? 1 : 0;
-				};
-				_refreshCall[g.id].Invoke();
+				v.m_currency.selectedIndex = 0;
+				v.m_click.SetTextByKey("ui_shop_free");
 			}
 			else
-				v.m_count.visible = false;
+			{
+				switch (g.cfg.PurchaseType)
+				{
+					case 1:
+						v.m_currency.selectedIndex = 3;
+						v.m_click.SetText((g.cfg.LimitNum - g.buy) + "/" + g.cfg.LimitNum);
+						break;
+					case 2:
+						v.m_currency.selectedIndex = 2;
+						v.m_click.SetText(g.cfg.Price.ToString());
+						break;
+					case 3:
+						v.m_currency.selectedIndex = 4;
+						v.m_click.SetText(g.cfg.Price.ToString());
+						break;
+				}
+			}
+			if (time > 0)
+			{
+				v.m_time.SetText(Utils.FormatTime(time), false);
+				Utils.Timer(time, () =>
+				{
+					v.m_time.SetText(Utils.FormatTime(g.CDTime()), false);
+				}, v, completed: () => _refreshCall[g.id]?.Invoke());
+			}
+
+			v.m_cd.selectedIndex = time > 0 ? 1 : 0;
+			if (g.cfg.LimitType != 0)
+			{
+				v.m_saled.selectedIndex = g.buy >= g.cfg.LimitNum ? 1 : 0;
+				v.m_count.SetText((g.cfg.LimitNum - g.buy) + "/" + g.cfg.LimitNum, false);
+			}
 		}
 
 		void SetGoodsInfo(int index, object data, GObject gObject)

@@ -20,6 +20,8 @@ namespace SGame.UI{
 			m_view.m_content.m_adgood.m_type.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_typeChanged));
 			m_view.m_content.m_adgood.m_saled.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_saledChanged));
 			m_view.m_content.m_adgood.m_left_state.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_left_stateChanged));
+			m_view.m_content.m_adgood.m_currency.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_currencyChanged));
+			m_view.m_content.m_adgood.m_cd.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_cdChanged));
 			UIListener.Listener(m_view.m_content.m_adgood.m_click, new EventCallback1(_OnBigGoods_Content_adgood_clickClick));
 			UIListener.ListenerIcon(m_view.m_content.m_adgood, new EventCallback1(_OnShopBody_AdgoodClick));
 			UIListener.ListenerIcon(m_view.m_content, new EventCallback1(_OnContentClick));
@@ -36,6 +38,8 @@ namespace SGame.UI{
 			m_view.m_content.m_adgood.m_type.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_typeChanged));
 			m_view.m_content.m_adgood.m_saled.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_saledChanged));
 			m_view.m_content.m_adgood.m_left_state.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_left_stateChanged));
+			m_view.m_content.m_adgood.m_currency.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_currencyChanged));
+			m_view.m_content.m_adgood.m_cd.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_cdChanged));
 			UIListener.Listener(m_view.m_content.m_adgood.m_click, new EventCallback1(_OnBigGoods_Content_adgood_clickClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_content.m_adgood, new EventCallback1(_OnShopBody_AdgoodClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_content, new EventCallback1(_OnContentClick),remove:true);
@@ -83,6 +87,16 @@ namespace SGame.UI{
 		}
 		partial void OnBigGoods_Content_adgood_left_stateChanged(EventContext data);
 		void SwitchBigGoods_Content_adgood_left_statePage(int index)=>m_view.m_content.m_adgood.m_left_state.selectedIndex=index;
+		void _OnBigGoods_Content_adgood_currencyChanged(EventContext data){
+			OnBigGoods_Content_adgood_currencyChanged(data);
+		}
+		partial void OnBigGoods_Content_adgood_currencyChanged(EventContext data);
+		void SwitchBigGoods_Content_adgood_currencyPage(int index)=>m_view.m_content.m_adgood.m_currency.selectedIndex=index;
+		void _OnBigGoods_Content_adgood_cdChanged(EventContext data){
+			OnBigGoods_Content_adgood_cdChanged(data);
+		}
+		partial void OnBigGoods_Content_adgood_cdChanged(EventContext data);
+		void SwitchBigGoods_Content_adgood_cdPage(int index)=>m_view.m_content.m_adgood.m_cd.selectedIndex=index;
 		void _OnBigGoods_Content_adgood_clickClick(EventContext data){
 			OnBigGoods_Content_adgood_clickClick(data);
 		}
@@ -95,6 +109,8 @@ namespace SGame.UI{
 		string GetBigGoods_Content_adgood_descText()=>UIListener.GetText(m_view.m_content.m_adgood.m_desc);
 		void SetBigGoods_Content_adgood_countText(string data)=>UIListener.SetText(m_view.m_content.m_adgood.m_count,data);
 		string GetBigGoods_Content_adgood_countText()=>UIListener.GetText(m_view.m_content.m_adgood.m_count);
+		void SetBigGoods_Content_adgood_timeText(string data)=>UIListener.SetText(m_view.m_content.m_adgood.m_time,data);
+		string GetBigGoods_Content_adgood_timeText()=>UIListener.GetText(m_view.m_content.m_adgood.m_time);
 		void _OnShopBody_AdgoodClick(EventContext data){
 			OnShopBody_AdgoodClick(data);
 		}
