@@ -54,14 +54,13 @@ namespace SGame.UI
 		{
 			if (_isAd)
 			{
-				Utils.PlayAd(c_ad_name, (s, t) =>
+				AdModule.PlayAd(c_ad_name, (s) =>
 				{
 					if (s)
 					{
 						_isAd = false;
 						OnClickClick(data);
 					}
-					else t.Tips();
 				});
 			}
 			else

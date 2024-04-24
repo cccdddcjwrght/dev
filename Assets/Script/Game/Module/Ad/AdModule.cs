@@ -122,14 +122,20 @@ namespace SGame
             return (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
         }
 
-        public void PlayAd(string id, Action complete) 
+        public void PlayAd(string id, Action complete , Action<bool> other = null) 
         {
-            if (!DataCenter.AdUtil.IsAdCanPlay(id)) return;
+            if (!DataCenter.AdUtil.IsAdCanPlay(id))
+			{
+				complete?.Invoke();
+				other?.Invoke(false);
+				return;
+			}
             if (DataCenter.IsIgnoreAd())
             {
                 DataCenter.AdUtil.RecordPlayAD(id);
                 complete?.Invoke();
-            }
+				other?.Invoke(true);
+			}
             else 
             {
                 Utils.PlayAd(id, (state, t) =>
@@ -139,7 +145,8 @@ namespace SGame
                         DataCenter.AdUtil.RecordPlayAD(id);
                         complete?.Invoke();
                     }
-                });
+					other?.Invoke(state);
+				});
             }
         }
 
@@ -152,5 +159,9 @@ namespace SGame
 			}
 		}
 
+		public static void PlayAd(string id , Action<bool> call = null)
+		{
+			Instance.PlayAd(id, null, call);
+		}
 	}
 }

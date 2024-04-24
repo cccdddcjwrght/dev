@@ -69,7 +69,7 @@ namespace SGame.UI
 		void RefreshGifts()
 		{
 			_gifts = DataCenter.ShopUtil.GetShopGoodsByArea(2);
-			_gifts.RemoveAll(g => g.IsSaled());
+			//_gifts.RemoveAll(g => g.IsSaled());
 			m_view.m_content.m_gifts.RemoveChildrenToPool();
 			m_view.m_content.m_page.RemoveChildrenToPool();
 			m_view.m_content.m_pages.ClearPages();

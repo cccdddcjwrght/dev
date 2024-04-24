@@ -30,7 +30,7 @@ namespace SGame
 
 		}
 
-		static public void BuyGoods(int id , Action<bool> call = null)
+		static public void BuyGoods(int id, Action<bool> call = null)
 		{
 			UILockManager.Instance.Require(shop_lock);
 			0.Delay(() =>
@@ -51,19 +51,16 @@ namespace SGame
 						switch (pt)
 						{
 							case 1:
-								if (!DataCenter.IsIgnoreAd())
-									Utils.PlayAd(cfg.Price.ToString(), (s, t) => DoBuyGoods(goods,s , call));
+								if (DataCenter.IsIgnoreAd())
+									DoBuyGoods(goods, true, call);
 								else
-								{
-									log.Info("no ad , free");
-									DoBuyGoods(goods, true ,call);
-								}
+									Utils.PlayAd(cfg.Price.ToString(), (s, t) => DoBuyGoods(goods, s, call));
 								break;
 							case 3:
-								Utils.Pay((cfg.Price == 0 ? cfg.Id : cfg.Price).ToString(), (s, t) => DoBuyGoods(goods,s,call));
+								Utils.Pay((cfg.Price == 0 ? cfg.Id : cfg.Price).ToString(), (s, t) => DoBuyGoods(goods, s, call));
 								break;
 							default:
-								DoBuyGoods(goods , true , call);
+								DoBuyGoods(goods, true, call);
 								break;
 						}
 					}
@@ -72,7 +69,7 @@ namespace SGame
 			}
 		}
 
-		static private void DoBuyGoods(ShopGoods goods , bool state , Action<bool> call = null)
+		static private void DoBuyGoods(ShopGoods goods, bool state, Action<bool> call = null)
 		{
 
 			if (state)

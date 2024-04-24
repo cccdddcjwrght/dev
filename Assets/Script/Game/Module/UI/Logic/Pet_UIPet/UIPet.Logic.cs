@@ -13,6 +13,8 @@ namespace SGame.UI
 
 	public partial class UIPet
 	{
+		const string c_pet_ad = "petborn";
+
 		private List<PetItem> _pets;
 		private List<PetItem> _eggs;
 		private PetData _data { get { return DataCenter.Instance.petData; } }
@@ -92,6 +94,7 @@ namespace SGame.UI
 			if (egg == null || egg.cfgID == 0) eg.m_select.selectedIndex = _current != null ? 1 : 0;
 			else if (egg.GetRemainder() <= 0) eggState = 2;
 			else eggState = 1;
+			eg.m_get2.grayed = !DataCenter.AdUtil.IsAdCanPlay(c_pet_ad);
 		}
 
 		void OnEggItemClick(int index, PetItem data, GObject gObject)
@@ -160,17 +163,14 @@ namespace SGame.UI
 
 		partial void OnPetEgg_Get2Click(EventContext data)
 		{
-			Utils.PlayAd("petborn", (s, t) =>
+			AdModule.PlayAd(c_pet_ad, (s) =>
 			{
-
 				if (s)
 				{
 					_data.egg.time = 0;
 					CloseTimer();
 					OnPetEgg_Get3Click(null);
 				}
-				else t.Tips();
-
 			});
 		}
 

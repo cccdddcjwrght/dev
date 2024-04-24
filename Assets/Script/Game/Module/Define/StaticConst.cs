@@ -133,7 +133,7 @@ namespace SGame
 
 		#region 广告
 
-#if AD_ON
+#if AD_ON || USE_AD
 		public const bool C_AD_OPEN = true; 
 #else
 		public const bool C_AD_OPEN = false;
