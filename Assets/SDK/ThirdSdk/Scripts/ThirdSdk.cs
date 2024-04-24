@@ -31,8 +31,18 @@ namespace ThirdSdk
         /// </summary>
         public void OnActive()
         {
-#if USE_THIRD
+#if USE_THIRD_SDK
             InternalSdkManager.inst.OnActive();
+#endif
+        }
+
+        /// <summary>
+        /// 更新游戏时间，用于处理广告冷却
+        /// </summary>
+        public void Update()
+        {
+#if USE_THIRD_SDK
+            InternalAdManager.inst.Update();
 #endif
         }
 
@@ -63,5 +73,48 @@ namespace ThirdSdk
 #endif
         }
 
+
+        public void LoadAd(string sceneName)
+        {
+#if USE_THIRD_SDK
+            InternalAdManager.inst.LoadAd(sceneName);
+#endif
+        }
+
+
+        /// 是否可用
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool IsAdAvaiable(string name)
+        {
+#if USE_THIRD_SDK
+            return InternalAdManager.inst.IsAdAvaiable(name);
+#else
+            return false;
+#endif
+        }
+
+        /// <summary>
+        /// 播放插屏广告
+        /// </summary>
+        /// <param name="sceneName"></param>
+        public void ShowInterAd(string sceneName)
+        {
+#if USE_THIRD_SDK
+            InternalAdManager.inst.ShowInterAd(sceneName);
+#endif
+        }
+
+        /// <summary>
+        /// 播放视频广告
+        /// </summary>
+        /// <param name="sceneName"></param>
+        public void ShowVideoAd(string sceneName, ADExternalHandleDef.calleeBool2Void calleeVideoClose)
+        {
+#if USE_THIRD_SDK
+            InternalAdManager.inst.ShowVideoAd(sceneName, calleeVideoClose);
+#endif
+        }
     }
 }

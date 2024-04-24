@@ -33,8 +33,14 @@ namespace ThirdSdk
 
         private void InitSdk()
         {
+            InitInternalEventSdk();
             InitFirebaseSdk();
             InitFacebookSdk();
+        }
+
+        private void InitInternalEventSdk()
+        {
+            CodePipeline.Push4Invoke(() => InternalEventManager.inst.Init());
         }
 
         private void InitFirebaseSdk()
@@ -59,7 +65,6 @@ namespace ThirdSdk
 
         private void InitFacebookSdk()
         {
-            ThirdSDK.inst.AddListener(THIRD_EVENT_TYPE.TET_FB_DEEP_LINK_URL, OnFbDeepLinkGetEvent);
             CodePipeline.Push4Invoke(() => FacebookSDK.inst.Init());
         }
 
@@ -69,30 +74,8 @@ namespace ThirdSdk
                 return;
 
             CodePipeline.Push4Invoke(() => ThirdEvent.inst.SendEvent(THIRD_EVENT_TYPE.TET_THIRD_SDK_INIT_COMPLETE, true));
+            CodePipeline.Push4Invoke(() => InternalAdManager.inst.InitAd());
         }
 
-        private void OnFbDeepLinkGetEvent(object obj)
-        {
-            string deepLinkUrl = obj as string;
-            if (string.IsNullOrEmpty(deepLinkUrl))
-                return;
-
-            deepLinkUrl = FormatDLinkUrl(deepLinkUrl);
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            dict.Add("source", deepLinkUrl);
-            dict.Add("ad_network", "fb");
-            ThirdSDK.inst.SendAnalyticsEvent("from_ad", dict);
-        }
-
-        private string FormatDLinkUrl(string url)
-        {
-            string scheme = "://";
-            int idx = url.IndexOf(scheme);
-            if (idx != -1)
-            {
-                url = url.Substring(idx + scheme.Length);
-            }
-            return url;
-        }
     }
 }
