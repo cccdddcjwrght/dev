@@ -34,22 +34,52 @@ public struct RegionRowData : IFlatbufferObject
   public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public byte[] GetIconArray() { return __p.__vector_as_array<byte>(8); }
+  public string StartImage { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetStartImageBytes() { return __p.__vector_as_span<byte>(10, 1); }
+#else
+  public ArraySegment<byte>? GetStartImageBytes() { return __p.__vector_as_arraysegment(10); }
+#endif
+  public byte[] GetStartImageArray() { return __p.__vector_as_array<byte>(10); }
+  public string DoShowId { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetDoShowIdBytes() { return __p.__vector_as_span<byte>(12, 1); }
+#else
+  public ArraySegment<byte>? GetDoShowIdBytes() { return __p.__vector_as_arraysegment(12); }
+#endif
+  public byte[] GetDoShowIdArray() { return __p.__vector_as_array<byte>(12); }
+  public string DoHideId { get { int o = __p.__offset(14); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetDoHideIdBytes() { return __p.__vector_as_span<byte>(14, 1); }
+#else
+  public ArraySegment<byte>? GetDoHideIdBytes() { return __p.__vector_as_arraysegment(14); }
+#endif
+  public byte[] GetDoHideIdArray() { return __p.__vector_as_array<byte>(14); }
 
   public static Offset<GameConfigs.RegionRowData> CreateRegionRowData(FlatBufferBuilder builder,
       int ID = 0,
       StringOffset NameOffset = default(StringOffset),
-      StringOffset IconOffset = default(StringOffset)) {
-    builder.StartTable(3);
+      StringOffset IconOffset = default(StringOffset),
+      StringOffset StartImageOffset = default(StringOffset),
+      StringOffset DoShowIdOffset = default(StringOffset),
+      StringOffset DoHideIdOffset = default(StringOffset)) {
+    builder.StartTable(6);
+    RegionRowData.AddDoHideId(builder, DoHideIdOffset);
+    RegionRowData.AddDoShowId(builder, DoShowIdOffset);
+    RegionRowData.AddStartImage(builder, StartImageOffset);
     RegionRowData.AddIcon(builder, IconOffset);
     RegionRowData.AddName(builder, NameOffset);
     RegionRowData.AddID(builder, ID);
     return RegionRowData.EndRegionRowData(builder);
   }
 
-  public static void StartRegionRowData(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void StartRegionRowData(FlatBufferBuilder builder) { builder.StartTable(6); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
+  public static void AddStartImage(FlatBufferBuilder builder, StringOffset StartImageOffset) { builder.AddOffset(3, StartImageOffset.Value, 0); }
+  public static void AddDoShowId(FlatBufferBuilder builder, StringOffset DoShowIdOffset) { builder.AddOffset(4, DoShowIdOffset.Value, 0); }
+  public static void AddDoHideId(FlatBufferBuilder builder, StringOffset DoHideIdOffset) { builder.AddOffset(5, DoHideIdOffset.Value, 0); }
   public static Offset<GameConfigs.RegionRowData> EndRegionRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RegionRowData>(o);

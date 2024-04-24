@@ -42,8 +42,9 @@ public struct ItemRowData : IFlatbufferObject
 #endif
   public byte[] GetIconArray() { return __p.__vector_as_array<byte>(10); }
   public int Type { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int TypeId { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ModelEffectID { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int SubType { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int TypeId { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ModelEffectID { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ItemRowData> CreateItemRowData(FlatBufferBuilder builder,
       int ItemId = 0,
@@ -51,11 +52,13 @@ public struct ItemRowData : IFlatbufferObject
       StringOffset DescriptionOffset = default(StringOffset),
       StringOffset IconOffset = default(StringOffset),
       int Type = 0,
+      int SubType = 0,
       int TypeId = 0,
       int ModelEffectID = 0) {
-    builder.StartTable(7);
+    builder.StartTable(8);
     ItemRowData.AddModelEffectID(builder, ModelEffectID);
     ItemRowData.AddTypeId(builder, TypeId);
+    ItemRowData.AddSubType(builder, SubType);
     ItemRowData.AddType(builder, Type);
     ItemRowData.AddIcon(builder, IconOffset);
     ItemRowData.AddDescription(builder, DescriptionOffset);
@@ -64,14 +67,15 @@ public struct ItemRowData : IFlatbufferObject
     return ItemRowData.EndItemRowData(builder);
   }
 
-  public static void StartItemRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartItemRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddItemId(FlatBufferBuilder builder, int ItemId) { builder.AddInt(0, ItemId, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddDescription(FlatBufferBuilder builder, StringOffset DescriptionOffset) { builder.AddOffset(2, DescriptionOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(3, IconOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(4, Type, 0); }
-  public static void AddTypeId(FlatBufferBuilder builder, int TypeId) { builder.AddInt(5, TypeId, 0); }
-  public static void AddModelEffectID(FlatBufferBuilder builder, int ModelEffectID) { builder.AddInt(6, ModelEffectID, 0); }
+  public static void AddSubType(FlatBufferBuilder builder, int SubType) { builder.AddInt(5, SubType, 0); }
+  public static void AddTypeId(FlatBufferBuilder builder, int TypeId) { builder.AddInt(6, TypeId, 0); }
+  public static void AddModelEffectID(FlatBufferBuilder builder, int ModelEffectID) { builder.AddInt(7, ModelEffectID, 0); }
   public static Offset<GameConfigs.ItemRowData> EndItemRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ItemRowData>(o);
