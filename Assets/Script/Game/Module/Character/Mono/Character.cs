@@ -384,7 +384,7 @@ namespace SGame
         /// <summary>
         /// 整体更改外观
         /// </summary>
-        /// <param name="part">外观字符串</param>
+        /// <param name="part">完整的外观字符串</param>
         public void ChangeLooking(string part)
         {
             m_modelLoading.Start(ChangLooking(part));
@@ -393,7 +393,7 @@ namespace SGame
         /// <summary>
         /// 更新外观
         /// </summary>
-        /// <param name="part"></param>
+        /// <param name="part">部分字符串</param>
         public void UpdateLooking(string part)
         {
             string oldLooking = GetCurrentLooking();

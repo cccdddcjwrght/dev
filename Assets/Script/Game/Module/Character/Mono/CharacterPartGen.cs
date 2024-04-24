@@ -47,7 +47,7 @@ namespace SGame
             string value = "";
 
             int startPos = includeRole ? 1 : 0;
-            for (int i = 1; i < settings.Length;)
+            for (int i = startPos; i < settings.Length;)
             {
                 string categoryName = settings[i++];
                 string elementName = settings[i++];
