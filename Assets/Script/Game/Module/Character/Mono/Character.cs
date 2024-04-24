@@ -96,6 +96,8 @@ namespace SGame
 
         private Equipments m_slot;
 
+        private string     m_characterLooking;
+
         void Awake()
         {
             m_modelLoading = new Fiber(FiberBucket.Manual);
@@ -110,6 +112,23 @@ namespace SGame
         {
             if (m_modelLoading != null && !m_modelLoading.IsTerminated)
                 m_modelLoading.Step();
+        }
+
+        /// <summary>
+        /// 获取外观字符串
+        /// </summary>
+        /// <returns></returns>
+        public string GetCurrentLooking()
+        {
+            if (!string.IsNullOrEmpty(m_characterLooking))
+            {
+                return m_characterLooking;
+            }
+            
+            ConfigSystem.Instance.TryGet(roleID, out GameConfigs.RoleDataRowData roleData);
+            ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
+            m_characterLooking = config.Part;
+            return m_characterLooking;
         }
 
         private void OnDestroy()
@@ -363,12 +382,26 @@ namespace SGame
         }
 
         /// <summary>
-        /// 更改外观
+        /// 整体更改外观
         /// </summary>
         /// <param name="part">外观字符串</param>
         public void ChangeLooking(string part)
         {
             m_modelLoading.Start(ChangLooking(part));
+        }
+
+        /// <summary>
+        /// 更新外观
+        /// </summary>
+        /// <param name="part"></param>
+        public void UpdateLooking(string part)
+        {
+            string oldLooking = GetCurrentLooking();
+            var look1 = CharacterPartGen.ParseString(oldLooking);
+            var look2 = CharacterPartGen.ParseString(part, false);
+            look1.Merge(look2);
+
+            ChangeLooking(look1.ToPartString());
         }
 
         /// <summary>
@@ -378,6 +411,7 @@ namespace SGame
         /// <returns></returns>
         IEnumerator ChangLooking(string part)
         {
+            m_characterLooking = part;
             var data = CharacterPartGen.ParseString(part);
             List<string> weapons = data.GetValues("weapon");
             List<string> effects = data.GetValues("effect");

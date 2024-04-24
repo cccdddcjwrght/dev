@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using UnityEngine;
 
 namespace SGame
@@ -13,13 +15,30 @@ namespace SGame
         public string                     Character;        // 基础角色
         public Dictionary<string, string> Values;           // 部件KEY VALUE
 
+        /// <summary>
+        /// 合并外观
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public CharacterPartGen Merge(CharacterPartGen other)
+        {
+            foreach (var item in other.Values)
+            {
+                if (!Values.TryAdd(item.Key, item.Value))
+                {
+                    Values[item.Key] = item.Value;
+                }
+            }
+
+            return this;
+        }
 
         /// <summary>
         /// 解析字符串
         /// </summary>
         /// <param name="part"></param>
         /// <returns></returns>
-        public static CharacterPartGen ParseString(string part)
+        public static CharacterPartGen ParseString(string part, bool includeRole = true)
         {
             part = part.ToLower();
             string[] settings = part.Split('|');
@@ -27,6 +46,7 @@ namespace SGame
             var keyvalue = new Dictionary<string, string>();
             string value = "";
 
+            int startPos = includeRole ? 1 : 0;
             for (int i = 1; i < settings.Length;)
             {
                 string categoryName = settings[i++];
