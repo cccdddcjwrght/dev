@@ -15,6 +15,7 @@ namespace SGame
                 None = new ComponentType[] { typeof(DespawningEntity) }
             };
             m_characterQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(desc);
+            CharacterIdleModule.Instance.Initlaize();
         }
 
         /// <summary>

@@ -46,7 +46,12 @@ namespace SGame
         /// 食物Enitty
         /// </summary>
         public Entity m_food { get; private set; }
-        
+
+        /// <summary>
+        /// 待机效果
+        /// </summary>
+        public Entity m_sleep { get; private set; }
+
         /// <summary>
         /// uiEnitty
         /// </summary>
@@ -473,6 +478,21 @@ namespace SGame
             }
 
             modelAnimator = ani.GetComponent<Animator>();
+        }
+
+        public void ShowSleep() 
+        {
+            if(m_sleep == Entity.Null)
+                m_sleep = EffectSystem.Instance.Spawn3d(8, gameObject);
+        }
+
+        public void ClearSleep() 
+        {
+            if (m_sleep != Entity.Null)
+            {
+                EffectSystem.Instance.CloseEffect(m_sleep);
+                m_sleep = Entity.Null;
+            }
         }
     }
 }
