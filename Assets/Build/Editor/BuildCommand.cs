@@ -725,6 +725,8 @@ static class BuildCommand
 
 		if (TryGetEnv(BUILD_OPTIONS_SYMBOL, out string s) && !string.IsNullOrEmpty(s))
 			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
+		else
+			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Disabled;
 	}
 
 	#endregion
