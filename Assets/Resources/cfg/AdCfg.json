@@ -1,0 +1,216 @@
+{
+	"code": "idlecrystalminer-and",
+	"name": "IdleCrystalMiner-AND",
+	"os": "android",
+	"archived": false,
+	"timeToFirstAd": 60,
+	"interstitialInterval": 0,
+	"groupCachingPolicy": 2,
+	"admobApp": "ca-app-pub-2058120932605218~3892416388",
+	"scenes": [
+		{
+			"code": "scn_banner",
+			"interval": 0,
+			"ignorePurchase": 0,
+			"groups": [
+				{
+					"group": "grp_banner",
+					"policy": 1,
+					"weight": 0
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_insert_level",
+			"interval": 0,
+			"ignorePurchase": 0,
+			"groups": [
+				{
+					"group": "grp_insert",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_boost",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_investor",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_machine",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_offline",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_pethatch",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_shop1",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_shop2",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_shop3",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		},
+		{
+			"code": "scn_video_shoppack1",
+			"interval": 0,
+			"ignorePurchase": 1,
+			"groups": [
+				{
+					"group": "grp_video",
+					"policy": 1,
+					"weight": -1
+				}
+			],
+			"countries": []
+		}
+	],
+	"groups": [
+		{
+			"code": "grp_banner",
+			"policy": 1,
+			"limits": 0,
+			"cooldown": 0,
+			"units": [
+				{
+					"unit": "admob_banner_low",
+					"weight": -1
+				}
+			]
+		},
+		{
+			"code": "grp_insert",
+			"policy": 1,
+			"limits": 0,
+			"cooldown": 60,
+			"units": [
+				{
+					"unit": "admob_insert_bidding",
+					"weight": 0
+				}
+			]
+		},
+		{
+			"code": "grp_video",
+			"policy": 1,
+			"limits": 0,
+			"cooldown": 0,
+			"units": [
+				{
+					"unit": "admob_video_bidding",
+					"weight": 0
+				}
+			]
+		}
+	],
+	"units": [
+		{
+			"platform": "admob",
+			"code": "admob_banner_low",
+			"format": "banner",
+			"unit": "ca-app-pub-2058120932605218/4626580413",
+			"weight": 350
+		},
+		{
+			"platform": "admob",
+			"code": "admob_insert_bidding",
+			"format": "interstitial",
+			"unit": "ca-app-pub-2058120932605218/3313498746",
+			"weight": 200
+		},
+		{
+			"platform": "admob",
+			"code": "admob_video_bidding",
+			"format": "reward.video",
+			"unit": "ca-app-pub-2058120932605218/4004097024",
+			"weight": 100
+		}
+	]
+}

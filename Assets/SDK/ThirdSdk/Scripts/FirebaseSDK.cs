@@ -120,10 +120,10 @@ namespace ThirdSdk
                             lstParams.Add(new Parameter("is_error_type", entry.Key));
                         }
                     }
-                    FirebaseAnalytics.LogEvent(eventName, lstParams.ToArray());
 
-				}
-				else
+                    FirebaseAnalytics.LogEvent(eventName, lstParams.ToArray());
+                }
+                else
                 {
                     FirebaseAnalytics.LogEvent(eventName);
                 }

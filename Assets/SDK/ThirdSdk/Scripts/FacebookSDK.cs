@@ -17,7 +17,6 @@ namespace ThirdSdk
         public static FacebookSDK inst { get { return _inst; } }
         #endregion
 
-        private const string FB_APP_LINK_CACHE = "six_fb_link_cache";
         private InternalAnalysticsCacher _eventCache = new InternalAnalysticsCacher();
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace ThirdSdk
             if (!isInit)
                 return;
 
-            if (PlayerPrefs.HasKey(FB_APP_LINK_CACHE))
+            if (PlayerPrefs.HasKey(InternalPrefsDef.FB_APP_LINK_CACHE))
                 return;
 
             FB.Mobile.FetchDeferredAppLinkData(DeepLinkCallback);
@@ -96,7 +95,7 @@ namespace ThirdSdk
         void DeepLinkCallback(IAppLinkResult result)
         {
             string deepLinkUrl = string.IsNullOrEmpty(result.TargetUrl) ? "" : result.TargetUrl;
-            PlayerPrefs.SetString(FB_APP_LINK_CACHE, deepLinkUrl);
+            PlayerPrefs.SetString(InternalPrefsDef.FB_APP_LINK_CACHE, deepLinkUrl);
             ThirdEvent.inst.SendEvent(THIRD_EVENT_TYPE.TET_FB_DEEP_LINK_URL, deepLinkUrl);
         }
 #endif

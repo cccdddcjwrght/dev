@@ -5,6 +5,7 @@ using SGame;
 using UnityEngine;
 using System;
 using System.Linq;
+using Ad;
 
 namespace SDK.THSDK
 {
@@ -23,12 +24,20 @@ namespace SDK.THSDK
 		public float time;
 	}
 
+	public enum EnumAD
+	{
+		Reward = 1,
+		Banner,
+		Inner,
+	}
+
 	public class THSdk : SGame.MonoSingleton<THSdk>
 	{
 		private List<TimeRecord> _records = new List<TimeRecord>();
 		private List<string> _resetKeyPx = new List<string> { "scene", "wt", null, };
 		private EventManager _emgr;
 		private bool _isInited;
+		private bool _adInited;
 
 		private Action _command;
 
@@ -53,6 +62,13 @@ namespace SDK.THSDK
 					_isInited = true;
 					Debug.Log($"::Init:{a}");
 				});
+				ThirdSdk.ThirdSDK.inst.AddListener(ThirdSdk.THIRD_EVENT_TYPE.TET_AD_INIT_COMPLETE, (a) =>
+				{
+
+					_adInited = true;
+					Debug.Log($"::Init ad:{a}");
+
+				});
 				ThirdSdk.ThirdSDK.inst.Init(gameObject);
 			}
 			catch (Exception e)
@@ -73,6 +89,7 @@ namespace SDK.THSDK
 			_command = null;
 			try
 			{
+				ThirdSdk.ThirdSDK.inst.Update();
 				c?.Invoke();
 			}
 			catch (Exception e)
@@ -81,16 +98,198 @@ namespace SDK.THSDK
 			}
 		}
 
+#if AD_DEBUG
+		private void OnGUI()
+		{
+			if (_adInited)
+			{
+				GUILayout.Space(30);
+				if (GUILayout.Button("Reward", GUILayout.Width(120), GUILayout.Height(75)))
+				{
+					Utils.PlayAd("201");
+				}
+
+				GUILayout.Space(30);
+				if (GUILayout.Button("Inner", GUILayout.Width(120), GUILayout.Height(75)))
+				{
+					Utils.PlayAd("scn_insert_level");
+				}
+
+				GUILayout.Space(30);
+				if (GUILayout.Button("Banner", GUILayout.Width(120), GUILayout.Height(75)))
+				{
+					Utils.PlayAd("scn_banner");
+				}
+
+			}
+		} 
+#endif
+
 		private void OnApplicationPause(bool pause)
 		{
 			if (!pause)
 				ThirdSdk.ThirdSDK.inst.OnActive();
 		}
 
+		#region Method
 		public IEnumerator WaitInitCompleted()
 		{
 			while (!_isInited) yield return null;
 		}
+		#endregion
+
+		#region 广告
+
+		private List<string> _adloading = new List<string>();
+
+		public void Preload(EnumAD type, string id, float timeout = 0, Action<bool> call = null, float delay = 0)
+		{
+			StartCoroutine(LoadAdAsync(type, id, timeout, call, delay));
+		}
+
+		public IEnumerator LoadAdAsync(EnumAD type, string id, float timeout = 0, Action<bool> call = null, float delay = 0)
+		{
+			var flag = false;
+			if (!string.IsNullOrEmpty(id))
+			{
+				flag = true;
+				if (delay > 0) yield return new WaitForSeconds(delay);
+				yield return new WaitUntil(() => _adInited);
+				if (!IsAdLoaded(id))
+				{
+					if (!_adloading.Contains(id))
+					{
+						Debug.Log($"[ad] {type} begin load:{id}");
+						LoadAd(type, id);
+						_adloading.Add(id);
+					}
+					if (type != EnumAD.Banner)
+					{
+						while (true)
+						{
+							if (!IsAdLoaded(id)) yield return null;
+							else
+							{
+								Debug.Log($"[ad]load completed:{id}");
+								break;
+							}
+							if (timeout > 0)
+							{
+								if ((timeout -= Time.deltaTime) <= 0) { flag = false; break; }
+							}
+						}
+					}
+					_adloading.RemoveAll(a => a == id);
+				}
+			}
+			call?.Invoke(flag);
+			yield return flag;
+		}
+
+		public void LoadAd(EnumAD adType, string id)
+		{
+			if (!_adInited)
+			{
+				"@ad_initing".Tips();
+				return;
+			}
+			if (string.IsNullOrEmpty(id)) return;
+
+			switch (adType)
+			{
+				case EnumAD.Reward:
+				case EnumAD.Inner:
+					if (!IsAdLoaded(id))
+						ThirdSdk.ThirdSDK.inst.LoadAd(id);
+					break;
+			}
+		}
+
+		public IEnumerator PlayAdAsync(EnumAD adType, string id)
+		{
+
+			var flag = 0;
+			PlayAd(adType, id, (a) => flag = a ? 1 : -1);
+			yield return new WaitUntil(() => flag != 0);
+			yield return flag == 1;
+		}
+
+		public void PlayAd(EnumAD adType, string id, Action<bool> call = null, bool needLoad = true)
+		{
+			if (string.IsNullOrEmpty(id)) return;
+			if (!_adInited)
+			{
+				"@ad_initing".Tips();
+				call?.Invoke(false);
+				return;
+			}
+			Debug.Log($"[ad]playad ready {adType}:" + id);
+
+			if (adType != EnumAD.Banner && !IsAdLoaded(id))
+			{
+				if (needLoad)
+				{
+					Preload(adType, id, 0, (s) =>
+					{
+						if (s) PlayAd(adType, id, call, false);
+						else call?.Invoke(false);
+					}, 0);
+				}
+				else
+				{
+					call?.Invoke(false);
+					Debug.Log($"[ad] load fail :{id}");
+				}
+				return;
+			}
+			Debug.Log($"[ad]playad start {adType}:" + id);
+			switch (adType)
+			{
+				case EnumAD.Reward:
+					ThirdSdk.ThirdSDK.inst.ShowVideoAd(id, (s) =>
+					{
+						Debug.Log($"[ad]reward {id} completed :" + s);
+						call?.Invoke(s);
+					});
+					break;
+				case EnumAD.Inner:
+					ThirdSdk.ThirdSDK.inst.ShowInterAd(id);
+					call?.Invoke(true);
+					break;
+				case EnumAD.Banner:
+					ThirdSdk.ThirdSDK.inst.LoadAd(id);
+					call?.Invoke(true);
+					break;
+			}
+			Debug.Log($"[ad]playad playing {adType}:" + id);
+		}
+
+		public void HideBanner(string id)
+		{
+#if USE_AD
+			ADTrader.inst.HideBanner(id);
+#endif
+		}
+
+		public bool IsAdCompleted(string id)
+		{
+
+			if (string.IsNullOrEmpty(id)) return true;
+			foreach (var item in ADUnitBase._dictUnit.Values)
+			{
+				if (item._code == id)
+					return item.invalidate;
+			}
+			return true;
+		}
+
+		public bool IsAdLoaded(string id)
+		{
+			return ThirdSdk.ThirdSDK.inst.IsAdAvaiable(id);
+		}
+		#endregion
+
+		#region 埋点
 
 		private void InitEvent()
 		{
@@ -99,7 +298,7 @@ namespace SDK.THSDK
 
 			_emgr.Reg<int>(((int)GameEvent.WORK_TABLE_ENABLE), (id) => AddRecord(id, "wt"));//记录工作台
 
-#region Record
+			#region Record
 
 			//界面打开
 			_emgr.Reg<string>(((int)GameEvent.UI_SHOW), (name) => Trigger("ui_show", "type", name));
@@ -134,7 +333,7 @@ namespace SDK.THSDK
 			//加成道具
 			_emgr.Reg<int, int>(((int)GameEvent.SHOP_BOOST_BUY), (id, lv) => Trigger("buy_boost", "bst_id", id, "bst_lv", id));
 
-#endregion
+			#endregion
 		}
 
 		public void Trigger(string eventID, params object[] args)
@@ -204,6 +403,7 @@ namespace SDK.THSDK
 				PlayerPrefs.SetString("thsdk", JsonUtility.ToJson(new RecordData() { list = records }));
 			PlayerPrefs.Save();
 		}
+		#endregion
 	}
 }
 

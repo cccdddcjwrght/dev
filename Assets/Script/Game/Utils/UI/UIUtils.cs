@@ -483,7 +483,8 @@ namespace SGame
 
 		public static string Tips(this string tips, string pix = null)
 		{
-			HudModule.Instance.SystemTips(UIListener.AutoLocal(pix + tips));
+			if (HudModule.Instance != null)
+				HudModule.Instance.SystemTips(UIListener.AutoLocal(pix + tips));
 			return tips;
 		}
 
