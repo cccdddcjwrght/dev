@@ -56,7 +56,6 @@ namespace SGame
 		{
 			var time = 0f;
 			Action<bool> timer = null;
-			"@ui_ad_waiting".Tips();
 			timer = Timer(100, () =>
 			{
 				if (cacncel()) timer?.Invoke(false);
@@ -65,7 +64,7 @@ namespace SGame
 					time = 5f;
 					"@ui_ad_waiting".Tips();
 				}
-			}, delay: 3f);
+			}, delay: 2f);
 
 			return timer;
 		}
