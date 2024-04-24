@@ -102,8 +102,8 @@ namespace SGame.UI
 		{
 			if (gObject is GComponent item)
 			{
-				var sitem = item.GetChild("select").asComboBox;
-				var iinput = item.GetChild("input").asCom;
+				var sitem = item.GetChild("select")?.asComboBox;
+				var iinput = item.GetChild("input")?.asCom;
 
 				string select = default;
 				if (sitem != null) select = sitem.value;
@@ -164,9 +164,21 @@ namespace SGame.UI
 				case "eq":
 					DoEquip(ss);
 					break;
+				case "level":
+					DoLevel(ss);
+					break;
 			}
 
 
+		}
+
+		private void DoLevel(string[] ss)
+		{
+			var id = ss.Val<int>(1);
+			if (id > 0)
+			{
+				Dining.DiningRoomSystem.Instance.LoadRoom(id);
+			}
 		}
 
 		private void DoItem(string[] ss)
