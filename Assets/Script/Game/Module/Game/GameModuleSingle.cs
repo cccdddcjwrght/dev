@@ -17,7 +17,7 @@ namespace SGame
 		private const string script = "Assets/BuildAsset/VisualScript/Prefabs/Game.prefab";
 		private const string guidescript = "Assets/BuildAsset/VisualScript/Prefabs/Guide.prefab";
 
-
+		GameObject guideGo;
 		public GameModuleSingle(
 			GameWorld gameWorld,
 			ResourceManager resourceManager,
@@ -97,14 +97,12 @@ namespace SGame
 			// 初始化MASK
 			UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("mask"));
 
-
+			EventManager.Instance.Reg((int)GameEvent.GUIDE_CREATE, CreateGuide);
 			EventManager.Instance.Reg<int>(((int)GameEvent.ENTER_ROOM), OnEnterRoom);
 
 			//临时场景加载
 			var ud = DataCenter.Instance.GetUserData();
 			yield return Dining.DiningRoomSystem.Instance.LoadRoom(ud.scene, OnStageChange);
-
-
 
 			// 初始化角色系统
 			m_hudModule = new HudModule(m_gameWorld);
@@ -115,9 +113,6 @@ namespace SGame
 				m_hudModule.Update();
 				yield return null;
 			}
-		
-
-
 
 			yield return TestData();
 
@@ -139,12 +134,19 @@ namespace SGame
 
 			var prefab = m_resourceManager.LoadPrefab(script);
 			var go = GameObject.Instantiate(prefab);
+			CreateGuide();
+		}
 
+		public void CreateGuide() 
+		{
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide)
 			{
-				var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
-				var guideGo = GameObject.Instantiate(guidePrefab);
+				if (guideGo == null) 
+				{
+					var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
+					guideGo = GameObject.Instantiate(guidePrefab);
+				}
 			}
 #endif
 		}
