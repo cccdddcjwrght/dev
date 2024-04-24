@@ -565,10 +565,12 @@ namespace SGame
 
 		#region 广告
 
-		public static void PlayAd(string ad, Action<bool, string> complete = null)
+
+		public static void PlayAd(string ad, Action<bool, string> complete = null , bool perload = false)
 		{
 			var state = false;
-			log.Info("Play AD : " + ad);
+			if (perload) ad = "@" + ad;
+			log.Info("<color=green>[AD]</color>Play AD : " + ad);
 			DoPlayAd(ad, complete, ref state);
 			if (!state)
 			{

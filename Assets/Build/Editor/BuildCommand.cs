@@ -54,7 +54,7 @@ static class BuildCommand
 	private const string SCRIPT_LEVEL = "SCRIPT_LEVEL";
 	private const string CPU_TYPE = "CPU_TYPE";//安卓cpu架构
 	private const string VIDEO_PATH = "VIDEO_PATH";//闪屏视频路径
-
+	private const string ENABLE_AB = "ENABLE_AB";//打包ab资源
 
 	private const string INI_FILE = "INI_FILE";
 
@@ -73,6 +73,9 @@ static class BuildCommand
 	private static string _old_symbol_string = null;
 	private static string _output = null;
 	private static Dictionary<string, string> _cfgs;
+
+	private static bool _disableAb = false;
+
 	#endregion
 
 	#region 接口
@@ -304,9 +307,13 @@ static class BuildCommand
 
 
 #if !_DisableAB
-		if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
-			EditorUserBuildSettings.SwitchActiveBuildTarget(BuildPipeline.GetBuildTargetGroup(buildTarget), buildTarget);
-		DoBuildAsset?.Invoke(ver, core, proto);
+		HandlerEnableAB();
+		if (!_disableAb)
+		{
+			if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
+				EditorUserBuildSettings.SwitchActiveBuildTarget(BuildPipeline.GetBuildTargetGroup(buildTarget), buildTarget);
+			DoBuildAsset?.Invoke(ver, core, proto);
+		}
 #endif
 
 		HandleFirstScene(out _);
@@ -327,6 +334,22 @@ static class BuildCommand
 		Console.WriteLine(":: Done with build");
 		if (!Application.isBatchMode)
 			AssetDatabase.Refresh();
+	}
+
+	private static void HandlerEnableAB()
+	{
+		_disableAb = false;
+		var abval = GetArgument(ENABLE_AB);
+		if (abval == null)
+		{
+			if (!Application.isBatchMode)
+			{
+				if (!EditorUtility.DisplayDialog("AB打包", "是否打包AB文件?", "打包", "不打包"))
+					_disableAb = true;
+			}
+		}
+		else
+			_disableAb = !(abval == "1" || abval.ToLower() == "true");
 	}
 
 	private static void HandlAllVar()
@@ -722,6 +745,7 @@ static class BuildCommand
 		var file = EditorUtility.OpenFilePanelWithFilters("选择打包配置", "exts/buildcfgs", new string[] { "TextAsset", "txt" });
 		if (!string.IsNullOrEmpty(file))
 		{
+
 			G_VAR_FILE = "@" + file;
 			PerformBuild();
 			G_VAR_FILE = null;

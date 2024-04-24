@@ -40,6 +40,7 @@ namespace SGame
                 AddBuff();
                 RecordEnterTime(AdType.Invest.ToString());
             });
+			ReadyAllAd();
         }
 
         public void AddBuff(bool isRecord = false) 
@@ -141,5 +142,15 @@ namespace SGame
                 });
             }
         }
-    }
+
+		public void ReadyAllAd()
+		{
+			var cs = ConfigSystem.Instance.Finds<GameConfigs.ADConfigRowData>((c) => c.Type != 2);
+			if (cs?.Count > 0)
+			{
+				cs.ForEach((c) => Utils.PlayAd(c.Ad, null, true));
+			}
+		}
+
+	}
 }

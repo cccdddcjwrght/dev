@@ -203,11 +203,7 @@ namespace SDK.TDSDK
 
 		public Dictionary<string, object> GetDynamicSuperProperties()
 		{
-			var ps = new Dictionary<string, object>() 
-			{
-				{"current_level", DataCenter.Instance.roomData.roomID },
-				{"current_diamond", PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.DIAMOND)},
-			};
+			var ps = new Dictionary<string, object>();
 			DoGetDynamicSuperProperties(ref ps);
 			return ps;
 		}

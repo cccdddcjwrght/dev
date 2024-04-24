@@ -31,11 +31,11 @@ namespace SDK.TDSDK
 		ability_update,
 	}
 
-	public enum TableType 
+	public enum TableType
 	{
-		item	= 1,
-		equip	= 2,
-		pet		= 3,
+		item = 1,
+		equip = 2,
+		pet = 3,
 	}
 
 	public class PItem : IEquatable<PItem>
@@ -177,6 +177,11 @@ namespace SDK.TDSDK
 		{
 			properties = properties ?? new Dictionary<string, object>();
 			properties["network_type"] = netType;
+			if (DataCenter.Instance != null)
+			{
+				properties["current_level"] = DataCenter.Instance.roomData.roomID;
+				properties["current_diamond"] = PropertyManager.Instance.GetItem(((int)ItemID.DIAMOND)).num;
+			}
 		}
 
 		partial void DoFillEventProperties(string eventName, ref Dictionary<string, object> properties)
@@ -219,17 +224,18 @@ namespace SDK.TDSDK
 				OnChangeItemed((int)TableType.equip, cfgId, cNum, DataCenter.EquipUtil.GetEquipNum(cfgId));
 			});
 
-			EventManager.Instance.Reg<int>((int)GameEvent.SHOP_GOODS_BUY_RESULT, (cfgId) => {
-				if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(cfgId, out var data)) 
+			EventManager.Instance.Reg<int>((int)GameEvent.SHOP_GOODS_BUY_RESULT, (cfgId) =>
+			{
+				if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(cfgId, out var data))
 					TrackNormal(TDEvent.shop_buy.ToString(), "goods_id", cfgId, "purchase_type", data.PurchaseType, "purchase_price", data.Price);
 			});
 
 			//点击下一关卡埋点
 			EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, () =>
 			{
-				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomRowData>(DataCenter.Instance.roomData.roomID, out var data)) { TrackNormal(TDEvent.level_finish.ToString(), "level_sub_id", data.SubId, "level_region_id",data.RegionId); }
+				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomRowData>(DataCenter.Instance.roomData.roomID, out var data)) { TrackNormal(TDEvent.level_finish.ToString(), "level_sub_id", data.SubId, "level_region_id", data.RegionId); }
 			});
-		
+
 			//工作台升星埋点
 			EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, (machineCfgId, machineStar) => TrackNormal(TDEvent.machine_star.ToString(),
 				 "machine_id", machineCfgId,
@@ -239,9 +245,9 @@ namespace SDK.TDSDK
 			EventManager.Instance.Reg<string, int, int, int, int>((int)GameEvent.EQUIP_BURYINGPOINT, (id, e1, e2, e3, e4) => OnEquiped(id, e1, e2, e3, e4));
 
 			//全局科技埋点
-			EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (techId, techLevel) => 
+			EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (techId, techLevel) =>
 			TrackNormal(TDEvent.ability_update.ToString(),
-				"ability_id", techId, 
+				"ability_id", techId,
 				"ability_level", techLevel));
 		}
 
@@ -298,13 +304,13 @@ namespace SDK.TDSDK
 			}
 		}
 
-		public void OnChangeItemed(int type, int id, int changeNum, int num) 
+		public void OnChangeItemed(int type, int id, int changeNum, int num)
 		{
-			if(changeNum > 0) TrackNormal(TDEvent.item_get.ToString(), "item_type", type, "item_id", id, "item_get_num", changeNum, "item_get_after", num);
-			else if(changeNum < 0) TrackNormal(TDEvent.item_cost.ToString(), "item_type", type, "item_id", id, "item_cost_num", changeNum, "item_cost_after", num);
+			if (changeNum > 0) TrackNormal(TDEvent.item_get.ToString(), "item_type", type, "item_id", id, "item_get_num", changeNum, "item_get_after", num);
+			else if (changeNum < 0) TrackNormal(TDEvent.item_cost.ToString(), "item_type", type, "item_id", id, "item_cost_num", changeNum, "item_cost_after", num);
 		}
 
-		public void OnEquiped(string id, int equipCfgId, int equipLevel, int equipQuality, int equipPos) 
+		public void OnEquiped(string id, int equipCfgId, int equipLevel, int equipQuality, int equipPos)
 		{
 			TrackNormal(id.ToString(), "equipment_id", equipCfgId,
 				"equipment_level", equipLevel,
