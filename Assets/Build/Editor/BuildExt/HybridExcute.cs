@@ -42,7 +42,7 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 		var s = File.Exists(path);
 		if (s) File.Delete(path);
 		if (Application.isBatchMode)
-			GooglePlayServices.PlayServicesResolver.ResolveSync(true);
+			GooglePlayServices.PlayServicesResolver.ResolveSync(false);
 
 #endif
 
