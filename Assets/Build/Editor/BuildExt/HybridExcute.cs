@@ -43,7 +43,8 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 		if (s) File.Delete(path);
 		if (Application.isBatchMode)
 		{
-			if (Directory.GetFiles("Assets\\Plugins\\Android\\", "*.aar")?.Length < 10)
+			path = "Assets/Plugins/Android";
+			if (!Directory.Exists(path) || Directory.GetFiles(path, "*.aar")?.Length < 10)
 				GooglePlayServices.PlayServicesResolver.ResolveSync(false);
 		}
 #endif
