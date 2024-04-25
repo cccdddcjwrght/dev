@@ -89,6 +89,7 @@ namespace SGame.VS
             });
             
             tag             = ValueInput<string>("tag", "");
+            isRandom        = ValueInput<bool>("isRandom", true);
             outputSuccess   = ControlOutput("success");
             outputFail      = ControlOutput("fail");        
         }
