@@ -57,8 +57,11 @@ namespace SGame
                 }
             }
 
-            if (flag) return minPos;
-
+            if (flag) 
+            {
+                m_IdlePos.Add(minPos, characterID);
+                return minPos;
+            } 
             return default;
         }
 
