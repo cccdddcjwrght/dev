@@ -120,11 +120,18 @@ namespace SGame.UI
 					return false;
 				}
 
-				UIWindow window = mgr.GetComponentData<UIWindow>(ui);
-				if (window.Value != null)
+				try
 				{
-					window.Value.Close();
-					return true;
+					UIWindow window = mgr.GetComponentData<UIWindow>(ui);
+					if (window.Value != null)
+					{
+						window.Value.Close();
+						return true;
+					}
+				}
+				catch (Exception e)
+				{
+					log.Warn(e.Message + "-" + e.StackTrace);
 				}
 			}
 

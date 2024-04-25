@@ -80,6 +80,8 @@ namespace SGame.UI
 
 		private void LevelRefresh()
 		{
+			if (m_view == null) return;
+
 			stars = DataCenter.MachineUtil.GetWorktableStarInfo(data.id);
 			var cost = data.GetUpCost(out var cty, out var cid);
 			var lvmax = data.maxlv <= data.level;
@@ -137,6 +139,7 @@ namespace SGame.UI
 
 		private void RefreshClick()
 		{
+			if (m_view == null) return;
 			var lvmax = data.maxlv <= data.level;
 			if (!lvmax)
 			{

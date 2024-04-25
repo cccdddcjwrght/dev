@@ -37,7 +37,9 @@ namespace SGame
 		/// <param name="ui">UI 的Entity对象</param>
 		public static bool CloseUI(Entity ui)
 		{
-			return UIModule.Instance.CloseUI(ui);
+			if (UIModule.Instance != null)
+				return UIModule.Instance.CloseUI(ui);
+			return true;
 		}
 
 		/// <summary>
@@ -172,7 +174,7 @@ namespace SGame
 
 			Vector2 ret = item.LocalToGlobal(Vector2.zero);
 			ret = GRoot.inst.GlobalToLocal(ret);
-			if (isCenter) 
+			if (isCenter)
 			{
 				ret.x += item.width * 0.5f;
 				ret.y += item.height * 0.5f;
@@ -574,7 +576,7 @@ namespace SGame
 		public static void SetUIListTouchEffect(string uiName, string uiPath, bool state, float value = 0)
 		{
 			Entity e = GetUIEntity(uiName);
-			if (e == Entity.Null) 
+			if (e == Entity.Null)
 				return;
 			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
 			var item = ui.Value.contentPane.GetChildByPath(uiPath);
@@ -585,12 +587,12 @@ namespace SGame
 			{
 				GList list = item as GList;
 				list.scrollPane.touchEffect = state;
-				if(value != 0) 
+				if (value != 0)
 					list.scrollPane.SetPercY(value, false);
 			}
 		}
 
-		public static Vector2Int GetUISize(string uiName, string uiPath, int width, int height) 
+		public static Vector2Int GetUISize(string uiName, string uiPath, int width, int height)
 		{
 			if (width != 0 && height != 0)
 				return new Vector2Int(width, height);
