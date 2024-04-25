@@ -27,7 +27,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			m_view.z = 400;
+			m_view.z = 450;
 
 			InitList();
 			SwitchTabPage(0);
