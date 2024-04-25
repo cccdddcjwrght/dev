@@ -37,7 +37,7 @@ namespace SGame
 				var flag = false;
 				var c = default(Action<bool>);
 				if (type != EnumAD.Banner)
-					c = AdWait(() => flag);
+					c = AdWait(() => flag, key);
 
 				UILockManager.Instance.Require(key);
 				THSdk.Instance.PlayAd(type, key, (s) =>
@@ -52,11 +52,11 @@ namespace SGame
 			}
 		}
 
-		static Action<bool> AdWait(Func<bool> cacncel)
+		static Action<bool> AdWait(Func<bool> cacncel, string key = null)
 		{
 			var time = 0f;
 			Action<bool> timer = null;
-			timer = Timer(100, () =>
+			timer = Timer(60, () =>
 			{
 				if (cacncel()) timer?.Invoke(false);
 				else if ((time -= Time.deltaTime) < 0)
@@ -64,7 +64,7 @@ namespace SGame
 					time = 5f;
 					"@ui_ad_waiting".Tips();
 				}
-			}, delay: 2f);
+			}, key, completed: () => UILockManager.Instance.Release(key), delay: 2f);
 
 			return timer;
 		}
