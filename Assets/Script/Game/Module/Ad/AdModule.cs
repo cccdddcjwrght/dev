@@ -140,6 +140,14 @@ namespace SGame
 				other?.Invoke(false);
 				return;
 			}
+
+            if (!DataCenter.AdUtil.IsAdNeedPlay(id)) 
+            {
+                complete?.Invoke();
+                other?.Invoke(false);
+                return;
+            }
+
             if (DataCenter.IsIgnoreAd())
             {
                 DataCenter.AdUtil.RecordPlayAD(id);

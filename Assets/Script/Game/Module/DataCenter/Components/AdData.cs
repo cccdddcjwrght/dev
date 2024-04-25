@@ -86,7 +86,17 @@ namespace SGame
 			{
 				if ( ConstDefine.C_AD_OPEN && ConfigSystem.Instance.TryGet(id, out GameConfigs.ADConfigRowData cfg))
 				{
-					return cfg.Disable != 1 && (cfg.UnlockNum == 0 /*|| DataCenter.Instance.account.passLevel > cfg.UnlockNum*/);
+					return (cfg.UnlockNum == 0 || DataCenter.Instance.roomData.roomID >= cfg.UnlockNum);
+				}
+				return false;
+			}
+
+			//是否需要播放广告，0默认需要播放广告才能获得奖励，1直接获得奖励
+			public static bool IsAdNeedPlay(string id) 
+			{
+				if (ConstDefine.C_AD_OPEN && ConfigSystem.Instance.TryGet(id, out GameConfigs.ADConfigRowData cfg))
+				{
+					return cfg.Disable == 0;
 				}
 				return false;
 			}

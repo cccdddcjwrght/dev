@@ -261,20 +261,26 @@ namespace SGame.UI
 
         partial void OnAdBtnClick(EventContext data)
         {
-			AdModule.Instance.PlayAd(AdType.Buff.ToString(), () =>
+			AdModule.PlayAd(AdType.Buff.ToString(), (state) =>
 			{
-				AdModule.Instance.AddBuff(true);
-				OnRefreshAdTime();
+				if (state)
+				{
+					AdModule.Instance.AddBuff(true);
+					OnRefreshAdTime();
+				}
 			});
         }
 
         partial void OnInvestBtnClick(EventContext data)
         {
-			AdModule.Instance.PlayAd(AdType.Invest.ToString(), () =>
+			AdModule.PlayAd(AdType.Invest.ToString(), (state) =>
 			{
-				AdModule.Instance.RecordEnterTime(AdType.Invest.ToString());
-				var value = AdModule.Instance.GetAdAddCoinNum();
-				PropertyManager.Instance.Update(1, 1, value);
+				if (state) 
+				{
+					AdModule.Instance.RecordEnterTime(AdType.Invest.ToString());
+					var value = AdModule.Instance.GetAdAddCoinNum();
+					PropertyManager.Instance.Update(1, 1, value);
+				}
 			});
         }
 
