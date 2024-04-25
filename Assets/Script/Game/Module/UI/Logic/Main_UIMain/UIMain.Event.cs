@@ -65,6 +65,7 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnUpdatePiggyProgress);
 			m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id,level) => RefreshAdBtn());
+			m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, AppPasueRefresh);
 
 			OnHeadSetting();
 			OnEventRefreshItem();
@@ -388,9 +389,9 @@ namespace SGame.UI
         void OnRefreshAdTime() 
 		{
 			var time = AdModule.Instance.GetBuffTime();
+			UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", time > 0 ? 1 : 0);
 			if (time > 0) 
 			{
-				UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 1);
 				UIListener.SetTextWithName(m_view.m_AdBtn, "time", Utils.TimeFormat(time));
 				timer?.Invoke(false);
 				timer = Utils.Timer(time, () =>
@@ -411,6 +412,11 @@ namespace SGame.UI
 			m_view.m_AdBtn.GetChild("boostTxt").SetText(UIListener.Local("ui_ad_boost") + "x" + AdModule.Instance.GetAdRatio() * ConstDefine.C_PER_SCALE);
 			m_view.m_AdBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.GetAdDuration(), formats:
 				AdModule.Instance.GetAdDuration() % 60 == 0 ? new string[] { "{0}min" } : new string[] { "{0}min{1}s" }));
+		}
+
+		void AppPasueRefresh(bool pause) 
+		{
+			OnRefreshAdTime();
 		}
 
 		partial void OnTaskRewardBtnClick(EventContext data)

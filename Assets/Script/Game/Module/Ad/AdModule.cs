@@ -49,7 +49,7 @@ namespace SGame
             var serverTime = GameServerTime.Instance.serverTime;
             if (isRecord)
             {
-                if (serverTime > endTime) DataCenter.SetIntValue(AD_BUFF_TIME, serverTime + GetAdDuration());
+                if (serverTime > endTime) DataCenter.SetIntValue(AD_BUFF_TIME, serverTime + Math.Min(GetAdDuration(), AD_BUFF_MAX_TIME));
                 else 
                 {
                     var residueTime = endTime - serverTime;
@@ -96,20 +96,30 @@ namespace SGame
                 time = m_ShowTimeDict[id] - serverTime;
             if (serverTime > m_ShowTimeDict[id]) 
             {
-                m_IntervalTimeDict[id] = serverTime;
-                m_ShowTimeDict[id] = 0;
+                RecordEnterTime(id);
+                //m_IntervalTimeDict[id] = serverTime;
+                //m_ShowTimeDict[id] = 0;
             }
         }
 
+
+ 
+        double  m_AdAddCoin;
+        int     m_LastTime;
         public double GetAdAddCoinNum() 
         {
-            var min = GlobalDesginConfig.GetInt("min_offline_Value");
-            var rate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Gold);
-            //var adRate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
-            var gold = (double)min;
-            var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
-            if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
-            return (ConstDefine.C_PER_SCALE * gold * rate).ToInt();
+            if (m_LastTime < m_ShowTimeDict[AdType.Invest.ToString()]) 
+            {
+                var min = GlobalDesginConfig.GetInt("min_offline_Value");
+                var rate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Gold);
+                //var adRate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
+                var gold = (double)min;
+                var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
+                if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
+                m_AdAddCoin = (ConstDefine.C_PER_SCALE * gold * rate).ToInt();
+                m_LastTime = m_ShowTimeDict[AdType.Invest.ToString()];
+            }
+            return m_AdAddCoin;
         }
 
         public int GetAdDuration() 
