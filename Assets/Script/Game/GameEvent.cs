@@ -147,5 +147,7 @@ namespace SGame
 		ACTIVITY_CLOSE					= 14001, // 活动结束(int activeID)
 		
 		GROW_GIFT_REFRESH				= 14002, // 成长礼包数据刷新
+
+		FLIGHT_CREATE					= 15000, //飞行特效创建
 	}
 }
