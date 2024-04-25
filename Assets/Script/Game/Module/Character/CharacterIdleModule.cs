@@ -1,3 +1,4 @@
+using GameTools.Paths;
 using SGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,15 +37,28 @@ namespace SGame
                 }
             }
 
+            int min = int.MaxValue;
+            int2 minPos = int2.zero;
+            bool flag = false;
             foreach (var v in list)
             {
                 int2 pos = new int2(v.x, v.y);
                 if (!m_IdlePos.ContainsKey(pos))
                 {
-                    m_IdlePos.Add(pos, characterID);
-                    return pos;
+                    var dis = AStarSystem.CalcDistanceCost(pos, charPos);
+                    if (dis < min)
+                    {
+                        min = dis;
+                        minPos = pos;
+                        flag = true;
+                    }
+                    //m_IdlePos.Add(pos, characterID);
+                    //return pos;
                 }
             }
+
+            if (flag) return minPos;
+
             return default;
         }
 
