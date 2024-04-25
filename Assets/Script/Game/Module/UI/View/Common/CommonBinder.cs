@@ -22,10 +22,12 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_BgIconTab.URL, typeof(UI_BgIconTab));
             UIObjectFactory.SetPackageItemExtension(UI_ConfirmUI.URL, typeof(UI_ConfirmUI));
             UIObjectFactory.SetPackageItemExtension(UI_ConfirmBody.URL, typeof(UI_ConfirmBody));
+            UIObjectFactory.SetPackageItemExtension(UI_ChestBtn.URL, typeof(UI_ChestBtn));
             UIObjectFactory.SetPackageItemExtension(UI_TabBtn.URL, typeof(UI_TabBtn));
             UIObjectFactory.SetPackageItemExtension(UI_MaskUI.URL, typeof(UI_MaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_ColorText.URL, typeof(UI_ColorText));
             UIObjectFactory.SetPackageItemExtension(UI_Redpoint.URL, typeof(UI_Redpoint));
+            UIObjectFactory.SetPackageItemExtension(UI_ChestReward.URL, typeof(UI_ChestReward));
             UIObjectFactory.SetPackageItemExtension(UI_ItemIcon.URL, typeof(UI_ItemIcon));
         }
     }

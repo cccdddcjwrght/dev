@@ -58,6 +58,7 @@ public struct ChestRowData : IFlatbufferObject
   public ArraySegment<byte>? GetQualityWeightBytes() { return __p.__vector_as_arraysegment(16); }
 #endif
   public int[] GetQualityWeightArray() { return __p.__vector_as_array<int>(16); }
+  public int ChestQuality { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ChestRowData> CreateChestRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -66,8 +67,10 @@ public struct ChestRowData : IFlatbufferObject
       StringOffset NameOffset = default(StringOffset),
       int Num = 0,
       VectorOffset ActivityOffset = default(VectorOffset),
-      VectorOffset QualityWeightOffset = default(VectorOffset)) {
-    builder.StartTable(7);
+      VectorOffset QualityWeightOffset = default(VectorOffset),
+      int ChestQuality = 0) {
+    builder.StartTable(8);
+    ChestRowData.AddChestQuality(builder, ChestQuality);
     ChestRowData.AddQualityWeight(builder, QualityWeightOffset);
     ChestRowData.AddActivity(builder, ActivityOffset);
     ChestRowData.AddNum(builder, Num);
@@ -78,7 +81,7 @@ public struct ChestRowData : IFlatbufferObject
     return ChestRowData.EndChestRowData(builder);
   }
 
-  public static void StartChestRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartChestRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(1, IconOffset.Value, 0); }
   public static void AddResource(FlatBufferBuilder builder, StringOffset ResourceOffset) { builder.AddOffset(2, ResourceOffset.Value, 0); }
@@ -92,6 +95,7 @@ public struct ChestRowData : IFlatbufferObject
   public static VectorOffset CreateQualityWeightVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateQualityWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartQualityWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddChestQuality(FlatBufferBuilder builder, int ChestQuality) { builder.AddInt(7, ChestQuality, 0); }
   public static Offset<GameConfigs.ChestRowData> EndChestRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ChestRowData>(o);

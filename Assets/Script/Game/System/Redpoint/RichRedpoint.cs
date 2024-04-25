@@ -25,9 +25,14 @@ namespace SGame
 
 	}
 
+	public interface IConditionSys
+	{
+		IConditonCalculator GetConditonCalculator(string key);
+	}
+
 
 	[UpdateAfter(typeof(GameLogicAfterGroup))]
-	public class RichRedpoint : RedpointSystem
+	public class RichRedpoint : RedpointSystem, IConditionSys
 	{
 		private static ILog log = LogManager.GetLogger("redpoint");
 		private static Dictionary<int, string> _keys = new Dictionary<int, string>();
@@ -42,6 +47,8 @@ namespace SGame
 			EventManager.Instance.Reg<string>(((int)GameEvent.UI_SHOW), OnUIShow);
 			EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnUIHide);
 
+			ConditionUtil.conditonSys = this;
+
 			_calcus = GetType()
 				.Assembly
 				.GetTypes()
@@ -51,7 +58,7 @@ namespace SGame
 
 		#region Method
 
-		private IConditonCalculator GetConditonCalculator(string key)
+		public IConditonCalculator GetConditonCalculator(string key)
 		{
 			if (string.IsNullOrEmpty(key)) return default;
 			var condition = default(IConditonCalculator);
@@ -81,7 +88,9 @@ namespace SGame
 				var condition = GetConditonCalculator(GetConditionKey(c, null, cfg.Id));
 				var ret = condition?.Do(c, t, a) == true;
 				if (condition is IRedText txt)
+				{
 					SetText(cfg.Id, txt.text);
+				}
 				return ret;
 			};
 		}
@@ -186,4 +195,23 @@ namespace SGame
 
 		#endregion
 	}
+
+
+	public static class ConditionUtil
+	{
+		static IConditionSys _conditionSys;
+
+		static public IConditionSys conditonSys
+		{
+			get { return _conditionSys; }
+			set {
+				if (_conditionSys != null)
+					return;
+				_conditionSys = value;
+			}
+		}
+
+
+	}
+
 }

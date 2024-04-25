@@ -18,15 +18,33 @@ namespace SGame.UI
 
 		private List<EquipmentRowData> _eqs;
 		private Queue<ItemData.Value> _args;
+		private bool _openAll;
 
 		private ItemData.Value _current;
 		private int _chestID;
-		private int _count;
+		private double _count;
 		private Entity _effect;
+
+
+		private Dictionary<int, List<EquipmentRowData>> _tables = new Dictionary<int, List<EquipmentRowData>>();
+
 
 		partial void InitLogic(UIContext context)
 		{
-			_args = (context.GetParam().Value as object[]).Val<Queue<ItemData.Value>>(0);
+			var a = context.GetParam()?.Value as object[];
+			if (a != null)
+			{
+				_args = a.Val<Queue<ItemData.Value>>(0);
+				_openAll = a.Val<bool>(1, false);
+			}
+			else
+			{
+				_openAll = true;
+				_args = new Queue<ItemData.Value>(ConfigSystem.Instance
+					.Finds<ItemRowData>(c => c.Type == ((int)EnumItemType.Chest))
+					.Select(i => PropertyManager.Instance.GetItem(i.ItemId).SetNum(i.TypeId)).Where(i => i.id > 0));
+			}
+
 			if (_args?.Count == 0)
 			{
 				CloseUI(true);
@@ -43,8 +61,12 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-			_list.RemoveChildrenToPool();
+			_list?.RemoveChildrenToPool();
+			_list = null;
 			_icon = default;
+			_tables?.Clear();
+			_tables = null;
+			EventManager.Instance.Trigger(((int)GameEvent.GAME_MAIN_REFRESH));
 		}
 
 		private void OnShow(UIContext context)
@@ -54,34 +76,44 @@ namespace SGame.UI
 
 		private void OpenChest()
 		{
+			_count = 0;
 			if (_current.id == 0)
 			{
+				_eqs?.Clear();
 				if (_args?.Count == 0)
 				{ CloseUI(); return; }
+				else if (_openAll) _eqs = GetAllChestEquips(_args, out _current, out var cfg);
 				else _current = _args.Dequeue();
 			}
-			var num = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum(_current.id);
-			if (num == 0 || !SetInfo((int)_current.num))
+			_count = _count == 0 ? PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum(_current.id) : _count;
+			if (_count == 0 || !SetInfo((int)_current.num, _count, _eqs))
 			{
 				_current = default;
 				OpenChest();
 			}
-			else
-				PropertyManager.Instance.Update(1, _current.id, 1, true);
+			else if (_count > 0)
+				PropertyManager.Instance.Update(1, _current.id, _count, true);
+			else _current = default;
+			ImmSave();
 		}
 
-		private bool SetInfo(int id)
+		private bool SetInfo(int id, double count = 0, List<EquipmentRowData> equipments = null)
 		{
 			m_view.m_body.visible = true;
-			_eqs = GetRandomEqs(id, out var chest);
-			if (_eqs != null)
+			_count = 0;
+			_eqs = equipments?.Count > 0 ? equipments : GetRandomEqs(id, out var chest, ref count, _eqs);
+			if (_eqs?.Count > 0)
 			{
+				_count = count;
 				ReleaseEffect();
-				DataCenter.EquipUtil.AddEquips(true, _eqs.ToArray());
-				_list.numItems = (int)(_eqs?.Count);
 				m_view.m_type.SetSelectedPage(id.ToString());
+				DataCenter.EquipUtil.AddEquips(true, _eqs.ToArray());
+				_list.layout = _eqs.Count < 4 ? ListLayoutType.FlowHorizontal : ListLayoutType.SingleRow;
+				_list.autoResizeItem = _eqs.Count < 4;
+				_list.width = _eqs.Count < 4 ? 150 * _eqs.Count : 576;
 
-				_count--;
+				_list.numItems = _eqs.Count;
+
 				_mask = true;
 				m_view.m_open.Play(() => _mask = false);
 				this.Delay(() =>
@@ -101,7 +133,7 @@ namespace SGame.UI
 			eq.m_body.SetEquipInfo(cfg);
 		}
 
-		private List<EquipmentRowData> GetRandomEqs(int id, out ChestRowData chest)
+		private List<EquipmentRowData> GetRandomEqs(int id, out ChestRowData chest, ref double count, List<EquipmentRowData> rets = null)
 		{
 			chest = default;
 			if (id != 0 && ConfigSystem.Instance.TryGet<ChestRowData>(id, out var cfg))
@@ -109,17 +141,50 @@ namespace SGame.UI
 				chest = cfg;
 				var weight = cfg.GetQualityWeightArray();
 				var rand = new SGame.Randoms.Random();
-				var ws = rand.NextWeights(weight, cfg.Num, false).GroupBy(v => v);
-				var rets = new List<EquipmentRowData>();
 				var acts = (cfg.GetActivityArray() ?? Array.Empty<int>()).ToList();
-				foreach (var item in ws)
+				rets = rets ?? new List<EquipmentRowData>();
+
+				for (int i = 0; i < count; i++)
 				{
-					var eqs = ConfigSystem.Instance.Finds<GameConfigs.EquipmentRowData>(e => e.Quality == item.Key + 1 && (acts.Count == 0 || acts.Contains(e.Activity)));
-					rand.NextItem(eqs, item.Count(), ref rets);
+					var ws = rand.NextWeights(weight, cfg.Num, false).GroupBy(v => v);
+					foreach (var item in ws)
+					{
+						var k = item.Key + 1;
+						if (!_tables.TryGetValue(k, out var ls))
+							_tables[k] = ls = ConfigSystem.Instance.Finds<GameConfigs.EquipmentRowData>(e => e.Quality == k);
+						var eqs = acts.Count == 0 ? ls : ls.FindAll(e => acts.Contains(e.Activity));
+						rand.NextItem(eqs, item.Count(), ref rets);
+					}
 				}
 
 				return rets;
 
+			}
+			return default;
+		}
+
+		private List<GameConfigs.EquipmentRowData> GetAllChestEquips(Queue<ItemData.Value> values, out ItemData.Value best, out ChestRowData bestCfg)
+		{
+			bestCfg = default;
+			best = default;
+			if (values?.Count > 0)
+			{
+				var q = 0;
+				var eqs = _eqs ?? new List<EquipmentRowData>();
+				eqs.Clear();
+				while (values.Count > 0)
+				{
+					var v = values.Dequeue();
+					var num = PropertyManager.Instance.GetItem(v.id).num;
+					if (num > 0)
+					{
+						PropertyManager.Instance.Update(1, v.id, num, true);
+						GetRandomEqs((int)v.num, out var c, ref num, eqs);
+						if (c.ChestQuality > q) { best = v; bestCfg = c; q = c.ChestQuality; }
+						_count = -1;
+					}
+				}
+				return eqs;
 			}
 			return default;
 		}
@@ -147,6 +212,11 @@ namespace SGame.UI
 			if (_effect != default)
 				EffectSystem.Instance.ReleaseEffect(_effect);
 			_effect = default;
+		}
+
+		void ImmSave()
+		{
+			DataCenter.Instance.SavePlayerData();
 		}
 
 	}

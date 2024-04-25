@@ -14,6 +14,12 @@ namespace SGame
 			public double     num;
 			public PropertyGroup type;
 
+			public Value SetNum(double num)
+			{
+				this.num = num;
+				return this;
+			}
+
 			public override string ToString()
 			{
 				return string.Format("{0}_{1}_{2}", type, id, num);

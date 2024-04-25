@@ -149,6 +149,7 @@ namespace SGame
 		private EndSimulationEntityCommandBufferSystem _commandBuffSys;
 		private Dictionary<int, string> _texts = new Dictionary<int, string>();
 
+
 		protected bool _isInited = false;
 
 		/// <summary>
@@ -881,5 +882,6 @@ namespace SGame
 		}
 
 		#endregion
+
 	}
 }
