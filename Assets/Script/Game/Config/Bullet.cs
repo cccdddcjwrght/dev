@@ -27,63 +27,47 @@ public struct BulletRowData : IFlatbufferObject
   public ArraySegment<byte>? GetResourceBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
   public byte[] GetResourceArray() { return __p.__vector_as_array<byte>(6); }
-  public string BulletEffectId { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
-#if ENABLE_SPAN_T
-  public Span<byte> GetBulletEffectIdBytes() { return __p.__vector_as_span<byte>(8, 1); }
-#else
-  public ArraySegment<byte>? GetBulletEffectIdBytes() { return __p.__vector_as_arraysegment(8); }
-#endif
-  public byte[] GetBulletEffectIdArray() { return __p.__vector_as_array<byte>(8); }
-  public string HitEffectId { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
-#if ENABLE_SPAN_T
-  public Span<byte> GetHitEffectIdBytes() { return __p.__vector_as_span<byte>(10, 1); }
-#else
-  public ArraySegment<byte>? GetHitEffectIdBytes() { return __p.__vector_as_arraysegment(10); }
-#endif
-  public byte[] GetHitEffectIdArray() { return __p.__vector_as_array<byte>(10); }
-  public string BulletSpeed { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
-#if ENABLE_SPAN_T
-  public Span<byte> GetBulletSpeedBytes() { return __p.__vector_as_span<byte>(12, 1); }
-#else
-  public ArraySegment<byte>? GetBulletSpeedBytes() { return __p.__vector_as_arraysegment(12); }
-#endif
-  public byte[] GetBulletSpeedArray() { return __p.__vector_as_array<byte>(12); }
-  public int Timing(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int TimingLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
-#if ENABLE_SPAN_T
-  public Span<int> GetTimingBytes() { return __p.__vector_as_span<int>(14, 4); }
-#else
-  public ArraySegment<byte>? GetTimingBytes() { return __p.__vector_as_arraysegment(14); }
-#endif
-  public int[] GetTimingArray() { return __p.__vector_as_array<int>(14); }
+  public int BulletEffectId { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int HitEffectId { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float BulletSpeed { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float BeginTime { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int Num { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float Interval { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float EndTime { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
 
   public static Offset<GameConfigs.BulletRowData> CreateBulletRowData(FlatBufferBuilder builder,
       int Id = 0,
       StringOffset ResourceOffset = default(StringOffset),
-      StringOffset BulletEffectIdOffset = default(StringOffset),
-      StringOffset HitEffectIdOffset = default(StringOffset),
-      StringOffset BulletSpeedOffset = default(StringOffset),
-      VectorOffset TimingOffset = default(VectorOffset)) {
-    builder.StartTable(6);
-    BulletRowData.AddTiming(builder, TimingOffset);
-    BulletRowData.AddBulletSpeed(builder, BulletSpeedOffset);
-    BulletRowData.AddHitEffectId(builder, HitEffectIdOffset);
-    BulletRowData.AddBulletEffectId(builder, BulletEffectIdOffset);
+      int BulletEffectId = 0,
+      int HitEffectId = 0,
+      float BulletSpeed = 0.0f,
+      float BeginTime = 0.0f,
+      int Num = 0,
+      float Interval = 0.0f,
+      float EndTime = 0.0f) {
+    builder.StartTable(9);
+    BulletRowData.AddEndTime(builder, EndTime);
+    BulletRowData.AddInterval(builder, Interval);
+    BulletRowData.AddNum(builder, Num);
+    BulletRowData.AddBeginTime(builder, BeginTime);
+    BulletRowData.AddBulletSpeed(builder, BulletSpeed);
+    BulletRowData.AddHitEffectId(builder, HitEffectId);
+    BulletRowData.AddBulletEffectId(builder, BulletEffectId);
     BulletRowData.AddResource(builder, ResourceOffset);
     BulletRowData.AddId(builder, Id);
     return BulletRowData.EndBulletRowData(builder);
   }
 
-  public static void StartBulletRowData(FlatBufferBuilder builder) { builder.StartTable(6); }
+  public static void StartBulletRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddResource(FlatBufferBuilder builder, StringOffset ResourceOffset) { builder.AddOffset(1, ResourceOffset.Value, 0); }
-  public static void AddBulletEffectId(FlatBufferBuilder builder, StringOffset BulletEffectIdOffset) { builder.AddOffset(2, BulletEffectIdOffset.Value, 0); }
-  public static void AddHitEffectId(FlatBufferBuilder builder, StringOffset HitEffectIdOffset) { builder.AddOffset(3, HitEffectIdOffset.Value, 0); }
-  public static void AddBulletSpeed(FlatBufferBuilder builder, StringOffset BulletSpeedOffset) { builder.AddOffset(4, BulletSpeedOffset.Value, 0); }
-  public static void AddTiming(FlatBufferBuilder builder, VectorOffset TimingOffset) { builder.AddOffset(5, TimingOffset.Value, 0); }
-  public static VectorOffset CreateTimingVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateTimingVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static void StartTimingVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBulletEffectId(FlatBufferBuilder builder, int BulletEffectId) { builder.AddInt(2, BulletEffectId, 0); }
+  public static void AddHitEffectId(FlatBufferBuilder builder, int HitEffectId) { builder.AddInt(3, HitEffectId, 0); }
+  public static void AddBulletSpeed(FlatBufferBuilder builder, float BulletSpeed) { builder.AddFloat(4, BulletSpeed, 0.0f); }
+  public static void AddBeginTime(FlatBufferBuilder builder, float BeginTime) { builder.AddFloat(5, BeginTime, 0.0f); }
+  public static void AddNum(FlatBufferBuilder builder, int Num) { builder.AddInt(6, Num, 0); }
+  public static void AddInterval(FlatBufferBuilder builder, float Interval) { builder.AddFloat(7, Interval, 0.0f); }
+  public static void AddEndTime(FlatBufferBuilder builder, float EndTime) { builder.AddFloat(8, EndTime, 0.0f); }
   public static Offset<GameConfigs.BulletRowData> EndBulletRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.BulletRowData>(o);
