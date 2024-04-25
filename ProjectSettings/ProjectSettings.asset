@@ -158,7 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.one.fline.wk
+    Android: com.game.idle.miner
     Standalone: com.yuehaiyouxi.poker
   buildNumber:
     Standalone: 0
@@ -166,7 +166,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 28
+  AndroidMinSdkVersion: 26
   AndroidTargetSdkVersion: 33
   AndroidPreferredInstallLocation: 0
   aotOptions: 
@@ -253,8 +253,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: keys/uhiuser.keystore'
-  AndroidKeyaliasName: fjmmxc
+  AndroidKeystoreName: '{inproject}: keys/com.game.idle.miner.keystore'
+  AndroidKeyaliasName: qxgame
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
@@ -829,7 +829,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;LUA_DEBUG;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;ODIN_INSPECTOR_3_1
+    Android: ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;LUA_DEBUG;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;USE_THIRD_SDK;USE_AD
     Server: 
     Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;FAIRYGUI_TMPRO;LUA_DEBUG;XASSET_MD5_FILE;ENABLE_HYBRID_RENDERER_V2;ODIN_INSPECTOR_3_1
   additionalCompilerArguments: {}
@@ -841,7 +841,7 @@ PlayerSettings:
     Android: 1
     Standalone: 0
   managedStrippingLevel:
-    Android: 4
+    Android: 0
     EmbeddedLinux: 1
     GameCoreScarlett: 1
     GameCoreXboxOne: 1

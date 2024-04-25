@@ -20,7 +20,7 @@ static class BuildCommand
 	static public Action<int, int, int> DoBuildAsset;
 	//打包后执行
 	static public Action<Func<string, string>> DoAfterBuild;
-
+	static public Action<Func<string, string>> DoAfterBuildAsset;
 
 	#region 参数Key
 	/// <summary>
@@ -316,6 +316,7 @@ static class BuildCommand
 		}
 #endif
 
+		DoAfterBuildAsset?.Invoke(GetArgument);
 		HandleFirstScene(out _);
 		HandlSplashVideoToStream();
 		var buildReport = BuildPipeline.BuildPlayer(GetEnabledScenes(), fixedBuildPath, buildTarget, buildOptions);

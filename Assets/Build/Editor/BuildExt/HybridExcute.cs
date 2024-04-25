@@ -25,7 +25,9 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 	{
 		BuildCommand.DoBeforeBuild += BeforeBuildAsset;
 		BuildCommand.DoBuildAsset = (v, c, p) => HotfixenuItems.OneKeyBuildHotfix(v, c);
+
 	}
+
 
 	static void BeforeBuildAsset(Func<string, string> get)
 	{
@@ -41,12 +43,9 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 		if (s) File.Delete(path);
 		if (Application.isBatchMode)
 			GooglePlayServices.PlayServicesResolver.ResolveSync(true);
-		else
-		{
-			var fs = Directory.GetFiles("Assets\\Plugins\\Android\\","*.aar");
-			if (fs?.Length < 10) GooglePlayServices.PlayServicesResolver.ResolveSync(true);
-		}
+
 #endif
+
 	}
 
 }
