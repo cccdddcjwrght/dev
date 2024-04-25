@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7033098484948904279}
-  - component: {fileID: 375954168126177792}
-  - component: {fileID: 3716382573401933278}
+  - component: {fileID: 1710774575913269321}
+  - component: {fileID: 7309726472127744963}
   m_Layer: 0
   m_Name: hair-6
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &375954168126177792
+--- !u!137 &1710774575913269321
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,10 +111,10 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.034654975, y: 0.0000005364418, z: 0.62170565}
-    m_Extent: {x: 0.2352547, y: 0.23213878, z: 0.2759059}
+    m_Center: {x: 0.035425067, y: 0.00000055134296, z: 0.64242244}
+    m_Extent: {x: 0.24048248, y: 0.23729739, z: 0.2881683}
   m_DirtyAABB: 0
---- !u!114 &3716382573401933278
+--- !u!114 &7309726472127744963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,28 +132,28 @@ MonoBehaviour:
   - Bip001 Spine
   - Bip001 Neck
   - Bip001 Head
-  - Bip001 HeadNub
   - Bip001 L Clavicle
   - Bip001 L UpperArm
   - Bip001 L Forearm
   - Bip001 L Hand
   - Bip001 L Finger0
-  - Bip001 L Finger0Nub
   - Bip001 R Clavicle
   - Bip001 R UpperArm
   - Bip001 R Forearm
   - Bip001 R Hand
   - Bip001 R Finger0
-  - Bip001 R Finger0Nub
   - Bip001 L Thigh
   - Bip001 L Calf
   - Bip001 L Foot
   - Bip001 L Toe0
-  - Bip001 L Toe0Nub
   - Bip001 R Thigh
   - Bip001 R Calf
   - Bip001 R Foot
   - Bip001 R Toe0
+  - Bip001 L Toe0Nub
   - Bip001 R Toe0Nub
+  - Bip001 L Finger0Nub
+  - Bip001 HeadNub
+  - Bip001 R Finger0Nub
   materials:
   - {fileID: 2100000, guid: 165100f45e8fa8f40938656458f3915d, type: 2}
