@@ -18,8 +18,9 @@ namespace SGame
         /// <param name="characterID">发射子弹的角色</param>
         /// <param name="bulletID">子弹ID</param>
         /// <param name="targetPos">目标ID</param>
+        /// <param name="radius">目标半径</param>
         /// <returns></returns>
-        public Entity Create(int characterID, int bulletID, Vector3 targetPos)
+        public Entity Create(int characterID, int bulletID, Vector3 targetPos, float radius)
         {
             // 数据校验
             var character = CharacterModule.Instance.FindCharacter(characterID);
@@ -54,7 +55,8 @@ namespace SGame
             
             // 设置初始旋转
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            entityManager.AddComponentData(bulletEntity, new MoveTarget()   { Value = targetPos });
+            var targetHitPos = Utils.GetCircleHitPoint(slot.position, targetPos, radius);
+            entityManager.AddComponentData(bulletEntity, new MoveTarget()   { Value = targetHitPos });
             entityManager.AddComponentData(bulletEntity, new Speed()        { Value = bulletConfig.BulletSpeed });
             
             // 设置旋转

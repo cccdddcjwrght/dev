@@ -1005,5 +1005,26 @@ namespace SGame
 			return true;
 		}
 
+		/// <summary>
+		/// 获取半径碰撞点
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <param name="radius"></param>
+		/// <returns></returns>
+		static public Vector3 GetCircleHitPoint(Vector3 start, Vector3 end, float radius)
+		{
+			Vector3 dir = end - start;
+			float len = dir.magnitude;
+			
+			// 半径内
+			if (len <= radius)
+			{
+				return start;
+			}
+
+			dir = dir.normalized * (len - radius);
+			return start + dir;
+		}
 	}
 }
