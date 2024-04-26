@@ -30,7 +30,9 @@ public static class Coroutine
 	static public UnityEngine.Coroutine Start(this IEnumerator enumerator)
 	{
 		if (enumerator != null)
+		{
 			return Mono.Start(enumerator);
+		}
 		return null;
 	}
 
@@ -143,6 +145,14 @@ public static class Coroutine
 		}
 	}
 
+	static private IEnumerator Call(IEnumerator call, params IEnumerator[] afters)
+	{
+		yield return call;
+		for (int i = 0; i < afters.Length; i++)
+		{
+			yield return afters[i];
+		}
+	}
 
 	class Mono : MonoBehaviour
 	{

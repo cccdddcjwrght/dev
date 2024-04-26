@@ -118,6 +118,7 @@ namespace SGame
 				_data.petID = pet.id;
 				_data.pet = pet.Follow();
 				_eMgr.Trigger(((int)GameEvent.PET_FOLLOW_CHANGE), _data.pet, true);
+				_eMgr.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
 				Resort();
 				UpdatePetBuff();
 			}

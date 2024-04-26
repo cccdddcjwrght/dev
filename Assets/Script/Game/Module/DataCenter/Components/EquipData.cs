@@ -33,10 +33,10 @@ namespace SGame
 
 			static public string GetRoleEquipString() => GetRoleEquipString(0);
 
-			static public string GetRoleEquipString(int roleType, IList<BaseEquip> eqs = null)
+			static public string GetRoleEquipString(int roleType, IList<BaseEquip> eqs = null , bool needpet = true)
 			{
 				eqs = eqs ?? _data.equipeds;
-
+				var rt = roleType;
 				#region 当前场景角色基模数据
 				var parts = _data.defaultEquipPart;
 				if (_data.defaultEquipPart == null || roleType != 0)
@@ -60,7 +60,7 @@ namespace SGame
 							}
 						}
 					}
-					if (roleType == 0)
+					if (rt == 0)
 						_data.defaultEquipPart = parts;
 
 				}
@@ -76,7 +76,7 @@ namespace SGame
 				_sb.Append("role");
 
 				d.ToList().ForEach(kv => _sb.AppendFormat("|{0}|{1}", kv.Key, kv.Value));
-				if (roleType == 0)
+				if (rt == 0 && needpet)
 					_sb.AppendFormat("|pet|{0}", Instance.petData.petID);
 
 				return _sb.ToString();
