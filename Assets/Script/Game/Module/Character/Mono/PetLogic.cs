@@ -15,7 +15,7 @@ namespace SGame
         private Transform   m_transform;
         private float       m_speed = 1.0f;
         
-        public void Initalzie(Transform follow, float radius, float speed)
+        public void Initalzie(Transform follow, float radius, float speed, float scale)
         {
             m_followTarget  = follow;
             m_radius        = radius;
@@ -24,6 +24,7 @@ namespace SGame
 
             m_transform.position = follow.position;
             m_transform.rotation = Quaternion.identity;
+            m_transform.localScale = new Vector3(scale, scale, scale);
         }
 
         // Update is called once per frame

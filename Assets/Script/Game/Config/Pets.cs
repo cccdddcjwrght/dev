@@ -43,6 +43,7 @@ public struct PetsRowData : IFlatbufferObject
 #endif
   public byte[] GetResourceArray() { return __p.__vector_as_array<byte>(12); }
   public int Activity { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float Size { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
 
   public static Offset<GameConfigs.PetsRowData> CreatePetsRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -50,8 +51,10 @@ public struct PetsRowData : IFlatbufferObject
       StringOffset NameOffset = default(StringOffset),
       StringOffset IconOffset = default(StringOffset),
       StringOffset ResourceOffset = default(StringOffset),
-      int Activity = 0) {
-    builder.StartTable(6);
+      int Activity = 0,
+      float Size = 0.0f) {
+    builder.StartTable(7);
+    PetsRowData.AddSize(builder, Size);
     PetsRowData.AddActivity(builder, Activity);
     PetsRowData.AddResource(builder, ResourceOffset);
     PetsRowData.AddIcon(builder, IconOffset);
@@ -61,13 +64,14 @@ public struct PetsRowData : IFlatbufferObject
     return PetsRowData.EndPetsRowData(builder);
   }
 
-  public static void StartPetsRowData(FlatBufferBuilder builder) { builder.StartTable(6); }
+  public static void StartPetsRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddQuality(FlatBufferBuilder builder, int Quality) { builder.AddInt(1, Quality, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(2, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(3, IconOffset.Value, 0); }
   public static void AddResource(FlatBufferBuilder builder, StringOffset ResourceOffset) { builder.AddOffset(4, ResourceOffset.Value, 0); }
   public static void AddActivity(FlatBufferBuilder builder, int Activity) { builder.AddInt(5, Activity, 0); }
+  public static void AddSize(FlatBufferBuilder builder, float Size) { builder.AddFloat(6, Size, 0.0f); }
   public static Offset<GameConfigs.PetsRowData> EndPetsRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.PetsRowData>(o);
