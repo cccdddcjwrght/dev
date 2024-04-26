@@ -33,7 +33,7 @@ namespace SGame
 
 			static public string GetRoleEquipString() => GetRoleEquipString(0);
 
-			static public string GetRoleEquipString(int roleType, IList<BaseEquip> eqs = null , bool needpet = true)
+			static public string GetRoleEquipString(int roleType, IList<BaseEquip> eqs = null, bool needpet = true)
 			{
 				eqs = eqs ?? _data.equipeds;
 				var rt = roleType;
@@ -76,8 +76,8 @@ namespace SGame
 				_sb.Append("role");
 
 				d.ToList().ForEach(kv => _sb.AppendFormat("|{0}|{1}", kv.Key, kv.Value));
-				if (rt == 0 && needpet)
-					_sb.AppendFormat("|pet|{0}", Instance.petData.petID);
+				if (rt == 0 && needpet && Instance.petData.pet != null)
+					_sb.AppendFormat("|pet|{0}", Instance.petData.pet.cfgID);
 
 				return _sb.ToString();
 			}
@@ -172,7 +172,7 @@ namespace SGame
 							cfg.GetBuff6Array
 						);
 						var list = new List<int[]>();
-						for (int i = effects.Count - 1; i >=0 && id > 0; i--)
+						for (int i = effects.Count - 1; i >= 0 && id > 0; i--)
 						{
 							var index = id;
 							id = id / 100;
