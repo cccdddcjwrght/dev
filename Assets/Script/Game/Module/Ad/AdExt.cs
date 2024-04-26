@@ -9,6 +9,8 @@ namespace SGame
 {
 	partial class Utils
 	{
+		static float c_ad_timeout = 0;
+
 		static partial void DoPlayAd(string ad, Action<bool, string> complete, ref bool state)
 		{
 			state = true;
@@ -20,6 +22,9 @@ namespace SGame
 			var load = ad[0] == '@';
 			ad = ad.Replace("@", "");
 			if (string.IsNullOrEmpty(ad)) return;
+
+			if (c_ad_timeout == 0)
+				c_ad_timeout = GameConfigs.GlobalDesginConfig.GetFloat("ad_timeout", 10);
 
 			var key = ad;
 			var type = EnumAD.Inner;
@@ -48,7 +53,7 @@ namespace SGame
 
 					if (type != EnumAD.Banner)
 					{ flag = true; c?.Invoke(false); }
-				});
+				}, timeout: c_ad_timeout);
 			}
 		}
 

@@ -214,7 +214,7 @@ namespace SDK.THSDK
 			yield return flag == 1;
 		}
 
-		public void PlayAd(EnumAD adType, string id, Action<bool> call = null, bool needLoad = true)
+		public void PlayAd(EnumAD adType, string id, Action<bool> call = null, bool needLoad = true , float timeout = 0)
 		{
 			if (string.IsNullOrEmpty(id)) return;
 			if (!_adInited)
@@ -233,7 +233,7 @@ namespace SDK.THSDK
 					{
 						if (s) PlayAd(adType, id, call, false);
 						else call?.Invoke(false);
-					}, 0);
+					}, timeout);
 				}
 				else
 				{
