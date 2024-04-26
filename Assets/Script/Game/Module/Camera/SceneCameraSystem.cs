@@ -528,7 +528,7 @@ namespace SGame
 			if (scale < 1)
 			{
 				_vcamera.m_Lens.OrthographicSize = scale * size;
-				zMove.maxValue = (zMove.maxValue / scale) * (1 + Mathf.Cos(_vcamera.transform.localRotation.x));
+				zMove.maxValue = (zMove.maxValue / scale) * (1.1f);
 				zMove.minValue = (zMove.minValue / scale) ;
 			}
 		}
