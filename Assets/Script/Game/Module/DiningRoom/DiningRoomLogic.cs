@@ -803,6 +803,7 @@ namespace SGame.Dining
 				var a = cell.GetAnimation();
 				if (a)
 				{
+					if (name != "idle" && a.IsPlaying("cook")) return;//cook动画不被打断
 					var clip = a.GetClip(name);
 					if (clip != null)
 					{
