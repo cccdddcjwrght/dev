@@ -28,21 +28,25 @@ namespace SGame
 			var s = num > 0;
 
 			if (target is UI_ActBtn g)
-				_icon = g.GetChild("icon").asLoader.component;
+				_icon = g.GetChild("icon").asLoader.component.GetChild("body");
 			if (_icon != null)
 			{
 				if (s)
 				{
+					_icon.visible = true;
 					if (num != _num)
 						_icon.SetText(num.ToString(), false);
 					if (ic != _icStr && ic != null)
 						_icon.SetIcon(ic);
 					if (s != _red)
-						UIListener.SetControllerSelect(_icon, "__redpoint", s ? 1 : 0);
+						UIListener.SetControllerSelect(_icon, "hide", s ? 0 : 1 , false);
 				}
 				else
+				{
+					_icon.visible = false;
+					_icon.icon = null;
 					_icon = null;
-
+				}
 				_num = num;
 				_icStr = ic;
 				_red = s;
