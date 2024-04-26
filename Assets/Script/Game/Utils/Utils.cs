@@ -817,6 +817,7 @@ namespace SGame
 			List<string> effects = data.GetValues("effect");
 			data.RemoveDatas("weapon");
 			data.RemoveDatas("effect");
+			data.RemoveData("pet");
 			var newPart = data.ToPartString();
 			var gen = CharacterGenerator.CreateWithConfig(newPart);
 			while (gen.ConfigReady == false)
