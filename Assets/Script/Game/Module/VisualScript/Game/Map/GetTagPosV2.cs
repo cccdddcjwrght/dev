@@ -82,7 +82,10 @@ namespace SGame.VS
                     return Vector2Int.zero;
 
                 if (_isRandom)
-                    return _mapPosList[RandomSystem.Instance.NextInt(0, _mapPosList.Count - 1)];
+                {
+                    int randIndex = RandomSystem.Instance.NextInt(0, _mapPosList.Count);
+                    return _mapPosList[randIndex];
+                }
 
                 return _mapPosList[0];
             });

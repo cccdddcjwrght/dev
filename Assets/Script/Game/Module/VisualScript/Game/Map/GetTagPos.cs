@@ -83,7 +83,7 @@ namespace SGame.VS
                     return int2.zero;
 
                 if (_isRandom)
-                    return _mapPosList[RandomSystem.Instance.NextInt(0, _mapPosList.Count - 1)];
+                    return _mapPosList[RandomSystem.Instance.NextInt(0, _mapPosList.Count)];
 
                 return _mapPosList[0];
             });
