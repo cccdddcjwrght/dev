@@ -9,6 +9,7 @@ namespace SGame.UI.Flight
     {
         public GButton m_Gold;
         public GButton m_Diamond;
+        public GLoader m_Box;
         public const string URL = "ui://kh4ukj1qkxwz0";
 
         public static UI_FlightUI CreateInstance()
@@ -22,6 +23,7 @@ namespace SGame.UI.Flight
 
             m_Gold = (GButton)GetChildAt(0);
             m_Diamond = (GButton)GetChildAt(1);
+            m_Box = (GLoader)GetChildAt(2);
         }
     }
 }

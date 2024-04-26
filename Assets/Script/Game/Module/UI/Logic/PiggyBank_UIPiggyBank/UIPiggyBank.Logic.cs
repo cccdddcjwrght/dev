@@ -108,6 +108,7 @@ namespace SGame.UI{
 			Utils.Timer(0.2f, null, m_view, completed: () => m_view.m_stage.selectedIndex = 6);
 			Utils.Timer(1f, null, m_view, completed: () =>
 			{
+				TransitionModule.Instance.PlayFlight(m_view.m_icon, (int)FlightType.DIAMOND);
 				EffectSystem.Instance.AddEffect(200002, m_view.m___effect);
 				Utils.Timer(0.5f, null, m_view, completed: () =>
 				{

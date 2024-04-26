@@ -282,6 +282,7 @@ namespace SGame.UI
 					AdModule.Instance.RecordEnterTime(AdType.Invest.ToString());
 					var value = AdModule.Instance.GetAdAddCoinNum();
 					PropertyManager.Instance.Update(1, 1, value);
+					TransitionModule.Instance.PlayFlight(m_view.m_InvestBtn, (int)FlightType.GOLD);
 				}
 			});
         }

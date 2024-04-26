@@ -74,6 +74,7 @@ namespace SGame.UI
 		partial void OnUICloseClick(ref bool state)
 		{
 			RequestExcuteSystem.GetOfflineReward(_gold);
+			TransitionModule.Instance.PlayFlight(m_view.m_click, (int)FlightType.GOLD, 0, -450);
 		}
 	}
 }

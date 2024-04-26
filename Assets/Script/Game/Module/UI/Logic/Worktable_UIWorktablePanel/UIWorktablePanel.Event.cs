@@ -42,7 +42,7 @@ namespace SGame.UI
 			GRoot.inst.onClick.Add(OnOtherUIClick);
 
 			EventManager.Instance.Reg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
-
+			EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, OnFlightUpdate);
 		}
 
 		partial void UnInitEvent(UIContext context)
@@ -52,6 +52,7 @@ namespace SGame.UI
 			GRoot.inst.onClick.Remove(OnOtherUIClick);
 
 			EventManager.Instance.UnReg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldChange);
+			EventManager.Instance.UnReg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, OnFlightUpdate);
 			pressFlag = false;
 		}
 
@@ -86,6 +87,11 @@ namespace SGame.UI
 				if (DataCenter.Instance.guideData.isGuide) return;
 				SGame.UIUtils.CloseUIByID(__id);
 			}
+		}
+
+		void OnFlightUpdate(int id, int star) 
+		{
+			TransitionModule.Instance.PlayFlight(m_view.m_reward, (int)FlightType.DIAMOND);
 		}
 	}
 }
