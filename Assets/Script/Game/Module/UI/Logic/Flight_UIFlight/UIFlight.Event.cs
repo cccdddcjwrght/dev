@@ -13,7 +13,8 @@ namespace SGame.UI{
 
 
 		partial void InitEvent(UIContext context){
-			m_EventHandle += EventManager.Instance.Reg<List<int>, Vector2, Vector2, float>((int)GameEvent.FLIGHT_CREATE, Play);
+			m_EventHandle += EventManager.Instance.Reg<int, Vector2, Vector2, float>((int)GameEvent.FLIGHT_SINGLE_CREATE, Play);
+			m_EventHandle += EventManager.Instance.Reg<List<int>, Vector2, Vector2, float>((int)GameEvent.FLIGHT_LIST_CREATE, Play);
 		}
 		partial void UnInitEvent(UIContext context){
 			m_EventHandle.Close();
@@ -22,7 +23,12 @@ namespace SGame.UI{
 
 		void Play(List<int> ids, Vector2 startPos, Vector2 endPos, float duration) 
 		{
-            ids.ForEach((id)=> AddEffect(id, startPos, endPos, duration));
+            ids.ForEach((id)=> Play(id, startPos, endPos, duration));
+		}
+
+		void Play(int id, Vector2 startPos, Vector2 endPos, float duration) 
+		{
+			AddEffect(id, startPos, endPos, duration);
 		}
 
 		void AddEffect(int id, Vector2 startPos, Vector2 endPos, float duration) 

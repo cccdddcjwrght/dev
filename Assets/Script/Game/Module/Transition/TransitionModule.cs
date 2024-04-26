@@ -1,3 +1,4 @@
+using FairyGUI;
 using SGame.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace SGame
 
         public void PlayFlight(List<int> ids, Vector2 startPos, Vector2 endPos, float duration) 
         {
-            EventManager.Instance.Trigger((int)GameEvent.FLIGHT_CREATE, ids, startPos, endPos, duration);
+            
         }
 
         public void AddDepend(int id)
@@ -42,6 +43,15 @@ namespace SGame
             if(m_DependDict.ContainsKey(id))
                 return m_DependDict[id] > 0;
             return false;
+        }
+
+        public Vector2 ConvertGObjectGlobalPos(GObject gObject) 
+        {
+            Vector2 ret = gObject.LocalToGlobal(Vector2.zero);
+            ret = GRoot.inst.GlobalToLocal(ret);
+            ret.x += gObject.actualWidth * 0.5f;
+            ret.y += gObject.actualHeight * 0.5f;
+            return ret;
         }
     }
 
