@@ -24,6 +24,7 @@ namespace SGame
         //public readonly int     AD_BOOST_RATIO      = GlobalDesginConfig.GetInt("ad_boost_ratio");
         //public readonly int     AD_BOOST_TIME       = GlobalDesginConfig.GetInt("ad_boost_time");
         public readonly int     AD_BUFF_MAX_TIME    = GlobalDesginConfig.GetInt("ad_buff_max_time");
+        public readonly int     AD_INVEST_MAX_LEVEL = GlobalDesginConfig.GetInt("ad_invest_max_level");
 
         public const int AD_BUFF_ID = 7;
         public const int AD_TECH_ID = 6;
@@ -46,6 +47,15 @@ namespace SGame
                 if (id == AD_TECH_ID) AddBuff();
             });
 			ReadyAllAd();
+        }
+
+        //后续优化
+        public bool CheckInvestShow() 
+        {
+            var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
+            int maxLv = 0;
+            ws.ForEach((w) => { if (w.level > maxLv) maxLv = w.level; });
+            return maxLv >= AD_INVEST_MAX_LEVEL;
         }
 
         public void AddBuff(bool isRecord = false) 
@@ -86,7 +96,9 @@ namespace SGame
         public void GetAdShowTime(string id, out bool state, out int time) 
         {
             time = 0; state = false;
+
             if (!DataCenter.AdUtil.IsAdCanPlay(id)) return;
+            if (id == AdType.Invest.ToString() && !CheckInvestShow()) return;
 
             int serverTime = GameServerTime.Instance.serverTime;
             int interval = DataCenter.AdUtil.GetAdIntervalTime(id);

@@ -278,7 +278,7 @@ namespace SGame.UI
 			var upNum = AdModule.Instance.AD_MACHINE_NUM;
 			var level = Mathf.Min(upNum, data.maxlv - data.level); 
 			DataCenter.MachineUtil.UpdateLevel(info.id, 0, level);
-			LevelRefresh();
+			AdRefresh();
 		}
     }
 }
