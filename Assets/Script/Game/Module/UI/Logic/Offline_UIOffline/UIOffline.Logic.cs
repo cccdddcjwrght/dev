@@ -39,6 +39,7 @@ namespace SGame.UI
 			m_view.m_count.SetText(Utils.ConvertNumberStr(gold), false);
 
 			_isAd = DataCenter.AdUtil.IsAdCanPlay(c_ad_name);
+			m_view.m_click.SetText(_isAd ? UIListener.Local("ui_offline_collect2") : UIListener.Local("ui_offline_collect1"));
 			m_view.m_state.selectedIndex = _isAd ? 1 : 0;
 			_gold = gold;
 		}
@@ -59,6 +60,7 @@ namespace SGame.UI
 					if (s)
 					{
 						_isAd = false;
+						_gold *= GlobalDesginConfig.GetInt("ad_offline_ratio");
 						OnClickClick(data);
 					}
 				});
