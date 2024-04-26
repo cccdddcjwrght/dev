@@ -82,6 +82,7 @@ namespace SGame
             m_ShowTimeDict[id] = 0;
         }
 
+
         public void GetAdShowTime(string id, out bool state, out int time) 
         {
             time = 0; state = false;
@@ -148,8 +149,9 @@ namespace SGame
 
             if (!DataCenter.AdUtil.IsAdNeedPlay(id)) 
             {
+                DataCenter.AdUtil.RecordPlayAD(id);
                 complete?.Invoke();
-                other?.Invoke(false);
+                other?.Invoke(true);
                 return;
             }
 
