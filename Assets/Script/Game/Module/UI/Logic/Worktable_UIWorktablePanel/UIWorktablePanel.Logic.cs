@@ -44,7 +44,7 @@ namespace SGame.UI
 						SetUplevelInfo();
 						break;
 				}
-				AdRefresh();
+				
 			}
 		}
 
@@ -76,6 +76,7 @@ namespace SGame.UI
 			UIListener.SetText(m_view.m_time, data.GetWorkTime().ToString() + "s");
 			m_view.m_list.itemRenderer = SetStarInfo;
 			LevelRefresh();
+			AdRefresh();
 		}
 
 		private void LevelRefresh()
