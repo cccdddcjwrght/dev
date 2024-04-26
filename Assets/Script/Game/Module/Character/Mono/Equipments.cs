@@ -21,7 +21,13 @@ namespace SGame
     
     public class Equipments : MonoBehaviour
     {
-        private static ILog         log = LogManager.GetLogger("game.equipments");
+        private static ILog         log      = LogManager.GetLogger("game.equipments");
+        private const string        PET_PATH  = "Assets/BuildAsset/Prefabs/Pets/";
+
+        private float PET_SPEED => GlobalDesginConfig.GetFloat("pet_speed", 10);
+
+        private float PET_RADIUS => GlobalDesginConfig.GetFloat("pet_radius", 1);
+
 
         // 插槽对象
         public Dictionary<SlotType, Transform> m_slots = new Dictionary<SlotType, Transform>();
@@ -35,6 +41,8 @@ namespace SGame
         // 特效容器
         public Dictionary<SlotType, Entity>     m_effects = new Dictionary<SlotType, Entity>();
 
+        private GameObject m_pet;
+
         void Start()
         {
             UpdateModel();
@@ -47,6 +55,16 @@ namespace SGame
         {
             ClearEffects();
             ClearWeapons();
+            ClearPet();
+        }
+
+        public void ClearPet()
+        {
+            if (m_pet != null)
+            {
+                GameObject.Destroy(m_pet);
+                m_pet = null;
+            }
         }
 
         public void ClearWeapons()
@@ -227,6 +245,41 @@ namespace SGame
             rolePart = null;
             
             return true;
+        }
+
+        /// <summary>
+        /// 设置宠物
+        /// </summary>
+        /// <param name="petID"></param>
+        public void SetPet(int petID)
+        {
+            ClearPet();
+
+            if (!ConfigSystem.Instance.TryGet(petID, out PetsRowData config))
+            {
+                log.Error("pet id not found=" + petID);
+                return;
+            }
+
+            string pet_res = PET_PATH + config.Resource + ".prefab";
+            var asset = Assets.LoadAsset(pet_res, typeof(GameObject));
+            if (!string.IsNullOrEmpty(asset.error))
+            {
+                log.Error("load asset fail=" + asset.error);
+                return;
+            }
+            var prefab = asset.asset as GameObject;
+            if (prefab == null)
+            {
+                log.Error("asset is null" + pet_res);
+                return;
+            }
+            
+            GameObject petObject = GameObject.Instantiate(prefab);
+            asset.Require(petObject);
+            var script = petObject.AddComponent<PetLogic>();
+            var slot = GetSlot(SlotType.FOOT);
+            script.Initalzie(slot, PET_RADIUS, PET_SPEED);
         }
     }
 }

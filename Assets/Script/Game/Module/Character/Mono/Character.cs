@@ -420,8 +420,10 @@ namespace SGame
             var data = CharacterPartGen.ParseString(part);
             List<string> weapons = data.GetValues("weapon");
             List<string> effects = data.GetValues("effect");
+            string pet = data.GetValue("pet");
             data.RemoveDatas("weapon");
             data.RemoveDatas("effect");
+            data.RemoveData("pet");
             var newPart = data.ToPartString();
             var gen = CharacterGenerator.CreateWithConfig(newPart);
             while (gen.ConfigReady == false)
@@ -474,6 +476,19 @@ namespace SGame
                 else
                 {
                     m_slot.SetEffect(effectID);
+                }
+            }
+            
+            // 设置宠物ID
+            if (!string.IsNullOrEmpty(pet))
+            {
+                if (!int.TryParse(pet, out int petID))
+                {
+                    log.Error("parse pet id fail=" + pet);
+                }
+                else
+                {
+                    m_slot.SetPet(petID);
                 }
             }
 

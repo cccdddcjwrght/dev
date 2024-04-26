@@ -100,6 +100,21 @@ namespace SGame
         }
 
         /// <summary>
+        /// 获取数值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public string GetValue(string key)
+        {
+            if (Values.TryGetValue(key, out string value))
+            {
+                return value;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// 删除相关键值
         /// </summary>
         /// <param name="key"></param>
@@ -116,6 +131,16 @@ namespace SGame
 
             foreach (var k in keys)
                 Values.Remove(k);
+        }
+
+        /// <summary>
+        /// 删除单个值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool RemoveData(string key)
+        {
+            return Values.Remove(key);
         }
     }
 }
