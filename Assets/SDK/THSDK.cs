@@ -131,14 +131,14 @@ namespace SDK.THSDK
 				ThirdSdk.ThirdSDK.inst.OnActive();
 		}
 
-		#region Method
+#region Method
 		public IEnumerator WaitInitCompleted()
 		{
 			while (!_isInited) yield return null;
 		}
-		#endregion
+#endregion
 
-		#region 广告
+#region 广告
 
 		private List<string> _adloading = new List<string>();
 
@@ -234,11 +234,11 @@ namespace SDK.THSDK
 			{
 				if (needLoad)
 				{
-					Preload(adType, id, 0, (s) =>
+					Preload(adType, id, timeout, (s) =>
 					{
 						if (s) PlayAd(adType, id, call, false);
 						else call?.Invoke(false);
-					}, timeout);
+					},0);
 				}
 				else
 				{
@@ -292,9 +292,9 @@ namespace SDK.THSDK
 		{
 			return ThirdSdk.ThirdSDK.inst.IsAdAvaiable(id);
 		}
-		#endregion
+#endregion
 
-		#region 埋点
+#region 埋点
 
 		private void InitEvent()
 		{
@@ -303,7 +303,7 @@ namespace SDK.THSDK
 
 			_emgr.Reg<int>(((int)GameEvent.WORK_TABLE_ENABLE), (id) => AddRecord(id, "wt"));//记录工作台
 
-			#region Record
+#region Record
 
 			//界面打开
 			_emgr.Reg<string>(((int)GameEvent.UI_SHOW), (name) => Trigger("ui_show", "type", name));
@@ -338,7 +338,7 @@ namespace SDK.THSDK
 			//加成道具
 			_emgr.Reg<int, int>(((int)GameEvent.SHOP_BOOST_BUY), (id, lv) => Trigger("buy_boost", "bst_id", id, "bst_lv", id));
 
-			#endregion
+#endregion
 		}
 
 		public void Trigger(string eventID, params object[] args)
@@ -408,7 +408,7 @@ namespace SDK.THSDK
 				PlayerPrefs.SetString("thsdk", JsonUtility.ToJson(new RecordData() { list = records }));
 			PlayerPrefs.Save();
 		}
-		#endregion
+#endregion
 	}
 }
 
