@@ -19,7 +19,7 @@ namespace SGame
 		private double _num;
 		private string _icStr;
 		private bool _red;
-
+		private int scene;
 
 		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
@@ -33,27 +33,41 @@ namespace SGame
 			{
 				if (s)
 				{
+					var rid = DataCenter.Instance.roomData.roomID;
+					if (rid != scene) Clear();
 					_icon.visible = true;
 					if (num != _num)
 						_icon.SetText(num.ToString(), false);
 					if (ic != _icStr && ic != null)
 						_icon.SetIcon(ic);
 					if (s != _red)
-						UIListener.SetControllerSelect(_icon, "hide", s ? 0 : 1 , false);
+						UIListener.SetControllerSelect(_icon, "hide", s ? 0 : 1, false);
+					_num = num;
+					_icStr = ic;
+					_red = s;
+					scene = rid;
 				}
 				else
 				{
 					_icon.visible = false;
 					_icon.icon = null;
 					_icon = null;
+					Clear();
 				}
-				_num = num;
-				_icStr = ic;
-				_red = s;
+
 			}
+			else Clear();
 
 			return num > 0;
 		}
+
+		void Clear()
+		{
+			_num = 0;
+			_icStr = null;
+			_red = false;
+		}
+
 	}
 
 }
