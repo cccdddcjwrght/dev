@@ -148,6 +148,7 @@ namespace SGame
 		
 		GROW_GIFT_REFRESH				= 14002, // 成长礼包数据刷新
 
-		FLIGHT_CREATE					= 15000, //飞行特效创建
+		FLIGHT_SINGLE_CREATE			= 15000, //飞行特效创建
+		FLIGHT_LIST_CREATE				= 15001, 
 	}
 }

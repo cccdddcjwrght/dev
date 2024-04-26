@@ -110,7 +110,7 @@ namespace SGame.UI
 			v.m_desc.SetTextByKey(g.cfg.ShopName);
 			v.m_click.SetText(g.pricestr);
 			v.m_click.onClick?.Clear();
-			v.m_click.onClick.Add(() => OnGoodsClick(g));
+			v.m_click.onClick.Add((context) => OnGoodsClick(g, context));
 			v.m_items.RemoveChildrenToPool();
 
 			SGame.UIUtils.AddListItems(v.m_items, DataCenter.ShopUtil.GetGoodsItems(g.id), OnSetGoodsItem);
@@ -170,15 +170,16 @@ namespace SGame.UI
 		{
 			var g = data as ShopGoods;
 			var v = gObject as UI_Goods;
-			if (g.cfg.FreeTime > 0)
-				v.name = "*" + g.id;
+			//if (g.cfg.FreeTime > 0)
+			//	v.name = "*" + g.id;
+			v.name = "*" + g.id;
 			v.SetTextByKey(g.cfg.ShopName);
 			v.SetIcon(g.cfg.Icon, "Icon");
 			v.m_desc.SetTextByKey(g.cfg.ShopDes);
 			v.m_type.selectedIndex = g.type - 1;
 			v.m_hidebottom.selectedIndex = g.type == (int)EnumShopArea.Eq ? 0 : 1;
 			v.m_click.onClick.Clear();
-			v.m_click.onClick.Add(() => OnGoodsClick(g));
+			v.m_click.onClick.Add((context) => OnGoodsClick(g, context));
 
 			v.m_tips.onClick.Clear();
 			v.m_tips.onClick.Add((e) =>
@@ -236,10 +237,20 @@ namespace SGame.UI
 			v.m_saled.selectedIndex = g.IsSaled() ? 1 : 0;
 		}
 
-		void OnGoodsClick(ShopGoods goods)
+		void OnGoodsClick(ShopGoods goods, EventContext context)
 		{
-
-			RequestExcuteSystem.BuyGoods(goods.id);
+			RequestExcuteSystem.BuyGoods(goods.id, (state)=> 
+			{
+     //           if (!state) return;
+     //           if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(goods.id, out var data))
+     //           {
+     //               if (data.Item1Length <= 1) return;
+					//int itemId = data.Item1(1);
+					//if (itemId != (int)ItemID.GOLD || itemId != (int)ItemID.DIAMOND) return;
+					//Vector2 startPos = TransitionModule.Instance.ConvertGObjectGlobalPos(context.sender as GObject);
+     //               EventManager.Instance.Trigger((int)GameEvent.FLIGHT_SINGLE_CREATE, itemId, startPos, Vector2.zero, 1f);
+     //           }
+            });
 		}
 
 
