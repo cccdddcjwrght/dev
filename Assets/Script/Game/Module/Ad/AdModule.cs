@@ -26,6 +26,7 @@ namespace SGame
         public readonly int     AD_BUFF_MAX_TIME    = GlobalDesginConfig.GetInt("ad_buff_max_time");
 
         public const int AD_BUFF_ID = 7;
+        public const int AD_TECH_ID = 6;
         public const string AD_BUFF_TIME = "ad.bufftime";
 
         private EventHandleContainer m_handles = new EventHandleContainer();
@@ -39,6 +40,10 @@ namespace SGame
             m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM,(s)=> { 
                 AddBuff();
                 RecordEnterTime(AdType.Invest.ToString());
+            });
+            m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) =>
+            {
+                if (id == AD_TECH_ID) AddBuff();
             });
 			ReadyAllAd();
         }
@@ -63,7 +68,7 @@ namespace SGame
 
             var time = DataCenter.GetIntValue(AD_BUFF_TIME) - serverTime;
             if(time > 0) 
-                EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(AD_BUFF_ID, GetAdRatio(), 0, time){ from = (int)EnumFrom.Ad });
+                EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(AD_BUFF_ID, GetAdRatio() - 100, 0, time){ from = (int)EnumFrom.Ad });
         }
 
         public int GetBuffTime() 

@@ -420,6 +420,7 @@ namespace SGame.UI
 			m_view.m_AdBtn.GetChild("boostTxt").SetText(UIListener.Local("ui_ad_boost") + "x" + AdModule.Instance.GetAdRatio() * ConstDefine.C_PER_SCALE);
 			m_view.m_AdBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.GetAdDuration(), formats:
 				AdModule.Instance.GetAdDuration() % 60 == 0 ? new string[] { "{0}min" } : new string[] { "{0}min{1}s" }));
+			OnRefreshTotalState();
 		}
 
 		void AppPasueRefresh(bool pause) 
