@@ -44,7 +44,7 @@ namespace SGame.UI
 						SetUplevelInfo();
 						break;
 				}
-
+				AdRefresh();
 			}
 		}
 
@@ -109,8 +109,6 @@ namespace SGame.UI
 
 			m_view.m_list.RemoveChildrenToPool();
 			m_view.m_list.numItems = stars.Length;
-
-			AdRefresh();
 		}
 
 		//广告刷新（超过工作台一半等级显示广告按钮）
