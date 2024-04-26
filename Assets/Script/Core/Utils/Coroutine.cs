@@ -145,12 +145,26 @@ public static class Coroutine
 		}
 	}
 
-	static private IEnumerator Call(IEnumerator call, params IEnumerator[] afters)
+	static private IEnumerator Call(IEnumerator call, bool parallel, params IEnumerator[] afters)
 	{
 		yield return call;
-		for (int i = 0; i < afters.Length; i++)
+		if (!parallel)
 		{
-			yield return afters[i];
+			for (int i = 0; i < afters.Length; i++)
+				yield return afters[i];
+		}
+		else
+		{
+			var c = 0;
+			foreach (var item in afters)
+			{
+				if (item != null)
+				{
+					c++;
+					item.Wait(e => c--);
+				}
+			}
+			yield return new WaitUntil(() => c <= 0);
 		}
 	}
 

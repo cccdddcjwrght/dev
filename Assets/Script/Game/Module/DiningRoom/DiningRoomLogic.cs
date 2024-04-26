@@ -46,9 +46,11 @@ namespace SGame.Dining
 			return other != null && other.cfgID == cfgID && other.objID == objID;
 		}
 
-		public virtual IEnumerator Wait()
+		public virtual IEnumerator Wait(float waittime = 0)
 		{
 			yield return _wait;
+			if (waittime > 0)
+				yield return new WaitForSeconds(waittime);
 			_wait = null;
 		}
 
@@ -206,10 +208,10 @@ namespace SGame.Dining
 			seats?.Clear();
 		}
 
-		public override IEnumerator Wait()
+		public override IEnumerator Wait(float waittime = 0)
 		{
 			while (!isDone) yield return null;
-
+			if (waittime > 0) yield return new WaitForSeconds(waittime);
 		}
 
 
@@ -741,6 +743,7 @@ namespace SGame.Dining
 						else
 						{
 							DataCenter.MachineUtil.AddMachine(r.next.cfgID);
+							return;
 						}
 					}
 				}
@@ -751,6 +754,8 @@ namespace SGame.Dining
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
 					}
 				}
+				r.machines.ForEach(p => PlayClip(p.index, "click", false));
+
 			}
 		}
 
@@ -779,7 +784,7 @@ namespace SGame.Dining
 				var needload = p.NeedLoadAsset();
 				region.gHandler?.DestroyAllEntity();
 				region.SetNextUnlock(null);
-				ActiveBuild(p, region: region.cfgID)?.Wait()?.Start();
+				ActiveBuild(p, region: region.cfgID)?.Wait(0.15f)?.Wait(e => PlayClip(p.index, "appear", false));
 				if (needload)
 				{
 					3.ToAudioID().PlayAudio();
@@ -795,7 +800,7 @@ namespace SGame.Dining
 			var cell = _sceneGrid.GetCell(pos);
 			if (cell != null)
 			{
-				var a = cell.GetBuildLayer()?.GetComponentInChildren<Animation>();
+				var a = cell.GetAnimation();
 				if (a)
 				{
 					var clip = a.GetClip(name);

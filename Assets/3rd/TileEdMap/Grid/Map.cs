@@ -488,6 +488,8 @@ namespace GameTools.Maps
 
 		public GameObject cell;
 
+		public object animation;
+
 		public int maskflag;
 
 		public Cell Marking(MaskFlag flag, bool remove = false)
@@ -568,6 +570,15 @@ namespace GameTools.Maps
 				}
 			}
 			return default;
+		}
+
+		public Animation GetAnimation()
+		{
+			if(animation == null)
+			{
+				animation = GetBuildLayer()?.GetComponentInChildren<Animation>() ;
+			}
+			return animation as Animation;
 		}
 
 	}
