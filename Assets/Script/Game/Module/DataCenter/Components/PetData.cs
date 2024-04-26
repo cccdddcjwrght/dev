@@ -66,13 +66,7 @@ namespace SGame
 						if (iseggborn) { _data.egg.Clear(); _data.egg = null; }
 						_eMgr.Trigger(((int)GameEvent.PET_ADD), p);
 						if (_data.pet == null || !_data.pet.cfg.IsValid())
-						{
-							_data.pet = p;
-							_data.petID = p.id;
-							p.isselected = true;
-							_eMgr.Trigger(((int)GameEvent.PET_FOLLOW_CHANGE), p, true);
-
-						}
+							Follow(p);
 						if (triggerevent)
 						{
 							Resort();
@@ -108,7 +102,7 @@ namespace SGame
 				}
 			}
 
-			static public void Follow(PetItem pet)
+			static public void Follow(PetItem pet , bool refresh = true)
 			{
 				if (_data.petID != 0)
 				{
@@ -119,7 +113,7 @@ namespace SGame
 				_data.pet = pet.Follow();
 				_eMgr.Trigger(((int)GameEvent.PET_FOLLOW_CHANGE), _data.pet, true);
 				_eMgr.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
-				Resort();
+				Resort(); 
 				UpdatePetBuff();
 			}
 
