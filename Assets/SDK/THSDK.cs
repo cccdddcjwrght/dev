@@ -175,7 +175,12 @@ namespace SDK.THSDK
 							}
 							if (timeout > 0)
 							{
-								if ((timeout -= Time.deltaTime) <= 0) { flag = false; break; }
+								if ((timeout -= Time.deltaTime) <= 0)
+								{
+									"@ad_load_timeout".Tips();
+									flag = false;
+									break;
+								}
 							}
 						}
 					}
@@ -214,7 +219,7 @@ namespace SDK.THSDK
 			yield return flag == 1;
 		}
 
-		public void PlayAd(EnumAD adType, string id, Action<bool> call = null, bool needLoad = true , float timeout = 0)
+		public void PlayAd(EnumAD adType, string id, Action<bool> call = null, bool needLoad = true, float timeout = 0)
 		{
 			if (string.IsNullOrEmpty(id)) return;
 			if (!_adInited)
