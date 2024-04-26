@@ -14,7 +14,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			m_view.z = 200;
+			m_view.z = 300;
 
 			_pet = context.GetParam()?.Value.To<object[]>().Val<PetItem>(0);
 			if (_pet == null) DoCloseUIClick(null);
