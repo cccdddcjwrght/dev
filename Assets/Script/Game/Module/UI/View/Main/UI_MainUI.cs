@@ -22,6 +22,7 @@ namespace SGame.UI.Main
         public GButton m_AdBtn;
         public GButton m_skillBtn;
         public GButton m_equipBtn;
+        public GGraph m_btnFrozen;
         public UI_InvestMan m_InvestBtn;
         public Transition m_doshow;
         public Transition m_dohide;
@@ -51,7 +52,8 @@ namespace SGame.UI.Main
             m_AdBtn = (GButton)GetChildAt(11);
             m_skillBtn = (GButton)GetChildAt(12);
             m_equipBtn = (GButton)GetChildAt(13);
-            m_InvestBtn = (UI_InvestMan)GetChildAt(15);
+            m_btnFrozen = (GGraph)GetChildAt(14);
+            m_InvestBtn = (UI_InvestMan)GetChildAt(16);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }

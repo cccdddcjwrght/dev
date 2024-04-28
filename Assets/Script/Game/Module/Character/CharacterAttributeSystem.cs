@@ -36,6 +36,8 @@ namespace SGame
                     v = 10;
                 }
                 speed.Value = (float)(v) + character.externSpeed;
+                if (speed.Value < 0)
+                    speed.Value = 0;
             }).WithoutBurst().Run();
         }
     }

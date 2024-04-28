@@ -72,6 +72,14 @@ namespace SGame.UI
 			OnRefeshBuffTime();
 			OnRefreshLikeTime(0);
 			OnRefreshAdTime();
+			
+			m_view.m_btnFrozen.onTouchBegin.Add(OnClickFrozen);
+		}
+
+		void OnClickFrozen()
+		{
+			log.Info("touch begin frozen");
+			EventManager.Instance.Trigger((int)GameEvent.FROZEN_CUSTOMER);
 		}
 
 		void OpenUI(FunctionID id)

@@ -152,5 +152,7 @@ namespace SGame
 
 		FLIGHT_SINGLE_CREATE			= 15000, //飞行特效创建
 		FLIGHT_LIST_CREATE				= 15001, 
+		
+		FROZEN_CUSTOMER					= 16001, // 冰冻顾客 (int effectID)
 	}
 }

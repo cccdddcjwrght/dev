@@ -26,6 +26,7 @@ using System.Collections.Generic;
         private const string DISH_OFFSET_NAME = "dish_offsety"; // 放餐偏移
         private Fiber m_modelLoading;
         private RuntimeAnimatorController m_animatorController;
+        private bool m_bIsFrozen = false;
         
         /// <summary>
         /// 脚本数据
@@ -100,9 +101,17 @@ using System.Collections.Generic;
         /// <summary>
         /// 冻住角色
         /// </summary>
-        public void Freeze()
+        public void Frozen()
         {
+            ClearFood();
+            ClearHudEntity();
+            m_slot.ClearEffects();
             modelAnimator.speed = 0;
+            m_bIsFrozen = true;
+            int effid = GlobalDesginConfig.GetInt("frozen_effect_id", 0);
+            if (effid != 0)     
+                m_slot.SetEffect(effid);
+            externSpeed = -99999;
         }
 
         /// <summary>
@@ -541,6 +550,9 @@ using System.Collections.Generic;
             modelAnimator = ani.GetComponent<Animator>();
             if (m_animatorController != null)
                 modelAnimator.runtimeAnimatorController = m_animatorController;
+
+            if (m_bIsFrozen)
+                modelAnimator.speed = 0;
         }
 
         public void ShowSleep() 
