@@ -171,6 +171,8 @@ namespace SGame.UI{
 			OnInvestBtnClick(data);
 		}
 		partial void OnInvestBtnClick(EventContext data);
+		void SetInvestBtnText(string data)=>UIListener.SetText(m_view.m_InvestBtn,data);
+		string GetInvestBtnText()=>UIListener.GetText(m_view.m_InvestBtn);
 
 	}
 }
