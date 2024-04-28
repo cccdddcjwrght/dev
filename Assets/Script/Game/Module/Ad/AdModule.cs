@@ -132,7 +132,14 @@ namespace SGame
                 var gold = (double)min;
                 var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
                 if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
-                m_AdAddCoin = (ConstDefine.C_PER_SCALE * gold * rate).ToInt();
+                double adCoin1 = (ConstDefine.C_PER_SCALE * gold * rate).ToInt();
+
+                var room = DataCenter.Instance.roomData.current;
+                var data = ConfigSystem.Instance.Find<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id));
+                if (!data.IsValid())
+                    ConfigSystem.Instance.TryGet<RoomTechRowData>(room.techs[room.techs.Count - 1], out data);
+                double adCoin2 = data.Id * GlobalDesginConfig.GetInt("investor_coin_ratio_level");
+                m_AdAddCoin = Math.Max(adCoin1, adCoin2);
                 m_LastTime = m_ShowTimeDict[AdType.Invest.ToString()];
             }
             return m_AdAddCoin;
