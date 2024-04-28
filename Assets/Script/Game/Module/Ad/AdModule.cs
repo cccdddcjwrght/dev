@@ -138,7 +138,7 @@ namespace SGame
                 var data = ConfigSystem.Instance.Find<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id));
                 if (!data.IsValid())
                     ConfigSystem.Instance.TryGet<RoomTechRowData>(room.techs[room.techs.Count - 1], out data);
-                double adCoin2 = data.Id * GlobalDesginConfig.GetInt("investor_coin_ratio_level");
+                double adCoin2 = (ConstDefine.C_PER_SCALE * data.Cost(2) * GlobalDesginConfig.GetInt("investor_coin_ratio_level")).ToInt();
                 m_AdAddCoin = Math.Max(adCoin1, adCoin2);
                 m_LastTime = m_ShowTimeDict[AdType.Invest.ToString()];
             }
@@ -165,7 +165,7 @@ namespace SGame
         {
             if (!NetworkUtils.IsNetworkReachability()) 
             {
-                "ui_ad_fail".Tips();
+                "@ui_ad_fail".Tips();
                 return;
             }
 
