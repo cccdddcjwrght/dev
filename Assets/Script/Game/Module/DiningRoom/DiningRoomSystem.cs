@@ -24,6 +24,7 @@ namespace SGame.Dining
 		private GameWorld _gameWorld;
 		private Entity _sceneFlag;
 		private Room _room;
+		private RoomRowData _roomCfg;
 
 		private DiningRoomLogic _currentRoom;
 		private EventHandleContainer _eHandlers;
@@ -49,9 +50,11 @@ namespace SGame.Dining
 				if (ConfigSystem.Instance.TryGet<RoomRowData>(roomID, out var room))
 				{
 					var lastLogic = _currentRoom;
+					_roomCfg = room;
 					isEnterSceneCompleted = false;
 					_currentRoom = new DiningRoomLogic(roomID);
 					_currentRoom.name = room.Resource;
+					log.Info("Begin EnterRoom:" + roomID);
 					var req = SceneSystemV2.Instance.Load(_currentRoom.name);
 					req.logic = Wait();
 					req.unloadLogic = _currentRoom.Close;
@@ -102,7 +105,7 @@ namespace SGame.Dining
 					OnEnterRoomCompleted().Start();
 				else
 				{
-					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0) 
+					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0)
 					{
 						EventManager.Instance.Trigger((int)GameEvent.GUIDE_CREATE);
 					}
@@ -117,10 +120,13 @@ namespace SGame.Dining
 		{
 			if (wait)
 				yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
-			log.Info("Enter Room :" + _currentRoom.cfgID);
-			EventManager.Instance.Trigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
-			EventManager.Instance.Trigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
+			log.Info("EnterRoom :" + _currentRoom.cfgID);
+			EventManager.Instance.AsyncTrigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
+			EventManager.Instance.AsyncTrigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
 			_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
+#if !SVR_RELEASE
+			log.Info("EnterRoom Event Completed:" + _currentRoom.cfgID);
+#endif
 			isEnterSceneCompleted = true;
 		}
 
@@ -128,9 +134,13 @@ namespace SGame.Dining
 		{
 			if (_currentRoom != null)
 			{
+#if !SVR_RELEASE
+				log.Info("[scene]Start EnterRoom Init");
+#endif
 				_room = DataCenter.RoomUtil.EnterRoom(_currentRoom.cfgID, true);
 				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
-				UIUtils.OpenUI("scenedecorui");
+				if (!string.IsNullOrEmpty(_roomCfg.Decor))
+					UIUtils.OpenUI("scenedecorui");
 				if (DataCenter.IsNew)
 				{
 					DataCenter.IsNew = false;
@@ -140,7 +150,9 @@ namespace SGame.Dining
 #endif
 				}
 				yield return _currentRoom.Wait();
-
+#if !SVR_RELEASE
+				log.Info("[scene]End EnterRoom Init");
+#endif
 				if (StaticDefine.G_WAIT_VIDEO)
 					yield return new WaitUntil(() => StaticDefine.G_VIDEO_COMPLETE);
 

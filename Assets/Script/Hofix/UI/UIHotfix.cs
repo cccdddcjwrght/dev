@@ -52,12 +52,12 @@ namespace SGame.Hotfix
         
         IEnumerator RunLogic(UIContext context)
         {
-            //VersionUpdater.Instance.Initalize(Define.REMOTE_URL);
+			//VersionUpdater.Instance.Initalize(Define.REMOTE_URL);
 
-            // 播放动画
-            
+			m_text.text = "Checking";
+			// 播放动画
+			/*
             /// 测试代码
-            yield return FiberHelper.Wait(3);
             float run = 0;
             m_progressBar.min = 0;
             m_progressBar.max = m_waitTime;
@@ -70,10 +70,10 @@ namespace SGame.Hotfix
                 m_progressBar.value = run;
                 yield return null;
             }
-            m_progressBar.value = m_waitTime;
-
-            // 热更新结束, 发送事件
-            EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
+            m_progressBar.value = m_waitTime;*/
+			yield return null;
+			// 热更新结束, 发送事件
+			EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
         }
 
         void onUpdate(UIContext context)

@@ -20,6 +20,7 @@ namespace SGame
 		private static string c_cpath;
 		private static string c_current;
 		private static GameObject __inst;
+		private static bool _isLoading;
 
 		const int C_DEF_FOV = 50;
 
@@ -78,6 +79,7 @@ namespace SGame
 		private void Start()
 		{
 			__inst = gameObject;
+			_isLoading = false;
 		}
 
 		private void Update()
@@ -91,7 +93,8 @@ namespace SGame
 		private void LateUpdate()
 		{
 			if (!isInited) return;
-			if (FairyGUI.Stage.isTouchOnUI || disbaleControl) {
+			if (FairyGUI.Stage.isTouchOnUI || disbaleControl)
+			{
 
 				return;
 			}
@@ -109,6 +112,7 @@ namespace SGame
 			path = path ?? c_cpath;
 			if (string.IsNullOrEmpty(path) || path == c_current) return;
 			c_current = path;
+			_isLoading = true;
 			libx.Assets
 				.LoadAsset(path, typeof(GameObject))
 				.Wait((r) =>
@@ -118,11 +122,15 @@ namespace SGame
 						if (__inst) Game.Destroy(__inst);
 						var g = GameObject.Instantiate(r.asset) as GameObject;
 						g.GetComponent<SceneCameraSystem>().Init();
-						g.GetComponent<SceneCameraSystem>().Return();
 					}
+					_isLoading = false;
 				});
 		}
 
+		public static IEnumerator WaitInited()
+		{
+			yield return new WaitUntil(() => !_isLoading);
+		}
 
 		public void LiveVCamera(ICinemachineCamera camera)
 		{
@@ -193,7 +201,7 @@ namespace SGame
 			}
 		}
 
-		public void Return() => Return(0.5f);
+		public void Return() => Return(0.2f);
 
 		public void Return(float time)
 		{
@@ -529,7 +537,7 @@ namespace SGame
 			{
 				_vcamera.m_Lens.OrthographicSize = scale * size;
 				zMove.maxValue = (zMove.maxValue / scale) * (1.1f);
-				zMove.minValue = (zMove.minValue / scale) ;
+				zMove.minValue = (zMove.minValue / scale);
 			}
 		}
 

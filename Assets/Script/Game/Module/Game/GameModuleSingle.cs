@@ -129,12 +129,14 @@ namespace SGame
 
 		void OnEnterRoom(int room)
 		{
+			log.Info("[game]Start Game Init");
 			// 播放背景
 			//AudioSystem.Instance.Play((int)AudioDefine.BGM_LEVEL);
 
 			var prefab = m_resourceManager.LoadPrefab(script);
 			var go = GameObject.Instantiate(prefab);
 			CreateGuide();
+			log.Info("[game]End Game Init");
 		}
 
 		public void CreateGuide() 

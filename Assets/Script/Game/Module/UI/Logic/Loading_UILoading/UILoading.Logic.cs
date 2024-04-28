@@ -52,7 +52,7 @@ namespace SGame.UI
 				{
 					if (!StaticDefine.G_WAIT_VIDEO)
 					{
-						var step = progress - cprogress > 20 ? 5 : 1;
+						var step = progress - cprogress > 20 ? 10 : 1;
 						cprogress = Math.Clamp(cprogress + step, 0, progress);
 					}
 					else cprogress = 100;

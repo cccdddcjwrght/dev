@@ -37,7 +37,9 @@ namespace SGame
             float run = 0;
             m_progressBar.min = 0;
             m_progressBar.max = m_waitTime;
-            while (run <= m_waitTime)
+			
+			m_text.text =  "Checking";
+			while (run <= m_waitTime)
             {
                 run += Time.deltaTime;
                 float per = Mathf.Clamp01(run / m_waitTime);

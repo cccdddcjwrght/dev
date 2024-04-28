@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using GameConfigs;
 using GameTools.Maps;
 using GameTools.Paths;
@@ -31,7 +32,6 @@ namespace GameTools
 				{
 					_gflag = 1;
 					_grid = transform.GetComponent<Maps.Grid>() ?? GameObject.FindObjectOfType<Maps.Grid>(true);
-					Init();
 				}
 				return _grid;
 			}
@@ -44,45 +44,53 @@ namespace GameTools
 
 		public bool GetWalkable(int index)
 		{
-			var c = grid.GetCell(index);
+			if (_gflag == 0) return false;
+			var c = _grid.GetCell(index);
 			if (c != null) return (!enableHold || holder[index] == 0) && grid.GetWalkCost(c) >= 0;
 			return false;
 		}
 
 		public Vector3 GetPos(int x, int y)
 		{
-			return grid.GetCellPositionByIndex(x, y);
+			if (_gflag == 0) return default;
+			return _grid.GetCellPositionByIndex(x, y);
 		}
 
 		public bool IsInMap(Vector3 pos)
 		{
-			return grid.IsInGrid(pos);
+			if (_gflag == 0) return default;
+			return _grid.IsInGrid(pos);
 		}
 
 		public Vector2Int GetGridPos(Vector3 pos)
 		{
-			return grid.GridIndexPos(pos);
+			if (_gflag == 0) return default;
+			return _grid.GridIndexPos(pos);
 		}
 
 		public MapInfo GetMapInfo()
 		{
+			if (_gflag == 0) return default;
 			return new MapInfo()
 			{
-				offset = grid.offset,
-				dimension = new Unity.Mathematics.int2(grid.gridSize.x, grid.gridSize.y),
-				size = (int)grid.size,
-				minx = grid.corners[0].x,
-				miny = grid.corners[0].y,
+				offset = _grid.offset,
+				dimension = new Unity.Mathematics.int2(_grid.gridSize.x, _grid.gridSize.y),
+				size = (int)_grid.size,
+				minx = _grid.corners[0].x,
+				miny = _grid.corners[0].y,
 			};
 		}
 
 		public bool Hold(int x, int y, int holder)
 		{
+			if (_gflag == 0) return default;
+
+
 			if (x == -1 && y == -1 && holder == 0)
 				Array.Fill(this.holder, 0);
-			else if (grid.IsInGridByIndex(x, y))
+			else if (_grid.IsInGridByIndex(x, y))
 			{
-				var id = x + grid.gridSize.x * y;
+				var id = x + _grid.gridSize.x * y;
 				if (holder == 0) return this.holder[id] != 0;
 				this.holder[id] = holder;
 				version++;
@@ -92,6 +100,7 @@ namespace GameTools
 
 		public bool HasHold(int index)
 		{
+
 			if (!checkHoldCost) return false;
 			if (index >= 0 && index < this.holder.Length)
 				return this.holder[index] != 0;
@@ -100,7 +109,8 @@ namespace GameTools
 
 		public int GetCost(int index)
 		{
-			var cell = grid.GetCell(index);
+			if (_gflag == 0) return default;
+			var cell = _grid.GetCell(index);
 			if (cell != null) return cell.walkcost;
 			else return 0;
 		}
@@ -108,9 +118,7 @@ namespace GameTools
 
 		private void Init()
 		{
-			if (_grid == null)
-				return;
-			_grid.walkables = null;
+			if (_grid == null ) return;
 			_grid.Refresh();
 			mapSize = _grid.gridSize;
 			cellSize = (int)_grid.size;
@@ -122,7 +130,7 @@ namespace GameTools
 		private void Awake()
 		{
 			_gflag = 0;
-			grid?.Refresh();
+			grid.GetInstanceID();
 			Init();
 			_gflag = _grid == null ? 0 : 1;
 			AStar.Init(this);
