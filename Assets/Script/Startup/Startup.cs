@@ -86,6 +86,9 @@ namespace SGame
 
 			// 3. 初始化UI
 			yield return null;
+			
+			// 4. 去报UDPATE 将Asset 销毁
+			yield return null;
 		}
 
 		IEnumerator LoadModules()
