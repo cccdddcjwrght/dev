@@ -272,16 +272,19 @@ namespace SGame.UI
 
 		partial void OnAdBtnClick(EventContext data)
 		{
-			AdModule.Instance.PlayAd(AdType.Table.ToString(), () => AdUpdateLevel());
+			AdModule.PlayAd(AdType.Table.ToString(), (state) => AdUpdateLevel(state));
         }
 
 		//广告升级
-		void AdUpdateLevel() 
+		void AdUpdateLevel(bool state) 
 		{
-			var upNum = AdModule.Instance.AD_MACHINE_NUM;
-			var level = Mathf.Min(upNum, data.maxlv - data.level); 
-			DataCenter.MachineUtil.UpdateLevel(info.id, 0, level);
-			AdRefresh();
+			if (state) 
+			{
+				var upNum = AdModule.Instance.AD_MACHINE_NUM;
+				var level = Mathf.Min(upNum, data.maxlv - data.level);
+				DataCenter.MachineUtil.UpdateLevel(info.id, 0, level);
+				LevelRefresh();
+			}
 		}
     }
 }
