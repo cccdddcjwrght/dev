@@ -340,6 +340,7 @@ namespace SGame
 			var mgr = UIModule.Instance.GetEntityManager();
 			return entity != Entity.Null && mgr.Exists(entity);
 		}
+		
 
 		/// <summary>
 		/// 显示跟随物体的HUD
@@ -353,13 +354,20 @@ namespace SGame
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiname));
 
-			if (!entityManager.HasComponent<HUDFlow>(ui))
+			if (follow != null)
 			{
-				entityManager.AddComponentObject(ui, new HUDFlow() { Value = follow, offset = offset });
+				if (!entityManager.HasComponent<HUDFlow>(ui))
+				{
+					entityManager.AddComponentObject(ui, new HUDFlow() { Value = follow, offset = offset });
+				}
+				else
+				{
+					entityManager.SetComponentData(ui, new HUDFlow() { Value = follow, offset = offset });
+				}
 			}
 			else
 			{
-				entityManager.SetComponentData(ui, new HUDFlow() { Value = follow, offset = offset });
+				entityManager.AddComponentData(ui, new Translation() { Value = offset });
 			}
 
 			return ui;
@@ -419,7 +427,7 @@ namespace SGame
 			int speed)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			Entity ui = ShowHUD("floattext", pos, float3.zero);
+			Entity ui = ShowHUD("floattext", null, pos.transform.position);
 			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponent<HUDTips>(ui);
 			entityManager.AddComponent<LiveTime>(ui);

@@ -18,14 +18,16 @@ namespace SGame
         /// </summary>
         private Dictionary<int, OrderData>  m_datas     = new Dictionary<int, OrderData>();
         private List<int>                   m_caches    = new List<int>();
+        private List<int>                   m_orderIds = new List<int>();
 
         public void Initalize()
         {
             lastOrderID = 0;
             m_datas.Clear();
             m_caches.Clear();
+            m_orderIds.Clear();
         }
-        
+
         /// <summary>
         /// 清空订单数据
         /// </summary>
@@ -33,6 +35,8 @@ namespace SGame
         {
             m_datas.Clear();
             m_caches.Clear();
+            m_orderIds.Clear();
+
             lastOrderID = 0;
         }
 
@@ -44,8 +48,10 @@ namespace SGame
         public List<int> FindOrders(ORDER_PROGRESS progress)
         {
             m_caches.Clear();
-            foreach (var item in m_datas.Values)
+            foreach (var id in m_orderIds)
+            //foreach (var item in m_datas.Values)
             {
+                var item = m_datas[id];
                 if (item.progress == progress)
                 {
                     m_caches.Add(item.id);
@@ -78,8 +84,10 @@ namespace SGame
         /// <returns></returns>
         public OrderData FindChefOrder(int foodType)
         {
-            foreach (var item in m_datas.Values)
+            foreach (var id in m_orderIds)
+            //foreach (var item in m_datas.Values)
             {
+                var item = m_datas[id];
                 if (item.progress == ORDER_PROGRESS.ORDED && item.foodType == foodType)
                 {
                     return item;
@@ -127,6 +135,7 @@ namespace SGame
                 return null;
             }
             
+            m_orderIds.Add(order.id);
             return order;
         }
 
@@ -149,6 +158,7 @@ namespace SGame
             }
             
             m_datas.Remove(orderID);
+            m_orderIds.Remove(orderID);
             return true;
         }
 

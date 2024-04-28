@@ -134,6 +134,8 @@ namespace SGame
 
 		PIGGYBANK_UPDATE				= 12000, //存钱罐刷新
 
+		
+		TABLE_QUEUE_UPDATE				= 10000, // 点单排队 (int)TableID, 要排队的桌子ID
 
 
 		//宠物==========================================

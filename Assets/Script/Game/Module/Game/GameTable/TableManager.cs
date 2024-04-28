@@ -43,6 +43,26 @@ namespace SGame
         }
 
         /// <summary>
+        /// 获得桌子ID
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public int GetIDFromMapPos(int x, int y)
+        {
+            foreach (var t in m_datas)
+            {
+                if (t.map_pos.x == x && t.map_pos.y == y)
+                {
+                    return t.id;
+                }
+            }
+
+            log.Error(string.Format("map pos not found table x={0}, y={1}", x, y));
+            return -1;
+        }
+
+        /// <summary>
         /// 添加新的桌子
         /// </summary>
         /// <param name="data"></param>
