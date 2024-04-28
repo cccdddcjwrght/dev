@@ -163,6 +163,12 @@ namespace SGame
 
         public void PlayAd(string id, Action complete , Action<bool> other = null) 
         {
+            if (!NetworkUtils.IsNetworkReachability()) 
+            {
+                "ui_ad_fail".Tips();
+                return;
+            }
+
             if (!DataCenter.AdUtil.IsAdCanPlay(id))
 			{
 				complete?.Invoke();

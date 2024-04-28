@@ -372,6 +372,15 @@ namespace SGame.UI
 
 		void OnRefreshAdState() 
 		{
+			bool networkState = NetworkUtils.IsNetworkReachability();
+			m_view.m_AdBtn.enabled = AdModule.Instance.GetBuffTime() > 0 || networkState;
+			if (!networkState)
+			{
+				m_view.m_InvestBtn.visible = false;
+				AdModule.Instance.RecordEnterTime(AdType.Invest.ToString());
+				return;
+			}
+
 			AdModule.Instance.GetAdShowTime(AdType.Invest.ToString(), out bool state, out int time);
 			m_view.m_InvestBtn.visible = state;
 			if (state) 

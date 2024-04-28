@@ -136,6 +136,7 @@ namespace SGame.UI
 				switch (g.cfg.PurchaseType)
 				{
 					case 1:
+						v.m_click.enabled = NetworkUtils.IsNetworkReachability();
 						v.m_currency.selectedIndex = 3;
 						v.m_click.SetText((g.cfg.LimitNum - g.buy) + "/" + g.cfg.LimitNum);
 						break;
@@ -210,6 +211,7 @@ namespace SGame.UI
 				switch (g.cfg.PurchaseType)
 				{
 					case 1:
+						v.enabled = NetworkUtils.IsNetworkReachability();
 						v.m_currency.selectedIndex = 3;
 						v.m_price.SetText((g.cfg.LimitNum - g.buy) + "/" + g.cfg.LimitNum);
 						break;

@@ -117,6 +117,13 @@ namespace SGame.UI
 		//广告刷新（超过工作台一半等级显示广告按钮）
 		private void AdRefresh() 
 		{
+			if (!NetworkUtils.IsNetworkReachability())
+			{
+				m_view.m_type.selectedIndex = 0;
+				m_view.m_isAd.selectedIndex = 0;
+				return;
+			}
+
 			var lvMax = data.level >= data.maxlv;
 			//广告配置条件（次数，cd时间）
 			var isCanPlay = DataCenter.AdUtil.IsAdCanPlay(AdType.Table.ToString());
