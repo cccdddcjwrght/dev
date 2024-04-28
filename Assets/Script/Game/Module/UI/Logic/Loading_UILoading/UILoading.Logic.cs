@@ -11,7 +11,7 @@ namespace SGame.UI
 
 	public partial class UILoading
 	{
-		int maxstate = 6;
+		int maxstate = 5;
 		bool startFlag = false;
 		int cprogress = 0;
 		int progress;

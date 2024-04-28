@@ -52,17 +52,20 @@ namespace SGame
 			// 加载实际场景
 			LOAD_SCENE = 4,
 
+			// 加载实际场景完成
+			LOAD_SCENE_COMPLETED = 5,
+
 			// 告诉服务器加载完成
-			APPLY_SERVER = 5,
+			APPLY_SERVER = 6,
 
 			//逻辑初始化或同步完成
-			INIT_FINISH = 6,
+			INIT_FINISH = 7,
 
 			// 加载完成
-			LOAD_FINISH = 7,
+			LOAD_FINISH = 8,
 
 			// 销毁
-			UNLOAD = 8,
+			UNLOAD = 9,
 		}
 
 		private STATE _state;

@@ -276,6 +276,7 @@ namespace SGame
 				loading.state = GSceneRequest.STATE.LOAD_SCENE;
 				loading.sceneRequest = libx.Assets.LoadSceneAsync(config.FullPath, false);
 				yield return loading.sceneRequest;
+				loading.state = GSceneRequest.STATE.LOAD_SCENE_COMPLETED;
 
 				if (loading.logic != null)
 					yield return loading.logic;
