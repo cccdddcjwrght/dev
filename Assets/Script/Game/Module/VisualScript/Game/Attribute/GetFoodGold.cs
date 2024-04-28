@@ -95,7 +95,7 @@ namespace SGame.VS
             }
 
             // 添加价格系数
-            m_gold *= AdModule.Instance.GetAdRatio() * (AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.Price) * ConstDefine.C_PER_SCALE);
+            m_gold *= AdModule.Instance.GetAdGain() * (AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.Price) * ConstDefine.C_PER_SCALE);
             m_gold = System.Math.Floor(m_gold);
             return outputTrigger;
         }

@@ -145,8 +145,12 @@ namespace SGame
 
         public float GetAdRatio() 
         {
-            if(GetBuffTime() > 0)
-                return (float)(AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition) * ConstDefine.C_PER_SCALE);
+            return (float)(AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition) * ConstDefine.C_PER_SCALE);
+        }
+
+        public float GetAdGain() 
+        {
+            if (GetBuffTime() > 0) return GetAdRatio();
             return 1;
         }
 
