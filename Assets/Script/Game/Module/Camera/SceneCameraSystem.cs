@@ -201,7 +201,7 @@ namespace SGame
 			}
 		}
 
-		public void Return() => Return(0.2f);
+		public void Return() => Return(0.3f);
 
 		public void Return(float time)
 		{
@@ -470,7 +470,7 @@ namespace SGame
 			CreateTarget();
 			CreateVCamera();
 			LiveVCamera(_vcamera);
-			Return();
+			Return(0.1f);
 			isInited = true;
 #endif
 

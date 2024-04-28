@@ -11,7 +11,7 @@ namespace SGame.UI
 
 	public partial class UILoading
 	{
-		int maxstate = 4;
+		int maxstate = 6;
 		bool startFlag = false;
 		int cprogress = 0;
 		int progress;
@@ -52,7 +52,7 @@ namespace SGame.UI
 				{
 					if (!StaticDefine.G_WAIT_VIDEO)
 					{
-						var step = progress - cprogress > 20 ? 10 : 1;
+						var step = progress - cprogress > 20 ? 10 : 5;
 						cprogress = Math.Clamp(cprogress + step, 0, progress);
 					}
 					else cprogress = 100;

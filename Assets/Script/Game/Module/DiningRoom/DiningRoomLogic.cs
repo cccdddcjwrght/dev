@@ -364,8 +364,8 @@ namespace SGame.Dining
 			double time = 0.1;
 			Init();
 			while (!isDone) yield return null;
-			while ((time -= GlobalTime.deltaTime) > 0) yield return null;
 			yield return SceneCameraSystem.WaitInited();
+			while ((time -= GlobalTime.deltaTime) > 0) yield return null;
 		}
 
 		public Region GetRegion(int id)

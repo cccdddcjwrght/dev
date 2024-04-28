@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Delay : MonoBehaviour
 {
+	private float delay = 1;
+
 	public float time;
+
+
+	public bool checkui = true;
 
 	void Start()
 	{
@@ -14,7 +19,12 @@ public class Delay : MonoBehaviour
 	IEnumerator DelayExcute()
 	{
 
-		yield return new WaitForSeconds(time);
+		yield return new WaitForSeconds(time + delay);
+		if (checkui)
+		{
+			while (FairyGUI.GRoot.inst.GetChildren()?.Length <= 0)
+				yield return null;
+		}
 		Destroy(gameObject);
 	}
 
