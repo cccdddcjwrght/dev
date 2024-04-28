@@ -12,9 +12,10 @@ using SGame.VS;
 using Unity.Mathematics;
 using Unity.Transforms;
 using System.Collections.Generic;
+    using libx;
 
-    
-namespace SGame
+
+    namespace SGame
 {
     /// <summary>
     /// 角色数据处理
@@ -24,6 +25,7 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("game.character");
         private const string DISH_OFFSET_NAME = "dish_offsety"; // 放餐偏移
         private Fiber m_modelLoading;
+        private RuntimeAnimatorController m_animatorController;
         
         /// <summary>
         /// 脚本数据
@@ -66,6 +68,41 @@ namespace SGame
         public bool HasHud()
         {
             return m_hud != Entity.Null && entityManager.Exists(m_hud);
+        }
+
+        /// <summary>
+        /// 更改动画0 默认动画, 1 新动画
+        /// </summary>
+        public void SwitchAnimator(int id)
+        {
+            string res = "Assets/BuildAsset/Art/characters/role/Animator2.overrideController";
+            if (id == 0) 
+                res = "Assets/BuildAsset/Art/characters/role/Animator.overrideController";
+
+            var animator = modelAnimator;
+            var asset  = Assets.LoadAsset(res, typeof(RuntimeAnimatorController));
+            if (!string.IsNullOrEmpty(asset.error))
+            {
+                log.Error("load asset fail=" + asset.error);
+                return;
+            }
+
+            var controller = asset.asset as RuntimeAnimatorController;
+            if (controller == null)
+            {
+                log.Error("controller is null!");
+                return;
+            }
+            m_animatorController = controller;
+            animator.runtimeAnimatorController = controller;
+        }
+
+        /// <summary>
+        /// 冻住角色
+        /// </summary>
+        public void Freeze()
+        {
+            modelAnimator.speed = 0;
         }
 
         /// <summary>
@@ -502,6 +539,8 @@ namespace SGame
             }
 
             modelAnimator = ani.GetComponent<Animator>();
+            if (m_animatorController != null)
+                modelAnimator.runtimeAnimatorController = m_animatorController;
         }
 
         public void ShowSleep() 
