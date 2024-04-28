@@ -56,8 +56,9 @@ namespace SGame.UI{
 			}
 			else
 			{
-				update1Txt.text=listData[index].abilitLevelList[levelIndex].CurLevelValue.ToString();
-				update2Txt.text = listData[index].abilitLevelList[levelIndex].NextLevelValue.ToString();
+				
+				update1Txt.text= Utils.ConvertNumberStr(listData[index].abilitLevelList[levelIndex].CurLevelValue);
+				update2Txt.text = Utils.ConvertNumberStr(listData[index].abilitLevelList[levelIndex].NextLevelValue);
 			}
 			desTxt.text=String.Format(UIListener.Local(listData[index].VaultDes), update1Txt.text);
 
