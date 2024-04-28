@@ -145,7 +145,7 @@ namespace SGame
             if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(AdModule.AD_BUFF_ID, out var data3)) 
             {
                 t3.name = UIListener.Local("ui_boosts_name_1");
-                t3.multiple = AdModule.Instance.GetAdRatio() * PERCENTAGE_VALUE;
+                t3.multiple = AdModule.Instance.GetAdRatio();
                 t3.time = AdModule.Instance.GetBuffTime();
                 t3.isEver = false;
             }

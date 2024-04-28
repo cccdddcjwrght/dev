@@ -42,8 +42,7 @@ namespace SGame
                 AddBuff();
                 RecordEnterTime(AdType.Invest.ToString());
             });
-            m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) =>
-            {
+            m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) =>{
                 if (id == AD_TECH_ID) AddBuff();
             });
 			ReadyAllAd();
@@ -68,7 +67,6 @@ namespace SGame
                 else 
                 {
                     var residueTime = endTime - serverTime;
-                    Debug.Log((int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdTime));
                     int addTime = GetAdDuration();
                     if (residueTime + addTime > AD_BUFF_MAX_TIME)
                         addTime = AD_BUFF_MAX_TIME - residueTime;
@@ -77,8 +75,8 @@ namespace SGame
             }
 
             var time = DataCenter.GetIntValue(AD_BUFF_TIME) - serverTime;
-            if(time > 0) 
-                EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(AD_BUFF_ID, GetAdRatio() - 100, 0, time){ from = (int)EnumFrom.Ad });
+            //if(time > 0) 
+            //    EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(AD_BUFF_ID, GetAdRatio() - 100, 0, time){ from = (int)EnumFrom.Ad});
         }
 
         public int GetBuffTime() 
@@ -145,9 +143,11 @@ namespace SGame
             return (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdTime);
         }
 
-        public int GetAdRatio() 
+        public float GetAdRatio() 
         {
-            return (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
+            if(GetBuffTime() > 0)
+                return (float)(AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition) * ConstDefine.C_PER_SCALE);
+            return 1;
         }
 
         public void PlayAd(string id, Action complete , Action<bool> other = null) 
