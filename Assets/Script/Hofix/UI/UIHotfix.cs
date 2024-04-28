@@ -56,9 +56,9 @@ namespace SGame.Hotfix
 
 			m_text.text = "Checking";
 			// 播放动画
-			/*
+			
             /// 测试代码
-            float run = 0;
+            /*float run = 0;
             m_progressBar.min = 0;
             m_progressBar.max = m_waitTime;
             while (run <= m_waitTime)
@@ -71,7 +71,7 @@ namespace SGame.Hotfix
                 yield return null;
             }
             m_progressBar.value = m_waitTime;*/
-			yield return null;
+			yield return FiberHelper.Wait(0.5f);
 			// 热更新结束, 发送事件
 			EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
         }

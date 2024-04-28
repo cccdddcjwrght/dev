@@ -566,7 +566,7 @@ namespace SGame
 		#region 广告
 
 
-		public static void PlayAd(string ad, Action<bool, string> complete = null , bool perload = false)
+		public static void PlayAd(string ad, Action<bool, string> complete = null, bool perload = false)
 		{
 			var state = false;
 			if (perload) ad = "@" + ad;
@@ -579,7 +579,16 @@ namespace SGame
 			}
 		}
 
+		public static bool IsCanPlayAd(string id)
+		{
+			var state = true;
+			DoCheckPlayAd(id, ref state);
+			return state;
+		}
+
 		static partial void DoPlayAd(string ad, Action<bool, string> complete, ref bool state);
+
+		static partial void DoCheckPlayAd(string ad, ref bool state);
 
 		#endregion
 
@@ -1017,7 +1026,7 @@ namespace SGame
 		{
 			Vector3 dir = end - start;
 			float len = dir.magnitude;
-			
+
 			// 半径内
 			if (len <= radius)
 			{

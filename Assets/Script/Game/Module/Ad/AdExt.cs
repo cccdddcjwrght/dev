@@ -57,6 +57,11 @@ namespace SGame
 			}
 		}
 
+		static partial void DoCheckPlayAd(string ad, ref bool state)
+		{
+			state = THSdk.Instance.IsAdLoaded(ad);
+		}
+
 		static Action<bool> AdWait(Func<bool> cacncel, string key = null)
 		{
 			var time = 0f;
