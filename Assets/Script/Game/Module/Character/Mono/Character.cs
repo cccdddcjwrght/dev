@@ -78,7 +78,7 @@ using System.Collections.Generic;
         {
             string res = "Assets/BuildAsset/Art/characters/role/Animator2.overrideController";
             if (id == 0) 
-                res = "Assets/BuildAsset/Art/characters/role/Animator.overrideController";
+                res = "Assets/BuildAsset/Art/characters/role/Animator.controller";
 
             var animator = modelAnimator;
             var asset  = Assets.LoadAsset(res, typeof(RuntimeAnimatorController));
