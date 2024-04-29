@@ -12,6 +12,7 @@ using SGame.VS;
 using Unity.Mathematics;
 using Unity.Transforms;
 using System.Collections.Generic;
+    using FairyGUI;
     using libx;
 
 
@@ -263,6 +264,17 @@ using System.Collections.Generic;
             quaternion value = quaternion.AxisAngle(new float3(0, 1, 0), rot * Mathf.Deg2Rad);
             //quaternion value = quaternion.LookRotation(new float3(dir.x, 0, dir.y), new float3(0, 1, 0));
             entityManager.SetComponentData(entity, new LastRotation() { Value = value });
+        }
+
+        public void StopMove()
+        {
+            ClearFood();
+            ClearHudEntity();
+            ClearSleep();
+            if (entityManager.HasComponent<Follow>(entity))
+            {
+                entityManager.RemoveComponent<Follow>(entity);
+            }
         }
 
         /// <summary>
