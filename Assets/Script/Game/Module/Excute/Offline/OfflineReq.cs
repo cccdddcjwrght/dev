@@ -21,6 +21,7 @@ namespace SGame
 			new WaitEvent<int>(((int)GameEvent.AFTER_ENTER_ROOM)).Wait((e) =>
 			{
 				StaticDefine.G_Offline_Time = DataCenter.Instance.GetOfflineTime();
+				DataCenter.Instance.offlinetime = -1;
 				if (StaticDefine.G_Offline_Time >= minOfflineTime)
 				{
 					if ("offline".IsOpend(false))
@@ -64,11 +65,10 @@ namespace SGame
 
 		static public void GetOfflineReward(double gold)
 		{
+			log.Info("[offline] reward:" + gold);
+			DataCenter.Instance.offlinetime = -1;
 			if (gold > 0)
-			{
-				DataCenter.Instance.offlinetime = -1;
 				PropertyManager.Instance.Update(PropertyGroup.ITEM, 1, gold);
-			}
 		}
 	}
 }

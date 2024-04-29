@@ -22,7 +22,7 @@ namespace SGame
 
 			public bool Equals(Item other)
 			{
-				return other.ui != null && ui != null && other.ui == ui;
+				return (funcID != 0 && funcID == other.funcID) || (ui != null && other.ui == ui);
 			}
 		}
 
@@ -65,10 +65,10 @@ namespace SGame
 
 		public void DelayOpen(string ui, string waitui, bool addtofirst = false, Action call = null, params object[] args)
 		{
-
-			if (!string.IsNullOrEmpty(waitui) && ui != waitui && (!string.IsNullOrEmpty(ui) || call != null))
+			var isui = !string.IsNullOrEmpty(ui) && !ui.StartsWith("@");
+			if (!string.IsNullOrEmpty(waitui) && ui != waitui && (isui || call != null))
 			{
-				var d = new Item() { ui = ui, args = args, call = call, uiID = ui == null || ui.StartsWith("@") ? 0 : UIUtils.GetUI(ui) };
+				var d = new Item() { ui = ui, args = args, call = call, isui = isui, uiID = ui == null ? 0 : UIUtils.GetUI(ui.Replace("@", "")) };
 				InsertWaitlist(waitui, d, addtofirst);
 			}
 		}
@@ -111,26 +111,24 @@ namespace SGame
 			var priority = list.Count;
 			var state = (m_currentUI == waitui || m_currentUI == null) && list.Count == 0;
 			var last = list.LastOrDefault();
-			d.isui = !string.IsNullOrEmpty(ui) && !ui.StartsWith("@");
+
 			if (addtofirst)
 			{
 				//将优先级提高
 				d.priority = -priority - 1;
 				list.Insert(0, d);
 			}
+			else if (!d.isui && d.ui?.Length > 1 && int.TryParse(d.ui.Substring(1), out var p))
+				priority = p;
 			else
 			{
 				priority = Math.Max(0, last.priority) + 1;
-				var n = d.funcID != 0 ? Math.Abs(d.funcID) : !string.IsNullOrEmpty(ui) && ui.StartsWith("@") ? int.Parse(ui.Substring(startIndex: 1)) : 0;
-				if (d.isui && ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>(d.uiID, out var cfg))
+				var id = d.uiID;
+				if (d.funcID > 0 && ConfigSystem.Instance.TryGet<GameConfigs.FunctionConfigRowData>(d.funcID, out var f) && !string.IsNullOrEmpty(f.Ui))
+					id = UIUtils.GetUI(f.Ui);
+				if (id > 0 && ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>(d.uiID, out var cfg))
 					priority = cfg.Priority == 0 ? priority : cfg.Priority;
-				else if (n != 0
-					&& ConfigSystem.Instance.TryGet<GameConfigs.FunctionConfigRowData>(n, out var f)
-					&& !string.IsNullOrEmpty(f.Ui)
-					&& ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>(UIUtils.GetUI(f.Ui), out cfg))
-				{
-					priority = cfg.Priority == 0 ? priority : cfg.Priority;
-				}
+
 				d.priority = priority;
 				list.Add(d);
 			}

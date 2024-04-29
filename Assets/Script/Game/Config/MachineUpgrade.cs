@@ -29,7 +29,7 @@ public struct MachineUpgradeRowData : IFlatbufferObject
   public ArraySegment<byte>? GetUpgradePriceBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public float[] GetUpgradePriceArray() { return __p.__vector_as_array<float>(8); }
-  public int ShopPriceRatio { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float ShopPriceRatio { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
   public int ShopPriceStarRatio { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int TimeRatio { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Num { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
@@ -46,7 +46,7 @@ public struct MachineUpgradeRowData : IFlatbufferObject
       int LevelId = 0,
       int MachineStar = 0,
       VectorOffset UpgradePriceOffset = default(VectorOffset),
-      int ShopPriceRatio = 0,
+      float ShopPriceRatio = 0.0f,
       int ShopPriceStarRatio = 0,
       int TimeRatio = 0,
       int Num = 0,
@@ -70,7 +70,7 @@ public struct MachineUpgradeRowData : IFlatbufferObject
   public static VectorOffset CreateUpgradePriceVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateUpgradePriceVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartUpgradePriceVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddShopPriceRatio(FlatBufferBuilder builder, int ShopPriceRatio) { builder.AddInt(3, ShopPriceRatio, 0); }
+  public static void AddShopPriceRatio(FlatBufferBuilder builder, float ShopPriceRatio) { builder.AddFloat(3, ShopPriceRatio, 0.0f); }
   public static void AddShopPriceStarRatio(FlatBufferBuilder builder, int ShopPriceStarRatio) { builder.AddInt(4, ShopPriceStarRatio, 0); }
   public static void AddTimeRatio(FlatBufferBuilder builder, int TimeRatio) { builder.AddInt(5, TimeRatio, 0); }
   public static void AddNum(FlatBufferBuilder builder, int Num) { builder.AddInt(6, Num, 0); }

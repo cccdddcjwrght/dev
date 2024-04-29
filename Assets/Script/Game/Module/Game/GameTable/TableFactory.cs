@@ -35,7 +35,6 @@ namespace SGame
                 value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
             //TableManager.Instance.UpdateTableInfo(value);
 
-            log.Debug(string.Format("Create Customer tablePos={0}, orderPos={1}, num={2}", tablePos, orderPos, customerPos.Count) );
             return value;
         }
         
