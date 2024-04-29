@@ -31,9 +31,47 @@ namespace SGame
             UIRequest.Create(World.DefaultGameObjectInjectionWorld.EntityManager, SGame.UIUtils.GetUI("flight"));
         }
 
-        public void PlayFlight(List<int> ids, Vector2 startPos, Vector2 endPos, float duration) 
+
+        List<int>     m_TempIdList      = new List<int>();
+        List<Vector2> m_TempVecList     = new List<Vector2>();
+        Dictionary<int, Vector2> m_TempDict = new Dictionary<int, Vector2>();
+
+        public void PlayFlight(GList list, List<int[]> reward) 
         {
-            
+            m_TempIdList.Clear();
+            m_TempVecList.Clear();
+            m_TempDict.Clear();
+            for (int i = 0; i < reward.Count; i++)
+            {
+                int[] r = reward[i];
+                if (r.Length >= 2) 
+                {
+                    int type = r[0];
+                    int itemId = r[1];
+                    if (type == 1 && CheckIsTranId(itemId))
+                    {
+                        m_TempIdList.Add(itemId);
+                        Vector2 pos = ConvertGObjectGlobalPos(list.GetChildAt(i));
+                        m_TempDict.Add(itemId, pos);
+                    } 
+                }
+            }
+
+            foreach (var t in m_TempDict)
+                m_TempIdList.Add(t.Key);
+
+            m_TempIdList.Sort();
+            foreach (var id in m_TempIdList)
+            {
+                if (m_TempDict.TryGetValue(id, out var pos))
+                    m_TempVecList.Add(pos);
+            }
+            PlayFlight(m_TempIdList, m_TempVecList);
+        }
+
+        public void PlayFlight(List<int> ids, List<Vector2> startPos) 
+        {
+            EventManager.Instance.Trigger((int)GameEvent.FLIGHT_LIST_CREATE, ids, startPos, Vector2.zero, duration);
         }
 
         public void PlayFlight(GObject gObject, int id, float offsetX = 0, float offsetY = 0) 
@@ -57,6 +95,22 @@ namespace SGame
         {
             if(m_DependDict.ContainsKey(id))
                 return m_DependDict[id] > 0;
+            return false;
+        }
+
+        //检测奖励id是否是需要播放飞行特效
+        public bool CheckIsTranId(int id) 
+        {
+            if (id == (int)FlightType.GOLD || id == (int)FlightType.DIAMOND || CheckIsBox(id))
+                return true;
+            return false;
+        }
+
+        //检测是否是宝箱 --对应物品表配置
+        public bool CheckIsBox(int id)
+        {
+            if (id == 301 || id == 302 || id == 303 || id == 401 || id == 402 || id == 403)
+                return true;
             return false;
         }
 

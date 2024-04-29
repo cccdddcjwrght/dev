@@ -5,12 +5,15 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.Flight;
     using System.Collections.Generic;
+    using Unity.Entities;
 
     public partial class UIFlight
 	{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
 		Stack<GGraph> graphStack = new Stack<GGraph>();
 		Stack<GLoader> loaderStack = new Stack<GLoader>();
+
+		bool m_IsSet;
 
 		partial void InitEvent(UIContext context){
 			m_EventHandle += EventManager.Instance.Reg<int, Vector2, Vector2, float>((int)GameEvent.FLIGHT_SINGLE_CREATE, Play);
@@ -23,18 +26,29 @@ namespace SGame.UI{
 
 		void Play(List<int> ids, List<Vector2> startPos, Vector2 endPos, float duration) 
 		{
-            ids.ForEach((id)=> Play(id, startPos[id - 1], endPos, duration));
+			float timer = 0;
+			int index = 0;
+			ids.ForEach((id)=> 
+			{
+				Utils.Timer(0.1f, null, delay: timer, completed: () =>
+				{
+					Play(id, startPos[index], endPos, duration);
+				});
+				index++;
+				timer += 0.2f;
+			});
 		}
 
 		void Play(int id, Vector2 startPos, Vector2 endPos, float duration) 
 		{
-			if (id == (int) FlightType.BOX) AddBox(startPos, endPos, duration);
+			if (TransitionModule.Instance.CheckIsBox(id)) AddBox(id, startPos, endPos, duration);
 			else AddEffect(id, startPos, endPos, duration);
 		}
 
 		void AddEffect(int id, Vector2 startPos, Vector2 endPos, float duration) 
 		{
 			TransitionModule.Instance.AddDepend(id);
+			Refresh();
 
 			int effectId1 = id + 20;
 			int effectId2 = id + 22;
@@ -59,15 +73,16 @@ namespace SGame.UI{
 				Refresh();
 			});
 
-			Refresh();
+
 		}
 
-		public void AddBox(Vector2 startPos, Vector2 endPos, float duration) 
+		public void AddBox(int id, Vector2 startPos, Vector2 endPos, float duration) 
 		{
 			TransitionModule.Instance.AddDepend((int)FlightType.BOX);
+			Refresh();
 			var loader = GetLoader(startPos.x, startPos.y);
 			loader.SetIcon("ui_shop_icon_box_wood_close");
-			if (endPos == Vector2.zero) endPos = GetFinalPos((int)FlightType.BOX);
+			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
 			GTween.To(startPos, endPos, duration).SetTarget(m_view).OnUpdate((t) =>
 			{
 				loader.SetXY(t.value.x, t.value.y);
@@ -77,7 +92,6 @@ namespace SGame.UI{
 				TransitionModule.Instance.SubDepend((int)FlightType.BOX);
 				Refresh();
 			});
-			Refresh();
 		}
 
         GGraph GetGraph(float x, float y)
@@ -127,19 +141,36 @@ namespace SGame.UI{
 		{
 			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy;
 			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy;
-			else if (id == (int)FlightType.BOX) return m_view.m_Box.xy;
+			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy;
 
 			return default;
 		}
 
         void Refresh() 
 		{
+			SetPos();
 			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)FlightType.GOLD)));
 			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)FlightType.DIAMOND)));
 
 			m_view.m_Gold.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
 			m_view.m_Diamond.visible = TransitionModule.Instance.IsShow((int)FlightType.DIAMOND);
 			m_view.m_Box.visible = TransitionModule.Instance.IsShow((int)FlightType.BOX);
+		}
+
+		void SetPos() 
+		{
+			if (m_IsSet) return;
+			var e = SGame.UIUtils.GetUIEntity("mainui");
+			if (e != Entity.Null)
+			{
+				var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
+				if (ui != null)
+				{
+					m_view.m_Gold.xy = ui.Value.contentPane.GetChild("Gold").xy;
+					m_view.m_Diamond.xy = ui.Value.contentPane.GetChild("Diamond").xy;
+				}
+			}
+			m_IsSet = true;
 		}
 	}
 
