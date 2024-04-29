@@ -120,29 +120,44 @@ namespace SGame
 
 
  
-        double  m_AdAddCoin;
+        double  m_AdNum;
+        int     m_ItemId;
         int     m_LastTime;
-        public double GetAdAddCoinNum() 
+        public void GetAdInvestNum(out int itemId, out double num) 
         {
             if (m_LastTime < m_ShowTimeDict[AdType.Invest.ToString()]) 
             {
-                var min = GlobalDesginConfig.GetInt("min_offline_Value");
-                var rate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Gold);
-                //var adRate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
-                var gold = (double)min;
-                var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
-                if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
-                double adCoin1 = (ConstDefine.C_PER_SCALE * gold * rate).ToInt();
+                var diamonRate = AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.DiamondRate);
+                var randomIndex = RandomSystem.Instance.NextInt(0, 100);
+                if (randomIndex < diamonRate)
+                {
+                    var adDiamond = AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Diamond);
+                    m_ItemId = (int)ItemID.DIAMOND;
+                    m_AdNum = adDiamond;
+                }
+                else 
+                {
+                    var min = GlobalDesginConfig.GetInt("min_offline_Value");
+                    var rate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Gold);
+                    //var adRate = (int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.AdAddition);
+                    var gold = (double)min;
+                    var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
+                    if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
+                    double adCoin1 = (ConstDefine.C_PER_SCALE * gold * rate).ToInt();
 
-                var room = DataCenter.Instance.roomData.current;
-                var data = ConfigSystem.Instance.Find<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id));
-                if (!data.IsValid())
-                    ConfigSystem.Instance.TryGet<RoomTechRowData>(room.techs[room.techs.Count - 1], out data);
-                double adCoin2 = (ConstDefine.C_PER_SCALE * data.Cost(2) * GlobalDesginConfig.GetInt("investor_coin_ratio_level")).ToInt();
-                m_AdAddCoin = Math.Max(adCoin1, adCoin2);
+                    var room = DataCenter.Instance.roomData.current;
+                    var data = ConfigSystem.Instance.Find<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id));
+                    if (!data.IsValid())
+                        ConfigSystem.Instance.TryGet<RoomTechRowData>(room.techs[room.techs.Count - 1], out data);
+                    double adCoin2 = (ConstDefine.C_PER_SCALE * data.Cost(2) * GlobalDesginConfig.GetInt("investor_coin_ratio_level")).ToInt();
+                    
+                    m_ItemId = (int)ItemID.GOLD;
+                    m_AdNum = Math.Max(adCoin1, adCoin2);
+                }
                 m_LastTime = m_ShowTimeDict[AdType.Invest.ToString()];
             }
-            return m_AdAddCoin;
+            itemId = m_ItemId;
+            num = m_AdNum;
         }
 
         public int GetAdDuration() 

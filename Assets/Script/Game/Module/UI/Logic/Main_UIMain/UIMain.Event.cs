@@ -280,9 +280,9 @@ namespace SGame.UI
 				if (state) 
 				{
 					AdModule.Instance.RecordEnterTime(AdType.Invest.ToString());
-					var value = AdModule.Instance.GetAdAddCoinNum();
-					PropertyManager.Instance.Update(1, 1, value);
-					TransitionModule.Instance.PlayFlight(m_view.m_InvestBtn, (int)FlightType.GOLD);
+					AdModule.Instance.GetAdInvestNum(out int itemId, out double num);
+					PropertyManager.Instance.Update(1, itemId, num);
+					TransitionModule.Instance.PlayFlight(m_view.m_InvestBtn, itemId);
 				}
 			});
         }
@@ -387,8 +387,10 @@ namespace SGame.UI
 			{
 				var btn = m_view.m_InvestBtn as UI_InvestMan;
 				btn.m_bar.fillAmount = (float)time / DataCenter.AdUtil.GetAdSustainTime(AdType.Invest.ToString());
-				var value = AdModule.Instance.GetAdAddCoinNum();
-				btn.SetText(string.Format("+{0}", Utils.ConvertNumberStr(value)));
+				AdModule.Instance.GetAdInvestNum(out int itemId, out double num);
+				string url = itemId == (int)ItemID.GOLD ? "ui_shop_icon_coin_03" : "ui_shop_icon_gem_02";
+				btn.SetText(string.Format("+{0}", Utils.ConvertNumberStr(num)));
+				btn.SetIcon(url);
 			}
 		}
 
