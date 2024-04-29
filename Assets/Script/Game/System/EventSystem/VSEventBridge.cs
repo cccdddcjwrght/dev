@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using log4net;
 
 namespace SGame
 {
@@ -64,6 +65,8 @@ namespace SGame
 
 	public class VSEventBridge : Singleton<VSEventBridge>, IEventNotify
 	{
+		private static ILog log = LogManager.GetLogger("gameevent");
+		
 		[UnityEngine.RuntimeInitializeOnLoadMethod]
 		static void OnInit()
 		{
@@ -76,6 +79,7 @@ namespace SGame
 
 		public bool HasEvent(int id)
 		{
+			log.Debug("trigger event =" + (GameEvent)id + " id=" + id);
 			bool hasKey = _registers.ContainsKey(id);
 			return hasKey;
 		}

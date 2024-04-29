@@ -11,11 +11,14 @@ using Unity.Transforms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
 
 namespace SGame
 {
 	public static class UIUtils
 	{
+		private static ILog log = LogManager.GetLogger("game.uituils");
+		
 		public static int GetUI(string name)
 		{
 			if (ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>((GameConfigs.ui_resRowData conf) =>
@@ -27,6 +30,7 @@ namespace SGame
 			}
 
 			// 找不到ID
+			log.Error("not found ui config=" + name);
 			return 0;
 		}
 
