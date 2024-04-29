@@ -29,6 +29,15 @@ namespace SDK.TDSDK
 		equipment_reset,
 		equipment_decompose,
 		ability_update,
+		investor_appear,
+		investor_click,
+		investor_disappear,
+		ad_click,
+		ad_failed,
+		ad_show,
+		ad_close,
+		ad_reward,
+
 	}
 
 	public enum TableType
@@ -249,6 +258,17 @@ namespace SDK.TDSDK
 			TrackNormal(TDEvent.ability_update.ToString(),
 				"ability_id", techId,
 				"ability_level", techLevel));
+
+			//投资人埋点-出现-点击-消失
+			EventManager.Instance.Reg((int)GameEvent.INVEST_APPEAR, () => TrackNormal(TDEvent.investor_appear.ToString()));
+			EventManager.Instance.Reg<int>((int)GameEvent.INVEST_CLICK, (t) => TrackNormal(TDEvent.investor_click.ToString(), "appear_time", t));
+			EventManager.Instance.Reg((int)GameEvent.INVEST_DISAPPEAR, ()=> TrackNormal(TDEvent.investor_disappear.ToString()));
+
+			//广告埋点
+			EventManager.Instance.Reg<string>((int)GameEvent.AD_CLICK, (id) => OnAded(TDEvent.ad_click.ToString(), id));
+			EventManager.Instance.Reg<string>((int)GameEvent.AD_FAILED, (id) => OnAded(TDEvent.ad_failed.ToString(), id));
+			EventManager.Instance.Reg<string>((int)GameEvent.AD_SHOW, (id) => OnAded(TDEvent.ad_show.ToString(), id));
+			EventManager.Instance.Reg<string>((int)GameEvent.AD_REWARD, (id) => OnAded(TDEvent.ad_reward.ToString(), id));
 		}
 
 		private void RegisterProperties()
@@ -318,6 +338,16 @@ namespace SDK.TDSDK
 				"equipment_type", equipPos);
 		}
 
+		public void OnAded(string type, string id) 
+		{
+			if (ConfigSystem.Instance.TryGet<GameConfigs.ADConfigRowData>(id, out var data))
+			{
+				TrackNormal(type, "ad_type", data.Type,
+					"ad_id", data.Ad,
+					"ad_fnish", DataCenter.IsIgnoreAd() ? 1 : 0,
+					"ad_key", data.ID);
+			}
+		}
 
 		#endregion
 

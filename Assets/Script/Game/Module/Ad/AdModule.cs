@@ -203,6 +203,8 @@ namespace SGame
                 return;
             }
 
+            EventManager.Instance.Trigger((int)GameEvent.AD_CLICK, id);
+
             if (!DataCenter.AdUtil.IsAdCanPlay(id))
 			{
 				complete?.Invoke();
@@ -215,6 +217,7 @@ namespace SGame
                 DataCenter.AdUtil.RecordPlayAD(id);
                 complete?.Invoke();
                 other?.Invoke(true);
+                EventManager.Instance.Trigger((int)GameEvent.AD_REWARD, id);
                 return;
             }
 
@@ -223,7 +226,8 @@ namespace SGame
                 DataCenter.AdUtil.RecordPlayAD(id);
                 complete?.Invoke();
 				other?.Invoke(true);
-			}
+                EventManager.Instance.Trigger((int)GameEvent.AD_REWARD, id);
+            }
             else 
             {
                 Utils.PlayAd(id, (state, t) =>
@@ -232,7 +236,9 @@ namespace SGame
                     {
                         DataCenter.AdUtil.RecordPlayAD(id);
                         complete?.Invoke();
+                        EventManager.Instance.Trigger((int)GameEvent.AD_REWARD, id);
                     }
+                    else EventManager.Instance.Trigger((int)GameEvent.AD_FAILED, id);
 					other?.Invoke(state);
 				});
             }

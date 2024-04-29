@@ -266,6 +266,7 @@ namespace SDK.THSDK
 					call?.Invoke(true);
 					break;
 			}
+			EventManager.Instance.Trigger((int)GameEvent.AD_SHOW, id);
 			Debug.Log($"[ad]playad playing {adType}:" + id);
 		}
 
