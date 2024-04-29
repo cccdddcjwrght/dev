@@ -73,7 +73,7 @@ namespace SGame
 
 		static public string GetIcon()
 		{
-			if (_item.IsValid()) return _item.Icon;
+			if (_chest.IsValid()) return _chest.Icon;
 			return default;
 		}
 
