@@ -39,8 +39,9 @@ namespace SGame.UI
 			m_view.m_count.SetText(Utils.ConvertNumberStr(gold), false);
 
 			_isAd = DataCenter.AdUtil.IsAdCanPlay(c_ad_name);
-			m_view.m_click.SetText(_isAd ? UIListener.Local("ui_offline_collect2") : UIListener.Local("ui_offline_collect1"));
-			m_view.m_state.selectedIndex = _isAd ? 1 : 0;
+			var isNet = NetworkUtils.IsNetworkReachability();
+			m_view.m_click.SetText(_isAd && isNet ? UIListener.Local("ui_offline_collect2") : UIListener.Local("ui_offline_collect1"));
+			m_view.m_state.selectedIndex = _isAd && isNet ? 1 : 0;
 			_gold = gold;
 		}
 
@@ -53,7 +54,8 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
-			if (_isAd)
+			var isNet = NetworkUtils.IsNetworkReachability();
+			if (_isAd && isNet)
 			{
 				AdModule.PlayAd(c_ad_name, (s) =>
 				{
