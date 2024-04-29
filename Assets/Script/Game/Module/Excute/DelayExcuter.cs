@@ -68,7 +68,7 @@ namespace SGame
 
 			if (!string.IsNullOrEmpty(waitui) && ui != waitui && (!string.IsNullOrEmpty(ui) || call != null))
 			{
-				var d = new Item() { ui = ui, args = args, call = call , uiID = UIUtils.GetUI(ui) };
+				var d = new Item() { ui = ui, args = args, call = call, uiID = ui == null || ui.StartsWith("@") ? 0 : UIUtils.GetUI(ui) };
 				InsertWaitlist(waitui, d, addtofirst);
 			}
 		}
@@ -170,7 +170,7 @@ namespace SGame
 					var flag = false;
 
 					if (ui.isui)
-						SGame.UIUtils.OpenUI(ui.ui , ui.args);
+						SGame.UIUtils.OpenUI(ui.ui, ui.args);
 					else if (ui.funcID > 0)
 						FunctionSystem.Instance.Goto(ui.funcID);
 					else
