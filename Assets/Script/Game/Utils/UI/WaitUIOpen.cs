@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using SGame.UI;
 using Unity.Entities;
-using UnityEngine;
-using SGame.UI;
 
 /// 等待UI结束
 namespace SGame

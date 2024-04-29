@@ -1,10 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using FairyGUI;
-using UnityEngine;
-using Unity.Entities;
-using Unity.Transforms;
-using Unity.Mathematics;
 using Unity.Entities;
 
 namespace SGame
