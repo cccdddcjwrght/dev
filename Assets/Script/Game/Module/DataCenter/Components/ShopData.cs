@@ -154,7 +154,18 @@ namespace SGame
 			static public bool HasFree()
 			{
 				if (_data.goods?.Count > 0)
-					return _data.goods.Any(g => g.type < 6 && ( g.free > 0 || (g.cfg.PurchaseType == 1 && !g.IsSaled() && g.CDTime() <= 0)));
+				{
+					for (int i = 0; i < _data.goods.Count; i++)
+					{
+						var g = _data.goods[i];
+						if (g.type < 6)
+						{
+							var ret = g.free > 0 || (g.cfg.PurchaseType == 1 && !g.IsSaled() && g.CDTime() <= 0);
+							if (ret)
+								return true;
+						}
+					}
+				}
 				return false;
 			}
 

@@ -154,8 +154,15 @@ namespace SGame.Dining
 				log.Info("[scene]End EnterRoom Init");
 #endif
 				if (StaticDefine.G_WAIT_VIDEO)
+				{
+#if !SVR_RELEASE
+					log.Info("[scene]EnterRoom Splash Start");
+#endif
 					yield return new WaitUntil(() => StaticDefine.G_VIDEO_COMPLETE);
-
+#if !SVR_RELEASE
+					log.Info("[scene]EnterRoom Splash Completed");
+#endif
+				}
 			}
 		}
 

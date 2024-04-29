@@ -44,7 +44,7 @@ namespace SGame.UI
 			var path = GameConfigs.GlobalConfig.GetStr("splash_video");
 			if (!string.IsNullOrEmpty(path)) c_video_path = path;
 
-			m_view.m_loader.onClick.Add(OnClickClose);
+			m_view.m_loader.onClick.Add(OnLoaderClick);
 			m_view.m_btnGO.onClick.Add(OnClick);
 			m_view.m_close.onClick.Add(OnClickClose);
 
@@ -165,7 +165,7 @@ namespace SGame.UI
 			if (!flag) CompleteVideo();
 			else
 			{
-				w = GlobalConfig.GetInt("splash_time");
+				w = GlobalConfig.GetFloat("splash_time");
 				if (w > 0)
 				{
 					yield return new WaitUntil(() => (w -= Time.deltaTime) < 0);
@@ -234,9 +234,7 @@ namespace SGame.UI
 				return;
 			}
 
-#if !SVR_RELEASE
-			if (e.inputEvent.y < 100) CompleteVideo();
-#endif
+
 			SGame.UIUtils.CloseUIByID(__id);
 			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 		}
@@ -247,6 +245,14 @@ namespace SGame.UI
 		{
 			SGame.UIUtils.CloseUIByID(__id);
 		}
+
+		void OnLoaderClick(EventContext e)
+		{
+#if !SVR_RELEASE
+			if (e.inputEvent.y < 100) CompleteVideo();
+#endif
+		}
+
 		#endregion
 
 
