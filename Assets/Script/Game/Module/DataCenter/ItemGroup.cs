@@ -91,9 +91,9 @@ public class ItemGroup
 			if (DataCenter.Instance.m_gameRecord.enterTime == 0 || 
 				GameServerTime.Instance.serverTime - DataCenter.Instance.m_gameRecord.enterTime < 5) // 10 秒内
 			{
-				if (value >= 1e10)
+				if (value >= 1e9)
 				{
-					log.Error("GOLD Value Over 1B");
+					log.Error("GOLD Value Over 1B=" + value);
 				}
 			}
 		}
