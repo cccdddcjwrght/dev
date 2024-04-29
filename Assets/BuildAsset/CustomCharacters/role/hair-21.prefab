@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3403236070100320590}
-  - component: {fileID: 7630095349191243297}
-  - component: {fileID: 142193916710581595}
+  - component: {fileID: 8313585335310707318}
+  - component: {fileID: 898367460564913813}
   m_Layer: 0
   m_Name: hair-21
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &7630095349191243297
+--- !u!137 &8313585335310707318
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,13 +108,14 @@ SkinnedMeshRenderer:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.006118685, y: 0.0000005066395, z: 0.5861831}
-    m_Extent: {x: 0.2755286, y: 0.25904295, z: 0.32441533}
+    m_Center: {x: 0.006118685, y: 0.0000005066395, z: 0.58618313}
+    m_Extent: {x: 0.2755286, y: 0.25904295, z: 0.32441527}
   m_DirtyAABB: 0
---- !u!114 &142193916710581595
+--- !u!114 &898367460564913813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,7 +154,8 @@ MonoBehaviour:
   - Bip001 R Calf
   - Bip001 R Foot
   - Bip001 R Toe0
-  - Bip001 R Toe0Nub
   - Bip001 HeadNub
+  - Bip001 R Toe0Nub
+  - main
   materials:
   - {fileID: 2100000, guid: a88befd6d255f124082aa3b51f9f9a6e, type: 2}
