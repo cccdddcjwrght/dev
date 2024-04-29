@@ -105,19 +105,37 @@ namespace SGame
             state = serverTime > m_IntervalTimeDict[id] + interval;
             if (!state) return;
 
-            if (m_ShowTimeDict[id] == 0)
+            if (m_ShowTimeDict[id] == 0) 
+            {
                 m_ShowTimeDict[id] = serverTime + sustain;
-            
+                //投资人出现
+                if (id == AdType.Invest.ToString()) 
+                {
+                    EventManager.Instance.Trigger((int)GameEvent.INVEST_APPEAR);
+                }
+            }
+
             if (m_ShowTimeDict[id] > 0 && m_ShowTimeDict[id] > serverTime) 
                 time = m_ShowTimeDict[id] - serverTime;
             if (serverTime > m_ShowTimeDict[id]) 
             {
                 RecordEnterTime(id);
-                //m_IntervalTimeDict[id] = serverTime;
-                //m_ShowTimeDict[id] = 0;
+
+                //投资人消失
+                if (id == AdType.Invest.ToString()) 
+                {
+                    EventManager.Instance.Trigger((int)GameEvent.INVEST_DISAPPEAR);
+                }
             }
         }
 
+        //获取当前广告出现了多久时间
+        public int GetShowTime(string id) 
+        {
+            if (m_ShowTimeDict.ContainsKey(id) && m_ShowTimeDict[id] != 0)
+                return GameServerTime.Instance.serverTime - (m_ShowTimeDict[id] - DataCenter.AdUtil.GetAdSustainTime(id));
+            return 0;
+        }
 
  
         double  m_AdNum;
@@ -172,6 +190,7 @@ namespace SGame
 
         public float GetAdGain() 
         {
+
             if (GetBuffTime() > 0) return GetAdRatio();
             return 1;
         }

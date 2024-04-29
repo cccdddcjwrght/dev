@@ -150,5 +150,15 @@ namespace SGame
 
 		FLIGHT_SINGLE_CREATE			= 15000, //飞行特效创建
 		FLIGHT_LIST_CREATE				= 15001, 
+
+		AD_CLICK						= 16000, //广告点击
+		AD_FAILED						= 16001, //广告加载失败
+		AD_SHOW							= 16002, //播放广告
+		AD_CLOSE						= 16003, //关闭广告
+		AD_REWARD						= 16004, //广告奖励
+
+		INVEST_APPEAR					= 17000, //投资人出现
+		INVEST_CLICK					= 17001, //投资人点击
+		INVEST_DISAPPEAR				= 17002, //投资人消失
 	}
 }

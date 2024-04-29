@@ -44,7 +44,6 @@ namespace SGame.UI
 			leftList.opaque		= false;
 			m_rightList.opaque	= false;
 			RegisterUIState();
-			
 			var headBtn = m_view.m_head;
 			leftList.itemRenderer	 = (index, gobject) => RenderNormalItem(m_LeftIconDatas, index, gobject);//+= RenderListItem;
 			m_rightList.itemRenderer = (index, gobject) => RenderNormalItem(m_RightIconDatas, index, gobject);;
@@ -275,6 +274,7 @@ namespace SGame.UI
 
         partial void OnInvestBtnClick(EventContext data)
         {
+			EventManager.Instance.Trigger((int)GameEvent.INVEST_CLICK, AdModule.Instance.GetShowTime(AdType.Invest.ToString()));
 			AdModule.PlayAd(AdType.Invest.ToString(), (state) =>
 			{
 				if (state) 
