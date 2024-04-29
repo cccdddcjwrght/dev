@@ -18,7 +18,7 @@ namespace SGame
 	public static class UIUtils
 	{
 		private static ILog log = LogManager.GetLogger("game.uituils");
-		
+
 		public static int GetUI(string name)
 		{
 			if (ConfigSystem.Instance.TryGet<GameConfigs.ui_resRowData>((GameConfigs.ui_resRowData conf) =>
@@ -487,10 +487,17 @@ namespace SGame
 			return ui;
 		}
 
-		public static string Tips(this string tips, string pix = null)
+		public static string Tips(this string tips, string pix = null, float delay = 0)
 		{
 			if (HudModule.Instance != null)
-				HudModule.Instance.SystemTips(UIListener.AutoLocal(pix + tips));
+			{
+				var text = UIListener.AutoLocal(pix + tips);
+				if (delay <= 0)
+					HudModule.Instance.SystemTips(text);
+				else
+					HudModule.Instance.SystemTips(new object[] { text, delay });
+
+			}
 			return tips;
 		}
 

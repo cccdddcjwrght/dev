@@ -89,7 +89,7 @@ namespace SGame
         /// 系统的文字提示
         /// </summary>
         /// <param name="text"></param>
-        public void SystemTips(string text)
+        public void SystemTips(object text)
         {
             //UIUtils.ShowHUD()
             var entityManager = UIModule.Instance.GetEntityManager();

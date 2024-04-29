@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using log4net;
@@ -21,7 +22,7 @@ namespace SGame
 
 		private static string path = "Assets/BuildAsset/VisualScript/Prefabs/ReqExcute.prefab";
 
-		public void Init(GameWorld world , ResourceManager resource)
+		public void Init(GameWorld world, ResourceManager resource)
 		{
 			this._gameWorld = world;
 			InitEvent();
@@ -30,14 +31,14 @@ namespace SGame
 				.Where(m => Attribute.IsDefined(m, typeof(InitCallAttribute))).ToList();
 			try
 			{
-				CallInitMethod(methods).Start() ;
+				CallInitMethod(methods).Start();
 			}
 			catch (Exception e)
 			{
 				log.Error(e.Message + "-" + e.StackTrace);
 			}
 
-			var go = resource.LoadPrefab(path) ;
+			var go = resource.LoadPrefab(path);
 			if (go)
 			{
 				go = GameObject.Instantiate(go);
@@ -59,6 +60,7 @@ namespace SGame
 			yield return null;
 			methods.Foreach(m => m.Invoke(null, Array.Empty<object>()));
 		}
+
 
 	}
 }

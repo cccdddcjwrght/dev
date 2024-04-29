@@ -24,7 +24,7 @@ namespace SGame
 			if (string.IsNullOrEmpty(ad)) return;
 
 			if (c_ad_timeout == 0)
-				c_ad_timeout = GameConfigs.GlobalDesginConfig.GetFloat("ad_timeout", 10);
+				c_ad_timeout = GameConfigs.GlobalDesginConfig.GetFloat("ad_timeout", 5);
 
 			var key = ad;
 			var type = EnumAD.Inner;
@@ -43,22 +43,16 @@ namespace SGame
 				var c = default(Action<bool>);
 				if (type != EnumAD.Banner)
 					c = AdWait(() => flag, key, c_ad_timeout);
-
 				UILockManager.Instance.Require(key);
 				THSdk.Instance.PlayAd(type, key, (s) =>
 				{
 					UILockManager.Instance.Release(key);
+					if (s) "-1".Tips();
 					c?.Invoke(true);
 					flag = true;
 					Debug.Log("[ad]end!!!");
-					try
-					{
-						complete?.Invoke(s, null);
-					}
-					catch (Exception e)
-					{
-						log.Error(e.Message + "-" + e.StackTrace);
-					}
+					try { complete?.Invoke(s, null); }
+					catch (Exception e) { log.Error(e.Message + "-" + e.StackTrace); }
 				}, timeout: c_ad_timeout);
 			}
 		}
@@ -70,9 +64,9 @@ namespace SGame
 
 		static Action<bool> AdWait(Func<bool> cacncel, string key = null, float wait = 0)
 		{
-			var time = 1f;
 			wait = wait > 0 ? wait : 10;
 			Action<bool> timer = null;
+			"@ui_ad_waiting".Tips(null, wait);
 			timer = Timer(wait, () =>
 			{
 				//Õ¯¬Á“Ï≥£
@@ -83,11 +77,6 @@ namespace SGame
 				}
 				else if (cacncel())
 					timer?.Invoke(true);
-				else if ((time -= Time.deltaTime) < 0)
-				{
-					time = wait * 0.5f;
-					"@ui_ad_waiting".Tips();
-				}
 			}, key, completed: () => UILockManager.Instance.Release(key));
 
 			return timer;

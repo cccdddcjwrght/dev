@@ -224,7 +224,7 @@ namespace SDK.THSDK
 			if (string.IsNullOrEmpty(id)) return;
 			if (!_adInited)
 			{
-				"@ad_initing".Tips();
+				Debug.Log("[ad] ad dont inited");
 				call?.Invoke(false);
 				return;
 			}
