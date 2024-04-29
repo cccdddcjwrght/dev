@@ -12,6 +12,7 @@ namespace SGame.UI
 	using GameConfigs;
 	using Unity.Entities.UniversalDelegates;
 	using System.Xml.Linq;
+	using System.Collections;
 
 	public partial class UIShop
 	{
@@ -21,6 +22,7 @@ namespace SGame.UI
 
 		private int _currentLevel = 0;
 		private List<ShopGoods> _gifts;
+		private UnityEngine.Coroutine _timer;
 
 		private Dictionary<int, Action> _refreshCall = new Dictionary<int, Action>();
 
@@ -42,6 +44,8 @@ namespace SGame.UI
 		{
 			_refreshCall?.Clear();
 			_goodsItems?.Clear();
+			_timer?.Stop();
+			_timer = null;
 		}
 
 		void OnShow(UIContext context)
@@ -49,6 +53,7 @@ namespace SGame.UI
 			_targetGoods = (context.GetParam()?.Value as object[]).Val<int>(0);
 			if (_targetGoods > 0 && _goodsItems.TryGetValue(_targetGoods, out var g))
 				m_view.m_content.m_goods.ScrollToView(m_view.m_content.m_goods.GetChildIndex(g));
+
 		}
 
 		void Refresh()
@@ -76,6 +81,8 @@ namespace SGame.UI
 			m_view.m_content.m_page.numItems = _gifts.Count;
 			_gifts.ForEach(g => m_view.m_content.m_pages.AddPage(g.id.ToString()));
 			m_view.m_pages.selectedIndex = 0;
+			_timer?.Stop();
+			_timer = Loop().Start();
 		}
 
 		void RefreshGoods()
@@ -273,5 +280,23 @@ namespace SGame.UI
 			m_view.m_rate_2.SetRates(rates);
 			m_view.m_rate.selectedIndex = 1;
 		}
+	
+		IEnumerator Loop()
+		{
+			if (m_view.m_content.m_pages.pageCount > 1)
+			{
+				var page = m_view.m_content.m_pages;
+				var len = page.pageCount;
+				var wait = new WaitForSeconds(5f);
+				var c = 0;
+				while (true) {
+
+					yield return wait;
+					c = (c+1) % len;
+					page.selectedIndex = c;
+				}
+			}
+		}
+
 	}
 }
