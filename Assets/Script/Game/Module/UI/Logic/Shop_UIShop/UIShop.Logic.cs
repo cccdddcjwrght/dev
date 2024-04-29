@@ -23,6 +23,7 @@ namespace SGame.UI
 		private int _currentLevel = 0;
 		private List<ShopGoods> _gifts;
 		private UnityEngine.Coroutine _timer;
+		private bool _flag = false;
 
 		private Dictionary<int, Action> _refreshCall = new Dictionary<int, Action>();
 
@@ -32,6 +33,7 @@ namespace SGame.UI
 		{
 			DataCenter.ShopUtil.Refresh();
 			m_view.m_content.m_gifts.itemRenderer = SetGiftItem;
+			m_view.m_content.m_gifts.onTouchMove.Add(() => _flag = true);
 		}
 
 		partial void InitLogic(UIContext context)
@@ -289,11 +291,17 @@ namespace SGame.UI
 				var len = page.pageCount;
 				var wait = new WaitForSeconds(5f);
 				var c = 0;
-				while (true) {
+				while (true)
+				{
 
 					yield return wait;
-					c = (c+1) % len;
-					page.selectedIndex = c;
+					if (!_flag)
+					{
+						c = page.selectedIndex;
+						c = (c + 1) % len;
+						page.selectedIndex = c;
+					}
+					_flag = false;
 				}
 			}
 		}
