@@ -76,7 +76,8 @@ namespace SGame
 
         public void PlayFlight(GObject gObject, int id, float offsetX = 0, float offsetY = 0) 
         {
-            var startPos = TransitionModule.Instance.ConvertGObjectGlobalPos(gObject) + new Vector2(offsetX, offsetY);
+            if (gObject == null || gObject.isDisposed) return;
+            var startPos = ConvertGObjectGlobalPos(gObject) + new Vector2(offsetX, offsetY);
             EventManager.Instance.Trigger((int)GameEvent.FLIGHT_SINGLE_CREATE, id, startPos, Vector2.zero, duration);
         }
 

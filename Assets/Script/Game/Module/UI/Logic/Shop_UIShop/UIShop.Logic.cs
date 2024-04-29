@@ -254,6 +254,7 @@ namespace SGame.UI
 
 		void OnGoodsClick(ShopGoods goods, EventContext context)
 		{
+			GObject btn = context.sender as GObject;
 			RequestExcuteSystem.BuyGoods(goods.id, (state)=> 
 			{
                 if (!state) return;
@@ -262,8 +263,7 @@ namespace SGame.UI
                     if (data.Item1Length <= 1) return;
                     int itemId = data.Item1(1);
                     if (itemId != (int)FlightType.GOLD && itemId != (int)FlightType.DIAMOND) return;
-                    Vector2 startPos = TransitionModule.Instance.ConvertGObjectGlobalPos(context.sender as GObject);
-                    EventManager.Instance.Trigger((int)GameEvent.FLIGHT_SINGLE_CREATE, itemId, startPos, Vector2.zero, 1f);
+					TransitionModule.Instance.PlayFlight(btn, itemId);
                 }
             });
 		}
