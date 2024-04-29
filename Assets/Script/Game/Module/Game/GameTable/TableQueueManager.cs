@@ -125,7 +125,7 @@ namespace SGame
             var pos        = chair.map_pos;
 
             int queueIndex     = GetQueueIndex(characterID);
-            pos.y += queueIndex;
+            pos.y += queueIndex * 2;
             return pos;
         }
 
