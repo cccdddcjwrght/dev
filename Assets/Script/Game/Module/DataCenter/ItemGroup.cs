@@ -86,6 +86,17 @@ public class ItemGroup
 		//除了金币 其他物品数量变化需要埋点
 		if(id != (int)ItemID.GOLD)
 			EventManager.Instance.Trigger((int)GameEvent.ITEM_CHANGE_BURYINGPOINT, 1, id, (int)(value - oldValue), (int)value);
+		else
+		{
+			if (DataCenter.Instance.m_gameRecord.enterTime == 0 || 
+				GameServerTime.Instance.serverTime - DataCenter.Instance.m_gameRecord.enterTime < 5) // 10 秒内
+			{
+				if (value >= 1e10)
+				{
+					log.Error("GOLD Value Over 1B");
+				}
+			}
+		}
 
 		onValueUpdate?.Invoke(id, value, oldValue);
 
