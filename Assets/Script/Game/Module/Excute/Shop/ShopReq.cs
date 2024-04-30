@@ -51,10 +51,7 @@ namespace SGame
 						switch (pt)
 						{
 							case 1:
-								if (DataCenter.IsIgnoreAd())
-									DoBuyGoods(goods, true, call);
-								else
-									Utils.PlayAd(cfg.Price.ToString(), (s, t) => DoBuyGoods(goods, s, call));
+								AdModule.PlayAd(cfg.Price.ToString(), (s) => DoBuyGoods(goods, s, call));
 								break;
 							case 3:
 								Utils.Pay((cfg.Price == 0 ? cfg.Id : cfg.Price).ToString(), (s, t) => DoBuyGoods(goods, s, call));
