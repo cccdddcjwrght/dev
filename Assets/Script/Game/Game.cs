@@ -98,7 +98,6 @@ public class Game : SGame.MonoSingleton<Game>
 			GameDebug.LogError("Asset Bundle Load Fail=" + assetRequest.error);
 			yield break;
 		}
-		GameDebug.Log("Assets InitSuccess");
 
 		// 日志系统初始化
 		AssetRequest logReq = Assets.LoadAssetAsync(LogInitPath, typeof(TextAsset));
@@ -114,8 +113,6 @@ public class Game : SGame.MonoSingleton<Game>
 			GameDebug.Log("logConfig bytes = " + logConfig.bytes.Length);
 			log4net.Config.XmlConfigurator.Configure(ms);
 		}
-		GameDebug.Log("logConfig InitSuccess");
-		log.Info("Log Load Success!");
 
 		//字体
 		yield return FontManager.Instance.Initalize();
@@ -157,12 +154,11 @@ public class Game : SGame.MonoSingleton<Game>
 		GameDebug.Log("InitProcess");
 		GlobalTime.Start();
 
+		yield return null;
 		// 事件系统
 		eventManager = EventManager.Instance;
 
 		yield return InitSystem();
-
-		//yield return LoadScene();
 
 		m_isInitalized = true;
 		m_initalizeEntity = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntity(typeof(GameInitFinish));

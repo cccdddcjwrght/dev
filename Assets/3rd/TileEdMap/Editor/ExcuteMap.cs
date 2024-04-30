@@ -282,6 +282,11 @@ namespace TileEdExt
 			if (maps != null && maps.Length > 0) { foreach (TileEdMap map in maps) GameObject.DestroyImmediate(map.gameObject); }
 
 			GameObject.FindAnyObjectByType<Camera>()?.gameObject?.SetActive(false);
+
+			var light = GameObject.FindAnyObjectByType<Light>();
+			if (light)
+				light.lightmapBakeType = LightmapBakeType.Mixed;
+
 			Lightmapping.Bake();
 			EditorSceneManager.MarkAllScenesDirty();
 			EditorSceneManager.SaveOpenScenes();
@@ -311,11 +316,7 @@ namespace TileEdExt
 					point.SetParent(go.transform);
 					point.position = item.transform.position;
 					if (cell != null)
-					{
 						cell.cell = point.gameObject;
-						cell.pos = point.position;
-					}
-					cell.name = item.name;
 				}
 
 				var data = item.GetComponent<DataBinder>();
@@ -381,14 +382,11 @@ namespace TileEdExt
 
 						if (!string.IsNullOrEmpty(tag))
 						{
-							cell.tags.Add(tag);
-							cell.data.SetVal(data.dataSet, tag);
-
+							cell.cdatas.Add(GameTools.Maps.CellData.From( 0 , tag , data.dataSet));
 						}
 						else
 						{
-							cell.builds.Add(uname);
-							cell.data.SetVal(data.dataSet, uname);
+							cell.cdatas.Add(GameTools.Maps.CellData.From(1, uname, data.dataSet));
 						}
 
 					}
@@ -402,6 +400,7 @@ namespace TileEdExt
 				}
 			}
 			grid.Refresh();
+			grid.cells.RemoveAll(c => !c.flag);
 			try
 			{
 				_excuteTypes?.ForEach(e => e.Excute(go , map));

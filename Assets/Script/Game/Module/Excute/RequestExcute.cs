@@ -44,15 +44,16 @@ namespace SGame
 				go = GameObject.Instantiate(go);
 				GameObject.DontDestroyOnLoad(go);
 			}
-
 #if !SVR_RELEASE
 			UIUtils.OpenUI("gmui");
 #endif
+
+
 		}
 
 		private void InitEvent()
 		{
-
+			new WaitEvent<int>(((int)GameEvent.AFTER_ENTER_ROOM)).Wait((e) => AdModule.Instance.ReadyAllAd());
 		}
 
 		private IEnumerator CallInitMethod(List<System.Reflection.MethodInfo> methods)

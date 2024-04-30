@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DataSets;
 using UnityEngine;
 
@@ -33,6 +34,41 @@ namespace GameTools.Maps
 	}
 
 	[System.Serializable]
+	public class CellData
+	{
+		public int id;
+		public int type;
+		public string name;
+		public string asset;
+		[System.NonSerialized]
+		public int level;
+
+		public static CellData From(int type, string name, DataSet data)
+		{
+
+			if (data != null)
+			{
+				var cd = new CellData();
+				cd.id = data.i_val;
+				cd.type = type;
+				cd.name = name;
+				switch (type)
+				{
+					case 1:
+						var lvdata = data.GetValByPath("level");
+						var item = data.GetValByPath("itemid");
+						if (lvdata != null) cd.asset = lvdata.GetValByPath(lvdata.i_val.ToString());
+						if (item != null) cd.name = item;
+						break;
+				}
+				return cd;
+			}
+
+			return default;
+		}
+	}
+
+	[System.Serializable]
 	public partial class Grid
 	{
 		/// <summary>
@@ -49,6 +85,8 @@ namespace GameTools.Maps
 		private int stepY;
 		[SerializeField]
 		private Bounds bounds;
+		[SerializeField]
+		private int count;
 
 		public float size;
 		public Vector3 offset;
@@ -95,17 +133,11 @@ namespace GameTools.Maps
 			{
 				for (int j = min.x; j <= max.x; j++)
 				{
-					var cell = new Cell()
-					{
-						index = index++,
-						x = j,
-						y = i,
-					};
-					FillNear(cell);
+					var cell = new Cell() { index = index++, x = j, y = i, };
 					cells.Add(cell);
 				}
 			}
-
+			count = index;
 			return this;
 
 		}
@@ -126,38 +158,59 @@ namespace GameTools.Maps
 				builds = new Dictionary<string, List<int>>();
 				buildIndexs = new Dictionary<int, int>();
 
-
-				for (int i = 0; i < cells.Count; i++)
+				var index = 0;
+				for (int i = bl.y; i <= tr.y; i++)
 				{
-					var cell = cells[i];
-					if (cell.tags?.Count > 0)
+					for (int j = bl.x; j <= tr.x; j++)
 					{
-						for (int j = 0; j < cell.tags.Count; j++)
+						var cell = default(Cell);
+						try
 						{
-							if (!tags.TryGetValue(cell.tags[j], out var ls)) tags[cell.tags[j]] = ls = new List<int>();
-							ls.Add(cell.index);
+							cell = cells.Count > index ? cells[index] : default;
 						}
-					}
-
-					if (cell.builds?.Count > 0)
-					{
-						for (int j = 0; j < cell.builds.Count; j++)
+						catch (System.Exception e)
 						{
-							var id = int.Parse(cell.builds[j]);
-							buildIndexs[id] = cell.index;
-
-							var d = cell.GetDataSetByBuildName(cell.builds[j]);
-							var name = d.GetValByPath("itemid");
-							if (string.IsNullOrEmpty(name)) continue;
-							if (!builds.TryGetValue(name, out var ls)) builds[name] = ls = new List<int>();
-							ls.Add(id);
-
+							Debug.Log(index);
+							continue;
 						}
+						if (cell == null || cell.index != index)
+						{
+							cell = new Cell() { index = index, x = j, y = i, };
+							cells.Insert(index, cell);
+						}
+						index++;
+
+						FillNear(cell);
+						cell.Refresh();
+						if (cell.tags?.Count > 0)
+						{
+							for (int k = 0; k < cell.tags.Count; k++)
+							{
+								if (!tags.TryGetValue(cell.tags[k], out var ls)) tags[cell.tags[k]] = ls = new List<int>();
+								ls.Add(cell.index);
+							}
+						}
+
+						if (cell.builds?.Count > 0)
+						{
+							for (int k = 0; k < cell.builds.Count; k++)
+							{
+								var id = int.Parse(cell.builds[k]);
+								buildIndexs[id] = cell.index;
+
+								var d = cell.GetDataSetByBuildName(cell.builds[k]);
+								var name = d.name;
+								if (string.IsNullOrEmpty(name)) continue;
+								if (!builds.TryGetValue(name, out var ls)) builds[name] = ls = new List<int>();
+								ls.Add(id);
+
+							}
+						}
+
+						if (cell.walkcost >= 0 && cell.flag)
+							walkables.Add(cell.index);
+
 					}
-
-					if (cell.walkcost >= 0 && cell.flag)
-						walkables.Add(cell.index);
-
 				}
 
 			}
@@ -257,7 +310,8 @@ namespace GameTools.Maps
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		public Vector2Int IndexToGrid(int index) {
+		public Vector2Int IndexToGrid(int index)
+		{
 
 			if (index >= 0 && index < cells.Count)
 			{
@@ -315,13 +369,13 @@ namespace GameTools.Maps
 				if (rc != null && rc.builds?.Count > 0)
 				{
 					var b = rc.GetDataSetByBuildName(cell.relex[2].ToString());
-					if (b != null) return b.GetVal("level") >= cell.relex[3] ? -1 : 0;
+					if (b != null) return b.level >= cell.relex[3] ? -1 : 0;
 				}
 			}
 			return cell.IsWalkable() ? cell.walkcost : -1;
 		}
 
-		public DataSet GetBuild(int buildID)
+		public CellData GetBuild(int buildID)
 		{
 
 			if (buildIndexs.TryGetValue(buildID, out var index))
@@ -366,7 +420,7 @@ namespace GameTools.Maps
 				{
 					var c = GetCell(cs[i]);
 					if (c != null)
-						ls.Add(c.GetDataSetByTag(tag).i_val);
+						ls.Add(c.GetDataSetByTag(tag).id);
 				}
 				return ls;
 			}
@@ -409,7 +463,7 @@ namespace GameTools.Maps
 
 		public Vector2Int GetNearTagPos(int x, int y, string tag)
 		{
-			GetNearTagPos(x,y, tag, out var index);
+			GetNearTagPos(x, y, tag, out var index);
 			return index;
 		}
 
@@ -473,24 +527,63 @@ namespace GameTools.Maps
 		public int index;
 		public int x;
 		public int y;
-		public int[] nears = new int[8];
 		public bool flag = false;
+		public GameObject cell;
 
 
-		public string name;
-		public Vector3 pos;
+		//public string name;
 		public int walkcost;
 		public int[] relex = new int[0];
 
-		public List<string> tags = new List<string>();
-		public List<string> builds = new List<string>();
-		public DataSet data = new DataSet();
+		public List<CellData> cdatas = new List<CellData>();
 
-		public GameObject cell;
+		[System.NonSerialized]
+		public int[] nears = new int[8];
+		[System.NonSerialized]
+		public List<string> tags;
+		[System.NonSerialized]
+		public List<string> builds;
 
+		[System.NonSerialized]
+		public int maskflag;
+		[System.NonSerialized]
 		public object animation;
 
-		public int maskflag;
+		public Vector3 pos { get { return cell != null ? cell.transform.position : default; } }
+
+
+		private Dictionary<string, CellData> _datas;
+
+		public Cell Refresh()
+		{
+			if (_datas == null)
+			{
+				_datas = new Dictionary<string, CellData>();
+				tags = new List<string>();
+				builds = new List<string>();
+				if (cdatas?.Count > 0)
+				{
+					foreach (var item in cdatas)
+					{
+						var name = item.name;
+						switch (item.type)
+						{
+							case 1:
+								name = item.id.ToString();
+								if (!builds.Contains(name))
+									builds.Add(name);
+								break;
+							default:
+								if (!tags.Contains(item.name))
+									tags.Add(item.name);
+								break;
+						}
+						_datas[name] = item;
+					}
+				}
+			}
+			return this;
+		}
 
 		public Cell Marking(MaskFlag flag, bool remove = false)
 		{
@@ -514,14 +607,16 @@ namespace GameTools.Maps
 			return nears[(int)dir];
 		}
 
-		public DataSet GetDataSetByTag(string tag)
+		public CellData GetDataSetByTag(string tag)
 		{
-			return data.GetValByPath(tag);
+			_datas.TryGetValue(tag, out var d);
+			return d;
 		}
 
-		public DataSet GetDataSetByBuildName(string build)
+		public CellData GetDataSetByBuildName(string build)
 		{
-			return data.GetValByPath(build);
+			_datas.TryGetValue(build, out var d);
+			return d;
 		}
 
 		public GameObject GetBuildObject(int buildID)
@@ -561,12 +656,13 @@ namespace GameTools.Maps
 				var bd = GetDataSetByBuildName(bk);
 				if (bd != null)
 				{
-					var levelData = bd.GetValByPath("level");
+					return bd.asset;
+					/*var levelData = bd.GetValByPath("level");
 					if (levelData != null)
 					{
 						lv = lv >= 0 ? lv : levelData.i_val;
 						return levelData.GetValByPath(lv.ToString());
-					}
+					}*/
 				}
 			}
 			return default;
@@ -574,13 +670,12 @@ namespace GameTools.Maps
 
 		public Animation GetAnimation()
 		{
-			if(animation == null)
+			if (animation == null)
 			{
-				animation = GetBuildLayer()?.GetComponentInChildren<Animation>() ;
+				animation = GetBuildLayer()?.GetComponentInChildren<Animation>();
 			}
 			return animation as Animation;
 		}
-
 	}
 
 	[System.Serializable]

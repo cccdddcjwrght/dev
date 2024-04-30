@@ -45,7 +45,6 @@ namespace SGame
             m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) =>{
                 if (id == AD_TECH_ID) AddBuff();
             });
-			ReadyAllAd();
         }
 
         //后续优化
