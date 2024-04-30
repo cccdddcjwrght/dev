@@ -88,13 +88,26 @@ namespace SGame.UI
 				{
 					_sceneCfgs = ConfigSystem.Instance.Finds<RoomRowData>((c) => c.RegionId == region.ID);
 					_sceneCfgs.Reverse();
+
+					//加个顶部空白区域
+					var beginEmpty = UIPackage.CreateObject("EnterScene", "BeginEmpty");
+					m_view.m_list.AddChild(beginEmpty);
+					//----------------
+					var headRegion = UIPackage.CreateObject("EnterScene", "HeadRegion");
+					headRegion.asLabel.GetController("isMax").selectedIndex = _isLastScene ? 1 : 0;
+					m_view.m_list.AddChild(headRegion);
+
 					SGame.UIUtils.AddListItems(m_view.m_list, _sceneCfgs, OnSetRoomInfo);
-					m_view.m_list.ScrollToView(_sceneCfgs.FindIndex(v => v.ID == c));
+					//加个底部空白区域
+					var endEmpty = UIPackage.CreateObject("EnterScene", "EndEmpty");
+					m_view.m_list.AddChild(endEmpty);
+					//----------------
+					m_view.m_list.ScrollToView(_sceneCfgs.FindIndex(v => v.ID == c) + 2);
 					m_view.m_region.SetIcon(region.Icon);
-					m_view.m_title3.text = null;
+					//m_view.m_title3.text = null;
 					m_view.SetText(region.ID + "." + region.Name.Local());
-					if (string.IsNullOrEmpty(region.Icon) || _isLastScene)
-						m_view.m_title3.SetTextByKey("ui_enterscene_2");
+					//if (string.IsNullOrEmpty(region.Icon) || _isLastScene)
+					//	m_view.m_title3.SetTextByKey("ui_enterscene_2");
 
 					m_view.m_btnGO.grayed = !_canSwitch || _isLastScene;
 					m_view.m_tips.visible = !_canSwitch;
@@ -134,6 +147,7 @@ namespace SGame.UI
 			else if (cfg.ID == _nextScene && _canSwitch)
 			{
 				view.m_state.selectedIndex = 3;
+				view.m_shake.Play(-1, 0, null);
 			}
 			else
 			{

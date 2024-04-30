@@ -12,8 +12,9 @@ namespace SGame.UI.EnterScene
         public GLoader m_icon;
         public GImage m_lock;
         public UI_Levelprogress m_progress;
-        public GImage m_pass;
+        public GLoader m_pass;
         public GButton m_chest;
+        public Transition m_shake;
         public const string URL = "ui://cxpm3jfbome2g";
 
         public static UI_LevelItem CreateInstance()
@@ -30,8 +31,9 @@ namespace SGame.UI.EnterScene
             m_icon = (GLoader)GetChildAt(0);
             m_lock = (GImage)GetChildAt(1);
             m_progress = (UI_Levelprogress)GetChildAt(2);
-            m_pass = (GImage)GetChildAt(3);
+            m_pass = (GLoader)GetChildAt(3);
             m_chest = (GButton)GetChildAt(4);
+            m_shake = GetTransitionAt(0);
         }
     }
 }
