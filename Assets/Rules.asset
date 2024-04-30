@@ -20,11 +20,15 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 7
+  version: 1
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   ignoreOps: []
   rules:
+  - searchPath: Assets/BuildAsset/Art/scenes
+    searchPattern: '*.png,*.fbx'
+    nameBy: 2
+    assetBundleName: 
   - searchPath: Assets/BuildAsset/configs
     searchPattern: '*.bytes'
     nameBy: 0
@@ -94,6 +98,770 @@ MonoBehaviour:
     path: assets/buildasset/app/logo/ui_loading_logo@en.png
   - bundle: applogo.unity3d
     path: assets/buildasset/app/logo/ui_loading_logo@hi.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_cattle-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_cattle-1_1.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_duck-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_duck-1.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_fox-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_fox-1.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_giraffe-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_giraffe-1.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_mouse-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_mouse-1.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_mouse-1@idlel.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_mouse-1@walk.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_penguin-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_penguin-1.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_pig-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_pig-1.png
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_sheep-1.fbx
+  - bundle: assets/buildasset/art/scenes/animal.unity3d
+    path: assets/buildasset/art/scenes/animal/animal_sheep-1.png
+  - bundle: assets/buildasset/art/scenes/planet01/boss.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/role_boss-1.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/boss.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/role_boss-1@attack1.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/boss.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/role_boss-1@attack2.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/boss.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/role_boss-1@hit1.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/boss.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/role_boss-1@hit2.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/boss.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/role_boss-1@idle1.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/boss.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/role_boss-1@idle2.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/boss/textures.unity3d
+    path: assets/buildasset/art/scenes/planet01/boss/textures/role_boss-1.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/new.unity3d
+    path: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes03_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes03_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.png
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/object.unity3d
+    path: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table01.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table02.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/table.unity3d
+    path: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes01_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes01_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_07.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_08.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_10.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_10.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes01_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes01_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes06_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes06_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_07.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_08.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_09.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_09.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_10.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_10.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_09.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_09.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.png
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.fbx
+  - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.png
+  - bundle: assets/buildasset/art/scenes/planet02/table.unity3d
+    path: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/table.unity3d
+    path: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/table.unity3d
+    path: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/table.unity3d
+    path: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.png
+  - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.png
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    path: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.png
   - bundle: assets/buildasset/audio/mixer.unity3d
     path: assets/buildasset/audio/mixer/game.mixer
   - bundle: assets/buildasset/audio/ogg.unity3d
@@ -379,14 +1147,6 @@ MonoBehaviour:
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100210.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/201.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/202.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/203.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/204.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/angel_halo.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/diamond_01.prefab
@@ -404,16 +1164,6 @@ MonoBehaviour:
     path: assets/buildasset/effects/prefabs/gold_a_02.5.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/gold_a_02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/goods_31.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/goods_32.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/goods_33.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/goods_34.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
-    path: assets/buildasset/effects/prefabs/goods_5.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/instant.prefab
   - bundle: assets/buildasset/effects/prefabs/level03.unity3d
@@ -638,12 +1388,6 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/pets/sheep.prefab
   - bundle: assets/buildasset/prefabs/scenes/boss.unity3d
     path: assets/buildasset/prefabs/scenes/boss/role_boss-1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/object/mats.unity3d
-    path: assets/buildasset/prefabs/scenes/object/mats/planet01_scenes01_object_03.mat
-  - bundle: assets/buildasset/prefabs/scenes/object.unity3d
-    path: assets/buildasset/prefabs/scenes/object/planet01_scenes01_object_03.prefab
-  - bundle: assets/buildasset/prefabs/scenes/other.unity3d
-    path: assets/buildasset/prefabs/scenes/other/bg_mine.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
     path: assets/buildasset/prefabs/scenes/other/rewardbox.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
@@ -1362,104 +2106,6 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_floor_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_03.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_object_04.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_table_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_table_02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_terrain_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_03.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_tool_04.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_01_1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_03.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_03_1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_04.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_04_1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_05.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_05_1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_06.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_06_1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_07.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_07_1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_08.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_01/scene_wall_08_1.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_object_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_object_02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_object_03.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_object_04.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_table_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_table_02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_table_03.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_table_04.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_table_05.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_table_06.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_terrain_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_03.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_04.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_05.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_06.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_07.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_08.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/scene_tool_09.prefab
-  - bundle: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
-    path: assets/buildasset/scenes/markeds/level01_marked.unity
-  - bundle: assets/buildasset/scenes/markeds/level02_marked.unity.unity3d
-    path: assets/buildasset/scenes/markeds/level02_marked.unity
-  - bundle: assets/buildasset/scenes/markeds/level03_marked.unity.unity3d
-    path: assets/buildasset/scenes/markeds/level03_marked.unity
-  - bundle: assets/buildasset/scenes/markeds/level04_marked.unity.unity3d
-    path: assets/buildasset/scenes/markeds/level04_marked.unity
   - bundle: assets/buildasset/scenes/markeds/level11_marked.unity.unity3d
     path: assets/buildasset/scenes/markeds/level11_marked.unity
   - bundle: assets/buildasset/scenes/markeds/level12_marked.unity.unity3d
@@ -1837,6 +2483,420 @@ MonoBehaviour:
   - bundle: assets/buildasset/visualscript/testevent.asset.unity3d
     path: assets/buildasset/visualscript/testevent.asset
   ruleBundles:
+  - name: assets/buildasset/art/scenes/animal.unity3d
+    assets:
+    - assets/buildasset/art/scenes/animal/animal_cattle-1_1.png
+    - assets/buildasset/art/scenes/animal/animal_duck-1.png
+    - assets/buildasset/art/scenes/animal/animal_fox-1.png
+    - assets/buildasset/art/scenes/animal/animal_giraffe-1.png
+    - assets/buildasset/art/scenes/animal/animal_mouse-1.png
+    - assets/buildasset/art/scenes/animal/animal_penguin-1.png
+    - assets/buildasset/art/scenes/animal/animal_pig-1.png
+    - assets/buildasset/art/scenes/animal/animal_sheep-1.png
+    - assets/buildasset/art/scenes/animal/animal_cattle-1.fbx
+    - assets/buildasset/art/scenes/animal/animal_duck-1.fbx
+    - assets/buildasset/art/scenes/animal/animal_fox-1.fbx
+    - assets/buildasset/art/scenes/animal/animal_giraffe-1.fbx
+    - assets/buildasset/art/scenes/animal/animal_mouse-1.fbx
+    - assets/buildasset/art/scenes/animal/animal_mouse-1@idlel.fbx
+    - assets/buildasset/art/scenes/animal/animal_mouse-1@walk.fbx
+    - assets/buildasset/art/scenes/animal/animal_penguin-1.fbx
+    - assets/buildasset/art/scenes/animal/animal_pig-1.fbx
+    - assets/buildasset/art/scenes/animal/animal_sheep-1.fbx
+  - name: assets/buildasset/art/scenes/planet01/new.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.png
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.fbx
+    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.fbx
+  - name: assets/buildasset/art/scenes/planet01/object.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes03_object_01.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.png
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes03_object_01.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_07.fbx
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_08.fbx
+  - name: assets/buildasset/art/scenes/planet01/table.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table01.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table02.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.png
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_02.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_03.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_02.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_03.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_02.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_03.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.fbx
+    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.fbx
+  - name: assets/buildasset/art/scenes/planet01/terrain.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.png
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.fbx
+    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.fbx
+  - name: assets/buildasset/art/scenes/planet01/tool.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes01_tool_01.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_02.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_03.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_07.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_08.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_10.png
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes01_tool_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_02.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_03.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_07.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_08.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.fbx
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_10.fbx
+  - name: assets/buildasset/art/scenes/planet01/tool_goods.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes01_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes06_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_03.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_07.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_08.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_09.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_10.png
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes01_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes06_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_03.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_07.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_08.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_09.fbx
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_10.fbx
+  - name: assets/buildasset/art/scenes/planet01/tool_show.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_09.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.png
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_09.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.fbx
+    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.fbx
+  - name: assets/buildasset/art/scenes/planet02/object.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.fbx
+  - name: assets/buildasset/art/scenes/planet02/table.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.png
+    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.png
+    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.fbx
+    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.fbx
+  - name: assets/buildasset/art/scenes/planet02/terrain.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.png
+    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.fbx
+  - name: assets/buildasset/art/scenes/planet02/tool.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.png
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.fbx
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.fbx
+  - name: assets/buildasset/art/scenes/planet02/tool_goods.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.png
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.fbx
+    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.fbx
+  - name: assets/buildasset/art/scenes/planet02/tool_show.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.png
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.fbx
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.fbx
+  - name: assets/buildasset/art/scenes/planet01/boss/textures.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/boss/textures/role_boss-1.png
+  - name: assets/buildasset/art/scenes/planet01/boss.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/boss/role_boss-1.fbx
+    - assets/buildasset/art/scenes/planet01/boss/role_boss-1@attack1.fbx
+    - assets/buildasset/art/scenes/planet01/boss/role_boss-1@attack2.fbx
+    - assets/buildasset/art/scenes/planet01/boss/role_boss-1@hit1.fbx
+    - assets/buildasset/art/scenes/planet01/boss/role_boss-1@hit2.fbx
+    - assets/buildasset/art/scenes/planet01/boss/role_boss-1@idle1.fbx
+    - assets/buildasset/art/scenes/planet01/boss/role_boss-1@idle2.fbx
   - name: configs.unity3d
     assets:
     - assets/buildasset/configs/abilitylevel.bytes
@@ -2093,64 +3153,11 @@ MonoBehaviour:
   - name: assets/buildasset/prefabs/scenes/boss.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/boss/role_boss-1.prefab
-  - name: assets/buildasset/prefabs/scenes/object.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/object/planet01_scenes01_object_03.prefab
   - name: assets/buildasset/prefabs/scenes/other.unity3d
     assets:
-    - assets/buildasset/prefabs/scenes/other/bg_mine.prefab
     - assets/buildasset/prefabs/scenes/other/rewardbox.prefab
     - assets/buildasset/prefabs/scenes/other/scene_grid.prefab
     - assets/buildasset/prefabs/scenes/other/table.prefab
-  - name: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/scene_01/scene_floor_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_object_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_object_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_object_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_object_04.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_table_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_table_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_terrain_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_tool_04.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_01_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_03_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_04.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_04_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_05.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_05_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_06.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_06_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_07.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_07_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_08.prefab
-    - assets/buildasset/prefabs/scenes/scene_01/scene_wall_08_1.prefab
-  - name: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/scene_03/scene_object_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_object_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_object_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_object_04.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_table_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_table_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_table_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_table_04.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_table_05.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_table_06.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_terrain_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_04.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_05.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_06.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_07.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_08.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/scene_tool_09.prefab
   - name: assets/buildasset/prefabs/scenes/planet01/new.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/planet01/new/planet01_scenes01_tool_01_01.prefab
@@ -2382,18 +3389,6 @@ MonoBehaviour:
     - assets/buildasset/audio/ogg/sound_start.ogg
     - assets/buildasset/audio/ogg/sound_tip.ogg
     - assets/buildasset/audio/ogg/sound_up.ogg
-  - name: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
-    assets:
-    - assets/buildasset/scenes/markeds/level01_marked.unity
-  - name: assets/buildasset/scenes/markeds/level02_marked.unity.unity3d
-    assets:
-    - assets/buildasset/scenes/markeds/level02_marked.unity
-  - name: assets/buildasset/scenes/markeds/level03_marked.unity.unity3d
-    assets:
-    - assets/buildasset/scenes/markeds/level03_marked.unity
-  - name: assets/buildasset/scenes/markeds/level04_marked.unity.unity3d
-    assets:
-    - assets/buildasset/scenes/markeds/level04_marked.unity
   - name: assets/buildasset/scenes/markeds/level11_marked.unity.unity3d
     assets:
     - assets/buildasset/scenes/markeds/level11_marked.unity
@@ -2912,10 +3907,6 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/100208.prefab
     - assets/buildasset/effects/prefabs/100209.prefab
     - assets/buildasset/effects/prefabs/100210.prefab
-    - assets/buildasset/effects/prefabs/201.prefab
-    - assets/buildasset/effects/prefabs/202.prefab
-    - assets/buildasset/effects/prefabs/203.prefab
-    - assets/buildasset/effects/prefabs/204.prefab
     - assets/buildasset/effects/prefabs/angel_halo.prefab
     - assets/buildasset/effects/prefabs/diamond_01.prefab
     - assets/buildasset/effects/prefabs/diamond_02.prefab
@@ -2925,11 +3916,6 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/gold_a_01.prefab
     - assets/buildasset/effects/prefabs/gold_a_02.5.prefab
     - assets/buildasset/effects/prefabs/gold_a_02.prefab
-    - assets/buildasset/effects/prefabs/goods_31.prefab
-    - assets/buildasset/effects/prefabs/goods_32.prefab
-    - assets/buildasset/effects/prefabs/goods_33.prefab
-    - assets/buildasset/effects/prefabs/goods_34.prefab
-    - assets/buildasset/effects/prefabs/goods_5.prefab
     - assets/buildasset/effects/prefabs/instant.prefab
     - assets/buildasset/effects/prefabs/level12.prefab
     - assets/buildasset/effects/prefabs/level13.prefab
@@ -2996,9 +3982,6 @@ MonoBehaviour:
   - name: assets/buildasset/json.unity3d
     assets:
     - assets/buildasset/json/testfrienddata.txt.bytes
-  - name: assets/buildasset/prefabs/scenes/object/mats.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/object/mats/planet01_scenes01_object_03.mat
   - name: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_01_01.mat
@@ -3200,952 +4183,100 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_08.mat
     - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_09.mat
     - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_10.mat
-  - name: assets/buildasset/art/model/weapon/weapon-2.png.unity3d
-    assets:
-    - assets/buildasset/art/model/weapon/weapon-2.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes02_tool_goods_01_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.png
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_table_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_table_03.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_12.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_12.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_10.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_10.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_09.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_09.png
-  - name: assets/buildasset/effects/materials/dian.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/dian.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_09.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_09.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_12.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_12.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_14.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_14.mat
-  - name: assets/buildasset/art/scenes/scene_03/scene_table_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_table_04.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_10.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_10.mat
-  - name: assets/buildasset/art/scenes/scene_03/scene_03.mat.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_03.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_08.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_08.png
-  - name: assets/buildasset/effects/textures/glow_1007.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_1007.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_11.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_11.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_11.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_11.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_08.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_08.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_14.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_14.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_terrain_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_terrain_01.fbx
-  - name: assets/buildasset/art/scenes/scene_03/scene_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_01.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_03_4.mat.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_03_4.mat
-  - name: assets/buildasset/effects/textures/glow_1022.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_1022.png
-  - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_01_dusk_a.mat.unity3d
-    assets:
-    - assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_01_dusk_a.mat
-  - name: assets/buildasset/effects/textures/smoke_7004.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/smoke_7004.png
-  - name: assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_01_dusk_a.png.unity3d
-    assets:
-    - assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_01_dusk_a.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_object_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_object_03.fbx
-  - name: assets/buildasset/effects/textures/glow_11008.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_11008.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_table_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_table_05.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_06.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_06.png
-  - name: assets/buildasset/effects/materials/yanhuatuo.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/yanhuatuo.mat
-  - name: assets/buildasset/art/scenes/scene_03/scene_table_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_table_06.fbx
-  - name: assets/buildasset/effects/materials/huan.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/huan.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_06.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_06.mat
-  - name: assets/buildasset/effects/materials/smoke 1.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/smoke 1.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_07.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_07.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_03_6.mat.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_03_6.mat
-  - name: assets/buildasset/art/scenes/scene_03/scene_terrain_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_terrain_02.fbx
-  - name: assets/buildasset/art/scenes/scene_03/scene_object_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_object_04.fbx
-  - name: assets/buildasset/art/model/other/materials/bg_mine_07.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_07.mat
-  - name: assets/buildasset/art/scenes/scene_03/scene_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_02.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_13.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_13.mat
-  - name: assets/buildasset/art/scenes/scene_03/scene_03_7.mat.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_03_7.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_16.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_16.png
-  - name: assets/buildasset/art/model/other/materials/bg_mine_16.mat.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_16.mat
-  - name: assets/buildasset/art/model/other/materials/bg_mine_13.png.unity3d
-    assets:
-    - assets/buildasset/art/model/other/materials/bg_mine_13.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_tool_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_tool_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_15.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes01_terrain_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.fbx
   - name: assets/buildasset/effects/materials/xian 2.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/xian 2.mat
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05.png
   - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_08_dusk_a.mat.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_08_dusk_a.mat
   - name: assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_08_dusk_a.png.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_08_dusk_a.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.fbx
   - name: assets/buildasset/effects/textures/wb_paopao_01.png.unity3d
     assets:
     - assets/buildasset/effects/textures/wb_paopao_01.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes02_tool_show_01.png
   - name: assets/buildasset/effects/textures/glow_6047.png.unity3d
     assets:
     - assets/buildasset/effects/textures/glow_6047.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.png
   - name: assets/buildasset/effects/materials/paopao.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/paopao.mat
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_04.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.fbx
   - name: assets/buildasset/effects/materials/xiaoyu.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/xiaoyu.mat
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_05_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.png
   - name: assets/buildasset/effects/textures/yu01.png.unity3d
     assets:
     - assets/buildasset/effects/textures/yu01.png
   - name: assets/buildasset/effects/textures/vein02.dds.unity3d
     assets:
     - assets/buildasset/effects/textures/vein02.dds
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_01.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_02.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes03_tool_show_01.fbx
   - name: shaders.unity3d
     assets:
     - assets/buildasset/effects/shaber/effect_base_gj.shader
     - assets/3rd/textmesh pro/shaders/tmp_sdf.shader
-  - name: assets/buildasset/effects/textures/afxl_glow08a_256d1.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/afxl_glow08a_256d1.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.fbx
   - name: assets/buildasset/effects/textures/bw_order_wispies.png.unity3d
     assets:
     - assets/buildasset/effects/textures/bw_order_wispies.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.fbx.unity3d
+  - name: assets/buildasset/effects/textures/afxl_glow08a_256d1.png.unity3d
     assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.png
+    - assets/buildasset/effects/textures/afxl_glow08a_256d1.png
   - name: assets/buildasset/effects/shaber/boguang.mat.unity3d
     assets:
     - assets/buildasset/effects/shaber/boguang.mat
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_03.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_02.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_06.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_05.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_04.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_06.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table02.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.fbx
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_03.png
-  - name: assets/buildasset/art/scenes/planet01/boss/role_boss-1.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/boss/role_boss-1.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.png
-  - name: assets/buildasset/art/scenes/planet01/boss/textures/role_boss-1.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/boss/textures/role_boss-1.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.png
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.fbx
-  - name: assets/buildasset/effects/textures/paopao_01.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/paopao_01.png
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_07.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_07.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.fbx
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_08.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_08.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.fbx
-  - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.png
-  - name: assets/buildasset/effects/materials/pao.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/pao.mat
-  - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_01.png
-  - name: assets/buildasset/art/characters/role/role.fbx.unity3d
-    assets:
-    - assets/buildasset/art/characters/role/role.fbx
-  - name: assets/buildasset/effects/materials/yanhua1.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/yanhua1.mat
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.png
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_tool_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_tool_05.fbx
-  - name: assets/buildasset/art/scenes/scene_03/scene_tool_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_tool_06.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.png
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.fbx
-  - name: assets/buildasset/effects/materials/gold.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/gold.mat
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes03_tool_goods_01.fbx
-  - name: assets/buildasset/art/scenes/scene_03/scene_tool_08.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_tool_08.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.fbx
-  - name: assets/buildasset/effects/materials/huomiao 3.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/huomiao 3.mat
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.png
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.png
-  - name: assets/buildasset/effects/textures/ui_icon_coin.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/ui_icon_coin.png
-  - name: assets/buildasset/effects/textures/glow_4027.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_4027.png
-  - name: assets/buildasset/effects/textures/jinbixz.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/jinbixz.png
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.png
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_tool_07.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/scene_03/scene_tool_07.fbx
   - name: assets/buildasset/effects/materials/andan.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/andan.mat
-  - name: assets/buildasset/effects/textures/glowing_particles_sheet.png.unity3d
+  - name: assets/buildasset/effects/textures/glow_1007.png.unity3d
     assets:
-    - assets/buildasset/effects/textures/glowing_particles_sheet.png
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.png.unity3d
+    - assets/buildasset/effects/textures/glow_1007.png
+  - name: assets/buildasset/effects/materials/dian.mat.unity3d
     assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_04.png
-  - name: assets/buildasset/art/scenes/scene_03/scene_object_02.fbx.unity3d
+    - assets/buildasset/effects/materials/dian.mat
+  - name: assets/buildasset/effects/textures/paopao_01.png.unity3d
     assets:
-    - assets/buildasset/art/scenes/scene_03/scene_object_02.fbx
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.png.unity3d
+    - assets/buildasset/effects/textures/paopao_01.png
+  - name: assets/buildasset/effects/materials/pao.mat.unity3d
     assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.png
-  - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.png.unity3d
+    - assets/buildasset/effects/materials/pao.mat
+  - name: assets/buildasset/art/characters/role/role.fbx.unity3d
     assets:
-    - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.png
-  - name: assets/buildasset/effects/materials/jinbi01.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/jinbi01.mat
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.fbx.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.fbx
-  - name: assets/buildasset/effects/textures/xuewo.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/xuewo.png
+    - assets/buildasset/art/characters/role/role.fbx
   - name: assets/buildasset/effects/materials/huan 4.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/huan 4.mat
+  - name: assets/buildasset/effects/materials/lianju.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/lianju.mat
+  - name: assets/buildasset/effects/materials/huomiao 3.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/huomiao 3.mat
+  - name: assets/buildasset/effects/textures/xuewo.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/xuewo.png
+  - name: assets/buildasset/effects/textures/glowing_particles_sheet.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/glowing_particles_sheet.png
+  - name: assets/buildasset/effects/textures/haruyuki_rotation_00_03.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/haruyuki_rotation_00_03.png
+  - name: assets/buildasset/effects/textures/glow_1022.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/glow_1022.png
+  - name: assets/buildasset/effects/materials/yanhua1.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/yanhua1.mat
+  - name: assets/buildasset/effects/textures/glow_4027.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/glow_4027.png
+  - name: assets/buildasset/effects/materials/yanhuatuo.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/yanhuatuo.mat
+  - name: assets/buildasset/effects/materials/huan.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/huan.mat
+  - name: assets/buildasset/effects/textures/glow_11008.png.unity3d
+    assets:
+    - assets/buildasset/effects/textures/glow_11008.png
   - name: assets/buildasset/effects/materials/xian 1.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/xian 1.mat
@@ -4167,147 +4298,9 @@ MonoBehaviour:
   - name: assets/buildasset/effects/materials/huan 3.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/huan 3.mat
-  - name: assets/buildasset/effects/materials/lianju.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/lianju.mat
   - name: assets/buildasset/effects/textures/fb_explosion_firering.png.unity3d
     assets:
     - assets/buildasset/effects/textures/fb_explosion_firering.png
-  - name: assets/buildasset/effects/textures/haruyuki_rotation_00_03.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/haruyuki_rotation_00_03.png
   - name: assets/buildasset/effects/materials/smoke.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/smoke.mat
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.png
-  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.png
-  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.png
-  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.png
-  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.png
-  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.png
-  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.png
-  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.png
-  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.png
-  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png
-  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.png
-  - name: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.png
-  - name: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.png
-  - name: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.png
-  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.png
-  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.png.unity3d
-    assets:
-    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.png
