@@ -13,6 +13,7 @@ namespace SGame.UI{
 		private static float SHOW_TIME = -1.0f;
 		private static float HIDE_TIME = -1.0f;
 		private Fiber m_fiber = new Fiber(FiberBucket.Manual);
+		private bool m_hasSelected = false;
 		
 		partial void InitEvent(UIContext context){
 			if (SHOW_TIME < 0)
@@ -21,6 +22,16 @@ namespace SGame.UI{
 				HIDE_TIME = GlobalDesginConfig.GetFloat("firend_hidetip_time", 10.0f);
 			
 			m_view.visible = false;
+			var entityManager = context.gameWorld.GetEntityManager();
+			var e = context.entity;
+			m_hasSelected = false;
+			if (entityManager.HasComponent<UIParam>(e))
+			{
+				UIParam param = entityManager.GetComponentObject<UIParam>(e);
+				m_hasSelected = true;
+				m_view.m_style.selectedIndex = (int)param.Value;
+			}
+			
 			m_fiber.Start(RunLogic());
 			context.onUpdate += OnUpdate;
 		}
@@ -35,7 +46,8 @@ namespace SGame.UI{
 
 				// 显示泡泡
 				m_view.visible = true;
-				m_view.m_style.selectedIndex = RandomSystem.Instance.NextInt(0, m_view.m_style.pageCount);
+				if (!m_hasSelected)
+					m_view.m_style.selectedIndex = RandomSystem.Instance.NextInt(0, m_view.m_style.pageCount);
 				yield return FiberHelper.Wait(SHOW_TIME);
 			}
 

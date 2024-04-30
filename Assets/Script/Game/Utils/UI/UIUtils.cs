@@ -457,14 +457,14 @@ namespace SGame
 		/// 显示好友提示UI
 		/// </summary>
 		/// <param name="pos"></param>
-		/// <param name="playerID"></param>
+		/// <param name="selectIndex"></param>
 		/// <returns></returns>
-		public static Entity ShowFriendTip(Transform pos, int playerID)
+		public static Entity ShowFriendTip(Transform pos, int selectIndex)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("friendtip", pos, float3.zero);
 			entityManager.AddComponent<Translation>(ui);
-			entityManager.AddComponentData(ui, new UIParam() { Value = playerID });
+			entityManager.AddComponentData(ui, new UIParam() { Value = selectIndex });
 			entityManager.AddComponentData(ui, new Translation { Value = pos.position });
 			return ui;
 		}
