@@ -110,7 +110,7 @@ namespace SGame.UI
 					//	m_view.m_title3.SetTextByKey("ui_enterscene_2");
 
 					m_view.m_btnGO.grayed = !_canSwitch || _isLastScene;
-					m_view.m_tips.visible = !_canSwitch;
+					//m_view.m_tips.visible = !_canSwitch;
 					m_view.m_tips.SetTextByKey("ui_enterscene_tips_1", cfg.LevelMax); 
 				}
 			}

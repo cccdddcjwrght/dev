@@ -9,7 +9,6 @@ namespace SGame.UI.EnterScene
     {
         public Controller m_isMax;
         public GLoader m_region;
-        public GGroup m_max;
         public GTextField m_title2;
         public const string URL = "ui://cxpm3jfbl63o17";
 
@@ -24,8 +23,7 @@ namespace SGame.UI.EnterScene
 
             m_isMax = GetControllerAt(0);
             m_region = (GLoader)GetChildAt(0);
-            m_max = (GGroup)GetChildAt(3);
-            m_title2 = (GTextField)GetChildAt(5);
+            m_title2 = (GTextField)GetChildAt(2);
         }
     }
 }
