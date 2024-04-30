@@ -20,10 +20,9 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 1
+  version: 7
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
-  - {fileID: 102900000, guid: 8d28fb903c6091d4d88a17797cafa56f, type: 3}
   ignoreOps: []
   rules:
   - searchPath: Assets/BuildAsset/configs
@@ -84,6 +83,10 @@ MonoBehaviour:
     assetBundleName: applogo
   - searchPath: Assets/BuildAsset/Json
     searchPattern: '*.bytes'
+    nameBy: 2
+    assetBundleName: 
+  - searchPath: Assets/BuildAsset/Prefabs/Scenes
+    searchPattern: '*.mat,*.prefab'
     nameBy: 2
     assetBundleName: 
   ruleAssets:
@@ -245,52 +248,6 @@ MonoBehaviour:
     path: assets/buildasset/customcharacters/characterbase.prefab
   - bundle: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
     path: assets/buildasset/customcharacters/characterelementdatabase.asset
-  - bundle: assets/buildasset/customcharacters/female/characterbase.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/characterbase.prefab
-  - bundle: assets/buildasset/customcharacters/female/eyes.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/eyes.prefab
-  - bundle: assets/buildasset/customcharacters/female/eyes_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/eyes_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/face-1.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/face-1.prefab
-  - bundle: assets/buildasset/customcharacters/female/face-1_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/face-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/face-2.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/face-2.prefab
-  - bundle: assets/buildasset/customcharacters/female/face-2_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/face-2_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/hair-1.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/hair-1.prefab
-  - bundle: assets/buildasset/customcharacters/female/hair-1_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/hair-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/hair-2.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/hair-2.prefab
-  - bundle: assets/buildasset/customcharacters/female/hair-2_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/hair-2_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/pants-1.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/pants-1.prefab
-  - bundle: assets/buildasset/customcharacters/female/pants-1_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/pants-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/pants-2.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/pants-2.prefab
-  - bundle: assets/buildasset/customcharacters/female/pants-2_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/pants-2_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/shoes-1.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/shoes-1.prefab
-  - bundle: assets/buildasset/customcharacters/female/shoes-1_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/shoes-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/shoes-2.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/shoes-2.prefab
-  - bundle: assets/buildasset/customcharacters/female/shoes-2_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/shoes-2_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/top-1.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/top-1.prefab
-  - bundle: assets/buildasset/customcharacters/female/top-1_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/top-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/female/top-2.prefab.unity3d
-    path: assets/buildasset/customcharacters/female/top-2.prefab
-  - bundle: assets/buildasset/customcharacters/female/top-2_mesh.asset.unity3d
-    path: assets/buildasset/customcharacters/female/top-2_mesh.asset
   - bundle: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
     path: assets/buildasset/customcharacters/role/body-1.prefab
   - bundle: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
@@ -681,6 +638,8 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/pets/sheep.prefab
   - bundle: assets/buildasset/prefabs/scenes/boss.unity3d
     path: assets/buildasset/prefabs/scenes/boss/role_boss-1.prefab
+  - bundle: assets/buildasset/prefabs/scenes/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/object/mats/planet01_scenes01_object_03.mat
   - bundle: assets/buildasset/prefabs/scenes/object.unity3d
     path: assets/buildasset/prefabs/scenes/object/planet01_scenes01_object_03.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
@@ -691,6 +650,40 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/other/scene_grid.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
     path: assets/buildasset/prefabs/scenes/other/table.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_01_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_goods_01_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes02_tool_goods_01_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes06_tool_goods_01_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_02_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_03_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_07_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_08_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_10_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_02_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_03_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_07_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_08_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_09_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_10_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_09_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_11_01.mat
   - bundle: assets/buildasset/prefabs/scenes/planet01/new.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/new/planet01_scenes01_tool_01_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/new.unity3d
@@ -725,6 +718,90 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet01/new/planet01_scenes07_tool_show_09_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/new.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/new/planet01_scenes07_tool_show_11_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_10.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_11.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_12.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_13.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_14.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_15.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_16.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_05_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_06.mat
   - bundle: assets/buildasset/prefabs/scenes/planet01/object.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/object/planet01_scenes01_object_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/object.unity3d
@@ -813,6 +890,32 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet01/object/planet01_scenes07_object_07.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/object.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/object/planet01_scenes07_object_08.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes01_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes04_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_03.mat
   - bundle: assets/buildasset/prefabs/scenes/planet01/table.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/table/planet01_scenes01_table_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/table.unity3d
@@ -851,6 +954,34 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet01/table/planet01_scenes07_table_02.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/table.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/table/planet01_scenes07_table_03.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes01_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes02_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes02_terrain_01_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_02.mat
   - bundle: assets/buildasset/prefabs/scenes/planet01/terrain.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/terrain/planet01_scenes01_terrain_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/terrain.unity3d
@@ -875,6 +1006,38 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet01/terrain/planet01_scenes07_terrain_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/terrain.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes01_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes02_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes03_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes04_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes05_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes06_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_10.mat
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/tool/planet01_scenes01_tool_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool.unity3d
@@ -907,6 +1070,38 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet01/tool/planet01_scenes07_tool_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/tool/planet01_scenes07_tool_10.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes01_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes02_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes03_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes04_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes05_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes06_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_10.mat
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/tool_goods/planet01_scenes01_tool_goods_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods.unity3d
@@ -939,6 +1134,40 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool_goods.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_10.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes01_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes02_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes03_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes04_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes05_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes06_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_10.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_11.mat
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show.unity3d
@@ -973,6 +1202,20 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_07.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes07_object_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
@@ -987,12 +1230,38 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes07_object_06.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes07_object_07.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/table/mats/planet02_scenes07_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/table/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/table/mats/planet02_scenes07_table_02.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/table.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/table/planet02_scenes07_table_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/table.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/table/planet02_scenes07_table_02.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/terrain/mats/planet02_scenes07_terrain_01.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/terrain.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/terrain/planet02_scenes07_terrain_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_10.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/tool/planet02_scenes07_tool_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool.unity3d
@@ -1013,6 +1282,26 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet02/tool/planet02_scenes07_tool_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/tool/planet02_scenes07_tool_10.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_10.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods.unity3d
@@ -1033,6 +1322,26 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool_goods.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_10.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show.unity3d
@@ -1234,6 +1543,16 @@ MonoBehaviour:
   - bundle: assets/buildasset/ui/iconhead.unity3d
     path: assets/buildasset/ui/iconhead_fui.bytes
   - bundle: assets/buildasset/ui/iconlevel.unity3d
+    path: assets/buildasset/ui/iconlevel_atlas_afz79.png
+  - bundle: assets/buildasset/ui/iconlevel.unity3d
+    path: assets/buildasset/ui/iconlevel_atlas_afz7a.png
+  - bundle: assets/buildasset/ui/iconlevel.unity3d
+    path: assets/buildasset/ui/iconlevel_atlas_afz7b.png
+  - bundle: assets/buildasset/ui/iconlevel.unity3d
+    path: assets/buildasset/ui/iconlevel_atlas_afz7c.png
+  - bundle: assets/buildasset/ui/iconlevel.unity3d
+    path: assets/buildasset/ui/iconlevel_atlas_afz7d.png
+  - bundle: assets/buildasset/ui/iconlevel.unity3d
     path: assets/buildasset/ui/iconlevel_atlas_ome25.png
   - bundle: assets/buildasset/ui/iconlevel.unity3d
     path: assets/buildasset/ui/iconlevel_atlas_ome26.png
@@ -1241,8 +1560,6 @@ MonoBehaviour:
     path: assets/buildasset/ui/iconlevel_atlas_ome27.png
   - bundle: assets/buildasset/ui/iconlevel.unity3d
     path: assets/buildasset/ui/iconlevel_atlas_ome28.png
-  - bundle: assets/buildasset/ui/iconlevel.unity3d
-    path: assets/buildasset/ui/iconlevel_atlas_x8v00.png
   - bundle: assets/buildasset/ui/iconlevel.unity3d
     path: assets/buildasset/ui/iconlevel_fui.bytes
   - bundle: assets/buildasset/ui/icontech.unity3d
@@ -1473,10 +1790,6 @@ MonoBehaviour:
     path: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset
   - bundle: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/gettablechair.asset
-  - bundle: assets/buildasset/visualscript/game/utils/hirefriendcharacter.asset.unity3d
-    path: assets/buildasset/visualscript/game/utils/hirefriendcharacter.asset
-  - bundle: assets/buildasset/visualscript/game/utils/recordfoodtype.asset.unity3d
-    path: assets/buildasset/visualscript/game/utils/recordfoodtype.asset
   - bundle: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/recovercharacter.asset
   - bundle: assets/buildasset/visualscript/game/utils/setitem.asset.unity3d
@@ -1629,11 +1942,15 @@ MonoBehaviour:
     - assets/buildasset/ui/iconhead_fui.bytes
   - name: assets/buildasset/ui/iconlevel.unity3d
     assets:
+    - assets/buildasset/ui/iconlevel_atlas_afz79.png
+    - assets/buildasset/ui/iconlevel_atlas_afz7a.png
+    - assets/buildasset/ui/iconlevel_atlas_afz7b.png
+    - assets/buildasset/ui/iconlevel_atlas_afz7c.png
+    - assets/buildasset/ui/iconlevel_atlas_afz7d.png
     - assets/buildasset/ui/iconlevel_atlas_ome25.png
     - assets/buildasset/ui/iconlevel_atlas_ome26.png
     - assets/buildasset/ui/iconlevel_atlas_ome27.png
     - assets/buildasset/ui/iconlevel_atlas_ome28.png
-    - assets/buildasset/ui/iconlevel_atlas_x8v00.png
     - assets/buildasset/ui/iconlevel_fui.bytes
   - name: assets/buildasset/ui/icontech.unity3d
     assets:
@@ -2117,42 +2434,6 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/characterbase.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/characterbase.prefab
-  - name: assets/buildasset/customcharacters/female/characterbase.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/characterbase.prefab
-  - name: assets/buildasset/customcharacters/female/eyes.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/eyes.prefab
-  - name: assets/buildasset/customcharacters/female/face-1.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/face-1.prefab
-  - name: assets/buildasset/customcharacters/female/face-2.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/face-2.prefab
-  - name: assets/buildasset/customcharacters/female/hair-1.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/hair-1.prefab
-  - name: assets/buildasset/customcharacters/female/hair-2.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/hair-2.prefab
-  - name: assets/buildasset/customcharacters/female/pants-1.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/pants-1.prefab
-  - name: assets/buildasset/customcharacters/female/pants-2.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/pants-2.prefab
-  - name: assets/buildasset/customcharacters/female/shoes-1.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/shoes-1.prefab
-  - name: assets/buildasset/customcharacters/female/shoes-2.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/shoes-2.prefab
-  - name: assets/buildasset/customcharacters/female/top-1.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/top-1.prefab
-  - name: assets/buildasset/customcharacters/female/top-2.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/top-2.prefab
   - name: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/role/body-1.prefab
@@ -2216,39 +2497,6 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/characterelementdatabase.asset
-  - name: assets/buildasset/customcharacters/female/eyes_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/eyes_mesh.asset
-  - name: assets/buildasset/customcharacters/female/face-1_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/face-1_mesh.asset
-  - name: assets/buildasset/customcharacters/female/face-2_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/face-2_mesh.asset
-  - name: assets/buildasset/customcharacters/female/hair-1_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/hair-1_mesh.asset
-  - name: assets/buildasset/customcharacters/female/hair-2_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/hair-2_mesh.asset
-  - name: assets/buildasset/customcharacters/female/pants-1_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/pants-1_mesh.asset
-  - name: assets/buildasset/customcharacters/female/pants-2_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/pants-2_mesh.asset
-  - name: assets/buildasset/customcharacters/female/shoes-1_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/shoes-1_mesh.asset
-  - name: assets/buildasset/customcharacters/female/shoes-2_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/shoes-2_mesh.asset
-  - name: assets/buildasset/customcharacters/female/top-1_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/top-1_mesh.asset
-  - name: assets/buildasset/customcharacters/female/top-2_mesh.asset.unity3d
-    assets:
-    - assets/buildasset/customcharacters/female/top-2_mesh.asset
   - name: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/role/body-1_mesh.asset
@@ -2582,12 +2830,6 @@ MonoBehaviour:
   - name: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/gettablechair.asset
-  - name: assets/buildasset/visualscript/game/utils/hirefriendcharacter.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/utils/hirefriendcharacter.asset
-  - name: assets/buildasset/visualscript/game/utils/recordfoodtype.asset.unity3d
-    assets:
-    - assets/buildasset/visualscript/game/utils/recordfoodtype.asset
   - name: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
     assets:
     - assets/buildasset/visualscript/game/utils/recovercharacter.asset
@@ -2754,6 +2996,210 @@ MonoBehaviour:
   - name: assets/buildasset/json.unity3d
     assets:
     - assets/buildasset/json/testfrienddata.txt.bytes
+  - name: assets/buildasset/prefabs/scenes/object/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/object/mats/planet01_scenes01_object_03.mat
+  - name: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_01_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_goods_01_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes02_tool_goods_01_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes06_tool_goods_01_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_02_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_03_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_07_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_08_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_10_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_02_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_03_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_07_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_08_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_09_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_10_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_09_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_11_01.mat
+  - name: assets/buildasset/prefabs/scenes/planet01/object/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_06.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_07.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_08.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_09.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_10.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_11.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_12.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_13.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_14.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_15.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_16.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_05_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_06.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_06.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_07.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_08.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_06.mat
+  - name: assets/buildasset/prefabs/scenes/planet01/table/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes01_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes04_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_03.mat
+  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes01_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes02_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes02_terrain_01_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_02.mat
+  - name: assets/buildasset/prefabs/scenes/planet01/tool/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes01_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes02_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes03_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes04_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes05_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes06_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_06.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_07.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_08.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_09.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool/mats/planet01_scenes07_tool_10.mat
+  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes01_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes02_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes03_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes04_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes05_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes06_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_06.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_07.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_08.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_09.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_10.mat
+  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes01_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes02_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes03_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes04_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes05_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes06_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_02.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_03.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_04.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_05.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_06.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_07.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_08.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_09.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_10.mat
+    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_11.mat
+  - name: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_01.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_02.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_03.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_04.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_05.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_06.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_07.mat
+  - name: assets/buildasset/prefabs/scenes/planet02/table/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet02/table/mats/planet02_scenes07_table_01.mat
+    - assets/buildasset/prefabs/scenes/planet02/table/mats/planet02_scenes07_table_02.mat
+  - name: assets/buildasset/prefabs/scenes/planet02/terrain/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet02/terrain/mats/planet02_scenes07_terrain_01.mat
+  - name: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_01.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_02.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_03.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_04.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_05.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_06.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_07.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_08.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_09.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool/mats/planet02_scenes07_tool_10.mat
+  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_01.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_02.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_03.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_04.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_05.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_06.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_07.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_08.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_09.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_10.mat
+  - name: assets/buildasset/prefabs/scenes/planet02/tool_show/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_01.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_02.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_03.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_04.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_05.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_06.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_07.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_08.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_09.mat
+    - assets/buildasset/prefabs/scenes/planet02/tool_show/mats/planet02_scenes07_tool_show_10.mat
   - name: assets/buildasset/art/model/weapon/weapon-2.png.unity3d
     assets:
     - assets/buildasset/art/model/weapon/weapon-2.png
@@ -2766,9 +3212,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_10_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_10_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_07_01.fbx
@@ -2787,48 +3230,24 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_goods_01_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_02_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_02_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_07_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_07_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_08_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_08_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes06_tool_goods_01_01.fbx
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_10_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_09_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_09_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_goods_01_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_goods_01_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_03_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_goods_03_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_08_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes06_tool_goods_01_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes06_tool_goods_01_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_09_01.png
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_03_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes02_tool_goods_01_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes02_tool_goods_01_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_goods_02_01.png
@@ -2844,36 +3263,21 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_03.png
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_02.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.fbx
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_02.png
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_03_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_03_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_10_01.png
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_03_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_02_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_02_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_10_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_10_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_01_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_01_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_02_01.fbx
@@ -2895,30 +3299,18 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes01_tool_01_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_07_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_07_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_07_01.fbx
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_08_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_08_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_08_01.mat
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.png
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes04_tool_goods_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes04_tool_goods_01.mat
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes05_tool_goods_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_06.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_06.mat
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.fbx
@@ -2931,12 +3323,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_06.png
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_05.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_05.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes05_tool_goods_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes05_tool_goods_01.mat
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_01.png
@@ -2946,18 +3332,12 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_04.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_04.mat
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes04_tool_goods_01.png
   - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_05.png
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes07_tool_goods_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.png
@@ -2967,12 +3347,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_09_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_09_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_09_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_11_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes07_tool_show_11_01.mat
   - name: assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/new/planet01_scenes07_tool_show_11_01.png
@@ -3111,18 +3485,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/scene_03/scene_tool_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_tool_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_13.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_13.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_04.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_02.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_10.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_10.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.png
@@ -3153,45 +3515,27 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes01_table_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes01_table_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.fbx
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_16.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_05.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_05.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_04.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_06.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_06.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_10.fbx
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_05.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_07.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_07.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.png
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_06.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_03.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_09.png
@@ -3201,12 +3545,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes01_tool_show_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_09.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_09.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes01_terrain_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes01_terrain_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.fbx
@@ -3225,36 +3563,21 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes01_table_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_15.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_15.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_08.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_08.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes01_tool_show_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes01_tool_show_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_13.png
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_08.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_16.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_16.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_14.png
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_07.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_14.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_14.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_03.fbx
@@ -3291,18 +3614,12 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_02.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.fbx
   - name: assets/buildasset/effects/textures/wb_paopao_01.png.unity3d
     assets:
     - assets/buildasset/effects/textures/wb_paopao_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes02_table_01.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes02_terrain_01_01.png
@@ -3312,18 +3629,6 @@ MonoBehaviour:
   - name: assets/buildasset/effects/textures/glow_6047.png.unity3d
     assets:
     - assets/buildasset/effects/textures/glow_6047.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_03.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_05_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_05_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes02_terrain_01_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes02_terrain_01_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_02.png
@@ -3336,15 +3641,9 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes02_tool_show_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes02_tool_show_01.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes02_table_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes02_object_04.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes02_object_03.png
@@ -3397,9 +3696,6 @@ MonoBehaviour:
     assets:
     - assets/buildasset/effects/shaber/effect_base_gj.shader
     - assets/3rd/textmesh pro/shaders/tmp_sdf.shader
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_02.mat
   - name: assets/buildasset/effects/textures/afxl_glow08a_256d1.png.unity3d
     assets:
     - assets/buildasset/effects/textures/afxl_glow08a_256d1.png
@@ -3412,51 +3708,24 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_04.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_03.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_07.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_07.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.fbx
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes03_terrain_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_04.mat
   - name: assets/buildasset/effects/shaber/boguang.mat.unity3d
     assets:
     - assets/buildasset/effects/shaber/boguang.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes03_terrain_02.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.png
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes03_table_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes01_object_03.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_08.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_08.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_08.fbx
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_02.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_02.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_07.fbx
@@ -3469,15 +3738,9 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes03_table_02.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes03_tool_show_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes03_tool_show_01.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes04_tool_show_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_10.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_10.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_01.fbx
@@ -3499,9 +3762,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_04.png
@@ -3532,60 +3792,30 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes04_tool_show_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes04_tool_show_01.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_02.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_01.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_05.fbx
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_03.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes04_table_03.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_04.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_06.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_06.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes04_object_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_02.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes04_terrain_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes04_table_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes04_table_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_05.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes04_object_05.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes04_terrain_01.fbx
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_10.png
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_05.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_05.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.fbx
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_08.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_08.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_07.fbx
@@ -3607,18 +3837,12 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_05.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_05.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_05.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.fbx
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_03.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes05_terrain_02.png
@@ -3628,30 +3852,15 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_08.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_06.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_06.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_07.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_07.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_04.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.fbx
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_03.png
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes05_tool_show_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes05_tool_show_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_01.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes05_tool_show_01.png
@@ -3661,9 +3870,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_01.fbx
@@ -3673,15 +3879,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_02.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes05_table_02.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes05_terrain_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes05_object_02.png
@@ -3691,15 +3888,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes05_table_02.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes05_object_02.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_03.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_02.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_01.fbx
@@ -3715,27 +3903,15 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_03.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_02_03.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_06.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_06.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes06_table_01.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_02.fbx
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table_01_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes06_tool_show_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes06_tool_show_01.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_02.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_01.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes06_table02.png
@@ -3754,15 +3930,9 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes06_tool_show_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_02.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes06_terrain_01.png
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes06_terrain_02.mat
   - name: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_06.png
@@ -3784,51 +3954,27 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_02.mat
   - name: assets/buildasset/art/scenes/planet01/boss/textures/role_boss-1.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/boss/textures/role_boss-1.png
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_01.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_04.png
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_03.mat
-  - name: assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/terrain/mats/planet01_scenes07_terrain_01_02.mat
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_02.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_01.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.fbx
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_01.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_04.mat
   - name: assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/terrain/planet01_scenes07_terrain_01_02.fbx
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_02.png
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_06.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_06.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_06.fbx
@@ -3838,9 +3984,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_05.png
-  - name: assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/table/mats/planet01_scenes07_table_02.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_01.png
@@ -3868,9 +4011,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/table/planet01_scenes07_table_03.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_05.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/object/mats/planet01_scenes07_object_05.mat
   - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_08.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/object/planet01_scenes07_object_08.fbx
@@ -3892,9 +4032,6 @@ MonoBehaviour:
   - name: assets/buildasset/effects/materials/yanhua1.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/yanhua1.mat
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_01.mat
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_10.png
@@ -3907,9 +4044,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_05.png
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_08.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_08.mat
   - name: assets/buildasset/art/scenes/scene_03/scene_tool_05.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_tool_05.fbx
@@ -3925,15 +4059,9 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.fbx
-  - name: assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes03_tool_goods_01.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet01/tool_goods/mats/planet01_scenes03_tool_goods_01.mat
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_02.fbx
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_05.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_05.mat
   - name: assets/buildasset/effects/materials/gold.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/gold.mat
@@ -3952,18 +4080,9 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_07.png
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_07.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_07.mat
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_10.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_10.mat
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_06.fbx
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_04.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_04.mat
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.fbx
@@ -3979,9 +4098,6 @@ MonoBehaviour:
   - name: assets/buildasset/effects/textures/glow_4027.png.unity3d
     assets:
     - assets/buildasset/effects/textures/glow_4027.png
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_09.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_09.mat
   - name: assets/buildasset/effects/textures/jinbixz.png.unity3d
     assets:
     - assets/buildasset/effects/textures/jinbixz.png
@@ -3991,9 +4107,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_03.png
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_03.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_03.mat
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_09.fbx
@@ -4003,9 +4116,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/scene_03/scene_tool_07.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_tool_07.fbx
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_02.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_02.mat
   - name: assets/buildasset/effects/materials/andan.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/andan.mat
@@ -4018,9 +4128,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/scene_03/scene_object_02.fbx.unity3d
     assets:
     - assets/buildasset/art/scenes/scene_03/scene_object_02.fbx
-  - name: assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_06.mat.unity3d
-    assets:
-    - assets/buildasset/prefabs/scenes/planet02/tool_goods/mats/planet02_scenes07_tool_goods_06.mat
   - name: assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.png.unity3d
     assets:
     - assets/buildasset/art/scenes/planet02/tool_goods/planet02_scenes07_tool_goods_08.png
@@ -4072,3 +4179,135 @@ MonoBehaviour:
   - name: assets/buildasset/effects/materials/smoke.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/smoke.mat
+  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_12.png
+  - name: assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/object/planet01_scenes01_object_11.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_01.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes06_tool_01.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes02_tool_01.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes03_tool_01.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes05_tool_01.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes04_tool_01.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_06.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_09.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_05.png
+  - name: assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool/planet01_scenes07_tool_04.png
+  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes02_tool_goods_01.png
+  - name: assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet01/tool_goods/planet01_scenes07_tool_goods_02.png
+  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_04.png
+  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.png
+  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.png
+  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.png
+  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.png
+  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png
+  - name: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.png
+  - name: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_01.png
+  - name: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.png
+  - name: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_05.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_08.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_02.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_06.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_01.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_10.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_04.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_09.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_07.png
+  - name: assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool/planet02_scenes07_tool_03.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_05.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_04.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_03.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_02.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_08.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_01.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_06.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_07.png
+  - name: assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.png.unity3d
+    assets:
+    - assets/buildasset/art/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.png
