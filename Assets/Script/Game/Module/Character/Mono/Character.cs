@@ -193,8 +193,8 @@ namespace SGame
         {
             if (rot < 0)
             {
-                entityManager.HasComponent<LastRotation>(entity);
-                entityManager.RemoveComponent<LastRotation>(entity);
+                if (entityManager.HasComponent<LastRotation>(entity))
+                    entityManager.RemoveComponent<LastRotation>(entity);
                 return;
             }
 
@@ -203,10 +203,8 @@ namespace SGame
                 entityManager.AddComponent<LastRotation>(entity);
             }
             
-            //float2 dir = new float2(math.cos(rot * Mathf.Deg2Rad), math.sin(Mathf.Deg2Rad * rot));
             // 绕Y轴旋转
             quaternion value = quaternion.AxisAngle(new float3(0, 1, 0), rot * Mathf.Deg2Rad);
-            //quaternion value = quaternion.LookRotation(new float3(dir.x, 0, dir.y), new float3(0, 1, 0));
             entityManager.SetComponentData(entity, new LastRotation() { Value = value });
         }
 

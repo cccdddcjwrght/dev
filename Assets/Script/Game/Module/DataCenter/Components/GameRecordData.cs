@@ -37,9 +37,7 @@ namespace SGame
 
         // 每日礼包
         public TomorrowGiftData tomorrowGift = new TomorrowGiftData();
-
-        [NonSerialized]
-        public int enterTime = 0;
+        
 
         public bool HasRecord()
         {
@@ -49,14 +47,7 @@ namespace SGame
         public void Initalize()
         {
             EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnPerpareLeaveRoom);
-            EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_ROOM, TestResetTime);
-
             EventManager.Instance.Reg<int,int,int>((int)GameEvent.TECH_ADD_ROLE, AddRole);
-        }
-
-        void TestResetTime(int id)
-        {
-            enterTime = GameServerTime.Instance.serverTime;
         }
 
         void AddRole(int roleType, int num, int pos)
