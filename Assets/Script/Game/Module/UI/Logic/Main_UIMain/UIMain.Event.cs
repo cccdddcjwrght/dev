@@ -202,7 +202,14 @@ namespace SGame.UI
 				var configTime = config.funcTime();
 				GTween.To(0, 1, configTime).OnUpdate((GTweener tweener) =>
 				{
-					ui.m_content.text = Utils.FormatTime(config.funcTime());
+					var time = config.funcTime();
+					if (time > 0)
+						ui.m_content.text = Utils.FormatTime(config.funcTime());
+					else
+					{
+						GTween.Kill(ui);
+						ui.m_ctrlTime.selectedIndex = 0;
+					}
 				}).SetTarget(ui).OnComplete(() =>
 				{
 					ui.m_ctrlTime.selectedIndex = 0;
