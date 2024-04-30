@@ -14,11 +14,13 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_state.onChanged.Add(new EventCallback1(_OnStateChanged));
+			m_view.m_markState.onChanged.Add(new EventCallback1(_OnMarkStateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_state.onChanged.Remove(new EventCallback1(_OnStateChanged));
+			m_view.m_markState.onChanged.Remove(new EventCallback1(_OnMarkStateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
@@ -27,6 +29,11 @@ namespace SGame.UI{
 		}
 		partial void OnStateChanged(EventContext data);
 		void SwitchStatePage(int index)=>m_view.m_state.selectedIndex=index;
+		void _OnMarkStateChanged(EventContext data){
+			OnMarkStateChanged(data);
+		}
+		partial void OnMarkStateChanged(EventContext data);
+		void SwitchMarkStatePage(int index)=>m_view.m_markState.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

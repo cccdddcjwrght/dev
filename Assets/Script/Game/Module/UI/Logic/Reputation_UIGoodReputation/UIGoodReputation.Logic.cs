@@ -41,6 +41,7 @@ namespace SGame.UI{
 				item.m_info.SetText(string.Format(UIListener.Local(roomLikeData.BuffDesc),
 					roomLikeData.BuffValue == 0 ? roomLikeData.BuffDuration : roomLikeData.BuffValue,
 					roomLikeData.BuffDuration));
+				item.m_markState.selectedIndex = roomLikeData.BuffMark;
 			}
 			item.m_inforce.selectedIndex = roomLikeId == DataCenter.Instance.reputationData.cfgId ? 1 : 0;
 		}
@@ -53,6 +54,9 @@ namespace SGame.UI{
 			m_view.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
 			m_view.m_state.selectedIndex = validTime > 0 ? 1 : 0;
 			m_view.SetIcon(ReputationModule.Instance.icon);
+			if (ReputationModule.Instance.roomLikeData.IsValid()) 
+				m_view.m_markState.selectedIndex = ReputationModule.Instance.roomLikeData.BuffMark;
+			
 			if (validTime > 0) 
 			{
 				timer = Utils.Timer(validTime, () =>

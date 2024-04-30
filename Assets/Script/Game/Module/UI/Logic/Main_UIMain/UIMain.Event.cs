@@ -337,6 +337,10 @@ namespace SGame.UI
 			m_view.m_likeBtn.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
 			m_view.m_likeBtn.m_state.selectedIndex = validTime > 0 ? 1 : 0;
 			m_view.m_likeBtn.SetIcon(ReputationModule.Instance.icon);
+			if (ReputationModule.Instance.roomLikeData.IsValid())
+				m_view.m_likeBtn.m_markState.selectedIndex = ReputationModule.Instance.roomLikeData.BuffMark;
+
+
 			if (validTime > 0)
 			{
 				Utils.Timer(validTime, () =>

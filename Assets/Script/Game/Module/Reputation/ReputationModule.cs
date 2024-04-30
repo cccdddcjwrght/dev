@@ -121,7 +121,7 @@ namespace SGame
                     && buffRowData.Attribute == (int)EnumAttribute.Price)
                 {
                     t1.name = data1.BuffName;
-                    t1.multiple = data1.BuffValue * PERCENTAGE_VALUE;
+                    t1.multiple = 1 + data1.BuffValue * PERCENTAGE_VALUE;
                     t1.time = exclusiveData.endTime - GameServerTime.Instance.serverTime;
                     t1.isEver = data1.BuffDuration <= 0;
                 }
@@ -129,13 +129,13 @@ namespace SGame
 
             var t2 = m_RoomTypeList.Find((t) => t.roomBuffEnum == RoomBuffEnum.RoomLike);
             var reputationData = DataCenter.Instance.reputationData;
-            if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(reputationData.cfgId, out var data2))
+            if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(reputationData.cfgId, out var data2))
             {
                 if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(data2.BuffId, out var buffRowData)
                     && buffRowData.Attribute == (int)EnumAttribute.Price)
                 {
                     t2.name = data2.BuffName;
-                    t2.multiple = data2.BuffValue * PERCENTAGE_VALUE;
+                    t2.multiple = 1 + data2.BuffValue * PERCENTAGE_VALUE;
                     t2.time = reputationData.endTime - GameServerTime.Instance.serverTime;
                     t2.isEver = data2.BuffDuration <= 0;
                 }
@@ -161,10 +161,10 @@ namespace SGame
 
         public float GetTotalValue() 
         {
-            float value = 0;
+            float value = 1;
             for (int i = 0; i < m_TotalList.Count; i++)
             {
-                value += m_TotalList[i].multiple;
+                value *= m_TotalList[i].multiple;
             }
             return value;
         }
