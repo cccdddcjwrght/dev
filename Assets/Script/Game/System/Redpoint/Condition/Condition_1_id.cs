@@ -15,7 +15,7 @@ namespace SGame
 		{
 			if (args.Length > 1 && int.TryParse(args.Substring(1), out var id) && DataCenter.Instance.shopData.goodDic.TryGetValue(id, out var g))
 			{
-				return g.free > 0;
+				return g.IsFree();
 			}
 			return false;
 		}

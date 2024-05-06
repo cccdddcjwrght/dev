@@ -160,8 +160,7 @@ namespace SGame
 						var g = _data.goods[i];
 						if (g.type < 6)
 						{
-							var ret = g.free > 0 || (g.cfg.PurchaseType == 1 && !g.IsSaled() && g.CDTime() <= 0);
-							if (ret)
+							if (g.IsFree())
 								return true;
 						}
 					}
@@ -248,6 +247,11 @@ namespace SGame
 		public bool IsSaled()
 		{
 			return cfg.LimitNum > 0 && buy >= cfg.LimitNum;
+		}
+
+		public bool IsFree()
+		{
+			return free > 0 || (cfg.PurchaseType == 1 && !IsSaled() && CDTime() <= 0);
 		}
 
 	}
