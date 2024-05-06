@@ -24,9 +24,9 @@ namespace SGame
 
 		[SerializeField]
 		private int loadtime;
-		
+
 		public bool isFirst { get { return loadtime == 0; } }
-		
+
 		// 用户数据
 		public Entity m_data;
 		[SerializeField]
@@ -131,7 +131,7 @@ namespace SGame
 			PropertyManager.Instance.InitCache(cacheItem);
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
 			PropertyManager.Instance.CombineCache2Items();
-			
+
 			if (loadtime == 0)
 			{
 				IsNew = true;
@@ -182,7 +182,13 @@ namespace SGame
 					.Where(s => s.Length > 1)
 					.ToDictionary(s => int.Parse(s[0]), s => int.Parse(s[1]));
 				foreach (var item in dic)
-					group.SetNum(item.Key, item.Value);
+				{
+					var k = item.Key;
+					if (k >= 100101)
+						EquipUtil.AddEquip(k, item.Value);
+					else
+						group.SetNum(item.Key, item.Value);
+				}
 			}
 		}
 
