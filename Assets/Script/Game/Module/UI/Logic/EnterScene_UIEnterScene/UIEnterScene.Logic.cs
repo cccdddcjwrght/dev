@@ -102,7 +102,7 @@ namespace SGame.UI
 					var endEmpty = UIPackage.CreateObject("EnterScene", "EndEmpty");
 					m_view.m_list.AddChild(endEmpty);
 					//----------------
-					m_view.m_list.ScrollToView(_sceneCfgs.FindIndex(v => v.ID == c) + 2);
+					m_view.m_list.ScrollToView(_sceneCfgs.FindIndex(v => v.ID == c) + 3);
 					m_view.m_region.SetIcon(region.Icon);
 					//m_view.m_title3.text = null;
 					m_view.SetText(region.ID + "." + region.Name.Local());
