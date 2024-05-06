@@ -103,8 +103,11 @@ namespace SGame.VS
                 }
                 else
                 {
-                    // 使用标签
-                    List<Vector2Int> map_pos = GameTools.MapAgent.GetTagGrids(tag);
+
+					// 使用标签
+					m_spwanResult = CharacterModule.Instance.Create(id, GameTools.MapAgent.RandomPopVector(tag), attr, playerID);
+
+					/*List<Vector2Int> map_pos = GameTools.MapAgent.GetTagGrids(tag);
                     if (map_pos != null && map_pos.Count > 0)
                     {
                         var posIndex = RandomSystem.Instance.NextInt(0, map_pos.Count);
@@ -114,7 +117,7 @@ namespace SGame.VS
                     else
                     {
                         log.Error("Tag Not Found=" + tag);
-                    }
+                    }*/
                 }
                 return outputTrigger;
             });

@@ -118,7 +118,7 @@ namespace GameTools
 
 		private void Init()
 		{
-			if (_grid == null ) return;
+			if (_grid == null) return;
 			_grid.Refresh();
 			mapSize = _grid.gridSize;
 			cellSize = (int)_grid.size;
@@ -129,6 +129,7 @@ namespace GameTools
 
 		private void Awake()
 		{
+			_randomCell?.Clear();
 			_gflag = 0;
 			grid.GetInstanceID();
 			Init();
@@ -158,6 +159,8 @@ namespace GameTools
 		#endregion
 
 		#region Static
+
+		static private Dictionary<string, List<Vector2Int>> _randomCell = new Dictionary<string, List<Vector2Int>>();
 
 		static public MapAgent agent { get; protected set; }
 
@@ -243,6 +246,49 @@ namespace GameTools
 					grids = ts.Select(t => agent.grid.IndexToGrid(t)).ToList();
 			}
 			return grids;
+		}
+
+		/// <summary>
+		/// 随机获取一个一定范围内随机位置
+		/// </summary>
+		/// <param name="tag"></param>
+		/// <returns></returns>
+		public static Vector2Int RandomPop(string tag)
+		{
+			if (!string.IsNullOrEmpty(tag))
+			{
+
+				if (!_randomCell.TryGetValue(tag, out var q))
+					_randomCell[tag] = q = new List<Vector2Int>();
+
+				if (q.Count == 0)
+				{
+					var cells = GetTagGrids(tag);
+					if (cells?.Count > 1)
+						SGame.Randoms.Random._R.NextItem(cells, cells.Count, ref q, true);
+					else
+						q.AddRange(cells);
+				}
+
+				if (q.Count > 0)
+				{
+					var c = q[0];
+					if (q.Count > 1)
+					{
+						q.RemoveAt(0);
+						q.Add(c);
+					}
+					return c;
+				}
+
+			}
+			return default;
+		}
+
+		public static Vector3 RandomPopVector(string tag)
+		{
+			var p = RandomPop(tag);
+			return CellToVector(p.x, p.y);
 		}
 
 		public static Vector2Int IndexToGrid(int index)
