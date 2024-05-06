@@ -105,6 +105,13 @@ namespace SGame.Dining
 					OnEnterRoomCompleted().Start();
 				else
 				{
+					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0)
+					{
+						EventManager.Instance.Trigger((int)GameEvent.GUIDE_CREATE);
+						EventManager.Instance.Trigger((int)GameEvent.GUIDE_FIRST);
+						DataCenter.SetIntValue(GuideModule.GUIDE_FIRST, 1);
+					}
+
 					StaticDefine.G_WAIT_WELCOME = true;
 					UIUtils.OpenUI("welcomenewlevel");
 					OnEnterRoomCompleted(true).Start();

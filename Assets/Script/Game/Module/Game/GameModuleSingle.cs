@@ -145,11 +145,10 @@ namespace SGame
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide)
 			{
-				if (guideGo == null) 
-				{
-					var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
-					guideGo = GameObject.Instantiate(guidePrefab);
-				}
+				if (guideGo != null) GameObject.Destroy(guideGo);
+ 
+				var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
+				guideGo = GameObject.Instantiate(guidePrefab);
 			}
 #endif
 		}

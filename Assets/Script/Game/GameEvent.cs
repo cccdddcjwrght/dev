@@ -116,6 +116,7 @@ namespace SGame
 		GUIDE_START                     = 9001,
 		GUIDE_STEP                      = 9002,
 		GUIDE_CREATE					= 9003,
+		GUIDE_FIRST						= 9004,
 
 		
 		// 好友系统
