@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3923952927828356069}
-  - component: {fileID: 2772834670813552880}
-  - component: {fileID: 6411784214204949333}
+  - component: {fileID: 5437175980775658019}
+  - component: {fileID: 8366323478281885199}
   m_Layer: 0
   m_Name: clothes-8
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &2772834670813552880
+--- !u!137 &5437175980775658019
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.02981671, y: -0.0000003427267, z: 0.06828016}
     m_Extent: {x: 0.19281119, y: 0.39689696, z: 0.18298906}
   m_DirtyAABB: 0
---- !u!114 &6411784214204949333
+--- !u!114 &8366323478281885199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   - Bip001 R Foot
   - Bip001 R Toe0
   - Bip001 HeadNub
-  - Bip001 R Toe0Nub
   - main
+  - Bip001 R Toe0Nub
   materials:
   - {fileID: 2100000, guid: df83e27aa40fa044fa6a57469c1af327, type: 2}
