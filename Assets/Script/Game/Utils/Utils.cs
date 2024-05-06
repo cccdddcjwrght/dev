@@ -256,8 +256,9 @@ namespace SGame
 			switch (roleType)
 			{
 				case (int)EnumRole.Cook:
-				case (int)EnumRole.Player:
 					return "born_0";
+				case (int)EnumRole.Player:
+					return "born_2";
 				case (int)EnumRole.Waiter:
 					return "born_1";
 				case (int)EnumRole.Customer:
