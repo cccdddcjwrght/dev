@@ -34,7 +34,9 @@ namespace SGame
                 dir.y = 0;
                 
                 quaternion target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
-                rot.Value = math.slerp(rot.Value, target_rot, deltaTime * speed.Value);;
+                //rot.Value = math.slerp(rot.Value, target_rot, deltaTime * speed.Value);;
+                float t = math.clamp(deltaTime * speed.Value, 0, 1.0f);
+                rot.Value = math.nlerp(rot.Value, target_rot, t);;
             }).WithoutBurst().ScheduleParallel();
             
             Entities.ForEach(
@@ -61,7 +63,9 @@ namespace SGame
                         target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
                     }
 
-                    rot.Value = math.slerp(rot.Value, target_rot, deltaTime * speed.Value);;
+                    //rot.Value = math.slerp(rot.Value, target_rot, deltaTime * speed.Value);
+                    float t = math.clamp(deltaTime * speed.Value, 0, 1.0f);
+                    rot.Value = math.nlerp(rot.Value, target_rot, t);
                 }).WithoutBurst().ScheduleParallel();
         }
     }
