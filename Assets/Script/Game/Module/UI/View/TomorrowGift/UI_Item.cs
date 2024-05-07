@@ -12,7 +12,7 @@ namespace SGame.UI.TomorrowGift
         public Controller m_tipicon;
         public GTextField m_title;
         public GLoader m_icon;
-        public GButton m_btnInfo;
+        public GLoader m_btnInfo;
         public const string URL = "ui://7crbg35hosc45";
 
         public static UI_Item CreateInstance()
@@ -29,7 +29,7 @@ namespace SGame.UI.TomorrowGift
             m_tipicon = GetControllerAt(2);
             m_title = (GTextField)GetChildAt(2);
             m_icon = (GLoader)GetChildAt(3);
-            m_btnInfo = (GButton)GetChildAt(4);
+            m_btnInfo = (GLoader)GetChildAt(4);
         }
     }
 }
