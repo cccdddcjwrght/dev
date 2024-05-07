@@ -67,12 +67,12 @@ MonoBehaviour:
     assetBundleName: 
   - searchPath: Assets/BuildAsset/CustomCharacters
     searchPattern: '*.prefab,*.asset'
-    nameBy: 1
-    assetBundleName: 
+    nameBy: 0
+    assetBundleName: characters
   - searchPath: Assets/BuildAsset/VisualScript
     searchPattern: '*.prefab,*.asset'
-    nameBy: 1
-    assetBundleName: 
+    nameBy: 0
+    assetBundleName: visualscript
   - searchPath: Assets/BuildAsset/fonts
     searchPattern: '*.asset,*.ttf'
     nameBy: 1
@@ -703,6 +703,18 @@ MonoBehaviour:
   - bundle: assets/buildasset/art/scenes/planet01/tool_show.unity3d
     path: assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.png
   - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_02.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_02.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_03.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
+    path: assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_03.png
+  - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
     path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.fbx
   - bundle: assets/buildasset/art/scenes/planet02/object.unity3d
     path: assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png
@@ -738,6 +750,14 @@ MonoBehaviour:
     path: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.fbx
   - bundle: assets/buildasset/art/scenes/planet02/table.unity3d
     path: assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.png
+  - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes01_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes01_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes03_terrain_01.fbx
+  - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
+    path: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes03_terrain_01.png
   - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
     path: assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.fbx
   - bundle: assets/buildasset/art/scenes/planet02/terrain.unity3d
@@ -1007,92 +1027,88 @@ MonoBehaviour:
   - bundle: configs.unity3d
     path: assets/buildasset/configs/table.bytes
   - bundle: configs.unity3d
-    path: assets/buildasset/configs/telport.bytes
-  - bundle: configs.unity3d
     path: assets/buildasset/configs/ui_groups.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/ui_res.bytes
-  - bundle: assets/buildasset/customcharacters/characterbase.prefab.unity3d
-    path: assets/buildasset/customcharacters/characterbase.prefab
-  - bundle: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/characterelementdatabase.asset
-  - bundle: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-1.prefab
-  - bundle: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/body-2.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-2.prefab
-  - bundle: assets/buildasset/customcharacters/role/body-2_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-2_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/body-3.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-3.prefab
-  - bundle: assets/buildasset/customcharacters/role/body-3_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-3_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/body-4.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-4.prefab
-  - bundle: assets/buildasset/customcharacters/role/body-4_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-4_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/body-5.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-5.prefab
-  - bundle: assets/buildasset/customcharacters/role/body-5_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/body-5_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/characterbase.prefab
-  - bundle: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-1.prefab
-  - bundle: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-2.prefab
-  - bundle: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-2_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/clothes-3.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-3.prefab
-  - bundle: assets/buildasset/customcharacters/role/clothes-3_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-3_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/clothes-4.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-4.prefab
-  - bundle: assets/buildasset/customcharacters/role/clothes-4_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-4_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/clothes-5.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-5.prefab
-  - bundle: assets/buildasset/customcharacters/role/clothes-5_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-5_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/clothes-6.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-6.prefab
-  - bundle: assets/buildasset/customcharacters/role/clothes-6_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/clothes-6_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/glasses-1.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/glasses-1.prefab
-  - bundle: assets/buildasset/customcharacters/role/glasses-1_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/glasses-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-1.prefab
-  - bundle: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-1_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-2.prefab
-  - bundle: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-2_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/hair-3.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-3.prefab
-  - bundle: assets/buildasset/customcharacters/role/hair-3_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-3_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/hair-4.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-4.prefab
-  - bundle: assets/buildasset/customcharacters/role/hair-4_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-4_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/hair-5.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-5.prefab
-  - bundle: assets/buildasset/customcharacters/role/hair-5_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-5_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/hair-6.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-6.prefab
-  - bundle: assets/buildasset/customcharacters/role/hair-6_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-6_mesh.asset
-  - bundle: assets/buildasset/customcharacters/role/hair-7.prefab.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-7.prefab
-  - bundle: assets/buildasset/customcharacters/role/hair-7_mesh.asset.unity3d
+  - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-7_mesh.asset
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100101.prefab
@@ -1188,6 +1204,8 @@ MonoBehaviour:
     path: assets/buildasset/effects/prefabs/level16.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/level17.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/level27.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/levelcompletedui_01.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
@@ -1947,6 +1965,12 @@ MonoBehaviour:
   - bundle: assets/buildasset/prefabs/scenes/planet01/tool_show.unity3d
     path: assets/buildasset/prefabs/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes01_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes01_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes01_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_01.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_02.mat
@@ -1960,6 +1984,12 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_06.mat
   - bundle: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes01_object_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes01_object_02.prefab
+  - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes01_object_03.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes07_object_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/object.unity3d
@@ -1983,7 +2013,11 @@ MonoBehaviour:
   - bundle: assets/buildasset/prefabs/scenes/planet02/table.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/table/planet02_scenes07_table_02.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/terrain/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/terrain/mats/planet02_scenes01_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/terrain/mats.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/terrain/mats/planet02_scenes07_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/planet02/terrain.unity3d
+    path: assets/buildasset/prefabs/scenes/planet02/terrain/planet02_scenes01_terrain_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/terrain.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/terrain/planet02_scenes07_terrain_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
@@ -2106,6 +2140,8 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/planet02/tool_show/planet02_scenes07_tool_show_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet02/tool_show.unity3d
     path: assets/buildasset/prefabs/scenes/planet02/tool_show/planet02_scenes07_tool_show_10.prefab
+  - bundle: assets/buildasset/prefabs/scenes/tool.unity3d
+    path: assets/buildasset/prefabs/scenes/tool/planet02_scenes07_tool_08.prefab
   - bundle: assets/buildasset/scenes/markeds/level11_marked.unity.unity3d
     path: assets/buildasset/scenes/markeds/level11_marked.unity
   - bundle: assets/buildasset/scenes/markeds/level12_marked.unity.unity3d
@@ -2120,6 +2156,8 @@ MonoBehaviour:
     path: assets/buildasset/scenes/markeds/level16_marked.unity
   - bundle: assets/buildasset/scenes/markeds/level17_marked.unity.unity3d
     path: assets/buildasset/scenes/markeds/level17_marked.unity
+  - bundle: assets/buildasset/scenes/markeds/level21_marked.unity.unity3d
+    path: assets/buildasset/scenes/markeds/level21_marked.unity
   - bundle: assets/buildasset/ui/buff.unity3d
     path: assets/buildasset/ui/buff_atlas0.png
   - bundle: assets/buildasset/ui/buff.unity3d
@@ -2274,213 +2312,213 @@ MonoBehaviour:
     path: assets/buildasset/ui/worktable_atlas0.png
   - bundle: assets/buildasset/ui/worktable.unity3d
     path: assets/buildasset/ui/worktable_fui.bytes
-  - bundle: assets/buildasset/visualscript/excute/excute.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/excute/excute.asset
-  - bundle: assets/buildasset/visualscript/game.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game.asset
-  - bundle: assets/buildasset/visualscript/game/attribute/getgratuity.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/attribute/getgratuity.asset
-  - bundle: assets/buildasset/visualscript/game/attribute/getgratuityrate.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/attribute/getgratuityrate.asset
-  - bundle: assets/buildasset/visualscript/game/audio/gameaudio.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/audio/gameaudio.asset
-  - bundle: assets/buildasset/visualscript/game/build/createelevator.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/build/createelevator.asset
-  - bundle: assets/buildasset/visualscript/game/build/elevator.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/build/elevator.asset
-  - bundle: assets/buildasset/visualscript/game/build/initlevelelevator.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/build/initlevelelevator.asset
-  - bundle: assets/buildasset/visualscript/game/build/moveobjectto.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/build/moveobjectto.asset
-  - bundle: assets/buildasset/visualscript/game/character/chef.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/chef.asset
-  - bundle: assets/buildasset/visualscript/game/character/createcharacterevent.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/createcharacterevent.asset
-  - bundle: assets/buildasset/visualscript/game/character/createcharactersinelevator.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/createcharactersinelevator.asset
-  - bundle: assets/buildasset/visualscript/game/character/createcustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/createcustomer.asset
-  - bundle: assets/buildasset/visualscript/game/character/createelevatorcustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/createelevatorcustomer.asset
-  - bundle: assets/buildasset/visualscript/game/character/customer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/customer.asset
-  - bundle: assets/buildasset/visualscript/game/character/friendcustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/friendcustomer.asset
-  - bundle: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset
-  - bundle: assets/buildasset/visualscript/game/character/player.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/player.asset
-  - bundle: assets/buildasset/visualscript/game/character/superwaiter.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/superwaiter.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/cooking.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/cooking.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/customerleave.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/customerleave.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/startcooking.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/startcooking.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/startordering.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/startordering.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset
-  - bundle: assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset
-  - bundle: assets/buildasset/visualscript/game/character/waitcharacterfinish.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/waitcharacterfinish.asset
-  - bundle: assets/buildasset/visualscript/game/character/waiter.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/waiter.asset
-  - bundle: assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset
-  - bundle: assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset
-  - bundle: assets/buildasset/visualscript/game/friend/friendcustomercreater.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/friendcustomercreater.asset
-  - bundle: assets/buildasset/visualscript/game/friend/getfriendconfig.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendconfig.asset
-  - bundle: assets/buildasset/visualscript/game/friend/getfriendgratuity.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendgratuity.asset
-  - bundle: assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset
-  - bundle: assets/buildasset/visualscript/game/friend/getfriendordernum.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendordernum.asset
-  - bundle: assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset
-  - bundle: assets/buildasset/visualscript/game/friend/getrandromfriendid.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/getrandromfriendid.asset
-  - bundle: assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset
-  - bundle: assets/buildasset/visualscript/game/guide/closeguidefinger.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/closeguidefinger.asset
-  - bundle: assets/buildasset/visualscript/game/guide/closemask.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/closemask.asset
-  - bundle: assets/buildasset/visualscript/game/guide/guide.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/guide.asset
-  - bundle: assets/buildasset/visualscript/game/guide/guideaddstep.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/guideaddstep.asset
-  - bundle: assets/buildasset/visualscript/game/guide/guideclick.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/guideclick.asset
-  - bundle: assets/buildasset/visualscript/game/guide/guidestep.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/guidestep.asset
-  - bundle: assets/buildasset/visualscript/game/guide/guidewaitevent.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/guidewaitevent.asset
-  - bundle: assets/buildasset/visualscript/game/guide/guidewaitui.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/guidewaitui.asset
-  - bundle: assets/buildasset/visualscript/game/guide/showguidefinger.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/showguidefinger.asset
-  - bundle: assets/buildasset/visualscript/game/guide/showmask.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/guide/showmask.asset
-  - bundle: assets/buildasset/visualscript/game/init/createlevelcharacter.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/init/createlevelcharacter.asset
-  - bundle: assets/buildasset/visualscript/game/order/ordercookfinish.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/order/ordercookfinish.asset
-  - bundle: assets/buildasset/visualscript/game/order/ordercookstart.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/order/ordercookstart.asset
-  - bundle: assets/buildasset/visualscript/game/order/orderfinish.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/order/orderfinish.asset
-  - bundle: assets/buildasset/visualscript/game/order/orderfoodtips.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/order/orderfoodtips.asset
-  - bundle: assets/buildasset/visualscript/game/order/orderreputationtip.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/order/orderreputationtip.asset
-  - bundle: assets/buildasset/visualscript/game/room/createbullet.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/createbullet.asset
-  - bundle: assets/buildasset/visualscript/game/room/customerleavebullet.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/customerleavebullet.asset
-  - bundle: assets/buildasset/visualscript/game/room/customerleavedressup.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/customerleavedressup.asset
-  - bundle: assets/buildasset/visualscript/game/room/customerleavereturn.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/customerleavereturn.asset
-  - bundle: assets/buildasset/visualscript/game/room/getbullettargetposition.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/getbullettargetposition.asset
-  - bundle: assets/buildasset/visualscript/game/room/iselevatorroom.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/iselevatorroom.asset
-  - bundle: assets/buildasset/visualscript/game/room/onapppause.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/onapppause.asset
-  - bundle: assets/buildasset/visualscript/game/room/oncustomerclose.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/oncustomerclose.asset
-  - bundle: assets/buildasset/visualscript/game/room/oncustomercreate.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/oncustomercreate.asset
-  - bundle: assets/buildasset/visualscript/game/room/railwaylooking.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/railwaylooking.asset
-  - bundle: assets/buildasset/visualscript/game/room/roomcleanup.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/roomcleanup.asset
-  - bundle: assets/buildasset/visualscript/game/utils/additem.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/additem.asset
-  - bundle: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/charactermove.asset
-  - bundle: assets/buildasset/visualscript/game/utils/createcharacter.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/createcharacter.asset
-  - bundle: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getcookingpos.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getcookingpos.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getfoodtype.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getfoodtype.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getindexpos.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getindexpos.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getonlinetime.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getonlinetime.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getorderpos.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getorderpos.asset
-  - bundle: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset
-  - bundle: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/gettablechair.asset
-  - bundle: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/recovercharacter.asset
-  - bundle: assets/buildasset/visualscript/game/utils/setitem.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/utils/setitem.asset
-  - bundle: assets/buildasset/visualscript/gameelevator.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/gameelevator.asset
-  - bundle: assets/buildasset/visualscript/gmscript.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/gmscript.asset
-  - bundle: assets/buildasset/visualscript/login/login.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/login/login.asset
-  - bundle: assets/buildasset/visualscript/prefabs/ai/chef.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/chef.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/ai/customer.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/customer.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/ai/customertest.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/customertest.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/ai/player.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/player.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/ai/waiter.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/waiter.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/building/elevator.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/building/elevator.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/game.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/guide.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/guide.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/login.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/login.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/reqexcute.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/reqexcute.prefab
-  - bundle: assets/buildasset/visualscript/prefabs/scenevariables.prefab.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/prefabs/scenevariables.prefab
-  - bundle: assets/buildasset/visualscript/test/createtestcustomer.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/test/createtestcustomer.asset
-  - bundle: assets/buildasset/visualscript/test/customertest.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/test/customertest.asset
-  - bundle: assets/buildasset/visualscript/test/gametest.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/test/gametest.asset
-  - bundle: assets/buildasset/visualscript/test/testfriendconfig.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/test/testfriendconfig.asset
-  - bundle: assets/buildasset/visualscript/testevent.asset.unity3d
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/testevent.asset
   ruleBundles:
   - name: assets/buildasset/art/scenes/animal.unity3d
@@ -2795,6 +2833,9 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.fbx
   - name: assets/buildasset/art/scenes/planet02/object.unity3d
     assets:
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_01.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_02.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_03.png
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.png
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.png
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.png
@@ -2802,6 +2843,9 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_05.png
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_06.png
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_07.png
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_01.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_02.fbx
+    - assets/buildasset/art/scenes/planet02/object/planet02_scenes01_object_03.fbx
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_01.fbx
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_02.fbx
     - assets/buildasset/art/scenes/planet02/object/planet02_scenes07_object_03.fbx
@@ -2817,7 +2861,11 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/planet02/table/planet02_scenes07_table_02.fbx
   - name: assets/buildasset/art/scenes/planet02/terrain.unity3d
     assets:
+    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes01_terrain_01.png
+    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes03_terrain_01.png
     - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.png
+    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes01_terrain_01.fbx
+    - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes03_terrain_01.fbx
     - assets/buildasset/art/scenes/planet02/terrain/planet02_scenes07_terrain_01.fbx
   - name: assets/buildasset/art/scenes/planet02/tool.unity3d
     assets:
@@ -2949,7 +2997,6 @@ MonoBehaviour:
     - assets/buildasset/configs/shop.bytes
     - assets/buildasset/configs/sound_effect.bytes
     - assets/buildasset/configs/table.bytes
-    - assets/buildasset/configs/telport.bytes
     - assets/buildasset/configs/ui_groups.bytes
     - assets/buildasset/configs/ui_res.bytes
   - name: assets/buildasset/ui/buff.unity3d
@@ -3158,6 +3205,9 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/other/rewardbox.prefab
     - assets/buildasset/prefabs/scenes/other/scene_grid.prefab
     - assets/buildasset/prefabs/scenes/other/table.prefab
+  - name: assets/buildasset/prefabs/scenes/tool.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/tool/planet02_scenes07_tool_08.prefab
   - name: assets/buildasset/prefabs/scenes/planet01/new.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/planet01/new/planet01_scenes01_tool_01_01.prefab
@@ -3315,6 +3365,9 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/planet01/tool_show/planet01_scenes07_tool_show_11.prefab
   - name: assets/buildasset/prefabs/scenes/planet02/object.unity3d
     assets:
+    - assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes01_object_01.prefab
+    - assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes01_object_02.prefab
+    - assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes01_object_03.prefab
     - assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes07_object_01.prefab
     - assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes07_object_02.prefab
     - assets/buildasset/prefabs/scenes/planet02/object/planet02_scenes07_object_03.prefab
@@ -3328,6 +3381,7 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/planet02/table/planet02_scenes07_table_02.prefab
   - name: assets/buildasset/prefabs/scenes/planet02/terrain.unity3d
     assets:
+    - assets/buildasset/prefabs/scenes/planet02/terrain/planet02_scenes01_terrain_01.prefab
     - assets/buildasset/prefabs/scenes/planet02/terrain/planet02_scenes07_terrain_01.prefab
   - name: assets/buildasset/prefabs/scenes/planet02/tool.unity3d
     assets:
@@ -3410,6 +3464,9 @@ MonoBehaviour:
   - name: assets/buildasset/scenes/markeds/level17_marked.unity.unity3d
     assets:
     - assets/buildasset/scenes/markeds/level17_marked.unity
+  - name: assets/buildasset/scenes/markeds/level21_marked.unity.unity3d
+    assets:
+    - assets/buildasset/scenes/markeds/level21_marked.unity
   - name: applogo.unity3d
     assets:
     - assets/buildasset/app/logo/ui_loading_logo@en.png
@@ -3426,440 +3483,153 @@ MonoBehaviour:
   - name: assets/buildasset/log/log4net.xml.bytes.unity3d
     assets:
     - assets/buildasset/log/log4net.xml.bytes
-  - name: assets/buildasset/customcharacters/characterbase.prefab.unity3d
-    assets:
-    - assets/buildasset/customcharacters/characterbase.prefab
-  - name: assets/buildasset/customcharacters/role/body-1.prefab.unity3d
+  - name: characters.unity3d
     assets:
     - assets/buildasset/customcharacters/role/body-1.prefab
-  - name: assets/buildasset/customcharacters/role/body-2.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-2.prefab
-  - name: assets/buildasset/customcharacters/role/body-3.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-3.prefab
-  - name: assets/buildasset/customcharacters/role/body-4.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-4.prefab
-  - name: assets/buildasset/customcharacters/role/body-5.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-5.prefab
-  - name: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/characterbase.prefab
-  - name: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-1.prefab
-  - name: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-2.prefab
-  - name: assets/buildasset/customcharacters/role/clothes-3.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-3.prefab
-  - name: assets/buildasset/customcharacters/role/clothes-4.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-4.prefab
-  - name: assets/buildasset/customcharacters/role/clothes-5.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-5.prefab
-  - name: assets/buildasset/customcharacters/role/clothes-6.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-6.prefab
-  - name: assets/buildasset/customcharacters/role/glasses-1.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/glasses-1.prefab
-  - name: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-1.prefab
-  - name: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-2.prefab
-  - name: assets/buildasset/customcharacters/role/hair-3.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-3.prefab
-  - name: assets/buildasset/customcharacters/role/hair-4.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-4.prefab
-  - name: assets/buildasset/customcharacters/role/hair-5.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-5.prefab
-  - name: assets/buildasset/customcharacters/role/hair-6.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-6.prefab
-  - name: assets/buildasset/customcharacters/role/hair-7.prefab.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-7.prefab
-  - name: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/characterelementdatabase.asset
-  - name: assets/buildasset/customcharacters/role/body-1_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-1_mesh.asset
-  - name: assets/buildasset/customcharacters/role/body-2_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-2_mesh.asset
-  - name: assets/buildasset/customcharacters/role/body-3_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-3_mesh.asset
-  - name: assets/buildasset/customcharacters/role/body-4_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-4_mesh.asset
-  - name: assets/buildasset/customcharacters/role/body-5_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/body-5_mesh.asset
-  - name: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-1_mesh.asset
-  - name: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-2_mesh.asset
-  - name: assets/buildasset/customcharacters/role/clothes-3_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-3_mesh.asset
-  - name: assets/buildasset/customcharacters/role/clothes-4_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-4_mesh.asset
-  - name: assets/buildasset/customcharacters/role/clothes-5_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-5_mesh.asset
-  - name: assets/buildasset/customcharacters/role/clothes-6_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/clothes-6_mesh.asset
-  - name: assets/buildasset/customcharacters/role/glasses-1_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/glasses-1_mesh.asset
-  - name: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-1_mesh.asset
-  - name: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-2_mesh.asset
-  - name: assets/buildasset/customcharacters/role/hair-3_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-3_mesh.asset
-  - name: assets/buildasset/customcharacters/role/hair-4_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-4_mesh.asset
-  - name: assets/buildasset/customcharacters/role/hair-5_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-5_mesh.asset
-  - name: assets/buildasset/customcharacters/role/hair-6_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-6_mesh.asset
-  - name: assets/buildasset/customcharacters/role/hair-7_mesh.asset.unity3d
-    assets:
     - assets/buildasset/customcharacters/role/hair-7_mesh.asset
-  - name: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
+  - name: visualscript.unity3d
     assets:
     - assets/buildasset/visualscript/prefabs/game.prefab
-  - name: assets/buildasset/visualscript/prefabs/guide.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/guide.prefab
-  - name: assets/buildasset/visualscript/prefabs/login.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/login.prefab
-  - name: assets/buildasset/visualscript/prefabs/reqexcute.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/reqexcute.prefab
-  - name: assets/buildasset/visualscript/prefabs/scenevariables.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/scenevariables.prefab
-  - name: assets/buildasset/visualscript/prefabs/ai/chef.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/ai/chef.prefab
-  - name: assets/buildasset/visualscript/prefabs/ai/customer.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/ai/customer.prefab
-  - name: assets/buildasset/visualscript/prefabs/ai/customertest.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/ai/customertest.prefab
-  - name: assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab
-  - name: assets/buildasset/visualscript/prefabs/ai/player.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/ai/player.prefab
-  - name: assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab
-  - name: assets/buildasset/visualscript/prefabs/ai/waiter.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/ai/waiter.prefab
-  - name: assets/buildasset/visualscript/prefabs/building/elevator.prefab.unity3d
-    assets:
     - assets/buildasset/visualscript/prefabs/building/elevator.prefab
-  - name: assets/buildasset/visualscript/game.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game.asset
-  - name: assets/buildasset/visualscript/gameelevator.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/gameelevator.asset
-  - name: assets/buildasset/visualscript/gmscript.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/gmscript.asset
-  - name: assets/buildasset/visualscript/testevent.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/testevent.asset
-  - name: assets/buildasset/visualscript/excute/excute.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/excute/excute.asset
-  - name: assets/buildasset/visualscript/login/login.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/login/login.asset
-  - name: assets/buildasset/visualscript/test/createtestcustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/test/createtestcustomer.asset
-  - name: assets/buildasset/visualscript/test/customertest.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/test/customertest.asset
-  - name: assets/buildasset/visualscript/test/gametest.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/test/gametest.asset
-  - name: assets/buildasset/visualscript/test/testfriendconfig.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/test/testfriendconfig.asset
-  - name: assets/buildasset/visualscript/game/attribute/getgratuity.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/attribute/getgratuity.asset
-  - name: assets/buildasset/visualscript/game/attribute/getgratuityrate.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/attribute/getgratuityrate.asset
-  - name: assets/buildasset/visualscript/game/audio/gameaudio.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/audio/gameaudio.asset
-  - name: assets/buildasset/visualscript/game/build/createelevator.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/build/createelevator.asset
-  - name: assets/buildasset/visualscript/game/build/elevator.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/build/elevator.asset
-  - name: assets/buildasset/visualscript/game/build/initlevelelevator.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/build/initlevelelevator.asset
-  - name: assets/buildasset/visualscript/game/build/moveobjectto.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/build/moveobjectto.asset
-  - name: assets/buildasset/visualscript/game/character/chef.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/chef.asset
-  - name: assets/buildasset/visualscript/game/character/createcharacterevent.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/createcharacterevent.asset
-  - name: assets/buildasset/visualscript/game/character/createcharactersinelevator.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/createcharactersinelevator.asset
-  - name: assets/buildasset/visualscript/game/character/createcustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/createcustomer.asset
-  - name: assets/buildasset/visualscript/game/character/createelevatorcustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/createelevatorcustomer.asset
-  - name: assets/buildasset/visualscript/game/character/customer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/customer.asset
-  - name: assets/buildasset/visualscript/game/character/friendcustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/friendcustomer.asset
-  - name: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset
-  - name: assets/buildasset/visualscript/game/character/player.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/player.asset
-  - name: assets/buildasset/visualscript/game/character/superwaiter.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/superwaiter.asset
-  - name: assets/buildasset/visualscript/game/character/waitcharacterfinish.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/waitcharacterfinish.asset
-  - name: assets/buildasset/visualscript/game/character/waiter.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/waiter.asset
-  - name: assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset
-  - name: assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset
-  - name: assets/buildasset/visualscript/game/friend/friendcustomercreater.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/friendcustomercreater.asset
-  - name: assets/buildasset/visualscript/game/friend/getfriendconfig.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/getfriendconfig.asset
-  - name: assets/buildasset/visualscript/game/friend/getfriendgratuity.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/getfriendgratuity.asset
-  - name: assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset
-  - name: assets/buildasset/visualscript/game/friend/getfriendordernum.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/getfriendordernum.asset
-  - name: assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset
-  - name: assets/buildasset/visualscript/game/friend/getrandromfriendid.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/getrandromfriendid.asset
-  - name: assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset
-  - name: assets/buildasset/visualscript/game/guide/closeguidefinger.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/closeguidefinger.asset
-  - name: assets/buildasset/visualscript/game/guide/closemask.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/closemask.asset
-  - name: assets/buildasset/visualscript/game/guide/guide.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/guide.asset
-  - name: assets/buildasset/visualscript/game/guide/guideaddstep.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/guideaddstep.asset
-  - name: assets/buildasset/visualscript/game/guide/guideclick.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/guideclick.asset
-  - name: assets/buildasset/visualscript/game/guide/guidestep.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/guidestep.asset
-  - name: assets/buildasset/visualscript/game/guide/guidewaitevent.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/guidewaitevent.asset
-  - name: assets/buildasset/visualscript/game/guide/guidewaitui.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/guidewaitui.asset
-  - name: assets/buildasset/visualscript/game/guide/showguidefinger.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/showguidefinger.asset
-  - name: assets/buildasset/visualscript/game/guide/showmask.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/guide/showmask.asset
-  - name: assets/buildasset/visualscript/game/init/createlevelcharacter.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/init/createlevelcharacter.asset
-  - name: assets/buildasset/visualscript/game/order/ordercookfinish.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/order/ordercookfinish.asset
-  - name: assets/buildasset/visualscript/game/order/ordercookstart.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/order/ordercookstart.asset
-  - name: assets/buildasset/visualscript/game/order/orderfinish.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/order/orderfinish.asset
-  - name: assets/buildasset/visualscript/game/order/orderfoodtips.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/order/orderfoodtips.asset
-  - name: assets/buildasset/visualscript/game/order/orderreputationtip.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/order/orderreputationtip.asset
-  - name: assets/buildasset/visualscript/game/room/createbullet.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/createbullet.asset
-  - name: assets/buildasset/visualscript/game/room/customerleavebullet.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/customerleavebullet.asset
-  - name: assets/buildasset/visualscript/game/room/customerleavedressup.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/customerleavedressup.asset
-  - name: assets/buildasset/visualscript/game/room/customerleavereturn.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/customerleavereturn.asset
-  - name: assets/buildasset/visualscript/game/room/getbullettargetposition.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/getbullettargetposition.asset
-  - name: assets/buildasset/visualscript/game/room/iselevatorroom.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/iselevatorroom.asset
-  - name: assets/buildasset/visualscript/game/room/onapppause.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/onapppause.asset
-  - name: assets/buildasset/visualscript/game/room/oncustomerclose.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/oncustomerclose.asset
-  - name: assets/buildasset/visualscript/game/room/oncustomercreate.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/oncustomercreate.asset
-  - name: assets/buildasset/visualscript/game/room/railwaylooking.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/railwaylooking.asset
-  - name: assets/buildasset/visualscript/game/room/roomcleanup.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/room/roomcleanup.asset
-  - name: assets/buildasset/visualscript/game/utils/additem.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/additem.asset
-  - name: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/charactermove.asset
-  - name: assets/buildasset/visualscript/game/utils/createcharacter.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/createcharacter.asset
-  - name: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/createlevelcharacter.asset
-  - name: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getcharacerattribute.asset
-  - name: assets/buildasset/visualscript/game/utils/getcookingpos.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getcookingpos.asset
-  - name: assets/buildasset/visualscript/game/utils/getfoodtype.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getfoodtype.asset
-  - name: assets/buildasset/visualscript/game/utils/getindexpos.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getindexpos.asset
-  - name: assets/buildasset/visualscript/game/utils/getonlinetime.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getonlinetime.asset
-  - name: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset
-  - name: assets/buildasset/visualscript/game/utils/getorderpos.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getorderpos.asset
-  - name: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset
-  - name: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/gettablechair.asset
-  - name: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/recovercharacter.asset
-  - name: assets/buildasset/visualscript/game/utils/setitem.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/utils/setitem.asset
-  - name: assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset
-  - name: assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset
-  - name: assets/buildasset/visualscript/game/character/utils/cooking.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/cooking.asset
-  - name: assets/buildasset/visualscript/game/character/utils/customerleave.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/customerleave.asset
-  - name: assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset
-  - name: assets/buildasset/visualscript/game/character/utils/startcooking.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/startcooking.asset
-  - name: assets/buildasset/visualscript/game/character/utils/startordering.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/startordering.asset
-  - name: assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset
-  - name: assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset
-  - name: assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset.unity3d
-    assets:
     - assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset
   - name: assets/buildasset/fonts/lilitaone/alibaba-puhuiti-heavy-sdf.asset.unity3d
     assets:
@@ -3923,6 +3693,7 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/level15.prefab
     - assets/buildasset/effects/prefabs/level16.prefab
     - assets/buildasset/effects/prefabs/level17.prefab
+    - assets/buildasset/effects/prefabs/level27.prefab
     - assets/buildasset/effects/prefabs/levelcompletedui_01.prefab
     - assets/buildasset/effects/prefabs/levelcompletedui_02.prefab
     - assets/buildasset/effects/prefabs/particle system.prefab
@@ -4133,6 +3904,9 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/planet01/tool_show/mats/planet01_scenes07_tool_show_11.mat
   - name: assets/buildasset/prefabs/scenes/planet02/object/mats.unity3d
     assets:
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes01_object_01.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes01_object_02.mat
+    - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes01_object_03.mat
     - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_01.mat
     - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_02.mat
     - assets/buildasset/prefabs/scenes/planet02/object/mats/planet02_scenes07_object_03.mat
@@ -4146,6 +3920,7 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/planet02/table/mats/planet02_scenes07_table_02.mat
   - name: assets/buildasset/prefabs/scenes/planet02/terrain/mats.unity3d
     assets:
+    - assets/buildasset/prefabs/scenes/planet02/terrain/mats/planet02_scenes01_terrain_01.mat
     - assets/buildasset/prefabs/scenes/planet02/terrain/mats/planet02_scenes07_terrain_01.mat
   - name: assets/buildasset/prefabs/scenes/planet02/tool/mats.unity3d
     assets:
@@ -4238,24 +4013,27 @@ MonoBehaviour:
   - name: assets/buildasset/effects/materials/pao.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/pao.mat
-  - name: assets/buildasset/art/characters/role/role.fbx.unity3d
+  - name: assets/buildasset/effects/textures/glowing_particles_sheet.png.unity3d
     assets:
-    - assets/buildasset/art/characters/role/role.fbx
+    - assets/buildasset/effects/textures/glowing_particles_sheet.png
+  - name: assets/buildasset/effects/materials/huomiao 3.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/huomiao 3.mat
   - name: assets/buildasset/effects/materials/huan 4.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/huan 4.mat
   - name: assets/buildasset/effects/materials/lianju.mat.unity3d
     assets:
     - assets/buildasset/effects/materials/lianju.mat
-  - name: assets/buildasset/effects/materials/huomiao 3.mat.unity3d
+  - name: assets/buildasset/effects/textures/smoke_7004.png.unity3d
     assets:
-    - assets/buildasset/effects/materials/huomiao 3.mat
+    - assets/buildasset/effects/textures/smoke_7004.png
   - name: assets/buildasset/effects/textures/xuewo.png.unity3d
     assets:
     - assets/buildasset/effects/textures/xuewo.png
-  - name: assets/buildasset/effects/textures/glowing_particles_sheet.png.unity3d
+  - name: assets/buildasset/effects/materials/smoke 1.mat.unity3d
     assets:
-    - assets/buildasset/effects/textures/glowing_particles_sheet.png
+    - assets/buildasset/effects/materials/smoke 1.mat
   - name: assets/buildasset/effects/textures/haruyuki_rotation_00_03.png.unity3d
     assets:
     - assets/buildasset/effects/textures/haruyuki_rotation_00_03.png

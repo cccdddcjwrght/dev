@@ -102,24 +102,28 @@ namespace SGame
             m_triggerInit = new List<CharacterEvent>();
             m_characters = new Dictionary<int, Entity>();
 
-            m_prefabReadly = EntityManager.CreateEntityQuery(typeof(Prefab), typeof(CharacterAttribue));
+            m_prefabReadly = EntityManager.CreateEntityQuery( typeof(GameInitFinish));
             
             lasterCharacterID = 0;
             
             RequireForUpdate(m_prefabReadly);
-
-            EventManager.Instance.Reg((int)GameEvent.ENTER_GAME, OnGameInitAfter);
-        }
-
-        void OnGameInitAfter()
-        {
-            ECSPrefabManager.Instance.AddPrefab(ENTITY_PREFAB_PATH);
         }
 
         protected override void OnStartRunning()
         {
-            m_characterPerfab = m_prefabReadly.GetSingletonEntity();
-            EntityManager.RemoveComponent<LinkedEntityGroup>(m_characterPerfab); // 删除这个组件节省空间
+            m_characterPerfab = EntityManager.CreateEntity(
+                typeof(Speed),
+                typeof(RotationSpeed),
+                typeof(CharacterAttribue),
+                typeof(Follow),
+                typeof(LocalToWorld),
+                typeof(Translation),
+                typeof(Rotation),
+                typeof(Prefab),
+                typeof(GameObjectSyncTag));
+            EntityManager.SetComponentData(m_characterPerfab, new Speed(){Value = 10.0f});
+            EntityManager.SetComponentData(m_characterPerfab, new RotationSpeed(){Value = 10.0f});
+            EntityManager.SetComponentData(m_characterPerfab, new LocalToWorld(){Value = float4x4.identity});
         }
 
         /// <summary>

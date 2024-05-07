@@ -81,7 +81,7 @@ namespace SGame
 			}
 		}
 
-		public  Action<int> onStateChange;
+		public Action<int> onStateChange;
 
 		public Action<IEnumerator> closeUI;
 
@@ -162,7 +162,20 @@ namespace SGame
 		{
 			get
 			{
-				return 1;
+				if (state < STATE.PRELOAD_ASSET)
+					return 0;
+
+				switch (state)
+				{
+					case STATE.PRELOAD_ASSET:
+						return preloadAssets != null ? preloadAssets.progress * 0.5f : 0.5f;
+					case STATE.LOAD_SCENE:
+						return 0.5f + sceneRequest.progress * 0.5f;
+					default:
+						return 1.0f;
+				}
+
+				return 1.0f;
 			}
 		}
 	}

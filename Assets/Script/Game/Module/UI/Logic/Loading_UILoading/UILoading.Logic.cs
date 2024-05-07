@@ -50,9 +50,9 @@ namespace SGame.UI
 				startFlag = true;
 				timer = Utils.Timer(9999, () =>
 				{
-					var step = progress - cprogress > 20 ? 10 : 5;
-					cprogress = Math.Clamp(cprogress + step, 0, progress);
-					m_progressBar.value = cprogress;
+					//var step = progress - cprogress > 20 ? 10 : 5;
+					//cprogress = Math.Clamp(cprogress + step, 0, progress);
+					m_progressBar.value = SceneSystemV2.Instance.progress * 100;// cprogress;
 				}, m_view);
 			}
 		}

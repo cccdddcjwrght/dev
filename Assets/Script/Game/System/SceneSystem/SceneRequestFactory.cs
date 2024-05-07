@@ -17,7 +17,9 @@
 
         public static GAssetRequest CreatePreloadRequest(string sceneName)
         {
-            return null;
+            GScenePreload req = new GScenePreload();
+            req.name = sceneName;
+            return req;
         }
     }
 }

@@ -26,6 +26,8 @@ namespace SGame
 
 			public object Current { get; set; }
 		}
+		
+		public float progress => m_loading != null ? m_loading.progress : 1f;
 
 		// 当前场景加载引用
 		private GSceneRequest m_current;
@@ -215,8 +217,13 @@ namespace SGame
 			loading.preloadAssets = SceneRequestFactory.CreatePreloadRequest(loading.name);
 			if (loading.preloadAssets != null)
 			{
-				while (loading.Update())
+				while (loading.preloadAssets.Update())
 					yield return null;
+				
+				if (!string.IsNullOrEmpty(loading.preloadAssets.error))
+				{
+					log.Error("preload asset fail=" + loading.preloadAssets.error);
+				}
 			}
 		}
 
