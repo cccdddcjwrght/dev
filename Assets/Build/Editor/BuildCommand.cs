@@ -689,8 +689,11 @@ static class BuildCommand
 			PlayerSettings.stripEngineCode = true;
 			PlayerSettings.SetManagedStrippingLevel(tg, level);
 		}
-
-
+		if (target == BuildTarget.Android)
+		{
+			PlayerSettings.Android.minifyWithR8 = true;
+			PlayerSettings.Android.minifyRelease = true;
+		}
 	}
 
 	private static void HandlSplashVideoToStream()
