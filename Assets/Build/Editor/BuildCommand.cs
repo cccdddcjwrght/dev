@@ -689,11 +689,7 @@ static class BuildCommand
 			PlayerSettings.stripEngineCode = true;
 			PlayerSettings.SetManagedStrippingLevel(tg, level);
 		}
-		if (target == BuildTarget.Android)
-		{
-			PlayerSettings.Android.minifyWithR8 = true;
-			PlayerSettings.Android.minifyRelease = true;
-		}
+
 	}
 
 	private static void HandlSplashVideoToStream()
@@ -716,6 +712,11 @@ static class BuildCommand
 
 	private static void HandlerTargetCPUType()
 	{
+
+		PlayerSettings.Android.minifyWithR8 = true;
+		PlayerSettings.Android.minifyRelease = true;
+		PlayerSettings.Android.minifyDebug = true;
+		
 		var target = PlayerSettings.Android.targetArchitectures;
 		if (TryGetEnv(CPU_TYPE, out var type) && !string.IsNullOrEmpty(type) && Enum.TryParse<AndroidArchitecture>(type, true, out var v))
 			target = v;
