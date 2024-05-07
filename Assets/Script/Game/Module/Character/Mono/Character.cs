@@ -507,5 +507,17 @@ namespace SGame
                 m_sleep = Entity.Null;
             }
         }
+
+        /// <summary>
+        /// 开始还是结束制作食物
+        /// </summary>
+        /// <param name="start"></param>
+        public void Cooking(bool start)
+        {
+            if (modelAnimator != null)
+            {
+                modelAnimator.SetBool("working", start);
+            }
+        }
     }
 }
