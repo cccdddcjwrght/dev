@@ -17,9 +17,13 @@ namespace SGame
             m_EventHandle += EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, Clear);
         }
 
-        public int2 GetCharacterEmptyIdlePos(string tag, int characterID)
+        public int2 GetCharacterEmptyIdlePos(int characterID)
         {
-            var list = GameTools.MapAgent.GetTagGrids(tag);
+            string born1 = Utils.GetMapTagFromRoleType((int)EnumRole.Player);
+            string born2 = Utils.GetMapTagFromRoleType((int)EnumRole.Cook);
+
+            var list = GameTools.MapAgent.GetTagGrids(born1);
+            list.AddRange(GameTools.MapAgent.GetTagGrids(born2));
             foreach (var item in m_IdlePos)
             {
                 if (item.Value == characterID)
