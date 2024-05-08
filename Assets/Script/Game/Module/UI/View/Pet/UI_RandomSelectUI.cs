@@ -20,7 +20,7 @@ namespace SGame.UI.Pet
         {
             base.ConstructFromXML(xml);
 
-            m_list = (GList)GetChildAt(1);
+            m_list = (GList)GetChildAt(0);
             m_show = GetTransitionAt(0);
         }
     }
