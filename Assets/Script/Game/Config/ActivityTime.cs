@@ -36,14 +36,17 @@ public struct ActivityTimeRowData : IFlatbufferObject
   public byte[] GetEndTimeArray() { return __p.__vector_as_array<byte>(8); }
   public int Type { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Value { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int LoopTime { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ActivityTimeRowData> CreateActivityTimeRowData(FlatBufferBuilder builder,
       int Id = 0,
       StringOffset BeginTimeOffset = default(StringOffset),
       StringOffset EndTimeOffset = default(StringOffset),
       int Type = 0,
-      int Value = 0) {
-    builder.StartTable(5);
+      int Value = 0,
+      int LoopTime = 0) {
+    builder.StartTable(6);
+    ActivityTimeRowData.AddLoopTime(builder, LoopTime);
     ActivityTimeRowData.AddValue(builder, Value);
     ActivityTimeRowData.AddType(builder, Type);
     ActivityTimeRowData.AddEndTime(builder, EndTimeOffset);
@@ -52,12 +55,13 @@ public struct ActivityTimeRowData : IFlatbufferObject
     return ActivityTimeRowData.EndActivityTimeRowData(builder);
   }
 
-  public static void StartActivityTimeRowData(FlatBufferBuilder builder) { builder.StartTable(5); }
+  public static void StartActivityTimeRowData(FlatBufferBuilder builder) { builder.StartTable(6); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddBeginTime(FlatBufferBuilder builder, StringOffset BeginTimeOffset) { builder.AddOffset(1, BeginTimeOffset.Value, 0); }
   public static void AddEndTime(FlatBufferBuilder builder, StringOffset EndTimeOffset) { builder.AddOffset(2, EndTimeOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(3, Type, 0); }
   public static void AddValue(FlatBufferBuilder builder, int Value) { builder.AddInt(4, Value, 0); }
+  public static void AddLoopTime(FlatBufferBuilder builder, int LoopTime) { builder.AddInt(5, LoopTime, 0); }
   public static Offset<GameConfigs.ActivityTimeRowData> EndActivityTimeRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ActivityTimeRowData>(o);

@@ -244,6 +244,10 @@ namespace SGame
             map_pos.y = searchPos.y;
             float3 pos = entityManager.GetComponentData<Translation>(entity).Value;
             int2 curPos = AStar.GetGridPos(pos);
+            if (curPos.x == map_pos.x && curPos.y == map_pos.y)
+            {
+                return;
+            }
             
             FindPathParams find = new FindPathParams() { start_pos = curPos, end_pos = map_pos };
             if (!entityManager.HasComponent<FindPathParams>(entity))
