@@ -405,18 +405,17 @@ namespace SGame
 					var s = GetEvoStep();
 					for (int i = 0; i < effects.Count; i++)
 					{
+						int[] buff = null;
 						//前三条是进化属性
 						if (i < MAX_EVO && !(1 << i).IsInState(s))
 						{
-							if (replaceNull) rets.Add(null);
+							if (!replaceNull) continue;
 						}
 						else if (!useAdd)
-							rets.Add(effects[i]);
+							buff = effects[i];
 						else
-						{
-							var v = (int)Utils.ToInt(effects[i][1] * (100 + effectAdd[i]) * 0.01f);
-							rets.Add(new int[] { effects[i][0], v });
-						}
+							buff = new int[] { effects[i][0], (int)Utils.ToInt(effects[i][1] * (100 + effectAdd[i]) * 0.01f) };
+						rets.Add(buff);
 					}
 					return rets;
 				}
@@ -483,7 +482,7 @@ namespace SGame
 					evotimes[index] = 0;
 					Refresh();
 					evo = (evo << 1) + (1 << 0);
-					return GetEffects().FirstOrDefault();
+					return GetEffects(false)[index];
 				}
 				else
 				{
