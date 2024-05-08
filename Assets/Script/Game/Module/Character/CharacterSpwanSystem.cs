@@ -69,10 +69,11 @@ namespace SGame
         public class CharacterLoading : IComponentData
         {
             //public AssetRequest       baseChacterPrefab;
-            public CharacterGenerator gen;
+            //public CharacterGenerator gen;
+            public CharacterPool        pool;
             public AssetRequest       aiPrefab;
             public int modelId;
-            public bool isDone => gen.ConfigReady && aiPrefab.isDone;
+            public bool isDone => pool.isDone && aiPrefab.isDone;
         }
 
         public struct CharacterEvent
@@ -220,7 +221,7 @@ namespace SGame
 
                 CharacterLoading loading = new CharacterLoading()
                 {
-                    gen       = CharacterGenerator.CreateWithConfig(config.Part),
+                    pool      = CharacterFactory.Instance.GetOrCreate(config.Part),//CharacterGenerator.CreateWithConfig(config.Part),
                     modelId   = config.ID,
                     aiPrefab  = LoadAI(configAI)
                 };
@@ -258,7 +259,6 @@ namespace SGame
                 var character         = new GameObject();
                 character.transform.position    = req.pos;
                 character.transform.rotation    = Quaternion.identity;
-                //log.Info("character start character =" + lasterCharacterID + " pos=" + req.pos);
                 Character c = character.AddComponent<Character>();//()
                 character.name = config.Name + "_id_" + lasterCharacterID;
 
@@ -271,15 +271,16 @@ namespace SGame
                     EntityManager.AddComponent<DisableAttributeTag>(characterEntity);
 
                 // 创建AI
-                GameObject ai       = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
-                ai.transform.parent = character.transform;
-                ai.transform.localRotation = Quaternion.identity;
-                ai.transform.localPosition = Vector3.zero;
-                ai.transform.localScale = Vector3.one;
-                ai.name = "AI";
+                GameObject ai               = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
+                ai.transform.parent         = character.transform;
+                ai.transform.localRotation  = Quaternion.identity;
+                ai.transform.localPosition  = Vector3.zero;
+                ai.transform.localScale     = Vector3.one;
+                ai.name                     = "AI";
                 
                 // 创建对象
-                GameObject ani = loading.gen.Generate();
+                //var id = loading.pool.Spawn();
+                GameObject ani = CharacterFactory.Instance.Spawn(loading.pool);  //loading.pool.GetObject(id);
                 ani.transform.SetParent(character.transform, false);
                 ani.transform.localRotation = Quaternion.identity;
                 ani.transform.localPosition = Vector3.zero;
@@ -299,6 +300,7 @@ namespace SGame
                 c.roleType = roleData.Type;
                 c.roleID = roleData.Id;
                 c.playerID = req.playerID;
+                c.SetLooking(loading.pool.config);
 
 				//TODO:先不使用CommandBuff处理
 

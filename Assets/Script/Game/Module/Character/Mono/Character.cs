@@ -103,6 +103,11 @@ namespace SGame
 
         private string     m_characterLooking;
 
+        public void SetLooking(string str)
+        {
+            m_characterLooking = str;
+        }
+
         void Awake()
         {
             m_modelLoading = new Fiber(FiberBucket.Manual);
@@ -130,18 +135,36 @@ namespace SGame
                 return m_characterLooking;
             }
             
+            /*
             ConfigSystem.Instance.TryGet(roleID, out GameConfigs.RoleDataRowData roleData);
             ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
             m_characterLooking = config.Part;
             return m_characterLooking;
+            */
+            log.Info("not found looking part=" + roleID);
+            return null;
         }
 
         private void OnDestroy()
         {
             ClearFood();
             ClearHudEntity();
+            m_slot.Clear();
         }
 
+        public void Clear()
+        {
+            ClearFood();
+            ClearHudEntity();
+            m_slot.Clear();
+
+            if (model != null)
+            {
+                CharacterFactory.Instance.Despawn(model);
+                model = null;
+            }
+        }
+        
         /// <summary>
         /// 初始化角色
         /// </summary>
@@ -414,6 +437,11 @@ namespace SGame
         /// <returns></returns>
         IEnumerator ChangLooking(string part)
         {
+            // 回收老的样式
+            //m_slot.Clear();
+            Clear();
+            //CharacterFactory.Instance.Despawn(m_characterLooking, m_characterPoolID);
+            
             m_characterLooking = part;
             var data = CharacterPartGen.ParseString(part);
             List<string> weapons = data.GetValues("weapon");
@@ -423,18 +451,20 @@ namespace SGame
             data.RemoveDatas("effect");
             data.RemoveData("pet");
             var newPart = data.ToPartString();
-            var gen = CharacterGenerator.CreateWithConfig(newPart);
-            while (gen.ConfigReady == false)
-                yield return null;
-			
-            var ani = gen.Generate();
+            CharacterPool pool = CharacterFactory.Instance.GetOrCreate(newPart);
+            //var gen = CharacterGenerator.CreateWithConfig(newPart);
+            //while (gen.ConfigReady == false)
+            //    yield return null;
+            yield return pool;
 
-
+            var ani = CharacterFactory.Instance.Spawn(pool);
             ani.transform.SetParent(transform, false);
             ani.transform.localRotation = Quaternion.identity;
             ani.transform.localPosition = Vector3.zero;
             ani.transform.localScale = Vector3.one;
-            ani.name = "Model";
+            ani.SetActive(true);
+
+            //ani.name = "Model";
             
             ConfigSystem.Instance.TryGet(roleID, out GameConfigs.RoleDataRowData roleData);
             ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
@@ -444,9 +474,8 @@ namespace SGame
                 ani.transform.localScale = scaleVector;
             }
 
-            GameObject.Destroy(model);
+            //GameObject.Destroy(model);
             yield return null;
-            m_slot.Clear();
             m_slot.UpdateModel();
             model = ani;
             
