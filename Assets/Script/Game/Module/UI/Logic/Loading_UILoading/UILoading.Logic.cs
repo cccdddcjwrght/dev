@@ -36,14 +36,19 @@ namespace SGame.UI
 
 			m_progressBar.min = 0;
 			m_progressBar.max = 100;
+			m_progressBar.value = 0;
 			m_text.text = "ui_loading_tips".Local();
-			SceneSystemV2.Instance.AddListener(OnStateChange, false, true);
+			context.onUpdate += OnUpdate;
+		}
 
-
+		void OnUpdate(UIContext context)
+		{
+			m_progressBar.value = SceneSystemV2.Instance.progress * 100; // cprogress;
 		}
 
 		void OnStateChange(int state)
 		{
+			/*
 			progress = (int)Mathf.Clamp(((float)state / maxstate) * 100, 0, 100);
 			if (!startFlag)
 			{
@@ -55,12 +60,15 @@ namespace SGame.UI
 					m_progressBar.value = SceneSystemV2.Instance.progress * 100;// cprogress;
 				}, m_view);
 			}
+			*/
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
-			timer?.Invoke(false);
-			SceneSystemV2.Instance.AddListener(OnStateChange, true, true);
+			context.onUpdate -= OnUpdate;
+
+			//timer?.Invoke(false);
+			//SceneSystemV2.Instance.AddListener(OnStateChange, true, true);
 
 		}
 	}
