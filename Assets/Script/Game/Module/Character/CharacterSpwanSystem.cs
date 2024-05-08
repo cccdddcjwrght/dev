@@ -285,7 +285,7 @@ namespace SGame
                 ani.transform.localRotation = Quaternion.identity;
                 ani.transform.localPosition = Vector3.zero;
                 ani.transform.localScale = Vector3.one;
-                ani.name = "Model";
+                //ani.name = "Model";
                 ani.SetActive(false);
                 if (config.RoleScaleLength == 3)
                 {

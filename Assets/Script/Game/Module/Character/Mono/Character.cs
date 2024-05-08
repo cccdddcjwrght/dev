@@ -156,6 +156,7 @@ namespace SGame
         {
             ClearFood();
             ClearHudEntity();
+            ClearSleep();
             m_slot.Clear();
 
             if (model != null)

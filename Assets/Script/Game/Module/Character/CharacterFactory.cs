@@ -32,10 +32,15 @@ namespace SGame
             m_root = root;
             m_config = part;
             m_gen = CharacterGenerator.CreateWithConfig(part);
-            m_pool = new ObjectPool<GameObject>(Alloc, OnSpawn, OnDespawn);
+            m_pool = new ObjectPool<GameObject>(Alloc, OnSpawn, OnDespawn, DesposeObject);
         }
 
         public int usedCount => m_pool.usedCount;
+
+        private void DesposeObject(GameObject obj)
+        {
+            GameObject.Destroy(obj);
+        }
 
         // 对象池 创建新的对象
         private GameObject Alloc()
@@ -88,6 +93,11 @@ namespace SGame
 
             log.Error(string.Format("character GetObject fail config={0}, id={1}", m_gen.GetConfig(), id));
             return null;
+        }
+
+        public void Dispose()
+        {
+            m_pool.Dispose();
         }
         
         // ******************************* IEnumerator 接口 **********************************************
@@ -200,20 +210,16 @@ namespace SGame
             return true;
         }
         
-
+        // 将空的对象池清除
         public void ClearEmpty()
         {
-            /*
-            List<string> m_keys = new List<string>();
-            foreach (var item in m_characterPools)
+            foreach (var pool in m_characterPools.Values)
             {
-                if (item.Value.usedCount == 0)
-                    m_keys.Add(item.Key);
+                if (pool.usedCount == 0)
+                {
+                    pool.Dispose();
+                }
             }
-
-            foreach (var k in m_keys)
-                m_characterPools.Remove(k);
-            */
         }
     }
 }

@@ -51,8 +51,8 @@ namespace SGame
                 if (item.character != null)
                 {
                     item.character.Clear();
+                    GameObject.Destroy(item.character.gameObject);
                 }
-                    //GameObject.Destroy(item.gameObject);
             }
 
 			m_destoryGameObject.Clear();

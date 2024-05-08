@@ -102,6 +102,8 @@ namespace SGame
                     despawnSystem.DespawnEntity(e);
             }
             entities.Dispose();
+            
+            CharacterFactory.Instance.ClearEmpty();
         }
 
         public bool DespawnCharacter(int charcterID)
