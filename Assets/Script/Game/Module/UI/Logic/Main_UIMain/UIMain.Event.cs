@@ -99,6 +99,9 @@ namespace SGame.UI
 
 			m_funcManager = new CheckingManager();
 
+			//排行榜
+			m_funcManager.Register(26, () => ActiveTimeSystem.Instance.IsActive(3, GameServerTime.Instance.serverTime));
+
 			//存钱罐
 			m_funcManager.Register(PiggyBankModule.PIGGYBANK_OEPNID, PiggyBankModule.Instance.CanTake);
 

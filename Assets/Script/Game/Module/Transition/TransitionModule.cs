@@ -50,7 +50,6 @@ namespace SGame
                     int itemId = r[1];
                     if (type == 1 && CheckIsTranId(itemId))
                     {
-                        m_TempIdList.Add(itemId);
                         Vector2 pos = ConvertGObjectGlobalPos(list.GetChildAt(i));
                         m_TempDict.Add(itemId, pos);
                     } 

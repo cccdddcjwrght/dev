@@ -65,7 +65,7 @@ namespace SGame.UI{
 		{
 			var item = FriendModule.Instance.GetFriendInHirstory(m_playerID);
 			m_friend = item;
-			m_view.m_recomment.selectedIndex = item.state == (int)FIREND_STATE.RECOMMEND ? 1 : 0;
+			m_view.m_recomment.selectedIndex = item?.state == (int)FIREND_STATE.RECOMMEND ? 1 : 0;
 			
 			m_view.m_title.text = item.name;
 			log.Info("UIFriendDetail OPEN FRIEND =" + m_playerID);

@@ -71,6 +71,7 @@ namespace SGame
 			TomorrowGiftModule.Instance.Initalize();
 
 			AdModule.Instance.Initalize();
+			RankModule.Instance.Initalize();
 			TransitionModule.Instance.Initalize();
 		}
 

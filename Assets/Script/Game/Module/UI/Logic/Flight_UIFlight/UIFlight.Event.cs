@@ -33,8 +33,8 @@ namespace SGame.UI{
 				Utils.Timer(0.1f, null, delay: timer, completed: () =>
 				{
 					Play(id, startPos[index], endPos, duration);
+					index++;
 				});
-				index++;
 				timer += 0.2f;
 			});
 		}
@@ -119,7 +119,7 @@ namespace SGame.UI{
 			{
 				loader = new GLoader();
 				loader.SetSize(80, 80);
-				loader.SetPivot(0.5f, 0.5f, true);
+				//loader.SetPivot(0.5f, 0.5f, true);
 				loader.fill = FillType.ScaleFree;
 				m_view.AddChild(loader);
 			}
@@ -159,7 +159,7 @@ namespace SGame.UI{
 
 		void SetPos() 
 		{
-			if (m_IsSet) return;
+			//if (m_IsSet) return;
 			var e = SGame.UIUtils.GetUIEntity("mainui");
 			if (e != Entity.Null)
 			{
@@ -168,9 +168,13 @@ namespace SGame.UI{
 				{
 					m_view.m_Gold.xy = ui.Value.contentPane.GetChild("Gold").xy;
 					m_view.m_Diamond.xy = ui.Value.contentPane.GetChild("Diamond").xy;
+
+					var boxGObject = ui.Value.contentPane.GetChildByPath("leftList.right").asList.GetChild("eqgift");
+					if (boxGObject != null) 
+						m_view.m_Box.xy = ui.Value.contentPane.GetChildByPath("leftList.right").asList.GetChild("eqgift").LocalToGlobal(Vector2.zero);
 				}
 			}
-			m_IsSet = true;
+			//m_IsSet = true;
 		}
 	}
 

@@ -59,6 +59,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("PetTipsUI", "Pet", ()=>new UIPetTips());
 			context.uiModule.Reg("RandomSelectUI", "Pet", ()=>new UIRandomSelect());
 			context.uiModule.Reg("FlightUI", "Flight", ()=>new UIFlight());SGame.UI.Flight.FlightBinder.BindAll();;
+			context.uiModule.Reg("RankMainUI", "Rank", ()=>new UIRankMain());SGame.UI.Rank.RankBinder.BindAll();;
+			context.uiModule.Reg("RankResultUI", "Rank", ()=>new UIRankResult());
 		}
 	}
 }
