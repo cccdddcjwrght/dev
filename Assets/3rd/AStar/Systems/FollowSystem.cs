@@ -61,7 +61,7 @@ namespace GameTools.Paths
 
 					var offset = (target_pos - currentPos);
 					var offsetLen = math.length(offset);
-					if (offsetLen <= deltaMovement || offsetLen <= 0.00001f)
+					if (offsetLen <= deltaMovement || offsetLen <= 0.001f)
 					{
 						// Next Node
 						translation.Value = target_pos;
