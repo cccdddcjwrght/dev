@@ -1007,7 +1007,7 @@ namespace SGame
 				var num = item.num;
 				if (need > num)
 				{
-					var t = false.Equals(tips) ? null : tips != null ? tips.ToString() : "item_not_enough".Local(null, GetItemName(1, id));
+					var t = false.Equals(tips) ? null : tips != null ? tips.ToString() : "item_not_enough".Local(null, GetItemName(1, id).Local());
 					if (go == null || !GotoTips(go, t, call, ignorConfirm))
 						t.Tips();
 					return false;
