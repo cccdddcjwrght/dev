@@ -17,6 +17,7 @@ namespace SGame.UI{
 			m_view.m_rate.onChanged.Add(new EventCallback1(_OnRateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_content.m_pages.onChanged.Add(new EventCallback1(_OnShopBody_PagesChanged));
+			m_view.m_content.m_hidead.onChanged.Add(new EventCallback1(_OnShopBody_HideadChanged));
 			m_view.m_content.m_adgood.m_type.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_typeChanged));
 			m_view.m_content.m_adgood.m_saled.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_saledChanged));
 			m_view.m_content.m_adgood.m_left_state.onChanged.Add(new EventCallback1(_OnBigGoods_Content_adgood_left_stateChanged));
@@ -35,6 +36,7 @@ namespace SGame.UI{
 			m_view.m_rate.onChanged.Remove(new EventCallback1(_OnRateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_content.m_pages.onChanged.Remove(new EventCallback1(_OnShopBody_PagesChanged));
+			m_view.m_content.m_hidead.onChanged.Remove(new EventCallback1(_OnShopBody_HideadChanged));
 			m_view.m_content.m_adgood.m_type.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_typeChanged));
 			m_view.m_content.m_adgood.m_saled.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_saledChanged));
 			m_view.m_content.m_adgood.m_left_state.onChanged.Remove(new EventCallback1(_OnBigGoods_Content_adgood_left_stateChanged));
@@ -72,6 +74,11 @@ namespace SGame.UI{
 		}
 		partial void OnShopBody_PagesChanged(EventContext data);
 		void SwitchShopBody_PagesPage(int index)=>m_view.m_content.m_pages.selectedIndex=index;
+		void _OnShopBody_HideadChanged(EventContext data){
+			OnShopBody_HideadChanged(data);
+		}
+		partial void OnShopBody_HideadChanged(EventContext data);
+		void SwitchShopBody_HideadPage(int index)=>m_view.m_content.m_hidead.selectedIndex=index;
 		void _OnBigGoods_Content_adgood_typeChanged(EventContext data){
 			OnBigGoods_Content_adgood_typeChanged(data);
 		}

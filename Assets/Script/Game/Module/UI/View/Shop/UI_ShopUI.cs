@@ -9,6 +9,7 @@ namespace SGame.UI.Shop
     {
         public Controller m_pages;
         public Controller m_rate;
+        public GGraph m_top;
         public GLabel m_body;
         public UI_ShopBody m_content;
         public GLoader m_clickBtn;
@@ -26,10 +27,11 @@ namespace SGame.UI.Shop
 
             m_pages = GetControllerAt(0);
             m_rate = GetControllerAt(1);
-            m_body = (GLabel)GetChildAt(0);
-            m_content = (UI_ShopBody)GetChildAt(1);
-            m_clickBtn = (GLoader)GetChildAt(2);
-            m_rate_2 = (UI_Probability)GetChildAt(3);
+            m_top = (GGraph)GetChildAt(0);
+            m_body = (GLabel)GetChildAt(1);
+            m_content = (UI_ShopBody)GetChildAt(2);
+            m_clickBtn = (GLoader)GetChildAt(3);
+            m_rate_2 = (UI_Probability)GetChildAt(4);
         }
     }
 }

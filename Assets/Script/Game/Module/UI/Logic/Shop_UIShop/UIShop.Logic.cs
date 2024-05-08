@@ -8,10 +8,7 @@ namespace SGame.UI
 	using SGame.UI.Shop;
 	using System.Collections.Generic;
 	using System.Linq;
-	using Cs;
 	using GameConfigs;
-	using Unity.Entities.UniversalDelegates;
-	using System.Xml.Linq;
 	using System.Collections;
 
 	public partial class UIShop
@@ -31,6 +28,9 @@ namespace SGame.UI
 
 		partial void BeforeInit(UIContext context)
 		{
+			float offset = SGame.UIUtils.GetSafeUIOffset();
+			if (offset > 0) m_view.m_top.y = offset + 5;
+
 			DataCenter.ShopUtil.Refresh();
 			m_view.m_content.m_gifts.itemRenderer = SetGiftItem;
 			m_view.m_content.m_gifts.onTouchMove.Add(() => _flag = true);
@@ -98,8 +98,9 @@ namespace SGame.UI
 					var goods = DataCenter.ShopUtil.GetShopGoodsByArea((int)i);
 					if (goods?.Count > 0)
 					{
-						var div = list.AddItemFromPool("ui://Shop/Div");
+						var div = list.AddItemFromPool("ui://Shop/Div") as UI_Div ;
 						div.text = i.ToString().ToLower().Local("ui_shop_div_");
+						div.m_bg.width = GRoot.inst.width;
 						for (int j = 0; j < goods.Count; j++)
 							SGame.UIUtils.AddListItem(list, SetGoodsInfo, goods[j]);
 					}
@@ -111,7 +112,8 @@ namespace SGame.UI
 		{
 
 			var g = _gifts[index];
-			var v = gObject as UI_BigGoods;
+			var v = (gObject as UI_GiftGoods).m_body;
+			gObject.width = GRoot.inst.width;
 			v.m_left_state.selectedIndex = !string.IsNullOrEmpty(g.cfg.MarkValue) ? 1 : 0;
 			v.SetIcon(g.cfg.Icon);
 			v.SetTextByKey(g.cfg.ShopName);

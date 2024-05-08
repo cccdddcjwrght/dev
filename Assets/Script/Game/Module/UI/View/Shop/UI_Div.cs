@@ -1,0 +1,25 @@
+/** This is an automatically generated class by FairyGUI. Please do not modify it. **/
+
+using FairyGUI;
+using FairyGUI.Utils;
+
+namespace SGame.UI.Shop
+{
+    public partial class UI_Div : GLabel
+    {
+        public GImage m_bg;
+        public const string URL = "ui://aphwhwgnlxylt";
+
+        public static UI_Div CreateInstance()
+        {
+            return (UI_Div)UIPackage.CreateObject("Shop", "Div");
+        }
+
+        public override void ConstructFromXML(XML xml)
+        {
+            base.ConstructFromXML(xml);
+
+            m_bg = (GImage)GetChildAt(0);
+        }
+    }
+}
