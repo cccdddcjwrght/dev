@@ -60,6 +60,7 @@ namespace SGame
 					ud.scene = id;
 					Instance.roomData.roomID = id;
 					Instance.SetUserData(ud);
+					DataCenter.Instance.SavePlayerData();
 				}
 				return r;
 			}
