@@ -28,7 +28,7 @@ namespace SGame
 			var s = num > 0;
 
 			if (target is UI_ActBtn g)
-				_icon = g.GetChild("icon").asLoader.component.GetChild("body");
+				_icon = g.GetChild("icon").asLoader.component?.GetChild("body");
 			if (_icon != null)
 			{
 				if (s)

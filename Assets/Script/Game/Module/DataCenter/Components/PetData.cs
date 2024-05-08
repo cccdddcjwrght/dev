@@ -29,18 +29,21 @@ namespace SGame
 
 			static public float c_one_d_2_time;
 
+			static private List<int> _eggs;
+
 			static private PetData _data { get { return Instance.petData; } }
 
 			static private EventManager _eMgr = EventManager.Instance;
 
 			static public void Init()
 			{
+				c_one_d_2_time = GlobalDesginConfig.GetInt("hatch_diamond_time", 100);
+				_eggs = ConfigSystem.Instance.Finds<ItemRowData>((c) => c.Type == ((int)EnumItemType.PetEgg)).Select(c => c.ItemId).ToList();
 				_data.pets?.ForEach(p => p.Refresh());
 				_data.egg?.Refresh();
 				_data.pet = _data.pets?.Find(p => p.id == _data.petID);
 				if (_data.pet != null) _data.pet.isselected = true;
-				c_one_d_2_time = GlobalDesginConfig.GetInt("hatch_diamond_time", 100);
-				UpdatePetBuff();
+				//UpdatePetBuff();
 				_eMgr.Reg(((int)GameEvent.BUFF_RESET), () => UpdatePetBuff());
 			}
 
@@ -102,7 +105,7 @@ namespace SGame
 				}
 			}
 
-			static public void Follow(PetItem pet , bool refresh = true)
+			static public void Follow(PetItem pet, bool refresh = true)
 			{
 				if (_data.petID != 0)
 				{
@@ -113,7 +116,7 @@ namespace SGame
 				_data.pet = pet.Follow();
 				_eMgr.Trigger(((int)GameEvent.PET_FOLLOW_CHANGE), _data.pet, true);
 				_eMgr.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
-				Resort(); 
+				Resort();
 				UpdatePetBuff();
 			}
 
@@ -122,9 +125,16 @@ namespace SGame
 				if (_data.pets.Count > 1) _data.pets.Sort(PetSort);
 			}
 
-			static public void ClearNewFlag()
+			static public void ClearNewFlag(int eggid = 0)
 			{
 				_data.pets?.ForEach(p => p?.ResetNewFlag());
+				if (eggid != 0)
+				{
+					if (eggid > 0)
+						_data.newegg?.Clear();
+					else if (_data.newegg.Contains(eggid))
+						_data.newegg.Remove(eggid);
+				}
 			}
 
 			static public List<PetItem> GetPetsByCondition(Predicate<PetItem> condition = null, List<PetItem> rets = null)
@@ -240,6 +250,11 @@ namespace SGame
 				return c;
 			}
 
+			static public bool IsEgg(int id)
+			{
+				return _eggs.Contains(id);
+			}
+
 		}
 
 	}
@@ -249,6 +264,8 @@ namespace SGame
 	{
 
 		public List<PetItem> pets = new List<PetItem>();
+		public List<int> newegg = new List<int>();
+
 		public int petID;
 		public PetItem egg;
 
@@ -324,6 +341,7 @@ namespace SGame
 				{
 					ConfigSystem.Instance.TryGet(item.TypeId, out eCfg);
 					count = PropertyManager.Instance.GetItem(cfgID).num;
+					isnew = DataCenter.Instance.petData.newegg.Contains(cfgID) ? 1 : 0;
 				}
 			}
 			return this;

@@ -18,7 +18,7 @@ namespace SGame
 
 		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			return DataCenter.PetUtil.EggCanBorn();
+			return DataCenter.PetUtil.EggCanBorn() || petData.newegg.Count > 0;
 		}
 	}
 

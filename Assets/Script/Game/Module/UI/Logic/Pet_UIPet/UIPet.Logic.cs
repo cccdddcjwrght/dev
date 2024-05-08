@@ -25,6 +25,8 @@ namespace SGame.UI
 
 		private int eggState { get { return m_view.m_egg.m_state.selectedIndex; } set { m_view.m_egg.m_state.selectedIndex = value; } }
 
+		private bool _isClickEgg;
+
 		partial void InitLogic(UIContext context)
 		{
 			m_view.z = 550;
@@ -83,6 +85,7 @@ namespace SGame.UI
 		void OnEggTab()
 		{
 			eggState = -1;
+			_isClickEgg = true;
 			SetEggHatching();
 		}
 
@@ -99,6 +102,7 @@ namespace SGame.UI
 
 		void OnEggItemClick(int index, PetItem data, GObject gObject)
 		{
+			DataCenter.PetUtil.ClearNewFlag(data.cfgID);
 			switch (eggState)
 			{
 				case 0:
@@ -293,7 +297,7 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			_timer?.Invoke(false);
-			DataCenter.PetUtil.ClearNewFlag();
+			DataCenter.PetUtil.ClearNewFlag(_isClickEgg ? -1 : 0);
 			m_view.m_pet.m_model.m_model.Release();
 		}
 	}
