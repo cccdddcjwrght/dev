@@ -59,6 +59,9 @@ namespace SGame
 
         public delegate void SpawnDelegate(T obj);
         
+        public delegate void DisposeDelegate(T obj);
+
+        
         // 扩展数据
         struct ExtendData
         {
@@ -81,6 +84,9 @@ namespace SGame
         private AllocDelegate       m_Alloc   = null;
         private SpawnDelegate       m_Spawn   = null;
         private DeSpawnDelegate     m_DeSpawn = null;
+        private DisposeDelegate     m_Dispose = null;
+        
+        public int usedCount => m_datas.Count - m_free.Count;
         
         // 实现Enumerator接口
         public IEnumerator<T> GetEnumerator()
@@ -114,11 +120,12 @@ namespace SGame
             return ret;
         }
 
-        public ObjectPool(AllocDelegate alloc = null, SpawnDelegate spawn = null, DeSpawnDelegate deSpawn = null)
+        public ObjectPool(AllocDelegate alloc = null, SpawnDelegate spawn = null, DeSpawnDelegate deSpawn = null, DisposeDelegate dispose = null)
         {
             m_Alloc     = alloc;
             m_Spawn     = spawn;
             m_DeSpawn   = deSpawn;
+            m_Dispose   = dispose;
         }
 
         // 使用数据, 并返回版本号, 将状态改为使用!
@@ -232,6 +239,16 @@ namespace SGame
             m_DeSpawn?.Invoke(m_datas[id.Index]);
             m_free.Push(id.Index);
             return true;
+        }
+
+        public void Dispose()
+        {
+            foreach (var item in m_datas)
+                m_Dispose(item);
+            
+            m_datas.Clear();
+            m_exDatas.Clear();
+            m_free.Clear();
         }
     }
 }
