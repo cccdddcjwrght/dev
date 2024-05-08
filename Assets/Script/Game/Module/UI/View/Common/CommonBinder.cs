@@ -27,6 +27,7 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_MaskUI.URL, typeof(UI_MaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_ColorText.URL, typeof(UI_ColorText));
             UIObjectFactory.SetPackageItemExtension(UI_Redpoint.URL, typeof(UI_Redpoint));
+            UIObjectFactory.SetPackageItemExtension(UI_Redpoint_small.URL, typeof(UI_Redpoint_small));
             UIObjectFactory.SetPackageItemExtension(UI_ChestReward.URL, typeof(UI_ChestReward));
             UIObjectFactory.SetPackageItemExtension(UI_ItemIcon.URL, typeof(UI_ItemIcon));
         }

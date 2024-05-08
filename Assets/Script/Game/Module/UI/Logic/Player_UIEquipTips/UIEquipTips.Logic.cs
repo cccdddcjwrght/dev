@@ -30,6 +30,8 @@ namespace SGame.UI
 
 		private bool needRefreshPlayUI;
 
+		const string c_color = "[color=#0bb65c]{0}";
+
 
 		partial void InitLogic(UIContext context)
 		{
@@ -88,7 +90,7 @@ namespace SGame.UI
 			m_view.m_lvmax.selectedIndex = equip.IsMaxLv() ? 1 : 0;
 			m_view.m_funcType.selectedIndex = equip.level > 1 || equip.progress > 0 ? 0 : 1;
 			m_view.RefreshLevel(equip);
-			if (buff.IsValid()) m_view.m_attr.SetTextByKey(buff.Describe, equip.attrVal);
+			if (buff.IsValid()) m_view.m_attr.SetText("+" + equip.attrVal + "%", false);
 			if (m_view.m_lvmax.selectedIndex == 0)
 			{
 				m_view.m_progress.value = equip.progress;
@@ -96,14 +98,14 @@ namespace SGame.UI
 				m_view.m_cost.SetText("x" + Utils.ConvertNumberStr(itemcount));
 				m_view.m_up.grayed = itemcount <= 0;
 				if (uplv)
-					m_view.m_nextlvattr.SetText("ui_equip_nextlv_tips".Local(null, equip.GetNextAttrVal()), false);
+					m_view.m_nextlvattr.SetText("+" + equip.GetNextAttrVal() + "%", false);
 
 			}
 			else
 			{
 				m_view.m_progress.value = 1;
 				m_view.m_progress.max = 1;
-				m_view.m_nextlvattr.SetTextByKey("ui_equip_lvmax");
+				//m_view.m_nextlvattr.SetTextByKey("ui_equip_lvmax");
 			}
 			if (!showBtn)
 			{
@@ -118,10 +120,14 @@ namespace SGame.UI
 			var q = index + 1;
 			var g = gObject as UI_attrlabel;
 			var cfg = effects[index];
+			var lockstate = q >= equip.quality;
 			g.m_quality.selectedIndex = q + 1;
-			g.m_lock.selectedIndex = q >= equip.quality ? 1 : 0;
+			g.m_lock.selectedIndex = lockstate ? 1 : 0;
 			if (ConfigSystem.Instance.TryGet<BuffRowData>(cfg[0], out var buff))
-				gObject.SetTextByKey(buff.Describe, cfg[1]);
+			{
+				var v = cfg[1];
+				gObject.SetTextByKey(buff.Describe, lockstate ? v : string.Format(c_color, v));
+			}
 
 		}
 

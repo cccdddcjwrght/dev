@@ -83,12 +83,12 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
+		void SetQualitytipsText(string data)=>UIListener.SetText(m_view.m_qualitytips,data);
+		string GetQualitytipsText()=>UIListener.GetText(m_view.m_qualitytips);
 		void SetLevelpstrText(string data)=>UIListener.SetText(m_view.m_levelpstr,data);
 		string GetLevelpstrText()=>UIListener.GetText(m_view.m_levelpstr);
 		void SetAttrText(string data)=>UIListener.SetText(m_view.m_attr,data);
 		string GetAttrText()=>UIListener.GetText(m_view.m_attr);
-		void SetQualitytipsText(string data)=>UIListener.SetText(m_view.m_qualitytips,data);
-		string GetQualitytipsText()=>UIListener.GetText(m_view.m_qualitytips);
 		void SetNextlvattrText(string data)=>UIListener.SetText(m_view.m_nextlvattr,data);
 		string GetNextlvattrText()=>UIListener.GetText(m_view.m_nextlvattr);
 		void SetCostText(string data)=>UIListener.SetText(m_view.m_cost,data);

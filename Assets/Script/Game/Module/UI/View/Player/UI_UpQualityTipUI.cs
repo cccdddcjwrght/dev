@@ -31,9 +31,9 @@ namespace SGame.UI.Player
             m_qname = (GTextField)GetChildAt(3);
             m_attribute = (GTextField)GetChildAt(5);
             m_recycle = (GTextField)GetChildAt(7);
-            m_addeffect = (UI_attrlabel)GetChildAt(9);
-            m_equip = (UI_Equip)GetChildAt(10);
-            m_close = (GButton)GetChildAt(12);
+            m_addeffect = (UI_attrlabel)GetChildAt(10);
+            m_equip = (UI_Equip)GetChildAt(11);
+            m_close = (GButton)GetChildAt(13);
         }
     }
 }
