@@ -269,6 +269,7 @@ namespace SGame
 					{
 						var e = new EquipItem()
 						{
+							key = GID,
 							cfgID = eq,
 							cfg = cfg,
 							level = Math.Max(cfg.Level, 1),
@@ -716,7 +717,7 @@ namespace SGame
 
 		public EquipItem()
 		{
-			key = DataCenter.GID;
+			key = (int)System.DateTime.Now.Ticks;
 		}
 
 
