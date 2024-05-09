@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Fibers;
 using GameConfigs;
 using libx;
 using log4net;
@@ -43,9 +44,22 @@ namespace SGame
 
         private GameObject m_pet;
 
+        private Fiber m_loadPet;
+
+        void Awake()
+        {
+            m_loadPet = new Fiber(FiberBucket.Manual);
+        }
+
         void Start()
         {
             UpdateModel();
+        }
+
+        void Update()
+        {
+            if (m_loadPet != null && !m_loadPet.IsTerminated)
+                m_loadPet.Step();
         }
 
         /// <summary>
@@ -53,6 +67,7 @@ namespace SGame
         /// </summary>
         public void Clear()
         {
+            m_loadPet.Terminate();
             ClearEffects();
             ClearWeapons();
             ClearPet();
@@ -247,32 +262,30 @@ namespace SGame
             return true;
         }
 
-        /// <summary>
-        /// 设置宠物
-        /// </summary>
-        /// <param name="petID"></param>
-        public void SetPet(int petID)
+        IEnumerator LoadPet(int petID)
         {
             ClearPet();
 
             if (!ConfigSystem.Instance.TryGet(petID, out PetsRowData config))
             {
                 log.Error("pet id not found=" + petID);
-                return;
+                yield break;
             }
 
             string pet_res = PET_PATH + config.Resource + ".prefab";
-            var asset = Assets.LoadAsset(pet_res, typeof(GameObject));
+            var asset = Assets.LoadAssetAsync(pet_res, typeof(GameObject));
+            yield return asset;
+            
             if (!string.IsNullOrEmpty(asset.error))
             {
                 log.Error("load asset fail=" + asset.error);
-                return;
+                yield break;
             }
             var prefab = asset.asset as GameObject;
             if (prefab == null)
             {
                 log.Error("asset is null" + pet_res);
-                return;
+                yield break;
             }
             
             GameObject petObject = GameObject.Instantiate(prefab);
@@ -281,6 +294,16 @@ namespace SGame
             var slot = GetSlot(SlotType.FOOT);
             var scale = config.Size;
             script.Initalzie(slot, PET_RADIUS, PET_SPEED, scale);
+        }
+        
+
+        /// <summary>
+        /// 设置宠物
+        /// </summary>
+        /// <param name="petID"></param>
+        public void SetPet(int petID)
+        {
+            m_loadPet.Start(LoadPet(petID));
         }
     }
 }
