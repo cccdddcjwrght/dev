@@ -421,9 +421,13 @@ namespace SGame
 		public int level;
 		public int star;
 
+		[NonSerialized]
 		public bool isTable;
+		[NonSerialized]
 		public int max;
+		[NonSerialized]
 		public int maxlv;
+		[NonSerialized]
 		public int maxStar;
 
 		public List<Machine> stations = new List<Machine>();
@@ -498,9 +502,6 @@ namespace SGame
 	{
 		public int id;
 		public bool enable;
-		public int state;
-		public int holder;
-		public int time;
 
 		[NonSerialized]
 		public RoomMachineRowData cfg;
