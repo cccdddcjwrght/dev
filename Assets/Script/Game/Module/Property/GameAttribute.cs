@@ -25,11 +25,9 @@ namespace SGame
 		public double val;
 		public int deadtime;
 
-
 		public double modifiy;
 		public GameAttribute attribute;
 		public int count;
-
 
 		public void Excute(GameAttribute attribute)
 		{
@@ -37,28 +35,42 @@ namespace SGame
 			this.attribute = attribute;
 			switch ((EnumCaluType)type)
 			{
-				case EnumCaluType.Value:
-					modifiy = val;
-					break;
-				case EnumCaluType.Percentage:
-					var v = attribute.value * val;
-					modifiy = (v * ConstDefine.C_PER_SCALE).Round();
-					break;
+				case EnumCaluType.Value: modifiy = val; break;
+				case EnumCaluType.Percentage: modifiy = 1 + val * ConstDefine.C_PER_SCALE; break;
 			}
 			Readd();
 		}
 
 		public void Readd()
 		{
-			attribute.value += modifiy;
+			switch ((EnumCaluType)type)
+			{
+				case EnumCaluType.Value:
+					attribute.fixedVal += modifiy;
+					break;
+				case EnumCaluType.Percentage:
+					attribute.power *= modifiy;
+					break;
+			}
 			count++;
 		}
 
 		public void Reset(GameAttribute attribute = null)
 		{
 			attribute = attribute ?? this.attribute;
-			attribute.value -= (modifiy * count);
+
+			switch ((EnumCaluType)type)
+			{
+				case EnumCaluType.Value:
+					attribute.fixedVal -= modifiy * count;
+					break;
+				case EnumCaluType.Percentage:
+					attribute.power /= Math.Pow(modifiy, count);
+					break;
+			}
+
 			this.attribute = null;
+			modifiy = 0;
 			count = 0;
 		}
 
@@ -87,12 +99,16 @@ namespace SGame
 		public double origin;
 
 #if UNITY_EDITOR
-		[UnityEngine.SerializeField] 
+		[UnityEngine.SerializeField]
 #endif
 		private double _val;
 
 		public double value { get { return _val; } set { _val = value; } }
-		public double modify { get { return value - origin; } }
+		public double modify { get { return _val - origin; } }
+
+		public double fixedVal;
+		public double power = 1;
+
 
 		public GameAttribute(int id) => this.id = id;
 
@@ -102,13 +118,19 @@ namespace SGame
 			return this;
 		}
 
+		public GameAttribute Recover()
+		{
+			_val = origin;
+			return this;
+		}
+
 		public GameAttribute CopyTo(GameAttribute attribute)
 		{
 			if (attribute != null)
 			{
 				attribute.id = id;
 				attribute.origin = origin;
-				attribute.value = value;
+				attribute._val = _val;
 			}
 			return attribute;
 		}
@@ -117,9 +139,15 @@ namespace SGame
 		{
 			return new GameAttribute(id)
 			{
-				value = value,
+				_val = _val,
 				origin = origin
 			};
+		}
+
+		public double Final()
+		{
+			_val = ((origin + fixedVal) *  power).Round();
+			return _val;
 		}
 
 		public override string ToString()
@@ -261,7 +289,7 @@ namespace SGame
 			get
 			{
 				var a = GetAttribute(id);
-				return a == null ? 0 : a.value;
+				return a == null ? 0 : a.Final();
 			}
 			set
 			{
@@ -399,6 +427,7 @@ namespace SGame
 
 		public void Refresh(int time)
 		{
+			var flag = false;
 			for (int i = _units.Count - 1; i >= 0; i--)
 			{
 				var item = _units[i];
@@ -407,7 +436,7 @@ namespace SGame
 				{
 					_units.RemoveAt(i);
 #if DEBUG
-					GameDebug.Log($" {name}->reset attribute {a} : {item.modifiy} "); 
+					GameDebug.Log($" {name}->reset attribute {a} : {item.modifiy} ");
 #endif
 
 				}

@@ -160,8 +160,8 @@ namespace SGame.UI
 				"@ui_equip_uplv_error1".Tips();
 				return;
 			}
-
-			itemcount -= RequestExcuteSystem.EquipAddExp(equip, Math.Clamp(changeVal, 1, (int)itemcount), out var state);
+			var v = changeVal > itemcount ? itemcount : changeVal;
+			itemcount -= RequestExcuteSystem.EquipAddExp(equip, (int)v, out var state);
 			PropertyManager.Instance.GetGroup(1).SetNum(ConstDefine.EQUIP_UPLV_MAT, Math.Max(0, itemcount));
 			if (state)
 			{
