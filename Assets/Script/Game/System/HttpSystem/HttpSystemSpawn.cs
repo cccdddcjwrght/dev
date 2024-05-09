@@ -9,6 +9,7 @@
 using UnityEngine.Networking;
 using Unity.Entities;
 using System.Text;
+using Unity.Collections;
 
 namespace SGame.Http
 {
@@ -24,36 +25,39 @@ namespace SGame.Http
 	[UpdateInGroup(typeof(GameLogicAfterGroup))]
 	public partial class HttpSystemSpawn : SystemBase
 	{
+		private EntityQuery m_query;
 		protected override void OnCreate()
 		{
-			m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+			m_query = GetEntityQuery(typeof(HttpRequest));
 		}
 
 		protected override void OnUpdate()
 		{
-			var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-
-			/// 1. 创建HTTP 请求
-			Entities.ForEach((Entity e, HttpRequest req) =>
+			var entities = m_query.ToEntityArray(Allocator.Temp);
+			if (entities.Length > 0)
 			{
-				HttpData data = new HttpData() { isGet = req.isGet , isBuffer = req.buffer };
-				if (req.isGet)
+				var requests = m_query.ToComponentDataArray<HttpRequest>();
+				for (int i = 0; i < entities.Length; i++)
 				{
-					data.request = UnityWebRequest.Get(req.url);
+					var req = requests[i];
+					var e = entities[i];
+					HttpData data = new HttpData() { isGet = req.isGet , isBuffer = req.buffer };
+					if (req.isGet)
+					{
+						data.request = UnityWebRequest.Get(req.url);
+					}
+					else
+					{
+						data.request = UnityWebRequest.Post(req.url, req.post);
+						data.request.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
+					}
+					data.request.SetRequestHeader("Authorization", "token " + req.token);
+					data.request.certificateHandler = DefultCertificateHandler.Current;
+					data.result = data.request.SendWebRequest();
+					EntityManager.AddComponentData(e, data);
+					EntityManager.RemoveComponent<HttpRequest>(e);
 				}
-				else
-				{
-					data.request = UnityWebRequest.Post(req.url, req.post);
-					data.request.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
-				}
-				data.request.SetRequestHeader("Authorization", "token " + req.token);
-				data.request.certificateHandler = DefultCertificateHandler.Current;
-				data.result = data.request.SendWebRequest();
-				EntityManager.AddComponentData(e, data);
-				EntityManager.RemoveComponent<HttpRequest>(e);
-				//commandBuffer.AddComponent(e, data);
-				//commandBuffer.RemoveComponent<HttpRequest>(e);
-			}).WithoutBurst().WithStructuralChanges().Run();
+			}
 		}
 
 		////// 数据 /////////////////////////////////////////////////
