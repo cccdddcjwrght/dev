@@ -51,7 +51,14 @@ namespace SGame
             // 老用户, 将数据同步回来, 并重新加载
             DataCenterExtension.SaveStrToDisk(pkg.data);
             DataCenter.Instance.Load();
+            ResetupSound();
             log.Info("Recovert Player Success=" + userName + " lasttime=" + DataCenter.Instance.accountData.lasttime);
+        }
+
+        static void ResetupSound()
+        {
+            AudioSystem.Instance.SetSoundVolume("BackgroundVolume",DataCenter.Instance.setData.musicVal);
+            AudioSystem.Instance.SetSoundVolume("UIVolume",DataCenter.Instance.setData.soundVal);
         }
 
         public static void SendDataToServer()
