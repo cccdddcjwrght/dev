@@ -87,7 +87,9 @@ namespace SGame.UI{
 			item.data = data.player_id;
 			item.m_rank.text = rank.ToString();
 			//bool isSelf = DataCenter.Instance.accountData.playerID == data.player_id;
-			item.m_rankIndex.selectedIndex = isSelf ? rank > 3 ? 3 : 4 : rank - 1;
+			if (isSelf) item.m_rankIndex.selectedIndex = 4;
+			else item.m_rankIndex.selectedIndex = rank > 3 ? 3 : rank - 1;
+
 			item.m_name.text = data.name;
 			(item.m_head as UI_HeadBtn).SetHeadIcon(data.icon_id, data.frame_id);
 			item.m_value.text = RankModule.Instance.GetScoreValue(data.score).ToString();
