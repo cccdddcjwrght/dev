@@ -44,7 +44,7 @@ namespace SGame.VS
                 {
                     if (!CharacterModule.Instance.DespawnCharacter(customID))
                     {
-                        log.Error("DespawnCharacter Fail=" + customID);
+                        log.Warn("DespawnCharacter Arelady Free=" + customID);
                     }
                     return output;
                 }
@@ -53,7 +53,7 @@ namespace SGame.VS
                 {
                     if (!CharacterModule.Instance.DespawnCharacter(character.CharacterID))
                     {
-                        log.Error("DespawnCharacter Fail2=" + character.CharacterID);
+                        log.Warn("DespawnCharacter Arelady Free=" + character.CharacterID);
                     }
                     return output;
                 }
