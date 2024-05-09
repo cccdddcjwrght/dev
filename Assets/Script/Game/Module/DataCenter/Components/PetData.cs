@@ -130,7 +130,7 @@ namespace SGame
 				_data.pets?.ForEach(p => p?.ResetNewFlag());
 				if (eggid != 0)
 				{
-					if (eggid > 0)
+					if (eggid < 0)
 						_data.newegg?.Clear();
 					else if (_data.newegg.Contains(eggid))
 						_data.newegg.Remove(eggid);
