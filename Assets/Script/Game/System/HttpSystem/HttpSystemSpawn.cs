@@ -9,6 +9,7 @@
 using UnityEngine.Networking;
 using Unity.Entities;
 using System.Text;
+using log4net;
 using Unity.Collections;
 
 namespace SGame.Http
@@ -26,6 +27,8 @@ namespace SGame.Http
 	public partial class HttpSystemSpawn : SystemBase
 	{
 		private EntityQuery m_query;
+		private static ILog log = LogManager.GetLogger("httpsystem");
+		
 		protected override void OnCreate()
 		{
 			m_query = GetEntityQuery(typeof(HttpRequest));
@@ -42,25 +45,24 @@ namespace SGame.Http
 					var req = requests[i];
 					var e = entities[i];
 					HttpData data = new HttpData() { isGet = req.isGet , isBuffer = req.buffer };
+					EntityManager.AddComponentData(e, data);
+					EntityManager.RemoveComponent<HttpRequest>(e);
+					
 					if (req.isGet)
 					{
 						data.request = UnityWebRequest.Get(req.url);
 					}
 					else
 					{
+						log.Info("begin pos=" + req.url + " pos=" + req.post);
 						data.request = UnityWebRequest.Post(req.url, req.post);
 						data.request.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
 					}
 					data.request.SetRequestHeader("Authorization", "token " + req.token);
 					data.request.certificateHandler = DefultCertificateHandler.Current;
 					data.result = data.request.SendWebRequest();
-					EntityManager.AddComponentData(e, data);
-					EntityManager.RemoveComponent<HttpRequest>(e);
 				}
 			}
 		}
-
-		////// 数据 /////////////////////////////////////////////////
-		private EndSimulationEntityCommandBufferSystem m_commandBuffer;
 	}
 }
