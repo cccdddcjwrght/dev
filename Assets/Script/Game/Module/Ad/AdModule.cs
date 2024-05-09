@@ -38,9 +38,9 @@ namespace SGame
 
         public void Initalize() 
         {
-            m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM,(s)=> { 
-                AddBuff();
+            m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM,(s)=> {
                 RecordEnterTime(AdType.Invest.ToString());
+                AddBuff();
             });
             m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) =>{
                 if (id == AD_TECH_ID) AddBuff();
@@ -142,7 +142,7 @@ namespace SGame
         int     m_LastTime;
         public void GetAdInvestNum(out int itemId, out double num) 
         {
-            if (m_LastTime < m_ShowTimeDict[AdType.Invest.ToString()]) 
+            if (m_LastTime < m_ShowTimeDict[AdType.Invest.ToString()])
             {
                 var diamonRate = AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.DiamondRate);
                 var randomIndex = RandomSystem.Instance.NextInt(0, 100);
@@ -164,10 +164,13 @@ namespace SGame
 
                     var room = DataCenter.Instance.roomData.current;
                     var data = ConfigSystem.Instance.Find<RoomTechRowData>((c) => c.Room == room.id && !room.techs.Contains(c.Id));
-                    if (!data.IsValid())
-                        ConfigSystem.Instance.TryGet<RoomTechRowData>(room.techs[room.techs.Count - 1], out data);
-                    double adCoin2 = (ConstDefine.C_PER_SCALE * data.Cost(2) * GlobalDesginConfig.GetInt("investor_coin_ratio_level")).ToInt();
                     
+                    double adCoin2 = 0;
+                    if (!data.IsValid() && room.techs.Count > 0)
+                    {
+                        ConfigSystem.Instance.TryGet<RoomTechRowData>(room.techs[room.techs.Count - 1], out data);
+                        (ConstDefine.C_PER_SCALE * data.Cost(2) * GlobalDesginConfig.GetInt("investor_coin_ratio_level")).ToInt();
+                    }
                     m_ItemId = (int)ItemID.GOLD;
                     m_AdNum = Math.Max(adCoin1, adCoin2);
                 }
