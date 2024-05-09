@@ -716,7 +716,7 @@ namespace SGame
 
 		public EquipItem()
 		{
-			key = (int)System.DateTime.Now.Ticks;
+			key = DataCenter.GID;
 		}
 
 
