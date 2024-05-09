@@ -123,7 +123,7 @@ public class Game : SGame.MonoSingleton<Game>
 
 		//字体
 		yield return FontManager.Instance.Initalize();
-		
+
 		//语言初始化
 		yield return LanguageUtil.InitLanguage();
 		LanagueSystem.Instance.Initalize(LanguageUtil.GetGameLanguage());
@@ -248,7 +248,8 @@ public class Game : SGame.MonoSingleton<Game>
 
 #if UNITY_EDITOR
 
-		dataCenter = DataCenter.Instance;
+		var d = DataCenter.Instance;
+		if (d != null) dataCenter = d;
 
 		if (Input.GetKeyUp(KeyCode.Space))
 			ScreenCapture.CaptureScreenshot(System.DateTime.Now.Ticks + ".png");
@@ -268,7 +269,7 @@ public class Game : SGame.MonoSingleton<Game>
 		ShutdownGameLoops();
 		ConfigSystem.Cleanup();
 	}
-	
+
 	private void OnApplicationPause(bool isPause)
 	{
 		EventManager.Instance.Trigger((int)GameEvent.APP_PAUSE, isPause);

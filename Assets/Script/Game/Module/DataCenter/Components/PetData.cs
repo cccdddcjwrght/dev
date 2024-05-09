@@ -19,7 +19,7 @@ namespace SGame
 	{
 		public int globalID = 1000;
 
-		public static int GID { get { return Instance.globalID++; } }
+		public static int GID { get { return s_instance == null ? 0 : Instance.globalID++; } }
 
 		public PetData petData = new PetData();
 
