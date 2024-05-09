@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &641310481422769769
+--- !u!1 &7047533792727253448
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8055826115756017929}
-  - component: {fileID: 4389080002695708205}
-  - component: {fileID: 3272145394741542502}
+  - component: {fileID: 5814060649424257882}
+  - component: {fileID: 7162258821078943470}
+  - component: {fileID: 8881453932005383423}
   m_Layer: 0
   m_Name: clothes-1
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8055826115756017929
+--- !u!4 &5814060649424257882
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641310481422769769}
+  m_GameObject: {fileID: 7047533792727253448}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &4389080002695708205
+--- !u!137 &7162258821078943470
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641310481422769769}
+  m_GameObject: {fileID: 7047533792727253448}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -53,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5444799061547286870, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  - {fileID: 5629084884208175553, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,19 +108,25 @@ SkinnedMeshRenderer:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.004993275, y: 0.000000014901161, z: 0.061529778}
-    m_Extent: {x: 0.17936237, y: 0.16091147, z: 0.18311122}
+    m_Center: {x: 0.049492083, y: -0.00019033253, z: 0.11430689}
+    m_Extent: {x: 0.27212, y: 0.3969854, z: 0.23402026}
   m_DirtyAABB: 0
---- !u!114 &3272145394741542502
+--- !u!114 &8881453932005383423
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641310481422769769}
+  m_GameObject: {fileID: 7047533792727253448}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15682c8cc05f5d4498e30fec0f70ad53, type: 3}
@@ -146,14 +152,30 @@ MonoBehaviour:
   - Bip001 L Calf
   - Bip001 L Foot
   - Bip001 L Toe0
+  - Bip001 L Toe0Nub
   - Bip001 R Thigh
   - Bip001 R Calf
   - Bip001 R Foot
   - Bip001 R Toe0
-  - Bip001 L Toe0Nub
-  - Bip001 R Toe0Nub
   - Bip001 L Finger0Nub
-  - Bip001 HeadNub
+  - weapon-2
+  - glasses
+  - main
+  - weapon-1
+  - goods
+  - foot
   - Bip001 R Finger0Nub
+  - Bip001 HeadNub
+  - Bip001 R Toe0Nub
   materials:
-  - {fileID: 2100000, guid: c235e732d59911840bc748d57d7541da, type: 2}
+  - {fileID: 2100000, guid: 83ea908335fcac54b88c3b233f68a8b5, type: 2}
+  - {fileID: 2100000, guid: 4b5018105ef7554499c495f75b607833, type: 2}
+  - {fileID: 2100000, guid: 6b4d72e39962bbb41934eb8b23d2e28c, type: 2}
+  - {fileID: 2100000, guid: c7a6343bf04df3e4e8f7c53aea6da18f, type: 2}
+  - {fileID: 2100000, guid: fc57161d87272e049b6eaf61925df044, type: 2}
+  - {fileID: 2100000, guid: a665281a8ed595540a7abe983945a184, type: 2}
+  - {fileID: 2100000, guid: 8a0826cb026092f4ca1baa2a2982fcbb, type: 2}
+  - {fileID: 2100000, guid: 4c2faaa654ac0d4499f15610ed14a293, type: 2}
+  - {fileID: 2100000, guid: de1f8f61128a5f040b0ab7a45166e817, type: 2}
+  - {fileID: 2100000, guid: 017e13b5f0cdaff4cbeceab87c42dd63, type: 2}
+  - {fileID: 2100000, guid: 4a5a3bf1e9c39464391ee17e3720deeb, type: 2}

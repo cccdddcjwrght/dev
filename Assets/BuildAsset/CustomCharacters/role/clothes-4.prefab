@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &813109588005225143
+--- !u!1 &1507579886406062818
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7174034136638175384}
-  - component: {fileID: 2623084578467124059}
-  - component: {fileID: 8880205171344897280}
+  - component: {fileID: 5849071603062769322}
+  - component: {fileID: 3072367677375534601}
+  - component: {fileID: 4401104773075229792}
   m_Layer: 0
   m_Name: clothes-4
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7174034136638175384
+--- !u!4 &5849071603062769322
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 813109588005225143}
+  m_GameObject: {fileID: 1507579886406062818}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &2623084578467124059
+--- !u!137 &3072367677375534601
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 813109588005225143}
+  m_GameObject: {fileID: 1507579886406062818}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -53,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1214270526771446031, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  - {fileID: -8265683454772772763, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,19 +108,25 @@ SkinnedMeshRenderer:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.0061586946, y: 0.00000013411045, z: 0.07281555}
-    m_Extent: {x: 0.18307208, y: 0.18895748, z: 0.1582158}
+    m_Center: {x: -0.026016489, y: -0.0000003427267, z: 0.06543772}
+    m_Extent: {x: 0.1966114, y: 0.39689696, z: 0.18583755}
   m_DirtyAABB: 0
---- !u!114 &8880205171344897280
+--- !u!114 &4401104773075229792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 813109588005225143}
+  m_GameObject: {fileID: 1507579886406062818}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15682c8cc05f5d4498e30fec0f70ad53, type: 3}
@@ -146,14 +152,20 @@ MonoBehaviour:
   - Bip001 L Calf
   - Bip001 L Foot
   - Bip001 L Toe0
+  - Bip001 L Toe0Nub
   - Bip001 R Thigh
   - Bip001 R Calf
   - Bip001 R Foot
   - Bip001 R Toe0
-  - Bip001 L Toe0Nub
-  - Bip001 R Toe0Nub
   - Bip001 L Finger0Nub
-  - Bip001 HeadNub
+  - weapon-2
+  - glasses
+  - main
+  - weapon-1
+  - goods
+  - foot
   - Bip001 R Finger0Nub
+  - Bip001 HeadNub
+  - Bip001 R Toe0Nub
   materials:
-  - {fileID: 2100000, guid: 7690412b7e3ed81438fc22c2952d4ec2, type: 2}
+  - {fileID: 2100000, guid: 8900a45cf561b11428180fd7b7b840b9, type: 2}
