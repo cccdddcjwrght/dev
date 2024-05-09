@@ -22,7 +22,12 @@ namespace SGame
             m_transform     = transform;
             m_speed         =  speed;
 
-            m_transform.position = follow.position;
+            var rot2 = Quaternion.Euler(0, 20.0f, 0); // 绕Y轴旋转20度
+            var dir = rot2 * m_followTarget.rotation * Vector3.forward;
+            dir.y = 0;
+            var offset = -dir.normalized * radius;
+
+            m_transform.position = follow.position + offset;
             m_transform.rotation = Quaternion.identity;
             m_transform.localScale = new Vector3(scale, scale, scale);
         }
