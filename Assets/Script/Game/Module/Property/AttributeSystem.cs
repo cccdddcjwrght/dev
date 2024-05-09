@@ -200,7 +200,7 @@ namespace SGame
 			if (!g.TryGetValue(id, out var a))
 			{
 				g[id] = a = attribute ?? new AttributeList();
-#if DEBUG
+#if UNITY_EDITOR
 				a.name = ((EnumTarget)type) + "-" + id;
 				m_items.Add(a);
 #endif
