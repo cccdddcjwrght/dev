@@ -40,6 +40,7 @@ namespace SGame.Firend
         public int                hiringTime = 0;// 雇佣生效时间
         public int                passLevel = 0; // 通关数量
         public int                state = 0;     // 雇佣状态
+        public bool               isNew = true;  // 是否是新加角色
         public List<FirendEquip>  equips;        // 装备信息
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace SGame
 	{
 		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			return FriendModule.Instance.GetRecommendNum() > 0 || FriendModule.Instance.HasCanHirePlayer();
+			return FriendModule.Instance.RedDot();
 		}
 	}
 

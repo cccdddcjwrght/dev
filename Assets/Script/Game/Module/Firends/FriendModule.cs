@@ -443,5 +443,47 @@ namespace SGame.Firend
         {
             return m_friendData.Friends.Count > 0;
         }
+
+        /// <summary>
+        /// 是否有新的推荐好友
+        /// </summary>
+        /// <returns></returns>
+        public bool HasNewRecommend()
+        {
+            var datas = m_friendData;
+            foreach (var item in datas.RecommendFriends)
+            {
+                if (item.isNew)
+                    return true;
+            }
+            
+            return false;
+        }
+
+        // 刷新推荐
+        public void RefreshRecommend()
+        {
+            var datas = m_friendData;
+            foreach (var item in datas.RecommendFriends)
+            {
+                item.isNew = false;
+            }
+        }
+
+        /// <summary>
+        /// 红点条件判定
+        /// </summary>
+        /// <returns></returns>
+        public bool RedDot()
+        {
+            if (HasNewRecommend())
+            {
+                return true;
+            }
+            if (HasCanHirePlayer())
+                return true;
+
+            return false;
+        }
     }
 }

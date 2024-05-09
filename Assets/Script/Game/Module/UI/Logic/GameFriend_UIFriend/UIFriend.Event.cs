@@ -20,6 +20,7 @@ namespace SGame.UI{
 			m_view.m_listFirends.itemRenderer	= ItemRenderFriend;
 			m_view.m_listRecomment.itemRenderer = ItemRenderRecomment;
 
+			FriendModule.Instance.RefreshRecommend();
 			OnFirendUpdate();
 		}
 		
