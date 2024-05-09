@@ -66,7 +66,7 @@ namespace SGame.UI
 				_tipsItem.y = _oldY;
 				_tipsItem.TweenFade(1, 0.2f);
 				m_view.m_myfloat.Play(1, delay, 0.3f, -1f, null);
-				_mask.height = 2000;
+				_mask.height = 3000;
 			}
 			else
 				m_view.m_myfloat.Play();
