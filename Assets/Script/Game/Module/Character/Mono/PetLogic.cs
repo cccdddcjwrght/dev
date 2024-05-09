@@ -14,6 +14,10 @@ namespace SGame
         private float       m_radius;
         private Transform   m_transform;
         private float       m_speed = 1.0f;
+            
+        private static ConfigValueFloat PET_START_ANGLE     = new ConfigValueFloat("pet_start_angle", 20);
+        private static ConfigValueFloat PET_START_DISTANCE  = new ConfigValueFloat("pet_start_distance", 2);
+
         
         public void Initalzie(Transform follow, float radius, float speed, float scale)
         {
@@ -22,10 +26,10 @@ namespace SGame
             m_transform     = transform;
             m_speed         =  speed;
 
-            var rot2 = Quaternion.Euler(0, 20.0f, 0); // 绕Y轴旋转20度
+            var rot2 = Quaternion.Euler(0, PET_START_ANGLE.Value, 0); // 绕Y轴旋转20度
             var dir = rot2 * m_followTarget.rotation * Vector3.forward;
             dir.y = 0;
-            var offset = -dir.normalized * radius;
+            var offset = -dir.normalized * PET_START_DISTANCE.Value;
 
             m_transform.position = follow.position + offset;
             m_transform.rotation = Quaternion.identity;
