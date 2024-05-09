@@ -101,8 +101,16 @@ namespace SGame.Dining
 		{
 			if (_room != null)
 			{
-				if (!_room.isnew)
+				if (!_room.isnew) 
+				{
+					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0)
+					{
+						//开局动画没播放玩杀掉进程，这里跳过第一步骤
+						DataCenter.Instance.guideData.guideStep += 1;
+						DataCenter.SetIntValue(GuideModule.GUIDE_FIRST, 1);
+					}
 					OnEnterRoomCompleted().Start();
+				}
 				else
 				{
 					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0)
