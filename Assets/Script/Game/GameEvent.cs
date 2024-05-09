@@ -161,5 +161,8 @@ namespace SGame
 		INVEST_APPEAR					= 17000, //投资人出现
 		INVEST_CLICK					= 17001, //投资人点击
 		INVEST_DISAPPEAR				= 17002, //投资人消失
+
+		RANK_UPDATE						= 18000, //排行刷新
+		RANK_ADD_SCORE					= 18001, //排行增加标识
 	}
 }

@@ -7,8 +7,6 @@ namespace SGame.UI{
     using libx;
     using SGame.UI.Common;
     using System.Collections;
-    using SGame.Http;
-    using global::Http;
 
     public partial class UIRankMain
 	{
@@ -19,34 +17,51 @@ namespace SGame.UI{
 			m_view.m_list.SetVirtual();
 			m_view.m_list.onClickItem.Add(OnClickRank);
 
-			//m_view.SetText(UIListener.Local())
+			LoadText();
+			LoadTime();
 
-
-			LoadTestData();
-			//FiberCtrl.Pool.Run(Run());
+			m_view.m_state.selectedIndex = 2;
+			RankModule.Instance.ReqRankData().Start();
+			//LoadTestData();
 		}
 
-		IEnumerator Run() 
+		public void LoadText() 
 		{
-			HttpPackage pkg = new HttpPackage();
-			Score score = new Score() { tips = 10 };
-			pkg.data = JsonUtility.ToJson(score);
-			var result = HttpSystem.Instance.Post("http://192.168.10.109:8080/rank", pkg.ToJson());
-			yield return result;
-			if (!string.IsNullOrEmpty(result.error))
+			var config = RankModule.Instance.GetCurRankConfig();
+			if (config.IsValid()) 
 			{
-				log.Error("rank data fail=" + result.error);
-				yield break;
+				m_view.m_body.SetText(UIListener.Local(config.Name));
+				m_view.m_tip.SetText(UIListener.Local(config.Tips));
 			}
-			pkg = JsonUtility.FromJson<HttpPackage>(result.data);
-			DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
-			m_view.m_list.numItems = m_Data.rankDatas.Count;
+			m_view.m_noRank.SetText(UIListener.Local("ui_ranking_2"));
+		}
+
+		public void LoadTime() 
+		{
+			int time = RankModule.Instance.GetRankTime();
+			if (time > 0) 
+			{
+				Utils.Timer(time, () =>
+				{
+					time = RankModule.Instance.GetRankTime();
+					m_view.m_time.SetText(Utils.TimeFormat(time));
+				}, m_view, completed: () => SGame.UIUtils.CloseUIByID(__id));
+			}
+		}
+
+
+		public void OnUpdateRankData() 
+		{
+			m_view.m_list.numItems = DataCenter.Instance.rankData.list.Count;
+			LoadSelfRankData();
 		}
 
 		public void LoadSelfRankData() 
 		{
 			RankModule.Instance.GetSelfData(out RankItemData data, out int rank);
-			if (data != null) UpdateItem(m_view.m_self, data, rank);
+			if (data != null) UpdateItem(m_view.m_self, data, rank, true);
+
+			m_view.m_state.selectedIndex = data != null ? 0 : 1;
 		}
 
 		public void LoadTestData() 
@@ -55,30 +70,34 @@ namespace SGame.UI{
 			var req = Assets.LoadAsset(fileName, typeof(TextAsset));
 			var data = (req.asset as TextAsset).text;
 			DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(data);
-			m_view.m_list.numItems = m_Data.rankDatas.Count;
+			m_view.m_list.numItems = DataCenter.Instance.rankData.list.Count;
 		}
 
 		public void OnRendererItem(int index, GObject gObject)
 		{
-			var data = m_Data.rankDatas[index];
+			var data = DataCenter.Instance.rankData.list[index];
 			int rank = index + 1;
 
 			UpdateItem(gObject, data, rank);
 		}
 
-		void UpdateItem(GObject gObject, RankItemData data, int rank) 
+		void UpdateItem(GObject gObject, RankItemData data, int rank, bool isSelf = false) 
 		{
 			var item = (UI_RankItem)gObject;
 			item.data = data.player_id;
 			item.m_rank.text = rank.ToString();
-			item.m_rankIndex.selectedIndex = rank > 3 ? 3 : rank - 1;
+			//bool isSelf = DataCenter.Instance.accountData.playerID == data.player_id;
+			item.m_rankIndex.selectedIndex = isSelf ? rank > 3 ? 3 : 4 : rank - 1;
 			item.m_name.text = data.name;
 			(item.m_head as UI_HeadBtn).SetHeadIcon(data.icon_id, data.frame_id);
-			item.m_value.text = data.score.tips.ToString();
+			item.m_value.text = RankModule.Instance.GetScoreValue(data.score).ToString();
 
-			var rankConfig = RankModule.Instance.GetRankConfig(1, rank);
+			var rankConfig = RankModule.Instance.GetRankConfig(data.score.type, rank);
 			if (rankConfig.IsValid())
 			{
+				if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(rankConfig.ItemId, out var d)) 
+					item.m_tag.SetIcon(d.Icon);
+
 				var list = Utils.GetArrayList(rankConfig.GetReward1Array, rankConfig.GetReward2Array, rankConfig.GetReward3Array);
 				item.m_list.itemRenderer = (int index, GObject gObject) =>
 				{
@@ -96,8 +115,8 @@ namespace SGame.UI{
 			var clickBtn = context.data as UI_RankItem;
 			if (clickBtn == null) return;
 
-			var player_id = (int)clickBtn.data;
-			SGame.UIUtils.OpenUI("frienddetail", new UIParam() { Value = player_id });
+			var player_id = (long)clickBtn.data;
+			SGame.UIUtils.OpenUI("rankdetail", new UIParam() { Value = player_id });
 		}
 
 		partial void UnInitLogic(UIContext context){

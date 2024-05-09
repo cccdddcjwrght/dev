@@ -33,7 +33,7 @@ namespace SGame.UI.Rank
             m_list = (GList)GetChildAt(7);
             m_self = (UI_RankItem)GetChildAt(9);
             m_noRank = (GTextField)GetChildAt(10);
-            m_content = (GGroup)GetChildAt(12);
+            m_content = (GGroup)GetChildAt(13);
         }
     }
 }

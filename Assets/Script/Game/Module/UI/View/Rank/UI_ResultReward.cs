@@ -9,7 +9,7 @@ namespace SGame.UI.Rank
     {
         public Controller m_size;
         public GLoader m_icon;
-        public GTextField m_num;
+        public GTextField m___text;
         public const string URL = "ui://k6z01pjbvi8up";
 
         public static UI_ResultReward CreateInstance()
@@ -23,7 +23,7 @@ namespace SGame.UI.Rank
 
             m_size = GetControllerAt(0);
             m_icon = (GLoader)GetChildAt(1);
-            m_num = (GTextField)GetChildAt(2);
+            m___text = (GTextField)GetChildAt(2);
         }
     }
 }

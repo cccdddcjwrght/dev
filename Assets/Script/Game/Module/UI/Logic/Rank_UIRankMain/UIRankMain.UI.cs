@@ -16,7 +16,7 @@ namespace SGame.UI{
 			m_view.m_state.onChanged.Add(new EventCallback1(_OnStateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_self.m_rankIndex.onChanged.Add(new EventCallback1(_OnRankItem_RankIndexChanged));
-			UIListener.Listener(m_view.m_self.m_head, new EventCallback1(_OnRankItem_HaedClick));
+			UIListener.Listener(m_view.m_self.m_head, new EventCallback1(_OnRankItem_HeadClick));
 			UIListener.ListenerIcon(m_view.m_self, new EventCallback1(_OnSelfClick));
 
 		}
@@ -24,7 +24,7 @@ namespace SGame.UI{
 			m_view.m_state.onChanged.Remove(new EventCallback1(_OnStateChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_self.m_rankIndex.onChanged.Remove(new EventCallback1(_OnRankItem_RankIndexChanged));
-			UIListener.Listener(m_view.m_self.m_head, new EventCallback1(_OnRankItem_HaedClick),remove:true);
+			UIListener.Listener(m_view.m_self.m_head, new EventCallback1(_OnRankItem_HeadClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_self, new EventCallback1(_OnSelfClick),remove:true);
 
 		}
@@ -53,12 +53,12 @@ namespace SGame.UI{
 		void SwitchRankItem_RankIndexPage(int index)=>m_view.m_self.m_rankIndex.selectedIndex=index;
 		void SetRankItem_RankText(string data)=>UIListener.SetText(m_view.m_self.m_rank,data);
 		string GetRankItem_RankText()=>UIListener.GetText(m_view.m_self.m_rank);
-		void _OnRankItem_HaedClick(EventContext data){
-			OnRankItem_HaedClick(data);
+		void _OnRankItem_HeadClick(EventContext data){
+			OnRankItem_HeadClick(data);
 		}
-		partial void OnRankItem_HaedClick(EventContext data);
-		void SetRankItem_Self_haedText(string data)=>UIListener.SetText(m_view.m_self.m_head,data);
-		string GetRankItem_Self_haedText()=>UIListener.GetText(m_view.m_self.m_head);
+		partial void OnRankItem_HeadClick(EventContext data);
+		void SetRankItem_Self_headText(string data)=>UIListener.SetText(m_view.m_self.m_head,data);
+		string GetRankItem_Self_headText()=>UIListener.GetText(m_view.m_self.m_head);
 		void SetRankItem_NameText(string data)=>UIListener.SetText(m_view.m_self.m_name,data);
 		string GetRankItem_NameText()=>UIListener.GetText(m_view.m_self.m_name);
 		void SetRankItem_ValueText(string data)=>UIListener.SetText(m_view.m_self.m_value,data);

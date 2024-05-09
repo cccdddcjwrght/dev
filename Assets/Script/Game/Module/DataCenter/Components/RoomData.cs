@@ -119,7 +119,10 @@ namespace SGame
 								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), cfg.RoleId, cfg.Value, tid);
 							}
 							else
+							{
 								AddRoleReward(cfg.RoleId, cfg.Value, cfg.TableId(0), cfg.TableId(1));
+								EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.WORKER, 1);
+							}
 						}
 					}
 				}

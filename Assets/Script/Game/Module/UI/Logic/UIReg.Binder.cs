@@ -61,6 +61,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("FlightUI", "Flight", ()=>new UIFlight());SGame.UI.Flight.FlightBinder.BindAll();;
 			context.uiModule.Reg("RankMainUI", "Rank", ()=>new UIRankMain());SGame.UI.Rank.RankBinder.BindAll();;
 			context.uiModule.Reg("RankResultUI", "Rank", ()=>new UIRankResult());
+			context.uiModule.Reg("RankDetailUI", "Rank", ()=>new UIRankDetail());
 		}
 	}
 }
