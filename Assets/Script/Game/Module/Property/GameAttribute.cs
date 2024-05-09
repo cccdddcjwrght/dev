@@ -16,6 +16,7 @@ namespace SGame
 		Mod,
 	}
 
+	[System.Serializable]
 	public class AttributeUnit
 	{
 		public int id;
@@ -79,12 +80,17 @@ namespace SGame
 
 	}
 
+	[System.Serializable]
 	public class GameAttribute
 	{
-		private double _val;
-
 		public int id;
 		public double origin;
+
+#if UNITY_EDITOR
+		[UnityEngine.SerializeField] 
+#endif
+		private double _val;
+
 		public double value { get { return _val; } set { _val = value; } }
 		public double modify { get { return value - origin; } }
 
@@ -239,12 +245,14 @@ namespace SGame
 
 		private double[] _array;
 
+		[UnityEngine.SerializeField]
 		private List<AttributeUnit> _units = new List<AttributeUnit>();
+		[UnityEngine.SerializeField]
 		private GameAttribute[] _values = new GameAttribute[0];
 		public int Count { get { return _values.Length; } }
 
 		public int entityID;
-		public string key;
+		public string name;
 
 		private int _ctime;
 
@@ -334,7 +342,7 @@ namespace SGame
 						_units.Add(unit);
 				}
 #if DEBUG
-				GameDebug.Log($"<color='green'>[BUFF]</color>{key} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
+				GameDebug.Log($"<color='green'>[BUFF]</color>{name} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
 #endif
 
 			}
@@ -351,7 +359,7 @@ namespace SGame
 					if (u.from == from && (id == 0 || u.id == id))
 					{
 #if DEBUG
-						GameDebug.Log($"<color='red'>[BUFF]</color>{key} -> ::attribute {u.attribute} change : {u.modifiy}, val-> {u.attribute.value - u.modifiy}  ");
+						GameDebug.Log($"<color='red'>[BUFF]</color>{name} -> ::attribute {u.attribute} change : {u.modifiy}, val-> {u.attribute.value - u.modifiy}  ");
 #endif
 						u.Reset();
 						_units.RemoveAt(i);
@@ -398,7 +406,9 @@ namespace SGame
 				if (item.CheckAndReset(time))
 				{
 					_units.RemoveAt(i);
-					GameDebug.Log($" {key}->reset attribute {a} : {item.modifiy} ");
+#if DEBUG
+					GameDebug.Log($" {name}->reset attribute {a} : {item.modifiy} "); 
+#endif
 
 				}
 			}

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SGame
 {
-
+	[Serializable]
 	partial class DataCenter
 	{
 		[System.NonSerialized]

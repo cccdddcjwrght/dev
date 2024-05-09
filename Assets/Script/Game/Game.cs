@@ -55,6 +55,13 @@ public class Game : SGame.MonoSingleton<Game>
 	Fiber m_initProcess;
 
 
+#if UNITY_EDITOR
+
+	[SerializeField]
+	private DataCenter dataCenter;
+
+#endif
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -240,9 +247,13 @@ public class Game : SGame.MonoSingleton<Game>
 		}
 
 #if UNITY_EDITOR
+
+		dataCenter = DataCenter.Instance;
+
 		if (Input.GetKeyUp(KeyCode.Space))
 			ScreenCapture.CaptureScreenshot(System.DateTime.Now.Ticks + ".png");
 #endif
+
 	}
 
 	void ShutdownGameLoops()

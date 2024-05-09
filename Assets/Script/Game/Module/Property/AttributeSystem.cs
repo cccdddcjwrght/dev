@@ -71,6 +71,11 @@ namespace SGame
 
 		private Action<int> onUpdate;
 
+#if UNITY_EDITOR
+		[SerializeField]
+		private List<AttributeList> m_items = new List<AttributeList>();
+#endif
+
 		#region API
 
 
@@ -196,7 +201,8 @@ namespace SGame
 			{
 				g[id] = a = attribute ?? new AttributeList();
 #if DEBUG
-				a.key = ((EnumTarget)type) + "-" + id;
+				a.name = ((EnumTarget)type) + "-" + id;
+				m_items.Add(a);
 #endif
 				onUpdate += a.Refresh;
 			}
@@ -214,6 +220,9 @@ namespace SGame
 					{
 						item.Value.Clear();
 						onUpdate -= item.Value.Refresh;
+#if UNITY_EDITOR
+						m_items.Remove(item.Value);
+#endif
 					}
 					g.Clear();
 				}
@@ -223,6 +232,9 @@ namespace SGame
 					g.Remove(id);
 					a.Clear();
 					onUpdate -= a.Refresh;
+#if UNITY_EDITOR
+					m_items.Remove(a);
+#endif
 				}
 			}
 		}
