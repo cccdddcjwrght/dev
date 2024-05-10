@@ -56,8 +56,12 @@ namespace SGame
 				var r = GetRoom(id, isnew);
 				if (r != null)
 				{
+					var rd = Instance.roomData;
 					var ud = Instance.GetUserData();
+					rd.rooms.Remove(r);
+					rd.rooms.Insert(0, r);
 					ud.scene = id;
+					r.worktables?.ForEach(w => w.Refresh());
 					Instance.roomData.roomID = id;
 					Instance.SetUserData(ud);
 					DataCenter.Instance.SavePlayerData();
