@@ -89,7 +89,7 @@ class CreateCharacterAssets
                 // in the assetbundle. As instantiating part of an fbx results in the
                 // entire fbx being instantiated, we have to dispose of the entire instance
                 // after we detach the SkinnedMeshRenderer in question.
-                GameObject rendererClone = GameObject.Instantiate(smr.gameObject);         //(GameObject)EditorUtility.InstantiatePrefab(smr.gameObject);
+                GameObject rendererClone = GameObject.Instantiate(smr.gameObject); //(GameObject)EditorUtility.InstantiatePrefab(smr.gameObject);
                 CharacterElemInfo info = rendererClone.AddComponent<CharacterElemInfo>();
                 //rendererClone.GetComponent<SkinnedMeshRenderer>().sharedMesh = newMesh;
                 //Object rendererPrefab = GetPrefabPath(rendererClone, name + "/" + smr.name + "/rendererobject"); //GetPrefab(rendererClone, "rendererobject");
@@ -97,11 +97,17 @@ class CreateCharacterAssets
 
                 // Collect applicable materials.
                 foreach (Material m in materials)
-                    if (m.name.Contains(smr.name.ToLower()))
+                {
+                    string[] matchName = m.name.Split("_");
+                    if (matchName.Length > 2)
                     {
-                        toinclude.Add(m);
-                        all_materials.Add(m);
+                        if (matchName[1] == smr.name.ToLower())
+                        {
+                            toinclude.Add(m);
+                            all_materials.Add(m);
+                        }
                     }
+                }
 
                 // 将骨骼名称保存到一个字符串列表供 后续恢复骨骼绑定时使用
                 // When assembling a character, we load SkinnedMeshRenderers from assetbundles,
