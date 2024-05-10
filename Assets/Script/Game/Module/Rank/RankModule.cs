@@ -37,8 +37,8 @@ namespace SGame
             m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, AddScoreTypeData);
             m_EventHandle += EventManager.Instance.Reg((int)GameEvent.ENTER_GAME, () =>
             {
-                FiberCtrl.Pool.Run(ReqRankList());
-                FiberCtrl.Pool.Run(ReqRankData());
+                ReqRankList().Start();
+                ReqRankData().Start();
             });
         }
 
