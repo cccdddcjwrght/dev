@@ -15,7 +15,7 @@ namespace SGame.UI
 
 		private bool _isAd;
 		private double _gold;
-
+		private double _addGold;
 		partial void InitLogic(UIContext context)
 		{
 			context.window.AddEventListener("OnRefresh", OnRefresh);
@@ -43,6 +43,8 @@ namespace SGame.UI
 			m_view.m_click.SetText(_isAd && isNet ? UIListener.Local("ui_offline_collect2") : UIListener.Local("ui_offline_collect1"));
 			m_view.m_state.selectedIndex = _isAd && isNet ? 1 : 0;
 			_gold = gold;
+			_addGold = 0;
+			RequestExcuteSystem.GetOfflineReward(_gold, true);
 		}
 
 
@@ -62,7 +64,7 @@ namespace SGame.UI
 					if (s)
 					{
 						_isAd = false;
-						_gold *= GlobalDesginConfig.GetInt("ad_offline_ratio");
+						_addGold = _gold * (GlobalDesginConfig.GetInt("ad_offline_ratio") - 1);
 						OnClickClick(data);
 					}
 				});
@@ -75,7 +77,7 @@ namespace SGame.UI
 
 		partial void OnUICloseClick(ref bool state)
 		{
-			RequestExcuteSystem.GetOfflineReward(_gold);
+			RequestExcuteSystem.GetOfflineReward(_addGold);
 			TransitionModule.Instance.PlayFlight(m_view.m_click, (int)FlightType.GOLD, 0, -450);
 		}
 	}

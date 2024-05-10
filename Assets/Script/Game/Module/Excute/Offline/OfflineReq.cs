@@ -65,12 +65,19 @@ namespace SGame
 
 		}
 
-		static public void GetOfflineReward(double gold)
+		static public void GetOfflineReward(double gold, bool cache = false)
 		{
 			log.Info("[offline] reward:" + gold);
 			DataCenter.Instance.offlinetime = -1;
 			if (gold > 0)
-				PropertyManager.Instance.Update(PropertyGroup.ITEM, 1, gold);
+			{
+				if (cache)
+					PropertyManager.Instance.Insert2Cache(new List<double[]>() { new double[] { ((int)PropertyGroup.ITEM), ((int)ItemID.GOLD), gold } });
+				else
+					PropertyManager.Instance.Update(PropertyGroup.ITEM, 1, gold);
+			}
+			if (!cache)
+				PropertyManager.Instance.CombineCache2Items();
 		}
 	}
 }

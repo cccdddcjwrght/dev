@@ -31,7 +31,7 @@ namespace SGame.UI.Pet
             m_pet = (UI_PetInfo)GetChildAt(2);
             m_egg = (UI_PetEgg)GetChildAt(3);
             m_list = (GList)GetChildAt(6);
-            m_top = (UI_PetMedalList)GetChildAt(8);
+            m_top = (UI_PetMedalList)GetChildAt(7);
         }
     }
 }
