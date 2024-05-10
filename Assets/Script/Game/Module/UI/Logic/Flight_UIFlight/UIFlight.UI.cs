@@ -15,11 +15,13 @@ namespace SGame.UI{
 			__id = context.configID;
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
+			UIListener.Listener(m_view.m_rank, new EventCallback1(_OnRankClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
+			UIListener.Listener(m_view.m_rank, new EventCallback1(_OnRankClick),remove:true);
 
 		}
 		void _OnGoldClick(EventContext data){
@@ -34,6 +36,12 @@ namespace SGame.UI{
 		partial void OnDiamondClick(EventContext data);
 		void SetDiamondText(string data)=>UIListener.SetText(m_view.m_Diamond,data);
 		string GetDiamondText()=>UIListener.GetText(m_view.m_Diamond);
+		void _OnRankClick(EventContext data){
+			OnRankClick(data);
+		}
+		partial void OnRankClick(EventContext data);
+		void SetRankText(string data)=>UIListener.SetText(m_view.m_rank,data);
+		string GetRankText()=>UIListener.GetText(m_view.m_rank);
 
 	}
 }

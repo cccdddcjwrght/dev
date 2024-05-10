@@ -14,6 +14,7 @@ namespace SGame.UI.Rank
             UIObjectFactory.SetPackageItemExtension(UI_RankResultUI.URL, typeof(UI_RankResultUI));
             UIObjectFactory.SetPackageItemExtension(UI_ResultReward.URL, typeof(UI_ResultReward));
             UIObjectFactory.SetPackageItemExtension(UI_RankDetailUI.URL, typeof(UI_RankDetailUI));
+            UIObjectFactory.SetPackageItemExtension(UI_RankTran.URL, typeof(UI_RankTran));
         }
     }
 }

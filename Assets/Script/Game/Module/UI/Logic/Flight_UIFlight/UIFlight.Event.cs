@@ -18,6 +18,8 @@ namespace SGame.UI{
 		partial void InitEvent(UIContext context){
 			m_EventHandle += EventManager.Instance.Reg<int, Vector2, Vector2, float>((int)GameEvent.FLIGHT_SINGLE_CREATE, Play);
 			m_EventHandle += EventManager.Instance.Reg<List<int>, List<Vector2>, Vector2, float>((int)GameEvent.FLIGHT_LIST_CREATE, Play);
+
+			m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, PlayRankShow);
 		}
 		partial void UnInitEvent(UIContext context){
 			m_EventHandle.Close();
@@ -169,12 +171,50 @@ namespace SGame.UI{
 					m_view.m_Gold.xy = ui.Value.contentPane.GetChild("Gold").xy;
 					m_view.m_Diamond.xy = ui.Value.contentPane.GetChild("Diamond").xy;
 
-					var boxGObject = ui.Value.contentPane.GetChildByPath("leftList.right").asList.GetChild("eqgift");
+					var boxGObject = ui.Value.contentPane.GetChildByPath("leftList.right.eqgift");
 					if (boxGObject != null) 
-						m_view.m_Box.xy = ui.Value.contentPane.GetChildByPath("leftList.right").asList.GetChild("eqgift").LocalToGlobal(Vector2.zero);
+						m_view.m_Box.xy = boxGObject.LocalToGlobal(Vector2.zero);
 				}
 			}
 			//m_IsSet = true;
+		}
+
+		void PlayRankShow(int marker, int value) 
+		{
+			var rankBtn = GetMainBtn("rightList.right.rank");
+			if (rankBtn != null) 
+			{
+				m_view.m_rank.visible = true;
+				var screenPos = rankBtn.LocalToGlobal(Vector2.zero);
+				var logicScreenPos = GRoot.inst.GlobalToLocal(screenPos);
+				m_view.m_rank.xy = logicScreenPos;
+
+				m_view.m_rank.GetController("ctrlTime").selectedIndex = 1;
+				m_view.m_rank.GetChild("content").SetText(Utils.FormatTime(RankModule.Instance.GetRankTime()));
+
+				if (ConfigSystem.Instance.TryGet<GameConfigs.RankConfigRowData>((r) => r.RankingMarker == marker, out var rankConfig) &&
+					ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(rankConfig.ItemId, out var itemConfig))
+					m_view.m_rankTran.SetIcon(itemConfig.Icon);
+
+				m_view.m_rankTran.SetText("+" + value);
+				m_view.m_rankTran.GetTransition("play").Play(() => m_view.m_rank.visible = false);
+			}
+		}
+
+		public GObject GetMainBtn(string path) 
+		{
+			var e = SGame.UIUtils.GetUIEntity("mainui");
+			if (e != Entity.Null)
+			{
+				var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
+				if (ui != null)
+				{
+					var gObject = ui.Value.contentPane.GetChildByPath(path);
+					if (gObject != null)
+						return gObject;
+				}
+			}
+			return default;
 		}
 	}
 
