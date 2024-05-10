@@ -60,9 +60,18 @@ namespace SGame.UI{
 		public void LoadSelfRankData() 
 		{
 			RankModule.Instance.GetSelfData(out RankItemData data, out int rank);
-			if (data != null) UpdateItem(m_view.m_self, data, rank, true);
-
 			m_view.m_state.selectedIndex = data != null ? 0 : 1;
+			if (data == null)
+			{ 
+				data = new RankItemData()
+				{
+					name = DataCenter.Instance.accountData.playerName,
+					icon_id = DataCenter.Instance.accountData.head,
+					frame_id = DataCenter.Instance.accountData.frame,
+					score = new RankScore(), 
+				};
+			}
+			UpdateItem(m_view.m_self, data, rank, true);
 		}
 
 		public void LoadTestData() 
@@ -86,7 +95,8 @@ namespace SGame.UI{
 		{
 			var item = (UI_RankItem)gObject;
 			item.data = data.player_id;
-			item.m_rank.text = rank.ToString();
+
+			item.m_rank.text = rank == -1 ? "" : rank.ToString();
 			//bool isSelf = DataCenter.Instance.accountData.playerID == data.player_id;
 			if (isSelf) item.m_rankIndex.selectedIndex = 4;
 			else item.m_rankIndex.selectedIndex = rank > 3 ? 3 : rank - 1;
