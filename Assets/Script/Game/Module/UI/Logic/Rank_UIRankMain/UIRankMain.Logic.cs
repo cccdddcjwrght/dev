@@ -32,6 +32,7 @@ namespace SGame.UI{
 			{
 				m_view.m_body.SetText(UIListener.Local(config.Name));
 				m_view.m_tip.SetText(UIListener.Local(config.Tips));
+				m_view.m_bg.icon = "ui://Rank/" + config.Icon;
 			}
 			m_view.m_noRank.SetText(UIListener.Local("ui_ranking_2"));
 		}

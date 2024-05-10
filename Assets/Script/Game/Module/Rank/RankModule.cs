@@ -46,7 +46,7 @@ namespace SGame
         {
             HttpPackage pkg = new HttpPackage();
             pkg.data = DataCenter.Instance.accountData.playerID.ToString();
-            var result = HttpSystem.Instance.Post("http://192.168.10.109:8082/ranks", pkg.ToJson());
+            var result = HttpSystem.Instance.Post("ranks", pkg.ToJson());
             yield return result;
             if (!string.IsNullOrEmpty(result.error))
             {
@@ -88,7 +88,7 @@ namespace SGame
                 player_id = DataCenter.Instance.accountData.playerID,
             };
             pkg.data = JsonUtility.ToJson(score);
-            var result = HttpSystem.Instance.Post("http://192.168.10.109:8082/rank", pkg.ToJson());
+            var result = HttpSystem.Instance.Post("rank", pkg.ToJson());
             yield return result;
             if (!string.IsNullOrEmpty(result.error))
             {
