@@ -71,6 +71,7 @@ namespace SGame.Http
 					{
 						result.error = string.IsNullOrEmpty(data.request.downloadHandler.text) ? data.request.error : data.request.downloadHandler.text;
 					}
+					data.request.Dispose();
 					commandBuffer.DestroyEntity(e);
 				}
 			}).WithoutBurst().Run();

@@ -47,20 +47,22 @@ namespace SGame.Http
 					HttpData data = new HttpData() { isGet = req.isGet , isBuffer = req.buffer };
 					EntityManager.AddComponentData(e, data);
 					EntityManager.RemoveComponent<HttpRequest>(e);
-					
+					//log.Info("begin pos=" + req.url + " pos=" + req.post);
 					if (req.isGet)
 					{
 						data.request = UnityWebRequest.Get(req.url);
 					}
 					else
 					{
-						log.Info("begin pos=" + req.url + " pos=" + req.post);
 						data.request = UnityWebRequest.Post(req.url, req.post);
 						data.request.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
 					}
 					data.request.SetRequestHeader("Authorization", "token " + req.token);
 					data.request.certificateHandler = DefultCertificateHandler.Current;
+					data.request.disposeDownloadHandlerOnDispose = true;
+					data.request.disposeUploadHandlerOnDispose = true;
 					data.result = data.request.SendWebRequest();
+					//log.Info("end pos=" + req.url + " pos=" + req.post);
 				}
 			}
 		}
