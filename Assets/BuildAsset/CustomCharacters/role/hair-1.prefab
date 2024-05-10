@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &406761500707601947
+--- !u!1 &1892339053923791668
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7657289241535592556}
-  - component: {fileID: 2789526711429159755}
-  - component: {fileID: 3426514214151631327}
+  - component: {fileID: 2220975353072047634}
+  - component: {fileID: 7659872075560151248}
+  - component: {fileID: 664325968099114915}
   m_Layer: 0
   m_Name: hair-1
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7657289241535592556
+--- !u!4 &2220975353072047634
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406761500707601947}
+  m_GameObject: {fileID: 1892339053923791668}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &2789526711429159755
+--- !u!137 &7659872075560151248
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406761500707601947}
+  m_GameObject: {fileID: 1892339053923791668}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -120,13 +120,13 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.06734109, y: 0.00000059604645, z: 0.6740644}
     m_Extent: {x: 0.33652934, y: 0.39950046, z: 0.42023027}
   m_DirtyAABB: 0
---- !u!114 &3426514214151631327
+--- !u!114 &664325968099114915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406761500707601947}
+  m_GameObject: {fileID: 1892339053923791668}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15682c8cc05f5d4498e30fec0f70ad53, type: 3}
@@ -168,14 +168,4 @@ MonoBehaviour:
   - Bip001 HeadNub
   - Bip001 R Toe0Nub
   materials:
-  - {fileID: 2100000, guid: 3c9cf48502a6520408e98b92ebc4c22d, type: 2}
-  - {fileID: 2100000, guid: b3847037a0576da46bf1bf86aae7f109, type: 2}
-  - {fileID: 2100000, guid: 7ced326e04403f24ebdb000201d6488c, type: 2}
-  - {fileID: 2100000, guid: d27af2c9457e55e4ca9c10eb637f5f0d, type: 2}
-  - {fileID: 2100000, guid: 9250467926754fc47880483be6e714cb, type: 2}
-  - {fileID: 2100000, guid: 59020d3c4d09a274a85fafc4ab4ec9e1, type: 2}
-  - {fileID: 2100000, guid: f145451458ee4904eb1226b442c76fd3, type: 2}
-  - {fileID: 2100000, guid: 7b1706ade792ed84d95da4a15d381c53, type: 2}
-  - {fileID: 2100000, guid: 33d891a5d40175b428f9d2b80b592af4, type: 2}
-  - {fileID: 2100000, guid: df51912ef1a229945a7cc3bc08e01cfe, type: 2}
   - {fileID: 2100000, guid: 7db15da89bc9ba34d9587bd630e65161, type: 2}
