@@ -67,7 +67,7 @@ namespace SGame.UI{
 
 			//按钮
 			GButton    techBtn=item.asCom.GetChild("techBtn").asButton;
-			GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;
+			//GButton    techMaxBtn=item.asCom.GetChild("techMaxBtn").asButton;
 			GTextField buyTxt= techBtn.GetChild("iconTitle").asTextField;
 			Controller techController = item.asCom.GetController("state");
 			Controller iconController = item.asCom.GetController("iconImage");
@@ -92,9 +92,10 @@ namespace SGame.UI{
 			if (levelIndex >= listData[index].abilitLevelList.Count-1)
 			{
 				techController.selectedIndex = 2;
-				GTextField maxTxt= techMaxBtn.GetChild("title").asTextField;
-				UIListener.SetTextByKey(maxTxt,"ui_main_btn_upgrademax");
-				techMaxBtn.enabled = false;
+				levelTxt.text = UIListener.Local("tips_lv_max");
+				//GTextField maxTxt= techMaxBtn.GetChild("title").asTextField;
+				//UIListener.SetTextByKey(maxTxt,"ui_main_btn_upgrademax");
+				//techMaxBtn.enabled = false;
 			}
 
 			techBtn.onClick.Set(()=>
