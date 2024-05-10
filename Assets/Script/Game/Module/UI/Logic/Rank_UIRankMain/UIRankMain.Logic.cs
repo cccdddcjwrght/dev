@@ -21,7 +21,7 @@ namespace SGame.UI{
 			LoadTime();
 
 			m_view.m_state.selectedIndex = 2;
-			RankModule.Instance.ReqRankData().Start();
+			RankModule.Instance.ReqRankData(true).Start();
 			//LoadTestData();
 		}
 
@@ -90,7 +90,7 @@ namespace SGame.UI{
 			if (isSelf) item.m_rankIndex.selectedIndex = 4;
 			else item.m_rankIndex.selectedIndex = rank > 3 ? 3 : rank - 1;
 
-			item.m_name.text = data.name;
+			item.m_name.SetText(data.name);
 			(item.m_head as UI_HeadBtn).SetHeadIcon(data.icon_id, data.frame_id);
 			item.m_value.text = RankModule.Instance.GetScoreValue(data.score).ToString();
 

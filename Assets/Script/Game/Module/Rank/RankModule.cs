@@ -24,13 +24,13 @@ namespace SGame
 
     public class RankModule : Singleton<RankModule>
     {
+        //对应活动表
+        public const int RANK_ACTIVE_ID = 3;
+
         public RankData rankData { get { return DataCenter.Instance.rankData;}}
         RankScore rankScore = DataCenter.Instance.rankScore;
 
         public RankPanelData rankPanelData = new RankPanelData();
-        //对应活动表
-        public const int RANK_ACTIVE_ID = 3;
-
         EventHandleContainer m_EventHandle = new EventHandleContainer();
         public void Initalize() 
         {
@@ -68,15 +68,17 @@ namespace SGame
                         PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);
                     //弹出排行奖励
                     OpenResultView(data.RankingMarker, rewardData.rank);
+                    ClearRankScore();
                 }
             }
 
- 
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
-        public IEnumerator ReqRankData()
+        public IEnumerator ReqRankData(bool cancelReddot = false)
         {
+            if (cancelReddot) rankPanelData.reddot = false;
+
             HttpPackage pkg = new HttpPackage();
             RankScoreEx score = new RankScoreEx()
             {
@@ -155,6 +157,11 @@ namespace SGame
             return 0;
         }
 
+        public bool IsRedDot() 
+        {
+            return rankPanelData.reddot;
+        }
+
         public bool IsOpen() 
         {
             return GetRankTime() > 0;
@@ -170,6 +177,14 @@ namespace SGame
         {
             return rankData.list.Find((r) => r.player_id == playerId);
         }
+
+        public void ClearRankScore() 
+        {
+            rankScore.tips      = 0;
+            rankScore.boxs      = 0;
+            rankScore.workers   = 0;
+        }
+
 
         public RoleData GetRoleData(long playerID) 
         {
