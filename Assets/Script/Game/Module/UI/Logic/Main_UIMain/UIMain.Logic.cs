@@ -92,6 +92,9 @@ namespace SGame.UI{
 			/// <returns></returns>
 			bool CheckLogin()
 			{
+				if (!GuideModule.Instance.IsGuideFinsih())
+					return false;
+
 				if (config.LoginShow <= 0)
 					return false;
 
@@ -117,6 +120,9 @@ namespace SGame.UI{
 			/// <returns></returns>
 			bool CheckFirstOpen()
 			{
+				if (!GuideModule.Instance.IsGuideFinsih())
+					return false;
+
 				if (config.FirstOpen <= 0)
 					return false;
 				
