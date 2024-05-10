@@ -7,7 +7,7 @@ namespace SGame.UI.Common
 {
     public partial class UI_HeadTitle : GLabel
     {
-        public GButton m_close;
+        public UI_CloseBtn m_close;
         public const string URL = "ui://2w8thcm7e9cj14";
 
         public static UI_HeadTitle CreateInstance()
@@ -19,7 +19,7 @@ namespace SGame.UI.Common
         {
             base.ConstructFromXML(xml);
 
-            m_close = (GButton)GetChildAt(2);
+            m_close = (UI_CloseBtn)GetChildAt(2);
         }
     }
 }
