@@ -55,6 +55,7 @@ namespace SGame.Randoms
 			if (args != null && args.Count > 0)
 			{
 				var l = args.Count;
+				index = 0;
 				if (l == 1) return args[0];
 				index = Math.Min(Next(0, l), l - 1);
 				return args[index];

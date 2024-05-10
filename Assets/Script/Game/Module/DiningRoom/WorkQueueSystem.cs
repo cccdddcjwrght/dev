@@ -127,18 +127,19 @@ namespace SGame
 			return false;
 		}
 
-		public bool Random(string name, out Worker worker) {
+		public bool Random(string name, out Worker worker)
+		{
 
 			worker = default;
 			if (string.IsNullOrEmpty(name)) return false;
 			if (_queues.TryGetValue(name, out var q) && q.frees.Count > 0)
 			{
-				worker = SGame.Randoms.Random._R.NextItem(q.frees , out var i);
-				if (worker.queue != null)
+				worker = SGame.Randoms.Random._R.NextItem(q.frees, out var i);
+				if (i >= 0 && worker.queue != null)
 				{
 					worker.version++;
-					OnSelected(name, ref worker);
 					q.frees.RemoveAt(i);
+					OnSelected(name, ref worker);
 					q.wokers.Add(worker);
 					return true;
 				}
@@ -154,7 +155,6 @@ namespace SGame
 		public void Free(Worker worker)
 		{
 			if (worker.queue == null) return;
-			_waitWorkers.Add(worker);
 			if (_queues.TryGetValue(worker.queue, out var q))
 			{
 				var idx = q.wokers.FindIndex(w => w.Equals(worker));

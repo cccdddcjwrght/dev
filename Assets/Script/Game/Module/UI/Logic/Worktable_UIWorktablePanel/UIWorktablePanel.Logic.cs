@@ -44,7 +44,7 @@ namespace SGame.UI
 						SetUplevelInfo();
 						break;
 				}
-				
+
 			}
 		}
 
@@ -115,7 +115,7 @@ namespace SGame.UI
 		}
 
 		//广告刷新（超过工作台一半等级显示广告按钮）
-		private void AdRefresh() 
+		private void AdRefresh()
 		{
 			if (!NetworkUtils.IsNetworkReachability())
 			{
@@ -134,7 +134,7 @@ namespace SGame.UI
 			m_view.m_isAd.selectedIndex = isShow ? 1 : 0;
 
 			m_view.m_type.selectedIndex = 0;
-			if (isShow) 
+			if (isShow)
 			{
 				int adAddLv = Mathf.Min(AdModule.Instance.AD_MACHINE_NUM, data.maxlv - data.level);
 				UIListener.SetText(m_view.m_adBtn, string.Format("+{0} LEVELS", adAddLv.ToString()));
@@ -241,7 +241,7 @@ namespace SGame.UI
 		System.Collections.IEnumerator AddItem(params GObject[] items)
 		{
 			var i = 0;
-			while (i < items.Length)
+			while (i < items.Length && m_view != null && m_view.m_tips != null)
 			{
 				m_view.m_tips.AddChild(items[i++]);
 				m_view.m_tips.ScrollToView(m_view.m_tips.numItems - 1, true);
@@ -280,12 +280,12 @@ namespace SGame.UI
 		partial void OnAdBtnClick(EventContext data)
 		{
 			AdModule.PlayAd(AdType.Table.ToString(), (state) => AdUpdateLevel(state));
-        }
+		}
 
 		//广告升级
-		void AdUpdateLevel(bool state) 
+		void AdUpdateLevel(bool state)
 		{
-			if (state) 
+			if (state)
 			{
 				var upNum = AdModule.Instance.AD_MACHINE_NUM;
 				var level = Mathf.Min(upNum, data.maxlv - data.level);
@@ -293,5 +293,5 @@ namespace SGame.UI
 				LevelRefresh();
 			}
 		}
-    }
+	}
 }

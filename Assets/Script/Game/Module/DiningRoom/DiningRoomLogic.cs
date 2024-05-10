@@ -199,7 +199,11 @@ namespace SGame.Dining
 		public void EnableClick(bool state)
 		{
 			if (transform)
-				transform.GetComponent<BoxCollider>().enabled = state;
+			{
+				var c = transform?.GetComponent<BoxCollider>();
+				if (c)
+					c.enabled = state;
+			}
 		}
 
 		public override void Close()
