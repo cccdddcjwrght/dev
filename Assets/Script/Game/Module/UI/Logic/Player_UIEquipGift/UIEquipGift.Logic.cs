@@ -118,7 +118,8 @@ namespace SGame.UI
 				m_view.m_open.Play(() => _mask = false);
 				this.Delay(() =>
 				{
-					_effect = EffectSystem.Instance.AddEffect(6, m_view.m_body);
+					if (m_view != null)
+						_effect = EffectSystem.Instance.AddEffect(6, m_view.m_body);
 
 				}, 1000);
 				return true;
