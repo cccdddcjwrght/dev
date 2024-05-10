@@ -81,7 +81,7 @@ namespace SGame.UI{
 			// 显示倒计时
 			GTween.Kill(m_view);
 			int time = FriendModule.Instance.coldTime;
-			if (time > 0)
+			if (time > 0 && FriendModule.Instance.hiringTime == 0)
 			{
 				m_view.m_titleTime.text = Utils.FormatTime(time);
 				GTween.To(time, 0, time).OnUpdate(t =>
