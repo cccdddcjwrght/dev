@@ -89,6 +89,8 @@ namespace SGame.UI{
 		string GetLevelpstrText()=>UIListener.GetText(m_view.m_levelpstr);
 		void SetAttrText(string data)=>UIListener.SetText(m_view.m_attr,data);
 		string GetAttrText()=>UIListener.GetText(m_view.m_attr);
+		void Set__attrText(string data)=>UIListener.SetText(m_view.m___attr,data);
+		string Get__attrText()=>UIListener.GetText(m_view.m___attr);
 		void SetNextlvattrText(string data)=>UIListener.SetText(m_view.m_nextlvattr,data);
 		string GetNextlvattrText()=>UIListener.GetText(m_view.m_nextlvattr);
 		void SetCostText(string data)=>UIListener.SetText(m_view.m_cost,data);

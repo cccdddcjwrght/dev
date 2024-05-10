@@ -90,7 +90,11 @@ namespace SGame.UI
 			m_view.m_lvmax.selectedIndex = equip.IsMaxLv() ? 1 : 0;
 			m_view.m_funcType.selectedIndex = equip.level > 1 || equip.progress > 0 ? 0 : 1;
 			m_view.RefreshLevel(equip);
-			if (buff.IsValid()) m_view.m_attr.SetText("+" + equip.attrVal + "%", false);
+			if (buff.IsValid()) {
+				var v = "+" + equip.attrVal + "%";
+				m_view.m_attr.SetText(v, false);
+				m_view.m___attr.SetText(v, false);
+			}
 			if (m_view.m_lvmax.selectedIndex == 0)
 			{
 				m_view.m_progress.value = equip.progress;
