@@ -36,15 +36,17 @@ namespace SGame
 				if ("offline".IsOpend(false))
 				{
 					var flag = UIUtils.CheckUIIsOpen(offline_ui);
+					if (!flag)
+					{
+						log.Info("[offlinetime end]->" + UnityEngine.Time.realtimeSinceStartup.ToString());
 
-					log.Info("[offlinetime end]->" + UnityEngine.Time.realtimeSinceStartup.ToString());
-
-					StaticDefine.G_Offline_Time = (int)UnityEngine.Time.realtimeSinceStartup - DataCenter.Instance.offlinetime;
-					if (StaticDefine.G_Offline_Time > minOfflineTime || flag)
-						11.Goto();
-					else
-						GetOfflineReward(DataCenter.CaluOfflineReward(StaticDefine.G_Offline_Time));
-					log.Info("[offlinetime]->" + StaticDefine.G_Offline_Time.ToString());
+						StaticDefine.G_Offline_Time = (int)UnityEngine.Time.realtimeSinceStartup - DataCenter.Instance.offlinetime;
+						if (StaticDefine.G_Offline_Time > minOfflineTime || flag)
+							11.Goto();
+						else
+							GetOfflineReward(DataCenter.CaluOfflineReward(StaticDefine.G_Offline_Time));
+						log.Info("[offlinetime]->" + StaticDefine.G_Offline_Time.ToString());
+					}
 				}
 			}
 
