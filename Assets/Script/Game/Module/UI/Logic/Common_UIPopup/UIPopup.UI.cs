@@ -16,6 +16,7 @@ namespace SGame.UI{
 			m_view.m_size.onChanged.Add(new EventCallback1(_OnSizeChanged));
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
 			m_view.m_hideclose.onChanged.Add(new EventCallback1(_OnHidecloseChanged));
+			m_view.m_close.m_Type.onChanged.Add(new EventCallback1(_OnCloseBtn_TypeChanged));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 
 		}
@@ -23,6 +24,7 @@ namespace SGame.UI{
 			m_view.m_size.onChanged.Remove(new EventCallback1(_OnSizeChanged));
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
 			m_view.m_hideclose.onChanged.Remove(new EventCallback1(_OnHidecloseChanged));
+			m_view.m_close.m_Type.onChanged.Remove(new EventCallback1(_OnCloseBtn_TypeChanged));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
@@ -41,6 +43,11 @@ namespace SGame.UI{
 		}
 		partial void OnHidecloseChanged(EventContext data);
 		void SwitchHideclosePage(int index)=>m_view.m_hideclose.selectedIndex=index;
+		void _OnCloseBtn_TypeChanged(EventContext data){
+			OnCloseBtn_TypeChanged(data);
+		}
+		partial void OnCloseBtn_TypeChanged(EventContext data);
+		void SwitchCloseBtn_TypePage(int index)=>m_view.m_close.m_Type.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
