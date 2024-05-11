@@ -92,9 +92,6 @@ namespace SGame.UI{
 			/// <returns></returns>
 			bool CheckLogin()
 			{
-				if (!GuideModule.Instance.IsGuideFinsih())
-					return false;
-
 				if (config.LoginShow <= 0)
 					return false;
 
@@ -120,9 +117,6 @@ namespace SGame.UI{
 			/// <returns></returns>
 			bool CheckFirstOpen()
 			{
-				if (!GuideModule.Instance.IsGuideFinsih())
-					return false;
-
 				if (config.FirstOpen <= 0)
 					return false;
 				
@@ -181,15 +175,18 @@ namespace SGame.UI{
 			{
 				if (item.IsVisible())
 				{
-					if (item.visibaleCount == 0)
+					if (GuideModule.Instance.IsGuideFinsih()) 
 					{
-						// 首次显示
-						showUI.TryAdd(item.funcID, item);
-						item.visibaleCount = 1;
-					}
-					else
-					{
-						item.visibaleCount = 2;
+						if (item.visibaleCount == 0)
+						{
+							// 首次显示
+							showUI.TryAdd(item.funcID, item);
+							item.visibaleCount = 1;
+						}
+						else
+						{
+							item.visibaleCount = 2;
+						}
 					}
 					ret.Add(item);
 				}
