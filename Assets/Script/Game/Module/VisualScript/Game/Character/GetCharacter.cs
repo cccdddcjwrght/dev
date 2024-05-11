@@ -1,6 +1,5 @@
 using SGame;
 using Unity.VisualScripting;
-
 namespace SGame.VS
 {
 	[UnitTitle("GetCharacter")] //The Custom Scripting Event node to receive the Event. Add "On" to the node title as an Event naming convention.
@@ -34,3 +33,4 @@ namespace SGame.VS
         }
     }
 }
+

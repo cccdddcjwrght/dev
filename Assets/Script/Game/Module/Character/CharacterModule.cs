@@ -1,6 +1,8 @@
+using System;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace SGame
 {
@@ -105,6 +107,43 @@ namespace SGame
             
             CharacterFactory.Instance.ClearEmpty();
         }
+
+        /// <summary>
+        /// 查找角色
+        /// </summary>
+        /// <returns></returns>
+        public List<Character> FindCharacters(Func<Character, bool> check = null)
+        {
+            var entities = m_characterQuery.ToEntityArray(Allocator.Temp);
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            List<Character> rets = new List<Character>();
+            foreach (var e in entities)
+            {
+                if (entityManager.HasComponent<Character>(e))
+                {
+                    Character character = entityManager.GetComponentObject<Character>(e);
+                    if (check == null || check(character))
+                    {
+                        rets.Add(character);
+                    }
+                }
+            }
+            entities.Dispose();
+            return rets;
+        }
+
+        /*
+        /// <summary>
+        /// 获得空闲角色
+        /// </summary>
+        /// <param name="roleType"></param>
+        /// <returns></returns>
+        public List<Character> GetIdleCharacters(int roleType1, int roleType2)
+        {
+            return FindCharacters((character) => character.isIdle && character.roleType == roleType);
+        }
+        */
+        
 
         public bool DespawnCharacter(int charcterID)
         {
