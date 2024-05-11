@@ -80,6 +80,11 @@ namespace SGame
         public bool isEmployee => playerID != 0;
 
         /// <summary>
+        /// 是否是空闲状态
+        /// </summary>
+        public bool isIdle => m_orderRecord.isIdle;
+        
+        /// <summary>
         /// 额外添加的速度, 用于好友通过脚本设置 
         /// </summary>
         public float  externSpeed = 0;
@@ -96,12 +101,15 @@ namespace SGame
         }
 
         private EntityManager entityManager;
+
+        private CharacterOrderRecord m_orderRecord = new CharacterOrderRecord();
         
         public EnumTarget GetTargetType()  { return Utils.GetTargetFromRoleType(roleType);  }
 
         private Equipments m_slot;
 
         private string     m_characterLooking;
+        
 
         public void SetLooking(string str)
         {
@@ -173,9 +181,10 @@ namespace SGame
         /// <param name="mgr">Entity管理器</param>
         public void OnInitCharacter(Entity entity, EntityManager mgr)
         {
-            this.entity = entity;
-            this.entityManager = mgr;
-            modelAnimator = model.GetComponent<Animator>();
+            this.entity         = entity;
+            this.entityManager  = mgr;
+            modelAnimator       = model.GetComponent<Animator>();
+            m_orderRecord.Initalize(this.CharacterID);
          
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);
@@ -553,5 +562,20 @@ namespace SGame
                 modelAnimator.SetBool("working", start);
             }
         }
+        
+        // ****************************** 订单相关存储接口 ********************************************************************
+        public bool     AddOrder(int orderID, ChairData chairData) => m_orderRecord.AddOrder(orderID, chairData);
+        public void     AddCustomerChair(ChairData chair)=> m_orderRecord.AddCustomerChair(chair);
+        public void     EnterIdle() => m_orderRecord.EnterIdle();
+        
+        public void     LeaveAllChairs() => m_orderRecord.LeaveAllChairs();
+
+        public bool     hasCustomerChair => m_orderRecord.hasCustomerChair;
+        public bool     hasOrder => m_orderRecord.hasOrder;
+
+        public OrderData order => m_orderRecord.order;
+        public int      orderID => m_orderRecord.orderID;
+        public ChairData workerChair => m_orderRecord.workerChair;
+        public ChairData customerChair => m_orderRecord.customerChair;
     }
 }

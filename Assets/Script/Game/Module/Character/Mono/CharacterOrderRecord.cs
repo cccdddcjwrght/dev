@@ -1,0 +1,115 @@
+using System.Collections;
+using System.Collections.Generic;
+using log4net;
+using UnityEngine;
+
+namespace SGame
+{
+    /// <summary>
+    /// 角色订单相关状态存储
+    /// </summary>
+    public class CharacterOrderRecord
+    {
+        private static ILog log = LogManager.GetLogger("game.character");
+        private bool m_isIdle = false;
+        private int m_characterID = 0;
+        
+        /// <summary>
+        /// 是否是空闲状态
+        /// </summary>
+        public bool isIdle => m_isIdle;
+
+        // 身上待处理的订单
+        private OrderData m_orderData = null; 
+
+        // 待处理的角色座椅, 用于去到客户位置
+        private ChairData m_customerChair = ChairData.Null;
+        
+        // 工作台位置, 用于制作食物 
+        private ChairData m_workerChair = ChairData.Null;
+
+        public OrderData order => m_orderData;
+        
+        public int       orderID => m_orderData != null ? m_orderData.id : 0;
+
+        public ChairData customerChair => m_customerChair;
+        
+        public ChairData workerChair => m_workerChair;
+
+        public void Initalize(int characterID)
+        {
+            m_characterID = characterID;
+        }
+        
+        /// <summary>
+        /// 添加工作订单
+        /// </summary>
+        /// <param name="orderID">订单ID</param>
+        /// <param name="workerChair">工位</param>
+        public bool AddOrder(int orderID, ChairData workerChair)
+        {
+            m_orderData = OrderManager.Instance.Get(orderID);
+            if (m_orderData == null)
+            {
+                log.Error("order id not found=" + orderID);
+                return false;
+            }
+
+            if (workerChair == ChairData.Null)
+            {
+                log.Error("worker chair is null");
+                return false;
+            }
+            
+            // 锁定座位
+            TableManager.Instance.SitChair(workerChair, m_characterID);
+            m_isIdle = false;
+            return true;
+        }
+
+        /// <summary>
+        /// 添加待处理椅子
+        /// </summary>
+        /// <param name="chair"></param>
+        public void AddCustomerChair(ChairData chair)
+        {
+            m_customerChair = chair;
+            TableManager.Instance.SitChair(chair, m_characterID);
+            m_isIdle = false;
+        }
+
+
+        public bool hasOrder => m_orderData != null;
+
+        public bool hasCustomerChair => m_customerChair != ChairData.Null;
+
+        /// <summary>
+        /// 进入IDLE
+        /// </summary>
+        public void EnterIdle()
+        {
+            // 没有待处理的数据
+            m_orderData = null;
+            LeaveAllChairs();
+            m_isIdle = true;
+        }
+
+        /// <summary>
+        /// 解锁座位
+        /// </summary>
+        public void LeaveAllChairs()
+        {
+            if (m_workerChair != ChairData.Null)
+            {
+                TableManager.Instance.LeaveChair(m_workerChair, m_characterID);
+                m_workerChair = ChairData.Null;
+            }
+
+            if (m_customerChair != ChairData.Null)
+            {
+                TableManager.Instance.LeaveChair(m_customerChair, m_characterID);
+                m_customerChair = ChairData.Null;
+            }
+        }
+    }
+}
