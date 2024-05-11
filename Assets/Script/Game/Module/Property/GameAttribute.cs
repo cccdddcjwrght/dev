@@ -399,11 +399,12 @@ namespace SGame
 					var u = _units[i];
 					if (u.from == from && (id == 0 || u.id == id))
 					{
-#if DEBUG
-						GameDebug.Log($"<color='red'>[BUFF]</color>{name} -> ::attribute {u.attribute} change : {u.modifiy}, val-> {u.attribute.value - u.modifiy}  ");
-#endif
+						var a = u.attribute;
 						u.Reset();
 						_units.RemoveAt(i);
+#if DEBUG
+						GameDebug.Log($"<color='red'>[BUFF]{u.id}</color>{name} -> ::attribute {a} change : {a.modify}");
+#endif
 					}
 				}
 			}
