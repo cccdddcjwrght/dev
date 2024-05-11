@@ -106,8 +106,18 @@ namespace SGame
 #endif
 		private double _val;
 
-		public double value { get { return _val; } set { _val = value; } }
+		public double value
+		{
+			get { return _val; }
+			set
+			{
+				preval = _val;
+				_val = value;
+			}
+		}
 		public double modify { get { return _val - origin; } }
+
+		public double preval;
 
 		public double fixedVal;
 		public double power = 1;
@@ -123,7 +133,7 @@ namespace SGame
 
 		public GameAttribute Recover()
 		{
-			_val = origin;
+			value = origin;
 			return this;
 		}
 
@@ -149,13 +159,13 @@ namespace SGame
 
 		public double Final()
 		{
-			_val = ((origin + fixedVal) * power).Round();
-			return _val;
+			value = ((origin + fixedVal) * power).Round();
+			return value;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("{0}:{1}_{2}", (EnumAttribute)id, origin, value).ToString();
+			return string.Format("{0}:{1}_{2}->{3}", (EnumAttribute)id, origin, preval, _val).ToString();
 		}
 
 		public override bool Equals(object obj)
@@ -373,7 +383,7 @@ namespace SGame
 						_units.Add(unit);
 				}
 #if DEBUG
-				GameDebug.Log($"<color='green'>[BUFF]</color>{name} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
+				GameDebug.Log($"<color='green'>[BUFF]{id}</color>{name} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
 #endif
 
 			}
@@ -439,7 +449,7 @@ namespace SGame
 				{
 					_units.RemoveAt(i);
 #if DEBUG
-					GameDebug.Log($" {name}->reset attribute {a} : {item.modifiy} ");
+					GameDebug.Log($" {name}->reset attribute:{item.id}-> {a} : {a.modify} ");
 #endif
 
 				}
