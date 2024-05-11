@@ -6,10 +6,12 @@ namespace SGame.UI
 	using SGame;
 	using SGame.UI.EnterScene;
 	using GameConfigs;
+    using System.Collections.Generic;
 
-	public partial class UILevelCompleted
+    public partial class UILevelCompleted
 	{
 
+		List<int[]> list;
 		partial void InitLogic(UIContext context)
 		{
 			var roomID = DataCenter.Instance.roomData.roomID;
@@ -19,7 +21,7 @@ namespace SGame.UI
 				return;
 			}
 
-			var list = Utils.GetArrayList(cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
+			list = Utils.GetArrayList(cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
 			PropertyManager.Instance.Insert2Cache(list);
 			SGame.UIUtils.AddListItems(m_view.m_body.m_list, list, OnSetReward);
 
@@ -41,11 +43,13 @@ namespace SGame.UI
 
 		partial void OnLevelCompletedBody_ClickClick(EventContext data)
 		{
+			//TransitionModule.Instance.PlayFlight(m_view.m_body.m_list, list);
 			PropertyManager.Instance.CombineCache2Items();
 			DelayExcuter.Instance.DelayOpen(null, "mainui", true, () =>
 			{
 				SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.roomID + 1);
 			});
+			m_view.m_body.m_click.touchable = false;
 			SGame.UIUtils.CloseUIByID(__id);
 		}
 
