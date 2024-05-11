@@ -29,6 +29,8 @@ namespace SGame
 		public GameAttribute attribute;
 		public int count;
 
+		public double cval;
+
 		public void Excute(GameAttribute attribute)
 		{
 			count = 0;
@@ -52,6 +54,7 @@ namespace SGame
 					attribute.power *= modifiy;
 					break;
 			}
+			cval = attribute.Final();
 			count++;
 		}
 
@@ -68,7 +71,7 @@ namespace SGame
 					attribute.power /= Math.Pow(modifiy, count);
 					break;
 			}
-
+			attribute.Final();
 			this.attribute = null;
 			modifiy = 0;
 			count = 0;
@@ -146,7 +149,7 @@ namespace SGame
 
 		public double Final()
 		{
-			_val = ((origin + fixedVal) *  power).Round();
+			_val = ((origin + fixedVal) * power).Round();
 			return _val;
 		}
 
@@ -289,7 +292,7 @@ namespace SGame
 			get
 			{
 				var a = GetAttribute(id);
-				return a == null ? 0 : a.Final();
+				return a == null ? 0 : a.value;
 			}
 			set
 			{
