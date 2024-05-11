@@ -45,7 +45,7 @@ namespace SGame.UI{
 				Utils.Timer(time, () =>
 				{
 					time = RankModule.Instance.GetRankTime();
-					m_view.m_time.SetText(Utils.TimeFormat(time));
+					m_view.m_time.SetText(Utils.FormatTime(time, needsec: true));
 				}, m_view, completed: () => SGame.UIUtils.CloseUIByID(__id));
 			}
 		}
@@ -53,8 +53,8 @@ namespace SGame.UI{
 
 		public void OnUpdateRankData() 
 		{
-			m_view.m_list.numItems = DataCenter.Instance.rankData.list.Count;
 			LoadSelfRankData();
+			m_view.m_list.numItems = DataCenter.Instance.rankData.list.Count;
 		}
 
 		public void LoadSelfRankData() 
@@ -65,12 +65,12 @@ namespace SGame.UI{
 			{ 
 				data = new RankItemData()
 				{
-					name = DataCenter.Instance.accountData.playerName,
 					icon_id = DataCenter.Instance.accountData.head,
 					frame_id = DataCenter.Instance.accountData.frame,
 					score = new RankScore(), 
 				};
 			}
+			data.name = DataCenter.Instance.accountData.playerName;
 			UpdateItem(m_view.m_self, data, rank, true);
 		}
 
@@ -101,7 +101,11 @@ namespace SGame.UI{
 			if (isSelf) item.m_rankIndex.selectedIndex = 4;
 			else item.m_rankIndex.selectedIndex = rank > 3 ? 3 : rank - 1;
 
-			item.m_name.SetText(data.name);
+			item.m_name.text = data.name;
+#if UNITY_EDITOR
+			if (string.IsNullOrEmpty(data.name))
+				item.m_name.text = "Player";
+#endif	
 			(item.m_head as UI_HeadBtn).SetHeadIcon(data.icon_id, data.frame_id);
 			item.m_value.text = RankModule.Instance.GetScoreValue(data.score).ToString();
 
