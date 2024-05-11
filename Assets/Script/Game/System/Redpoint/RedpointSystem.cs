@@ -171,7 +171,7 @@ namespace SGame
 			var cmd = _commandBuffSys.CreateCommandBuffer();
 
 			//清理
-			Entities.WithAny<RedDestroy>().ForEach((Entity e, Redpoint r) =>
+			Entities.WithAny<RedDestroy>().ForEach((Entity e, in Redpoint r) =>
 			{
 				if (_datas.TryGetValue(r.id, out var h)) h.ehandler?.Close();
 				cmd.DestroyEntity(e);
