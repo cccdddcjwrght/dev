@@ -46,15 +46,9 @@ namespace SGame
         /// </summary>
         /// <param name="orderID">订单ID</param>
         /// <param name="workerChair">工位</param>
-        public bool AddOrder(int orderID, ChairData workerChair)
+        public bool AddOrder(OrderData order, ChairData workerChair)
         {
-            m_orderData = OrderManager.Instance.Get(orderID);
-            if (m_orderData == null)
-            {
-                log.Error("order id not found=" + orderID);
-                return false;
-            }
-
+            m_orderData = order;
             if (workerChair == ChairData.Null)
             {
                 log.Error("worker chair is null");
@@ -63,6 +57,9 @@ namespace SGame
             
             // 锁定座位
             TableManager.Instance.SitChair(workerChair, m_characterID);
+
+            // 修改订单状态
+            m_orderData.CookerTake(m_characterID);
             m_isIdle = false;
             return true;
         }
@@ -74,7 +71,6 @@ namespace SGame
         public void AddCustomerChair(ChairData chair)
         {
             m_customerChair = chair;
-            TableManager.Instance.SitChair(chair, m_characterID);
             m_isIdle = false;
         }
 
@@ -104,12 +100,8 @@ namespace SGame
                 TableManager.Instance.LeaveChair(m_workerChair, m_characterID);
                 m_workerChair = ChairData.Null;
             }
-
-            if (m_customerChair != ChairData.Null)
-            {
-                TableManager.Instance.LeaveChair(m_customerChair, m_characterID);
-                m_customerChair = ChairData.Null;
-            }
+            
+            m_customerChair = ChairData.Null;
         }
     }
 }

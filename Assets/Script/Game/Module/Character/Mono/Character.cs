@@ -362,7 +362,13 @@ namespace SGame
 
         public int2 GetInt2Pos()
         {
-            return AStar.GetGridPos(pos.position);
+            var ret = MapAgent.VectorToGrid(transform.position);
+            return new int2(ret.x, ret.y);
+        }
+
+        public Vector2Int GetVector2IntPos()
+        {
+            return MapAgent.VectorToGrid(transform.position);
         }
 
         /// <summary>
@@ -564,7 +570,7 @@ namespace SGame
         }
         
         // ****************************** 订单相关存储接口 ********************************************************************
-        public bool     AddOrder(int orderID, ChairData chairData) => m_orderRecord.AddOrder(orderID, chairData);
+        public bool     AddOrder(OrderData order, ChairData chairData) => m_orderRecord.AddOrder(order, chairData);
         public void     AddCustomerChair(ChairData chair)=> m_orderRecord.AddCustomerChair(chair);
         public void     EnterIdle() => m_orderRecord.EnterIdle();
         
