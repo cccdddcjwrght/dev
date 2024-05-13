@@ -112,11 +112,11 @@ namespace SGame
         /// 查找角色
         /// </summary>
         /// <returns></returns>
-        public List<Character> FindCharacters(Func<Character, bool> check = null)
+        public bool FindCharacters(List<Character> rets, Func<Character, bool> check = null)
         {
+            rets.Clear();
             var entities = m_characterQuery.ToEntityArray(Allocator.Temp);
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            List<Character> rets = new List<Character>();
             foreach (var e in entities)
             {
                 if (entityManager.HasComponent<Character>(e))
@@ -124,12 +124,14 @@ namespace SGame
                     Character character = entityManager.GetComponentObject<Character>(e);
                     if (check == null || check(character))
                     {
+                        if (rets == null)
+                            rets = new List<Character>();
                         rets.Add(character);
                     }
                 }
             }
             entities.Dispose();
-            return rets;
+            return rets.Count > 0;
         }
 
         /*

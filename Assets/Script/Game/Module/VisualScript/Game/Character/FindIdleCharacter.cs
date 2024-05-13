@@ -32,20 +32,24 @@ namespace SGame.VS
         public ControlOutput m_output;
 
         private List<Character> m_result = new List<Character>();
+        private AotList m_resultObject = new AotList();
 
         protected override void Definition()
         {
             m_roleType1 = ValueInput<int>("roleType1", 5);
             m_roleType2 = ValueInput<int>("roleType2", 0);
-            value       = ValueOutput<List<Character>>("value", (flow)=>m_result);
+            value       = ValueOutput<AotList>("value", (flow)=> m_resultObject);
 
             m_input = ControlInput("Input", (flow) =>
             {
                 int roleType1 = flow.GetValue<int>(m_roleType1);
                 int roleType2 = flow.GetValue<int>(m_roleType2);
 
-                m_result = CharacterModule.Instance.FindCharacters((character) => character.isIdle
+                CharacterModule.Instance.FindCharacters(m_result, (character) => character.isIdle
                     && (character.roleType == roleType1 || character.roleType == roleType2));
+                m_resultObject.Clear();
+                foreach (var item in m_result)
+                    m_resultObject.Add(item);
 
                 return m_output;
             });
