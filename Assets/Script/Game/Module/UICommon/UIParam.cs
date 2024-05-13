@@ -21,6 +21,12 @@ namespace SGame
         public Vector2 pos;
     }
 
+    //是否格子坐标转化UI坐标
+    public class UICell : IComponentData 
+    {
+        public bool isCell;
+    }
+
     public class UISize : IComponentData
     {
         public Vector2Int size;

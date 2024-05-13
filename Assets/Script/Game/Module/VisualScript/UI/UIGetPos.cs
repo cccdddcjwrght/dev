@@ -35,8 +35,9 @@ namespace SGame.VS
             inputTrigger = ControlInput("Input", (flow) =>
             {
                 int2 xy = flow.GetValue<int2>(intXY);
-                Vector3 pos= GameTools.MapAgent.CellToVector(xy.x, xy.y);
-                uiValue = UIUtils.WorldPosToUI(pos);
+                uiValue = new Vector2(xy.x, xy.y);
+                //Vector3 pos= GameTools.MapAgent.CellToVector(xy.x, xy.y);
+                //uiValue = UIUtils.WorldPosToUI(pos);
                 return outputTrigger;
             });
             

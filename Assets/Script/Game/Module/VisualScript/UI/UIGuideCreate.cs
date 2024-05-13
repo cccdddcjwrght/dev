@@ -30,7 +30,10 @@ namespace SGame.VS
         //UI大小
         [DoNotSerialize]
         public ValueInput uiSize;
-        
+
+        [DoNotSerialize]
+        public ValueInput uiCell;
+
         //UI透明度
         [DoNotSerialize]
         public ValueInput uiAlpha;
@@ -50,10 +53,10 @@ namespace SGame.VS
             // 打开UI
             inputTrigger = ControlInput("Input", (flow) =>
             {
-
                 EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 Vector2Int sizeint2 = new Vector2Int(0, 0);
                 Vector2Int s2 = flow.GetValue<Vector2Int>(uiSize);
+                bool isCell = flow.GetValue<bool>(uiCell);
                 //遮罩
                 if (s2!=sizeint2)
                 {
@@ -63,6 +66,7 @@ namespace SGame.VS
                     float a2= flow.GetValue<float>(uiAlpha);
                     mgr.AddComponentObject(uiMask, new UIPos() { pos = p2 });
                     mgr.AddComponentObject(uiMask, new UIAlpha() { alpha = a2 });
+                    mgr.AddComponentObject(uiMask, new UICell() { isCell = isCell });
                     resultmaskValue=new Vector2Int(uiMask.Index, uiMask.Version);
                 }
                 //手指
@@ -71,6 +75,7 @@ namespace SGame.VS
                     Entity ui = UIRequest.Create(mgr, UIUtils.GetUI(flow.GetValue<string>(uiName)));
                     Vector2 p3 = flow.GetValue<Vector2>(uiPos);
                     mgr.AddComponentObject(ui, new UIPos() { pos = p3 });
+                    mgr.AddComponentObject(ui, new UICell() { isCell = isCell });
                     resultValue = new Vector2Int(ui.Index, ui.Version);
                 }
                 return outputTrigger;
@@ -81,6 +86,7 @@ namespace SGame.VS
             uiPos  = ValueInput<Vector2>("UIPos");
             uiSize = ValueInput<Vector2Int>("UISize");
             uiAlpha = ValueInput<float>("UIAlpha");
+            uiCell = ValueInput<bool>("UICell", false);
             outputTrigger = ControlOutput("Output");
             uiResult = ValueOutput<Vector2Int>("UI Entity", (flow) => resultValue);
             uiMaskResult= ValueOutput<Vector2Int>("UI Mask Entity", (flow) => resultmaskValue);
