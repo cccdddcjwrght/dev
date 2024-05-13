@@ -94,7 +94,12 @@ namespace SGame
         /// </summary>
         public int playerID = 0;
 
-        private bool isPlay=false;
+        /// <summary>
+        /// 工作区域ID, 用于区分厨师与服务员的做菜区域
+        /// </summary>
+        public int workerAread => m_roleConfig.WorkerArea;
+
+        
         public Transform pos
         {
             get { return transform; }
@@ -109,6 +114,9 @@ namespace SGame
         private Equipments m_slot;
 
         private string     m_characterLooking;
+
+        private RoleDataRowData m_roleConfig;
+        
         
 
         public void SetLooking(string str)
@@ -143,12 +151,6 @@ namespace SGame
                 return m_characterLooking;
             }
             
-            /*
-            ConfigSystem.Instance.TryGet(roleID, out GameConfigs.RoleDataRowData roleData);
-            ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
-            m_characterLooking = config.Part;
-            return m_characterLooking;
-            */
             log.Info("not found looking part=" + roleID);
             return null;
         }
@@ -185,6 +187,11 @@ namespace SGame
             this.entityManager  = mgr;
             modelAnimator       = model.GetComponent<Animator>();
             m_orderRecord.Initalize(this.CharacterID);
+
+            if (!ConfigSystem.Instance.TryGet(roleID, out m_roleConfig))
+            {
+                log.Error("role id not found=" + roleID);
+            }
          
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);
