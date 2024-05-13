@@ -19,6 +19,8 @@ namespace SGame
         /// </summary>
         public bool isIdle => m_isIdle;
 
+        public bool hasWorking => !m_isIdle && (m_orderData != null || m_customerChair != ChairData.Null);
+
         // 身上待处理的订单
         private OrderData m_orderData = null; 
 
@@ -39,6 +41,7 @@ namespace SGame
         public void Initalize(int characterID)
         {
             m_characterID = characterID;
+            m_isIdle = false;
         }
         
         /// <summary>
@@ -57,6 +60,7 @@ namespace SGame
             
             // 锁定座位
             TableManager.Instance.SitChair(workerChair, m_characterID);
+            m_workerChair = workerChair;
 
             // 修改订单状态
             m_orderData.CookerTake(m_characterID);

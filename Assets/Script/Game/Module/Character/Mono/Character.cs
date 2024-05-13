@@ -572,10 +572,8 @@ namespace SGame
         // ****************************** 订单相关存储接口 ********************************************************************
         public bool     AddOrder(OrderData order, ChairData chairData) => m_orderRecord.AddOrder(order, chairData);
         public void     AddCustomerChair(ChairData chair)=> m_orderRecord.AddCustomerChair(chair);
-        public void     EnterIdle() => m_orderRecord.EnterIdle();
-        
+        public void     EnterIdle() => m_orderRecord.EnterIdle(); 
         public void     LeaveAllChairs() => m_orderRecord.LeaveAllChairs();
-
         public bool     hasCustomerChair => m_orderRecord.hasCustomerChair;
         public bool     hasOrder => m_orderRecord.hasOrder;
 
@@ -583,5 +581,6 @@ namespace SGame
         public int      orderID => m_orderRecord.orderID;
         public ChairData workerChair => m_orderRecord.workerChair;
         public ChairData customerChair => m_orderRecord.customerChair;
+        public bool hasWorking => m_orderRecord.hasWorking;
     }
 }
