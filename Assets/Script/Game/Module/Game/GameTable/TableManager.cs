@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using GameConfigs;
 using log4net;
 using Unity.Mathematics;
 
@@ -14,7 +16,7 @@ namespace SGame
         // 座位信息
         private List<TableData>             m_datas     = new List<TableData>();
         private List<int>                   m_foodTypes = new List<int>();          // 已打开食物类型
-        private List<int>                   m_matchineID = new List<int>();        // 已打开食物权重
+        private List<int>                   m_matchineID = new List<int>();         // 已打开食物权重
 
         // 下一个tableID
         private int m_nextTableID = 0;
@@ -363,6 +365,58 @@ namespace SGame
         public List<int> GetOpenMachineIDs()
         {
             return m_matchineID;
+        }
+
+
+        /// <summary>
+        /// 通过加工台获得工作区域
+        /// </summary>
+        /// <param name="machineID">工作台ID</param>
+        /// <param name="levelID">关卡ID</param>
+        /// <returns></returns>
+        public static int GetWorkerAreaFromMachineID(int machineID, int levelID)
+        {
+            if (!ConfigSystem.Instance.TryGet(levelID, out LevelRowData config))
+            {
+                log.Error("level id not found=" + levelID);
+                return -1;
+            }
+
+            if (config.MachineIdLength != config.WorkerAreaLength)
+            {
+                log.Error("config machine and WorkerArea not match!");
+                return -1;
+            }
+
+            for (int i = 0; i < config.MachineIdLength; i++)
+            {
+                if (config.MachineId(i) == machineID)
+                {
+                    return config.WorkerArea(i);
+                }
+            }
+            
+            log.Error("matchine id not found=" + machineID);
+            return -1;
+        }
+        
+        /// <summary>
+        /// 通过食物ID找到对应的工作区域
+        /// </summary>
+        /// <param name="foodID"></param>
+        /// <param name="levelID"></param>
+        /// <returns></returns>
+        public int GetWorkerAreaFromFoodID(int foodID, int levelID)
+        {
+            var index = m_foodTypes.IndexOf(foodID);
+            if (index < 0)
+            {
+                log.Error("Not foudn foodID Area =" + foodID);
+                return -1;
+            }
+
+            int machineID = m_matchineID[index];
+            return GetWorkerAreaFromMachineID(machineID, levelID);
         }
     }
 }
