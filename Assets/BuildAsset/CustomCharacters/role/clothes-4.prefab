@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8255197078246994407
+--- !u!1 &1117303886216999788
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8226703927706319674}
-  - component: {fileID: 4805389590944703808}
-  - component: {fileID: 3811168622268942579}
+  - component: {fileID: 7802035864390823584}
+  - component: {fileID: 4262459477593231680}
+  - component: {fileID: 2294340524490068514}
   m_Layer: 0
   m_Name: clothes-4
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8226703927706319674
+--- !u!4 &7802035864390823584
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8255197078246994407}
+  m_GameObject: {fileID: 1117303886216999788}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &4805389590944703808
+--- !u!137 &4262459477593231680
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8255197078246994407}
+  m_GameObject: {fileID: 1117303886216999788}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -53,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8265683454772772763, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  - {fileID: 8830196273332348141, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,16 +117,16 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.026016489, y: -0.0000003427267, z: 0.06543772}
-    m_Extent: {x: 0.1966114, y: 0.39689696, z: 0.18583755}
+    m_Center: {x: -0.026014, y: -0.00000031292439, z: 0.06543772}
+    m_Extent: {x: 0.19661388, y: 0.395858, z: 0.18583755}
   m_DirtyAABB: 0
---- !u!114 &3811168622268942579
+--- !u!114 &2294340524490068514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8255197078246994407}
+  m_GameObject: {fileID: 1117303886216999788}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15682c8cc05f5d4498e30fec0f70ad53, type: 3}

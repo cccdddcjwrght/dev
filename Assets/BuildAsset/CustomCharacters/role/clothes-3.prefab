@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4476202963550529312
+--- !u!1 &8218989415237405069
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 747919849656994927}
-  - component: {fileID: 2077122801243379243}
-  - component: {fileID: 1837699074899076712}
+  - component: {fileID: 6864464126817752565}
+  - component: {fileID: 1845821235057141029}
+  - component: {fileID: 7587919214438035901}
   m_Layer: 0
   m_Name: clothes-3
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &747919849656994927
+--- !u!4 &6864464126817752565
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4476202963550529312}
+  m_GameObject: {fileID: 8218989415237405069}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &2077122801243379243
+--- !u!137 &1845821235057141029
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4476202963550529312}
+  m_GameObject: {fileID: 8218989415237405069}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -117,16 +117,16 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.026005074, y: -0.0000003427267, z: 0.065437704}
-    m_Extent: {x: 0.19662282, y: 0.39689696, z: 0.18583754}
+    m_Center: {x: -0.02600506, y: -0.00000029802322, z: 0.065437704}
+    m_Extent: {x: 0.1966228, y: 0.39476645, z: 0.18583754}
   m_DirtyAABB: 0
---- !u!114 &1837699074899076712
+--- !u!114 &7587919214438035901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4476202963550529312}
+  m_GameObject: {fileID: 8218989415237405069}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15682c8cc05f5d4498e30fec0f70ad53, type: 3}
