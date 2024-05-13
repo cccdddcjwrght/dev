@@ -71,6 +71,8 @@ namespace SGame.UI{
 				};
 			}
 			data.name = DataCenter.Instance.accountData.playerName;
+			if (data.name.Length > 7)
+				data.name = data.name.Substring(0, 7) + "...";
 			UpdateItem(m_view.m_self, data, rank, true);
 		}
 
@@ -133,6 +135,9 @@ namespace SGame.UI{
 			if (clickBtn == null) return;
 
 			var player_id = (long)clickBtn.data;
+			if (player_id == DataCenter.Instance.accountData.playerID)
+				return;
+
 			SGame.UIUtils.OpenUI("rankdetail", new UIParam() { Value = player_id });
 		}
 
