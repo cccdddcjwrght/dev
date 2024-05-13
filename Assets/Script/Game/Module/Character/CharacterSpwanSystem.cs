@@ -173,6 +173,7 @@ namespace SGame
                 {
                     if (item.character != null && item.character.model != null)
                     {
+                        EntityManager.AddComponent<CharacterInitalized>(item.entity);
                         m_characters.Add(item.character.CharacterID, item.entity);
                         item.character.model.SetActive(true);
                         item.character.OnInitCharacter(item.entity, EntityManager);
@@ -316,7 +317,7 @@ namespace SGame
             Entities.WithNone<DespawningEntity, CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
             {
                 m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character, result = result});
-                EntityManager.AddComponent<CharacterInitalized>(entity);
+                //EntityManager.AddComponent<CharacterInitalized>(entity);
                 EntityManager.RemoveComponent<CharacterSpawnResult>(entity);
             }).WithStructuralChanges().WithoutBurst().Run();
         }

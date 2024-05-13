@@ -9,6 +9,9 @@ namespace SGame
     public class CharacterModule : Singleton<CharacterModule>
     {
         private EntityQuery m_characterQuery;
+        private EntityQuery m_characterFindQuery;
+
+        
         public void Initlaize()
         {
             EntityQueryDesc desc = new EntityQueryDesc()
@@ -16,7 +19,14 @@ namespace SGame
                 Any = new ComponentType[] { typeof(CharacterSpawnSystem.CharacterSpawn), typeof(CharacterSpawnSystem.CharacterInitalized) },
                 None = new ComponentType[] { typeof(DespawningEntity) }
             };
+            EntityQueryDesc desc2 = new EntityQueryDesc()
+            {
+                All = new ComponentType[] { typeof(CharacterSpawnSystem.CharacterInitalized) },
+                None = new ComponentType[] { typeof(DespawningEntity) }
+            };
+            
             m_characterQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(desc);
+            m_characterFindQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(desc2);
             CharacterIdleModule.Instance.Initlaize();
         }
 
@@ -115,7 +125,7 @@ namespace SGame
         public bool FindCharacters(List<Character> rets, Func<Character, bool> check = null)
         {
             rets.Clear();
-            var entities = m_characterQuery.ToEntityArray(Allocator.Temp);
+            var entities = m_characterFindQuery.ToEntityArray(Allocator.Temp);
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             foreach (var e in entities)
             {
