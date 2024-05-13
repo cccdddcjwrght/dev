@@ -71,7 +71,7 @@ namespace SGame.UI{
 				};
 			}
 			data.name = DataCenter.Instance.accountData.playerName;
-			if (data.name.Length > 7)
+			if (data.name?.Length > 7)
 				data.name = data.name.Substring(0, 7) + "...";
 			UpdateItem(m_view.m_self, data, rank, true);
 		}

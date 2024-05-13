@@ -747,6 +747,7 @@ namespace SGame.Dining
 						else
 						{
 							DataCenter.MachineUtil.AddMachine(r.next.cfgID);
+							EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.BOX, 1);
 							return;
 						}
 					}
@@ -795,7 +796,6 @@ namespace SGame.Dining
 					if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(p.cfgID, out var c) && c.ActiveEffect == 1)
 						EffectSystem.Instance.AddEffect(1, p.transform.gameObject);
 				}
-				EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.BOX, 1);
 			}
 		}
 

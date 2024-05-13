@@ -83,7 +83,12 @@ namespace SGame.UI{
 			TransitionModule.Instance.AddDepend((int)FlightType.BOX);
 			Refresh();
 			var loader = GetLoader(startPos.x, startPos.y);
-			loader.SetIcon("ui_shop_icon_box_wood_close");
+			if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var data)) 
+			{
+				loader.SetIcon(data.Icon);
+				m_view.m_Box.SetIcon(data.Icon);
+			}
+			
 			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
 			GTween.To(startPos, endPos, duration).SetTarget(m_view).OnUpdate((t) =>
 			{
@@ -182,7 +187,8 @@ namespace SGame.UI{
 		void PlayRankShow(int marker, int value) 
 		{
 			var rankBtn = GetMainBtn("rightList.right.rank");
-			if (rankBtn != null) 
+			var config = RankModule.Instance.GetCurRankConfig();
+			if (rankBtn != null && config.IsValid() && marker == config.RankingMarker) 
 			{
 				m_view.m_rank.visible = true;
 				var screenPos = rankBtn.LocalToGlobal(Vector2.zero);
