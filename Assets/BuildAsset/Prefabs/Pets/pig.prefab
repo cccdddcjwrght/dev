@@ -31,6 +31,39 @@ Transform:
   m_Father: {fileID: 8311953075236682255}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &223682046227106368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 599397725864169722}
+  m_Layer: 0
+  m_Name: body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &599397725864169722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223682046227106368}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 613459539325930573}
+  - {fileID: 1762127397910510017}
+  m_Father: {fileID: 1479403803388660983}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &797775146745200789
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1479403803388660983}
-  - component: {fileID: 4785014402617841293}
+  - component: {fileID: 6523577237189352064}
   m_Layer: 0
   m_Name: pig
   m_TagString: Untagged
@@ -249,12 +282,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 613459539325930573}
-  - {fileID: 1762127397910510017}
+  - {fileID: 599397725864169722}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &4785014402617841293
+--- !u!95 &6523577237189352064
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -370,7 +402,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 825113243175259553}
-  m_Father: {fileID: 1479403803388660983}
+  m_Father: {fileID: 599397725864169722}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3258263351397190808
@@ -788,7 +820,7 @@ Transform:
   m_LocalScale: {x: 0.035507, y: 0.035507, z: 0.035507}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1479403803388660983}
+  m_Father: {fileID: 599397725864169722}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2492012644539364629
