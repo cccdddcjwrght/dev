@@ -27,8 +27,6 @@ public class FindIdlePos : Unit
         inputTrigger = ControlInput("Input", (flow) =>
         {
             int id = flow.GetValue<int>(characterID);
-            //var character = CharacterModule.Instance.FindCharacter(id);
-            //var tag = Utils.GetMapTagFromRoleType(character.roleType);
             posValue = CharacterIdleModule.Instance.GetCharacterEmptyIdlePos(id);
             return outputTrigger;
         });
