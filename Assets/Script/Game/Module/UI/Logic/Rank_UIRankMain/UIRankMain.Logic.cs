@@ -47,7 +47,8 @@ namespace SGame.UI{
 				Utils.Timer(time, () =>
 				{
 					time = RankModule.Instance.GetRankTime();
-					m_view.m_time.SetText(Utils.FormatTime(time));
+					if (time < 60) m_view.m_time.SetText(string.Format("{0}S", time));
+					else m_view.m_time.SetText(Utils.FormatTime(time));
 				}, m_view, completed: () => SGame.UIUtils.CloseUIByID(__id));
 			}
 		}
