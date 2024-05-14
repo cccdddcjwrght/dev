@@ -17,6 +17,7 @@ namespace SGame
         private List<TableData>             m_datas     = new List<TableData>();
         private List<int>                   m_foodTypes = new List<int>();          // 已打开食物类型
         private List<int>                   m_matchineID = new List<int>();         // 已打开食物权重
+        private List<int>                   m_foodWorkArea = new List<int>();
 
         // 下一个tableID
         private int m_nextTableID = 0;
@@ -27,6 +28,7 @@ namespace SGame
             m_datas.Clear();
             m_foodTypes.Clear();
             m_matchineID.Clear();
+            m_foodWorkArea.Clear();
         }
 
         public void Initalize()
@@ -338,12 +340,15 @@ namespace SGame
         /// <param name="widget">食物权重</param>
         public void UpdateTableInfo(TableData t)
         {
+            var currentLevelID = DataCenter.Instance.GetUserData().scene;
             if (t.type == TABLE_TYPE.MACHINE)
             {
                 if (!m_foodTypes.Contains(t.foodType))
                 {
                     m_foodTypes.Add(t.foodType);
                     m_matchineID.Add(t.machineID);
+                    int area = GetWorkerAreaFromMachineID(t.machineID, currentLevelID);
+                    m_foodWorkArea.Add(area);
                     EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, t.machineID, t.foodType);
                 }
             }
@@ -367,6 +372,14 @@ namespace SGame
             return m_matchineID;
         }
 
+        /// <summary>
+        /// 获得工作区域
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetOpenArea()
+        {
+            return m_foodWorkArea;
+        }
 
         /// <summary>
         /// 通过加工台获得工作区域
@@ -415,8 +428,7 @@ namespace SGame
                 return -1;
             }
 
-            int machineID = m_matchineID[index];
-            return GetWorkerAreaFromMachineID(machineID, levelID);
+            return m_foodTypes[index];
         }
     }
 }

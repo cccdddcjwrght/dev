@@ -97,7 +97,7 @@ namespace SGame
         /// <summary>
         /// 工作区域ID, 用于区分厨师与服务员的做菜区域
         /// </summary>
-        public int workerAread => m_roleConfig.WorkerArea;
+        public int workerAread => M_workArea;
 
         
         public Transform pos
@@ -115,7 +115,7 @@ namespace SGame
 
         private string     m_characterLooking;
 
-        private RoleDataRowData m_roleConfig;
+        private int         M_workArea = 0;
         
         
 
@@ -188,10 +188,11 @@ namespace SGame
             modelAnimator       = model.GetComponent<Animator>();
             m_orderRecord.Initalize(this.CharacterID);
 
-            if (!ConfigSystem.Instance.TryGet(roleID, out m_roleConfig))
+            if (!ConfigSystem.Instance.TryGet(roleID, out RoleDataRowData roleConfig))
             {
                 log.Error("role id not found=" + roleID);
             }
+            M_workArea = roleConfig.WorkerArea;
          
             // 触发初始化角色事件
             EventBus.Trigger(CharacterInit.EventHook, script, this);
@@ -332,11 +333,39 @@ namespace SGame
         public void TakeFood(Entity food)
         {
             // 设置父节点为自己
-            //entityManager.SetComponentData(food, new Translation() {Value = new float3(0, 0.5f, 0.5f)});
-            //entityManager.SetComponentData(food, new Rotation(){Value = quaternion.identity});
-            //AddChild(food);
+            EffectData effetctData = entityManager.GetComponentData<EffectData>(food);
             Transform foodTransform = entityManager.GetComponentObject<Transform>(food);
+            if (!ConfigSystem.Instance.TryGet(effetctData.effectId, out GameConfigs.effectsRowData config))
+            {
+                log.Error("effect id not found=" + effetctData.effectId.ToString());
+                return;
+            }
             foodTransform.SetParent(GetSlot(SlotType.FOOD), false);
+            if (config.ScaleLength == 3)
+            {
+                foodTransform.localScale = new Vector3(config.Scale(0), config.Scale(1), config.Scale(2));
+            }
+            else
+            {
+                foodTransform.localScale = Vector3.one;
+            }
+            if (config.EulerAngleLength == 3)
+            {
+                foodTransform.localRotation = Quaternion.Euler(config.EulerAngle(0), config.EulerAngle(1), config.EulerAngle(2));
+            }
+            else
+            {
+                foodTransform.localRotation = Quaternion.identity;
+            }
+            if (config.PositionLength == 3)
+            {
+                foodTransform.localPosition = new Vector3(config.Position(0), config.Position(1), config.Position(2));
+            }
+            else
+            {
+                foodTransform.localPosition = Vector3.zero;
+            }
+            
             this.m_food = food;
         }
 
@@ -589,5 +618,7 @@ namespace SGame
         public ChairData workerChair => m_orderRecord.workerChair;
         public ChairData customerChair => m_orderRecord.customerChair;
         public bool hasWorking => m_orderRecord.hasWorking;
+        public bool AddFoodReadlyOrder(OrderData order) => m_orderRecord.AddFoodReadlyOrder(order);
+        public bool IsMakingFood => order.progress == ORDER_PROGRESS.FOOD_START;
     }
 }

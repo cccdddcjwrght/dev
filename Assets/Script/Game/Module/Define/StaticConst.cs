@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameConfigs;
+using log4net;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Fibers.Fiber;
 
 namespace SGame
@@ -93,17 +96,20 @@ namespace SGame
 		/// </summary>
 		public const string MAX = "MAX";
 
+		private static ILog log = LogManager.GetLogger("StaticConst");
 
-
-		private static float _DISH_OFFSET_Y = -1;
 		public static float DISH_OFFSET_Y
 		{
 			get
 			{
-				if (_DISH_OFFSET_Y < 0)
-					_DISH_OFFSET_Y = GlobalDesginConfig.GetFloat("dish_offsety");
+				int sceneID = DataCenter.Instance.GetUserData().scene;
+				if (ConfigSystem.Instance.TryGet(sceneID, out LevelRowData config))
+				{
+					return config.DishOffsetY;
+				}
 
-				return _DISH_OFFSET_Y;
+				log.Error("not found level id=" + sceneID);
+				return 0;
 			}
 		}
 

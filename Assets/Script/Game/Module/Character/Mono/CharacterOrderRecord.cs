@@ -69,6 +69,19 @@ namespace SGame
         }
 
         /// <summary>
+        /// 添加取餐订单
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public bool AddFoodReadlyOrder(OrderData order)
+        {
+            m_orderData = order;
+            order.MoveToCustom(m_characterID);
+            m_isIdle = false;
+            return true;
+        }
+
+        /// <summary>
         /// 添加待处理椅子
         /// </summary>
         /// <param name="chair"></param>
@@ -78,6 +91,10 @@ namespace SGame
             m_isIdle = false;
         }
 
+        public void WaiterTakeFoodToCustomer(ChairData chair)
+        {
+            
+        }
 
         public bool hasOrder => m_orderData != null;
 
