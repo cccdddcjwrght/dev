@@ -78,17 +78,11 @@ namespace SGame
                 {
                     var rewardData = rankPanelData.rewards[i];
                     if (ConfigSystem.Instance.TryGet<GameConfigs.RankConfigRowData>((r) => r.RankingId == rewardData.id, out var data))
-                    {
-                        var rankConfig = GetRankConfig(data.RankingMarker, rewardData.rank);
-                        var items = Utils.GetArrayList(rankConfig.GetReward1Array, rankConfig.GetReward2Array, rankConfig.GetReward3Array);
-                        for (int j = 0; j < items.Count; j++)
-                            PropertyManager.Instance.Update(items[j][0], items[j][1], items[j][2]);
-                        //µ¯³öÅÅÐÐ½±Àø
                         OpenResultView(data.RankingMarker, rewardData.rank);
-                    }
                 }
                 ClearRankScore();
             }
+
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
