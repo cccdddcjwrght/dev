@@ -9,6 +9,7 @@ namespace SGame.UI.Common
     {
         public Controller m_iconShow;
         public Controller m_AddShow;
+        public Controller m_type;
         public GImage m_bg;
         public GTextField m___text;
         public GButton m_click;
@@ -25,6 +26,7 @@ namespace SGame.UI.Common
 
             m_iconShow = GetControllerAt(0);
             m_AddShow = GetControllerAt(1);
+            m_type = GetControllerAt(2);
             m_bg = (GImage)GetChildAt(0);
             m___text = (GTextField)GetChildAt(2);
             m_click = (GButton)GetChildAt(3);
