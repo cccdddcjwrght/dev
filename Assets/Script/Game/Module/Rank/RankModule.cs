@@ -40,7 +40,22 @@ namespace SGame
                 ReqRankList().Start();
                 ReqRankData().Start();
             });
+
+            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, () =>
+            {
+                var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable);
+                int scene = DataCenter.Instance.roomData.current.id;
+                if (ConfigSystem.Instance.TryGets<GameConfigs.RoomMachineRowData>((r) => r.Scene == scene && r.Type == 0 && r.Nowork == 0, out var list)) 
+                {
+                    int count = 0;
+                    ws.ForEach((w) => count += w.stations.Count - 1);
+                    count = list.Count - count;
+                    EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.BOX,  count);  
+                }
+
+            });
         }
+
 
         public IEnumerator ReqRankList() 
         {
@@ -56,7 +71,7 @@ namespace SGame
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
 
             rankPanelData = JsonUtility.FromJson<RankPanelData>(pkg.data);
-            //Debug.Log("json:" + result.data);
+            Debug.Log("ranks data:" + result.data);
             if (rankPanelData.rewards?.Length > 0) 
             {
                 for (int i = 0; i < rankPanelData.rewards.Length; i++)
@@ -97,7 +112,7 @@ namespace SGame
                 yield break;
             }
 
-            //Debug.Log("json:" + result.data);
+            Debug.Log("rank data:" + result.data);
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
 
