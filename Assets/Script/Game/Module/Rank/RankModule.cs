@@ -42,7 +42,7 @@ namespace SGame
             });
         }
 
-        IEnumerator ReqRankList() 
+        public IEnumerator ReqRankList() 
         {
             HttpPackage pkg = new HttpPackage();
             pkg.data = DataCenter.Instance.accountData.playerID.ToString();
@@ -79,8 +79,6 @@ namespace SGame
 
         public IEnumerator ReqRankData(bool cancelReddot = false)
         {
-            if (cancelReddot) rankPanelData.reddot = false;
-
             HttpPackage pkg = new HttpPackage();
             RankScoreEx score = new RankScoreEx()
             {
@@ -94,12 +92,18 @@ namespace SGame
             yield return result;
             if (!string.IsNullOrEmpty(result.error))
             {
+                if(cancelReddot) "tips_ranking_1".Tips();
                 Debug.LogError("rank data fail=" + result.error);
                 yield break;
             }
+
+            //Debug.Log("json:" + result.data);
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
-            //Debug.Log("json:" + result.data);
+
+            if (cancelReddot)
+                DataCenter.Instance.rankData.reddot = false;
+
             EventManager.Instance.Trigger((int)GameEvent.RANK_UPDATE);
         }
 
@@ -161,7 +165,7 @@ namespace SGame
 
         public bool IsRedDot() 
         {
-            return rankPanelData.reddot;
+            return rankData.reddot;
         }
 
         public bool IsOpen() 

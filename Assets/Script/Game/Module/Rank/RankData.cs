@@ -10,6 +10,7 @@ namespace SGame
     {
         public List<RankItemData> list;
 
+        public bool reddot = true;
         //public int rankType;                    //≈≈––¿‡–Õ
     }
 
@@ -65,8 +66,6 @@ namespace SGame
     {
         public RanksData[] ids;
         public RankReward[] rewards;
-
-        public bool reddot = true;
     }
 
     [Serializable]

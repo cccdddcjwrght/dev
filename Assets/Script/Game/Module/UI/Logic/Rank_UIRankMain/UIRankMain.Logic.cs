@@ -21,7 +21,9 @@ namespace SGame.UI{
 			LoadTime();
 
 			m_view.m_state.selectedIndex = 2;
-			RankModule.Instance.ReqRankData(true).Start();
+
+			FiberCtrl.Pool.Run(RankModule.Instance.ReqRankList());
+			FiberCtrl.Pool.Run(RankModule.Instance.ReqRankData(true));
 			//LoadTestData();
 		}
 
@@ -45,7 +47,7 @@ namespace SGame.UI{
 				Utils.Timer(time, () =>
 				{
 					time = RankModule.Instance.GetRankTime();
-					m_view.m_time.SetText(Utils.FormatTime(time, needsec: true));
+					m_view.m_time.SetText(Utils.FormatTime(time));
 				}, m_view, completed: () => SGame.UIUtils.CloseUIByID(__id));
 			}
 		}
