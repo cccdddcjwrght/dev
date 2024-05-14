@@ -17,6 +17,9 @@ namespace SGame.VS
         
         [DoNotSerialize]
         public ControlInput inputTrigger;
+        
+        [DoNotSerialize]
+        public ValueInput   m_WorkerArea;
 
         [DoNotSerialize]
         public ControlOutput outputSuccess;
@@ -41,18 +44,26 @@ namespace SGame.VS
             // 创建订单
             inputTrigger = ControlInput("Input", (flow) =>
             {
+                var workerArea = flow.GetValue<int>(m_WorkerArea);
                 var tableManager = TableManager.Instance;
                 var foodTypes = tableManager.GetOpenFoodTypes(); // 获得所有开启的食物
-                foreach (var foodType in foodTypes)
+                var foodAreas = tableManager.GetOpenArea();
+                for (int i = 0; i  < foodTypes.Count;i++)
                 {
-                    // 确定有空位
-                    resultChairData = tableManager.FindMachineChairFromFoodType(foodType);
-                    if (!resultChairData.IsNull)
+                    var foodType = foodTypes[i];
+                    var area = foodAreas[i];
+
+                    if (area == workerArea)
                     {
-                        // 订单中查询
-                        resultValue = OrderManager.Instance.FindChefOrder(foodType);
-                        if (resultValue != null)
-                            return outputSuccess;
+                        // 确定有空位
+                        resultChairData = tableManager.FindMachineChairFromFoodType(foodType);
+                        if (!resultChairData.IsNull)
+                        {
+                            // 订单中查询
+                            resultValue = OrderManager.Instance.FindChefOrder(foodType);
+                            if (resultValue != null)
+                                return outputSuccess;
+                        }
                     }
                 }
                 
@@ -62,8 +73,9 @@ namespace SGame.VS
             outputSuccess  = ControlOutput("Success");
             outputFail     = ControlOutput("Fail");
             
-            resultOrder         = ValueOutput<OrderData>("Order", (flow) => resultValue);
-            resultChair          = ValueOutput<ChairData>("Chair", (flow) => resultChairData);
+            resultOrder    = ValueOutput<OrderData>("Order", (flow) => resultValue);
+            resultChair    = ValueOutput<ChairData>("Chair", (flow) => resultChairData);
+            m_WorkerArea   = ValueInput<int>("WorkerArea", 0);
         }
     }
 }

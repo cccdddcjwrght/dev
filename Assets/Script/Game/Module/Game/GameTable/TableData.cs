@@ -142,6 +142,15 @@ namespace SGame
 
             return -1;
         }
+
+        public ChairData GetFirstChair(CHAIR_TYPE chairType)
+        {
+            var index = FindFirstChair(chairType);
+            if (index < 0)
+                return ChairData.Null;
+
+            return GetChair(index);
+        }
         
         /// <summary>
         /// 占位

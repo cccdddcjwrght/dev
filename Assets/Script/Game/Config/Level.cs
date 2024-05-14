@@ -28,102 +28,112 @@ public struct LevelRowData : IFlatbufferObject
   public ArraySegment<byte>? GetMachineIdBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
   public int[] GetMachineIdArray() { return __p.__vector_as_array<int>(6); }
-  public int OrderWeight(int j) { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int OrderWeightLength { get { int o = __p.__offset(8); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int WorkerArea(int j) { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int WorkerAreaLength { get { int o = __p.__offset(8); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetOrderWeightBytes() { return __p.__vector_as_span<int>(8, 4); }
+  public Span<int> GetWorkerAreaBytes() { return __p.__vector_as_span<int>(8, 4); }
 #else
-  public ArraySegment<byte>? GetOrderWeightBytes() { return __p.__vector_as_arraysegment(8); }
+  public ArraySegment<byte>? GetWorkerAreaBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
-  public int[] GetOrderWeightArray() { return __p.__vector_as_array<int>(8); }
-  public int FirstOrder { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int PlayerId { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ChefId { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ChefNum { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ChefOrder { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ChefMachine(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int ChefMachineLength { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetWorkerAreaArray() { return __p.__vector_as_array<int>(8); }
+  public int OrderWeight(int j) { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int OrderWeightLength { get { int o = __p.__offset(10); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetChefMachineBytes() { return __p.__vector_as_span<int>(20, 4); }
+  public Span<int> GetOrderWeightBytes() { return __p.__vector_as_span<int>(10, 4); }
 #else
-  public ArraySegment<byte>? GetChefMachineBytes() { return __p.__vector_as_arraysegment(20); }
+  public ArraySegment<byte>? GetOrderWeightBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
-  public int[] GetChefMachineArray() { return __p.__vector_as_array<int>(20); }
-  public int WaiterId { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int WaiterNum { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int WaiterMachine(int j) { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int WaiterMachineLength { get { int o = __p.__offset(26); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetOrderWeightArray() { return __p.__vector_as_array<int>(10); }
+  public int FirstOrder { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int PlayerId { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ChefId { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ChefNum { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ChefOrder { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ChefMachine(int j) { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int ChefMachineLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetWaiterMachineBytes() { return __p.__vector_as_span<int>(26, 4); }
+  public Span<int> GetChefMachineBytes() { return __p.__vector_as_span<int>(22, 4); }
 #else
-  public ArraySegment<byte>? GetWaiterMachineBytes() { return __p.__vector_as_arraysegment(26); }
+  public ArraySegment<byte>? GetChefMachineBytes() { return __p.__vector_as_arraysegment(22); }
 #endif
-  public int[] GetWaiterMachineArray() { return __p.__vector_as_array<int>(26); }
-  public int CustomerId(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CustomerIdLength { get { int o = __p.__offset(28); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetChefMachineArray() { return __p.__vector_as_array<int>(22); }
+  public int WaiterId { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int WaiterNum { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int WaiterMachine(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int WaiterMachineLength { get { int o = __p.__offset(28); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCustomerIdBytes() { return __p.__vector_as_span<int>(28, 4); }
+  public Span<int> GetWaiterMachineBytes() { return __p.__vector_as_span<int>(28, 4); }
 #else
-  public ArraySegment<byte>? GetCustomerIdBytes() { return __p.__vector_as_arraysegment(28); }
+  public ArraySegment<byte>? GetWaiterMachineBytes() { return __p.__vector_as_arraysegment(28); }
 #endif
-  public int[] GetCustomerIdArray() { return __p.__vector_as_array<int>(28); }
-  public int CustomerWeight(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CustomerWeightLength { get { int o = __p.__offset(30); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetWaiterMachineArray() { return __p.__vector_as_array<int>(28); }
+  public int CustomerId(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CustomerIdLength { get { int o = __p.__offset(30); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCustomerWeightBytes() { return __p.__vector_as_span<int>(30, 4); }
+  public Span<int> GetCustomerIdBytes() { return __p.__vector_as_span<int>(30, 4); }
 #else
-  public ArraySegment<byte>? GetCustomerWeightBytes() { return __p.__vector_as_arraysegment(30); }
+  public ArraySegment<byte>? GetCustomerIdBytes() { return __p.__vector_as_arraysegment(30); }
 #endif
-  public int[] GetCustomerWeightArray() { return __p.__vector_as_array<int>(30); }
-  public int CustomerNum { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int CustomerPos(int j) { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CustomerPosLength { get { int o = __p.__offset(34); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetCustomerIdArray() { return __p.__vector_as_array<int>(30); }
+  public int CustomerWeight(int j) { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CustomerWeightLength { get { int o = __p.__offset(32); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCustomerPosBytes() { return __p.__vector_as_span<int>(34, 4); }
+  public Span<int> GetCustomerWeightBytes() { return __p.__vector_as_span<int>(32, 4); }
 #else
-  public ArraySegment<byte>? GetCustomerPosBytes() { return __p.__vector_as_arraysegment(34); }
+  public ArraySegment<byte>? GetCustomerWeightBytes() { return __p.__vector_as_arraysegment(32); }
 #endif
-  public int[] GetCustomerPosArray() { return __p.__vector_as_array<int>(34); }
-  public int CustomerOrder(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CustomerOrderLength { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetCustomerWeightArray() { return __p.__vector_as_array<int>(32); }
+  public int CustomerNum { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int CustomerPos(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CustomerPosLength { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCustomerOrderBytes() { return __p.__vector_as_span<int>(36, 4); }
+  public Span<int> GetCustomerPosBytes() { return __p.__vector_as_span<int>(36, 4); }
 #else
-  public ArraySegment<byte>? GetCustomerOrderBytes() { return __p.__vector_as_arraysegment(36); }
+  public ArraySegment<byte>? GetCustomerPosBytes() { return __p.__vector_as_arraysegment(36); }
 #endif
-  public int[] GetCustomerOrderArray() { return __p.__vector_as_array<int>(36); }
-  public int LikeNum { get { int o = __p.__offset(38); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int CustomerShow { get { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int CustomerEquip { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string TagName { get { int o = __p.__offset(44); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int[] GetCustomerPosArray() { return __p.__vector_as_array<int>(36); }
+  public int CustomerOrder(int j) { int o = __p.__offset(38); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CustomerOrderLength { get { int o = __p.__offset(38); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetTagNameBytes() { return __p.__vector_as_span<byte>(44, 1); }
+  public Span<int> GetCustomerOrderBytes() { return __p.__vector_as_span<int>(38, 4); }
 #else
-  public ArraySegment<byte>? GetTagNameBytes() { return __p.__vector_as_arraysegment(44); }
+  public ArraySegment<byte>? GetCustomerOrderBytes() { return __p.__vector_as_arraysegment(38); }
 #endif
-  public byte[] GetTagNameArray() { return __p.__vector_as_array<byte>(44); }
-  public float TagRange { get { int o = __p.__offset(46); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public int CarId(int j) { int o = __p.__offset(48); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CarIdLength { get { int o = __p.__offset(48); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetCustomerOrderArray() { return __p.__vector_as_array<int>(38); }
+  public int LikeNum { get { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int CustomerShow { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int CustomerEquip { get { int o = __p.__offset(44); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string TagName { get { int o = __p.__offset(46); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCarIdBytes() { return __p.__vector_as_span<int>(48, 4); }
+  public Span<byte> GetTagNameBytes() { return __p.__vector_as_span<byte>(46, 1); }
 #else
-  public ArraySegment<byte>? GetCarIdBytes() { return __p.__vector_as_arraysegment(48); }
+  public ArraySegment<byte>? GetTagNameBytes() { return __p.__vector_as_arraysegment(46); }
 #endif
-  public int[] GetCarIdArray() { return __p.__vector_as_array<int>(48); }
-  public int CarWeight(int j) { int o = __p.__offset(50); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int CarWeightLength { get { int o = __p.__offset(50); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte[] GetTagNameArray() { return __p.__vector_as_array<byte>(46); }
+  public float TagRange { get { int o = __p.__offset(48); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int CarId(int j) { int o = __p.__offset(50); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CarIdLength { get { int o = __p.__offset(50); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetCarWeightBytes() { return __p.__vector_as_span<int>(50, 4); }
+  public Span<int> GetCarIdBytes() { return __p.__vector_as_span<int>(50, 4); }
 #else
-  public ArraySegment<byte>? GetCarWeightBytes() { return __p.__vector_as_arraysegment(50); }
+  public ArraySegment<byte>? GetCarIdBytes() { return __p.__vector_as_arraysegment(50); }
 #endif
-  public int[] GetCarWeightArray() { return __p.__vector_as_array<int>(50); }
-  public int CarNum { get { int o = __p.__offset(52); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int[] GetCarIdArray() { return __p.__vector_as_array<int>(50); }
+  public int CarWeight(int j) { int o = __p.__offset(52); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CarWeightLength { get { int o = __p.__offset(52); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetCarWeightBytes() { return __p.__vector_as_span<int>(52, 4); }
+#else
+  public ArraySegment<byte>? GetCarWeightBytes() { return __p.__vector_as_arraysegment(52); }
+#endif
+  public int[] GetCarWeightArray() { return __p.__vector_as_array<int>(52); }
+  public int CarNum { get { int o = __p.__offset(54); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float DishOffsetY { get { int o = __p.__offset(56); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
 
   public static Offset<GameConfigs.LevelRowData> CreateLevelRowData(FlatBufferBuilder builder,
       int Id = 0,
       VectorOffset MachineIdOffset = default(VectorOffset),
+      VectorOffset WorkerAreaOffset = default(VectorOffset),
       VectorOffset OrderWeightOffset = default(VectorOffset),
       int FirstOrder = 0,
       int PlayerId = 0,
@@ -146,8 +156,10 @@ public struct LevelRowData : IFlatbufferObject
       float TagRange = 0.0f,
       VectorOffset CarIdOffset = default(VectorOffset),
       VectorOffset CarWeightOffset = default(VectorOffset),
-      int CarNum = 0) {
-    builder.StartTable(25);
+      int CarNum = 0,
+      float DishOffsetY = 0.0f) {
+    builder.StartTable(27);
+    LevelRowData.AddDishOffsetY(builder, DishOffsetY);
     LevelRowData.AddCarNum(builder, CarNum);
     LevelRowData.AddCarWeight(builder, CarWeightOffset);
     LevelRowData.AddCarId(builder, CarIdOffset);
@@ -171,67 +183,73 @@ public struct LevelRowData : IFlatbufferObject
     LevelRowData.AddPlayerId(builder, PlayerId);
     LevelRowData.AddFirstOrder(builder, FirstOrder);
     LevelRowData.AddOrderWeight(builder, OrderWeightOffset);
+    LevelRowData.AddWorkerArea(builder, WorkerAreaOffset);
     LevelRowData.AddMachineId(builder, MachineIdOffset);
     LevelRowData.AddId(builder, Id);
     return LevelRowData.EndLevelRowData(builder);
   }
 
-  public static void StartLevelRowData(FlatBufferBuilder builder) { builder.StartTable(25); }
+  public static void StartLevelRowData(FlatBufferBuilder builder) { builder.StartTable(27); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddMachineId(FlatBufferBuilder builder, VectorOffset MachineIdOffset) { builder.AddOffset(1, MachineIdOffset.Value, 0); }
   public static VectorOffset CreateMachineIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateMachineIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartMachineIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddOrderWeight(FlatBufferBuilder builder, VectorOffset OrderWeightOffset) { builder.AddOffset(2, OrderWeightOffset.Value, 0); }
+  public static void AddWorkerArea(FlatBufferBuilder builder, VectorOffset WorkerAreaOffset) { builder.AddOffset(2, WorkerAreaOffset.Value, 0); }
+  public static VectorOffset CreateWorkerAreaVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateWorkerAreaVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartWorkerAreaVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddOrderWeight(FlatBufferBuilder builder, VectorOffset OrderWeightOffset) { builder.AddOffset(3, OrderWeightOffset.Value, 0); }
   public static VectorOffset CreateOrderWeightVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateOrderWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOrderWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddFirstOrder(FlatBufferBuilder builder, int FirstOrder) { builder.AddInt(3, FirstOrder, 0); }
-  public static void AddPlayerId(FlatBufferBuilder builder, int PlayerId) { builder.AddInt(4, PlayerId, 0); }
-  public static void AddChefId(FlatBufferBuilder builder, int ChefId) { builder.AddInt(5, ChefId, 0); }
-  public static void AddChefNum(FlatBufferBuilder builder, int ChefNum) { builder.AddInt(6, ChefNum, 0); }
-  public static void AddChefOrder(FlatBufferBuilder builder, int ChefOrder) { builder.AddInt(7, ChefOrder, 0); }
-  public static void AddChefMachine(FlatBufferBuilder builder, VectorOffset ChefMachineOffset) { builder.AddOffset(8, ChefMachineOffset.Value, 0); }
+  public static void AddFirstOrder(FlatBufferBuilder builder, int FirstOrder) { builder.AddInt(4, FirstOrder, 0); }
+  public static void AddPlayerId(FlatBufferBuilder builder, int PlayerId) { builder.AddInt(5, PlayerId, 0); }
+  public static void AddChefId(FlatBufferBuilder builder, int ChefId) { builder.AddInt(6, ChefId, 0); }
+  public static void AddChefNum(FlatBufferBuilder builder, int ChefNum) { builder.AddInt(7, ChefNum, 0); }
+  public static void AddChefOrder(FlatBufferBuilder builder, int ChefOrder) { builder.AddInt(8, ChefOrder, 0); }
+  public static void AddChefMachine(FlatBufferBuilder builder, VectorOffset ChefMachineOffset) { builder.AddOffset(9, ChefMachineOffset.Value, 0); }
   public static VectorOffset CreateChefMachineVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateChefMachineVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartChefMachineVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddWaiterId(FlatBufferBuilder builder, int WaiterId) { builder.AddInt(9, WaiterId, 0); }
-  public static void AddWaiterNum(FlatBufferBuilder builder, int WaiterNum) { builder.AddInt(10, WaiterNum, 0); }
-  public static void AddWaiterMachine(FlatBufferBuilder builder, VectorOffset WaiterMachineOffset) { builder.AddOffset(11, WaiterMachineOffset.Value, 0); }
+  public static void AddWaiterId(FlatBufferBuilder builder, int WaiterId) { builder.AddInt(10, WaiterId, 0); }
+  public static void AddWaiterNum(FlatBufferBuilder builder, int WaiterNum) { builder.AddInt(11, WaiterNum, 0); }
+  public static void AddWaiterMachine(FlatBufferBuilder builder, VectorOffset WaiterMachineOffset) { builder.AddOffset(12, WaiterMachineOffset.Value, 0); }
   public static VectorOffset CreateWaiterMachineVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateWaiterMachineVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartWaiterMachineVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCustomerId(FlatBufferBuilder builder, VectorOffset CustomerIdOffset) { builder.AddOffset(12, CustomerIdOffset.Value, 0); }
+  public static void AddCustomerId(FlatBufferBuilder builder, VectorOffset CustomerIdOffset) { builder.AddOffset(13, CustomerIdOffset.Value, 0); }
   public static VectorOffset CreateCustomerIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCustomerIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCustomerIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCustomerWeight(FlatBufferBuilder builder, VectorOffset CustomerWeightOffset) { builder.AddOffset(13, CustomerWeightOffset.Value, 0); }
+  public static void AddCustomerWeight(FlatBufferBuilder builder, VectorOffset CustomerWeightOffset) { builder.AddOffset(14, CustomerWeightOffset.Value, 0); }
   public static VectorOffset CreateCustomerWeightVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCustomerWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCustomerWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCustomerNum(FlatBufferBuilder builder, int CustomerNum) { builder.AddInt(14, CustomerNum, 0); }
-  public static void AddCustomerPos(FlatBufferBuilder builder, VectorOffset CustomerPosOffset) { builder.AddOffset(15, CustomerPosOffset.Value, 0); }
+  public static void AddCustomerNum(FlatBufferBuilder builder, int CustomerNum) { builder.AddInt(15, CustomerNum, 0); }
+  public static void AddCustomerPos(FlatBufferBuilder builder, VectorOffset CustomerPosOffset) { builder.AddOffset(16, CustomerPosOffset.Value, 0); }
   public static VectorOffset CreateCustomerPosVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCustomerPosVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCustomerPosVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCustomerOrder(FlatBufferBuilder builder, VectorOffset CustomerOrderOffset) { builder.AddOffset(16, CustomerOrderOffset.Value, 0); }
+  public static void AddCustomerOrder(FlatBufferBuilder builder, VectorOffset CustomerOrderOffset) { builder.AddOffset(17, CustomerOrderOffset.Value, 0); }
   public static VectorOffset CreateCustomerOrderVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCustomerOrderVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCustomerOrderVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddLikeNum(FlatBufferBuilder builder, int LikeNum) { builder.AddInt(17, LikeNum, 0); }
-  public static void AddCustomerShow(FlatBufferBuilder builder, int CustomerShow) { builder.AddInt(18, CustomerShow, 0); }
-  public static void AddCustomerEquip(FlatBufferBuilder builder, int CustomerEquip) { builder.AddInt(19, CustomerEquip, 0); }
-  public static void AddTagName(FlatBufferBuilder builder, StringOffset TagNameOffset) { builder.AddOffset(20, TagNameOffset.Value, 0); }
-  public static void AddTagRange(FlatBufferBuilder builder, float TagRange) { builder.AddFloat(21, TagRange, 0.0f); }
-  public static void AddCarId(FlatBufferBuilder builder, VectorOffset CarIdOffset) { builder.AddOffset(22, CarIdOffset.Value, 0); }
+  public static void AddLikeNum(FlatBufferBuilder builder, int LikeNum) { builder.AddInt(18, LikeNum, 0); }
+  public static void AddCustomerShow(FlatBufferBuilder builder, int CustomerShow) { builder.AddInt(19, CustomerShow, 0); }
+  public static void AddCustomerEquip(FlatBufferBuilder builder, int CustomerEquip) { builder.AddInt(20, CustomerEquip, 0); }
+  public static void AddTagName(FlatBufferBuilder builder, StringOffset TagNameOffset) { builder.AddOffset(21, TagNameOffset.Value, 0); }
+  public static void AddTagRange(FlatBufferBuilder builder, float TagRange) { builder.AddFloat(22, TagRange, 0.0f); }
+  public static void AddCarId(FlatBufferBuilder builder, VectorOffset CarIdOffset) { builder.AddOffset(23, CarIdOffset.Value, 0); }
   public static VectorOffset CreateCarIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCarIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCarIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCarWeight(FlatBufferBuilder builder, VectorOffset CarWeightOffset) { builder.AddOffset(23, CarWeightOffset.Value, 0); }
+  public static void AddCarWeight(FlatBufferBuilder builder, VectorOffset CarWeightOffset) { builder.AddOffset(24, CarWeightOffset.Value, 0); }
   public static VectorOffset CreateCarWeightVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCarWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCarWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddCarNum(FlatBufferBuilder builder, int CarNum) { builder.AddInt(24, CarNum, 0); }
+  public static void AddCarNum(FlatBufferBuilder builder, int CarNum) { builder.AddInt(25, CarNum, 0); }
+  public static void AddDishOffsetY(FlatBufferBuilder builder, float DishOffsetY) { builder.AddFloat(26, DishOffsetY, 0.0f); }
   public static Offset<GameConfigs.LevelRowData> EndLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.LevelRowData>(o);
