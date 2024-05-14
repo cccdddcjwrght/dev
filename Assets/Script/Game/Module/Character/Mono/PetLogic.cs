@@ -17,8 +17,16 @@ namespace SGame
             
         private static ConfigValueFloat PET_START_ANGLE     = new ConfigValueFloat("pet_start_angle", 20);
         private static ConfigValueFloat PET_START_DISTANCE  = new ConfigValueFloat("pet_start_distance", 2);
+        private Animator    m_animator;
+        private static int WALK_NAME = 0;
 
-        
+        void Start()
+        {
+            if (WALK_NAME == 0)
+                WALK_NAME = Animator.StringToHash("walk");
+            m_animator = GetComponent<Animator>();
+        }
+
         public void Initalzie(Transform follow, float radius, float speed, float scale)
         {
             m_followTarget  = follow;
@@ -50,11 +58,16 @@ namespace SGame
             var currPos = m_transform.position;
             var targetPos = m_followTarget.position;
             Vector3 diff = m_followTarget.position - currPos;
+            diff.y = 0;
             float   diffLen = diff.magnitude;
-            if (diffLen <= m_radius)
+            if (diffLen <= (m_radius + 0.01f))
+            {
+                m_animator.SetBool(WALK_NAME, false);
                 return;
+            }
 
             // 圈外跟随
+            m_animator.SetBool(WALK_NAME, true);
             var target = Utils.GetCircleHitPoint(currPos, targetPos, m_radius);
             float moveLen = Time.deltaTime * m_speed;
             float t = moveLen / diffLen;

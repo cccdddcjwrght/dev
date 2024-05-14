@@ -15,25 +15,25 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_recomment.onChanged.Add(new EventCallback1(_OnRecommentChanged));
 			m_view.m_comfirm.onChanged.Add(new EventCallback1(_OnComfirmChanged));
+			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick));
+			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick));
+			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick));
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnCancle, new EventCallback1(_OnComfirm_BtnCancleClick));
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnOK, new EventCallback1(_OnComfirm_BtnOKClick));
 			UIListener.ListenerIcon(m_view.m_comfirmDialog, new EventCallback1(_OnComfirmDialogClick));
-			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick));
-			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick));
-			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_recomment.onChanged.Remove(new EventCallback1(_OnRecommentChanged));
 			m_view.m_comfirm.onChanged.Remove(new EventCallback1(_OnComfirmChanged));
+			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick),remove:true);
+			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick),remove:true);
+			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick),remove:true);
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnCancle, new EventCallback1(_OnComfirm_BtnCancleClick),remove:true);
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnOK, new EventCallback1(_OnComfirm_BtnOKClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_comfirmDialog, new EventCallback1(_OnComfirmDialogClick),remove:true);
-			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick),remove:true);
-			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick),remove:true);
-			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick),remove:true);
 
 		}
 		void _OnRecommentChanged(EventContext data){
@@ -46,6 +46,26 @@ namespace SGame.UI{
 		}
 		partial void OnComfirmChanged(EventContext data);
 		void SwitchComfirmPage(int index)=>m_view.m_comfirm.selectedIndex=index;
+		void _OnBtnCloseClick(EventContext data){
+			OnBtnCloseClick(data);
+		}
+		partial void OnBtnCloseClick(EventContext data);
+		void SetBtnCloseText(string data)=>UIListener.SetText(m_view.m_btnClose,data);
+		string GetBtnCloseText()=>UIListener.GetText(m_view.m_btnClose);
+		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
+		string GetTitleText()=>UIListener.GetText(m_view.m_title);
+		void _OnBtnDeleteClick(EventContext data){
+			OnBtnDeleteClick(data);
+		}
+		partial void OnBtnDeleteClick(EventContext data);
+		void SetBtnDeleteText(string data)=>UIListener.SetText(m_view.m_btnDelete,data);
+		string GetBtnDeleteText()=>UIListener.GetText(m_view.m_btnDelete);
+		void _OnBtnOKClick(EventContext data){
+			OnBtnOKClick(data);
+		}
+		partial void OnBtnOKClick(EventContext data);
+		void SetBtnOKText(string data)=>UIListener.SetText(m_view.m_btnOK,data);
+		string GetBtnOKText()=>UIListener.GetText(m_view.m_btnOK);
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
@@ -71,26 +91,6 @@ namespace SGame.UI{
 			OnComfirmDialogClick(data);
 		}
 		partial void OnComfirmDialogClick(EventContext data);
-		void _OnBtnCloseClick(EventContext data){
-			OnBtnCloseClick(data);
-		}
-		partial void OnBtnCloseClick(EventContext data);
-		void SetBtnCloseText(string data)=>UIListener.SetText(m_view.m_btnClose,data);
-		string GetBtnCloseText()=>UIListener.GetText(m_view.m_btnClose);
-		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
-		string GetTitleText()=>UIListener.GetText(m_view.m_title);
-		void _OnBtnDeleteClick(EventContext data){
-			OnBtnDeleteClick(data);
-		}
-		partial void OnBtnDeleteClick(EventContext data);
-		void SetBtnDeleteText(string data)=>UIListener.SetText(m_view.m_btnDelete,data);
-		string GetBtnDeleteText()=>UIListener.GetText(m_view.m_btnDelete);
-		void _OnBtnOKClick(EventContext data){
-			OnBtnOKClick(data);
-		}
-		partial void OnBtnOKClick(EventContext data);
-		void SetBtnOKText(string data)=>UIListener.SetText(m_view.m_btnOK,data);
-		string GetBtnOKText()=>UIListener.GetText(m_view.m_btnOK);
 
 	}
 }
