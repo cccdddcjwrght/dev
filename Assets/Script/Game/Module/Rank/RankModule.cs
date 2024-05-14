@@ -35,7 +35,7 @@ namespace SGame
         public void Initalize() 
         {
             m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, AddScoreTypeData);
-            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.ENTER_GAME, () =>
+            m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
             {
                 ReqRankList().Start();
                 ReqRankData().Start();
@@ -118,11 +118,14 @@ namespace SGame
         //获取当前排行对应配置
         public RankConfigRowData GetCurRankConfig()
         {
-            var rankData = rankPanelData.ids[0];
-            if (ConfigSystem.Instance.TryGet<RankConfigRowData>((r) => (r.RankingMarker == rankData.marker
-            && r.RankingId == rankData.id), out var data))
+            if (rankPanelData.ids?.Length > 0) 
             {
-                return data;
+                var rankData = rankPanelData.ids[0];
+                if (ConfigSystem.Instance.TryGet<RankConfigRowData>((r) => (r.RankingMarker == rankData.marker
+                && r.RankingId == rankData.id), out var data))
+                {
+                    return data;
+                }
             }
             return default;
         }
@@ -186,9 +189,9 @@ namespace SGame
 
         public void ClearRankScore() 
         {
-            rankScore.tips      = 0;
-            rankScore.boxs      = 0;
-            rankScore.workers   = 0;
+            DataCenter.Instance.rankScore.tips      = 0;
+            DataCenter.Instance.rankScore.boxs      = 0;
+            DataCenter.Instance.rankScore.workers   = 0;
         }
 
 
