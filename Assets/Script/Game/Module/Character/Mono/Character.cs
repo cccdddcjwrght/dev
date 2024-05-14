@@ -392,6 +392,11 @@ namespace SGame
                 Transform foodTrans = entityManager.GetComponentObject<Transform>(m_food);
                 foodTrans.SetParent(null);
                 foodTrans.position = worldPos;
+                
+                // 随机旋转
+                float roteY = RandomSystem.Instance.NextInt(0, 360);
+                Quaternion randomRot = Quaternion.Euler(0, roteY, 0);
+                foodTrans.rotation = randomRot;
             }
             else
             {
