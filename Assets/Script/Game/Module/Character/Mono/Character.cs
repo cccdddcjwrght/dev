@@ -340,7 +340,9 @@ namespace SGame
                 log.Error("effect id not found=" + effetctData.effectId.ToString());
                 return;
             }
+            Vector3 scale = foodTransform.localScale;
             foodTransform.SetParent(GetSlot(SlotType.FOOD), false);
+            /*
             if (config.ScaleLength == 3)
             {
                 foodTransform.localScale = new Vector3(config.Scale(0), config.Scale(1), config.Scale(2));
@@ -349,6 +351,9 @@ namespace SGame
             {
                 foodTransform.localScale = Vector3.one;
             }
+            foodTransform.lossyScale = scale;
+            */
+            foodTransform.localScale = Vector3.one;
             if (config.EulerAngleLength == 3)
             {
                 foodTransform.localRotation = Quaternion.Euler(config.EulerAngle(0), config.EulerAngle(1), config.EulerAngle(2));
