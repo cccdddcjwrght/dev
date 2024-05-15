@@ -289,6 +289,7 @@ namespace SGame
             }
             
             GameObject petObject = GameObject.Instantiate(prefab);
+            m_pet = petObject;
             asset.Require(petObject);
             var script = petObject.AddComponent<PetLogic>();
             var slot = GetSlot(SlotType.FOOT);
