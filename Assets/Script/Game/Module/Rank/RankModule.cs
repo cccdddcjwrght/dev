@@ -65,7 +65,7 @@ namespace SGame
             yield return result;
             if (!string.IsNullOrEmpty(result.error))
             {
-                Debug.LogError("ranks data fail=" + result.error);
+                Debug.LogWarning("ranks data fail=" + result.error);
                 yield break;
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
@@ -102,7 +102,7 @@ namespace SGame
             if (!string.IsNullOrEmpty(result.error))
             {
                 if(cancelReddot) "tips_ranking_1".Tips();
-                Debug.LogError("rank data fail=" + result.error);
+                Debug.LogWarning("rank data fail=" + result.error);
                 yield break;
             }
 
