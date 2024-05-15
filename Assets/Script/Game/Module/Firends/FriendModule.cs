@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameConfigs;
 using libx;
 using log4net;
 using UnityEngine;
@@ -107,7 +108,7 @@ namespace SGame.Firend
                 if (currentTime < friend.hiringTime)
                 {
                     /// 只有一个满足
-                    EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, friend.player_id, friend.roleID, GetRoleData(friend.player_id));
+                    EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, friend.player_id, GetLevelRoleID(), GetRoleData(friend.player_id));
                     log.Info("Friend Resend Hiring ID = " + friend.player_id);
                     return;
                 }
@@ -282,6 +283,22 @@ namespace SGame.Firend
         }
 
         /// <summary>
+        /// 获得当前关卡的角色ID
+        /// </summary>
+        /// <returns></returns>
+        static int GetLevelRoleID()
+        {
+            int levelID = DataCenter.Instance.GetUserData().scene;
+            if (!ConfigSystem.Instance.TryGet(levelID, out LevelRowData config))
+            {
+                log.Error("not found level ID=" + levelID);
+                return 0;
+            }
+
+            return config.PlayerId;
+        }
+
+        /// <summary>
         /// 雇佣好友
         /// </summary>
         /// <param name="player_id"></param>
@@ -302,7 +319,7 @@ namespace SGame.Firend
             m_friendData.hiringTime = serverTime + HIRING_TIME;
             m_friendData.hiringPlayerID = player_id;
             EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_DATE_UPDATE);
-            EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, player_id, item.roleID, GetRoleData(player_id));
+            EventManager.Instance.AsyncTrigger((int)GameEvent.FRIEND_HIRING, player_id, GetLevelRoleID(), GetRoleData(player_id));
             EventManager.Instance.AsyncTrigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
