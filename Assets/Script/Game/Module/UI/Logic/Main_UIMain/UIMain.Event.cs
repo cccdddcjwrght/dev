@@ -102,6 +102,7 @@ namespace SGame.UI
 			//排行榜
 			m_funcManager.Register(26, ()=> RankModule.Instance.IsOpen(), ()=> RankModule.Instance.GetRankTime());
 
+			//m_funcManager.Register(28);
 			//存钱罐
 			m_funcManager.Register(PiggyBankModule.PIGGYBANK_OEPNID, PiggyBankModule.Instance.CanTake);
 
@@ -412,7 +413,7 @@ namespace SGame.UI
         {
 			if (PiggyBankModule.Instance.CanTake()) 
 			{
-				GButton btn = m_rightList.GetChildAt(0).asButton;
+				GButton btn = m_rightList.GetChild("piggybank").asButton;
 				btn.GetController("ctrlTime").selectedIndex = 1;
 				btn.GetChild("content").SetText(string.Format("{0}/{1}",
 					DataCenter.Instance.piggybankData.progress,
