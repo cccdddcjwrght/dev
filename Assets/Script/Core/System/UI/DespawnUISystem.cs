@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Entities;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace SGame.UI
     public partial class DespawnUISystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_commandBufferSystem;
+        public List<Entity> m_DestoryEntity = new List<Entity>();
 
         protected override void OnCreate()
         {
@@ -18,9 +20,24 @@ namespace SGame.UI
             m_commandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         }
 
+        public void RemoveEntity(Entity e)
+        {
+            if (!m_DestoryEntity.Contains(e))
+                m_DestoryEntity.Add(e);
+        }
+
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBufferSystem.CreateCommandBuffer();
+
+            foreach (var e in m_DestoryEntity)
+            {
+                if (EntityManager.Exists(e) && !EntityManager.HasComponent<DespawningEntity>(e))
+                {                
+                    commandBuffer.AddComponent<DespawningEntity>(e);
+                }
+            }
+            m_DestoryEntity.Clear();
 
             Entities.WithAll<DespawningEntity>().ForEach((Entity e, UIWindow window) =>
             {

@@ -31,6 +31,7 @@ namespace SGame.UI
 		static ILog log = LogManager.GetLogger("xl.ui");
 
 		private SpawnUISystem m_spawnSystem;
+		private DespawnUISystem m_despawnSystem;
 		private GameWorld m_gameWorld;
 		private UIScriptFactory m_factory;
 
@@ -55,6 +56,7 @@ namespace SGame.UI
 		{
 			m_gameWorld = gameWorld;
 			m_spawnSystem = gameWorld.GetECSWorld().GetOrCreateSystem<SpawnUISystem>();
+			m_despawnSystem = gameWorld.GetECSWorld().GetOrCreateSystem<DespawnUISystem>();
 
 			if (m_factory != null)
 				m_factory.Dispose();
@@ -122,16 +124,25 @@ namespace SGame.UI
 
 				try
 				{
-					UIWindow window = mgr.GetComponentData<UIWindow>(ui);
-					if (window.Value != null)
+					if (mgr.HasComponent<UIWindow>(ui))
 					{
-						window.Value.Close();
-						return true;
+						UIWindow window = mgr.GetComponentData<UIWindow>(ui);
+						if (window.Value != null)
+						{
+							window.Value.Close();
+							return true;
+						}
+					}
+					else
+					{
+						log.Error("is not ui=" + ui);
+						m_despawnSystem.RemoveEntity(ui);
+						return false;
 					}
 				}
 				catch (Exception e)
 				{
-					log.Warn(e.Message + "-" + e.StackTrace);
+					log.Error(e.Message + "-" + e.StackTrace);
 				}
 			}
 

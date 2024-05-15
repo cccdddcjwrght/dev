@@ -335,68 +335,44 @@ namespace SGame
 		// 同步触发事件
 		public void Trigger(int eventType)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event=" + eventType); 
-#endif
 			m_events.Trigger(eventType);
 		}
 
 		public void Trigger<T>(int eventType, T argv1)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event=" + eventType); 
-#endif
 			m_events.Trigger(eventType, argv1);
 		}
 
 		public void Trigger<T, U>(int eventType, T argv1, U argv2)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event=" + eventType); 
-#endif
 			m_events.Trigger(eventType, argv1, argv2);
 		}
 
 		public void Trigger<T, U, V>(int eventType, T argv1, U argv2, V argv3)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event=" + eventType); 
-#endif
 			m_events.Trigger(eventType, argv1, argv2, argv3);
 		}
 
 		public void Trigger<T, U, V, P4>(int eventType, T argv1, U argv2, V argv3, P4 argv4)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event=" + eventType); 
-#endif
 			m_events.Trigger(eventType, argv1, argv2, argv3, argv4);
 		}
 
 
 		public void Trigger<T, U, V, P4, P5>(int eventType, T argv1, U argv2, V argv3, P4 argv4, P5 argv5)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event=" + eventType); 
-#endif
 			m_events.Trigger(eventType, argv1, argv2, argv3, argv4, argv5);
 		}
 
 		// 异步触发事件, 下一帧触发事件
 		public void AsyncTrigger(int eventType, params object[] vals)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event Async=" + eventType); 
-#endif
 			m_events.AsyncTrigger(eventType, vals);
 		}
 
 		// 通用函数调用速度慢, 主要给LUA调用 (注意:会产生GC)
 		public void TriggerGeneral(int eventType, params object[] vals)
 		{
-#if !EVENT_LOG_OFF && DEBUG
-			log.Info("Trigger Event General=" + eventType); 
-#endif
 			m_events.TriggerGeneral(eventType, vals);
 		}
 
