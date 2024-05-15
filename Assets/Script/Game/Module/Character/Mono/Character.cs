@@ -479,6 +479,7 @@ namespace SGame
         /// <param name="part">完整的外观字符串</param>
         public void ChangeLooking(string part)
         {
+            Clear();
             m_modelLoading.Start(ChangLooking(part));
         }
 
@@ -504,10 +505,7 @@ namespace SGame
         IEnumerator ChangLooking(string part)
         {
             // 回收老的样式
-            //m_slot.Clear();
-            Clear();
-            //CharacterFactory.Instance.Despawn(m_characterLooking, m_characterPoolID);
-            
+
             m_characterLooking = part;
             var data = CharacterPartGen.ParseString(part);
             List<string> weapons = data.GetValues("weapon");
