@@ -20,6 +20,8 @@ namespace SGame
 
         //排行榜数据
         public RankData rankData = new RankData();
+
+        public RankCacheData rankCacheData = new RankCacheData();
     }
 
     public class RankModule : Singleton<RankModule>
@@ -35,6 +37,12 @@ namespace SGame
         public void Initalize() 
         {
             m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, AddScoreTypeData);
+            m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_ROOM, (s) =>
+            {
+                DataCenter.Instance.rankCacheData.reddot = true;
+                ReqRankList().Start();
+            });
+            
             m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
             {
                 ReqRankList(true).Start();
@@ -70,31 +78,30 @@ namespace SGame
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
 
             rankPanelData = JsonUtility.FromJson<RankPanelData>(pkg.data);
-            if (rankData.startTime != rankPanelData.ids[0].begin_time) 
+            if (DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
             {
-                rankData.startTime = rankPanelData.ids[0].begin_time;
+                DataCenter.Instance.rankCacheData.startTime = rankPanelData.ids[0].begin_time;
                 ClearRankScore();//清除自己排行标识数据
             }
 
             Debug.Log("ranks data:" + result.data);
             if (rankPanelData.rewards?.Length > 0) 
             {
-                rankData.reddot = true;
-                rankData.rewards = rankPanelData.rewards;
+                DataCenter.Instance.rankCacheData.reddot = true;
+                DataCenter.Instance.rankCacheData.rewards = rankPanelData.rewards;
             }
 
-            if (popReward && rankData.rewards?.Length > 0) 
+            if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
             {
-                for (int i = 0; i < rankPanelData.rewards.Length; i++)
+                for (int i = 0; i < DataCenter.Instance.rankCacheData.rewards.Length; i++)
                 {
-                    var rewardData = rankPanelData.rewards[i];
+                    var rewardData = DataCenter.Instance.rankCacheData.rewards[i];
                     if (ConfigSystem.Instance.TryGet<GameConfigs.RankConfigRowData>((r) => r.RankingId == rewardData.id, out var data))
                         OpenResultView(data.RankingMarker, rewardData.rank);
                 }
-                rankData.rewards = null;
+                DataCenter.Instance.rankCacheData.rewards = null;
             }
-
-            EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+            //EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         public IEnumerator ReqRankData(bool cancelReddot = false)
@@ -121,11 +128,12 @@ namespace SGame
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
 
-            if (cancelReddot)
-                DataCenter.Instance.rankData.reddot = false;
+            if(cancelReddot)
+                DataCenter.Instance.rankCacheData.reddot = false;
 
             EventManager.Instance.Trigger((int)GameEvent.RANK_UPDATE);
         }
+
 
         public void AddScoreTypeData(int marker, int value) 
         {
@@ -188,7 +196,7 @@ namespace SGame
 
         public bool IsRedDot() 
         {
-            return rankData.reddot;
+            return DataCenter.Instance.rankCacheData.reddot;
         }
 
         public bool IsOpen() 

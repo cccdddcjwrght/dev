@@ -10,13 +10,16 @@ namespace SGame
     {
         public List<RankItemData> list;
 
-        public bool reddot = true;
         //public int rankType;                    //≈≈––¿‡–Õ
-
-        public int startTime;
-        public RankReward[] rewards;
     }
 
+    [Serializable]
+    public class RankCacheData 
+    {
+        public int startTime;
+        public bool reddot;
+        public RankReward[] rewards;
+    }
 
     [Serializable]
     public class RankItemData
