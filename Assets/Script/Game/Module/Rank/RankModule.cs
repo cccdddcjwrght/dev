@@ -77,14 +77,14 @@ namespace SGame
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
 
+            Debug.Log("ranks data:" + result.data);
             rankPanelData = JsonUtility.FromJson<RankPanelData>(pkg.data);
-            if (DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
+            if (rankPanelData.ids?.Length > 0 && DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
             {
                 DataCenter.Instance.rankCacheData.startTime = rankPanelData.ids[0].begin_time;
                 ClearRankScore();//清除自己排行标识数据
             }
-
-            Debug.Log("ranks data:" + result.data);
+        
             if (rankPanelData.rewards?.Length > 0) 
             {
                 DataCenter.Instance.rankCacheData.reddot = true;

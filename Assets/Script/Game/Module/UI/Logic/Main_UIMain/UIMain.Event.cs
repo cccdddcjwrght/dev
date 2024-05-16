@@ -100,7 +100,11 @@ namespace SGame.UI
 			m_funcManager = new CheckingManager();
 
 			//排行榜
-			m_funcManager.Register(26, ()=> RankModule.Instance.IsOpen(), ()=> RankModule.Instance.GetRankTime(), complete: ()=> RankModule.Instance.ReqRankList().Start());
+			m_funcManager.Register(26, ()=> RankModule.Instance.IsOpen(), ()=> RankModule.Instance.GetRankTime(), complete: ()=> 
+			{
+				Utils.Timer(5, null, completed: () => RankModule.Instance.ReqRankList().Start());
+				Utils.Timer(10, null, completed: () => RankModule.Instance.ReqRankList().Start());
+			});
 
 			//m_funcManager.Register(28);
 			//存钱罐
