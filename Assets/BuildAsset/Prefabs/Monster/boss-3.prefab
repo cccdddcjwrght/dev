@@ -509,7 +509,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5116801851728300934}
-  m_Father: {fileID: 1918617629203951260}
+  m_Father: {fileID: 8026848554430256090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2764321966150669266
@@ -579,58 +579,6 @@ Transform:
   m_Father: {fileID: 1114316338147603386}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3101652785188512722
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1918617629203951260}
-  - component: {fileID: 8772108493481425764}
-  m_Layer: 0
-  m_Name: body
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1918617629203951260
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101652785188512722}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3886870911598363585}
-  - {fileID: 5534956764090975101}
-  m_Father: {fileID: 8026848554430256090}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &8772108493481425764
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101652785188512722}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 1827226128182048838, guid: 7380e865d0189ba41a7d9c09a4fdf874, type: 3}
-  m_Animations:
-  - {fileID: 1827226128182048838, guid: 7380e865d0189ba41a7d9c09a4fdf874, type: 3}
-  - {fileID: 1827226128182048838, guid: 1dd26e0407bc63e46a89036bfe1969d3, type: 3}
-  - {fileID: 1827226128182048838, guid: 52cfb2eac27b6de4ab07a91b1013e356, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 1
 --- !u!1 &3231054229447246635
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,8 +905,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8026848554430256090}
+  - component: {fileID: 359459920951411454}
   m_Layer: 0
-  m_Name: role_boss-3
+  m_Name: boss-3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -971,15 +920,37 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4950557566535727269}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1918617629203951260}
+  - {fileID: 3886870911598363585}
+  - {fileID: 5534956764090975101}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &359459920951411454
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4950557566535727269}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 399f550694f962d498fcb0a210cfe42b, type: 3}
+  m_Controller: {fileID: 9100000, guid: 920f496498d410841b88c16e0e5d61da, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5042874945410212148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,7 +1426,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1918617629203951260}
+  m_Father: {fileID: 8026848554430256090}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &6746327256048218220
@@ -1545,7 +1516,7 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 3886870911598363585}
   m_AABB:
-    m_Center: {x: -0.6968159, y: 0.0000009536743, z: 1.4785752}
+    m_Center: {x: -0.69681585, y: 0.0000009536743, z: 1.4785753}
     m_Extent: {x: 2.5396495, y: 4.8478622, z: 5.456717}
   m_DirtyAABB: 0
 --- !u!1 &7235378649673942759
