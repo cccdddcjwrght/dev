@@ -49,7 +49,7 @@ MonoBehaviour:
   LogInitPath: Assets/BuildAsset/Log/log4net.xml.bytes
   AudioMixerPath: Assets/BuildAsset/Audio/mixer/Game.mixer
   ShaderCollectPath: Assets/BuildAsset/Shaders/ShaderVariants.shadervariants
-  enableGuide: 0
+  enableGuide: 1
   dataCenter:
     addatas:
       day: 0
@@ -278,6 +278,9 @@ MonoBehaviour:
     rankData:
       list: []
       reddot: 1
+    taskData:
+      taskItems: []
+      taskGoods: 
 --- !u!114 &2066008219946734103
 MonoBehaviour:
   m_ObjectHideFlags: 0

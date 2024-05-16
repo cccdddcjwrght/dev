@@ -40,6 +40,20 @@ public struct MerchantRewardRowData : IFlatbufferObject
   public ArraySegment<byte>? GetCostBytes() { return __p.__vector_as_arraysegment(16); }
 #endif
   public int[] GetCostArray() { return __p.__vector_as_array<int>(16); }
+  public string Name { get { int o = __p.__offset(18); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(18, 1); }
+#else
+  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(18); }
+#endif
+  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(18); }
+  public string Icon { get { int o = __p.__offset(20); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(20, 1); }
+#else
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(20); }
+#endif
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(20); }
 
   public static Offset<GameConfigs.MerchantRewardRowData> CreateMerchantRewardRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -48,8 +62,12 @@ public struct MerchantRewardRowData : IFlatbufferObject
       int GroupShowMax = 0,
       VectorOffset ItemIdOffset = default(VectorOffset),
       int Weight = 0,
-      VectorOffset CostOffset = default(VectorOffset)) {
-    builder.StartTable(7);
+      VectorOffset CostOffset = default(VectorOffset),
+      StringOffset NameOffset = default(StringOffset),
+      StringOffset IconOffset = default(StringOffset)) {
+    builder.StartTable(9);
+    MerchantRewardRowData.AddIcon(builder, IconOffset);
+    MerchantRewardRowData.AddName(builder, NameOffset);
     MerchantRewardRowData.AddCost(builder, CostOffset);
     MerchantRewardRowData.AddWeight(builder, Weight);
     MerchantRewardRowData.AddItemId(builder, ItemIdOffset);
@@ -60,7 +78,7 @@ public struct MerchantRewardRowData : IFlatbufferObject
     return MerchantRewardRowData.EndMerchantRewardRowData(builder);
   }
 
-  public static void StartMerchantRewardRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartMerchantRewardRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddTypeValue(FlatBufferBuilder builder, int TypeValue) { builder.AddInt(1, TypeValue, 0); }
   public static void AddGroup(FlatBufferBuilder builder, int Group) { builder.AddInt(2, Group, 0); }
@@ -74,6 +92,8 @@ public struct MerchantRewardRowData : IFlatbufferObject
   public static VectorOffset CreateCostVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCostVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCostVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(7, NameOffset.Value, 0); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(8, IconOffset.Value, 0); }
   public static Offset<GameConfigs.MerchantRewardRowData> EndMerchantRewardRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.MerchantRewardRowData>(o);
