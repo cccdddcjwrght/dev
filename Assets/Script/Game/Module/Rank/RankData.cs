@@ -12,6 +12,9 @@ namespace SGame
 
         public bool reddot = true;
         //public int rankType;                    //≈≈––¿‡–Õ
+
+        public int startTime;
+        public RankReward[] rewards;
     }
 
 

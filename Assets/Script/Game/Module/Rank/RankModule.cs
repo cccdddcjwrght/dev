@@ -37,7 +37,7 @@ namespace SGame
             m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, AddScoreTypeData);
             m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
             {
-                ReqRankList().Start();
+                ReqRankList(true).Start();
                 ReqRankData().Start();
             });
 
@@ -52,12 +52,11 @@ namespace SGame
                     count = list.Count - count;
                     EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.BOX,  count);  
                 }
-
             });
         }
 
 
-        public IEnumerator ReqRankList() 
+        public IEnumerator ReqRankList(bool popReward = false) 
         {
             HttpPackage pkg = new HttpPackage();
             pkg.data = DataCenter.Instance.accountData.playerID.ToString();
@@ -71,8 +70,20 @@ namespace SGame
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
 
             rankPanelData = JsonUtility.FromJson<RankPanelData>(pkg.data);
+            if (rankData.startTime != rankPanelData.ids[0].begin_time) 
+            {
+                rankData.startTime = rankPanelData.ids[0].begin_time;
+                rankData.reddot = true;
+                ClearRankScore();//清除自己排行标识数据
+            }
+
             Debug.Log("ranks data:" + result.data);
             if (rankPanelData.rewards?.Length > 0) 
+            {
+                rankData.rewards = rankPanelData.rewards;
+            }
+
+            if (popReward && rankData.rewards?.Length > 0) 
             {
                 for (int i = 0; i < rankPanelData.rewards.Length; i++)
                 {
@@ -80,7 +91,7 @@ namespace SGame
                     if (ConfigSystem.Instance.TryGet<GameConfigs.RankConfigRowData>((r) => r.RankingId == rewardData.id, out var data))
                         OpenResultView(data.RankingMarker, rewardData.rank);
                 }
-                ClearRankScore();
+                rankData.rewards = null;
             }
 
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
@@ -188,7 +199,13 @@ namespace SGame
         public int GetRankTime() 
         {
             if(rankPanelData.ids == null) return 0;
-            return rankPanelData.ids[0].end_time - GameServerTime.Instance.serverTime;
+
+            int rankTime = rankPanelData.ids[0].end_time - GameServerTime.Instance.serverTime;
+            if (rankTime < 0) 
+            {
+                ReqRankList();
+            }
+            return rankTime;
         }   
 
         public RankItemData GetRankData(long playerId) 
