@@ -101,7 +101,7 @@ namespace SGame
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
-        public IEnumerator ReqRankData()
+        public IEnumerator ReqRankData(bool isTip = false)
         {
             HttpPackage pkg = new HttpPackage();
             RankScoreEx score = new RankScoreEx()
@@ -116,7 +116,7 @@ namespace SGame
             yield return result;
             if (!string.IsNullOrEmpty(result.error))
             {
-                "tips_ranking_1".Tips();
+                if(isTip) "tips_ranking_1".Tips();
                 Debug.LogWarning("rank data fail=" + result.error);
                 yield break;
             }
