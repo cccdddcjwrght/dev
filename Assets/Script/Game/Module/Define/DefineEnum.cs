@@ -264,6 +264,8 @@ namespace SGame
 		PetUpMat,
 		ChestKey,
 		PetEgg = 10,
+		Trade,
+		Act = 12,//活动
 	}
 
 }

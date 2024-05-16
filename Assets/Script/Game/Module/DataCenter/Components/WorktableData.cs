@@ -77,7 +77,7 @@ namespace SGame
 					worktable = GetWorktable(cfg.Machine, cfg.Scene, false);
 					if (worktable != null)
 					{
-						var m = FindMachine(worktable , id);
+						var m = FindMachine(worktable, id);
 						if (m == null && cfg.Enable == 1)
 						{
 							m = CreateMachine(id, ref worktable.stations);
@@ -92,9 +92,9 @@ namespace SGame
 				return default;
 			}
 
-			public static Machine FindMachine(Worktable worktable , int id)
+			public static Machine FindMachine(Worktable worktable, int id)
 			{
-				if(worktable!= null)
+				if (worktable != null)
 				{
 					for (int i = 0; i < worktable.stations.Count; i++)
 					{
@@ -109,7 +109,7 @@ namespace SGame
 			{
 				var ls = GetWorktables();
 				var val = default(Worktable);
-				if(ls != null && ls.Count > 0)
+				if (ls != null && ls.Count > 0)
 				{
 					for (int i = 0; i < ls.Count; i++)
 					{
@@ -154,7 +154,7 @@ namespace SGame
 						pmac = w.lvcfg.Num;
 						prp = w.lvcfg.ShopPriceStarRatio;
 					}
-
+					var srws = w.starRewards;
 					w.Refresh();
 					w.addMachine = Math.Min(w.max, w.lvcfg.Num) - pmac;
 					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 100;
@@ -165,8 +165,22 @@ namespace SGame
 
 					if (w.lvcfg.MachineStar > w.star)//升星奖励
 					{
-						if (ConfigSystem.Instance.TryGet<MachineStarRowData>(w.lvcfg.MachineStar, out var cfg))
-							PropertyManager.Instance.UpdateByArgs(false, cfg.GetStarRewardArray());
+						if (srws?.Count > 0)
+						{
+							for (int i = 0; i < srws.Count; i++)
+							{
+								var item = srws[i];
+								if (i == 0)
+									PropertyManager.Instance.UpdateByArgs(false, item);
+								else if (
+									ConfigSystem.Instance.TryGet(item[0] , out ItemRowData cfg) 
+									&& ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId , GameServerTime.Instance.serverTime , out _)
+								)
+								{
+									PropertyManager.Instance.UpdateByArgs(false, item);
+								}
+							}
+						}
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UP_STAR), id, w.lvcfg.MachineStar);
 					}
 
@@ -443,6 +457,8 @@ namespace SGame
 		[NonReorderable]
 		public int reward;
 
+		public List<int[]> starRewards;
+
 		public int item { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
 
 		public int price { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
@@ -492,9 +508,29 @@ namespace SGame
 				maxlv = ls.Count > 0 ? ls[0].MachineLevelMax : 10;
 				max = ls.Count - 1;
 			}
-			ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg);
+			if (ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg))
+			{
+				if ((starRewards == null || lvcfg.MachineStar > star))
+				{
+					if (ConfigSystem.Instance.TryGet(lvcfg.MachineStar + 1, out MachineStarRowData scfg))
+					{
+						starRewards = new List<int[]>() { scfg.GetStarRewardArray() };
+						if (scfg.ActivityRewardLength > 1)
+						{
+							for (int i = 0; i < scfg.ActivityRewardLength; i += 2)
+								starRewards.Add(new int[] { scfg.ActivityReward(i), scfg.ActivityReward(i + 1) });
+						}
+					}
+					else
+						starRewards = new List<int[]>() ;
+				}
+			}
 		}
 
+		public void RefreshStarRewards()
+		{
+
+		}
 	}
 
 	[System.Serializable]

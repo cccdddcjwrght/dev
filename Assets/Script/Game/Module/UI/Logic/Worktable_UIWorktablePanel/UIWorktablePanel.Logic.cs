@@ -9,6 +9,7 @@ namespace SGame.UI
 	using System.Collections.Generic;
 	using GameConfigs;
 	using Unity.VisualScripting;
+	using System.Linq;
 
 	public partial class UIWorktablePanel
 	{
@@ -91,16 +92,13 @@ namespace SGame.UI
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 1);
 				UIListener.SetTextByKey(m_view.m_click, "ui_main_btn_upgrademax");
-				m_view.m_reward.SetIconIndex(0);
+				m_view.m_rewardlist?.RemoveChildrenToPool();
 			}
 			else
 			{
 				RefreshClick();
 				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(cost));
-				if (ConfigSystem.Instance.TryGet<MachineStarRowData>(data.lvcfg.MachineStar + 1, out var cfg))
-					m_view.m_reward.SetIconIndex(cfg.StarReward(1));
-				else
-					m_view.m_reward.SetIconIndex(0);
+				SetUpStarRewards();
 
 			}
 			UIListener.SetTextByKey(m_view, data.cfg.MachineName);
@@ -112,6 +110,36 @@ namespace SGame.UI
 			m_view.m_list.numItems = stars.Length;
 
 			if (m_view.m_isAd.selectedIndex == 1) AdRefresh();
+		}
+
+		private void SetUpStarRewards()
+		{
+			var ls = data.starRewards;
+			m_view.m_rewardlist?.RemoveChildrenToPool();
+
+			void Set(int index, object data, GObject gObject)
+			{
+				gObject.SetCommonItem(null, data as int[]);
+			}
+
+			if (ls?.Count > 0)
+			{
+				for (int i = 1; i < ls.Count; i++)
+				{
+					var item = ls[i];
+					if (ConfigSystem.Instance.TryGet<ItemRowData>(item[0], out var cfg))
+					{
+						if (ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId, GameServerTime.Instance.serverTime, out var data))
+						{
+							if (("act" + data.actSubID).IsOpend(false) || ("act" + data.configID).IsOpend(false))
+								SGame.UIUtils.AddListItem(m_view.m_rewardlist, Set, item);
+						}
+					}
+				}
+				SGame.UIUtils.AddListItem(m_view.m_rewardlist, Set, ls[0]).name = "0";
+				m_view.m_rewardlist.touchable = m_view.m_rewardlist.numItems > 5;
+				m_view.m_rewardlist.ScrollToView(m_view.m_rewardlist.numItems - 1);
+			}
 		}
 
 		//广告刷新（超过工作台一半等级显示广告按钮）

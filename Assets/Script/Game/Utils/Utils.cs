@@ -870,6 +870,10 @@ namespace SGame
 			yield return ani;
 		}
 
+		#region List
+
+		static private bool _getlist_remove_null = false;
+
 		public static List<int[]> GetArrayList(params Func<int[]>[] calls)
 		{
 
@@ -884,7 +888,8 @@ namespace SGame
 						try
 						{
 							var v = call();
-							list.Add(v);
+							if (!_getlist_remove_null || v != null)
+								list.Add(v);
 						}
 						catch (Exception e)
 						{
@@ -897,6 +902,16 @@ namespace SGame
 			return default;
 
 		}
+
+		public static List<int[]> GetArrayList(bool removenull, params Func<int[]>[] calls)
+		{
+			_getlist_remove_null = true;
+			var ret = GetArrayList(calls);
+			_getlist_remove_null = false;
+			return ret;
+		}
+
+		#endregion
 
 		/// <summary>
 		/// 判断某个模块是否每日首次登录

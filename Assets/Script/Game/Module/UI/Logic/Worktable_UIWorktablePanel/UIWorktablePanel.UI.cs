@@ -51,8 +51,6 @@ namespace SGame.UI{
 		float GetProgressValue()=>UIListener.GetValue(m_view.m_progress);
 		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
 		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
-		void SetRewardText(string data)=>UIListener.SetText(m_view.m_reward,data);
-		string GetRewardText()=>UIListener.GetText(m_view.m_reward);
 		void SetTimeText(string data)=>UIListener.SetText(m_view.m_time,data);
 		string GetTimeText()=>UIListener.GetText(m_view.m_time);
 		void SetPriceText(string data)=>UIListener.SetText(m_view.m_price,data);

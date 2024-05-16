@@ -23,7 +23,7 @@ namespace SGame
 				if (cfg.IsValid())
 					return IsOpened(cfg.Id, enableTips, tips);
 				else
-					return true;
+					return !id.StartsWith("act");
 			}
 			return false;
 		}

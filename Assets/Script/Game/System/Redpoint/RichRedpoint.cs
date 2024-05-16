@@ -28,17 +28,19 @@ namespace SGame
 	public interface IConditionSys
 	{
 		IConditonCalculator GetConditonCalculator(string key);
+
+		IConditonCalculator GetConditonCalculator(object target, string ext, int token = 0);
+
 	}
 
 
 	[UpdateAfter(typeof(GameLogicAfterGroup))]
-	public class RichRedpoint : RedpointSystem, IConditionSys
+	public class RichRedpoint : RedpointSystem
 	{
 		private static ILog log = LogManager.GetLogger("redpoint");
 		private static Dictionary<int, string> _keys = new Dictionary<int, string>();
 
 
-		private Dictionary<string, object> _calcus = new Dictionary<string, object>();
 		private Dictionary<int, Entity> _hudID = new Dictionary<int, Entity>();
 
 		protected override void OnCreate()
@@ -46,37 +48,7 @@ namespace SGame
 			base.OnCreate();
 			EventManager.Instance.Reg<string>(((int)GameEvent.UI_SHOW), OnUIShow);
 			EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnUIHide);
-
-			ConditionUtil.conditonSys = this;
-
-			_calcus = GetType()
-				.Assembly
-				.GetTypes()
-				.Where(t => !t.IsAbstract && typeof(IConditonCalculator).IsAssignableFrom(t))
-				.ToDictionary(t => t.Name.ToLower(), t => (object)t);
 		}
-
-		#region Method
-
-		public IConditonCalculator GetConditonCalculator(string key)
-		{
-			if (string.IsNullOrEmpty(key)) return default;
-			var condition = default(IConditonCalculator);
-
-			if (_calcus.TryGetValue(key, out var calcu))
-			{
-				condition = calcu as IConditonCalculator;
-				if (condition == null)
-				{
-					if (calcu is Type type)
-						_calcus[key] = condition = System.Activator.CreateInstance(type, true) as IConditonCalculator;
-				}
-			}
-
-			return condition;
-		}
-
-		#endregion
 
 		#region Override
 
@@ -85,12 +57,10 @@ namespace SGame
 			OnCalculation = (c, t, a) =>
 			{
 				var cfg = (RedConfigRowData)c;
-				var condition = GetConditonCalculator(GetConditionKey(c, null, cfg.Id));
+				var condition = ConditionUtil.conditonSys.GetConditonCalculator(c, null, cfg.Id);
 				var ret = condition?.Do(c, t, a) == true;
 				if (condition is IRedText txt)
-				{
 					SetText(cfg.Id, txt.text);
-				}
 				return ret;
 			};
 		}
@@ -146,15 +116,140 @@ namespace SGame
 
 		#endregion
 
+		#region Class
+
+		private class NoCondition : IConditonCalculator
+		{
+			public bool Do(IFlatbufferObject flatbuffer, object target, string args)
+			{
+				return false;
+			}
+		}
+
+		#endregion
+	}
+
+
+	public class ConditionUtil : IConditionSys
+	{
+		static IConditionSys _conditionSys;
+		private static Dictionary<int, string> _keys = new Dictionary<int, string>();
+
+		private Dictionary<string, object> _calcus = new Dictionary<string, object>();
+
+		static public IConditionSys conditonSys
+		{
+			get
+			{
+				if (_conditionSys == null)
+					_conditionSys = new ConditionUtil();
+				return _conditionSys;
+			}
+		}
+
+
+
+
+		#region Method
+
+		protected ConditionUtil()
+		{
+			_calcus = GetType()
+					.Assembly
+					.GetTypes()
+					.Where(t => !t.IsAbstract && typeof(IConditonCalculator).IsAssignableFrom(t))
+					.ToDictionary(t => t.Name.ToLower(), t => (object)t);
+		}
+
+		public IConditonCalculator GetConditonCalculator(object target, string ext, int token = 0)
+		{
+
+			return GetConditonCalculator(GetConditionKey(target, ext, token));
+
+		}
+
+		public IConditonCalculator GetConditonCalculator(string key)
+		{
+			if (string.IsNullOrEmpty(key)) return default;
+			var condition = default(IConditonCalculator);
+
+			if (_calcus.TryGetValue(key, out var calcu))
+			{
+				condition = calcu as IConditonCalculator;
+				if (condition == null)
+				{
+					if (calcu is Type type)
+						_calcus[key] = condition = System.Activator.CreateInstance(type, true) as IConditonCalculator;
+				}
+			}
+
+			return condition;
+		}
+
+		#endregion
+
+
 		#region Static
 
-		private static string GetConditionKey(object obj, string ext, int token = 0)
+		static public bool CheckCondition(object key, string ext = null, int token = 0)
+		{
+			var condition = conditonSys.GetConditonCalculator(key, ext, token);
+			if (condition != null)
+				return condition.Do(key as IFlatbufferObject, null, null);
+			return true;
+		}
+
+		static public bool CheckFunction(object func, int time = 0, string args = null)
+		{
+			if (func != null)
+			{
+				if (func is FunctionConfigRowData cfg || (func is int id && ConfigSystem.Instance.TryGet(id, out cfg)))
+				{
+					if (cfg.IsValid())
+					{
+						var t = time <= 0 ? GameServerTime.Instance.serverTime : time;
+						var key = cfg.OpenValLength > 0 ? cfg.OpenVal(0).ToString() : !string.IsNullOrEmpty(cfg.Uniqid) ? cfg.Uniqid : "func" + cfg.Id;
+
+						if (cfg.OpenType == 3)
+						{
+							return conditonSys.GetConditonCalculator(key, null)?.Do(cfg, null, args) == true;
+						}
+						else if (cfg.Activity!=0)
+						{
+							//正数：具体活动ID；负数：活动类型
+							var actType = cfg.Activity;
+							var isopen = false;
+
+							if (actType > 0)
+								isopen = ActiveTimeSystem.Instance.IsActive(actType, t);
+							else if (actType < 0)
+							{
+								isopen = ConfigSystem.Instance
+									.Finds<ActivityTimeRowData>((c) => c.Value == -actType)
+									.Any(c => ActiveTimeSystem.Instance.IsActive(c.Id, t));
+							}
+
+							if (isopen)
+							{
+								var c = conditonSys.GetConditonCalculator(key, null);
+								if (c != null) return  c.Do(cfg, null, args);
+							}
+							return isopen;
+
+						}
+					}
+				}
+
+			}
+			return true;
+		}
+
+		public static string GetConditionKey(object obj, string ext, int token = 0)
 		{
 			string key = null;
 			if (token == 0 || !_keys.TryGetValue(token, out key))
 			{
-				if (obj is int || obj is string)
-					key = obj.ToString() + "_" + (ext ?? "id");
+				if (obj is int || obj is string) key = obj.ToString() + "_" + (ext ?? "id");
 				else if (obj is IFlatbufferObject)
 				{
 					var type = -1;
@@ -181,36 +276,6 @@ namespace SGame
 
 
 		#endregion
-
-		#region Class
-
-		private class NoCondition : IConditonCalculator
-		{
-			public bool Do(IFlatbufferObject flatbuffer, object target, string args)
-			{
-				log.Error($"没有实现[ {GetConditionKey(flatbuffer, null)} ]条件");
-				return false;
-			}
-		}
-
-		#endregion
-	}
-
-
-	public static class ConditionUtil
-	{
-		static IConditionSys _conditionSys;
-
-		static public IConditionSys conditonSys
-		{
-			get { return _conditionSys; }
-			set {
-				if (_conditionSys != null)
-					return;
-				_conditionSys = value;
-			}
-		}
-
 
 	}
 

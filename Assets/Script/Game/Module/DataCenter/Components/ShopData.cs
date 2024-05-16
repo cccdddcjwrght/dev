@@ -91,6 +91,11 @@ namespace SGame
 				return _data.goods.FindAll(g => g.type == area);
 			}
 
+			static public List<ShopGoods> GetShopGoodsByType(int type)
+			{
+				return _data.goods.FindAll(g => g.cfg.IsValid() && g.cfg.ShopType == type);
+			}
+
 			static public List<int[]> GetGoodsItems(int goods)
 			{
 				if (_data.goodDic.TryGetValue(goods, out var g))

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -75,7 +76,11 @@ namespace SGame.UI.Pet
 			}
 		}
 
-		static public GObject SetCurrency(this GObject gObject, int itemID, string name = null, string str = default, string iconCtr = default, bool listen = true)
+		static public GObject SetCurrency(this GObject gObject, 
+			int itemID, string name = null, string str = default,
+			string iconCtr = default, bool listen = true, 
+			EventCallback1 addCall = null
+		)
 		{
 			if (gObject != null)
 			{
@@ -89,6 +94,8 @@ namespace SGame.UI.Pet
 					if (!string.IsNullOrEmpty(iconCtr)) UIListener.SetControllerName(gObject, iconCtr, itemID.ToString(), false);
 					else g.SetIcon(cfg.Icon);
 					g.SetText(s ? str : Utils.ConvertNumberStr(PropertyManager.Instance.GetItem(itemID).num), false);
+					if (addCall != null)
+						UIListener.Listener(gObject, addCall);
 
 					if (!s && listen)
 					{

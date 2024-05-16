@@ -12,10 +12,11 @@ public class DefaultBtnExcuter : IUIExcute
 
 	public void Excute(string type, string name, string parentType, StringBuilder init, StringBuilder uninit, StringBuilder call)
 	{
+		if (name.EndsWith("_x")) return;
+
 		var flag = type.StartsWith(UIImportUtils.CS_PIX);
 		var flag2 = Condition(type, name);
 		var flag3 = name.ToLower().EndsWith("body") || name.ToLower().EndsWith("_mask") || name.ToLower().EndsWith("_close");
-
 		if (flag2 || flag || flag3)
 		{
 			var newName = name.Split('.').Last().Replace("m_", "");

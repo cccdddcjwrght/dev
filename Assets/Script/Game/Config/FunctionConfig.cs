@@ -46,14 +46,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
 #endif
   public int[] GetOpenValArray() { return __p.__vector_as_array<int>(16); }
   public int FixConditionVal { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Activity(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int ActivityLength { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
-#if ENABLE_SPAN_T
-  public Span<int> GetActivityBytes() { return __p.__vector_as_span<int>(20, 4); }
-#else
-  public ArraySegment<byte>? GetActivityBytes() { return __p.__vector_as_arraysegment(20); }
-#endif
-  public int[] GetActivityArray() { return __p.__vector_as_array<int>(20); }
+  public int Activity { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int NeedFinger { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int AutoShow { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public string Tips { get { int o = __p.__offset(26); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
@@ -112,7 +105,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
       int openType = 0,
       VectorOffset openValOffset = default(VectorOffset),
       int fixConditionVal = 0,
-      VectorOffset ActivityOffset = default(VectorOffset),
+      int Activity = 0,
       int needFinger = 0,
       int autoShow = 0,
       StringOffset tipsOffset = default(StringOffset),
@@ -138,7 +131,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
     FunctionConfigRowData.AddTips(builder, tipsOffset);
     FunctionConfigRowData.AddAutoShow(builder, autoShow);
     FunctionConfigRowData.AddNeedFinger(builder, needFinger);
-    FunctionConfigRowData.AddActivity(builder, ActivityOffset);
+    FunctionConfigRowData.AddActivity(builder, Activity);
     FunctionConfigRowData.AddFixConditionVal(builder, fixConditionVal);
     FunctionConfigRowData.AddOpenVal(builder, openValOffset);
     FunctionConfigRowData.AddOpenType(builder, openType);
@@ -162,10 +155,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
   public static VectorOffset CreateOpenValVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOpenValVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddFixConditionVal(FlatBufferBuilder builder, int fixConditionVal) { builder.AddInt(7, fixConditionVal, 0); }
-  public static void AddActivity(FlatBufferBuilder builder, VectorOffset ActivityOffset) { builder.AddOffset(8, ActivityOffset.Value, 0); }
-  public static VectorOffset CreateActivityVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateActivityVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static void StartActivityVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddActivity(FlatBufferBuilder builder, int Activity) { builder.AddInt(8, Activity, 0); }
   public static void AddNeedFinger(FlatBufferBuilder builder, int needFinger) { builder.AddInt(9, needFinger, 0); }
   public static void AddAutoShow(FlatBufferBuilder builder, int autoShow) { builder.AddInt(10, autoShow, 0); }
   public static void AddTips(FlatBufferBuilder builder, StringOffset tipsOffset) { builder.AddOffset(11, tipsOffset.Value, 0); }

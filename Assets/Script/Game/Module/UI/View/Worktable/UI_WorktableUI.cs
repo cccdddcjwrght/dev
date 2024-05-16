@@ -9,7 +9,6 @@ namespace SGame.UI.Worktable
     {
         public Controller m_type;
         public GGraph m_close;
-        public UI_WorktablePanelUI m_panel;
         public const string URL = "ui://m8rpv7f9b32e1";
 
         public static UI_WorktableUI CreateInstance()
@@ -23,7 +22,6 @@ namespace SGame.UI.Worktable
 
             m_type = GetControllerAt(0);
             m_close = (GGraph)GetChildAt(0);
-            m_panel = (UI_WorktablePanelUI)GetChildAt(1);
         }
     }
 }

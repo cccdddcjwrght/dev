@@ -125,6 +125,7 @@ namespace SGame.UI
 			m_funcManager.Register((int)FunctionID.FRIEND, null, ()=>FriendModule.Instance.hiringTime); // 好友
 			m_funcManager.Register((int)24 );
 			m_funcManager.Register((int)25, () => ChestItemUtil.CheckEqGiftBag());
+			m_funcManager.RegisterAllActFunc();
 
 		}
 
