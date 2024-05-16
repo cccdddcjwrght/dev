@@ -101,7 +101,7 @@ namespace SGame
                 }
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
-            //EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+            EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         public IEnumerator ReqRankData(bool cancelReddot = false)
