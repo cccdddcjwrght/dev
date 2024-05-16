@@ -39,11 +39,9 @@ namespace SGame
         {
             SetTimer();
             m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, AddScoreTypeData);
-
-            DataCenter.Instance.rankCacheData.reddot = false;
             m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
             {
-                ReqRankList(true, true).Start();
+                ReqRankList(true).Start();
                 ReqRankData().Start();
             });
 
@@ -100,13 +98,10 @@ namespace SGame
                 }
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
-
-            if(isReddot) DataCenter.Instance.rankCacheData.reddot = true;
-
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
-        public IEnumerator ReqRankData(bool cancelReddot = false)
+        public IEnumerator ReqRankData()
         {
             HttpPackage pkg = new HttpPackage();
             RankScoreEx score = new RankScoreEx()
@@ -121,7 +116,7 @@ namespace SGame
             yield return result;
             if (!string.IsNullOrEmpty(result.error))
             {
-                if(cancelReddot) "tips_ranking_1".Tips();
+                "tips_ranking_1".Tips();
                 Debug.LogWarning("rank data fail=" + result.error);
                 yield break;
             }
@@ -130,9 +125,7 @@ namespace SGame
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
 
-            if(cancelReddot)
-                DataCenter.Instance.rankCacheData.reddot = false;
-
+            DataCenter.Instance.rankCacheData.reddot = Utils.IsFirstLoginInDay("rank.rankfirst");
             EventManager.Instance.Trigger((int)GameEvent.RANK_UPDATE);
         }
 
