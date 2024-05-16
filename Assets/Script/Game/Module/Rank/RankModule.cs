@@ -4,6 +4,7 @@ using UnityEngine;
 using GameConfigs;
 using Http;
 using SGame.Http;
+using System;
 
 namespace SGame 
 {
@@ -36,18 +37,16 @@ namespace SGame
         EventHandleContainer m_EventHandle = new EventHandleContainer();
         public void Initalize() 
         {
+            SetTimer();
             m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, AddScoreTypeData);
-            m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_ROOM, (s) =>
-            {
-                DataCenter.Instance.rankCacheData.reddot = true;
-                ReqRankList().Start();
-            });
-            
+
+            DataCenter.Instance.rankCacheData.reddot = false;
             m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
             {
-                ReqRankList(true).Start();
+                ReqRankList(true, true).Start();
                 ReqRankData().Start();
             });
+
 
             m_EventHandle += EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, () =>
             {
@@ -64,7 +63,7 @@ namespace SGame
         }
 
 
-        public IEnumerator ReqRankList(bool popReward = false) 
+        public IEnumerator ReqRankList(bool popReward = false, bool isReddot = false) 
         {
             HttpPackage pkg = new HttpPackage();
             pkg.data = DataCenter.Instance.accountData.playerID.ToString();
@@ -77,7 +76,7 @@ namespace SGame
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
 
-            Debug.Log("ranks data:" + result.data);
+            Debug.LogWarning("ranks data:" + result.data);
             rankPanelData = JsonUtility.FromJson<RankPanelData>(pkg.data);
             if (rankPanelData.ids?.Length > 0 && DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
             {
@@ -101,6 +100,9 @@ namespace SGame
                 }
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
+
+            if(isReddot) DataCenter.Instance.rankCacheData.reddot = true;
+
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
@@ -124,7 +126,7 @@ namespace SGame
                 yield break;
             }
 
-            Debug.Log("rank data:" + result.data);
+            Debug.LogWarning("rank data:" + result.data);
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
 
@@ -252,6 +254,15 @@ namespace SGame
         public void OpenResultView(int marker, int rank) 
         {
             DelayExcuter.Instance.DelayOpen("rankresult", "mainui", args: new RankUIParam() { marker = marker, rank = rank });
+        }
+
+        public void SetTimer()
+        {
+            new Action(() => ReqRankList().Start()).CallWhenQuit();
+            0.Loop(() =>
+            {
+                ReqRankList().Start();
+            }, () => true, 5000, 5000);
         }
     }
 }
