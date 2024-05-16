@@ -29,6 +29,7 @@ namespace SGame.UI{
 			public int                   visibaleCount = 0; // 显示次数统计 0 未显示, 1 首次显示, 2多次显示
 			public object				 param;         // 额外参数
 			public string				 Name;
+			public Action				 complete;		//完成回调		
 			public int order => config.Order;			// 排序
 
 			public string uiname
@@ -222,7 +223,7 @@ namespace SGame.UI{
 		/// <param name="funcID">功能ID</param>
 		/// <param name="canShow">额外判定是否开启</param>
 		/// <param name="funcTime">倒计时</param>
-		public void Register(int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null, string uiname = null)
+		public void Register(int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null, string uiname = null, Action complete = null)
 		{
 			if (!ConfigSystem.Instance.TryGet(funcID, out FunctionConfigRowData config))
 			{
@@ -244,7 +245,8 @@ namespace SGame.UI{
 				funcCanShow = canShow,
 				funcTime	= funcTime,
 				param		= param,
-				Name =  uiname
+				Name		= uiname,
+				complete	= complete,
 			});
 		}
 	}

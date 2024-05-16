@@ -199,13 +199,7 @@ namespace SGame
         public int GetRankTime() 
         {
             if(rankPanelData.ids == null) return 0;
-
-            int rankTime = rankPanelData.ids[0].end_time - GameServerTime.Instance.serverTime;
-            if (rankTime < 0) 
-            {
-                ReqRankList();
-            }
-            return rankTime;
+            return rankPanelData.ids[0].end_time - GameServerTime.Instance.serverTime;
         }   
 
         public RankItemData GetRankData(long playerId) 
