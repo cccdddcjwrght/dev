@@ -73,13 +73,13 @@ namespace SGame
             if (rankData.startTime != rankPanelData.ids[0].begin_time) 
             {
                 rankData.startTime = rankPanelData.ids[0].begin_time;
-                rankData.reddot = true;
                 ClearRankScore();//清除自己排行标识数据
             }
 
             Debug.Log("ranks data:" + result.data);
             if (rankPanelData.rewards?.Length > 0) 
             {
+                rankData.reddot = true;
                 rankData.rewards = rankPanelData.rewards;
             }
 

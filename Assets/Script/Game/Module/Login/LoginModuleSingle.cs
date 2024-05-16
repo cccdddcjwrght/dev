@@ -5,7 +5,6 @@ using log4net;
 using UnityEngine;
 using Unity.Entities;
 
-
 /// <summary>
 /// 单机登录模块
 /// </summary>
@@ -46,12 +45,14 @@ namespace SGame
 			yield return waitLogin;
 #if DATA_SYNC
 			yield return DataSyncModule.GetDataFromServer(waitLogin.m_Value);
-#endif			
+#endif
 #else
 			EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, "aaa");
 			yield return null;
 #endif
+			yield return TimeSyncModule.GetServerTime();
 			DataCenter.Instance.Initalize();
+
 			while (!DataCenter.Instance.IsInitAll)
 				yield return null;
 			

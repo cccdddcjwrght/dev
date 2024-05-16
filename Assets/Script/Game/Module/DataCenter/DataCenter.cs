@@ -126,7 +126,7 @@ namespace SGame
 
 		public void Initalize()
 		{
-			GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
+			//GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 
 			PropertyManager.Instance.InitCache(cacheItem);
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);

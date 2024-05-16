@@ -22,7 +22,7 @@ namespace SGame.UI{
 
 			m_view.m_state.selectedIndex = 2;
 
-			FiberCtrl.Pool.Run(RankModule.Instance.ReqRankList());
+			FiberCtrl.Pool.Run(RankModule.Instance.ReqRankList(true));
 			FiberCtrl.Pool.Run(RankModule.Instance.ReqRankData(true));
 			//LoadTestData();
 		}
