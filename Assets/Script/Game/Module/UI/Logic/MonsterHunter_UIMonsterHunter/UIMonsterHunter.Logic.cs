@@ -393,6 +393,7 @@ namespace SGame.UI
 					yield return new WaitForSeconds(0.3f);
 					yield return ShowKillReward(attack);
 				}
+				PropertyManager.Instance.CombineCache2Items();
 			}
 		}
 
