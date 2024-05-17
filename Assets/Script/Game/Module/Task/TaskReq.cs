@@ -39,8 +39,10 @@ namespace SGame
 			{
 				var val = cfg.GetCostArray();
 				if (!PropertyManager.Instance.CheckCount(val[1], val[2], val[0]))
+				{
+					"ui_merchant_tips2".Tips();
 					return;
-
+				}
 				PropertyManager.Instance.Update(val[0], val[1], val[2], true);
 				val = cfg.GetItemIdArray();
 				PropertyManager.Instance.Update(val[0], val[1], val[2]);

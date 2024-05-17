@@ -10,6 +10,7 @@ namespace SGame.UI.Exchange
         public Controller m_state;
         public GLoader m_bg;
         public GLoader m_left;
+        public GLoader m_taskIcon;
         public UI_ExchangeProgress m_progress;
         public GTextField m_taskDes;
         public GLoader m_currency;
@@ -28,10 +29,11 @@ namespace SGame.UI.Exchange
             m_state = GetControllerAt(0);
             m_bg = (GLoader)GetChildAt(0);
             m_left = (GLoader)GetChildAt(1);
-            m_progress = (UI_ExchangeProgress)GetChildAt(2);
-            m_taskDes = (GTextField)GetChildAt(3);
-            m_currency = (GLoader)GetChildAt(4);
-            m_value = (GTextField)GetChildAt(5);
+            m_taskIcon = (GLoader)GetChildAt(2);
+            m_progress = (UI_ExchangeProgress)GetChildAt(3);
+            m_taskDes = (GTextField)GetChildAt(4);
+            m_currency = (GLoader)GetChildAt(5);
+            m_value = (GTextField)GetChildAt(6);
         }
     }
 }

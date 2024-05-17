@@ -19,6 +19,8 @@ namespace SGame
         public List<TaskItem> taskItems = new List<TaskItem>();
         public List<int> taskGoods = new List<int>();
 
+        public int startTime;
+
         [System.NonSerialized]
         public Dictionary<int, TaskItem> taskDict;
         [System.NonSerialized]
@@ -76,6 +78,13 @@ namespace SGame
             {
                 var activityConfig = taskActivityConfig;
                 if (!activityConfig.IsValid()) return;
+
+                var timeRange = ActiveTimeSystem.Instance.GetTimeRange(activityConfig.Id);
+                if (m_Data.startTime != timeRange.tMin) 
+                {
+                    m_Data.startTime = timeRange.tMin;
+                    ClearData();    //Çå³ýÊý¾Ý
+                }
 
                 var olds = m_Data.taskItems.ToDictionary(t => t.taskId);
                 var list = new List<TaskItem>();
@@ -201,9 +210,11 @@ namespace SGame
                 var taskItem = m_Data.taskItems.Find((t) => t.taskType == taskType);
                 if (taskItem != null)
                 {
-                    taskItem.value += value;
-                    if (taskItem.value >= taskItem.maxValue) 
+                    if (taskItem.value < taskItem.maxValue) taskItem.value += value;
+
+                    if(!taskItem.isGet && taskItem.value >= taskItem.maxValue) 
                         taskItem.state = (int)TaskState.WAIT_GET;
+
                 }
                 TaskStateSort();
             }

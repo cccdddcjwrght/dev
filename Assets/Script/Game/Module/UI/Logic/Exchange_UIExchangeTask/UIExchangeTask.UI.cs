@@ -17,6 +17,8 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_tab1, new EventCallback1(_OnTab1Click));
 			UIListener.Listener(m_view.m_tab2, new EventCallback1(_OnTab2Click));
+			UIListener.Listener(m_view.m_reddot1, new EventCallback1(_OnReddot1Click));
+			UIListener.Listener(m_view.m_reddot2, new EventCallback1(_OnReddot2Click));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -24,6 +26,8 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_tab1, new EventCallback1(_OnTab1Click),remove:true);
 			UIListener.Listener(m_view.m_tab2, new EventCallback1(_OnTab2Click),remove:true);
+			UIListener.Listener(m_view.m_reddot1, new EventCallback1(_OnReddot1Click),remove:true);
+			UIListener.Listener(m_view.m_reddot2, new EventCallback1(_OnReddot2Click),remove:true);
 
 		}
 		void _OnTypeChanged(EventContext data){
@@ -54,6 +58,18 @@ namespace SGame.UI{
 		partial void OnTab2Click(EventContext data);
 		void SetTab2Text(string data)=>UIListener.SetText(m_view.m_tab2,data);
 		string GetTab2Text()=>UIListener.GetText(m_view.m_tab2);
+		void _OnReddot1Click(EventContext data){
+			OnReddot1Click(data);
+		}
+		partial void OnReddot1Click(EventContext data);
+		void SetReddot1Text(string data)=>UIListener.SetText(m_view.m_reddot1,data);
+		string GetReddot1Text()=>UIListener.GetText(m_view.m_reddot1);
+		void _OnReddot2Click(EventContext data){
+			OnReddot2Click(data);
+		}
+		partial void OnReddot2Click(EventContext data);
+		void SetReddot2Text(string data)=>UIListener.SetText(m_view.m_reddot2,data);
+		string GetReddot2Text()=>UIListener.GetText(m_view.m_reddot2);
 		void SetTimeText(string data)=>UIListener.SetText(m_view.m_time,data);
 		string GetTimeText()=>UIListener.GetText(m_view.m_time);
 

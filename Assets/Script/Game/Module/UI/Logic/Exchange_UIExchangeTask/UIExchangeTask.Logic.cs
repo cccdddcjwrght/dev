@@ -31,7 +31,7 @@ namespace SGame.UI{
 				Utils.Timer(time, () =>
 				{
 					time = DataCenter.TaskUtil.GetTaskActiveTime();
-					m_view.m_time.SetText(Utils.FormatTime(time));
+					m_view.m_time.SetText(string.Format(UIListener.Local("ui_merchant_tips"), Utils.FormatTime(time)));
 				}, m_view, completed: () => SGame.UIUtils.CloseUIByID(__id));
 			}
 			
@@ -48,6 +48,7 @@ namespace SGame.UI{
 		public void RefreshTask() 
 		{
 			RefreshCurrency();
+			RefreshReddot();
 			m_TaskItems = DataCenter.Instance.taskData.taskItems;
 			m_view.m_taskList.numItems = m_TaskItems.Count;
 		}
@@ -55,8 +56,15 @@ namespace SGame.UI{
 		public void RefreshGood() 
 		{
 			RefreshCurrency();
+			RefreshReddot();
 			m_TaskGoods = DataCenter.Instance.taskData.taskGoods;
 			m_view.m_goodList.numItems = m_TaskGoods.Count;
+		}
+
+		public void RefreshReddot() 
+		{
+			m_view.m_reddot1.visible = DataCenter.TaskUtil.CheckHasTaskIsGet();
+			m_view.m_reddot2.visible = DataCenter.TaskUtil.CheckIsHasExchange();
 		}
 
 		public void OnTaskItemRenderer(int index, GObject gObject) 
@@ -68,7 +76,7 @@ namespace SGame.UI{
 			{
 				item.m_taskDes.SetText(UIListener.Local(cfg.TaskDes));
 				item.m_currency.SetIcon(Utils.GetItemIcon(cfg.TaskReward(0), cfg.TaskReward(1)));
-				
+				item.m_taskIcon.SetIcon(cfg.TaskIcon);
 				item.m_value.SetText(Utils.ConvertNumberStr(cfg.TaskReward(2)));
 
 				item.m_progress.max = cfg.TaskValue;
