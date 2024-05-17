@@ -162,6 +162,7 @@ namespace SGame
                         count++;
                     }
                 }
+                TaskRewardSort();
             }
 
             public static void RandomTaskGood(int group, int lastGoodId = 0) 
@@ -190,6 +191,7 @@ namespace SGame
                         list.Add(lastGoodId);
                         m_Data.taskGoods.Remove(lastGoodId);
                     }
+                    TaskRewardSort();
                 }
             }
 
@@ -211,6 +213,14 @@ namespace SGame
                         if (t1.taskId < t2.taskId) return -1;
 
                     return 1;
+                });
+            }
+
+            public static void TaskRewardSort() 
+            {
+                m_Data.taskGoods.Sort((t1, t2) =>
+                {
+                    return t1 < t2 ? -1 : 1;
                 });
             }
 

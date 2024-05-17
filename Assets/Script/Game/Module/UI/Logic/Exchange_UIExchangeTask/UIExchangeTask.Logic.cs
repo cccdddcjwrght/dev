@@ -74,7 +74,7 @@ namespace SGame.UI{
 			var item = (UI_ExchangeItem)gObject;
 			if (ConfigSystem.Instance.TryGet<GameConfigs.MerchantMissionRowData>(data.taskId, out var cfg)) 
 			{
-				item.m_taskDes.SetText(UIListener.Local(cfg.TaskDes));
+				item.m_taskDes.SetText(string.Format(UIListener.Local(cfg.TaskDes), "[color=#5AA41C]" + cfg.TaskValue + "[/color]"));
 				item.m_currency.SetIcon(Utils.GetItemIcon(cfg.TaskReward(0), cfg.TaskReward(1)));
 				item.m_taskIcon.SetIcon(cfg.TaskIcon);
 				item.m_value.SetText(Utils.ConvertNumberStr(cfg.TaskReward(2)));
