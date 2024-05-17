@@ -72,6 +72,18 @@ namespace SGame
                 InitTaskData();
                 InitTaskReward();
                 m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, RefreshTaskProgress);
+                m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ACTIVITY_OPEN, (id) =>
+                {
+                    if (ConfigSystem.Instance.TryGet<GameConfigs.ActivityTimeRowData>(id, out var cfg))
+                    {
+                        if (cfg.Type == TASK_TYPE)
+                        {
+                            InitTaskData();
+                            InitTaskReward();
+                        }
+                    }
+                });
+                
                 m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ORDER_FINSIH, (orderId) =>
                 {
                     EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.SELL, 1);
@@ -226,7 +238,7 @@ namespace SGame
 
             public static void RefreshTaskProgress(int taskType, int value)
             {
-                if (GetTaskActiveTime() <= 0) return;
+                if (!IsOpen()) return;
                 var taskItem = m_Data.taskItems.Find((t) => t.taskType == taskType);
                 if (taskItem != null)
                 {
