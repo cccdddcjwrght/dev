@@ -406,23 +406,25 @@ namespace SGame.UI
 			var hold = view.m___effect;
 			hold.position = view.m_start.position;
 			view.m_play.selectedIndex = 0;
-			/*var e = EffectSystem.Instance.AddEffect(110102, view);
-			yield return EffectSystem.Instance.WaitEffectLoaded(e);*/
+
+			var e = EffectSystem.Instance.AddEffect(GetBulletEffectID(_wheels[attack.bullet].Type), view);
+			yield return EffectSystem.Instance.WaitEffectLoaded(e);
 			view.m_fight.Play();
-			yield return new WaitForSeconds(0.27f);
+			yield return new WaitForSeconds(0.3f);
 			view.m_play.selectedIndex = 1;
 			hold.TweenMove(m_view.m_monster.TransformPoint(m_view.m_monster.size * 0.5f, hold.parent) + new Vector2(0, -20), flytime);
-			view.m_bullet.z = 0;
+
 			yield return new WaitForSeconds(flytime);
 			_modelAnimator?.Play(c_hit_name);
-			yield return EffectSystem.Instance.WaitEffectLoaded(EffectSystem.Instance.AddEffect(2, m_view));
+			yield return EffectSystem.Instance.WaitEffectLoaded(EffectSystem.Instance.AddEffect(401100, m_view));
 			var g = SGame.UIUtils.AddListItem(m_view, null, res: "ui://MonsterHunter/HpHud");
 			g.SetPivot(0.5f, 0.5f);
 			g.pivotAsAnchor = true;
 			g.position = m_view.m___effect.position;
 			g.SetText("-" + attack.attack, false)
-				.TweenMove(g.xy + UnityEngine.Random.insideUnitCircle * 80, 0.5f)
-				.SetEase(EaseType.BackOut).OnComplete(() => g.Dispose());
+				.TweenMove(g.xy + UnityEngine.Random.insideUnitCircle * 100, 0.5f)
+				.SetEase(EaseType.BackOut);
+			GTween.To(0, 1, 1f).OnComplete(() => g.Dispose());
 			view.m_play.selectedIndex = 0;
 
 		}
@@ -453,7 +455,7 @@ namespace SGame.UI
 			{
 				_clickui = false;
 				var time = 1f;
-				yield return new WaitUntil(() => _clickui || (time -= Time.deltaTime) <=0);
+				yield return new WaitUntil(() => _clickui || (time -= Time.deltaTime) <= 0);
 				_clickui = true;
 				SwitchAutoPage(0);
 				SwitchMonster();
@@ -473,6 +475,19 @@ namespace SGame.UI
 				});
 
 			}
+		}
+
+		int GetBulletEffectID(int type)
+		{
+
+			switch (type)
+			{
+				case 2: return 401102;
+				case 3: return 401103;
+			}
+
+			return 401101;
+
 		}
 
 		#endregion
