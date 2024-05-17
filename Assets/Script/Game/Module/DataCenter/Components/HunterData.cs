@@ -126,6 +126,8 @@ namespace SGame
 		public int power;
 		[System.NonSerialized]
 		public int itemID;
+		[System.NonSerialized]
+		public ItemRowData item;
 
 		[System.NonSerialized]
 		public bool isClosed;
@@ -150,7 +152,11 @@ namespace SGame
 				if (itemID == 0)
 				{
 					var item = ConfigSystem.Instance.Find<ItemRowData>(c => c.Type == ((int)EnumItemType.Act) && c.TypeId == subID);
-					if (item.IsValid()) itemID = item.ItemId;
+					if (item.IsValid())
+					{
+						this.item = item;
+						itemID = item.ItemId;
+					}
 					else
 					{
 						GameDebug.LogError($"[hunter]{subID}=>没有配道具");

@@ -5,11 +5,9 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.MonsterHunter
 {
-    public partial class UI_HunterRewardItem : GComponent
+    public partial class UI_HunterRewardItem : GLabel
     {
         public Controller m_type;
-        public GLoader m_icon;
-        public GTextField m_title;
         public Transition m_show;
         public const string URL = "ui://my7wqjw6dfdxlbb";
 
@@ -23,8 +21,6 @@ namespace SGame.UI.MonsterHunter
             base.ConstructFromXML(xml);
 
             m_type = GetControllerAt(0);
-            m_icon = (GLoader)GetChildAt(1);
-            m_title = (GTextField)GetChildAt(2);
             m_show = GetTransitionAt(0);
         }
     }

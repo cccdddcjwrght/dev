@@ -60,10 +60,10 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			m_view.z = 500;
-			m_view.m_body.z = -200;
-			m_view.m_hp.z = -200;
-			m_view.m_panel.z = m_view.m___effect.z = -300;
+			m_view.m_bg.z = 500;
+			m_view.m_monster.z = 500;
+
+
 			context.window.contentPane.fairyBatching = false;
 			var args = context.GetParam()?.Value.To<object[]>();
 			if (args != null)
@@ -93,7 +93,7 @@ namespace SGame.UI
 			goWrapper = new GoWrapper();
 			m_view.m_monster.SetNativeObject(goWrapper);
 
-
+			m_view.m_panel.m_playbtn.SetIcon(_actData.item.Icon);
 
 		}
 
@@ -451,7 +451,9 @@ namespace SGame.UI
 			if (_monster.IsKilled())
 			{
 				_clickui = false;
-				yield return new WaitUntil(() => _clickui);
+				var time = 1f;
+				yield return new WaitUntil(() => _clickui || (time -= Time.deltaTime) <=0);
+				_clickui = true;
 				SwitchAutoPage(0);
 				SwitchMonster();
 			}
@@ -641,43 +643,47 @@ namespace SGame.UI
 			if (_monster == null || !_monster.cfg.IsValid()) yield break;
 			if (time <= 0) yield return null;
 			else yield return new WaitForSeconds(time);
-			var path = "Assets/BuildAsset/Prefabs/monster/" + _monster.cfg.MonsterRes;
+
+			if (ConfigSystem.Instance.TryGet(int.Parse(_monster.cfg.MonsterRes), out effectsRowData cfg))
+			{
+				var path = cfg.Prefab;
 #if UNITY_EDITOR
-			if (!System.IO.File.Exists(path + ".prefab"))
-			{
-				Debug.LogError($"模型资源不存在:{path},将使用临时资源");
-				path = "Assets/BuildAsset/Prefabs/Pets/mouse";
-			}
-#endif
-			var wait = SpawnSystem.Instance.SpawnAndWait(path);
-			yield return wait;
-			var go = wait.Current as GameObject;
-			if (go)
-			{
-				if (goWrapper != null)
+				if (!System.IO.File.Exists(path))
 				{
-					RemoveModel();
-					goWrapper.SetWrapTarget(go, false);
-					var animator = _modelAnimator = go.GetComponent<Animator>();
-					go.transform.localPosition = new Vector3(0, 0, -100);
-					go.transform.localRotation = Quaternion.Euler(35, -180, 0);
-					go.SetLayer("UILight");
-					animator?.Play("idle");
-					var scale = Vector3.one * 300;
-					if (ani)
-					{
-						GTween.To(Vector3.zero, scale, 0.5f).OnUpdate(v =>
-						{
-							if (m_view != null && go)
-								go.transform.localScale = v.value.vec3;
-						}).SetEase(EaseType.QuadIn);
-						animator?.Play(c_born_name);
-					}
-					else
-						go.transform.localScale = scale;
-					yield break;
+					Debug.LogError($"模型资源不存在:{path},将使用临时资源");
+					path = "Assets/BuildAsset/Prefabs/Pets/mouse";
 				}
-				GameObject.Destroy(go);
+#endif
+				var wait = SpawnSystem.Instance.SpawnAndWait(path);
+				yield return wait;
+				var go = wait.Current as GameObject;
+				if (go)
+				{
+					if (goWrapper != null)
+					{
+						RemoveModel();
+						goWrapper.SetWrapTarget(go, false);
+						var animator = _modelAnimator = go.GetComponent<Animator>();
+						go.transform.localPosition = cfg.GetPositionArray().GetVector3();
+						go.transform.localRotation = Quaternion.Euler(cfg.GetEulerAngleArray().GetVector3());
+						go.SetLayer("UILight");
+						animator?.Play("idle");
+						var scale = cfg.GetScaleArray().GetVector3();
+						if (ani)
+						{
+							GTween.To(Vector3.zero, scale, 0.5f).OnUpdate(v =>
+							{
+								if (m_view != null && go)
+									go.transform.localScale = v.value.vec3;
+							}).SetEase(EaseType.QuadIn);
+							animator?.Play(c_born_name);
+						}
+						else
+							go.transform.localScale = scale;
+						yield break;
+					}
+					GameObject.Destroy(go);
+				}
 			}
 		}
 
