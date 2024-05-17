@@ -455,8 +455,8 @@ namespace SGame
 		[NonSerialized]
 		public int addMachine;
 		[NonReorderable]
-		public int reward;
-
+		public int reward; 
+		[NonReorderable]
 		public List<int[]> starRewards;
 
 		public int item { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
