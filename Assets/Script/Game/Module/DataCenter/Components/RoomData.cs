@@ -125,7 +125,7 @@ namespace SGame
 							else
 							{
 								AddRoleReward(cfg.RoleId, cfg.Value, cfg.TableId(0), cfg.TableId(1));
-								EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.WORKER, 1);
+								EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.WORKER, 1);
 							}
 						}
 					}

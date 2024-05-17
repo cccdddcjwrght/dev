@@ -48,7 +48,7 @@ namespace SGame
         public void Initalize() 
         {
             SetTimer();
-            m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, AddScoreTypeData);
+            m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, AddScoreTypeData);
             m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
             {
                 ReqRankList(true).Start();
@@ -65,7 +65,7 @@ namespace SGame
                     int count = 0;
                     ws.ForEach((w) => count += w.stations.Count - 1);
                     count = list.Count - count;
-                    EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.BOX,  count);  
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.BOX,  count);  
                 }
             });
         }

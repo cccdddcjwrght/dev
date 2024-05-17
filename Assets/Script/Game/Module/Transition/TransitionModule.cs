@@ -109,8 +109,9 @@ namespace SGame
         //检测是否是宝箱 --对应物品表配置
         public bool CheckIsBox(int id)
         {
-            if (id == 301 || id == 302 || id == 303 || id == 401 || id == 402 || id == 403)
-                return true;
+            if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var data)) 
+                if (data.Type == 3 && data.SubType == 1) return true;
+            
             return false;
         }
 

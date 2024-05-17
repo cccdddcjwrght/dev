@@ -69,7 +69,7 @@ namespace SGame
             {
                 InitTaskData();
                 InitTaskReward();
-                m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, RefreshTaskProgress);
+                m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, RefreshTaskProgress);
             }
 
             public static void InitTaskData()

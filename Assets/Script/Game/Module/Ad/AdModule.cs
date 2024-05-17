@@ -228,6 +228,7 @@ namespace SGame
                 DataCenter.AdUtil.RecordPlayAD(id);
                 complete?.Invoke();
 				other?.Invoke(true);
+                EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.AD, 1);
                 EventManager.Instance.Trigger((int)GameEvent.AD_REWARD, id);
             }
             else 
@@ -239,6 +240,7 @@ namespace SGame
                         DataCenter.AdUtil.RecordPlayAD(id);
                         complete?.Invoke();
                         EventManager.Instance.Trigger((int)GameEvent.AD_REWARD, id);
+                        EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.AD, 1);
                     }
                     else EventManager.Instance.Trigger((int)GameEvent.AD_FAILED, id);
 					other?.Invoke(state);

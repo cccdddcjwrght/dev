@@ -113,6 +113,7 @@ namespace SGame.UI
 				_list.width = _eqs.Count < 4 ? 150 * _eqs.Count : 576;
 
 				_list.numItems = _eqs.Count;
+				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.EQUIP_BOX, _eqs.Count);
 
 				_mask = true;
 				m_view.m_open.Play(() => _mask = false);

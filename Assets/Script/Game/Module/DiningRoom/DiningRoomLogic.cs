@@ -747,7 +747,7 @@ namespace SGame.Dining
 						else
 						{
 							DataCenter.MachineUtil.AddMachine(r.next.cfgID);
-							EventManager.Instance.Trigger((int)GameEvent.RANK_ADD_SCORE, (int)RankScoreEnum.BOX, 1);
+							EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.BOX, 1);
 							return;
 						}
 					}
