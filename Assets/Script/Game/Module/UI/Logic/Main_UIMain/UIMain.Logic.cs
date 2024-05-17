@@ -276,13 +276,13 @@ namespace SGame.UI
 			}
 
 			var act = config.Activity;
-			var pix = string.IsNullOrEmpty(config.Uniqid) ? "act_" : config.Uniqid;
+			var pix = string.IsNullOrEmpty(config.Uniqid) ? "act" : config.Uniqid;
 			if (act > 0)
 			{
 				Register(funcID,
 					() => funcID.IsOpend(false) && ActiveTimeSystem.Instance.IsActive(act, GameServerTime.Instance.serverTime),
 					() => ActiveTimeSystem.Instance.GetLeftTime(act, GameServerTime.Instance.serverTime),
-					act, pix + act
+					act, pix +"_"+ act
 				);
 			}
 			else
@@ -295,7 +295,7 @@ namespace SGame.UI
 						Register(funcID,
 							() => funcID.IsOpend(showtips: false) && ActiveTimeSystem.Instance.IsActive(c.Id, GameServerTime.Instance.serverTime),
 							() => ActiveTimeSystem.Instance.GetLeftTime(c.Id, GameServerTime.Instance.serverTime),
-							c.Id, pix + c.Id
+							c.Id, pix +"_"+ c.Id
 						);
 					});
 				}

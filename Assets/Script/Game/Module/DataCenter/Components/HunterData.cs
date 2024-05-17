@@ -67,6 +67,7 @@ namespace SGame
 				var hunter = GetHunter(id, false);
 				if (hunter != null)
 				{
+					hunter.isClosed = true;
 					var type = hunter.subID;
 					var h = _data.hunters.Find(h => h.id != id && h.subID == type);
 					if (h == null)
@@ -83,7 +84,6 @@ namespace SGame
 				if (hunter != null)
 				{
 					hunter.Refresh();
-					hunter.isClosed = !ActiveTimeSystem.Instance.IsActive(hunter.id, GameServerTime.Instance.serverTime);
 					if (hunter.isClosed)
 					{
 						var type = hunter.subID;
@@ -136,6 +136,7 @@ namespace SGame
 		{
 			if (id > 0)
 			{
+				isClosed = !ActiveTimeSystem.Instance.IsActive(id, GameServerTime.Instance.serverTime);
 				if (subID == 0)
 				{
 					if (actCfg.IsValid() || ConfigSystem.Instance.TryGet(id, out actCfg))
