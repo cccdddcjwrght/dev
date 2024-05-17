@@ -24,6 +24,7 @@ namespace SGame
 		public int type;
 		public double val;
 		public int deadtime;
+		public int buffid;
 
 		public double modifiy;
 		public GameAttribute attribute;
@@ -340,7 +341,7 @@ namespace SGame
 			return Change((int)id, val, (int)addtype, deadline, from, repeatType);
 		}
 
-		public AttributeList Change(int id, double val, int addtype, int deadline = 0, int from = 0, int repeatType = 0)
+		public AttributeList Change(int id, double val, int addtype, int deadline = 0, int from = 0, int repeatType = 0 ,int buffid = 0)
 		{
 			var a = GetAttribute(id);
 			if (a != null)
@@ -348,7 +349,7 @@ namespace SGame
 				var flag = true;
 				if (from != 0)
 				{
-					var u = GetUnit(id, from);
+					var u = GetUnit(buffid, from);
 					if (u != null)
 					{
 						switch (repeatType)
@@ -377,7 +378,7 @@ namespace SGame
 
 				if (flag)
 				{
-					var unit = new AttributeUnit() { id = id, from = from, type = addtype, val = val, deadtime = deadline };
+					var unit = new AttributeUnit() { id = id, from = from, type = addtype, val = val, deadtime = deadline , buffid = buffid};
 					unit.Excute(a);
 					if (deadline != 0 || from != 0)
 						_units.Add(unit);
@@ -415,7 +416,7 @@ namespace SGame
 		{
 			if (_units?.Count > 0)
 			{
-				return _units.Find(u => u.id == id && u.from == from);
+				return _units.Find(u => u.buffid == id && u.from == from);
 			}
 			return default;
 		}

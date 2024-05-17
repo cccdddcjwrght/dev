@@ -60,8 +60,8 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			m_view.m_bg.z = 500;
-			m_view.m_monster.z = 500;
+			m_view.m_bg.z = 600;
+			m_view.m_monster.z = 600;
 
 
 			context.window.contentPane.fairyBatching = false;
@@ -414,6 +414,7 @@ namespace SGame.UI
 			hold.TweenMove(m_view.m_monster.TransformPoint(m_view.m_monster.size * 0.5f, hold.parent) + new Vector2(0, -20), flytime);
 			view.m_bullet.z = 0;
 			yield return new WaitForSeconds(flytime);
+			_modelAnimator?.Play(c_hit_name);
 			yield return EffectSystem.Instance.WaitEffectLoaded(EffectSystem.Instance.AddEffect(2, m_view));
 			var g = SGame.UIUtils.AddListItem(m_view, null, res: "ui://MonsterHunter/HpHud");
 			g.SetPivot(0.5f, 0.5f);
