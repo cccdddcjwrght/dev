@@ -18,14 +18,30 @@ namespace SGame.UI{
 			m_view.m_taskList.onClickItem.Add(OnClickTaskGetReward);
 
 			m_view.m_goodList.itemRenderer = OnGoodItemRenderer;
-
+			RefreshTimer();
 			RefreshTask();
 			RefreshGood();
 		}
 
+		public void RefreshTimer() 
+		{
+			int time = DataCenter.TaskUtil.GetTaskActiveTime();
+			if (time > 0) 
+			{
+				Utils.Timer(time, () =>
+				{
+					time = DataCenter.TaskUtil.GetTaskActiveTime();
+					m_view.m_time.SetText(Utils.FormatTime(time));
+				}, m_view, completed: () => SGame.UIUtils.CloseUIByID(__id));
+			}
+			
+		}
+
 		public void RefreshCurrency() 
 		{
-			var num = PropertyManager.Instance.GetItem(DataCenter.TaskUtil.TASK_CURRENCY).num;
+			int currencyId = DataCenter.TaskUtil.GetCurCurrencyId();
+			m_view.m_currency.SetIcon(Utils.GetItemIcon(1, currencyId));
+			var num = PropertyManager.Instance.GetItem(currencyId).num;
 			m_view.m_value.SetText(num.ToString());
 		}
 

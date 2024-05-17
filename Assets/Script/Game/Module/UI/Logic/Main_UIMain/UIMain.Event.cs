@@ -102,7 +102,9 @@ namespace SGame.UI
 			//排行榜
 			m_funcManager.Register(26, ()=> RankModule.Instance.IsOpen(), ()=> RankModule.Instance.GetRankTime());
 
-			//m_funcManager.Register(28);
+			///活动商城
+			m_funcManager.Register(28, ()=> DataCenter.TaskUtil.IsOpen(), ()=> DataCenter.TaskUtil.GetTaskActiveTime());
+
 			//存钱罐
 			m_funcManager.Register(PiggyBankModule.PIGGYBANK_OEPNID, PiggyBankModule.Instance.CanTake);
 

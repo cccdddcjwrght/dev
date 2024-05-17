@@ -10,8 +10,18 @@ namespace SGame
 {
     public enum RankScoreEnum 
     {
-        BOX     = 3,
-        WORKER  = 4,
+        CHAPTER     = 1,    //完成章节次数
+        LEVEL       = 2,    //完成关卡次数
+        BOX         = 3,    //打开场景箱子数量
+        WORKER      = 4,    //雇佣工人数量
+        SELL        = 5,    //出售商品数量
+        SERVE       = 6,    //服务客户人数
+        TIP         = 7,    //收集客人小费次数
+        EQUIP_BOX   = 8,    //打开装备宝箱数量
+        AD          = 9,    //观看广告次数
+        EQUIP_LEVEL = 10,   //升级装备次数
+        EQUIP_STAGE = 11,   //进阶装备次数
+        PET         = 12    //宠物进化次数
     }
 
     public partial class DataCenter 

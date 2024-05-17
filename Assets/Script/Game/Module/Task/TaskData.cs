@@ -49,15 +49,17 @@ namespace SGame
         public static class TaskUtil
         {
             public const int TASK_TYPE = 3;         //兑换任务活动类型
-            public const int TASK_CURRENCY = 7;     //兑换任务货币
+            //public const int TASK_CURRENCY = 7;     //兑换任务货币
+
+            static EventHandleContainer m_EventHandle = new EventHandleContainer();
 
             static TaskData m_Data { get { return Instance.taskData; } }
 
-            public static GameConfigs.MerchantMissionRowData taskActivityConfig 
+            public static GameConfigs.ActivityTimeRowData taskActivityConfig 
             {
                 get 
                 {
-                    if (ConfigSystem.Instance.TryGet<GameConfigs.MerchantMissionRowData>(GetTaskActivityId(), out var data))
+                    if (ConfigSystem.Instance.TryGet<GameConfigs.ActivityTimeRowData>(GetTaskActivityId(), out var data))
                         return data;
                     return default;
                 }
@@ -67,7 +69,7 @@ namespace SGame
             {
                 InitTaskData();
                 InitTaskReward();
-                //m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, RefreshTaskProgress);
+                m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RANK_ADD_SCORE, RefreshTaskProgress);
             }
 
             public static void InitTaskData()
@@ -77,7 +79,7 @@ namespace SGame
 
                 var olds = m_Data.taskItems.ToDictionary(t => t.taskId);
                 var list = new List<TaskItem>();
-                if (ConfigSystem.Instance.TryGets<GameConfigs.MerchantMissionRowData>((c) => c.TypeValue == activityConfig.TypeValue, out var cfgs))
+                if (ConfigSystem.Instance.TryGets<GameConfigs.MerchantMissionRowData>((c) => c.TypeValue == activityConfig.Value, out var cfgs))
                 {
                     cfgs.ForEach((cfg) =>
                     {
@@ -89,10 +91,10 @@ namespace SGame
                                 taskType = cfg.TaskType,
                                 maxValue = cfg.TaskValue,
                                 state = (int)TaskState.IN_PROGRESS,
-                                value = 10,
+                                value = 0,
                                 isGet = false,
                             };
-                            taskItem.state = taskItem.value >= taskItem.maxValue ? (int)TaskState.WAIT_GET : (int)TaskState.IN_PROGRESS;
+                            //taskItem.state = taskItem.value >= taskItem.maxValue ? (int)TaskState.WAIT_GET : (int)TaskState.IN_PROGRESS;
                         }
                         list.Add(taskItem);
                     });
@@ -110,7 +112,7 @@ namespace SGame
                 if (!activityConfig.IsValid()) return;
 
                 var dict = new Dictionary<int, List<int>>();
-                if (ConfigSystem.Instance.TryGets<GameConfigs.MerchantRewardRowData>((c) => c.TypeValue == activityConfig.TypeValue, out var cfgs)) 
+                if (ConfigSystem.Instance.TryGets<GameConfigs.MerchantRewardRowData>((c) => c.TypeValue == activityConfig.Value, out var cfgs)) 
                 {
                     cfgs.ForEach((c)=> 
                     {
@@ -128,7 +130,7 @@ namespace SGame
                 foreach (var item in dict)
                 {
                     int group = item.Key;
-                    int max = GetTaskRewardGroupCount(activityConfig.TypeValue, group);
+                    int max = GetTaskRewardGroupCount(activityConfig.Value, group);
                     int count = m_Data.taskGoods.FindAll((id) =>
                     {
                         if (ConfigSystem.Instance.TryGet<GameConfigs.MerchantRewardRowData>(id, out var cfg)) return cfg.Group == group;
@@ -185,22 +187,32 @@ namespace SGame
                 {
                     if (t1.state < t2.state)
                         return -1;
+
+                    if (t1.state == t2.state) 
+                        if (t1.taskId < t2.taskId) return -1;
+
                     return 1;
                 });
             }
 
             public static void RefreshTaskProgress(int taskType, int value)
             {
+                if (GetTaskActiveTime() <= 0) return;
                 var taskItem = m_Data.taskItems.Find((t) => t.taskType == taskType);
                 if (taskItem != null)
                 {
-                    if (taskItem.value >= taskItem.maxValue) 
-                    {
-                        taskItem.state = (int)TaskState.WAIT_GET;
-                        return;
-                    }
                     taskItem.value += value;
+                    if (taskItem.value >= taskItem.maxValue) 
+                        taskItem.state = (int)TaskState.WAIT_GET;
                 }
+                TaskStateSort();
+            }
+
+            public static int GetCurCurrencyId() 
+            {
+                if(ConfigSystem.Instance.TryGet<GameConfigs.MerchantMissionRowData>(m_Data.taskItems[0].taskId, out var cfg))
+                    return cfg.TaskReward(1);
+                return 0;
             }
 
             /// <summary>
@@ -213,7 +225,8 @@ namespace SGame
                 {
                     foreach (var config in list)
                     {
-                        if (ActiveTimeSystem.Instance.IsActive(config.Id, GameServerTime.Instance.serverTime)) return config.Id;
+                        if (ActiveTimeSystem.Instance.IsActive(config.Id, GameServerTime.Instance.serverTime))
+                            return config.Id;
                     }
                 }
                 return 0;
@@ -244,6 +257,45 @@ namespace SGame
                 
                 return false;
             }
+
+            /// <summary>
+            /// 检测是否有任务可领取
+            /// </summary>
+            /// <returns></returns>
+            public static bool CheckHasTaskIsGet() 
+            {
+                foreach (var taskItem in m_Data.taskItems)
+                {
+                    if (CheckTaskIsGetReward(taskItem.taskId)) 
+                        return true;
+                }
+                return false;
+            }
+
+            /// <summary>
+            /// 检测是否有商品可以兑换
+            /// </summary>
+            /// <returns></returns>
+            public static bool CheckIsHasExchange() 
+            {
+                foreach (var id in m_Data.taskGoods)
+                {
+                    if (ConfigSystem.Instance.TryGet<GameConfigs.MerchantRewardRowData>(id, out var cfg)) 
+                    {
+                        var val = cfg.GetCostArray();
+                        if (PropertyManager.Instance.CheckCount(val[1], val[2], val[0]))
+                            return true;
+                    }
+                }
+                return false;
+            }
+
+            public static bool IsOpen() 
+            {
+                return 28.IsOpend(false) && GetTaskActiveTime() > 0;
+            }
+
+
             public static void ClearData() 
             {
                 m_Data.taskItems.Clear();
