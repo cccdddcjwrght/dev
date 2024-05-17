@@ -57,6 +57,9 @@ namespace SGame
 		public double m_foodTipsGold;
 
 		[SerializeField]
+		public int m_foodTipsCount;
+
+		[SerializeField]
 		public FriendData m_friendData = new FriendData(); // 好友数据
 
 		private GameWorld m_world;
@@ -151,6 +154,12 @@ namespace SGame
 					PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, m_foodTipsGold);
 					m_foodTipsGold = 0;
 					log.Info("FoodTip=" + m_foodTipsGold + " after=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
+				}
+
+				if (m_foodTipsCount > 0)
+				{
+					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TIP, m_foodTipsCount);
+					m_foodTipsCount = 0;
 				}
 			}
 

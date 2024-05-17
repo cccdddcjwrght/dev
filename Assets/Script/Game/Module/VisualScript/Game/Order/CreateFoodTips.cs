@@ -64,12 +64,14 @@ namespace SGame.VS
                 
                 // 小费存储
                 DataCenter.Instance.m_foodTipsGold += gold;
-                
+                DataCenter.Instance.m_foodTipsCount++;
+
                 if (table.foodTip != Entity.Null && entityManager.HasComponent<FoodTips>(table.foodTip))
                 {
                     // 桌子上已经有小费了
                     var foodTip = entityManager.GetComponentData<FoodTips>(table.foodTip);
                     foodTip.gold += gold;
+                    foodTip.count++;
                     entityManager.SetComponentData<FoodTips>(table.foodTip, foodTip);
                     _resultEntity = table.foodTip;
                     return outputTrigger;

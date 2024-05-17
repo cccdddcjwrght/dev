@@ -12,5 +12,8 @@ namespace SGame
 
         // 金币HUD
         public Entity ui;
+
+        // 累计次数
+        public int count;
     }
 }

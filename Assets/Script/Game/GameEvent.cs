@@ -165,8 +165,9 @@ namespace SGame
 
 		RANK_UPDATE						= 18000, //排行刷新
 
-		TASK_FINISH						= 19000, //完成任务
+		TASK_UPDATE						= 19000, //任务刷新
 		TASK_BUY_GOOD					= 19001, //任务购买商品
+
 
 		RECORD_PROGRESS					= 20000, //记录进度
 	}

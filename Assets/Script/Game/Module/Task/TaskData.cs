@@ -72,6 +72,16 @@ namespace SGame
                 InitTaskData();
                 InitTaskReward();
                 m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, RefreshTaskProgress);
+                m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ORDER_FINSIH, (orderId) =>
+                {
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.SELL, 1);
+                });
+                //进入下一关之前计算当前小费的累计次数
+                m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_ROOM, (s) =>
+                {
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TIP, DataCenter.Instance.m_foodTipsCount);
+                    DataCenter.Instance.m_foodTipsCount = 0;
+                });
             }
 
             public static void InitTaskData()
@@ -217,6 +227,7 @@ namespace SGame
 
                 }
                 TaskStateSort();
+                EventManager.Instance.Trigger((int)GameEvent.TASK_UPDATE);
             }
 
             public static int GetCurCurrencyId() 
@@ -306,11 +317,11 @@ namespace SGame
                 return 28.IsOpend(false) && GetTaskActiveTime() > 0;
             }
 
-
             public static void ClearData() 
             {
                 m_Data.taskItems.Clear();
                 m_Data.taskGoods.Clear();
+                DataCenter.Instance.m_foodTipsCount = 0;
             }
         }
     }   

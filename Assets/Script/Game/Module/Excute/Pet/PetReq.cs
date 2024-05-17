@@ -133,6 +133,7 @@ namespace SGame
 		{
 			if (pet != null && pet.cfg.IsValid())
 			{
+				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.PET, 1);
 				var costID = pet.evoMat.ItemId;
 				var cost = pet.evoMatCount;
 				object go = true;

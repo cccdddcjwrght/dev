@@ -28,7 +28,7 @@ namespace SGame
 						data.state = (int)TaskState.GET_REWARD;
 					}
 					DataCenter.TaskUtil.TaskStateSort();
-					EventManager.Instance.Trigger((int)GameEvent.TASK_FINISH);
+					EventManager.Instance.Trigger((int)GameEvent.TASK_UPDATE);
 				}
 			}
 		}

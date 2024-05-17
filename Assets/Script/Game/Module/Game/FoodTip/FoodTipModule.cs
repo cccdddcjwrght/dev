@@ -39,7 +39,7 @@ namespace SGame
             // hud 跟随
             var hud = UIUtils.ShowHUD("FoodTip", goldEffect, new float3(ConstDefine.FOODTIP_OFFSET_X, ConstDefine.FOODTIP_OFFSET_Y, 0) );
             m_EntityManager.AddComponentData(hud, new UIParam() {Value = goldEffect});
-            m_EntityManager.AddComponentData(goldEffect, new FoodTips() {gold = gold, ui = hud});
+            m_EntityManager.AddComponentData(goldEffect, new FoodTips() {gold = gold, ui = hud, count = 1});
 
             // 创建金币特效
             return goldEffect;
@@ -61,7 +61,13 @@ namespace SGame
             
             // 添加金币
             property.AddNum((int)ItemID.GOLD,food.gold);
-            
+            EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TIP, food.count);
+
+            //小费累计次数
+            DataCenter.Instance.m_foodTipsCount -= food.count;
+            if (DataCenter.Instance.m_foodTipsCount < 0)
+                DataCenter.Instance.m_foodTipsCount = 0;
+
             // 小费去除
             DataCenter.Instance.m_foodTipsGold -= food.gold;
             if (DataCenter.Instance.m_foodTipsGold < 0)

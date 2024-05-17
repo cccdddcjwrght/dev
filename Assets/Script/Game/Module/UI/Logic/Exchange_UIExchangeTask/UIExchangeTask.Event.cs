@@ -9,7 +9,7 @@ namespace SGame.UI{
 	{
 		EventHandleContainer m_EventHandle = new EventHandleContainer();
 		partial void InitEvent(UIContext context){
-			m_EventHandle += EventManager.Instance.Reg((int)GameEvent.TASK_FINISH, RefreshTask);
+			m_EventHandle += EventManager.Instance.Reg((int)GameEvent.TASK_UPDATE, RefreshTask);
 			m_EventHandle += EventManager.Instance.Reg((int)GameEvent.TASK_BUY_GOOD, RefreshGood);
 		}
 		partial void UnInitEvent(UIContext context){
