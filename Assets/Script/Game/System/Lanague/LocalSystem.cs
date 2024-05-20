@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SGame
 {
-	public partial class LocalSystem : SystemBase
+	public partial class LocalSystem : ComponentSystem
 	{
 		private const string ROOT_PATH = "Assets/BuildAsset/";
 
