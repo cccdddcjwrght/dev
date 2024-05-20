@@ -137,9 +137,9 @@ namespace SGame.UI
 		void SetInfo()
 		{
 			SetBaseInfo();
-			SetPower();
-			SetSelectPanel();
 			SwitchMonster();
+			SetSelectPanel();
+			SetPower();
 		}
 
 		void RefreshMonster()
@@ -254,6 +254,7 @@ namespace SGame.UI
 			var s = powers[_actData.power].ToString();
 			m_view.m_panel.m_power.SetText("X" + s, false);
 			m_view.m_panel.m_playbtn.SetText(s, false);
+			m_view.m_panel.m_playbtn.grayed = _monster == null;
 			if (refreshwheel)
 			{
 				var wheel = m_view.m_panel.m_panel.m_panel;
@@ -459,6 +460,7 @@ namespace SGame.UI
 				_clickui = true;
 				SwitchAutoPage(0);
 				SwitchMonster();
+				SetPower();
 			}
 		}
 
