@@ -38,6 +38,10 @@ namespace SGame
 				UILockManager.Instance.Release(shop_lock);
 			}, 200);
 			var code = DataCenter.ShopUtil.IsCanBuy(id);
+			if(code == 4)
+			{
+				"shop".Goto();
+			}
 			switch (code)
 			{
 				case 0:
