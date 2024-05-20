@@ -38,7 +38,7 @@ class CreateCharacterAssets
 
             // postprocess animations: we need them animating even offscreen
 			foreach (Animation anim in characterClone.GetComponentsInChildren<Animation>())
-                anim.animateOnlyIfVisible = false;
+                anim.cullingType  = AnimationCullingType.AlwaysAnimate;
 
             // 删除多余的可见资源后, 剩余骨架
             foreach (SkinnedMeshRenderer smr in characterClone.GetComponentsInChildren<SkinnedMeshRenderer>())

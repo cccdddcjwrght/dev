@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using libx;
 using log4net;
 using plyLib;
 using SGame.UI;
@@ -11,54 +12,48 @@ using SGame;
 namespace SGame.Hotfix
 {
 // 
-    public class HotfixModule : SingletonMonoBehaviour<HotfixModule>
+    public class HotfixModule : Singleton<HotfixModule>
     {
         private static ILog log = LogManager.GetLogger("Hofix.Module");
 
-        private GameWorld       m_gameWorld;
-        private EventHanle      m_eventHandle;
-
-        void InitUI()
+        private EventHanle                       m_eventHandle;
+        private ResourceLoader<UIPackageRequest> m_packageRequest;
+        
+        // PACKAGE 工厂
+        UIPackageRequest PackageRequestFactory()
         {
-            UIModule.Instance.Initalize(m_gameWorld,new UIPreprocess());
-            UIModule.Instance.Reg(Define.HOTFIX_UI_COM, Define.HOTFIX_PACKAGE_NAME, UIHotfix.Create);
+            var ret = new UIPackageRequest((uiPackage)=>m_packageRequest.Load(uiPackage));
+            return ret;
         }
         
+        // 判断是否加载完成
+        IEnumerator UIPackageReadly(UIPackageRequest req)
+        {
+            while (req.isDone == false)
+            {
+                m_packageRequest.Update();
+                yield return null;
+            }
+            m_packageRequest.Update();
+        }
+
         public IEnumerator RunHotfix()
         {
-            m_eventHandle   = EventManager.Instance.Reg((int)GameEvent.LOGIN_READLY, OnEventGameLogin);
-            m_gameWorld     = new GameWorld("hotfix");
-            InitUI();
+            // UI包加载
+            m_packageRequest         = new ResourceLoader<UIPackageRequest>(PackageRequestFactory);
+            UIPackageRequest uiPkg  = m_packageRequest.Load(Define.HOTFIX_PACKAGE_NAME);
 
-            // 创建UI并等待加载完毕
-            var ui = UIRequest.Create(m_gameWorld.GetEntityManager(), Define.HOTFIX_UI_ID);
-            while (UIModule.Instance.CheckOpened(ui) == false)
-                yield return null;
+            // 预制加载
+            var loadPrefab = Assets.LoadAssetAsync(Define.HOTFIX_UI_PREFAB, typeof(GameObject));
+
+            // 等待资源加载完成
+            yield return FiberHelper.RunParallel(UIPackageReadly(uiPkg), loadPrefab);
+
+            var uiObject = GameObject.Instantiate(loadPrefab.asset as GameObject);
 
             // 等待热更新结束
             WaitEvent w = new WaitEvent((int)GameEvent.HOTFIX_DONE);
             yield return w;
-        }
-
-        /// <summary>
-        /// 登录开始
-        /// </summary>
-        void OnEventGameLogin()
-        {
-            m_gameWorld.Shutdown();
-            m_gameWorld = null;
-            
-            m_eventHandle.Close();
-            m_eventHandle = null;
-            
-            // 销毁自己
-            Destroy(gameObject);
-        }
-
-        private void Update()
-        {
-            if (m_gameWorld != null)
-                m_gameWorld.ProcessDespawns();
         }
     }
 }

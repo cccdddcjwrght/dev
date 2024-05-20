@@ -1,13 +1,15 @@
+using System;
 using Fibers;
 using SGame.UI;
 using System.Collections;
+using FairyGUI;
 using Unity.Entities;
 using UnityEngine;
 
 namespace SGame.Hotfix
 {
     // 热更新UI 脚本, 更新逻辑包含再这这里面
-    public class UIHotfix : IUIScript
+    public class UIHotfix : MonoBehaviour
     {
         private Fiber m_fiber;
         private float m_waitTime;
@@ -15,42 +17,47 @@ namespace SGame.Hotfix
         private FairyGUI.GTextField   m_text;
         private const int MAX_DOWNLOAD = 10;
         private EventHanle m_eventHandle;
-        private Entity     m_entity;
+        private UIPanel	   m_uiPanel;
 
         /// <summary>
         /// 测试时间
         /// </summary>
         public const float TEST_TIME = 1.0f;
-        
-        public static IUIScript Create() { return new UIHotfix(); }
 
-        public void OnInit(UIContext context)
+        private void Start()
         {
-            m_entity = context.entity;
-            m_progressBar = context.content.GetChild("Processbar").asProgress;
-            m_text        = context.content.GetChild("Message").asTextField;
-            context.onUpdate += onUpdate;
-            m_fiber       = new Fiber(RunLogic(context));
+	        m_uiPanel = GetComponent<UIPanel>();
+	        var content = m_uiPanel.ui;
+	        m_progressBar = content.GetChild("Processbar").asProgress;
+	        m_text        = content.GetChild("Message").asTextField;
+	        //context.onUpdate += onUpdate;
+	        m_fiber       = new Fiber(RunLogic());
             
-            m_eventHandle   = EventManager.Instance.Reg((int)GameEvent.LOGIN_READLY, OnEventGameLogin);
+	        m_eventHandle   = EventManager.Instance.Reg((int)GameEvent.LOGIN_READLY, OnEventGameLogin);
+	        
+	        // 获得参数
+	        m_waitTime = TEST_TIME;
 
-            
-            // 获得参数
-            m_waitTime = TEST_TIME;
-
-			UIUtils.SetLogo(context.window.contentPane);
-
+	        UIUtils.SetLogo(content);
         }
+        
+        
+        void Update()
+        {
+	        if (m_fiber != null && !m_fiber.IsTerminated)
+		        m_fiber.Step();
+        }
+
 
         void OnEventGameLogin()
         {
             // 关闭UI
-            UIModule.Instance.CloseUI(m_entity);
             m_eventHandle.Close();
             m_eventHandle = null;
+            Destroy(gameObject);
         }
         
-        IEnumerator RunLogic(UIContext context)
+        IEnumerator RunLogic()
         {
 			//VersionUpdater.Instance.Initalize(Define.REMOTE_URL);
 
@@ -76,11 +83,7 @@ namespace SGame.Hotfix
 			EventManager.Instance.Trigger((int)GameEvent.HOTFIX_DONE);
         }
 
-        void onUpdate(UIContext context)
-        {
-            if (m_fiber != null && !m_fiber.IsTerminated)
-                m_fiber.Step();
-        }
+
 
 	}
 }

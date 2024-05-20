@@ -17,7 +17,7 @@ namespace SGame.Hotfix
         public const string     HOTFIX_UI_NAME      = "Hotfix"; // UI 名称
         public const string     HOTFIX_UI_COM       = "Hotfix"; // UI 元件名
         public const string     HOTFIX_PACKAGE_NAME = "Hotfix"; // UI 包名
-
+        public const string     HOTFIX_UI_PREFAB    = "Assets/BuildAsset/Prefabs/Hotfix.prefab"; // UI 界面
         public const string     REMOTE_URL = "";
     }
 }
