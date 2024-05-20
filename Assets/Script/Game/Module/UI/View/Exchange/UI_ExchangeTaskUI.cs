@@ -18,6 +18,7 @@ namespace SGame.UI.Exchange
         public GList m_taskList;
         public GList m_goodList;
         public GTextField m_time;
+        public GGroup m_content;
         public const string URL = "ui://d6hhikg5ee8jb";
 
         public static UI_ExchangeTaskUI CreateInstance()
@@ -40,6 +41,7 @@ namespace SGame.UI.Exchange
             m_taskList = (GList)GetChildAt(9);
             m_goodList = (GList)GetChildAt(10);
             m_time = (GTextField)GetChildAt(11);
+            m_content = (GGroup)GetChildAt(12);
         }
     }
 }
