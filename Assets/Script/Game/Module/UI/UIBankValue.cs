@@ -30,6 +30,7 @@ public class UIBankValue : MonoBehaviour
     private void OnBankValueChnage(int add,long v,int buildingEvent, int playerId)
     {
         var data = BuildingModule.Instance.GetBuildingData<BuildingBankData>(m_buildId);
+		if (m_gold == null) return;
         m_gold.m_gold.max = data.Value;
         m_gold.m_gold.value = data.Value;
     }//PROPERTY_BANK				= 1001, // 银行存款或取款  (int add_gold, long new_value, int buildingId, int player_id)

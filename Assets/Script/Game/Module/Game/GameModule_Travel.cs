@@ -106,8 +106,8 @@ namespace SGame
             // 播放飞行
             travelAnimation.Play(TravelAnimation.FlyType.FLY);
 
-            // 2. 发送出行数据
-            SendTravelData(playerId);
+			// 2. 发送出行数据
+			/*SendTravelData(playerId);
             var waitMessage = new WaitMessage<TravelPlayerInfo>((int)GameMsgID.CsTravelPlayerInfo);
             yield return waitMessage;
             if (waitMessage.IsTimeOut) {
@@ -131,10 +131,13 @@ namespace SGame
                 }
                 mapId   = response.MapId;
                 pos     = response.Pos;
-            }
+            }*/
+			int mapId = 1;
+			int pos = 1;
+			AddDiceEvents(CreateEventList(1, m_currentPlayerPos));
 
-            // 加载地图
-            m_tileModule.LoadMap(mapId, MapType.TRVAL);
+			// 加载地图
+			m_tileModule.LoadMap(mapId, MapType.TRVAL);
 
             // 等待动画播放出来
             yield return FiberHelper.Wait(10.0f);

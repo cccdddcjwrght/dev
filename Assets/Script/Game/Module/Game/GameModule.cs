@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cs;
 using Fibers;
+using GameConfigs;
 using log4net;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using static Cs.UseItem.Types;
 
 namespace SGame
 {
@@ -281,7 +284,9 @@ namespace SGame
             var waitMove = PlayerMove(dice_value1 + dice_value2);
             if (m_tileEventModule.IsEmpty())
             {
-                SendGetNextEventPool(m_currentPlayerPos,  m_tileModule.mapId);
+				log.Info("add new diceevent!!!");
+				AddDiceEvents(CreateEventList(1, m_currentPlayerPos));
+				//SendGetNextEventPool(m_currentPlayerPos,  m_tileModule.mapId);
             }
             yield return waitMove;
 
@@ -346,6 +351,60 @@ namespace SGame
             log.Info(string.Format("Move Finish Start Index={0} End Index={1} DiceNum={2}", startIndex, m_currentPlayerPos, move_num));
         }
 
+
+		private void AddDiceEvents(IList<DiceEvent> events)
+		{
+			foreach (var e in events)
+			{
+				m_tileEventModule.AddEventGroup(CovertNetEventToRound(e));
+			}
+		}
+
+		private List<DiceEvent> CreateEventList(int map , int start , int length = 5) {
+
+			if(ConfigSystem.Instance.TryGet(map , out Grid_PathRowData cfg))
+			{
+				var pLen = cfg.PositionLength;
+				var frame = Time.frameCount;
+				var ls = new List<DiceEvent>();
+				for (int i = 0; i < length; i++)
+				{
+					var dice = new DiceEvent();
+					ls.Add(dice);
+					dice.Dice1  = UnityEngine.Random.Range(1, 7);
+					dice.Dice2  = UnityEngine.Random.Range(1, 7);
+					dice.Dice = dice.Dice1 + dice.Dice2;
+					dice.Pos = start + dice.Dice1 + dice.Dice2;
+					if (dice.Pos > pLen) dice.Pos = 1;
+					start = dice.Pos;
+
+					if(ConfigSystem.Instance.TryGet(start , out GridRowData grid))
+					{
+						dice.EventId = frame++;
+						var d = dice.Data = new Cs.EventData();
+						d.PlayerId = 123;
+						d.Type = (Cs.EventType)grid.EventType;
+						ConfigSystem.Instance.TryGet(grid.EventBuildId, out Event_BuildRowData build);
+						var eid = build.BuildId(0);
+						switch (d.Type)
+						{
+							case Cs.EventType.Gold:
+								ConfigSystem.Instance.TryGet(eid, out Build_CoinRowData coin);
+								d.Gold = coin.Reward(1);
+								break;
+							case Cs.EventType.Bank:
+								ConfigSystem.Instance.TryGet(eid, out Build_BankRowData bank);
+								var v = BuildingModule.Instance.GetBuildingData<BuildingBankData>(build.Id).Value;
+								d.Gold = (int)(v * UnityEngine.Random.Range(bank.Proportion(0), bank.Proportion(1)) * 0.01f);
+								break;
+						}
+					}
+				}
+				return ls;
+			}
+			return default;
+
+		}
 
 
         public void Shutdown()

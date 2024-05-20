@@ -62,7 +62,6 @@ namespace SGame
             {
                 log.Error("Dice Num Is Zero" + diceEvent.Id);
             }
-            
             RoundData d = new RoundData()
             {
                 eventId = diceEvent.EventId,
@@ -85,6 +84,19 @@ namespace SGame
 
         IEnumerator LoginServer()
         {
+			m_userInfo = new LoaderUserInfo.Types.Response() { 
+				Dice = 99,
+				DiceMax = 99 ,
+				Coin = 9999,
+				Diamond = 9999, 
+				Level = 1,
+				MapId = 1,
+				Pos = 1,
+				
+			};
+			m_userInfo.StepList.AddRange(CreateEventList(1,1));
+
+			yield break;
             while (true)
             {
                 var     waitLogin = new WaitEvent<string>(EntityManager, GameEvent.ENTER_LOGIN);
@@ -157,9 +169,8 @@ namespace SGame
                 
                 log.Info("dice =" + userInfo.Dice.ToString() + " dice max=" + userInfo.DiceMax.ToString());
                 m_userInfo = userInfo;
-                
-                // 发送获取数据
-                break;
+				// 发送获取数据
+				break;
             }
         }
         
@@ -174,28 +185,29 @@ namespace SGame
             
             // 2. 显示登录界面
             yield return new WaitEvent(EntityManager, GameEvent.HOTFIX_DONE);
-            Entity loginUI = UIRequest.Create(EntityManager, UIUtils.GetUI("login"));
-            yield return new WaitUIOpen(EntityManager, loginUI);
-            UIUtils.CloseUI(EntityManager, hotfixUI);
+            /*Entity loginUI = UIRequest.Create(EntityManager, UIUtils.GetUI("login"));
+            yield return new WaitUIOpen(EntityManager, loginUI);*/
 
             // 3. 等待登录事件登录
             yield return LoginServer();
             SetupDefault();
 
-            // 登录成功后显示加载UI
-            Entity loadingUI = UIRequest.Create(EntityManager, UIUtils.GetUI("loading"));
-            EntityManager.AddComponentData(loadingUI, new UIParamFloat() {Value = LoadingTime});
-            yield return new WaitUIOpen(EntityManager, loadingUI);
-            UIUtils.CloseUI(EntityManager, loginUI);
+			// 登录成功后显示加载UI
+			//Entity loadingUI = UIRequest.Create(EntityManager, UIUtils.GetUI("loading"));
+            //EntityManager.AddComponentData(loadingUI, new UIParamFloat() {Value = LoadingTime});
+            //yield return new WaitUIOpen(EntityManager, loadingUI);
+            //UIUtils.CloseUI(EntityManager, loginUI);
 
             // 4. 完成后直接进入主界
-            yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
+            //yield return new WaitEvent(EntityManager, GameEvent.ENTER_GAME);
             Entity mainUI = UIRequest.Create(EntityManager, UIUtils.GetUI("mainui"));
-            UIUtils.CloseUI(EntityManager, loadingUI);
-            
-            
+			yield return new WaitUIOpen(EntityManager, mainUI);
+			//UIUtils.CloseUI(EntityManager, loadingUI);
+			UIUtils.CloseUI(EntityManager, hotfixUI);
 
-            yield return null;
+
+
+			yield return null;
         }
     }
 }
