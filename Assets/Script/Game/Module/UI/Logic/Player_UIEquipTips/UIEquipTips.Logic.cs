@@ -90,7 +90,8 @@ namespace SGame.UI
 			m_view.m_lvmax.selectedIndex = equip.IsMaxLv() ? 1 : 0;
 			m_view.m_funcType.selectedIndex = equip.level > 1 || equip.progress > 0 ? 0 : 1;
 			m_view.RefreshLevel(equip);
-			if (buff.IsValid()) {
+			if (buff.IsValid())
+			{
 				var v = "+" + equip.attrVal + "%";
 				m_view.m_attr.SetText(v, false);
 				m_view.m___attr.SetText(v, false);
@@ -164,7 +165,7 @@ namespace SGame.UI
 				"@ui_equip_uplv_error1".Tips();
 				return;
 			}
-			var v = changeVal > itemcount ? itemcount : changeVal;
+			var v = changeVal > itemcount ? itemcount : Math.Max(changeVal,1);
 			itemcount -= RequestExcuteSystem.EquipAddExp(equip, (int)v, out var state);
 			PropertyManager.Instance.GetGroup(1).SetNum(ConstDefine.EQUIP_UPLV_MAT, Math.Max(0, itemcount));
 			if (state)
@@ -190,7 +191,8 @@ namespace SGame.UI
 				var add = changeVal = 1;
 				while (pressFlag && itemcount > 0 && !equip.IsMaxLv())
 				{
-					AddExp();
+					if (changeVal > 0)
+						AddExp();
 					need = equip.upLvCost;
 					max = (int)Math.Ceiling(need * Math.Max(1, maxchangeval) * 0.01f);
 					yield return new WaitForSeconds(interval);
