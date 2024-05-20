@@ -7,9 +7,10 @@ using System.Collections;
 using log4net;
 using System.IO;
 using libx;
-using SGame;
+using SGame.Hotfix;
 using Sirenix.OdinInspector;
-using UnityEngine.UI;
+using System.Collections.Generic;
+using Unity.Entities;
 
 namespace SGame
 {
@@ -26,13 +27,12 @@ namespace SGame
 			public string m_dllName;
 			public string m_className;
 			public string m_funcName;
-		}
+			public bool	  m_initECS;		// 是否初始化ECS
+		}	
 
 		[ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "m_dllName")]
 		public Module[] m_modules;
-#if UNITY_EDITOR
-		public bool m_useHotfixCode = false;
-#endif
+
 		// 热更新资源路径
 		public const string HOTFIX_PATH = "Assets/BuildAsset/Code/";
 
@@ -100,12 +100,18 @@ namespace SGame
 
 
 				log.Info("Moudle Start Load =" + module.m_dllName);
-				Type t = LoadDll(module.m_dllName, module.m_className);
+				Type t = LoadDll(module.m_dllName, module.m_className, out Assembly assembly);
 				if (t == null)
 				{
 					log.Error("Module Load Fail=" + module.m_dllName);
 					break;
 				}
+
+				if (module.m_initECS == true)
+				{
+					InitializeECS(assembly);
+				}
+				
 				MethodInfo method = t.GetMethod(module.m_funcName);
 				if (method == null)
 				{
@@ -124,6 +130,7 @@ namespace SGame
 				log.Info("Moudle Call Finish =" + module.m_dllName);
 			}
 		}
+		
 
 		// 加载startup
 		IEnumerator Run()
@@ -132,6 +139,11 @@ namespace SGame
 			yield return BaseModuleInitalize();
 
 			log.Info("BaseModuleInitalize Finish");
+			
+			// 运行热更新
+			#if ENABLE_HOTFIX
+				yield return HotfixModule.Instance.RunHotfix();
+			#endif
 
 			Debug.Log("call 2!!!");
 
@@ -148,7 +160,7 @@ namespace SGame
 		}
 
 
-		Type LoadDll(string module, string className)
+		Type LoadDll(string module, string className, out Assembly assembly)
 		{
 			Assembly hotUpdateAss = null;
 #if !UNITY_EDITOR && ENABLE_HOTFIX
@@ -165,6 +177,7 @@ namespace SGame
 			hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == module);
 #endif
 
+			assembly = hotUpdateAss;
 			Type t = hotUpdateAss.GetType(className);
 			return t;
 		}
@@ -174,7 +187,7 @@ namespace SGame
 		/// </summary>
 		void LoadAOTMeta()
 		{
-#if !UNITY_EDITOR
+#if !UNITY_EDITOR && ENABLE_HOTFIX
             const string AOTBasePath = "Assets/BuildAsset/AOTMeta/";
             foreach (var aotDllName in AOTGenericReferences.PatchedAOTAssemblyList)
             {
@@ -206,16 +219,38 @@ namespace SGame
 			Assets.updatePath = GetUpdatePath();
 		}
 
+		// 更新目录
 		public static string GetUpdatePath()
 		{
 			return string.Format("{0}{1}DLC{1}", Application.persistentDataPath, Path.DirectorySeparatorChar);
 		}
 
+		static bool ECS_Initalize = false;
+		
 		// 解决场景初始话可能导致失败的问题
-		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-		private static void Initialize()
+		//[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+		private static void InitializeECS(Assembly asselbly)
 		{
+			if (ECS_Initalize == true)
+			{
+				Debug.LogError("ECS Reinitalize!!!!");
+				return;
+			}
+			ECS_Initalize = true;
+			
 #if UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP
+			#if !UNITY_EDITOR && ENABLE_HOTFIX
+				Debug.Log("BEGIN ECS TYPES...");
+				var dotsAssemblies = new Assembly[] {asselbly};
+				var componentTypes = new HashSet<System.Type>();
+				TypeManager.CollectComponentTypes(dotsAssemblies, componentTypes);
+				var components = componentTypes.ToArray();
+				foreach (var c in components)
+					Debug.Log("reg ecs component=" + c.FullName);
+				TypeManager.AddNewComponentTypes(components);
+				TypeManager.EarlyInitAssemblies(dotsAssemblies);
+			#endif
+
 			log.Info("UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP Init!");
 			Unity.Entities.DefaultWorldInitialization.Initialize("Default World", false);
 #endif

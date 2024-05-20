@@ -468,26 +468,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &959917498 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5947647242805516228, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
-  m_PrefabInstance: {fileID: 5947647241891779131}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &959917505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959917498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
 --- !u!1 &1393069617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1010,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120879825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8110945, y: -5, z: 0}
+  m_LocalPosition: {x: 2.8152492, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1123,6 +1103,42 @@ PrefabInstance:
     - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
       propertyPath: m_useHotfixCode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[0].m_dllName
+      value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[0].m_initECS
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[1].m_dllName
+      value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[1].m_initECS
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[0].m_funcName
+      value: Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[1].m_funcName
+      value: Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[0].m_className
+      value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947647242805515323, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
+      propertyPath: m_modules.Array.data[1].m_className
+      value: Game
       objectReference: {fileID: 0}
     - target: {fileID: 5947647242805516228, guid: ac88e7cce89042c43bfcd9b225fafdcd, type: 3}
       propertyPath: m_Name

@@ -22,6 +22,7 @@ namespace SGame.UI{
 			m_view.m_body.m_body.m_size.onChanged.Add(new EventCallback1(_OnPopupBody_body_sizeChanged));
 			m_view.m_body.m_body.m_type.onChanged.Add(new EventCallback1(_OnPopupBody_body_typeChanged));
 			m_view.m_body.m_body.m_hideclose.onChanged.Add(new EventCallback1(_OnPopupBody_body_hidecloseChanged));
+			m_view.m_body.m_body.m_close.m_Type.onChanged.Add(new EventCallback1(_OnCloseBtn_Body_body_close_TypeChanged));
 			UIListener.ListenerClose(m_view.m_body.m_body.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerClose(m_view.m_body.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_body.m_ok.m_bgSize.onChanged.Add(new EventCallback1(_OnClickBtn_Body_ok_bgSizeChanged));
@@ -67,6 +68,7 @@ namespace SGame.UI{
 			m_view.m_body.m_body.m_size.onChanged.Remove(new EventCallback1(_OnPopupBody_body_sizeChanged));
 			m_view.m_body.m_body.m_type.onChanged.Remove(new EventCallback1(_OnPopupBody_body_typeChanged));
 			m_view.m_body.m_body.m_hideclose.onChanged.Remove(new EventCallback1(_OnPopupBody_body_hidecloseChanged));
+			m_view.m_body.m_body.m_close.m_Type.onChanged.Remove(new EventCallback1(_OnCloseBtn_Body_body_close_TypeChanged));
 			UIListener.ListenerClose(m_view.m_body.m_body.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerClose(m_view.m_body.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_body.m_ok.m_bgSize.onChanged.Remove(new EventCallback1(_OnClickBtn_Body_ok_bgSizeChanged));
@@ -147,6 +149,11 @@ namespace SGame.UI{
 		}
 		partial void OnPopupBody_body_hidecloseChanged(EventContext data);
 		void SwitchPopupBody_body_hideclosePage(int index)=>m_view.m_body.m_body.m_hideclose.selectedIndex=index;
+		void _OnCloseBtn_Body_body_close_TypeChanged(EventContext data){
+			OnCloseBtn_Body_body_close_TypeChanged(data);
+		}
+		partial void OnCloseBtn_Body_body_close_TypeChanged(EventContext data);
+		void SwitchCloseBtn_Body_body_close_TypePage(int index)=>m_view.m_body.m_body.m_close.m_Type.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

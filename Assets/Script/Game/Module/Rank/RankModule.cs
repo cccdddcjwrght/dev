@@ -11,26 +11,26 @@ namespace SGame
 {
     public enum RankScoreEnum 
     {
-        CHAPTER     = 1,    //Íê³ÉÕÂ½Ú´ÎÊı
-        LEVEL       = 2,    //Íê³É¹Ø¿¨´ÎÊı
-        BOX         = 3,    //´ò¿ª³¡¾°Ïä×ÓÊıÁ¿
-        WORKER      = 4,    //¹ÍÓ¶¹¤ÈËÊıÁ¿
-        SELL        = 5,    //³öÊÛÉÌÆ·ÊıÁ¿
-        SERVE       = 6,    //·şÎñ¿Í»§ÈËÊı
-        TIP         = 7,    //ÊÕ¼¯¿ÍÈËĞ¡·Ñ´ÎÊı
-        EQUIP_BOX   = 8,    //´ò¿ª×°±¸±¦ÏäÊıÁ¿
-        AD          = 9,    //¹Û¿´¹ã¸æ´ÎÊı
-        EQUIP_LEVEL = 10,   //Éı¼¶×°±¸´ÎÊı
-        EQUIP_STAGE = 11,   //½ø½××°±¸´ÎÊı
-        PET         = 12    //³èÎï½ø»¯´ÎÊı
+        CHAPTER     = 1,    //å®Œæˆç« èŠ‚æ¬¡æ•°
+        LEVEL       = 2,    //å®Œæˆå…³å¡æ¬¡æ•°
+        BOX         = 3,    //æ‰“å¼€åœºæ™¯ç®±å­æ•°é‡
+        WORKER      = 4,    //é›‡ä½£å·¥äººæ•°é‡
+        SELL        = 5,    //å‡ºå”®å•†å“æ•°é‡
+        SERVE       = 6,    //æœåŠ¡å®¢æˆ·äººæ•°
+        TIP         = 7,    //æ”¶é›†å®¢äººå°è´¹æ¬¡æ•°
+        EQUIP_BOX   = 8,    //æ‰“å¼€è£…å¤‡å®ç®±æ•°é‡
+        AD          = 9,    //è§‚çœ‹å¹¿å‘Šæ¬¡æ•°
+        EQUIP_LEVEL = 10,   //å‡çº§è£…å¤‡æ¬¡æ•°
+        EQUIP_STAGE = 11,   //è¿›é˜¶è£…å¤‡æ¬¡æ•°
+        PET         = 12    //å® ç‰©è¿›åŒ–æ¬¡æ•°
     }
 
     public partial class DataCenter 
     {
-        //×Ô¼ºµÄÅÅĞĞ±êÊ¶Öµ
+        //è‡ªå·±çš„æ’è¡Œæ ‡è¯†å€¼
         public RankScore rankScore = new RankScore();
 
-        //ÅÅĞĞ°ñÊı¾İ
+        //æ’è¡Œæ¦œæ•°æ®
         public RankData rankData = new RankData();
 
         public RankCacheData rankCacheData = new RankCacheData();
@@ -38,7 +38,7 @@ namespace SGame
 
     public class RankModule : Singleton<RankModule>
     {
-        //¶ÔÓ¦»î¶¯±í
+        //å¯¹åº”æ´»åŠ¨è¡¨
         public const int RANK_ACTIVE_ID = 3;
 
         public RankData rankData { get { return DataCenter.Instance.rankData;}}
@@ -93,7 +93,7 @@ namespace SGame
             if (rankPanelData.ids?.Length > 0 && DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
             {
                 DataCenter.Instance.rankCacheData.startTime = rankPanelData.ids[0].begin_time;
-                ClearRankScore();//Çå³ı×Ô¼ºÅÅĞĞ±êÊ¶Êı¾İ
+                ClearRankScore();//æ¸…é™¤è‡ªå·±æ’è¡Œæ ‡è¯†æ•°æ®
             }
 
             if (rankPanelData.rewards?.Length > 0) 
@@ -152,7 +152,7 @@ namespace SGame
                 rankScore.workers += value;
         }
 
-        //»ñÈ¡µ±Ç°ÅÅĞĞ¶ÔÓ¦ÅäÖÃ
+        //è·å–å½“å‰æ’è¡Œå¯¹åº”é…ç½®
         public RankConfigRowData GetCurRankConfig()
         {
             if (rankPanelData.ids?.Length > 0) 

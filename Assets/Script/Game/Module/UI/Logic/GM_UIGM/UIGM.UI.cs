@@ -14,14 +14,14 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_c1.onChanged.Add(new EventCallback1(_OnC1Changed));
-			UIListener.ListenerIcon(m_view.m_btnGM, new EventCallback1(_OnBtnGMClick));
-			UIListener.ListenerIcon(m_view.m_excute, new EventCallback1(_OnExcuteClick));
+			UIListener.Listener(m_view.m_btnGM, new EventCallback1(_OnBtnGMClick));
+			UIListener.Listener(m_view.m_excute, new EventCallback1(_OnExcuteClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_c1.onChanged.Remove(new EventCallback1(_OnC1Changed));
-			UIListener.ListenerIcon(m_view.m_btnGM, new EventCallback1(_OnBtnGMClick),remove:true);
-			UIListener.ListenerIcon(m_view.m_excute, new EventCallback1(_OnExcuteClick),remove:true);
+			UIListener.Listener(m_view.m_btnGM, new EventCallback1(_OnBtnGMClick),remove:true);
+			UIListener.Listener(m_view.m_excute, new EventCallback1(_OnExcuteClick),remove:true);
 
 		}
 		void _OnC1Changed(EventContext data){
@@ -33,12 +33,16 @@ namespace SGame.UI{
 			OnBtnGMClick(data);
 		}
 		partial void OnBtnGMClick(EventContext data);
+		void SetBtnGMText(string data)=>UIListener.SetText(m_view.m_btnGM,data);
+		string GetBtnGMText()=>UIListener.GetText(m_view.m_btnGM);
 		void SetC2_InputText(string data)=>UIListener.SetText(m_view.m_excute.m_input,data);
 		string GetC2_InputText()=>UIListener.GetText(m_view.m_excute.m_input);
 		void _OnExcuteClick(EventContext data){
 			OnExcuteClick(data);
 		}
 		partial void OnExcuteClick(EventContext data);
+		void SetExcuteText(string data)=>UIListener.SetText(m_view.m_excute,data);
+		string GetExcuteText()=>UIListener.GetText(m_view.m_excute);
 		void SetLblLevelText(string data)=>UIListener.SetText(m_view.m_lblLevel,data);
 		string GetLblLevelText()=>UIListener.GetText(m_view.m_lblLevel);
 
