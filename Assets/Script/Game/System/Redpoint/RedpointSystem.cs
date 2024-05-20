@@ -128,7 +128,7 @@ namespace SGame
 
 	}
 
-	public abstract partial class RedpointSystem : SystemBase
+	public abstract partial class RedpointSystem : ComponentSystem
 	{
 		const string TAG = nameof(RedpointSystem);
 
@@ -171,25 +171,25 @@ namespace SGame
 			var cmd = _commandBuffSys.CreateCommandBuffer();
 
 			//清理
-			Entities.WithAny<RedDestroy>().ForEach((Entity e, in Redpoint r) =>
+			Entities.WithAny<RedDestroy>().ForEach((Entity e, ref Redpoint r) =>
 			{
 				if (_datas.TryGetValue(r.id, out var h)) h.ehandler?.Close();
 				cmd.DestroyEntity(e);
-			}).WithoutBurst().Run();
+			});
 
 			//事件触发计算
-			Entities.WithAll<RedCheck, RedEvent>().WithNone<RedPause>().ForEach((Entity e, ref Redpoint r, in RedEvent evt) =>
+			Entities.WithAll<RedCheck, RedEvent>().WithNone<RedPause>().ForEach((Entity e, ref Redpoint r, ref RedEvent evt) =>
 			{
 				if (evt.flag > 0) r.status = 1;
 				else Calculation(e, cmd, ref r);
-			}).WithoutBurst().Run();
+			});
 
 			//定时计算
 			Entities.WithAll<RedCheck>().WithNone<RedPause>().ForEach((Entity e, ref Redpoint r) =>
 			{
 				if (Time.ElapsedTime * 1000 > r.time)
 					Calculation(e, cmd, ref r);
-			}).WithoutBurst().Run();
+			});
 
 			//红点标记操作
 			Entities.WithAll<RedNode, RedStatusChange>().ForEach((Entity e, ref Redpoint redpoint) =>
@@ -206,7 +206,7 @@ namespace SGame
 					else
 						redpoint.time = (d.Interval > 0 ? d.Interval : __red_check_time) + t;
 				}
-			}).WithoutBurst().Run();
+			});
 		}
 
 		protected override void OnDestroy()
