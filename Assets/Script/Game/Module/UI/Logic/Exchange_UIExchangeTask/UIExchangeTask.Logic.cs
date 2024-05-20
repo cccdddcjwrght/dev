@@ -42,7 +42,7 @@ namespace SGame.UI{
 			int currencyId = DataCenter.TaskUtil.GetCurCurrencyId();
 			m_view.m_currency.SetIcon(Utils.GetItemIcon(1, currencyId));
 			var num = PropertyManager.Instance.GetItem(currencyId).num;
-			m_view.m_value.SetText(num.ToString());
+			m_view.m_value.SetText(Utils.ConvertNumberStr(num));
 		}
 
 		public void RefreshTask() 
