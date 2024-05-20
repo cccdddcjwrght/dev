@@ -45,6 +45,7 @@ namespace SGame
 
         public RankPanelData rankPanelData = new RankPanelData();
         EventHandleContainer m_EventHandle = new EventHandleContainer();
+
         public void Initalize() 
         {
             SetTimer();
@@ -71,7 +72,7 @@ namespace SGame
         }
 
 
-        public IEnumerator ReqRankList(bool popReward = false, bool isReddot = false) 
+        public IEnumerator ReqRankList(bool popReward = false) 
         {
             HttpPackage pkg = new HttpPackage();
             pkg.data = DataCenter.Instance.accountData.playerID.ToString();
@@ -93,26 +94,20 @@ namespace SGame
             }
         
             if (rankPanelData.rewards?.Length > 0) 
-            {
-                DataCenter.Instance.rankCacheData.reddot = true;
                 DataCenter.Instance.rankCacheData.rewards = rankPanelData.rewards;
-            }
-
+ 
             if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
             {
-                for (int i = 0; i < DataCenter.Instance.rankCacheData.rewards.Length; i++)
-                {
-                    var rewardData = DataCenter.Instance.rankCacheData.rewards[i];
-                    if (ConfigSystem.Instance.TryGet<GameConfigs.RankConfigRowData>((r) => r.RankingId == rewardData.id, out var data))
-                        OpenResultView(data.RankingMarker, rewardData.rank);
-                }
+                OpenResultView(DataCenter.Instance.rankCacheData.rewards);
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
+
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         public IEnumerator ReqRankData(bool isTip = false)
         {
+            DataCenter.Instance.rankCacheData.reddot = Utils.IsFirstLoginInDay("rank.rankfirst");
             HttpPackage pkg = new HttpPackage();
             RankScoreEx score = new RankScoreEx()
             {
@@ -135,7 +130,6 @@ namespace SGame
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
 
-            DataCenter.Instance.rankCacheData.reddot = Utils.IsFirstLoginInDay("rank.rankfirst");
             EventManager.Instance.Trigger((int)GameEvent.RANK_UPDATE);
         }
 
@@ -225,6 +219,7 @@ namespace SGame
             DataCenter.Instance.rankScore.tips      = 0;
             DataCenter.Instance.rankScore.boxs      = 0;
             DataCenter.Instance.rankScore.workers   = 0;
+            DataCenter.Instance.rankCacheData.reddot = true;
         }
 
 
@@ -254,9 +249,9 @@ namespace SGame
             return roleData;
         }
 
-        public void OpenResultView(int marker, int rank) 
+        public void OpenResultView(RankReward[] rewards) 
         {
-            DelayExcuter.Instance.DelayOpen("rankresult", "mainui", args: new RankUIParam() { marker = marker, rank = rank });
+            DelayExcuter.Instance.DelayOpen("rankresult", "mainui", args: new UIParam() { Value = rewards });
         }
 
         public void SetTimer()
