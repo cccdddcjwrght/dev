@@ -78,7 +78,7 @@ namespace SGame
 		}
 	}
 
-	public partial class SpawnSystem : SystemBase
+	public partial class SpawnSystem : ComponentSystem
 	{
 		static ILog log = LogManager.GetLogger("SpawnSystem");
 
@@ -165,9 +165,9 @@ namespace SGame
 					req.prefabRequest = null;
 					cb.DestroyEntity(e);
 				}
-			}).WithoutBurst().Run();
+			});
 
-			Entities.ForEach((Entity e, in SpawnReq req) =>
+			Entities.ForEach((Entity e, ref SpawnReq req) =>
 			{
 				cb.RemoveComponent<SpawnReq>(e);
 				Spawn(
@@ -181,7 +181,7 @@ namespace SGame
 					e
 				);
 
-			}).WithoutBurst().WithStructuralChanges().Run();
+			});
 		}
 
 		GameObject Create(Entity entity, AssetRequest prefabRequest)
@@ -225,7 +225,7 @@ namespace SGame
 						GameObject.Destroy(obj);
 					cb.RemoveComponent<SpawnSysData>(e);
 				}
-			}).WithoutBurst().Run();
+			});
 		}
 
 		public void Release(Entity e)
