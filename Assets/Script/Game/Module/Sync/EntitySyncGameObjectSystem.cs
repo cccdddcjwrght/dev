@@ -15,11 +15,11 @@ namespace SGame
     
     // 对象同步系统
     [UpdateInGroup(typeof(GameLogicAfterGroup))]
-    public partial class EntitySyncGameObjectSystem : SystemBase
+    public partial class EntitySyncGameObjectSystem : ComponentSystem
     {
         protected override void OnUpdate()
         {
-            Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e,  Transform sycnTransform, in Translation trans, in Rotation rot) =>
+            Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e,  Transform sycnTransform, ref Translation trans, ref Rotation rot) =>
             {
                 // 同步对象
                 if (sycnTransform != null)
@@ -27,7 +27,7 @@ namespace SGame
                     sycnTransform.position = trans.Value;
                     sycnTransform.rotation = rot.Value;
                 }
-            }).WithoutBurst().Run();
+            });
         }
     }
 }

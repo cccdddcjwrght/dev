@@ -9,7 +9,7 @@ namespace SGame
     /// 角色动画状态更改
     /// </summary>
     [UpdateInGroup(typeof(GameLogicGroup))]
-    public partial class CharacterAnimSystem : SystemBase
+    public class CharacterAnimSystem : ComponentSystem
     {
         private int m_walkName = 0;
         protected override void OnCreate()
@@ -25,7 +25,7 @@ namespace SGame
                 {
                     character.modelAnimator.SetBool(m_walkName, character.isMoving);
                 }
-            }).WithoutBurst().Run();
+            });
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SGame
 {
-    public partial class PropertyDataChangeTriggerSystem : SystemBase
+    public partial class PropertyDataChangeTriggerSystem 
     {
         void Init()
         {

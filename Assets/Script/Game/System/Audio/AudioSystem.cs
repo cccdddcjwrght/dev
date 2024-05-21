@@ -58,7 +58,7 @@ namespace SGame
 	}
 
 	// 声音系统
-	public partial class AudioSystem : SystemBase
+	public partial class AudioSystem : ComponentSystem
 	{
 		public const string AUDIO_RES_FORMAT = "Assets/BuildAsset/Audio/ogg/{0}.ogg";
 		// 播放声音请求
@@ -226,19 +226,19 @@ namespace SGame
 			if (m_stopRequest.Count != 0)
 			{
 				Entities.WithNone<DespawnedTag>().ForEach((Entity e,
-					in SoundData sound_data) =>
+					ref SoundData sound_data) =>
 				{
 					if (m_stopRequest.Contains(sound_data.audio_type))
 					{
 						EntityManager.AddComponent<DespawnedTag>(e);
 					}
-				}).WithoutBurst().WithStructuralChanges().Run();
+				});
 				m_stopRequest.Clear();
 			}
 
 			// 1. 加载资源
 			Entities.WithNone<SoundAsset>().ForEach((Entity e,
-				in PlaySoundRequest request) =>
+				PlaySoundRequest request) =>
 			{
 				EntityManager.AddComponent<SoundAsset>(e);
 				EntityManager.SetComponentData(e, new SoundAsset()
@@ -246,19 +246,19 @@ namespace SGame
 					asset_ref = Assets.LoadAssetAsync(request.audio_path, typeof(AudioClip)),
 					audio = PopAudioSource()
 				});
-			}).WithoutBurst().WithStructuralChanges().Run();
+			});
 
 			// 2. 产生新的clip
 			Entities.ForEach((Entity e,
-				in SoundAsset asset,
-				in PlaySoundRequest request) =>
+				SoundAsset asset,
+				PlaySoundRequest request) =>
 			{
 				if (asset.asset_ref.isDone)
 				{
 					if (string.IsNullOrEmpty(asset.asset_ref.error))
 					{
 
-						Entity newEntity = EntityManager.CreateEntity(archAudio);//buffer.CreateEntity(archAudio);
+						Entity newEntity = EntityManager.CreateEntity(archAudio); //buffer.CreateEntity(archAudio);
 						SoundData soundData = SetupAudio(asset, request);
 
 						EntityManager.SetComponentData(newEntity, asset);
@@ -280,14 +280,14 @@ namespace SGame
 
 					EntityManager.DestroyEntity(e);
 				}
-			}).WithoutBurst().WithStructuralChanges().Run();
+			});
 
 			float time = (float)GlobalTime.deltaTime;
 			//3. 时间到销毁clip
 			Entities.WithNone<DespawnedTag>().ForEach((Entity e,
+				SoundAsset asset,
 				ref SoundTime sound_time,
-				in SoundAsset asset,
-				in SoundData sound_data) =>
+				ref SoundData sound_data) =>
 			{
 				if (sound_data.loop_num >= 0)
 				{
@@ -310,14 +310,14 @@ namespace SGame
 						}
 					}
 				}
-			}).WithoutBurst().WithStructuralChanges().Run();
+			});
 
 			// 销毁声音
-			Entities.WithAll<DespawnedTag>().ForEach((Entity entity, in SoundAsset asset) =>
+			Entities.WithAll<DespawnedTag>().ForEach((Entity entity, SoundAsset asset) =>
 			{
 				FreeSound(asset);
 				EntityManager.DestroyEntity(entity);
-			}).WithoutBurst().WithStructuralChanges().Run();
+			});
 		}
 
 		partial void OnInit();

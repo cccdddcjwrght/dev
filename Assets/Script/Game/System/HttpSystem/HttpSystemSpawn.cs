@@ -24,7 +24,7 @@ namespace SGame.Http
 	}
 
 	[UpdateInGroup(typeof(GameLogicAfterGroup))]
-	public partial class HttpSystemSpawn : SystemBase
+	public partial class HttpSystemSpawn : ComponentSystem
 	{
 		private EntityQuery m_query;
 		private static ILog log = LogManager.GetLogger("httpsystem");

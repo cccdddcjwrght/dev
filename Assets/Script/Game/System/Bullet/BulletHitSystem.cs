@@ -9,7 +9,7 @@ using UnityEngine;
 namespace SGame
 {
     [UpdateBefore(typeof(EffectSystem))]
-    public partial class BulletHitSystem : SystemBase
+    public partial class BulletHitSystem : ComponentSystem
     {
         struct Data
         {
@@ -22,7 +22,7 @@ namespace SGame
         {
             m_Datas.Clear();
             // 查询数据
-            Entities.WithNone<MoveTarget>().ForEach((Entity e, in BulletData bullet, in Translation trans) =>
+            Entities.WithNone<MoveTarget>().ForEach((Entity e, ref BulletData bullet, ref Translation trans) =>
             {
                 m_Datas.Add(new Data()
                 {
@@ -30,7 +30,7 @@ namespace SGame
                     bullet = bullet,
                     trans = trans
                 });
-            }).WithoutBurst().Run();
+            });
 
             // 处理数据
             foreach (var item in m_Datas)

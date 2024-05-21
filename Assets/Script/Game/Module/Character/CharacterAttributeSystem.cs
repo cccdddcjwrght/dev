@@ -7,7 +7,7 @@ using Unity.Entities;
 namespace SGame
 {
     [UpdateInGroup(typeof(GameLogicGroup))]
-    public partial class CharacterAttributeSystem : SystemBase
+    public class CharacterAttributeSystem : ComponentSystem
     {
         private static ILog log = LogManager.GetLogger("game.character");
         private EndInitializationEntityCommandBufferSystem m_commandBuffer;
@@ -25,7 +25,7 @@ namespace SGame
                 Entity e, 
                 Character character,
                 ref Speed speed, 
-                in CharacterAttribue attr
+                ref CharacterAttribue attr
             ) =>
             {
                 var v = AttributeSystem.Instance.GetValueByRoleID(attr.roleID, EnumAttribute.Speed, character.isEmployee);
@@ -36,7 +36,7 @@ namespace SGame
                     v = 10;
                 }
                 speed.Value = (float)(v) + character.externSpeed;
-            }).WithoutBurst().Run();
+            });
         }
     }
 }

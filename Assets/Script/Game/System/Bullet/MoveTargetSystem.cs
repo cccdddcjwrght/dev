@@ -1,6 +1,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine.ParticleSystemJobs;
 
 // 移动到目标系统
 namespace SGame
@@ -14,7 +15,7 @@ namespace SGame
     /// <summary>
     /// 计时系统
     /// </summary>
-    public partial class MoveTargetSystem : SystemBase
+    public class MoveTargetSystem : ComponentSystem
     {
         private EndSimulationEntityCommandBufferSystem m_bufferSystem;
         protected override void OnCreate()
@@ -26,11 +27,11 @@ namespace SGame
         protected override void OnUpdate()
         {
             float deltaTime = Time.DeltaTime;
-            var entityCommandBufferParallel =  m_bufferSystem.CreateCommandBuffer().AsParallelWriter();
-            Entities.ForEach((int entityInQueryIndex, Entity e, 
+            var entityCommandBufferParallel =  m_bufferSystem.CreateCommandBuffer();//.AsParallelWriter();
+            Entities.ForEach((Entity e, 
                 ref Translation trans, 
-                in MoveTarget target, 
-                in Speed speed) =>
+                ref MoveTarget target, 
+                ref Speed speed) =>
             {
                 var target_pos  = target.Value;
                 float3 dir           = target_pos - trans.Value;
@@ -40,15 +41,13 @@ namespace SGame
                 {
                     // 已经到达了
                     trans.Value = target.Value;
-                    entityCommandBufferParallel.RemoveComponent<MoveTarget>(entityInQueryIndex, e);
+                    entityCommandBufferParallel.RemoveComponent<MoveTarget>(e);
                     return;
                 }
 
                 float3 moveDir = moveLen * math.normalize(dir);
                 trans.Value += moveDir;
-            }).WithBurst().ScheduleParallel();
-            
-            m_bufferSystem.AddJobHandleForProducer(Dependency);
+            });
         }
     }
 }
