@@ -3,7 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using IPMessage = Google.Protobuf.IMessage;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+#if PROTO
+using IPMessage = Google.Protobuf.IMessage; 
+#else
+using IPMessage = IProto;
+#endif
+
+public interface IProto
+{
+
+}
 
 /// <summary>
 /// 协议解析序列化，推送接收
@@ -165,12 +175,19 @@ public static partial class Protocol
 	/// <param name="offset">偏移</param>
 	/// <param name="length">长度</param>
 	/// <returns></returns>
-	static public T Deserialize<T>(byte[] buffer, int offset, int length) where T : class, IPMessage, new()
+	static public T Deserialize<T>(byte[] buffer, int offset, int length) where T : class, new()
 	{
 		object msg = new T();
 		DoDeserialize(ref msg, buffer, offset, length);
 		PrintMsg(msg,"【Recv】");
 		return msg as T;
+	}
+
+	static public int SerializeObject(object msg, byte[] buffer, int offset)
+	{
+		if (msg != null && buffer != null && buffer.Length > offset)
+			return SerializeToBuff(msg, buffer, offset);
+		return 0;
 	}
 
 	static public int SerializeToBuff<T>(this T val, byte[] buffer, int offset) where T : class, IPMessage, new()
@@ -204,7 +221,7 @@ public static partial class Protocol
 
 	static partial void DoRecv(int msgID, byte[] buffer, int offset, int count, int seqID);
 
-	static partial void DoRegister<T>(int protoID, Action<int, T> action, bool once = false, bool unregister = false) where T : class, IPMessage, new();
+	static partial void DoRegister<T>(int protoID, Action<int, T> action, bool once = false, bool unregister = false) where T : class, new();
 
 	[Conditional("DEBUG")]
 	static partial void PrintMsg(object msg,string append = default);

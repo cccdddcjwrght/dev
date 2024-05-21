@@ -2,7 +2,7 @@ using System.Collections;
 using SGame;
 
 // 等待网络消息 并带有超时判断
-public class WaitMessage<T> : IEnumerator where T : class, Google.Protobuf.IMessage , new()
+public class WaitMessage<T> : IEnumerator where T : class, new()
 {
 	public bool IsTimeOut { get { return GlobalTime.passTime > m_waitTime; } }
 	public bool IsRecived { get; private set; }
@@ -90,7 +90,7 @@ public abstract class IMessageHandler
 
 }
 
-public class MessageHandler<T> : IMessageHandler where T : class, Google.Protobuf.IMessage, new()
+public class MessageHandler<T> : IMessageHandler where T : class, new()
 {
 	private WaitMessage<T> m_wait;
 

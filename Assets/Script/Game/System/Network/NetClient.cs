@@ -273,7 +273,7 @@ public class NetClient
 	}
 	
 	// 发送网络数据
-	public unsafe void SendMessage<T>(int msgId, T message)  where T : class, Google.Protobuf.IMessage, new()
+	public unsafe void SendMessage<T>(int msgId, T message)  where T : class, new()
 	{
 		if (!m_connect.Connected)
 		{
@@ -282,7 +282,7 @@ public class NetClient
 		}
 
 		// 发送数据大小
-		int send_size = Protocol.SerializeToBuff(message, m_sendBuffer, PackageHead.SIZE);
+		int send_size = Protocol.SerializeObject(message, m_sendBuffer, PackageHead.SIZE);
 		if (send_size <= 0 || send_size >= MESSAGE_SIZE)
 		{
 			log.Error("Send Message Serail Fail=" + msgId.ToString());

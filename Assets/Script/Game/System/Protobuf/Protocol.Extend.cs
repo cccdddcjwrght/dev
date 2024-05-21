@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Cmd;
-using IPMessage = Google.Protobuf.IMessage;
+#if PROTO
+using IPMessage = Google.Protobuf.IMessage; 
+#else
+using IPMessage = IProto;
+#endif
 
 public partial class Protocol
 {

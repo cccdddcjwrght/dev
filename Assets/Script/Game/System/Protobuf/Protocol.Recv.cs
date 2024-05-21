@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IPMessage = Google.Protobuf.IMessage;
+
 
 /// <summary>
 /// 数据流接收处理
@@ -20,7 +20,7 @@ public static partial class Protocol
 		);
 	}
 
-	static partial void DoRegister<T>(int protoID, Action<int, T> action, bool once, bool unregister) where T : class, IPMessage, new()
+	static partial void DoRegister<T>(int protoID, Action<int, T> action, bool once, bool unregister) where T : class, new()
 	{
 		if (!unregister)
 			Cmd.CommonCmd.AddListen<T>(protoID, action, once);

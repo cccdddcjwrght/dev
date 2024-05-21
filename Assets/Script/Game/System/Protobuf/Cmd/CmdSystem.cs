@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using IPMessage = Google.Protobuf.IMessage;
+
 
 namespace Cmd
 {
@@ -87,7 +87,7 @@ namespace Cmd
 
 		static private Dictionary<int, Item> _binds = new Dictionary<int, Item>();
 
-		static public void AddListen<T>(int msgID, Action<int, T> call, bool once = false) where T : class, IPMessage, new()
+		static public void AddListen<T>(int msgID, Action<int, T> call, bool once = false) where T : class, new()
 		{
 			static object Decode(byte[] bytes , int off,int len)
 			{
