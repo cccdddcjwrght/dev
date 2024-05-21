@@ -20,8 +20,8 @@ namespace SGame
 				var s = args.Split('_').Last();
 				if (int.TryParse(s, out var id))
 				{
-					var h = DataCenter.HunterUtil.GetHunter(id, false);
-					if (h != null && !h.isClosed)
+					var h = DataCenter.HunterUtil.GetHunter(id);
+					if (h != null && !h.isClosed && h.monster!=null)
 						return PropertyManager.Instance.GetItem(h.itemID).num > 0;
 				}
 			}
