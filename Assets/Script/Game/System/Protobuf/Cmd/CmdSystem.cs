@@ -32,7 +32,7 @@ namespace Cmd
 	/// 用CmdExcute属性类标记
 	/// </summary>
 	/// <typeparam name="T">协议类</typeparam>
-	public abstract class ICmdExcute<T> : ICmdExcute where T : class, Google.Protobuf.IMessage,new()
+	public abstract class ICmdExcute<T> : ICmdExcute where T : class,new()
 	{
 		void ICmdExcute.OnExcute(int msgID, byte[] gamePackage, int offset, int count, int sqid)
 		{

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using log4net;
 
 // 封装异步请求与返回
-public class MessageRequest<T> : IEnumerator where T : class, Google.Protobuf.IMessage, new()
+public class MessageRequest<T> : IEnumerator where T : class, new()
 {
 	private IEnumerator m_process;
 	private Action<T> m_onSuccess;
 	private Action<T> m_onFail;
 	private T m_req;
 	private float m_timeOut;
-	private Cs.GameMsgID m_messageId;
+	private int m_messageId;
 	private NetClient m_client;
 
 	private bool m_isCompleted;
@@ -24,7 +24,7 @@ public class MessageRequest<T> : IEnumerator where T : class, Google.Protobuf.IM
 
 	public bool IsTimeOut { get; private set; }
 
-	public MessageRequest(Cs.GameMsgID messageId, T req)
+	public MessageRequest(int messageId, T req)
 	{
 		m_messageId = messageId;
 		m_process = null;
@@ -35,13 +35,13 @@ public class MessageRequest<T> : IEnumerator where T : class, Google.Protobuf.IM
 		m_client = NetworkManager.Instance.GetClient();
 	}
 
-	public static MessageRequest<T> Build(Cs.GameMsgID messageId, T req)
+	public static MessageRequest<T> Build(int messageId, T req)
 	{
 		var ret = new MessageRequest<T>(messageId, req);
 		return ret;
 	}
 
-	public static MessageRequest<T> BuildOut(Cs.GameMsgID messageId, T req, out MessageRequest<T> handler)
+	public static MessageRequest<T> BuildOut(int messageId, T req, out MessageRequest<T> handler)
 	{
 		return handler = Build(messageId, req);
 	}

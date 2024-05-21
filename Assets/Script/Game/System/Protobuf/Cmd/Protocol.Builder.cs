@@ -8,7 +8,8 @@ namespace Cmd
 	partial class ErrorCode
 	{
 
-		static partial void IsErrorProperty(object val, ref bool ret , bool showtips )
+#if PROTO
+		static partial void IsErrorProperty(object val, ref bool ret, bool showtips)
 		{
 			if (val != null && val is Cs.ErrorCode e)
 			{
@@ -20,10 +21,11 @@ namespace Cmd
 
 		static partial void Convert(int id, ref string tips, ref bool isError)
 		{
-			var e	= (Cs.ErrorCode)id;
+			var e = (Cs.ErrorCode)id;
 			isError = e != Cs.ErrorCode.ErrorSuccess;
 			tips = e.ToString();
-		}
+		} 
+#endif
 
 		static partial void Tips(string key)
 		{

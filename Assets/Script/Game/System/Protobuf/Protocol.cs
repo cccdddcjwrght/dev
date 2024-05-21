@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 #if PROTO
 using IPMessage = Google.Protobuf.IMessage; 
 #else

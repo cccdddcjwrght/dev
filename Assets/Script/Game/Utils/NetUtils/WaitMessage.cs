@@ -78,11 +78,11 @@ public class WaitMessage<T> : IEnumerator where T : class, new()
 public abstract class IMessageHandler 
 {
 	public abstract IEnumerator Wait();
-	public abstract bool TryResult<R>(out R result) where R : class, Google.Protobuf.IMessage;
+	public abstract bool TryResult<R>(out R result) where R : class;
 
 	public abstract bool IsTimeOut();
 
-	static public IMessageHandler Send<T>(int msgid, T msg , out IMessageHandler handler , NetClient client = null, double waitTimeOut = 10.0f )  where T : class, Google.Protobuf.IMessage, new()
+	static public IMessageHandler Send<T>(int msgid, T msg , out IMessageHandler handler , NetClient client = null, double waitTimeOut = 10.0f )  where T : class, new()
 	{
 		handler = new MessageHandler<T>(msgid, msg, client, waitTimeOut);
 		return handler;
