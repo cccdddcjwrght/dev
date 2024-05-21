@@ -14,7 +14,7 @@ using Unity.VisualScripting;
 namespace SGame
 {
     [UpdateInGroup(typeof(GameLogicGroup))]
-    public partial class CharacterSpawnSystem : SystemBase
+    public class CharacterSpawnSystem : ComponentSystem
     {
         public string ENTITY_PREFAB_PATH = "Assets/BuildAsset/Prefabs/ECS/Character.prefab";
         
@@ -86,10 +86,10 @@ namespace SGame
         
         private static ILog log = LogManager.GetLogger("game.character");
         private GameObject                             m_characterbase;
-        private List<CharacterEvent>                           m_triggerInit;
+        private List<CharacterEvent>                   m_triggerInit;
         private int lasterCharacterID;
 
-        private Dictionary<int, Entity>             m_characters;
+        private Dictionary<int, Entity>                 m_characters;
 
         /// <summary>
         /// 角色ECS的预制
@@ -190,7 +190,7 @@ namespace SGame
             
             // 获取数据
             //var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithNone<CharacterLoading, DespawningEntity>().ForEach((Entity e, in CharacterSpawn req) =>
+            Entities.WithNone<CharacterLoading, DespawningEntity>().ForEach((Entity e, ref CharacterSpawn req) =>
             {
                 if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData))
                 {
@@ -227,10 +227,10 @@ namespace SGame
                     aiPrefab  = LoadAI(configAI)
                 };
                 EntityManager.AddComponentData(e, loading);
-            }).WithoutBurst().WithStructuralChanges().Run();
+            });
             
             // 等待资源加载并生成对象
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, CharacterSpawnResult result, in CharacterSpawn req,  in CharacterLoading loading) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, ref CharacterSpawn req, CharacterSpawnResult result, CharacterLoading loading) =>
             {
                 if (!loading.isDone)
                 {
@@ -311,15 +311,14 @@ namespace SGame
 				EntityManager.SetComponentData(characterEntity, new Speed() { Value = roleData.MoveSpeed });
 				EntityManager.AddComponentObject(characterEntity, result);
 				EntityManager.DestroyEntity(e);
-			}).WithStructuralChanges().WithoutBurst().Run();
+			});
             
             // 等待角色创建完成
             Entities.WithNone<DespawningEntity, CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
             {
                 m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character, result = result});
-                //EntityManager.AddComponent<CharacterInitalized>(entity);
                 EntityManager.RemoveComponent<CharacterSpawnResult>(entity);
-            }).WithStructuralChanges().WithoutBurst().Run();
+            });
         }
     }
 }

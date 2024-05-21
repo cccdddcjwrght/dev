@@ -17,7 +17,7 @@ namespace SGame.Http
 {
 	[UpdateAfter(typeof(HttpSystemSpawn))]
 	[UpdateInGroup(typeof(GameLogicAfterGroup))]
-	public partial class HttpSystem : SystemBase
+	public partial class HttpSystem : ComponentSystem
 	{
 		private string m_token;
 		private string m_baseUrl;
@@ -74,7 +74,7 @@ namespace SGame.Http
 					data.request.Dispose();
 					commandBuffer.DestroyEntity(e);
 				}
-			}).WithoutBurst().Run();
+			});
 		}
 
 		/// <summary>

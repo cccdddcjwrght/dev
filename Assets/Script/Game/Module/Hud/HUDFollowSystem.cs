@@ -29,7 +29,7 @@ namespace SGame.UI
 
     [UpdateAfter(typeof(SpawnUISystem))]
     [UpdateInGroup(typeof(GameUIGroup))]
-    public partial class HUDFlowSystem : SystemBase
+    public class HUDFlowSystem : ComponentSystem
     {
         private static ILog              log = LogManager.GetLogger("game.hud");
 
@@ -55,10 +55,10 @@ namespace SGame.UI
                     commandBuffer.RemoveComponent<HUDFlow>(e);
                     commandBuffer.AddComponent<DespawningEntity>(e);
                 }
-            }).WithoutBurst().Run();
+            });
 
             var translationQuery = GetComponentDataFromEntity<Translation>();
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e,  ref Translation trans, in HUDFlowE flow) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e,  ref Translation trans, ref HUDFlowE flow) =>
             {
                 if (flow.Value != Entity.Null && translationQuery.HasComponent(flow.Value))
                 {
@@ -71,7 +71,7 @@ namespace SGame.UI
                     commandBuffer.RemoveComponent<HUDFlow>(e);
                     commandBuffer.AddComponent<DespawningEntity>(e);
                 }
-            }).WithoutBurst().Run();
+            });
         }
     }
 }

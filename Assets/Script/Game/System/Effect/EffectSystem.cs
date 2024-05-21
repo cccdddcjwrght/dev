@@ -50,7 +50,7 @@ namespace SGame
 	}
 
 	// 特效系统
-	public partial class EffectSystem : SystemBase
+	public partial class EffectSystem : ComponentSystem
 	{
 		// 配置表系统
 		private ConfigSystem configSystem;
@@ -122,11 +122,11 @@ namespace SGame
 				// 3D对象特殊处理, 使用Entity属性来完成
 				GameObject parent = new GameObject("effect");
 				obj.transform.parent = parent.transform;
-				parent.transform.position = GetComponent<Translation>(effect).Value;
-				parent.transform.rotation = GetComponent<Rotation>(effect).Value;
-				if (HasComponent<Scale>(effect))
+				parent.transform.position = EntityManager.GetComponentData<Translation>(effect).Value;
+				parent.transform.rotation = EntityManager.GetComponentData<Rotation>(effect).Value;
+				if (EntityManager.HasComponent<Scale>(effect))
 				{
-					float scale = GetComponent<Scale>(effect).Value;
+					float scale = EntityManager.GetComponentData<Scale>(effect).Value;
 					parent.transform.localScale = new Vector3(scale, scale, scale);
 				}
 				m_effectObjects.Add(effect, parent);
@@ -212,11 +212,11 @@ namespace SGame
 
 										req.hoder.SetNativeObject(wrapper);
 									}
-									
+
 									// 设置缩放
 									SetupGameObject(obj, req.position, req.scale, req.rotation);
 									break;
-								
+
 								case RequestSpawnUIEffect.ReqType.REQ_3DPARENT:
 									{
 										// 自带父节点
@@ -238,7 +238,7 @@ namespace SGame
 
 							// 加载成功
 							EntityManager.AddComponent<EffectSysData>(req.entity);
-							
+
 							EffectMono mono = obj.GetComponent<EffectMono>();
 							if (mono != null)
 								mono.Play();
@@ -261,7 +261,7 @@ namespace SGame
 					req.prefabRequest = null;
 					EntityManager.DestroyEntity(e);
 				}
-			}).WithStructuralChanges().WithoutBurst().Run();
+			});
 		}
 
 		// 清理创建的GameObject对象
@@ -276,7 +276,7 @@ namespace SGame
 				}
 
 				EntityManager.RemoveComponent<EffectSysData>(e);
-			}).WithStructuralChanges().WithoutBurst().Run();
+			});
 		}
 
 		// 删除特效

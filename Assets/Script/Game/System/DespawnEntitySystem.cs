@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.Entities;
 
 // 销毁entity的系统
 namespace SGame
 {
     [UpdateBefore(typeof(EndSimulationEntityCommandBufferSystem))]
-    public partial class DespawnEntitySystem : SystemBase
+    public class DespawnEntitySystem : ComponentSystem
     {
         private List<Entity>                            m_entitys;
         private List<Entity>                            m_destoryEntitys;

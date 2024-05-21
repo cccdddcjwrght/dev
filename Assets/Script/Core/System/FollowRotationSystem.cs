@@ -6,8 +6,17 @@ using Unity.Transforms;
 
 namespace SGame
 {
+    public struct LastRotation : IComponentData
+    {
+        public quaternion Value;
+    }
     
-    [UpdateInGroup(typeof(GameLogicGroup))]
+    public struct RotationSpeed : IComponentData
+    {
+        public float Value;
+    }
+    
+    //[UpdateInGroup(typeof(GameLogicGroup))]
     public partial class FollowRotationSystem : SystemBase
     {
         protected override void OnUpdate()

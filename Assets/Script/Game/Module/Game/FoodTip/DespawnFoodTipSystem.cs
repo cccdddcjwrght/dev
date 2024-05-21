@@ -6,7 +6,7 @@ namespace SGame
     /// 食物小费管理
     /// </summary>
     [UpdateInGroup(typeof(GameLogicAfterGroup))]
-    public partial class DespawnFoodTipSystem : SystemBase
+    public partial class DespawnFoodTipSystem : ComponentSystem
     {
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
 
@@ -18,13 +18,13 @@ namespace SGame
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithAll<DespawningEntity>().ForEach((Entity e, in FoodTips tip) =>
+            Entities.WithAll<DespawningEntity>().ForEach((Entity e, ref FoodTips tip) =>
             {
                 if (EntityManager.Exists(tip.ui))
                 {
                     commandBuffer.AddComponent<DespawningEntity>(tip.ui);
                 }
-            }).WithoutBurst().Run();
+            });
         }
     }
 }

@@ -7,7 +7,7 @@ using static MessageBox;
 namespace SGame
 {
 	[UpdateInGroup(typeof(GameLogicGroup))]
-	public partial class PropertyDataChangeTriggerSystem : SystemBase
+	public partial class PropertyDataChangeTriggerSystem : ComponentSystem
 	{
 		/// <summary>
 		/// 属性事件触发器
