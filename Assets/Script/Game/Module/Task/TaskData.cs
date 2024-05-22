@@ -22,9 +22,9 @@ namespace SGame
         public int startTime;
 
         [System.NonSerialized]
-        public Dictionary<int, TaskItem> taskDict;
+        public Dictionary<int, TaskItem> taskDict = new Dictionary<int, TaskItem>();
         [System.NonSerialized]
-        public Dictionary<int, List<int>> taskRewardDict;
+        public Dictionary<int, List<int>> taskRewardDict = new Dictionary<int, List<int>>();
     }
     
     [Serializable]
