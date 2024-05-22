@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using Fibers;
 using libx;
+using log4net;
 using FileMode = System.IO.FileMode;
 
 namespace SGame
@@ -43,6 +44,8 @@ namespace SGame
             REPAIRE             = 6,                            // 服务器维护, 停服
             NETWORK_BREAK       = 7,                            // 网络断开链接
         }
+
+        private static ILog log = LogManager.GetLogger("hotfix.versionupdate");
 
         public delegate void    UPDATE_STATE(STATE newState);   // 更新回调
         string                  m_error                     ;   // 错误信息
@@ -122,7 +125,7 @@ namespace SGame
             m_downloadDir   = UpdateUtils.GetDownloadPath();
             
             // Unity Stream Assets 资源路径
-            m_streamDir = UpdateUtils.GetStreamingAssetsPath();
+            m_streamDir     = UpdateUtils.GetStreamingAssetsPath();
 
 #if UNITY_EDITOR
             // 没开启更新流程直接进入游戏
@@ -238,7 +241,7 @@ namespace SGame
             yield return UpdateUtils.DownloadFile(m_ServerUrl + GameVersion.FileName, remoteTmpFile, err);
             if (!string.IsNullOrEmpty(err.Value))
             {
-                SetError(Error.DOWN_LOAD_FAIL, err.Value);
+                SetError(Error.DOWN_LOAD_FAIL, err.Value + " url=" + m_ServerUrl);
                 yield break;
             }
             
@@ -511,33 +514,36 @@ namespace SGame
             }
             
             // 下载远程版本号与hash文件
+            log.Info("copy stream asset...");
             yield return CopyStreamAsset();
             if (state >= STATE.FAIL)
                 yield break;
             
             // 加载版本信息
+            log.Info("load version ...");
             yield return LoadVersion();
             if (state >= STATE.FAIL)
                 yield break;
-            yield return WaitPause();
-
 
             // 进入下载
+            log.Info("DownloadRemoteFiles ...");
             yield return DownloadRemoteFiles();
             if (state >= STATE.FAIL)
                 yield break;
-            yield return WaitPause();
 
             // 下载更新列表中的文件(相同的文件会自动续传)
+            log.Info("CheckDownloadFileMd5 ...");
             yield return CheckDownloadFileMd5();
             if (state >= STATE.FAIL)
                 yield break;
 
             // 拷贝下载目录到目标文件夹
+            log.Info("CopyDownloadfiles ...");
             yield return CopyDownloadfiles();
             yield return WaitPause();
 
             // 重新加载资源
+            log.Info("ReloadAssetManager ...");
             yield return ReloadAssetManager();
             yield return WaitPause();
 

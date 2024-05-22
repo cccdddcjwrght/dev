@@ -10,7 +10,11 @@ public class Hotfix
     
     public static IEnumerator Main()
     {
-        log.Info("Hello, I am In!");
-        yield return HotfixModule.Instance.RunHotfix();
+        #if ENABLE_HOTFIX
+            log.Info("Hello, I am In!");
+            yield return HotfixModule.Instance.RunHotfix();
+        #else
+            yield return null;
+        #endif
     }
 }

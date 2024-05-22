@@ -52,7 +52,7 @@ namespace SGame.Hotfix
             var uiObject = GameObject.Instantiate(loadPrefab.asset as GameObject);
 
             // 等待热更新结束
-            WaitEvent w = new WaitEvent((int)GameEvent.HOTFIX_DONE);
+            WaitEvent w = new WaitEvent((int)HotfixGameEvent.HOTFIX_DONE);
             yield return w;
         }
     }

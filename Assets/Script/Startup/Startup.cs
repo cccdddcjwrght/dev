@@ -98,7 +98,6 @@ namespace SGame
 			{
 				Debug.Log("module =" + module.m_className);
 
-
 				log.Info("Moudle Start Load =" + module.m_dllName);
 				Type t = LoadDll(module.m_dllName, module.m_className, out Assembly assembly);
 				if (t == null)
