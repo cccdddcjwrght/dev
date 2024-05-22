@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SGame.Hotfix
 {
-    public enum GameEvent : int
+    public enum HotfixGameEvent : int
     {
         HOTFIX_DONE          = 100, // 热更新结束
         LOGIN_READLY         = 101, // 登录准备好了
