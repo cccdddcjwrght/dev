@@ -67,10 +67,9 @@ namespace SGame
 	{
 		private static ILog log = LogManager.GetLogger("gameevent");
 		
-		[UnityEngine.RuntimeInitializeOnLoadMethod]
-		static void OnInit()
+		public void Init()
 		{
-			EventManager.Instance.SetEventNotify(VSEventBridge.Instance);
+			EventManager.Instance.SetEventNotify(this);
 		}
 
 		public delegate void EventType(params object[] values);

@@ -95,8 +95,14 @@ public class Game : SGame.MonoSingleton<Game>
 
 	IEnumerator InitSystem()
 	{
+#if ENABLE_HOTFIX
+		log.Info("HOTFIX IS ENABLE");
+#else
+		log.Info("HOTFIX IS DISABLE");
+#endif
 		//VersionUpdater.PreInitalize();
-
+		VSEventBridge.Instance.Init();
+		
 		// 资源加载初始化
 		ManifestRequest assetRequest = libx.Assets.Initialize();
 		yield return assetRequest;
