@@ -88,6 +88,8 @@ namespace SGame.UI
 			_logic = AttackLogic().Start();
 
 			m_view.onClick.Add(OnUIClick);
+			m_view.m_list.onTouchMove.Add(OnUIClick);
+
 			_clickui = true;
 			_isInited = true;
 			goWrapper = new GoWrapper();
@@ -106,6 +108,7 @@ namespace SGame.UI
 			goWrapper?.Dispose();
 			goWrapper = null;
 		}
+
 
 		void OnUIClick(EventContext e)
 		{
