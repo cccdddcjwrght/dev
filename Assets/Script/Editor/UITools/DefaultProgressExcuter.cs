@@ -4,7 +4,7 @@ using System;
 using FairyGUI;
 using System.Collections.Generic;
 
-public class DefaultProgressExcuter : IUIExcute
+public class DefaultProgressExcuter : IUIExcute,IUIDisable
 {
     public string step => "ui";
     public static Type[] types = { typeof(GProgressBar), typeof(GSlider)  };

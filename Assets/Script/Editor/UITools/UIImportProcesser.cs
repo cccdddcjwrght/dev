@@ -10,6 +10,11 @@ using System;
 using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
 
+public interface IUIDisable
+{
+
+}
+
 public interface IUIExcute
 {
 	string step { get; }
@@ -341,7 +346,7 @@ namespace __SPACE__{
 				.GetAssemblies()
 				.SelectMany(a => a.GetTypes())
 				.Where(t => t.IsClass && !t.IsGenericType && !t.IsAbstract && !t.Name.StartsWith("<"))
-				.Where(t => typeof(IUIExcute).IsAssignableFrom(t))
+				.Where(t => typeof(IUIExcute).IsAssignableFrom(t) && !typeof(IUIDisable).IsAssignableFrom(t))
 				.Select(t => Activator.CreateInstance(t, true) as IUIExcute)
 				.GroupBy(v => v.step)
 				.ToDictionary(group => group.Key, group => group.ToList());
@@ -455,7 +460,7 @@ namespace __SPACE__{
 		if (isnew)
 		{
 			WriteFile(ui + ".Main.cs", C_MAIN_TEMP.Replace(C_VIEW, assetname), package, ui);
-			WriteFile(ui + ".Event.cs", C_EVENT_TEMP, package, ui);
+			//WriteFile(ui + ".Event.cs", C_EVENT_TEMP, package, ui);
 			WriteFile(ui + ".Logic.cs", C_LOGIC_TEMP, package, ui);
 			_uiinfos.Add(info.ToArray());
 		}
