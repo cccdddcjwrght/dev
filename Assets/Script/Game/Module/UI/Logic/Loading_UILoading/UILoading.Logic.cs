@@ -44,32 +44,13 @@ namespace SGame.UI
 		void OnUpdate(UIContext context)
 		{
 			m_progressBar.value = SceneSystemV2.Instance.progress * 100; // cprogress;
+			log.Info("load scene progress=" + m_progressBar.value);
 		}
-
-		void OnStateChange(int state)
-		{
-			/*
-			progress = (int)Mathf.Clamp(((float)state / maxstate) * 100, 0, 100);
-			if (!startFlag)
-			{
-				startFlag = true;
-				timer = Utils.Timer(9999, () =>
-				{
-					//var step = progress - cprogress > 20 ? 10 : 5;
-					//cprogress = Math.Clamp(cprogress + step, 0, progress);
-					m_progressBar.value = SceneSystemV2.Instance.progress * 100;// cprogress;
-				}, m_view);
-			}
-			*/
-		}
+		
 
 		partial void UnInitLogic(UIContext context)
 		{
 			context.onUpdate -= OnUpdate;
-
-			//timer?.Invoke(false);
-			//SceneSystemV2.Instance.AddListener(OnStateChange, true, true);
-
 		}
 	}
 }

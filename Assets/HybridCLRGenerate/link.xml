@@ -12,6 +12,12 @@
     <type fullname="GameTools.Paths.AStarSystem" preserve="all" />
     <type fullname="GameTools.Paths.IMap" preserve="all" />
     <type fullname="GameTools.Paths.MapInfo" preserve="all" />
+    <type fullname="Jacovone.PathMagic" preserve="all" />
+    <type fullname="Jacovone.PathMagic/WaypointChangedEvent" preserve="all" />
+    <type fullname="Jacovone.PathMagicAnimator" preserve="all" />
+    <type fullname="Jacovone.PathMagicAnimator/WaypointChangedEvent" preserve="all" />
+    <type fullname="Jacovone.Waypoint" preserve="all" />
+    <type fullname="Jacovone.Waypoint/ReachedEvent" preserve="all" />
     <type fullname="PathPositions" preserve="all" />
     <type fullname="Speed" preserve="all" />
   </assembly>
@@ -19,9 +25,17 @@
     <type fullname="Cinemachine.CinemachineBlendDefinition" preserve="all" />
     <type fullname="Cinemachine.CinemachineBlendDefinition/Style" preserve="all" />
     <type fullname="Cinemachine.CinemachineBrain" preserve="all" />
+    <type fullname="Cinemachine.CinemachineBrain/BrainEvent" preserve="all" />
+    <type fullname="Cinemachine.CinemachineBrain/VcamActivatedEvent" preserve="all" />
     <type fullname="Cinemachine.CinemachineComposer" preserve="all" />
+    <type fullname="Cinemachine.CinemachineImpulseDefinition" preserve="all" />
+    <type fullname="Cinemachine.CinemachineImpulseManager" preserve="all" />
+    <type fullname="Cinemachine.CinemachineImpulseManager/EnvelopeDefinition" preserve="all" />
     <type fullname="Cinemachine.CinemachineTransposer" preserve="all" />
     <type fullname="Cinemachine.CinemachineTransposer/BindingMode" preserve="all" />
+    <type fullname="Cinemachine.CinemachineTriggerAction" preserve="all" />
+    <type fullname="Cinemachine.CinemachineTriggerAction/ActionSettings" preserve="all" />
+    <type fullname="Cinemachine.CinemachineTriggerAction/ActionSettings/TriggerEvent" preserve="all" />
     <type fullname="Cinemachine.CinemachineVirtualCamera" preserve="all" />
     <type fullname="Cinemachine.CinemachineVirtualCameraBase" preserve="all" />
     <type fullname="Cinemachine.ICinemachineCamera" preserve="all" />
@@ -62,8 +76,10 @@
     <type fullname="SGame.EventHanle" preserve="all" />
     <type fullname="SGame.EventManager" preserve="all" />
     <type fullname="SGame.GAssetRequest" preserve="all" />
+    <type fullname="SGame.GameCamera" preserve="all" />
     <type fullname="SGame.IEventNotify" preserve="all" />
     <type fullname="SGame.LanguageUtil" preserve="all" />
+    <type fullname="SGame.LastRotation" preserve="all" />
     <type fullname="SGame.LiveTime" preserve="all" />
     <type fullname="SGame.LoadState" preserve="all" />
     <type fullname="SGame.MonoSingleton`1" preserve="all" />
@@ -74,6 +90,7 @@
     <type fullname="SGame.ObjectPool`1/SpawnDelegate" preserve="all" />
     <type fullname="SGame.PoolID" preserve="all" />
     <type fullname="SGame.Randoms.Random" preserve="all" />
+    <type fullname="SGame.RotationSpeed" preserve="all" />
     <type fullname="SGame.Singleton`1" preserve="all" />
     <type fullname="SGame.UI.FairyWindow" preserve="all" />
     <type fullname="SGame.UI.IPreprocess" preserve="all" />
@@ -215,24 +232,13 @@
     <type fullname="ThinkingData.Analytics.TDTimeZone" preserve="all" />
     <type fullname="ThinkingData.Analytics.TDUpdatableEventModel" preserve="all" />
   </assembly>
-  <assembly fullname="Unity.Burst">
-    <type fullname="Unity.Burst.BurstCompileAttribute" preserve="all" />
-    <type fullname="Unity.Burst.NoAliasAttribute" preserve="all" />
-  </assembly>
-  <assembly fullname="Unity.Collections">
-    <type fullname="Unity.Jobs.DOTSCompilerGeneratedAttribute" preserve="all" />
-    <type fullname="Unity.Jobs.EarlyInitHelpers" preserve="all" />
-  </assembly>
   <assembly fullname="Unity.Entities">
     <type fullname="Unity.Core.TimeData" preserve="all" />
-    <type fullname="Unity.Entities.ArchetypeChunk" preserve="all" />
-    <type fullname="Unity.Entities.BufferAccessor`1" preserve="all" />
-    <type fullname="Unity.Entities.BufferTypeHandle`1" preserve="all" />
     <type fullname="Unity.Entities.ComponentDataFromEntity`1" preserve="all" />
+    <type fullname="Unity.Entities.ComponentSystem" preserve="all" />
     <type fullname="Unity.Entities.ComponentSystemBase" preserve="all" />
     <type fullname="Unity.Entities.ComponentSystemGroup" preserve="all" />
     <type fullname="Unity.Entities.ComponentType" preserve="all" />
-    <type fullname="Unity.Entities.ComponentTypeHandle`1" preserve="all" />
     <type fullname="Unity.Entities.Disabled" preserve="all" />
     <type fullname="Unity.Entities.DynamicBuffer`1" preserve="all" />
     <type fullname="Unity.Entities.EndInitializationEntityCommandBufferSystem" preserve="all" />
@@ -240,33 +246,27 @@
     <type fullname="Unity.Entities.Entity" preserve="all" />
     <type fullname="Unity.Entities.EntityArchetype" preserve="all" />
     <type fullname="Unity.Entities.EntityCommandBuffer" preserve="all" />
-    <type fullname="Unity.Entities.EntityCommandBuffer/ParallelWriter" preserve="all" />
     <type fullname="Unity.Entities.EntityCommandBufferManagedComponentExtensions" preserve="all" />
     <type fullname="Unity.Entities.EntityCommandBufferSystem" preserve="all" />
     <type fullname="Unity.Entities.EntityManager" preserve="all" />
     <type fullname="Unity.Entities.EntityManagerManagedComponentExtensions" preserve="all" />
     <type fullname="Unity.Entities.EntityQuery" preserve="all" />
-    <type fullname="Unity.Entities.EntityQuery/GatherEntitiesResult" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_E" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_ECC`2" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_ECDD`3" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_ECD`2" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_EC`1" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_EDCC`3" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_EDDD`3" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_EDD`2" preserve="all" />
+    <type fullname="Unity.Entities.EntityQueryBuilder/F_ED`1" preserve="all" />
     <type fullname="Unity.Entities.EntityQueryDesc" preserve="all" />
     <type fullname="Unity.Entities.EntityQueryManagedComponentExtensions" preserve="all" />
-    <type fullname="Unity.Entities.EntityQueryMask" preserve="all" />
-    <type fullname="Unity.Entities.EntityQueryOptions" preserve="all" />
-    <type fullname="Unity.Entities.EntityTypeHandle" preserve="all" />
     <type fullname="Unity.Entities.GenerateAuthoringComponentAttribute" preserve="all" />
     <type fullname="Unity.Entities.IComponentData" preserve="all" />
-    <type fullname="Unity.Entities.IJobEntityBatch" preserve="all" />
-    <type fullname="Unity.Entities.IJobEntityBatchWithIndex" preserve="all" />
     <type fullname="Unity.Entities.ISystemStateComponentData" preserve="all" />
-    <type fullname="Unity.Entities.InternalCompilerInterface" preserve="all" />
-    <type fullname="Unity.Entities.JobEntityBatchExtensions" preserve="all" />
-    <type fullname="Unity.Entities.JobEntityBatchIndexExtensions" preserve="all" />
-    <type fullname="Unity.Entities.ManagedComponentAccessor`1" preserve="all" />
     <type fullname="Unity.Entities.Prefab" preserve="all" />
-    <type fullname="Unity.Entities.SystemBase" preserve="all" />
-    <type fullname="Unity.Entities.TypeManager" preserve="all" />
-    <type fullname="Unity.Entities.UniversalDelegates.VVII`4" preserve="all" />
-    <type fullname="Unity.Entities.UniversalDelegates.VVI`3" preserve="all" />
-    <type fullname="Unity.Entities.UniversalDelegates.VVRI`4" preserve="all" />
     <type fullname="Unity.Entities.UpdateAfterAttribute" preserve="all" />
     <type fullname="Unity.Entities.UpdateBeforeAttribute" preserve="all" />
     <type fullname="Unity.Entities.UpdateInGroupAttribute" preserve="all" />
@@ -282,6 +282,8 @@
   </assembly>
   <assembly fullname="Unity.Mathematics">
     <type fullname="Unity.Mathematics.Random" preserve="all" />
+    <type fullname="Unity.Mathematics.bool2" preserve="all" />
+    <type fullname="Unity.Mathematics.bool2x2" preserve="all" />
     <type fullname="Unity.Mathematics.float3" preserve="all" />
     <type fullname="Unity.Mathematics.float4x4" preserve="all" />
     <type fullname="Unity.Mathematics.int2" preserve="all" />
@@ -293,8 +295,31 @@
     <type fullname="Unity.Properties.PropertyBag" preserve="all" />
     <type fullname="Unity.Properties.Property`2" preserve="all" />
   </assembly>
+  <assembly fullname="Unity.RenderPipelines.Universal.Runtime">
+    <type fullname="UnityEngine.Experimental.Rendering.Universal.RenderObjects" preserve="all" />
+    <type fullname="UnityEngine.Experimental.Rendering.Universal.RenderObjects/RenderObjectsSettings" preserve="all" />
+    <type fullname="UnityEngine.Rendering.Universal.StencilStateData" preserve="all" />
+  </assembly>
   <assembly fullname="Unity.TextMeshPro">
+    <type fullname="TMPro.HorizontalAlignmentOptions" preserve="all" />
+    <type fullname="TMPro.TMP_Character" preserve="all" />
+    <type fullname="TMPro.TMP_Dropdown" preserve="all" />
+    <type fullname="TMPro.TMP_Dropdown/DropdownEvent" preserve="all" />
+    <type fullname="TMPro.TMP_Dropdown/OptionDataList" preserve="all" />
     <type fullname="TMPro.TMP_FontAsset" preserve="all" />
+    <type fullname="TMPro.TMP_FontWeightPair" preserve="all" />
+    <type fullname="TMPro.TMP_GlyphPairAdjustmentRecord" preserve="all" />
+    <type fullname="TMPro.TMP_InputField" preserve="all" />
+    <type fullname="TMPro.TMP_InputField/OnChangeEvent" preserve="all" />
+    <type fullname="TMPro.TMP_InputField/SelectionEvent" preserve="all" />
+    <type fullname="TMPro.TMP_InputField/SubmitEvent" preserve="all" />
+    <type fullname="TMPro.TMP_InputField/TextSelectionEvent" preserve="all" />
+    <type fullname="TMPro.TMP_InputField/TouchScreenKeyboardEvent" preserve="all" />
+    <type fullname="TMPro.TMP_SpriteCharacter" preserve="all" />
+    <type fullname="TMPro.TMP_SpriteGlyph" preserve="all" />
+    <type fullname="TMPro.TMP_Style" preserve="all" />
+    <type fullname="TMPro.TextAlignmentOptions" preserve="all" />
+    <type fullname="TMPro.VerticalAlignmentOptions" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Timeline">
     <type fullname="UnityEngine.Timeline.TimelineAsset" preserve="all" />
@@ -321,6 +346,8 @@
     <type fullname="Unity.VisualScripting.IGraphElementWithData" preserve="all" />
     <type fullname="Unity.VisualScripting.InspectableAttribute" preserve="all" />
     <type fullname="Unity.VisualScripting.SerializeAsAttribute" preserve="all" />
+    <type fullname="Unity.VisualScripting.SerializedPropertyProviderAttribute" preserve="all" />
+    <type fullname="Unity.VisualScripting.SerializedPropertyProvider`1" preserve="all" />
   </assembly>
   <assembly fullname="Unity.VisualScripting.Flow">
     <type fullname="Unity.VisualScripting.ControlInput" preserve="all" />
@@ -361,8 +388,6 @@
     <type fullname="Unity.Collections.Allocator" preserve="all" />
     <type fullname="Unity.Collections.NativeArray`1" preserve="all" />
     <type fullname="Unity.Collections.NativeArray`1/Enumerator" preserve="all" />
-    <type fullname="Unity.Collections.ReadOnlyAttribute" preserve="all" />
-    <type fullname="Unity.Jobs.JobHandle" preserve="all" />
     <type fullname="UnityEngine.Application" preserve="all" />
     <type fullname="UnityEngine.AsyncOperation" preserve="all" />
     <type fullname="UnityEngine.Behaviour" preserve="all" />
@@ -376,6 +401,8 @@
     <type fullname="UnityEngine.Debug" preserve="all" />
     <type fullname="UnityEngine.DefaultExecutionOrder" preserve="all" />
     <type fullname="UnityEngine.DisallowMultipleComponent" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityEvent" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityEventBase" preserve="all" />
     <type fullname="UnityEngine.ExecuteAlways" preserve="all" />
     <type fullname="UnityEngine.FindObjectsInactive" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
@@ -449,6 +476,8 @@
   <assembly fullname="UnityEngine.ParticleSystemModule">
     <type fullname="UnityEngine.ParticleSystem" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/MainModule" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystem/MinMaxCurve" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystem/MinMaxGradient" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule">
     <type fullname="UnityEngine.BoxCollider" preserve="all" />
@@ -456,8 +485,50 @@
     <type fullname="UnityEngine.Physics" preserve="all" />
     <type fullname="UnityEngine.RaycastHit" preserve="all" />
   </assembly>
+  <assembly fullname="UnityEngine.TextCoreFontEngineModule">
+    <type fullname="UnityEngine.TextCore.Glyph" preserve="all" />
+    <type fullname="UnityEngine.TextCore.GlyphMetrics" preserve="all" />
+    <type fullname="UnityEngine.TextCore.GlyphRect" preserve="all" />
+    <type fullname="UnityEngine.TextCore.LowLevel.GlyphPairAdjustmentRecord" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.TextCoreTextEngineModule">
+    <type fullname="UnityEngine.TextCore.Text.Character" preserve="all" />
+    <type fullname="UnityEngine.TextCore.Text.FontWeightPair" preserve="all" />
+    <type fullname="UnityEngine.TextCore.Text.SpriteCharacter" preserve="all" />
+    <type fullname="UnityEngine.TextCore.Text.SpriteGlyph" preserve="all" />
+    <type fullname="UnityEngine.TextCore.Text.TextStyle" preserve="all" />
+    <type fullname="UnityEngine.TextCore.Text.UnicodeLineBreakingRules" preserve="all" />
+  </assembly>
   <assembly fullname="UnityEngine.TextRenderingModule">
     <type fullname="UnityEngine.Font" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.UI">
+    <type fullname="UnityEngine.EventSystems.EventTrigger" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.EventTrigger/TriggerEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.AnimationTriggers" preserve="all" />
+    <type fullname="UnityEngine.UI.Button" preserve="all" />
+    <type fullname="UnityEngine.UI.Button/ButtonClickedEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.ColorBlock" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown/DropdownEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown/OptionDataList" preserve="all" />
+    <type fullname="UnityEngine.UI.FontData" preserve="all" />
+    <type fullname="UnityEngine.UI.InputField" preserve="all" />
+    <type fullname="UnityEngine.UI.InputField/EndEditEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.InputField/OnChangeEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.InputField/SubmitEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.MaskableGraphic" preserve="all" />
+    <type fullname="UnityEngine.UI.MaskableGraphic/CullStateChangedEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Navigation" preserve="all" />
+    <type fullname="UnityEngine.UI.ScrollRect" preserve="all" />
+    <type fullname="UnityEngine.UI.ScrollRect/ScrollRectEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Scrollbar" preserve="all" />
+    <type fullname="UnityEngine.UI.Scrollbar/ScrollEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Slider" preserve="all" />
+    <type fullname="UnityEngine.UI.Slider/SliderEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.SpriteState" preserve="all" />
+    <type fullname="UnityEngine.UI.Toggle" preserve="all" />
+    <type fullname="UnityEngine.UI.Toggle/ToggleEvent" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UnityWebRequestModule">
     <type fullname="UnityEngine.Networking.CertificateHandler" preserve="all" />
@@ -591,5 +662,9 @@
     <type fullname="System.ValueTuple`2" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
     <type fullname="System.WeakReference`1" preserve="all" />
+  </assembly>
+  <assembly fullname="plyLib">
+    <type fullname="plyLib.IntVector2" preserve="all" />
+    <type fullname="plyLib.IntVector3" preserve="all" />
   </assembly>
 </linker>

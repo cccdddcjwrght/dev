@@ -216,7 +216,7 @@ namespace SGame
 						}
 						else if (cfg.Activity!=0)
 						{
-							//正数：具体活动ID；负数：活动类型
+							//姝ｆ暟锛氬叿浣撴椿鍔↖D锛涜礋鏁帮細娲诲姩绫诲瀷
 							var actType = cfg.Activity;
 							var isopen = false;
 

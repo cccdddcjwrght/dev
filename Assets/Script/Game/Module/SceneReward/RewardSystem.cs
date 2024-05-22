@@ -14,7 +14,7 @@ namespace SGame
 
 	}
 
-	public partial class RewardSystem : ComponentSystem
+	public class RewardSystem : ComponentSystem
 	{
 
 		private const string c_def_asset = "Assets/BuildAsset/Prefabs/Scenes/other/rewardbox.prefab";

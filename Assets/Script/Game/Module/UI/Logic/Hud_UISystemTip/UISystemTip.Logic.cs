@@ -50,6 +50,7 @@ namespace SGame.UI
 
 		void ShowText(string name, float delay = 0)
 		{
+			log.Debug("show tips=" + name  + " delay=" + delay);
 			if (string.IsNullOrEmpty(name) || name == "-1")
 			{
 				m_view.m_myfloat.Stop(false, false);

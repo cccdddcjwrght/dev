@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using FairyGUI;
-using GameConfigs;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
@@ -9,7 +6,7 @@ using UnityEngine;
 namespace SGame
 {
     [UpdateBefore(typeof(EffectSystem))]
-    public partial class BulletHitSystem : ComponentSystem
+    public class BulletHitSystem : ComponentSystem
     {
         struct Data
         {
@@ -38,7 +35,7 @@ namespace SGame
                 if (item.bullet.explorerEffectID != 0)
                 {
                     // 爆炸特效
-                    EffectSystem.Instance.Spawn3d(item.bullet.explorerEffectID, null, item.trans.Value);
+                    EffectSystem.Instance.Spawn3d(item.bullet.explorerEffectID, null, (Vector3)item.trans.Value);
                 }
                 
                 // 关闭子弹特效

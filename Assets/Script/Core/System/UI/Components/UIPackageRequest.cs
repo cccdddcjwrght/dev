@@ -95,7 +95,9 @@ namespace SGame.UI
                                 return false;
                             }
 
-                            uiPackage = UIPackage.AddPackage(descBundle.assetBundle, resBundle.assetBundle);
+                            uiPackage = UIPackage.GetByName(name);
+                            if (uiPackage == null) // fix 对重复加载做限制
+                                uiPackage = UIPackage.AddPackage(descBundle.assetBundle, resBundle.assetBundle);
                                 
                             var dependencies = uiPackage.dependencies;
                             if (dependencies.Length == 0)

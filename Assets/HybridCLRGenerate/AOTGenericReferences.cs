@@ -1413,115 +1413,58 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.ReadOnlySpan<ushort>
 	// System.Span<ushort>
 	// System.ValueTuple<int,int>
-	// Unity.Burst.SharedStatic<System.IntPtr>
 	// Unity.Burst.SharedStatic<int>
+	// Unity.Collections.FixedList128Bytes.Enumerator<int>
+	// Unity.Collections.FixedList128Bytes<int>
+	// Unity.Collections.FixedList32Bytes.Enumerator<int>
+	// Unity.Collections.FixedList32Bytes<int>
+	// Unity.Collections.FixedList4096Bytes.Enumerator<int>
+	// Unity.Collections.FixedList4096Bytes<int>
+	// Unity.Collections.FixedList512Bytes.Enumerator<int>
+	// Unity.Collections.FixedList512Bytes<int>
+	// Unity.Collections.FixedList64Bytes.Enumerator<int>
+	// Unity.Collections.FixedList64Bytes<int>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelReader<System.IntPtr>
-	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelReader<Unity.Entities.ArchetypeChunk>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelReader<Unity.Entities.EntityQuery>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelReader<int>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelWriter<System.IntPtr>
-	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelWriter<Unity.Entities.ArchetypeChunk>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelWriter<Unity.Entities.EntityQuery>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList.ParallelWriter<int>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList<System.IntPtr>
-	// Unity.Collections.LowLevel.Unsafe.UnsafeList<Unity.Entities.ArchetypeChunk>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList<Unity.Entities.EntityQuery>
 	// Unity.Collections.LowLevel.Unsafe.UnsafeList<int>
 	// Unity.Collections.LowLevel.Unsafe.UnsafePtrList.ParallelReader<Unity.Entities.Chunk>
 	// Unity.Collections.LowLevel.Unsafe.UnsafePtrList.ParallelWriter<Unity.Entities.Chunk>
 	// Unity.Collections.LowLevel.Unsafe.UnsafePtrList<Unity.Entities.Chunk>
-	// Unity.Collections.NativeArray.Enumerator<PathPositions>
 	// Unity.Collections.NativeArray.Enumerator<Unity.Entities.Entity>
 	// Unity.Collections.NativeArray.Enumerator<Unity.Transforms.Child>
-	// Unity.Collections.NativeArray.Enumerator<int>
-	// Unity.Collections.NativeArray.ReadOnly.Enumerator<PathPositions>
 	// Unity.Collections.NativeArray.ReadOnly.Enumerator<Unity.Entities.Entity>
 	// Unity.Collections.NativeArray.ReadOnly.Enumerator<Unity.Transforms.Child>
-	// Unity.Collections.NativeArray.ReadOnly.Enumerator<int>
-	// Unity.Collections.NativeArray.ReadOnly<PathPositions>
 	// Unity.Collections.NativeArray.ReadOnly<Unity.Entities.Entity>
 	// Unity.Collections.NativeArray.ReadOnly<Unity.Transforms.Child>
-	// Unity.Collections.NativeArray.ReadOnly<int>
-	// Unity.Collections.NativeArray<PathPositions>
 	// Unity.Collections.NativeArray<Unity.Entities.Entity>
 	// Unity.Collections.NativeArray<Unity.Transforms.Child>
-	// Unity.Collections.NativeArray<int>
-	// Unity.Collections.NativeSlice.Enumerator<PathPositions>
 	// Unity.Collections.NativeSlice.Enumerator<Unity.Transforms.Child>
-	// Unity.Collections.NativeSlice<PathPositions>
 	// Unity.Collections.NativeSlice<Unity.Transforms.Child>
-	// Unity.Entities.BufferAccessor<PathPositions>
-	// Unity.Entities.BufferTypeHandle<PathPositions>
 	// Unity.Entities.ComponentDataFromEntity<Unity.Transforms.Translation>
-	// Unity.Entities.ComponentTypeHandle<Follow>
-	// Unity.Entities.ComponentTypeHandle<SGame.BulletData>
-	// Unity.Entities.ComponentTypeHandle<SGame.CharacterAttribue>
-	// Unity.Entities.ComponentTypeHandle<SGame.CharacterSpawnSystem.CharacterSpawn>
-	// Unity.Entities.ComponentTypeHandle<SGame.FoodTips>
-	// Unity.Entities.ComponentTypeHandle<SGame.LastRotation>
-	// Unity.Entities.ComponentTypeHandle<SGame.MoveTarget>
-	// Unity.Entities.ComponentTypeHandle<SGame.RedEvent>
-	// Unity.Entities.ComponentTypeHandle<SGame.Redpoint>
-	// Unity.Entities.ComponentTypeHandle<SGame.RewardData>
-	// Unity.Entities.ComponentTypeHandle<SGame.RewardWait>
-	// Unity.Entities.ComponentTypeHandle<SGame.RotationSpeed>
-	// Unity.Entities.ComponentTypeHandle<SGame.SoundData>
-	// Unity.Entities.ComponentTypeHandle<SGame.SoundTime>
-	// Unity.Entities.ComponentTypeHandle<SGame.SpawnReq>
-	// Unity.Entities.ComponentTypeHandle<SGame.UI.HUDFlowE>
-	// Unity.Entities.ComponentTypeHandle<SGame.UserInput>
-	// Unity.Entities.ComponentTypeHandle<Speed>
-	// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation>
-	// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation>
 	// Unity.Entities.ComponentTypeHandle<object>
-	// Unity.Entities.DynamicBuffer<PathPositions>
 	// Unity.Entities.DynamicBuffer<Unity.Transforms.Child>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.RewardSystem.RewardSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.RewardSystem.RewardSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer.ExecuteJobFunction<SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.RewardSystem.RewardSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.RewardSystem.RewardSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchExtensions.JobEntityBatchProducer<SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchIndexExtensions.JobEntityBatchIndexProducer.ExecuteJobFunction<SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job>
-	// Unity.Entities.JobEntityBatchIndexExtensions.JobEntityBatchIndexProducer<SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job>
+	// Unity.Entities.EntityQueryBuilder.F_ECD<object,Unity.Transforms.Translation>
+	// Unity.Entities.EntityQueryBuilder.F_ECDD<object,SGame.SoundTime,SGame.SoundData>
+	// Unity.Entities.EntityQueryBuilder.F_ECDD<object,Speed,SGame.CharacterAttribue>
+	// Unity.Entities.EntityQueryBuilder.F_ECDD<object,Unity.Transforms.Translation,Unity.Transforms.Rotation>
+	// Unity.Entities.EntityQueryBuilder.F_ED<SGame.CharacterSpawnSystem.CharacterSpawn>
+	// Unity.Entities.EntityQueryBuilder.F_ED<SGame.FoodTips>
+	// Unity.Entities.EntityQueryBuilder.F_ED<SGame.Redpoint>
+	// Unity.Entities.EntityQueryBuilder.F_ED<SGame.RewardData>
+	// Unity.Entities.EntityQueryBuilder.F_ED<SGame.SoundData>
+	// Unity.Entities.EntityQueryBuilder.F_ED<SGame.SpawnReq>
+	// Unity.Entities.EntityQueryBuilder.F_EDCC<SGame.CharacterSpawnSystem.CharacterSpawn,object,object>
+	// Unity.Entities.EntityQueryBuilder.F_EDD<SGame.BulletData,Unity.Transforms.Translation>
+	// Unity.Entities.EntityQueryBuilder.F_EDD<SGame.Redpoint,SGame.RedEvent>
+	// Unity.Entities.EntityQueryBuilder.F_EDD<SGame.RewardData,SGame.RewardWait>
+	// Unity.Entities.EntityQueryBuilder.F_EDD<Unity.Transforms.Translation,SGame.UI.HUDFlowE>
+	// Unity.Entities.EntityQueryBuilder.F_EDDD<Unity.Transforms.Translation,SGame.MoveTarget,Speed>
 	// Unity.Properties.AOT.ListPropertyGenerator<object,object,byte>
 	// Unity.Properties.AOT.ListPropertyGenerator<object,object,object>
 	// Unity.Properties.AOT.PropertyBagGenerator<SGame.PoolID>
@@ -1653,6 +1596,28 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// Unity.VisualScripting.IConnection<object,object>
 	// Unity.VisualScripting.IConnectionCollection<object,object,object>
 	// Unity.VisualScripting.IKeyedCollection<object,object>
+	// Unity.VisualScripting.SerializedPropertyProvider<Cinemachine.CinemachineImpulseManager.EnvelopeDefinition>
+	// Unity.VisualScripting.SerializedPropertyProvider<TMPro.TMP_FontWeightPair>
+	// Unity.VisualScripting.SerializedPropertyProvider<Unity.Entities.Entity>
+	// Unity.VisualScripting.SerializedPropertyProvider<Unity.Mathematics.bool2>
+	// Unity.VisualScripting.SerializedPropertyProvider<Unity.Mathematics.bool2x2>
+	// Unity.VisualScripting.SerializedPropertyProvider<Unity.Mathematics.int2>
+	// Unity.VisualScripting.SerializedPropertyProvider<Unity.Mathematics.quaternion>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.ParticleSystem.MinMaxCurve>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.ParticleSystem.MinMaxGradient>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.Quaternion>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.TextCore.GlyphMetrics>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.TextCore.GlyphRect>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.TextCore.LowLevel.GlyphPairAdjustmentRecord>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.TextCore.Text.FontWeightPair>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.UI.ColorBlock>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.UI.Navigation>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.UI.SpriteState>
+	// Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.Vector2Int>
+	// Unity.VisualScripting.SerializedPropertyProvider<int>
+	// Unity.VisualScripting.SerializedPropertyProvider<object>
+	// Unity.VisualScripting.SerializedPropertyProvider<plyLib.IntVector2>
+	// Unity.VisualScripting.SerializedPropertyProvider<plyLib.IntVector3>
 	// Unity.VisualScripting.Unit.<>c__DisplayClass86_0<SGame.ChairData>
 	// Unity.VisualScripting.Unit.<>c__DisplayClass86_0<Unity.Entities.Entity>
 	// Unity.VisualScripting.Unit.<>c__DisplayClass86_0<Unity.Entities.EntityManager>
@@ -2274,44 +2239,44 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
 		// object& System.Runtime.CompilerServices.Unsafe.As<object,object>(object&)
 		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<object>(object&)
-		// Unity.Collections.NativeArray<int> Unity.Collections.LowLevel.Unsafe.NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<int>(System.Void*,int,Unity.Collections.Allocator)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.BulletData>(SGame.BulletData&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.CharacterAttribue>(SGame.CharacterAttribue&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.CharacterSpawnSystem.CharacterSpawn>(SGame.CharacterSpawnSystem.CharacterSpawn&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.FoodTips>(SGame.FoodTips&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.MoveTarget>(SGame.MoveTarget&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.RedEvent>(SGame.RedEvent&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.Redpoint>(SGame.Redpoint&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.RewardData>(SGame.RewardData&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.RewardWait>(SGame.RewardWait&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.SoundData>(SGame.SoundData&)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.SoundTime>(SGame.SoundTime&)
-		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Unity.Entities.JobEntityBatchExtensions.JobEntityBatchWrapper<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job>>(Unity.Entities.JobEntityBatchExtensions.JobEntityBatchWrapper<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job>&)
-		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Unity.Entities.JobEntityBatchExtensions.JobEntityBatchWrapper<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job>>(Unity.Entities.JobEntityBatchExtensions.JobEntityBatchWrapper<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job>&)
-		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Unity.Entities.JobEntityBatchExtensions.JobEntityBatchWrapper<SGame.RewardSystem.RewardSystem_LambdaJob_1_Job>>(Unity.Entities.JobEntityBatchExtensions.JobEntityBatchWrapper<SGame.RewardSystem.RewardSystem_LambdaJob_1_Job>&)
-		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Unity.Entities.JobEntityBatchIndexExtensions.JobEntityBatchIndexWrapper<SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job>>(Unity.Entities.JobEntityBatchIndexExtensions.JobEntityBatchIndexWrapper<SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job>&)
-		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Unity.Entities.PrefilterForJobEntityBatchWithIndex>(Unity.Entities.PrefilterForJobEntityBatchWithIndex&)
-		// Follow& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<Follow>(System.Void*)
-		// SGame.BulletData& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.BulletData>(System.Void*)
-		// SGame.CharacterAttribue& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.CharacterAttribue>(System.Void*)
-		// SGame.FoodTips& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.FoodTips>(System.Void*)
-		// SGame.LastRotation& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.LastRotation>(System.Void*)
-		// SGame.MoveTarget& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.MoveTarget>(System.Void*)
-		// SGame.RedEvent& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.RedEvent>(System.Void*)
-		// SGame.Redpoint& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.Redpoint>(System.Void*)
-		// SGame.RewardData& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.RewardData>(System.Void*)
-		// SGame.RewardWait& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.RewardWait>(System.Void*)
-		// SGame.RotationSpeed& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.RotationSpeed>(System.Void*)
-		// SGame.UI.HUDFlowE& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.UI.HUDFlowE>(System.Void*)
-		// SGame.UserInput& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<SGame.UserInput>(System.Void*)
-		// Speed& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<Speed>(System.Void*)
-		// Unity.Transforms.Rotation& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<Unity.Transforms.Rotation>(System.Void*)
-		// Unity.Transforms.Translation& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<Unity.Transforms.Translation>(System.Void*)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.SpawnReq>(SGame.SpawnReq&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<SGame.UI.HUDFlowE>(SGame.UI.HUDFlowE&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Speed>(Speed&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Unity.Transforms.Rotation>(Unity.Transforms.Rotation&)
+		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<Unity.Transforms.Translation>(Unity.Transforms.Translation&)
 		// object& Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AsRef<object>(System.Void*)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<Follow>(System.Void*,Follow&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.BulletData>(System.Void*,SGame.BulletData&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.CharacterAttribue>(System.Void*,SGame.CharacterAttribue&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.CharacterSpawnSystem.CharacterSpawn>(System.Void*,SGame.CharacterSpawnSystem.CharacterSpawn&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.EffectData>(System.Void*,SGame.EffectData&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.FoodItem>(System.Void*,SGame.FoodItem&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.FoodTips>(System.Void*,SGame.FoodTips&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.MoveTarget>(System.Void*,SGame.MoveTarget&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.RedEvent>(System.Void*,SGame.RedEvent&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.Redpoint>(System.Void*,SGame.Redpoint&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.RewardData>(System.Void*,SGame.RewardData&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.RewardWait>(System.Void*,SGame.RewardWait&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.SoundData>(System.Void*,SGame.SoundData&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.SoundTime>(System.Void*,SGame.SoundTime&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.SpawnLayer>(System.Void*,SGame.SpawnLayer&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.SpawnReq>(System.Void*,SGame.SpawnReq&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.UI.HUDFlowE>(System.Void*,SGame.UI.HUDFlowE&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.UI.TweenTime>(System.Void*,SGame.UI.TweenTime&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.UserData>(System.Void*,SGame.UserData&)
-		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.UserInput>(System.Void*,SGame.UserInput&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<SGame.UserSetting>(System.Void*,SGame.UserSetting&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<Speed>(System.Void*,Speed&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<Unity.Transforms.Rotation>(System.Void*,Unity.Transforms.Rotation&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<Unity.Transforms.Scale>(System.Void*,Unity.Transforms.Scale&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyPtrToStructure<Unity.Transforms.Translation>(System.Void*,Unity.Transforms.Translation&)
@@ -2349,19 +2314,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyStructureToPtr<Unity.Transforms.Translation>(Unity.Transforms.Translation&,System.Void*)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.CopyStructureToPtr<object>(object&,System.Void*)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<Follow>(System.Void*,Follow&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.BulletData>(System.Void*,SGame.BulletData&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.CharacterAttribue>(System.Void*,SGame.CharacterAttribue&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.CharacterSpawnSystem.CharacterSpawn>(System.Void*,SGame.CharacterSpawnSystem.CharacterSpawn&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.EffectData>(System.Void*,SGame.EffectData&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.FoodItem>(System.Void*,SGame.FoodItem&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.FoodTips>(System.Void*,SGame.FoodTips&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.MoveTarget>(System.Void*,SGame.MoveTarget&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.RedEvent>(System.Void*,SGame.RedEvent&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.Redpoint>(System.Void*,SGame.Redpoint&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.RewardData>(System.Void*,SGame.RewardData&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.RewardWait>(System.Void*,SGame.RewardWait&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.SoundData>(System.Void*,SGame.SoundData&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.SoundTime>(System.Void*,SGame.SoundTime&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.SpawnLayer>(System.Void*,SGame.SpawnLayer&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.SpawnReq>(System.Void*,SGame.SpawnReq&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.UI.HUDFlowE>(System.Void*,SGame.UI.HUDFlowE&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.UI.TweenTime>(System.Void*,SGame.UI.TweenTime&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.UserData>(System.Void*,SGame.UserData&)
-		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.UserInput>(System.Void*,SGame.UserInput&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<SGame.UserSetting>(System.Void*,SGame.UserSetting&)
+		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<Speed>(System.Void*,Speed&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<Unity.Transforms.Rotation>(System.Void*,Unity.Transforms.Rotation&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<Unity.Transforms.Scale>(System.Void*,Unity.Transforms.Scale&)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyPtrToStructure<Unity.Transforms.Translation>(System.Void*,Unity.Transforms.Translation&)
@@ -2398,93 +2370,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyStructureToPtr<Unity.Transforms.Rotation>(Unity.Transforms.Rotation&,System.Void*)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyStructureToPtr<Unity.Transforms.Translation>(Unity.Transforms.Translation&,System.Void*)
 		// System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility.InternalCopyStructureToPtr<object>(object&,System.Void*)
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.BulletData>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.CharacterAttribue>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.CharacterSpawnSystem.CharacterSpawn>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.FoodTips>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.MoveTarget>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.RedEvent>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.Redpoint>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.RewardData>()
 		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.RewardWait>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.SoundData>()
 		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.SoundTime>()
 		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.SpawnReq>()
-		// Unity.Entities.BufferAccessor<PathPositions> Unity.Entities.ArchetypeChunk.GetBufferAccessor<PathPositions>(Unity.Entities.BufferTypeHandle<PathPositions>)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<Follow>(Unity.Entities.ComponentTypeHandle<Follow>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.BulletData>(Unity.Entities.ComponentTypeHandle<SGame.BulletData>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.CharacterAttribue>(Unity.Entities.ComponentTypeHandle<SGame.CharacterAttribue>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.FoodTips>(Unity.Entities.ComponentTypeHandle<SGame.FoodTips>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.LastRotation>(Unity.Entities.ComponentTypeHandle<SGame.LastRotation>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.MoveTarget>(Unity.Entities.ComponentTypeHandle<SGame.MoveTarget>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.RedEvent>(Unity.Entities.ComponentTypeHandle<SGame.RedEvent>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.Redpoint>(Unity.Entities.ComponentTypeHandle<SGame.Redpoint>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.RewardData>(Unity.Entities.ComponentTypeHandle<SGame.RewardData>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.RewardWait>(Unity.Entities.ComponentTypeHandle<SGame.RewardWait>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.RotationSpeed>(Unity.Entities.ComponentTypeHandle<SGame.RotationSpeed>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<SGame.UI.HUDFlowE>(Unity.Entities.ComponentTypeHandle<SGame.UI.HUDFlowE>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<Speed>(Unity.Entities.ComponentTypeHandle<Speed>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<Unity.Transforms.Rotation>(Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRO<Unity.Transforms.Translation>(Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRW<SGame.Redpoint>(Unity.Entities.ComponentTypeHandle<SGame.Redpoint>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRW<SGame.UserInput>(Unity.Entities.ComponentTypeHandle<SGame.UserInput>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRW<Speed>(Unity.Entities.ComponentTypeHandle<Speed>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRW<Unity.Transforms.Rotation>(Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation>&)
-		// System.Void* Unity.Entities.ArchetypeChunk.GetComponentDataPtrRW<Unity.Transforms.Translation>(Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation>&)
-		// Unity.Entities.BufferTypeHandle<PathPositions> Unity.Entities.ComponentSystemBase.GetBufferTypeHandle<PathPositions>(bool)
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<SGame.UI.HUDFlowE>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<Speed>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<Unity.Transforms.Rotation>()
+		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<Unity.Transforms.Translation>()
 		// Unity.Entities.ComponentDataFromEntity<Unity.Transforms.Translation> Unity.Entities.ComponentSystemBase.GetComponentDataFromEntity<Unity.Transforms.Translation>(bool)
-		// Unity.Entities.ComponentTypeHandle<Follow> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<Follow>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.BulletData> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.BulletData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.CharacterAttribue> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.CharacterAttribue>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.CharacterSpawnSystem.CharacterSpawn> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.CharacterSpawnSystem.CharacterSpawn>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.FoodTips> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.FoodTips>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.LastRotation> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.LastRotation>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.MoveTarget> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.MoveTarget>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RedEvent> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.RedEvent>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.Redpoint> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.Redpoint>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RewardData> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.RewardData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RewardWait> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.RewardWait>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RotationSpeed> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.RotationSpeed>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SoundData> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.SoundData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SoundTime> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.SoundTime>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SpawnReq> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.SpawnReq>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.UI.HUDFlowE> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.UI.HUDFlowE>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.UserInput> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<SGame.UserInput>(bool)
-		// Unity.Entities.ComponentTypeHandle<Speed> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<Speed>(bool)
-		// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<Unity.Transforms.Rotation>(bool)
-		// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation> Unity.Entities.ComponentSystemBase.GetComponentTypeHandle<Unity.Transforms.Translation>(bool)
 		// System.Void Unity.Entities.ComponentSystemBase.RequireSingletonForUpdate<GameInitFinish>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<DespawningEntity>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<Follow>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<GameInitFinish>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<PathPositions>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.AudioSystem.DespawnedTag>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.BulletData>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.CharacterAttribue>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.CharacterSpawnSystem.CharacterInitalized>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.CharacterSpawnSystem.CharacterSpawn>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.DisableAttributeTag>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.EffectData>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.EffectSysData>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.EntitySyncGameObjectTag>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.FoodTips>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.GameObjectSyncTag>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.LastRotation>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.MoveTarget>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RedCheck>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RedDestroy>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RedEvent>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RedNode>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RedPause>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RedStatusChange>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.Redpoint>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RewardData>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RewardWait>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.RotationSpeed>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.SoundData>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.SoundTime>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.SpawnData>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.SpawnReq>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.SpawnSysData>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.UI.HUDFlowE>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.UI.HUDSync>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.UI.UIInitalized>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<SGame.UserInput>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<Speed>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<Unity.Transforms.Rotation>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<Unity.Transforms.Translation>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadOnly<object>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<DespawningEntity>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<FindPathParams>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<Follow>()
@@ -2494,7 +2399,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.BulletData>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.CharacterAttribue>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.CharacterSpawnSystem.CharacterInitalized>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.CharacterSpawnSystem.CharacterSpawn>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.DisableAttributeTag>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.EffectData>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.EffectSysData>()
@@ -2514,10 +2418,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.Redpoint>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.RewardData>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.RewardWait>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.RotationSpeed>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.SoundData>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.SoundRef>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.SoundTime>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.SpawnData>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.SpawnLayer>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.SpawnReq>()
@@ -2526,7 +2427,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.UI.HUDSync>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.UI.TweenTime>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.UI.UIInitalized>()
-		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<SGame.UserInput>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<Speed>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<Unity.Entities.Disabled>()
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<Unity.Transforms.Child>()
@@ -2539,18 +2439,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// Unity.Entities.ComponentType Unity.Entities.ComponentType.ReadWrite<object>()
 		// System.Void Unity.Entities.EntityCommandBuffer.AddComponent<DespawningEntity>(Unity.Entities.Entity)
 		// System.Void Unity.Entities.EntityCommandBuffer.AddComponent<SGame.RedDestroy>(Unity.Entities.Entity)
+		// System.Void Unity.Entities.EntityCommandBuffer.AddComponent<SGame.RewardWait>(Unity.Entities.Entity,SGame.RewardWait)
+		// System.Void Unity.Entities.EntityCommandBuffer.AddComponent<SGame.SpawnReq>(Unity.Entities.Entity,SGame.SpawnReq)
 		// System.Void Unity.Entities.EntityCommandBuffer.AddComponent<SGame.SpawnSysData>(Unity.Entities.Entity)
+		// System.Void Unity.Entities.EntityCommandBuffer.RemoveComponent<SGame.MoveTarget>(Unity.Entities.Entity)
 		// System.Void Unity.Entities.EntityCommandBuffer.RemoveComponent<SGame.RedEvent>(Unity.Entities.Entity)
 		// System.Void Unity.Entities.EntityCommandBuffer.RemoveComponent<SGame.SpawnReq>(Unity.Entities.Entity)
 		// System.Void Unity.Entities.EntityCommandBuffer.RemoveComponent<SGame.SpawnSysData>(Unity.Entities.Entity)
 		// System.Void Unity.Entities.EntityCommandBuffer.RemoveComponent<object>(Unity.Entities.Entity)
-		// System.Void Unity.Entities.EntityCommandBuffer.ParallelWriter.AddComponent<SGame.RewardWait>(int,Unity.Entities.Entity,SGame.RewardWait)
-		// System.Void Unity.Entities.EntityCommandBuffer.ParallelWriter.AddComponent<SGame.SpawnReq>(int,Unity.Entities.Entity,SGame.SpawnReq)
-		// System.Void Unity.Entities.EntityCommandBuffer.ParallelWriter.RemoveComponent<SGame.MoveTarget>(int,Unity.Entities.Entity)
 		// System.Void Unity.Entities.EntityCommandBufferData.AddEntityComponentCommand<SGame.RewardWait>(Unity.Entities.EntityCommandBufferChain*,int,Unity.Entities.ECBCommand,Unity.Entities.Entity,SGame.RewardWait)
 		// System.Void Unity.Entities.EntityCommandBufferData.AddEntityComponentCommand<SGame.SpawnReq>(Unity.Entities.EntityCommandBufferChain*,int,Unity.Entities.ECBCommand,Unity.Entities.Entity,SGame.SpawnReq)
 		// Unity.Entities.DynamicBuffer<Unity.Transforms.Child> Unity.Entities.EntityDataAccess.GetBuffer<Unity.Transforms.Child>(Unity.Entities.Entity,bool)
-		// Unity.Entities.BufferTypeHandle<PathPositions> Unity.Entities.EntityDataAccess.GetBufferTypeHandle<PathPositions>(bool)
 		// Follow Unity.Entities.EntityDataAccess.GetComponentData<Follow>(Unity.Entities.Entity)
 		// SGame.EffectData Unity.Entities.EntityDataAccess.GetComponentData<SGame.EffectData>(Unity.Entities.Entity)
 		// SGame.FoodItem Unity.Entities.EntityDataAccess.GetComponentData<SGame.FoodItem>(Unity.Entities.Entity)
@@ -2559,7 +2458,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// SGame.SpawnLayer Unity.Entities.EntityDataAccess.GetComponentData<SGame.SpawnLayer>(Unity.Entities.Entity)
 		// SGame.UI.TweenTime Unity.Entities.EntityDataAccess.GetComponentData<SGame.UI.TweenTime>(Unity.Entities.Entity)
 		// SGame.UserData Unity.Entities.EntityDataAccess.GetComponentData<SGame.UserData>(Unity.Entities.Entity)
-		// SGame.UserInput Unity.Entities.EntityDataAccess.GetComponentData<SGame.UserInput>(Unity.Entities.Entity)
 		// SGame.UserSetting Unity.Entities.EntityDataAccess.GetComponentData<SGame.UserSetting>(Unity.Entities.Entity)
 		// Unity.Transforms.Rotation Unity.Entities.EntityDataAccess.GetComponentData<Unity.Transforms.Rotation>(Unity.Entities.Entity)
 		// Unity.Transforms.Scale Unity.Entities.EntityDataAccess.GetComponentData<Unity.Transforms.Scale>(Unity.Entities.Entity)
@@ -2631,13 +2529,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// bool Unity.Entities.EntityManager.AddComponentData<SGame.MoveTarget>(Unity.Entities.Entity,SGame.MoveTarget)
 		// bool Unity.Entities.EntityManager.AddComponentData<SGame.Redpoint>(Unity.Entities.Entity,SGame.Redpoint)
 		// bool Unity.Entities.EntityManager.AddComponentData<SGame.RewardData>(Unity.Entities.Entity,SGame.RewardData)
-		// bool Unity.Entities.EntityManager.AddComponentData<SGame.RotationSpeed>(Unity.Entities.Entity,SGame.RotationSpeed)
 		// bool Unity.Entities.EntityManager.AddComponentData<SGame.SpawnLayer>(Unity.Entities.Entity,SGame.SpawnLayer)
 		// bool Unity.Entities.EntityManager.AddComponentData<Speed>(Unity.Entities.Entity,Speed)
 		// bool Unity.Entities.EntityManager.AddComponentData<Unity.Transforms.Translation>(Unity.Entities.Entity,Unity.Transforms.Translation)
 		// bool Unity.Entities.EntityManager.AddComponentData<object>(Unity.Entities.Entity,object)
 		// Unity.Entities.DynamicBuffer<Unity.Transforms.Child> Unity.Entities.EntityManager.GetBuffer<Unity.Transforms.Child>(Unity.Entities.Entity,bool)
-		// Unity.Entities.BufferTypeHandle<PathPositions> Unity.Entities.EntityManager.GetBufferTypeHandle<PathPositions>(bool)
 		// Follow Unity.Entities.EntityManager.GetComponentData<Follow>(Unity.Entities.Entity)
 		// SGame.EffectData Unity.Entities.EntityManager.GetComponentData<SGame.EffectData>(Unity.Entities.Entity)
 		// SGame.FoodItem Unity.Entities.EntityManager.GetComponentData<SGame.FoodItem>(Unity.Entities.Entity)
@@ -2646,7 +2542,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// SGame.SpawnLayer Unity.Entities.EntityManager.GetComponentData<SGame.SpawnLayer>(Unity.Entities.Entity)
 		// SGame.UI.TweenTime Unity.Entities.EntityManager.GetComponentData<SGame.UI.TweenTime>(Unity.Entities.Entity)
 		// SGame.UserData Unity.Entities.EntityManager.GetComponentData<SGame.UserData>(Unity.Entities.Entity)
-		// SGame.UserInput Unity.Entities.EntityManager.GetComponentData<SGame.UserInput>(Unity.Entities.Entity)
 		// SGame.UserSetting Unity.Entities.EntityManager.GetComponentData<SGame.UserSetting>(Unity.Entities.Entity)
 		// Unity.Transforms.Rotation Unity.Entities.EntityManager.GetComponentData<Unity.Transforms.Rotation>(Unity.Entities.Entity)
 		// Unity.Transforms.Scale Unity.Entities.EntityManager.GetComponentData<Unity.Transforms.Scale>(Unity.Entities.Entity)
@@ -2655,27 +2550,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// Unity.Entities.ComponentDataFromEntity<Unity.Transforms.Translation> Unity.Entities.EntityManager.GetComponentDataFromEntity<Unity.Transforms.Translation>(bool)
 		// Unity.Entities.ComponentDataFromEntity<Unity.Transforms.Translation> Unity.Entities.EntityManager.GetComponentDataFromEntity<Unity.Transforms.Translation>(int,bool)
 		// object Unity.Entities.EntityManager.GetComponentObject<object>(Unity.Entities.Entity)
-		// Unity.Entities.ComponentTypeHandle<Follow> Unity.Entities.EntityManager.GetComponentTypeHandle<Follow>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.BulletData> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.BulletData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.CharacterAttribue> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.CharacterAttribue>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.CharacterSpawnSystem.CharacterSpawn> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.CharacterSpawnSystem.CharacterSpawn>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.FoodTips> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.FoodTips>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.LastRotation> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.LastRotation>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.MoveTarget> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.MoveTarget>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RedEvent> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.RedEvent>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.Redpoint> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.Redpoint>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RewardData> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.RewardData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RewardWait> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.RewardWait>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RotationSpeed> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.RotationSpeed>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SoundData> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.SoundData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SoundTime> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.SoundTime>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SpawnReq> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.SpawnReq>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.UI.HUDFlowE> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.UI.HUDFlowE>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.UserInput> Unity.Entities.EntityManager.GetComponentTypeHandle<SGame.UserInput>(bool)
-		// Unity.Entities.ComponentTypeHandle<Speed> Unity.Entities.EntityManager.GetComponentTypeHandle<Speed>(bool)
-		// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation> Unity.Entities.EntityManager.GetComponentTypeHandle<Unity.Transforms.Rotation>(bool)
-		// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation> Unity.Entities.EntityManager.GetComponentTypeHandle<Unity.Transforms.Translation>(bool)
-		// Unity.Entities.ComponentTypeHandle<object> Unity.Entities.EntityManager.GetComponentTypeHandle<object>(bool)
 		// bool Unity.Entities.EntityManager.HasComponent<DespawningEntity>(Unity.Entities.Entity)
 		// bool Unity.Entities.EntityManager.HasComponent<FindPathParams>(Unity.Entities.Entity)
 		// bool Unity.Entities.EntityManager.HasComponent<Follow>(Unity.Entities.Entity)
@@ -2741,164 +2615,50 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Unity.Entities.EntityManager.SetComponentData<Unity.Transforms.Translation>(Unity.Entities.Entity,Unity.Transforms.Translation)
 		// System.Void Unity.Entities.EntityManager.SetComponentData<object>(Unity.Entities.Entity,object)
 		// object Unity.Entities.EntityQuery.GetSingleton<object>()
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.BulletData,Unity.Transforms.Translation>(Unity.Entities.EntityQueryBuilder.F_EDD<SGame.BulletData,Unity.Transforms.Translation>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.CharacterSpawnSystem.CharacterSpawn,object,object>(Unity.Entities.EntityQueryBuilder.F_EDCC<SGame.CharacterSpawnSystem.CharacterSpawn,object,object>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.CharacterSpawnSystem.CharacterSpawn>(Unity.Entities.EntityQueryBuilder.F_ED<SGame.CharacterSpawnSystem.CharacterSpawn>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.FoodTips>(Unity.Entities.EntityQueryBuilder.F_ED<SGame.FoodTips>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.Redpoint,SGame.RedEvent>(Unity.Entities.EntityQueryBuilder.F_EDD<SGame.Redpoint,SGame.RedEvent>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.Redpoint>(Unity.Entities.EntityQueryBuilder.F_ED<SGame.Redpoint>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.RewardData,SGame.RewardWait>(Unity.Entities.EntityQueryBuilder.F_EDD<SGame.RewardData,SGame.RewardWait>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.RewardData>(Unity.Entities.EntityQueryBuilder.F_ED<SGame.RewardData>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.SoundData>(Unity.Entities.EntityQueryBuilder.F_ED<SGame.SoundData>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<SGame.SpawnReq>(Unity.Entities.EntityQueryBuilder.F_ED<SGame.SpawnReq>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<Unity.Transforms.Translation,SGame.MoveTarget,Speed>(Unity.Entities.EntityQueryBuilder.F_EDDD<Unity.Transforms.Translation,SGame.MoveTarget,Speed>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<Unity.Transforms.Translation,SGame.UI.HUDFlowE>(Unity.Entities.EntityQueryBuilder.F_EDD<Unity.Transforms.Translation,SGame.UI.HUDFlowE>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<object,SGame.SoundTime,SGame.SoundData>(Unity.Entities.EntityQueryBuilder.F_ECDD<object,SGame.SoundTime,SGame.SoundData>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<object,Speed,SGame.CharacterAttribue>(Unity.Entities.EntityQueryBuilder.F_ECDD<object,Speed,SGame.CharacterAttribue>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<object,Unity.Transforms.Translation,Unity.Transforms.Rotation>(Unity.Entities.EntityQueryBuilder.F_ECDD<object,Unity.Transforms.Translation,Unity.Transforms.Rotation>)
+		// System.Void Unity.Entities.EntityQueryBuilder.ForEach<object,Unity.Transforms.Translation>(Unity.Entities.EntityQueryBuilder.F_ECD<object,Unity.Transforms.Translation>)
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<DespawningEntity>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.AudioSystem.DespawnedTag>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.CharacterSpawnSystem.CharacterInitalized>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.EffectSysData>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.EntitySyncGameObjectTag>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.GameObjectSyncTag>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.RedCheck,SGame.RedEvent>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.RedCheck>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.RedNode,SGame.RedStatusChange>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.RewardData,SGame.RewardWait>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.RewardData>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.SpawnSysData>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<SGame.UI.HUDSync,SGame.UI.UIInitalized>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAll<object>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithAny<SGame.RedDestroy>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<DespawningEntity,SGame.CharacterSpawnSystem.CharacterInitalized>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<DespawningEntity>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<SGame.AudioSystem.DespawnedTag>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<SGame.DisableAttributeTag,DespawningEntity>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<SGame.EffectData>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<SGame.MoveTarget>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<SGame.RedPause>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<SGame.RewardWait>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<SGame.SpawnData>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<object,DespawningEntity>()
+		// Unity.Entities.EntityQueryBuilder Unity.Entities.EntityQueryBuilder.WithNone<object>()
 		// object Unity.Entities.EntityQueryImpl.GetSingleton<object>()
-		// SGame.CharacterSpawnSystem.CharacterSpawn Unity.Entities.InternalCompilerInterface.GetComponentData<SGame.CharacterSpawnSystem.CharacterSpawn>(Unity.Entities.EntityManager,Unity.Entities.Entity,int,SGame.CharacterSpawnSystem.CharacterSpawn&)
-		// SGame.SoundData Unity.Entities.InternalCompilerInterface.GetComponentData<SGame.SoundData>(Unity.Entities.EntityManager,Unity.Entities.Entity,int,SGame.SoundData&)
-		// SGame.SoundTime Unity.Entities.InternalCompilerInterface.GetComponentData<SGame.SoundTime>(Unity.Entities.EntityManager,Unity.Entities.Entity,int,SGame.SoundTime&)
-		// SGame.SpawnReq Unity.Entities.InternalCompilerInterface.GetComponentData<SGame.SpawnReq>(Unity.Entities.EntityManager,Unity.Entities.Entity,int,SGame.SpawnReq&)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayIntPtr<SGame.Redpoint>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.Redpoint>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayIntPtr<SGame.UserInput>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.UserInput>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayIntPtr<Speed>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<Speed>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayIntPtr<Unity.Transforms.Rotation>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayIntPtr<Unity.Transforms.Translation>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<Follow>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<Follow>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.BulletData>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.BulletData>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.CharacterAttribue>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.CharacterAttribue>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.FoodTips>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.FoodTips>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.LastRotation>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.LastRotation>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.MoveTarget>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.MoveTarget>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.RedEvent>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.RedEvent>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.Redpoint>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.Redpoint>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.RewardData>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.RewardData>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.RewardWait>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.RewardWait>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.RotationSpeed>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.RotationSpeed>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<SGame.UI.HUDFlowE>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<SGame.UI.HUDFlowE>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<Speed>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<Speed>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<Unity.Transforms.Rotation>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation>)
-		// System.IntPtr Unity.Entities.InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr<Unity.Transforms.Translation>(Unity.Entities.ArchetypeChunk,Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation>)
-		// Unity.Entities.Entity Unity.Entities.InternalCompilerInterface.UnsafeGetCopyOfNativeArrayPtrElement<Unity.Entities.Entity>(System.IntPtr,int)
-		// Follow& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<Follow>(System.IntPtr,int)
-		// SGame.BulletData& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.BulletData>(System.IntPtr,int)
-		// SGame.CharacterAttribue& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.CharacterAttribue>(System.IntPtr,int)
-		// SGame.FoodTips& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.FoodTips>(System.IntPtr,int)
-		// SGame.LastRotation& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.LastRotation>(System.IntPtr,int)
-		// SGame.MoveTarget& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.MoveTarget>(System.IntPtr,int)
-		// SGame.RedEvent& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.RedEvent>(System.IntPtr,int)
-		// SGame.Redpoint& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.Redpoint>(System.IntPtr,int)
-		// SGame.RewardData& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.RewardData>(System.IntPtr,int)
-		// SGame.RewardWait& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.RewardWait>(System.IntPtr,int)
-		// SGame.RotationSpeed& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.RotationSpeed>(System.IntPtr,int)
-		// SGame.UI.HUDFlowE& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.UI.HUDFlowE>(System.IntPtr,int)
-		// SGame.UserInput& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<SGame.UserInput>(System.IntPtr,int)
-		// Speed& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<Speed>(System.IntPtr,int)
-		// Unity.Transforms.Rotation& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<Unity.Transforms.Rotation>(System.IntPtr,int)
-		// Unity.Transforms.Translation& Unity.Entities.InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<Unity.Transforms.Translation>(System.IntPtr,int)
-		// System.Void Unity.Entities.InternalCompilerInterface.WriteComponentData<SGame.SoundTime>(Unity.Entities.EntityManager,Unity.Entities.Entity,int,SGame.SoundTime&,SGame.SoundTime&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.RewardSystem.RewardSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.RewardSystem.RewardSystem_LambdaJob_1_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.EarlyJobInit<SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job>()
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job>(SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job>(SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job>(SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job>(SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job>(SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job>(SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job>(SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job>(SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.RewardSystem.RewardSystem_LambdaJob_0_Job>(SGame.RewardSystem.RewardSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job>(SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job>(SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job>(SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job>(SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job>(SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobs<SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job>(SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job>(SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job>(SGame.BulletHitSystem.BulletHitSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job>(SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job>(SGame.CharacterAnimSystem.CharacterAnimSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job>(SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job>(SGame.CharacterAttributeSystem.CharacterAttributeSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job>(SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job>(SGame.CharacterDespawnSystem.CharacterDespawnSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job>(SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job>(SGame.DespawnFoodTipSystem.DespawnFoodTipSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job>(SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job>(SGame.EntitySyncGameObjectSystem.EntitySyncGameObjectSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job>(SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job>(SGame.GameObjectSyncSystem.GameObjectSyncSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job>(SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job>(SGame.Http.HttpSystem.HttpSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_1_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_2_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job>(SGame.RedpointSystem.RedpointSystem_LambdaJob_3_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RewardSystem.RewardSystem_LambdaJob_0_Job>(SGame.RewardSystem.RewardSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.RewardSystem.RewardSystem_LambdaJob_0_Job>(SGame.RewardSystem.RewardSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job>(SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job>(SGame.SpawnSystem.SpawnSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job>(SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job>(SGame.SpawnSystem.SpawnSystem_LambdaJob_2_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job>(SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job>(SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job>(SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job>(SGame.UI.HUDFlowSystem.HUDFlowSystem_LambdaJob_1_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job>(SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job>(SGame.UI.HUDSyncSystem.HUDSyncSystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job>(SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job&,Unity.Entities.ArchetypeChunkIterator&)
-		// System.Void Unity.Entities.JobEntityBatchExtensions.RunWithoutJobsInternal<SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job>(SGame.UserInputsystem.UserInputsystem_LambdaJob_0_Job&,Unity.Entities.Chunk**,int,Unity.Entities.EntityComponentStore*)
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchExtensions.ScheduleInternal<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job>(SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle,Unity.Jobs.LowLevel.Unsafe.ScheduleMode,bool)
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchExtensions.ScheduleInternal<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job>(SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job&,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle,Unity.Jobs.LowLevel.Unsafe.ScheduleMode,bool)
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchExtensions.ScheduleInternal<SGame.RewardSystem.RewardSystem_LambdaJob_1_Job>(SGame.RewardSystem.RewardSystem_LambdaJob_1_Job&,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle,Unity.Jobs.LowLevel.Unsafe.ScheduleMode,bool)
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchExtensions.ScheduleParallel<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job>(SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_0_Job,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchExtensions.ScheduleParallel<SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job>(SGame.FollowRotationSystem.FollowRotationSystem_LambdaJob_1_Job,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchExtensions.ScheduleParallel<SGame.RewardSystem.RewardSystem_LambdaJob_1_Job>(SGame.RewardSystem.RewardSystem_LambdaJob_1_Job,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
-		// System.Void Unity.Entities.JobEntityBatchIndexExtensions.EarlyJobInit<SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job>()
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchIndexExtensions.ScheduleInternal<SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job>(SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job&,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle,Unity.Jobs.LowLevel.Unsafe.ScheduleMode,bool)
-		// Unity.Jobs.JobHandle Unity.Entities.JobEntityBatchIndexExtensions.ScheduleParallel<SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job>(SGame.MoveTargetSystem.MoveTargetSystem_LambdaJob_0_Job,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
-		// Unity.Transforms.Rotation Unity.Entities.SystemBase.GetComponent<Unity.Transforms.Rotation>(Unity.Entities.Entity)
-		// Unity.Transforms.Scale Unity.Entities.SystemBase.GetComponent<Unity.Transforms.Scale>(Unity.Entities.Entity)
-		// Unity.Transforms.Translation Unity.Entities.SystemBase.GetComponent<Unity.Transforms.Translation>(Unity.Entities.Entity)
-		// Unity.Entities.ComponentDataFromEntity<Unity.Transforms.Translation> Unity.Entities.SystemBase.GetComponentDataFromEntity<Unity.Transforms.Translation>(bool)
-		// bool Unity.Entities.SystemBase.HasComponent<Unity.Transforms.Scale>(Unity.Entities.Entity)
-		// Unity.Entities.BufferTypeHandle<PathPositions> Unity.Entities.SystemState.GetBufferTypeHandle<PathPositions>(bool)
 		// Unity.Entities.ComponentDataFromEntity<Unity.Transforms.Translation> Unity.Entities.SystemState.GetComponentDataFromEntity<Unity.Transforms.Translation>(bool)
-		// Unity.Entities.ComponentTypeHandle<Follow> Unity.Entities.SystemState.GetComponentTypeHandle<Follow>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.BulletData> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.BulletData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.CharacterAttribue> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.CharacterAttribue>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.CharacterSpawnSystem.CharacterSpawn> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.CharacterSpawnSystem.CharacterSpawn>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.FoodTips> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.FoodTips>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.LastRotation> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.LastRotation>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.MoveTarget> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.MoveTarget>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RedEvent> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.RedEvent>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.Redpoint> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.Redpoint>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RewardData> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.RewardData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RewardWait> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.RewardWait>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.RotationSpeed> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.RotationSpeed>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SoundData> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.SoundData>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SoundTime> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.SoundTime>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.SpawnReq> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.SpawnReq>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.UI.HUDFlowE> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.UI.HUDFlowE>(bool)
-		// Unity.Entities.ComponentTypeHandle<SGame.UserInput> Unity.Entities.SystemState.GetComponentTypeHandle<SGame.UserInput>(bool)
-		// Unity.Entities.ComponentTypeHandle<Speed> Unity.Entities.SystemState.GetComponentTypeHandle<Speed>(bool)
-		// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Rotation> Unity.Entities.SystemState.GetComponentTypeHandle<Unity.Transforms.Rotation>(bool)
-		// Unity.Entities.ComponentTypeHandle<Unity.Transforms.Translation> Unity.Entities.SystemState.GetComponentTypeHandle<Unity.Transforms.Translation>(bool)
 		// System.Void Unity.Entities.SystemState.RequireSingletonForUpdate<GameInitFinish>()
 		// int Unity.Entities.TypeManager.GetTypeIndex<DespawningEntity>()
 		// int Unity.Entities.TypeManager.GetTypeIndex<FindPathParams>()
@@ -2942,7 +2702,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// int Unity.Entities.TypeManager.GetTypeIndex<SGame.UI.TweenTime>()
 		// int Unity.Entities.TypeManager.GetTypeIndex<SGame.UI.UIInitalized>()
 		// int Unity.Entities.TypeManager.GetTypeIndex<SGame.UserData>()
-		// int Unity.Entities.TypeManager.GetTypeIndex<SGame.UserInput>()
 		// int Unity.Entities.TypeManager.GetTypeIndex<SGame.UserSetting>()
 		// int Unity.Entities.TypeManager.GetTypeIndex<Speed>()
 		// int Unity.Entities.TypeManager.GetTypeIndex<Unity.Entities.Disabled>()
@@ -2996,7 +2755,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Unity.Entities.TypeManager.ManagedException<SGame.UI.TweenTime>()
 		// System.Void Unity.Entities.TypeManager.ManagedException<SGame.UI.UIInitalized>()
 		// System.Void Unity.Entities.TypeManager.ManagedException<SGame.UserData>()
-		// System.Void Unity.Entities.TypeManager.ManagedException<SGame.UserInput>()
 		// System.Void Unity.Entities.TypeManager.ManagedException<SGame.UserSetting>()
 		// System.Void Unity.Entities.TypeManager.ManagedException<Speed>()
 		// System.Void Unity.Entities.TypeManager.ManagedException<Unity.Entities.Disabled>()
@@ -3009,8 +2767,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Unity.Entities.TypeManager.ManagedException<Unity.Transforms.Translation>()
 		// System.Void Unity.Entities.TypeManager.ManagedException<object>()
 		// object Unity.Entities.World.GetOrCreateSystem<object>()
-		// System.Void Unity.Jobs.IJobBurstSchedulableExtensions.Run<Unity.Entities.PrefilterForJobEntityBatchWithIndex>(Unity.Entities.PrefilterForJobEntityBatchWithIndex)
-		// Unity.Jobs.JobHandle Unity.Jobs.IJobBurstSchedulableExtensions.Schedule<Unity.Entities.PrefilterForJobEntityBatchWithIndex>(Unity.Entities.PrefilterForJobEntityBatchWithIndex,Unity.Jobs.JobHandle)
 		// System.Void Unity.Properties.ContainerPropertyBag<SGame.PoolID>.AddProperty<int>(Unity.Properties.Property<SGame.PoolID,int>)
 		// System.Void Unity.Properties.ContainerPropertyBag<Unity.Entities.Entity>.AddProperty<int>(Unity.Properties.Property<Unity.Entities.Entity,int>)
 		// System.Void Unity.Properties.ContainerPropertyBag<Unity.Mathematics.float3>.AddProperty<float>(Unity.Properties.Property<Unity.Mathematics.float3,float>)

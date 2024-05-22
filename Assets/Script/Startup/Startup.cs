@@ -3,13 +3,13 @@ using System.Reflection;
 using System.Linq;
 using HybridCLR;
 using System;
+using System.Collections.Generic;
 using System.Collections;
 using log4net;
 using System.IO;
 using libx;
 using SGame.Hotfix;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using Unity.Entities;
 
 namespace SGame
@@ -163,6 +163,7 @@ namespace SGame
 		Type LoadDll(string module, string className, out Assembly assembly)
 		{
 			Assembly hotUpdateAss = null;
+			assembly = null;
 #if !UNITY_EDITOR && ENABLE_HOTFIX
             // 实际加载
             AssetRequest req = libx.Assets.LoadAsset(HOTFIX_PATH + module + ".dll.bytes", typeof(TextAsset));
