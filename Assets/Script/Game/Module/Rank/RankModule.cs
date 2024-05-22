@@ -5,6 +5,7 @@ using GameConfigs;
 using Http;
 using SGame.Http;
 using System;
+using System.Linq;
 
 namespace SGame 
 {
@@ -92,14 +93,14 @@ namespace SGame
                 DataCenter.Instance.rankCacheData.startTime = rankPanelData.ids[0].begin_time;
                 ClearRankScore();//清除自己排行标识数据
             }
-        
+
             if (rankPanelData.rewards?.Length > 0) 
-                DataCenter.Instance.rankCacheData.rewards = rankPanelData.rewards;
+                DataCenter.Instance.rankCacheData.rewards.AddRange(rankPanelData.rewards);
  
-            if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
+            if (popReward && DataCenter.Instance.rankCacheData.rewards?.Count > 0) 
             {
-                OpenResultView(DataCenter.Instance.rankCacheData.rewards);
-                DataCenter.Instance.rankCacheData.rewards = null;
+                OpenResultView(DataCenter.Instance.rankCacheData.rewards.ToArray());
+                DataCenter.Instance.rankCacheData.rewards.Clear();
             }
 
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
