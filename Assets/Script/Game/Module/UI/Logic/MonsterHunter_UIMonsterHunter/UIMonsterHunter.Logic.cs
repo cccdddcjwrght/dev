@@ -51,6 +51,7 @@ namespace SGame.UI
 		private GoWrapper goWrapper;
 		private Animator _modelAnimator;
 
+
 		const string c_dead_name = "dead";
 		const string c_hit_name = "hit";
 		const string c_born_name = "born";
@@ -62,7 +63,6 @@ namespace SGame.UI
 		{
 			m_view.m_bg.z = 600;
 			m_view.m_monster.z = 600;
-
 
 			context.window.contentPane.fairyBatching = false;
 			var args = context.GetParam()?.Value.To<object[]>();
@@ -97,6 +97,8 @@ namespace SGame.UI
 
 			m_view.m_panel.m_playbtn.SetIcon(_actData.item.Icon);
 
+			EventManager.Instance.Reg<bool>(((int)GameEvent.APP_PAUSE), OnPause);
+
 		}
 
 		partial void UnInitLogic(UIContext context)
@@ -107,8 +109,13 @@ namespace SGame.UI
 			RemoveModel(0);
 			goWrapper?.Dispose();
 			goWrapper = null;
+			EventManager.Instance.UnReg<bool>(((int)GameEvent.APP_PAUSE), OnPause);
 		}
 
+		void OnPause(bool b)
+		{
+			SwitchAutoPage(0);
+		}
 
 		void OnUIClick(EventContext e)
 		{
