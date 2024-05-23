@@ -342,35 +342,9 @@ namespace SGame
             }
             Vector3 scale = foodTransform.localScale;
             foodTransform.SetParent(GetSlot(SlotType.FOOD), false);
-            /*
-            if (config.ScaleLength == 3)
-            {
-                foodTransform.localScale = new Vector3(config.Scale(0), config.Scale(1), config.Scale(2));
-            }
-            else
-            {
-                foodTransform.localScale = Vector3.one;
-            }
-            foodTransform.lossyScale = scale;
-            */
             foodTransform.localScale = Vector3.one;
-            if (config.EulerAngleLength == 3)
-            {
-                foodTransform.localRotation = Quaternion.Euler(config.EulerAngle(0), config.EulerAngle(1), config.EulerAngle(2));
-            }
-            else
-            {
-                foodTransform.localRotation = Quaternion.identity;
-            }
-            if (config.PositionLength == 3)
-            {
-                foodTransform.localPosition = new Vector3(config.Position(0), config.Position(1), config.Position(2));
-            }
-            else
-            {
-                foodTransform.localPosition = Vector3.zero;
-            }
-            
+            foodTransform.localPosition = Vector3.zero;
+            foodTransform.localRotation = Quaternion.identity;
             this.m_food = food;
         }
 
