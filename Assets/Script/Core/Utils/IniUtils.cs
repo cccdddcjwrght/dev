@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using System.Reflection;
 
 namespace SGame
 {
@@ -27,10 +28,10 @@ namespace SGame
 
         public static string GetLocalValue(string key)
         {
-            if (m_localIni == null)
-                m_localIni = GetLocalIni();
-
-            if (m_localIni.TryGetValue(key, out string ret))
+            //if (m_localIni == null)
+            //    m_localIni = GetLocalIni();
+            var ini = GetLocalIni();
+            if (ini.TryGetValue(key, out string ret))
             {
                 return ret;
             }
@@ -59,5 +60,33 @@ namespace SGame
             }
             return null;
         }
+        
+        static public Assembly GetAssemblyByName(string assemblyName = "Assembly-CSharp")
+        {
+            return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == assemblyName);
+        }
+
+        static public IReadOnlyList<string> GetAotFiles()
+        {
+            Assembly assembly = GetAssemblyByName();
+            var t = assembly.GetType("AOTGenericReferences");
+            if (t == null)
+            {
+                Debug.LogError("not found class AOTGenericReferences");
+                return null;
+            }
+
+            var field = t.GetField("PatchedAOTAssemblyList");
+            if (field == null)
+            {
+                var member = t.GetMember("PatchedAOTAssemblyList");
+                Debug.LogError("not found field PatchedAOTAssemblyList");
+                return null;
+            }
+
+            var dataList = field.GetValue(null) as IReadOnlyList<string>;
+            return dataList;
+        }
+
     }
 }

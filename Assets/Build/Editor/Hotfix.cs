@@ -33,6 +33,10 @@ using Debug = UnityEngine.Debug;
 using System.IO;
 using libx;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using HybridCLR.Editor.Installer;
+using UnityEditor.VersionControl;
 
 // 热更新资源生成
 namespace SGame
@@ -44,6 +48,9 @@ namespace SGame
         private const string HOTFIX_PATH                = "DLC/HDLC";
         private const string BUNDLE_PATH                = "DLC";
         private const string PROJECT_PATH               = "Assets/";
+        private const string HYBRID_AOT_PATH                   = "Assets/BuildAsset/AOTMeta/";
+        private const string HYBRID_DLL_PATH                   = "Assets/BuildAsset/Code/";
+
         
         static string GetBuildTargetName(BuildTarget build)
         {
@@ -94,12 +101,23 @@ namespace SGame
             }
             FileOperator.CopyFile(versionPath, Path.Combine(dstPath, UpdateUtils.GetVersionName(buildNo)));
             
+
             // 更新游戏版本信息
             gameVersion.buildNo = buildNo;
             if (code > 0)
             {
                 gameVersion.codeVer = code;
             }
+            
+            // 下载资源路径
+            var resource_url = SGame.IniUtils.GetLocalValue("@resource_url");
+            if (!string.IsNullOrEmpty(resource_url))
+            {
+                // 填充资源路径
+                string[] resource_urls = resource_url.Split("|");
+                gameVersion.resource_url = resource_urls;
+            }
+
             gameVersion.ver = PlayerSettings.bundleVersion;
             gameVersion.ToFile(gameVersionPath);
             gameVersion.ToFile(Path.Combine(dstPath, GameVersion.FileName));
@@ -116,9 +134,83 @@ namespace SGame
             // 打包提取资源更新
             OneKeyBuildHotfix(0, 0);
         }
+
+        static string GetAotPath()
+        {
+            return Path.Combine(HybridCLR.Editor.Settings.HybridCLRSettings.Instance.strippedAOTDllOutputRootDir,
+                GetBuildTargetName(EditorUserBuildSettings.activeBuildTarget));
+        }
+        
+        static string GetHotfixPath()
+        {
+            return Path.Combine(HybridCLR.Editor.Settings.HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir,
+                GetBuildTargetName(EditorUserBuildSettings.activeBuildTarget));
+        }
+        
+        static  HybridCLR.Editor.Installer.InstallerController s_hybridClr = new InstallerController();
+
+        
+        /// <summary>
+        /// 编译华佗热更
+        /// </summary>
+        static void BuildHybridclr()
+        {
+            if (!s_hybridClr.HasInstalledHybridCLR())
+            {
+                Debug.Log("InstallDefaultHybridCLR install first");            
+            }
+            s_hybridClr.InstallDefaultHybridCLR();
+
+            HybridCLR.Editor.Commands.PrebuildCommand.GenerateAll();
+
+            // 生成所有DLL
+            var aotfiles = SGame.IniUtils.GetAotFiles();
+            
+            // 拷贝AOT DLL
+            // 查看AOT文件类别
+            var aotRootPath = GetAotPath();
+            if (Directory.Exists(aotRootPath) == false)
+            {
+                // 目标目录不存在
+                Directory.CreateDirectory(aotRootPath);
+            }
+            var defines = HybridCLR.Editor.Settings.HybridCLRSettings.Instance.hotUpdateAssemblyDefinitions;
+            foreach (var aot in aotfiles)
+            {
+                var path = Path.Combine(aotRootPath, aot);
+                var dst = Path.Combine(HYBRID_AOT_PATH, aot) + ".bytes";
+                if (!FileOperator.CopyFile(path, dst))
+                    Debug.LogError("copy file fail src=" + path + " dst=" + dst);
+            }
+            
+            
+            // 拷贝热更 DLL
+            var hotfix_files = HybridCLR.Editor.Settings.HybridCLRSettings.Instance.hotUpdateAssemblyDefinitions;
+            var hotfix_root = GetHotfixPath();
+            if (Directory.Exists(hotfix_root) == false)
+            {
+                // 目标目录不存在
+                Directory.CreateDirectory(hotfix_root);
+            }
+            foreach (var hot in hotfix_files)
+            {
+                var name = hot.name;
+                var path = Path.Combine(hotfix_root, name) + ".dll";
+                var dst = Path.Combine(HYBRID_DLL_PATH, name) + ".dll.bytes";
+                if (!FileOperator.CopyFile(path, dst))
+                    Debug.LogError("copy file fail src=" + path + " dst=" + dst);
+            }
+
+            AssetDatabase.Refresh();
+        }
         
         public static void OneKeyBuildHotfix(int ver = 0 , int core = 0) //int ver = 0)
         {
+            #if ENABLE_HOTFIX
+                // 生成代码热更
+                BuildHybridclr();
+            #endif
+            
             // 打包提取资源更新
             BuildScript.BuildBundleAndCopyToStream(ver);
             MakeHotfixResource(core);

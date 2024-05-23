@@ -181,15 +181,20 @@ namespace SGame
 			Type t = hotUpdateAss.GetType(className);
 			return t;
 		}
+		
 
 		/// <summary>
 		/// 加载AOT 原数据
 		/// </summary>
 		void LoadAOTMeta()
 		{
+			//Assembly.GetAssembly()
+			//Assembly.GetEntryAssembly()
+			
 #if !UNITY_EDITOR && ENABLE_HOTFIX
             const string AOTBasePath = "Assets/BuildAsset/AOTMeta/";
-            foreach (var aotDllName in AOTGenericReferences.PatchedAOTAssemblyList)
+			var files = IniUtils.GetAotFiles();
+            foreach (var aotDllName in files)
             {
                 string dllPath = AOTBasePath + aotDllName + ".bytes";
                 var req = Assets.LoadAsset(dllPath, typeof(TextAsset));
