@@ -18,7 +18,7 @@ namespace SGame
     {
         public int startTime;
         public bool reddot;
-        public List<RankReward> rewards = new List<RankReward>();
+        public RankReward[] rewards;
     }
 
     [Serializable]
