@@ -174,10 +174,11 @@ namespace SGame
 									PropertyManager.Instance.UpdateByArgs(false, item);
 								else if (
 									ConfigSystem.Instance.TryGet(item[0] , out ItemRowData cfg) 
-									&& ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId , GameServerTime.Instance.serverTime , out _)
+									&& ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId , GameServerTime.Instance.serverTime , out var act)
 								)
 								{
-									PropertyManager.Instance.UpdateByArgs(false, item);
+                                    if (("act" + cfg.TypeId).IsOpend(false) || ("act" + act.configID).IsOpend(false))
+									    PropertyManager.Instance.UpdateByArgs(false, item);
 								}
 							}
 						}
