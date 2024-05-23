@@ -11,26 +11,26 @@ namespace SGame
 {
     public enum RankScoreEnum 
     {
-        CHAPTER     = 1,    //完成章节次数
-        LEVEL       = 2,    //完成关卡次数
-        BOX         = 3,    //打开场景箱子数量
-        WORKER      = 4,    //雇佣工人数量
-        SELL        = 5,    //出售商品数量
-        SERVE       = 6,    //服务客户人数
-        TIP         = 7,    //收集客人小费次数
-        EQUIP_BOX   = 8,    //打开装备宝箱数量
-        AD          = 9,    //观看广告次数
-        EQUIP_LEVEL = 10,   //升级装备次数
-        EQUIP_STAGE = 11,   //进阶装备次数
-        PET         = 12    //宠物进化次数
+        CHAPTER     = 1,    //瀹屾垚绔犺妭娆℃暟
+        LEVEL       = 2,    //瀹屾垚鍏冲崱娆℃暟
+        BOX         = 3,    //鎵撳紑鍦烘櫙绠卞瓙鏁伴噺
+        WORKER      = 4,    //闆囦剑宸ヤ汉鏁伴噺
+        SELL        = 5,    //鍑哄敭鍟嗗搧鏁伴噺
+        SERVE       = 6,    //鏈嶅姟瀹㈡埛浜烘暟
+        TIP         = 7,    //鏀堕泦瀹汉灏忚垂娆℃暟
+        EQUIP_BOX   = 8,    //鎵撳紑瑁呭瀹濈鏁伴噺
+        AD          = 9,    //瑙傜湅骞垮憡娆℃暟
+        EQUIP_LEVEL = 10,   //鍗囩骇瑁呭娆℃暟
+        EQUIP_STAGE = 11,   //杩涢樁瑁呭娆℃暟
+        PET         = 12    //瀹犵墿杩涘寲娆℃暟
     }
 
     public partial class DataCenter 
     {
-        //自己的排行标识值
+        //鑷繁鐨勬帓琛屾爣璇嗗�?
         public RankScore rankScore = new RankScore();
 
-        //排行榜数据
+        //鎺掕姒滄暟鎹?
         public RankData rankData = new RankData();
 
         public RankCacheData rankCacheData = new RankCacheData();
@@ -38,7 +38,7 @@ namespace SGame
 
     public class RankModule : Singleton<RankModule>
     {
-        //对应活动表
+        //瀵瑰簲娲诲姩琛?
         public const int RANK_ACTIVE_ID = 3;
 
         public RankData rankData { get { return DataCenter.Instance.rankData;}}
@@ -93,7 +93,7 @@ namespace SGame
             if (rankPanelData.ids?.Length > 0 && DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
             {
                 DataCenter.Instance.rankCacheData.startTime = rankPanelData.ids[0].begin_time;
-                ClearRankScore();//清除自己排行标识数据
+                ClearRankScore();//娓呴櫎鑷繁鎺掕鏍囪瘑鏁版嵁
             }
 
             if (rankPanelData.rewards?.Length > 0) 
@@ -102,12 +102,12 @@ namespace SGame
                 if (DataCenter.Instance.rankCacheData.rewards?.Length > 0)
                     list.AddRange(DataCenter.Instance.rankCacheData.rewards?.ToList());
                 DataCenter.Instance.rankCacheData.rewards = list.ToArray();
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------存储排行奖励----当前排行类型：{0}当前排行:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type：{0}rankindex:{1}", r.id, r.rank)));
             } 
  
-            if (popReward && DataCenter.Instance.rankCacheData.rewards.Length > 0) 
+            if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
             {
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------打开排行奖励----当前排行类型：{0}当前排行:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type：{0}rankindex:{1}", r.id, r.rank)));
                 OpenResultView(DataCenter.Instance.rankCacheData.rewards.ToArray());
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
@@ -152,7 +152,7 @@ namespace SGame
                 rankScore.workers += value;
         }
 
-        //获取当前排行对应配置
+        //鑾峰彇褰撳墠鎺掕瀵瑰簲閰嶇疆
         public RankConfigRowData GetCurRankConfig()
         {
             if (rankPanelData.ids?.Length > 0) 
