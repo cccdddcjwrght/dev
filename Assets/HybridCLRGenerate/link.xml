@@ -41,10 +41,6 @@
     <type fullname="Cinemachine.ICinemachineCamera" preserve="all" />
     <type fullname="Cinemachine.LensSettings" preserve="all" />
   </assembly>
-  <assembly fullname="Cmds">
-    <type fullname="Cs.ErrorCode" preserve="all" />
-    <type fullname="Cs.GameMsgID" preserve="all" />
-  </assembly>
   <assembly fullname="Core">
     <type fullname="Callback" preserve="all" />
     <type fullname="Callback`1" preserve="all" />
@@ -187,11 +183,6 @@
     <type fullname="FlatBuffers.StringOffset" preserve="all" />
     <type fullname="FlatBuffers.Table" preserve="all" />
     <type fullname="FlatBuffers.VectorOffset" preserve="all" />
-  </assembly>
-  <assembly fullname="Google.Protobuf">
-    <type fullname="Google.Protobuf.CodedOutputStream" preserve="all" />
-    <type fullname="Google.Protobuf.IMessage" preserve="all" />
-    <type fullname="Google.Protobuf.MessageExtensions" preserve="all" />
   </assembly>
   <assembly fullname="HdgRemoteDebugRuntime">
     <type fullname="Hdg.RemoteDebugServer" preserve="all" />
@@ -625,7 +616,6 @@
     <type fullname="System.IO.File" preserve="all" />
     <type fullname="System.IO.MemoryStream" preserve="all" />
     <type fullname="System.IO.Path" preserve="all" />
-    <type fullname="System.IO.SeekOrigin" preserve="all" />
     <type fullname="System.IO.Stream" preserve="all" />
     <type fullname="System.Int32" preserve="all" />
     <type fullname="System.Int64" preserve="all" />
