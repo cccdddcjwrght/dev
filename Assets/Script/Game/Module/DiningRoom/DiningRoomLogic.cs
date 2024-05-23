@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using GameConfigs;
 using libx;
 using log4net;
@@ -30,6 +31,8 @@ namespace SGame.Dining
 	class Build : IBuild, IEquatable<Build>
 	{
 		protected IEnumerator _wait;
+
+		public Transform holder;
 
 		public int cfgID { get; set; }
 
@@ -168,6 +171,7 @@ namespace SGame.Dining
 		public bool waitActive;
 		public string asset;
 
+		public int area;
 		public Transform transform;
 
 		public override bool isDone
@@ -232,6 +236,10 @@ namespace SGame.Dining
 		public bool enable { get { return begin?.enable == true; } set { if (begin != null) begin.enable = true; } }
 		public override bool isDone { get => machines.All(m => m.isDone); set => base.isDone = value; }
 
+		public int area { get { return begin == null ? 0 : begin.area; } }
+
+		public List<Transform> transforms;
+
 		public Region(int id) => cfgID = id;
 
 		public Place GetPlace(int id)
@@ -259,11 +267,22 @@ namespace SGame.Dining
 
 	}
 
+	class Area : Build
+	{
+		public RoomAreaRowData cfg;
+		public bool enable;
+
+		public GameObject lockGo;
+		public GameObject unlockGo;
+	}
+
 	class RegionHit : MonoBehaviour, ITouchOrHited
 	{
 		public int region;
 		public int place;
 		public Action<int, int> onClick;
+
+		private BoxCollider collider;
 
 		static private Vector3 g_size;
 		static private Vector3 g_center;
@@ -286,9 +305,20 @@ namespace SGame.Dining
 			}
 
 			var o = transform.gameObject.GetComponentInChildren<BoxCollider>();
-			var c = transform.gameObject.AddComponent<BoxCollider>();
+			var c = collider = transform.gameObject.AddComponent<BoxCollider>();
 			c.size = o ? o.size : g_size;
 			c.center = o ? o.center : g_center;
+
+		}
+
+		public void SetCollider(Bounds bounds)
+		{
+
+			if (collider)
+			{
+				collider.center = bounds.center;
+				collider.size = bounds.size;
+			}
 
 		}
 
@@ -312,6 +342,7 @@ namespace SGame.Dining
 
 		private MapGrid _sceneGrid;
 		private List<Region> _regions;
+		private List<Area> _areas;
 		private Region _begin;
 		private EventHandleContainer _eHandlers;
 		private LevelRowData _cfg;
@@ -343,6 +374,7 @@ namespace SGame.Dining
 			{
 				InitView();
 				InitBuilds();
+				InitArea();
 				InitEvents();
 				if (_sceneGrid != null)
 				{
@@ -423,6 +455,7 @@ namespace SGame.Dining
 		{
 			if (region.next == null)
 			{
+				if (!DataCenter.MachineUtil.IsAreaEnableByMachine(region.begin.cfgID)) return;
 				//不能自动解锁
 				if (!region.enable && DataCenter.MachineUtil.CheckDontAutoActive(region.begin.cfgID)) return;
 				if (region.data.isTable || (region.data.level <= 0 && !region.enable))
@@ -495,7 +528,8 @@ namespace SGame.Dining
 								index = i,
 								seats = s,
 								transform = t,
-								asset = m.TipsAsset
+								asset = m.TipsAsset,
+								area = m.RoomArea
 							},
 							state: DataCenter.MachineUtil.IsActived(m.ID), region: c.Key)
 						).ToList();
@@ -523,9 +557,64 @@ namespace SGame.Dining
 			_eHandlers += EventManager.Instance.Reg<int2>(((int)GameEvent.WORK_COOK_COMPLETE), OnWorktablekCookComplete);
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_UP_STAR), OnWorkTableUpStar);
 			_eHandlers += EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_CLICK_SIMULATE), OnRegionClick);
+			_eHandlers += EventManager.Instance.Reg<int>(((int)GameEvent.WORK_AREA_UNLOCK), OnWorkAreaUnlock);
 
 
 
+		}
+
+		private void InitArea()
+		{
+			var room = DataCenter.Instance.roomData.current;
+			StaticDefine.CUSTOMER_TAG_BORN.Clear();
+			StaticDefine.CUSTOMER_TAG_BORN.Add(ConstDefine.TAG_BORN_CUSTOMER);
+			if (room != null && room.roomAreas?.Count > 0)
+			{
+				RefreshAreaBuildState();
+
+				var layer = GameObject.Find("RoomArea")?.transform;
+				if (layer)
+				{
+					_areas = new List<Area>();
+					foreach (var item in room.roomAreas)
+					{
+						var islock = !room.areas.Contains(item.Key);
+						var lockgo = layer.Find(item.Value.LockRes);
+						var unlockgo = layer.Find(item.Value.UnlockRes);
+
+						if (!islock)
+						{
+							if (!string.IsNullOrEmpty(item.Value.CustomerBorn))
+								StaticDefine.CUSTOMER_TAG_BORN.Add(item.Value.CustomerBorn);
+						}
+
+						if (unlockgo) unlockgo.gameObject.SetActive(!islock);
+						if (lockgo) lockgo.gameObject.SetActive(islock);
+						if (islock)
+						{
+							var reg = new Area()
+							{
+								cfgID = item.Key,
+								holder = new GameObject("area_" + item.Key).transform,
+								lockGo = lockgo.gameObject,
+								unlockGo = unlockgo.gameObject
+							};
+
+							reg.holder.tag = "area";
+							reg.holder.position = _sceneGrid.GetCellPosition(item.Value.AreaPos(0), item.Value.AreaPos(1));
+
+							var center = GetCenter(lockgo.gameObject, out var bounds);
+							var region = reg.lockGo.AddComponent<RegionHit>();
+							region.region = item.Key;
+							region.place = -1;
+							region.SetCollider(bounds);
+							region.onClick = (r, p) => EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), reg, 3);
+							_areas.Add(reg);
+						}
+
+					}
+				}
+			}
 		}
 
 		private Place ActiveBuild(Place machine = default, int id = -1, bool state = true, int region = 0)
@@ -572,12 +661,15 @@ namespace SGame.Dining
 			var cs = new HashSet<int>();
 			var ids = cfg.GetObjIdArray();
 			var tags = cfg.GetArray(cfg.Tags, cfg.TagsLength);
+			var ts = new HashSet<Transform>();
 
 			void AddBuilds(ref Transform trans, GameTools.Maps.Cell cell)
 			{
 				if (cell == null) return;
 				cs.Add(cell.index);
 				trans = trans ?? cell.cell?.transform;
+				if (cell.cell)
+					ts.Add(cell.cell.transform);
 				if (cell.builds?.Count > 0) builds.AddRange(cell.builds.Select(b => int.Parse(b)));
 			}
 
@@ -637,7 +729,7 @@ namespace SGame.Dining
 					}
 				}
 			}
-
+			region.transforms = ts.ToList();
 			if (cs.Count > 0)
 			{
 				gindex = cs.First();
@@ -733,34 +825,37 @@ namespace SGame.Dining
 
 		private void OnRegionClick(int region, int place)
 		{
-			var r = GetRegion(region);
-			if (r != null)
+			if (place > 0)
 			{
-				var p = r.GetPlace(place);
-
-				if ((!r.enable && r.begin.cfgID == place) || r.next?.cfgID == place)
+				var r = GetRegion(region);
+				if (r != null)
 				{
-					if ((r.next ?? r.begin).waitActive == true)
+					var p = r.GetPlace(place);
+
+					if ((!r.enable && r.begin.cfgID == place) || r.next?.cfgID == place)
 					{
-						if (!r.data.isTable && r.begin.waitActive)
-							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
-						else
+						if ((r.next ?? r.begin).waitActive == true)
 						{
-							DataCenter.MachineUtil.AddMachine(r.next.cfgID);
-							EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.BOX, 1);
-							return;
+							if (!r.data.isTable && r.begin.waitActive)
+								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
+							else
+							{
+								DataCenter.MachineUtil.AddMachine(r.next.cfgID);
+								EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.BOX, 1);
+								return;
+							}
 						}
 					}
-				}
-				else if (r.next == null || r.next.cfgID != place)
-				{
-					if (!r.data.isTable && p.enable)
+					else if (r.next == null || r.next.cfgID != place)
 					{
-						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
+						if (!r.data.isTable && p.enable)
+						{
+							EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
+						}
 					}
-				}
-				r.machines.ForEach(p => PlayClip(p.index, "click", false));
+					r.machines.ForEach(p => PlayClip(p.index, "click", false));
 
+				}
 			}
 		}
 
@@ -831,6 +926,41 @@ namespace SGame.Dining
 			PlayClip(_sceneGrid.PosToIndex(pos.x, pos.y), name, loop);
 		}
 
+		private void RefreshAreaBuildState(int area = -1)
+		{
+			foreach (var item in _regions)
+			{
+				if (area == -1 || area == item.area)
+				{
+					var f = DataCenter.MachineUtil.IsAreaEnable(item.area);
+					item.transforms.ForEach(t => t.gameObject.SetActive(f));
+				}
+			}
+		}
+
+		public static Vector3 GetCenter(GameObject gameObject, out Bounds bounds)
+		{
+			bounds = default;
+			if (gameObject)
+			{
+				var rs = gameObject.GetComponentsInChildren<Renderer>().Where(r => r is MeshRenderer || r is SkinnedMeshRenderer).ToArray();
+				if (rs != null && rs.Length > 0)
+				{
+					Bounds bs = default;
+					for (int i = 0; i < rs.Length; i++)
+					{
+						if (i == 0) bs = rs[i].bounds;
+						else bs.Encapsulate(rs[i].bounds);
+					}
+					var c = bs.center;
+					c.y = 2;
+					bounds = bs;
+					return c;
+				}
+			}
+			return Vector3.zero;
+		}
+
 		#endregion
 
 		#region Events
@@ -883,6 +1013,26 @@ namespace SGame.Dining
 			PlayClip(pos, "idle");
 		}
 
+		private void OnWorkAreaUnlock(int area)
+		{
+			if (area > 0)
+			{
+				var a = _areas.Find(a => a.cfgID == area);
+				if (a != null)
+				{
+					if (a.lockGo) a.lockGo.SetActive(false);
+					if (a.unlockGo) a.unlockGo.SetActive(true);
+					RefreshAreaBuildState(area);
+
+					IEnumerator Run()
+					{
+						yield return null;
+						_regions.ForEach(CheckUnlock);
+					}
+					Run().Start();
+				}
+			}
+		}
 
 
 		#endregion

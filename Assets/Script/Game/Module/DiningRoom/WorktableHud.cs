@@ -19,7 +19,7 @@ namespace SGame
 
 		public void Init()
 		{
-			EventManager.Instance.Reg<Dining.Region, int>(((int)GameEvent.WORK_TABLE_CLICK), OnRegionClick);
+			EventManager.Instance.Reg<Dining.Build, int>(((int)GameEvent.WORK_TABLE_CLICK), OnRegionClick);
 			ControlAxis.OnAnyKeyInput += ListenClick;
 
 		}
@@ -31,21 +31,40 @@ namespace SGame
 			_hit = false;
 		}
 
-		private void OnRegionClick(Dining.Region region, int type)
+		private void OnRegionClick(Dining.Build build, int type)
 		{
 			_hit = true;
-			var place = type == 1 ? region.next ?? region.begin : region.begin;
-			if (_cid != place.cfgID)
+			var region = build as Dining.Region;
+			if (region != null)
 			{
-				Close();
-				_cid = place.cfgID;
-				ConfigSystem.Instance.TryGet<RoomMachineRowData>(_cid, out var cfg);
-				_hud = UIUtils.ShowHUD("worktable", place.transform, new float3(cfg.HudOffset(0), cfg.HudOffsetLength > 0 ? cfg.HudOffset(1) : 1, cfg.HudOffset(2)));
+				var place = type == 1 ? region.next ?? region.begin : region.begin;
+				if (place != null)
+				{
+					if (_cid != place.cfgID)
+					{
+						Close();
+						_cid = place.cfgID;
+						ConfigSystem.Instance.TryGet<RoomMachineRowData>(_cid, out var cfg);
+						_hud = UIUtils.ShowHUD("worktable", place.transform, new float3(cfg.HudOffset(0), cfg.HudOffsetLength > 0 ? cfg.HudOffset(1) : 1, cfg.HudOffset(2)));
+						_hud.SetParam(new WorktableInfo()
+						{
+							id = region.cfgID,
+							mid = place.cfgID,
+							target = place.transform.position,
+							type = type
+						});
+					}
+				}
+			}
+			else
+			{
+				if (_cid == build.cfgID) return;
+				_cid = build.cfgID;
+				_hud = UIUtils.ShowHUD("worktable", build.holder, new float3(0,1,0));
 				_hud.SetParam(new WorktableInfo()
 				{
-					id = region.cfgID,
-					mid = place.cfgID,
-					target = place.transform.position,
+					id = build.cfgID,
+					target = build.holder.position,
 					type = type
 				});
 			}

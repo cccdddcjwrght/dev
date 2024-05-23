@@ -81,6 +81,11 @@ namespace SGame
 		/// 服务生
 		/// </summary>
 		public const string TAG_BORN_WAITER = "born_1";
+		/// <summary>
+		/// 客人
+		/// </summary>
+		public const string TAG_BORN_CUSTOMER = "born_4";
+
 		#endregion
 
 		#region WorkerTags
@@ -189,6 +194,7 @@ namespace SGame
 		/// </summary>
 		public static int EQUIP_MAX_LEVEL;
 
+		public static List<string> CUSTOMER_TAG_BORN = new List<string>();
 
 	}
 }

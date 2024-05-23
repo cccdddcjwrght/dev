@@ -61,6 +61,7 @@ namespace SGame
 					rd.rooms.Remove(r);
 					rd.rooms.Insert(0, r);
 					ud.scene = id;
+					r.roomAreas = ConfigSystem.Instance.Finds<RoomAreaRowData>(c => c.Scene == r.id).ToDictionary(c => c.ID);
 					r.worktables?.ForEach(w => w.Refresh());
 					Instance.roomData.roomID = id;
 					Instance.SetUserData(ud);
@@ -132,6 +133,15 @@ namespace SGame
 				}
 			}
 
+			public static void UnlockArea(int area)
+			{
+				var room = DataCenter.Instance.roomData.current;
+				if (room != null)
+				{
+					room.areas.Add(area);
+				}
+			}
+
 			private static bool UseTechBuff(RoomTechRowData cfg)
 			{
 				if (cfg.IsValid() && cfg.Type == 1)
@@ -147,7 +157,18 @@ namespace SGame
 				return false;
 			}
 
-			private static void AddRoleReward(int roleid, int count, int x, int y)
+			public static void AddRole(int roleid, int count, int x, int y, int tableid = 0)
+			{
+				if (roleid == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子
+					EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, count, tableid);
+				else
+				{
+					AddRoleReward(roleid, count, x, y);
+					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.WORKER, 1);
+				}
+			}
+
+			public static void AddRoleReward(int roleid, int count, int x, int y)
 			{
 				if (count > 0)
 				{
@@ -198,10 +219,13 @@ namespace SGame
 		public int id;
 		public int worktableCount;
 		public List<Worktable> worktables = new List<Worktable>();
+		public List<int> areas = new List<int>();
 		public List<int> techs = new List<int>();
 
 		[NonSerialized]
 		public Dictionary<int, RoomTechRowData> roomTechs;
+		[NonSerialized]
+		public Dictionary<int, RoomAreaRowData> roomAreas;
 
 		[NonSerialized]
 		public bool isnew;

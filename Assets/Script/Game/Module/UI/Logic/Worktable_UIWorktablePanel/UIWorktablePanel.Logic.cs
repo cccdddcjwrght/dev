@@ -44,6 +44,9 @@ namespace SGame.UI
 					case 2:
 						SetUplevelInfo();
 						break;
+					case 3:
+						SetAreaUnlock();
+						break;
 				}
 
 			}
@@ -78,6 +81,20 @@ namespace SGame.UI
 			m_view.m_list.itemRenderer = SetStarInfo;
 			LevelRefresh();
 			AdRefresh();
+		}
+
+		private void SetAreaUnlock()
+		{
+
+			if( ConfigSystem.Instance.TryGet<RoomAreaRowData>(info.id, out var row))
+			{
+				var state = PropertyManager.Instance.CheckCountByArgs(row.GetCostArray());
+				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(row.Cost(2)));
+				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
+				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+			}
+
+			m_view.m_type.selectedIndex = 1;
 		}
 
 		private void LevelRefresh()
@@ -175,7 +192,7 @@ namespace SGame.UI
 
 		private void RefreshClick()
 		{
-			if (m_view == null) return;
+			if (m_view == null || data == null) return;
 			var lvmax = data.maxlv <= data.level;
 			if (!lvmax)
 			{
@@ -287,6 +304,10 @@ namespace SGame.UI
 			else if (this.info.type == 2)
 			{
 				UpLevel();
+			}else if(this.info.type == 3)
+			{
+				RequestExcuteSystem.UnlockArea(this.info.id);
+				SGame.UIUtils.CloseUIByID(__id);
 			}
 		}
 

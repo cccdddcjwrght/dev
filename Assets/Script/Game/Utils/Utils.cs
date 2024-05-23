@@ -262,7 +262,7 @@ namespace SGame
 				case (int)EnumRole.Waiter:
 					return "born_1";
 				case (int)EnumRole.Customer:
-					return "born_3";
+					return SGame.Randoms.Random._R.NextItem(StaticDefine.CUSTOMER_TAG_BORN);
 			}
 
 			return "";

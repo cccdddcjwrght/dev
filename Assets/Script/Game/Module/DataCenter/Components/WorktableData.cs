@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace SGame
 {
+
 	public static partial class Error_Code
 	{
 		/// <summary>
@@ -44,6 +45,8 @@ namespace SGame
 	{
 		public class MachineUtil
 		{
+			private static Dictionary<string, int> _areas = new Dictionary<string, int>();
+
 			public static Machine AddMachine(int id)
 			{
 				if (id > 0)
@@ -120,7 +123,7 @@ namespace SGame
 				}
 				if (ifMissAdd && (val == null || val.id == 0))
 				{ val = AddWorktable(id, scene); }
-				if (!val.cfg.IsValid())
+				if (val != null && !val.cfg.IsValid())
 					val.Refresh();
 				return val;
 			}
@@ -173,11 +176,12 @@ namespace SGame
 								if (i == 0)
 									PropertyManager.Instance.UpdateByArgs(false, item);
 								else if (
-									ConfigSystem.Instance.TryGet(item[0] , out ItemRowData cfg) 
-									&& ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId , GameServerTime.Instance.serverTime , out _)
+									ConfigSystem.Instance.TryGet(item[0], out ItemRowData cfg)
+									&& ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId, GameServerTime.Instance.serverTime, out var act)
 								)
 								{
-									PropertyManager.Instance.UpdateByArgs(false, item);
+									if (("act" + cfg.TypeId).IsOpend(false) || ("act" + act.configID).IsOpend(false))
+										PropertyManager.Instance.UpdateByArgs(false, item);
 								}
 							}
 						}
@@ -300,7 +304,7 @@ namespace SGame
 			public static bool IsActived(int machine)
 			{
 				var m = GetMachine(machine, out Worktable worktable);
-				if (m != null && m.enable) return true;
+				if (m != null && m.enable ) return true;
 				return false;
 			}
 
@@ -382,6 +386,48 @@ namespace SGame
 				return false;
 			}
 
+			/// <summary>
+			/// 区域是否激活
+			/// </summary>
+			/// <param name="area"></param>
+			/// <returns></returns>
+			public static bool IsAreaEnable(int area)
+			{
+				if (area > 1)
+				{
+					var room = DataCenter.Instance.roomData?.current;
+					if (room != null)
+						return room.areas.Contains(area);
+				}
+				return true;
+			}
+
+			public static bool IsAreaEnable(string key)
+			{
+				if (!_areas.TryGetValue(key, out var id))
+				{
+					int.TryParse(key.Split('_').Last(), out id);
+					_areas[key] = id;
+				}
+				return IsAreaEnable(id);
+			}
+
+			public static bool IsAreaEnable(Machine machine)
+			{
+				if (machine != null && machine.cfg.IsValid())
+					return IsAreaEnable(machine.cfg.RoomArea);
+				return false;
+			}
+
+			public static bool IsAreaEnableByMachine(int machineID)
+			{
+				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(machineID, out var m))
+				{
+					return IsAreaEnable(m.RoomArea);
+				}
+				return false;
+			}
+
 			public static (int, int) GetRoomLvState()
 			{
 				var ws = GetWorktables(w => !w.isTable);
@@ -421,12 +467,6 @@ namespace SGame
 
 
 	[System.Serializable]
-	public class WorktableData
-	{
-		public List<Worktable> machines = new List<Worktable>();
-	}
-
-	[System.Serializable]
 	public class Worktable
 	{
 		public int id;
@@ -455,7 +495,7 @@ namespace SGame
 		[NonSerialized]
 		public int addMachine;
 		[NonReorderable]
-		public int reward; 
+		public int reward;
 		[NonReorderable]
 		public List<int[]> starRewards;
 
@@ -479,7 +519,6 @@ namespace SGame
 			}
 			return 0;
 		}
-
 
 		public double GetUpCost()
 		{
@@ -522,7 +561,7 @@ namespace SGame
 						}
 					}
 					else
-						starRewards = new List<int[]>() ;
+						starRewards = new List<int[]>();
 				}
 			}
 		}
@@ -531,6 +570,7 @@ namespace SGame
 		{
 
 		}
+
 	}
 
 	[System.Serializable]

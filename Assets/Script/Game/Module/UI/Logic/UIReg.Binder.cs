@@ -65,6 +65,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("ExchangeTaskUI", "Exchange", ()=>new UIExchangeTask());SGame.UI.Exchange.ExchangeBinder.BindAll();;
 			context.uiModule.Reg("MonsterHunterUI", "MonsterHunter", ()=>new UIMonsterHunter());SGame.UI.MonsterHunter.MonsterHunterBinder.BindAll();;
 			context.uiModule.Reg("TempShopUI", "MonsterHunter", ()=>new UITempShop());
+			context.uiModule.Reg("LockRedUI", "Common", ()=>new UILockRed());
 		}
 	}
 }
