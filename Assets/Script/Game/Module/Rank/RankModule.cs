@@ -95,12 +95,19 @@ namespace SGame
             }
 
             if (rankPanelData.rewards?.Length > 0) 
-                DataCenter.Instance.rankCacheData.rewards.AddRange(rankPanelData.rewards);
- 
-            if (popReward && DataCenter.Instance.rankCacheData.rewards?.Count > 0) 
             {
+                var list = rankPanelData.rewards.ToList();
+                if (DataCenter.Instance.rankCacheData.rewards?.Length > 0)
+                    list.AddRange(DataCenter.Instance.rankCacheData.rewards?.ToList());
+                DataCenter.Instance.rankCacheData.rewards = list.ToArray();
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------存储排行奖励----当前排行类型：{0}当前排行:{1}", r.id, r.rank)));
+            } 
+ 
+            if (popReward && DataCenter.Instance.rankCacheData.rewards.Length > 0) 
+            {
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------打开排行奖励----当前排行类型：{0}当前排行:{1}", r.id, r.rank)));
                 OpenResultView(DataCenter.Instance.rankCacheData.rewards.ToArray());
-                DataCenter.Instance.rankCacheData.rewards.Clear();
+                DataCenter.Instance.rankCacheData.rewards = null;
             }
 
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
