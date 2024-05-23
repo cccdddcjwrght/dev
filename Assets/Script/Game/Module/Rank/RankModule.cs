@@ -27,10 +27,10 @@ namespace SGame
 
     public partial class DataCenter 
     {
-        //è‡ªå·±çš„æ’è¡Œæ ‡è¯†å€¼
+        //è‡ªå·±çš„æ’è¡Œæ ‡è¯†å€?
         public RankScore rankScore = new RankScore();
 
-        //æ’è¡Œæ¦œæ•°æ®
+        //æ’è¡Œæ¦œæ•°æ?
         public RankData rankData = new RankData();
 
         public RankCacheData rankCacheData = new RankCacheData();
@@ -38,7 +38,7 @@ namespace SGame
 
     public class RankModule : Singleton<RankModule>
     {
-        //å¯¹åº”æ´»åŠ¨è¡¨
+        //å¯¹åº”æ´»åŠ¨è¡?
         public const int RANK_ACTIVE_ID = 3;
 
         public RankData rankData { get { return DataCenter.Instance.rankData;}}
@@ -102,12 +102,12 @@ namespace SGame
                 if (DataCenter.Instance.rankCacheData.rewards?.Length > 0)
                     list.AddRange(DataCenter.Instance.rankCacheData.rewards?.ToList());
                 DataCenter.Instance.rankCacheData.rewards = list.ToArray();
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------´æ´¢ÅÅĞĞ½±Àø----µ±Ç°ÅÅĞĞÀàĞÍ£º{0}µ±Ç°ÅÅĞĞ:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type£º{0}rankindex:{1}", r.id, r.rank)));
             } 
  
-            if (popReward && DataCenter.Instance.rankCacheData.rewards.Length > 0) 
+            if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
             {
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------´ò¿ªÅÅĞĞ½±Àø----µ±Ç°ÅÅĞĞÀàĞÍ£º{0}µ±Ç°ÅÅĞĞ:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type£º{0}rankindex:{1}", r.id, r.rank)));
                 OpenResultView(DataCenter.Instance.rankCacheData.rewards.ToArray());
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
