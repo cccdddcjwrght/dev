@@ -84,7 +84,7 @@ namespace SGame
 		/// <summary>
 		/// 客人
 		/// </summary>
-		public const string TAG_BORN_CUSTOMER = "born_4";
+		public const string TAG_BORN_CUSTOMER = "born_3";
 
 		#endregion
 
