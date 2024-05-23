@@ -47,12 +47,14 @@ namespace SGame
         public RankPanelData rankPanelData = new RankPanelData();
         EventHandleContainer m_EventHandle = new EventHandleContainer();
 
+        bool isLoop = false;
+
         public void Initalize() 
         {
-            SetTimer();
             m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, AddScoreTypeData);
             m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
             {
+                SetTimer();
                 ReqRankList(true).Start();
                 ReqRankData().Start();
             });
@@ -264,6 +266,9 @@ namespace SGame
 
         public void SetTimer()
         {
+            if (isLoop) return;
+            isLoop = true;
+
             new Action(() => ReqRankList().Start()).CallWhenQuit();
             0.Loop(() =>
             {
