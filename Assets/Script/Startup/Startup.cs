@@ -208,15 +208,9 @@ namespace SGame
 		// 设置加载路径
 		static public void SetupAssetPath()
 		{
-#if UNITY_EDITOR
-			// 没开启更新流程直接进入游戏
-			if (true)
-			{
-				return;
-			}
-#endif
-
+#if !UNITY_EDITOR
 			Assets.updatePath = GetUpdatePath();
+#endif
 		}
 
 		// 更新目录
