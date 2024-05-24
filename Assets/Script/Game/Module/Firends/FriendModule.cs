@@ -23,7 +23,7 @@ namespace SGame.Firend
         /// 好友数据
         /// </summary>
         private FriendData m_friendData { get { return SGame.DataCenter.Instance.m_friendData; } }
-        private Dictionary<int, FriendItemData> m_hirstory = new Dictionary<int, FriendItemData>();
+        private Dictionary<long, FriendItemData> m_hirstory = new Dictionary<long, FriendItemData>();
 
         /// <summary>
         /// 判断是否开启
@@ -168,7 +168,7 @@ namespace SGame.Firend
         /// </summary>
         /// <param name="player_id"></param>
         /// <returns></returns>
-        public FriendItemData GetFriendItem(int player_id)
+        public FriendItemData GetFriendItem(long player_id)
         {
             var index = FindFirend(m_friendData.Friends, player_id);
             if (index >= 0)
@@ -189,7 +189,7 @@ namespace SGame.Firend
         /// <param name="datas"></param>
         /// <param name="player_id"></param>
         /// <returns></returns>
-        static int FindFirend(List<FriendItemData> datas, int player_id)
+        static int FindFirend(List<FriendItemData> datas, long player_id)
         {
             for (int i = 0; i < datas.Count; i++)
             {
@@ -207,7 +207,7 @@ namespace SGame.Firend
         /// 同意好友邀请
         /// </summary>
         /// <param name="player_id"></param>
-        public void AddFriend(int player_id)
+        public void AddFriend(long player_id)
         {
             var index = FindFirend(m_friendData.RecommendFriends, player_id);
             if (index < 0)
@@ -260,7 +260,7 @@ namespace SGame.Firend
         /// </summary>
         /// <param name="player_id"></param>
         /// <returns></returns>
-        public bool CanHire(int player_id)
+        public bool CanHire(long player_id)
         {
             var friend = GetFriendItem(player_id);
             if (friend == null)
@@ -302,7 +302,7 @@ namespace SGame.Firend
         /// 雇佣好友
         /// </summary>
         /// <param name="player_id"></param>
-        public void HireFriend(int player_id)
+        public void HireFriend(long player_id)
         {
             var index = FindFirend(m_friendData.Friends, player_id);
             if (index < 0)
@@ -376,7 +376,7 @@ namespace SGame.Firend
         /// </summary>
         /// <param name="playerID"></param>
         /// <returns></returns>
-        public RoleData GetRoleData(int playerID)
+        public RoleData GetRoleData(long playerID)
         {
             var item = FriendModule.Instance.GetFriendInHirstory(playerID);
 
@@ -442,7 +442,7 @@ namespace SGame.Firend
         /// </summary>
         /// <param name="playerID"></param>
         /// <returns></returns>
-        public FriendItemData GetFriendInHirstory(int playerID)
+        public FriendItemData GetFriendInHirstory(long playerID)
         {
             if (m_hirstory.TryGetValue(playerID, out FriendItemData friendData))
             {

@@ -24,6 +24,9 @@ namespace SGame.UI.Club
             UIObjectFactory.SetPackageItemExtension(UI_ClubStair.URL, typeof(UI_ClubStair));
             UIObjectFactory.SetPackageItemExtension(UI_ClubReward.URL, typeof(UI_ClubReward));
             UIObjectFactory.SetPackageItemExtension(UI_ClubRewardIcon.URL, typeof(UI_ClubRewardIcon));
+            UIObjectFactory.SetPackageItemExtension(UI_ClubRewardUI.URL, typeof(UI_ClubRewardUI));
+            UIObjectFactory.SetPackageItemExtension(UI_ClubTask.URL, typeof(UI_ClubTask));
+            UIObjectFactory.SetPackageItemExtension(UI_ClubDetailUI.URL, typeof(UI_ClubDetailUI));
         }
     }
 }

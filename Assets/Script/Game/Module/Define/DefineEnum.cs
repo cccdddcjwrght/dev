@@ -245,7 +245,10 @@ namespace SGame
 		/// 宠物
 		/// </summary>
 		Pet,
-
+		/// <summary>
+		/// 俱乐部
+		/// </summary>
+		Club,
 	}
 
 	/// <summary>
