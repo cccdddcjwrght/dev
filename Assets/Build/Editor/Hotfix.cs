@@ -35,6 +35,7 @@ using libx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using HybridCLR.Editor.Installer;
 using UnityEditor.VersionControl;
 
@@ -162,7 +163,8 @@ namespace SGame
 			}
 
 			HybridCLR.Editor.Commands.PrebuildCommand.GenerateAll();
-
+            AssetDatabase.Refresh();
+            
             // 生成所有DLL
             var aotfiles = SGame.IniUtils.GetAotFiles();
             
@@ -174,7 +176,6 @@ namespace SGame
                 // 目标目录不存在
                 Directory.CreateDirectory(aotRootPath);
             }
-            var defines = HybridCLR.Editor.Settings.HybridCLRSettings.Instance.hotUpdateAssemblyDefinitions;
             foreach (var aot in aotfiles)
             {
                 var path = Path.Combine(aotRootPath, aot);
@@ -182,7 +183,6 @@ namespace SGame
                 if (!FileOperator.CopyFile(path, dst))
                     Debug.LogError("copy file fail src=" + path + " dst=" + dst);
             }
-            
             
             // 拷贝热更 DLL
             var hotfix_files = HybridCLR.Editor.Settings.HybridCLRSettings.Instance.hotUpdateAssemblyDefinitions;
