@@ -157,11 +157,11 @@ namespace SGame
         {
             if (!s_hybridClr.HasInstalledHybridCLR())
             {
-                Debug.Log("InstallDefaultHybridCLR install first");            
-            }
-            s_hybridClr.InstallDefaultHybridCLR();
+                Debug.Log("InstallDefaultHybridCLR install first");
+				s_hybridClr.InstallDefaultHybridCLR();
+			}
 
-            HybridCLR.Editor.Commands.PrebuildCommand.GenerateAll();
+			HybridCLR.Editor.Commands.PrebuildCommand.GenerateAll();
 
             // 生成所有DLL
             var aotfiles = SGame.IniUtils.GetAotFiles();
@@ -206,13 +206,15 @@ namespace SGame
         
         public static void OneKeyBuildHotfix(int ver = 0 , int core = 0) //int ver = 0)
         {
-            #if ENABLE_HOTFIX
+			Debug.Log("hot2====>" + HybridCLR.Editor.SettingsUtil.Enable);
+#if ENABLE_HOTFIX
                 // 生成代码热更
                 BuildHybridclr();
-            #endif
-            
-            // 打包提取资源更新
-            BuildScript.BuildBundleAndCopyToStream(ver);
+#endif
+			Debug.Log("hot3====>" + HybridCLR.Editor.SettingsUtil.Enable);
+
+			// 打包提取资源更新
+			BuildScript.BuildBundleAndCopyToStream(ver);
             MakeHotfixResource(core);
         }
 
