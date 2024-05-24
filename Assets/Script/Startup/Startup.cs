@@ -164,6 +164,7 @@ namespace SGame
 			Assembly hotUpdateAss = null;
 			assembly = null;
 #if !UNITY_EDITOR && ENABLE_HOTFIX
+			Debug.Log("LoadDll HOTFIX");
             // 实际加载
             AssetRequest req = libx.Assets.LoadAsset(HOTFIX_PATH + module + ".dll.bytes", typeof(TextAsset));
             if (req == null || req.asset == null)
@@ -174,6 +175,7 @@ namespace SGame
             hotUpdateAss = Assembly.Load(asset.bytes);
 #else
 			// Editor下无需加载，直接查找获得HotUpdate程序集
+			Debug.Log("LoadDll NO HOTFIX");
 			hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == module);
 #endif
 
