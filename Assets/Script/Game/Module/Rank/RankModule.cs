@@ -90,10 +90,18 @@ namespace SGame
 
             Debug.LogWarning("ranks data:" + result.data);
             rankPanelData = JsonUtility.FromJson<RankPanelData>(pkg.data);
+
+            if (rankPanelData.ids?.Length > 0) 
+            {
+                Debug.Log("rank cache time:" + DataCenter.Instance.rankCacheData.startTime + "rank begin time:" + rankPanelData.ids[0].begin_time);
+                rankPanelData.ids.Foreach((r) => Debug.Log(string.Format("cur rankId:{0},marker:{1}, startTime:{2}, endTime:{3}", r.id, r.marker, r.begin_time, r.end_time)));
+            }
+                
             if (rankPanelData.ids?.Length > 0 && DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
             {
                 DataCenter.Instance.rankCacheData.startTime = rankPanelData.ids[0].begin_time;
                 ClearRankScore();//清除自己排行标识数据
+                Debug.Log("rank clear data------------");
             }
 
             if (rankPanelData.rewards?.Length > 0) 
