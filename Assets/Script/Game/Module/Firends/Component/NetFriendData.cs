@@ -74,7 +74,7 @@ namespace SGame.Firend
         public List<FriendItemData>     RecommendFriends = new List<FriendItemData>();
         public int                      nextHireTime;          // 下次可雇佣时间
         public int                      hiringTime;            //  好友雇佣到时间
-        public int                      hiringPlayerID;        //  正在雇佣的好友ID
+        public long                     hiringPlayerID;        //  正在雇佣的好友ID
     }
     
     /// <summary>

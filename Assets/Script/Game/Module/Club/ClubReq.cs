@@ -158,6 +158,25 @@ namespace SGame
             UIUtils.CloseUIByName("clubmain");
         }
 
+        public IEnumerator ClubKickReq(long createId, long userId) 
+        {
+            HttpPackage pkg = new HttpPackage();
+            var data = new ClubKickData()
+            {
+                player_id = createId,
+                user_id = userId
+            };
+            pkg.data = JsonUtility.ToJson(data);
+            var result = HttpSystem.Instance.Post("http://192.168.10.109:8082/club/leave", pkg.ToJson());
+            yield return result;
+            if (!string.IsNullOrEmpty(result.error))
+            {
+                Debug.LogError("club kick fail=" + result.error);
+                yield break;
+            }
+            UIUtils.CloseUIByName("clubdetail");
+        }
+
         public void ClubRewardGetReq(int rewardId) 
         {
             var rewardData = DataCenter.ClubUtil.GetClubReward(rewardId);
@@ -175,6 +194,10 @@ namespace SGame
                     var list = DataCenter.ClubUtil.GetItemReward(cfg);
                     for (int i = 0; i < list.Count; i++)
                         PropertyManager.Instance.Update(list[i][0], list[i][1], list[i][2]);
+
+                    if (rewardData.isBuff) 
+                        EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(cfg.Buff(0), cfg.Buff(1), 0, DataCenter.ClubUtil.GetResidueTime()) { from = (int)EnumFrom.Club });
+                    
                 }
                 EventManager.Instance.Trigger((int)GameEvent.CLUB_REWARD_UPDATE);
             }

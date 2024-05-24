@@ -31,6 +31,12 @@ namespace SGame
         public int score;
     }
 
+    public class ClubKickData 
+    {
+        public long player_id;
+        public long user_id;
+    }
+
     [Serializable]
     public class ClubList
     {
@@ -135,6 +141,7 @@ namespace SGame
                 EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
                 {
                     RequestExcuteSystem.Instance.ClubListDataReq().Start();
+                    LoadGetRewardBuff();
                 });
                 EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, RefreshTaskProgress);
             }
@@ -152,8 +159,8 @@ namespace SGame
                     m_taskDataList.taskList.Clear();
                     m_taskDataList.rewardList.Clear();
                     m_taskDataList.clubId = currentData.id;
+                    PropertyManager.Instance.GetItem(m_taskDataList.currencyId).SetNum(0);
                     m_taskDataList.currencyId = FindClubCurrenyId();
-                    //m_taskDataList.score = 0;
                     m_taskDataList.start_time = currentData.start_time;
                     m_taskDataList.end_time = currentData.end_time;
 
@@ -353,6 +360,20 @@ namespace SGame
             }
 
             /// <summary>
+            /// 触发已领取的奖励buff
+            /// </summary>
+            public static void LoadGetRewardBuff() 
+            {
+                m_taskDataList.rewardList.ForEach((r) =>
+                {
+                    if (r.isGet && r.isBuff && ConfigSystem.Instance.TryGet<GameConfigs.ClubRewardRowData>(r.id, out var cfg))
+                    {
+                        EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(cfg.Buff(0), cfg.Buff(1), 0, GetResidueTime()) { from = (int)EnumFrom.Club });
+                    }
+                });
+            }
+
+            /// <summary>
             /// 获取俱乐部头像配置
             /// </summary>
             /// <param name="id"></param>
@@ -375,6 +396,37 @@ namespace SGame
                 if (ConfigSystem.Instance.TryGet<ClubFrameRowData>(id, out var cfg))
                     return cfg;
                 return default;
+            }
+
+            public static MemberData GetMemberData(long playerID) 
+            {
+                return currentData.member_list.Find((m) => m.player_id == playerID);
+            }
+
+            public static RoleData GetRoleData(long playerID)
+            {
+                var item = GetMemberData(playerID);
+                List<BaseEquip> equips = new List<BaseEquip>();
+
+                foreach (var e in item.equips)
+                {
+                    BaseEquip equip = new BaseEquip()
+                    {
+                        cfgID = e.id,
+                        level = e.level,
+                        quality = e.quality,
+                    };
+                    equip.Refresh();
+                    equips.Add(equip);
+                }
+
+                RoleData roleData = new RoleData()
+                {
+                    roleTypeID = item.roleID,
+                    isEmployee = true,
+                    equips = equips
+                };
+                return roleData;
             }
         }
     }

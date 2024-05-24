@@ -72,6 +72,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("ClubMainUI", "Club", ()=>new UIClubMain());
 			context.uiModule.Reg("ClubSelectUI", "Club", ()=>new UIClubSelect());
 			context.uiModule.Reg("ClubTaskUI", "Club", ()=>new UIClubTask());
+			context.uiModule.Reg("ClubRewardUI", "Club", ()=>new UIClubReward());
+			context.uiModule.Reg("ClubDetailUI", "Club", ()=>new UIClubDetail());
 		}
 	}
 }

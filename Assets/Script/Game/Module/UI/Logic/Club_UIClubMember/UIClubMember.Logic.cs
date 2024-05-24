@@ -27,6 +27,10 @@ namespace SGame.UI{
 			item.m_isMember.selectedIndex = createId == data.player_id ? 1 : 0;
 
 			item.m_isSelf.selectedIndex = data.player_id == DataCenter.Instance.accountData.playerID ? 0 : 1;
+			if (item.m_isSelf.selectedIndex == 1)
+			{
+				item.onClick.Set(() => SGame.UIUtils.OpenUI("clubdetail", new UIParam() { Value = data.player_id }));
+			}
 
 			var currencyId = DataCenter.ClubUtil.GetClubCurrencyId();
 			item.m_currencyIcon.SetIcon(Utils.GetItemIcon(1, currencyId));
