@@ -35,6 +35,7 @@ using libx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using HybridCLR.Editor.Installer;
 using UnityEditor.VersionControl;
@@ -150,6 +151,25 @@ namespace SGame
         
         static  HybridCLR.Editor.Installer.InstallerController s_hybridClr = new InstallerController();
 
+        static List<string> GetAotFiles()
+        {
+            const string AOT_PATH = "Assets/HybridCLRGenerate/AOTGenericReferences.cs";
+            if (!File.Exists(AOT_PATH))
+            {
+                Debug.LogError("BuildHybridclr AOTGenericReferences NOT EXISTS");
+                return null;
+            }
+            
+            string fileText = File.ReadAllText(AOT_PATH);
+            string parten = @"(?<="")\b.+dll";
+            List<string> ret = new List<string>();
+            foreach (Match match in Regex.Matches(fileText, parten))
+            {
+                Debug.Log("mach value=" + match.Value);
+            }
+
+            return ret;
+        }
         
         /// <summary>
         /// 编译华佗热更
@@ -164,9 +184,18 @@ namespace SGame
 
 			HybridCLR.Editor.Commands.PrebuildCommand.GenerateAll();
             AssetDatabase.Refresh();
-            
+
+
             // 生成所有DLL
-            var aotfiles = SGame.IniUtils.GetAotFiles();
+            var aotfiles = GetAotFiles();
+            if (aotfiles == null)
+            {
+                Debug.LogError("BuildHybridclr CODE NOT FRESH!!!!");
+            }
+            else
+            {
+                Debug.Log("BuildHybridclr CODE FRESH SUCCESS!");
+            }
             
             // 拷贝AOT DLL
             // 查看AOT文件类别
@@ -206,15 +235,15 @@ namespace SGame
         
         public static void OneKeyBuildHotfix(int ver = 0 , int core = 0) //int ver = 0)
         {
-			Debug.Log("hot2====>" + HybridCLR.Editor.SettingsUtil.Enable);
-#if ENABLE_HOTFIX
+            Debug.Log("hot2====>" + HybridCLR.Editor.SettingsUtil.Enable);
+            #if ENABLE_HOTFIX
                 // 生成代码热更
                 BuildHybridclr();
-#endif
-			Debug.Log("hot3====>" + HybridCLR.Editor.SettingsUtil.Enable);
+            #endif
+            Debug.Log("hot3====>" + HybridCLR.Editor.SettingsUtil.Enable);
 
-			// 打包提取资源更新
-			BuildScript.BuildBundleAndCopyToStream(ver);
+            // 打包提取资源更新
+            BuildScript.BuildBundleAndCopyToStream(ver);
             MakeHotfixResource(core);
         }
 
