@@ -7,7 +7,19 @@ using UnityEngine;
 
 namespace SGame
 {
-    public class OrderManager : Singleton<OrderManager>
+    // 订单统计数据
+    public struct OrdeStatistics
+    {
+        // 已完成数量
+        public int finishCount;
+
+        public void Clear()
+        {
+            finishCount = 0;
+        }
+    }
+    
+    public class OrderManager : MonoSingleton<OrderManager>
     {
         private int lastOrderID = 0;
 
@@ -18,12 +30,13 @@ namespace SGame
         /// </summary>
         private Dictionary<int, OrderData>  m_datas     = new Dictionary<int, OrderData>();
         private List<int>                   m_caches    = new List<int>();
+        private int                         m_orderNum = 0;
+        private OrdeStatistics              m_counter = new OrdeStatistics();
+        private float                       m_timer = 0;
 
         public void Initalize()
         {
-            lastOrderID = 0;
-            m_datas.Clear();
-            m_caches.Clear();
+            Clear();
         }
         
         /// <summary>
@@ -33,7 +46,43 @@ namespace SGame
         {
             m_datas.Clear();
             m_caches.Clear();
+            m_counter.Clear();
             lastOrderID = 0;
+        }
+
+        void Update()
+        {
+            m_timer += Time.deltaTime;
+            if (m_timer > 1.0f)
+            {
+                m_timer = 0;
+                
+                // 每秒清空一下订单
+                Refresh();
+            }
+        }
+
+        /// <summary>
+        /// 完成订单数量
+        /// </summary>
+        public int FinishCount => m_counter.finishCount;
+
+        /// <summary>
+        /// 刷新订单信息
+        /// </summary>
+        public void Refresh()
+        {
+            m_caches.Clear();
+            foreach (var order in m_datas.Values)
+            {
+                if (order.progress == ORDER_PROGRESS.FINISH)
+                {
+                    m_caches.Add(order.id);
+                }
+            }
+            m_counter.finishCount += m_caches.Count;
+            foreach (var orderID in m_caches)
+                m_datas.Remove(orderID);
         }
 
         /// <summary>
