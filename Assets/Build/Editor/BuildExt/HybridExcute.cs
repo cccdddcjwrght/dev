@@ -5,11 +5,13 @@ using System.IO;
 using libx;
 using SGame;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using ZEditors;
 
 [ZEditorSymbol("enable_hotfix", symbol = "ENABLE_HOTFIX")]
 [ZEditor("Hotfix", name = "ÈÈ¸ü")]
+[DefaultExecutionOrder(-1000)]
 public class HybridBuildExcute : IZEditor
 {
 
@@ -21,11 +23,12 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 ";
 
 	[InitializeOnLoadMethod]
+	[UnityEditor.Callbacks.DidReloadScripts]
 	static void Init()
 	{
+		Debug.Log("::Reginster BuildAB!");
 		BuildCommand.DoBeforeBuild += BeforeBuildAsset;
 		BuildCommand.DoBuildAsset = (v, c, p) => HotfixenuItems.OneKeyBuildHotfix(v, c);
-
 	}
 
 
@@ -34,7 +37,10 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 #if ENABLE_HOTFIX
 		HybridCLR.Editor.SettingsUtil.Enable = true;
 #else
+		Debug.Log("hot====>"+HybridCLR.Editor.SettingsUtil.Enable);
 		HybridCLR.Editor.SettingsUtil.Enable = false;
+		Debug.Log("hot====>" + HybridCLR.Editor.SettingsUtil.Enable);
+
 #endif
 
 #if USE_THIRD_SDK
@@ -48,7 +54,7 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
 				GooglePlayServices.PlayServicesResolver.ResolveSync(false);
 		}
 #endif
-
+		AssetDatabase.SaveAssets();
 	}
 
 }
