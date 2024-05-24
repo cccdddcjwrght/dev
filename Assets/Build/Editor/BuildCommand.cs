@@ -308,7 +308,6 @@ static class BuildCommand
 
 
 #if !_DisableAB
-		return;
 		HandlerEnableAB();
 		if (!_disableAb)
 		{
