@@ -10,7 +10,6 @@ namespace SGame.UI
 	using FairyGUI;
 	using SGame;
 	using System.Collections.Generic;
-	using UnityEngine;
 
 	public partial class UIMain
 	{
@@ -124,6 +123,10 @@ namespace SGame.UI
 			
 			// 左排
 			m_funcManager.Register((int)FunctionID.SHOP);
+			//俱乐部
+			m_funcManager.Register(30,()=> !DataCenter.ClubUtil.CheckIsInClub());
+			m_funcManager.Register(31, ()=> DataCenter.ClubUtil.CheckIsInClub());
+
 			m_funcManager.Register((int)FunctionID.FRIEND, null, ()=>FriendModule.Instance.hiringTime); // 好友
 			m_funcManager.Register((int)24 );
 			m_funcManager.Register((int)25, () => ChestItemUtil.CheckEqGiftBag());
@@ -272,8 +275,8 @@ namespace SGame.UI
 
 		void OnRoomLikeClick() 
 		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("goodreputation"));
-		}
+            Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("goodreputation"));
+        }
 
         partial void OnAdBtnClick(EventContext data)
         {
