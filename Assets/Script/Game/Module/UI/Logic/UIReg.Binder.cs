@@ -66,6 +66,12 @@ namespace SGame.UI{
 			context.uiModule.Reg("MonsterHunterUI", "MonsterHunter", ()=>new UIMonsterHunter());SGame.UI.MonsterHunter.MonsterHunterBinder.BindAll();;
 			context.uiModule.Reg("TempShopUI", "MonsterHunter", ()=>new UITempShop());
 			context.uiModule.Reg("LockRedUI", "Common", ()=>new UILockRed());
+			context.uiModule.Reg("ClubMemberUI", "Club", ()=>new UIClubMember());SGame.UI.Club.ClubBinder.BindAll();;
+			context.uiModule.Reg("ClubCreateUI", "Club", ()=>new UIClubCreate());
+			context.uiModule.Reg("ClubFindUI", "Club", ()=>new UIClubFind());
+			context.uiModule.Reg("ClubMainUI", "Club", ()=>new UIClubMain());
+			context.uiModule.Reg("ClubSelectUI", "Club", ()=>new UIClubSelect());
+			context.uiModule.Reg("ClubTaskUI", "Club", ()=>new UIClubTask());
 		}
 	}
 }
