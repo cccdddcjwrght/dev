@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameConfigs;
@@ -27,10 +27,10 @@ namespace SGame
 
     public partial class DataCenter 
     {
-        //自己的排行标识�?
+        //自己的排行标识值
         public RankScore rankScore = new RankScore();
 
-        //排行榜数�?
+        //排行榜数据
         public RankData rankData = new RankData();
 
         public RankCacheData rankCacheData = new RankCacheData();
@@ -38,7 +38,7 @@ namespace SGame
 
     public class RankModule : Singleton<RankModule>
     {
-        //对应活动�?
+        //对应活动表
         public const int RANK_ACTIVE_ID = 3;
 
         public RankData rankData { get { return DataCenter.Instance.rankData;}}
@@ -102,12 +102,12 @@ namespace SGame
                 if (DataCenter.Instance.rankCacheData.rewards?.Length > 0)
                     list.AddRange(DataCenter.Instance.rankCacheData.rewards?.ToList());
                 DataCenter.Instance.rankCacheData.rewards = list.ToArray();
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type��{0}rankindex:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type：{0}rankindex:{1}", r.id, r.rank)));
             } 
  
             if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
             {
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type��{0}rankindex:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type：{0}rankindex:{1}", r.id, r.rank)));
                 OpenResultView(DataCenter.Instance.rankCacheData.rewards.ToArray());
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
@@ -261,7 +261,10 @@ namespace SGame
 
         public void OpenResultView(RankReward[] rewards) 
         {
-            DelayExcuter.Instance.DelayOpen("rankresult", "mainui", args: new UIParam() { Value = rewards });
+            if (!UIUtils.CheckUIIsOpen("mainui"))
+                DelayExcuter.Instance.DelayOpen("rankresult", "mainui", args: new UIParam() { Value = rewards });
+            else
+                UIUtils.OpenUI("rankresult", new object[] { new UIParam() { Value = rewards } });
         }
 
         public void SetTimer()
