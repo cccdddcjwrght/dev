@@ -300,6 +300,7 @@ static class BuildCommand
 		var fixedBuildPath = GetFixedBuildPath(buildTarget, buildPath, buildName);
 		SetScriptingBackendFromEnv(buildTarget);
 
+		Debug.Log("::Begin~~~~");
 		DoBeforeBuild?.Invoke(GetArgument);
 		//Éú³ÉÀ¬»ø´úÂë
 		if (GetArgument("ENABLE_CODEGEN") == "1")
@@ -307,15 +308,16 @@ static class BuildCommand
 
 
 #if !_DisableAB
+		return;
 		HandlerEnableAB();
 		if (!_disableAb)
 		{
 			if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
 				EditorUserBuildSettings.SwitchActiveBuildTarget(BuildPipeline.GetBuildTargetGroup(buildTarget), buildTarget);
 			DoBuildAsset?.Invoke(ver, core, proto);
+
 		}
 #endif
-
 		DoAfterBuildAsset?.Invoke(GetArgument);
 		HandleFirstScene(out _);
 		HandlSplashVideoToStream();
