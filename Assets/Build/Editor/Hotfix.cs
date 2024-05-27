@@ -235,14 +235,15 @@ namespace SGame
         
         public static void OneKeyBuildHotfix(int ver = 0 , int core = 0) //int ver = 0)
         {
-            /*
             Debug.Log("hot2====>" + HybridCLR.Editor.SettingsUtil.Enable);
             #if ENABLE_HOTFIX
+                HybridCLR.Editor.SettingsUtil.Enable = true;
                 // 生成代码热更
                 BuildHybridclr();
+            #else
+                HybridCLR.Editor.SettingsUtil.Enable = false;
             #endif
             Debug.Log("hot3====>" + HybridCLR.Editor.SettingsUtil.Enable);
-            */
             HybridCLR.Editor.SettingsUtil.Enable = false;
 
             // 打包提取资源更新
