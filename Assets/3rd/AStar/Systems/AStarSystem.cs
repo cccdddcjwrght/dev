@@ -212,16 +212,20 @@ namespace GameTools.Paths
 					Node n = maps[nextNode];
 					if (n.isClose == true || n.isWalkable == false) // 不可移动，或者是在close列表中就直接跳过
 						continue;
-
-
-					int g = CalcDistanceCost(currentPos, pos) + node.gValue + n.cost;
-
+					
+					// 斜对角方向判定
 					if (x != 0 && y != 0)
 					{
-						if (IsHolded(new int2(pos.x - x, pos.y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
-						if (IsHolded(new int2(pos.x, pos.y - y), mapSize, maps)) g += CST_CROSSHOLD_OFFSET_VALUE;
+						// 斜对角 y 轴不能移动
+						if (!IsWalkAble(new int2(currentPos.x, pos.y),mapSize, maps))
+							continue;
+						
+						// 斜对角 x 轴不能移动
+						if (!IsWalkAble(new int2(pos.x, currentPos.y),mapSize, maps))
+							continue;
 					}
-
+					
+					int g = CalcDistanceCost(currentPos, pos) + node.gValue + n.cost;
 					if (g < n.gValue) // 没有比另一个路径更哟（一开始这个值就是Max）
 					{
 						if (n.hValue == 0)
@@ -252,13 +256,19 @@ namespace GameTools.Paths
 			return pos.x >= 0 && pos.y >= 0 && pos.x < mapSize.x && pos.y < mapSize.y;
 		}
 
-		static bool IsHolded(int2 pos, int2 mapSize, NativeArray<Node> maps)
+		/// <summary>
+		/// 判断某个点是否能移动
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <param name="mapSize"></param>
+		/// <param name="maps"></param>
+		/// <returns></returns>
+		static bool IsWalkAble(int2 pos, int2 mapSize, NativeArray<Node> maps)
 		{
 			if (!InMap(pos, mapSize)) return false;
 			var index = GetIndexFromPos(pos, mapSize.x);
 			var node = maps[index];
-			if (!node.isWalkable /*|| node.cost > 0*/) return true;
-			return false;
+			return node.isWalkable;
 		}
 
 		public static bool FindPath(int2 startPos, int2 endPos, NativeArray<Node> maps, int2 mapSize, DynamicBuffer<PathPositions> paths)//NativeList<int> paths)
