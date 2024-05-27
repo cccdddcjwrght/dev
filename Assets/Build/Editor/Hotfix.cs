@@ -166,6 +166,7 @@ namespace SGame
             foreach (Match match in Regex.Matches(fileText, parten))
             {
                 Debug.Log("mach value=" + match.Value);
+                ret.Add(match.Value);
             }
 
             return ret;
