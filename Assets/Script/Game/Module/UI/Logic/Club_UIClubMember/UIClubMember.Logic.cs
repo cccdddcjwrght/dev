@@ -11,7 +11,23 @@ namespace SGame.UI{
 		List<MemberData> memberDatas;
 		partial void InitLogic(UIContext context){
 			m_view.m_list.itemRenderer = OnMemberItemRenderer;
+			RefreshMemberList();
+		}
+
+		public void RefreshMemberList() 
+		{
 			memberDatas = DataCenter.ClubUtil.GetClubMemberList();
+			memberDatas.Find((m) =>
+			{
+				if (m.player_id == DataCenter.Instance.accountData.playerID)
+				{
+					m.name = DataCenter.Instance.accountData.playerName;
+					m.score = (int)PropertyManager.Instance.GetItem(DataCenter.ClubUtil.GetClubCurrencyId()).num;
+					return true;
+				}
+				return false;
+			});
+
 			m_view.m_list.numItems = memberDatas.Count;
 		}
 

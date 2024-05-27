@@ -105,6 +105,7 @@ namespace SGame
 						room.roomTechs.Remove(id);
 						//添加奖励
 						EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_REWARD), id);
+						EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TECH_LEVEL, 1);
 						if (!UseTechBuff(cfg))//buff触发
 						{
 							if (cfg.RoleId == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子

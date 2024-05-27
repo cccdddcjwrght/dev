@@ -22,7 +22,13 @@ namespace SGame
         AD          = 9,    //观看广告次数
         EQUIP_LEVEL = 10,   //升级装备次数
         EQUIP_STAGE = 11,   //进阶装备次数
-        PET         = 12    //宠物进化次数
+        PET         = 12,   //宠物进化次数
+        FIRST_LOGIN = 13,   //首次登录
+        PET_BORN    = 14,   //宠物孵化次数
+        TABEL_LEVEL = 15,   //加工台升级
+        TECH_LEVEL  = 16,   //科技升级
+        PERFECT     = 17,   //完美制作
+        IMMEDIATE   = 18,   //立即完成
     }
 
     public partial class DataCenter 

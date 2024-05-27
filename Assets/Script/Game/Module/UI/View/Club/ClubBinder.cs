@@ -17,7 +17,6 @@ namespace SGame.UI.Club
             UIObjectFactory.SetPackageItemExtension(UI_ClubSelectUI.URL, typeof(UI_ClubSelectUI));
             UIObjectFactory.SetPackageItemExtension(UI_ClubMainUI.URL, typeof(UI_ClubMainUI));
             UIObjectFactory.SetPackageItemExtension(UI_ClubRewardBody.URL, typeof(UI_ClubRewardBody));
-            UIObjectFactory.SetPackageItemExtension(UI_ClubTaskUI.URL, typeof(UI_ClubTaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_ClubTaskItem.URL, typeof(UI_ClubTaskItem));
             UIObjectFactory.SetPackageItemExtension(UI_ClubMemberUI.URL, typeof(UI_ClubMemberUI));
             UIObjectFactory.SetPackageItemExtension(UI_ClubMemberItem.URL, typeof(UI_ClubMemberItem));
@@ -25,7 +24,7 @@ namespace SGame.UI.Club
             UIObjectFactory.SetPackageItemExtension(UI_ClubReward.URL, typeof(UI_ClubReward));
             UIObjectFactory.SetPackageItemExtension(UI_ClubRewardIcon.URL, typeof(UI_ClubRewardIcon));
             UIObjectFactory.SetPackageItemExtension(UI_ClubRewardUI.URL, typeof(UI_ClubRewardUI));
-            UIObjectFactory.SetPackageItemExtension(UI_ClubTask.URL, typeof(UI_ClubTask));
+            UIObjectFactory.SetPackageItemExtension(UI_ClubTaskUI.URL, typeof(UI_ClubTaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_ClubDetailUI.URL, typeof(UI_ClubDetailUI));
         }
     }

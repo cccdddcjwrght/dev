@@ -34,6 +34,7 @@ namespace SGame
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.ClubUtil.clubList = JsonUtility.FromJson<ClubList>(pkg.data);
+            DataCenter.ClubUtil.DetectionResetData();
 
             Debug.Log("clubDataList:" + pkg.data);
             if (DataCenter.ClubUtil.clubList.id > 0)
@@ -50,13 +51,13 @@ namespace SGame
         /// </summary>
         /// <param name="score"></param>
         /// <returns></returns>
-        public IEnumerator GetCurrentClubReq(int score = 0) 
+        public IEnumerator GetCurrentClubReq() 
         {
             HttpPackage pkg = new HttpPackage();
             var data = new ClubGetData()
             {
                 playerId = DataCenter.Instance.accountData.playerID,
-                score = score,
+                score = (int)PropertyManager.Instance.GetItem(DataCenter.ClubUtil.GetClubCurrencyId()).num,
             };
             pkg.data = JsonUtility.ToJson(data);
             var result = HttpSystem.Instance.Post("http://192.168.10.109:8082/club/current", pkg.ToJson());
@@ -67,14 +68,16 @@ namespace SGame
                 yield break;
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
-            Debug.Log("club cur data:" + pkg.data);
+            if (pkg.code == 0)
+            {
+                Debug.Log("club cur data:" + pkg.data);
+                DataCenter.ClubUtil.currentData = JsonUtility.FromJson<ClubCurrentData>(pkg.data);
+                DataCenter.ClubUtil.clubList.id = DataCenter.ClubUtil.currentData.id;
 
-            DataCenter.ClubUtil.currentData = JsonUtility.FromJson<ClubCurrentData>(pkg.data);
-            DataCenter.ClubUtil.clubList.id = DataCenter.ClubUtil.currentData.id;
-
-            DataCenter.ClubUtil.ResetData();
-            EventManager.Instance.Trigger((int)GameEvent.CLUB_MAIN_UPDATE);
-            EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+                DataCenter.ClubUtil.ClearData();
+                EventManager.Instance.Trigger((int)GameEvent.CLUB_MAIN_UPDATE);
+                EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+            }
         }
 
 
@@ -153,11 +156,20 @@ namespace SGame
                 yield break;
             }
 
+            DataCenter.ClubUtil.ResetData();
+
             //退出后请求下俱乐部列表
             yield return ClubListDataReq();
             UIUtils.CloseUIByName("clubmain");
         }
 
+
+        /// <summary>
+        /// 俱乐部踢人
+        /// </summary>
+        /// <param name="createId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public IEnumerator ClubKickReq(long createId, long userId) 
         {
             HttpPackage pkg = new HttpPackage();
@@ -174,6 +186,8 @@ namespace SGame
                 Debug.LogError("club kick fail=" + result.error);
                 yield break;
             }
+
+            DataCenter.ClubUtil.RemoveMember(userId);
             UIUtils.CloseUIByName("clubdetail");
         }
 

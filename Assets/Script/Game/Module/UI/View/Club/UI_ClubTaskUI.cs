@@ -11,8 +11,10 @@ namespace SGame.UI.Club
         public GLoader m_currencyIcon;
         public GTextField m_value;
         public GList m_list;
+        public GTextField m_addValue;
         public GGroup m_content;
-        public const string URL = "ui://kgizakqqlu5m25";
+        public Transition m_play;
+        public const string URL = "ui://kgizakqqrllf2f";
 
         public static UI_ClubTaskUI CreateInstance()
         {
@@ -27,7 +29,9 @@ namespace SGame.UI.Club
             m_currencyIcon = (GLoader)GetChildAt(2);
             m_value = (GTextField)GetChildAt(3);
             m_list = (GList)GetChildAt(5);
-            m_content = (GGroup)GetChildAt(6);
+            m_addValue = (GTextField)GetChildAt(6);
+            m_content = (GGroup)GetChildAt(7);
+            m_play = GetTransitionAt(0);
         }
     }
 }
