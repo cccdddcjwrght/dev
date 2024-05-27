@@ -17,6 +17,9 @@ namespace SGame.UI{
 			m_RewardPanel = (UI_ClubRewardBody)m_view.m_bodyList.GetChildAt(0);
 			m_RewardPanel.m_list.itemRenderer = OnRewardItemRenderer;
 			m_RewardPanel.m_topList.itemRenderer = OnTopItemRenderer;
+			m_RewardPanel.m_topList.onClick.Add(OnClickGetTopReward);
+
+			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.FIRST_LOGIN, 1);
 		}
 
 		public void RefreshAll() 
@@ -54,10 +57,14 @@ namespace SGame.UI{
 			m_TopItems = DataCenter.ClubUtil.GetItemReward(topCfg);
 			m_RewardPanel.m_topList.numItems = m_TopItems.Count;
 
+			var topRewardData = DataCenter.ClubUtil.GetClubReward(topCfg.Id);
+			if (topRewardData.isGet) m_RewardPanel.m_top.selectedIndex = 2;
+			else m_RewardPanel.m_top.selectedIndex = PropertyManager.Instance.CheckCount(DataCenter.ClubUtil.GetClubCurrencyId(), topRewardData.target, 1) ? 1 : 0;
+
 			var currencyId = DataCenter.ClubUtil.GetClubCurrencyId();
 			var num = PropertyManager.Instance.GetItem(currencyId).num;
 			var total = DataCenter.ClubUtil.GetClubTotalProgress();
-			m_view.m_value.SetText(string.Format("{0}/{1}", num, total));
+			m_view.m_value.SetText(string.Format("{0}/{1}", Mathf.Min((float)num, total), total));
 			m_view.m_currencyIcon.SetIcon(Utils.GetItemIcon(1, currencyId));
 
 			var totalHeight = m_RewardPanel.m_barbg.height;
@@ -80,6 +87,14 @@ namespace SGame.UI{
 			}
 		}
 
+		public void OnClickGetTopReward() 
+		{
+			var data = DataCenter.ClubUtil.GetClubReward(m_RewardDatas[m_RewardDatas.Count - 1].Id) ;
+			if (data != null)  
+			{
+				RequestExcuteSystem.Instance.ClubRewardGetReq(data.id);
+			}
+		}
 		public void OnRewardItemRenderer(int index, GObject gObject) 
 		{
 			var item = (UI_ClubStair)gObject;

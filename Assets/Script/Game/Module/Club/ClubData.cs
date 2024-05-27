@@ -93,6 +93,7 @@ namespace SGame
 
         public int clubId;      //当前俱乐部id
         public int currencyId;
+        public int oldValue;    //记录下上次打开目标界面的积分
         public int start_time;
         public int end_time;
     }
@@ -141,31 +142,73 @@ namespace SGame
                 EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) =>
                 {
                     RequestExcuteSystem.Instance.ClubListDataReq().Start();
+                    ResetFirstLogin();
                     LoadGetRewardBuff();
                 });
+
+                //记录完美完成次数
+                EventManager.Instance.Reg<int>((int)GameEvent.ORDER_PERFECT, (id) =>
+                {
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.PERFECT, 1);
+                });
+
+                //记录立即完成次数
+                EventManager.Instance.Reg<int>((int)GameEvent.ORDER_INSTANT, (id) =>
+                {
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.IMMEDIATE, 1);
+                });
+
                 EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, RefreshTaskProgress);
             }
 
+
+            /// <summary>
+            /// 清除数据
+            /// </summary>
+            public static void ClearData() 
+            {
+                //更换俱乐部或者活动换期时|清除数据
+                if (m_taskDataList.end_time != currentData.end_time) 
+                {
+                    m_taskDataList.taskList.Clear();
+                    m_taskDataList.rewardList.Clear();
+                    m_taskDataList.clubId = currentData.id;
+                    PropertyManager.Instance.GetGroup(1).SetNum(m_taskDataList.currencyId, 0);
+                    m_taskDataList.currencyId = FindClubCurrenyId();
+                    m_taskDataList.oldValue = 0;
+                    m_taskDataList.start_time = currentData.start_time;
+                    m_taskDataList.end_time = currentData.end_time;
+
+                    InitClubTaskData();
+                    InitClubRewardData();
+                }
+            }
 
             /// <summary>
             /// 重置数据
             /// </summary>
             public static void ResetData() 
             {
-                //更换俱乐部或者活动换期时|重置数据
-                if (m_taskDataList.clubId != currentData.id ||
-                    m_taskDataList.end_time != currentData.end_time) 
+                m_taskDataList.taskList.ForEach((t) => 
                 {
-                    m_taskDataList.taskList.Clear();
-                    m_taskDataList.rewardList.Clear();
-                    m_taskDataList.clubId = currentData.id;
-                    PropertyManager.Instance.GetItem(m_taskDataList.currencyId).SetNum(0);
-                    m_taskDataList.currencyId = FindClubCurrenyId();
-                    m_taskDataList.start_time = currentData.start_time;
-                    m_taskDataList.end_time = currentData.end_time;
+                    if(t.type != (int)RankScoreEnum.FIRST_LOGIN) t.value = 0;
+                });
+                m_taskDataList.rewardList.ForEach((t) => t.isGet = false);
+                m_taskDataList.oldValue = 0;
+                PropertyManager.Instance.GetGroup(1).SetNum(m_taskDataList.currencyId, 0);
+                EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData() { from = (int)EnumFrom.Club });
+            }
 
-                    InitClubTaskData();
-                    InitClubRewardData();
+            public static void ResetFirstLogin() 
+            {
+                bool isFirst = Utils.IsFirstLoginInDay("club.firstLogin");
+                if (isFirst) 
+                {
+                    m_taskDataList.taskList.ForEach((t) =>
+                    {
+                        if (t.type == (int)RankScoreEnum.FIRST_LOGIN)
+                            t.value = 0;
+                    });
                 }
             }
 
@@ -228,6 +271,9 @@ namespace SGame
 
             public static void RefreshTaskProgress(int type, int value) 
             {
+                //在俱乐部在记录进度
+                if (!CheckIsInClub()) return;
+
                 var taskData = m_taskDataList.taskList.Find((t) => t.type == type);
                 if (taskData == null) return; 
                 if (taskData.limitNum > 0 && taskData.finishNum >= taskData.limitNum)
@@ -237,9 +283,10 @@ namespace SGame
                 if (taskData.value >= taskData.max) 
                 {
                     taskData.finishNum++;
-                    taskData.value %= taskData.max;
                     PropertyManager.Instance.Update(1, m_taskDataList.currencyId, taskData.score);
-                    //m_taskDataList.score += taskData.score;
+                    if (taskData.limitNum > 0 && taskData.finishNum >= taskData.limitNum)
+                        return;
+                    taskData.value %= taskData.max;
                 }
             }
 
@@ -360,6 +407,14 @@ namespace SGame
             }
 
             /// <summary>
+            /// 检测下是否在俱乐部，没有则重置下数据，以免被踢掉还有buff残余
+            /// </summary>
+            public static void DetectionResetData() 
+            {
+                if (!CheckIsInClub()) ResetData();
+            }
+
+            /// <summary>
             /// 触发已领取的奖励buff
             /// </summary>
             public static void LoadGetRewardBuff() 
@@ -398,10 +453,44 @@ namespace SGame
                 return default;
             }
 
+
+            /// <summary>
+            /// 检测俱乐部是否有奖励可领取
+            /// </summary>
+            /// <returns></returns>
+            public static bool CheckIsGetReward() 
+            {
+                foreach (var data in m_taskDataList.rewardList)
+                {
+                    if (!data.isGet && PropertyManager.Instance.CheckCount(GetClubCurrencyId(), data.target, 1))
+                        return true;
+                }
+                return false;
+            }
+
             public static MemberData GetMemberData(long playerID) 
             {
                 return currentData.member_list.Find((m) => m.player_id == playerID);
             }
+
+            public static void RemoveMember(long playerID) 
+            {
+                foreach (var data in currentData.member_list)
+                {
+                    if (data.player_id == playerID) 
+                    {
+                        currentData.member_list.Remove(data);
+                        break;
+                    }
+                }
+                EventManager.Instance.Trigger((int)GameEvent.CLUB_MEMBER_REMOVE);
+            }
+
+            public static void RecordValue(int value) 
+            {
+                m_taskDataList.oldValue = value;
+            }
+
 
             public static RoleData GetRoleData(long playerID)
             {

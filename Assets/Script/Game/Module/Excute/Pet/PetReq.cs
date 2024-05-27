@@ -50,6 +50,7 @@ namespace SGame
 				UIUtils.OpenUI("petborn", p);
 				PropertyManager.Instance.Update(1, egg.cfgID, 1, true);
 				_eMgr.Trigger(((int)GameEvent.GAME_MAIN_REFRESH));
+				_eMgr.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.PET_BORN, 1);
 				return p;
 			}
 			return default;

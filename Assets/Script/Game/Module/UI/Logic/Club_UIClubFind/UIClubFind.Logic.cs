@@ -34,7 +34,9 @@ namespace SGame.UI{
             item.m_clubIcon.SetData(data.icon_id, data.frame_id);
             item.m_name.SetText(data.title);
             item.m_ID.SetText("ID:" + data.id);
-            item.m_count.SetText(data.member + "/" + data.limit);
+
+            if (data.member >= data.limit) item.m_count.SetText(string.Format("[color=#FA4A4A]{0}[/color]/{1}", data.member, data.limit));
+            else item.m_count.SetText(string.Format("[color=#06DD6B]{0}[/color]/{1}", data.member, data.limit));
 
             item.m_joinBtn.onClick.Set(() =>
             {
