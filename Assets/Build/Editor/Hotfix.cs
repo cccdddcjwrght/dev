@@ -244,7 +244,6 @@ namespace SGame
                 HybridCLR.Editor.SettingsUtil.Enable = false;
             #endif
             Debug.Log("hot3====>" + HybridCLR.Editor.SettingsUtil.Enable);
-            HybridCLR.Editor.SettingsUtil.Enable = false;
 
             // 打包提取资源更新
             BuildScript.BuildBundleAndCopyToStream(ver);
