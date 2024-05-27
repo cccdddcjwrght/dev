@@ -295,6 +295,12 @@ namespace SGame
                 return m_taskDataList.rewardList.Find((r) => r.id == rewardId);
             }
 
+       
+            public static bool IsOpen() 
+            {
+                return 30.IsOpend() && !CheckIsInClub();
+            }
+
             /// <summary>
             /// 检测是否在俱乐部中
             /// </summary>
@@ -460,6 +466,7 @@ namespace SGame
             /// <returns></returns>
             public static bool CheckIsGetReward() 
             {
+                if (!CheckIsInClub()) return false;
                 foreach (var data in m_taskDataList.rewardList)
                 {
                     if (!data.isGet && PropertyManager.Instance.CheckCount(GetClubCurrencyId(), data.target, 1))

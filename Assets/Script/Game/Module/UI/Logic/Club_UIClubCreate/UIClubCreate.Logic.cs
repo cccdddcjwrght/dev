@@ -53,11 +53,11 @@ namespace SGame.UI{
 				return;
 			}
 
-			var costStr = Utils.GetItemName(1, (int)ItemID.DIAMOND) + "X" + DataCenter.ClubUtil.CREATE_DIAMOND;
+			var costStr = UIListener.Local(Utils.GetItemName(1, (int)ItemID.DIAMOND)) + "X" + DataCenter.ClubUtil.CREATE_DIAMOND;
 			SGame.UIUtils.Confirm("@ui_club_title_warn", string.Format(UIListener.Local("ui_club_hint_create"), costStr, clubName), (index) =>
 			{
 				if(index == 0)RequestExcuteSystem.Instance.CreateClubReq(clubName, m_HeadId, m_FrameId).Start();
-			}, new string[] { "@ui_club_btn_confirm1", "@ui_club_btn_cancel1" });
+			}, new string[] { "@ui_club_btn_cancel1", "@ui_club_btn_confirm1" });
 		}
 
         partial void UnInitLogic(UIContext context){

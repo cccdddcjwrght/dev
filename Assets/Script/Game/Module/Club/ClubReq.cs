@@ -68,6 +68,14 @@ namespace SGame
                 yield break;
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
+            if (pkg.code == 64)//不是俱乐部成员
+            {
+                UIUtils.CloseUIByName("clubmain");
+                //重新请求下俱乐部列表
+                yield return ClubListDataReq(); 
+                yield break;
+            }
+
             if (pkg.code == 0)
             {
                 Debug.Log("club cur data:" + pkg.data);

@@ -28,7 +28,7 @@ namespace SGame.UI.Club
             base.ConstructFromXML(xml);
 
             m_top = GetControllerAt(0);
-            m_list = (GList)GetChildAt(4);
+            m_list = (GList)GetChildAt(3);
             m_barbg = (GImage)GetChildAt(6);
             m_bar = (GImage)GetChildAt(7);
             m_reddot = (GButton)GetChildAt(15);
