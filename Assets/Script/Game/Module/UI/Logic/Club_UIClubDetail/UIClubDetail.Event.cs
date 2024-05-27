@@ -30,8 +30,9 @@ namespace SGame.UI
 		{
 			var item = DataCenter.ClubUtil.GetMemberData(m_playerID);
 
-			if (FriendModule.Instance.GetFriendItem(m_playerID) == null) m_view.m_btnOK.visible = false;
-			else m_view.m_btnOK.visible = true;
+			//if (FriendModule.Instance.GetFriendItem(m_playerID) == null) m_view.m_btnOK.visible = false;
+			//else m_view.m_btnOK.visible = true;
+			m_view.m_btnOK.visible = false;
 
 			m_view.m_remove.visible = DataCenter.ClubUtil.GetCreatePlayerId() == DataCenter.Instance.accountData.playerID;
 			m_view.m_title.text = item.name;
@@ -54,7 +55,12 @@ namespace SGame.UI
 
         partial void OnRemoveClick(EventContext data)
         {
-			RequestExcuteSystem.Instance.ClubKickReq(DataCenter.ClubUtil.GetCreatePlayerId(), m_playerID);
+			var item = DataCenter.ClubUtil.GetMemberData(m_playerID);
+			SGame.UIUtils.Confirm("@ui_club_title7", string.Format(UIListener.Local("ui_club_hint_quit"), item.name), (index) =>
+			{
+				if (index == 0) RequestExcuteSystem.Instance.ClubKickReq(DataCenter.ClubUtil.GetCreatePlayerId(), m_playerID).Start();
+			}, new string[] { "@ui_club_btn_cancel3", "@ui_club_btn_confirm3" });
+			
         }
 
         partial void UnInitEvent(UIContext context)

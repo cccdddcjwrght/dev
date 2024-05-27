@@ -33,10 +33,10 @@ namespace SGame
 
     public partial class DataCenter 
     {
-        //自己的排行标识�?
+        //自己的排行标识 ?
         public RankScore rankScore = new RankScore();
 
-        //排行榜数�?
+        //排行榜数 ?
         public RankData rankData = new RankData();
 
         public RankCacheData rankCacheData = new RankCacheData();
@@ -44,7 +44,7 @@ namespace SGame
 
     public class RankModule : Singleton<RankModule>
     {
-        //对应活动�?
+        //对应活动 ?
         public const int RANK_ACTIVE_ID = 3;
 
         public RankData rankData { get { return DataCenter.Instance.rankData;}}
@@ -116,12 +116,12 @@ namespace SGame
                 if (DataCenter.Instance.rankCacheData.rewards?.Length > 0)
                     list.AddRange(DataCenter.Instance.rankCacheData.rewards?.ToList());
                 DataCenter.Instance.rankCacheData.rewards = list.ToArray();
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type��{0}rankindex:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type  {0}rankindex:{1}", r.id, r.rank)));
             } 
  
             if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
             {
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type��{0}rankindex:{1}", r.id, r.rank)));
+                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type  {0}rankindex:{1}", r.id, r.rank)));
                 OpenResultView(DataCenter.Instance.rankCacheData.rewards.ToArray());
                 DataCenter.Instance.rankCacheData.rewards = null;
             }

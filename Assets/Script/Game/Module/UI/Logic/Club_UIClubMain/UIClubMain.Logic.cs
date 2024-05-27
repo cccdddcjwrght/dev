@@ -18,8 +18,6 @@ namespace SGame.UI{
 			m_RewardPanel.m_list.itemRenderer = OnRewardItemRenderer;
 			m_RewardPanel.m_topList.itemRenderer = OnTopItemRenderer;
 			m_RewardPanel.m_topList.onClick.Add(OnClickGetTopReward);
-
-			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.FIRST_LOGIN, 1);
 		}
 
 		public void RefreshAll() 
@@ -48,6 +46,7 @@ namespace SGame.UI{
 		public void RefreshRewardList() 
 		{
 			var periods = DataCenter.ClubUtil.GetClubPeriods();
+			if (periods == 0) return;
 			m_RewardDatas = DataCenter.ClubUtil.GetCurClubActivityRewards(periods);
 
 			m_RewardPanel.m_list.numItems = m_RewardDatas.Count - 1;

@@ -75,6 +75,8 @@ namespace SGame
                 DataCenter.ClubUtil.clubList.id = DataCenter.ClubUtil.currentData.id;
 
                 DataCenter.ClubUtil.ClearData();
+
+                EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.FIRST_LOGIN, 1);
                 EventManager.Instance.Trigger((int)GameEvent.CLUB_MAIN_UPDATE);
                 EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
             }
