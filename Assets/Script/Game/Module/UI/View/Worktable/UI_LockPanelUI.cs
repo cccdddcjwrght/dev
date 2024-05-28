@@ -8,6 +8,7 @@ namespace SGame.UI.Worktable
     public partial class UI_LockPanelUI : GLabel
     {
         public Controller m_btnty;
+        public Controller m_type;
         public GTextField m_unlock;
         public GButton m_click;
         public GGroup m_info;
@@ -25,6 +26,7 @@ namespace SGame.UI.Worktable
             base.ConstructFromXML(xml);
 
             m_btnty = GetControllerAt(0);
+            m_type = GetControllerAt(1);
             m_unlock = (GTextField)GetChildAt(1);
             m_click = (GButton)GetChildAt(3);
             m_info = (GGroup)GetChildAt(4);

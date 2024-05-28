@@ -7,6 +7,7 @@ using GameConfigs;
 using GameTools.Maps;
 using libx;
 using log4net;
+using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
 using UnityEngine;
 using MapGrid = GameTools.Maps.Grid;
@@ -477,12 +478,15 @@ namespace SGame.Dining
 						return;
 				}
 				else if (!DataCenter.MachineUtil.CheckCanAddMachine(region.cfgID, cfgID)) return;
-				if (checkauto && m.Enable == 1)
+				if (m.Enable == 1)
 				{
-					if (!region.enable)
+					if (checkauto && !region.enable)
 						DoUnlock(region, mid);
 				}
-				else DoPreview(region);
+				else
+				{
+					DoPreview(region, m.ActiveBox == 0);
+				}
 			}
 		}
 
@@ -896,8 +900,7 @@ namespace SGame.Dining
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
 							else
 							{
-								DataCenter.MachineUtil.AddMachine(r.next.cfgID);
-								EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.BOX, 1);
+								ClickAddMachine(r, r.next.cfgID);
 								return;
 							}
 						}
@@ -918,7 +921,7 @@ namespace SGame.Dining
 			}
 		}
 
-		private Place DoPreview(Region region)
+		private Place DoPreview(Region region, bool autoactive = false)
 		{
 			if (region != null)
 			{
@@ -927,7 +930,10 @@ namespace SGame.Dining
 				{
 					place.waitActive = true;
 					region.SetNextUnlock(place);
-					region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject, name: "scene_grid");
+					if (!autoactive)
+						region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject, name: "scene_grid");
+					else
+						ClickAddMachine(region, place.cfgID);
 					return place;
 				}
 			}
@@ -995,6 +1001,12 @@ namespace SGame.Dining
 					item.transforms.ForEach(t => t.gameObject.SetActive(f));
 				}
 			}
+		}
+
+		private void ClickAddMachine(Region region, int place)
+		{
+			DataCenter.MachineUtil.AddMachine(place);
+			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.BOX, 1);
 		}
 
 		public static Vector3 GetCenter(GameObject gameObject, out Bounds bounds)

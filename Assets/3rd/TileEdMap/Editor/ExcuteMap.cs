@@ -10,6 +10,7 @@ using System.Linq;
 using UnityEditor.SceneManagement;
 using System.IO;
 using System.Text;
+using GameTools.Maps;
 
 namespace TileEdExt
 {
@@ -19,8 +20,14 @@ namespace TileEdExt
 		string title { get; }
 		bool fade { get; set; }
 		void OnGUI(bool show);
-		void Excute(GameObject go , plyLib.TileEdMap map);
+		void Excute(GameObject go, plyLib.TileEdMap map);
 	}
+
+	public interface IAfterExcute
+	{
+
+	}
+
 
 	public class BuildConfig
 	{
@@ -280,17 +287,25 @@ namespace TileEdExt
 		private void AfterExcute(TileEdMap[] maps)
 		{
 			if (maps != null && maps.Length > 0) { foreach (TileEdMap map in maps) GameObject.DestroyImmediate(map.gameObject); }
+			_excuteTypes?.Where(e => e is IAfterExcute)?.ToList()?.ForEach(e => e.Excute(null, null));
 
 			GameObject.FindAnyObjectByType<Camera>()?.gameObject?.SetActive(false);
-
 			var light = GameObject.FindAnyObjectByType<Light>();
-			if (light)
-				light.lightmapBakeType = LightmapBakeType.Mixed;
+			if (light) light.lightmapBakeType = LightmapBakeType.Mixed;
 
+			Debug.Log("Begin baking!!!!!!");
+			/*Lightmapping.bakeCompleted -= WaitBake;
+			Lightmapping.bakeCompleted += WaitBake;*/
 			Lightmapping.Bake();
+			WaitBake();
+		}
+
+		private void WaitBake()
+		{
 			EditorSceneManager.MarkAllScenesDirty();
 			EditorSceneManager.SaveOpenScenes();
 			AssetDatabase.Refresh();
+			Debug.Log("End baking!!!!!!");
 		}
 
 		private void Excute(plyLib.TileEdMap map, TileEdMapAsset mapasset)
@@ -336,7 +351,7 @@ namespace TileEdExt
 							if (!parent)
 							{
 								parent = new GameObject("build").transform;
-								parent.SetParent(point, false) ;
+								parent.SetParent(point, false);
 							}
 						}
 						var child = GameObject.Instantiate(item.gameObject, parent);
@@ -382,7 +397,7 @@ namespace TileEdExt
 
 						if (!string.IsNullOrEmpty(tag))
 						{
-							cell.cdatas.Add(GameTools.Maps.CellData.From( 0 , tag , data.dataSet));
+							cell.cdatas.Add(GameTools.Maps.CellData.From(0, tag, data.dataSet));
 						}
 						else
 						{
@@ -403,7 +418,10 @@ namespace TileEdExt
 			grid.cells.RemoveAll(c => !c.flag);
 			try
 			{
-				_excuteTypes?.ForEach(e => e.Excute(go , map));
+				foreach (var item in _excuteTypes)
+				{
+					if (!(item is IAfterExcute)) item.Excute(go, map);
+				}
 			}
 			catch (System.Exception e)
 			{

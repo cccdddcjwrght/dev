@@ -47,9 +47,11 @@ namespace SGame.UI
 					panel = m_view.m_child.component as UI_LockPanelUI;
 				}
 				SetUnlockBtn(cfg.GetCostArray());
+				m_view.m_flag.selectedIndex = 1;
 			}
 			else
 			{
+				m_view.m_flag.selectedIndex = 0;
 				panel?.Dispose();
 				panel = null;
 				m_view.m_child.url = null;
@@ -68,7 +70,6 @@ namespace SGame.UI
 			var state = PropertyManager.Instance.CheckCountByArgs(cost);
 			panel.m_btnty.selectedIndex = state ? 0 : 1;
 			panel.m_click.touchable = state;
-
 			UIListener.SetText(panel.m_click, SGame.Utils.ConvertNumberStr(cost[2]));
 			UIListener.SetControllerSelect(panel.m_click, "limit", 0);
 			UIListener.SetControllerSelect(panel.m_click, "gray", state ? 0 : 1);

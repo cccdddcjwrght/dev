@@ -633,7 +633,7 @@ namespace SGame
 					{
 						max = 999;
 						lvStart = objCfg.LevelId(0) - 1;
-						maxlv = objCfg.LevelId(1);
+						maxlv = objCfg.LevelIdLength > 1 ? objCfg.LevelId(1): objCfg.LevelId(0);
 					}
 				}
 				else
