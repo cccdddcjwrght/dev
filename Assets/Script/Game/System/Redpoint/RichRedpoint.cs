@@ -74,7 +74,7 @@ namespace SGame
 				var id = child.GetInstanceID();
 				if (status)
 				{
-					if (!_hudID.TryGetValue(id, out var e))
+					if (!_hudID.TryGetValue(id, out var e) || !EntityManager.Exists(e))
 					{
 						_hudID[id] = default;
 						this.Delay(() =>

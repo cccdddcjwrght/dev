@@ -18,6 +18,7 @@ namespace SGame
 			if(target is GameObject go)
 			{
 				var s = DataCenter.MachineUtil.IsAreaEnable(go.name);
+				if (s) go.tag = default;
 				return !s;
 			}
 
