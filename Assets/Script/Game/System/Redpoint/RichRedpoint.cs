@@ -80,6 +80,7 @@ namespace SGame
 						this.Delay(() =>
 						{
 							_hudID[id] = UIUtils.ShowHUD(data.Res.Substring(1), child.transform, new float3(data.Offset(0), data.Offset(1), data.Offset(2)));
+							_hudID[id].SetParam(new object[] { child , data });
 						}, 1);
 
 					}

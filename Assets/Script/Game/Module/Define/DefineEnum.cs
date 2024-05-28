@@ -271,4 +271,12 @@ namespace SGame
 		Act = 12,//活动
 	}
 
+	public enum EnumMachineType
+	{
+		CUSTOM = 1,		// 顾客桌子
+		DISH = 2,		// 放餐机
+		MACHINE = 3,	//机器桌子
+		JOB = 4	,		//招工
+		EVOTABLE = 5,	//升级桌
+	}
 }

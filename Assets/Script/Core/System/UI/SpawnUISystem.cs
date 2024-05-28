@@ -50,7 +50,7 @@ namespace SGame.UI
         /// </summary>
         /// <param name="uiPackage">ui包名</param>
         /// <return>加载句柄</return>
-        UIPackageRequest LoadPackage(string uiPackage)
+        public UIPackageRequest LoadPackage(string uiPackage)
         {
             return m_packageRequest.Load(uiPackage);
         }

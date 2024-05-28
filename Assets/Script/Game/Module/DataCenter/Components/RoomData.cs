@@ -62,6 +62,7 @@ namespace SGame
 					rd.rooms.Insert(0, r);
 					ud.scene = id;
 					r.roomAreas = ConfigSystem.Instance.Finds<RoomAreaRowData>(c => c.Scene == r.id).ToDictionary(c => c.ID);
+					r.waitAreas = r.roomAreas.Keys.Where(v=>!r.areas.Contains(v)).ToList();
 					r.worktables?.ForEach(w => w.Refresh());
 					Instance.roomData.roomID = id;
 					Instance.SetUserData(ud);
@@ -139,6 +140,7 @@ namespace SGame
 				var room = DataCenter.Instance.roomData.current;
 				if (room != null)
 				{
+					room.waitAreas.Remove(area);
 					room.areas.Add(area);
 				}
 			}
@@ -177,17 +179,19 @@ namespace SGame
 					var tag = roleid == (int)EnumRole.Cook ? ConstDefine.TAG_BORN_COOK : ConstDefine.TAG_BORN_WAITER;
 					for (int i = 0; i < count; i++)
 					{
-						Worker worker = default;
 						if (x != 0 && y != 0)
 							pos = new Vector2Int(x, y);
-						else if (WorkQueueSystem.Instance.Random(tag, out worker))
-							pos = worker.cell;
-						DataCenter.Instance.m_gameRecord.RecordRole(roleid, 1, worker.index);
-						EventManager.Instance.Trigger(((int)GameEvent.SCENE_REWARD), pos, new Action(() =>
+						else 
+							pos = GameTools.MapAgent.RandomPop(tag);
+
+						var index = GameTools.MapAgent.GirdToRealIndex(pos);
+
+						DataCenter.Instance.m_gameRecord.RecordRole(roleid, 1, index);
+						EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, 1, index);
+
+						/*EventManager.Instance.Trigger(((int)GameEvent.SCENE_REWARD), pos, new Action(() =>
 						{
-							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, 1, worker.index);
-							WorkQueueSystem.Instance.Free(worker);
-						}), string.Empty);
+						}), string.Empty);*/
 					}
 				}
 			}
@@ -224,12 +228,24 @@ namespace SGame
 		public List<int> techs = new List<int>();
 
 		[NonSerialized]
+		public List<int> waitAreas = new List<int>();
+		[NonSerialized]
 		public Dictionary<int, RoomTechRowData> roomTechs;
 		[NonSerialized]
 		public Dictionary<int, RoomAreaRowData> roomAreas;
 
 		[NonSerialized]
 		public bool isnew;
+
+		public int GetAreaType(int area)
+		{
+			if(area > 1 && waitAreas.Count > 0)
+			{
+				if (waitAreas[0] == area) return 0;
+				if (waitAreas.Count > 1 && waitAreas[1] == area) return 1;
+			}
+			return -1;
+		}
 
 	}
 

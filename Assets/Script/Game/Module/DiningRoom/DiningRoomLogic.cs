@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using GameConfigs;
+using GameTools.Maps;
 using libx;
 using log4net;
 using Unity.Mathematics;
@@ -167,6 +168,8 @@ namespace SGame.Dining
 		public bool enable;
 		public List<Part> parts;
 		public List<Seat> seats;
+
+		public Queue<Seat> lockSeats;
 
 		public bool waitActive;
 		public string asset;
@@ -346,6 +349,7 @@ namespace SGame.Dining
 		private Region _begin;
 		private EventHandleContainer _eHandlers;
 		private LevelRowData _cfg;
+		private bool _isInited;
 
 		public string name;
 		public MapGrid grid { get { return _sceneGrid; } }
@@ -372,6 +376,7 @@ namespace SGame.Dining
 		{
 			if (_sceneGrid == null)
 			{
+				_isInited = false;
 				InitView();
 				InitBuilds();
 				InitArea();
@@ -391,6 +396,7 @@ namespace SGame.Dining
 
 				if (ConfigSystem.Instance.TryGet<GameConfigs.SceneRowData>(name, out var scene))
 					SceneCameraSystem.Reload(scene.CameraCtr);
+				_isInited = true;
 			}
 			return true;
 		}
@@ -453,18 +459,30 @@ namespace SGame.Dining
 
 		public void CheckUnlock(Region region)
 		{
-			if (region.next == null)
+			CheckUnlockAndAuto(region);
+		}
+
+		public void CheckUnlockAndAuto(Region region, bool checkauto = false)
+		{
+			if (region != null && region.next == null)
 			{
-				if (!DataCenter.MachineUtil.IsAreaEnableByMachine(region.begin.cfgID)) return;
+				var mid = region.begin.cfgID;
+				if (!DataCenter.MachineUtil.IsAreaEnableByMachine(mid)) return;
+				ConfigSystem.Instance.TryGet<RoomMachineRowData>(mid, out var m);
 				//不能自动解锁
-				if (!region.enable && DataCenter.MachineUtil.CheckDontAutoActive(region.begin.cfgID)) return;
+				if (!region.enable && DataCenter.MachineUtil.CheckDontAutoActive(mid)) return;
 				if (region.data.isTable || (region.data.level <= 0 && !region.enable))
 				{
-					if (0 != DataCenter.MachineUtil.CheckCanActiveMachine(region.begin.cfgID, true))
+					if (0 != DataCenter.MachineUtil.CheckCanActiveMachine(mid, true))
 						return;
 				}
 				else if (!DataCenter.MachineUtil.CheckCanAddMachine(region.cfgID, cfgID)) return;
-				DoPreview(region);
+				if (checkauto && m.Enable == 1)
+				{
+					if (!region.enable)
+						DoUnlock(region, mid);
+				}
+				else DoPreview(region);
 			}
 		}
 
@@ -531,9 +549,9 @@ namespace SGame.Dining
 								asset = m.TipsAsset,
 								area = m.RoomArea
 							},
-							state: DataCenter.MachineUtil.IsActived(m.ID), region: c.Key)
+							state: DataCenter.MachineUtil.IsActived(m.ID) && DataCenter.MachineUtil.IsAreaEnable(m.RoomArea), region: row)
 						).ToList();
-						if (!row.data.isTable && row.begin?.transform != null)
+						if (row.begin?.transform != null)
 							row.begin.transform.tag = ConstDefine.C_WORKER_TABLE_GO_TAG;
 						return row;
 					}).ToList();
@@ -603,12 +621,14 @@ namespace SGame.Dining
 							reg.holder.tag = "area";
 							reg.holder.position = _sceneGrid.GetCellPosition(item.Value.AreaPos(0), item.Value.AreaPos(1));
 
-							var center = GetCenter(lockgo.gameObject, out var bounds);
 							var region = reg.lockGo.AddComponent<RegionHit>();
 							region.region = item.Key;
 							region.place = -1;
+							region.SetCollider(default);
+							/*
+							var center = GetCenter(lockgo.gameObject, out var bounds);
 							region.SetCollider(bounds);
-							region.onClick = (r, p) => EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), reg, 3);
+							region.onClick = (r, p) => EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), reg, 3);*/
 							_areas.Add(reg);
 						}
 
@@ -617,7 +637,7 @@ namespace SGame.Dining
 			}
 		}
 
-		private Place ActiveBuild(Place machine = default, int id = -1, bool state = true, int region = 0)
+		private Place ActiveBuild(Place machine = default, int id = -1, bool state = true, Region region = default)
 		{
 			if (id > 0 || machine != null)
 			{
@@ -743,7 +763,7 @@ namespace SGame.Dining
 				h.place = placeid;
 				h.onClick = OnRegionClick;
 
-				if (cs.Count > 1 && !region.data.isTable)
+				if (cs.Count > 1)
 				{
 					foreach (var item in cs)
 						AddPlaceHit(item, region.cfgID, cfg.ID);
@@ -754,10 +774,11 @@ namespace SGame.Dining
 
 		}
 
-		private void AddWorkers(int region, Place place)
+		private void AddWorkers(Region region, Place place)
 		{
 			if (place.enable)
 			{
+				var isobj = region.data.objCfg.IsValid();
 				var idxs = new List<int>();
 				if (place.parts?.Count > 0)
 				{
@@ -774,22 +795,56 @@ namespace SGame.Dining
 				{
 					var m = DataCenter.MachineUtil.GetMachine(place.cfgID, out var worktable);
 
-					for (int i = 0; i < idxs.Count; i++)
+					if (isobj)
 					{
-						var cell = grid.GetCell(idxs[i]);
-						if (cell != null)
+						if (place.lockSeats == null)
+							place.lockSeats = new Queue<Seat>(place.seats.FindAll(s => s.tag == ConstDefine.TAG_SEAT));
+						if (place.lockSeats.Count > 0)
 						{
-							switch ((TABLE_TYPE)m.cfg.Type)
+							var count = worktable.addMachine;
+							if (!_isInited)
+								count = worktable.objLvCfg.SetNum;
+							if (count > 0)
 							{
-								case TABLE_TYPE.CUSTOM:
+								if (count > place.lockSeats.Count)
+									Debug.LogError($"桌子 {place.cfgID} 升星添加的座位数量{worktable.objLvCfg.CustomerNum}大于实际座位");
+
+								for (int j = 0; j < count && place.lockSeats.Count > 0; j++)
+								{
+									var seat = place.lockSeats.Dequeue();
+									var cell = grid.GetCell(seat.near);
+									var sCell = grid.GetCell(seat.index);
+
 									if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_SERVE, out var order))
 									{
 										var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_SERVE);
 										if (servr != null) order = grid.GetCell(servr.index).ToGrid();
 									}
-									TableFactory.CreateCustomer(cell.ToGrid(), order, grid.GetNearTagAllPos(cell.index, ConstDefine.TAG_SEAT));
+									TableFactory.CreateCustomer(cell.ToGrid(), order, new List<Vector2Int>() { sCell.ToGrid() });
+								}
+							}
+						}
+						return;
+					}
+
+					for (int i = 0; i < idxs.Count; i++)
+					{
+						var cell = grid.GetCell(idxs[i]);
+						if (cell != null)
+						{
+							var type = (EnumMachineType)(m.cfg.Type == 0 ? 3 : m.cfg.Type);
+							switch (type)
+							{
+								case EnumMachineType.CUSTOM:
+									if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_SERVE, out var order))
+									{
+										var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_SERVE);
+										if (servr != null) order = grid.GetCell(servr.index).ToGrid();
+									}
+									var seats = grid.GetNearTagAllPos(cell.index, ConstDefine.TAG_SEAT);
+									TableFactory.CreateCustomer(cell.ToGrid(), order, seats);
 									break;
-								case TABLE_TYPE.DISH:
+								case EnumMachineType.DISH:
 									if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_TAKE_SERVE, out order))
 									{
 										var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_TAKE_SERVE);
@@ -797,13 +852,14 @@ namespace SGame.Dining
 									}
 									TableFactory.CreateDish(cell.ToGrid(), grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_TAKE), order);
 									break;
-								default:
+								case EnumMachineType.MACHINE:
 									if (m.cfg.Nowork != 1)
 										TableFactory.CreateFood(cell.ToGrid(), worktable.id, worktable.item, grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_MACHINE_WORK));
 									break;
 							}
 						}
 					}
+
 				}
 
 			}
@@ -836,7 +892,7 @@ namespace SGame.Dining
 					{
 						if ((r.next ?? r.begin).waitActive == true)
 						{
-							if (!r.data.isTable && r.begin.waitActive)
+							if ((!r.data.isTable || r.data.type > 3) && r.begin.waitActive)
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
 							else
 							{
@@ -848,9 +904,12 @@ namespace SGame.Dining
 					}
 					else if (r.next == null || r.next.cfgID != place)
 					{
-						if (!r.data.isTable && p.enable)
+						if (p.enable)
 						{
-							EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
+							if (!r.data.isTable)
+								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
+							else if (r.data.objCfg.IsValid())
+								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 4);
 						}
 					}
 					r.machines.ForEach(p => PlayClip(p.index, "click", false));
@@ -868,7 +927,7 @@ namespace SGame.Dining
 				{
 					place.waitActive = true;
 					region.SetNextUnlock(place);
-					region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject);
+					region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject, name: "scene_grid");
 					return place;
 				}
 			}
@@ -884,7 +943,7 @@ namespace SGame.Dining
 				var needload = p.NeedLoadAsset();
 				region.gHandler?.DestroyAllEntity();
 				region.SetNextUnlock(null);
-				ActiveBuild(p, region: region.cfgID)?.Wait(0.15f)?.Wait(e => PlayClip(p.index, "appear", false));
+				ActiveBuild(p, region: region)?.Wait(0.15f)?.Wait(e => PlayClip(p.index, "appear", false));
 				if (needload)
 				{
 					3.ToAudioID().PlayAudio();
@@ -970,11 +1029,13 @@ namespace SGame.Dining
 		{
 			var r = GetRegion(id);
 			if (r != null)
+			{
+				if (r.data.objCfg.IsValid() && r.data.addMachine > 0)
+					DoUnlock(r, r.begin.cfgID);
 				CheckUnlock(r);
+			}
 			if (r.data.level > 1 && r.data.addProfit == 0)
 				7.ToAudioID().PlayAudio();
-
-
 		}
 
 		private void OnWorkTableUpStar(int id, int star)
@@ -1027,7 +1088,7 @@ namespace SGame.Dining
 					IEnumerator Run()
 					{
 						yield return null;
-						_regions.ForEach(CheckUnlock);
+						_regions.ForEach(r => CheckUnlockAndAuto(r, true));
 					}
 					Run().Start();
 				}

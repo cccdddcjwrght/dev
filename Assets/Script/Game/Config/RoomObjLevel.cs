@@ -29,45 +29,59 @@ public struct RoomObjLevelRowData : IFlatbufferObject
   public ArraySegment<byte>? GetCostBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public float[] GetCostArray() { return __p.__vector_as_array<float>(8); }
-  public int Buff { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Buff(int j) { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int BuffLength { get { int o = __p.__offset(10); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetBuffBytes() { return __p.__vector_as_span<int>(10, 4); }
+#else
+  public ArraySegment<byte>? GetBuffBytes() { return __p.__vector_as_arraysegment(10); }
+#endif
+  public int[] GetBuffArray() { return __p.__vector_as_array<int>(10); }
   public int ChefNum { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int WaiterNum { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int CustomerNum { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int SetNum { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Condition { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomObjLevelRowData> CreateRoomObjLevelRowData(FlatBufferBuilder builder,
       int ID = 0,
       int Star = 0,
       VectorOffset CostOffset = default(VectorOffset),
-      int Buff = 0,
+      VectorOffset BuffOffset = default(VectorOffset),
       int ChefNum = 0,
       int WaiterNum = 0,
       int CustomerNum = 0,
-      int SetNum = 0) {
-    builder.StartTable(8);
+      int SetNum = 0,
+      int Condition = 0) {
+    builder.StartTable(9);
+    RoomObjLevelRowData.AddCondition(builder, Condition);
     RoomObjLevelRowData.AddSetNum(builder, SetNum);
     RoomObjLevelRowData.AddCustomerNum(builder, CustomerNum);
     RoomObjLevelRowData.AddWaiterNum(builder, WaiterNum);
     RoomObjLevelRowData.AddChefNum(builder, ChefNum);
-    RoomObjLevelRowData.AddBuff(builder, Buff);
+    RoomObjLevelRowData.AddBuff(builder, BuffOffset);
     RoomObjLevelRowData.AddCost(builder, CostOffset);
     RoomObjLevelRowData.AddStar(builder, Star);
     RoomObjLevelRowData.AddID(builder, ID);
     return RoomObjLevelRowData.EndRoomObjLevelRowData(builder);
   }
 
-  public static void StartRoomObjLevelRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StartRoomObjLevelRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddStar(FlatBufferBuilder builder, int Star) { builder.AddInt(1, Star, 0); }
   public static void AddCost(FlatBufferBuilder builder, VectorOffset CostOffset) { builder.AddOffset(2, CostOffset.Value, 0); }
   public static VectorOffset CreateCostVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateCostVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCostVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddBuff(FlatBufferBuilder builder, int Buff) { builder.AddInt(3, Buff, 0); }
+  public static void AddBuff(FlatBufferBuilder builder, VectorOffset BuffOffset) { builder.AddOffset(3, BuffOffset.Value, 0); }
+  public static VectorOffset CreateBuffVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateBuffVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartBuffVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddChefNum(FlatBufferBuilder builder, int ChefNum) { builder.AddInt(4, ChefNum, 0); }
   public static void AddWaiterNum(FlatBufferBuilder builder, int WaiterNum) { builder.AddInt(5, WaiterNum, 0); }
   public static void AddCustomerNum(FlatBufferBuilder builder, int CustomerNum) { builder.AddInt(6, CustomerNum, 0); }
   public static void AddSetNum(FlatBufferBuilder builder, int SetNum) { builder.AddInt(7, SetNum, 0); }
+  public static void AddCondition(FlatBufferBuilder builder, int Condition) { builder.AddInt(8, Condition, 0); }
   public static Offset<GameConfigs.RoomObjLevelRowData> EndRoomObjLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomObjLevelRowData>(o);

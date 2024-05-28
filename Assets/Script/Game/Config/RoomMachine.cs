@@ -64,6 +64,7 @@ public struct RoomMachineRowData : IFlatbufferObject
   public int Walkable { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int ActiveEffect { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int RoomArea { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ActiveBox { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomMachineRowData> CreateRoomMachineRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -81,8 +82,10 @@ public struct RoomMachineRowData : IFlatbufferObject
       VectorOffset HudOffsetOffset = default(VectorOffset),
       int Walkable = 0,
       int ActiveEffect = 0,
-      int RoomArea = 0) {
-    builder.StartTable(16);
+      int RoomArea = 0,
+      int ActiveBox = 0) {
+    builder.StartTable(17);
+    RoomMachineRowData.AddActiveBox(builder, ActiveBox);
     RoomMachineRowData.AddRoomArea(builder, RoomArea);
     RoomMachineRowData.AddActiveEffect(builder, ActiveEffect);
     RoomMachineRowData.AddWalkable(builder, Walkable);
@@ -102,7 +105,7 @@ public struct RoomMachineRowData : IFlatbufferObject
     return RoomMachineRowData.EndRoomMachineRowData(builder);
   }
 
-  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(16); }
+  public static void StartRoomMachineRowData(FlatBufferBuilder builder) { builder.StartTable(17); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddScene(FlatBufferBuilder builder, int Scene) { builder.AddInt(1, Scene, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -134,6 +137,7 @@ public struct RoomMachineRowData : IFlatbufferObject
   public static void AddWalkable(FlatBufferBuilder builder, int Walkable) { builder.AddInt(13, Walkable, 0); }
   public static void AddActiveEffect(FlatBufferBuilder builder, int ActiveEffect) { builder.AddInt(14, ActiveEffect, 0); }
   public static void AddRoomArea(FlatBufferBuilder builder, int RoomArea) { builder.AddInt(15, RoomArea, 0); }
+  public static void AddActiveBox(FlatBufferBuilder builder, int ActiveBox) { builder.AddInt(16, ActiveBox, 0); }
   public static Offset<GameConfigs.RoomMachineRowData> EndRoomMachineRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomMachineRowData>(o);

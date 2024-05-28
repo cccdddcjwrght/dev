@@ -24,7 +24,7 @@ namespace SGame
 					if (mono.transform.Find("scene_grid"))
 						return DataCenter.MachineUtil.CheckCanActiveMachine(mono.place, false) == 0;
 					else
-						return region.level>0 && DataCenter.MachineUtil.CheckCanUpLevel(region.id, 0) == 0;
+						return region.level > 0 && DataCenter.MachineUtil.CheckCanUpLevel(region.id, 0) == 0;
 				}
 				return false;
 			}

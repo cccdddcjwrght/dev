@@ -9,6 +9,7 @@ namespace SGame.UI.Common
     {
         public Controller m_type;
         public GLoader m_icon;
+        public GLoader m_child;
         public Transition m_t0;
         public const string URL = "ui://2w8thcm7n5vf3lfx";
 
@@ -23,6 +24,7 @@ namespace SGame.UI.Common
 
             m_type = GetControllerAt(0);
             m_icon = (GLoader)GetChildAt(0);
+            m_child = (GLoader)GetChildAt(1);
             m_t0 = GetTransitionAt(0);
         }
     }

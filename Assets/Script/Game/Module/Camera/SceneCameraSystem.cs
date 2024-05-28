@@ -95,7 +95,6 @@ namespace SGame
 			if (!isInited) return;
 			if (FairyGUI.Stage.isTouchOnUI || disbaleControl)
 			{
-
 				return;
 			}
 			if (TouchTrigger()) return;

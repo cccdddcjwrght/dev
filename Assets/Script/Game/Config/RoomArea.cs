@@ -70,6 +70,7 @@ public struct RoomAreaRowData : IFlatbufferObject
   public ArraySegment<byte>? GetAreaPosBytes() { return __p.__vector_as_arraysegment(28); }
 #endif
   public int[] GetAreaPosArray() { return __p.__vector_as_array<int>(28); }
+  public int NextArea { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomAreaRowData> CreateRoomAreaRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -84,8 +85,10 @@ public struct RoomAreaRowData : IFlatbufferObject
       int WaiterNum = 0,
       int CustomerNum = 0,
       StringOffset CustomerBornOffset = default(StringOffset),
-      VectorOffset AreaPosOffset = default(VectorOffset)) {
-    builder.StartTable(13);
+      VectorOffset AreaPosOffset = default(VectorOffset),
+      int NextArea = 0) {
+    builder.StartTable(14);
+    RoomAreaRowData.AddNextArea(builder, NextArea);
     RoomAreaRowData.AddAreaPos(builder, AreaPosOffset);
     RoomAreaRowData.AddCustomerBorn(builder, CustomerBornOffset);
     RoomAreaRowData.AddCustomerNum(builder, CustomerNum);
@@ -102,7 +105,7 @@ public struct RoomAreaRowData : IFlatbufferObject
     return RoomAreaRowData.EndRoomAreaRowData(builder);
   }
 
-  public static void StartRoomAreaRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
+  public static void StartRoomAreaRowData(FlatBufferBuilder builder) { builder.StartTable(14); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddScene(FlatBufferBuilder builder, int Scene) { builder.AddInt(1, Scene, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -122,6 +125,7 @@ public struct RoomAreaRowData : IFlatbufferObject
   public static VectorOffset CreateAreaPosVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateAreaPosVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartAreaPosVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddNextArea(FlatBufferBuilder builder, int NextArea) { builder.AddInt(13, NextArea, 0); }
   public static Offset<GameConfigs.RoomAreaRowData> EndRoomAreaRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomAreaRowData>(o);

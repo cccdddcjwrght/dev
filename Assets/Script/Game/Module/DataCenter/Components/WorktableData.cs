@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameConfigs;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using UnityEngine;
 
 namespace SGame
@@ -32,12 +33,13 @@ namespace SGame
 		/// </summary>
 		public const int ITEM_DIAMOND_NOT_ENOUGH = 4;
 
-
 		//===============================================================
 		/// <summary>
 		/// 依赖点位没有激活
 		/// </summary>
 		public const int MACHINE_DEPENDS_NOT_ENABLE = 100;
+		public const int AREA_IS_LOCK = 101;
+
 
 	}
 
@@ -64,7 +66,7 @@ namespace SGame
 							if (!worktable.isTable) DataCenter.Instance.roomData.current.worktableCount++;
 						}
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), worktable.id, id);
-						if (worktable.level == 0) UpdateLevel(worktable.id, worktable.scene);
+						if (worktable.lv == 0) UpdateLevel(worktable.id, worktable.scene);
 
 						return machine;
 					}
@@ -84,7 +86,7 @@ namespace SGame
 						if (m == null && cfg.Enable == 1)
 						{
 							m = CreateMachine(id, ref worktable.stations);
-							worktable.level = System.Math.Max(1, worktable.level);
+							worktable.lv = System.Math.Max(1, worktable.lv);
 							worktable.Refresh();
 						}
 						else if (m != null && !m.cfg.IsValid())
@@ -123,7 +125,7 @@ namespace SGame
 				}
 				if (ifMissAdd && (val == null || val.id == 0))
 				{ val = AddWorktable(id, scene); }
-				if (val != null && !val.cfg.IsValid())
+				if (val != null && !(val.cfg.IsValid() || val.objCfg.IsValid()))
 					val.Refresh();
 				return val;
 			}
@@ -144,55 +146,69 @@ namespace SGame
 				var w = GetWorktable(id, scene);
 				if (w != null)
 				{
-					if (!set)
-						w.level += val;
-					else
-						w.level = Math.Max(0, val);
+					if (!set) w.lv += val;
+					else w.lv = Math.Max(0, val);
 
-					var pmac = 0;
-					var prp = 0;
-					var cost = w.GetUpCost();
+					var cost = w.GetUpCost(out var ct, out var cid);
+					var plv = w.lvcfg;
+					var pobjlv = w.objLvCfg;
+					var srws = w.starRewards;
+					w.addCooker = w.addMachine = w.addProfit = w.addRole = w.addWaiter = 0;
+					w.Refresh();
+
 					if (w.lvcfg.IsValid())
 					{
-						pmac = w.lvcfg.Num;
-						prp = w.lvcfg.ShopPriceStarRatio;
+						w.addMachine = Math.Min(w.max, w.lvcfg.Num) - (plv.IsValid() ? plv.Num : 0);
+						w.addProfit = (w.lvcfg.ShopPriceStarRatio - (plv.IsValid() ? plv.ShopPriceStarRatio : 0)) / 100;
 					}
-					var srws = w.starRewards;
-					w.Refresh();
-					w.addMachine = Math.Min(w.max, w.lvcfg.Num) - pmac;
-					w.addProfit = (w.lvcfg.ShopPriceStarRatio - prp) / 100;
+					if (w.objLvCfg.IsValid())
+					{
+						var f = pobjlv.IsValid();
+						w.addCooker = w.objLvCfg.ChefNum - (f ? pobjlv.ChefNum : 0);
+						w.addWaiter = w.objLvCfg.WaiterNum - (f ? pobjlv.WaiterNum : 0);
+						w.addRole = w.objLvCfg.CustomerNum - (f ? pobjlv.CustomerNum : 0);
+						w.addMachine = w.objLvCfg.SetNum - (f ? pobjlv.SetNum : 0);
+					}
 
 					//升级消耗
-					PropertyManager.Instance.Update((int)w.lvcfg.UpgradePrice(0), (int)w.lvcfg.UpgradePrice(1), cost, true);
+					PropertyManager.Instance.Update(ct, cid, cost, true);
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
 					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TABEL_LEVEL, 1);
 
-					if (w.lvcfg.MachineStar > w.star)//升星奖励
-					{
-						if (srws?.Count > 0)
-						{
-							for (int i = 0; i < srws.Count; i++)
-							{
-								var item = srws[i];
-								if (i == 0)
-									PropertyManager.Instance.UpdateByArgs(false, item);
-								else if (
-									ConfigSystem.Instance.TryGet(item[0], out ItemRowData cfg)
-									&& ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId, GameServerTime.Instance.serverTime, out var act)
-								)
-								{
-									if (("act" + cfg.TypeId).IsOpend(false) || ("act" + act.configID).IsOpend(false))
-										PropertyManager.Instance.UpdateByArgs(false, item);
-								}
-							}
-						}
-						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UP_STAR), id, w.lvcfg.MachineStar);
-					}
-
 					if (!w.isTable)
 					{
+						if (w.lvcfg.MachineStar > w.star)//升星奖励
+						{
+							if (srws?.Count > 0)
+							{
+								for (int i = 0; i < srws.Count; i++)
+								{
+									var item = srws[i];
+									if (i == 0)
+										PropertyManager.Instance.UpdateByArgs(false, item);
+									else if (
+										ConfigSystem.Instance.TryGet(item[0], out ItemRowData cfg)
+										&& ActiveTimeSystem.Instance.IsActiveBySubID(cfg.TypeId, GameServerTime.Instance.serverTime, out var act)
+									)
+									{
+										if (("act" + cfg.TypeId).IsOpend(false) || ("act" + act.configID).IsOpend(false))
+											PropertyManager.Instance.UpdateByArgs(false, item);
+									}
+								}
+							}
+							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UP_STAR), id, w.lvcfg.MachineStar);
+						}
 						if (CheckAllWorktableIsMaxLv())
 							EventManager.Instance.AsyncTrigger(((int)GameEvent.WORK_TABLE_ALL_MAX_LV));
+					}
+					else if (w.objLvCfg.IsValid())
+					{
+						if (w.addCooker > 0)
+							DataCenter.RoomUtil.AddRole(((int)EnumRole.Cook), w.addCooker, 0, 0);
+						if (w.addWaiter > 0)
+							DataCenter.RoomUtil.AddRole(((int)EnumRole.Waiter), w.addWaiter, 0, 0);
+						if (w.addRole > 0)
+							DataCenter.RoomUtil.AddRole(((int)EnumRole.Customer), w.addRole, 0, 0);
 					}
 
 					return w;
@@ -257,8 +273,13 @@ namespace SGame
 			public static int[] GetWorktableStarInfo(int id)
 			{
 				var w = GetWorktable(id);
-				if (w != null && !w.isTable)
-					return CalcuStarList(GetWorkertableMaxStar(w.maxlv), w.lvcfg.MachineStar);
+				if (w != null)
+				{
+					if (!w.isTable)
+						return CalcuStarList(GetWorkertableMaxStar(w.maxlv), w.lvcfg.MachineStar);
+					else if (w.objCfg.IsValid())
+						return CalcuStarList(w.maxlv - w.lvStart, w.lv);
+				}
 				return default;
 			}
 
@@ -305,7 +326,7 @@ namespace SGame
 			public static bool IsActived(int machine)
 			{
 				var m = GetMachine(machine, out Worktable worktable);
-				if (m != null && m.enable ) return true;
+				if (m != null && m.enable) return true;
 				return false;
 			}
 
@@ -331,7 +352,7 @@ namespace SGame
 					var ds = m.GetDependsArray();
 					if (!IsActiveds(true, ds))
 						return Error_Code.MACHINE_DEPENDS_NOT_ENABLE;
-					if (!ignoreCost && w.cfg.IsValid() && !PropertyManager.Instance.CheckCountByArgs(w.cfg.GetUnlockPriceArray()))
+					if (!ignoreCost && !PropertyManager.Instance.CheckCountByArgs(w.GetUnlockPrice()))
 						return Error_Code.ITEM_NOT_ENOUGH;
 					return 0;
 				}
@@ -342,7 +363,7 @@ namespace SGame
 			{
 				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(id, out var m))
 				{
-					if (m.Enable == 1 || m.DependsLength > 0)
+					if (m.Enable == 1 || m.DependsLength > 0 )
 						return false;
 					return true;
 				}
@@ -356,12 +377,16 @@ namespace SGame
 
 			public static int CheckCanUpLevel(Worktable worktable)
 			{
-				if (worktable != null && worktable.cfg.IsValid())
+				if (worktable != null && (worktable.cfg.IsValid() || worktable.objCfg.IsValid()))
 				{
 					var cost = worktable.GetUpCost(out var type, out var id);
 					if (worktable.level >= worktable.maxlv) return Error_Code.LV_MAX;
 					if (worktable.level > 0 && !PropertyManager.Instance.CheckCount(id, cost, type))
 						return Error_Code.ITEM_NOT_ENOUGH;
+					if (worktable.objLvCfg.IsValid() && worktable.objLvCfg.Condition > 0)
+					{
+						if (!IsAreaEnable(worktable.objLvCfg.Condition)) return Error_Code.AREA_IS_LOCK;
+					}
 					return 0;
 				}
 				return -1;
@@ -473,7 +498,7 @@ namespace SGame
 		public int id;
 		public int scene;
 
-		public int level;
+		public int lv;
 		public int star;
 
 		[NonSerialized]
@@ -488,9 +513,17 @@ namespace SGame
 		public List<Machine> stations = new List<Machine>();
 
 		[NonSerialized]
+		public int type;
+		[NonSerialized]
 		public MachineRowData cfg;
 		[NonSerialized]
+		public RoomObjRowData objCfg;
+		[NonSerialized]
 		public MachineUpgradeRowData lvcfg;
+		[NonSerialized]
+		public RoomObjLevelRowData objLvCfg;
+		[NonSerialized]
+		public RoomObjLevelRowData objNextLvCfg;
 		[NonSerialized]
 		public int addProfit;
 		[NonSerialized]
@@ -499,10 +532,42 @@ namespace SGame
 		public int reward;
 		[NonReorderable]
 		public List<int[]> starRewards;
+		[NonReorderable]
+		public int addCooker;
+		[NonReorderable]
+		public int addRole;
+		[NonReorderable]
+		public int addWaiter;
+		[NonReorderable]
+		public int lvStart;
 
 		public int item { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
 
 		public int price { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
+
+		public int level { get { return lvStart + lv; } }
+
+		public string name { get { return cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
+
+		public bool IsMaxLv()
+		{
+			return level >= maxlv;
+		}
+
+		public int GetMaxStar()
+		{
+			if (objCfg.IsValid()) return maxlv - lvStart;
+			return DataCenter.MachineUtil.GetWorkertableMaxStar(maxlv);
+		}
+
+		public float[] GetUnlockPrice()
+		{
+			if (cfg.IsValid())
+				return cfg.GetUnlockPriceArray();
+			if (objCfg.IsValid())
+				return objCfg.GetCostArray();
+			return default;
+		}
 
 		public double GetPrice()
 		{
@@ -529,26 +594,62 @@ namespace SGame
 		public double GetUpCost(out int type, out int id)
 		{
 			type = id = 0;
-			if (!isTable && lvcfg.IsValid())
+			if (!isTable)
 			{
-				type = (int)lvcfg.UpgradePrice(0);
-				id = (int)lvcfg.UpgradePrice(1);
-				return (0.01d * lvcfg.UpgradePrice(2) * cfg.UpgradeRatio).ToInt();
+				if (lvcfg.IsValid())
+				{
+					type = (int)lvcfg.UpgradePrice(0);
+					id = (int)lvcfg.UpgradePrice(1);
+					return (0.01d * lvcfg.UpgradePrice(2) * cfg.UpgradeRatio).ToInt();
+				}
+			}
+			else if (objLvCfg.IsValid())
+			{
+				type = (int)objLvCfg.Cost(0);
+				id = (int)objLvCfg.Cost(1);
+				return objLvCfg.Cost(2);
 			}
 			return 0;
+		}
+
+		public int GetSeats()
+		{
+			return addRole > 0 ? addRole : objLvCfg.IsValid() ? objLvCfg.CustomerNum : 0;
 		}
 
 		public void Refresh()
 		{
 			if (lvcfg.IsValid()) star = lvcfg.MachineStar;
-			if (!ConfigSystem.Instance.TryGet<MachineRowData>(id, out cfg)) isTable = true;
-			else if (max <= 0)
+			if (type == 0)
 			{
 				var ls = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => c.Machine == id);
-				maxlv = ls.Count > 0 ? ls[0].MachineLevelMax : 10;
-				max = ls.Count - 1;
+				var first = ls.FirstOrDefault();
+				lvStart = 0;
+				if (first.IsValid())
+				{
+					maxlv = ls.Count > 0 ? ls[0].MachineLevelMax : 10;
+					max = ls.Count - 1;
+					type = first.Type;
+					if (type > 3 && ConfigSystem.Instance.TryGet(first.Machine, out objCfg))
+					{
+						max = 999;
+						lvStart = objCfg.LevelId(0) - 1;
+						maxlv = objCfg.LevelId(1);
+					}
+				}
+				else
+					type = -1;
+
+				if (!ConfigSystem.Instance.TryGet<MachineRowData>(id, out cfg))
+					isTable = true;
 			}
-			if (ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg))
+
+			if (type > 3)
+			{
+				ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level, out objLvCfg);
+				ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level + 1, out objNextLvCfg);
+			}
+			else if (ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg))
 			{
 				if ((starRewards == null || lvcfg.MachineStar > star))
 				{

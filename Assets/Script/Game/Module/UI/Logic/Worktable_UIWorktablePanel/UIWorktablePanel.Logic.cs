@@ -8,7 +8,6 @@ namespace SGame.UI
 	using Unity.Mathematics;
 	using System.Collections.Generic;
 	using GameConfigs;
-	using Unity.VisualScripting;
 	using System.Linq;
 
 	public partial class UIWorktablePanel
@@ -34,8 +33,10 @@ namespace SGame.UI
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_HUD_SHOW));
 				}, 200);
 
+				m_view.m_pos.selectedIndex = 0;
+				m_view.m_type.selectedIndex = 0;
+				m_view.m_maxlv.selectedIndex = 0;
 				this.data = DataCenter.MachineUtil.GetWorktable(info.id);
-				m_view.m_pos.selectedIndex = GetOffset(info.target);
 				switch (info.type)
 				{
 					case 1:
@@ -47,8 +48,11 @@ namespace SGame.UI
 					case 3:
 						SetAreaUnlock();
 						break;
+					case 4:
+						SetUplevelInfo(3);
+						break;
 				}
-
+				m_view.m_pos.selectedIndex = GetOffset(info.target);
 			}
 		}
 
@@ -60,13 +64,8 @@ namespace SGame.UI
 		private void SetUnlockInfo()
 		{
 			m_view.m_type.selectedIndex = 1;
-			if (!data.isTable)
-			{
-				var state = PropertyManager.Instance.CheckCountByArgs(data.cfg.GetUnlockPriceArray());
-				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(data.cfg.UnlockPrice(2)));
-				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
-				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
-			}
+			if (!data.isTable || data.type > 3)
+				SetUnlockBtn(data.GetUnlockPrice());
 			else
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "hasIcon", 1);
@@ -74,25 +73,21 @@ namespace SGame.UI
 			}
 		}
 
-		private void SetUplevelInfo()
+		private void SetUplevelInfo(int type = 0)
 		{
-			m_view.m_type.selectedIndex = 0;
+			m_view.m_type.selectedIndex =  type;
 			UIListener.SetText(m_view.m_time, data.GetWorkTime().ToString() + "s");
 			m_view.m_list.itemRenderer = SetStarInfo;
 			LevelRefresh();
-			AdRefresh();
+			if(type == 0)AdRefresh();
+			
 		}
 
 		private void SetAreaUnlock()
 		{
 
-			if( ConfigSystem.Instance.TryGet<RoomAreaRowData>(info.id, out var row))
-			{
-				var state = PropertyManager.Instance.CheckCountByArgs(row.GetCostArray());
-				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(row.Cost(2)));
-				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
-				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
-			}
+			if (ConfigSystem.Instance.TryGet<RoomAreaRowData>(info.id, out var row))
+				SetUnlockBtn(row.GetCostArray());
 
 			m_view.m_type.selectedIndex = 1;
 		}
@@ -103,30 +98,45 @@ namespace SGame.UI
 
 			stars = DataCenter.MachineUtil.GetWorktableStarInfo(data.id);
 			var cost = data.GetUpCost(out var cty, out var cid);
-			var lvmax = data.maxlv <= data.level;
-			var maxStar = DataCenter.MachineUtil.GetWorkertableMaxStar(data.maxlv);
+			var lvmax = data.IsMaxLv();
+			var maxStar = data.GetMaxStar();
 			if (lvmax)
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 1);
 				UIListener.SetTextByKey(m_view.m_click, "ui_main_btn_upgrademax");
 				m_view.m_rewardlist?.RemoveChildrenToPool();
+				m_view.m_maxlv.selectedIndex = 1;
 			}
 			else
 			{
 				RefreshClick();
-				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(cost));
 				SetUpStarRewards();
-
+				UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(cost));
+				m_view.m_maxlv.selectedIndex = 0;
+				if (data.objLvCfg.IsValid() && data.objLvCfg.Condition > 0)
+				{
+					if (!DataCenter.MachineUtil.IsAreaEnable(data.objLvCfg.Condition))
+						m_view.m_maxlv.selectedIndex = 2;
+				}
 			}
-			UIListener.SetTextByKey(m_view, data.cfg.MachineName);
+			UIListener.SetTextByKey(m_view, data.name);
 			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice()));
-			SetLevelText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
-			SetProgressValue(data.lvcfg.MachineStar == maxStar ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id));
-
+			m_view.m_level.SetText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
+			SetRoleChangeInfo();
+			if (data.lvcfg.IsValid()) m_view.m_progress.value = data.lvcfg.MachineStar == maxStar ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id);
 			m_view.m_list.RemoveChildrenToPool();
-			m_view.m_list.numItems = stars.Length;
-
+			if (stars != null) m_view.m_list.numItems = stars.Length;
 			if (m_view.m_isAd.selectedIndex == 1) AdRefresh();
+		}
+
+		private void SetUnlockBtn(float[] cost)
+		{
+			var state = PropertyManager.Instance.CheckCountByArgs(cost);
+			UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(cost[2]));
+			UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
+			UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+			m_view.m_btnty.selectedIndex = state ? 0 : 1;
+			if (!state) m_view.m_click.GetChild("bg").icon = null;
 		}
 
 		private void SetUpStarRewards()
@@ -157,6 +167,37 @@ namespace SGame.UI
 				m_view.m_rewardlist.touchable = m_view.m_rewardlist.numItems > 5;
 				m_view.m_rewardlist.ScrollToView(m_view.m_rewardlist.numItems - 1);
 			}
+		}
+
+		private void SetRoleChangeInfo()
+		{
+			if (!data.objCfg.IsValid()) return;
+			m_view.m_level.SetTextByKey(data.name);
+			var role = data.objLvCfg.CustomerNum;
+			var next = data.objNextLvCfg.IsValid() ? data.objNextLvCfg.CustomerNum : 0;
+			if (role == 0)
+			{
+				role = data.objLvCfg.ChefNum + data.objLvCfg.WaiterNum;
+				if (data.objNextLvCfg.IsValid())
+					next = data.objNextLvCfg.ChefNum + data.objNextLvCfg.WaiterNum;
+			}
+
+			if (data.objNextLvCfg.IsValid())
+			{
+				if (data.objNextLvCfg.ChefNum > 0) m_view.m_roleType.selectedIndex = 0;
+				else if (data.objNextLvCfg.WaiterNum > 0) m_view.m_roleType.selectedIndex = 1;
+				else if (data.objNextLvCfg.CustomerNum > 0) m_view.m_roleType.selectedIndex = 2;
+			}
+			else
+			{
+				if (data.objLvCfg.ChefNum > 0) m_view.m_roleType.selectedIndex = 0;
+				else if (data.objLvCfg.WaiterNum > 0) m_view.m_roleType.selectedIndex = 1;
+				else if (data.objLvCfg.CustomerNum > 0) m_view.m_roleType.selectedIndex = 2;
+			}
+
+			m_view.m_now.SetText(role.ToString());
+			m_view.m_now1.SetText(role.ToString());
+			m_view.m_next.SetText(next.ToString());
 		}
 
 		//广告刷新（超过工作台一半等级显示广告按钮）
@@ -238,7 +279,7 @@ namespace SGame.UI
 					break;
 				case 0:
 					DataCenter.MachineUtil.AddMachine(info.mid);
-					PropertyManager.Instance.UpdateByArgs(true, data.cfg.GetUnlockPriceArray());
+					PropertyManager.Instance.UpdateByArgs(true, data.GetUnlockPrice());
 					SGame.UIUtils.CloseUIByID(__id);
 					break;
 			}
@@ -304,10 +345,15 @@ namespace SGame.UI
 			else if (this.info.type == 2)
 			{
 				UpLevel();
-			}else if(this.info.type == 3)
+			}
+			else if (this.info.type == 3)
 			{
 				RequestExcuteSystem.UnlockArea(this.info.id);
 				SGame.UIUtils.CloseUIByID(__id);
+			}
+			else if (this.info.type == 4)
+			{
+				UpLevel();
 			}
 		}
 

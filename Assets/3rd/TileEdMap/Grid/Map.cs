@@ -439,6 +439,27 @@ namespace GameTools.Maps
 			return default;
 		}
 
+		public bool GetNearTagPos(int cindex, string tag, out Vector2Int index) {
+			index = default;
+			var c = GetCell(cindex);
+			if (c != null)
+			{
+				for (int i = 0; i < c.nears.Length; i += 2)
+				{
+					if (c.nears[i] >= 0)
+					{
+						var n = GetCell(c.nears[i]);
+						if (n != null && n.tags?.Contains(tag) == true)
+						{
+							index = n.ToGrid();
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+
 		public bool GetNearTagPos(int x, int y, string tag, out Vector2Int index)
 		{
 			index = default;
