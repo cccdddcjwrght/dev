@@ -8,6 +8,9 @@ namespace SGame.UI.Main
     public partial class UI_MainUI : GComponent
     {
         public Controller m_main;
+        public Controller m_ad;
+        public GImage m_bgTop;
+        public GImage m_bgBottom;
         public GLoader m_top;
         public UI_ActBtnList m_rightList;
         public UI_ActBtnList m_leftList;
@@ -37,21 +40,24 @@ namespace SGame.UI.Main
             base.ConstructFromXML(xml);
 
             m_main = GetControllerAt(0);
-            m_top = (GLoader)GetChildAt(0);
-            m_rightList = (UI_ActBtnList)GetChildAt(1);
-            m_leftList = (UI_ActBtnList)GetChildAt(2);
-            m_head = (GButton)GetChildAt(3);
-            m_Gold = (GButton)GetChildAt(4);
-            m_Diamond = (GButton)GetChildAt(5);
-            m_buff = (UI_BuffBtn)GetChildAt(6);
-            m_likeBtn = (UI_LikeBtn)GetChildAt(7);
-            m_totalBtn = (UI_TotalBtn)GetChildAt(8);
-            m_levelBtn = (GButton)GetChildAt(9);
-            m_taskRewardBtn = (GButton)GetChildAt(10);
-            m_AdBtn = (GButton)GetChildAt(11);
-            m_skillBtn = (GButton)GetChildAt(12);
-            m_equipBtn = (GButton)GetChildAt(13);
-            m_InvestBtn = (UI_InvestMan)GetChildAt(15);
+            m_ad = GetControllerAt(1);
+            m_bgTop = (GImage)GetChildAt(0);
+            m_bgBottom = (GImage)GetChildAt(1);
+            m_top = (GLoader)GetChildAt(2);
+            m_rightList = (UI_ActBtnList)GetChildAt(3);
+            m_leftList = (UI_ActBtnList)GetChildAt(4);
+            m_head = (GButton)GetChildAt(5);
+            m_Gold = (GButton)GetChildAt(6);
+            m_Diamond = (GButton)GetChildAt(7);
+            m_buff = (UI_BuffBtn)GetChildAt(8);
+            m_likeBtn = (UI_LikeBtn)GetChildAt(9);
+            m_totalBtn = (UI_TotalBtn)GetChildAt(10);
+            m_levelBtn = (GButton)GetChildAt(11);
+            m_taskRewardBtn = (GButton)GetChildAt(12);
+            m_AdBtn = (GButton)GetChildAt(13);
+            m_skillBtn = (GButton)GetChildAt(14);
+            m_equipBtn = (GButton)GetChildAt(15);
+            m_InvestBtn = (UI_InvestMan)GetChildAt(17);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }

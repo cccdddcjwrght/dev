@@ -31,7 +31,7 @@ namespace SGame.UI.Common
             m_redPoint = (GImage)GetChildAt(2);
             m_boostTxt = (GTextField)GetChildAt(3);
             m_timeTxt = (GTextField)GetChildAt(4);
-            m_time = (GTextField)GetChildAt(6);
+            m_time = (GTextField)GetChildAt(5);
         }
     }
 }

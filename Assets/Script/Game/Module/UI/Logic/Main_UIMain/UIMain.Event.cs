@@ -44,8 +44,8 @@ namespace SGame.UI
 			m_rightList.opaque	= false;
 			RegisterUIState();
 			var headBtn = m_view.m_head;
-			leftList.itemRenderer	 = (index, gobject) => RenderNormalItem(m_LeftIconDatas, index, gobject);//+= RenderListItem;
-			m_rightList.itemRenderer = (index, gobject) => RenderNormalItem(m_RightIconDatas, index, gobject);;
+			leftList.itemRenderer	 = (index, gobject) => RenderNormalItem(m_LeftIconDatas, index, gobject, true);//+= RenderListItem;
+			m_rightList.itemRenderer = (index, gobject) => RenderNormalItem(m_RightIconDatas, index, gobject, false);;
 
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
@@ -188,12 +188,14 @@ namespace SGame.UI
 		/// <param name="datas"></param>
 		/// <param name="index"></param>
 		/// <param name="item"></param>
-		private void RenderNormalItem(List<CheckingManager.CheckItem> datas, int index, GObject item)
+		private void RenderNormalItem(List<CheckingManager.CheckItem> datas, int index, GObject item, bool isLeft)
 		{
 			var config = datas[index];
 
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
+			ui.m_side.selectedIndex = isLeft ? 0 : 1;
+
 			
 			if (!string.IsNullOrEmpty(config.uiname))
 				item.name = config.uiname;
