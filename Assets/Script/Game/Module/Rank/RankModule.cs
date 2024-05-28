@@ -9,28 +9,6 @@ using System.Linq;
 
 namespace SGame 
 {
-    public enum RankScoreEnum 
-    {
-        CHAPTER     = 1,    //完成章节次数
-        LEVEL       = 2,    //完成关卡次数
-        BOX         = 3,    //打开场景箱子数量
-        WORKER      = 4,    //雇佣工人数量
-        SELL        = 5,    //出售商品数量
-        SERVE       = 6,    //服务客户人数
-        TIP         = 7,    //收集客人小费次数
-        EQUIP_BOX   = 8,    //打开装备宝箱数量
-        AD          = 9,    //观看广告次数
-        EQUIP_LEVEL = 10,   //升级装备次数
-        EQUIP_STAGE = 11,   //进阶装备次数
-        PET         = 12,   //宠物进化次数
-        FIRST_LOGIN = 13,   //首次登录
-        PET_BORN    = 14,   //宠物孵化次数
-        TABEL_LEVEL = 15,   //加工台升级
-        TECH_LEVEL  = 16,   //科技升级
-        PERFECT     = 17,   //完美制作
-        IMMEDIATE   = 18,   //立即完成
-    }
-
     public partial class DataCenter 
     {
         //自己的排行标识 ?
@@ -75,7 +53,7 @@ namespace SGame
                     int count = 0;
                     ws.ForEach((w) => count += w.stations.Count - 1);
                     count = list.Count - count;
-                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.BOX,  count);  
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.BOX,  count);  
                 }
             });
         }
@@ -160,9 +138,9 @@ namespace SGame
 
         public void AddScoreTypeData(int marker, int value) 
         {
-            if (marker == (int)RankScoreEnum.BOX)
+            if (marker == (int)RecordDataEnum.BOX)
                 rankScore.boxs += value;
-            else if (marker == (int)RankScoreEnum.WORKER)
+            else if (marker == (int)RecordDataEnum.WORKER)
                 rankScore.workers += value;
         }
 
@@ -207,9 +185,9 @@ namespace SGame
         {
             switch (rankScore.type)
             {
-                case (int)RankScoreEnum.BOX:
+                case (int)RecordDataEnum.BOX:
                     return rankScore.boxs;
-                case (int)RankScoreEnum.WORKER:
+                case (int)RecordDataEnum.WORKER:
                     return rankScore.workers;
                 default:
                     break;

@@ -50,7 +50,7 @@ namespace SGame
 				UIUtils.OpenUI("petborn", p);
 				PropertyManager.Instance.Update(1, egg.cfgID, 1, true);
 				_eMgr.Trigger(((int)GameEvent.GAME_MAIN_REFRESH));
-				_eMgr.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.PET_BORN, 1);
+				_eMgr.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.PET_BORN, 1);
 				return p;
 			}
 			return default;
@@ -147,7 +147,7 @@ namespace SGame
 				}
 				if (Utils.CheckItemCount(costID, cost, go: go, call: call , ignorConfirm:true))
 				{
-					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.PET, 1);
+					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.PET, 1);
 					var es = pet.Evo(out var isevo);
 					PropertyManager.Instance.Update(1, costID, cost, true);
 

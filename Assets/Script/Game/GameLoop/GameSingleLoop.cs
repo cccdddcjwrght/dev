@@ -73,6 +73,7 @@ namespace SGame
 			AdModule.Instance.Initalize();
 			RankModule.Instance.Initalize();
 			TransitionModule.Instance.Initalize();
+			RecordModule.Instance.Initalize();
 		}
 
 		/// <summary>

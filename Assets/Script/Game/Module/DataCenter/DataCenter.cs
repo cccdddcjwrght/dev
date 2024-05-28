@@ -158,7 +158,7 @@ namespace SGame
 
 				if (m_foodTipsCount > 0)
 				{
-					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TIP, m_foodTipsCount);
+					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TIP, m_foodTipsCount);
 					m_foodTipsCount = 0;
 				}
 			}

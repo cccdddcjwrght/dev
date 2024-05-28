@@ -165,7 +165,7 @@ namespace SGame
 					//升级消耗
 					PropertyManager.Instance.Update((int)w.lvcfg.UpgradePrice(0), (int)w.lvcfg.UpgradePrice(1), cost, true);
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_UPLEVEL), id, w.level);
-					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TABEL_LEVEL, 1);
+					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TABEL_LEVEL, 1);
 
 					if (w.lvcfg.MachineStar > w.star)//升星奖励
 					{

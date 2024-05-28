@@ -149,13 +149,13 @@ namespace SGame
                 //记录完美完成次数
                 EventManager.Instance.Reg<int>((int)GameEvent.ORDER_PERFECT, (id) =>
                 {
-                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.PERFECT, 1);
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.PERFECT, 1);
                 });
 
                 //记录立即完成次数
                 EventManager.Instance.Reg<int>((int)GameEvent.ORDER_INSTANT, (id) =>
                 {
-                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.IMMEDIATE, 1);
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.IMMEDIATE, 1);
                 });
 
                 EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, RefreshTaskProgress);
@@ -191,7 +191,7 @@ namespace SGame
             {
                 m_taskDataList.taskList.ForEach((t) => 
                 {
-                    if(t.type != (int)RankScoreEnum.FIRST_LOGIN) t.value = 0;
+                    if(t.type != (int)RecordDataEnum.FIRST_LOGIN) t.value = 0;
                 });
                 m_taskDataList.rewardList.ForEach((t) => t.isGet = false);
                 m_taskDataList.oldValue = 0;
@@ -206,7 +206,7 @@ namespace SGame
                 {
                     m_taskDataList.taskList.ForEach((t) =>
                     {
-                        if (t.type == (int)RankScoreEnum.FIRST_LOGIN)
+                        if (t.type == (int)RecordDataEnum.FIRST_LOGIN)
                             t.value = 0;
                     });
                 }

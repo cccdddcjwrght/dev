@@ -86,13 +86,7 @@ namespace SGame
                 
                 m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ORDER_FINSIH, (orderId) =>
                 {
-                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.SELL, 1);
-                });
-                //进入下一关之前计算当前小费的累计次数
-                m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_ROOM, (s) =>
-                {
-                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TIP, DataCenter.Instance.m_foodTipsCount);
-                    DataCenter.Instance.m_foodTipsCount = 0;
+                    EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.SELL, 1);
                 });
             }
 

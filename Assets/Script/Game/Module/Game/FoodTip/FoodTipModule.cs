@@ -61,7 +61,7 @@ namespace SGame
             
             // 添加金币
             property.AddNum((int)ItemID.GOLD,food.gold);
-            EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.TIP, food.count);
+            EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TIP, food.count);
 
             //小费累计次数
             DataCenter.Instance.m_foodTipsCount -= food.count;

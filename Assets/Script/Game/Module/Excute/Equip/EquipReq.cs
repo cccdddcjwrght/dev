@@ -32,7 +32,7 @@ namespace SGame
 			equip.level = 1;
 			equip.progress = 0;
 			equip.Refresh();
-			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.EQUIP_STAGE, 1);
+			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EQUIP_STAGE, 1);
 			EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_merge", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 			DataCenter.EquipUtil.RemoveEquips(eqs);
 			log.Info($"[equip] recycle mat:{count}");
@@ -49,7 +49,7 @@ namespace SGame
 				equip.progress = 0;
 				equip.Refresh();
 				EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
-				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.EQUIP_LEVEL, 1);
+				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EQUIP_LEVEL, 1);
 				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_upgrade", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 			}
 		}
