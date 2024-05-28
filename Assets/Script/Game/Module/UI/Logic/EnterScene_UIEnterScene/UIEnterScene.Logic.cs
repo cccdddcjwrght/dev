@@ -252,11 +252,11 @@ namespace SGame.UI
 			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 
 			//记录关卡完成数量
-			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.LEVEL, 1);
+			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.LEVEL, 1);
 
 			//记录当前章节完成数量
 			if (ConfigSystem.Instance.TryGet<RoomRowData>(_nextScene, out var nextCfg) && ConfigSystem.Instance.TryGet<RoomRowData>(_nextScene - 1, out var curCfg)) 
-				if(nextCfg.RegionId != curCfg.RegionId) EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RankScoreEnum.CHAPTER, 1);
+				if(nextCfg.RegionId != curCfg.RegionId) EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.CHAPTER, 1);
 			
 		}
 		#endregion
