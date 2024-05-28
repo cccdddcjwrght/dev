@@ -62,9 +62,20 @@ public class Game : SGame.MonoSingleton<Game>
 
 #endif
 
+	[System.Diagnostics.Conditional("ENABLE_DEBUG")]
+	private void DebugInit()
+	{
+		GameCamera.camera.gameObject.AddComponent<RemoteDebugAttach>();
+		this.gameObject.AddComponent<RemoteDebugAttach>();
+		FairyGUI.GRoot.inst.displayObject.gameObject.transform.parent.gameObject.AddComponent<RemoteDebugAttach>();
+		FairyGUI.StageCamera.main.gameObject.AddComponent<RemoteDebugAttach>();
+	}
+
 	protected override void Awake()
 	{
 		base.Awake();
+
+		DebugInit();
 
 		Application.targetFrameRate = 100;
 		m_isInitalized = false;
