@@ -485,7 +485,7 @@ namespace SGame.Dining
 				}
 				else
 				{
-					DoPreview(region, m.ActiveBox == 0);
+					DoPreview(region,false);
 				}
 			}
 		}
@@ -930,6 +930,10 @@ namespace SGame.Dining
 				{
 					place.waitActive = true;
 					region.SetNextUnlock(place);
+
+					if (!autoactive)
+						autoactive = ConfigSystem.Instance.TryGet(place.cfgID, out RoomMachineRowData cfg) && cfg.ActiveBox == 0;
+
 					if (!autoactive)
 						region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject, name: "scene_grid");
 					else
