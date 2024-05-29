@@ -806,6 +806,11 @@ MonoBehaviour:
         - name: walkable
           i_val: 0
           s_val: 
+          b_val: 1
+          list: []
+        - name: walkcost
+          i_val: 0
+          s_val: 
           b_val: 0
           list: []
       mutex: 0
@@ -828,7 +833,7 @@ MonoBehaviour:
       navArea: 1
       setSort: 0
       sortLayerId: 0
-      sortOrder: 0
+      sortOrder: 3
       customThumb: {fileID: 0}
       meta: 
   lastSetIdent: 3
