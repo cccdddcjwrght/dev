@@ -64,7 +64,6 @@ public interface IDownload
 public class Downloader : IDownload
 {
     const int BUFF_SIZE         = 6000; // 6kb BUFF大小
-    const int WAIT_TIMEOUT      = 2000;
 
     // 下载超时
     private int _timeOut        = 10000;  // 10秒

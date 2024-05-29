@@ -121,7 +121,7 @@ namespace SGame
         }
 
         // 开始下载
-        public void Initalize(string remoteUrl)
+        public void Initalize(string remoteUrl, int timeOut)
         {
             // 版本下载地址
             m_ServerUrl     = remoteUrl;
@@ -148,6 +148,7 @@ namespace SGame
             // 设置使用路径
             //Assets.updatePath   = m_saveDir;
             m_downloader        = new Downloader();
+            m_downloader.timeOut = timeOut;
             m_fiber             = new Fiber(Run(), FiberBucket.Manual);
         }
 

@@ -54,6 +54,22 @@ namespace SGame.Hotfix
 	        UpdateUtils.OpenUrl(appstore);
         }
 
+        static double GetMb(long value)
+        {
+	        double v = value;
+	        return v / 1024 / 1024;
+	        //return string.Format("{0}")
+        }
+        
+
+        string GetDownloadString(long downloadSize, long totalSize)
+        {
+	        if (totalSize == 0)
+		        return "";
+
+	        return string.Format("DOWNLOAD SIZE={0:N2}MB/{1:N2}MB", GetMb(downloadSize), GetMb(totalSize));
+        }
+
         IEnumerator RunLogic()
         {
 	        var update_url = IniUtils.GetLocalValue("@update_url");
@@ -62,9 +78,15 @@ namespace SGame.Hotfix
 		        log.Error("update_url not found!");
 		        yield break;
 	        }
+
+	        if (!int.TryParse(IniUtils.GetLocalValue("update_timeout"), out int timeOut))
+	        {
+		        log.Error("update_timeout not found!");
+		        yield break;
+	        }
 	        
 	        log.Info("update_url=" + update_url);
-			VersionUpdater.Instance.Initalize(update_url);
+			VersionUpdater.Instance.Initalize(update_url, timeOut);
 			VersionUpdater updater = VersionUpdater.Instance;
 			m_text.text = "Checking";
 			
@@ -79,7 +101,7 @@ namespace SGame.Hotfix
 		            double total = updater.totalSize;
 		            total = total > 0 ? total : 1;
 		            double proggress = updater.downloadSize / total;
-		            m_text.text = "DOWNLOAD SIZE =" + updater.downloadSize + " bytes";
+		            m_text.text = GetDownloadString(updater.downloadSize, updater.totalSize);//"DOWNLOAD SIZE =" + updater.downloadSize + " bytes";
 		            m_progressBar.value = proggress * 100.0f;
 		            log.Info("hotfix download file=" + updater.downloadSize);
 	            }

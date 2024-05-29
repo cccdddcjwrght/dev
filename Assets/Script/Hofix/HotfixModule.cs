@@ -25,7 +25,7 @@ namespace SGame.Hotfix
             var ret = new UIPackageRequest((uiPackage) =>
             {
                  log.Warn("load package =" + uiPackage);
-                 return null;
+                 return m_packageRequest.Load(uiPackage);
             });
             return ret;
         }
@@ -43,6 +43,12 @@ namespace SGame.Hotfix
 
         public IEnumerator RunHotfix()
         {
+            if (!UpdateUtils.HasNetwork())
+            {
+                log.Error("no network, update cancle!");
+                yield break;
+            }
+            
             // UI包加载
             m_packageRequest         = new ResourceLoader<UIPackageRequest>(PackageRequestFactory);
             UIPackageRequest uiPkg  = m_packageRequest.Load(Define.HOTFIX_PACKAGE_NAME);

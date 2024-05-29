@@ -15,6 +15,15 @@ namespace SGame
         {
             return Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork;
         }
+
+        /// <summary>
+        /// 判断是否联网
+        /// </summary>
+        /// <returns></returns>
+        public static bool HasNetwork()
+        {
+            return Application.internetReachability != NetworkReachability.NotReachable;
+        }
         
         public static void OpenUrl(string url)
         {
