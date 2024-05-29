@@ -20,15 +20,7 @@ namespace SGame
         public int2 GetCharacterEmptyIdlePos(int characterID)
         {
             var character = CharacterModule.Instance.FindCharacter(characterID);
-            var tag = Utils.GetMapTagFromRoleType(character.roleType);
-
-            var list = GameTools.MapAgent.GetTagGrids(tag);
-            //角色待机区域只有一个，好友雇佣也算角色类型，默认把厨师待机区域也加上
-            if (character.roleType == (int)EnumRole.Player)
-            {
-                string born2 = Utils.GetMapTagFromRoleType((int)EnumRole.Cook);
-                list.AddRange(GameTools.MapAgent.GetTagGrids(born2));
-            }
+            var list = GameTools.MapAgent.GetTagGrids("idle");
 
             foreach (var item in m_IdlePos)
             {
