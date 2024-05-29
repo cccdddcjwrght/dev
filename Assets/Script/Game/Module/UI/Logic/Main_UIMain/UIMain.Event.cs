@@ -98,6 +98,8 @@ namespace SGame.UI
 
 			m_funcManager = new CheckingManager();
 
+			//任务
+			m_funcManager.Register(32, ()=> DataCenter.TaskMainUtil.IsShow());
 			//排行榜
 			m_funcManager.Register(26, ()=> RankModule.Instance.IsOpen(), ()=> RankModule.Instance.GetRankTime());
 

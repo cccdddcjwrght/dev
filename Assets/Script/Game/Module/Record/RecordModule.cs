@@ -22,9 +22,15 @@ namespace SGame
         FIRST_LOGIN     = 13,   //首次登录
         PET_BORN        = 14,   //宠物孵化次数
         TABEL_LEVEL     = 15,   //加工台升级
-        TECH_LEVEL      = 16,   //科技升级
-        PERFECT         = 17,   //完美制作
-        IMMEDIATE       = 18,   //立即完成
+        TECH_LEVEL      = 16,   //科技升级次数
+        PERFECT         = 17,   //完美制作次数
+        IMMEDIATE       = 18,   //立即完成次数
+
+        //任务类型
+        MACHINE         = 19,   //操作台id升到X级
+        TABLE           = 20,   //桌子id升到X级
+        DECORATION      = 21,   //摆件id升到X级
+        AREA            = 22,   //解锁区域id
     }
 
     public enum RecordFunctionId 
@@ -33,6 +39,7 @@ namespace SGame
         RANK        = 26,   //排行
         EXCHANGE    = 28,   //兑换活动
         CLUB        = 31,   //俱乐部
+        TASK        = 32,   //主线任务
     }
 
     [Serializable]
@@ -111,7 +118,7 @@ namespace SGame
             });
         }
 
-        public  int GetValue(int type, int funcId = 0) 
+        public int GetValue(int type, int funcId = 0) 
         {
             var index = m_RecordTotalData.data.FindIndex((d) => d.funcId == funcId);
             if (index >= 0) 

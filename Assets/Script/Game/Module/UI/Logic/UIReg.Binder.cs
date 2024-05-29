@@ -75,6 +75,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("ClubRewardUI", "Club", ()=>new UIClubReward());
 			context.uiModule.Reg("ClubDetailUI", "Club", ()=>new UIClubDetail());
 			context.uiModule.Reg("LockPanelUI", "Worktable", ()=>new UILockPanel());
+			context.uiModule.Reg("TaskUI", "Task", ()=>new UITask());SGame.UI.Task.TaskBinder.BindAll();;
 		}
 	}
 }

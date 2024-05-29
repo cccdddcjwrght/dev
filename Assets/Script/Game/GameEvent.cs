@@ -176,5 +176,7 @@ namespace SGame
 		CLUB_LIST_UPDATE				= 21002, //俱乐部列表刷新
 		CLUB_REWARD_UPDATE				= 21003, //俱乐部奖励刷新
 		CLUB_MEMBER_REMOVE				= 21004, //俱乐部移除成员
+
+		MAIN_TASK_UPDATE				= 22000, //主线任务刷新
 	}
 }
