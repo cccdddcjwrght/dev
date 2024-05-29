@@ -7,8 +7,10 @@ namespace SGame
     /// <summary>
     /// 点击小费
     /// </summary>
-    public class FoodTipClick : MonoBehaviour, ITouchOrHited
+    public class FoodTipClick : MonoBehaviour, ITouchOrHited,ITrigger
     {
+		public bool isTrigger { get; set; } = false;
+
         /// <summary>
         /// 鼠标点击
         /// </summary>

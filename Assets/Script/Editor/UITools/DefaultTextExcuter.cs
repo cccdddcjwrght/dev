@@ -4,7 +4,7 @@ using System;
 using FairyGUI;
 using System.Collections.Generic;
 
-public class DefaultTextExcuter : IUIExcute,IUIDisable
+public class DefaultTextExcuter : IUIExcute/*,IUIDisable*/
 {
 	public string step => "ui";
 	public static Type[] types = { typeof(GTextField), typeof(GLabel), typeof(GButton), typeof(GProgressBar) };
