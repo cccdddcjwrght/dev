@@ -97,6 +97,10 @@ public class Game : SGame.MonoSingleton<Game>
 	{
 		VSEventBridge.Instance.Init();
 		
+		// 版本设置
+		if (GameData.gameVersion == null)
+			GameData.gameVersion = IniUtils.LoadLocalVersion();
+		
 		// 资源加载初始化
 		ManifestRequest assetRequest = libx.Assets.Initialize();
 		yield return assetRequest;

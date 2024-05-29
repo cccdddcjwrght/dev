@@ -4,6 +4,7 @@ using SGame.UI.Login;
 using Unity.Entities;
 using UnityEngine;
 using System;
+using GameConfigs;
 using SGame.Http;
 using Unity.Entities.UniversalDelegates;
 
@@ -21,9 +22,9 @@ namespace SGame
 			m_view = context.content as UI_Login;
 			m_view.m_btn_login.onClick.Add(OnClick);
 			m_view.m_account.text = PlayerPrefs.GetString("user", "test");
+			m_view.m_ver.text = GameData.gameVersion.showVer;
 			UI.UIUtils.SetLogo(m_view);
 		}
-
 
 		// 按下按钮
 		public void OnClick()

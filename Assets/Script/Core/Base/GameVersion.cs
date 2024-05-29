@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using System.IO;
-
+using UnityEngine;
+using UnityEngine.Serialization;
 namespace SGame
 {
     // 游戏版本信息
@@ -9,14 +13,28 @@ namespace SGame
     public class GameVersion
     {
         public string   ver;          // 显示版本号
-        public int      buildNo;      // 编译版本(资源版本不用走热更新)
+        public int      buildNo;      // 最新资源版本(资源版本走热更新)
         public int      codeVer;      // 代码版本(代码版本不同要走大更新)
-        public int      protoVer;     // 协议版本(协议版本用于服务器验证)
+        public int      protoVer;     // 协议版本(协议版本用于服务器验证, 协议版本如果不一致就必须要更新)
         public bool     server_close; // 服务器是否关闭, 若是显示停服公告
-        public string[] resource_url; // 代码更新资源地址
+        
+        /// <summary>
+        /// 用于远端测试
+        /// </summary>
+        public string   test_remote_url; // 要加载的远端URL, 例如 "http://127.0.0.1/ver/test_game_ver.json"
 
         // 版本文件默认名字
         public const string FileName = "GameVersion.json";
+
+        // 获取显示版本号
+        public string showVer
+        {
+            get
+            {
+                string ret = string.Format("{0}_{1}.{2}.{3}", ver, codeVer, protoVer, buildNo);
+                return ret;
+            }
+        }
 
         public GameVersion()
         {
@@ -25,7 +43,7 @@ namespace SGame
             codeVer       = 0;
             protoVer      = 0;
             server_close  = false;  
-            resource_url  = new string[] { };
+            test_remote_url = "";
         }
 
         public void Copy(GameVersion other)
@@ -35,7 +53,7 @@ namespace SGame
             buildNo          = other.buildNo;
             protoVer         = other.protoVer;
             server_close     = other.server_close;
-            resource_url     = new string[other.resource_url.Length];
+            test_remote_url  = other.test_remote_url;
         }
         
         /// <summary>
@@ -54,6 +72,7 @@ namespace SGame
         /// <returns></returns>
         public static GameVersion LoadJson(string jsonStr)
         {
+            GameVersion ret = null;
             try
             {
                 return JsonUtility.FromJson<GameVersion>(jsonStr);

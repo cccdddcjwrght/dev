@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System.Threading;
 using Fibers;
 using libx;
 using log4net;
@@ -45,8 +44,6 @@ namespace SGame
             NETWORK_BREAK       = 7,                            // 网络断开链接
         }
 
-        private static ILog log = LogManager.GetLogger("hotfix.versionupdate");
-
         public delegate void    UPDATE_STATE(STATE newState);   // 更新回调
         string                  m_error                     ;   // 错误信息
         Error                   m_errCode                   ;   // 错误代码
@@ -68,6 +65,15 @@ namespace SGame
         GameVersion             m_RemoteVer                 ;   // 远程版本
         GameVersion             m_LocalVer  = new GameVersion();   // 本地版本
         string                  m_ServerUrl                 ;   // 远端URL
+
+        // 是否需要重启
+        public bool isNeedRestart
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         // 判断是否结束
         public bool             isDone          { get { return m_curState >= STATE.FAIL; } }
@@ -92,6 +98,8 @@ namespace SGame
 
         // 当前游戏版本号
         public GameVersion gameVersion { get { return m_LocalVer;  } }
+
+        private static ILog log = LogManager.GetLogger("Core.Update");
         
         public static bool useVersionUpdater
         {
@@ -125,7 +133,7 @@ namespace SGame
             m_downloadDir   = UpdateUtils.GetDownloadPath();
             
             // Unity Stream Assets 资源路径
-            m_streamDir     = UpdateUtils.GetStreamingAssetsPath();
+            m_streamDir = UpdateUtils.GetStreamingAssetsPath();
 
 #if UNITY_EDITOR
             // 没开启更新流程直接进入游戏
@@ -223,6 +231,19 @@ namespace SGame
                 yield return null;
         }
 
+        /// <summary>
+        /// 是否是快速更新, 快速更新不检测资源版本号, 只要协议版本通过就通过
+        /// </summary>
+        private bool m_isFastUpdate = false;
+        public bool IsFastUpdate
+        {
+            get => m_isFastUpdate;
+            set
+            {
+                m_isFastUpdate = value;
+            }
+        }
+
         // 下载 资源信息(版本信息, hashfile, serverList
         IEnumerator LoadVersion()
         {
@@ -238,10 +259,25 @@ namespace SGame
             
             // 下载GameVersion.json
             UpdateUtils.StrReturn err = new UpdateUtils.StrReturn();
-            yield return UpdateUtils.DownloadFile(m_ServerUrl + GameVersion.FileName, remoteTmpFile, err);
+            string downloadRemoteUrl = "";
+            
+            if (string.IsNullOrEmpty(m_LocalVer.test_remote_url))
+            {
+                // 正常下载
+                downloadRemoteUrl = m_ServerUrl + GameVersion.FileName;
+            }
+            else
+            {
+                // 下载测试版本
+                downloadRemoteUrl = m_LocalVer.test_remote_url;
+            }
+            yield return UpdateUtils.DownloadFile(downloadRemoteUrl, remoteTmpFile, err);
+
+            
             if (!string.IsNullOrEmpty(err.Value))
             {
-                SetError(Error.DOWN_LOAD_FAIL, err.Value + " url=" + m_ServerUrl);
+                Debug.LogError("download path=" + downloadRemoteUrl);
+                SetError(Error.DOWN_LOAD_FAIL, err.Value);
                 yield break;
             }
             
@@ -265,19 +301,25 @@ namespace SGame
                 yield break;
             }
 
-            if (m_RemoteVer.buildNo <= localVer.buildNo)
+            // 协议版本检测
+            if (m_RemoteVer.protoVer <= localVer.protoVer)
             {
-                // 最新版本
-                SwitchState(STATE.LASTVERSION);
+                // 资源更新检测, 如果是快速更新则无需处理资源更新
+                if (m_RemoteVer.buildNo <= localVer.buildNo || IsFastUpdate)
+                {
+                    // 最新版本
+                    SwitchState(STATE.LASTVERSION);
+                    yield break;
+                }
             }
-            
+
             // 正常进入更新
             // 拷贝文件
             FileOperator.CopyFile(remoteTmpFile, downloadPath + GameVersion.FileName, true);
             File.Delete(remoteTmpFile);
             
             // 热更通知
-            //EventManager.Instance.Trigger((int)GameEvent.GAME_UPDATE_START, 0); // 通知强更
+            //EventManager.Instance.Trigger((int)GameEvent.GAME_UPDATE_START, 0); // 通知正常更新
         }
         
 
@@ -316,6 +358,8 @@ namespace SGame
             foreach (var f in m_updateList)
             {
                 string  filePath    = Path.Combine(m_downloadDir, f.name);
+                string  md5         = null;
+                long    fileSize    = 0;
                 yield return WaitPause();
                 using (var fs = new FileStream(filePath, FileMode.Open))
                 {
@@ -374,6 +418,10 @@ namespace SGame
             Assets.Clear();
             yield return Assets.Initialize();
             //ConfigSystem.Instance.Reload();
+            //LuaSystem.Instance.Reload();
+            m_LocalVer = m_RemoteVer;
+            
+            //EventManager.Instance.Trigger((int)GameEvent.GAME_RELOAD);
         }
 
         // 清空下载目录
@@ -407,6 +455,15 @@ namespace SGame
             {
                 _mCbUpateState(state);
             }
+        }
+
+        /// <summary>
+        /// 判断本地是否有GameVersion文件, 用于判断是否首次进入
+        /// </summary>
+        /// <returns></returns>
+        public bool GameVersionExists()
+        {
+            return File.Exists(m_saveDir + GameVersion.FileName);
         }
 
         // 将Stream中的文件解压到存储位置
@@ -446,7 +503,7 @@ namespace SGame
         {
             return string.Format("{0}_{1}", Versions.Filename, buildNo);
         }
-
+        
         // 下载更新文件
         IEnumerator DownloadRemoteFiles()
         {
@@ -461,7 +518,8 @@ namespace SGame
              
             // 下载文件描述信息
             string error = null;
-            foreach (var url in m_RemoteVer.resource_url)
+            string[] resource_url = UpdateUtils.GetResourceUrl();
+            foreach (var url in resource_url)
             {
                 if (File.Exists(localVersionsPath))
                     File.Delete(localVersionsPath);
@@ -470,6 +528,12 @@ namespace SGame
                 UpdateUtils.StrReturn err = new UpdateUtils.StrReturn();
                 yield return UpdateUtils.DownloadFile(srcUrl, localVersionsPath, err);
                 error = err.Value;
+
+                if (string.IsNullOrEmpty(error))
+                    break;
+                
+                log.Warn("Down load Fail Url = " + srcUrl);
+                break;
             }
             if (!string.IsNullOrEmpty(error))
             {
@@ -487,7 +551,7 @@ namespace SGame
             SwitchState(STATE.DOWNLOADING);
 
             // 尝试3个CDN去下载
-            foreach (var url in m_RemoteVer.resource_url)
+            foreach (var url in resource_url)
             {
                 yield return DownloadUpdateList(url);
                 if (m_errCode == Error.SUCCESS)
@@ -509,41 +573,39 @@ namespace SGame
             Debug.Log("downloadPath=" + m_downloadDir);
             if (m_error != null)
             {
+                Debug.LogError("down load error=" + m_error);
                 SwitchState(STATE.FAIL);
                 yield break;
             }
             
             // 下载远程版本号与hash文件
-            log.Info("copy stream asset...");
             yield return CopyStreamAsset();
             if (state >= STATE.FAIL)
                 yield break;
             
             // 加载版本信息
-            log.Info("load version ...");
             yield return LoadVersion();
             if (state >= STATE.FAIL)
                 yield break;
+            yield return WaitPause();
+
 
             // 进入下载
-            log.Info("DownloadRemoteFiles ...");
             yield return DownloadRemoteFiles();
             if (state >= STATE.FAIL)
                 yield break;
+            yield return WaitPause();
 
             // 下载更新列表中的文件(相同的文件会自动续传)
-            log.Info("CheckDownloadFileMd5 ...");
             yield return CheckDownloadFileMd5();
             if (state >= STATE.FAIL)
                 yield break;
 
             // 拷贝下载目录到目标文件夹
-            log.Info("CopyDownloadfiles ...");
             yield return CopyDownloadfiles();
             yield return WaitPause();
 
             // 重新加载资源
-            log.Info("ReloadAssetManager ...");
             yield return ReloadAssetManager();
             yield return WaitPause();
 

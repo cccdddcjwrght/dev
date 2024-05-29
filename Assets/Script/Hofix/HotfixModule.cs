@@ -22,7 +22,11 @@ namespace SGame.Hotfix
         // PACKAGE 工厂
         UIPackageRequest PackageRequestFactory()
         {
-            var ret = new UIPackageRequest((uiPackage)=>m_packageRequest.Load(uiPackage));
+            var ret = new UIPackageRequest((uiPackage) =>
+            {
+                 log.Warn("load package =" + uiPackage);
+                 return null;
+            });
             return ret;
         }
         

@@ -4,12 +4,14 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Reflection;
+using libx;
 
 namespace SGame
 {
     public class IniUtils
     {
         private static Dictionary<string, string> m_localIni = null;
+
         static public Dictionary<string, string> GetLocalIni()
         {
             var asset = Resources.Load<TextAsset>("local");
@@ -28,9 +30,10 @@ namespace SGame
 
         public static string GetLocalValue(string key)
         {
-            //if (m_localIni == null)
-            //    m_localIni = GetLocalIni();
-            var ini = GetLocalIni();
+            if (m_localIni == null)
+                m_localIni = GetLocalIni();
+
+            var ini = m_localIni;
             if (ini.TryGetValue(key, out string ret))
             {
                 return ret;
@@ -88,5 +91,20 @@ namespace SGame
             return dataList;
         }
 
+        public static GameVersion LoadLocalVersion()
+        {
+            #if UNITY_EDITOR
+                // 没开启更新流程直接进入游戏
+                if (!Assets.useVersionUpdate || !System.IO.File.Exists("Assets/" + GameVersion.FileName))
+                {
+                    return GameVersion.LoadFile("Assets/" + GameVersion.FileName);
+                }
+            #endif
+
+            if (!System.IO.File.Exists("Assets/" + GameVersion.FileName))
+                return new GameVersion() { buildNo = 0, codeVer = 0, protoVer = 0, ver = "er0.0.1" };
+            
+            return GameVersion.LoadFile(Assets.basePath + GameVersion.FileName);
+        }
     }
 }

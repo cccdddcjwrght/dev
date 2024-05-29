@@ -115,6 +115,14 @@ namespace SGame
         {
             return string.Format("{0}{1}DownloadFiles{1}", Application.persistentDataPath, Path.DirectorySeparatorChar);
         }
+
+        // 获得更新资源路径
+        public static string[] GetResourceUrl()
+        {
+            string value = IniUtils.GetLocalValue("@resource_url");
+            string[] rets = value.Split("|",StringSplitOptions.RemoveEmptyEntries);
+            return rets;
+        }
         
         // 获得StreamAssets Path
         public static string GetStreamingAssetsPath()

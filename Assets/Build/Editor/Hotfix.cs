@@ -112,6 +112,7 @@ namespace SGame
             }
             
             // 下载资源路径
+            /*
             var resource_url = SGame.IniUtils.GetLocalValue("@resource_url");
             if (!string.IsNullOrEmpty(resource_url))
             {
@@ -119,6 +120,7 @@ namespace SGame
                 string[] resource_urls = resource_url.Split("|");
                 gameVersion.resource_url = resource_urls;
             }
+            */
 
             gameVersion.ver = PlayerSettings.bundleVersion;
             gameVersion.ToFile(gameVersionPath);

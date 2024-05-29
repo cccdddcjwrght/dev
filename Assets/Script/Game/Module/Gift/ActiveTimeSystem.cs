@@ -142,7 +142,7 @@ namespace SGame
 
 			if (offset1 >= offset2)
 			{
-				log.Error(string.Format("time1={0} lagre than time2={1}", offset1, offset2));
+				log.Error(string.Format("time1={0} lagre than time2={1} id={2}", offset1, offset2, id));
 				return false;
 			}
 			var timeRange = new TimeRange() { tMin = offset1, tMax = offset2 };

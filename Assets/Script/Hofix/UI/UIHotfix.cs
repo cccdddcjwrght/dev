@@ -100,7 +100,8 @@ namespace SGame.Hotfix
 	            yield break;
             }
 			
-			// 热更新结束, 发送事件
+			// 热更新结束, 保存版本号
+			GameData.gameVersion = updater.gameVersion;
 			EventManager.Instance.Trigger((int)HotfixGameEvent.HOTFIX_DONE);
 			log.Info("hotfix successs ....");
         }
