@@ -14,8 +14,10 @@ namespace SGame.Hotfix
         private Fiber			m_fiber;
         private GProgressBar	m_progressBar;
         private GTextField		m_text;
+        private GTextField		m_ver;
         private EventHanle		m_eventHandle;
         private static ILog log = LogManager.GetLogger("hotfix");
+        private GameVersion		m_gameVersion = null;
 
         private void Start()
         {
@@ -23,8 +25,9 @@ namespace SGame.Hotfix
 	        var content = uiPanel.ui;
 	        m_progressBar = content.GetChild("Processbar").asProgress;
 	        m_text        = content.GetChild("Message").asTextField;
+	        m_ver		  = content.GetChild("ver").asTextField;
 	        m_fiber       = new Fiber(RunLogic());
-            
+	        m_ver.text	  = "";
 	        m_eventHandle   = EventManager.Instance.Reg((int)HotfixGameEvent.LOGIN_READLY, OnEventGameLogin);
 	        UIUtils.SetLogo(content);
         }
@@ -95,6 +98,13 @@ namespace SGame.Hotfix
             m_progressBar.max = 100;
             while (updater.isDone == false)
             {
+	            // 更新当前版本号的线上
+	            if (m_gameVersion == null && updater.state >= VersionUpdater.STATE.CHECK_VERSION)
+	            {
+		            m_gameVersion = updater.gameVersion;
+		            m_ver.text = m_gameVersion.showVer;
+	            }
+	            
 	            var state = updater.state;
 	            if (state == VersionUpdater.STATE.DOWNLOADING)
 	            {
