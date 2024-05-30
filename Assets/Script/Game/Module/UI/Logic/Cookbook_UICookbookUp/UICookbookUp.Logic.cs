@@ -52,9 +52,9 @@ namespace SGame.UI
 
 		private void SetUpState()
 		{
-			var flag = data.CanUpLv(out var scenelimit);
+			var flag = data.CanUpLv(out var scenelimit, out var itemnot);
 			var cost = data.GetCost(out _, out var currency);
-			m_view.m_type.selectedIndex = data.IsMaxLv() ? 2 : flag ? 0 : 1;
+			m_view.m_type.selectedIndex = data.IsMaxLv() ? 2 : flag || itemnot ? 0 : 1;
 			m_view.m_cost.SetText(Utils.ConvertNumberStr(cost), false);
 			m_view.m_currency.selectedIndex = currency;
 			if (!flag)
@@ -64,7 +64,7 @@ namespace SGame.UI
 					ConfigSystem.Instance.TryGet(data.lvCfg.Map, out RoomRowData room);
 					m_view.m_limit.SetText("ui_cookbook_condition_level".Local(null, room.Name.Local()));
 				}
-				else
+				else if (!itemnot)
 				{
 					switch (data.lvCfg.ConditionType)
 					{
@@ -77,6 +77,8 @@ namespace SGame.UI
 							break;
 					}
 				}
+				else
+					m_view.m_click.grayed = true;
 			}
 		}
 

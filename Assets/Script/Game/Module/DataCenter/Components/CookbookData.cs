@@ -53,7 +53,7 @@ namespace SGame
 				if (book != null)
 				{
 					var cost = book.lvCfg.GetCostArray();
-					PropertyManager.Instance.UpdateByArgs( true , cost);
+					PropertyManager.Instance.UpdateByArgs(true, cost);
 					book.level++;
 					book.Refresh();
 					EventManager.Instance.Trigger(((int)GameEvent.COOKBOOK_UP_LV), id, book.level);
@@ -123,24 +123,39 @@ namespace SGame
 			}
 			return 0;
 		}
-
 		public bool CanUpLv(out bool scenelimit)
 		{
+			return CanUpLv(out scenelimit, out _);
+		}
+
+		public bool CanUpLv(out bool scenelimit, out bool itemnot)
+		{
 			scenelimit = false;
+			itemnot = false;
 			if (IsMaxLv()) return false;
 			if (lvCfg.IsValid())
 			{
 				var scene = DataCenter.Instance.roomData.roomID;
 				if (lvCfg.Map == scene)
 				{
+					var f = false;
 					switch (lvCfg.ConditionType)
 					{
 						case 1:
-							return DataCenter.Instance.roomData.tables.Contains(lvCfg.ConditionValue);
+							f = DataCenter.Instance.roomData.tables.Contains(lvCfg.ConditionValue);
+							break;
 						case 2:
-							return DataCenter.MachineUtil.IsAreaEnable(lvCfg.ConditionValue);
-						default: return true;
+							f = DataCenter.MachineUtil.IsAreaEnable(lvCfg.ConditionValue);
+							break;
 					}
+					if (!f) return false;
+					if (!PropertyManager.Instance.CheckCountByArgs(lvCfg.GetCostArray()))
+					{
+						itemnot = true;
+						return false;
+					}
+					return true;
+
 				}
 				scenelimit = true;
 				return scene > lvCfg.Map;
