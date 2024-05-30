@@ -136,12 +136,14 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
-			if (this.data.CanUpLv(out _))
+			if (Utils.CheckItemCount((int)this.data.lvCfg.Cost(1), this.data.lvCfg.Cost(2)))
 			{
-				DataCenter.CookbookUtils.UpLv(this.data.id);
-				SetChangeInfo();
+				if (this.data.CanUpLv(out _))
+				{
+					DataCenter.CookbookUtils.UpLv(this.data.id);
+					SetChangeInfo();
+				}
 			}
 		}
-
 	}
 }
