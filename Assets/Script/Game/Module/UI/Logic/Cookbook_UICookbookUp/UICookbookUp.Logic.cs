@@ -19,14 +19,16 @@ namespace SGame.UI
 			data = context.GetParam()?.Value.To<object[]>().Val<CookBookItem>(0);
 			if (data == null) { DoCloseUIClick(null); return; }
 			m_view.m_stars.itemRenderer = SetStarInfo;
-
 			SetInfo();
+			EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnEvent);
+
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
 			data = default;
 			stars = default;
+			EventManager.Instance.UnReg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnEvent);
 		}
 
 		#endregion
@@ -136,14 +138,13 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
-			if (Utils.CheckItemCount((int)this.data.lvCfg.Cost(1), this.data.lvCfg.Cost(2)))
+			if (this.data.CanUpLv(out _))
 			{
-				if (this.data.CanUpLv(out _))
-				{
-					DataCenter.CookbookUtils.UpLv(this.data.id);
-					SetChangeInfo();
-				}
+				DataCenter.CookbookUtils.UpLv(this.data.id);
+				SetChangeInfo();
 			}
 		}
+
+		void OnEvent(int id, int a, int b, int c) => SetUpState();
 	}
 }
