@@ -34,7 +34,7 @@ namespace SGame.UI
 		void SetInfo()
 		{
 			m_view.GetChild("icon").SetIcon(data.cfg.Icon);
-			m_view.SetText(data.cfg.Name);
+			m_view.SetTextByKey(data.cfg.Name);
 			m_view.m_tips.SetTextByKey(data.cfg.Description);
 			m_view.m_stars.RemoveChildrenToPool();
 
