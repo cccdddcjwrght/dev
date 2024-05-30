@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4960249272701471737}
-  - component: {fileID: 3174950046138535664}
-  - component: {fileID: 5613653447966721923}
+  - component: {fileID: 5872426343333822141}
+  - component: {fileID: 766781693395823258}
   m_Layer: 0
   m_Name: clothes-25
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &3174950046138535664
+--- !u!137 &5872426343333822141
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52,8 +52,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 5629084884208175553, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,7 +119,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.02498465, y: -0.00000031292439, z: 0.07098468}
     m_Extent: {x: 0.19764319, y: 0.39689696, z: 0.18590565}
   m_DirtyAABB: 0
---- !u!114 &5613653447966721923
+--- !u!114 &766781693395823258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
