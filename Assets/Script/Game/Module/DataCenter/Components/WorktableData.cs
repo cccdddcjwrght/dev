@@ -62,7 +62,12 @@ namespace SGame
 						if (worktable.stations.Count == 1)
 						{
 							EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_ENABLE), worktable.id);
-							if (!worktable.isTable) DataCenter.Instance.roomData.current.worktableCount++;
+							if (!worktable.isTable)
+							{
+								DataCenter.Instance.roomData.current.worktableCount++;
+								if (!DataCenter.Instance.roomData.tables.Contains(worktable.id))
+									DataCenter.Instance.roomData.tables.Add(worktable.id);
+							}
 						}
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), worktable.id, id);
 						if (worktable.lv == 0) UpdateLevel(worktable.id, worktable.scene);
@@ -362,7 +367,7 @@ namespace SGame
 			{
 				if (ConfigSystem.Instance.TryGet<RoomMachineRowData>(id, out var m))
 				{
-					if (m.Enable == 1 || m.DependsLength > 0 )
+					if (m.Enable == 1 || m.DependsLength > 0)
 						return false;
 					return true;
 				}
@@ -571,7 +576,11 @@ namespace SGame
 		public double GetPrice()
 		{
 			if (!isTable && lvcfg.IsValid())
-				return (1L * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
+			{
+				var book = DataCenter.CookbookUtils.GetBook(cfg.ItemId);
+				if (book != null)
+					return (1D * book.lvCfg.Price * 0.01f * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
+			}
 			return 0;
 		}
 
@@ -579,8 +588,12 @@ namespace SGame
 		{
 			if (!isTable && lvcfg.IsValid())
 			{
-				var t = cfg.Time * lvcfg.TimeRatio * 0.01d;
-				return (t / AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.WorkSpeed, id)).Round();
+				var book = DataCenter.CookbookUtils.GetBook(cfg.ItemId);
+				if (book != null)
+				{
+					var t = book.lvCfg.Time * lvcfg.TimeRatio * 0.01d;
+					return (t / AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.WorkSpeed, id)).Round();
+				}
 			}
 			return 0;
 		}
@@ -633,7 +646,7 @@ namespace SGame
 					{
 						max = 999;
 						lvStart = objCfg.LevelId(0) - 1;
-						maxlv = objCfg.LevelIdLength > 1 ? objCfg.LevelId(1): objCfg.LevelId(0);
+						maxlv = objCfg.LevelIdLength > 1 ? objCfg.LevelId(1) : objCfg.LevelId(0);
 					}
 				}
 				else

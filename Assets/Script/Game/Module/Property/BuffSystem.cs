@@ -94,9 +94,12 @@ namespace SGame
 			switch (type)
 			{
 				case 0://工作台
-					if (ConfigSystem.Instance.TryGet<MachineRowData>(id, out var m))
-						attr[((int)EnumAttribute.Price)] = m.ShopPrice(2);
-					attr[((int)EnumAttribute.WorkSpeed)] = m.Efficiency;
+					if (ConfigSystem.Instance.TryGet<MachineRowData>(id, out var m)
+						&& ConfigSystem.Instance.TryGet<ItemRowData>(m.ItemId, out var item))
+					{
+						attr[((int)EnumAttribute.Price)] = item.Price(2);
+						attr[((int)EnumAttribute.WorkSpeed)] = m.Efficiency;
+					}
 					break;
 				case 1://厨师，服务员
 					if (ConfigSystem.Instance.TryGet<RoleDataRowData>(id, out var r))

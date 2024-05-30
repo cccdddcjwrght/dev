@@ -24,15 +24,15 @@ namespace SGame.UI
 
 		public class CheckItem
 		{
-			public int					 funcID;		// 功能ID
-			public FunctionConfigRowData config;		// 配置信息
-			public Func<bool>			 funcCanShow;	// 额外判定是否可显示
-			public Func<int>		     funcTime;		// 倒计时
-			public int                   visibaleCount = 0; // 显示次数统计 0 未显示, 1 首次显示, 2多次显示
-			public object				 param;         // 额外参数
-			public string				 Name;
-			public Action				 complete;		//完成回调		
-			public int order => config.Order;			// 排序
+			public int funcID;      // 功能ID
+			public FunctionConfigRowData config;        // 配置信息
+			public Func<bool> funcCanShow;  // 额外判定是否可显示
+			public Func<int> funcTime;      // 倒计时
+			public int visibaleCount = 0; // 显示次数统计 0 未显示, 1 首次显示, 2多次显示
+			public object param;         // 额外参数
+			public string Name;
+			public Action complete;     //完成回调		
+			public int order => config.Order;           // 排序
 
 			public string uiname
 			{
@@ -245,10 +245,10 @@ namespace SGame.UI
 				funcID = funcID,
 				config = config,
 				funcCanShow = canShow,
-				funcTime	= funcTime,
-				param		= param,
-				Name		= uiname,
-				complete	= complete,
+				funcTime = funcTime,
+				param = param,
+				Name = uiname,
+				complete = complete,
 			});
 		}
 
@@ -282,7 +282,7 @@ namespace SGame.UI
 				Register(funcID,
 					() => funcID.IsOpend(false) && ActiveTimeSystem.Instance.IsActive(act, GameServerTime.Instance.serverTime),
 					() => ActiveTimeSystem.Instance.GetLeftTime(act, GameServerTime.Instance.serverTime),
-					act, pix +"_"+ act
+					act, pix + "_" + act
 				);
 			}
 			else
@@ -295,7 +295,7 @@ namespace SGame.UI
 						Register(funcID,
 							() => funcID.IsOpend(showtips: false) && ActiveTimeSystem.Instance.IsActive(c.Id, GameServerTime.Instance.serverTime),
 							() => ActiveTimeSystem.Instance.GetLeftTime(c.Id, GameServerTime.Instance.serverTime),
-							c.Id, pix +"_"+ c.Id
+							c.Id, pix + "_" + c.Id
 						);
 					});
 				}
@@ -343,8 +343,8 @@ namespace SGame.UI
 
 			m_itemProperty = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
 			m_userData = DataCenter.Instance.GetUserData();
-			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
-			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)));
+			m_view.m_Gold.SetText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)), false);
+			m_view.m_Diamond.SetText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)), false);
 
 		}
 

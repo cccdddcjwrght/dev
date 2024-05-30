@@ -205,6 +205,7 @@ namespace SGame
 		public int roomID;
 		public int time;
 		public List<Room> rooms = new List<Room>();
+		public List<int> tables = new List<int>();
 
 		public Room current
 		{

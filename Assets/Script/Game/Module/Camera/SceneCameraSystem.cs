@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
@@ -75,6 +76,7 @@ namespace SGame
 		private int handlerflag = 0;
 
 		private RaycastHit[] hits = new RaycastHit[8];
+		private RaycastHit[] hitcaches = new RaycastHit[8];
 
 		private void Start()
 		{
@@ -427,6 +429,7 @@ namespace SGame
 				var count = 0;
 				if ((count = Physics.RaycastNonAlloc(ray, hits, rayHitMaxDistance)) > 0)
 				{
+					Array.Sort(hits, 0, count, HitSort.Instance);
 					count--;
 					while (count >= 0)
 					{
@@ -554,6 +557,17 @@ namespace SGame
 			CameraLayerMask("redpoint", true);
 		}
 
+		class HitSort : IComparer<RaycastHit>
+		{
+			static readonly public HitSort Instance = new HitSort();
+
+			public int Compare(RaycastHit a, RaycastHit b)
+			{
+				return -a.distance.CompareTo(b.distance);
+			}
+
+
+		}
 #if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{

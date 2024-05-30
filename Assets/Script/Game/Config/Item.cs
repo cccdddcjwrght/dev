@@ -45,6 +45,14 @@ public struct ItemRowData : IFlatbufferObject
   public int SubType { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int TypeId { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int ModelEffectID { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Price(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int PriceLength { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetPriceBytes() { return __p.__vector_as_span<int>(20, 4); }
+#else
+  public ArraySegment<byte>? GetPriceBytes() { return __p.__vector_as_arraysegment(20); }
+#endif
+  public int[] GetPriceArray() { return __p.__vector_as_array<int>(20); }
 
   public static Offset<GameConfigs.ItemRowData> CreateItemRowData(FlatBufferBuilder builder,
       int ItemId = 0,
@@ -54,8 +62,10 @@ public struct ItemRowData : IFlatbufferObject
       int Type = 0,
       int SubType = 0,
       int TypeId = 0,
-      int ModelEffectID = 0) {
-    builder.StartTable(8);
+      int ModelEffectID = 0,
+      VectorOffset PriceOffset = default(VectorOffset)) {
+    builder.StartTable(9);
+    ItemRowData.AddPrice(builder, PriceOffset);
     ItemRowData.AddModelEffectID(builder, ModelEffectID);
     ItemRowData.AddTypeId(builder, TypeId);
     ItemRowData.AddSubType(builder, SubType);
@@ -67,7 +77,7 @@ public struct ItemRowData : IFlatbufferObject
     return ItemRowData.EndItemRowData(builder);
   }
 
-  public static void StartItemRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StartItemRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddItemId(FlatBufferBuilder builder, int ItemId) { builder.AddInt(0, ItemId, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddDescription(FlatBufferBuilder builder, StringOffset DescriptionOffset) { builder.AddOffset(2, DescriptionOffset.Value, 0); }
@@ -76,6 +86,10 @@ public struct ItemRowData : IFlatbufferObject
   public static void AddSubType(FlatBufferBuilder builder, int SubType) { builder.AddInt(5, SubType, 0); }
   public static void AddTypeId(FlatBufferBuilder builder, int TypeId) { builder.AddInt(6, TypeId, 0); }
   public static void AddModelEffectID(FlatBufferBuilder builder, int ModelEffectID) { builder.AddInt(7, ModelEffectID, 0); }
+  public static void AddPrice(FlatBufferBuilder builder, VectorOffset PriceOffset) { builder.AddOffset(8, PriceOffset.Value, 0); }
+  public static VectorOffset CreatePriceVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreatePriceVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartPriceVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.ItemRowData> EndItemRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ItemRowData>(o);

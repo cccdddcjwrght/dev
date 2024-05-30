@@ -132,6 +132,8 @@ namespace SGame.UI
 			m_funcManager.Register((int)FunctionID.FRIEND, null, ()=>FriendModule.Instance.hiringTime); // 好友
 			m_funcManager.Register((int)24 );
 			m_funcManager.Register((int)25, () => ChestItemUtil.CheckEqGiftBag());
+			m_funcManager.Register(33);
+
 			m_funcManager.RegisterAllActFunc();
 
 		}
@@ -246,8 +248,8 @@ namespace SGame.UI
 		// 金币添加事件
 		void OnEventGoldChange()
 		{
-			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
-			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)));
+			m_view.m_Gold.SetText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.GOLD)));
+			m_view.m_Diamond.SetText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)ItemID.DIAMOND)));
 		}
 		
 		void OnheadBtnClick(EventContext context)

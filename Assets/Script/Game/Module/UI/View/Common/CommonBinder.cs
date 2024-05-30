@@ -28,6 +28,7 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_TabBtn.URL, typeof(UI_TabBtn));
             UIObjectFactory.SetPackageItemExtension(UI_MaskUI.URL, typeof(UI_MaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_LockRedUI.URL, typeof(UI_LockRedUI));
+            UIObjectFactory.SetPackageItemExtension(UI_BgIcon.URL, typeof(UI_BgIcon));
             UIObjectFactory.SetPackageItemExtension(UI_ColorText.URL, typeof(UI_ColorText));
             UIObjectFactory.SetPackageItemExtension(UI_Redpoint.URL, typeof(UI_Redpoint));
             UIObjectFactory.SetPackageItemExtension(UI_Redpoint_small.URL, typeof(UI_Redpoint_small));

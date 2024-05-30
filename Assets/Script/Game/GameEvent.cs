@@ -81,6 +81,12 @@ namespace SGame
 		WORK_COOK_COMPLETE			= 2011,//工作台工作完成 （int2 cell）
 		WORK_HUD_SHOW				= 2012,//hud显示完成
 		WORK_AREA_UNLOCK			= 2013,//区域解锁(int areaid)
+
+
+		//=============================================================
+		COOKBOOK_UP_LV				= 2201,//食谱升级（int cookid , int lv）
+
+
 		//buff===============================================
 		BUFF_TRIGGER = 3001,//触发一个buff （BuffData data)
 		BUFF_RESET = 3002,//buff系统重置
@@ -178,5 +184,7 @@ namespace SGame
 		CLUB_MEMBER_REMOVE				= 21004, //俱乐部移除成员
 
 		MAIN_TASK_UPDATE				= 22000, //主线任务刷新
+
+
 	}
 }
