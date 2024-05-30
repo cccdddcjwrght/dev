@@ -8,6 +8,7 @@ namespace SGame.UI.Cookbook
     public partial class UI_CookbookUpUI : GLabel
     {
         public Controller m_type;
+        public Controller m_currency;
         public GLabel m_body;
         public GTextField m_tips;
         public GList m_stars;
@@ -27,6 +28,7 @@ namespace SGame.UI.Cookbook
             base.ConstructFromXML(xml);
 
             m_type = GetControllerAt(0);
+            m_currency = GetControllerAt(1);
             m_body = (GLabel)GetChildAt(0);
             m_tips = (GTextField)GetChildAt(5);
             m_stars = (GList)GetChildAt(7);

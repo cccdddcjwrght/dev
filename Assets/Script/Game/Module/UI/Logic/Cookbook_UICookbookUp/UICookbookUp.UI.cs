@@ -14,12 +14,14 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
+			m_view.m_currency.onChanged.Add(new EventCallback1(_OnCurrencyChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
+			m_view.m_currency.onChanged.Remove(new EventCallback1(_OnCurrencyChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 
@@ -29,6 +31,11 @@ namespace SGame.UI{
 		}
 		partial void OnTypeChanged(EventContext data);
 		void SwitchTypePage(int index)=>m_view.m_type.selectedIndex=index;
+		void _OnCurrencyChanged(EventContext data){
+			OnCurrencyChanged(data);
+		}
+		partial void OnCurrencyChanged(EventContext data);
+		void SwitchCurrencyPage(int index)=>m_view.m_currency.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

@@ -33,7 +33,7 @@ namespace SGame.UI
 
 		void SetInfo()
 		{
-			m_view.SetIcon(data.cfg.Icon);
+			m_view.GetChild("icon").SetIcon(data.cfg.Icon);
 			m_view.SetText(data.cfg.Name);
 			m_view.m_tips.SetTextByKey(data.cfg.Description);
 			m_view.m_stars.RemoveChildrenToPool();
@@ -51,9 +51,10 @@ namespace SGame.UI
 		private void SetUpState()
 		{
 			var flag = data.CanUpLv(out var scenelimit);
-			var cost = data.GetCost(out _, out _);
+			var cost = data.GetCost(out _, out var currency);
 			m_view.m_type.selectedIndex = data.IsMaxLv() ? 2 : flag ? 0 : 1;
 			m_view.m_cost.SetText(Utils.ConvertNumberStr(cost), false);
+			m_view.m_currency.selectedIndex = currency;
 			if (!flag)
 			{
 				if (scenelimit)
@@ -70,7 +71,7 @@ namespace SGame.UI
 							m_view.m_limit.SetText("ui_cookbook_condition_machine".Local(null, cfg.MachineName.Local()));
 							break;
 						case 2:
-							m_view.m_limit.SetText("ui_cookbook_condition_area");
+							m_view.m_limit.SetTextByKey("ui_cookbook_condition_area");
 							break;
 					}
 				}
