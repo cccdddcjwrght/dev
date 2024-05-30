@@ -47,8 +47,6 @@ namespace SGame.UI{
 		void SwitchIsAdPage(int index)=>m_view.m_isAd.selectedIndex=index;
 		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
 		string GetLevelText()=>UIListener.GetText(m_view.m_level);
-		void SetProgressValue(float data)=>UIListener.SetValue(m_view.m_progress,data);
-		float GetProgressValue()=>UIListener.GetValue(m_view.m_progress);
 		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
 		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
 		void SetTimeText(string data)=>UIListener.SetText(m_view.m_time,data);

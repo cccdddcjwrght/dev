@@ -120,8 +120,10 @@ namespace SGame.UI
 			}
 			UIListener.SetTextByKey(m_view, data.cfg.MachineName);
 			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice()));
-			SetLevelText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
-			SetProgressValue(data.lvcfg.MachineStar == maxStar ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id));
+			m_view.m_level.SetText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
+			m_view.m_progress.value = data.lvcfg.MachineStar == maxStar ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id);
+			//SetLevelText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
+			//SetProgressValue(data.lvcfg.MachineStar == maxStar ? 100 : DataCenter.MachineUtil.GetStarProgress(data.id));
 
 			m_view.m_list.RemoveChildrenToPool();
 			m_view.m_list.numItems = stars.Length;

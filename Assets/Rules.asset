@@ -94,36 +94,6 @@ MonoBehaviour:
     nameBy: 2
     assetBundleName: 
   ruleAssets:
-  - bundle: assets/buildasset/aotmeta/cinemachine.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/cinemachine.dll.bytes
-  - bundle: assets/buildasset/aotmeta/core.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/core.dll.bytes
-  - bundle: assets/buildasset/aotmeta/flatbuffers.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/flatbuffers.dll.bytes
-  - bundle: assets/buildasset/aotmeta/litjson.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/litjson.dll.bytes
-  - bundle: assets/buildasset/aotmeta/mscorlib.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/mscorlib.dll.bytes
-  - bundle: assets/buildasset/aotmeta/system.core.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/system.core.dll.bytes
-  - bundle: assets/buildasset/aotmeta/system.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/system.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unity.burst.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unity.burst.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unity.collections.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unity.collections.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unity.entities.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unity.entities.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unity.properties.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unity.properties.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unity.visualscripting.core.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unity.visualscripting.core.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unity.visualscripting.flow.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unity.visualscripting.flow.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unityengine.coremodule.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unityengine.coremodule.dll.bytes
-  - bundle: assets/buildasset/aotmeta/unityengine.jsonserializemodule.dll.bytes.unity3d
-    path: assets/buildasset/aotmeta/unityengine.jsonserializemodule.dll.bytes
   - bundle: applogo.unity3d
     path: assets/buildasset/app/logo/ui_loading_logo@en.png
   - bundle: applogo.unity3d
@@ -1257,73 +1227,203 @@ MonoBehaviour:
   - bundle: assets/buildasset/art/scenes/scene_01.unity3d
     path: assets/buildasset/art/scenes/scene_01/test_scenes01_tool_02.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/2.png
+    path: assets/buildasset/art/scenes/scene_02/car_01.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_02.png
+    path: assets/buildasset/art/scenes/scene_02/car_01.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_building_01.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_floor_02.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01_01.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_floor_03.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01_02.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_05.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01_03.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_06.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01_04.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_07.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01_05.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_08.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01_06.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_09.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_building_01_07.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_10.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_01.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_11.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_01.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_12.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_02.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_13.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_02.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_14.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_03.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_15.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_03.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_16.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_04.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_17.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_04.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_18.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_05.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_19.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_05.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_20.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_06.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_21.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_06.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_22.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_07.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_object_23.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_07.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_table_03.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_08.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_table_04.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_08.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_table_05.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_09.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_terrain_02.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_09.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_tool_05.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_10.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_tool_06.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_10.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_tool_07.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_11.fbx
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_wall_09.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_food_11.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_wall_10.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_01.png
   - bundle: assets/buildasset/art/scenes/scene_02.unity3d
-    path: assets/buildasset/art/scenes/scene_02/scene_wall_11.fbx
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_01_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_02.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_02_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_02_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_03.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_03_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_03_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_04.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_04.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_05.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_05.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_05_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_05_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_06.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_06.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_07.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_07.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_08.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_08.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_09.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_09.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_09_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_10.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_10.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_10_01.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_11.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_11.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_12.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_12.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_12_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_object_12_01.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_table_01.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_table_02.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_table_03.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_table_03_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_table_03_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01_03.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_terrain_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_01.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_02.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_03.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_03.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_04.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_04.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_05.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_05.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_06.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_06.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_07.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_07.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_08.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_08.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_09.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_09.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_10.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_10.png
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_11.fbx
+  - bundle: assets/buildasset/art/scenes/scene_02.unity3d
+    path: assets/buildasset/art/scenes/scene_02/test_scene02_tool_11.png
   - bundle: assets/buildasset/audio/mixer.unity3d
     path: assets/buildasset/audio/mixer/game.mixer
   - bundle: assets/buildasset/audio/ogg.unity3d
@@ -1382,6 +1482,14 @@ MonoBehaviour:
     path: assets/buildasset/configs/bullet.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/chest.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/clubframe.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/clubhead.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/clubreward.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/clubtask.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/cmdconfig.bytes
   - bundle: configs.unity3d
@@ -1458,6 +1566,8 @@ MonoBehaviour:
     path: assets/buildasset/configs/roledata.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/room.bytes
+  - bundle: configs.unity3d
+    path: assets/buildasset/configs/roomarea.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/roomexclusive.bytes
   - bundle: configs.unity3d
@@ -1717,6 +1827,8 @@ MonoBehaviour:
   - bundle: characters.unity3d
     path: assets/buildasset/customcharacters/role/hair-9_mesh.asset
   - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1001.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100101.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100102.prefab
@@ -1749,6 +1861,8 @@ MonoBehaviour:
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100116.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1002.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100201.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100202.prefab
@@ -1780,6 +1894,24 @@ MonoBehaviour:
     path: assets/buildasset/effects/prefabs/100215.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/100216.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1003.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1004.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1005.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1006.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1007.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1008.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1009.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1010.prefab
+  - bundle: assets/buildasset/effects/prefabs.unity3d
+    path: assets/buildasset/effects/prefabs/1011.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
     path: assets/buildasset/effects/prefabs/201.prefab
   - bundle: assets/buildasset/effects/prefabs.unity3d
@@ -2094,12 +2226,20 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/other/mats/pian_01.mat
   - bundle: assets/buildasset/prefabs/scenes/other/mats.unity3d
     path: assets/buildasset/prefabs/scenes/other/mats/pian_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/other/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/other/mats/pian_03.mat
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
     path: assets/buildasset/prefabs/scenes/other/pian_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
     path: assets/buildasset/prefabs/scenes/other/rewardbox.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
     path: assets/buildasset/prefabs/scenes/other/scene_grid.prefab
+  - bundle: assets/buildasset/prefabs/scenes/other.unity3d
+    path: assets/buildasset/prefabs/scenes/other/scene_grid1.prefab
+  - bundle: assets/buildasset/prefabs/scenes/other.unity3d
+    path: assets/buildasset/prefabs/scenes/other/scene_grid2.prefab
+  - bundle: assets/buildasset/prefabs/scenes/other.unity3d
+    path: assets/buildasset/prefabs/scenes/other/scene_grid3.prefab
   - bundle: assets/buildasset/prefabs/scenes/other.unity3d
     path: assets/buildasset/prefabs/scenes/other/table.prefab
   - bundle: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
@@ -3079,75 +3219,197 @@ MonoBehaviour:
   - bundle: assets/buildasset/prefabs/scenes/scene_01.unity3d
     path: assets/buildasset/prefabs/scenes/scene_01/test_scenes01_tool_goods_02.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_building_01.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/car_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/car_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_building_01-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_building_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_10.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_11.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_01-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_02-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_03-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_05-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_09-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_10.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_11.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_12-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_12.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_table_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_table_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_terrain_01-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_03.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_05.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_06.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_07.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_08.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_09.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_10.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_11.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_floor_02.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_floor_03.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_02.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_05.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_03.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_06.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_04.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_07.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_05.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_08.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_06.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_09.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_07.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_10.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_11.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_02.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_12.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_03.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_13.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_04.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_14.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_05.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_15.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_06.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_16.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_07.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_17.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_08.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_18.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_19.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_10.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_20.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_11.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_21.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_01_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_22.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_02_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_object_23.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_03_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_table_03.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_04.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_table_04.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_05.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_table_05.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_06.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_terrain_02.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_07.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_tool_05.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_08.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_tool_06.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_09.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_tool_07.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_10.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_wall_09.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_11.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_wall_09_1.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_12.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_wall_10.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_wall_10_1.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_02.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_wall_11.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_03_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_02/scene_wall_11_1.prefab
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_03_02.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_terrain_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_02.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_03.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_04.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_05.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_06.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_07.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_08.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_09.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_10.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_02.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_11.prefab
+  - bundle: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
+    path: assets/buildasset/scenes/markeds/level01_marked.unity
   - bundle: assets/buildasset/scenes/markeds/level11_marked.unity.unity3d
     path: assets/buildasset/scenes/markeds/level11_marked.unity
   - bundle: assets/buildasset/scenes/markeds/level12_marked.unity.unity3d
@@ -3184,6 +3446,12 @@ MonoBehaviour:
     path: assets/buildasset/ui/buff_atlas0.png
   - bundle: assets/buildasset/ui/buff.unity3d
     path: assets/buildasset/ui/buff_fui.bytes
+  - bundle: assets/buildasset/ui/club.unity3d
+    path: assets/buildasset/ui/club_atlas0.png
+  - bundle: assets/buildasset/ui/club.unity3d
+    path: assets/buildasset/ui/club_atlas_lu5mp.png
+  - bundle: assets/buildasset/ui/club.unity3d
+    path: assets/buildasset/ui/club_fui.bytes
   - bundle: assets/buildasset/ui/common.unity3d
     path: assets/buildasset/ui/common_atlas0.png
   - bundle: assets/buildasset/ui/common.unity3d
@@ -3657,40 +3925,105 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/scene_01/test_scenes01_tool_02.fbx
   - name: assets/buildasset/art/scenes/scene_02.unity3d
     assets:
-    - assets/buildasset/art/scenes/scene_02/2.png
-    - assets/buildasset/art/scenes/scene_02/scene_02.png
-    - assets/buildasset/art/scenes/scene_02/scene_building_01.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_floor_02.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_floor_03.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_05.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_06.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_07.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_08.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_09.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_10.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_11.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_12.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_13.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_14.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_15.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_16.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_17.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_18.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_19.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_20.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_21.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_22.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_object_23.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_table_03.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_table_04.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_table_05.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_terrain_02.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_tool_05.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_tool_06.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_tool_07.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_wall_09.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_wall_10.fbx
-    - assets/buildasset/art/scenes/scene_02/scene_wall_11.fbx
+    - assets/buildasset/art/scenes/scene_02/car_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_02.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_03.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_04.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_05.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_06.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_07.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_08.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_09.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_10.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_11.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_02.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_03.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_04.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_05.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_06.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_07.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_08.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_09.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_10.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_10_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_11.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_12.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_12_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_table_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_table_02.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_table_03.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_01.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_02.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_03.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_04.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_05.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_06.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_07.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_08.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_09.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_10.png
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_11.png
+    - assets/buildasset/art/scenes/scene_02/car_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01_03.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01_04.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01_05.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01_06.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_building_01_07.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_03.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_04.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_05.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_06.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_07.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_08.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_09.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_10.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_food_11.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_01_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_01_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_02_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_02_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_03_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_03_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_04.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_05.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_05_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_05_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_06.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_07.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_08.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_09.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_09_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_10.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_11.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_12.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_object_12_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_table_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_table_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_table_03_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_table_03_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_terrain_01_03.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_terrain_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_01.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_02.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_03.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_04.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_05.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_06.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_07.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_08.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_09.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_10.fbx
+    - assets/buildasset/art/scenes/scene_02/test_scene02_tool_11.fbx
   - name: assets/buildasset/art/scenes/planet01/machine.unity3d
     assets:
     - assets/buildasset/art/scenes/planet01/machine/machine_100101.png
@@ -4239,6 +4572,10 @@ MonoBehaviour:
     - assets/buildasset/configs/buff.bytes
     - assets/buildasset/configs/bullet.bytes
     - assets/buildasset/configs/chest.bytes
+    - assets/buildasset/configs/clubframe.bytes
+    - assets/buildasset/configs/clubhead.bytes
+    - assets/buildasset/configs/clubreward.bytes
+    - assets/buildasset/configs/clubtask.bytes
     - assets/buildasset/configs/cmdconfig.bytes
     - assets/buildasset/configs/design_global.bytes
     - assets/buildasset/configs/effects.bytes
@@ -4277,6 +4614,7 @@ MonoBehaviour:
     - assets/buildasset/configs/role.bytes
     - assets/buildasset/configs/roledata.bytes
     - assets/buildasset/configs/room.bytes
+    - assets/buildasset/configs/roomarea.bytes
     - assets/buildasset/configs/roomexclusive.bytes
     - assets/buildasset/configs/roomlike.bytes
     - assets/buildasset/configs/roommachine.bytes
@@ -4292,6 +4630,11 @@ MonoBehaviour:
     assets:
     - assets/buildasset/ui/buff_atlas0.png
     - assets/buildasset/ui/buff_fui.bytes
+  - name: assets/buildasset/ui/club.unity3d
+    assets:
+    - assets/buildasset/ui/club_atlas0.png
+    - assets/buildasset/ui/club_atlas_lu5mp.png
+    - assets/buildasset/ui/club_fui.bytes
   - name: assets/buildasset/ui/common.unity3d
     assets:
     - assets/buildasset/ui/common_atlas0.png
@@ -4535,6 +4878,9 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/other/pian_01.prefab
     - assets/buildasset/prefabs/scenes/other/rewardbox.prefab
     - assets/buildasset/prefabs/scenes/other/scene_grid.prefab
+    - assets/buildasset/prefabs/scenes/other/scene_grid1.prefab
+    - assets/buildasset/prefabs/scenes/other/scene_grid2.prefab
+    - assets/buildasset/prefabs/scenes/other/scene_grid3.prefab
     - assets/buildasset/prefabs/scenes/other/table.prefab
   - name: assets/buildasset/prefabs/scenes/scene_01.unity3d
     assets:
@@ -4551,41 +4897,53 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/scene_01/test_scenes01_tool_goods_02.prefab
   - name: assets/buildasset/prefabs/scenes/scene_02.unity3d
     assets:
-    - assets/buildasset/prefabs/scenes/scene_02/scene_building_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_floor_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_floor_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_05.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_06.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_07.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_08.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_09.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_10.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_11.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_12.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_13.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_14.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_15.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_16.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_17.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_18.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_19.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_20.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_21.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_22.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_object_23.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_table_03.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_table_04.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_table_05.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_terrain_02.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_tool_05.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_tool_06.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_tool_07.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_wall_09.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_wall_09_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_wall_10.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_wall_10_1.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_wall_11.prefab
-    - assets/buildasset/prefabs/scenes/scene_02/scene_wall_11_1.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/car_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_03.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_04.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_05.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_06.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_building_01_07.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_03.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_04.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_05.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_06.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_07.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_08.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_09.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_10.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_food_11.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_01_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_02_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_03_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_04.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_05.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_06.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_07.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_08.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_09.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_10.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_11.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_object_12.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_03_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_table_03_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_terrain_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_01.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_03.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_04.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_05.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_06.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_07.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_08.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_09.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_10.prefab
+    - assets/buildasset/prefabs/scenes/scene_02/test_scene02_tool_11.prefab
   - name: assets/buildasset/prefabs/scenes/planet01/new.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/planet01/new/planet01_scenes01_tool_01_01.prefab
@@ -4872,6 +5230,9 @@ MonoBehaviour:
     - assets/buildasset/audio/ogg/sound_start.ogg
     - assets/buildasset/audio/ogg/sound_tip.ogg
     - assets/buildasset/audio/ogg/sound_up.ogg
+  - name: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
+    assets:
+    - assets/buildasset/scenes/markeds/level01_marked.unity
   - name: assets/buildasset/scenes/markeds/level11_marked.unity.unity3d
     assets:
     - assets/buildasset/scenes/markeds/level11_marked.unity
@@ -4927,51 +5288,6 @@ MonoBehaviour:
   - name: assets/buildasset/code/game.dll.bytes.unity3d
     assets:
     - assets/buildasset/code/game.dll.bytes
-  - name: assets/buildasset/aotmeta/cinemachine.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/cinemachine.dll.bytes
-  - name: assets/buildasset/aotmeta/core.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/core.dll.bytes
-  - name: assets/buildasset/aotmeta/flatbuffers.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/flatbuffers.dll.bytes
-  - name: assets/buildasset/aotmeta/litjson.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/litjson.dll.bytes
-  - name: assets/buildasset/aotmeta/mscorlib.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/mscorlib.dll.bytes
-  - name: assets/buildasset/aotmeta/system.core.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/system.core.dll.bytes
-  - name: assets/buildasset/aotmeta/system.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/system.dll.bytes
-  - name: assets/buildasset/aotmeta/unity.burst.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unity.burst.dll.bytes
-  - name: assets/buildasset/aotmeta/unity.collections.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unity.collections.dll.bytes
-  - name: assets/buildasset/aotmeta/unity.entities.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unity.entities.dll.bytes
-  - name: assets/buildasset/aotmeta/unity.properties.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unity.properties.dll.bytes
-  - name: assets/buildasset/aotmeta/unity.visualscripting.core.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unity.visualscripting.core.dll.bytes
-  - name: assets/buildasset/aotmeta/unity.visualscripting.flow.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unity.visualscripting.flow.dll.bytes
-  - name: assets/buildasset/aotmeta/unityengine.coremodule.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unityengine.coremodule.dll.bytes
-  - name: assets/buildasset/aotmeta/unityengine.jsonserializemodule.dll.bytes.unity3d
-    assets:
-    - assets/buildasset/aotmeta/unityengine.jsonserializemodule.dll.bytes
   - name: assets/buildasset/log/lan.bytes.unity3d
     assets:
     - assets/buildasset/log/lan.bytes
@@ -5234,6 +5550,7 @@ MonoBehaviour:
     - assets/buildasset/fonts/lilitaone/mukta-extrabold.ttf
   - name: assets/buildasset/effects/prefabs.unity3d
     assets:
+    - assets/buildasset/effects/prefabs/1001.prefab
     - assets/buildasset/effects/prefabs/100101.prefab
     - assets/buildasset/effects/prefabs/100102.prefab
     - assets/buildasset/effects/prefabs/100103.prefab
@@ -5250,6 +5567,7 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/100114.prefab
     - assets/buildasset/effects/prefabs/100115.prefab
     - assets/buildasset/effects/prefabs/100116.prefab
+    - assets/buildasset/effects/prefabs/1002.prefab
     - assets/buildasset/effects/prefabs/100201.prefab
     - assets/buildasset/effects/prefabs/100202.prefab
     - assets/buildasset/effects/prefabs/100203.prefab
@@ -5266,6 +5584,15 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/100214.prefab
     - assets/buildasset/effects/prefabs/100215.prefab
     - assets/buildasset/effects/prefabs/100216.prefab
+    - assets/buildasset/effects/prefabs/1003.prefab
+    - assets/buildasset/effects/prefabs/1004.prefab
+    - assets/buildasset/effects/prefabs/1005.prefab
+    - assets/buildasset/effects/prefabs/1006.prefab
+    - assets/buildasset/effects/prefabs/1007.prefab
+    - assets/buildasset/effects/prefabs/1008.prefab
+    - assets/buildasset/effects/prefabs/1009.prefab
+    - assets/buildasset/effects/prefabs/1010.prefab
+    - assets/buildasset/effects/prefabs/1011.prefab
     - assets/buildasset/effects/prefabs/201.prefab
     - assets/buildasset/effects/prefabs/202.prefab
     - assets/buildasset/effects/prefabs/angel_halo.prefab
@@ -5363,6 +5690,7 @@ MonoBehaviour:
     assets:
     - assets/buildasset/prefabs/scenes/other/mats/pian_01.mat
     - assets/buildasset/prefabs/scenes/other/mats/pian_02.mat
+    - assets/buildasset/prefabs/scenes/other/mats/pian_03.mat
   - name: assets/buildasset/prefabs/scenes/scene_01/mats.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/scene_01/mats/test_scene01_object_01.mat
@@ -5376,6 +5704,56 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/scene_01/mats/test_scene01_terrain_01.mat
     - assets/buildasset/prefabs/scenes/scene_01/mats/test_scenes01_tool_01.mat
     - assets/buildasset/prefabs/scenes/scene_01/mats/test_scenes01_tool_02.mat
+  - name: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/scene_02/mats/car_01.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_building_01-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_building_01.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_01.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_02.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_03.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_04.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_05.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_06.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_07.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_08.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_09.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_10.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_food_11.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_01-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_01.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_02-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_02.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_03-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_03.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_04.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_05-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_05.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_06.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_07.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_08.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_09-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_09.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_10.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_11.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_12-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_object_12.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_table_01.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_table_02.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_table_03.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_terrain_01-1.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_01.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_02.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_03.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_04.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_05.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_06.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_07.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_08.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_09.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_10.mat
+    - assets/buildasset/prefabs/scenes/scene_02/mats/test_scene02_tool_11.mat
   - name: assets/buildasset/prefabs/scenes/planet01/new/mats.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/planet01/new/mats/planet01_scenes01_tool_01_01.mat
@@ -5635,15 +6013,15 @@ MonoBehaviour:
   - name: assets/buildasset/art/model/other/pian_01.fbx.unity3d
     assets:
     - assets/buildasset/art/model/other/pian_01.fbx
-  - name: assets/buildasset/effects/materials/xian 2.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/xian 2.mat
-  - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_08_dusk_a.mat.unity3d
-    assets:
-    - assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_08_dusk_a.mat
   - name: assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_08_dusk_a.png.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_08_dusk_a.png
+  - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_08_dusk_a.mat.unity3d
+    assets:
+    - assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_08_dusk_a.mat
+  - name: assets/buildasset/effects/materials/xian 2.mat.unity3d
+    assets:
+    - assets/buildasset/effects/materials/xian 2.mat
   - name: assets/buildasset/effects/textures/wb_paopao_01.png.unity3d
     assets:
     - assets/buildasset/effects/textures/wb_paopao_01.png
@@ -5720,9 +6098,9 @@ MonoBehaviour:
   - name: assets/buildasset/effects/textures/smoke_7004.png.unity3d
     assets:
     - assets/buildasset/effects/textures/smoke_7004.png
-  - name: assets/buildasset/art/scenes/scene_02/scene_02.mat.unity3d
+  - name: assets/buildasset/art/model/other/materials/plane.mat.unity3d
     assets:
-    - assets/buildasset/art/scenes/scene_02/scene_02.mat
+    - assets/buildasset/art/model/other/materials/plane.mat
   - name: assets/buildasset/effects/textures/lissandra_global_freeze.png.unity3d
     assets:
     - assets/buildasset/effects/textures/lissandra_global_freeze.png

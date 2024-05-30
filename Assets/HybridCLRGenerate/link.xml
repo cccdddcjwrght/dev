@@ -278,11 +278,14 @@
     <type fullname="Unity.Mathematics.Random" preserve="all" />
     <type fullname="Unity.Mathematics.bool2" preserve="all" />
     <type fullname="Unity.Mathematics.bool2x2" preserve="all" />
+    <type fullname="Unity.Mathematics.double2" preserve="all" />
+    <type fullname="Unity.Mathematics.float2" preserve="all" />
     <type fullname="Unity.Mathematics.float3" preserve="all" />
     <type fullname="Unity.Mathematics.float4x4" preserve="all" />
     <type fullname="Unity.Mathematics.int2" preserve="all" />
     <type fullname="Unity.Mathematics.math" preserve="all" />
     <type fullname="Unity.Mathematics.quaternion" preserve="all" />
+    <type fullname="Unity.Mathematics.uint2" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Properties">
     <type fullname="Unity.Properties.ContainerPropertyBag`1" preserve="all" />
@@ -339,9 +342,33 @@
     <type fullname="Unity.VisualScripting.IGraphElementData" preserve="all" />
     <type fullname="Unity.VisualScripting.IGraphElementWithData" preserve="all" />
     <type fullname="Unity.VisualScripting.InspectableAttribute" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceActionInvoker`1" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceActionInvoker`2" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceActionInvoker`3" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceFieldAccessor`2" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceFunctionInvoker`2" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceFunctionInvoker`3" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceFunctionInvoker`4" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceFunctionInvoker`5" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstanceFunctionInvoker`6" preserve="all" />
+    <type fullname="Unity.VisualScripting.InstancePropertyAccessor`2" preserve="all" />
+    <type fullname="Unity.VisualScripting.InvokerBase" preserve="all" />
+    <type fullname="Unity.VisualScripting.ReflectionFieldAccessor" preserve="all" />
+    <type fullname="Unity.VisualScripting.ReflectionInvoker" preserve="all" />
+    <type fullname="Unity.VisualScripting.ReflectionPropertyAccessor" preserve="all" />
     <type fullname="Unity.VisualScripting.SerializeAsAttribute" preserve="all" />
     <type fullname="Unity.VisualScripting.SerializedPropertyProviderAttribute" preserve="all" />
     <type fullname="Unity.VisualScripting.SerializedPropertyProvider`1" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticActionInvoker`1" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticActionInvoker`2" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticActionInvoker`3" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticActionInvoker`4" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticFunctionInvoker`1" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticFunctionInvoker`2" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticFunctionInvoker`3" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticFunctionInvoker`4" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticFunctionInvoker`5" preserve="all" />
+    <type fullname="Unity.VisualScripting.StaticPropertyAccessor`1" preserve="all" />
   </assembly>
   <assembly fullname="Unity.VisualScripting.Flow">
     <type fullname="Unity.VisualScripting.ControlInput" preserve="all" />
@@ -404,7 +431,9 @@
     <type fullname="UnityEngine.LayerMask" preserve="all" />
     <type fullname="UnityEngine.Material" preserve="all" />
     <type fullname="UnityEngine.Mathf" preserve="all" />
+    <type fullname="UnityEngine.Matrix4x4" preserve="all" />
     <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
     <type fullname="UnityEngine.NetworkReachability" preserve="all" />
     <type fullname="UnityEngine.NonReorderableAttribute" preserve="all" />
@@ -423,6 +452,7 @@
     <type fullname="UnityEngine.RuntimeInitializeLoadType" preserve="all" />
     <type fullname="UnityEngine.RuntimeInitializeOnLoadMethodAttribute" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
+    <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.SceneManager" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
     <type fullname="UnityEngine.ScriptableObject" preserve="all" />
@@ -441,6 +471,8 @@
     <type fullname="UnityEngine.Vector2" preserve="all" />
     <type fullname="UnityEngine.Vector2Int" preserve="all" />
     <type fullname="UnityEngine.Vector3" preserve="all" />
+    <type fullname="UnityEngine.Vector3Int" preserve="all" />
+    <type fullname="UnityEngine.Vector4" preserve="all" />
     <type fullname="UnityEngine.WaitForEndOfFrame" preserve="all" />
     <type fullname="UnityEngine.WaitForSeconds" preserve="all" />
     <type fullname="UnityEngine.WaitForSecondsRealtime" preserve="all" />
@@ -472,6 +504,9 @@
     <type fullname="UnityEngine.ParticleSystem/MainModule" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/MinMaxCurve" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/MinMaxGradient" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.Physics2DModule">
+    <type fullname="UnityEngine.RaycastHit2D" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule">
     <type fullname="UnityEngine.BoxCollider" preserve="all" />
@@ -652,6 +687,7 @@
     <type fullname="System.TimeSpan" preserve="all" />
     <type fullname="System.TimeZoneInfo" preserve="all" />
     <type fullname="System.Type" preserve="all" />
+    <type fullname="System.UInt32" preserve="all" />
     <type fullname="System.ValueTuple`2" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
     <type fullname="System.WeakReference`1" preserve="all" />
