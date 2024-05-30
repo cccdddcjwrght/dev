@@ -22,15 +22,6 @@ namespace SGame.UI{
 
 			m_CurrencyId = DataCenter.ClubUtil.GetClubCurrencyId();
 			m_view.m_currencyIcon.SetIcon(Utils.GetItemIcon(1, m_CurrencyId));
-			var num = PropertyManager.Instance.GetItem(m_CurrencyId).num;
-			var old = DataCenter.ClubUtil.m_taskDataList.oldValue;
-			if (num > old) 
-			{
-				m_view.m_addValue.SetText("+" + (num - old));
-				DataCenter.ClubUtil.RecordValue((int)num);
-				m_view.m_play.Play();
-			}
-			m_view.m_value.SetText("X" + num);
 		}
 
 		public void OnTaskItemRenderer(int index, GObject gObject) 
@@ -42,7 +33,8 @@ namespace SGame.UI{
 			if (ConfigSystem.Instance.TryGet<GameConfigs.ClubTaskRowData>(data.id, out var cfg)) 
 			{
 				//item.m_des.SetText(string.Format("taskId:{0}, value:{1}, max:{2}", data.id, data.value, data.max));
-				item.m_des.SetText(string.Format(UIListener.Local(cfg.Description),data.value, data.limitNum));
+				item.m_des.SetText(string.Format(UIListener.Local(cfg.Description),data.value, data.limitNum) +
+					string.Format(UIListener.Local("ui_club_task_finish"), data.finishNum));
 				item.m_value.SetText(cfg.Reward(1).ToString());
 			}
 		}

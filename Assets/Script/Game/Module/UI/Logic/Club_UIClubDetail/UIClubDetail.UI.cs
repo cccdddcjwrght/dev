@@ -30,6 +30,10 @@ namespace SGame.UI{
 			OnBtnCloseClick(data);
 		}
 		partial void OnBtnCloseClick(EventContext data);
+		void SetBtnCloseText(string data)=>UIListener.SetText(m_view.m_btnClose,data);
+		string GetBtnCloseText()=>UIListener.GetText(m_view.m_btnClose);
+		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
+		string GetTitleText()=>UIListener.GetText(m_view.m_title);
 		void _OnIconBtn_ColorChanged(EventContext data){
 			OnIconBtn_ColorChanged(data);
 		}
@@ -39,10 +43,14 @@ namespace SGame.UI{
 			OnRemoveClick(data);
 		}
 		partial void OnRemoveClick(EventContext data);
+		void SetRemoveText(string data)=>UIListener.SetText(m_view.m_remove,data);
+		string GetRemoveText()=>UIListener.GetText(m_view.m_remove);
 		void _OnBtnOKClick(EventContext data){
 			OnBtnOKClick(data);
 		}
 		partial void OnBtnOKClick(EventContext data);
+		void SetBtnOKText(string data)=>UIListener.SetText(m_view.m_btnOK,data);
+		string GetBtnOKText()=>UIListener.GetText(m_view.m_btnOK);
 
 	}
 }

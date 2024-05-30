@@ -27,6 +27,12 @@ namespace SGame.UI{
 			 
 		}
 		partial void OnUICloseClick(ref bool state);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
+		void SetValueText(string data)=>UIListener.SetText(m_view.m_value,data);
+		string GetValueText()=>UIListener.GetText(m_view.m_value);
+		void SetAddValueText(string data)=>UIListener.SetText(m_view.m_addValue,data);
+		string GetAddValueText()=>UIListener.GetText(m_view.m_addValue);
 
 	}
 }

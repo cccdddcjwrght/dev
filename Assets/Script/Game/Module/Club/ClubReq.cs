@@ -82,6 +82,8 @@ namespace SGame
                 DataCenter.ClubUtil.currentData = JsonUtility.FromJson<ClubCurrentData>(pkg.data);
                 DataCenter.ClubUtil.clubList.id = DataCenter.ClubUtil.currentData.id;
 
+                //这里初始化下奖励，避免配置新增了任务导致报错
+                DataCenter.ClubUtil.InitClubRewardData();
                 DataCenter.ClubUtil.ClearData();
 
                 EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.FIRST_LOGIN, 1);

@@ -93,7 +93,7 @@ namespace SGame
 
         public int clubId;      //当前俱乐部id
         public int currencyId;
-        public int oldValue;    //记录下上次打开目标界面的积分
+        public int oldValue;    //记录下上次打开目标界面的积分(弃用)
         public int start_time;
         public int end_time;
     }
@@ -259,13 +259,19 @@ namespace SGame
                 var list = GetCurClubActivityRewards(periods);
                 if (list != null) 
                 {
-                    list.ForEach((cfg) => m_taskDataList.rewardList.Add(new ClubRewardData()
+                    foreach (var cfg in list)
                     {
-                        id = cfg.Id,
-                        target = cfg.Target(1),
-                        isGet = false,
-                        isBuff = cfg.BuffLength > 0,
-                    }));
+                        if (m_taskDataList.rewardList.FindIndex((r) => r.id == cfg.Id) == -1) 
+                        {
+                            m_taskDataList.rewardList.Add(new ClubRewardData()
+                            {
+                                id = cfg.Id,
+                                target = cfg.Target(1),
+                                isGet = false,
+                                isBuff = cfg.BuffLength > 0,
+                            });
+                        }
+                    }
                 }
             }
 
@@ -355,7 +361,8 @@ namespace SGame
             /// <returns></returns>
             public static List<ClubData> GetFindClubList(string name) 
             {
-                var list = clubList.list?.FindAll((s) => s.title.Contains(name));
+                if (name == string.Empty) return clubList.list;
+                var list = clubList.list?.FindAll((s) => s.id.ToString() == name);
                 return list;
             }
 

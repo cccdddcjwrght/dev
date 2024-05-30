@@ -13,6 +13,7 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
             RequestExcuteSystem.Instance.ClubListDataReq().Start();
             m_view.m_list.itemRenderer = OnClubItemRenderer;
+            m_view.m_input.promptText = UIListener.Local("ui_club_tips1");
         }
 
         public void RefreshClubList(bool isFind = false) 

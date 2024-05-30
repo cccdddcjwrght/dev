@@ -10,6 +10,7 @@ namespace SGame.UI{
 	{
 		List<MemberData> memberDatas;
 		partial void InitLogic(UIContext context){
+			m_view.m_list.SetVirtual();
 			m_view.m_list.itemRenderer = OnMemberItemRenderer;
 			RefreshMemberList();
 		}
@@ -17,6 +18,25 @@ namespace SGame.UI{
 		public void RefreshMemberList() 
 		{
 			memberDatas = DataCenter.ClubUtil.GetClubMemberList();
+			memberDatas.Sort((m1, m2) => 
+			{
+				int p1 = m1.player_id == DataCenter.ClubUtil.GetCreatePlayerId() ? 1 : 0;
+				int p2 = m2.player_id == DataCenter.ClubUtil.GetCreatePlayerId() ? 1 : 0;
+				if (p1 > p2) return -1;
+				else if (p1 == p2) 
+				{
+					p1 = m1.player_id == DataCenter.Instance.accountData.playerID ? 1 : 0;
+					p2 = m2.player_id == DataCenter.Instance.accountData.playerID ? 1 : 0;
+					if (p1 > p2) return -1;
+					else if (p1 == p2) 
+					{
+						if (m1.score > m2.score)
+							return -1;
+					}
+				}
+				return 1;
+			});
+
 			memberDatas.Find((m) =>
 			{
 				if (m.player_id == DataCenter.Instance.accountData.playerID)

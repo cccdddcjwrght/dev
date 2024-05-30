@@ -8,6 +8,7 @@ namespace SGame.UI.Club
     public partial class UI_ClubRewardBody : GLabel
     {
         public Controller m_top;
+        public GLoader m_topIcon;
         public GList m_list;
         public GImage m_barbg;
         public GImage m_bar;
@@ -28,6 +29,7 @@ namespace SGame.UI.Club
             base.ConstructFromXML(xml);
 
             m_top = GetControllerAt(0);
+            m_topIcon = (GLoader)GetChildAt(2);
             m_list = (GList)GetChildAt(3);
             m_barbg = (GImage)GetChildAt(6);
             m_bar = (GImage)GetChildAt(7);

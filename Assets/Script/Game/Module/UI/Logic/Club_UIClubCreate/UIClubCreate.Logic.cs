@@ -14,6 +14,7 @@ namespace SGame.UI{
 
 			UpdateCreateDiamond();
 			UpdateClubHead(m_HeadId, m_FrameId);
+			m_view.m_input.promptText = UIListener.Local("ui_club_tips_enter2");
 		}
 
 		public void UpdateCreateDiamond() 
