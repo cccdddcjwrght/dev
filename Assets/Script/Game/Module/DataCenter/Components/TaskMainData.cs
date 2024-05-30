@@ -104,7 +104,7 @@ namespace SGame
             /// <returns></returns>
             public static bool IsShow() 
             {
-                if (m_TaskMainData.cfgId == 0 || ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(m_TaskMainData.cfgId, out var cfg))
+                if (32.IsOpend(false) && (m_TaskMainData.cfgId == 0 || ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(m_TaskMainData.cfgId, out var cfg)))
                     return true;                   
                 return false;
             }
