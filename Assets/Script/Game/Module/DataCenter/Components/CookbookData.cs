@@ -52,6 +52,8 @@ namespace SGame
 				var book = GetBook(id);
 				if (book != null)
 				{
+					var cost = book.lvCfg.GetCostArray();
+					PropertyManager.Instance.UpdateByArgs( true , cost);
 					book.level++;
 					book.Refresh();
 					EventManager.Instance.Trigger(((int)GameEvent.COOKBOOK_UP_LV), id, book.level);
