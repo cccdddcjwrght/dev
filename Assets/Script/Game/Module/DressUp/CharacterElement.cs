@@ -85,9 +85,11 @@ public class CharacterElement
     public SkinnedMeshRenderer GetSkinnedMeshRenderer()
     {
         var info = asset_data.asset as GameObject;//CharacterElemInfo;
-        GameObject go = (GameObject)GameObject.Instantiate(info.gameObject);
-        go.GetComponent<Renderer>().material = GetMaterial();
-        return (SkinnedMeshRenderer)go.GetComponent<Renderer>();
+        var render = info.GetComponent<Renderer>();
+        //GameObject go = (GameObject)GameObject.Instantiate(info.gameObject);
+        //go.GetComponent<Renderer>().sharedMaterial = GetMaterial();
+        //return (SkinnedMeshRenderer)go.GetComponent<Renderer>();
+        return render as SkinnedMeshRenderer;
     }
 
     /// <summary>

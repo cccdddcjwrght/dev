@@ -268,7 +268,8 @@ public class CharacterGenerator
         foreach (CharacterElement element in currentConfiguration.Values)
         {
             SkinnedMeshRenderer smr = element.GetSkinnedMeshRenderer();
-            materials.AddRange(smr.materials);
+            //materials.AddRange(smr.sharedMaterials);
+            materials.Add(element.GetMaterial());
             for (int sub = 0; sub < smr.sharedMesh.subMeshCount; sub++)
             {
                 CombineInstance ci = new CombineInstance();
@@ -290,7 +291,7 @@ public class CharacterGenerator
                 }
             }
 
-            Object.Destroy(smr.gameObject);
+            //Object.Destroy(smr.gameObject);
         }
 
         // Obtain and configure the SkinnedMeshRenderer attached to

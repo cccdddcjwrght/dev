@@ -28,6 +28,7 @@ namespace SGame
 				// 设置UI显示层级
 				context.window.sortingOrder = ui.Order;
 				context.window.uiname = ui.Name;
+				context.window.fairyBatching = true;
 
 #if !EVENT_LOG_OFF
 				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type); 
