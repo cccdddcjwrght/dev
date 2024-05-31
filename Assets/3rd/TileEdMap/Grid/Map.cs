@@ -138,7 +138,7 @@ namespace GameTools.Maps
 					cells.Add(cell);
 				}
 			}
-			count = index;
+			count = cellCount = index;
 			return this;
 
 		}
@@ -328,6 +328,8 @@ namespace GameTools.Maps
 		{
 			try
 			{
+				if (cellCount == 0)
+					cellCount = cells.Count;
 				if (index >= 0 && cellCount > index) return cells[index];
 			}
 			catch (System.Exception e)
