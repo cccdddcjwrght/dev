@@ -120,8 +120,6 @@ namespace SGame.Dining
 						DataCenter.SetIntValue(GuideModule.GUIDE_FIRST, 1);
 					}
 
-					StaticDefine.G_WAIT_WELCOME = true;
-					UIUtils.OpenUI("welcomenewlevel");
 					OnEnterRoomCompleted(true).Start();
 				}
 			}
@@ -130,7 +128,13 @@ namespace SGame.Dining
 		private IEnumerator OnEnterRoomCompleted(bool wait = false)
 		{
 			if (wait)
+			{
+				if (_currentRoom.cfgID == 1)
+					yield return new WaitUIClose(SGame.UI.UIModule.Instance.GetEntityManager(), UIUtils.OpenUI("welcomeanim"));
+				StaticDefine.G_WAIT_WELCOME = true;
+				UIUtils.OpenUI("welcomenewlevel");
 				yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
+			}
 			log.Info("EnterRoom :" + _currentRoom.cfgID);
 			EventManager.Instance.AsyncTrigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
 			EventManager.Instance.AsyncTrigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);

@@ -8,6 +8,8 @@ namespace SGame.UI.EnterScene
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_WelcomeNewLevelAnimUI.URL, typeof(UI_WelcomeNewLevelAnimUI));
+            UIObjectFactory.SetPackageItemExtension(UI_OpenAnim.URL, typeof(UI_OpenAnim));
             UIObjectFactory.SetPackageItemExtension(UI_EnterSceneUI.URL, typeof(UI_EnterSceneUI));
             UIObjectFactory.SetPackageItemExtension(UI_HeadRegion.URL, typeof(UI_HeadRegion));
             UIObjectFactory.SetPackageItemExtension(UI_LevelItem.URL, typeof(UI_LevelItem));
