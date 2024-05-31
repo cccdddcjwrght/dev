@@ -17,7 +17,11 @@ namespace SGame.UI{
 			m_RewardPanel = (UI_ClubRewardBody)m_view.m_bodyList.GetChildAt(0);
 			m_RewardPanel.m_list.itemRenderer = OnRewardItemRenderer;
 			m_RewardPanel.m_topList.itemRenderer = OnTopItemRenderer;
-			m_RewardPanel.m_topList.onClick.Add(OnClickGetTopReward);
+			m_RewardPanel.m_topIcon.onClick.Add(OnClickGetTopReward);
+			m_view.m_clubItem.m_clubIcon.onClick.Add(OnChangeBtnClick);
+
+			m_RewardPanel.m_topIcon.onClick.Add(()=> m_RewardPanel.m_topGroup.visible = !m_RewardPanel.m_topGroup.visible);
+			m_RewardPanel.m_topIcon.onFocusOut.Add(() => m_RewardPanel.m_topGroup.visible = false);
 		}
 
 		public void RefreshAll() 
@@ -88,7 +92,9 @@ namespace SGame.UI{
 
 		public void OnClickGetTopReward() 
 		{
-			var data = DataCenter.ClubUtil.GetClubReward(m_RewardDatas[m_RewardDatas.Count - 1].Id) ;
+			var data = DataCenter.ClubUtil.GetClubReward(m_RewardDatas[m_RewardDatas.Count - 1].Id);
+			var currencyId = DataCenter.ClubUtil.GetClubCurrencyId();
+			if (!PropertyManager.Instance.CheckCount(currencyId, data.target, 1)) return;
 			if (data != null)  
 			{
 				RequestExcuteSystem.Instance.ClubRewardGetReq(data.id);
@@ -139,6 +145,13 @@ namespace SGame.UI{
         partial void OnTaskBtnClick(EventContext data)
         {
 			SGame.UIUtils.OpenUI("clubtask");
+		}
+
+		public void OnChangeBtnClick() 
+		{
+			//俱乐部会长才能改头像
+			if(DataCenter.ClubUtil.GetCreatePlayerId() == DataCenter.Instance.accountData.playerID)
+				SGame.UIUtils.OpenUI("clubselect", DataCenter.ClubUtil.currentData.icon_id, DataCenter.ClubUtil.currentData.frame_id);
 		}
 
         partial void OnClubItem_LeaveBtnClick(EventContext data)

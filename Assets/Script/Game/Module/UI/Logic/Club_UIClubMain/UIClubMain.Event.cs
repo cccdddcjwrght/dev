@@ -11,6 +11,7 @@ namespace SGame.UI{
 		partial void InitEvent(UIContext context){
 			m_EventHandle += EventManager.Instance.Reg((int)GameEvent.CLUB_MAIN_UPDATE, RefreshAll);
 			m_EventHandle += EventManager.Instance.Reg((int)GameEvent.CLUB_REWARD_UPDATE, RefreshRewardList);
+			m_EventHandle += EventManager.Instance.Reg((int)GameEvent.CLUB_CHANGE_HEAD, RefreshClubInfo);
 			m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, (t, v) => RefreshRewardList());
 		}
 		partial void UnInitEvent(UIContext context){

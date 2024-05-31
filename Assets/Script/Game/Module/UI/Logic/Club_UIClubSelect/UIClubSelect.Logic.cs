@@ -68,7 +68,8 @@ namespace SGame.UI{
 		}
 
 		partial void UnInitLogic(UIContext context){
-
+			if (DataCenter.Instance.accountData.playerID == DataCenter.ClubUtil.GetCreatePlayerId()) 
+				RequestExcuteSystem.Instance.ClubChangeHeadOrFrameReq(m_HeadId, m_FrameId).Start();
 		}
 	}
 }

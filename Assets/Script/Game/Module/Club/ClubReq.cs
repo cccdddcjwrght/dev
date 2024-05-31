@@ -68,7 +68,7 @@ namespace SGame
                 yield break;
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
-            if (pkg.code == 64)//不是俱乐部成员
+            if (pkg.code == 64)//不是俱乐部成员,可能被踢了
             {
                 UIUtils.CloseUIByName("clubmain");
                 //重新请求下俱乐部列表
@@ -201,6 +201,31 @@ namespace SGame
 
             DataCenter.ClubUtil.RemoveMember(userId);
             UIUtils.CloseUIByName("clubdetail");
+        }
+
+        public IEnumerator ClubChangeHeadOrFrameReq(int headId, int frameId) 
+        {
+            HttpPackage pkg = new HttpPackage();
+            var data = new ClubChangeData()
+            {
+                player_id = DataCenter.Instance.accountData.playerID,
+                frame_id = frameId,
+                icon_id = headId,
+            };
+            pkg.data = JsonUtility.ToJson(data);
+            var result = HttpSystem.Instance.Post("http://192.168.10.109:8082/club/updateProfile", pkg.ToJson());
+            yield return result;
+            if (!string.IsNullOrEmpty(result.error))
+            {
+                Debug.LogError("club change fail=" + result.error);
+                yield break;
+            }
+
+            pkg = JsonUtility.FromJson<HttpPackage>(result.data);
+            if (pkg.code == 0) 
+            {
+                DataCenter.ClubUtil.ChangeHeadOrFrame(headId, frameId);
+            }
         }
 
         public void ClubRewardGetReq(int rewardId) 

@@ -31,10 +31,20 @@ namespace SGame
         public int score;
     }
 
+    [Serializable]
     public class ClubKickData 
     {
         public long player_id;
         public long user_id;
+    }
+
+    [Serializable]
+    public class ClubChangeData 
+    {
+        public long player_id;
+        public int frame_id;
+        public int icon_id;
+        public string title;
     }
 
     [Serializable]
@@ -181,6 +191,15 @@ namespace SGame
 
                     InitClubTaskData();
                     InitClubRewardData();
+                }
+            }
+
+            public static void ChangeHeadOrFrame(int headId, int frameId) 
+            {
+                if (currentData != null) 
+                {
+                    currentData.icon_id = headId;
+                    currentData.frame_id = frameId;
                 }
             }
 

@@ -15,7 +15,7 @@ namespace SGame.UI.Club
         public GButton m_reddot;
         public GList m_topList;
         public GGraph m_mask;
-        public GGroup m_top_2;
+        public GGroup m_topGroup;
         public GGroup m_content;
         public const string URL = "ui://kgizakqqlu5m1w";
 
@@ -33,10 +33,10 @@ namespace SGame.UI.Club
             m_list = (GList)GetChildAt(3);
             m_barbg = (GImage)GetChildAt(6);
             m_bar = (GImage)GetChildAt(7);
-            m_reddot = (GButton)GetChildAt(15);
+            m_reddot = (GButton)GetChildAt(12);
             m_topList = (GList)GetChildAt(16);
             m_mask = (GGraph)GetChildAt(17);
-            m_top_2 = (GGroup)GetChildAt(19);
+            m_topGroup = (GGroup)GetChildAt(19);
             m_content = (GGroup)GetChildAt(20);
         }
     }
