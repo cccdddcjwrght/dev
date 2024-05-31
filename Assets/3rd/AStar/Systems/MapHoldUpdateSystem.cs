@@ -15,7 +15,7 @@ namespace GameTools.Paths
 			if (AStar.map == null) return;
 
 			AStar.map?.Hold(-1, -1, 0);
-			Entities.WithAll<Translation, Follow>().WithBurst().ForEach((Entity e, in Translation t) =>
+			Entities.WithAll<Translation, Follow>().WithoutBurst().ForEach((Entity e, in Translation t) =>
 			{
 				var index = AStar.GetGridPos(t.Value);
 				AStar.map?.Hold(index.x, index.y, e.Index);
