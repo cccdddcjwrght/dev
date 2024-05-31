@@ -27,6 +27,7 @@ namespace GameTools.Paths
 
 			public bool isWalkable; // 是否可以移动
 			public bool isClose;    // 是否已经在close中
+			public bool inOpen;
 
 			// 估值数据
 			public int gValue; // 从开始节点到此节点值
@@ -175,7 +176,8 @@ namespace GameTools.Paths
 		{
 			int index = 0;
 			int fValue = maps[openList[0]].fValue;
-			for (int i = 1; i < openList.Length; i++)
+			var len = openList.Length;
+			for (int i = 1; i < len; i++)
 			{
 				var curFValue = maps[openList[i]].fValue;
 				if (curFValue < fValue)
@@ -209,22 +211,23 @@ namespace GameTools.Paths
 
 					// 获得index
 					int nextNode = GetIndexFromPos(pos, mapSize.x);
+
 					Node n = maps[nextNode];
 					if (n.isClose == true || n.isWalkable == false) // 不可移动，或者是在close列表中就直接跳过
 						continue;
-					
+
 					// 斜对角方向判定
 					if (x != 0 && y != 0)
 					{
 						// 斜对角 y 轴不能移动
-						if (!IsWalkAble(new int2(currentPos.x, pos.y),mapSize, maps))
+						if (!IsWalkAble(new int2(currentPos.x, pos.y), mapSize, maps))
 							continue;
-						
+
 						// 斜对角 x 轴不能移动
-						if (!IsWalkAble(new int2(pos.x, currentPos.y),mapSize, maps))
+						if (!IsWalkAble(new int2(pos.x, currentPos.y), mapSize, maps))
 							continue;
 					}
-					
+
 					int g = CalcDistanceCost(currentPos, pos) + node.gValue + n.cost;
 					if (g < n.gValue) // 没有比另一个路径更哟（一开始这个值就是Max）
 					{
@@ -238,13 +241,14 @@ namespace GameTools.Paths
 							Debug.LogError("One Node Twice Open!!!");
 						}
 						*/
-
+						var flag = n.inOpen;
 						n.gValue = g;
 						n.fValue = n.gValue + n.hValue;
 						n.parentIndex = openIndex;
+						n.inOpen = true;
 						maps[nextNode] = n;
-
-						openList.Add(nextNode);
+						if (!flag)
+							openList.Add(nextNode);
 					}
 
 				}
@@ -278,7 +282,6 @@ namespace GameTools.Paths
 
 			// openlist
 			NativeList<int> openList = new NativeList<int>(Allocator.Temp);
-			//NativeList<Node> paths = new NativeList<Node>(Allocator.Temp);
 			paths.Clear();
 
 			int currentIndex = GetIndexFromPos(startPos, width);
@@ -306,12 +309,10 @@ namespace GameTools.Paths
 				Node currentNode = maps[currentIndex];
 				currentNode.isClose = true;
 				openList.RemoveAtSwapBack(openIndex);
-
 				// 打开周围的节点
 				OpenNearMap(currentIndex, endPos, openList, maps, mapSize);
 			}
 			openList.Dispose();
-
 			if (maps[endIndex].parentIndex == -1)
 			{
 				// not found!

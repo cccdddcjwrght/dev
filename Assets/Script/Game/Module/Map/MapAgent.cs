@@ -273,7 +273,7 @@ namespace GameTools
 					var cells = GetTagGrids(tag);
 					if (cells?.Count > 1)
 						SGame.Randoms.Random._R.NextItem(cells, cells.Count, ref q, true);
-					else
+					else if(cells?.Count > 0)
 						q.AddRange(cells);
 				}
 

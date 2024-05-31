@@ -53,6 +53,7 @@ namespace SGame
 	/// </summary>
 	public class AttributeSystem : MonoSingleton<AttributeSystem>
 	{
+		private Dictionary<int, RoleDataRowData> _roleCfgs;
 
 		readonly static EnumTarget ALL_TARGET = EnumTarget.Player
 			| EnumTarget.Equip
@@ -125,7 +126,7 @@ namespace SGame
 		/// <returns></returns>
 		public double GetValueByRoleID(int roleID, EnumAttribute attributeID, bool isemploy = false)
 		{
-			if (ConfigSystem.Instance.TryGet<RoleDataRowData>(roleID, out var cfg))
+			if (_roleCfgs.TryGetValue(roleID, out var cfg))
 			{
 				switch ((EnumRole)cfg.Type)
 				{
@@ -155,6 +156,7 @@ namespace SGame
 
 		public void Initalize()
 		{
+			_roleCfgs = ConfigSystem.Instance.Finds<RoleDataRowData>(d => d.IsValid()).ToDictionary(v=>v.Id);
 			//注册游戏全局属性
 			Register(((int)EnumTarget.Game));
 			BuffSystem.Instance.Initalize();
