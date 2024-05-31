@@ -328,6 +328,25 @@ namespace SGame
                 return false;
             }
 
+            /// <summary>
+            /// 跳转到某个格子
+            /// </summary>
+            /// <param name="x"></param>
+            /// <param name="z"></param>
+            public static void GotoGridXZ(int x, int z) 
+            {
+                var xMin = SceneCameraSystem.Instance.xMove.minValue;
+                var xMax = SceneCameraSystem.Instance.xMove.maxValue;
+                var zMin = SceneCameraSystem.Instance.zMove.minValue;
+                var zMax = SceneCameraSystem.Instance.zMove.maxValue;
+
+                var pos = GameTools.MapAgent.CellToVector(x, z);
+                pos.x = Mathf.Clamp(pos.x, xMin, xMax);
+                pos.z = Mathf.Clamp(pos.z, zMin, zMax);
+                SceneCameraSystem.Instance.Focus(pos);
+            }
+
+
             public static bool IsOpen() 
             {
                 return 28.IsOpend(false) && GetTaskActiveTime() > 0;
