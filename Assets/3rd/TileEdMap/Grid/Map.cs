@@ -154,7 +154,6 @@ namespace GameTools.Maps
 
 			if (cells != null && (tags == null || walkables == null))
 			{
-				cellCount = cells.Count;
 				walkables = new List<int>();
 				tags = new Dictionary<string, List<int>>();
 				builds = new Dictionary<string, List<int>>();
@@ -168,7 +167,7 @@ namespace GameTools.Maps
 						var cell = default(Cell);
 						try
 						{
-							cell = cellCount > index ? cells[index] : default;
+							cell = cells.Count > index ? cells[index] : default;
 						}
 						catch (System.Exception e)
 						{
@@ -215,6 +214,7 @@ namespace GameTools.Maps
 					}
 				}
 
+				cellCount = cells.Count;
 			}
 			return this;
 		}
