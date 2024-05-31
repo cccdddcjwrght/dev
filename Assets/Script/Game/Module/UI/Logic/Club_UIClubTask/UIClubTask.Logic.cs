@@ -22,6 +22,8 @@ namespace SGame.UI{
 
 			m_CurrencyId = DataCenter.ClubUtil.GetClubCurrencyId();
 			m_view.m_currencyIcon.SetIcon(Utils.GetItemIcon(1, m_CurrencyId));
+			var num = PropertyManager.Instance.GetItem(m_CurrencyId).num;
+			m_view.m_value.SetText("X" + num);
 		}
 
 		public void OnTaskItemRenderer(int index, GObject gObject) 

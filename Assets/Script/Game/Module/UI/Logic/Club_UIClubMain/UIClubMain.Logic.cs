@@ -115,6 +115,7 @@ namespace SGame.UI{
 			else 
 			{
 				var buffId = cfg.Buff(0);
+				item.m_reward.m_value.SetText(cfg.Buff(1) + "%");
 				//var buffValue = cfg.Buff(1);
 				if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(buffId, out var buffCfg)) 
 					item.m_reward.SetIcon(buffCfg.Icon);
