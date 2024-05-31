@@ -13,6 +13,7 @@ namespace GameTools
 	public class MapAgent : MonoBehaviour, IMap
 	{
 		private int[] holder;
+		private int interval;
 
 		public bool enableHold;
 		public bool checkHoldCost = true;
@@ -85,15 +86,21 @@ namespace GameTools
 		{
 			if (_gflag == 0) return default;
 
-
 			if (x == -1 && y == -1 && holder == 0)
+			{
 				Array.Fill(this.holder, 0);
+				interval--;
+			}
 			else if (_grid.IsInGridByIndex(x, y))
 			{
 				var id = x + _grid.gridSize.x * y;
 				if (holder == 0) return this.holder[id] != 0;
 				this.holder[id] = holder;
-				version++;
+				if (interval <= 0)
+				{
+					version++;
+					interval = 30;
+				}
 			}
 			return false;
 		}
@@ -122,7 +129,7 @@ namespace GameTools
 			_grid.Refresh();
 			mapSize = _grid.gridSize;
 			cellSize = (int)_grid.size;
-			holder = new int[grid.cells.Count];
+			holder = new int[grid.cellCount];
 		}
 
 		#region Mono

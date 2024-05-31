@@ -105,6 +105,7 @@ namespace GameTools.Maps
 		public Dictionary<int, int> buildIndexs { get; private set; }
 		public List<int> walkables { get; set; }
 
+		public int cellCount;
 
 		public Grid Create(Vector2Int min, Vector2Int max)
 		{
@@ -153,6 +154,7 @@ namespace GameTools.Maps
 
 			if (cells != null && (tags == null || walkables == null))
 			{
+				cellCount = cells.Count;
 				walkables = new List<int>();
 				tags = new Dictionary<string, List<int>>();
 				builds = new Dictionary<string, List<int>>();
@@ -166,7 +168,7 @@ namespace GameTools.Maps
 						var cell = default(Cell);
 						try
 						{
-							cell = cells.Count > index ? cells[index] : default;
+							cell = cellCount > index ? cells[index] : default;
 						}
 						catch (System.Exception e)
 						{
@@ -313,7 +315,7 @@ namespace GameTools.Maps
 		public Vector2Int IndexToGrid(int index)
 		{
 
-			if (index >= 0 && index < cells.Count)
+			if (index >= 0 && index < cellCount)
 			{
 				var x = index % gridSize.x;
 				var y = index / gridSize.x;
@@ -326,7 +328,7 @@ namespace GameTools.Maps
 		{
 			try
 			{
-				if (index >= 0 && cells.Count > index) return cells[index];
+				if (index >= 0 && cellCount > index) return cells[index];
 			}
 			catch (System.Exception e)
 			{
@@ -363,7 +365,7 @@ namespace GameTools.Maps
 		public int GetWalkCost(Cell cell)
 		{
 			if (cell == null || !cell.flag) return -1;
-			if (cell.relex != null && cell.relex.Length > 0)
+			/*if (cell.relex != null && cell.relex.Length > 0)
 			{
 				var rc = GetCell(cell.relex[0], cell.relex[1]);
 				if (rc != null && rc.builds?.Count > 0)
@@ -371,7 +373,7 @@ namespace GameTools.Maps
 					var b = rc.GetDataSetByBuildName(cell.relex[2].ToString());
 					if (b != null) return b.level >= cell.relex[3] ? -1 : 0;
 				}
-			}
+			}*/
 			return cell.IsWalkable() ? cell.walkcost : -1;
 		}
 

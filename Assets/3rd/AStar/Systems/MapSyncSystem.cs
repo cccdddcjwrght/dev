@@ -62,6 +62,8 @@ namespace GameTools.Paths
 				{
 					// 设置可行走位置
 					AStarSystem.Node v = mapData._datas[i];
+
+					if (!v.isWalkable) continue;
 					var c = map_data.HasHold(i) ? 20 : map_data.GetCost(i);
 					v.isWalkable = map_data.GetWalkable(i);
 					if (v.cost != c) v.cost = c;
