@@ -17,6 +17,9 @@ Shader "FairyGUI/Image"
 
         _BlendSrcFactor ("Blend SrcFactor", Float) = 5
         _BlendDstFactor ("Blend DstFactor", Float) = 10
+        
+        _ClipBox ("clipbox",Vector)  = (-2,-2, 0, 0)
+        _ClipSoftness("clipsoft ness", Vector) = (0,0, 0, 0)
     }
     
     SubShader
@@ -89,7 +92,7 @@ Shader "FairyGUI/Image"
                 #ifdef COMBINED
                 sampler2D _AlphaTex;
                 #endif
-
+/*
                 CBUFFER_START(UnityPerMaterial)
                 #ifdef CLIPPED
                 float4 _ClipBox = float4(-2, -2, 0, 0);
@@ -100,7 +103,13 @@ Shader "FairyGUI/Image"
                 float4 _ClipSoftness = float4(0, 0, 0, 0);
                 #endif
                 CBUFFER_END
+*/
 
+                CBUFFER_START(UnityPerMaterial)
+                float4 _ClipBox = float4(-2, -2, 0, 0);
+                float4 _ClipSoftness = float4(0, 0, 0, 0);
+                CBUFFER_END
+                
                 #ifdef COLOR_FILTER
                 float4x4 _ColorMatrix;
                 float4 _ColorOffset;
