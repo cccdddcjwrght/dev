@@ -155,6 +155,15 @@ namespace SGame
 								tips = "@ui_machine_enable_not_enough";
 							}
 							break;
+
+						case 7://区域解锁
+							int area = cfg.OpenVal(0);
+							if (ConfigSystem.Instance.TryGet<GameConfigs.RoomAreaRowData>(area, out var c))
+							{
+								if (DataCenter.Instance.roomData.current.id <= c.Scene && !DataCenter.MachineUtil.IsAreaEnable(area))
+									ret = false;
+							}
+							break;
 					}
 				}
 

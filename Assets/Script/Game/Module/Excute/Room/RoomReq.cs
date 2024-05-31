@@ -31,6 +31,7 @@ namespace SGame
 							StaticDefine.CUSTOMER_TAG_BORN.Add(cfg.CustomerBorn);
 
 						_eMgr.Trigger(((int)GameEvent.WORK_AREA_UNLOCK), area);
+						_eMgr.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
 					}
 				}
 
