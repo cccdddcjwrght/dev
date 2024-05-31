@@ -44,6 +44,8 @@ namespace SGame
                         return GetMachineProgress(val[0], val[1]);
                     case (int)RecordDataEnum.AREA:
                         return GetAreaProgress(val[0], val[1]);
+                    case (int)RecordDataEnum.COOK:
+                        return GetCookProgress(val[0], val[1]);
                     default:
                         return RecordModule.Instance.GetValue(type, (int)RecordFunctionId.TASK);
                 }
@@ -80,6 +82,14 @@ namespace SGame
                     if (MachineUtil.IsAreaEnable(areaId)) return target;
                 }
                 return 0;
+            }
+
+            public static int GetCookProgress(int cookId, int target) 
+            {
+                var data = CookbookUtils.GetBook(cookId);
+                if (data.level >= target)
+                    return target;
+                return data.level;
             }
 
             /// <summary>

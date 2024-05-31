@@ -7,7 +7,6 @@ namespace SGame.UI.Task
 {
     public partial class UI_TaskProgress : GProgressBar
     {
-        public GGraph m_barbg;
         public GTextField m_value;
         public const string URL = "ui://j3n85nt9uszl5";
 
@@ -20,7 +19,6 @@ namespace SGame.UI.Task
         {
             base.ConstructFromXML(xml);
 
-            m_barbg = (GGraph)GetChildAt(0);
             m_value = (GTextField)GetChildAt(2);
         }
     }

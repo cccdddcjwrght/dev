@@ -31,6 +31,7 @@ namespace SGame
         TABLE           = 20,   //桌子id升到X级
         DECORATION      = 21,   //摆件id升到X级
         AREA            = 22,   //解锁区域id
+        COOK            = 23,   //菜品id升到X级
     }
 
     public enum RecordFunctionId 
