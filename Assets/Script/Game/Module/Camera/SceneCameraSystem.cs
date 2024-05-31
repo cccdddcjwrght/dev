@@ -65,8 +65,9 @@ namespace SGame
 		public CameraDataBind yMove = new CameraDataBind();
 		public CameraDataBind zMove = new CameraDataBind();
 
-		public bool disbaleControl = false;
-		public bool disbaleTouch = false;
+		public bool disableControl = false;
+		public bool disableTouch = false;
+		public bool disableDrag = false;
 
 		private CameraDataBind sceneXMove;
 		private CameraDataBind sceneZMove;
@@ -95,12 +96,12 @@ namespace SGame
 		private void LateUpdate()
 		{
 			if (!isInited) return;
-			if (FairyGUI.Stage.isTouchOnUI || disbaleControl)
+			if (FairyGUI.Stage.isTouchOnUI || disableControl)
 			{
 				return;
 			}
 			if (TouchTrigger()) return;
-
+			if (disableDrag) return;
 			ControlAxis.Control(leftRight);
 			ControlAxis.Control(fieldOfView);
 			ControlAxis.Control(yMove);
@@ -206,7 +207,7 @@ namespace SGame
 
 		public void Return(float time)
 		{
-			disbaleControl = false;
+			disableControl = false;
 			ToggleAxisLimit(true, 0);
 			ToggleAxisLimit(true, 1);
 			SetLayer();
@@ -228,7 +229,7 @@ namespace SGame
 			var angle = 360 * circle;
 			YieldInstruction wait = interval > 0 ? new WaitForSeconds(interval * 0.001f) : new WaitForEndOfFrame();
 			aroundflag = true;
-			disbaleControl = true;
+			disableControl = true;
 			IEnumerator Rotation()
 			{
 				while (angle > 0 && aroundflag)
@@ -411,7 +412,7 @@ namespace SGame
 
 		bool TouchTrigger()
 		{
-			if (_camera == null || disbaleTouch) return false;
+			if (_camera == null || disableTouch) return false;
 			var pos = Vector2.zero;
 			var flag = false;
 			var ret = false;
