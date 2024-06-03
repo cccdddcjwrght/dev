@@ -472,7 +472,7 @@ namespace SGame.Dining
 				ConfigSystem.Instance.TryGet<RoomMachineRowData>(mid, out var m);
 				//不能自动解锁
 				if (!region.enable && DataCenter.MachineUtil.CheckDontAutoActive(mid)) return;
-				if (region.data.isTable || (region.data.level <= 0 && !region.enable))
+				if (region.data.isTable || (region.data.level <= 1 && !region.enable))
 				{
 					if (0 != DataCenter.MachineUtil.CheckCanActiveMachine(mid, true))
 						return;
