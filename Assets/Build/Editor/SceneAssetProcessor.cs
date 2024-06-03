@@ -12,8 +12,8 @@ public class SceneAssetProcessor
 	static int G_TEX_NAME_ID = Shader.PropertyToID("_BaseMap");
 
 	static string G_SCENE_ASSET_SAVE_DIR = "Assets/BuildAsset/Art/scenes/";
-	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Others/Scenes/";
-	static string G_ASSET_PREFAB_ROOT = "Assets/BuildAsset/Others/Prefabs/";
+	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/"; 
+	static string G_ASSET_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/";
 
 
 	static string[] G_PATTERNS = new string[] {
