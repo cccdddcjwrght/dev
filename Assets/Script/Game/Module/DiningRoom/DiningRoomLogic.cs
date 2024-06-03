@@ -481,15 +481,9 @@ namespace SGame.Dining
 				if (m.Enable == 1)
 				{
 					if (checkauto && !region.enable)
-					{
 						DoUnlock(region, mid);
-						DoPreview(region, false);
-					}
 				}
-				else
-				{
-					DoPreview(region, false);
-				}
+				DoPreview(region, false);
 			}
 		}
 
