@@ -193,8 +193,8 @@ namespace TileEdExt
 			var pid = mapTile.data[_TileFabIdx];
 			var data = go.GetComponent<DataBinder>().dataSet;
 
-			if(mapTile.extraData.Length > 4)
-				data.b_val = mapTile.extraData[4] == "true"; 
+			if (mapTile.extraData.Length > 4)
+				data.b_val = mapTile.extraData[4] == "true";
 
 			data.SetVal(Mathf.Max(pid, 0), "level");
 			if (pid >= 0)
@@ -205,7 +205,7 @@ namespace TileEdExt
 					for (int i = 0; i < tile.prefab.Length; i++)
 					{
 						var prefab = tile.prefab[i];
-						var path = AssetDatabase.GetAssetPath(prefab);
+						var path = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab));
 						assets.SetVal(path, i.ToString());
 					}
 				}

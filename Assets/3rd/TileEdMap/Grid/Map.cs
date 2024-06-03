@@ -43,6 +43,7 @@ namespace GameTools.Maps
 		[System.NonSerialized]
 		public int level;
 
+#if UNITY_EDITOR
 		public static CellData From(int type, string name, DataSet data)
 		{
 
@@ -57,7 +58,13 @@ namespace GameTools.Maps
 					case 1:
 						var lvdata = data.GetValByPath("level");
 						var item = data.GetValByPath("itemid");
-						if (lvdata != null) cd.asset = lvdata.GetValByPath(lvdata.i_val.ToString());
+						if (lvdata != null)
+						{
+							string asset = lvdata.GetValByPath(lvdata.i_val.ToString());
+							if (!asset.ToLower().StartsWith("assets/"))
+								asset = UnityEditor.AssetDatabase.GUIDToAssetPath(asset);
+							cd.asset = asset;
+						}
 						if (item != null) cd.name = item;
 						break;
 				}
@@ -66,6 +73,7 @@ namespace GameTools.Maps
 
 			return default;
 		}
+#endif
 	}
 
 	[System.Serializable]
@@ -443,7 +451,8 @@ namespace GameTools.Maps
 			return default;
 		}
 
-		public bool GetNearTagPos(int cindex, string tag, out Vector2Int index) {
+		public bool GetNearTagPos(int cindex, string tag, out Vector2Int index)
+		{
 			index = default;
 			var c = GetCell(cindex);
 			if (c != null)

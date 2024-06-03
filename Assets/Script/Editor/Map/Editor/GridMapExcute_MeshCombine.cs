@@ -18,7 +18,7 @@ public class GridMapExcute_MeshCombine : TileEdExt.IMapExcute, TileEdExt.IAfterE
 	public void Excute(GameObject go, plyLib.TileEdMap map)
 	{
 		var layer = GameObject.Find("RoomArea");
-		TextureCombine.CombineLayer(layer, combineChild: true);
+		//TextureCombine.CombineLayer(layer, combineChild: true);
 	}
 
 	static void ResetStatic(Transform transform, int flag = 0)

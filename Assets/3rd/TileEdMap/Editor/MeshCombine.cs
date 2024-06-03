@@ -10,18 +10,26 @@ using System.Linq;
 
 public class MeshCombine
 {
-	static string SAVE_PATH = "Assets/BuildAsset/Other/Mesh/";
+	static string SAVE_PATH = "Assets/BuildAsset/Others/Mesh/";
 
 	[MenuItem("地块/网格合并")]
 	static void Combine()
 	{
-		Combine(Selection.activeGameObject);
+		var trans = Selection.activeGameObject;
+		var go = new GameObject(trans.name+"_combine");
+		go.transform.position = trans.transform.position;
+		go.transform.rotation = trans.transform.rotation;
+		foreach (Transform item in trans.transform)
+		{
+			Combine(item.gameObject,parent:go.transform);
+		}
+
 	}
 
-	static public GameObject Combine(UnityEngine.GameObject go, string pixName = null, int layer = 0)
+	static public GameObject Combine(UnityEngine.GameObject go, string pixName = null, int layer = 0 , Transform parent = null)
 	{
 		if (go == null) return null;
-		var oldRenderers = go.GetComponentsInChildren<MeshRenderer>();
+		var oldRenderers = go.GetComponentsInChildren<MeshRenderer>(true);
 		if (oldRenderers?.Length <= 1)
 			return default;
 		var select = go;
@@ -29,9 +37,9 @@ public class MeshCombine
 			Directory.CreateDirectory(SAVE_PATH);
 
 		var p = new GameObject(select.name + "_combine");
-		p.transform.parent = select.transform.parent;
-		p.transform.localPosition = select.transform.localPosition;
-		p.transform.localRotation = select.transform.localRotation;
+		p.transform.parent = parent ?? select.transform.parent;
+		p.transform.position = select.transform.position;
+		p.transform.rotation = select.transform.rotation;
 
 		var ls = plyLibEditor.plyEdUtil.MeshCombine(
 			p.transform, new List<GameObject>() { select }, true,

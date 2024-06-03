@@ -11,6 +11,7 @@ using UnityEditor.SceneManagement;
 using System.IO;
 using System.Text;
 using GameTools.Maps;
+using UnityEngine.SceneManagement;
 
 namespace TileEdExt
 {
@@ -395,6 +396,7 @@ namespace TileEdExt
 
 						}
 
+#if UNITY_EDITOR
 						if (!string.IsNullOrEmpty(tag))
 						{
 							cell.cdatas.Add(GameTools.Maps.CellData.From(0, tag, data.dataSet));
@@ -403,6 +405,7 @@ namespace TileEdExt
 						{
 							cell.cdatas.Add(GameTools.Maps.CellData.From(1, uname, data.dataSet));
 						}
+#endif
 
 					}
 				}
@@ -448,6 +451,30 @@ namespace TileEdExt
 
 		#endregion
 
+		#region Tools
+
+		[MenuItem("[Tools]/Scene/Other/Ìæ»»id")]
+		static void ReplaceAssetToGUID()
+		{
+			if (Selection.activeGameObject == null) return;
+			var ds = Selection.activeGameObject.GetComponentsInChildren<DataBinder>(true);
+			if (ds?.Length > 0)
+			{
+				foreach (var item in ds)
+				{
+					var data = item.dataSet.GetValByPath("level");
+					if(data == null) continue;
+					string val = data.GetValByPath(data.i_val.ToString());
+					if (val.ToLower().StartsWith("assets/"))
+						data.SetVal(AssetDatabase.AssetPathToGUID(val), data.i_val.ToString());
+				}
+			}
+			EditorSceneManager.MarkAllScenesDirty();
+			EditorSceneManager.SaveOpenScenes();
+			AssetDatabase.Refresh();
+		}
+
+		#endregion
 	}
 
 }
