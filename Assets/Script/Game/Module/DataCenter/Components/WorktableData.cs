@@ -87,7 +87,7 @@ namespace SGame
 					if (worktable != null)
 					{
 						var m = FindMachine(worktable, id);
-						if (m == null && cfg.Enable == 1)
+						if (m == null && cfg.Enable == 1 /*&& IsAreaEnable(cfg.RoomArea)*/)
 						{
 							m = CreateMachine(id, ref worktable.stations);
 							worktable.lv = System.Math.Max(1, worktable.lv);
