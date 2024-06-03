@@ -128,6 +128,8 @@ namespace SGame
         public int target;  //需要兑换的奖励的值
         public bool isGet;  //是否领取过
         public bool isBuff; //是否有buff奖励
+        public int buffId;
+        public int buffValue;
     }
 
 
@@ -200,6 +202,7 @@ namespace SGame
                 {
                     currentData.icon_id = headId;
                     currentData.frame_id = frameId;
+                    EventManager.Instance.Trigger((int)GameEvent.CLUB_CHANGE_HEAD);
                 }
             }
 
@@ -288,6 +291,8 @@ namespace SGame
                                 target = cfg.Target(1),
                                 isGet = false,
                                 isBuff = cfg.BuffLength > 0,
+                                buffId = cfg.Buff(0),
+                                buffValue = cfg.Buff(1),
                             });
                         }
                     }

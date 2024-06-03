@@ -124,9 +124,23 @@ namespace SGame.UI{
 			if (rewardData.isGet) item.m_reward.m_state.selectedIndex = 2;
 			else item.m_reward.m_state.selectedIndex = PropertyManager.Instance.CheckCount(DataCenter.ClubUtil.GetClubCurrencyId(), rewardData.target, 1) ? 1 : 0;
 
-			item.m_reward.onClick.Add(()=> 
+			item.m_reward.onClick.Set(()=> 
 			{
-				RequestExcuteSystem.Instance.ClubRewardGetReq(cfg.Id);
+				if (rewardData.isBuff)
+				{
+					var currencyId = DataCenter.ClubUtil.GetClubCurrencyId();
+					if (PropertyManager.Instance.CheckCount(currencyId, rewardData.target, 1) && !rewardData.isGet)
+					{
+						RequestExcuteSystem.Instance.ClubRewardGetReq(cfg.Id);
+					}
+					else 
+					{
+						if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(rewardData.buffId, out var cfg))
+							PopUtil.PopTip(item.m_reward, string.Format(UIListener.Local(cfg.Describe), rewardData.buffValue.ToString()));
+					}
+				}
+				else RequestExcuteSystem.Instance.ClubRewardGetReq(cfg.Id);
+
 			});
 		}
 

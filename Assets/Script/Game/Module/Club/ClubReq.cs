@@ -70,7 +70,11 @@ namespace SGame
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             if (pkg.code == 64)//不是俱乐部成员,可能被踢了
             {
-                UIUtils.CloseUIByName("clubmain");
+                SGame.UIUtils.Confirm("@ui_club_title7", "", (index) =>
+                {
+                    UIUtils.CloseUIByName("clubmain");
+                }, new string[] { "@ui_club_btn_cancel2" });
+
                 //重新请求下俱乐部列表
                 yield return ClubListDataReq(); 
                 yield break;
