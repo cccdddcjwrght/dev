@@ -19,7 +19,7 @@ namespace SGame.UI.EnterScene
         {
             base.ConstructFromXML(xml);
 
-            m_click = (GButton)GetChildAt(4);
+            m_click = (GButton)GetChildAt(1);
         }
     }
 }
