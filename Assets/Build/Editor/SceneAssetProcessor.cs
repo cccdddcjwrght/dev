@@ -12,7 +12,10 @@ public class SceneAssetProcessor
 	static int G_TEX_NAME_ID = Shader.PropertyToID("_BaseMap");
 
 	static string G_SCENE_ASSET_SAVE_DIR = "Assets/BuildAsset/Art/scenes/";
-	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/";
+	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Others/Scenes/";
+	static string G_ASSET_PREFAB_ROOT = "Assets/BuildAsset/Others/Prefabs/";
+
+
 	static string[] G_PATTERNS = new string[] {
 		"scene*.png",
 		"scene_terrain*.fbx",
@@ -107,6 +110,9 @@ public class SceneAssetProcessor
 			if (!System.IO.Directory.Exists(G_TILE_PREFAB_ROOT))
 				System.IO.Directory.CreateDirectory(G_TILE_PREFAB_ROOT);
 
+			if (!System.IO.Directory.Exists(G_ASSET_PREFAB_ROOT))
+				System.IO.Directory.CreateDirectory(G_ASSET_PREFAB_ROOT);
+
 			Dictionary<string, Material> mats = new Dictionary<string, Material>();
 
 			foreach (var o in objs)
@@ -117,7 +123,7 @@ public class SceneAssetProcessor
 				var matname = dir;
 
 				_currentObjPath = opath;
-				dir = G_TILE_PREFAB_ROOT + dir;
+				dir =  G_TILE_PREFAB_ROOT + dir;
 				if (!System.IO.Directory.Exists(dir))
 					System.IO.Directory.CreateDirectory(dir);
 
@@ -125,13 +131,16 @@ public class SceneAssetProcessor
 				{
 					var tpath = opath + "/" + matname + ".png";
 					var mpath = opath + "/" + matname + ".mat";
+					var ipath = opath + "/" + matname + ".txt";
 					if (File.Exists(mpath))
 						mat = AssetDatabase.LoadAssetAtPath<Material>(mpath);
-					if (mat == null) mat = CreateMat(matname, dir + "/" + matname + ".mat", tpath);
+					if (mat == null && !File.Exists(ipath))
+						mat = CreateMat(matname, dir + "/" + matname + ".mat", tpath);
 					if (mat == null)
 					{
 						var md = dir + "/mats/";
-						tpath = opath + "/" + o.name + ".png";
+						var rect = FindUV(ipath, o.name);
+						tpath = File.Exists(tpath) && rect.width != 0 ? tpath : opath + "/" + o.name + ".png";
 						if (File.Exists(tpath))
 						{
 							mpath = md + o.name + ".mat";
@@ -139,7 +148,12 @@ public class SceneAssetProcessor
 								mat = AssetDatabase.LoadAssetAtPath<Material>(mpath);
 							else if (!Directory.Exists(md))
 								Directory.CreateDirectory(md);
-							mats[o.name] = mat = CreateMat(matname, mpath, tpath);
+							mats[o.name] = mat = CreateMat(matname, mpath, tpath, mat);
+							if (rect.width > 0)
+							{
+								mat.SetTextureOffset(G_TEX_NAME_ID, rect.position);
+								mat.SetTextureScale(G_TEX_NAME_ID, rect.size);
+							}
 						}
 					}
 					else
@@ -159,7 +173,7 @@ public class SceneAssetProcessor
 		}
 	}
 
-	static Material CreateMat(string name, string mpath, string tpath)
+	static Material CreateMat(string name, string mpath, string tpath, Material oldmat = null)
 	{
 		var mat = default(Material);
 		if (!File.Exists(tpath))
@@ -172,6 +186,7 @@ public class SceneAssetProcessor
 			if (tex != null)
 			{
 				mat = new Material(Shader.Find(G_SHADER));
+				if (oldmat) mat.CopyPropertiesFromMaterial(oldmat);
 				mat.SetTexture(G_TEX_NAME_ID, tex);
 				AssetDatabase.CreateAsset(mat, mpath);
 				AssetDatabase.Refresh();
@@ -179,10 +194,11 @@ public class SceneAssetProcessor
 			}
 		}
 
-		return mat;
+		return mat ?? oldmat;
 	}
 
-	static void SetTextureSetting(string texture) {
+	static void SetTextureSetting(string texture)
+	{
 
 		var tp = AssetImporter.GetAtPath(texture) as TextureImporter;
 		if (tp != null)
@@ -248,5 +264,29 @@ public class SceneAssetProcessor
 			}
 		}
 	}
+
+	#region MyRegion
+
+	static private Dictionary<string, string[]> _uvs = new Dictionary<string, string[]>();
+
+	static Rect FindUV(string uvpath, string path)
+	{
+		if (!string.IsNullOrEmpty(uvpath) && !string.IsNullOrEmpty(path))
+		{
+			if (!_uvs.TryGetValue(uvpath, out var val) && File.Exists(uvpath))
+			{
+				_uvs[uvpath] = val = File.ReadAllLines(uvpath);
+			}
+			if (val != null)
+			{
+				var v = val.FirstOrDefault(f => f.Contains(path))?.Split('|');
+				if (v?.Length >= 5)
+					return new Rect(float.Parse(v[1]), float.Parse(v[2]), float.Parse(v[3]), float.Parse(v[4]));
+			}
+		}
+		return default;
+	}
+
+	#endregion
 
 }
