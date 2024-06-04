@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9183320872045031926}
-  - component: {fileID: 3156410346890601630}
-  - component: {fileID: 5394801423170964965}
+  - component: {fileID: 8777654568324937790}
+  - component: {fileID: 8520105746066152899}
   m_Layer: 0
   m_Name: clothes-14
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &3156410346890601630
+--- !u!137 &8777654568324937790
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,14 +113,13 @@ SkinnedMeshRenderer:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: -0.027277656, y: -0.0000003427267, z: 0.06828218}
     m_Extent: {x: 0.1953502, y: 0.39557815, z: 0.18299112}
   m_DirtyAABB: 0
---- !u!114 &5394801423170964965
+--- !u!114 &8520105746066152899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +161,6 @@ MonoBehaviour:
   - glasses
   - main
   - weapon-1
-  - goods
   - foot
   - Bip001 R Finger0Nub
   - Bip001 HeadNub
