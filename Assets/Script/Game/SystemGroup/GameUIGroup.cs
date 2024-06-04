@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-[UpdateInGroup(typeof(GameGroup))]
+[UpdateInGroup(typeof(PresentationSystemGroup))]
 public class GameUIGroup : ComponentSystemGroup
 {
     
