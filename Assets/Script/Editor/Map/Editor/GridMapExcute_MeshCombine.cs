@@ -9,16 +9,21 @@ public class GridMapExcute_MeshCombine : TileEdExt.IMapExcute, TileEdExt.IAfterE
 
 	public bool fade { get; set; }
 
+	private bool _combine;
 
 	public void OnGUI(bool show)
 	{
-		if (show) { }
+		if (show)
+		{
+			_combine = GUIHelp.DrawToggle("开启合并:", _combine);
+		}
 	}
 
 	public void Excute(GameObject go, plyLib.TileEdMap map)
 	{
 		var layer = GameObject.Find("RoomArea");
-		//TextureCombine.CombineLayer(layer, combineChild: true);
+		if (_combine) TextureCombine.CombineLayer(layer, combineChild: true);
+		else ResetStatic(layer.transform, ((int)StaticEditorFlags.BatchingStatic));
 	}
 
 	static void ResetStatic(Transform transform, int flag = 0)

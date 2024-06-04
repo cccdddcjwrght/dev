@@ -26,7 +26,7 @@ public class ControlAxis
 {
 	public static OnCalulateAxis OnCalulate;
 
-	static public float G_TOUCH_VALUE = 1;
+	static public float G_TOUCH_VALUE = 0.5f;
 
 	static public bool AnyKeyInput { get; private set; }
 

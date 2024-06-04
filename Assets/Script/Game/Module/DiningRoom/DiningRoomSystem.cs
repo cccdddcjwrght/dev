@@ -189,6 +189,7 @@ namespace SGame.Dining
 				if (flag)
 				{
 					_animUI = SGame.UIUtils.OpenUI("welcomeanim");
+					yield return new WaitUIOpen(SGame.UI.UIModule.Instance.GetEntityManager(), _animUI);
 				}
 			}
 		}

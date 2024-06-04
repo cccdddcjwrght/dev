@@ -274,7 +274,7 @@ MonoBehaviour:
     currentValue: 0
     inputValue: 0
     wrapValue: 0
-    speed: 10
+    speed: 20
     refSpeed: 0
     time: 1
     isAxis: 0
@@ -285,8 +285,8 @@ MonoBehaviour:
     disableBounce: 1
     control:
     - axisName: Mouse X
-      sensitivity: 1
-      touchRevise: 0.1
+      sensitivity: 0.35
+      touchRevise: 0.4
       isInvertAxis: 1
       additionalKey: 0
       additionalMouseButton: 0
@@ -326,7 +326,7 @@ MonoBehaviour:
     currentValue: 0
     inputValue: 0
     wrapValue: 0
-    speed: 10
+    speed: 20
     refSpeed: 0
     time: 1
     isAxis: 0
@@ -337,8 +337,8 @@ MonoBehaviour:
     disableBounce: 1
     control:
     - axisName: Mouse Y
-      sensitivity: 1
-      touchRevise: 0.1
+      sensitivity: 0.6
+      touchRevise: 0.4
       isInvertAxis: 1
       additionalKey: 0
       additionalMouseButton: 0

@@ -109,6 +109,19 @@ namespace SGame
 			ControlAxis.Control(zMove);
 		}
 
+		/*private void OnGUI()
+		{
+			GUILayout.BeginVertical(GUILayout.Width(200));
+			xMove.control[0].touchRevise = GUILayout.HorizontalSlider(xMove.control[0].touchRevise, 0, 1 , GUILayout.Width(200));
+			zMove.control[0].touchRevise = GUILayout.HorizontalSlider(zMove.control[0].touchRevise, 0, 1, GUILayout.Width(200));
+			GUILayout.Space(50);
+			xMove.control[0].sensitivity = GUILayout.HorizontalSlider(xMove.control[0].sensitivity, 0, 1, GUILayout.Width(200));
+			zMove.control[0].sensitivity = GUILayout.HorizontalSlider(zMove.control[0].sensitivity, 0, 1, GUILayout.Width(200));
+			GUILayout.EndVertical();
+
+
+		}*/
+
 		public static void Reload(string path)
 		{
 			path = path ?? c_cpath;
