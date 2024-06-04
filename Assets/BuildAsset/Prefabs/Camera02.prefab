@@ -286,7 +286,7 @@ MonoBehaviour:
     control:
     - axisName: Mouse X
       sensitivity: 1
-      touchRevise: 0.5
+      touchRevise: 0.1
       isInvertAxis: 1
       additionalKey: 0
       additionalMouseButton: 0
@@ -337,8 +337,8 @@ MonoBehaviour:
     disableBounce: 1
     control:
     - axisName: Mouse Y
-      sensitivity: 0.5
-      touchRevise: 0.5
+      sensitivity: 1
+      touchRevise: 0.1
       isInvertAxis: 1
       additionalKey: 0
       additionalMouseButton: 0
@@ -348,5 +348,6 @@ MonoBehaviour:
       limit: 1
       min: -50
       max: 70
-  disbaleControl: 0
-  disbaleTouch: 0
+  disableControl: 0
+  disableTouch: 0
+  disableDrag: 0
