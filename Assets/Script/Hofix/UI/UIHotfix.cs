@@ -127,8 +127,9 @@ namespace SGame.Hotfix
             
             if (!string.IsNullOrEmpty(updater.error))
             {
-	            log.Info("hotfix fail ....");
+	            log.Error("hotfix fail =" + updater.error);
 	            m_text.text = updater.error;
+	            EventManager.Instance.Trigger((int)HotfixGameEvent.HOTFIX_DONE);
 	            yield break;
             }
 			
