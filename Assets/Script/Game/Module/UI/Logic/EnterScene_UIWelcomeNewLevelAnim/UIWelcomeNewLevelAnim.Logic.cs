@@ -10,6 +10,7 @@ namespace SGame.UI
 	public partial class UIWelcomeNewLevelAnim
 	{
 		private UI_OpenAnim openAnim;
+		private bool flag;
 
 		partial void InitLogic(UIContext context)
 		{
@@ -19,10 +20,19 @@ namespace SGame.UI
 				m_view.m_anim.fill = FillType.ScaleMatchHeight;
 			openAnim = m_view.m_anim.component as UI_OpenAnim;
 			openAnim.visible = false;
+			flag = false;
+			context.onUpdate += OnUpdate;
 		}
 
-		partial void DoShow(UIContext context)
+		private void OnUpdate(UIContext context)
 		{
+			if (!flag && StaticDefine.G_WAIT_WELCOME)
+				Play();
+		}
+
+		private void Play()
+		{
+			flag = true;
 			if (openAnim != null)
 			{
 				GTween.To(0, 1, 0.1f).OnComplete(() =>
@@ -33,9 +43,10 @@ namespace SGame.UI
 			}
 		}
 
+
 		partial void UnInitLogic(UIContext context)
 		{
-
+			context.onUpdate -= OnUpdate;
 		}
 
 		IEnumerator OnAnimCompleted()

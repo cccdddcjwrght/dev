@@ -579,7 +579,7 @@ namespace SGame
 			{
 				var book = DataCenter.CookbookUtils.GetBook(cfg.ItemId);
 				if (book != null)
-					return (1D * book.lvCfg.Price * 0.01f * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
+					return (1D * book.lvCfg.Price * 0.01 * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
 			}
 			return 0;
 		}

@@ -28,6 +28,8 @@ namespace SGame.Dining
 
 		private DiningRoomLogic _currentRoom;
 		private EventHandleContainer _eHandlers;
+		private Entity _animUI;
+		private bool _enterAnim;
 
 		public bool isEnterSceneCompleted { get; private set; }
 
@@ -69,6 +71,10 @@ namespace SGame.Dining
 
 					return req;
 				}
+				else
+				{
+					log.Error($"Cant Find Room:{roomID}");
+				}
 			}
 			else
 			{
@@ -101,7 +107,7 @@ namespace SGame.Dining
 		{
 			if (_room != null)
 			{
-				if (!_room.isnew) 
+				if (!_room.isnew)
 				{
 					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0)
 					{
@@ -129,9 +135,10 @@ namespace SGame.Dining
 		{
 			if (wait)
 			{
-				if (_currentRoom.cfgID == 1)
-					yield return new WaitUIClose(SGame.UI.UIModule.Instance.GetEntityManager(), UIUtils.OpenUI("welcomeanim"));
 				StaticDefine.G_WAIT_WELCOME = true;
+				if (_animUI != default)
+					yield return new WaitUIClose(SGame.UI.UIModule.Instance.GetEntityManager(), _animUI);
+				_animUI = default;
 				UIUtils.OpenUI("welcomenewlevel");
 				yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
 			}
@@ -156,9 +163,10 @@ namespace SGame.Dining
 				EventManager.Instance.Trigger(((int)GameEvent.BEFORE_ENTER_ROOM), _currentRoom.cfgID);
 				if (!string.IsNullOrEmpty(_roomCfg.Decor))
 					UIUtils.OpenUI("scenedecorui");
-				if (DataCenter.IsNew)
+				var flag = DataCenter.IsNew;
+				DataCenter.IsNew = false;
+				if (flag)
 				{
-					DataCenter.IsNew = false;
 #if ENABLE_SPLASH
 					StaticDefine.G_WAIT_VIDEO = true;
 					UIUtils.OpenUI("enterscene", -1); 
@@ -178,9 +186,12 @@ namespace SGame.Dining
 					log.Info("[scene]EnterRoom Splash Completed");
 #endif
 				}
+				if (flag)
+				{
+					_animUI = SGame.UIUtils.OpenUI("welcomeanim");
+				}
 			}
 		}
-
 
 		#endregion
 

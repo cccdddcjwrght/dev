@@ -77,7 +77,6 @@ namespace SGame.Dining
 		private State _state = State.None;
 		private AssetRequest _req;
 
-
 		public override bool isDone
 		{
 			get
@@ -87,7 +86,6 @@ namespace SGame.Dining
 			}
 			set => base.isDone = value;
 		}
-
 
 		public void Update()
 		{
@@ -119,6 +117,11 @@ namespace SGame.Dining
 					break;
 			}
 
+		}
+
+		public bool IsNeedLoad()
+		{
+			return transform != null && (transform.childCount == 0 || !transform.GetChild(0).gameObject.activeSelf);
 		}
 
 		public override void Close()
@@ -155,9 +158,10 @@ namespace SGame.Dining
 		{
 			if (transform)
 			{
-				if (string.IsNullOrEmpty(error) && _req != null)
+				if (string.IsNullOrEmpty(error) && _req != null && _req.asset)
 					GameObject.Instantiate(_req.asset as GameObject, transform);
 				transform.gameObject.SetActive(true);
+				transform.GetChild(0)?.gameObject?.SetActive(true);
 			}
 		}
 
@@ -191,7 +195,7 @@ namespace SGame.Dining
 		public bool NeedLoadAsset()
 		{
 			if (parts?.Count > 0)
-				return parts.Any(p => p.transform != null && p.transform.childCount == 0);
+				return parts.Any(p => p.IsNeedLoad());
 			return false;
 		}
 
