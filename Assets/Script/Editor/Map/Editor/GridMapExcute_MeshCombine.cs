@@ -22,8 +22,12 @@ public class GridMapExcute_MeshCombine : TileEdExt.IMapExcute, TileEdExt.IAfterE
 	public void Excute(GameObject go, plyLib.TileEdMap map)
 	{
 		var layer = GameObject.Find("RoomArea");
-		if (_combine) TextureCombine.CombineLayer(layer, combineChild: true);
-		else ResetStatic(layer.transform, ((int)StaticEditorFlags.BatchingStatic));
+		if (layer != null)
+		{
+			SetAreaEffect(layer);
+			if (_combine) TextureCombine.CombineLayer(layer, combineChild: true);
+			else ResetStatic(layer.transform, ((int)StaticEditorFlags.BatchingStatic));
+		}
 	}
 
 	static void ResetStatic(Transform transform, int flag = 0)
@@ -33,6 +37,22 @@ public class GridMapExcute_MeshCombine : TileEdExt.IMapExcute, TileEdExt.IAfterE
 			GameObjectUtility.SetStaticEditorFlags(transform.gameObject, (StaticEditorFlags)flag);
 			foreach (Transform item in transform)
 				ResetStatic(item, flag);
+		}
+	}
+
+	static void SetAreaEffect(GameObject layer)
+	{
+		if (layer != null)
+		{
+			foreach (Transform item in layer.transform)
+			{
+				var effect = item.Find("jiesuo");
+				if (effect)
+				{
+					effect.gameObject.SetActive(false);
+					effect.name = "__unlock";
+				}
+			}
 		}
 	}
 }

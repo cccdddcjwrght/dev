@@ -283,6 +283,58 @@ namespace SGame.Dining
 
 		public GameObject lockGo;
 		public GameObject unlockGo;
+
+		public float duration = 5f;
+		public float delay = 2.5f;
+
+		private GameObject _lockBody;
+		private GameObject _effect;
+
+		public Area Refresh(Vector3 pos)
+		{
+
+			_lockBody = lockGo.transform.Find("GameObject")?.gameObject;
+			_effect = lockGo.transform.Find("__unlock")?.gameObject;
+
+			holder.tag = "area";
+			holder.position = pos;
+
+			var region = lockGo.AddComponent<RegionHit>();
+			region.region = cfg.ID;
+			region.place = -1;
+			region.SetCollider(default);
+
+			return this;
+		}
+
+		public void PlayUnlock(Action call = null)
+		{
+			if (_effect == null || _lockBody == null)
+			{
+				lockGo.SetActive(false);
+				unlockGo.SetActive(true);
+				call?.Invoke();
+			}
+			else
+			{
+				Anim(call).Start();
+			}
+		}
+
+		private IEnumerator Anim(Action call = null)
+		{
+			_effect.SetActive(true);
+			if (delay > 0) yield return new WaitForSeconds(delay);
+			_lockBody.SetActive(false);
+			unlockGo.SetActive(true);
+			call?.Invoke();
+			if (duration > 0)
+			{
+				yield return new WaitForSeconds(duration - delay);
+				_effect.SetActive(false);
+			}
+		}
+
 	}
 
 	class RegionHit : MonoBehaviour, ITouchOrHited
@@ -600,11 +652,12 @@ namespace SGame.Dining
 				if (layer)
 				{
 					_areas = new List<Area>();
+					var delay = GlobalDesginConfig.GetFloat("area_unlock_effect_time", 2f);
 					foreach (var item in room.roomAreas)
 					{
 						var islock = !room.areas.Contains(item.Key);
-						var lockgo = layer.Find(item.Value.LockRes);
-						var unlockgo = layer.Find(item.Value.UnlockRes);
+						var lockgo = layer.Find(item.Value.LockRes)?.gameObject;
+						var unlockgo = layer.Find(item.Value.UnlockRes)?.gameObject;
 
 						if (!islock)
 						{
@@ -612,32 +665,21 @@ namespace SGame.Dining
 								StaticDefine.CUSTOMER_TAG_BORN.Add(item.Value.CustomerBorn);
 						}
 
-						if (unlockgo) unlockgo.gameObject.SetActive(!islock);
-						if (lockgo) lockgo.gameObject.SetActive(islock);
+						if (unlockgo) unlockgo.SetActive(!islock);
+						if (lockgo) lockgo.SetActive(islock);
 						if (islock)
 						{
 							var reg = new Area()
 							{
+								cfg = item.Value,
 								cfgID = item.Key,
+								delay = delay,
 								holder = new GameObject("area_" + item.Key).transform,
-								lockGo = lockgo.gameObject,
-								unlockGo = unlockgo.gameObject
-							};
-
-							reg.holder.tag = "area";
-							reg.holder.position = _sceneGrid.GetCellPosition(item.Value.AreaPos(0), item.Value.AreaPos(1));
-
-							var region = reg.lockGo.AddComponent<RegionHit>();
-							region.region = item.Key;
-							region.place = -1;
-							region.SetCollider(default);
-							/*
-							var center = GetCenter(lockgo.gameObject, out var bounds);
-							region.SetCollider(bounds);
-							region.onClick = (r, p) => EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), reg, 3);*/
+								lockGo = lockgo,
+								unlockGo = unlockgo
+							}.Refresh(_sceneGrid.GetCellPosition(item.Value.AreaPos(0), item.Value.AreaPos(1)));
 							_areas.Add(reg);
 						}
-
 					}
 				}
 			}
@@ -860,7 +902,7 @@ namespace SGame.Dining
 									break;
 								case EnumMachineType.MACHINE:
 									if (m.cfg.Nowork != 1)
-										TableFactory.CreateFood(cell.ToGrid(), worktable.id, worktable.item, 0, grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_MACHINE_WORK));
+										TableFactory.CreateFood(cell.ToGrid(), worktable.id, worktable.item, m.cfg.RoomArea, grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_MACHINE_WORK));
 									break;
 							}
 						}
@@ -1099,16 +1141,18 @@ namespace SGame.Dining
 				var a = _areas.Find(a => a.cfgID == area);
 				if (a != null)
 				{
-					if (a.lockGo) a.lockGo.SetActive(false);
-					if (a.unlockGo) a.unlockGo.SetActive(true);
-					RefreshAreaBuildState(area);
-
 					IEnumerator Run()
 					{
 						yield return null;
 						_regions.ForEach(r => CheckUnlockAndAuto(r, true));
 					}
-					Run().Start();
+
+					a.PlayUnlock(() =>
+					{
+						RefreshAreaBuildState(area);
+						Run().Start();
+					});
+
 				}
 			}
 		}
