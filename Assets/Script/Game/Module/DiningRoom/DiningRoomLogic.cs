@@ -161,7 +161,8 @@ namespace SGame.Dining
 				if (string.IsNullOrEmpty(error) && _req != null && _req.asset)
 					GameObject.Instantiate(_req.asset as GameObject, transform);
 				transform.gameObject.SetActive(true);
-				transform.GetChild(0)?.gameObject?.SetActive(true);
+				if (transform.childCount > 0)
+					transform.GetChild(0).gameObject?.SetActive(true);
 			}
 		}
 
