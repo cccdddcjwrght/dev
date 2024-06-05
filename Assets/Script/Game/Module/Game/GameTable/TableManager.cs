@@ -12,12 +12,26 @@ namespace SGame
     public class TableManager : Singleton<TableManager>
     {
         private static ILog log = LogManager.GetLogger("game.table");
+
+        private class CacheData
+        {
+            public List<int>                   m_foodTypes = new List<int>();   // 已打开食物类型
+            public List<int>                   m_matchineID = new List<int>();  // 机器ID
+            public List<int>                   m_foodWidgets = new List<int>(); // 已打开食物权重
+            public List<int>                   m_foodWorkArea = new List<int>();
+
+            public void Clear()
+            {
+                m_foodTypes.Clear();
+                m_matchineID.Clear();
+                m_foodWorkArea.Clear();
+                m_foodWidgets.Clear();
+            }
+        }
         
         // 座位信息
         private List<TableData>             m_datas     = new List<TableData>();
-        private List<int>                   m_foodTypes = new List<int>();          // 已打开食物类型
-        private List<int>                   m_matchineID = new List<int>();         // 已打开食物权重
-        private List<int>                   m_foodWorkArea = new List<int>();       
+        private CacheData                   m_cache     = new CacheData();
 
         // 下一个tableID
         private int m_nextTableID = 0;
@@ -26,9 +40,7 @@ namespace SGame
         {
             m_nextTableID = 0;
             m_datas.Clear();
-            m_foodTypes.Clear();
-            m_matchineID.Clear();
-            m_foodWorkArea.Clear();
+            m_cache.Clear();
         }
 
         public void Initalize()
@@ -343,12 +355,13 @@ namespace SGame
             var currentLevelID = DataCenter.Instance.GetUserData().scene;
             if (t.type == TABLE_TYPE.MACHINE)
             {
-                if (!m_foodTypes.Contains(t.foodType))
+                if (!m_cache.m_foodTypes.Contains(t.foodType))
                 {
-                    m_foodTypes.Add(t.foodType);
-                    m_matchineID.Add(t.machineID);
+                    m_cache.m_foodTypes.Add(t.foodType);
+                    m_cache.m_matchineID.Add(t.machineID);
                     int area = GetWorkerAreaFromMachineID(t.machineID, currentLevelID);
-                    m_foodWorkArea.Add(area);
+                    m_cache.m_foodWorkArea.Add(area);
+                    m_cache.m_foodWidgets.Add(Utils.GetLevelWeight(currentLevelID, t.machineID));
                     EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, t.machineID, t.foodType);
                 }
             }
@@ -360,7 +373,7 @@ namespace SGame
         /// <returns></returns>
         public List<int> GetOpenFoodTypes()
         {
-            return m_foodTypes;
+            return m_cache.m_foodTypes;
         }
 
         /// <summary>
@@ -369,7 +382,7 @@ namespace SGame
         /// <returns></returns>
         public List<int> GetOpenMachineIDs()
         {
-            return m_matchineID;
+            return m_cache.m_matchineID;
         }
 
         /// <summary>
@@ -378,7 +391,16 @@ namespace SGame
         /// <returns></returns>
         public List<int> GetOpenArea()
         {
-            return m_foodWorkArea;
+            return m_cache.m_foodWorkArea;
+        }
+
+        /// <summary>
+        /// 获得食物与工作台权重
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetMachineWidgets()
+        {
+            return m_cache.m_foodWidgets;
         }
 
         /// <summary>
@@ -421,14 +443,14 @@ namespace SGame
         /// <returns></returns>
         public int GetWorkerAreaFromFoodID(int foodID, int levelID)
         {
-            var index = m_foodTypes.IndexOf(foodID);
+            var index = m_cache.m_foodTypes.IndexOf(foodID);
             if (index < 0)
             {
                 log.Error("Not foudn foodID Area =" + foodID);
                 return -1;
             }
 
-            return m_foodTypes[index];
+            return m_cache.m_foodTypes[index];
         }
     }
 }

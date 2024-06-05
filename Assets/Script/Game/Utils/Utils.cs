@@ -1062,5 +1062,31 @@ namespace SGame
 			dir = dir.normalized * (len - radius);
 			return start + dir;
 		}
+		
+		/// <summary>
+		/// 通过MACHINE ID 获得权重
+		/// </summary>
+		/// <param name="levelID"></param>
+		/// <param name="machineID"></param>
+		/// <returns></returns>
+		public static int GetLevelWeight(int levelID, int machineID)
+		{
+			if (!ConfigSystem.Instance.TryGet(levelID, out LevelRowData config))
+			{
+				log.Error("machineID id not found=" + machineID);
+				return 0;
+			}
+
+			for (int i = 0; i < config.MachineIdLength; i++)
+			{
+				if (config.MachineId(i) == machineID)
+				{
+					return config.OrderWeight(i);
+				}
+			}
+            
+			log.Error("machine id not found=" + machineID);
+			return 0;
+		}
 	}
 }

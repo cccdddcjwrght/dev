@@ -24,10 +24,11 @@ namespace SGame
         public static TableData CreateCustomer(
             Vector2Int       tablePos, 
             Vector2Int       orderPos,
+            int              roomAreaID,
             List<Vector2Int> customerPos
             )
         {
-            TableData value = new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = new int2(tablePos.x, tablePos.y)};
+            TableData value = new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = new int2(tablePos.x, tablePos.y), roomAreaID = roomAreaID};
             TableManager.Instance.AddTable(value);
             
             value.AddChair(CHAIR_TYPE.ORDER, new int2(orderPos.x, orderPos.y));
@@ -71,10 +72,10 @@ namespace SGame
         public static TableData CreateFood(Vector2Int tablePos, int machineID, int foodType, int roomAreaID, Vector2Int operatorPos)
         {
             Debug.Log("Create Food Type=" + foodType);
-            TableData value = new TableData() { type = TABLE_TYPE.MACHINE, map_pos = new int2(tablePos.x, tablePos.y)};
-            value.machineID = machineID;
-            value.foodType  = foodType;
-            value.roomAreaID = roomAreaID;
+            TableData value         = new TableData() { type = TABLE_TYPE.MACHINE, map_pos = new int2(tablePos.x, tablePos.y)};
+            value.machineID         = machineID;
+            value.foodType          = foodType;
+            value.roomAreaID        = roomAreaID;
             TableManager.Instance.AddTable(value);
             
             // 添加操作台

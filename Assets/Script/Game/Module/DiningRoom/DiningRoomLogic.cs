@@ -868,7 +868,7 @@ namespace SGame.Dining
 										var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_SERVE);
 										if (servr != null) order = grid.GetCell(servr.index).ToGrid();
 									}
-									TableFactory.CreateCustomer(cell.ToGrid(), order, new List<Vector2Int>() { sCell.ToGrid() });
+									TableFactory.CreateCustomer(cell.ToGrid(), order, place.area, new List<Vector2Int>() { sCell.ToGrid() });
 								}
 							}
 						}
@@ -890,7 +890,7 @@ namespace SGame.Dining
 										if (servr != null) order = grid.GetCell(servr.index).ToGrid();
 									}
 									var seats = grid.GetNearTagAllPos(cell.index, ConstDefine.TAG_SEAT);
-									TableFactory.CreateCustomer(cell.ToGrid(), order, seats);
+									TableFactory.CreateCustomer(cell.ToGrid(), order, m.cfg.RoomArea, seats);
 									break;
 								case EnumMachineType.DISH:
 									if (!grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_TAKE_SERVE, out order))
