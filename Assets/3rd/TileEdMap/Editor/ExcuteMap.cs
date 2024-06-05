@@ -365,7 +365,10 @@ namespace TileEdExt
 							if (isDummy && !config.debug)
 								GameObject.DestroyImmediate(body.gameObject);
 							if (!isDummy && !isplatform && (!config.debug && !config.dontRemoveInter))
-								GameObject.DestroyImmediate(body.gameObject);
+							{
+								//GameObject.DestroyImmediate(body.gameObject);
+								body.gameObject.SetActive(false);
+							}
 						}
 
 						if (flag) GameObject.DestroyImmediate(flag.gameObject);
@@ -397,14 +400,12 @@ namespace TileEdExt
 						}
 
 #if UNITY_EDITOR
+						CellData cData = null;
 						if (!string.IsNullOrEmpty(tag))
-						{
-							cell.cdatas.Add(GameTools.Maps.CellData.From(0, tag, data.dataSet));
-						}
+							cData = GameTools.Maps.CellData.From(0, tag, data.dataSet);
 						else
-						{
-							cell.cdatas.Add(GameTools.Maps.CellData.From(1, uname, data.dataSet));
-						}
+							cData = GameTools.Maps.CellData.From(1, tag, data.dataSet);
+						cell.cdatas.Add(cData);
 #endif
 
 					}
@@ -463,7 +464,7 @@ namespace TileEdExt
 				foreach (var item in ds)
 				{
 					var data = item.dataSet.GetValByPath("level");
-					if(data == null) continue;
+					if (data == null) continue;
 					string val = data.GetValByPath(data.i_val.ToString());
 					if (val.ToLower().StartsWith("assets/"))
 						data.SetVal(AssetDatabase.AssetPathToGUID(val), data.i_val.ToString());

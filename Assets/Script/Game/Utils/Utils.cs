@@ -870,6 +870,16 @@ namespace SGame
 			yield return ani;
 		}
 
+		public static string GetRoleEqString(int roleType)
+		{
+			if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(roleType, out var role))
+			{
+				if (ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
+					return model.Part;
+			}
+			return default;
+		}
+
 		#region List
 
 		static private bool _getlist_remove_null = false;

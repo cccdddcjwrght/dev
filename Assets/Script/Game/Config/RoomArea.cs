@@ -71,6 +71,38 @@ public struct RoomAreaRowData : IFlatbufferObject
 #endif
   public int[] GetAreaPosArray() { return __p.__vector_as_array<int>(28); }
   public int NextArea { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int OrderMachineID(int j) { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int OrderMachineIDLength { get { int o = __p.__offset(32); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetOrderMachineIDBytes() { return __p.__vector_as_span<int>(32, 4); }
+#else
+  public ArraySegment<byte>? GetOrderMachineIDBytes() { return __p.__vector_as_arraysegment(32); }
+#endif
+  public int[] GetOrderMachineIDArray() { return __p.__vector_as_array<int>(32); }
+  public int Reward1(int j) { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Reward1Length { get { int o = __p.__offset(34); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetReward1Bytes() { return __p.__vector_as_span<int>(34, 4); }
+#else
+  public ArraySegment<byte>? GetReward1Bytes() { return __p.__vector_as_arraysegment(34); }
+#endif
+  public int[] GetReward1Array() { return __p.__vector_as_array<int>(34); }
+  public int Reward2(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Reward2Length { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetReward2Bytes() { return __p.__vector_as_span<int>(36, 4); }
+#else
+  public ArraySegment<byte>? GetReward2Bytes() { return __p.__vector_as_arraysegment(36); }
+#endif
+  public int[] GetReward2Array() { return __p.__vector_as_array<int>(36); }
+  public int Reward3(int j) { int o = __p.__offset(38); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Reward3Length { get { int o = __p.__offset(38); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetReward3Bytes() { return __p.__vector_as_span<int>(38, 4); }
+#else
+  public ArraySegment<byte>? GetReward3Bytes() { return __p.__vector_as_arraysegment(38); }
+#endif
+  public int[] GetReward3Array() { return __p.__vector_as_array<int>(38); }
 
   public static Offset<GameConfigs.RoomAreaRowData> CreateRoomAreaRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -86,8 +118,16 @@ public struct RoomAreaRowData : IFlatbufferObject
       int CustomerNum = 0,
       StringOffset CustomerBornOffset = default(StringOffset),
       VectorOffset AreaPosOffset = default(VectorOffset),
-      int NextArea = 0) {
-    builder.StartTable(14);
+      int NextArea = 0,
+      VectorOffset OrderMachineIDOffset = default(VectorOffset),
+      VectorOffset Reward1Offset = default(VectorOffset),
+      VectorOffset Reward2Offset = default(VectorOffset),
+      VectorOffset Reward3Offset = default(VectorOffset)) {
+    builder.StartTable(18);
+    RoomAreaRowData.AddReward3(builder, Reward3Offset);
+    RoomAreaRowData.AddReward2(builder, Reward2Offset);
+    RoomAreaRowData.AddReward1(builder, Reward1Offset);
+    RoomAreaRowData.AddOrderMachineID(builder, OrderMachineIDOffset);
     RoomAreaRowData.AddNextArea(builder, NextArea);
     RoomAreaRowData.AddAreaPos(builder, AreaPosOffset);
     RoomAreaRowData.AddCustomerBorn(builder, CustomerBornOffset);
@@ -105,7 +145,7 @@ public struct RoomAreaRowData : IFlatbufferObject
     return RoomAreaRowData.EndRoomAreaRowData(builder);
   }
 
-  public static void StartRoomAreaRowData(FlatBufferBuilder builder) { builder.StartTable(14); }
+  public static void StartRoomAreaRowData(FlatBufferBuilder builder) { builder.StartTable(18); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddScene(FlatBufferBuilder builder, int Scene) { builder.AddInt(1, Scene, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -126,6 +166,22 @@ public struct RoomAreaRowData : IFlatbufferObject
   public static VectorOffset CreateAreaPosVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartAreaPosVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddNextArea(FlatBufferBuilder builder, int NextArea) { builder.AddInt(13, NextArea, 0); }
+  public static void AddOrderMachineID(FlatBufferBuilder builder, VectorOffset OrderMachineIDOffset) { builder.AddOffset(14, OrderMachineIDOffset.Value, 0); }
+  public static VectorOffset CreateOrderMachineIDVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateOrderMachineIDVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartOrderMachineIDVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddReward1(FlatBufferBuilder builder, VectorOffset Reward1Offset) { builder.AddOffset(15, Reward1Offset.Value, 0); }
+  public static VectorOffset CreateReward1Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateReward1VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartReward1Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddReward2(FlatBufferBuilder builder, VectorOffset Reward2Offset) { builder.AddOffset(16, Reward2Offset.Value, 0); }
+  public static VectorOffset CreateReward2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateReward2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartReward2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddReward3(FlatBufferBuilder builder, VectorOffset Reward3Offset) { builder.AddOffset(17, Reward3Offset.Value, 0); }
+  public static VectorOffset CreateReward3Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateReward3VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartReward3Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.RoomAreaRowData> EndRoomAreaRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomAreaRowData>(o);

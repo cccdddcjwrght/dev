@@ -62,7 +62,7 @@ namespace SGame
 					rd.rooms.Insert(0, r);
 					ud.scene = id;
 					r.roomAreas = ConfigSystem.Instance.Finds<RoomAreaRowData>(c => c.Scene == r.id).ToDictionary(c => c.ID);
-					r.waitAreas = r.roomAreas.Keys.Where(v=>!r.areas.Contains(v)).ToList();
+					r.waitAreas = r.roomAreas.Keys.Where(v => !r.areas.Contains(v)).ToList();
 					r.worktables?.ForEach(w => w.Refresh());
 					Instance.roomData.roomID = id;
 					Instance.SetUserData(ud);
@@ -166,12 +166,12 @@ namespace SGame
 					EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, count, tableid);
 				else
 				{
-					AddRoleReward(roleid, count, x, y);
+					AddRoleReward(roleid, count, x, y , true);
 					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.WORKER, 1);
 				}
 			}
 
-			public static void AddRoleReward(int roleid, int count, int x, int y)
+			public static void AddRoleReward(int roleid, int count, int x, int y, bool needMove = false)
 			{
 				if (count > 0)
 				{
@@ -181,17 +181,22 @@ namespace SGame
 					{
 						if (x != 0 && y != 0)
 							pos = new Vector2Int(x, y);
-						else 
+						else
 							pos = GameTools.MapAgent.RandomPop(tag);
 
 						var index = GameTools.MapAgent.GirdToRealIndex(pos);
 
 						DataCenter.Instance.m_gameRecord.RecordRole(roleid, 1, index);
-						EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, 1, index);
 
-						/*EventManager.Instance.Trigger(((int)GameEvent.SCENE_REWARD), pos, new Action(() =>
+						if (!needMove)
+							EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, 1, index);
+						else
 						{
-						}), string.Empty);*/
+							EventManager.Instance.Trigger(((int)GameEvent.SCENE_REWARD), pos, new Action(() =>
+							{
+								EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, 1, index);
+							}), "-1");
+						}
 					}
 				}
 			}
@@ -240,7 +245,7 @@ namespace SGame
 
 		public int GetAreaType(int area)
 		{
-			if(area > 1 && waitAreas.Count > 0)
+			if (area > 1 && waitAreas.Count > 0)
 			{
 				if (waitAreas[0] == area) return 0;
 				if (waitAreas.Count > 1 && waitAreas[1] == area) return 1;
