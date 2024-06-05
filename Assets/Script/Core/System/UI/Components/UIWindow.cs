@@ -190,6 +190,8 @@ namespace SGame.UI
 
         override protected void OnShown()
         {
+            name = uiname;
+            contentPane.name = "contentPane";
             //log.Debug("UI OnShow=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
             m_isReadyShowed = true;
             m_isDelayClose = false;

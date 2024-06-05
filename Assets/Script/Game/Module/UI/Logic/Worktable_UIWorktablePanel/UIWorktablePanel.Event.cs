@@ -84,7 +84,7 @@ namespace SGame.UI
 		{
 			if (GRoot.inst.focus != null && !SGame.UIUtils.IsChild(m_view, GRoot.inst.focus))
 			{
-				if (DataCenter.Instance.guideData.isGuide) return;
+				if (GuideManager.Instance.IsCoerce) return;
 				SGame.UIUtils.CloseUIByID(__id);
 			}
 		}

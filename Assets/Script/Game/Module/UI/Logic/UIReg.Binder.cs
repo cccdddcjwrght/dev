@@ -79,6 +79,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("CookbookUI", "Cookbook", ()=>new UICookbook());SGame.UI.Cookbook.CookbookBinder.BindAll();;
 			context.uiModule.Reg("CookbookUpUI", "Cookbook", ()=>new UICookbookUp());
 			context.uiModule.Reg("WelcomeNewLevelAnimUI", "EnterScene", ()=>new UIWelcomeNewLevelAnim());
+			context.uiModule.Reg("GuideBackUI", "Guide", ()=>new UIGuideBack());
+			context.uiModule.Reg("FingerUI", "Guide", ()=>new UIFinger());
 		}
 	}
 }

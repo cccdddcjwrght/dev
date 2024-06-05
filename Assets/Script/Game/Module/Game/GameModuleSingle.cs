@@ -35,6 +35,7 @@ namespace SGame
 		public void Update()
 		{
 			m_fiber.Step();
+			GuideManager.Instance.Update();
 		}
 
 		/// <summary>
@@ -66,6 +67,8 @@ namespace SGame
 
 			//科技数据初始化
 			DataCenter.Instance.abilityData.InitAbilityList();
+
+			GuideManager.Instance.Initalize();
 		}
 
 		IEnumerator TestData()
@@ -145,10 +148,11 @@ namespace SGame
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide)
 			{
-				if (guideGo != null) GameObject.Destroy(guideGo);
- 
-				var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
-				guideGo = GameObject.Instantiate(guidePrefab);
+				GuideManager.Instance.StartGuide(DataCenter.Instance.guideData.guideId);
+				//	if (guideGo != null) GameObject.Destroy(guideGo);
+
+				//	var guidePrefab = m_resourceManager.LoadPrefab(guidescript);
+				//	guideGo = GameObject.Instantiate(guidePrefab);
 			}
 #endif
 		}
