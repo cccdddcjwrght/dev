@@ -8,13 +8,12 @@ using UnityEngine;
 
 public class SceneAssetProcessor
 {
-	static string G_SHADER = "Universal Render Pipeline/Lit";
+	static string G_SHADER = "Universal Render Pipeline/Simple Lit";
 	static int G_TEX_NAME_ID = Shader.PropertyToID("_BaseMap");
 
 	static string G_SCENE_ASSET_SAVE_DIR = "Assets/BuildAsset/Art/scenes/";
 	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/"; 
 	static string G_ASSET_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/";
-
 
 	static string[] G_PATTERNS = new string[] {
 		"scene*.png",
@@ -25,7 +24,6 @@ public class SceneAssetProcessor
 		"scene_tool*.fbx",
 		"scene_table*.fbx"
 	};
-
 
 	static private string _currentObjPath;
 
@@ -75,7 +73,6 @@ public class SceneAssetProcessor
 			ExcuteSceneAsset(select is GameObject g ? g : AssetDatabase.GetAssetPath(select));
 	}
 
-
 	[MenuItem("Assets/地块/模型处理")]
 	static void ExcuteFbx()
 	{
@@ -83,6 +80,40 @@ public class SceneAssetProcessor
 		var select = Selection.activeObject;
 		if (select != null)
 			ExcuteFbx(AssetDatabase.GetAssetPath(select));
+
+	}
+
+	[MenuItem("Assets/地块/替换简单shader")]
+	static void ExcuteShader() {
+
+		var select = Selection.activeObject;
+		if (select != null)
+		{
+			var dir = AssetDatabase.GetAssetPath(select);
+			if (System.IO.Directory.Exists(dir))
+			{
+				var mats = AssetDatabase.FindAssets("t:Material", new string[] { dir })
+					.Select(g=>AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(g))).ToList();
+			
+				if(mats?.Count > 0)
+				{
+					var shader = Shader.Find(G_SHADER);
+					var oldName = "Universal Render Pipeline/Lit";
+					if (shader != null)
+					{
+						foreach (var item in mats)
+						{
+							if(item!=null && item.shader.name == oldName)
+							{
+								item.shader = shader;
+								AssetDatabase.SaveAssetIfDirty(item);
+							}
+						}
+					}
+					AssetDatabase.Refresh();
+				}
+			}
+		}
 
 	}
 
