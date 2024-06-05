@@ -12,10 +12,14 @@ namespace SGame
     public class CharacterAnimSystem : ComponentSystem
     {
         private int m_walkName = 0;
+        private int m_weightName = 0;
+        
         protected override void OnCreate()
         {
             m_walkName = Animator.StringToHash("walking");
+            m_weightName = Animator.StringToHash("weight");
         }
+        
         protected override void OnUpdate()
         {
             // 同步移动状态
@@ -24,6 +28,7 @@ namespace SGame
                 if (character.modelAnimator != null)
                 {
                     character.modelAnimator.SetBool(m_walkName, character.isMoving);
+                    character.modelAnimator.SetFloat(m_weightName, character.m_food == Entity.Null ? 0 : 1);
                 }
             });
         }
