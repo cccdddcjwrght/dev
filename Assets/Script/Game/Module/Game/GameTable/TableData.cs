@@ -47,6 +47,9 @@ namespace SGame
 
         // 机器ID
         public int                machineID;
+
+        // 区域ID
+        public int                roomAreaID;
         
         // 该位置是否位空
         public bool IsFoodEmpty =>  foodsCount == 0;

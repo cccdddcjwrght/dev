@@ -65,15 +65,16 @@ namespace SGame
         /// <param name="tablePos">桌子位置</param>
         /// <param name="foodType">食物类型</param>
         /// <param name="machineID">机器ID</param>
+        /// <param name="roomAreaID">房间区域ID</param>
         /// <param name="operatorPos">机器操作区</param>
-        /// <param name="orderWidget">产生的订单权重</param>
         /// <returns>桌子对象</returns>
-        public static TableData CreateFood(Vector2Int tablePos, int machineID, int foodType, Vector2Int operatorPos)
+        public static TableData CreateFood(Vector2Int tablePos, int machineID, int foodType, int roomAreaID, Vector2Int operatorPos)
         {
             Debug.Log("Create Food Type=" + foodType);
             TableData value = new TableData() { type = TABLE_TYPE.MACHINE, map_pos = new int2(tablePos.x, tablePos.y)};
             value.machineID = machineID;
             value.foodType  = foodType;
+            value.roomAreaID = roomAreaID;
             TableManager.Instance.AddTable(value);
             
             // 添加操作台

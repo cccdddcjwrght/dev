@@ -17,7 +17,7 @@ namespace SGame
         private List<TableData>             m_datas     = new List<TableData>();
         private List<int>                   m_foodTypes = new List<int>();          // 已打开食物类型
         private List<int>                   m_matchineID = new List<int>();         // 已打开食物权重
-        private List<int>                   m_foodWorkArea = new List<int>();
+        private List<int>                   m_foodWorkArea = new List<int>();       
 
         // 下一个tableID
         private int m_nextTableID = 0;
