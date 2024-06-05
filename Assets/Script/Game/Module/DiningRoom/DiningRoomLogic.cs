@@ -860,7 +860,7 @@ namespace SGame.Dining
 									break;
 								case EnumMachineType.MACHINE:
 									if (m.cfg.Nowork != 1)
-										TableFactory.CreateFood(cell.ToGrid(), worktable.id, worktable.item, grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_MACHINE_WORK));
+										TableFactory.CreateFood(cell.ToGrid(), worktable.id, worktable.item, 0, grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_MACHINE_WORK));
 									break;
 							}
 						}
