@@ -20,7 +20,6 @@ namespace SGame
             float cur = SceneCameraSystem.Instance.GetOrthoSize();
             m_Timer = GTween.To(cur, target, time).OnUpdate((t)=> 
             {
-                Debug.Log(t.value.d);
                 SceneCameraSystem.Instance.SetOrthoSize((float)t.value.d);
             }).OnComplete(Finish);
             yield break;
