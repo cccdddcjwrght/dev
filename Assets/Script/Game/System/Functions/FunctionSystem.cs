@@ -144,7 +144,7 @@ namespace SGame
 							break;
 
 						case 6: //引导步骤
-							if (cfg.OpenValLength > 0 && DataCenter.Instance.guideData.guideStep < cfg.OpenVal(0))
+							if (cfg.OpenValLength > 0 && DataCenter.Instance.guideData.guideId < cfg.OpenVal(0))
 								ret = false;
 							break;
 

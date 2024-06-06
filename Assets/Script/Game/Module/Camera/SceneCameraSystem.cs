@@ -566,6 +566,28 @@ namespace SGame
 			zMove.control?.ForEach(c => c.limit = false);
 		}
 
+		/// <summary>
+		/// 调整摄像机视角大小（目前只有新手用到）
+		/// </summary>
+		/// <param name="size"></param>
+		public void SetOrthoSize(float size) 
+		{
+			_vcamera.m_Lens.OrthographicSize = size;
+		}
+
+		public float GetOrthoSize() 
+		{
+			return _vcamera.m_Lens.OrthographicSize;
+		}
+
+		public void GetLimitXZ(out float minX, out float maxX, out float minZ, out float maxZ) 
+		{
+			minX = xMove.minValue;
+			maxX = xMove.maxValue;
+			minZ = zMove.minValue;
+			maxZ = zMove.maxValue;
+		}
+
 		public void SetLayer()
 		{
 			CameraLayerMask("redpoint", true);

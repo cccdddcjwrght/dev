@@ -16,10 +16,7 @@ namespace SGame
 
             float duration;
             int girdX, gridZ, toGridX, toGridZ;
-            var xMin = SceneCameraSystem.Instance.xMove.minValue;
-            var xMax = SceneCameraSystem.Instance.xMove.maxValue;
-            var zMin = SceneCameraSystem.Instance.zMove.minValue;
-            var zMax = SceneCameraSystem.Instance.zMove.maxValue;
+            SceneCameraSystem.Instance.GetLimitXZ(out float xMin, out float xMax, out float zMin, out float zMax);
 
             if (m_Config.FloatParamLength <= 3)
             {

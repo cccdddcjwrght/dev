@@ -46,6 +46,8 @@ namespace SGame
             var guideRuntimeData = new GuideRuntimeData(guideId);
             guideRuntimeData.Run();
             runtimeDataList.Add(guideRuntimeData);
+
+            EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
         }
 
         public void FinishGuide(int guideId) 
