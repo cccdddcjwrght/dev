@@ -17,7 +17,7 @@ namespace SGame
             yield return m_Handler.WaitFingerClose();
             m_Handler.DisableControl(false);
 
-            m_EventHandle += EventManager.Instance.Reg<Build, int>((int)GameEvent.WORK_TABLE_CLICK, (b,index)=> Finish());
+            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.WORK_REGION_CLICK, Finish);
             m_Handler.InitConfig(m_Config);
             UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
             UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });

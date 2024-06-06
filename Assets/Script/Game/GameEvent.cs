@@ -81,7 +81,7 @@ namespace SGame
 		WORK_COOK_COMPLETE			= 2011,//工作台工作完成 （int2 cell）
 		WORK_HUD_SHOW				= 2012,//hud显示完成
 		WORK_AREA_UNLOCK			= 2013,//区域解锁(int areaid)
-
+		WORK_REGION_CLICK			= 2014,//格子点击
 
 		//=============================================================
 		COOKBOOK_UP_LV				= 2201,//食谱升级（int cookid , int lv）

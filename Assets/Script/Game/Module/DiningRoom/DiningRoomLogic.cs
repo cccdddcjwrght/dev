@@ -960,6 +960,7 @@ namespace SGame.Dining
 				var r = GetRegion(region);
 				if (r != null)
 				{
+					EventManager.Instance.Trigger((int)GameEvent.WORK_REGION_CLICK);
 					var p = r.GetPlace(place);
 
 					if ((!r.enable && r.begin.cfgID == place) || r.next?.cfgID == place)
