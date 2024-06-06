@@ -63,6 +63,16 @@ namespace SGame
             }
         }
 
+        public IEnumerator WaitGuideMaskClose() 
+        {
+            while (true) 
+            {
+                bool isOpen = UIUtils.CheckUIIsOpen("guidemask");
+                if (!isOpen) yield break;
+                yield return null;
+            }
+        }
+
         public GObject GetTarget() 
         {
             return target;
@@ -76,7 +86,7 @@ namespace SGame
                 if (!target.isDisposed) 
                 {
                     targetPos = target.LocalToGlobal(Vector2.zero);
-                    targetPos = GRoot.inst.LocalToGlobal(targetPos);
+                    targetPos = GRoot.inst.GlobalToLocal(targetPos);
                     if(!target.pivotAsAnchor)
                         targetPos += new Vector2(target.width * target.pivot.x, target.height * target.pivot.y);
                 }
@@ -91,16 +101,17 @@ namespace SGame
 
         public Vector2 GetTargetSize() 
         {
-            Vector2 size = Vector2.zero;
+            Vector2 size = new Vector2(config.UISize(0), config.UISize(1));
             if (type == GuideTargetEnum.UIPATH)
             {
-                size = target.size;
+                if (size == Vector2.zero) size = target.size;
             }
             else if (type == GuideTargetEnum.GRID) 
             {
                 size = new Vector2(config.UISize(0), config.UISize(1));
                 if(size == Vector2.zero) size = defalutSize;
             }
+            size += new Vector2(config.OffsetXY(0), config.OffsetXY(1));
             return size;
         }
 
