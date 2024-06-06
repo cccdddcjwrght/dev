@@ -13,9 +13,7 @@ namespace SGame
     public class TableFactory
     {
         private static ILog log = LogManager.GetLogger("game.table");
-
-		static int __COUNT = 0;
-
+        
         /// <summary>
         /// 创建客桌
         /// </summary>
@@ -30,22 +28,14 @@ namespace SGame
             List<Vector2Int> customerPos
             )
         {
-            TableData value = new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = new int2(tablePos.x, tablePos.y), roomAreaID = roomAreaID};
-            TableManager.Instance.AddTable(value);
-            
+            TableData value = TableManager.Instance.GetOrCreateTable(TABLE_TYPE.CUSTOM, tablePos);//new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = new int2(tablePos.x, tablePos.y), roomAreaID = roomAreaID};
+            value.roomAreaID = roomAreaID;
+                
             value.AddChair(CHAIR_TYPE.ORDER, new int2(orderPos.x, orderPos.y));
-			foreach (var pos in customerPos)
-			{
-				value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
-				__COUNT++;
-			}
+            foreach (var pos in customerPos)
+                value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
 
-#if !SVR_RELEASE
-			Debug.Log("椅子：" + __COUNT); 
-#endif
-			//TableManager.Instance.UpdateTableInfo(value);
-
-			return value;
+            return value;
         }
         
         /// <summary>
@@ -57,12 +47,9 @@ namespace SGame
         /// <returns>桌子对象</returns>
         public static TableData CreateDish(Vector2Int tablePos, Vector2Int takerPos, Vector2Int puterPos)
         {
-            TableData value = new TableData() { type = TABLE_TYPE.DISH, map_pos = new int2(tablePos.x, tablePos.y)};
-
-            TableManager.Instance.AddTable(value);
+            TableData value = TableManager.Instance.GetOrCreateTable(TABLE_TYPE.CUSTOM, tablePos);  
             value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(takerPos.x, takerPos.y));
             value.AddChair(CHAIR_TYPE.ORDER, new int2(puterPos.x, puterPos.y));
-            //TableManager.Instance.UpdateTableInfo(value);
             
              log.Debug(string.Format("Create Dish tablePos={0}, takerPos={1}, puterPos={2}", tablePos, takerPos, puterPos) );
              return value;
@@ -80,12 +67,10 @@ namespace SGame
         /// <returns>桌子对象</returns>
         public static TableData CreateFood(Vector2Int tablePos, int machineID, int foodType, int roomAreaID, Vector2Int operatorPos)
         {
-            Debug.Log("Create Food Type=" + foodType);
-            TableData value         = new TableData() { type = TABLE_TYPE.MACHINE, map_pos = new int2(tablePos.x, tablePos.y)};
+            TableData value = TableManager.Instance.GetOrCreateTable(TABLE_TYPE.MACHINE, tablePos);  
             value.machineID         = machineID;
             value.foodType          = foodType;
             value.roomAreaID        = roomAreaID;
-            TableManager.Instance.AddTable(value);
             
             // 添加操作台
             value.AddChair(CHAIR_TYPE.OPERATOR, new int2(operatorPos.x, operatorPos.y));

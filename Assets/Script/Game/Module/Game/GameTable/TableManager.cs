@@ -3,6 +3,7 @@ using System.Linq;
 using GameConfigs;
 using log4net;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace SGame
 {
@@ -70,7 +71,37 @@ namespace SGame
             m_nextTableID++;
             return true;
         }
-        
+
+        /// <summary>
+        /// 创建工作台
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="tablePos"></param>
+        /// <returns></returns>
+        public TableData GetOrCreateTable(TABLE_TYPE type, int2 tablePos)
+        {
+            foreach (var t in m_datas)
+            {
+                int2 pos = t.map_pos;
+                if (pos.x == tablePos.x && pos.y == tablePos.y)
+                {
+                    if (type != t.type)
+                    {
+                        log.Error("table type not match old=" + t.type + " new=" + type);
+                        return null;
+                    }
+                    return t;
+                }
+            }
+
+            TableData newTable = new TableData() { type = type, map_pos = tablePos };
+            AddTable(newTable);
+            return newTable;
+        }
+
+        public TableData GetOrCreateTable(TABLE_TYPE type, Vector2Int tablePos) => GetOrCreateTable(type, new int2(tablePos.x, tablePos.y));
+
+
         /// <summary>
         /// 获得放餐区空闲位置
         /// </summary>

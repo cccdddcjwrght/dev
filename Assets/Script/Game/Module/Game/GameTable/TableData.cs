@@ -76,6 +76,15 @@ namespace SGame
             {
                 chairs = new List<ChairData>(3);
             }
+            foreach (var c in chairs)
+            {
+                if (c.map_pos.x == chairPos.x && c.map_pos.y == chairPos.y)
+                {
+                    log.Error("chair pos repeate=" + chairPos + " tableid=" + id + " machineid=" + machineID);
+                    return false;
+                }
+            }
+            
             var chair = new ChairData()
             {
                 map_pos = chairPos,//new int2(chairPos.x, chairPos.y),
