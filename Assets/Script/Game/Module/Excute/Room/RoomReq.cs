@@ -32,9 +32,10 @@ namespace SGame
 
 			}
 		}
-		
+
 		static IEnumerator DelayTriggerAddRole(RoomAreaRowData cfg)
 		{
+			yield return new WaitEvent<int>(((int)GameEvent.WORK_AREA_UNLOCK));
 			yield return new WaitForSeconds(0.1f);
 			if (cfg.ChefNum > 0)
 				DataCenter.RoomUtil.AddRole(((int)EnumRole.Cook), cfg.ChefNum, 0, 0);

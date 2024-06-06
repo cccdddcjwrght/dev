@@ -164,7 +164,7 @@ namespace SGame
 			public static void AddRole(int roleid, int count, int x, int y, int tableid = 0)
 			{
 				if (roleid == ((int)EnumRole.Customer))//添加顾客相当于解锁桌子
-					EventManager.Instance.Trigger(((int)GameEvent.TECH_ADD_ROLE), roleid, count, tableid);
+					EventManager.Instance.AsyncTrigger(((int)GameEvent.TECH_ADD_ROLE), roleid, count, tableid);
 				else
 				{
 					AddRoleReward(roleid, count, x, y , true);

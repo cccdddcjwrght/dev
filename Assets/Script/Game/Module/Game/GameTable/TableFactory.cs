@@ -13,7 +13,9 @@ namespace SGame
     public class TableFactory
     {
         private static ILog log = LogManager.GetLogger("game.table");
-        
+
+		static int __COUNT = 0;
+
         /// <summary>
         /// 创建客桌
         /// </summary>
@@ -32,11 +34,18 @@ namespace SGame
             TableManager.Instance.AddTable(value);
             
             value.AddChair(CHAIR_TYPE.ORDER, new int2(orderPos.x, orderPos.y));
-            foreach (var pos in customerPos)
-                value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
-            //TableManager.Instance.UpdateTableInfo(value);
+			foreach (var pos in customerPos)
+			{
+				value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(pos.x, pos.y));
+				__COUNT++;
+			}
 
-            return value;
+#if !SVR_RELEASE
+			Debug.Log("椅子：" + __COUNT); 
+#endif
+			//TableManager.Instance.UpdateTableInfo(value);
+
+			return value;
         }
         
         /// <summary>

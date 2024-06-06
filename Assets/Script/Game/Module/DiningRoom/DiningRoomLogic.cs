@@ -1145,6 +1145,7 @@ namespace SGame.Dining
 					{
 						yield return null;
 						_regions.ForEach(r => CheckUnlockAndAuto(r, true));
+						EventManager.Instance.Trigger(((int)GameEvent.WORK_AREA_UNLOCK), -1);
 					}
 
 					a.PlayUnlock(() =>
