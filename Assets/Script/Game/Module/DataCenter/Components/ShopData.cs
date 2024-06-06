@@ -40,7 +40,7 @@ namespace SGame
 			{
 				var level = Instance.roomData.current.id;
 				var olds = _data.goods.ToDictionary(s => s.id);
-				var cfgs = GetShopCfgs(level, 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, 9999);
+				var cfgs = GetShopCfgs(-1, 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, 9999);
 				var list = new List<ShopGoods>();
 				if (cfgs != null && cfgs.Count > 0)
 				{
@@ -86,14 +86,14 @@ namespace SGame
 				}
 			}
 
-			static public List<ShopGoods> GetShopGoodsByArea(int area)
+			static public List<ShopGoods> GetShopGoodsByArea(int area, bool unlock = true)
 			{
-				return _data.goods.FindAll(g => g.type == area);
+				return _data.goods.FindAll(g => g.type == area && (!unlock || g.IsUnlock()));
 			}
 
-			static public List<ShopGoods> GetShopGoodsByType(int type)
+			static public List<ShopGoods> GetShopGoodsByType(int type, bool unlock = true)
 			{
-				return _data.goods.FindAll(g => g.cfg.IsValid() && g.cfg.ShopType == type);
+				return _data.goods.FindAll(g => g.cfg.IsValid() && g.cfg.ShopType == type && (!unlock || g.IsUnlock()));
 			}
 
 			static public List<int[]> GetGoodsItems(int goods)
@@ -257,6 +257,12 @@ namespace SGame
 		public bool IsFree()
 		{
 			return free > 0 || (cfg.IsValid() && cfg.PurchaseType == 1 && !IsSaled() && CDTime() <= 0);
+		}
+
+		public bool IsUnlock()
+		{
+			var level = DataCenter.Instance.roomData.roomID;
+			return cfg.Unlock(0) <= level && cfg.Unlock(1) >= level && DataCenter.MachineUtil.IsAreaEnable(cfg.UnlockArea);
 		}
 
 	}

@@ -65,6 +65,7 @@ namespace SGame
 					r.waitAreas = r.roomAreas.Keys.Where(v => !r.areas.Contains(v)).ToList();
 					r.worktables?.ForEach(w => w.Refresh());
 					Instance.roomData.roomID = id;
+					Instance.roomData.room = r;
 					Instance.SetUserData(ud);
 					DataCenter.Instance.SavePlayerData();
 				}
@@ -211,6 +212,9 @@ namespace SGame
 		public int time;
 		public List<Room> rooms = new List<Room>();
 		public List<int> tables = new List<int>();
+
+		[NonSerialized]
+		public Room room;
 
 		public Room current
 		{
