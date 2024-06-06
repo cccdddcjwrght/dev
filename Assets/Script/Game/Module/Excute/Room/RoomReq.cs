@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameConfigs;
+using UnityEngine;
 
 namespace SGame
 {
@@ -20,23 +22,29 @@ namespace SGame
 					if (state)
 					{
 						DataCenter.RoomUtil.UnlockArea(area);
-						if (cfg.ChefNum > 0)
-							DataCenter.RoomUtil.AddRole(((int)EnumRole.Cook), cfg.ChefNum, 0, 0);
-						if (cfg.WaiterNum > 0)
-							DataCenter.RoomUtil.AddRole(((int)EnumRole.Waiter), cfg.WaiterNum, 0, 0);
-						if (cfg.CustomerNum > 0)
-							DataCenter.RoomUtil.AddRole(((int)EnumRole.Customer), cfg.CustomerNum, 0, 0);
-
 						if (!string.IsNullOrEmpty(cfg.CustomerBorn))
 							StaticDefine.CUSTOMER_TAG_BORN.Add(cfg.CustomerBorn);
-
 						_eMgr.Trigger(((int)GameEvent.WORK_AREA_UNLOCK), area);
 						_eMgr.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+						DelayTriggerAddRole(cfg).Start();
 					}
 				}
 
 			}
 		}
+		
+		static IEnumerator DelayTriggerAddRole(RoomAreaRowData cfg)
+		{
+			yield return new WaitForSeconds(0.1f);
+			if (cfg.ChefNum > 0)
+				DataCenter.RoomUtil.AddRole(((int)EnumRole.Cook), cfg.ChefNum, 0, 0);
+			if (cfg.WaiterNum > 0)
+				DataCenter.RoomUtil.AddRole(((int)EnumRole.Waiter), cfg.WaiterNum, 0, 0);
+			if (cfg.CustomerNum > 0)
+				DataCenter.RoomUtil.AddRole(((int)EnumRole.Customer), cfg.CustomerNum, 0, 0);
+			_eMgr.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+		}
+
 	}
 
 }
