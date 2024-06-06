@@ -14,7 +14,10 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_main.onChanged.Add(new EventCallback1(_OnMainChanged));
+			m_view.m_ad.onChanged.Add(new EventCallback1(_OnAdChanged));
+			m_view.m_rightList.m_side.onChanged.Add(new EventCallback1(_OnActBtnList_SideChanged));
 			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick));
+			m_view.m_leftList.m_side.onChanged.Add(new EventCallback1(_OnActBtnList_LeftList_sideChanged));
 			UIListener.ListenerIcon(m_view.m_leftList, new EventCallback1(_OnLeftListClick));
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick));
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
@@ -37,7 +40,10 @@ namespace SGame.UI{
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_main.onChanged.Remove(new EventCallback1(_OnMainChanged));
+			m_view.m_ad.onChanged.Remove(new EventCallback1(_OnAdChanged));
+			m_view.m_rightList.m_side.onChanged.Remove(new EventCallback1(_OnActBtnList_SideChanged));
 			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick),remove:true);
+			m_view.m_leftList.m_side.onChanged.Remove(new EventCallback1(_OnActBtnList_LeftList_sideChanged));
 			UIListener.ListenerIcon(m_view.m_leftList, new EventCallback1(_OnLeftListClick),remove:true);
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick),remove:true);
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
@@ -63,10 +69,25 @@ namespace SGame.UI{
 		}
 		partial void OnMainChanged(EventContext data);
 		void SwitchMainPage(int index)=>m_view.m_main.selectedIndex=index;
+		void _OnAdChanged(EventContext data){
+			OnAdChanged(data);
+		}
+		partial void OnAdChanged(EventContext data);
+		void SwitchAdPage(int index)=>m_view.m_ad.selectedIndex=index;
+		void _OnActBtnList_SideChanged(EventContext data){
+			OnActBtnList_SideChanged(data);
+		}
+		partial void OnActBtnList_SideChanged(EventContext data);
+		void SwitchActBtnList_SidePage(int index)=>m_view.m_rightList.m_side.selectedIndex=index;
 		void _OnRightListClick(EventContext data){
 			OnRightListClick(data);
 		}
 		partial void OnRightListClick(EventContext data);
+		void _OnActBtnList_LeftList_sideChanged(EventContext data){
+			OnActBtnList_LeftList_sideChanged(data);
+		}
+		partial void OnActBtnList_LeftList_sideChanged(EventContext data);
+		void SwitchActBtnList_LeftList_sidePage(int index)=>m_view.m_leftList.m_side.selectedIndex=index;
 		void _OnLeftListClick(EventContext data){
 			OnLeftListClick(data);
 		}
@@ -124,8 +145,6 @@ namespace SGame.UI{
 		}
 		partial void OnLikeBtn_MarkStateChanged(EventContext data);
 		void SwitchLikeBtn_MarkStatePage(int index)=>m_view.m_likeBtn.m_markState.selectedIndex=index;
-		void SetLikeBtn_ProgressValue(float data)=>UIListener.SetValue(m_view.m_likeBtn.m_progress,data);
-		float GetLikeBtn_ProgressValue()=>UIListener.GetValue(m_view.m_likeBtn.m_progress);
 		void SetLikeBtn_TimeText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_time,data);
 		string GetLikeBtn_TimeText()=>UIListener.GetText(m_view.m_likeBtn.m_time);
 		void SetLikeBtn_NumText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_num,data);

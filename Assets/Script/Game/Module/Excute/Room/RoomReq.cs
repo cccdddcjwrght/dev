@@ -44,6 +44,11 @@ namespace SGame
 			if (cfg.CustomerNum > 0)
 				DataCenter.RoomUtil.AddRole(((int)EnumRole.Customer), cfg.CustomerNum, 0, 0);
 			_eMgr.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+
+			yield return new WaitForSeconds(1f);
+			var rewards = Utils.GetArrayList(true, cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
+			if (rewards?.Count > 0)
+				UIUtils.OpenUI("rewardshow", rewards, null, "@ui_area_reward_title");
 		}
 
 	}

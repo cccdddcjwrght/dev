@@ -81,6 +81,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("WelcomeNewLevelAnimUI", "EnterScene", ()=>new UIWelcomeNewLevelAnim());
 			context.uiModule.Reg("GuideBackUI", "Guide", ()=>new UIGuideBack());
 			context.uiModule.Reg("FingerUI", "Guide", ()=>new UIFinger());
+			context.uiModule.Reg("RewardShowUI", "Common", ()=>new UIRewardShow());
 		}
 	}
 }

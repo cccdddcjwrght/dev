@@ -119,6 +119,7 @@ namespace SGame
 						_chest = default;
 						_item = default;
 						DataCenter.SetIntValue(c_best_chest, 0);
+						_eMgr.Trigger(((int)GameEvent.GAME_MAIN_REFRESH));
 					}
 				}
 			}

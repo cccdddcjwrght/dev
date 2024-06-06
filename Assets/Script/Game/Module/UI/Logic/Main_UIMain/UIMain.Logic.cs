@@ -34,6 +34,9 @@ namespace SGame.UI
 			public Action complete;     //完成回调		
 			public int order => config.Order;           // 排序
 
+			public Func<string> getIcon;
+			public Func<string> getTooltip;
+
 			public string uiname
 			{
 				get
@@ -42,6 +45,15 @@ namespace SGame.UI
 						return config.Uniqid;
 
 					return Name;
+				}
+			}
+
+			public string icon
+			{
+				get
+				{
+					if (getIcon == null) return config.Icon;
+					return getIcon();
 				}
 			}
 
@@ -152,6 +164,19 @@ namespace SGame.UI
 					}
 				}
 			}
+
+			public CheckItem SetIcon(Func<string> geticon)
+			{
+				this.getIcon = geticon;
+				return this;
+			}
+
+			public CheckItem SetTips(Func<string> getTooltip)
+			{
+				this.getTooltip = getTooltip;
+				return this;
+			}
+
 		}
 		private Dictionary<int, List<CheckItem>> m_data = new Dictionary<int, List<CheckItem>>();
 
@@ -225,22 +250,22 @@ namespace SGame.UI
 		/// <param name="funcID">功能ID</param>
 		/// <param name="canShow">额外判定是否开启</param>
 		/// <param name="funcTime">倒计时</param>
-		public void Register(int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null, string uiname = null, Action complete = null)
+		public CheckItem Register(int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null, string uiname = null, Action complete = null)
 		{
 			if (!ConfigSystem.Instance.TryGet(funcID, out FunctionConfigRowData config))
 			{
 				log.Error("function id not found=" + funcID);
-				return;
+				return default;
 			}
 
 			if (config.Parent == 0)
 			{
 				log.Error("parent is zero function id=" + funcID);
-				return;
+				return default;
 			}
 
 			var item = GetOrCreateItem(config.Parent);
-			item.Add(new CheckItem()
+			var data = new CheckItem()
 			{
 				funcID = funcID,
 				config = config,
@@ -249,7 +274,9 @@ namespace SGame.UI
 				param = param,
 				Name = uiname,
 				complete = complete,
-			});
+			};
+			item.Add(data);
+			return data;
 		}
 
 		/// <summary>

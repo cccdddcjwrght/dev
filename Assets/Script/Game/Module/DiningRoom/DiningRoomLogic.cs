@@ -284,7 +284,7 @@ namespace SGame.Dining
 		public GameObject lockGo;
 		public GameObject unlockGo;
 
-		public float duration = 5f;
+		public float duration = 4f;
 		public float delay = 2.5f;
 
 		private GameObject _lockBody;
@@ -333,6 +333,7 @@ namespace SGame.Dining
 				yield return new WaitForSeconds(duration - delay);
 				_effect.SetActive(false);
 			}
+
 		}
 
 	}
