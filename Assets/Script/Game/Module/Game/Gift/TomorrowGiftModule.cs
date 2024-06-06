@@ -53,7 +53,7 @@ namespace SGame
 
         public bool CanShow()
         {
-            return OPEN_ID.IsOpend(false) && m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE;
+            return m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE;
         }
 
         /// <summary>
