@@ -41,7 +41,10 @@ namespace SGame
                 float3 target_pos   = AStar.GetPos(map_pos.x, map_pos.y, mapInfo);
                 float3 dir = target_pos - translation.Value;
                 dir.y = 0;
-                
+                if (math.lengthsq(dir) <= 0.01) // 距离太短, 不足以判定
+                    return;
+
+                dir = math.normalize(dir);
                 quaternion target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
 
                 float cos_value = math.dot(rot.Value, target_rot);
@@ -77,6 +80,10 @@ namespace SGame
                         float3 target_pos   = AStar.GetPos(map_pos.x, map_pos.y, mapInfo);
                         float3 dir = target_pos - translation.Value;
                         dir.y = 0;
+                        if (math.lengthsq(dir) <= 0.01) // 距离太短, 不足以判定
+                            return;
+                        
+                        dir = math.normalize(dir);
                         target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
                     }
 
