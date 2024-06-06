@@ -545,6 +545,7 @@ namespace SGame
 		[NonReorderable]
 		public int lvStart;
 
+
 		public int item { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
 
 		public int price { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
@@ -622,6 +623,11 @@ namespace SGame
 				return objLvCfg.Cost(2);
 			}
 			return 0;
+		}
+
+		public bool CanUpLv()
+		{
+			return maxlv > lvStart;
 		}
 
 		public int GetSeats()

@@ -7,6 +7,7 @@ namespace SGame.UI.Shop
 {
     public partial class UI_ItemIcon : GButton
     {
+        public Controller m_hidebg;
         public GImage m_bg;
         public const string URL = "ui://aphwhwgnlxylx";
 
@@ -19,6 +20,7 @@ namespace SGame.UI.Shop
         {
             base.ConstructFromXML(xml);
 
+            m_hidebg = GetControllerAt(0);
             m_bg = (GImage)GetChildAt(0);
         }
     }

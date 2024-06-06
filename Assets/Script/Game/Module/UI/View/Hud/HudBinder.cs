@@ -9,6 +9,7 @@ namespace SGame.UI.Hud
         public static void BindAll()
         {
             UIObjectFactory.SetPackageItemExtension(UI_Update.URL, typeof(UI_Update));
+            UIObjectFactory.SetPackageItemExtension(UI_GetWorkerTipsUI.URL, typeof(UI_GetWorkerTipsUI));
             UIObjectFactory.SetPackageItemExtension(UI_SystemTipUI.URL, typeof(UI_SystemTipUI));
             UIObjectFactory.SetPackageItemExtension(UI_GameTipUI.URL, typeof(UI_GameTipUI));
             UIObjectFactory.SetPackageItemExtension(UI_HudUI.URL, typeof(UI_HudUI));

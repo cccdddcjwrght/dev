@@ -93,6 +93,7 @@ namespace SGame
 		public readonly static IReadOnlyList<string> SCENE_WORK_TAG = new string[] { TAG_BORN_COOK, TAG_BORN_WAITER };
 
 		public const string C_WORKER_TABLE_GO_TAG = "machine";
+		public const string C_WORKER_TABLE_RECRUIT_TAG = "recruit";
 
 		#endregion
 

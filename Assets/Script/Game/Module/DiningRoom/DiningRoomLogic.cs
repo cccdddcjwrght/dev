@@ -344,10 +344,14 @@ namespace SGame.Dining
 		public int place;
 		public Action<int, int> onClick;
 
-		private BoxCollider collider;
+		public BoxCollider collider;
+
+		public Animation animation;
 
 		static private Vector3 g_size;
 		static private Vector3 g_center;
+
+		private bool _hasGet;
 
 		private void Awake()
 		{
@@ -388,6 +392,27 @@ namespace SGame.Dining
 		{
 			onClick?.Invoke(region, place);
 		}
+
+
+		private string _clipName;
+		public void Play(string name)
+		{
+
+			if(!_hasGet && animation == null)
+			{
+				_hasGet = true;
+				animation = GetComponentInChildren<Animation>(true);
+			}
+
+			if (animation)
+			{
+				if (_clipName == name) return;
+				_clipName = name;
+				if (name == null) animation.Stop();
+				else animation.Play(name);
+			}
+		}
+	
 	}
 
 
@@ -941,7 +966,19 @@ namespace SGame.Dining
 					{
 						if ((r.next ?? r.begin).waitActive == true)
 						{
-							if ((!r.data.isTable || r.data.type > 3) && r.begin.waitActive)
+							if (r.begin.waitActive && r.data.type > 3)
+							{
+								switch (r.data.type)
+								{
+									case 5:
+										UIUtils.OpenUI("unlocktable", r.data, r.begin.cfgID);
+										break;
+									default:
+										EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
+										break;
+								}
+							}
+							else if (!r.data.isTable && r.begin.waitActive)
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
 							else
 							{
@@ -956,8 +993,10 @@ namespace SGame.Dining
 						{
 							if (!r.data.isTable)
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
-							else if (r.data.objCfg.IsValid())
+							else if (r.data.objCfg.IsValid() && r.data.CanUpLv())
+							{
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 4);
+							}
 						}
 					}
 					r.machines.ForEach(p => PlayClip(p.index, "click", false));

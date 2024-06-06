@@ -45,6 +45,20 @@ public struct RoomObjRowData : IFlatbufferObject
   public ArraySegment<byte>? GetLevelIdBytes() { return __p.__vector_as_arraysegment(14); }
 #endif
   public int[] GetLevelIdArray() { return __p.__vector_as_array<int>(14); }
+  public string Icon { get { int o = __p.__offset(16); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(16, 1); }
+#else
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(16); }
+#endif
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(16); }
+  public string Des { get { int o = __p.__offset(18); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetDesBytes() { return __p.__vector_as_span<byte>(18, 1); }
+#else
+  public ArraySegment<byte>? GetDesBytes() { return __p.__vector_as_arraysegment(18); }
+#endif
+  public byte[] GetDesArray() { return __p.__vector_as_array<byte>(18); }
 
   public static Offset<GameConfigs.RoomObjRowData> CreateRoomObjRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -52,8 +66,12 @@ public struct RoomObjRowData : IFlatbufferObject
       int MaxStar = 0,
       int RoomArea = 0,
       VectorOffset CostOffset = default(VectorOffset),
-      VectorOffset LevelIdOffset = default(VectorOffset)) {
-    builder.StartTable(6);
+      VectorOffset LevelIdOffset = default(VectorOffset),
+      StringOffset IconOffset = default(StringOffset),
+      StringOffset DesOffset = default(StringOffset)) {
+    builder.StartTable(8);
+    RoomObjRowData.AddDes(builder, DesOffset);
+    RoomObjRowData.AddIcon(builder, IconOffset);
     RoomObjRowData.AddLevelId(builder, LevelIdOffset);
     RoomObjRowData.AddCost(builder, CostOffset);
     RoomObjRowData.AddRoomArea(builder, RoomArea);
@@ -63,7 +81,7 @@ public struct RoomObjRowData : IFlatbufferObject
     return RoomObjRowData.EndRoomObjRowData(builder);
   }
 
-  public static void StartRoomObjRowData(FlatBufferBuilder builder) { builder.StartTable(6); }
+  public static void StartRoomObjRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddMaxStar(FlatBufferBuilder builder, int MaxStar) { builder.AddInt(2, MaxStar, 0); }
@@ -76,6 +94,8 @@ public struct RoomObjRowData : IFlatbufferObject
   public static VectorOffset CreateLevelIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateLevelIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartLevelIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(6, IconOffset.Value, 0); }
+  public static void AddDes(FlatBufferBuilder builder, StringOffset DesOffset) { builder.AddOffset(7, DesOffset.Value, 0); }
   public static Offset<GameConfigs.RoomObjRowData> EndRoomObjRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomObjRowData>(o);

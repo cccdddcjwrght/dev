@@ -82,6 +82,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("GuideBackUI", "Guide", ()=>new UIGuideBack());
 			context.uiModule.Reg("FingerUI", "Guide", ()=>new UIFinger());
 			context.uiModule.Reg("RewardShowUI", "Common", ()=>new UIRewardShow());
+			context.uiModule.Reg("UnlockTableUI", "Worktable", ()=>new UIUnlockTable());
+			context.uiModule.Reg("GetWorkerTipsUI", "Hud", ()=>new UIGetWorkerTips());
 		}
 	}
 }
