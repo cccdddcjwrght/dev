@@ -18,10 +18,10 @@ namespace SGame
             m_Handler.DisableControl(true);
             m_Handler.DisableCameraDrag(true);
             yield return m_Handler.WaitFingerClose();
-            m_Handler.DisableControl(false);
-
             m_Handler.InitConfig(m_Config);
             yield return m_Handler.FindTarget();
+            m_Handler.DisableControl(false);
+
             clickTarget = m_Handler.GetTarget();
             clickTarget.onClick.Add(Finish);
             UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });

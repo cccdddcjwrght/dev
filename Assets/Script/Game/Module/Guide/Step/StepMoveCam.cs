@@ -1,3 +1,4 @@
+using FairyGUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +8,8 @@ namespace SGame
 {
     public class StepMoveCam : Step
     {
-        Action<bool> m_Timer;
-
+        GTweener m_Timer;
+        bool isDispose = false;
         public override IEnumerator Excute()
         {
             yield return m_Handler.WaitGuideMaskClose();
@@ -43,20 +44,23 @@ namespace SGame
                 SceneCameraSystem.Instance.Focus(pos);
                 yield return new WaitForSeconds(0.02f);
 
+                if (isDispose) yield break;
+
                 var toPos = GameTools.MapAgent.CellToVector(toGridX, toGridZ);
                 toPos.x = Mathf.Clamp(toPos.x, xMin, xMax);
                 toPos.z = Mathf.Clamp(toPos.z, zMin, zMax);
                 SceneCameraSystem.Instance.Focus(toPos, time:duration);
             }
-            m_Timer = Utils.Timer(duration + 0.1f, null, completed: Finish);
+
+            m_Timer = GTween.To(0, 1, duration).OnComplete(Finish);
             yield break;
         }
 
         public override void Dispose()
         {
+            isDispose = true;
             UIUtils.CloseUIByName("guidemask");
-
-            m_Timer?.Invoke(false);
+            m_Timer?.Kill();
             m_Timer = null;
         }
     }

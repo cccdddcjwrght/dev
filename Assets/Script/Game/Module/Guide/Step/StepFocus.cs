@@ -1,3 +1,4 @@
+using FairyGUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace SGame
     /// </summary>
     public class StepFocus : Step
     {
-        Action<bool> m_Timer;
+        GTweener m_Timer;
         List<Character> characters = new List<Character>();
         public override IEnumerator Excute()
         {
@@ -24,15 +25,15 @@ namespace SGame
             Character character = characters[0];
             var duration = m_Config.FloatParam(0);
             SceneCameraSystem.Instance.GetLimitXZ(out float xMin, out float xMax, out float zMin, out float zMax);
-            m_Timer = Utils.Timer(duration, () =>
+            m_Timer = GTween.To(0, 1, duration).OnUpdate(()=> 
             {
                 var pos = character.pos.position;
                 pos.x = Mathf.Clamp(pos.x, xMin, xMax);
                 pos.z = Mathf.Clamp(pos.z, zMin, zMax);
                 SceneCameraSystem.Instance.PosX(pos.x);
                 SceneCameraSystem.Instance.PosZ(pos.z);
-            }, completed: Finish);
-            
+            }).OnComplete(Finish);
+
             //yield break;
         }
 
@@ -50,7 +51,7 @@ namespace SGame
         public override void Dispose()
         {
             UIUtils.CloseUIByName("guidemask");
-            m_Timer?.Invoke(false);
+            GTween.Kill(m_Timer);
             m_Timer = null;
             characters = null;
         }

@@ -11,6 +11,9 @@ namespace SGame
         public int guideId = 1; //当前指引id
         [NonSerialized]
         public bool isGuide=false;
+
+        [NonSerialized]
+        public bool isStopCreate = false;   //停止创建顾客
     }
 
     public class GuideModule :Singleton<GuideModule>

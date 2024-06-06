@@ -61,6 +61,8 @@ namespace SGame
         /// <param name="code"></param>
         public void FinishGuide(int code = 0)
         {
+            __event.Close();
+            __event = null;
             if (code == 0)
             {
                 Debug.Log(string.Format("<color=green>guide finish id: {0} </color>" , __guideId));
@@ -79,9 +81,6 @@ namespace SGame
         public void Dispose() 
         {
             steps.Clear();
-
-            __event.Close();
-            __event = null;
         }
 
     }

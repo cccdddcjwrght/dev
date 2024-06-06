@@ -257,6 +257,7 @@ namespace SGame.UI
 		void OnSetPetInfo(int index, GObject gObject)
 		{
 			var pet = _pets[index];
+			gObject.name = index.ToString();
 			gObject.SetPet(pet);
 			gObject.onClick?.Clear();
 			gObject.onClick.Add(() => OnPetClick(index, pet, gObject));

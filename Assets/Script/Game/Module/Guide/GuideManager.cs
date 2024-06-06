@@ -55,7 +55,7 @@ namespace SGame
             var index = runtimeDataList.FindIndex((r) => r.guideId == guideId);
             if (index == -1) 
             {
-                Debug.Log("not current guide : " + guideId);
+                Debug.Log(string.Format("<color=red>not current guide : {0}</color>", guideId));
                 return;
             }
             runtimeDataList.RemoveAt(index);

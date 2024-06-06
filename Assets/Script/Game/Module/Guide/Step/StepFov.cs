@@ -8,7 +8,7 @@ namespace SGame
 {
     public class StepFov : Step
     {
-        Action<bool> m_Timer;
+        GTweener m_Timer;
         public override IEnumerator Excute()
         {
             yield return m_Handler.WaitGuideMaskClose();
@@ -18,8 +18,9 @@ namespace SGame
             float time = m_Config.FloatParam(1);
 
             float cur = SceneCameraSystem.Instance.GetOrthoSize();
-            GTween.To(cur, target, time).OnUpdate((t)=> 
+            m_Timer = GTween.To(cur, target, time).OnUpdate((t)=> 
             {
+                Debug.Log(t.value.d);
                 SceneCameraSystem.Instance.SetOrthoSize((float)t.value.d);
             }).OnComplete(Finish);
             yield break;
@@ -28,7 +29,7 @@ namespace SGame
         public override void Dispose()
         {
             UIUtils.CloseUIByName("guidemask");
-            m_Timer?.Invoke(false);
+            m_Timer.Kill();
             m_Timer = null;
         }
     }

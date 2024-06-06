@@ -96,6 +96,7 @@ namespace SGame
                 var cellPos = GameTools.MapAgent.CellToVector((int)gridXZ[0], (int)gridXZ[1]);
                 targetPos = SGame.UIUtils.WorldPosToUI(cellPos);
             }
+            targetPos += new Vector2(config.OffsetXY(0), config.OffsetXY(1));
             return targetPos;
         }
 
@@ -111,7 +112,6 @@ namespace SGame
                 size = new Vector2(config.UISize(0), config.UISize(1));
                 if(size == Vector2.zero) size = defalutSize;
             }
-            size += new Vector2(config.OffsetXY(0), config.OffsetXY(1));
             return size;
         }
 

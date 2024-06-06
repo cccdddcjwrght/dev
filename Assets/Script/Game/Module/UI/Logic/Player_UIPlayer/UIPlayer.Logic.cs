@@ -320,7 +320,7 @@ namespace SGame.UI
 
 		void OnSetEquipInfo(int index, GObject gObject)
 		{
-
+			gObject.name = index.ToString();
 			var info = _eqs[index];
 			(gObject as UI_Equip).SetEquipInfo(info);
 			(gObject as UI_Equip).onClick.Clear();
