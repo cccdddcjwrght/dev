@@ -129,6 +129,14 @@ public struct LevelRowData : IFlatbufferObject
   public int[] GetCarWeightArray() { return __p.__vector_as_array<int>(52); }
   public int CarNum { get { int o = __p.__offset(54); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public float DishOffsetY { get { int o = __p.__offset(56); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int OrderMachineID(int j) { int o = __p.__offset(58); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int OrderMachineIDLength { get { int o = __p.__offset(58); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetOrderMachineIDBytes() { return __p.__vector_as_span<int>(58, 4); }
+#else
+  public ArraySegment<byte>? GetOrderMachineIDBytes() { return __p.__vector_as_arraysegment(58); }
+#endif
+  public int[] GetOrderMachineIDArray() { return __p.__vector_as_array<int>(58); }
 
   public static Offset<GameConfigs.LevelRowData> CreateLevelRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -157,8 +165,10 @@ public struct LevelRowData : IFlatbufferObject
       VectorOffset CarIdOffset = default(VectorOffset),
       VectorOffset CarWeightOffset = default(VectorOffset),
       int CarNum = 0,
-      float DishOffsetY = 0.0f) {
-    builder.StartTable(27);
+      float DishOffsetY = 0.0f,
+      VectorOffset OrderMachineIDOffset = default(VectorOffset)) {
+    builder.StartTable(28);
+    LevelRowData.AddOrderMachineID(builder, OrderMachineIDOffset);
     LevelRowData.AddDishOffsetY(builder, DishOffsetY);
     LevelRowData.AddCarNum(builder, CarNum);
     LevelRowData.AddCarWeight(builder, CarWeightOffset);
@@ -189,7 +199,7 @@ public struct LevelRowData : IFlatbufferObject
     return LevelRowData.EndLevelRowData(builder);
   }
 
-  public static void StartLevelRowData(FlatBufferBuilder builder) { builder.StartTable(27); }
+  public static void StartLevelRowData(FlatBufferBuilder builder) { builder.StartTable(28); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddMachineId(FlatBufferBuilder builder, VectorOffset MachineIdOffset) { builder.AddOffset(1, MachineIdOffset.Value, 0); }
   public static VectorOffset CreateMachineIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
@@ -250,6 +260,10 @@ public struct LevelRowData : IFlatbufferObject
   public static void StartCarWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddCarNum(FlatBufferBuilder builder, int CarNum) { builder.AddInt(25, CarNum, 0); }
   public static void AddDishOffsetY(FlatBufferBuilder builder, float DishOffsetY) { builder.AddFloat(26, DishOffsetY, 0.0f); }
+  public static void AddOrderMachineID(FlatBufferBuilder builder, VectorOffset OrderMachineIDOffset) { builder.AddOffset(27, OrderMachineIDOffset.Value, 0); }
+  public static VectorOffset CreateOrderMachineIDVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateOrderMachineIDVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartOrderMachineIDVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.LevelRowData> EndLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.LevelRowData>(o);
