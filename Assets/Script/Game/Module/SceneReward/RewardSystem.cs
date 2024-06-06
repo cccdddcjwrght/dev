@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using GameConfigs;
 using GameTools;
 using Unity.Entities;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace SGame
