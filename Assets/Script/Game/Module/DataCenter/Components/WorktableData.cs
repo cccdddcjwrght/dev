@@ -569,7 +569,7 @@ namespace SGame
 		{
 			if (cfg.IsValid())
 				return cfg.GetUnlockPriceArray();
-			if (objLvCfg.IsValid())
+			if (objLvCfg.IsValid() && objLvCfg.CostLength > 0)
 				return objLvCfg.GetCostArray();
 			if (objCfg.IsValid())
 				return objCfg.GetCostArray();
