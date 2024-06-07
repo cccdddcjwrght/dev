@@ -125,7 +125,8 @@ namespace SGame
             if (index >= 0) 
             {
                 var data = m_RecordTotalData.data[index];
-                return (int)(data.recordDatas.Find((r) => r.type == type)?.value);
+                var recordData = data.recordDatas.Find((r) => r.type == type);
+                if (recordData != null) return recordData.value;
             }
             return 0;
         }

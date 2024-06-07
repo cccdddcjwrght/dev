@@ -21,7 +21,7 @@ namespace SGame
         {
             __guideId = guideId;
             __stepIndex = 0;
-            __event += EventManager.Instance.Reg((int)GameEvent.STEP_NEXT, Run);
+            __event += EventManager.Instance.Reg<int>((int)GameEvent.STEP_NEXT, Run);
             __handler = new GuideFingerHandler();
 
             InitStep();
@@ -42,8 +42,10 @@ namespace SGame
             } 
         }
 
-        public void Run()
+        public void Run(int guideId)
         {
+            if (guideId != __guideId) return;
+
             if (__stepIndex < steps.Count)
             {
                 Debug.Log(string.Format("<color=green>cur guide id:{0}, step: {1}, cmd: {2}</color>", __guideId, __stepIndex, steps[__stepIndex].m_Config.Cmd));
