@@ -44,7 +44,7 @@ namespace SGame
                 return;
             } 
             var guideRuntimeData = new GuideRuntimeData(guideId);
-            guideRuntimeData.Run();
+            guideRuntimeData.Run(guideId);
             runtimeDataList.Add(guideRuntimeData);
 
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);

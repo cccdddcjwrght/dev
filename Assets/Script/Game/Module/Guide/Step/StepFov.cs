@@ -11,8 +11,7 @@ namespace SGame
         GTweener m_Timer;
         public override IEnumerator Excute()
         {
-            yield return m_Handler.WaitGuideMaskClose();
-            UIUtils.OpenUI("guidemask");
+            m_Handler.DisableControl(true);
 
             float target = m_Config.FloatParam(0);
             float time = m_Config.FloatParam(1);
@@ -27,7 +26,7 @@ namespace SGame
 
         public override void Dispose()
         {
-            UIUtils.CloseUIByName("guidemask");
+            m_Handler.DisableControl(false);
             m_Timer.Kill();
             m_Timer = null;
         }

@@ -12,7 +12,7 @@ namespace SGame.UI{
 		
 	public partial class UIFriendDetail
 	{
-		private int m_playerID;
+		private long m_playerID;
 		private FriendItemData m_friend;
 		private UI_EquipPage m_uiEquip
 		{
@@ -27,7 +27,7 @@ namespace SGame.UI{
 			m_view.m_btnDelete.onClick.Add(OnClickUnFriend);
 			m_view.m_btnOK.onClick.Add(OnClickHire);
 			
-			m_playerID = (int)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
+			m_playerID = (long)context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value;
 			UpdateUIInfo();
 
 			// 确认取消
@@ -79,6 +79,7 @@ namespace SGame.UI{
 			m_uiEquip.m_holder.scale = new Vector2(scale, scale);
 			m_uiEquip.m_holder.y += yoffset;
 			m_view.m_btnOK.grayed = !FriendModule.Instance.CanHire(m_playerID);
+			(m_view.m_comfirmDialog.m_headIcon as Common.UI_HeadBtn).SetHeadIcon(m_friend.icon_id, m_friend.frame_id);
 		}
 		
 
@@ -87,7 +88,7 @@ namespace SGame.UI{
 		/// </summary>
 		/// <param name="playerID"></param>
 		/// <returns></returns>
-		RoleData GetRoleData(int playerID)
+		RoleData GetRoleData(long playerID)
 		{
 			return FriendModule.Instance.GetRoleData(playerID);
 		}

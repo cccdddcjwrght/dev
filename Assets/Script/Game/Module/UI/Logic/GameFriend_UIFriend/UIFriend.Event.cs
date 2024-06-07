@@ -1,4 +1,5 @@
 ﻿
+using GameConfigs;
 using SGame.UI.Common;
 namespace SGame.UI{
 	using FairyGUI;
@@ -77,6 +78,16 @@ namespace SGame.UI{
 			}
 
 			m_view.m_titleCount.text = string.Format("({0}/{1})", friends.Friends.Count, 100);
+
+			if (friends.Friends.Count == 0 && friends.RecommendFriends.Count == 0)
+			{
+				m_view.m_allEmpty.selectedIndex = 0;
+				m_view.m_body.title =  LanagueSystem.Instance.GetValue("ui_friend_empty");
+			}
+			else
+			{
+				m_view.m_allEmpty.selectedIndex = 1;
+			}
 			
 			// 显示倒计时
 			GTween.Kill(m_view);
@@ -111,7 +122,7 @@ namespace SGame.UI{
 				return;
 			}
 			
-			var player_id = (int)clickBtn.data;
+			var player_id = (long)clickBtn.data;
 			log.Info("open friend =" + player_id);
 			SGame.UIUtils.OpenUI("frienddetail", new UIParam() {Value = player_id});
 		}

@@ -12,8 +12,7 @@ namespace SGame
         bool isDispose = false;
         public override IEnumerator Excute()
         {
-            yield return m_Handler.WaitGuideMaskClose();
-            UIUtils.OpenUI("guidemask");
+            m_Handler.DisableControl(true);
 
             float duration;
             int girdX, gridZ, toGridX, toGridZ;
@@ -59,7 +58,7 @@ namespace SGame
         public override void Dispose()
         {
             isDispose = true;
-            UIUtils.CloseUIByName("guidemask");
+            m_Handler.DisableControl(false);
             m_Timer?.Kill();
             m_Timer = null;
         }

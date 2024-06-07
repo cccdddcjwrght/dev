@@ -43,7 +43,7 @@ namespace SGame
         {
             Dispose();
             //excute next step
-            EventManager.Instance.Trigger((int)GameEvent.STEP_NEXT);
+            EventManager.Instance.Trigger((int)GameEvent.STEP_NEXT, m_Config.GuideId);
         }
 
         public virtual void Dispose()

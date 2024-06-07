@@ -9,6 +9,7 @@ namespace SGame.UI.GameFriend
     {
         public Controller m_empty;
         public Controller m_emptyFriend;
+        public Controller m_allEmpty;
         public GLabel m_body;
         public GImage m_topBar;
         public GTextField m_title1;
@@ -31,6 +32,7 @@ namespace SGame.UI.GameFriend
 
             m_empty = GetControllerAt(0);
             m_emptyFriend = GetControllerAt(1);
+            m_allEmpty = GetControllerAt(2);
             m_body = (GLabel)GetChildAt(0);
             m_topBar = (GImage)GetChildAt(1);
             m_title1 = (GTextField)GetChildAt(2);

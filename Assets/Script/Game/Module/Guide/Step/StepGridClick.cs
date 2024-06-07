@@ -11,12 +11,12 @@ namespace SGame
         public override IEnumerator Excute()
         {
             GuideManager.Instance.SetCoerceGuideState(true);
+            Debug.Log("<color=yellow>GridClick wait</color>");
 
-            m_Handler.DisableControl(true);
             m_Handler.DisableCameraDrag(true);
             yield return m_Handler.WaitFingerClose();
-            m_Handler.DisableControl(false);
 
+            Debug.Log("<color=yellow>GridClick runing</color>");
             m_EventHandle += EventManager.Instance.Reg((int)GameEvent.WORK_REGION_CLICK, Finish);
             m_Handler.InitConfig(m_Config);
             UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
