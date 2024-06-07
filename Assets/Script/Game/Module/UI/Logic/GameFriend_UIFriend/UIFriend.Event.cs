@@ -111,7 +111,7 @@ namespace SGame.UI{
 				return;
 			}
 			
-			var player_id = (int)clickBtn.data;
+			var player_id = (long)clickBtn.data;
 			log.Info("open friend =" + player_id);
 			SGame.UIUtils.OpenUI("frienddetail", new UIParam() {Value = player_id});
 		}

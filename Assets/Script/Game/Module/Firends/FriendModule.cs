@@ -327,7 +327,7 @@ namespace SGame.Firend
         /// 删除好友, 包含推荐好友 
         /// </summary>
         /// <param name="player_id"></param>
-        public void RemoveFriend(int player_id)
+        public void RemoveFriend(long player_id)
         {
             var index = FindFirend(m_friendData.Friends, player_id);
             if (index >= 0)
