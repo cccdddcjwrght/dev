@@ -28,6 +28,7 @@ namespace SGame.UI{
 			{
 				m_TaskRewardData = Utils.GetArrayList(true, cfg.GetTaskReward1Array, cfg.GetTaskReward2Array, cfg.GetTaskReward3Array);
 				m_view.m_list.numItems = m_TaskRewardData.Count;
+				m_view.m_icon.SetIcon(cfg.Icon);
 
 				var max = cfg.TaskValue(1);
 				var value = DataCenter.TaskMainUtil.GetTaskProgress(cfg.TaskType, cfg.GetTaskValueArray());

@@ -31,14 +31,24 @@ namespace SGame.UI{
 			 
 		}
 		partial void OnUICloseClick(ref bool state);
+		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
+		string GetTitleText()=>UIListener.GetText(m_view.m_title);
+		void SetDesText(string data)=>UIListener.SetText(m_view.m_des,data);
+		string GetDesText()=>UIListener.GetText(m_view.m_des);
+		void SetTaskProgress_ValueText(string data)=>UIListener.SetText(m_view.m_progress.m_value,data);
+		string GetTaskProgress_ValueText()=>UIListener.GetText(m_view.m_progress.m_value);
 		void _OnProgressClick(EventContext data){
 			OnProgressClick(data);
 		}
 		partial void OnProgressClick(EventContext data);
+		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
+		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
 		void _OnBtnClick(EventContext data){
 			OnBtnClick(data);
 		}
 		partial void OnBtnClick(EventContext data);
+		void SetBtnText(string data)=>UIListener.SetText(m_view.m_btn,data);
+		string GetBtnText()=>UIListener.GetText(m_view.m_btn);
 
 	}
 }

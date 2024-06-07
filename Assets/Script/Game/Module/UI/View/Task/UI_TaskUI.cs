@@ -10,6 +10,7 @@ namespace SGame.UI.Task
         public GGraph m_mask;
         public GTextField m_title;
         public GTextField m_des;
+        public GLoader m_icon;
         public UI_TaskProgress m_progress;
         public GList m_list;
         public GButton m_btn;
@@ -28,10 +29,11 @@ namespace SGame.UI.Task
             m_mask = (GGraph)GetChildAt(0);
             m_title = (GTextField)GetChildAt(3);
             m_des = (GTextField)GetChildAt(4);
-            m_progress = (UI_TaskProgress)GetChildAt(5);
-            m_list = (GList)GetChildAt(7);
-            m_btn = (GButton)GetChildAt(8);
-            m_content = (GGroup)GetChildAt(9);
+            m_icon = (GLoader)GetChildAt(5);
+            m_progress = (UI_TaskProgress)GetChildAt(6);
+            m_list = (GList)GetChildAt(8);
+            m_btn = (GButton)GetChildAt(9);
+            m_content = (GGroup)GetChildAt(10);
         }
     }
 }
