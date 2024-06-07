@@ -85,6 +85,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("UnlockTableUI", "Worktable", ()=>new UIUnlockTable());
 			context.uiModule.Reg("GetWorkerTipsUI", "Hud", ()=>new UIGetWorkerTips());
 			context.uiModule.Reg("RecruitmentUI", "Worktable", ()=>new UIRecruitment());
+			context.uiModule.Reg("EnterSceneTempUI", "EnterScene", ()=>new UIEnterSceneTemp());
 		}
 	}
 }
