@@ -203,8 +203,8 @@ namespace SGame.UI
 			{
 				if (item.IsVisible())
 				{
-					if (GuideModule.Instance.IsGuideFinsih())
-					{
+					//if (GuideModule.Instance.IsGuideFinsih())
+					//{
 						if (item.visibaleCount == 0)
 						{
 							// 首次显示
@@ -215,7 +215,7 @@ namespace SGame.UI
 						{
 							item.visibaleCount = 2;
 						}
-					}
+					//}
 					ret.Add(item);
 				}
 			}

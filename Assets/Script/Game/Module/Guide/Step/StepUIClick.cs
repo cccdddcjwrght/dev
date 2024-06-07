@@ -14,12 +14,19 @@ namespace SGame
         public override IEnumerator Excute() 
         {
             GuideManager.Instance.SetCoerceGuideState(true);
-
+            //Ëø¶¨UI
+            GRoot.inst.touchable = false;
+            Debug.Log("<color=white> ui lock-------------</color>");
             m_Handler.DisableControl(true);
             m_Handler.DisableCameraDrag(true);
+
             yield return m_Handler.WaitFingerClose();
             m_Handler.InitConfig(m_Config);
             yield return m_Handler.FindTarget();
+
+            //½â¿ªUI
+            GRoot.inst.touchable = true;
+            Debug.Log("<color=bule> ui unlock-------------</color>");
             m_Handler.DisableControl(false);
 
             clickTarget = m_Handler.GetTarget();
