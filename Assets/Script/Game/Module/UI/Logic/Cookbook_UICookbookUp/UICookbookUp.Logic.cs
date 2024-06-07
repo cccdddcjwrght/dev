@@ -45,6 +45,7 @@ namespace SGame.UI
 
 		private void SetChangeInfo()
 		{
+			m_view.m_level.text = "LVL." + data.level;
 			SetUpState();
 			SetStar();
 			SetUpChangeInfo();
@@ -89,15 +90,18 @@ namespace SGame.UI
 		private void SetUpChangeInfo()
 		{
 			var f = data.nextLvCfg.IsValid();
+			
+			/*
 			SetPropertInfo(
-				m_view.m_pros.GetChildAt(0) as UI_PropertyUpdate,
+				m_view.m_pros.GetChildAt(0) as UI_PropertyUpdateIcon,
 				"ui_cookbook_star",
 				data.lvCfg.Star,
 				f ? data.nextLvCfg.Star : 0
 			);
+			*/
 
 			SetPropertInfo(
-				m_view.m_pros.GetChildAt(1) as UI_PropertyUpdate,
+				m_view.m_pros.GetChildAt(0) as UI_PropertyUpdateIcon,
 				"ui_cookbook_time",
 				data.lvCfg.Time,
 				f ? data.nextLvCfg.Time : 0,
@@ -105,10 +109,16 @@ namespace SGame.UI
 			);
 
 			SetPropertInfo(
-				m_view.m_pros.GetChildAt(2) as UI_PropertyUpdate,
+				m_view.m_pros.GetChildAt(1) as UI_PropertyUpdateIcon,
 				"ui_cookbook_price",
 				(0.01d * data.lvCfg.Price * data.cfg.Price(2)).ToInt(),
 				f ? (0.01d * data.nextLvCfg.Price * data.cfg.Price(2)).ToInt() : 0
+			);
+			
+			SetPropertInfo(
+				m_view.m_pros.GetChildAt(2) as UI_PropertyUpdateIcon,
+				"ui_cookbook_price",
+				DataCenter.MachineUtil.GetWorkItemPrice(data.id), 0
 			);
 		}
 
@@ -117,20 +127,23 @@ namespace SGame.UI
 			UIListener.SetControllerSelect(star, "type", stars[index]);
 		}
 
-		private void SetPropertInfo(UI_PropertyUpdate view, string name, double val, double next, string ext = null)
+		private void SetPropertInfo(UI_PropertyUpdateIcon view, string name, double val, double next, string ext = null)
 		{
 			if (view != null)
 			{
 				view.SetTextByKey(name);
 				view.m_state.selectedIndex = next > 0 && next != val ? 0 : 1;
+				
 				if (ext != null)
 				{
 					view.m_val.SetText(val.ToString() + ext, false);
+					view.m_val2.SetText(val.ToString() + ext, false);
 					view.m_next.SetText(next.ToString() + ext, false);
 				}
 				else
 				{
 					view.m_val.SetText(Utils.ConvertNumberStr(val), false);
+					view.m_val2.SetText(Utils.ConvertNumberStr(val), false);
 					view.m_next.SetText(Utils.ConvertNumberStr(next), false);
 				}
 			}

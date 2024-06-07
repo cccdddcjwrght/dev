@@ -47,6 +47,8 @@ namespace SGame.UI{
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 		void SetTipsText(string data)=>UIListener.SetText(m_view.m_tips,data);
 		string GetTipsText()=>UIListener.GetText(m_view.m_tips);
+		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
+		string GetLevelText()=>UIListener.GetText(m_view.m_level);
 		void _OnClickClick(EventContext data){
 			OnClickClick(data);
 		}
