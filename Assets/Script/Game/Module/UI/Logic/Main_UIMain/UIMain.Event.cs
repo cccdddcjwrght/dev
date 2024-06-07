@@ -162,6 +162,7 @@ namespace SGame.UI
 
 		private void OnEventRefreshItem()
 		{
+			/*
 			if (DataCenter.Instance.guideData.isGuide)
 			{
 				var levelBtn = m_view.m_levelBtn;
@@ -169,7 +170,9 @@ namespace SGame.UI
 				//var leveltechBtn = m_view.m_taskRewardBtn;
 				//leveltechBtn.visible = CheckFuncOpen(FunctionID.LEVEL_TECH);
 			}
+			*/
 
+			m_view.m_levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			RefreshAdBtn();
