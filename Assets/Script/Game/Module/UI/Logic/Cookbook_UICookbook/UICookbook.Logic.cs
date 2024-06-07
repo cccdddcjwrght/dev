@@ -65,6 +65,7 @@ namespace SGame.UI
 		void SetBookInfo(int index, GObject gObject)
 		{
 			var data = DataCenter.CookbookUtils.GetBook((int)_itemDatas[index]);
+			gObject.name = index.ToString();
 			gObject.data = data;
 			if (data != null)
 			{

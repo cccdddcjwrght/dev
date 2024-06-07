@@ -75,6 +75,7 @@ public struct MainTaskRowData : IFlatbufferObject
   public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(20); }
 #endif
   public byte[] GetIconArray() { return __p.__vector_as_array<byte>(20); }
+  public int GuideId { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.MainTaskRowData> CreateMainTaskRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -85,8 +86,10 @@ public struct MainTaskRowData : IFlatbufferObject
       VectorOffset TaskReward2Offset = default(VectorOffset),
       VectorOffset TaskReward3Offset = default(VectorOffset),
       VectorOffset TaskReward4Offset = default(VectorOffset),
-      StringOffset IconOffset = default(StringOffset)) {
-    builder.StartTable(9);
+      StringOffset IconOffset = default(StringOffset),
+      int GuideId = 0) {
+    builder.StartTable(10);
+    MainTaskRowData.AddGuideId(builder, GuideId);
     MainTaskRowData.AddIcon(builder, IconOffset);
     MainTaskRowData.AddTaskReward4(builder, TaskReward4Offset);
     MainTaskRowData.AddTaskReward3(builder, TaskReward3Offset);
@@ -99,7 +102,7 @@ public struct MainTaskRowData : IFlatbufferObject
     return MainTaskRowData.EndMainTaskRowData(builder);
   }
 
-  public static void StartMainTaskRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
+  public static void StartMainTaskRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddTaskDes(FlatBufferBuilder builder, StringOffset TaskDesOffset) { builder.AddOffset(1, TaskDesOffset.Value, 0); }
   public static void AddTaskType(FlatBufferBuilder builder, int TaskType) { builder.AddInt(2, TaskType, 0); }
@@ -124,6 +127,7 @@ public struct MainTaskRowData : IFlatbufferObject
   public static VectorOffset CreateTaskReward4VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartTaskReward4Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(8, IconOffset.Value, 0); }
+  public static void AddGuideId(FlatBufferBuilder builder, int GuideId) { builder.AddInt(9, GuideId, 0); }
   public static Offset<GameConfigs.MainTaskRowData> EndMainTaskRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.MainTaskRowData>(o);

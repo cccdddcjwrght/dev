@@ -64,7 +64,13 @@ namespace SGame.UI{
 			{
 				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
 			}
-			else DoCloseUIClick(data);
+			else 
+			{
+				if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(m_CurTaskId, out var cfg)) 
+					GuideManager.Instance.StartGuide(cfg.GuideId);
+				DoCloseUIClick(data);
+			}
+			
         }
 
         partial void UnInitLogic(UIContext context){
