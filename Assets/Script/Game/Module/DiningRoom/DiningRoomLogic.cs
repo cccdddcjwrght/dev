@@ -323,6 +323,9 @@ namespace SGame.Dining
 
 		private IEnumerator Anim(Action call = null)
 		{
+			UILockManager.Instance.Require("dining");
+			SceneCameraSystem.Instance.disableControl = true;
+			SceneCameraSystem.Instance.Focus(holder.gameObject, false);
 			_effect.SetActive(true);
 			if (delay > 0) yield return new WaitForSeconds(delay);
 			_lockBody.SetActive(false);
@@ -332,6 +335,8 @@ namespace SGame.Dining
 			{
 				yield return new WaitForSeconds(duration - delay);
 				_effect.SetActive(false);
+				SceneCameraSystem.Instance.disableControl = false;
+				UILockManager.Instance.Release("dining");
 			}
 
 		}
@@ -398,7 +403,7 @@ namespace SGame.Dining
 		public void Play(string name)
 		{
 
-			if(!_hasGet && animation == null)
+			if (!_hasGet && animation == null)
 			{
 				_hasGet = true;
 				animation = GetComponentInChildren<Animation>(true);
@@ -412,7 +417,7 @@ namespace SGame.Dining
 				else animation.Play(name);
 			}
 		}
-	
+
 	}
 
 
@@ -996,7 +1001,19 @@ namespace SGame.Dining
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
 							else if (r.data.objCfg.IsValid() && r.data.CanUpLv())
 							{
-								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 4);
+								switch (r.data.type)
+								{
+									case 4:
+										UIUtils.OpenUI("getworker", r.data);
+										break;
+									case 5:
+										UIUtils.OpenUI("unlocktable", r.data, r.begin.cfgID);
+										break;
+									default:
+										EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 4);
+										break;
+								}
+
 							}
 						}
 					}

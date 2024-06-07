@@ -293,12 +293,12 @@ namespace SGame.UI
 			funcID = config.Id;
 			if (config.Activity == 0)
 			{
-				log.Error("function id not activity=" + funcID);
+				log.Warn("function id not activity=" + funcID);
 				return;
 			}
 			if (config.OpenType == -1)
 			{
-				log.Error("function is close=" + funcID);
+				log.Warn("function is close=" + funcID);
 				return;
 			}
 

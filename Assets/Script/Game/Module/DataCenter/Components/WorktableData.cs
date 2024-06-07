@@ -627,7 +627,7 @@ namespace SGame
 
 		public bool CanUpLv()
 		{
-			return maxlv > lvStart;
+			return (maxlv - 1) > lvStart;
 		}
 
 		public int GetSeats()
