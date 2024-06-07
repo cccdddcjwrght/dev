@@ -362,10 +362,14 @@ namespace SGame.UI
 		{
 			m_context = context;
 			context.onUpdate += onUpdate;
-			float offset = SGame.UIUtils.GetSafeUIOffset();
-			if (offset > 0)
+
+			if (!SGame.UIUtils.IsWaterDotSceen())
 			{
-				m_view.m_top.y = offset + 5;
+				float offset = SGame.UIUtils.GetSafeUIOffset();
+				if (offset > 0)
+				{
+					m_view.m_top.y = offset + 5;
+				}		
 			}
 
 			m_itemProperty = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);

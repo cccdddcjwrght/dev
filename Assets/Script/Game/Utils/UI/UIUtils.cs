@@ -666,5 +666,24 @@ namespace SGame
 				}
 			}).SetTarget(textField);
 		}
+		
+		/// <summary>
+		/// 判断是否是水滴屏
+		/// </summary>
+		/// <returns></returns>
+		public static bool IsWaterDotSceen()
+		{
+			var rects = Screen.cutouts;
+			if (rects.Length == 1)
+			{
+				if (rects[0].xMin / Screen.width >= 0.3f &&
+					rects[0].xMax / Screen.width <= 0.7f)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }
