@@ -79,6 +79,7 @@ namespace SGame.UI{
 			m_uiEquip.m_holder.scale = new Vector2(scale, scale);
 			m_uiEquip.m_holder.y += yoffset;
 			m_view.m_btnOK.grayed = !FriendModule.Instance.CanHire(m_playerID);
+			(m_view.m_comfirmDialog.m_headIcon as Common.UI_HeadBtn).SetHeadIcon(m_friend.icon_id, m_friend.frame_id);
 		}
 		
 

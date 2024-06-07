@@ -10,6 +10,7 @@ namespace SGame.UI.GameFriend
         public GGraph m_body;
         public GTextField m_titleName;
         public GButton m_btnCancle;
+        public GButton m_headIcon;
         public GButton m_btnOK;
         public const string URL = "ui://nsy0h7irjr1qu";
 
@@ -25,7 +26,8 @@ namespace SGame.UI.GameFriend
             m_body = (GGraph)GetChildAt(0);
             m_titleName = (GTextField)GetChildAt(4);
             m_btnCancle = (GButton)GetChildAt(5);
-            m_btnOK = (GButton)GetChildAt(6);
+            m_headIcon = (GButton)GetChildAt(6);
+            m_btnOK = (GButton)GetChildAt(7);
         }
     }
 }

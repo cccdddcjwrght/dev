@@ -19,6 +19,7 @@ namespace SGame.UI.Common
         public GLoader m_bg;
         public GTextField m_iconTitle;
         public GGraph m___effect;
+        public Transition m_t0;
         public const string URL = "ui://2w8thcm7k0s63lb1";
 
         public static UI_ClickBtn CreateInstance()
@@ -42,6 +43,7 @@ namespace SGame.UI.Common
             m_bg = (GLoader)GetChildAt(0);
             m_iconTitle = (GTextField)GetChildAt(3);
             m___effect = (GGraph)GetChildAt(4);
+            m_t0 = GetTransitionAt(0);
         }
     }
 }
