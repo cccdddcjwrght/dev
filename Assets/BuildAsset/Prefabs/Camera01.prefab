@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 50
-    OrthographicSize: 10
+    OrthographicSize: 11
     NearClipPlane: -10
     FarClipPlane: 100
     Dutch: 0
@@ -269,8 +269,8 @@ MonoBehaviour:
     isEnable: 1
     isUselimit: 1
     startValue: -4
-    minValue: -5.2
-    maxValue: 5
+    minValue: -5.8
+    maxValue: 6
     currentValue: 0
     inputValue: 0
     wrapValue: 0
@@ -337,8 +337,8 @@ MonoBehaviour:
     disableBounce: 1
     control:
     - axisName: Mouse Y
-      sensitivity: 0.6
-      touchRevise: 0.4
+      sensitivity: 0.5
+      touchRevise: 0.33
       isInvertAxis: 1
       additionalKey: 0
       additionalMouseButton: 0
