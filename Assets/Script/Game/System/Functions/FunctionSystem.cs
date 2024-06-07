@@ -158,10 +158,10 @@ namespace SGame
 
 						case 7://区域解锁
 							int area = cfg.OpenVal(0);
-							if (ConfigSystem.Instance.TryGet<GameConfigs.RoomAreaRowData>(area, out var c))
+							if (!DataCenter.RoomUtil.IsAreaEnable(area))
 							{
-								if (DataCenter.Instance.roomData.current.id <= c.Scene && !DataCenter.MachineUtil.IsAreaEnable(area))
-									ret = false;
+								tips = "@ui_area_is_lock";
+								ret = false;
 							}
 							break;
 					}

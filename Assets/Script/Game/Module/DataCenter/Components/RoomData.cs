@@ -138,12 +138,20 @@ namespace SGame
 
 			public static void UnlockArea(int area)
 			{
+				var areas = DataCenter.Instance.roomData.areas;
 				var room = DataCenter.Instance.roomData.current;
+				if (!areas.Contains(area))
+					areas.Add(area);
 				if (room != null)
 				{
 					room.waitAreas.Remove(area);
 					room.areas.Add(area);
 				}
+			}
+
+			public static bool IsAreaEnable(int area)
+			{
+				return area <= 1 || DataCenter.Instance.roomData.areas.Contains(area);
 			}
 
 			private static bool UseTechBuff(RoomTechRowData cfg)
@@ -167,7 +175,7 @@ namespace SGame
 					EventManager.Instance.AsyncTrigger(((int)GameEvent.TECH_ADD_ROLE), roleid, count, tableid);
 				else
 				{
-					AddRoleReward(roleid, count, x, y , true);
+					AddRoleReward(roleid, count, x, y, true);
 					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.WORKER, 1);
 				}
 			}
@@ -212,6 +220,7 @@ namespace SGame
 		public int time;
 		public List<Room> rooms = new List<Room>();
 		public List<int> tables = new List<int>();
+		public List<int> areas = new List<int>();
 
 		[NonSerialized]
 		public Room room;
