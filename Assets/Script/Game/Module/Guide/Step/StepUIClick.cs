@@ -13,27 +13,45 @@ namespace SGame
         GObject clickTarget;
         public override IEnumerator Excute() 
         {
-            GuideManager.Instance.SetCoerceGuideState(true);
-            //锁定UI
-            GRoot.inst.touchable = false;
-            Debug.Log("<color=white> ui lock-------------</color>");
-            m_Handler.DisableControl(true);
-            m_Handler.DisableCameraDrag(true);
+
+            if (m_Config.Force == 0) 
+            {
+                GuideManager.Instance.SetCoerceGuideState(true);
+                //锁定UI
+                UILockManager.Instance.Require("guide");
+                //GRoot.inst.touchable = false;
+                Debug.Log("<color=white> ui lock-------------</color>");
+                m_Handler.DisableControl(true);
+                m_Handler.DisableCameraDrag(true);
+            }
 
             yield return m_Handler.WaitFingerClose();
             m_Handler.InitConfig(m_Config);
             yield return m_Handler.FindTarget();
-
-            //解开UI
-            GRoot.inst.touchable = true;
-            Debug.Log("<color=bule> ui unlock-------------</color>");
-            m_Handler.DisableControl(false);
-
             clickTarget = m_Handler.GetTarget();
             clickTarget.onClick.Add(Finish);
-            UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
+
+            if (m_Config.Force == 0)
+            {
+                //解开UI
+                UILockManager.Instance.Release("guide");
+                Debug.Log("<color=bule> ui unlock-------------</color>");
+                m_Handler.DisableControl(false);
+                UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
+            }
+            else 
+            {
+                clickTarget.onFocusOut.Add(Stop);
+            }
             UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
+
         }
+
+        public void Stop() 
+        {
+            GuideManager.Instance.StopGuide(m_Config.GuideId);
+        }
+
 
         public override void Dispose()
         {
@@ -41,10 +59,18 @@ namespace SGame
                 clickTarget.onClick.Remove(Finish);
 
             UIUtils.CloseUIByName("fingerui");
-            UIUtils.CloseUIByName("guideback");
 
-            GuideManager.Instance.SetCoerceGuideState(false);
-            m_Handler.DisableCameraDrag(false);
+            if (m_Config.Force == 0)
+            {
+                UIUtils.CloseUIByName("guideback");
+                GuideManager.Instance.SetCoerceGuideState(false);
+                m_Handler.DisableCameraDrag(false);
+            }
+            else 
+            {
+                clickTarget.onFocusOut.Remove(Stop);
+            }
+       
         }
     }
 }

@@ -23,6 +23,7 @@ namespace SGame
         public void Initalize() 
         {
             EventManager.Instance.Reg<int>((int)GameEvent.GUIDE_FINISH, FinishGuide);
+            GRoot.inst.onClick.Add(GuideClick);
         }
 
         /// <summary>
@@ -30,14 +31,7 @@ namespace SGame
         /// </summary>
         public void StartGuide(int guideId) 
         {
-            var index = runtimeDataList.FindIndex((r) => r.guideId == guideId);
-            if (index >= 0) 
-            {
-                Debug.Log(string.Format("<color=red>guide is running: {0}</color>", guideId));
-                runtimeDataList[index].FinishGuide(1);
-                runtimeDataList.RemoveAt(index);
-            }
-
+            StopGuide(guideId);
             if (!ContainGuide(guideId)) 
             {
                 Debug.Log(string.Format("<color=red>guide config is not id:{0}</color>", guideId));
@@ -48,6 +42,17 @@ namespace SGame
             runtimeDataList.Add(guideRuntimeData);
 
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+        }
+
+        public void StopGuide(int guideId) 
+        {
+            var index = runtimeDataList.FindIndex((r) => r.guideId == guideId);
+            if (index >= 0)
+            {
+                Debug.Log(string.Format("<color=red>stop guide id: {0}</color>", guideId));
+                runtimeDataList[index].FinishGuide(1);
+                runtimeDataList.RemoveAt(index);
+            }
         }
 
         public void FinishGuide(int guideId) 
@@ -95,8 +100,14 @@ namespace SGame
             isCoerceGuide = state;
         }
 
+        public void GuideClick() 
+        {
+            EventManager.Instance.Trigger((int)GameEvent.GUIDE_CLICK);
+        }
+
         public void Update() 
         {
+
             if (Input.GetKeyDown(KeyCode.F4)) 
                 isGetPath = true;
 

@@ -126,7 +126,7 @@ namespace SGame
 		GUIDE_LOOP						= 9005,
 		STEP_NEXT						= 9006,
 		GUIDE_FINISH					= 9007,
-
+		GUIDE_CLICK						= 9008,
 		
 		// 好友系统
 		FRIEND_DATE_UPDATE				= 10000, // 好友数据更新
