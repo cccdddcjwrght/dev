@@ -11,6 +11,7 @@ namespace SGame
     public class StepUIClick : Step
     {
         GObject clickTarget;
+        EventHandleContainer m_EventHandle = new EventHandleContainer();
         public override IEnumerator Excute() 
         {
 
@@ -41,7 +42,7 @@ namespace SGame
             }
             else 
             {
-                clickTarget.onFocusOut.Add(Stop);
+                m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
             }
             UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
 
@@ -51,7 +52,6 @@ namespace SGame
         {
             GuideManager.Instance.StopGuide(m_Config.GuideId);
         }
-
 
         public override void Dispose()
         {
@@ -66,11 +66,8 @@ namespace SGame
                 GuideManager.Instance.SetCoerceGuideState(false);
                 m_Handler.DisableCameraDrag(false);
             }
-            else 
-            {
-                clickTarget.onFocusOut.Remove(Stop);
-            }
-       
+            m_EventHandle.Close();
+            m_EventHandle = null;
         }
     }
 }
