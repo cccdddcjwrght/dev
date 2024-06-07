@@ -13,6 +13,7 @@ namespace SGame.UI.EnterScene
             UIObjectFactory.SetPackageItemExtension(UI_EnterSceneUI.URL, typeof(UI_EnterSceneUI));
             UIObjectFactory.SetPackageItemExtension(UI_HeadRegion.URL, typeof(UI_HeadRegion));
             UIObjectFactory.SetPackageItemExtension(UI_LevelItem.URL, typeof(UI_LevelItem));
+            UIObjectFactory.SetPackageItemExtension(UI_EnterSceneTempUI.URL, typeof(UI_EnterSceneTempUI));
             UIObjectFactory.SetPackageItemExtension(UI_LevelCompletedBody.URL, typeof(UI_LevelCompletedBody));
             UIObjectFactory.SetPackageItemExtension(UI_LevelCompletedUI.URL, typeof(UI_LevelCompletedUI));
             UIObjectFactory.SetPackageItemExtension(UI_WelcomeNewLevelUI.URL, typeof(UI_WelcomeNewLevelUI));
