@@ -166,7 +166,7 @@ namespace SGame
 		/// <summary>
 		/// 升级材料ID
 		/// </summary>
-		public const int EQUIP_UPLV_MAT = 99;
+		public const int EQUIP_UPLV_MAT = 2;
 
 		/// <summary>
 		/// 升品材料
