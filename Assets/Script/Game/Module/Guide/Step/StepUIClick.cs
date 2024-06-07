@@ -34,11 +34,13 @@ namespace SGame
 
             if (m_Config.Force == 0)
             {
+                UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
+                //等待遮罩打开
+                yield return m_Handler.WaitGuideMaskOpen();
                 //解开UI
                 UILockManager.Instance.Release("guide");
                 Debug.Log("<color=bule> ui unlock-------------</color>");
                 m_Handler.DisableControl(false);
-                UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
             }
             else 
             {

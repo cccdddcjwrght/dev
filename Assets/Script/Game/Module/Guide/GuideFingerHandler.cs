@@ -67,8 +67,18 @@ namespace SGame
         {
             while (true) 
             {
-                bool isOpen = UIUtils.CheckUIIsOpen("guidemask");
+                bool isOpen = UIUtils.CheckUIIsOpen("guideback");
                 if (!isOpen) yield break;
+                yield return null;
+            }
+        }
+
+        public IEnumerator WaitGuideMaskOpen() 
+        {
+            while (true) 
+            {
+                bool isOpen = UIUtils.CheckUIIsOpen("guideback");
+                if (isOpen) yield break;
                 yield return null;
             }
         }
