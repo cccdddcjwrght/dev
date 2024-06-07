@@ -331,13 +331,12 @@ namespace SGame.Dining
 			_lockBody.SetActive(false);
 			unlockGo.SetActive(true);
 			call?.Invoke();
-			yield return new WaitForSeconds(0.1f);
-			SceneCameraSystem.Instance.disableControl = false;
-			UILockManager.Instance.Release("dining");
 			if (duration > 0)
 			{
 				yield return new WaitForSeconds(duration - delay);
 				_effect.SetActive(false);
+				SceneCameraSystem.Instance.disableControl = false;
+				UILockManager.Instance.Release("dining");
 			}
 
 		}
