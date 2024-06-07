@@ -132,7 +132,7 @@ namespace SGame.UI
 			m_funcManager.Register(31, () => DataCenter.ClubUtil.CheckIsInClub());
 
 			//m_funcManager.Register((int)FunctionID.FRIEND, null, () => FriendModule.Instance.hiringTime); // 好友
-			m_funcManager.Register((int)24);
+			//m_funcManager.Register((int)24);
 			m_funcManager.Register((int)25, () => ChestItemUtil.CheckEqGiftBag())
 				.SetIcon(ChestItemUtil.GetIcon)
 				.SetTips(() => ChestItemUtil.GetChestCount().ToString());
