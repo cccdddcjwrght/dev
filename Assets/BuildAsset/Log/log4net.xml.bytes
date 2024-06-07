@@ -39,14 +39,15 @@
                 
     
     <root>
-        <level value="WARN" />
+        <level value="INFO" />
         <appender-ref ref="UnityAppender" /><!-- Unity控制台日志 -->
 		<!--
 		<appender-ref ref="RollingFile" /> 
 		<appender-ref ref="RemotingAppender" />
 		-->
     </root>
-    
+
+
 	<!--
     <logger name="TestLogger">
         <level value="DEBUG" />
