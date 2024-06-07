@@ -485,7 +485,8 @@ namespace SGame.UI
 		partial void OnLevelBtnClick(EventContext data)
 		{
 			//SGame.UIUtils.OpenUI("rewardshow", new List<int[]> { new int[] { 1,1,1 }, new int[] { 1, 2, 1 }, new int[] { 1, 6, 1 } }, true);
-			SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
+			//SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
+			SGame.UIUtils.OpenUI("enterscenetemp", DataCenter.Instance.roomData.current.id + 1);
 		}
 
 		partial void UnInitEvent(UIContext context)
