@@ -12,5 +12,6 @@ namespace SGame
         LEVEL_TECH = 13, // 关卡科技
         SHOP	   = 10, // 商城
         FRIEND	   = 14, // 好友
+        PET        = 24, // 宠物
     }
 }

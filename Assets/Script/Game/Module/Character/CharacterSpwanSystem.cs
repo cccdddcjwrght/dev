@@ -33,9 +33,9 @@ namespace SGame
             //public bool isEmployee;
             
             // 雇佣好友ID
-            public int playerID;
+            public long playerID;
 
-            public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true, int playerID = 0)
+            public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true, long playerID = 0)
             {
                 var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 var entity = mgr.CreateEntity(typeof(CharacterSpawn));

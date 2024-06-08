@@ -23,7 +23,7 @@ namespace SGame
 			EventManager.Instance.Reg<int>(((int)GameEvent.BEFORE_ENTER_ROOM), OnEnterRoom);
 			//监听buff添加
 			EventManager.Instance.Reg<BuffData>(((int)GameEvent.BUFF_TRIGGER), OnBuffAdd);
-			EventManager.Instance.Reg<int, int, RoleData>(((int)GameEvent.FRIEND_HIRING), (id, type, data) => OnRoleAdd(data));
+			EventManager.Instance.Reg<long, int, RoleData>(((int)GameEvent.FRIEND_HIRING), (id, type, data) => OnRoleAdd(data));
 			EventManager.Instance.Reg<RoleData>(((int)GameEvent.BUFF_ADD_ROLE), OnRoleAdd);
 
 

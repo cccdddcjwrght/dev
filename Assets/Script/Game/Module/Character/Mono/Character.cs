@@ -92,7 +92,7 @@ namespace SGame
         /// <summary>
         /// 好友顾客ID, 每个玩家的唯一ID， 0表示没有
         /// </summary>
-        public int playerID = 0;
+        public long playerID = 0;
 
         /// <summary>
         /// 工作区域ID, 用于区分厨师与服务员的做菜区域

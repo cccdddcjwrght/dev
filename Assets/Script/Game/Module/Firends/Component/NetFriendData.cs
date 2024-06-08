@@ -31,7 +31,7 @@ namespace SGame.Firend
     [Serializable]
     public class FriendItemData
     {
-        public int                player_id;     // 玩家ID
+        public long               player_id;     // 玩家ID
         public int                icon_id;       // 头像ID
         public int                frame_id;      // 头像框ID
         public int                roleID;        // 角色ID

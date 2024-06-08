@@ -131,7 +131,7 @@ namespace SGame.UI{
 				return;
 			}
 			
-			var player_id = (int)clickBtn.data;
+			var player_id = (long)clickBtn.data;
 			var friendItem = FriendModule.Instance.GetFriendItem(player_id);
 			if (friendItem == null)
 			{

@@ -79,7 +79,7 @@ namespace SGame.VS
                 var tag         = flow.GetValue<string>(mapTag);
                 var attr        = flow.GetValue<bool>(hasAttribute);
                 var isEmployee  = flow.GetValue<bool>(m_isEmployee);
-                var playerID    = flow.GetValue<int>(m_playerID);
+                var playerID    = flow.GetValue<long>(m_playerID);
                 if (isEmployee)
                 {
                     // 雇员ID则直接改变玩家ID
@@ -127,7 +127,7 @@ namespace SGame.VS
             mapTag          = ValueInput<string>("mapTag", "");
             hasAttribute    = ValueInput<bool>("hasAttribute", true);
             m_isEmployee    = ValueInput<bool>("isEmployee", false);
-            m_playerID      = ValueInput<int>("playerID", 0);
+            m_playerID      = ValueInput<long>("playerID", 0);
             m_characterEntity = ValueOutput<CharacterSpawnResult>("Result", (flow)=> m_spwanResult);
             outputTrigger = ControlOutput("Output");
         }
