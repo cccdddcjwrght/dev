@@ -31,10 +31,10 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick));
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
-			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick));
+			UIListener.Listener(m_view.m_friendBtn, new EventCallback1(_OnFriendBtnClick));
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
-			UIListener.Listener(m_view.m_skillBtn, new EventCallback1(_OnSkillBtnClick));
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick));
+			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick));
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick));
 
 		}
@@ -57,10 +57,10 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick),remove:true);
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
-			UIListener.Listener(m_view.m_taskRewardBtn, new EventCallback1(_OnTaskRewardBtnClick),remove:true);
+			UIListener.Listener(m_view.m_friendBtn, new EventCallback1(_OnFriendBtnClick),remove:true);
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
-			UIListener.Listener(m_view.m_skillBtn, new EventCallback1(_OnSkillBtnClick),remove:true);
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick),remove:true);
+			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick),remove:true);
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick),remove:true);
 
 		}
@@ -169,30 +169,30 @@ namespace SGame.UI{
 		partial void OnLevelBtnClick(EventContext data);
 		void SetLevelBtnText(string data)=>UIListener.SetText(m_view.m_levelBtn,data);
 		string GetLevelBtnText()=>UIListener.GetText(m_view.m_levelBtn);
-		void _OnTaskRewardBtnClick(EventContext data){
-			OnTaskRewardBtnClick(data);
+		void _OnFriendBtnClick(EventContext data){
+			OnFriendBtnClick(data);
 		}
-		partial void OnTaskRewardBtnClick(EventContext data);
-		void SetTaskRewardBtnText(string data)=>UIListener.SetText(m_view.m_taskRewardBtn,data);
-		string GetTaskRewardBtnText()=>UIListener.GetText(m_view.m_taskRewardBtn);
+		partial void OnFriendBtnClick(EventContext data);
+		void SetFriendBtnText(string data)=>UIListener.SetText(m_view.m_friendBtn,data);
+		string GetFriendBtnText()=>UIListener.GetText(m_view.m_friendBtn);
 		void _OnAdBtnClick(EventContext data){
 			OnAdBtnClick(data);
 		}
 		partial void OnAdBtnClick(EventContext data);
 		void SetAdBtnText(string data)=>UIListener.SetText(m_view.m_AdBtn,data);
 		string GetAdBtnText()=>UIListener.GetText(m_view.m_AdBtn);
-		void _OnSkillBtnClick(EventContext data){
-			OnSkillBtnClick(data);
-		}
-		partial void OnSkillBtnClick(EventContext data);
-		void SetSkillBtnText(string data)=>UIListener.SetText(m_view.m_skillBtn,data);
-		string GetSkillBtnText()=>UIListener.GetText(m_view.m_skillBtn);
 		void _OnEquipBtnClick(EventContext data){
 			OnEquipBtnClick(data);
 		}
 		partial void OnEquipBtnClick(EventContext data);
 		void SetEquipBtnText(string data)=>UIListener.SetText(m_view.m_equipBtn,data);
 		string GetEquipBtnText()=>UIListener.GetText(m_view.m_equipBtn);
+		void _OnPetBtnClick(EventContext data){
+			OnPetBtnClick(data);
+		}
+		partial void OnPetBtnClick(EventContext data);
+		void SetPetBtnText(string data)=>UIListener.SetText(m_view.m_petBtn,data);
+		string GetPetBtnText()=>UIListener.GetText(m_view.m_petBtn);
 		void _OnInvestBtnClick(EventContext data){
 			OnInvestBtnClick(data);
 		}

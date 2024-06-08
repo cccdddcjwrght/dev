@@ -53,8 +53,10 @@ namespace SGame.UI
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
 
-			m_view.m_skillBtn.onClick.Add(() => OpenUI(FunctionID.TECH));
+			//m_view.m_skillBtn.onClick.Add(() => OpenUI(FunctionID.TECH));
 			m_view.m_equipBtn.onClick.Add(() => OpenUI(FunctionID.ROLE_EQUIP));
+			m_view.m_friendBtn.onClick.Add(()=> OpenUI(FunctionID.FRIEND));
+			m_view.m_petBtn.onClick.Add(()=>OpenUI(FunctionID.PET));
 
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
@@ -164,8 +166,8 @@ namespace SGame.UI
 			{
 				var levelBtn = m_view.m_levelBtn;
 				levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
-				var leveltechBtn = m_view.m_taskRewardBtn;
-				leveltechBtn.visible = CheckFuncOpen(FunctionID.LEVEL_TECH);
+				//var leveltechBtn = m_view.m_taskRewardBtn;
+				//leveltechBtn.visible = CheckFuncOpen(FunctionID.LEVEL_TECH);
 			}
 
 			var adBtn = m_view.m_AdBtn;
@@ -174,8 +176,10 @@ namespace SGame.UI
 
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
 
-			m_view.m_skillBtn.visible = CheckFuncOpen(FunctionID.TECH);
+			//m_view.m_skillBtn.visible = CheckFuncOpen(FunctionID.TECH);
+			m_view.m_petBtn.visible = CheckFuncOpen(FunctionID.PET);
 			m_view.m_equipBtn.visible = CheckFuncOpen(FunctionID.ROLE_EQUIP);
+			m_view.m_friendBtn.visible = CheckFuncOpen(FunctionID.FRIEND);
 
 			// 处理左右列表
 			UpdateUIState();
@@ -472,10 +476,10 @@ namespace SGame.UI
 			OnRefreshAdTime();
 		}
 
-		partial void OnTaskRewardBtnClick(EventContext data)
-		{
-			"leveltech".Goto();
-		}
+//		partial void OnTaskRewardBtnClick(EventContext data)
+//		{
+//			"leveltech".Goto();
+//		}
 
 		partial void OnLevelBtnClick(EventContext data)
 		{

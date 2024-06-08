@@ -21,10 +21,10 @@ namespace SGame.UI.Main
         public UI_LikeBtn m_likeBtn;
         public UI_TotalBtn m_totalBtn;
         public GButton m_levelBtn;
-        public GButton m_taskRewardBtn;
+        public GButton m_friendBtn;
         public GButton m_AdBtn;
-        public GButton m_skillBtn;
         public GButton m_equipBtn;
+        public GButton m_petBtn;
         public UI_InvestMan m_InvestBtn;
         public Transition m_doshow;
         public Transition m_dohide;
@@ -53,10 +53,10 @@ namespace SGame.UI.Main
             m_likeBtn = (UI_LikeBtn)GetChildAt(9);
             m_totalBtn = (UI_TotalBtn)GetChildAt(10);
             m_levelBtn = (GButton)GetChildAt(11);
-            m_taskRewardBtn = (GButton)GetChildAt(12);
+            m_friendBtn = (GButton)GetChildAt(12);
             m_AdBtn = (GButton)GetChildAt(13);
-            m_skillBtn = (GButton)GetChildAt(14);
-            m_equipBtn = (GButton)GetChildAt(15);
+            m_equipBtn = (GButton)GetChildAt(14);
+            m_petBtn = (GButton)GetChildAt(15);
             m_InvestBtn = (UI_InvestMan)GetChildAt(17);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
