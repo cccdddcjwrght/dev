@@ -131,7 +131,7 @@ namespace SGame.UI
 			m_funcManager.Register(30, () => DataCenter.ClubUtil.IsOpen());
 			m_funcManager.Register(31, () => DataCenter.ClubUtil.CheckIsInClub());
 
-			m_funcManager.Register((int)FunctionID.FRIEND, null, () => FriendModule.Instance.hiringTime); // 好友
+			//m_funcManager.Register((int)FunctionID.FRIEND, null, () => FriendModule.Instance.hiringTime); // 好友
 			m_funcManager.Register((int)24);
 			m_funcManager.Register((int)25, () => ChestItemUtil.CheckEqGiftBag())
 				.SetIcon(ChestItemUtil.GetIcon)
@@ -180,6 +180,7 @@ namespace SGame.UI
 			m_view.m_petBtn.visible = CheckFuncOpen(FunctionID.PET);
 			m_view.m_equipBtn.visible = CheckFuncOpen(FunctionID.ROLE_EQUIP);
 			m_view.m_friendBtn.visible = CheckFuncOpen(FunctionID.FRIEND);
+			SGame.UIUtils.RefreshFuncBtnTime((m_view.m_friendBtn as UI_FuncBtn).m_time, () => FriendModule.Instance.hiringTime);
 
 			// 处理左右列表
 			UpdateUIState();

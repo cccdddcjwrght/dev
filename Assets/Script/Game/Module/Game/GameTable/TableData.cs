@@ -80,7 +80,7 @@ namespace SGame
             {
                 if (c.map_pos.x == chairPos.x && c.map_pos.y == chairPos.y)
                 {
-                    log.Error("chair pos repeate=" + chairPos + " tableid=" + id + " machineid=" + machineID);
+                    log.Warn("chair pos repeate=" + chairPos + " tableid=" + id + " machineid=" + machineID);
                     return false;
                 }
             }

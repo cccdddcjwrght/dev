@@ -635,5 +635,36 @@ namespace SGame
 			OpenUI("confirm", list.ToArray());
 		}
 
+		/// <summary>
+		/// 刷新 底部按钮时间
+		/// </summary>
+		/// <param name="textField"></param>
+		/// <param name="funcTime"></param>
+		public static void RefreshFuncBtnTime(GTextField textField, Func<int> funcTime)
+		{
+			GTween.Kill(textField);
+
+			int configTime = funcTime();
+			if (funcTime() == 0)
+			{
+				textField.visible = false;
+				return;
+			}
+
+			textField.visible = true;
+			textField.text = Utils.FormatTime(configTime);
+
+			GTween.To(0, 1, configTime).OnUpdate((GTweener tweener) =>
+			{
+				var time = funcTime();
+				if (time > 0)
+					textField.text = Utils.FormatTime(funcTime());
+				else
+				{
+					GTween.Kill(textField);
+					textField.visible = false;
+				}
+			}).SetTarget(textField);
+		}
 	}
 }
