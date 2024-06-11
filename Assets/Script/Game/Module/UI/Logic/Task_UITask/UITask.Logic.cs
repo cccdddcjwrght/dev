@@ -5,10 +5,12 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.Task;
     using System.Collections.Generic;
+    using GameConfigs;
 
     public partial class UITask
 	{
 		EventHandleContainer m_EventHandle = new EventHandleContainer();
+		float lockTime = GlobalDesginConfig.GetFloat("task_lock_time");
 
 		//当前任务id
 		int m_CurTaskId;
@@ -67,7 +69,7 @@ namespace SGame.UI{
 
 				m_view.m_content.visible = false;
 				m_view.m_mask.visible = false;
-				Utils.Timer(1.5f, null, m_view, completed: () => 
+				Utils.Timer(lockTime, null, m_view, completed: () => 
 				{ 
 					m_view.m_content.visible = true;
 					m_view.m_mask.visible = true;

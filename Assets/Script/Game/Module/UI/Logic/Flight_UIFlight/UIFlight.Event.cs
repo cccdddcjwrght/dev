@@ -6,13 +6,14 @@ namespace SGame.UI{
 	using SGame.UI.Flight;
     using System.Collections.Generic;
     using Unity.Entities;
+    using GameConfigs;
 
     public partial class UIFlight
 	{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
 		Stack<GGraph> graphStack = new Stack<GGraph>();
 		//Stack<GLoader> loaderStack = new Stack<GLoader>();
-		public float speed = 400f; //特效移动速度
+		public float speed = GlobalDesginConfig.GetFloat("get_effect_speed"); //特效移动速度
 
 		bool m_IsSet;
 
