@@ -130,6 +130,18 @@ namespace SGame
             }
             return 0;
         }
+
+        //清除记录数据
+        public void ClearValue(int type, int funcId = 0) 
+        {
+            var index = m_RecordTotalData.data.FindIndex((d) => d.funcId == funcId);
+            if (index >= 0)
+            {
+                var data = m_RecordTotalData.data[index];
+                var recordData = data.recordDatas.Find((r) => r.type == type);
+                if (recordData != null) recordData.value = 0;
+            }
+        }
     }
 
 }

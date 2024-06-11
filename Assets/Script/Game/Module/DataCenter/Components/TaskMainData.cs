@@ -104,6 +104,11 @@ namespace SGame
                     val.ForEach((v) =>{ PropertyManager.Instance.Update(v[0], v[1], v[2]);});
                     m_TaskMainData.cfgId++;
 
+                    if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(m_TaskMainData.cfgId, out var newCfg)) 
+                    {
+                        if (newCfg.TaskType == (int)RecordDataEnum.SERVE)
+                            RecordModule.Instance.ClearValue((int)RecordDataEnum.SERVE, (int)RecordFunctionId.TASK);
+                    }
                     EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_UPDATE);
                 }
             }
