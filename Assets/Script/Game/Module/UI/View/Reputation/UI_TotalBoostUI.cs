@@ -8,6 +8,8 @@ namespace SGame.UI.Reputation
     public partial class UI_TotalBoostUI : GLabel
     {
         public GLabel m_body;
+        public GTextField m_worker;
+        public GTextField m_customer;
         public GTextField m_totalNum;
         public GList m_list;
         public GGroup m_totalGroup;
@@ -23,9 +25,11 @@ namespace SGame.UI.Reputation
             base.ConstructFromXML(xml);
 
             m_body = (GLabel)GetChildAt(0);
-            m_totalNum = (GTextField)GetChildAt(2);
-            m_list = (GList)GetChildAt(3);
-            m_totalGroup = (GGroup)GetChildAt(4);
+            m_worker = (GTextField)GetChildAt(2);
+            m_customer = (GTextField)GetChildAt(4);
+            m_totalNum = (GTextField)GetChildAt(7);
+            m_list = (GList)GetChildAt(8);
+            m_totalGroup = (GGroup)GetChildAt(9);
         }
     }
 }

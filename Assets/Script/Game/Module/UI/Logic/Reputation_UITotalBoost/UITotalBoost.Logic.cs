@@ -17,6 +17,12 @@ namespace SGame.UI{
 
 		void RefreshTotalList() 
 		{
+			List<Character> list = new List<Character>();
+			CharacterModule.Instance.FindCharacters(list, (c) => c.roleType == (int)EnumRole.Cook
+			|| c.roleType == (int)EnumRole.Waiter || c.roleType == (int)EnumRole.Player);
+			m_view.m_worker.SetTextByKey("total_worker_name", list.Count);
+			m_view.m_customer.SetTextByKey("total_customer_name", Utils.GetMaxCustomer());
+
 			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_list.numItems = m_TotalItems.Count;
 			m_view.m_totalNum.SetText(string.Format("X{0}", ReputationModule.Instance.GetTotalValue().ToString()));

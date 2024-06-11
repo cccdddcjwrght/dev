@@ -29,6 +29,10 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
+		void SetWorkerText(string data)=>UIListener.SetText(m_view.m_worker,data);
+		string GetWorkerText()=>UIListener.GetText(m_view.m_worker);
+		void SetCustomerText(string data)=>UIListener.SetText(m_view.m_customer,data);
+		string GetCustomerText()=>UIListener.GetText(m_view.m_customer);
 		void SetTotalNumText(string data)=>UIListener.SetText(m_view.m_totalNum,data);
 		string GetTotalNumText()=>UIListener.GetText(m_view.m_totalNum);
 
