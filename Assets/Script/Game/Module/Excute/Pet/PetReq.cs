@@ -102,6 +102,7 @@ namespace SGame
 								view.m_context.url = "ui://Pet/SimplePetModel";
 								view.m_context.y -= 50;
 
+
 								var model = view.m_context.component as UI_SimplePetModel;
 								if (model != null) model.SetPetInfo(pet);
 								UIListener.SetControllerSelect(view.m_top.component, "type", 3, false);
