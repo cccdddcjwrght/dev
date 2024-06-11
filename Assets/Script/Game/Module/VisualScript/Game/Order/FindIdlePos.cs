@@ -6,33 +6,40 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FindIdlePos : Unit
+namespace SGame.VS
 {
-    [DoNotSerialize]
-    public ControlInput inputTrigger;
-
-    [DoNotSerialize]
-    public ControlOutput outputTrigger;
-
-    [DoNotSerialize]
-    public ValueInput characterID;
-
-    [DoNotSerialize]
-    public ValueOutput pos;
-
-    public int2 posValue;
-
-    protected override void Definition()
+    // 查找可用待机位置
+    [UnitTitle("FindIdlePos")] 
+    [UnitCategory("Game/Order")]
+    public class FindIdlePos : Unit
     {
-        inputTrigger = ControlInput("Input", (flow) =>
-        {
-            int id = flow.GetValue<int>(characterID);
-            posValue = CharacterIdleModule.Instance.GetCharacterEmptyIdlePos(id);
-            return outputTrigger;
-        });
+        [DoNotSerialize]
+        public ControlInput inputTrigger;
 
-        outputTrigger = ControlOutput("output");
-        characterID = ValueInput<int>("characterID");
-        pos = ValueOutput<int2>("pos", (flow) => posValue);
+        [DoNotSerialize]
+        public ControlOutput outputTrigger;
+
+        [DoNotSerialize]
+        public ValueInput characterID;
+
+        [DoNotSerialize]
+        public ValueOutput pos;
+
+        public int2 posValue;
+
+        protected override void Definition()
+        {
+            inputTrigger = ControlInput("Input", (flow) =>
+            {
+                int id = flow.GetValue<int>(characterID);
+                posValue = CharacterIdleModule.Instance.GetCharacterEmptyIdlePos(id);
+                return outputTrigger;
+            });
+
+            outputTrigger = ControlOutput("output");
+            characterID = ValueInput<int>("characterID");
+            pos = ValueOutput<int2>("pos", (flow) => posValue);
+        }
     }
+
 }
