@@ -12,6 +12,7 @@ namespace SGame
 		static int minOfflineTime = 0;
 
 		const string offline_ui = "offlineui";
+		const int offline_id = 11;
 
 		[InitCall]
 		static void InitOffline()
@@ -27,8 +28,8 @@ namespace SGame
 				DataCenter.Instance.offlinetime = -1;
 				if (StaticDefine.G_Offline_Time >= minOfflineTime)
 				{
-					if ("offline".IsOpend(false))
-						_delayer.DelayOpen(11, "mainui");
+					if (offline_id.IsOpend(false))
+						_delayer.DelayOpen(offline_id, "mainui");
 				}
 			});
 
@@ -36,7 +37,7 @@ namespace SGame
 
 			static void OnContinue()
 			{
-				if ("offline".IsOpend(false))
+				if (offline_id.IsOpend(false))
 				{
 					var flag = UIUtils.CheckUIIsOpen(offline_ui);
 					if (!flag)
@@ -45,7 +46,7 @@ namespace SGame
 
 						StaticDefine.G_Offline_Time = (int)UnityEngine.Time.realtimeSinceStartup - DataCenter.Instance.offlinetime;
 						if (StaticDefine.G_Offline_Time > minOfflineTime || flag)
-							11.Goto();
+							offline_id.Goto();
 						else
 							GetOfflineReward(DataCenter.CaluOfflineReward(StaticDefine.G_Offline_Time));
 						log.Info("[offlinetime]->" + StaticDefine.G_Offline_Time.ToString());
