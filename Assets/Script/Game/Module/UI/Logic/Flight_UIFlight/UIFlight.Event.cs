@@ -11,7 +11,8 @@ namespace SGame.UI{
 	{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
 		Stack<GGraph> graphStack = new Stack<GGraph>();
-		Stack<GLoader> loaderStack = new Stack<GLoader>();
+		//Stack<GLoader> loaderStack = new Stack<GLoader>();
+		public float speed = 300f; //特效移动速度
 
 		bool m_IsSet;
 
@@ -37,69 +38,71 @@ namespace SGame.UI{
 					Play(id, startPos[index], endPos, duration);
 					index++;
 				});
-				timer += 0.2f;
+				timer += 0.5f;
 			});
 		}
 
 		void Play(int id, Vector2 startPos, Vector2 endPos, float duration) 
 		{
-			if (TransitionModule.Instance.CheckIsBox(id)) AddBox(id, startPos, endPos, duration);
-			else AddEffect(id, startPos, endPos, duration);
+			AddEffect(id, startPos, endPos, duration);
 		}
 
 		void AddEffect(int id, Vector2 startPos, Vector2 endPos, float duration) 
 		{
-			TransitionModule.Instance.AddDepend(id);
-			Refresh();
 
 			int effectId1 = id + 20;
 			int effectId2 = id + 22;
+
+			if (TransitionModule.Instance.CheckIsBox(id))
+			{
+				effectId1 = 26;
+				effectId2 = id;
+				//if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var config))
+				m_view.m_Box.SetIcon("ui_icon_box_0" + id % 100);
+				TransitionModule.Instance.AddDepend((int)FlightType.BOX);
+			}
+			else if (TransitionModule.Instance.CheckIsPet(id))
+			{
+				effectId1 = 26;
+				effectId2 = 500;
+				TransitionModule.Instance.AddDepend((int)FlightType.PET);
+			}
+			else
+			{
+				TransitionModule.Instance.AddDepend(id);
+			}
+			Refresh();
+
+			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
 			var graph1 = GetGraph(startPos.x, startPos.y);
+
+			float d = Vector3.Distance(startPos, endPos);
+			float time = d / speed;
+
 			EffectSystem.Instance.AddEffect(effectId1, graph1);
 			if (ConfigSystem.Instance.TryGet<GameConfigs.effectsRowData>(effectId1, out var data)) 
 			{
-				Utils.Timer(data.Duration, null, m_view, completed: () => Push(graph1, id));
+				Utils.Timer(time, null, m_view, completed: () => Push(graph1, id));
 			}
 
-			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
-			var graph2 = GetGraph(endPos.x, endPos.y);
+			var graph2 = GetGraph(startPos.x, startPos.y);
 			EffectSystem.Instance.AddEffect(effectId2, graph2);
 
-			GTween.To(startPos, endPos, duration).SetTarget(m_view).OnUpdate((t) =>
+
+			GTween.To(startPos, endPos, time).SetTarget(m_view).OnUpdate((t) =>
 			{
 				graph2.SetXY(t.value.x, t.value.y);
 			}).OnComplete(()=> 
 			{
 				Push(graph2, id);
-				TransitionModule.Instance.SubDepend(id);
-				Refresh();
-			});
+				if (TransitionModule.Instance.CheckIsBox(id)) TransitionModule.Instance.SubDepend((int)FlightType.BOX);
+				else if (TransitionModule.Instance.CheckIsPet(id)) TransitionModule.Instance.SubDepend((int)FlightType.PET);
+				else TransitionModule.Instance.SubDepend(id);
 
-
-		}
-
-		public void AddBox(int id, Vector2 startPos, Vector2 endPos, float duration) 
-		{
-			TransitionModule.Instance.AddDepend((int)FlightType.BOX);
-			Refresh();
-			var loader = GetLoader(startPos.x, startPos.y);
-			if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var data)) 
-			{
-				loader.SetIcon(data.Icon);
-				m_view.m_Box.SetIcon(data.Icon);
-			}
-			
-			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
-			GTween.To(startPos, endPos, duration).SetTarget(m_view).OnUpdate((t) =>
-			{
-				loader.SetXY(t.value.x, t.value.y);
-			}).OnComplete(() =>
-			{
-				Push(loader, (int)FlightType.BOX);
-				TransitionModule.Instance.SubDepend((int)FlightType.BOX);
 				Refresh();
 			});
 		}
+
 
         GGraph GetGraph(float x, float y)
         {
@@ -117,39 +120,24 @@ namespace SGame.UI{
             return holder;
         }
 
-		GLoader GetLoader(float x, float y) 
-		{
-			GLoader loader;
-			if (loaderStack.Count > 0)
-				loader = loaderStack.Pop();
-			else
-			{
-				loader = new GLoader();
-				loader.SetSize(80, 80);
-				//loader.SetPivot(0.5f, 0.5f, true);
-				loader.fill = FillType.ScaleFree;
-				m_view.AddChild(loader);
-			}
-			loader.SetXY(x, y);
-			loader.visible = true;
-			return loader;
-		}
 
 		void Push(GObject holder, int id) 
 		{
 			holder.visible = false;
-			if (id == (int) FlightType.BOX)
-				loaderStack.Push(holder.asLoader);
-			else
-				graphStack.Push(holder.asGraph);
+            for (int i = 0; i < holder.displayObject.gameObject.transform.childCount; i++)
+				GameObject.Destroy(holder.displayObject.gameObject.transform.GetChild(i).gameObject);
+			//if (id == (int) FlightType.BOX)
+			//	loaderStack.Push(holder.asLoader);
+			//else
+			graphStack.Push(holder.asGraph);
 		}
 
 		Vector2 GetFinalPos(int id) 
 		{
 			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy;
 			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy;
-			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy;
-
+			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f);
+			else if (TransitionModule.Instance.CheckIsPet(id)) return m_view.m_Pet.xy;
 			return default;
 		}
 
@@ -162,6 +150,7 @@ namespace SGame.UI{
 			m_view.m_Gold.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
 			m_view.m_Diamond.visible = TransitionModule.Instance.IsShow((int)FlightType.DIAMOND);
 			m_view.m_Box.visible = TransitionModule.Instance.IsShow((int)FlightType.BOX);
+			m_view.m_Pet.visible = TransitionModule.Instance.IsShow((int)FlightType.PET);
 		}
 
 		void SetPos() 
@@ -178,7 +167,10 @@ namespace SGame.UI{
 
 					var boxGObject = ui.Value.contentPane.GetChildByPath("leftList.right.eqgift");
 					if (boxGObject != null) 
-						m_view.m_Box.xy = boxGObject.LocalToGlobal(Vector2.zero);
+						m_view.m_Box.xy = GRoot.inst.GlobalToLocal(boxGObject.LocalToGlobal(Vector2.zero));
+
+					m_view.m_Pet.xy = ui.Value.contentPane.GetChildByPath("petBtn").xy;
+
 				}
 			}
 			//m_IsSet = true;

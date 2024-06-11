@@ -12,6 +12,7 @@ namespace SGame
         GOLD    = 1,
         DIAMOND = 2,
         BOX     = 3,
+        PET     = 4,
     }
 
     public class TransitionModule : Singleton<TransitionModule>
@@ -19,7 +20,7 @@ namespace SGame
         private EventHandleContainer m_EventHandle = new EventHandleContainer();
         private Dictionary<int, int> m_DependDict = new Dictionary<int, int>();
 
-        public static float duration = 0.5f;
+        public static float duration = 1.5f;
 
         public void Initalize() 
         {
@@ -101,7 +102,7 @@ namespace SGame
         //检测奖励id是否是需要播放飞行特效
         public bool CheckIsTranId(int id) 
         {
-            if (id == (int)FlightType.GOLD || id == (int)FlightType.DIAMOND || CheckIsBox(id))
+            if (id == (int)FlightType.GOLD || id == (int)FlightType.DIAMOND || CheckIsBox(id) || CheckIsPet(id))
                 return true;
             return false;
         }
@@ -112,6 +113,15 @@ namespace SGame
             if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var data)) 
                 if (data.Type == 3 && data.SubType == 1) return true;
             
+            return false;
+        }
+
+        public bool CheckIsPet(int id) 
+        {
+            if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var data))
+            {
+                if (data.Type == 10) return true;
+            }
             return false;
         }
 

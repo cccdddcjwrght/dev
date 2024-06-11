@@ -9,9 +9,10 @@ namespace SGame.UI.Flight
     {
         public GButton m_Gold;
         public GButton m_Diamond;
-        public GLoader m_Box;
         public GButton m_rank;
         public GComponent m_rankTran;
+        public GButton m_Box;
+        public GButton m_Pet;
         public const string URL = "ui://kh4ukj1qkxwz0";
 
         public static UI_FlightUI CreateInstance()
@@ -25,9 +26,10 @@ namespace SGame.UI.Flight
 
             m_Gold = (GButton)GetChildAt(0);
             m_Diamond = (GButton)GetChildAt(1);
-            m_Box = (GLoader)GetChildAt(2);
-            m_rank = (GButton)GetChildAt(3);
-            m_rankTran = (GComponent)GetChildAt(4);
+            m_rank = (GButton)GetChildAt(2);
+            m_rankTran = (GComponent)GetChildAt(3);
+            m_Box = (GButton)GetChildAt(4);
+            m_Pet = (GButton)GetChildAt(5);
         }
     }
 }
