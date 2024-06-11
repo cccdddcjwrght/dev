@@ -11,6 +11,7 @@ namespace SGame.UI
 	{
 		private CookBookItem data;
 		private int[] stars;
+		private EventHandleContainer m_events = new EventHandleContainer();
 
 		#region Init
 
@@ -20,15 +21,15 @@ namespace SGame.UI
 			if (data == null) { DoCloseUIClick(null); return; }
 			m_view.m_stars.itemRenderer = SetStarInfo;
 			SetInfo();
-			EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnEvent);
-			EventManager.Instance.Reg<double, double>((int)GameEvent.PROPERTY_GOLD_CHANGE, (a, b) => SetChangeInfo());
+			m_events.Add(EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnEvent));
+			m_events.Add(EventManager.Instance.Reg<double, double>((int)GameEvent.PROPERTY_GOLD_CHANGE, (a, b) => SetChangeInfo()));
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
 			data = default;
 			stars = default;
-			EventManager.Instance.UnReg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnEvent);
+			m_events.Close();
 		}
 
 		#endregion
