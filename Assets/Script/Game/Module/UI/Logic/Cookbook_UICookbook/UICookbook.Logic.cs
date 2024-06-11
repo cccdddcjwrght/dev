@@ -65,6 +65,8 @@ namespace SGame.UI
 		void SetBookInfo(int index, GObject gObject)
 		{
 			var data = DataCenter.CookbookUtils.GetBook((int)_itemDatas[index]);
+			var openFoodTypes = 					TableManager.Instance.GetOpenFoodTypes();
+
 			gObject.name = index.ToString();
 			gObject.data = data;
 			if (data != null)
@@ -72,6 +74,7 @@ namespace SGame.UI
 				gObject.SetIcon(data.cfg.Icon);
 				gObject.onClick.Clear();
 				gObject.onClick.Add(OnBookClick);
+				gObject.grayed = !(openFoodTypes.Contains(data.id));
 				UIListener.SetControllerSelect(gObject, "__redpoint", data.CanUpLv(out _) ? 1 : 0, false);
 			}
 		}
