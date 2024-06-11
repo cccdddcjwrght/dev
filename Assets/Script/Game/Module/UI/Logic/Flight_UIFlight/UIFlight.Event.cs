@@ -12,7 +12,7 @@ namespace SGame.UI{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
 		Stack<GGraph> graphStack = new Stack<GGraph>();
 		//Stack<GLoader> loaderStack = new Stack<GLoader>();
-		public float speed = 300f; //特效移动速度
+		public float speed = 400f; //特效移动速度
 
 		bool m_IsSet;
 
