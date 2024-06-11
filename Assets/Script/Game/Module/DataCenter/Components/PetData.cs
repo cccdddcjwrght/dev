@@ -481,7 +481,8 @@ namespace SGame
 					step += 1 << index;
 					evotimes[index] = 0;
 					Refresh();
-					evo = (evo << 1) + (1 << 0);
+					//evo = (evo << 1) + (1 << 0);
+					evo = evo | (1 << index);
 					return GetEffects(false)[index];
 				}
 				else
