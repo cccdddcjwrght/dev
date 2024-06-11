@@ -28,8 +28,8 @@ namespace SGame.UI.Reputation
             m_worker = (GTextField)GetChildAt(2);
             m_customer = (GTextField)GetChildAt(4);
             m_totalNum = (GTextField)GetChildAt(7);
-            m_list = (GList)GetChildAt(8);
-            m_totalGroup = (GGroup)GetChildAt(9);
+            m_list = (GList)GetChildAt(9);
+            m_totalGroup = (GGroup)GetChildAt(10);
         }
     }
 }
