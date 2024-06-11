@@ -411,7 +411,7 @@ namespace SGame.Dining
 
 			if (animation)
 			{
-				if (_clipName == name) return;
+				if (_clipName == name && animation.isPlaying) return;
 				_clipName = name;
 				if (name == null) animation.Stop();
 				else animation.Play(name);
