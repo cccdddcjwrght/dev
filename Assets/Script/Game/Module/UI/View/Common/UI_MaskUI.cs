@@ -8,7 +8,7 @@ namespace SGame.UI.Common
     public partial class UI_MaskUI : GComponent
     {
         public GGraph m_bg;
-        public const string URL = "ui://2w8thcm7msag3lhv";
+        public const string URL = "ui://2w8thcm7n1bm3lbt";
 
         public static UI_MaskUI CreateInstance()
         {
