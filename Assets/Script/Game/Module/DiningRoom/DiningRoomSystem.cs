@@ -109,23 +109,10 @@ namespace SGame.Dining
 			{
 				if (!_room.isnew)
 				{
-					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0)
-					{
-						//开局动画没播放玩杀掉进程，这里跳过第一步骤
-						DataCenter.Instance.guideData.guideStep += 1;
-						DataCenter.SetIntValue(GuideModule.GUIDE_FIRST, 1);
-					}
 					OnEnterRoomCompleted().Start();
 				}
 				else
 				{
-					if (DataCenter.GetIntValue(GuideModule.GUIDE_FIRST, 0) == 0)
-					{
-						EventManager.Instance.Trigger((int)GameEvent.GUIDE_CREATE);
-						EventManager.Instance.Trigger((int)GameEvent.GUIDE_FIRST);
-						DataCenter.SetIntValue(GuideModule.GUIDE_FIRST, 1);
-					}
-
 					OnEnterRoomCompleted(true).Start();
 				}
 			}
@@ -140,9 +127,12 @@ namespace SGame.Dining
 					yield return new WaitUIClose(SGame.UI.UIModule.Instance.GetEntityManager(), _animUI);
 				_animUI = default;
 				UIUtils.OpenUI("welcomenewlevel");
+				EventManager.Instance.Trigger((int)GameEvent.GUIDE_CREATE);
 				yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
 			}
 			log.Info("EnterRoom :" + _currentRoom.cfgID);
+			EventManager.Instance.Trigger((int)GameEvent.GUIDE_CREATE);
+
 			EventManager.Instance.AsyncTrigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
 			EventManager.Instance.AsyncTrigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
 			_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
@@ -188,6 +178,7 @@ namespace SGame.Dining
 				}
 				if (flag)
 				{
+
 					_animUI = SGame.UIUtils.OpenUI("welcomeanim");
 					yield return new WaitUIOpen(SGame.UI.UIModule.Instance.GetEntityManager(), _animUI);
 				}
