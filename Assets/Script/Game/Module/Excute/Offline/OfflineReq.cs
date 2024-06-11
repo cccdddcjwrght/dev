@@ -21,6 +21,9 @@ namespace SGame
 			new WaitEvent<int>(((int)GameEvent.AFTER_ENTER_ROOM)).Wait((e) =>
 			{
 				StaticDefine.G_Offline_Time = DataCenter.Instance.GetOfflineTime();
+				log.Warn("[begin offline]svr " + GameServerTime.Instance.serverTime);
+				log.Warn("[begin offline]last " + DataCenter.Instance.offlinetime);
+				log.Warn("[begin offline]all " + StaticDefine.G_Offline_Time);
 				DataCenter.Instance.offlinetime = -1;
 				if (StaticDefine.G_Offline_Time >= minOfflineTime)
 				{

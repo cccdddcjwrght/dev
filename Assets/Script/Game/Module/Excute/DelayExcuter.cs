@@ -31,7 +31,7 @@ namespace SGame
 		};
 
 		private List<string> C_IGNORE_UI = new List<string>() {
-			"gmui","mask","guidefinger","guideui","scenedecorui","hud"
+			"gmui","mask","guidefinger","guideui","scenedecorui","hud","flight","SystemTip"
 		};
 
 		private Dictionary<string, List<Item>> m_delayQueues = new Dictionary<string, List<Item>>();
@@ -137,6 +137,9 @@ namespace SGame
 
 			if (!string.IsNullOrEmpty(ui))
 				GameDebug.Log("<color=red>██████</color>ui queue add ui:" + ui);
+			else if (item.funcID != 0)
+				GameDebug.Log("<color=red>██████</color>ui queue add func:" + item.funcID);
+
 
 			if (state && SGame.UIUtils.CheckUIIsOpen(waitui))
 				OnUIOpen(waitui);
@@ -175,7 +178,7 @@ namespace SGame
 						flag = m_currentDelayQueues.Count > 0;
 					ui.call?.Invoke();
 					ui.call = null;
-					GameDebug.Log($"pop:{m_currentUI} - {ui.ui ?? ui.funcID.ToString()}");
+					GameDebug.LogWarning($"<color=red>██████</color>pop:{m_currentUI} - {ui.ui ?? ui.funcID.ToString()}");
 					if (flag)
 						DelayOpen();
 				}
