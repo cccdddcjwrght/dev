@@ -14,6 +14,7 @@ using GameTools;
 using SGame.UI;
 using System.Collections;
 using SGame.Firend;
+using UnityEngine.SceneManagement;
 
 namespace SGame
 {
@@ -1087,6 +1088,16 @@ namespace SGame
             
 			log.Error("machine id not found=" + machineID);
 			return 0;
+		}
+		
+		/// <summary>
+		/// 获得最大顾客上限
+		/// </summary>
+		/// <returns></returns>
+		public static int GetMaxCustomer()
+		{
+			int value = Unity.VisualScripting.SceneVariables.Instance(SceneManager.GetActiveScene()).variables.declarations.Get<int>("MaxCustomer");
+			return value;
 		}
 	}
 }
