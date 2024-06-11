@@ -53,6 +53,7 @@ namespace SGame.UI
 			m_view.SetIcon(data.objCfg.Icon);
 			m_view.m_tips.SetTextByKey(data.objCfg.Des);
 			m_view.m_count.SetText("+" + add);
+			m_view.m_currency.selectedIndex = (int)price[0];
 			m_view.m_cost.SetText(Utils.ConvertNumberStr(price[2]), false);
 			OnChange(0, 0, 0, 0);
 		}

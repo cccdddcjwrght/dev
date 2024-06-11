@@ -46,7 +46,7 @@ namespace SGame.UI
 		void SetInfo()
 		{
 			price = data.GetUnlockPrice();
-			//m_view.m_desc.SetTextByKey(data.objCfg.Des);
+			m_view.m_currency.selectedIndex = (int)price[0];
 			m_view.m_cost.SetText(Utils.ConvertNumberStr(price[2]), false);
 			OnChange(0, 0, 0, 0);
 		}

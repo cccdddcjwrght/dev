@@ -8,6 +8,7 @@ namespace SGame.UI.EnterScene
     public partial class UI_WelcomeNewLevelAnimUI : GLabel
     {
         public GLoader m_anim;
+        public GImage m_next;
         public const string URL = "ui://cxpm3jfb8pk228";
 
         public static UI_WelcomeNewLevelAnimUI CreateInstance()
@@ -20,6 +21,7 @@ namespace SGame.UI.EnterScene
             base.ConstructFromXML(xml);
 
             m_anim = (GLoader)GetChildAt(1);
+            m_next = (GImage)GetChildAt(2);
         }
     }
 }

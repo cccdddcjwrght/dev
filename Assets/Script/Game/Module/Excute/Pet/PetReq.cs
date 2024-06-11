@@ -105,9 +105,10 @@ namespace SGame
 								var model = view.m_context.component as UI_SimplePetModel;
 								if (model != null) model.SetPetInfo(pet);
 								UIListener.SetControllerSelect(view.m_top.component, "type", 3, false);
-								view.m_top.component.SetCurrency(((int)ItemID.MEDAL_1), "c1")
-									.SetCurrency(((int)ItemID.MEDAL_1) + 1, "c2")
-									.SetCurrency(((int)ItemID.MEDAL_1) + 2, "c3");
+								view.m_top.component
+									.SetCurrency(((int)ItemID.MEDAL_1), "c1" , iconCtr:"0")
+									.SetCurrency(((int)ItemID.MEDAL_1) + 1, "c2", iconCtr: "0")
+									.SetCurrency(((int)ItemID.MEDAL_1) + 2, "c3", iconCtr: "0");
 
 							}
 						}

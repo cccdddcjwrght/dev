@@ -19,8 +19,8 @@ namespace SGame.UI
 			if (scale < 1.6f)
 				m_view.m_anim.fill = FillType.ScaleMatchHeight;
 			openAnim = m_view.m_anim.component as UI_OpenAnim;
-			openAnim.visible = false;
-			flag = false;
+			openAnim.visible = flag = false;
+			openAnim.onClick.Add(() => DoContinue());
 			context.onUpdate += OnUpdate;
 		}
 
@@ -37,6 +37,7 @@ namespace SGame.UI
 			{
 				GTween.To(0, 1, 0.1f).OnComplete(() =>
 				{
+					SetHook();
 					openAnim.visible = true;
 					openAnim.m_openanim2.Play(() => OnAnimCompleted().Start());
 				});
@@ -47,6 +48,57 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			context.onUpdate -= OnUpdate;
+		}
+
+		private void SetHook()
+		{
+			if (openAnim != null)
+			{
+				for (int i = 1; i < 5; i++)
+				{
+					try
+					{
+						openAnim.m_openanim2.SetHook("pass" + i, DoPause);
+					}
+					catch (System.Exception e)
+					{
+						log.Warn(e.Message);
+					}
+				}
+			}
+		}
+
+		private void DoPause()
+		{
+			if (openAnim.m_openanim2.playing)
+			{
+				openAnim.m_openanim2.SetPaused(true);
+				LockUI(true, 0.5f);
+			}
+		}
+
+		private void DoContinue()
+		{
+			openAnim.m_openanim2.SetPaused(false);
+			m_view.m_next.visible = false;
+		}
+
+		private void LockUI(bool state = true, float autounlock = 0)
+		{
+			const string _key = "newanim";
+			if (state)
+			{
+				UILockManager.Instance.Require(_key);
+				openAnim.touchable = false;
+				if (autounlock > 0)
+					GTween.To(0, 1, autounlock).OnComplete(() => LockUI(false));
+			}
+			else
+			{
+				openAnim.touchable = true;
+				UILockManager.Instance.Release(_key);
+				m_view.m_next.visible = true;
+			}
 		}
 
 		IEnumerator OnAnimCompleted()
