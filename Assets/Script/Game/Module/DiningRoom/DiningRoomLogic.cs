@@ -766,9 +766,12 @@ namespace SGame.Dining
 			{
 				if (cell == null) return;
 				cs.Add(cell.index);
-				trans = trans ?? cell.cell?.transform;
 				if (cell.cell)
+				{
 					ts.Add(cell.cell.transform);
+					if (trans == null)
+						trans = cell.cell.transform;
+				}
 				if (cell.builds?.Count > 0) builds.AddRange(cell.builds.Select(b => int.Parse(b)));
 			}
 
@@ -832,16 +835,17 @@ namespace SGame.Dining
 			if (cs.Count > 0)
 			{
 				gindex = cs.First();
-				transform = transform ?? ls[0].transform?.parent;
+				transform = transform ?? ls?.Count > 0 ? ls[0].transform?.parent : default;
 
 				if (transform == null)
 					log.Error($"点位->{cfg.ID} : 当前场景没有找到相关格子");
-
-				var h = transform.gameObject.AddComponent<RegionHit>();
-				h.region = region.cfgID;
-				h.place = placeid;
-				h.onClick = OnRegionClick;
-
+				if (transform)
+				{
+					var h = transform.gameObject.AddComponent<RegionHit>();
+					h.region = region.cfgID;
+					h.place = placeid;
+					h.onClick = OnRegionClick;
+				}
 				if (cs.Count > 1)
 				{
 					foreach (var item in cs)

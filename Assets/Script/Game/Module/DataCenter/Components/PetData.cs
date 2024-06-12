@@ -313,6 +313,9 @@ namespace SGame
 		public double count;
 		[NonSerialized]
 		public int evo;
+		[NonSerialized]
+		public int tempQuality;
+
 		public PetItem()
 		{
 			id = DataCenter.GID;

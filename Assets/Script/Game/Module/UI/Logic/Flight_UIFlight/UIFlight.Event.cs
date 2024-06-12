@@ -147,8 +147,10 @@ namespace SGame.UI{
 			SetPos();
 			SetGoldText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)FlightType.GOLD)));
 			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)FlightType.DIAMOND)));
+			m_view.m_totalBtn.GetChild("num").text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 
 			m_view.m_Gold.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
+			m_view.m_totalBtn.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
 			m_view.m_Diamond.visible = TransitionModule.Instance.IsShow((int)FlightType.DIAMOND);
 			m_view.m_Box.visible = TransitionModule.Instance.IsShow((int)FlightType.BOX);
 			m_view.m_Pet.visible = TransitionModule.Instance.IsShow((int)FlightType.PET);
@@ -171,7 +173,7 @@ namespace SGame.UI{
 						m_view.m_Box.xy = GRoot.inst.GlobalToLocal(boxGObject.LocalToGlobal(Vector2.zero));
 
 					m_view.m_Pet.xy = ui.Value.contentPane.GetChildByPath("petBtn").xy;
-
+					m_view.m_totalBtn.xy = ui.Value.contentPane.GetChildByPath("totalBtn").xy;
 				}
 			}
 			//m_IsSet = true;

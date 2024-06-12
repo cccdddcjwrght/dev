@@ -18,6 +18,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_rank, new EventCallback1(_OnRankClick));
 			UIListener.Listener(m_view.m_Box, new EventCallback1(_OnBoxClick));
 			UIListener.Listener(m_view.m_Pet, new EventCallback1(_OnPetClick));
+			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -26,6 +27,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_rank, new EventCallback1(_OnRankClick),remove:true);
 			UIListener.Listener(m_view.m_Box, new EventCallback1(_OnBoxClick),remove:true);
 			UIListener.Listener(m_view.m_Pet, new EventCallback1(_OnPetClick),remove:true);
+			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
 
 		}
 		void _OnGoldClick(EventContext data){
@@ -58,6 +60,10 @@ namespace SGame.UI{
 		partial void OnPetClick(EventContext data);
 		void SetPetText(string data)=>UIListener.SetText(m_view.m_Pet,data);
 		string GetPetText()=>UIListener.GetText(m_view.m_Pet);
+		void _OnTotalBtnClick(EventContext data){
+			OnTotalBtnClick(data);
+		}
+		partial void OnTotalBtnClick(EventContext data);
 
 	}
 }

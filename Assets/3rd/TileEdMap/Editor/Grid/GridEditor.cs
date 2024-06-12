@@ -45,8 +45,10 @@ namespace GameTools.Maps
 			{
 				gridWorldPos = ray.GetPoint(d);
 				var gp = RecalcCalcGridPos(ref gridWorldPos);
-				Handles.DrawWireCube(gridWorldPos, Vector3.one * 0.5f);
 				grid.selectIndex = grid.CellIndex(gridWorldPos);
+				Handles.DrawWireCube(gridWorldPos, Vector3.one * 0.5f);
+				GUI.color = Color.green;
+				Handles.Label(gridWorldPos + new Vector3(0,1,0), grid.GridPos(gridWorldPos).ToString());
 			}
 			SceneView.currentDrawingSceneView.Repaint();
 		}

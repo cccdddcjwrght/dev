@@ -134,7 +134,7 @@ namespace SGame.UI.Pet
 		private GoWrapper goWrapper;
 		private SwipeGesture swipe;
 
-		public UI_SimplePetModel SetPetInfo(PetItem pet, bool focusrefresh = false)
+		public UI_SimplePetModel SetPetInfo(PetItem pet, bool focusrefresh = false , float delay = 0)
 		{
 			if (!focusrefresh && this.pet != null && this.pet.cfgID == pet.cfgID) return this;
 			this.pet = pet;
@@ -145,7 +145,7 @@ namespace SGame.UI.Pet
 				goWrapper = new GoWrapper();
 				m_holder.SetNativeObject(goWrapper);
 			}
-			RefreshModel();
+			RefreshModel(delay);
 			return this;
 		}
 
@@ -164,14 +164,14 @@ namespace SGame.UI.Pet
 			Release();
 		}
 
-		public UI_SimplePetModel RefreshModel()
+		public UI_SimplePetModel RefreshModel( float delay = 0)
 		{
-			CreateRole().Start();
+			CreateRole(delay).Start();
 			return this;
 		}
 
 
-		IEnumerator CreateRole()
+		IEnumerator CreateRole(float delay = 0)
 		{
 			yield return null;
 
@@ -183,7 +183,8 @@ namespace SGame.UI.Pet
 				path = "Assets/BuildAsset/Prefabs/Pets/mouse";
 			}
 #endif
-
+			if(delay>0)
+				yield return new WaitForSeconds(delay);
 			var wait = SpawnSystem.Instance.SpawnAndWait(path);
 			yield return wait;
 			var go = wait.Current as GameObject;
@@ -194,9 +195,12 @@ namespace SGame.UI.Pet
 					var old = goWrapper.wrapTarget;
 					if (old) GameObject.Destroy(old);
 					goWrapper.SetWrapTarget(go, false);
+					go.SetActive(false);
 					go.transform.localScale = Vector3.one * 300;
+					go.transform.localPosition = new Vector3(0, 0, -100);
 					go.transform.localRotation = Quaternion.Euler(8, -145, 8);
 					go.SetLayer("UILight");
+					go.SetActive(true);
 					go.GetComponent<Animator>()?.Play("idle");
 					yield break;
 				}

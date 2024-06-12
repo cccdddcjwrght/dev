@@ -27,6 +27,7 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context)
 		{
 			m_window = context.window;
+			m_view.z = 300;
 
 			// 默认先隐藏
 			m_view.visible = false;

@@ -108,7 +108,7 @@ namespace SGame
 			role.MoveTo(new Unity.Mathematics.int2(target.x, target.y));
 			yield return new WaitUntil(() => !role.isMoving);
 			EffectSystem.Instance.Spawn3d(25, point: role.transform.position);
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1.5f);
 			CharacterModule.Instance.DespawnCharacterEntity(wait.entity);
 			call?.Invoke();
 			wait.entity = default;

@@ -75,18 +75,12 @@ namespace GameTools.Maps
 
 			}
 
-			if(selectIndex >= 0)
+			if (selectIndex >= 0)
 			{
-				var cell = GetCell(selectIndex);
-				if(cell!= null) {
-
-					var p = new Vector3(cell.x, 0, cell.y) + transform.position;
-					Gizmos.DrawCube(p + c_pos, Vector3.one * 0.5f);
-
-				}
+				Gizmos.DrawCube(GetCellPosition(selectIndex) + c_pos, Vector3.one * 0.5f);
 			}
 
-			if(roads?.Count > 0)
+			if (roads?.Count > 0)
 			{
 				foreach (var item in roads)
 				{

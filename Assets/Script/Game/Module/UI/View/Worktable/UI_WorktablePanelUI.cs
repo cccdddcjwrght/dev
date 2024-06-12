@@ -22,7 +22,9 @@ namespace SGame.UI.Worktable
         public GLabel m_time;
         public GLabel m_price;
         public GTextField m_next;
+        public GLoader m_typeicon;
         public GTextField m_now;
+        public GLoader m_typeicon2;
         public GTextField m_now1;
         public GTextField m_unlock;
         public GLoader m_clickBtn;
@@ -59,7 +61,9 @@ namespace SGame.UI.Worktable
             m_time = (GLabel)GetChildAt(11);
             m_price = (GLabel)GetChildAt(12);
             m_next = (GTextField)GetChildAt(16);
+            m_typeicon = (GLoader)GetChildAt(18);
             m_now = (GTextField)GetChildAt(19);
+            m_typeicon2 = (GLoader)GetChildAt(21);
             m_now1 = (GTextField)GetChildAt(22);
             m_unlock = (GTextField)GetChildAt(25);
             m_clickBtn = (GLoader)GetChildAt(26);

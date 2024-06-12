@@ -7,6 +7,7 @@ namespace SGame.UI.Pet
 {
     public partial class UI_PetBornUI : GLabel
     {
+        public Controller m_quality;
         public GGraph m___effect;
         public UI_SimplePetModel m_model;
         public Transition m_doshow;
@@ -21,6 +22,7 @@ namespace SGame.UI.Pet
         {
             base.ConstructFromXML(xml);
 
+            m_quality = GetControllerAt(0);
             m___effect = (GGraph)GetChildAt(3);
             m_model = (UI_SimplePetModel)GetChildAt(8);
             m_doshow = GetTransitionAt(0);

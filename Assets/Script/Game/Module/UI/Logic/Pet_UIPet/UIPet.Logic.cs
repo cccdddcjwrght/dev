@@ -29,7 +29,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			m_view.z = 550;
+			m_view.z = 600;
 
 			InitList();
 			SwitchTabPage(0);
@@ -109,6 +109,7 @@ namespace SGame.UI
 					_current = data;
 					SetEggHatching();
 					m_view.m_list.selectedIndex = index;
+					m_view.m_egg.m_quality.selectedIndex = _current.eCfg.Quality;
 					return;
 				case 1: "@tips_egg_1".Tips(); break;
 				case 2: "@tips_egg_2".Tips(); break;
@@ -126,10 +127,12 @@ namespace SGame.UI
 					break;
 				case 1:
 					m_view.m_egg.m_progress.max = egg.eCfg.Time;
+					m_view.m_egg.m_quality.selectedIndex = egg.eCfg.Quality;
 					SetPrice();
 					_timer = Utils.Timer(egg.GetRemainder(), SetPrice, m_view, completed: SetEggHatching);
 					break;
 				case 2:
+					m_view.m_egg.m_quality.selectedIndex = egg.eCfg.Quality;
 					m_view.m_egg.m_get3.SetTextByKey("ui_pet_get3");
 					break;
 			}

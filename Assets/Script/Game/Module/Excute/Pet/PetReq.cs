@@ -42,11 +42,12 @@ namespace SGame
 			if (egg != null && egg.type == 1)
 			{
 				var ws = egg.eCfg.GetWeightArray();
+				var quality = egg.eCfg.Quality;
 				var index = SGame.Randoms.Random._R.NextWeight(ws) + 1;
 				var ps = ConfigSystem.Instance.Finds<PetsRowData>(p => p.Quality == index);
 				var r = SGame.Randoms.Random._R.NextItem(ps);
 				var p = DataCenter.PetUtil.AddPet(r.Id, true, true);
-
+				p.tempQuality = quality;
 				UIUtils.OpenUI("petborn", p);
 				PropertyManager.Instance.Update(1, egg.cfgID, 1, true);
 				_eMgr.Trigger(((int)GameEvent.GAME_MAIN_REFRESH));

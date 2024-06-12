@@ -26,10 +26,10 @@ namespace SGame.UI.Player
             base.ConstructFromXML(xml);
 
             m_type = GetControllerAt(0);
-            m_icon_open = (GLoader)GetChildAt(3);
-            m___effect = (GGraph)GetChildAt(4);
-            m_click = (GButton)GetChildAt(5);
-            m_items = (GList)GetChildAt(6);
+            m_icon_open = (GLoader)GetChildAt(5);
+            m___effect = (GGraph)GetChildAt(6);
+            m_click = (GButton)GetChildAt(7);
+            m_items = (GList)GetChildAt(8);
             m_open = GetTransitionAt(0);
             m_t1 = GetTransitionAt(1);
         }
