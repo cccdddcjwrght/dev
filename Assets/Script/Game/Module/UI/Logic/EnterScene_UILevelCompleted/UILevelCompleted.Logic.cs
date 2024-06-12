@@ -47,7 +47,8 @@ namespace SGame.UI
 			PropertyManager.Instance.CombineCache2Items();
 			DelayExcuter.Instance.DelayOpen(null, "mainui", true, () =>
 			{
-				SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.roomID + 1);
+				SGame.UIUtils.OpenUI("enterscenetemp");
+				//SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.roomID + 1);
 			});
 			m_view.m_body.m_click.touchable = false;
 			SGame.UIUtils.CloseUIByID(__id);

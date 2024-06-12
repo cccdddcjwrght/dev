@@ -22,6 +22,8 @@ namespace SGame.UI{
 
 			InitData();
 			RefreshLevelList();
+
+			m_view.m_list.ScrollToView(_sceneCfgs.FindIndex(v => v.ID == _curScene));
 		}
 
 		public void InitData() 
@@ -60,10 +62,9 @@ namespace SGame.UI{
 			if (index == 0) view.m_dir.selectedIndex = 2;
 			else view.m_dir.selectedIndex = index % 2;
 
-			if (!_isLastScene && cfg.ID == _nextScene) 
-			{
-				view.m_isMeet.selectedIndex = !_canSwitch ? 1 : 0;
-			}
+			if (!_isLastScene && cfg.ID == _nextScene) view.m_isMeet.selectedIndex = _canSwitch ? 1 : 0;
+			else if (cfg.ID > _nextScene) view.m_isMeet.selectedIndex = 2;
+
 			view.m_btn.onClick.Add(() =>
 			{
 				SGame.UIUtils.CloseUIByID(__id);
