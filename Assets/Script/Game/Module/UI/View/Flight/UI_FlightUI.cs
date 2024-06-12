@@ -13,6 +13,7 @@ namespace SGame.UI.Flight
         public GComponent m_rankTran;
         public GButton m_Box;
         public GButton m_Pet;
+        public GComponent m_totalBtn;
         public const string URL = "ui://kh4ukj1qkxwz0";
 
         public static UI_FlightUI CreateInstance()
@@ -30,6 +31,7 @@ namespace SGame.UI.Flight
             m_rankTran = (GComponent)GetChildAt(3);
             m_Box = (GButton)GetChildAt(4);
             m_Pet = (GButton)GetChildAt(5);
+            m_totalBtn = (GComponent)GetChildAt(6);
         }
     }
 }
