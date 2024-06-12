@@ -110,7 +110,7 @@ namespace SGame.UI
 				DataCenter.EquipUtil.AddEquips(true, _eqs.ToArray());
 				_list.layout = _eqs.Count < 4 ? ListLayoutType.FlowHorizontal : ListLayoutType.SingleRow;
 				_list.autoResizeItem = _eqs.Count < 4;
-				_list.width = _eqs.Count < 4 ? 150 * _eqs.Count : 576;
+				_list.width = _eqs.Count < 4 ? 172 * _eqs.Count : 708;
 
 				_list.numItems = _eqs.Count;
 				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EQUIP_BOX, _eqs.Count);
