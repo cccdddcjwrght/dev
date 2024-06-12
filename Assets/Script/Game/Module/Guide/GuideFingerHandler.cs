@@ -23,7 +23,7 @@ namespace SGame
         GObject target;
         float[] gridXZ;
         //当前步骤指引配置
-        GuideRowData config;
+        public GuideRowData config;
         Vector2 defalutSize = new Vector2(100, 100);
 
         public void InitConfig(GuideRowData config) 

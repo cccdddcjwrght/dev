@@ -12,6 +12,7 @@ namespace SGame
     {
         GObject clickTarget;
         EventHandleContainer m_EventHandle = new EventHandleContainer();
+        bool isLock = false;
         public override IEnumerator Excute() 
         {
 
@@ -20,7 +21,7 @@ namespace SGame
                 GuideManager.Instance.SetCoerceGuideState(true);
                 //锁定UI
                 UILockManager.Instance.Require("guide");
-                //GRoot.inst.touchable = false;
+                isLock = true;
                 Debug.Log("<color=white> ui lock-------------</color>");
                 m_Handler.DisableControl(true);
                 m_Handler.DisableCameraDrag(true);
@@ -37,10 +38,11 @@ namespace SGame
                 UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
                 //等待遮罩打开
                 yield return m_Handler.WaitGuideMaskOpen();
+                isLock = false;
                 //解开UI
                 UILockManager.Instance.Release("guide");
-                Debug.Log("<color=bule> ui unlock-------------</color>");
                 m_Handler.DisableControl(false);
+                Debug.Log("<color=bule> ui unlock-------------</color>");
             }
             else 
             {
@@ -68,6 +70,13 @@ namespace SGame
                 GuideManager.Instance.SetCoerceGuideState(false);
                 m_Handler.DisableCameraDrag(false);
             }
+            if (isLock) 
+            {
+                UILockManager.Instance.Release("guide");
+                m_Handler.DisableControl(false);
+                Debug.Log("<color=bule> ui unlock-------------</color>");
+            }
+
             m_EventHandle.Close();
             m_EventHandle = null;
         }

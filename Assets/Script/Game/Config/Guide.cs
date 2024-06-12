@@ -68,8 +68,9 @@ public struct GuideRowData : IFlatbufferObject
   public ArraySegment<byte>? GetOffsetXYBytes() { return __p.__vector_as_arraysegment(22); }
 #endif
   public int[] GetOffsetXYArray() { return __p.__vector_as_array<int>(22); }
-  public int TimeOut { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Force { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float Alpha { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int TimeOut { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Force { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.GuideRowData> CreateGuideRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -82,11 +83,13 @@ public struct GuideRowData : IFlatbufferObject
       VectorOffset floatParamOffset = default(VectorOffset),
       VectorOffset UISizeOffset = default(VectorOffset),
       VectorOffset OffsetXYOffset = default(VectorOffset),
+      float alpha = 0.0f,
       int TimeOut = 0,
       int Force = 0) {
-    builder.StartTable(12);
+    builder.StartTable(13);
     GuideRowData.AddForce(builder, Force);
     GuideRowData.AddTimeOut(builder, TimeOut);
+    GuideRowData.AddAlpha(builder, alpha);
     GuideRowData.AddOffsetXY(builder, OffsetXYOffset);
     GuideRowData.AddUISize(builder, UISizeOffset);
     GuideRowData.AddFloatParam(builder, floatParamOffset);
@@ -100,7 +103,7 @@ public struct GuideRowData : IFlatbufferObject
     return GuideRowData.EndGuideRowData(builder);
   }
 
-  public static void StartGuideRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
+  public static void StartGuideRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddGuideId(FlatBufferBuilder builder, int GuideId) { builder.AddInt(1, GuideId, 0); }
   public static void AddStep(FlatBufferBuilder builder, int Step) { builder.AddInt(2, Step, 0); }
@@ -120,8 +123,9 @@ public struct GuideRowData : IFlatbufferObject
   public static VectorOffset CreateOffsetXYVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateOffsetXYVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOffsetXYVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddTimeOut(FlatBufferBuilder builder, int TimeOut) { builder.AddInt(10, TimeOut, 0); }
-  public static void AddForce(FlatBufferBuilder builder, int Force) { builder.AddInt(11, Force, 0); }
+  public static void AddAlpha(FlatBufferBuilder builder, float alpha) { builder.AddFloat(10, alpha, 0.0f); }
+  public static void AddTimeOut(FlatBufferBuilder builder, int TimeOut) { builder.AddInt(11, TimeOut, 0); }
+  public static void AddForce(FlatBufferBuilder builder, int Force) { builder.AddInt(12, Force, 0); }
   public static Offset<GameConfigs.GuideRowData> EndGuideRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.GuideRowData>(o);

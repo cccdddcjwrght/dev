@@ -11,6 +11,7 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 			context.onUpdate += OnUpdate;
 			m_Handler = context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value as GuideFingerHandler;
+			m_view.m_mask.alpha = m_Handler.config.Alpha;
 		}
 
 		private void OnUpdate(UIContext context) 
