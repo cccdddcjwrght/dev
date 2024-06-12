@@ -75,12 +75,12 @@ namespace SGame.UI
 
 		private void SetUplevelInfo(int type = 0)
 		{
-			m_view.m_type.selectedIndex =  type;
+			m_view.m_type.selectedIndex = type;
 			UIListener.SetText(m_view.m_time, data.GetWorkTime().ToString() + "s");
 			m_view.m_list.itemRenderer = SetStarInfo;
 			LevelRefresh();
-			if(type == 0)AdRefresh();
-			
+			if (type == 0) AdRefresh();
+
 		}
 
 		private void SetAreaUnlock()
@@ -173,16 +173,25 @@ namespace SGame.UI
 		{
 			if (!data.objCfg.IsValid()) return;
 			m_view.m_level.SetTextByKey(data.name);
-			var role = data.objLvCfg.CustomerNum;
-			var next = data.objNextLvCfg.IsValid() ? data.objNextLvCfg.CustomerNum : 0;
+			var role = data.objLvCfg.PartNum;
+			var next = data.objNextLvCfg.IsValid() ? data.objNextLvCfg.PartNum : 0;
 			if (role == 0)
 			{
-				role = data.objLvCfg.ChefNum + data.objLvCfg.WaiterNum;
-				if (data.objNextLvCfg.IsValid())
-					next = data.objNextLvCfg.ChefNum + data.objNextLvCfg.WaiterNum;
+				role = data.objLvCfg.CustomerNum;
+				next = data.objNextLvCfg.IsValid() ? data.objNextLvCfg.CustomerNum : 0;
+				if (role == 0)
+				{
+					role = data.objLvCfg.ChefNum + data.objLvCfg.WaiterNum;
+					if (data.objNextLvCfg.IsValid())
+						next = data.objNextLvCfg.ChefNum + data.objNextLvCfg.WaiterNum;
+				}
 			}
-
-			if (data.objNextLvCfg.IsValid())
+			if(data.objLvCfg.PartNum > 0)
+			{
+				m_view.m_typeicon.SetIcon(data.objCfg.Icon);
+				m_view.m_typeicon2.SetIcon(data.objCfg.Icon);
+			}
+			else if (data.objNextLvCfg.IsValid())
 			{
 				if (data.objNextLvCfg.ChefNum > 0) m_view.m_roleType.selectedIndex = 0;
 				else if (data.objNextLvCfg.WaiterNum > 0) m_view.m_roleType.selectedIndex = 1;

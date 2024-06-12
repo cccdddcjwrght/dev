@@ -66,6 +66,22 @@ namespace SGame.UI{
 		}
 		partial void OnRoleTypeChanged(EventContext data);
 		void SwitchRoleTypePage(int index)=>m_view.m_roleType.selectedIndex=index;
+		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
+		string GetLevelText()=>UIListener.GetText(m_view.m_level);
+		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
+		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
+		void SetTimeText(string data)=>UIListener.SetText(m_view.m_time,data);
+		string GetTimeText()=>UIListener.GetText(m_view.m_time);
+		void SetPriceText(string data)=>UIListener.SetText(m_view.m_price,data);
+		string GetPriceText()=>UIListener.GetText(m_view.m_price);
+		void SetNextText(string data)=>UIListener.SetText(m_view.m_next,data);
+		string GetNextText()=>UIListener.GetText(m_view.m_next);
+		void SetNowText(string data)=>UIListener.SetText(m_view.m_now,data);
+		string GetNowText()=>UIListener.GetText(m_view.m_now);
+		void SetNow1Text(string data)=>UIListener.SetText(m_view.m_now1,data);
+		string GetNow1Text()=>UIListener.GetText(m_view.m_now1);
+		void SetUnlockText(string data)=>UIListener.SetText(m_view.m_unlock,data);
+		string GetUnlockText()=>UIListener.GetText(m_view.m_unlock);
 		void _OnClickBtnClick(EventContext data){
 			OnClickBtnClick(data);
 		}
@@ -74,10 +90,14 @@ namespace SGame.UI{
 			OnClickClick(data);
 		}
 		partial void OnClickClick(EventContext data);
+		void SetClickText(string data)=>UIListener.SetText(m_view.m_click,data);
+		string GetClickText()=>UIListener.GetText(m_view.m_click);
 		void _OnAdBtnClick(EventContext data){
 			OnAdBtnClick(data);
 		}
 		partial void OnAdBtnClick(EventContext data);
+		void SetAdBtnText(string data)=>UIListener.SetText(m_view.m_adBtn,data);
+		string GetAdBtnText()=>UIListener.GetText(m_view.m_adBtn);
 
 	}
 }
