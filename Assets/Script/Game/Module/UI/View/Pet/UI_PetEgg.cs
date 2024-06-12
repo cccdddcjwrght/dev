@@ -9,7 +9,9 @@ namespace SGame.UI.Pet
     {
         public Controller m_state;
         public Controller m_select;
+        public Controller m_quality;
         public GButton m_add;
+        public GLoader m_eggborn;
         public GProgressBar m_progress;
         public GTextField m_time;
         public GTextField m_price;
@@ -29,7 +31,9 @@ namespace SGame.UI.Pet
 
             m_state = GetControllerAt(0);
             m_select = GetControllerAt(1);
+            m_quality = GetControllerAt(2);
             m_add = (GButton)GetChildAt(2);
+            m_eggborn = (GLoader)GetChildAt(4);
             m_progress = (GProgressBar)GetChildAt(6);
             m_time = (GTextField)GetChildAt(7);
             m_price = (GTextField)GetChildAt(9);
