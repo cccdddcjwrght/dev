@@ -104,6 +104,8 @@ namespace SGame.UI
 		IEnumerator OnAnimCompleted()
 		{
 			yield return new WaitForSeconds(1f);
+			StaticDefine.G_WAIT_WELCOME = false;
+			//m_view.TweenFade(0, 0.5f).OnComplete(() => SGame.UIUtils.CloseUIByID(__id));
 			SGame.UIUtils.CloseUIByID(__id);
 		}
 

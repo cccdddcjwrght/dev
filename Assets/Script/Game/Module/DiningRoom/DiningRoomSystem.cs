@@ -124,8 +124,11 @@ namespace SGame.Dining
 			{
 				StaticDefine.G_WAIT_WELCOME = true;
 				if (_animUI != default)
-					yield return new WaitUIClose(SGame.UI.UIModule.Instance.GetEntityManager(), _animUI);
-				_animUI = default;
+				{
+					_animUI = default;
+					yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
+					StaticDefine.G_WAIT_WELCOME = true;
+				}
 				UIUtils.OpenUI("welcomenewlevel");
 				EventManager.Instance.Trigger((int)GameEvent.GUIDE_CREATE);
 				yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
