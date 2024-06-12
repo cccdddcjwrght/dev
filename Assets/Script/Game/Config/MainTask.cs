@@ -28,59 +28,61 @@ public struct MainTaskRowData : IFlatbufferObject
 #endif
   public byte[] GetTaskDesArray() { return __p.__vector_as_array<byte>(6); }
   public int TaskType { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int TaskValue(int j) { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int TaskValueLength { get { int o = __p.__offset(10); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int CountType { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int TaskValue(int j) { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int TaskValueLength { get { int o = __p.__offset(12); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetTaskValueBytes() { return __p.__vector_as_span<int>(10, 4); }
+  public Span<int> GetTaskValueBytes() { return __p.__vector_as_span<int>(12, 4); }
 #else
-  public ArraySegment<byte>? GetTaskValueBytes() { return __p.__vector_as_arraysegment(10); }
+  public ArraySegment<byte>? GetTaskValueBytes() { return __p.__vector_as_arraysegment(12); }
 #endif
-  public int[] GetTaskValueArray() { return __p.__vector_as_array<int>(10); }
-  public int TaskReward1(int j) { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int TaskReward1Length { get { int o = __p.__offset(12); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetTaskValueArray() { return __p.__vector_as_array<int>(12); }
+  public int TaskReward1(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int TaskReward1Length { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetTaskReward1Bytes() { return __p.__vector_as_span<int>(12, 4); }
+  public Span<int> GetTaskReward1Bytes() { return __p.__vector_as_span<int>(14, 4); }
 #else
-  public ArraySegment<byte>? GetTaskReward1Bytes() { return __p.__vector_as_arraysegment(12); }
+  public ArraySegment<byte>? GetTaskReward1Bytes() { return __p.__vector_as_arraysegment(14); }
 #endif
-  public int[] GetTaskReward1Array() { return __p.__vector_as_array<int>(12); }
-  public int TaskReward2(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int TaskReward2Length { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetTaskReward1Array() { return __p.__vector_as_array<int>(14); }
+  public int TaskReward2(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int TaskReward2Length { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetTaskReward2Bytes() { return __p.__vector_as_span<int>(14, 4); }
+  public Span<int> GetTaskReward2Bytes() { return __p.__vector_as_span<int>(16, 4); }
 #else
-  public ArraySegment<byte>? GetTaskReward2Bytes() { return __p.__vector_as_arraysegment(14); }
+  public ArraySegment<byte>? GetTaskReward2Bytes() { return __p.__vector_as_arraysegment(16); }
 #endif
-  public int[] GetTaskReward2Array() { return __p.__vector_as_array<int>(14); }
-  public int TaskReward3(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int TaskReward3Length { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetTaskReward2Array() { return __p.__vector_as_array<int>(16); }
+  public int TaskReward3(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int TaskReward3Length { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetTaskReward3Bytes() { return __p.__vector_as_span<int>(16, 4); }
+  public Span<int> GetTaskReward3Bytes() { return __p.__vector_as_span<int>(18, 4); }
 #else
-  public ArraySegment<byte>? GetTaskReward3Bytes() { return __p.__vector_as_arraysegment(16); }
+  public ArraySegment<byte>? GetTaskReward3Bytes() { return __p.__vector_as_arraysegment(18); }
 #endif
-  public int[] GetTaskReward3Array() { return __p.__vector_as_array<int>(16); }
-  public int TaskReward4(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int TaskReward4Length { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetTaskReward3Array() { return __p.__vector_as_array<int>(18); }
+  public int TaskReward4(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int TaskReward4Length { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetTaskReward4Bytes() { return __p.__vector_as_span<int>(18, 4); }
+  public Span<int> GetTaskReward4Bytes() { return __p.__vector_as_span<int>(20, 4); }
 #else
-  public ArraySegment<byte>? GetTaskReward4Bytes() { return __p.__vector_as_arraysegment(18); }
+  public ArraySegment<byte>? GetTaskReward4Bytes() { return __p.__vector_as_arraysegment(20); }
 #endif
-  public int[] GetTaskReward4Array() { return __p.__vector_as_array<int>(18); }
-  public string Icon { get { int o = __p.__offset(20); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int[] GetTaskReward4Array() { return __p.__vector_as_array<int>(20); }
+  public string Icon { get { int o = __p.__offset(22); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(20, 1); }
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(22, 1); }
 #else
-  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(20); }
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(22); }
 #endif
-  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(20); }
-  public int GuideId { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(22); }
+  public int GuideId { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.MainTaskRowData> CreateMainTaskRowData(FlatBufferBuilder builder,
       int Id = 0,
       StringOffset TaskDesOffset = default(StringOffset),
       int TaskType = 0,
+      int CountType = 0,
       VectorOffset TaskValueOffset = default(VectorOffset),
       VectorOffset TaskReward1Offset = default(VectorOffset),
       VectorOffset TaskReward2Offset = default(VectorOffset),
@@ -88,7 +90,7 @@ public struct MainTaskRowData : IFlatbufferObject
       VectorOffset TaskReward4Offset = default(VectorOffset),
       StringOffset IconOffset = default(StringOffset),
       int GuideId = 0) {
-    builder.StartTable(10);
+    builder.StartTable(11);
     MainTaskRowData.AddGuideId(builder, GuideId);
     MainTaskRowData.AddIcon(builder, IconOffset);
     MainTaskRowData.AddTaskReward4(builder, TaskReward4Offset);
@@ -96,38 +98,40 @@ public struct MainTaskRowData : IFlatbufferObject
     MainTaskRowData.AddTaskReward2(builder, TaskReward2Offset);
     MainTaskRowData.AddTaskReward1(builder, TaskReward1Offset);
     MainTaskRowData.AddTaskValue(builder, TaskValueOffset);
+    MainTaskRowData.AddCountType(builder, CountType);
     MainTaskRowData.AddTaskType(builder, TaskType);
     MainTaskRowData.AddTaskDes(builder, TaskDesOffset);
     MainTaskRowData.AddId(builder, Id);
     return MainTaskRowData.EndMainTaskRowData(builder);
   }
 
-  public static void StartMainTaskRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
+  public static void StartMainTaskRowData(FlatBufferBuilder builder) { builder.StartTable(11); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddTaskDes(FlatBufferBuilder builder, StringOffset TaskDesOffset) { builder.AddOffset(1, TaskDesOffset.Value, 0); }
   public static void AddTaskType(FlatBufferBuilder builder, int TaskType) { builder.AddInt(2, TaskType, 0); }
-  public static void AddTaskValue(FlatBufferBuilder builder, VectorOffset TaskValueOffset) { builder.AddOffset(3, TaskValueOffset.Value, 0); }
+  public static void AddCountType(FlatBufferBuilder builder, int CountType) { builder.AddInt(3, CountType, 0); }
+  public static void AddTaskValue(FlatBufferBuilder builder, VectorOffset TaskValueOffset) { builder.AddOffset(4, TaskValueOffset.Value, 0); }
   public static VectorOffset CreateTaskValueVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateTaskValueVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartTaskValueVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddTaskReward1(FlatBufferBuilder builder, VectorOffset TaskReward1Offset) { builder.AddOffset(4, TaskReward1Offset.Value, 0); }
+  public static void AddTaskReward1(FlatBufferBuilder builder, VectorOffset TaskReward1Offset) { builder.AddOffset(5, TaskReward1Offset.Value, 0); }
   public static VectorOffset CreateTaskReward1Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateTaskReward1VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartTaskReward1Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddTaskReward2(FlatBufferBuilder builder, VectorOffset TaskReward2Offset) { builder.AddOffset(5, TaskReward2Offset.Value, 0); }
+  public static void AddTaskReward2(FlatBufferBuilder builder, VectorOffset TaskReward2Offset) { builder.AddOffset(6, TaskReward2Offset.Value, 0); }
   public static VectorOffset CreateTaskReward2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateTaskReward2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartTaskReward2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddTaskReward3(FlatBufferBuilder builder, VectorOffset TaskReward3Offset) { builder.AddOffset(6, TaskReward3Offset.Value, 0); }
+  public static void AddTaskReward3(FlatBufferBuilder builder, VectorOffset TaskReward3Offset) { builder.AddOffset(7, TaskReward3Offset.Value, 0); }
   public static VectorOffset CreateTaskReward3Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateTaskReward3VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartTaskReward3Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddTaskReward4(FlatBufferBuilder builder, VectorOffset TaskReward4Offset) { builder.AddOffset(7, TaskReward4Offset.Value, 0); }
+  public static void AddTaskReward4(FlatBufferBuilder builder, VectorOffset TaskReward4Offset) { builder.AddOffset(8, TaskReward4Offset.Value, 0); }
   public static VectorOffset CreateTaskReward4Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateTaskReward4VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartTaskReward4Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(8, IconOffset.Value, 0); }
-  public static void AddGuideId(FlatBufferBuilder builder, int GuideId) { builder.AddInt(9, GuideId, 0); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(9, IconOffset.Value, 0); }
+  public static void AddGuideId(FlatBufferBuilder builder, int GuideId) { builder.AddInt(10, GuideId, 0); }
   public static Offset<GameConfigs.MainTaskRowData> EndMainTaskRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.MainTaskRowData>(o);

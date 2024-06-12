@@ -106,8 +106,8 @@ namespace SGame
 
                     if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(m_TaskMainData.cfgId, out var newCfg)) 
                     {
-                        if (newCfg.TaskType == (int)RecordDataEnum.SERVE)
-                            RecordModule.Instance.ClearValue((int)RecordDataEnum.SERVE, (int)RecordFunctionId.TASK);
+                        if (newCfg.CountType == 1)
+                            RecordModule.Instance.ClearValue(newCfg.TaskType, (int)RecordFunctionId.TASK);
                     }
                     EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_UPDATE);
                 }

@@ -55,6 +55,22 @@ namespace SGame
             }
         }
 
+        /// <summary>
+        /// 清理除主线以外的指引（任务指引）
+        /// </summary>
+        public void ClearOtherGuide() 
+        {
+            for (int i = runtimeDataList.Count - 1; i >= 0; i--)
+            {
+                int guideId = runtimeDataList[i].guideId;
+                if (ConfigSystem.Instance.TryGet<GuideRowData>((c) => c.GuideId == guideId, out var cfg) && cfg.GuideType == 1) 
+                {
+                    runtimeDataList[i].FinishGuide(1);
+                    runtimeDataList.RemoveAt(i);
+                }
+            }
+        }
+
         public void FinishGuide(int guideId) 
         {
             var index = runtimeDataList.FindIndex((r) => r.guideId == guideId);
