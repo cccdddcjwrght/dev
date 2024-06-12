@@ -43,8 +43,6 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
-		void SetProgressValue(float data)=>UIListener.SetValue(m_view.m_progress,data);
-		float GetProgressValue()=>UIListener.GetValue(m_view.m_progress);
 		void SetTimeText(string data)=>UIListener.SetText(m_view.m_time,data);
 		string GetTimeText()=>UIListener.GetText(m_view.m_time);
 		void SetInfoText(string data)=>UIListener.SetText(m_view.m_info,data);

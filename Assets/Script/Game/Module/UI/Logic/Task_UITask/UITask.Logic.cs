@@ -12,10 +12,13 @@ namespace SGame.UI{
 		EventHandleContainer m_EventHandle = new EventHandleContainer();
 		float lockTime = GlobalDesginConfig.GetFloat("task_lock_time");
 
+		UIContext m_Context;
 		//当前任务id
 		int m_CurTaskId;
 		List<int[]> m_TaskRewardData;
 		partial void InitLogic(UIContext context){
+
+			m_Context = context;
 			m_view.m_list.itemRenderer = OnItemRenderer;
 			m_view.m_mask.onClick.Add(DoCloseUIClick);
 
@@ -68,11 +71,12 @@ namespace SGame.UI{
 				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
 
 				m_view.m_content.visible = false;
-				m_view.m_mask.visible = false;
+				EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_HIDE, m_Context);
+
 				Utils.Timer(lockTime, null, m_view, completed: () => 
 				{ 
 					m_view.m_content.visible = true;
-					m_view.m_mask.visible = true;
+					EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_SHOW, m_Context);
 				});
 			}
 			else 
