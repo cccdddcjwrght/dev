@@ -20,12 +20,6 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
-		void SetT1Text(string data)=>UIListener.SetText(m_view.m_t1,data);
-		string GetT1Text()=>UIListener.GetText(m_view.m_t1);
-		void SetT2Text(string data)=>UIListener.SetText(m_view.m_t2,data);
-		string GetT2Text()=>UIListener.GetText(m_view.m_t2);
-		void SetT3Text(string data)=>UIListener.SetText(m_view.m_t3,data);
-		string GetT3Text()=>UIListener.GetText(m_view.m_t3);
 		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
 		string GetTitleText()=>UIListener.GetText(m_view.m_title);
 		void DoCloseUIClick(EventContext data){
