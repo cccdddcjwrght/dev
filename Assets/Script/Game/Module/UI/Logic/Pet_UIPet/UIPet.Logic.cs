@@ -97,7 +97,7 @@ namespace SGame.UI
 			if (egg == null || egg.cfgID == 0) eg.m_select.selectedIndex = _current != null ? 1 : 0;
 			else if (egg.GetRemainder() <= 0) eggState = 2;
 			else eggState = 1;
-			eg.m_get2.grayed = !DataCenter.AdUtil.IsAdCanPlay(c_pet_ad);
+			eg.m_get2.grayed = !DataCenter.AdUtil.IsAdCanPlay(c_pet_ad) || !NetworkUtils.IsNetworkReachability();
 		}
 
 		void OnEggItemClick(int index, PetItem data, GObject gObject)
