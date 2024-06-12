@@ -64,8 +64,8 @@ namespace SGame.UI{
 			//进度完成
 			if (m_view.m_btn.GetController("bgColor").selectedIndex == 1)
 			{
-				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
 				TransitionModule.Instance.PlayFlight(m_view.m_list, m_TaskRewardData);
+				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
 
 				m_view.m_content.visible = false;
 				m_view.m_mask.visible = false;
