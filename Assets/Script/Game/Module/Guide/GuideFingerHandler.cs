@@ -57,7 +57,7 @@ namespace SGame
         {
             while (true) 
             {
-                bool isOpen = UIUtils.CheckUIIsOpen("fingerui");
+                bool isOpen = UIUtils.CheckUIIsOpen("fingerui") && UIUtils.CheckUIIsOpen("guidefingerscene");
                 if (!isOpen) yield break;
                 yield return null;
             }

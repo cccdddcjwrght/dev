@@ -26,12 +26,14 @@ namespace SGame
             if (m_Config.Force == 0)
             {
                 UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
+                UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
             }
             else 
             {
                 m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
+                UIUtils.OpenUI("guidefingerscene", new UIParam() { Value = m_Handler });
             }
-            UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
+ 
             yield break;
         }
 
@@ -50,6 +52,7 @@ namespace SGame
                 m_Handler.DisableCameraDrag(false);
             }
             UIUtils.CloseUIByName("fingerui");
+            UIUtils.CloseUIByName("guidefingerscene");
             m_EventHandle.Close();
             m_EventHandle = null;
         }
