@@ -36,7 +36,7 @@ namespace SGame.UI.Player
 			swipe.onMove.Add(OnTouchMove);
 			goWrapper = new GoWrapper();
 			m_holder.SetNativeObject(goWrapper);
-
+			m_holder.z = -50;
 			m_attrbtn.onClick.Add(OnAttrBtnClick);
 			return this;
 		}
