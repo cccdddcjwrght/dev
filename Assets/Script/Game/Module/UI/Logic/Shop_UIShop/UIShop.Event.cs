@@ -24,7 +24,12 @@ namespace SGame.UI
 
 		partial void OnBigGoods_Content_adgood_clickClick(EventContext data)
 		{
-			RequestExcuteSystem.BuyGoods(1);
+			RequestExcuteSystem.BuyGoods(1 , (s) => {
+
+				if (s)
+					m_view.m_content.m_adgood.m_t0.Play();
+
+			});
 		}
 
 		void OnShopRefresh() { }

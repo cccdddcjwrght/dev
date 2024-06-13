@@ -156,6 +156,7 @@ namespace SGame.UI
 			{
 				DataCenter.CookbookUtils.UpLv(this.data.id);
 				SetChangeInfo();
+				EffectSystem.Instance.AddEffect(27, m_view);
 			}
 		}
 

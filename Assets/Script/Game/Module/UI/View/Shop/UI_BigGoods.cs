@@ -18,6 +18,7 @@ namespace SGame.UI.Shop
         public GTextField m_desc;
         public GTextField m_count;
         public GTextField m_time;
+        public Transition m_t0;
         public const string URL = "ui://aphwhwgnlxyll";
 
         public static UI_BigGoods CreateInstance()
@@ -39,7 +40,8 @@ namespace SGame.UI.Shop
             m_items = (GList)GetChildAt(3);
             m_desc = (GTextField)GetChildAt(5);
             m_count = (GTextField)GetChildAt(6);
-            m_time = (GTextField)GetChildAt(10);
+            m_time = (GTextField)GetChildAt(9);
+            m_t0 = GetTransitionAt(0);
         }
     }
 }

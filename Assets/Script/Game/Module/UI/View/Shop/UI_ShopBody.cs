@@ -9,9 +9,9 @@ namespace SGame.UI.Shop
     {
         public Controller m_pages;
         public Controller m_hidead;
-        public UI_BigGoods m_adgood;
         public GList m_gifts;
         public GList m_page;
+        public UI_BigGoods m_adgood;
         public GList m_goods;
         public const string URL = "ui://aphwhwgnlxylp";
 
@@ -26,9 +26,9 @@ namespace SGame.UI.Shop
 
             m_pages = GetControllerAt(0);
             m_hidead = GetControllerAt(1);
-            m_adgood = (UI_BigGoods)GetChildAt(0);
-            m_gifts = (GList)GetChildAt(1);
-            m_page = (GList)GetChildAt(2);
+            m_gifts = (GList)GetChildAt(0);
+            m_page = (GList)GetChildAt(1);
+            m_adgood = (UI_BigGoods)GetChildAt(3);
             m_goods = (GList)GetChildAt(4);
         }
     }
