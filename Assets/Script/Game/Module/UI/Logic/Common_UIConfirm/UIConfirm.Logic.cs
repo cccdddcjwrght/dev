@@ -29,6 +29,7 @@ namespace SGame.UI
 
 			SetContext(args.GetArg("context")?.ToString(), args.GetArg("contextcall").To<Action<GComponent>>());
 			SetBtns(btn);
+			m_view.z = -400;
 			m_view.m_body.SetText(title);
 			m_view.m_body.m_text.SetText(text);
 			m_view.m_type.selectedIndex = type;

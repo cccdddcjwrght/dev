@@ -27,7 +27,6 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context)
 		{
 			m_window = context.window;
-			m_view.z = 300;
 
 			// 默认先隐藏
 			m_view.visible = false;
@@ -97,6 +96,8 @@ namespace SGame.UI{
 			if (m_currentUI != Entity.Null)
 			{
 				m_window.sortingOrder = m_ordering[m_currentUI] - 1;
+				m_window.size = new Vector2(3000, 3000);
+				m_window.TweenResize(new Vector2(4000,4000), 0.01f);
 			}
 			m_view.visible = m_maskCount > 0;
 		}
