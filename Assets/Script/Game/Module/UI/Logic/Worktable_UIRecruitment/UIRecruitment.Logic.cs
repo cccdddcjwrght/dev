@@ -14,7 +14,6 @@ namespace SGame.UI
 		partial void InitLogic(UIContext context)
 		{
 			var args = context.GetParam()?.Value.To<object[]>();
-
 			data = args.Val<SGame.Worktable>(0);
 
 			EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnChange);
