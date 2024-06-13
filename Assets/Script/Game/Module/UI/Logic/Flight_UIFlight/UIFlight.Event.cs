@@ -58,8 +58,10 @@ namespace SGame.UI{
 			{
 				effectId1 = 26;
 				effectId2 = id;
-				//if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var config))
-				m_view.m_Box.SetIcon("ui_icon_box_0" + id % 100);
+				if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var config)) 
+				{
+					m_view.m_Box.SetIcon(config.Icon);
+				}
 				TransitionModule.Instance.AddDepend((int)FlightType.BOX);
 			}
 			else if (TransitionModule.Instance.CheckIsPet(id))
