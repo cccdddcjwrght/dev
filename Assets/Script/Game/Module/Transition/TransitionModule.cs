@@ -21,6 +21,7 @@ namespace SGame
         private Dictionary<int, int> m_DependDict = new Dictionary<int, int>();
 
         public static float duration = 1.5f;
+        public static bool isPlay = false;  //是否正在播放飞行特效表现
 
         public void Initalize() 
         {
@@ -84,12 +85,19 @@ namespace SGame
         public void AddDepend(int id)
         {
             if (!m_DependDict.ContainsKey(id)) m_DependDict[id] = 0;
-            m_DependDict[id]++; 
+            m_DependDict[id]++;
+
+            isPlay = true;
         }
 
         public void SubDepend(int id) 
         {
             m_DependDict[id]--;
+
+            foreach (var keyValue in m_DependDict)
+                if (keyValue.Value > 0) return;
+
+            isPlay = false;
         }
 
         public bool IsShow(int id) 
