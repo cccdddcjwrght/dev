@@ -24,7 +24,7 @@ namespace SGame.UI.Pet
 
             m_quality = GetControllerAt(0);
             m___effect = (GGraph)GetChildAt(2);
-            m_model = (UI_SimplePetModel)GetChildAt(7);
+            m_model = (UI_SimplePetModel)GetChildAt(8);
             m_doshow = GetTransitionAt(0);
         }
     }
