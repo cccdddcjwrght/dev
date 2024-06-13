@@ -123,6 +123,20 @@ namespace SGame
                 positionBuffer.Add(new FPathPositions(){Value = pos});
             }
             EntityManager.SetComponentData(m_entity, new Follow(){Value = roads.Count});
+
+            while (IsMoveEnd == false)
+                yield return null;
+            
+            CarModule.Instance.Close(m_entity);
+        }
+
+        public bool IsMoveEnd
+        {
+            get
+            {
+                var follow = EntityManager.GetComponentData<Follow>(m_entity);
+                return follow.Value == 0;
+            }
         }
 
         private void OnDestroy()

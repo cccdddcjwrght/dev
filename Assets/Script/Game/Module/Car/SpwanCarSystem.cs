@@ -93,6 +93,7 @@ namespace SGame
             obj.transform.rotation = rot;
             obj.transform.position = pos;
             EntityManager.AddComponentObject(entity, obj.transform);
+            EntityManager.AddComponentObject(entity, carscript);
             EntityManager.SetComponentData(entity, new Translation(){Value = pos});
             EntityManager.SetComponentData(entity, new Rotation(){Value = rot});
             //EntityManager.SetComponentData(entity, new Speed(){Value =  config.MoveSpeed});
