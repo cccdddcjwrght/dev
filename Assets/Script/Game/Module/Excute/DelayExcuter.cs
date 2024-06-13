@@ -245,6 +245,8 @@ namespace SGame
 
 		private bool Check()
 		{
+			if (TransitionModule.isPlay) return false;
+
 			if (C_DELAY_UI.Length > 0)
 			{
 				foreach (var item in C_DELAY_UI)

@@ -52,7 +52,7 @@ namespace SGame.UI
 				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards
 					.Select(v => Array.ConvertAll<double, int>(v, a => (int)a))
 					.ToList());
-				PropertyManager.Instance.CombineCache2Items();
+				this.Delay(PropertyManager.Instance.CombineCache2Items, 10);
 			}
 		}
 
