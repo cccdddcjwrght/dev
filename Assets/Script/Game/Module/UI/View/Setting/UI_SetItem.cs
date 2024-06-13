@@ -8,7 +8,6 @@ namespace SGame.UI.Setting
     public partial class UI_SetItem : GButton
     {
         public Controller m_btn;
-        public Controller m_button;
         public UI_SetItemBtn m_body;
         public const string URL = "ui://dpgt0e2zn1bms";
 
@@ -22,7 +21,6 @@ namespace SGame.UI.Setting
             base.ConstructFromXML(xml);
 
             m_btn = GetControllerAt(0);
-            m_button = GetControllerAt(1);
             m_body = (UI_SetItemBtn)GetChildAt(0);
         }
     }

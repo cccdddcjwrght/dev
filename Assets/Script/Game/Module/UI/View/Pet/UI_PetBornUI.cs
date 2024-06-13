@@ -23,8 +23,8 @@ namespace SGame.UI.Pet
             base.ConstructFromXML(xml);
 
             m_quality = GetControllerAt(0);
-            m___effect = (GGraph)GetChildAt(3);
-            m_model = (UI_SimplePetModel)GetChildAt(8);
+            m___effect = (GGraph)GetChildAt(2);
+            m_model = (UI_SimplePetModel)GetChildAt(7);
             m_doshow = GetTransitionAt(0);
         }
     }

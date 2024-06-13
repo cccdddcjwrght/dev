@@ -96,8 +96,8 @@ namespace SGame.UI{
 			var setItemData = _setItemDataList[index];
 			var setItem = obj as UI_SetItem;
 			var body = setItem.m_body;
-			body.m_icon.url = string.Format("ui://Setting/{0}",setItemData.iconPath);
-			body.m_title.text = UIListener.Local(setItemData.titlePath);
+			//body.m_icon.url = string.Format("ui://Setting/{0}",setItemData.iconPath);
+			//body.m_title.text = UIListener.Local(setItemData.titlePath);
 			Controller itemController = body.asCom.GetController("btn");
 			itemController.selectedIndex = setItemData.type;
 			int type = setItemData.type;
@@ -115,7 +115,7 @@ namespace SGame.UI{
 				if (setItemData.label != null)
 				{
 					string title=Regex.Replace(setItemData.label,  @"\*", setItemData.val.ToString());
-					body.m_nomal.m_title.text=UIListener.Local(title);
+					//body.m_nomal.m_title.text=UIListener.Local(title);
 				}
 				body.m_nomal.onClick.Set(() =>
 				{

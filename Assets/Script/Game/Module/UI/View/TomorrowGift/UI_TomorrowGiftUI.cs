@@ -28,12 +28,12 @@ namespace SGame.UI.TomorrowGift
 
             m_body = (GLabel)GetChildAt(0);
             m_btnOK = (GButton)GetChildAt(1);
-            m_item1 = (UI_Item)GetChildAt(3);
-            m_item2 = (UI_Item)GetChildAt(4);
-            m_timelabel = (GTextField)GetChildAt(6);
-            m_time = (GTextField)GetChildAt(7);
-            m_timegroup = (GGroup)GetChildAt(8);
-            m_probablity = (GComponent)GetChildAt(10);
+            m_item1 = (UI_Item)GetChildAt(4);
+            m_item2 = (UI_Item)GetChildAt(5);
+            m_timelabel = (GTextField)GetChildAt(7);
+            m_time = (GTextField)GetChildAt(8);
+            m_timegroup = (GGroup)GetChildAt(9);
+            m_probablity = (GComponent)GetChildAt(11);
         }
     }
 }

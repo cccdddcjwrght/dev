@@ -9,8 +9,6 @@ namespace SGame.UI.Setting
     {
         public Controller m_btn;
         public GLoader m_del;
-        public GLoader m_icon;
-        public GRichTextField m_title;
         public UI_SwitchBtn m_toggle;
         public UI_NormalBtn m_nomal;
         public const string URL = "ui://dpgt0e2zn1bmt";
@@ -26,8 +24,6 @@ namespace SGame.UI.Setting
 
             m_btn = GetControllerAt(0);
             m_del = (GLoader)GetChildAt(0);
-            m_icon = (GLoader)GetChildAt(1);
-            m_title = (GRichTextField)GetChildAt(2);
             m_toggle = (UI_SwitchBtn)GetChildAt(3);
             m_nomal = (UI_NormalBtn)GetChildAt(4);
         }

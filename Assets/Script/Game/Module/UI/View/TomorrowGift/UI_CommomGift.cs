@@ -19,7 +19,7 @@ namespace SGame.UI.TomorrowGift
         {
             base.ConstructFromXML(xml);
 
-            m_GiftItems = (GList)GetChildAt(0);
+            m_GiftItems = (GList)GetChildAt(1);
         }
     }
 }

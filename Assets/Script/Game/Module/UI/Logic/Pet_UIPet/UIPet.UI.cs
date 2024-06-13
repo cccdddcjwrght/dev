@@ -28,6 +28,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_pet, new EventCallback1(_OnPetClick));
 			m_view.m_egg.m_state.onChanged.Add(new EventCallback1(_OnPetEgg_StateChanged));
 			m_view.m_egg.m_select.onChanged.Add(new EventCallback1(_OnPetEgg_SelectChanged));
+			m_view.m_egg.m_quality.onChanged.Add(new EventCallback1(_OnPetEgg_QualityChanged));
 			UIListener.Listener(m_view.m_egg.m_add, new EventCallback1(_OnPetEgg_AddClick));
 			UIListener.Listener(m_view.m_egg.m_get1, new EventCallback1(_OnPetEgg_Get1Click));
 			UIListener.Listener(m_view.m_egg.m_get2, new EventCallback1(_OnPetEgg_Get2Click));
@@ -58,6 +59,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_pet, new EventCallback1(_OnPetClick),remove:true);
 			m_view.m_egg.m_state.onChanged.Remove(new EventCallback1(_OnPetEgg_StateChanged));
 			m_view.m_egg.m_select.onChanged.Remove(new EventCallback1(_OnPetEgg_SelectChanged));
+			m_view.m_egg.m_quality.onChanged.Remove(new EventCallback1(_OnPetEgg_QualityChanged));
 			UIListener.Listener(m_view.m_egg.m_add, new EventCallback1(_OnPetEgg_AddClick),remove:true);
 			UIListener.Listener(m_view.m_egg.m_get1, new EventCallback1(_OnPetEgg_Get1Click),remove:true);
 			UIListener.Listener(m_view.m_egg.m_get2, new EventCallback1(_OnPetEgg_Get2Click),remove:true);
@@ -152,16 +154,19 @@ namespace SGame.UI{
 		}
 		partial void OnPetEgg_SelectChanged(EventContext data);
 		void SwitchPetEgg_SelectPage(int index)=>m_view.m_egg.m_select.selectedIndex=index;
+		void _OnPetEgg_QualityChanged(EventContext data){
+			OnPetEgg_QualityChanged(data);
+		}
+		partial void OnPetEgg_QualityChanged(EventContext data);
+		void SwitchPetEgg_QualityPage(int index)=>m_view.m_egg.m_quality.selectedIndex=index;
 		void _OnPetEgg_AddClick(EventContext data){
 			OnPetEgg_AddClick(data);
 		}
 		partial void OnPetEgg_AddClick(EventContext data);
 		void SetPetEgg_Egg_addText(string data)=>UIListener.SetText(m_view.m_egg.m_add,data);
 		string GetPetEgg_Egg_addText()=>UIListener.GetText(m_view.m_egg.m_add);
-		void SetPetEgg_ProgressValue(float data)=>UIListener.SetValue(m_view.m_egg.m_progress,data);
-		float GetPetEgg_ProgressValue()=>UIListener.GetValue(m_view.m_egg.m_progress);
-		void SetPetEgg_Egg_progressText(string data)=>UIListener.SetText(m_view.m_egg.m_progress,data);
-		string GetPetEgg_Egg_progressText()=>UIListener.GetText(m_view.m_egg.m_progress);
+		void SetPetEgg_ProgressText(string data)=>UIListener.SetText(m_view.m_egg.m_progress,data);
+		string GetPetEgg_ProgressText()=>UIListener.GetText(m_view.m_egg.m_progress);
 		void SetPetEgg_TimeText(string data)=>UIListener.SetText(m_view.m_egg.m_time,data);
 		string GetPetEgg_TimeText()=>UIListener.GetText(m_view.m_egg.m_time);
 		void SetPetEgg_PriceText(string data)=>UIListener.SetText(m_view.m_egg.m_price,data);

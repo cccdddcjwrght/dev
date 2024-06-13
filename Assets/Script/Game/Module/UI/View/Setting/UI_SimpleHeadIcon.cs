@@ -11,7 +11,7 @@ namespace SGame.UI.Setting
         public Controller m_check;
         public Controller m_state;
         public GButton m_body;
-        public GImage m_check_2;
+        public GLoader m_check_2;
         public GImage m_lock_2;
         public Transition m_checkShow;
         public Transition m_checkHide;
@@ -30,7 +30,7 @@ namespace SGame.UI.Setting
             m_check = GetControllerAt(2);
             m_state = GetControllerAt(3);
             m_body = (GButton)GetChildAt(0);
-            m_check_2 = (GImage)GetChildAt(1);
+            m_check_2 = (GLoader)GetChildAt(1);
             m_lock_2 = (GImage)GetChildAt(2);
             m_checkShow = GetTransitionAt(0);
             m_checkHide = GetTransitionAt(1);
