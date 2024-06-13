@@ -20,7 +20,7 @@ namespace SGame.UI
 			m_view.SetTextByKey(pet.name);
 			m_view.m_model.SetPetInfo(pet);
 			m_view.m_quality.selectedIndex = pet.tempQuality;
-			Utils.Timer(0.3f, () =>
+			Utils.Timer(2.5f, () =>
 			{
 				_effect = EffectSystem.Instance.AddEffect(9, m_view);
 			});

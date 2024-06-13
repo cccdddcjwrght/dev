@@ -134,6 +134,8 @@ namespace SGame.UI.Pet
 		private GoWrapper goWrapper;
 		private SwipeGesture swipe;
 
+		public Action onModelLoaded;
+
 		public UI_SimplePetModel SetPetInfo(PetItem pet, bool focusrefresh = false , float delay = 0)
 		{
 			if (!focusrefresh && this.pet != null && this.pet.cfgID == pet.cfgID) return this;
@@ -201,6 +203,7 @@ namespace SGame.UI.Pet
 					go.transform.localRotation = Quaternion.Euler(8, -145, 8);
 					go.SetLayer("UILight");
 					go.SetActive(true);
+					onModelLoaded?.Invoke();
 					go.GetComponent<Animator>()?.Play("idle");
 					yield break;
 				}
