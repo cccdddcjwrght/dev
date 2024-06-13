@@ -23,9 +23,11 @@ namespace SGame
 			if (list != null && list.Count > 0 && index >= 0 && index < list.Count)
 			{
 				var v = list[index];
+				if (v == null) return def;
 				try
 				{
-					if (v is T t) return t;
+					if (v is T t)
+						return t;
 					return (T)Convert.ChangeType(v, typeof(T));
 				}
 				catch { }
@@ -181,7 +183,7 @@ namespace SGame
 		/// </summary>
 		/// <param name="number"></param>
 		/// <returns></returns>
-		static public double Round(this double number , int digits = 2)
+		static public double Round(this double number, int digits = 2)
 		{
 			return Math.Round(number, digits);
 		}
@@ -196,10 +198,10 @@ namespace SGame
 			return Math.Ceiling(number);
 		}
 
-		static public T To<T>(this object val , T def = default)
+		static public T To<T>(this object val, T def = default)
 		{
 			if (val == null) return default;
-			if(val is T v) return v;
+			if (val is T v) return v;
 			try
 			{
 				return (T)val;
