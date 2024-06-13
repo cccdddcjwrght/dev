@@ -2,31 +2,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Fibers;
+using GameTools;
 using UnityEngine;
 using Unity.Entities;
 using libx;
 using log4net;
+using Unity.Mathematics;
 
 namespace SGame
 {
     public class CarMono : MonoBehaviour
     {
-        private Entity m_entity;                     // 车的ENTITY      
-        private GameConfigs.CarDataRowData m_config; // 配置表
-        private GameObject m_ai;
-        private GameObject m_model; // 模型
-
-        private Fiber m_logic; // 逻辑运行
-        private static ILog log = LogManager.GetLogger("game.car");
-        private EntityManager EntityManager;
-        private const string ASSET_PATH = "Assets/BuildAsset/";
+        private Entity                      m_entity;   // 车的ENTITY      
+        private GameConfigs.CarDataRowData  m_config;   // 配置表
+        private GameObject                  m_ai;       // AI 脚本
+        private GameObject                  m_model;    // 模型
+        private Fiber                       m_logic;    // 逻辑运行
+        private string                      m_pathTag;  // 
+        
+        private static ILog                 log = LogManager.GetLogger("game.car");
+        private EntityManager               EntityManager;
+        private const string                ASSET_PATH = "Assets/BuildAsset/Prefabs/";
         
         /// <summary>
         /// 初始化对象
         /// </summary>
         /// <param name="e"></param>
         /// <param name="config"></param>
-        public bool Initalize(EntityManager entityManager, Entity e,  int id)
+        public bool Initalize(EntityManager entityManager, Entity e,  int id, string pathTag)
         {
             if (!ConfigSystem.Instance.TryGet(id, out GameConfigs.CarDataRowData config))
             {
@@ -37,6 +40,7 @@ namespace SGame
             EntityManager = entityManager;
             m_entity = e;
             m_config = config;
+            m_pathTag = pathTag;
             EntityManager.SetComponentData(e, new Speed(){Value =  config.MoveSpeed});
             m_logic = FiberCtrl.Pool.Run(Logic());
             return true;
@@ -78,17 +82,8 @@ namespace SGame
             m_ai = GameObject.Instantiate(aiReq.asset as GameObject, transform);
         }
 
-        /// <summary>
-        /// 汽车线性逻辑代码
-        /// </summary>
-        /// <returns></returns>
-        IEnumerator Logic()
+        void SetupGameObject()
         {
-            yield return LoadResources();
-            if (m_model == null || m_ai == null)
-                yield break;
-
-            // 设置位置线性
             m_ai.transform.localPosition = Vector3.zero;
             m_ai.transform.localRotation = Quaternion.identity;
             
@@ -103,7 +98,31 @@ namespace SGame
             else
                 m_model.transform.localRotation = Quaternion.Euler(m_config.Rotation(0), m_config.Rotation(1), m_config.Rotation(2));
             m_model.transform.localScale = new Vector3(m_config.Scale, m_config.Scale, m_config.Scale);
+        }
+
+        /// <summary>
+        /// 汽车线性逻辑代码
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator Logic()
+        {
+            yield return LoadResources();
+            if (m_model == null || m_ai == null)
+                yield break;
+
+            // 设置位置信息
+            SetupGameObject();
             
+            // 开始移动
+
+            List<Vector3> roads = MapAgent.GetRoad(m_pathTag);
+            var positionBuffer = EntityManager.GetBuffer<FPathPositions>(m_entity);
+            for (int i = roads.Count - 1; i >= 0; i--)
+            {
+                var pos = (float3)roads[i];
+                positionBuffer.Add(new FPathPositions(){Value = pos});
+            }
+            EntityManager.SetComponentData(m_entity, new Follow(){Value = roads.Count});
         }
 
         private void OnDestroy()

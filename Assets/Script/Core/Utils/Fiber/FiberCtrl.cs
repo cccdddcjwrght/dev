@@ -426,12 +426,14 @@ public class FiberCtrl : MonoBehaviour
 			}
 		}
 
-		public void Run(IEnumerator e, bool stepOneTime = false) {
+		public Fibers.Fiber Run(IEnumerator e, bool stepOneTime = false) {
 			Fibers.Fiber f = AllocateFiber(e, Fibers.FiberBucket.Manual);
 			running.Add(f);
 			if (stepOneTime) {
 				f.Step();
 			}
+
+			return f;
 		}
 
 		public void Step() {

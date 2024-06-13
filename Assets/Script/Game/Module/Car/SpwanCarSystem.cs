@@ -64,7 +64,8 @@ namespace SGame
                 typeof(LocalToWorld),
                 typeof(RotationSpeed),
                 typeof(Follow),
-                typeof(GameObjectSyncTag)
+                typeof(GameObjectSyncTag),
+                typeof(FPathPositions)
                 );
 
             m_baseCar = Assets.LoadAssetAsync("Assets/BuildAsset/Prefabs/Car/CarRoot.prefab", typeof(GameObject));
@@ -83,7 +84,7 @@ namespace SGame
         Entity SetupGameObject(SpawnRequest req)
         {
             var obj = GameObject.Instantiate(m_baseCar.asset as GameObject);
-            CarMono carscript = obj.AddComponent<CarMono>();
+            CarMono carscript = obj.GetComponent<CarMono>();
 
             var entity            = EntityManager.CreateEntity(m_carArchetype);
             var rot     = req.rot;
@@ -97,7 +98,7 @@ namespace SGame
             //EntityManager.SetComponentData(entity, new Speed(){Value =  config.MoveSpeed});
             EntityManager.SetComponentData(entity, new RotationSpeed(){Value =  10.0f});
             EntityManager.AddComponentObject(entity, new CarData(){id = req.id, pathTag = req.pathTag});
-            if (!carscript.Initalize(EntityManager, entity, req.id))
+            if (!carscript.Initalize(EntityManager, entity, req.id, req.pathTag))
                 EntityManager.AddComponent<DespawningTag>(entity);
             return entity;
         }

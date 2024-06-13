@@ -23,7 +23,7 @@ namespace GameTools.Paths
 			m_astarsys = World.GetOrCreateSystem<AStarSystem>();
 			m_query = GetEntityQuery(new EntityQueryDesc()
 			{
-				All = new ComponentType[] { typeof(Follow) },
+				All = new ComponentType[] { typeof(Follow), typeof(PathPositions) },
 				None = new ComponentType[] { typeof(FindPathParams) }
 			});
 		}
