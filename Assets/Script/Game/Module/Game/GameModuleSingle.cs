@@ -69,6 +69,9 @@ namespace SGame
 			DataCenter.Instance.abilityData.InitAbilityList();
 
 			GuideManager.Instance.Initalize();
+			
+			// 汽车模块初始化
+			CarModule.Instance.Initalize();
 		}
 
 		IEnumerator TestData()
