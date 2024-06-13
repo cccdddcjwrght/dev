@@ -49,10 +49,11 @@ namespace SGame.UI
 		{
 			if (_get)
 			{
-				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards
-					.Select(v => Array.ConvertAll<double, int>(v, a => (int)a))
-					.ToList());
-				this.Delay(PropertyManager.Instance.CombineCache2Items, 10);
+				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
+				this.Delay(() =>
+				{
+					this.Call(PropertyManager.Instance.CombineCache2Items, () => !TransitionModule.isPlay);
+				}, 100);
 			}
 		}
 
