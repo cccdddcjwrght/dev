@@ -27,7 +27,7 @@ namespace SGame
 		}
 
 		private string[] C_DELAY_UI = new string[]{
-			"confirmtips","rewardtips","loadingui","rewardflytips",
+			"confirmtips","rewardlist","loadingui","rewardflytips"
 		};
 
 		private List<string> C_IGNORE_UI = new List<string>() {

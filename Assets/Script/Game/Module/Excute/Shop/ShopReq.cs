@@ -87,9 +87,10 @@ namespace SGame
 				DataCenter.ShopUtil.RecordBuyGoods(id);
 				if (cfg.PurchaseType == 2 && free <= 0)
 					PropertyManager.Instance.Update(1, 2, cfg.Price, true);
-				for (int i = 0; i < items.Count; i++)
-					PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);
+				/*for (int i = 0; i < items.Count; i++)
+					PropertyManager.Instance.Update(items[i][0], items[i][1], items[i][2]);*/
 
+				Utils.ShowRewards(items);
 				EventManager.Instance.Trigger(((int)GameEvent.SHOP_GOODS_BUY_RESULT), id);
 			}
 			call?.Invoke(state);

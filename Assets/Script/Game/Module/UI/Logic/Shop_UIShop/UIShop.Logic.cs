@@ -262,10 +262,10 @@ namespace SGame.UI
                 if (!state) return;
                 if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(goods.id, out var data))
                 {
-                    if (data.Item1Length <= 1) return;
+                    /*if (data.Item1Length <= 1) return;
                     int itemId = data.Item1(1);
                     if (itemId != (int)FlightType.GOLD && itemId != (int)FlightType.DIAMOND) return;
-					TransitionModule.Instance.PlayFlight(btn, itemId);
+					TransitionModule.Instance.PlayFlight(btn, itemId);*/
                 }
             });
 		}

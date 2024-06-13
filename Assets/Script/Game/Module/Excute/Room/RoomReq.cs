@@ -48,7 +48,7 @@ namespace SGame
 			yield return new WaitForSeconds(1f);
 			var rewards = Utils.GetArrayList(true, cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
 			if (rewards?.Count > 0)
-				UIUtils.OpenUI("rewardshow", rewards, null, "@ui_area_reward_title");
+				Utils.ShowRewards( rewards, null, "@ui_area_reward_title");
 		}
 
 	}

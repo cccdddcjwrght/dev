@@ -84,7 +84,8 @@ namespace SGame
 						if (pet.isselected) PetFollow(data.pets[1]);
 						DataCenter.PetUtil.RemovePet(pet);
 						var count = pet.GetFreeRebackItemCount();
-						if (count > 0) PropertyManager.Instance.Update(1, ((int)ItemID.MEDAL_1), count);
+						if (count > 0)
+							Utils.ShowRewards(rewards: new double[] { 1, (int)ItemID.MEDAL_1, count });
 					}
 				}
 
@@ -108,7 +109,7 @@ namespace SGame
 								if (model != null) model.SetPetInfo(pet);
 								UIListener.SetControllerSelect(view.m_top.component, "type", 3, false);
 								view.m_top.component
-									.SetCurrency(((int)ItemID.MEDAL_1), "c1" , iconCtr:"0")
+									.SetCurrency(((int)ItemID.MEDAL_1), "c1", iconCtr: "0")
 									.SetCurrency(((int)ItemID.MEDAL_1) + 1, "c2", iconCtr: "0")
 									.SetCurrency(((int)ItemID.MEDAL_1) + 2, "c3", iconCtr: "0");
 
@@ -148,7 +149,7 @@ namespace SGame
 					if (PropertyManager.Instance.GetItem(eCfg.Ingredient).num >= eCfg.Num)
 						call = new Action<int>((i) => MedalExchange(i == 0 ? eCfg : default));
 				}
-				if (Utils.CheckItemCount(costID, cost, go: go, call: call , ignorConfirm:true))
+				if (Utils.CheckItemCount(costID, cost, go: go, call: call, ignorConfirm: true))
 				{
 					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.PET, 1);
 					var es = pet.Evo(out var isevo);

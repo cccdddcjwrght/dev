@@ -58,12 +58,16 @@ namespace SGame
 		{
 			if (equip != null && equip.cfg.IsValid() && (equip.level > 1 || equip.progress > 0))
 			{
-				DataCenter.EquipUtil.RecycleEquip(equip, false, true);
-				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_reset", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
-				equip.level = 1;
-				equip.progress = 0;
-				equip.Refresh();
-				EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+				var count = DataCenter.EquipUtil.RecycleEquip(equip, false, true);
+				if (count > 0)
+				{
+					EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_reset", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
+					equip.level = 1;
+					equip.progress = 0;
+					equip.Refresh();
+					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+					Utils.ShowRewards(updatedata: false).Append(ConstDefine.EQUIP_UPLV_MAT, count, 1);
+				}
 			}
 		}
 
@@ -72,9 +76,12 @@ namespace SGame
 			if (equip != null)
 			{
 				if (equip.pos > 0) DataCenter.EquipUtil.PutOff(equip, true);
-				PropertyManager.Instance.UpdateByArgs(false, equip.qcfg.GetBreakRewardArray());
-				DataCenter.EquipUtil.RecycleEquip(equip, true, true);
+				var count = DataCenter.EquipUtil.RecycleEquip(equip, true, true);
 				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_decompose", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
+				Utils.ShowRewards(updatedata:false)
+					.Append(ConstDefine.EQUIP_UPLV_MAT, count, 1 , ignorezero:true)
+					.Append(equip.qcfg.GetBreakRewardArray());
+
 			}
 		}
 

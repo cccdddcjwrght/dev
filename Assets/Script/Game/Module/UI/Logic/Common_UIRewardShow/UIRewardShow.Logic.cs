@@ -40,8 +40,9 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-			TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards);
+			//TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards);
 			PropertyManager.Instance.CombineCache2Items();
+			Utils.ShowRewards(_rewards,updatedata:false);
 		}
 
 		partial void OnClickClick(EventContext data)
