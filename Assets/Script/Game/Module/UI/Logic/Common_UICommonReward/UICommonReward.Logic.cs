@@ -156,9 +156,21 @@ namespace SGame
 
 	partial class Utils
 	{
+		/// <summary>
+		/// 显示奖励界面
+		/// </summary>
+		/// <param name="rewards">奖励列表</param>
+		/// <param name="closeCall">关闭回调</param>
+		/// <param name="title">标题</param>
+		/// <param name="updatedata">是否修改数据</param>
 		static public void ShowRewards(List<int[]> rewards, Action closeCall = null, string title = null, bool updatedata = true)
 		{
 			UIUtils.OpenUI("rewardlist", ItemList.Current.Clear().Append(rewards).vals, closeCall, title, updatedata);
+		}
+
+		static public void ShowRewards(List<double[]> rewards, Action closeCall = null, string title = null, bool updatedata = true)
+		{
+			UIUtils.OpenUI("rewardlist", rewards, closeCall, title, updatedata);
 		}
 
 		static public ItemList ShowRewards(Action closeCall = null, string title = null, bool updatedata = true)
