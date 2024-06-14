@@ -76,9 +76,9 @@ namespace SGame
 			if (equip != null)
 			{
 				if (equip.pos > 0) DataCenter.EquipUtil.PutOff(equip, true);
-				var count = DataCenter.EquipUtil.RecycleEquip(equip, true, true);
+				var count = DataCenter.EquipUtil.RecycleEquip(equip, true, false);
 				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_decompose", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
-				Utils.ShowRewards(updatedata:false)
+				Utils.ShowRewards(updatedata:true)
 					.Append(ConstDefine.EQUIP_UPLV_MAT, count, 1 , ignorezero:true)
 					.Append(equip.qcfg.GetBreakRewardArray());
 
