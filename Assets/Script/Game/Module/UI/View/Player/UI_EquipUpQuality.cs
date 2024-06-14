@@ -15,6 +15,7 @@ namespace SGame.UI.Player
         public GList m_list;
         public GTextField m_nextattr;
         public GTextField m_curattr;
+        public GGraph m___effect;
         public const string URL = "ui://cmw7t1elmk8f1m";
 
         public static UI_EquipUpQuality CreateInstance()
@@ -34,6 +35,7 @@ namespace SGame.UI.Player
             m_list = (GList)GetChildAt(6);
             m_nextattr = (GTextField)GetChildAt(10);
             m_curattr = (GTextField)GetChildAt(11);
+            m___effect = (GGraph)GetChildAt(20);
         }
     }
 }

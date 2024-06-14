@@ -6,9 +6,14 @@ namespace SGame.UI
 	using SGame;
 	using SGame.UI.Player;
 	using GameConfigs;
+	using System.Collections;
+	using Unity.Entities;
 
 	public partial class UIUpQualityTip
 	{
+		private bool flag = false;
+		private Entity effect;
+
 		partial void InitLogic(UIContext context)
 		{
 
@@ -22,14 +27,42 @@ namespace SGame.UI
 			}
 
 			m_view.SetEquipInfo(equip, true);
-			m_view.m_equip.SetEquipInfo(equip, true);
-			m_view.m_addeffect.SetInfo(equip);
-			m_view.m_state.selectedIndex = recycle > 0 ? 1 : 0;
-			m_view.m_recycle.SetText("ui_equip_upquality_recycle".Local(null, recycle), false);
+			m_view.m_body.m_equip.SetEquipInfo(equip, true);
+			m_view.m_body.m_addeffect.SetInfo(equip);
+			m_view.m_body.m_state.selectedIndex = recycle > 0 ? 1 : 0;
+			m_view.m_body.m_recycle.SetText("ui_equip_upquality_recycle".Local(null, recycle), false);
+			UIListener.Listener(m_view, new EventCallback1(OnClick));
+			Effect().Start();
+		}
+
+		IEnumerator Effect()
+		{
+			var anim = m_view.m_body.m_upqualitytipui;
+			effect = EffectSystem.Instance.AddEffect(28, m_view.m_body);
+			yield return EffectSystem.Instance.WaitEffectLoaded(effect);
+			anim.Play();
+			flag = true;
+		}
+
+		partial void DoShow(UIContext context)
+		{
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
+			UIListener.Listener(m_view, new EventCallback1(OnClick), remove: true);
+		}
+
+		void OnClick(EventContext context) {
+
+			if (!flag) return;
+			if (m_view.m_body.m_upqualitytipui.playing)
+			{
+				m_view.m_body.m_upqualitytipui.Stop(true , true);
+				EffectSystem.Instance.ReleaseEffect(effect);
+				return;
+			}
+			DoCloseUIClick(null);
 
 		}
 	}

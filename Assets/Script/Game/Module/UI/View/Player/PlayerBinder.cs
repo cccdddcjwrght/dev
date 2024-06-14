@@ -21,9 +21,10 @@ namespace SGame.UI.Player
             UIObjectFactory.SetPackageItemExtension(UI_uplevelprogress.URL, typeof(UI_uplevelprogress));
             UIObjectFactory.SetPackageItemExtension(UI_attrlabel.URL, typeof(UI_attrlabel));
             UIObjectFactory.SetPackageItemExtension(UI_MatDiv.URL, typeof(UI_MatDiv));
-            UIObjectFactory.SetPackageItemExtension(UI_UpQualityTipUI.URL, typeof(UI_UpQualityTipUI));
+            UIObjectFactory.SetPackageItemExtension(UI_UpQualityTipBody.URL, typeof(UI_UpQualityTipBody));
             UIObjectFactory.SetPackageItemExtension(UI_EquipResetUI.URL, typeof(UI_EquipResetUI));
             UIObjectFactory.SetPackageItemExtension(UI_SuitUI.URL, typeof(UI_SuitUI));
+            UIObjectFactory.SetPackageItemExtension(UI_UpQualityTipUI.URL, typeof(UI_UpQualityTipUI));
         }
     }
 }

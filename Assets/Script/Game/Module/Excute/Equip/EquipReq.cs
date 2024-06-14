@@ -15,11 +15,12 @@ namespace SGame
 
 		}
 
-		static public void EquipUpQuality(EquipItem equip, List<EquipItem> mats)
+		static public bool EquipUpQuality(EquipItem equip, List<EquipItem> mats , out double count)
 		{
-			if (equip == null || mats.Count == 0) return;
+			count = 0; 
+			if (equip == null || mats.Count == 0) return false;
 			var eqs = mats.ToArray();
-			double count = DataCenter.EquipUtil.RecycleEquip(equip, false, false);
+			count = DataCenter.EquipUtil.RecycleEquip(equip, false, false);
 			if (equip.qcfg.AdvanceType < 3)
 				count += DataCenter.EquipUtil.RecycleEquips(false, false, eqs);
 			else
@@ -36,8 +37,7 @@ namespace SGame
 			EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_merge", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 			DataCenter.EquipUtil.RemoveEquips(eqs);
 			log.Info($"[equip] recycle mat:{count}");
-
-			UIUtils.OpenUI("upqualitytips", equip, count);
+			return true;
 
 		}
 

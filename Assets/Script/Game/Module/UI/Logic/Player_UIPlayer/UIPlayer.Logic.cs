@@ -10,6 +10,7 @@ namespace SGame.UI
 	using System;
 	using SGame.UI.Main;
 	using System.Linq;
+	using System.Collections;
 
 	public partial class UIPlayer
 	{
@@ -139,7 +140,7 @@ namespace SGame.UI
 					matcount = 1;
 					eqs = eqs ?? new List<EquipItem>();
 					eqs.Clear();
-					eqs.Add(new EquipItem().Convert(ConstDefine.EQUIP_UPQUALITY_MAT , 0 , 1));
+					eqs.Add(new EquipItem().Convert(ConstDefine.EQUIP_UPQUALITY_MAT, 0, 1));
 					break;
 			}
 
@@ -238,8 +239,12 @@ namespace SGame.UI
 				_current.qcfg.AdvanceType == 3
 				&& _current.qcfg.AdvanceValue > PropertyManager.Instance.GetItem(ConstDefine.EQUIP_UPQUALITY_MAT).num)
 			{ "@ui_equip_tips2".Tips(); return; }
-			RequestExcuteSystem.EquipUpQuality(_current, _mats);
-			SwitchEquipUpQuality_StatePage(0);
+
+			if (RequestExcuteSystem.EquipUpQuality(_current, _mats, out var count))
+			{
+				SGame.UIUtils.OpenUI("upqualitytips", _current, count);
+				SwitchEquipUpQuality_StatePage(0);
+			}
 		}
 
 		#endregion

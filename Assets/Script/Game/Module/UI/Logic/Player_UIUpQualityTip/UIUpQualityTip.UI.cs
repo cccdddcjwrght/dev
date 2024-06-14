@@ -13,70 +13,72 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
-			m_view.m_state.onChanged.Add(new EventCallback1(_OnStateChanged));
-			m_view.m_addeffect.m_quality.onChanged.Add(new EventCallback1(_Onattrlabel_QualityChanged));
-			m_view.m_addeffect.m_lock.onChanged.Add(new EventCallback1(_Onattrlabel_LockChanged));
-			UIListener.ListenerIcon(m_view.m_addeffect, new EventCallback1(_OnAddeffectClick));
-			m_view.m_equip.m_type.onChanged.Add(new EventCallback1(_OnEquip_TypeChanged));
-			m_view.m_equip.m_quality.onChanged.Add(new EventCallback1(_OnEquip_QualityChanged));
-			UIListener.Listener(m_view.m_equip, new EventCallback1(_OnEquipClick));
-			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
+			m_view.m_body.m_state.onChanged.Add(new EventCallback1(_OnUpQualityTipBody_StateChanged));
+			m_view.m_body.m_addeffect.m_quality.onChanged.Add(new EventCallback1(_Onattrlabel_Body_addeffect_qualityChanged));
+			m_view.m_body.m_addeffect.m_lock.onChanged.Add(new EventCallback1(_Onattrlabel_Body_addeffect_lockChanged));
+			UIListener.ListenerIcon(m_view.m_body.m_addeffect, new EventCallback1(_OnUpQualityTipBody_AddeffectClick));
+			m_view.m_body.m_equip.m_type.onChanged.Add(new EventCallback1(_OnEquip_Bodyquip_typeChanged));
+			m_view.m_body.m_equip.m_quality.onChanged.Add(new EventCallback1(_OnEquip_Bodyquip_qualityChanged));
+			UIListener.Listener(m_view.m_body.m_equip, new EventCallback1(_OnUpQualityTipBody_EquipClick));
+			UIListener.ListenerClose(m_view.m_body.m_close, new EventCallback1(DoCloseUIClick));
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
-			m_view.m_state.onChanged.Remove(new EventCallback1(_OnStateChanged));
-			m_view.m_addeffect.m_quality.onChanged.Remove(new EventCallback1(_Onattrlabel_QualityChanged));
-			m_view.m_addeffect.m_lock.onChanged.Remove(new EventCallback1(_Onattrlabel_LockChanged));
-			UIListener.ListenerIcon(m_view.m_addeffect, new EventCallback1(_OnAddeffectClick),remove:true);
-			m_view.m_equip.m_type.onChanged.Remove(new EventCallback1(_OnEquip_TypeChanged));
-			m_view.m_equip.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_QualityChanged));
-			UIListener.Listener(m_view.m_equip, new EventCallback1(_OnEquipClick),remove:true);
-			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
+			m_view.m_body.m_state.onChanged.Remove(new EventCallback1(_OnUpQualityTipBody_StateChanged));
+			m_view.m_body.m_addeffect.m_quality.onChanged.Remove(new EventCallback1(_Onattrlabel_Body_addeffect_qualityChanged));
+			m_view.m_body.m_addeffect.m_lock.onChanged.Remove(new EventCallback1(_Onattrlabel_Body_addeffect_lockChanged));
+			UIListener.ListenerIcon(m_view.m_body.m_addeffect, new EventCallback1(_OnUpQualityTipBody_AddeffectClick),remove:true);
+			m_view.m_body.m_equip.m_type.onChanged.Remove(new EventCallback1(_OnEquip_Bodyquip_typeChanged));
+			m_view.m_body.m_equip.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_Bodyquip_qualityChanged));
+			UIListener.Listener(m_view.m_body.m_equip, new EventCallback1(_OnUpQualityTipBody_EquipClick),remove:true);
+			UIListener.ListenerClose(m_view.m_body.m_close, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
-		void _OnStateChanged(EventContext data){
-			OnStateChanged(data);
+		void _OnUpQualityTipBody_StateChanged(EventContext data){
+			OnUpQualityTipBody_StateChanged(data);
 		}
-		partial void OnStateChanged(EventContext data);
-		void SwitchStatePage(int index)=>m_view.m_state.selectedIndex=index;
-		void SetQnameText(string data)=>UIListener.SetText(m_view.m_qname,data);
-		string GetQnameText()=>UIListener.GetText(m_view.m_qname);
-		void SetAttributeText(string data)=>UIListener.SetText(m_view.m_attribute,data);
-		string GetAttributeText()=>UIListener.GetText(m_view.m_attribute);
-		void SetRecycleText(string data)=>UIListener.SetText(m_view.m_recycle,data);
-		string GetRecycleText()=>UIListener.GetText(m_view.m_recycle);
-		void _Onattrlabel_QualityChanged(EventContext data){
-			Onattrlabel_QualityChanged(data);
+		partial void OnUpQualityTipBody_StateChanged(EventContext data);
+		void SwitchUpQualityTipBody_StatePage(int index)=>m_view.m_body.m_state.selectedIndex=index;
+		void SetUpQualityTipBody_QnameText(string data)=>UIListener.SetText(m_view.m_body.m_qname,data);
+		string GetUpQualityTipBody_QnameText()=>UIListener.GetText(m_view.m_body.m_qname);
+		void SetUpQualityTipBody_AttributeText(string data)=>UIListener.SetText(m_view.m_body.m_attribute,data);
+		string GetUpQualityTipBody_AttributeText()=>UIListener.GetText(m_view.m_body.m_attribute);
+		void SetUpQualityTipBody_RecycleText(string data)=>UIListener.SetText(m_view.m_body.m_recycle,data);
+		string GetUpQualityTipBody_RecycleText()=>UIListener.GetText(m_view.m_body.m_recycle);
+		void _Onattrlabel_Body_addeffect_qualityChanged(EventContext data){
+			Onattrlabel_Body_addeffect_qualityChanged(data);
 		}
-		partial void Onattrlabel_QualityChanged(EventContext data);
-		void Switchattrlabel_QualityPage(int index)=>m_view.m_addeffect.m_quality.selectedIndex=index;
-		void _Onattrlabel_LockChanged(EventContext data){
-			Onattrlabel_LockChanged(data);
+		partial void Onattrlabel_Body_addeffect_qualityChanged(EventContext data);
+		void Switchattrlabel_Body_addeffect_qualityPage(int index)=>m_view.m_body.m_addeffect.m_quality.selectedIndex=index;
+		void _Onattrlabel_Body_addeffect_lockChanged(EventContext data){
+			Onattrlabel_Body_addeffect_lockChanged(data);
 		}
-		partial void Onattrlabel_LockChanged(EventContext data);
-		void Switchattrlabel_LockPage(int index)=>m_view.m_addeffect.m_lock.selectedIndex=index;
-		void _OnAddeffectClick(EventContext data){
-			OnAddeffectClick(data);
+		partial void Onattrlabel_Body_addeffect_lockChanged(EventContext data);
+		void Switchattrlabel_Body_addeffect_lockPage(int index)=>m_view.m_body.m_addeffect.m_lock.selectedIndex=index;
+		void _OnUpQualityTipBody_AddeffectClick(EventContext data){
+			OnUpQualityTipBody_AddeffectClick(data);
 		}
-		partial void OnAddeffectClick(EventContext data);
-		void SetAddeffectText(string data)=>UIListener.SetText(m_view.m_addeffect,data);
-		string GetAddeffectText()=>UIListener.GetText(m_view.m_addeffect);
-		void _OnEquip_TypeChanged(EventContext data){
-			OnEquip_TypeChanged(data);
+		partial void OnUpQualityTipBody_AddeffectClick(EventContext data);
+		void SetUpQualityTipBody_Body_addeffectText(string data)=>UIListener.SetText(m_view.m_body.m_addeffect,data);
+		string GetUpQualityTipBody_Body_addeffectText()=>UIListener.GetText(m_view.m_body.m_addeffect);
+		void _OnEquip_Bodyquip_typeChanged(EventContext data){
+			OnEquip_Bodyquip_typeChanged(data);
 		}
-		partial void OnEquip_TypeChanged(EventContext data);
-		void SwitchEquip_TypePage(int index)=>m_view.m_equip.m_type.selectedIndex=index;
-		void _OnEquip_QualityChanged(EventContext data){
-			OnEquip_QualityChanged(data);
+		partial void OnEquip_Bodyquip_typeChanged(EventContext data);
+		void SwitchEquip_Bodyquip_typePage(int index)=>m_view.m_body.m_equip.m_type.selectedIndex=index;
+		void _OnEquip_Bodyquip_qualityChanged(EventContext data){
+			OnEquip_Bodyquip_qualityChanged(data);
 		}
-		partial void OnEquip_QualityChanged(EventContext data);
-		void SwitchEquip_QualityPage(int index)=>m_view.m_equip.m_quality.selectedIndex=index;
-		void _OnEquipClick(EventContext data){
-			OnEquipClick(data);
+		partial void OnEquip_Bodyquip_qualityChanged(EventContext data);
+		void SwitchEquip_Bodyquip_qualityPage(int index)=>m_view.m_body.m_equip.m_quality.selectedIndex=index;
+		void _OnUpQualityTipBody_EquipClick(EventContext data){
+			OnUpQualityTipBody_EquipClick(data);
 		}
-		partial void OnEquipClick(EventContext data);
-		void SetEquipText(string data)=>UIListener.SetText(m_view.m_equip,data);
-		string GetEquipText()=>UIListener.GetText(m_view.m_equip);
+		partial void OnUpQualityTipBody_EquipClick(EventContext data);
+		void SetUpQualityTipBody_BodyquipText(string data)=>UIListener.SetText(m_view.m_body.m_equip,data);
+		string GetUpQualityTipBody_BodyquipText()=>UIListener.GetText(m_view.m_body.m_equip);
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
@@ -84,8 +86,10 @@ namespace SGame.UI{
 			 
 		}
 		partial void OnUICloseClick(ref bool state);
-		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
-		string GetCloseText()=>UIListener.GetText(m_view.m_close);
+		void SetUpQualityTipBody_Body_closeText(string data)=>UIListener.SetText(m_view.m_body.m_close,data);
+		string GetUpQualityTipBody_Body_closeText()=>UIListener.GetText(m_view.m_body.m_close);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 
 	}
 }
