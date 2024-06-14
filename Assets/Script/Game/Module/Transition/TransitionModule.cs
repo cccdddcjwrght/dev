@@ -15,6 +15,12 @@ namespace SGame
         PET     = 4,
     }
 
+    public struct FlightItem 
+    {
+        public int id;
+        public Vector2 pos;
+    }
+
     public class TransitionModule : Singleton<TransitionModule>
     {
         private EventHandleContainer m_EventHandle = new EventHandleContainer();
@@ -36,13 +42,13 @@ namespace SGame
 
         List<int>     m_TempIdList      = new List<int>();
         List<Vector2> m_TempVecList     = new List<Vector2>();
-        Dictionary<int, Vector2> m_TempDict = new Dictionary<int, Vector2>();
+        List<FlightItem> m_FlightItemList = new List<FlightItem>();
 
         public void PlayFlight(GList list, List<int[]> reward) 
         {
             m_TempIdList.Clear();
             m_TempVecList.Clear();
-            m_TempDict.Clear();
+            m_FlightItemList.Clear();
             for (int i = 0; i < reward.Count; i++)
             {
                 int[] r = reward[i];
@@ -53,19 +59,27 @@ namespace SGame
                     if (type == 1 && CheckIsTranId(itemId))
                     {
                         Vector2 pos = ConvertGObjectGlobalPos(list.GetChildAt(i));
-                        m_TempDict.Add(itemId, pos);
+                        m_FlightItemList.Add(new FlightItem()
+                        {
+                            id = itemId,
+                            pos = pos
+                        });
                     } 
                 }
             }
 
-            foreach (var t in m_TempDict)
-                m_TempIdList.Add(t.Key);
+            foreach (var t in m_FlightItemList)
+                m_TempIdList.Add(t.id);
 
             m_TempIdList.Sort();
             foreach (var id in m_TempIdList)
             {
-                if (m_TempDict.TryGetValue(id, out var pos))
-                    m_TempVecList.Add(pos);
+                var index = m_FlightItemList.FindIndex((f) => f.id == id);
+                if (index >= 0) 
+                { 
+                    m_TempVecList.Add(m_FlightItemList[index].pos);
+                    m_FlightItemList.RemoveAt(index);
+                }
             }
             PlayFlight(m_TempIdList, m_TempVecList);
         }
