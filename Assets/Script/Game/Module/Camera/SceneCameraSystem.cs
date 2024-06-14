@@ -65,6 +65,12 @@ namespace SGame
 		public CameraDataBind yMove = new CameraDataBind();
 		public CameraDataBind zMove = new CameraDataBind();
 
+		/// <summary>
+		/// 相机范围
+		/// </summary>
+		public CameraDataBind fieldSize = new CameraDataBind();
+
+
 		public bool disableControl = false;
 		public bool disableTouch = false;
 		public bool disableDrag = false;
@@ -107,6 +113,8 @@ namespace SGame
 			ControlAxis.Control(yMove);
 			ControlAxis.Control(xMove);
 			ControlAxis.Control(zMove);
+			ControlAxis.Control(fieldSize);
+
 		}
 
 		/*private void OnGUI()
@@ -413,6 +421,9 @@ namespace SGame
 			if (fieldOfView.isEnableChange || force)
 				UpdateFieldOfView();
 
+			if (fieldSize.isEnableChange || force)
+				UpdateFieldSize();
+
 			if (xMove.isEnableChange || yMove.isEnableChange || zMove.isEnableChange || force)
 			{
 				var old = _ctrObj.transform.position;
@@ -473,6 +484,16 @@ namespace SGame
 
 			var off = fieldOfView.GetVector(true);
 			_body.m_FollowOffset = off;
+		}
+
+		void UpdateFieldSize()
+		{
+			var v = fieldSize.GetValue();
+			_vcamera.m_Lens.OrthographicSize = v;
+			var size = fieldSize.GetVector();
+			xMove.limitScale = size.x;
+			yMove.limitScale = size.y;
+			zMove.limitScale = size.z;
 		}
 
 		void Init()
@@ -554,7 +575,15 @@ namespace SGame
 				_vcamera.m_Lens.OrthographicSize = scale * size;
 				zMove.maxValue = (zMove.maxValue / scale) * (1.1f);
 				zMove.minValue = (zMove.minValue / scale);
+
 			}
+			if (scale != 1f)
+			{
+				fieldSize.maxValue *= scale;
+				fieldSize.minValue *= scale;
+				fieldSize.endPos /= scale;
+			}
+			fieldSize.startValue = _vcamera.m_Lens.OrthographicSize;
 		}
 
 		void SwitchMoveAxis()
@@ -570,17 +599,17 @@ namespace SGame
 		/// 调整摄像机视角大小（目前只有新手用到）
 		/// </summary>
 		/// <param name="size"></param>
-		public void SetOrthoSize(float size) 
+		public void SetOrthoSize(float size)
 		{
 			_vcamera.m_Lens.OrthographicSize = size;
 		}
 
-		public float GetOrthoSize() 
+		public float GetOrthoSize()
 		{
 			return _vcamera.m_Lens.OrthographicSize;
 		}
 
-		public void GetLimitXZ(out float minX, out float maxX, out float minZ, out float maxZ) 
+		public void GetLimitXZ(out float minX, out float maxX, out float minZ, out float maxZ)
 		{
 			minX = xMove.minValue;
 			maxX = xMove.maxValue;

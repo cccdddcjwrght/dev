@@ -55,6 +55,9 @@ public class CameraDataBind
 	public float inputValue;
 	public float wrapValue;
 
+	[NonSerialized]
+	public float limitScale = 1;
+
 	/// <summary>
 	/// 速度
 	/// </summary>
