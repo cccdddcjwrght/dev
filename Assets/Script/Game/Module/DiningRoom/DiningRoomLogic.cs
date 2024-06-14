@@ -1157,10 +1157,13 @@ namespace SGame.Dining
 			{
 				if (r.data.objCfg.IsValid() && r.data.addMachine > 0)
 					DoUnlock(r, r.begin.cfgID);
-				CheckUnlock(r);
+				if (r.data.level > 1 && r.data.addProfit == 0)
+					7.ToAudioID().PlayAudio();
+
+				_regions.ForEach(CheckUnlock);
+
 			}
-			if (r.data.level > 1 && r.data.addProfit == 0)
-				7.ToAudioID().PlayAudio();
+
 		}
 
 		private void OnWorkTableUpStar(int id, int star)
