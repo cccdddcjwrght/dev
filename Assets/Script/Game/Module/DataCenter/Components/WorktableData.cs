@@ -38,6 +38,10 @@ namespace SGame
 		/// </summary>
 		public const int MACHINE_DEPENDS_NOT_ENABLE = 100;
 		public const int AREA_IS_LOCK = 101;
+		/// <summary>
+		/// 依赖工作台等级不足
+		/// </summary>
+		public const int MACHINE_DEPENDS_LEVEL_ERROR = 102;
 
 
 	}
@@ -358,6 +362,15 @@ namespace SGame
 						return Error_Code.MACHINE_DEPENDS_NOT_ENABLE;
 					if (!ignoreCost && !PropertyManager.Instance.CheckCountByArgs(w.GetUnlockPrice()))
 						return Error_Code.ITEM_NOT_ENOUGH;
+					if (m.DependsLevelLength > 1)//工作台等级依赖
+					{
+						var dw = GetWorktable(m.DependsLevel(0));
+						if(dw!=null && dw.level > 0)
+						{
+							if(dw.level<m.DependsLevel(1))
+								return Error_Code.MACHINE_DEPENDS_LEVEL_ERROR;
+						}
+					}
 					return 0;
 				}
 				return -1;

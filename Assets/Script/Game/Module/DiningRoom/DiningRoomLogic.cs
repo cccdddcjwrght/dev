@@ -537,6 +537,9 @@ namespace SGame.Dining
 					case Error_Code.ITEM_NOT_ENOUGH:
 						Debug.Log("消耗道具不足");
 						break;
+					case Error_Code.MACHINE_DEPENDS_LEVEL_ERROR:
+						Debug.Log("依赖工作台等级不足");
+						break;
 					case 0:
 						var id = region.next.cfgID;
 						DataCenter.MachineUtil.AddMachine(id);
