@@ -575,6 +575,11 @@ namespace SGame
             }
         }
 
+        public void ShowEffect(int effectId) 
+        {
+            EffectSystem.Instance.Spawn3d(effectId, gameObject);
+        }
+
         /// <summary>
         /// 开始还是结束制作食物
         /// </summary>
