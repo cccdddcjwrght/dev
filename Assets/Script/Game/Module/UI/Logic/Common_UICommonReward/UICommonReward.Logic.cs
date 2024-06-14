@@ -24,9 +24,11 @@ namespace SGame.UI
 		private Action _call;
 		private List<double[]> _rewards;
 		private bool _get;
+		private bool _flag;
 
 		partial void InitLogic(UIContext context)
 		{
+			_flag = false;
 			context.window.AddEventListener("OnMaskClick", OnClickClick);
 			var args = context.GetParam()?.Value.To<object[]>();
 			_rewards = args.Val<List<double[]>>(0) ?? args.Val<ItemList>(0)?.vals;
@@ -40,6 +42,7 @@ namespace SGame.UI
 				if (getreward == true)
 					PropertyManager.Instance.Insert2Cache(_rewards);
 				SetRewards();
+				this.Delay(() => _flag = true, 500);
 				return;
 			}
 			SGame.UIUtils.CloseUI(context.entity);
@@ -50,15 +53,23 @@ namespace SGame.UI
 			if (_get)
 			{
 				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
-				this.Delay(() =>
-				{
-					this.Call(PropertyManager.Instance.CombineCache2Items, () => !TransitionModule.isPlay);
-				}, 100);
+				Do().Start();
 			}
+		}
+
+		IEnumerator Do()
+		{
+			UILockManager.Instance.Require("rewardlist");
+			yield return new WaitForSeconds(0.1f);
+			this.Call(PropertyManager.Instance.CombineCache2Items, () => !TransitionModule.isPlay);
+			yield return new WaitForSeconds(0.1f);
+			UILockManager.Instance.Release("rewardlist");
+
 		}
 
 		void OnClickClick()
 		{
+			if (!_flag) return;
 			SGame.UIUtils.CloseUIByID(__id);
 			var c = _call;
 			_call = null;

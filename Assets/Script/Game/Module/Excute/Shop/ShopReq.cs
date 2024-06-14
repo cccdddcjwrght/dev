@@ -33,15 +33,8 @@ namespace SGame
 		static public void BuyGoods(int id, Action<bool> call = null)
 		{
 			UILockManager.Instance.Require(shop_lock);
-			0.Delay(() =>
-			{
-				UILockManager.Instance.Release(shop_lock);
-			}, 200);
 			var code = DataCenter.ShopUtil.IsCanBuy(id);
-			if(code == 4)
-			{
-				"shop".Goto();
-			}
+			if (code == 4) "shop".Goto();
 			switch (code)
 			{
 				case 0:
@@ -58,7 +51,7 @@ namespace SGame
 #if !UNITY_EDITOR
 								AdModule.PlayAd(cfg.Price.ToString(), (s) => DoBuyGoods(goods, s, call));
 #else
-								Utils.PlayAd(cfg.Price.ToString(), (s,t) => DoBuyGoods(goods, s, call));
+								Utils.PlayAd(cfg.Price.ToString(), (s, t) => DoBuyGoods(goods, s, call));
 #endif
 								break;
 							case 3:
@@ -76,7 +69,6 @@ namespace SGame
 
 		static private void DoBuyGoods(ShopGoods goods, bool state, Action<bool> call = null)
 		{
-
 			if (state)
 			{
 				var cfg = goods.cfg;
@@ -94,6 +86,7 @@ namespace SGame
 				EventManager.Instance.Trigger(((int)GameEvent.SHOP_GOODS_BUY_RESULT), id);
 			}
 			call?.Invoke(state);
+			UILockManager.Instance.Release(shop_lock);
 		}
 
 	}

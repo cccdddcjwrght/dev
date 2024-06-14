@@ -58,8 +58,8 @@ namespace SGame.UI
 			if (!flag) return;
 			if (m_view.m_body.m_upqualitytipui.playing)
 			{
-				m_view.m_body.m_upqualitytipui.Stop(true , true);
-				EffectSystem.Instance.ReleaseEffect(effect);
+				/*m_view.m_body.m_upqualitytipui.Stop(true , true);
+				EffectSystem.Instance.ReleaseEffect(effect);*/
 				return;
 			}
 			DoCloseUIClick(null);
