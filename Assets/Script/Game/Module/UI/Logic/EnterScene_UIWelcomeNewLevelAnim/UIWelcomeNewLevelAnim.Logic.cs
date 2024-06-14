@@ -20,7 +20,7 @@ namespace SGame.UI
 				m_view.m_anim.fill = FillType.ScaleMatchHeight;
 			openAnim = m_view.m_anim.component as UI_OpenAnim;
 			openAnim.visible = flag = false;
-			openAnim.onClick.Add(() => DoContinue());
+			m_view.onClick.Add(() => DoContinue());
 			context.onUpdate += OnUpdate;
 		}
 
