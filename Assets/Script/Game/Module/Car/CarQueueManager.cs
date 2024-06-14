@@ -74,9 +74,8 @@ namespace SGame
                 return false;
             }
 
-            Vector2Int      mapPos  = new Vector2Int(config.OrderPosition(0), config.OrderPosition(1));
             List<Vector3>   path    = MapAgent.GetRoad(pathTag);
-            Vector3         pos     = MapAgent.CellToVector(mapPos.x, mapPos.y);
+            Vector3         pos     = new Vector3(config.OrderPosition(0), config.OrderPosition(1), config.OrderPosition(2));
             m_orderIndex            = PathModule.FindCloseIndex(pos, path);
             if (m_orderIndex < 0)
                 return false;
@@ -96,9 +95,32 @@ namespace SGame
         /// </summary>
         /// <param name="e"></param>
         /// <param name="length"></param>
-        public void Add(Entity e, float length = 10.0f)
+        public bool Add(Entity e, float length = 10.0f)
         {
+            if (GetOrder(e) >= 0)
+            {
+                // 已经有了
+                log.Error("alreay add queue=" + e);
+                return false;
+            }
+            
             m_queue.Add(new Data() {entity = e, carLength = length});
+            return true;
+        }
+
+        /// <summary>
+        /// 退出队列
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public bool Remove(Entity e)
+        {
+            int order = GetOrder(e);
+            if (order < 0)
+                return false;
+            
+            m_queue.RemoveAt(order);
+            return true;
         }
 
         public int machineID => m_machineID;
@@ -127,12 +149,17 @@ namespace SGame
         public float GetLineDistance(int order)
         {
             float offset = 0; // 相对开始路径的排队距离
-            for (int i = 0; i < order; i++)
+            for (int i = 1; i <= order; i++)
             {
-                offset += m_queue[i].carLength / 2 + m_gap;
+                offset += (m_queue[i].carLength + m_queue[i-1].carLength)/ 2 + m_gap;
             }
 
             float distance = m_orderDistance - offset;
+            if (distance < 0)
+            {
+                log.Error("line distance out of queue=" + distance);
+                return 0;
+            }
             return distance;
         }
 
@@ -180,14 +207,9 @@ namespace SGame
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public bool GetOverPath(Vector3 point, List<Vector3> path)
+        public bool GetOrderToEndPath(List<Vector3> path)
         {
-            path.Clear();
-            int index = PathModule.FindCloseIndex(point, m_pathPoints);
-            if (index < 0)
-                return false;
-
-            return GetOverPathFromIndex(index, path);
+            return GetOverPathFromIndex(m_orderIndex + 1, path);
         }
         
         /// <summary>
@@ -214,7 +236,7 @@ namespace SGame
         /// <summary>
         /// 关卡内包含多个队列
         /// </summary>
-        private Dictionary<string, CarQueue> m_datas;
+        private Dictionary<string, CarQueue> m_datas = new Dictionary<string, CarQueue>();
 
         /// <summary>
         /// 创建队伍

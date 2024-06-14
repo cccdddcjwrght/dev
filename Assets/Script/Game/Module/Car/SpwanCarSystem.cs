@@ -32,13 +32,10 @@ namespace SGame
 
             // ID
             public int id;
-            
-            // 
-            public string pathTag;
 
             public SpawnResult result;
             
-            public static Entity Create(int id, string pathTag, float3 pos, float angle)
+            public static Entity Create(int id, float3 pos, float angle)
             {
                 var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 var entity = mgr.CreateEntity();
@@ -47,7 +44,6 @@ namespace SGame
                     id = id,
                     pos = pos,
                     rot = quaternion.AxisAngle(new float3(0,1.0f,0), angle * math.PI / 180),
-                    pathTag =  pathTag,
                     result = new SpawnResult() { entity = Entity.Null }
                 };
                 mgr.AddComponentObject(entity, req);
@@ -65,7 +61,8 @@ namespace SGame
                 typeof(RotationSpeed),
                 typeof(Follow),
                 typeof(GameObjectSyncTag),
-                typeof(FPathPositions)
+                typeof(FPathPositions),
+                typeof(CarData)
                 );
 
             m_baseCar = Assets.LoadAssetAsync("Assets/BuildAsset/Prefabs/Car/CarRoot.prefab", typeof(GameObject));
@@ -96,10 +93,9 @@ namespace SGame
             EntityManager.AddComponentObject(entity, carscript);
             EntityManager.SetComponentData(entity, new Translation(){Value = pos});
             EntityManager.SetComponentData(entity, new Rotation(){Value = rot});
-            //EntityManager.SetComponentData(entity, new Speed(){Value =  config.MoveSpeed});
             EntityManager.SetComponentData(entity, new RotationSpeed(){Value =  10.0f});
-            EntityManager.AddComponentObject(entity, new CarData(){id = req.id, pathTag = req.pathTag});
-            if (!carscript.Initalize(EntityManager, entity, req.id, req.pathTag))
+            EntityManager.SetComponentData(entity, new CarData(){id = req.id});
+            if (!carscript.Initalize(EntityManager, entity, req.id))
                 EntityManager.AddComponent<DespawningTag>(entity);
             return entity;
         }

@@ -20,6 +20,7 @@ namespace SGame
             {
                 GameObject.Destroy(item.gameObject);
             }
+            m_destoryGameObject.Clear();
         }
     }
 }

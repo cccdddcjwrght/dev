@@ -188,6 +188,7 @@ namespace SGame
 
 		MAIN_TASK_UPDATE				= 22000, //主线任务刷新
 
+		LEVELPATH_QUEUE_UPDATE					= 23000, // 关卡排队更新 （string pathTag)
 
 	}
 }

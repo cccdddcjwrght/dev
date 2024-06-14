@@ -70,6 +70,14 @@ public struct CarDataRowData : IFlatbufferObject
   public ArraySegment<byte>? GetRotationBytes() { return __p.__vector_as_arraysegment(40); }
 #endif
   public float[] GetRotationArray() { return __p.__vector_as_array<float>(40); }
+  public float BodyLength { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public string PathTag { get { int o = __p.__offset(44); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetPathTagBytes() { return __p.__vector_as_span<byte>(44, 1); }
+#else
+  public ArraySegment<byte>? GetPathTagBytes() { return __p.__vector_as_arraysegment(44); }
+#endif
+  public byte[] GetPathTagArray() { return __p.__vector_as_array<byte>(44); }
 
   public static Offset<GameConfigs.CarDataRowData> CreateCarDataRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -90,8 +98,12 @@ public struct CarDataRowData : IFlatbufferObject
       int ShowCustomer = 0,
       VectorOffset positionOffset = default(VectorOffset),
       float scale = 0.0f,
-      VectorOffset rotationOffset = default(VectorOffset)) {
-    builder.StartTable(19);
+      VectorOffset rotationOffset = default(VectorOffset),
+      float BodyLength = 0.0f,
+      StringOffset PathTagOffset = default(StringOffset)) {
+    builder.StartTable(21);
+    CarDataRowData.AddPathTag(builder, PathTagOffset);
+    CarDataRowData.AddBodyLength(builder, BodyLength);
     CarDataRowData.AddRotation(builder, rotationOffset);
     CarDataRowData.AddScale(builder, scale);
     CarDataRowData.AddPosition(builder, positionOffset);
@@ -114,7 +126,7 @@ public struct CarDataRowData : IFlatbufferObject
     return CarDataRowData.EndCarDataRowData(builder);
   }
 
-  public static void StartCarDataRowData(FlatBufferBuilder builder) { builder.StartTable(19); }
+  public static void StartCarDataRowData(FlatBufferBuilder builder) { builder.StartTable(21); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -140,6 +152,8 @@ public struct CarDataRowData : IFlatbufferObject
   public static VectorOffset CreateRotationVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRotationVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRotationVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBodyLength(FlatBufferBuilder builder, float BodyLength) { builder.AddFloat(19, BodyLength, 0.0f); }
+  public static void AddPathTag(FlatBufferBuilder builder, StringOffset PathTagOffset) { builder.AddOffset(20, PathTagOffset.Value, 0); }
   public static Offset<GameConfigs.CarDataRowData> EndCarDataRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.CarDataRowData>(o);

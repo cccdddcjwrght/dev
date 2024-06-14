@@ -38,8 +38,8 @@ namespace SGame
                 if (current >= distance)
                 {
                     float moveLen = current - distance;
-                    var targetPos = roads[i] + dir.normalized * moveLen;
-                    return new PathIndex() { Index = i, distance = len - moveLen, targetPoint = roads[i] };
+                    var targetPos = roads[i] - dir.normalized * moveLen;
+                    return new PathIndex() { Index = i - 1, distance = len - moveLen, targetPoint = targetPos };
                 }
             }
             
@@ -100,7 +100,7 @@ namespace SGame
         public static bool GetLevelPathInfo(string tag, out GameConfigs.LevelPathRowData config)
         {
             int curLevelID = DataCenter.Instance.GetUserData().scene;
-            return ConfigSystem.Instance.TryGet((GameConfigs.LevelPathRowData item) => item.Id == curLevelID && item.PathName == tag, out config);
+            return ConfigSystem.Instance.TryGet((GameConfigs.LevelPathRowData item) => item.Id == curLevelID && item.PathTag == tag, out config);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Fibers;
 using GameTools;
 using UnityEngine;
@@ -18,19 +19,19 @@ namespace SGame
         private GameObject                  m_ai;       // AI 脚本
         private GameObject                  m_model;    // 模型
         private Fiber                       m_logic;    // 逻辑运行
-        private string                      m_pathTag;  // 
         
         private static ILog                 log = LogManager.GetLogger("game.car");
         private EntityManager               EntityManager;
         private const string                ASSET_PATH = "Assets/BuildAsset/Prefabs/";
         private List<Vector3>               m_roads;    // 路径点
+        private CarQueue                    m_queue;    // 队伍
 
         /// <summary>
         /// 初始化对象
         /// </summary>
         /// <param name="e"></param>
         /// <param name="config"></param>
-        public bool Initalize(EntityManager entityManager, Entity e,  int id, string pathTag)
+        public bool Initalize(EntityManager entityManager, Entity e,  int id)
         {
             if (!ConfigSystem.Instance.TryGet(id, out GameConfigs.CarDataRowData config))
             {
@@ -41,7 +42,6 @@ namespace SGame
             EntityManager = entityManager;
             m_entity = e;
             m_config = config;
-            m_pathTag = pathTag;
             EntityManager.SetComponentData(e, new Speed(){Value =  config.MoveSpeed});
             m_logic = FiberCtrl.Pool.Run(Logic());
             return true;
@@ -50,7 +50,12 @@ namespace SGame
         /// <summary>
         /// 车辆长度信息
         /// </summary>
-        public float bodyLength => m_config.BodyLength; 
+        public float bodyLength => m_config.BodyLength;
+
+        /// <summary>
+        /// 路径点
+        /// </summary>
+        public string pathTag => m_config.PathTag;
 
         /// <summary>
         /// 加载AI脚本
@@ -112,14 +117,19 @@ namespace SGame
         /// <returns></returns>
         IEnumerator Logic()
         {
+            m_queue = CarQueueManager.Instance.GetOrCreate(pathTag);
+            m_roads = new List<Vector3>();
+
             yield return LoadResources();
             if (m_model == null || m_ai == null)
                 yield break;
+            
 
             // 设置位置信息
             SetupGameObject();
             
             // 开始移动
+            /*
             m_roads = MapAgent.GetRoad(m_pathTag);
 
             List<Vector3> roads = m_roads;
@@ -135,27 +145,18 @@ namespace SGame
                 yield return null;
             
             CarModule.Instance.Close(m_entity);
+            */
         }
 
-        public bool IsMoveEnd
+        public bool IsMoving
         {
             get
             {
                 var follow = EntityManager.GetComponentData<Follow>(m_entity);
-                return follow.Value == 0;
+                return follow.Value > 0;
             }
         }
-
-       
         
-        public void MoveTo(float distance)
-        {
-            float curDistance = 0;
-            for (int i = 1; i < m_roads.Count; i++)
-            {
-                float len = Vector3.Distance(m_roads[i - 1], m_roads[i]);
-            }
-        }
 
         private void OnDestroy()
         {
@@ -164,6 +165,85 @@ namespace SGame
                 m_logic.Terminate();
                 m_logic = null;
             }
+        }
+
+        /// <summary>
+        /// 进入排队
+        /// </summary>
+        public void EnterQueue()
+        {
+            m_queue.Add(m_entity, bodyLength);
+        }
+
+        /// <summary>
+        /// 离开队伍
+        /// </summary>
+        public void LeaveQueue()
+        {
+            if (m_queue.Remove(m_entity))
+            {
+                EventManager.Instance.AsyncTrigger((int)GameEvent.LEVELPATH_QUEUE_UPDATE, pathTag);
+            }
+        }
+
+        /// <summary>
+        /// 获得队伍排名
+        /// </summary>
+        /// <returns></returns>
+        public int GetQueueOrder()
+        {
+            return m_queue.GetOrder(m_entity);
+        }
+
+        private void DoMove()
+        {
+            List<Vector3> roads = m_roads;
+            var positionBuffer = EntityManager.GetBuffer<FPathPositions>(m_entity);
+            positionBuffer.Clear();
+            for (int i = roads.Count - 1; i >= 0; i--)
+            {
+                var pos = (float3)roads[i];
+                positionBuffer.Add(new FPathPositions(){Value = pos});
+            }
+            EntityManager.SetComponentData(m_entity, new Follow(){Value = roads.Count});
+        }
+
+        /// <summary>
+        /// 移动队伍
+        /// </summary>
+        /// <returns></returns>
+        public bool Move()
+        {
+            // 获得角色在
+            if (!m_queue.GetLinePath(m_entity, m_roads))
+            {
+                return false;
+            }
+
+            // 条用移动模块移动
+            DoMove();
+            return true;
+        }
+
+        /// <summary>
+        /// 移动到结束
+        /// </summary>
+        /// <returns></returns>
+        public bool MoveToEnd()
+        {
+            if (!m_queue.GetOrderToEndPath(m_roads))
+                return false;
+
+            DoMove();
+            return true;
+        }
+
+        /// <summary>
+        /// 删除对象
+        /// </summary>
+        public void Close()
+        {
+            CarModule.Instance.Close(m_entity);
         }
     }
 }

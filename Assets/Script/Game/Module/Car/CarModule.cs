@@ -16,6 +16,7 @@ namespace SGame
     {
         private EntityManager   EntityManager;
         private EntityQuery     m_AllCars;
+        private EntityQuery     m_CarCreating;
         private EntityQuery     m_CloseQuery;
 
         private static ILog log = LogManager.GetLogger("game.car");
@@ -28,7 +29,8 @@ namespace SGame
             EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             m_AllCars = EntityManager.CreateEntityQuery(typeof(CarData),
                                                                         ComponentType.Exclude<DespawningTag>());
-            
+            m_CarCreating = EntityManager.CreateEntityQuery(typeof(SpawnCarSystem.SpawnRequest),
+                ComponentType.Exclude<DespawningTag>());
             
             var query = new EntityQueryDesc()
             {
@@ -46,7 +48,6 @@ namespace SGame
 
             EventManager.Instance.Reg((int)GameEvent.GAME_START, OnGameStart);
             EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLeaveRoom);
-
         }
         
         void OnGameStart()
@@ -65,7 +66,7 @@ namespace SGame
 
         void TestCreateCar()
         {
-            Create(1, "path001");
+            //Create(1);
         }
         
         /// <summary>
@@ -73,16 +74,21 @@ namespace SGame
         /// </summary>
         /// <param name="carID">汽车ID</param>
         /// <param name="pathName">汽车路径点</param>
-        public void Create(int carID, string pathName)
+        public static void Create(int carID)
         {
-            var roads = MapAgent.GetRoad(pathName);
+            if (!ConfigSystem.Instance.TryGet(carID, out GameConfigs.CarDataRowData config))
+            {
+                log.Error("CarData Config Not Found=" + carID);
+                return;
+            }
+            var roads = MapAgent.GetRoad(config.PathTag);
             if (roads == null || roads.Count == 0)
             {
                 log.Error("not found path");
                 return;
             }
 
-            SpawnCarSystem.SpawnRequest.Create(carID, pathName, roads[0], 0);
+            SpawnCarSystem.SpawnRequest.Create(carID, roads[0], 0);
         }
 
         /// <summary>
@@ -96,6 +102,12 @@ namespace SGame
                 EntityManager.AddComponent<DespawningTag>(e);
             }
         }
+
+        /// <summary>
+        /// 返回所有汽车数量
+        /// </summary>
+        /// <returns></returns>
+        public int CarNum => m_AllCars.CalculateEntityCount() + m_CarCreating.CalculateEntityCount();
 
         /// <summary>
         /// 删除所有汽车相关对象
