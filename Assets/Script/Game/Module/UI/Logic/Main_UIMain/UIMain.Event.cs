@@ -172,6 +172,8 @@ namespace SGame.UI
 			}
 			*/
 
+			if (StaticDefine.PAUSE_MAIN_REFRESH) return;
+
 			m_view.m_levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);

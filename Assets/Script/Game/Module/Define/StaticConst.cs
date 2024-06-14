@@ -195,6 +195,11 @@ namespace SGame
 		/// </summary>
 		public static int EQUIP_MAX_LEVEL;
 
+		/// <summary>
+		/// 暂停主界面刷新
+		/// </summary>
+		public static bool PAUSE_MAIN_REFRESH = false;
+
 		public static List<string> CUSTOMER_TAG_BORN = new List<string>();
 
 	}
