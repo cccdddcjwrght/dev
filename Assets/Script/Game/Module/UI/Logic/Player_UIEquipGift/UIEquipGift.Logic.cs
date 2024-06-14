@@ -106,6 +106,7 @@ namespace SGame.UI
 			{
 				_count = count;
 				ReleaseEffect();
+				_eqs.Sort(EqSort);
 				m_view.m_type.SetSelectedPage(id.ToString());
 				DataCenter.EquipUtil.AddEquips(true, _eqs.ToArray());
 				_list.layout = _eqs.Count < 4 ? ListLayoutType.FlowHorizontal : ListLayoutType.SingleRow;
@@ -219,6 +220,18 @@ namespace SGame.UI
 		void ImmSave()
 		{
 			DataCenter.Instance.SavePlayerData();
+		}
+
+		static int EqSort(EquipmentRowData a, EquipmentRowData b)
+		{
+			var v  = -a.Quality.CompareTo(b.Quality);
+			if(v == 0)
+			{
+				v = a.Type.CompareTo(b.Type);
+				if(v == 0)
+					v = a.Id.CompareTo(b.Id);
+			}
+			return v;
 		}
 
 	}
