@@ -685,5 +685,33 @@ namespace SGame
 
 			return false;
 		}
+
+		//常驻UI
+		static List<string> ResidentUI = new List<string>() {
+			"gmui","mask", "hud","flight","SystemTip"
+		};
+
+		/// <summary>
+		/// 检测是否只有主界面
+		/// </summary>
+		/// <returns></returns>
+		public static bool CheckIsOnlyMainUI()
+		{
+			var e = GetUIEntity("mainui");
+			int mainSorting = 0;
+			if (e != Entity.Null)
+			{
+				var mainui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
+				mainSorting = mainui.Value.sortingOrder;
+				List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI();
+                foreach (var ui in allUI)
+                {
+					if (ResidentUI.Contains(ui.Value.uiname)) continue;	
+					if (ui.Value.sortingOrder > mainSorting) 
+						return false;
+				}
+			}
+			return true;
+		}
 	}
 }

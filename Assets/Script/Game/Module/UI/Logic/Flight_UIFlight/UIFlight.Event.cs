@@ -49,7 +49,6 @@ namespace SGame.UI{
 
 		void AddEffect(int id, Vector2 startPos, Vector2 endPos, float duration) 
 		{
-
 			int effectId1 = id + 20;
 			int effectId2 = id + 22;
 
@@ -73,7 +72,6 @@ namespace SGame.UI{
 			{
 				TransitionModule.Instance.AddDepend(id);
 			}
-			Refresh();
 
 			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
 			var graph1 = GetGraph(startPos.x, startPos.y);
@@ -91,12 +89,12 @@ namespace SGame.UI{
 			var graph2 = GetGraph(startPos.x, startPos.y);
 			EffectSystem.Instance.AddEffect(effectId2, graph2);
 
-
 			GTween.To(startPos, endPos, time).SetTarget(m_view).OnUpdate((t) =>
 			{
 				graph2.SetXY(t.value.x, t.value.y);
 			}).OnComplete(()=> 
 			{
+				Refresh();
 				//延迟一点时间
 				Utils.Timer(delay, null, m_view, completed: () =>
 				{
@@ -104,6 +102,7 @@ namespace SGame.UI{
 					 if (TransitionModule.Instance.CheckIsBox(id)) TransitionModule.Instance.SubDepend((int)FlightType.BOX);
 					 else if (TransitionModule.Instance.CheckIsPet(id)) TransitionModule.Instance.SubDepend((int)FlightType.PET);
 					 else TransitionModule.Instance.SubDepend(id);
+
 					 Refresh();
 				 });
 			});
@@ -142,7 +141,7 @@ namespace SGame.UI{
 		{
 			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy;
 			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy;
-			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f);
+			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f) + new Vector2(-8,3)/*偏差*/;
 			else if (TransitionModule.Instance.CheckIsPet(id)) return m_view.m_Pet.xy;
 			return default;
 		}
@@ -154,12 +153,24 @@ namespace SGame.UI{
 			SetDiamondText(Utils.ConvertNumberStr(m_itemProperty.GetNum((int)FlightType.DIAMOND)));
 			m_view.m_totalBtn.GetChild("num").text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 
-			m_view.m_Gold.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
-			m_view.m_totalBtn.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
-			m_view.m_Diamond.visible = TransitionModule.Instance.IsShow((int)FlightType.DIAMOND);
-			m_view.m_Box.visible = TransitionModule.Instance.IsShow((int)FlightType.BOX);
-			m_view.m_Pet.visible = TransitionModule.Instance.IsShow((int)FlightType.PET);
+			if (!SGame.UIUtils.CheckIsOnlyMainUI())
+			{
+				m_view.m_Gold.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
+				m_view.m_totalBtn.visible = TransitionModule.Instance.IsShow((int)FlightType.GOLD);
+				m_view.m_Diamond.visible = TransitionModule.Instance.IsShow((int)FlightType.DIAMOND);
+				m_view.m_Box.visible = TransitionModule.Instance.IsShow((int)FlightType.BOX);
+				m_view.m_Pet.visible = TransitionModule.Instance.IsShow((int)FlightType.PET);
+			}
+			else 
+			{
+				m_view.m_Gold.visible = false;
+				m_view.m_totalBtn.visible = false;
+				m_view.m_Diamond.visible = false;
+				m_view.m_Box.visible = false;
+				m_view.m_Pet.visible = false;
+			}
 		}
+
 
 		void SetPos() 
 		{
