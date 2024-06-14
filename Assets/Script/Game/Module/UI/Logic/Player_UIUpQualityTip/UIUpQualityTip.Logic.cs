@@ -26,7 +26,7 @@ namespace SGame.UI
 				return;
 			}
 
-			m_view.SetEquipInfo(equip, true);
+			m_view.m_body.SetEquipInfo(equip, true);
 			m_view.m_body.m_equip.SetEquipInfo(equip, true);
 			m_view.m_body.m_addeffect.SetInfo(equip);
 			m_view.m_body.m_state.selectedIndex = recycle > 0 ? 1 : 0;
