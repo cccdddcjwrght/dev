@@ -12,7 +12,6 @@ namespace SGame.UI{
 	{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
 		Stack<GGraph> graphStack = new Stack<GGraph>();
-		//Stack<GLoader> loaderStack = new Stack<GLoader>();
 		public float speed = GlobalDesginConfig.GetFloat("get_effect_speed"); //特效移动速度
 
 		bool m_IsSet;
@@ -80,7 +79,8 @@ namespace SGame.UI{
 			var graph1 = GetGraph(startPos.x, startPos.y);
 
 			float d = Vector3.Distance(startPos, endPos);
-			float time = d / speed;
+			float time = d / speed ;
+			float delay = time * 0.9f;
 
 			EffectSystem.Instance.AddEffect(effectId1, graph1);
 			if (ConfigSystem.Instance.TryGet<GameConfigs.effectsRowData>(effectId1, out var data)) 
@@ -97,12 +97,15 @@ namespace SGame.UI{
 				graph2.SetXY(t.value.x, t.value.y);
 			}).OnComplete(()=> 
 			{
-				Push(graph2, id);
-				if (TransitionModule.Instance.CheckIsBox(id)) TransitionModule.Instance.SubDepend((int)FlightType.BOX);
-				else if (TransitionModule.Instance.CheckIsPet(id)) TransitionModule.Instance.SubDepend((int)FlightType.PET);
-				else TransitionModule.Instance.SubDepend(id);
-
-				Refresh();
+				//延迟一点时间
+				Utils.Timer(delay, null, m_view, completed: () =>
+				{
+					 Push(graph2, id);
+					 if (TransitionModule.Instance.CheckIsBox(id)) TransitionModule.Instance.SubDepend((int)FlightType.BOX);
+					 else if (TransitionModule.Instance.CheckIsPet(id)) TransitionModule.Instance.SubDepend((int)FlightType.PET);
+					 else TransitionModule.Instance.SubDepend(id);
+					 Refresh();
+				 });
 			});
 		}
 
@@ -126,12 +129,12 @@ namespace SGame.UI{
 
 		void Push(GObject holder, int id) 
 		{
+			//Utils.Timer(0.5f)
+
 			holder.visible = false;
             for (int i = 0; i < holder.displayObject.gameObject.transform.childCount; i++)
 				GameObject.Destroy(holder.displayObject.gameObject.transform.GetChild(i).gameObject);
-			//if (id == (int) FlightType.BOX)
-			//	loaderStack.Push(holder.asLoader);
-			//else
+
 			graphStack.Push(holder.asGraph);
 		}
 

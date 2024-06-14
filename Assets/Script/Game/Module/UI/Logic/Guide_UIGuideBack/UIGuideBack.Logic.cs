@@ -34,7 +34,7 @@ namespace SGame.UI{
 
 		private void OnUpdate(UIContext context) 
 		{
-			Debug.Log(Time.time);
+			//Debug.Log(Time.time);
 			var size = m_Handler.GetTargetSize();
 			var pos = m_Handler.GetTargetPos();
 
