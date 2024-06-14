@@ -23,7 +23,8 @@ namespace SGame
         private static ILog                 log = LogManager.GetLogger("game.car");
         private EntityManager               EntityManager;
         private const string                ASSET_PATH = "Assets/BuildAsset/Prefabs/";
-        
+        private List<Vector3>               m_roads;    // 路径点
+
         /// <summary>
         /// 初始化对象
         /// </summary>
@@ -45,6 +46,11 @@ namespace SGame
             m_logic = FiberCtrl.Pool.Run(Logic());
             return true;
         }
+
+        /// <summary>
+        /// 车辆长度信息
+        /// </summary>
+        public float bodyLength => m_config.BodyLength; 
 
         /// <summary>
         /// 加载AI脚本
@@ -114,8 +120,9 @@ namespace SGame
             SetupGameObject();
             
             // 开始移动
+            m_roads = MapAgent.GetRoad(m_pathTag);
 
-            List<Vector3> roads = MapAgent.GetRoad(m_pathTag);
+            List<Vector3> roads = m_roads;
             var positionBuffer = EntityManager.GetBuffer<FPathPositions>(m_entity);
             for (int i = roads.Count - 1; i >= 0; i--)
             {
@@ -136,6 +143,17 @@ namespace SGame
             {
                 var follow = EntityManager.GetComponentData<Follow>(m_entity);
                 return follow.Value == 0;
+            }
+        }
+
+       
+        
+        public void MoveTo(float distance)
+        {
+            float curDistance = 0;
+            for (int i = 1; i < m_roads.Count; i++)
+            {
+                float len = Vector3.Distance(m_roads[i - 1], m_roads[i]);
             }
         }
 

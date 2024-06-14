@@ -14,9 +14,9 @@ namespace SGame
     /// </summary>
     public class CarModule : Singleton<CarModule>
     {
-        private EntityManager EntityManager;
-        private EntityQuery m_AllCars;
-        private EntityQuery m_CloseQuery;
+        private EntityManager   EntityManager;
+        private EntityQuery     m_AllCars;
+        private EntityQuery     m_CloseQuery;
 
         private static ILog log = LogManager.GetLogger("game.car");
 
@@ -45,6 +45,8 @@ namespace SGame
             m_CloseQuery = EntityManager.CreateEntityQuery(query);
 
             EventManager.Instance.Reg((int)GameEvent.GAME_START, OnGameStart);
+            EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLeaveRoom);
+
         }
         
         void OnGameStart()
@@ -52,11 +54,19 @@ namespace SGame
             TestCreateCar();
         }
 
+        /// <summary>
+        /// 离开房间
+        /// </summary>
+        void OnLeaveRoom()
+        {
+            CarQueueManager.Instance.Clear();
+            ClearAll();
+        }
+
         void TestCreateCar()
         {
             Create(1, "path001");
         }
-        
         
         /// <summary>
         /// 创建汽车
