@@ -121,5 +121,20 @@ namespace SGame
             }
             m_CloseQuery.Dispose();
         }
+
+        /// <summary>
+        /// 获得CarMono对象
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public CarMono Get(Entity e)
+        {
+            if (EntityManager.Exists(e) && EntityManager.HasComponent<CarMono>(e))
+            {
+                return EntityManager.GetComponentObject<CarMono>(e);
+            }
+
+            return null;
+        }
     }
 }

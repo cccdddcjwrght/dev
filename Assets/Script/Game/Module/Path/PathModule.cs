@@ -102,5 +102,22 @@ namespace SGame
             int curLevelID = DataCenter.Instance.GetUserData().scene;
             return ConfigSystem.Instance.TryGet((GameConfigs.LevelPathRowData item) => item.Id == curLevelID && item.PathTag == tag, out config);
         }
+
+        /// <summary>
+        /// 通过点单坐标查询路径配置
+        /// </summary>
+        /// <param name="tablePos"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static bool GetLevelPathInfo(Vector2 tablePos, out GameConfigs.LevelPathRowData config)
+        {
+            int curLevelID = DataCenter.Instance.GetUserData().scene;
+            return ConfigSystem.Instance.TryGet((GameConfigs.LevelPathRowData item) => 
+                item.Id == curLevelID 
+                && item.OrderTableLength == 2 
+                && item.OrderTable(0) == tablePos.x 
+                && item.OrderTable(1) == tablePos.y
+                , out config);
+        }
     }
 }

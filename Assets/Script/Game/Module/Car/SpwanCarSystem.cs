@@ -62,7 +62,8 @@ namespace SGame
                 typeof(Follow),
                 typeof(GameObjectSyncTag),
                 typeof(FPathPositions),
-                typeof(CarData)
+                typeof(CarData),
+                typeof(CarCustomer)
                 );
 
             m_baseCar = Assets.LoadAssetAsync("Assets/BuildAsset/Prefabs/Car/CarRoot.prefab", typeof(GameObject));

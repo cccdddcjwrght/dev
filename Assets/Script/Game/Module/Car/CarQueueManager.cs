@@ -44,7 +44,7 @@ namespace SGame
         /// <summary>
         /// 点单的工作台
         /// </summary>
-        private int             m_machineID;
+        private int             m_tableID;
 
         /// <summary>
         /// 点单位置距离路径
@@ -82,7 +82,7 @@ namespace SGame
 
             m_pathPoints    = path;
             m_gap           = config.Gap;
-            m_machineID     = config.MachineID;
+            m_tableID       = 0;//config.MachineID;
             m_queue         = new List<Data>();
             m_orderDistance = PathModule.GetDistance(m_orderIndex, path);
             m_pathDistance  = PathModule.GetDistance(path.Count - 1, path);
@@ -123,7 +123,9 @@ namespace SGame
             return true;
         }
 
-        public int machineID => m_machineID;
+        public int tableID { get => m_tableID; set => m_tableID = value; }
+
+        public bool IsValid => m_tableID > 0;
 
         /// <summary>
         /// 获取排名
@@ -258,6 +260,21 @@ namespace SGame
             }
             m_datas.Add(pathTag, carQueue);
             return carQueue;
+        }
+        
+        /// <summary>
+        /// 通过点单位置查找
+        /// </summary>
+        /// <param name="tablePos"></param>
+        /// <returns></returns>
+        public CarQueue GetOrCreateFromOrderPos(Vector2Int tablePos)
+        {
+            if (PathModule.GetLevelPathInfo(tablePos, out GameConfigs.LevelPathRowData config))
+            {
+                return GetOrCreate(config.PathTag);
+            }
+
+            return null;
         }
         
         /// <summary>

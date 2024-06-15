@@ -36,48 +36,41 @@ public struct CarDataRowData : IFlatbufferObject
 #endif
   public byte[] GetModelArray() { return __p.__vector_as_array<byte>(10); }
   public float MoveSpeed { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float OrderSpeed { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float Efficiency { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public int Tip { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int TipRatio { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Price { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int LikeRatio { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int LikeNum { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int WorkerArea { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string AI { get { int o = __p.__offset(30); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int WorkerArea { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string AI { get { int o = __p.__offset(16); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetAIBytes() { return __p.__vector_as_span<byte>(30, 1); }
+  public Span<byte> GetAIBytes() { return __p.__vector_as_span<byte>(16, 1); }
 #else
-  public ArraySegment<byte>? GetAIBytes() { return __p.__vector_as_arraysegment(30); }
+  public ArraySegment<byte>? GetAIBytes() { return __p.__vector_as_arraysegment(16); }
 #endif
-  public byte[] GetAIArray() { return __p.__vector_as_array<byte>(30); }
-  public int ChairNum { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ShowCustomer { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public float Position(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
-  public int PositionLength { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte[] GetAIArray() { return __p.__vector_as_array<byte>(16); }
+  public int ChairNum { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ShowCustomer { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float Position(int j) { int o = __p.__offset(22); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
+  public int PositionLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<float> GetPositionBytes() { return __p.__vector_as_span<float>(36, 4); }
+  public Span<float> GetPositionBytes() { return __p.__vector_as_span<float>(22, 4); }
 #else
-  public ArraySegment<byte>? GetPositionBytes() { return __p.__vector_as_arraysegment(36); }
+  public ArraySegment<byte>? GetPositionBytes() { return __p.__vector_as_arraysegment(22); }
 #endif
-  public float[] GetPositionArray() { return __p.__vector_as_array<float>(36); }
-  public float Scale { get { int o = __p.__offset(38); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float Rotation(int j) { int o = __p.__offset(40); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
-  public int RotationLength { get { int o = __p.__offset(40); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public float[] GetPositionArray() { return __p.__vector_as_array<float>(22); }
+  public float Scale { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float Rotation(int j) { int o = __p.__offset(26); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
+  public int RotationLength { get { int o = __p.__offset(26); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<float> GetRotationBytes() { return __p.__vector_as_span<float>(40, 4); }
+  public Span<float> GetRotationBytes() { return __p.__vector_as_span<float>(26, 4); }
 #else
-  public ArraySegment<byte>? GetRotationBytes() { return __p.__vector_as_arraysegment(40); }
+  public ArraySegment<byte>? GetRotationBytes() { return __p.__vector_as_arraysegment(26); }
 #endif
-  public float[] GetRotationArray() { return __p.__vector_as_array<float>(40); }
-  public float BodyLength { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public string PathTag { get { int o = __p.__offset(44); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public float[] GetRotationArray() { return __p.__vector_as_array<float>(26); }
+  public float BodyLength { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public string PathTag { get { int o = __p.__offset(30); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetPathTagBytes() { return __p.__vector_as_span<byte>(44, 1); }
+  public Span<byte> GetPathTagBytes() { return __p.__vector_as_span<byte>(30, 1); }
 #else
-  public ArraySegment<byte>? GetPathTagBytes() { return __p.__vector_as_arraysegment(44); }
+  public ArraySegment<byte>? GetPathTagBytes() { return __p.__vector_as_arraysegment(30); }
 #endif
-  public byte[] GetPathTagArray() { return __p.__vector_as_array<byte>(44); }
+  public byte[] GetPathTagArray() { return __p.__vector_as_array<byte>(30); }
 
   public static Offset<GameConfigs.CarDataRowData> CreateCarDataRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -85,13 +78,6 @@ public struct CarDataRowData : IFlatbufferObject
       int Type = 0,
       StringOffset ModelOffset = default(StringOffset),
       float MoveSpeed = 0.0f,
-      float OrderSpeed = 0.0f,
-      float Efficiency = 0.0f,
-      int Tip = 0,
-      int TipRatio = 0,
-      int Price = 0,
-      int LikeRatio = 0,
-      int LikeNum = 0,
       int WorkerArea = 0,
       StringOffset AIOffset = default(StringOffset),
       int ChairNum = 0,
@@ -101,7 +87,7 @@ public struct CarDataRowData : IFlatbufferObject
       VectorOffset rotationOffset = default(VectorOffset),
       float BodyLength = 0.0f,
       StringOffset PathTagOffset = default(StringOffset)) {
-    builder.StartTable(21);
+    builder.StartTable(14);
     CarDataRowData.AddPathTag(builder, PathTagOffset);
     CarDataRowData.AddBodyLength(builder, BodyLength);
     CarDataRowData.AddRotation(builder, rotationOffset);
@@ -111,13 +97,6 @@ public struct CarDataRowData : IFlatbufferObject
     CarDataRowData.AddChairNum(builder, ChairNum);
     CarDataRowData.AddAI(builder, AIOffset);
     CarDataRowData.AddWorkerArea(builder, WorkerArea);
-    CarDataRowData.AddLikeNum(builder, LikeNum);
-    CarDataRowData.AddLikeRatio(builder, LikeRatio);
-    CarDataRowData.AddPrice(builder, Price);
-    CarDataRowData.AddTipRatio(builder, TipRatio);
-    CarDataRowData.AddTip(builder, Tip);
-    CarDataRowData.AddEfficiency(builder, Efficiency);
-    CarDataRowData.AddOrderSpeed(builder, OrderSpeed);
     CarDataRowData.AddMoveSpeed(builder, MoveSpeed);
     CarDataRowData.AddModel(builder, ModelOffset);
     CarDataRowData.AddType(builder, Type);
@@ -126,34 +105,27 @@ public struct CarDataRowData : IFlatbufferObject
     return CarDataRowData.EndCarDataRowData(builder);
   }
 
-  public static void StartCarDataRowData(FlatBufferBuilder builder) { builder.StartTable(21); }
+  public static void StartCarDataRowData(FlatBufferBuilder builder) { builder.StartTable(14); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
   public static void AddModel(FlatBufferBuilder builder, StringOffset ModelOffset) { builder.AddOffset(3, ModelOffset.Value, 0); }
   public static void AddMoveSpeed(FlatBufferBuilder builder, float MoveSpeed) { builder.AddFloat(4, MoveSpeed, 0.0f); }
-  public static void AddOrderSpeed(FlatBufferBuilder builder, float OrderSpeed) { builder.AddFloat(5, OrderSpeed, 0.0f); }
-  public static void AddEfficiency(FlatBufferBuilder builder, float Efficiency) { builder.AddFloat(6, Efficiency, 0.0f); }
-  public static void AddTip(FlatBufferBuilder builder, int Tip) { builder.AddInt(7, Tip, 0); }
-  public static void AddTipRatio(FlatBufferBuilder builder, int TipRatio) { builder.AddInt(8, TipRatio, 0); }
-  public static void AddPrice(FlatBufferBuilder builder, int Price) { builder.AddInt(9, Price, 0); }
-  public static void AddLikeRatio(FlatBufferBuilder builder, int LikeRatio) { builder.AddInt(10, LikeRatio, 0); }
-  public static void AddLikeNum(FlatBufferBuilder builder, int LikeNum) { builder.AddInt(11, LikeNum, 0); }
-  public static void AddWorkerArea(FlatBufferBuilder builder, int WorkerArea) { builder.AddInt(12, WorkerArea, 0); }
-  public static void AddAI(FlatBufferBuilder builder, StringOffset AIOffset) { builder.AddOffset(13, AIOffset.Value, 0); }
-  public static void AddChairNum(FlatBufferBuilder builder, int ChairNum) { builder.AddInt(14, ChairNum, 0); }
-  public static void AddShowCustomer(FlatBufferBuilder builder, int ShowCustomer) { builder.AddInt(15, ShowCustomer, 0); }
-  public static void AddPosition(FlatBufferBuilder builder, VectorOffset positionOffset) { builder.AddOffset(16, positionOffset.Value, 0); }
+  public static void AddWorkerArea(FlatBufferBuilder builder, int WorkerArea) { builder.AddInt(5, WorkerArea, 0); }
+  public static void AddAI(FlatBufferBuilder builder, StringOffset AIOffset) { builder.AddOffset(6, AIOffset.Value, 0); }
+  public static void AddChairNum(FlatBufferBuilder builder, int ChairNum) { builder.AddInt(7, ChairNum, 0); }
+  public static void AddShowCustomer(FlatBufferBuilder builder, int ShowCustomer) { builder.AddInt(8, ShowCustomer, 0); }
+  public static void AddPosition(FlatBufferBuilder builder, VectorOffset positionOffset) { builder.AddOffset(9, positionOffset.Value, 0); }
   public static VectorOffset CreatePositionVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreatePositionVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartPositionVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddScale(FlatBufferBuilder builder, float scale) { builder.AddFloat(17, scale, 0.0f); }
-  public static void AddRotation(FlatBufferBuilder builder, VectorOffset rotationOffset) { builder.AddOffset(18, rotationOffset.Value, 0); }
+  public static void AddScale(FlatBufferBuilder builder, float scale) { builder.AddFloat(10, scale, 0.0f); }
+  public static void AddRotation(FlatBufferBuilder builder, VectorOffset rotationOffset) { builder.AddOffset(11, rotationOffset.Value, 0); }
   public static VectorOffset CreateRotationVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRotationVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRotationVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddBodyLength(FlatBufferBuilder builder, float BodyLength) { builder.AddFloat(19, BodyLength, 0.0f); }
-  public static void AddPathTag(FlatBufferBuilder builder, StringOffset PathTagOffset) { builder.AddOffset(20, PathTagOffset.Value, 0); }
+  public static void AddBodyLength(FlatBufferBuilder builder, float BodyLength) { builder.AddFloat(12, BodyLength, 0.0f); }
+  public static void AddPathTag(FlatBufferBuilder builder, StringOffset PathTagOffset) { builder.AddOffset(13, PathTagOffset.Value, 0); }
   public static Offset<GameConfigs.CarDataRowData> EndCarDataRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.CarDataRowData>(o);

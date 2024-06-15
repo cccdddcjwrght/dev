@@ -27,6 +27,8 @@ namespace SGame
         private CarQueue                    m_queue;    // 队伍
         private int                         m_nextIndex; // 当前位置
 
+        public GameObject                   script => m_ai;
+
         /// <summary>
         /// 初始化对象
         /// </summary>
@@ -95,8 +97,14 @@ namespace SGame
             m_ai = GameObject.Instantiate(aiReq.asset as GameObject, transform);
         }
 
+        /// <summary>
+        /// 设置AI 与 CAR
+        /// </summary>
         void SetupGameObject()
         {
+            m_model.name = "Model";
+            m_ai.name = "AI";
+
             m_ai.transform.localPosition = Vector3.zero;
             m_ai.transform.localRotation = Quaternion.identity;
             
@@ -111,6 +119,25 @@ namespace SGame
             else
                 m_model.transform.localRotation = Quaternion.Euler(m_config.Rotation(0), m_config.Rotation(1), m_config.Rotation(2));
             m_model.transform.localScale = new Vector3(m_config.Scale, m_config.Scale, m_config.Scale);
+        }
+
+        /// <summary>
+        /// 设置顾客
+        /// </summary>
+        void SetupCustomer()
+        {
+            // 
+            for (int i = 0; i < m_config.ChairNum; i++)
+            {
+                
+            }
+            
+            //m_config.ChairNum 
+        }
+
+        public void AddCustomer(int roleID)
+        {
+            
         }
 
         /// <summary>
@@ -129,25 +156,8 @@ namespace SGame
 
             // 设置位置信息
             SetupGameObject();
-            
-            // 开始移动
-            /*
-            m_roads = MapAgent.GetRoad(m_pathTag);
 
-            List<Vector3> roads = m_roads;
-            var positionBuffer = EntityManager.GetBuffer<FPathPositions>(m_entity);
-            for (int i = roads.Count - 1; i >= 0; i--)
-            {
-                var pos = (float3)roads[i];
-                positionBuffer.Add(new FPathPositions(){Value = pos});
-            }
-            EntityManager.SetComponentData(m_entity, new Follow(){Value = roads.Count});
-
-            while (IsMoveEnd == false)
-                yield return null;
             
-            CarModule.Instance.Close(m_entity);
-            */
         }
 
         public bool IsMoving

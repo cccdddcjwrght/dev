@@ -35,18 +35,25 @@ public struct LevelPathRowData : IFlatbufferObject
   public ArraySegment<byte>? GetOrderPositionBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public float[] GetOrderPositionArray() { return __p.__vector_as_array<float>(8); }
-  public int MachineID { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int OrderTable(int j) { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int OrderTableLength { get { int o = __p.__offset(10); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetOrderTableBytes() { return __p.__vector_as_span<int>(10, 4); }
+#else
+  public ArraySegment<byte>? GetOrderTableBytes() { return __p.__vector_as_arraysegment(10); }
+#endif
+  public int[] GetOrderTableArray() { return __p.__vector_as_array<int>(10); }
   public float Gap { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
 
   public static Offset<GameConfigs.LevelPathRowData> CreateLevelPathRowData(FlatBufferBuilder builder,
       int Id = 0,
       StringOffset PathTagOffset = default(StringOffset),
       VectorOffset OrderPositionOffset = default(VectorOffset),
-      int MachineID = 0,
+      VectorOffset OrderTableOffset = default(VectorOffset),
       float gap = 0.0f) {
     builder.StartTable(5);
     LevelPathRowData.AddGap(builder, gap);
-    LevelPathRowData.AddMachineID(builder, MachineID);
+    LevelPathRowData.AddOrderTable(builder, OrderTableOffset);
     LevelPathRowData.AddOrderPosition(builder, OrderPositionOffset);
     LevelPathRowData.AddPathTag(builder, PathTagOffset);
     LevelPathRowData.AddId(builder, Id);
@@ -60,7 +67,10 @@ public struct LevelPathRowData : IFlatbufferObject
   public static VectorOffset CreateOrderPositionVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateOrderPositionVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOrderPositionVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddMachineID(FlatBufferBuilder builder, int MachineID) { builder.AddInt(3, MachineID, 0); }
+  public static void AddOrderTable(FlatBufferBuilder builder, VectorOffset OrderTableOffset) { builder.AddOffset(3, OrderTableOffset.Value, 0); }
+  public static VectorOffset CreateOrderTableVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateOrderTableVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartOrderTableVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddGap(FlatBufferBuilder builder, float gap) { builder.AddFloat(4, gap, 0.0f); }
   public static Offset<GameConfigs.LevelPathRowData> EndLevelPathRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();

@@ -28,8 +28,16 @@ namespace SGame
             List<Vector2Int> customerPos
             )
         {
-            TableData value = TableManager.Instance.GetOrCreateTable(TABLE_TYPE.CUSTOM, tablePos);//new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = new int2(tablePos.x, tablePos.y), roomAreaID = roomAreaID};
+            var tableType = TABLE_TYPE.CUSTOM;
+            var carQueue = CarQueueManager.Instance.GetOrCreateFromOrderPos(tablePos);
+            if (carQueue != null)
+                tableType = TABLE_TYPE.CARCUSTOM;
+            
+            TableData value = TableManager.Instance.GetOrCreateTable(tableType, tablePos);//new TableData() { type = TABLE_TYPE.CUSTOM, map_pos = new int2(tablePos.x, tablePos.y), roomAreaID = roomAreaID};
             value.roomAreaID = roomAreaID;
+
+            if (carQueue != null)
+                carQueue.tableID = value.id;
                 
             value.AddChair(CHAIR_TYPE.ORDER, new int2(orderPos.x, orderPos.y));
             foreach (var pos in customerPos)

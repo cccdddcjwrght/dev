@@ -1,3 +1,4 @@
+using Unity.Entities;
 using Unity.Mathematics;
 
 namespace SGame
@@ -28,7 +29,30 @@ namespace SGame
         public int          chairIndex;
 
         // 占用角色ID
-        public int          playerID;
+        private int         _playerID;
+        private Entity      _playerEntity;
+        
+        public int playerID
+        {
+            get => _playerID;
+            set
+            {
+                _playerID = value;
+                _playerEntity = Entity.Null;
+            }
+        }
+
+        // 汽车
+        public Entity playerEntity
+        {
+            get => _playerEntity;
+
+            set
+            {
+                _playerID = 0;
+                _playerEntity = value;
+            }
+        }
 
         // 座位类型
         public CHAIR_TYPE   type;
@@ -36,7 +60,7 @@ namespace SGame
         /// <summary>
         /// 判断座位是否位空
         /// </summary>
-        public bool IsEmpty => playerID == 0;
+        public bool IsEmpty => playerID == 0 && playerEntity == Entity.Null;
         
         /// <summary>
         /// 判断数据是否是空的

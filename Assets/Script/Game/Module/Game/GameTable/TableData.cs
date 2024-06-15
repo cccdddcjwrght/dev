@@ -10,9 +10,10 @@ namespace SGame
     // 座椅位置类型
     public enum TABLE_TYPE : uint
     {
-        CUSTOM  = 1, // 顾客桌子
-        DISH    = 2, // 放餐机
-        MACHINE = 3, // 机器桌子
+        CUSTOM      = 1, // 顾客桌子
+        DISH        = 2, // 放餐机
+        MACHINE     = 3, // 机器桌子
+        CARCUSTOM   = 4, // 汽车顾客桌子
     }
 
     /// <summary>
