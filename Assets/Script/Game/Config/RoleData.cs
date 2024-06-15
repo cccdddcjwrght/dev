@@ -41,6 +41,44 @@ public struct RoleDataRowData : IFlatbufferObject
   public int LikeRatio { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int LikeNum { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int WorkerArea { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string Des { get { int o = __p.__offset(36); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetDesBytes() { return __p.__vector_as_span<byte>(36, 1); }
+#else
+  public ArraySegment<byte>? GetDesBytes() { return __p.__vector_as_arraysegment(36); }
+#endif
+  public byte[] GetDesArray() { return __p.__vector_as_array<byte>(36); }
+  public string Icon { get { int o = __p.__offset(38); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(38, 1); }
+#else
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(38); }
+#endif
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(38); }
+  public int LikeGoods(int j) { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int LikeGoodsLength { get { int o = __p.__offset(40); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetLikeGoodsBytes() { return __p.__vector_as_span<int>(40, 4); }
+#else
+  public ArraySegment<byte>? GetLikeGoodsBytes() { return __p.__vector_as_arraysegment(40); }
+#endif
+  public int[] GetLikeGoodsArray() { return __p.__vector_as_array<int>(40); }
+  public int UnlockArea(int j) { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int UnlockAreaLength { get { int o = __p.__offset(42); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetUnlockAreaBytes() { return __p.__vector_as_span<int>(42, 4); }
+#else
+  public ArraySegment<byte>? GetUnlockAreaBytes() { return __p.__vector_as_arraysegment(42); }
+#endif
+  public int[] GetUnlockAreaArray() { return __p.__vector_as_array<int>(42); }
+  public int UnlockReward(int j) { int o = __p.__offset(44); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int UnlockRewardLength { get { int o = __p.__offset(44); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetUnlockRewardBytes() { return __p.__vector_as_span<int>(44, 4); }
+#else
+  public ArraySegment<byte>? GetUnlockRewardBytes() { return __p.__vector_as_arraysegment(44); }
+#endif
+  public int[] GetUnlockRewardArray() { return __p.__vector_as_array<int>(44); }
 
   public static Offset<GameConfigs.RoleDataRowData> CreateRoleDataRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -58,8 +96,18 @@ public struct RoleDataRowData : IFlatbufferObject
       int Price = 0,
       int LikeRatio = 0,
       int LikeNum = 0,
-      int WorkerArea = 0) {
-    builder.StartTable(16);
+      int WorkerArea = 0,
+      StringOffset DesOffset = default(StringOffset),
+      StringOffset IconOffset = default(StringOffset),
+      VectorOffset LikeGoodsOffset = default(VectorOffset),
+      VectorOffset UnlockAreaOffset = default(VectorOffset),
+      VectorOffset UnlockRewardOffset = default(VectorOffset)) {
+    builder.StartTable(21);
+    RoleDataRowData.AddUnlockReward(builder, UnlockRewardOffset);
+    RoleDataRowData.AddUnlockArea(builder, UnlockAreaOffset);
+    RoleDataRowData.AddLikeGoods(builder, LikeGoodsOffset);
+    RoleDataRowData.AddIcon(builder, IconOffset);
+    RoleDataRowData.AddDes(builder, DesOffset);
     RoleDataRowData.AddWorkerArea(builder, WorkerArea);
     RoleDataRowData.AddLikeNum(builder, LikeNum);
     RoleDataRowData.AddLikeRatio(builder, LikeRatio);
@@ -79,7 +127,7 @@ public struct RoleDataRowData : IFlatbufferObject
     return RoleDataRowData.EndRoleDataRowData(builder);
   }
 
-  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(16); }
+  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(21); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -96,6 +144,20 @@ public struct RoleDataRowData : IFlatbufferObject
   public static void AddLikeRatio(FlatBufferBuilder builder, int LikeRatio) { builder.AddInt(13, LikeRatio, 0); }
   public static void AddLikeNum(FlatBufferBuilder builder, int LikeNum) { builder.AddInt(14, LikeNum, 0); }
   public static void AddWorkerArea(FlatBufferBuilder builder, int WorkerArea) { builder.AddInt(15, WorkerArea, 0); }
+  public static void AddDes(FlatBufferBuilder builder, StringOffset DesOffset) { builder.AddOffset(16, DesOffset.Value, 0); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(17, IconOffset.Value, 0); }
+  public static void AddLikeGoods(FlatBufferBuilder builder, VectorOffset LikeGoodsOffset) { builder.AddOffset(18, LikeGoodsOffset.Value, 0); }
+  public static VectorOffset CreateLikeGoodsVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateLikeGoodsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartLikeGoodsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddUnlockArea(FlatBufferBuilder builder, VectorOffset UnlockAreaOffset) { builder.AddOffset(19, UnlockAreaOffset.Value, 0); }
+  public static VectorOffset CreateUnlockAreaVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateUnlockAreaVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartUnlockAreaVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddUnlockReward(FlatBufferBuilder builder, VectorOffset UnlockRewardOffset) { builder.AddOffset(20, UnlockRewardOffset.Value, 0); }
+  public static VectorOffset CreateUnlockRewardVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateUnlockRewardVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartUnlockRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.RoleDataRowData> EndRoleDataRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoleDataRowData>(o);
