@@ -411,6 +411,7 @@ namespace SGame.UI
 		void OnRefreshTotalState()
 		{
 			//m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
+			ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}

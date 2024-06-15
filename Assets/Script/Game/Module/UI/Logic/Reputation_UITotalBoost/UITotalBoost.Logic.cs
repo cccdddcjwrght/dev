@@ -42,7 +42,7 @@ namespace SGame.UI{
 					int time = GameServerTime.Instance.serverTime - startTime;
 					int countDownTime = data.time - time;
 					item.m_duration.SetText(Utils.FormatTime(Mathf.Max(countDownTime, 0)));
-				}, item);
+				}, item, completed: TimeDoFinish);
 			}
 			else 
 			{
