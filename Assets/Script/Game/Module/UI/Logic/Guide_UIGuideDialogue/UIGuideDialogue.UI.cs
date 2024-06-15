@@ -7,7 +7,7 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.Guide;
 	
-	public partial class UIGuideMask
+	public partial class UIGuideDialogue
 	{
 		private int __id;
 
@@ -20,6 +20,8 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
+		void SetDialogueText(string data)=>UIListener.SetText(m_view.m_dialogue,data);
+		string GetDialogueText()=>UIListener.GetText(m_view.m_dialogue);
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

@@ -7,7 +7,6 @@ namespace SGame.UI.Guide
 {
     public partial class UI_Finger : GComponent
     {
-        public GImage m_n1;
         public GImage m_Finger;
         public Transition m_shouzhi;
         public const string URL = "ui://hebbif0xk4sr2";
@@ -21,7 +20,6 @@ namespace SGame.UI.Guide
         {
             base.ConstructFromXML(xml);
 
-            m_n1 = (GImage)GetChildAt(0);
             m_Finger = (GImage)GetChildAt(1);
             m_shouzhi = GetTransitionAt(0);
         }

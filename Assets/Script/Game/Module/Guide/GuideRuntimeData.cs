@@ -76,7 +76,7 @@ namespace SGame
             else if(code == 1) 
             {
                 int lastStepIndex = __stepIndex - 1;
-                steps[lastStepIndex].Dispose();
+                steps[lastStepIndex].Stop();
                 m_Coroutine.Stop();
                 Debug.Log(string.Format("<color=red>guide stop id:{0} step: {1}</color>", __guideId, lastStepIndex));
             }

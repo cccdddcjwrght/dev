@@ -30,7 +30,8 @@ namespace SGame
             }
             else 
             {
-                m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
+                if(m_Config.GuideType == 0) m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Finish);
+                else m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
                 UIUtils.OpenUI("guidefingerscene", new UIParam() { Value = m_Handler });
             }
  
@@ -53,6 +54,7 @@ namespace SGame
             }
             UIUtils.CloseUIByName("fingerui");
             UIUtils.CloseUIByName("guidefingerscene");
+            UIUtils.CloseUIByName("dialogue");
             m_EventHandle.Close();
             m_EventHandle = null;
         }

@@ -21,6 +21,8 @@ namespace SGame
 
         public void Dispose();
 
+        public void Stop();
+
     }
 
     public class Step : IStep
@@ -49,6 +51,11 @@ namespace SGame
         public virtual void Dispose()
         {
 
+        }
+
+        public virtual void Stop()
+        {
+            Dispose();
         }
     }
 }

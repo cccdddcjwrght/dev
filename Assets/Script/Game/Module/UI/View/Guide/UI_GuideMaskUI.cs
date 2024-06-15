@@ -7,7 +7,7 @@ namespace SGame.UI.Guide
 {
     public partial class UI_GuideMaskUI : GComponent
     {
-        public GGraph m_n0;
+        public GGraph m_mask;
         public const string URL = "ui://hebbif0xj73y9";
 
         public static UI_GuideMaskUI CreateInstance()
@@ -19,7 +19,7 @@ namespace SGame.UI.Guide
         {
             base.ConstructFromXML(xml);
 
-            m_n0 = (GGraph)GetChildAt(0);
+            m_mask = (GGraph)GetChildAt(0);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace SGame.UI.Guide
             UIObjectFactory.SetPackageItemExtension(UI_Finger.URL, typeof(UI_Finger));
             UIObjectFactory.SetPackageItemExtension(UI_GuideUI.URL, typeof(UI_GuideUI));
             UIObjectFactory.SetPackageItemExtension(UI_GuideFingerUI.URL, typeof(UI_GuideFingerUI));
+            UIObjectFactory.SetPackageItemExtension(UI_GuideDialogueUI.URL, typeof(UI_GuideDialogueUI));
         }
     }
 }

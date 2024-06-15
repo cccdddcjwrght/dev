@@ -30,6 +30,7 @@ namespace SGame
             yield return m_Handler.WaitFingerClose();
             m_Handler.InitConfig(m_Config);
             yield return m_Handler.FindTarget();
+  
             clickTarget = m_Handler.GetTarget();
             clickTarget.onClick.Add(Finish);
 
@@ -46,7 +47,11 @@ namespace SGame
             }
             else 
             {
-                m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
+                //如果是主线指引，弱指引点击其他地方相当于完成该指引
+                if (m_Config.GuideType == 0)
+                    m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Finish);
+                else
+                    m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
             }
             UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
 
@@ -76,6 +81,8 @@ namespace SGame
                 m_Handler.DisableControl(false);
                 Debug.Log("<color=bule> ui unlock-------------</color>");
             }
+
+            UIUtils.CloseUIByName("dialogue");
 
             m_EventHandle.Close();
             m_EventHandle = null;

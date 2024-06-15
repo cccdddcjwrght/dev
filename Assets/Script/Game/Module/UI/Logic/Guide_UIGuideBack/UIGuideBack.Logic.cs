@@ -15,7 +15,7 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 			context.onUpdate += OnUpdate;
 			m_Handler = context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value as GuideFingerHandler;
-			//m_view.m_mask.alpha = m_Handler.config.Alpha;
+			m_view.m_mask.alpha = m_Handler.config.Alpha;
 
 			libx.Assets.LoadAsset("Assets/BuildAsset/Art/model/guide/mat/UI_Focus_Mask.mat", typeof(Material)).Wait((a)=> 
 			{
@@ -25,7 +25,6 @@ namespace SGame.UI{
 					maskMat = mat;
 					m_view.m_mask.shape.material = mat;
 					var size = m_Handler.GetTargetSize();
-					//var pos = m_Handler.GetTargetPos();
 					mat.SetFloat("_StartTime", Time.time);
 					mat.SetFloat("_Radius", size.x * 0.5f);
 				}

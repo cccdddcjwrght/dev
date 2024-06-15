@@ -184,6 +184,8 @@ namespace SGame.UI
 			var v = gObject as UI_Goods;
 			if (g.cfg.FreeTime > 0)
 				v.name = "*" + g.id;
+			else
+				v.name = g.id.ToString();
 			v.SetTextByKey(g.cfg.ShopName);
 			v.SetIcon(g.cfg.Icon, "Icon");
 			v.m_desc.SetTextByKey(g.cfg.ShopDes);
