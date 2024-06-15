@@ -144,8 +144,13 @@ namespace SGame
 							break;
 
 						case 6: //引导步骤
-							if (cfg.OpenValLength > 0 && DataCenter.Instance.guideData.guideId < cfg.OpenVal(0))
-								ret = false;
+#if GAME_GUIDE
+							if (Game.Instance.enableGuide) 
+							{
+								if (cfg.OpenValLength > 0 && DataCenter.Instance.guideData.guideId < cfg.OpenVal(0))
+									ret = false;
+							}
+#endif
 							break;
 
 						case 5://关卡点位数量

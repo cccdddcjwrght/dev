@@ -174,6 +174,10 @@ namespace SGame.UI
 
 			if (StaticDefine.PAUSE_MAIN_REFRESH) return;
 
+#if GAME_GUIDE
+			if(Game.Instance.enableGuide)
+				m_view.m_Diamond.visible = DataCenter.RoomUtil.IsAreaEnable(3);
+#endif
 			m_view.m_levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
