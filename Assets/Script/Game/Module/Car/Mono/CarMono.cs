@@ -31,6 +31,8 @@ namespace SGame
 
         public Entity                       entity => m_entity;
 
+        public Entity                       hud;
+
         /// <summary>
         /// 初始化对象
         /// </summary>
@@ -179,6 +181,7 @@ namespace SGame
                 m_logic.Terminate();
                 m_logic = null;
             }
+            ClearHudEntity();
         }
 
         /// <summary>
@@ -260,6 +263,23 @@ namespace SGame
         public void Close()
         {
             CarModule.Instance.Close(m_entity);
+        }
+
+        /// <summary>
+        /// 关闭当前hud
+        /// </summary>
+        public void ClearHudEntity()
+        {
+            if (hud != Entity.Null)
+            {
+                UIUtils.CloseUI(hud);
+                hud = Entity.Null;
+            }
+        }
+
+        public Transform GetHudLink(int i)
+        {
+            return transform;
         }
     }
 }
