@@ -115,10 +115,10 @@ namespace SGame
         /// <param name="customID">顾客ID</param>
         /// <param name="foodType">食物类型</param>
         /// <returns></returns>
-        public OrderData Create(int customID, int foodType)
+        public OrderData Create(ChairData customerChair, int foodType)
         {
             lastOrderID++;
-            OrderData order = OrderData.Create(lastOrderID, customID, foodType);
+            OrderData order = OrderData.Create(lastOrderID, customerChair, foodType);
             order.startTime = Time.realtimeSinceStartup;
 
             if (!m_datas.TryAdd(order.id, order))

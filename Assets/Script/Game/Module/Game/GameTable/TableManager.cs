@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameConfigs;
 using log4net;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -298,6 +299,20 @@ namespace SGame
 
             return table.SitChair(customID, chair.chairIndex);
         }
+        
+        /// <summary>
+        /// 坐下空闲座位
+        /// </summary>
+        /// <param name="chair"></param>
+        /// <returns></returns>
+        public bool SitChair(ChairData chair, Entity customID)
+        {
+            TableData table = Get(chair.tableID);
+            if (table == null)
+                return false;
+
+            return table.SitChair(customID, chair.chairIndex);
+        }
 
         /// <summary>
         /// 离开空闲座位
@@ -312,6 +327,16 @@ namespace SGame
 
             return table.LeaveChair(customID, chair.chairIndex);
         }
+        
+        public bool LeaveChair(ChairData chair, Entity customID)
+        {
+            TableData table = Get(chair.tableID);
+            if (table == null)
+                return false;
+
+            return table.LeaveChair(customID, chair.chairIndex);
+        }
+
 
         /// <summary>
         /// 通过食物类型找到加工台ID

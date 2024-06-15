@@ -190,6 +190,26 @@ namespace SGame
             chairs[index] = chair;
             return true;
         }
+        
+        public bool SitChair(Entity customID, int index)
+        {
+            if (index < 0 || index >= chairs.Count)
+            {
+                log.Error("out of index =" + index + " table id=" + id);
+                return false;
+            }
+            
+            var chair = chairs[index];
+            if (!chair.IsEmpty)
+            {
+                log.Error("chair has already sit =" + index + " table id=" + id + " pos=" + chair.map_pos);
+                return false;
+            }
+
+            chair.playerEntity = customID;
+            chairs[index] = chair;
+            return true;
+        }
 
         /// <summary>
         /// 离开用户位置
@@ -213,6 +233,31 @@ namespace SGame
             }
 
             if (chair.playerID == 0 || chair.playerID != customID)
+            {
+                log.Error("custom ID not match=" + customID + " sit =" + chair.playerID + " pos=" + chair.map_pos);
+                return false;
+            }
+            chair.playerID = 0;
+            chairs[index] = chair;
+            return true;
+        }
+        
+        public bool LeaveChair(Entity customID, int index)
+        {
+            if (index < 0 || index >= chairs.Count)
+            {
+                log.Error("out of index =" + index + " table id=" + id);
+                return false;
+            }
+            
+            var chair = chairs[index];
+            if (chair.IsEmpty)
+            {
+                log.Error("leave chair sit is empty =" + index + " table id=" + id + + chair.map_pos);
+                return false;
+            }
+
+            if (chair.playerEntity == Entity.Null || chair.playerEntity != customID)
             {
                 log.Error("custom ID not match=" + customID + " sit =" + chair.playerID + " pos=" + chair.map_pos);
                 return false;

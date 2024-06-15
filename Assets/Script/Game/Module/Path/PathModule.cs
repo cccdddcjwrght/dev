@@ -114,9 +114,9 @@ namespace SGame
             int curLevelID = DataCenter.Instance.GetUserData().scene;
             return ConfigSystem.Instance.TryGet((GameConfigs.LevelPathRowData item) => 
                 item.Id == curLevelID 
-                && item.OrderTableLength == 2 
-                && item.OrderTable(0) == tablePos.x 
-                && item.OrderTable(1) == tablePos.y
+                && item.OrderMapPosLength == 2 
+                && item.OrderMapPos(0) == tablePos.x 
+                && item.OrderMapPos(1) == tablePos.y
                 , out config);
         }
     }

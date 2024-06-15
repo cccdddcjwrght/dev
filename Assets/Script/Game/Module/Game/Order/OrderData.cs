@@ -29,7 +29,7 @@ namespace SGame
         public int          cookTime;                          // 制作时间
         public int          finishTime;                        // 订单完成时间
         
-        public int          customerID { get; private set; }   // 顾客
+        public ChairData    customer { get; private set; }   // 顾客
         public int          servicerID { get; private set; }   // 服务员ID （包含下单和清单)
         public int          cookerID { get; private set; }     // 厨师ID
         
@@ -53,12 +53,12 @@ namespace SGame
         /// <param name="ordermakerID">点单的服务员</param>
         /// <param name="foodID">菜品ID</param>
         /// <returns></returns>
-        public static OrderData Create(int id, int customerID, int foodType)
+        public static OrderData Create(int id, ChairData customerChair, int foodType)
         {
             OrderData v = new OrderData();
             v.Clear();
             v.id = id;
-            v.customerID = customerID;
+            v.customer = customerChair;
             v.foodType = foodType;
             v.progress = ORDER_PROGRESS.ORDED;
             EventManager.Instance.Trigger((int)GameEvent.ORDER, v.id);
@@ -71,7 +71,7 @@ namespace SGame
              this.startTime     = 0;                   // 下单时间
              this.cookTime      = 0;                   // 制作时间
              this.finishTime    = 0;                   // 订单完成时间
-             this.customerID    = 0;                   // 顾客
+             this.customer      = ChairData.Null;      // 顾客
              this.servicerID    = 0;                   // 服务员
              this.cookerID      = 0;                   // 厨师ID
              this.perfect       = false;               // 是否完美菜品

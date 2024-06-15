@@ -29,6 +29,8 @@ namespace SGame
 
         public GameObject                   script => m_ai;
 
+        public Entity                       entity => m_entity;
+
         /// <summary>
         /// 初始化对象
         /// </summary>

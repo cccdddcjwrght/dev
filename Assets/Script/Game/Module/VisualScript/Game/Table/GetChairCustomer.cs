@@ -34,21 +34,19 @@ namespace SGame.VS
             var chair = flow.GetValue<ChairData>(chairData);
             if (chair.tableID <= 0)
             {
-                log.Error("not valid chair");
-                return null;
+                throw new Exception("not valid chair");
             }
 
             var table = TableManager.Instance.Get(chair.tableID);
             if (table == null)
             {
-                log.Error("table not found");
-                return null;
+                throw new Exception("table not found");
             }
-
+            
+            chair = table.GetChair(chair.chairIndex);
             if (chair.IsEmpty)
             {
-                log.Error("chair is empty");
-                return null;
+                throw new Exception("chair is empty");
             }
 
             if (chair.playerID != 0)

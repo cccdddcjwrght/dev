@@ -38,14 +38,14 @@ namespace SGame.VS
             // 创建订单
             inputTrigger = ControlInput("Input", (flow) =>
             {
-                int customer = flow.GetValue<int>(this.customerID);
+                ChairData customer = flow.GetValue<ChairData>(this.customerID);
                 int food = flow.GetValue<int>(this.foodType);
                 resultFoodType = food;
                 resultValue = OrderManager.Instance.Create(customer, food);
                 return outputTrigger;
             });
             
-            customerID = ValueInput<int>("customer", 0);
+            customerID = ValueInput<ChairData>("customer");
             foodType = ValueInput<int>("foodType", 0);
             outputTrigger = ControlOutput("Output");
             result = ValueOutput<OrderData>("Order", (flow) => resultValue);

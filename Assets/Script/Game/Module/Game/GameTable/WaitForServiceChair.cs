@@ -4,6 +4,7 @@ using System.Linq;
 using FlatBuffers;
 using log4net;
 using SGame;
+using Unity.Entities;
 using UnityEngine;
 
 /// <summary>
@@ -33,14 +34,14 @@ public class WaitForServiceChair : Singleton<WaitForServiceChair>
         }
         
         chair = table.GetChair(chair.chairIndex);
-        if (chair.playerID <= 0)
+        if (chair.IsEmpty)
         {
             log.Error("player is zero=" + chair.tableID + " chairIndex=" + chair.chairIndex);
             return;
         }
 
         // 判断是否包含
-        if (IsContains(chair.playerID))
+        if (IsContains(chair))
         {
             log.Error("player is already add=" + chair.playerID);
             return;
@@ -49,11 +50,14 @@ public class WaitForServiceChair : Singleton<WaitForServiceChair>
         m_chairQuee.Enqueue(chair);
     }
 
-    bool IsContains(int playerID)
+    bool IsContains(ChairData chair)
     {
         foreach (var item in m_chairQuee)
         {
-            if (item.playerID == playerID)
+            if (chair.playerID != 0 && item.playerID == chair.playerID)
+                return true;
+
+            if (chair.playerEntity != Entity.Null && item.playerEntity == chair.playerEntity)
                 return true;
         }
 
