@@ -73,6 +73,7 @@ namespace SGame.UI{
 				TransitionModule.Instance.AddDepend(id);
 			}
 
+			SetPos();
 			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
 			var graph1 = GetGraph(startPos.x, startPos.y);
 
@@ -139,9 +140,9 @@ namespace SGame.UI{
 
 		Vector2 GetFinalPos(int id) 
 		{
-			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy;
-			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy;
-			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f) + new Vector2(-8,3)/*偏差*/;
+			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy - new Vector2(100, 0);
+			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy - new Vector2(100, 0);
+			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f) + new Vector2(-8, 3)/*偏差*/;
 			else if (TransitionModule.Instance.CheckIsPet(id)) return m_view.m_Pet.xy;
 			return default;
 		}
