@@ -25,6 +25,7 @@ namespace SGame
         private const string                ASSET_PATH = "Assets/BuildAsset/Prefabs/";
         private List<Vector3>               m_roads;    // 路径点
         private CarQueue                    m_queue;    // 队伍
+        private int                         m_nextIndex; // 当前位置
 
         /// <summary>
         /// 初始化对象
@@ -44,6 +45,7 @@ namespace SGame
             m_config = config;
             EntityManager.SetComponentData(e, new Speed(){Value =  config.MoveSpeed});
             m_logic = FiberCtrl.Pool.Run(Logic());
+            m_nextIndex = 0;
             return true;
         }
 
@@ -215,12 +217,14 @@ namespace SGame
         public bool Move()
         {
             // 获得角色在
-            if (!m_queue.GetLinePath(m_entity, m_roads))
+            int curIndex = m_queue.GetLinePath(m_entity, m_nextIndex, m_roads);
+            if (curIndex < 0)
             {
                 return false;
             }
 
             // 条用移动模块移动
+            m_nextIndex = curIndex + 1;
             DoMove();
             return true;
         }

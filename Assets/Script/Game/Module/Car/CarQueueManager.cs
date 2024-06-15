@@ -168,8 +168,8 @@ namespace SGame
         /// </summary>
         /// <param name="e"></param>
         /// <param name="path"></param>
-        /// <returns></returns>
-        public bool GetLinePath(Entity e, List<Vector3> path)
+        /// <returns>返回路径点的位置</returns>
+        public int GetLinePath(Entity e, int starPos, List<Vector3> path)
         {
             path.Clear();
 
@@ -178,7 +178,7 @@ namespace SGame
             if (order < 0)
             {
                 // 不在队伍中
-                return false;
+                return -1;
             }
             
             // 2. 通过距离获取点
@@ -187,19 +187,20 @@ namespace SGame
             if (!findIndex.isSuccess)
             {
                 log.Error("path not found=" + distance + " tag=" + m_pathTag);
-                return false;
+                return -1;
             }
 
-            for (int i = 0; i <= findIndex.Index; i++)
+            for (int i = starPos; i <= findIndex.Index; i++)
             {
                 path.Add(m_pathPoints[i]);
             }
+            
             if (findIndex.distance > 0)
             {
                 // 有多出来的点
                 path.Add(findIndex.targetPoint);
             }
-            return true;
+            return findIndex.Index;
         }
 
         /// <summary>
