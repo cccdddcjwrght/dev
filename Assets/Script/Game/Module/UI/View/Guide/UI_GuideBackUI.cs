@@ -9,6 +9,7 @@ namespace SGame.UI.Guide
     {
         public GGraph m_mask;
         public GGraph m_blank;
+        public GGraph m_watch;
         public const string URL = "ui://hebbif0x91jv6";
 
         public static UI_GuideBackUI CreateInstance()
@@ -22,6 +23,7 @@ namespace SGame.UI.Guide
 
             m_mask = (GGraph)GetChildAt(0);
             m_blank = (GGraph)GetChildAt(1);
+            m_watch = (GGraph)GetChildAt(2);
         }
     }
 }

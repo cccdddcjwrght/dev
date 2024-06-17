@@ -112,16 +112,20 @@ namespace SGame
 
         public Vector2 GetTargetSize() 
         {
-            Vector2 size = new Vector2(config.UISize(0), config.UISize(1));
+            if (config.RealitySize(0) > 0 && config.RealitySize(1) > 0)
+                return new Vector2(config.RealitySize(0), config.RealitySize(1));
             if (type == GuideTargetEnum.UIPATH)
             {
-                if (size == Vector2.zero) size = target.size;
+                return target.size;
             }
-            else if (type == GuideTargetEnum.GRID) 
-            {
-                size = new Vector2(config.UISize(0), config.UISize(1));
-                if(size == Vector2.zero) size = defalutSize;
-            }
+            return defalutSize;
+        }
+
+        public Vector2 GetMaskSize() 
+        {
+            var size = GetTargetSize();
+            if(config.UISize(0) > 0)
+                return new Vector2(config.UISize(0), config.UISize(1));
             return size;
         }
 

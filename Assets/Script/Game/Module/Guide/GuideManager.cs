@@ -17,6 +17,8 @@ namespace SGame
         /// </summary>
         public bool IsCoerce { get { return isCoerceGuide; } }
 
+        public bool showClickArea = false;
+
         //正在执行的指引
         List<GuideRuntimeData> runtimeDataList = new List<GuideRuntimeData>();
 
@@ -126,6 +128,9 @@ namespace SGame
 
             if (Input.GetKeyDown(KeyCode.F4)) 
                 isGetPath = true;
+
+            if (Input.GetKeyDown(KeyCode.F3))
+                showClickArea = !showClickArea;
 
             if (isGetPath) 
             {

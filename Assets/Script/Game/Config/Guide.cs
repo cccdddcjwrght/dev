@@ -60,25 +60,33 @@ public struct GuideRowData : IFlatbufferObject
   public ArraySegment<byte>? GetFloatParamBytes() { return __p.__vector_as_arraysegment(22); }
 #endif
   public float[] GetFloatParamArray() { return __p.__vector_as_array<float>(22); }
-  public int UISize(int j) { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int UISizeLength { get { int o = __p.__offset(24); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int RealitySize(int j) { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int RealitySizeLength { get { int o = __p.__offset(24); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetUISizeBytes() { return __p.__vector_as_span<int>(24, 4); }
+  public Span<int> GetRealitySizeBytes() { return __p.__vector_as_span<int>(24, 4); }
 #else
-  public ArraySegment<byte>? GetUISizeBytes() { return __p.__vector_as_arraysegment(24); }
+  public ArraySegment<byte>? GetRealitySizeBytes() { return __p.__vector_as_arraysegment(24); }
 #endif
-  public int[] GetUISizeArray() { return __p.__vector_as_array<int>(24); }
-  public int OffsetXY(int j) { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int OffsetXYLength { get { int o = __p.__offset(26); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetRealitySizeArray() { return __p.__vector_as_array<int>(24); }
+  public int UISize(int j) { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int UISizeLength { get { int o = __p.__offset(26); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetOffsetXYBytes() { return __p.__vector_as_span<int>(26, 4); }
+  public Span<int> GetUISizeBytes() { return __p.__vector_as_span<int>(26, 4); }
 #else
-  public ArraySegment<byte>? GetOffsetXYBytes() { return __p.__vector_as_arraysegment(26); }
+  public ArraySegment<byte>? GetUISizeBytes() { return __p.__vector_as_arraysegment(26); }
 #endif
-  public int[] GetOffsetXYArray() { return __p.__vector_as_array<int>(26); }
-  public float Alpha { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public int TimeOut { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Force { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int[] GetUISizeArray() { return __p.__vector_as_array<int>(26); }
+  public int OffsetXY(int j) { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int OffsetXYLength { get { int o = __p.__offset(28); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetOffsetXYBytes() { return __p.__vector_as_span<int>(28, 4); }
+#else
+  public ArraySegment<byte>? GetOffsetXYBytes() { return __p.__vector_as_arraysegment(28); }
+#endif
+  public int[] GetOffsetXYArray() { return __p.__vector_as_array<int>(28); }
+  public float Alpha { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int TimeOut { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Force { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.GuideRowData> CreateGuideRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -91,17 +99,19 @@ public struct GuideRowData : IFlatbufferObject
       StringOffset StringParamOffset = default(StringOffset),
       StringOffset UIPathOffset = default(StringOffset),
       VectorOffset floatParamOffset = default(VectorOffset),
+      VectorOffset RealitySizeOffset = default(VectorOffset),
       VectorOffset UISizeOffset = default(VectorOffset),
       VectorOffset OffsetXYOffset = default(VectorOffset),
       float alpha = 0.0f,
       int TimeOut = 0,
       int Force = 0) {
-    builder.StartTable(15);
+    builder.StartTable(16);
     GuideRowData.AddForce(builder, Force);
     GuideRowData.AddTimeOut(builder, TimeOut);
     GuideRowData.AddAlpha(builder, alpha);
     GuideRowData.AddOffsetXY(builder, OffsetXYOffset);
     GuideRowData.AddUISize(builder, UISizeOffset);
+    GuideRowData.AddRealitySize(builder, RealitySizeOffset);
     GuideRowData.AddFloatParam(builder, floatParamOffset);
     GuideRowData.AddUIPath(builder, UIPathOffset);
     GuideRowData.AddStringParam(builder, StringParamOffset);
@@ -115,7 +125,7 @@ public struct GuideRowData : IFlatbufferObject
     return GuideRowData.EndGuideRowData(builder);
   }
 
-  public static void StartGuideRowData(FlatBufferBuilder builder) { builder.StartTable(15); }
+  public static void StartGuideRowData(FlatBufferBuilder builder) { builder.StartTable(16); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddGuideId(FlatBufferBuilder builder, int GuideId) { builder.AddInt(1, GuideId, 0); }
   public static void AddStep(FlatBufferBuilder builder, int Step) { builder.AddInt(2, Step, 0); }
@@ -129,17 +139,21 @@ public struct GuideRowData : IFlatbufferObject
   public static VectorOffset CreateFloatParamVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateFloatParamVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartFloatParamVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddUISize(FlatBufferBuilder builder, VectorOffset UISizeOffset) { builder.AddOffset(10, UISizeOffset.Value, 0); }
+  public static void AddRealitySize(FlatBufferBuilder builder, VectorOffset RealitySizeOffset) { builder.AddOffset(10, RealitySizeOffset.Value, 0); }
+  public static VectorOffset CreateRealitySizeVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateRealitySizeVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartRealitySizeVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddUISize(FlatBufferBuilder builder, VectorOffset UISizeOffset) { builder.AddOffset(11, UISizeOffset.Value, 0); }
   public static VectorOffset CreateUISizeVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateUISizeVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartUISizeVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddOffsetXY(FlatBufferBuilder builder, VectorOffset OffsetXYOffset) { builder.AddOffset(11, OffsetXYOffset.Value, 0); }
+  public static void AddOffsetXY(FlatBufferBuilder builder, VectorOffset OffsetXYOffset) { builder.AddOffset(12, OffsetXYOffset.Value, 0); }
   public static VectorOffset CreateOffsetXYVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateOffsetXYVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOffsetXYVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddAlpha(FlatBufferBuilder builder, float alpha) { builder.AddFloat(12, alpha, 0.0f); }
-  public static void AddTimeOut(FlatBufferBuilder builder, int TimeOut) { builder.AddInt(13, TimeOut, 0); }
-  public static void AddForce(FlatBufferBuilder builder, int Force) { builder.AddInt(14, Force, 0); }
+  public static void AddAlpha(FlatBufferBuilder builder, float alpha) { builder.AddFloat(13, alpha, 0.0f); }
+  public static void AddTimeOut(FlatBufferBuilder builder, int TimeOut) { builder.AddInt(14, TimeOut, 0); }
+  public static void AddForce(FlatBufferBuilder builder, int Force) { builder.AddInt(15, Force, 0); }
   public static Offset<GameConfigs.GuideRowData> EndGuideRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.GuideRowData>(o);
