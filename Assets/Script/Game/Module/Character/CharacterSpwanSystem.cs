@@ -274,7 +274,7 @@ namespace SGame
 
                 // 创建AI
                 GameObject ai = null;
-                if (req.hasAI)
+                //if (req.hasAI)
                 {
                     ai = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
                     ai.transform.parent = character.transform;
