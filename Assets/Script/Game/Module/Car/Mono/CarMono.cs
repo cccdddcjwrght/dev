@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fibers;
+using GameConfigs;
 using GameTools;
 using UnityEngine;
 using Unity.Entities;
@@ -14,6 +15,7 @@ namespace SGame
 {
     public class CarMono : MonoBehaviour
     {
+        private const int MAX_CUSTOMER = 4; // 最大乘客数量
         private Entity                      m_entity;   // 车的ENTITY      
         private GameConfigs.CarDataRowData  m_config;   // 配置表
         private GameObject                  m_ai;       // AI 脚本
@@ -26,12 +28,16 @@ namespace SGame
         private List<Vector3>               m_roads;    // 路径点
         private CarQueue                    m_queue;    // 队伍
         private int                         m_nextIndex; // 当前位置
+        private List<CarCustomer>           m_customers; // 座位上的玩家
+        private List<Transform>             m_hudAttachement; // HUD 挂点
 
         public GameObject                   script => m_ai;
 
         public Entity                       entity => m_entity;
 
-        public Entity                       hud;
+        //public Entity                       hud;
+
+        public int                          customerNum => m_customers.Count;
 
         /// <summary>
         /// 初始化对象
@@ -123,25 +129,131 @@ namespace SGame
             else
                 m_model.transform.localRotation = Quaternion.Euler(m_config.Rotation(0), m_config.Rotation(1), m_config.Rotation(2));
             m_model.transform.localScale = new Vector3(m_config.Scale, m_config.Scale, m_config.Scale);
+            
+            // 设置挂点
+            m_hudAttachement = new List<Transform>();
+            for (int i = 0; i < MAX_CUSTOMER; i++)
+            {
+                string hudName = "order" + (i + 1);
+                Transform attachement = m_model.transform.Find(hudName);
+                if (attachement == null)
+                    break;
+                
+                m_hudAttachement.Add(attachement);
+            }
         }
 
         /// <summary>
-        /// 设置顾客
+        /// 创建车内顾客
         /// </summary>
         void SetupCustomer()
         {
-            // 
+            m_customers = new List<CarCustomer>();
+            int currentLevelID = DataCenter.Instance.GetUserData().scene;
+            if (!ConfigSystem.Instance.TryGet(currentLevelID, out LevelRowData config))
+            {
+                log.Error("not found scene id=" + currentLevelID);
+                return;
+            }
+
+            List<int> roles = new List<int>();
+            List<int> widgets = new List<int>();
+            for (int i = 0; i < config.CustomerIdLength; i++)
+                roles.Add(i);
+            for (int i = 0; i < config.CustomerWeightLength; i++)
+                widgets.Add(i);
+            if (m_config.ChairNum == 0)
+            {
+                log.Error("chair num can't be zero");
+                return;
+            }
             for (int i = 0; i < m_config.ChairNum; i++)
             {
-                
+                int roleID = RandomSystem.Instance.GetRandomID(roles, widgets);
+                m_customers.Add(new CarCustomer(){RoleID = roleID, ItemID = 0, ItemNum = 0, hud = Entity.Null});
             }
-            
-            //m_config.ChairNum 
         }
 
-        public void AddCustomer(int roleID)
+        /// <summary>
+        /// 创建顾客的订单
+        /// </summary>
+        /// <param name="customerIndex"></param>
+        ///  <param name="chair">点单时的座位信息</param>
+        /// <param name="itemID">点单的道具ID</param>
+        /// <param name="itemNum">点单的数量</param>
+        public void CreateCustomerOrder(int customerIndex, ChairData chair, int itemID, int itemNum)
         {
+            if (itemNum <= 0 || itemID == 0)
+            {
+                log.Error("param not valid itemid=" + itemID + " itemNum=" + itemNum);
+                return;
+            }
+
+            if (customerIndex < 0 || customerIndex >= m_customers.Count)
+            {
+                log.Error("customerIndex not valid customerIndex=" + customerIndex);
+                return;
+            }
             
+            // 设置角色订单信息
+            var customer        = m_customers[customerIndex];
+            customer.ItemID     = itemID;
+            customer.ItemNum    = itemNum;
+
+            // 创建订单
+            for (int i = 0; i < itemNum; i++)
+                OrderManager.Instance.Create(chair, itemID);
+            
+            // 创建并关连HUD
+            customer.hud = UIUtils.ShowOrderTips(itemID, itemNum, m_hudAttachement[customerIndex]);
+        }
+
+        /// <summary>
+        /// 结束点单
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
+        public int FinishOrder(int orderID)
+        {
+            var order = OrderManager.Instance.Get(orderID);
+            bool findIt = false;
+            foreach (var customer in m_customers)
+            {
+                if (customer.ItemNum > 0 && customer.ItemID == order.foodType)
+                {
+                    // 找到相关点单数据, 更新面版
+                    customer.ItemNum--;
+                    
+                    // 更新小费数量
+                    if (customer.ItemNum > 0)
+                    {
+                        UIUtils.TriggerUIEvent(customer.hud, "OrderNumUpdate", customer.ItemNum);
+                    }
+                    else
+                    {
+                        UIUtils.CloseUI(customer.hud);
+                        customer.hud = Entity.Null;
+                    }
+                    findIt = true;
+                    break;
+                }
+            }
+
+            if (!findIt)
+            {
+                log.Error("order not match=" + orderID);
+            }
+            
+            return GetOrderNum();
+        }
+
+        public int GetOrderNum()
+        {
+            int orderNum = 0;
+            for (int i = 0; i < m_customers.Count; i++)
+                orderNum += m_customers[i].ItemNum;
+
+            return orderNum;
         }
 
         /// <summary>
@@ -161,7 +273,8 @@ namespace SGame
             // 设置位置信息
             SetupGameObject();
 
-            
+            // 设置顾客
+            SetupCustomer();
         }
 
         public bool IsMoving
@@ -181,7 +294,20 @@ namespace SGame
                 m_logic.Terminate();
                 m_logic = null;
             }
-            ClearHudEntity();
+
+            ClearHud();
+        }
+
+        public void ClearHud()
+        {
+            foreach (var customer in m_customers)
+            {
+                if (customer.hud != Entity.Null)
+                {
+                    UIUtils.CloseUI(customer.hud);
+                    customer.hud = Entity.Null;
+                }
+            }
         }
 
         /// <summary>
@@ -263,18 +389,6 @@ namespace SGame
         public void Close()
         {
             CarModule.Instance.Close(m_entity);
-        }
-
-        /// <summary>
-        /// 关闭当前hud
-        /// </summary>
-        public void ClearHudEntity()
-        {
-            if (hud != Entity.Null)
-            {
-                UIUtils.CloseUI(hud);
-                hud = Entity.Null;
-            }
         }
 
         public Transform GetHudLink(int i)
