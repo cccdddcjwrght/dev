@@ -151,7 +151,7 @@ namespace SGame
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide)
 			{
-				
+				//如果开场动画没播放玩重启游戏，这里跳过第一步
 				if (DataCenter.Instance.guideData.guideId == 1 && !DataCenter.Instance.roomData.room.isnew)
 					DataCenter.Instance.guideData.guideId++;
 				GuideManager.Instance.StartGuide(DataCenter.Instance.guideData.guideId);
