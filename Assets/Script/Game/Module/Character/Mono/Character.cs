@@ -195,7 +195,8 @@ namespace SGame
             M_workArea = roleConfig.WorkerArea;
          
             // 触发初始化角色事件
-            EventBus.Trigger(CharacterInit.EventHook, script, this);
+            if (script != null)
+                EventBus.Trigger(CharacterInit.EventHook, script, this);
         }
 
         public void CacheCharacter()

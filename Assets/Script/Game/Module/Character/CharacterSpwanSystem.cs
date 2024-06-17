@@ -28,12 +28,12 @@ namespace SGame
 
             // 是否使用属性系统
             public bool hasAttribute;
-
-            // 是否是雇佣好友
-            //public bool isEmployee;
             
             // 雇佣好友ID
             public long playerID;
+
+            // 是否拥有AI
+            public bool hasAI;
 
             public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true, long playerID = 0)
             {
@@ -44,7 +44,8 @@ namespace SGame
                     id          = id,
                     pos         = pos,
                     hasAttribute = hasAttriburte,
-                    playerID  = playerID
+                    playerID  = playerID,
+                    hasAI = false,
                 });
 
                 var request = new CharacterSpawnResult()
@@ -272,13 +273,17 @@ namespace SGame
                     EntityManager.AddComponent<DisableAttributeTag>(characterEntity);
 
                 // 创建AI
-                GameObject ai               = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
-                ai.transform.parent         = character.transform;
-                ai.transform.localRotation  = Quaternion.identity;
-                ai.transform.localPosition  = Vector3.zero;
-                ai.transform.localScale     = Vector3.one;
-                ai.name                     = "AI";
-                
+                GameObject ai = null;
+                if (req.hasAI)
+                {
+                    ai = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
+                    ai.transform.parent = character.transform;
+                    ai.transform.localRotation = Quaternion.identity;
+                    ai.transform.localPosition = Vector3.zero;
+                    ai.transform.localScale = Vector3.one;
+                    ai.name = "AI";
+                }
+
                 // 创建对象
                 //var id = loading.pool.Spawn();
                 GameObject ani = CharacterFactory.Instance.Spawn(loading.pool);  //loading.pool.GetObject(id);
@@ -293,8 +298,9 @@ namespace SGame
                     var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
                     ani.transform.localScale = scaleVector;
                 }
-                
-                c.script = ai;
+
+                if (ai != null)
+                    c.script = ai;
                 c.model = ani;
                 c.entity = characterEntity;
                 c.CharacterID = lasterCharacterID;

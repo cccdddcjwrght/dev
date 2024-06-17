@@ -30,6 +30,7 @@ namespace SGame
         private int                         m_nextIndex; // 当前位置
         private List<CarCustomer>           m_customers; // 座位上的玩家
         private List<Transform>             m_hudAttachement; // HUD 挂点
+        private List<Transform>             m_seatAttachement; // 座位挂点
 
         public GameObject                   script => m_ai;
 
@@ -130,6 +131,11 @@ namespace SGame
                 m_model.transform.localRotation = Quaternion.Euler(m_config.Rotation(0), m_config.Rotation(1), m_config.Rotation(2));
             m_model.transform.localScale = new Vector3(m_config.Scale, m_config.Scale, m_config.Scale);
             
+            //CharacterModule.Instance.Create()
+        }
+
+        void SetupAttachement()
+        {
             // 设置挂点
             m_hudAttachement = new List<Transform>();
             for (int i = 0; i < MAX_CUSTOMER; i++)
@@ -140,6 +146,18 @@ namespace SGame
                     break;
                 
                 m_hudAttachement.Add(attachement);
+            }
+            
+            // 设置座位挂点
+            m_seatAttachement = new List<Transform>();
+            for (int i = 0; i < MAX_CUSTOMER; i++)
+            {
+                string hudName = "seat_role_" + (i + 1);
+                Transform attachement = m_model.transform.Find(hudName);
+                if (attachement == null)
+                    break;
+                
+                m_seatAttachement.Add(attachement);
             }
         }
 
