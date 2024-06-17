@@ -151,6 +151,9 @@ namespace SGame
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide)
 			{
+				
+				if (DataCenter.Instance.guideData.guideId == 1 && !DataCenter.Instance.roomData.room.isnew)
+					DataCenter.Instance.guideData.guideId++;
 				GuideManager.Instance.StartGuide(DataCenter.Instance.guideData.guideId);
 				//	if (guideGo != null) GameObject.Destroy(guideGo);
 
