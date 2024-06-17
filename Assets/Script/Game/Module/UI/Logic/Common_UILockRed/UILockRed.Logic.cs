@@ -31,6 +31,7 @@ namespace SGame.UI
 			eHandler += EventManager.Instance.Reg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldRefresh);
 			eHandler += EventManager.Instance.Reg<int>(((int)GameEvent.WORK_AREA_UNLOCK), a => RefreshInfo());
 			eHandler += EventManager.Instance.Reg((int)GameEvent.GUIDE_START, RefreshInfo);
+			eHandler += EventManager.Instance.Reg((int)GameEvent.RELOAD_ALL_UI, RefreshInfo);
 
 			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<SpawnUISystem>();
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
@@ -75,6 +76,7 @@ namespace SGame.UI
 		{
 			if (panel == null) return;
 			var state = PropertyManager.Instance.CheckCountByArgs(cost);
+			panel.m_unlock.SetTextByKey("ui_unlock_tips");
 			panel.m_btnty.selectedIndex = state ? 0 : 1;
 			panel.m_click.touchable = state;
 			UIListener.SetText(panel.m_click, SGame.Utils.ConvertNumberStr(cost[2]));

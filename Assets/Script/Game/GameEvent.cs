@@ -190,5 +190,7 @@ namespace SGame
 
 		LEVELPATH_QUEUE_UPDATE					= 23000, // 关卡排队更新 （string pathTag)
 
+		RELOAD_ALL_UI					= 24000, //重新加载所有UI				
+
 	}
 }

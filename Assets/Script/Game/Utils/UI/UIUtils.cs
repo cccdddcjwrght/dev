@@ -105,6 +105,7 @@ namespace SGame
 			{
 				UIRequest.Create(entityManager, id);
 			}
+			EventManager.Instance.Trigger((int)GameEvent.RELOAD_ALL_UI);
 		}
 
 		/// <summary>
