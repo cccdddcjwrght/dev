@@ -611,10 +611,10 @@ namespace SGame
 
 		public void GetLimitXZ(out float minX, out float maxX, out float minZ, out float maxZ)
 		{
-			minX = xMove.minValue;
-			maxX = xMove.maxValue;
-			minZ = zMove.minValue;
-			maxZ = zMove.maxValue;
+			minX = xMove.minValue * xMove.limitScale;
+			maxX = xMove.maxValue * xMove.limitScale;
+			minZ = zMove.minValue * zMove.limitScale;
+			maxZ = zMove.maxValue * zMove.limitScale;
 		}
 
 		public void SetLayer()
