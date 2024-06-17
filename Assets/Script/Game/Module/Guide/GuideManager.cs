@@ -44,6 +44,7 @@ namespace SGame
             guideRuntimeData.Run(guideId);
 
             EventManager.Instance.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
+            EventManager.Instance.Trigger((int)GameEvent.GUIDE_START);
         }
 
         public void StopGuide(int guideId) 

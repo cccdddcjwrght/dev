@@ -30,7 +30,7 @@ namespace SGame.UI
 
 			eHandler += EventManager.Instance.Reg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldRefresh);
 			eHandler += EventManager.Instance.Reg<int>(((int)GameEvent.WORK_AREA_UNLOCK), a => RefreshInfo());
-
+			eHandler += EventManager.Instance.Reg((int)GameEvent.GUIDE_START, RefreshInfo);
 
 			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<SpawnUISystem>();
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
@@ -46,6 +46,13 @@ namespace SGame.UI
 					m_view.m_child.icon = "ui://Worktable/LockPanelUI";
 					panel = m_view.m_child.component as UI_LockPanelUI;
 				}
+#if GAME_GUIDE
+				if (Game.Instance.enableGuide) 
+				{
+					//等指引6完成后再显示区域解锁，避免提前解锁了
+					m_view.m_child.visible = DataCenter.Instance.guideData.guideId > 6;
+				}
+#endif
 				SetUnlockBtn(cfg.GetCostArray());
 				m_view.m_flag.selectedIndex = 1;
 			}
