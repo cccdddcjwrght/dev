@@ -17,7 +17,7 @@ namespace SGame.UI{
 			m_Handler = context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value as GuideFingerHandler;
 			m_view.m_mask.alpha = m_Handler.config.Alpha;
 
-			libx.Assets.LoadAsset("Assets/BuildAsset/Art/model/guide/mat/UI_Focus_Mask.mat", typeof(Material)).Wait((a)=> 
+			libx.Assets.LoadAsset("Assets/BuildAsset/Prefabs/Scenes/guide/mat/UI_Focus_Mask.mat", typeof(Material)).Wait((a)=> 
 			{
 				if (string.IsNullOrEmpty(a.error)) 
 				{
