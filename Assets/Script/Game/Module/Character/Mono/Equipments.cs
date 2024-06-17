@@ -136,12 +136,13 @@ namespace SGame
             var good     = transform.FindRecursive("goods");
             var foot     = transform.FindRecursive("foot");
             var main     = transform.FindRecursive("main");
+            var hud      = transform.FindRecursive("hud");
             
             // 初始化插槽
             m_slots.Add(SlotType.RWEAPON, weapon);     // 右手武器
             m_slots.Add(SlotType.LWEAPON, weapon1);    // 左手武器
             m_slots.Add(SlotType.FOOD,    good);       // 食物挂点
-            m_slots.Add(SlotType.HUD,     glasses);    // HUD挂点
+            m_slots.Add(SlotType.HUD,     hud);        // HUD挂点
             m_slots.Add(SlotType.FOOT,    foot);       //      = 4, // 脚步挂点
             m_slots.Add(SlotType.BODY,    main);       //      = 4, // 脚步挂点
             m_slots.Add(SlotType.GLASSES,    glasses); //      = 4, // 脚步挂点
