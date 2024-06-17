@@ -10,7 +10,6 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 
 		}
-
 		partial void UnInitLogic(UIContext context){
 
 		}
