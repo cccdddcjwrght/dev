@@ -290,6 +290,8 @@ namespace SGame
 
             // 设置位置信息
             SetupGameObject();
+            
+            SetupAttachement();
 
             // 设置顾客
             SetupCustomer();
