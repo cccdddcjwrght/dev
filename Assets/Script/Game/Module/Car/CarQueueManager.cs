@@ -29,6 +29,9 @@ namespace SGame
         /// </summary>
         private List<Vector3>   m_pathPoints;
 
+        /// <summary>
+        /// 汽车队伍
+        /// </summary>
         private List<Data>      m_queue;
 
         /// <summary>
@@ -59,7 +62,37 @@ namespace SGame
         /// <summary>
         /// 路径数据
         /// </summary>
-        private string          m_pathTag;
+        private string          m_pathTag => m_config.PathTag;
+
+        /// <summary>
+        /// 最大数量
+        /// </summary>
+        private int             m_max; 
+
+        /// <summary>
+        /// 最大汽车数量
+        /// </summary>
+        public int max => m_max;
+
+        /// <summary>
+        /// 当前汽车数量 
+        /// </summary>
+        public int m_carNum;
+
+        // 配置表
+        private LevelPathRowData m_config;
+
+        /// <summary>
+        /// 配置表
+        /// </summary>
+        public LevelPathRowData cfg => m_config;
+
+        /// <summary>
+        /// 用于获取汽车随机
+        /// </summary>
+        public List<int> m_carIDs;
+        public List<int> m_carWidgets;
+
         
         /// <summary>
         /// 通过路径名称 初始化排队
@@ -74,6 +107,7 @@ namespace SGame
                 return false;
             }
 
+            m_config = config;
             List<Vector3>   path    = MapAgent.GetRoad(pathTag);
             Vector3         pos     = new Vector3(config.OrderPosition(0), config.OrderPosition(1), config.OrderPosition(2));
             m_orderIndex            = PathModule.FindCloseIndex(pos, path);
@@ -86,8 +120,25 @@ namespace SGame
             m_queue         = new List<Data>();
             m_orderDistance = PathModule.GetDistance(m_orderIndex, path);
             m_pathDistance  = PathModule.GetDistance(path.Count - 1, path);
-            m_pathTag       = pathTag;
+            m_max           = config.CarNum; // 初始最大数量
+
+            m_carIDs = new List<int>();
+            m_carWidgets = new List<int>();
+            for (int i = 0; i < config.CarIdLength; i++)
+                m_carIDs.Add(config.CarId(i));
+            for (int i = 0; i < config.CarWeightLength; i++)
+                m_carWidgets.Add(config.CarWeight(i));
             return true;
+        }
+        
+        public int GetRandomCar()
+        {
+            if (m_carIDs.Count == 0 || m_carIDs.Count != m_carWidgets.Count)
+            {
+                log.Error("car ids fail path id=" + m_config.Id);
+                return 0;
+            }
+            return RandomSystem.Instance.GetRandomID(m_carIDs, m_carWidgets);
         }
 
         /// <summary>
@@ -120,6 +171,7 @@ namespace SGame
                 return false;
             
             m_queue.RemoveAt(order);
+            m_carNum--;
             return true;
         }
 
@@ -227,6 +279,39 @@ namespace SGame
                 path.Add(m_pathPoints[i]);
             return true;
         }
+        
+        /// <summary>
+        /// 创建新的车辆
+        /// </summary>
+        public void NewCar()
+        {
+            if (!IsValid)
+                return;
+            
+            if (m_carNum >= max)
+            {
+                return;
+            }
+
+            m_carNum++;
+            CarModule.Create(GetRandomCarID());
+        }
+
+        /// <summary>
+        /// 获得随机汽车ID
+        /// </summary>
+        /// <returns></returns>
+        int GetRandomCarID()
+        {
+            if (m_carIDs.Count != m_carWidgets.Count || m_carIDs.Count == 0)
+            {
+                log.Error("car ids and widget value error path=" + m_config.Id);
+                return 0;
+            }
+            
+            int id = RandomSystem.Instance.GetRandomID(m_carIDs, m_carWidgets);
+            return id;
+        }
     }
     
     /// <summary>
@@ -276,13 +361,50 @@ namespace SGame
 
             return null;
         }
-        
+
+        /// <summary>
+        /// 获得汽车队伍
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CarQueue> GetCars()
+        {
+            return m_datas.Values;
+        }
+
         /// <summary>
         /// 清空说有数据
         /// </summary>
         public void Clear()
         {
             m_datas.Clear();
+        }
+
+        /// <summary>
+        /// 触发创建汽车 
+        /// </summary>
+        public void CreateNewCar()
+        {
+            foreach (var queue in m_datas.Values)
+            {
+                if (queue.IsValid)
+                {
+                    queue.NewCar();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 判断某个路径点是否已经被开启了
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public bool HasPath(string path)
+        {
+            CarQueue queue = GetOrCreate(path);
+            if (queue == null)
+                return false;
+
+            return queue.IsValid;
         }
     }
 }

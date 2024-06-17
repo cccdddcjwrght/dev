@@ -44,14 +44,37 @@ public struct LevelPathRowData : IFlatbufferObject
 #endif
   public int[] GetOrderMapPosArray() { return __p.__vector_as_array<int>(10); }
   public float Gap { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int CarId(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CarIdLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetCarIdBytes() { return __p.__vector_as_span<int>(14, 4); }
+#else
+  public ArraySegment<byte>? GetCarIdBytes() { return __p.__vector_as_arraysegment(14); }
+#endif
+  public int[] GetCarIdArray() { return __p.__vector_as_array<int>(14); }
+  public int CarWeight(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int CarWeightLength { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetCarWeightBytes() { return __p.__vector_as_span<int>(16, 4); }
+#else
+  public ArraySegment<byte>? GetCarWeightBytes() { return __p.__vector_as_arraysegment(16); }
+#endif
+  public int[] GetCarWeightArray() { return __p.__vector_as_array<int>(16); }
+  public int CarNum { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.LevelPathRowData> CreateLevelPathRowData(FlatBufferBuilder builder,
       int Id = 0,
       StringOffset PathTagOffset = default(StringOffset),
       VectorOffset OrderPositionOffset = default(VectorOffset),
       VectorOffset OrderMapPosOffset = default(VectorOffset),
-      float gap = 0.0f) {
-    builder.StartTable(5);
+      float gap = 0.0f,
+      VectorOffset CarIdOffset = default(VectorOffset),
+      VectorOffset CarWeightOffset = default(VectorOffset),
+      int CarNum = 0) {
+    builder.StartTable(8);
+    LevelPathRowData.AddCarNum(builder, CarNum);
+    LevelPathRowData.AddCarWeight(builder, CarWeightOffset);
+    LevelPathRowData.AddCarId(builder, CarIdOffset);
     LevelPathRowData.AddGap(builder, gap);
     LevelPathRowData.AddOrderMapPos(builder, OrderMapPosOffset);
     LevelPathRowData.AddOrderPosition(builder, OrderPositionOffset);
@@ -60,7 +83,7 @@ public struct LevelPathRowData : IFlatbufferObject
     return LevelPathRowData.EndLevelPathRowData(builder);
   }
 
-  public static void StartLevelPathRowData(FlatBufferBuilder builder) { builder.StartTable(5); }
+  public static void StartLevelPathRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddPathTag(FlatBufferBuilder builder, StringOffset PathTagOffset) { builder.AddOffset(1, PathTagOffset.Value, 0); }
   public static void AddOrderPosition(FlatBufferBuilder builder, VectorOffset OrderPositionOffset) { builder.AddOffset(2, OrderPositionOffset.Value, 0); }
@@ -72,6 +95,15 @@ public struct LevelPathRowData : IFlatbufferObject
   public static VectorOffset CreateOrderMapPosVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartOrderMapPosVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddGap(FlatBufferBuilder builder, float gap) { builder.AddFloat(4, gap, 0.0f); }
+  public static void AddCarId(FlatBufferBuilder builder, VectorOffset CarIdOffset) { builder.AddOffset(5, CarIdOffset.Value, 0); }
+  public static VectorOffset CreateCarIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateCarIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartCarIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddCarWeight(FlatBufferBuilder builder, VectorOffset CarWeightOffset) { builder.AddOffset(6, CarWeightOffset.Value, 0); }
+  public static VectorOffset CreateCarWeightVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateCarWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartCarWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddCarNum(FlatBufferBuilder builder, int CarNum) { builder.AddInt(7, CarNum, 0); }
   public static Offset<GameConfigs.LevelPathRowData> EndLevelPathRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.LevelPathRowData>(o);
