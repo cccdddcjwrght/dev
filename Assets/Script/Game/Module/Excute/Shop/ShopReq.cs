@@ -32,15 +32,13 @@ namespace SGame
 
 		static public void BuyGoods(int id, Action<bool> call = null)
 		{
-			UILockManager.Instance.Require(shop_lock);
 			var code = DataCenter.ShopUtil.IsCanBuy(id);
 			if (code == 4) "shop".Goto();
 			switch (code)
 			{
 				case 0:
-
+					UILockManager.Instance.Require(shop_lock);
 					var goods = DataCenter.Instance.shopData.goodDic[id];
-
 					if (goods != null)
 					{
 						var cfg = goods.cfg;
