@@ -15,13 +15,13 @@ namespace SGame
 
 		}
 
-		static public bool EquipUpQuality(EquipItem equip, List<EquipItem> mats , out double count)
+		static public bool EquipUpQuality(EquipItem equip, List<EquipItem> mats, out double count, bool trigger = true)
 		{
-			count = 0; 
-			if (equip == null || mats.Count == 0) return false;
+			count = 0;
+			if (equip == null || (equip.qcfg.AdvanceType != 3 && mats.Count == 0)) return false;
 			var eqs = mats.ToArray();
 			count = DataCenter.EquipUtil.RecycleEquip(equip, false, false);
-			if (equip.qcfg.AdvanceType < 3)
+			if (equip.qcfg.AdvanceType != 3)
 				count += DataCenter.EquipUtil.RecycleEquips(false, false, eqs);
 			else
 				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPQUALITY_MAT, equip.qcfg.AdvanceValue, true);
@@ -33,25 +33,57 @@ namespace SGame
 			equip.level = 1;
 			equip.progress = 0;
 			equip.Refresh();
+			equip.isnew = 1;
 			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EQUIP_STAGE, 1);
 			EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_merge", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
-			DataCenter.EquipUtil.RemoveEquips(eqs);
+			DataCenter.EquipUtil.RemoveEquips(trigger, eqs);
 			log.Info($"[equip] recycle mat:{count}");
 			return true;
 
 		}
 
-		static public void EquipUpLevel(EquipItem equip)
+		static public bool EquipAutoUpQuality(out List<BaseEquip> equips, out double recycle)
 		{
-			if (equip != null && !equip.IsMaxLv())
+			equips = null;
+			recycle = 0D;
+			var list = DataCenter.EquipUtil.GetCombineList();
+			if (list?.Count > 0)
 			{
+				equips = new List<BaseEquip>();
+				foreach (var item in list)
+				{
+					if (item.Count > 0)
+					{
+						var eq = item[0];
+						item.RemoveAt(0);
+						if (EquipUpQuality(eq as EquipItem, item, out recycle, trigger: false))
+							equips.Add(eq);
+					}
+				}
+				EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+				log.Info("check: " + list.Count);
+				log.Info("add: " + equips.Count);
+
+				return equips.Count > 0;
+			}
+			return false;
+		}
+
+		static public double EquipUpLevel(EquipItem equip)
+		{
+			if (equip != null && !equip.IsMaxLv() && Utils.CheckItemCount(ConstDefine.EQUIP_UPLV_MAT, equip.upLvCost))
+			{
+				var cost = equip.upLvCost;
+				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, equip.upLvCost, true);
 				equip.level++;
 				equip.progress = 0;
 				equip.Refresh();
 				EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EQUIP_LEVEL, 1);
 				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_upgrade", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
+				return cost;
 			}
+			return 0;
 		}
 
 		static public void EquipRemake(EquipItem equip)
@@ -78,8 +110,8 @@ namespace SGame
 				if (equip.pos > 0) DataCenter.EquipUtil.PutOff(equip, true);
 				var count = DataCenter.EquipUtil.RecycleEquip(equip, true, false);
 				EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_decompose", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
-				Utils.ShowRewards(updatedata:true)
-					.Append(ConstDefine.EQUIP_UPLV_MAT, count, 1 , ignorezero:true)
+				Utils.ShowRewards(updatedata: true)
+					.Append(ConstDefine.EQUIP_UPLV_MAT, count, 1, ignorezero: true)
 					.Append(equip.qcfg.GetBreakRewardArray());
 
 			}

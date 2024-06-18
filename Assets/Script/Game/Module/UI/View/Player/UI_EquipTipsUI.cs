@@ -15,19 +15,17 @@ namespace SGame.UI.Player
         public Controller m_part;
         public GGraph m_maskbg;
         public GLabel m_body;
-        public GTextField m_qualitytips;
         public GTextField m_levelpstr;
         public GTextField m_attr;
         public GTextField m___attr;
         public GTextField m_nextlvattr;
+        public GButton m_func;
+        public GTextField m_qualitytips;
         public GTextField m_cost;
         public GLoader m_item;
-        public UI_uplevelprogress m_progress;
-        public GList m_list;
         public GButton m_click;
         public GButton m_up;
         public GButton m_click2;
-        public GButton m_func;
         public const string URL = "ui://cmw7t1elw46k1h";
 
         public static UI_EquipTipsUI CreateInstance()
@@ -47,19 +45,17 @@ namespace SGame.UI.Player
             m_part = GetControllerAt(5);
             m_maskbg = (GGraph)GetChildAt(0);
             m_body = (GLabel)GetChildAt(1);
-            m_qualitytips = (GTextField)GetChildAt(6);
-            m_levelpstr = (GTextField)GetChildAt(7);
-            m_attr = (GTextField)GetChildAt(8);
-            m___attr = (GTextField)GetChildAt(9);
-            m_nextlvattr = (GTextField)GetChildAt(10);
-            m_cost = (GTextField)GetChildAt(11);
-            m_item = (GLoader)GetChildAt(14);
-            m_progress = (UI_uplevelprogress)GetChildAt(15);
-            m_list = (GList)GetChildAt(17);
+            m_levelpstr = (GTextField)GetChildAt(5);
+            m_attr = (GTextField)GetChildAt(7);
+            m___attr = (GTextField)GetChildAt(8);
+            m_nextlvattr = (GTextField)GetChildAt(9);
+            m_func = (GButton)GetChildAt(11);
+            m_qualitytips = (GTextField)GetChildAt(15);
+            m_cost = (GTextField)GetChildAt(16);
+            m_item = (GLoader)GetChildAt(17);
             m_click = (GButton)GetChildAt(18);
             m_up = (GButton)GetChildAt(19);
             m_click2 = (GButton)GetChildAt(20);
-            m_func = (GButton)GetChildAt(21);
         }
     }
 }

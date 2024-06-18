@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FairyGUI;
+using SGame.UI.Common;
 using Unity.VisualScripting;
 
 namespace SGame.UI
@@ -35,17 +37,31 @@ namespace SGame.UI
 
 			if (_rewards?.Count > 0)
 			{
-				_call = args.Val<Action>(1);
-				var title = args.Val<string>(2, "@ui_reward_title");
-				var getreward = _get = args.Val<bool>(3, true);
-				m_view.SetText(title);
-				if (getreward == true)
-					PropertyManager.Instance.Insert2Cache(_rewards);
+				SetBaseInfo(args);
 				SetRewards();
-				this.Delay(() => _flag = true, 500);
+				if (_get == true) PropertyManager.Instance.Insert2Cache(_rewards);
 				return;
 			}
+			else
+			{
+				var call = args.Val<Action<UI_CommonRewardUI>>(4);
+				if (call != null)
+				{
+					SetBaseInfo(args);
+					call?.Invoke(m_view);
+					return;
+				}
+			}
 			SGame.UIUtils.CloseUI(context.entity);
+		}
+
+		void SetBaseInfo(object[] args)
+		{
+			_call = args.Val<Action>(1);
+			var title = args.Val<string>(2, "@ui_reward_title");
+			_get = args.Val<bool>(3, true);
+			m_view.SetText(title);
+			this.Delay(() => _flag = true, 500);
 		}
 
 		partial void UnInitLogic(UIContext context)
@@ -93,6 +109,7 @@ namespace SGame
 		static public readonly ItemList Current = new ItemList();
 
 		public readonly List<double[]> vals = new List<double[]>();
+		public string tips;
 
 		public ItemList Append(int id, double count, int type = 1, bool clear = false, bool ignorezero = false)
 		{
@@ -163,6 +180,13 @@ namespace SGame
 
 		}
 
+		public ItemList SetTips(string tips)
+		{
+
+			this.tips = tips;
+			return this;
+		}
+
 		static double To(int val) => val;
 	}
 
@@ -185,10 +209,12 @@ namespace SGame
 			UIUtils.OpenUI("rewardlist", rewards, closeCall, title, updatedata);
 		}
 
-		static public ItemList ShowRewards(Action closeCall = null, string title = null, bool updatedata = true)
+		static public ItemList ShowRewards(
+			Action closeCall = null, string title = null, bool updatedata = true,
+			Action<UI_CommonRewardUI> contentCall = null)
 		{
 			var list = new ItemList();
-			UIUtils.OpenUI("rewardlist", list, closeCall, title, updatedata);
+			UIUtils.OpenUI("rewardlist", list, closeCall, title, updatedata, contentCall);
 			return list;
 		}
 

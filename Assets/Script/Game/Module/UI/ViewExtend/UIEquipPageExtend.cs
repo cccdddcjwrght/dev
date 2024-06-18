@@ -15,29 +15,42 @@ namespace SGame.UI.Player
 
 		private Action<int, GObject> eqclick;
 
-		public UI_EquipPage Init(Action<int, GObject> eqclick)
+		public UI_EquipPage Init(Action<int, GObject> eqclick, Action<int> uplvClick = null)
 		{
 
 			this.eqclick = eqclick;
-			m_eq1.onClick.Clear();
-			m_eq1.onClick.Add((e) => OnEqClick(1, e));
-			m_eq2.onClick.Clear();
-			m_eq2.onClick.Add((e) => OnEqClick(2, e));
-			m_eq3.onClick.Clear();
-			m_eq3.onClick.Add((e) => OnEqClick(3, e));
-			m_eq4.onClick.Clear();
+			m_eq1.m_body.onClick.Clear();
+			m_eq1.m_body.onClick.Add((e) => OnEqClick(1, e));
+			m_eq2.m_body.onClick.Clear();
+			m_eq2.m_body.onClick.Add((e) => OnEqClick(2, e));
+			m_eq3.m_body.onClick.Clear();
+			m_eq3.m_body.onClick.Add((e) => OnEqClick(3, e));
+
+			/*m_eq4.onClick.Clear();
 			m_eq4.onClick.Add((e) => OnEqClick(4, e));
 			m_eq5.onClick.Clear();
 			m_eq5.onClick.Add((e) => OnEqClick(5, e));
 			m_eq6.onClick.Clear();
-			m_eq6.onClick.Add((e) => OnEqClick(6, e));
+			m_eq6.onClick.Add((e) => OnEqClick(6, e));*/
 
 			swipe = new SwipeGesture(m_model);
 			swipe.onMove.Add(OnTouchMove);
 			goWrapper = new GoWrapper();
 			m_holder.SetNativeObject(goWrapper);
-			m_holder.z = -50;
+			m_holder.z = -150;
 			m_attrbtn.onClick.Add(OnAttrBtnClick);
+
+			if (uplvClick != null)
+			{
+				m_eq1.m_upclick.onClick.Clear();
+				m_eq2.m_upclick.onClick.Clear();
+				m_eq3.m_upclick.onClick.Clear();
+
+				m_eq1.m_upclick.onClick.Add(() => uplvClick?.Invoke(1));
+				m_eq2.m_upclick.onClick.Add(() => uplvClick?.Invoke(2));
+				m_eq3.m_upclick.onClick.Add(() => uplvClick?.Invoke(3));
+			}
+
 			return this;
 		}
 
@@ -62,22 +75,27 @@ namespace SGame.UI.Player
 			{
 				IList<BaseEquip> eqs = DataCenter.Instance.equipData.equipeds;
 
-				UIListenerExt.SetEquipInfo(m_eq1, eqs[1],true , 1);
-				UIListenerExt.SetEquipInfo(m_eq2, eqs[2], true, 2);
-				UIListenerExt.SetEquipInfo(m_eq3, eqs[3], true, 3);
-				UIListenerExt.SetEquipInfo(m_eq4, eqs[4], true, 4);
+				UIListenerExt.SetEquipInfo(m_eq1, eqs[1], true, 1, lvformat: "ui_level_progress", hideother: false);
+				UIListenerExt.SetEquipInfo(m_eq2, eqs[2], true, 2, lvformat: "ui_level_progress", hideother: false);
+				UIListenerExt.SetEquipInfo(m_eq3, eqs[3], true, 3, lvformat: "ui_level_progress", hideother: false);
+				/*UIListenerExt.SetEquipInfo(m_eq4, eqs[4], true, 4);
 				UIListenerExt.SetEquipInfo(m_eq5, eqs[5], true, 5);
-				UIListenerExt.SetEquipInfo(m_eq6, eqs[6], true, 6);
+				UIListenerExt.SetEquipInfo(m_eq6, eqs[6], true, 6);*/
 			}
 			else
 			{
 				for (int i = 1; i <= 6; i++)
 				{
 					var e = roleData.equips.Find(e => e.type == i);
-					UIListenerExt.SetEquipInfo(GetChild("eq" + i), e, true , i);
+					UIListenerExt.SetEquipInfo(GetChildByPath($"eq{i}.body"), e, true, i);
 				}
 			}
 
+			return this;
+		}
+
+		public UI_EquipPage UpdateEqState()
+		{
 			return this;
 		}
 
@@ -101,7 +119,7 @@ namespace SGame.UI.Player
 
 		private void OnEqClick(int index, EventContext context)
 		{
-			eqclick?.Invoke(index, context.sender as GObject);
+			eqclick?.Invoke(index, (context.sender as GObject).parent);
 			if (roleData != null && roleData.isEmployee)
 			{
 				var e = roleData.equips.Find(e => e != null && e.type == index);
@@ -113,7 +131,7 @@ namespace SGame.UI.Player
 		IEnumerator CreateRole()
 		{
 			yield return null;
-			var wait = Utils.GenCharacter(DataCenter.EquipUtil.GetRoleEquipString(roleData != null ? roleData.roleTypeID : 0, roleData?.equips , false));
+			var wait = Utils.GenCharacter(DataCenter.EquipUtil.GetRoleEquipString(roleData != null ? roleData.roleTypeID : 0, roleData?.equips, false));
 			yield return wait;
 			var go = wait.Current as GameObject;
 			if (go)

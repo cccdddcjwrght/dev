@@ -288,13 +288,14 @@ namespace SGame
 				}
 			}
 
-			static public void RemoveEquips(params EquipItem[] equips)
+			static public void RemoveEquips(bool trigger = true, params EquipItem[] equips)
 			{
 				if (equips?.Length > 0)
 				{
 					foreach (var item in equips)
 						RemoveEquip(item, false);
-					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+					if (trigger)
+						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 				}
 			}
 
@@ -479,11 +480,118 @@ namespace SGame
 				return num;
 			}
 
+			static public List<List<EquipItem>> GetCombineList(int qualitymask = -1)
+			{
+				if (qualitymask < 0)
+				{
+					List<List<EquipItem>> rets = new List<List<EquipItem>>();
+					for (int i = 1; i < (int)EnumQuality.Max; i++)
+					{
+						if (qualitymask < 0 || i.IsInState(qualitymask))
+							GetCombineListByQuality(i, ref rets);
+					}
+					return rets;
+				}
+				return default;
+			}
+
+			static public bool FindEquip(List<EquipItem> equips, int count, ref List<EquipItem> rets,
+				int start = 0, int quality = 0, int type = 0, int id = 0)
+			{
+				if (count > 0 && equips?.Count > start && equips.Count - start >= count)
+				{
+					rets = rets ?? new List<EquipItem>();
+					rets.Clear();
+					var s = type == 0 && id == 0 ? 0 : start;
+					for (int i = s; i < equips.Count && count > 0; i++)
+					{
+						var eq = equips[i];
+						if (eq.temp != 0) continue;
+						if (quality != 0 && quality != eq.quality) continue;
+						//由于已经按照部位和id排序，所以如果一个不符合就直接结束
+						if (type != 0 && type != eq.cfg.Type) break;
+						if (id != 0 && id != eq.cfgID) break;
+						rets.Add(eq);
+						count--;
+					}
+					if (count <= 0)
+					{
+						foreach (var item in rets) item.temp = 1;
+						return true;
+					}
+				}
+				return false;
+			}
+
+			static public bool GetCombineListByQuality(int quality, ref List<List<EquipItem>> list)
+			{
+				bool FindConditon(BaseEquip equip)
+				{
+					equip.temp = 0;
+					return equip.quality == quality;
+				}
+				if (quality > 0 && quality < ((int)EnumQuality.Max))
+				{
+					var eqs = _data.items.FindAll(FindConditon);
+					if (eqs?.Count > 0)
+					{
+						if (eqs.Count > 1) eqs.Sort(SortEqLevel);
+						var allmatcount = PropertyManager.Instance.GetItem(ConstDefine.EQUIP_UPQUALITY_MAT).num;
+						list = list ?? new List<List<EquipItem>>();
+						for (int i = 0; i < eqs.Count; i++)
+						{
+							var eq = eqs[i]; var cid = 0; var ctype = 0; var cq = quality;
+							var val = eq.qcfg.AdvanceValue;
+							if (eq.temp != 0) continue;
+							var packs = new List<EquipItem>();
+							if (eq.qcfg.AdvanceType == 3)
+							{
+								if (allmatcount >= val)
+								{ eq.temp = 1; allmatcount -= val; }
+							}
+							else
+							{
+								switch (eq.qcfg.AdvanceType)
+								{
+									case 2: ctype = eq.type; break;
+									case 4: cid = eq.cfgID; break;
+								}
+								eq.temp = 1;
+								if (eqs.Count - 1 < val || !FindEquip(eqs, val, ref packs, i + 1, quality: quality, type: ctype, id: cid))
+								{
+									eq.temp = 0;
+								}
+							}
+							if (eq.temp != 0)
+							{
+								packs.Insert(0, eq);
+								list.Add(packs);
+							}
+						}
+						return list.Count > 0;
+					}
+				}
+				return false;
+			}
+
 			static private void OnRoleEquipChange(bool remove = false)
 			{
 				EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = EQ_FROM_ID });
 				if (!remove)
 					GetEquipBuffList(_data.equipeds)?.ForEach(buff => EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), buff));
+			}
+
+
+			static private int SortEqLevel(BaseEquip a, BaseEquip b)
+			{
+				var ret = a.type.CompareTo(b.type);
+				if (ret == 0)
+				{
+					ret = a.cfgID.CompareTo(b.cfgID);
+					if (ret == 0)
+						ret = a.level.CompareTo(b.level);
+				}
+				return ret;
 			}
 
 		}
@@ -546,6 +654,9 @@ namespace SGame
 		[NonSerialized]
 		public List<int[]> mats;
 
+		[NonSerialized]
+		public int temp;
+
 		public int upLvCost { get; private set; }
 		public int type { get { return cfg.IsValid() ? cfg.Type : _type; } }
 		public string name { get { return cfg.IsValid() && _name == null ? cfg.Name : _name; } }
@@ -599,6 +710,8 @@ namespace SGame
 			{
 				if (type < 5)
 				{
+					//屏蔽词条
+					_effects = new List<int[]>();
 					this.level = Math.Max(1, this.level);
 					if (effectID == 0)
 						effectID = DataCenter.EquipUtil.RandomEffects(this.cfg.Type, out _effects);
@@ -665,10 +778,10 @@ namespace SGame
 
 		public List<int[]> GetEffects(bool valid = false)
 		{
-			if (_effects == null && effectID > 0)
-				_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
-			if (valid && _effects != null)
-				return _effects.Take(quality - 1).ToList();
+			/*if (_effects == null && effectID > 0)
+				_effects =  DataCenter.EquipUtil.ConvertId2Effects(type, effectID);//屏蔽词条
+			if (valid && _effects != null && _effects.Count > 0)
+				return _effects.Take(quality - 1).ToList();*/
 			return _effects;
 		}
 

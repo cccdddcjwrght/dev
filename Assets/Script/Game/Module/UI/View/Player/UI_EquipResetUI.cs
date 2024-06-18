@@ -27,9 +27,9 @@ namespace SGame.UI.Player
             m_func = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
             m_equip = (UI_Equip)GetChildAt(5);
-            m_click = (GButton)GetChildAt(7);
-            m_click2 = (GButton)GetChildAt(8);
-            m_list = (GList)GetChildAt(9);
+            m_click = (GButton)GetChildAt(6);
+            m_click2 = (GButton)GetChildAt(7);
+            m_list = (GList)GetChildAt(8);
         }
     }
 }

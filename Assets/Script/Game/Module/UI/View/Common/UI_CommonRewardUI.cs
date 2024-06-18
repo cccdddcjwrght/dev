@@ -8,6 +8,8 @@ namespace SGame.UI.Common
     public partial class UI_CommonRewardUI : GLabel
     {
         public GList m_list;
+        public GLoader m_loader;
+        public GRichTextField m_tips;
         public Transition m_doshow;
         public const string URL = "ui://2w8thcm7gkcg3lhz";
 
@@ -21,6 +23,8 @@ namespace SGame.UI.Common
             base.ConstructFromXML(xml);
 
             m_list = (GList)GetChildAt(3);
+            m_loader = (GLoader)GetChildAt(4);
+            m_tips = (GRichTextField)GetChildAt(5);
             m_doshow = GetTransitionAt(0);
         }
     }

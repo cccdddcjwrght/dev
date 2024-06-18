@@ -33,7 +33,10 @@ namespace SGame.UI
 			if (m_view.m_eqTab.selectedIndex == 2)
 				OnEquipSuitPage();
 			else
+			{
+				m_view.m_EquipPage.SetEquipInfo();
 				SetEquipList();
+			}
 		}
 
 		private void OnPlayerEquipChange()

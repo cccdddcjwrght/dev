@@ -42,7 +42,7 @@ namespace SGame.UI
 			maxchangeval = GlobalDesginConfig.GetInt("eqtips_max_addval", 20);
 
 			pressHandler = new LongPressGesture(m_view.m_up) { once = false, interval = interval, trigger = checktime };
-			pressHandler.onBegin.Add(OnBegin);
+			pressHandler.onAction.Add(OnUpClick);
 			pressHandler.onEnd.Add(() => pressFlag = false);
 
 
@@ -52,7 +52,6 @@ namespace SGame.UI
 			else { equip = new EquipItem() { cfgID = eq.cfgID, level = eq.level, quality = eq.quality, progress = 0 }; equip.Refresh(); }
 			showBtn = (context.GetParam().Value as object[]).Val<bool>(1, true);
 
-			m_view.m_list.itemRenderer = OnSetEffect;
 			m_view.m_flag.selectedIndex = showBtn ? 0 : 1;
 			SetInfo();
 			SetEffectsInfo();
@@ -81,8 +80,7 @@ namespace SGame.UI
 
 		void SetEffectsInfo()
 		{
-			effects = DataCenter.EquipUtil.GetEquipEffects(equip, null, false);
-			m_view.m_list.numItems = (int)effects?.Count;
+
 		}
 
 		void SetSimpleInfo(bool uplv = true)
@@ -98,26 +96,14 @@ namespace SGame.UI
 			}
 			if (m_view.m_lvmax.selectedIndex == 0)
 			{
-				m_view.m_progress.value = equip.progress;
-				m_view.m_progress.max = equip.upLvCost;
-				m_view.m_cost.SetText("x" + Utils.ConvertNumberStr(itemcount));
-				m_view.m_up.grayed = itemcount <= 0;
+				m_view.m_cost.SetText("x" + Utils.ConvertNumberStr(equip.upLvCost));
+				m_view.m_up.grayed = itemcount < equip.upLvCost;
 				if (uplv)
 					m_view.m_nextlvattr.SetText("+" + equip.GetNextAttrVal() + "%", false);
 
 			}
-			else
-			{
-				m_view.m_progress.value = 1;
-				m_view.m_progress.max = 1;
-				//m_view.m_nextlvattr.SetTextByKey("ui_equip_lvmax");
-			}
 			if (!showBtn)
-			{
 				m_view.m_hide.selectedIndex = 1;
-				m_view.m_progress.value = 1;
-				m_view.m_progress.max = 1;
-			}
 		}
 
 		void OnSetEffect(int index, GObject gObject)
@@ -152,9 +138,8 @@ namespace SGame.UI
 
 		partial void OnFuncClick(EventContext data)
 		{
-			var index = m_view.m_funcType.selectedIndex;
 			var eq = equip;
-			SGame.UIUtils.OpenUI("equipreset", eq, index);
+			SGame.UIUtils.OpenUI("equipreset", eq, 0);
 			DoCloseUIClick(null);
 		}
 
@@ -165,52 +150,11 @@ namespace SGame.UI
 				"@ui_equip_uplv_error1".Tips();
 				return;
 			}
-			var v = changeVal > itemcount ? itemcount : Math.Max(changeVal,1);
-			itemcount -= RequestExcuteSystem.EquipAddExp(equip, (int)v, out var state);
-			PropertyManager.Instance.GetGroup(1).SetNum(ConstDefine.EQUIP_UPLV_MAT, Math.Max(0, itemcount));
-			if (state)
-			{
-				changeVal = 1;
-				needRefreshPlayUI = true;
-				RequestExcuteSystem.EquipUpLevel(equip);
-			}
-			SetSimpleInfo(state);
-
-		}
-
-		void OnBegin()
-		{
-
-			void AddExp() => OnUpClick(null);
-
-			IEnumerator Run()
-			{
-				var interval = this.interval;
-				var need = equip.upLvCost;
-				var max = 1;
-				var add = changeVal = 1;
-				while (pressFlag && itemcount > 0 && !equip.IsMaxLv())
-				{
-					if (changeVal > 0)
-						AddExp();
-					need = equip.upLvCost;
-					max = (int)Math.Ceiling(need * Math.Max(1, maxchangeval) * 0.01f);
-					yield return new WaitForSeconds(interval);
-					if (interval >= mininterval)
-						interval -= (interval - mininterval) * 0.1f;
-					if (changeVal < max)
-						changeVal = Math.Min(changeVal + (add *= 3), max);
-				}
-				changeVal = 1;
-				SetInfo();
-			}
-
-
-			if (itemcount > 0)
-			{
-				pressFlag = true;
-				Run().Start();
-			}
+			needRefreshPlayUI = true;
+			itemcount -= RequestExcuteSystem.EquipUpLevel(equip);
+			SetSimpleInfo();
+			if (itemcount < equip.upLvCost)
+				pressHandler.Cancel();
 
 		}
 

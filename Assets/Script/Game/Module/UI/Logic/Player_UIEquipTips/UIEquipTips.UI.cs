@@ -20,12 +20,10 @@ namespace SGame.UI{
 			m_view.m_flag.onChanged.Add(new EventCallback1(_OnFlagChanged));
 			m_view.m_part.onChanged.Add(new EventCallback1(_OnPartChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
-			m_view.m_progress.m_state.onChanged.Add(new EventCallback1(_Onuplevelprogress_StateChanged));
-			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
+			UIListener.Listener(m_view.m_func, new EventCallback1(_OnFuncClick));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick));
 			UIListener.Listener(m_view.m_click2, new EventCallback1(_OnClick2Click));
-			UIListener.Listener(m_view.m_func, new EventCallback1(_OnFuncClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -36,12 +34,10 @@ namespace SGame.UI{
 			m_view.m_flag.onChanged.Remove(new EventCallback1(_OnFlagChanged));
 			m_view.m_part.onChanged.Remove(new EventCallback1(_OnPartChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
-			m_view.m_progress.m_state.onChanged.Remove(new EventCallback1(_Onuplevelprogress_StateChanged));
-			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
+			UIListener.Listener(m_view.m_func, new EventCallback1(_OnFuncClick),remove:true);
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 			UIListener.Listener(m_view.m_up, new EventCallback1(_OnUpClick),remove:true);
 			UIListener.Listener(m_view.m_click2, new EventCallback1(_OnClick2Click),remove:true);
-			UIListener.Listener(m_view.m_func, new EventCallback1(_OnFuncClick),remove:true);
 
 		}
 		void _OnQualityChanged(EventContext data){
@@ -83,8 +79,6 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
-		void SetQualitytipsText(string data)=>UIListener.SetText(m_view.m_qualitytips,data);
-		string GetQualitytipsText()=>UIListener.GetText(m_view.m_qualitytips);
 		void SetLevelpstrText(string data)=>UIListener.SetText(m_view.m_levelpstr,data);
 		string GetLevelpstrText()=>UIListener.GetText(m_view.m_levelpstr);
 		void SetAttrText(string data)=>UIListener.SetText(m_view.m_attr,data);
@@ -93,21 +87,16 @@ namespace SGame.UI{
 		string Get__attrText()=>UIListener.GetText(m_view.m___attr);
 		void SetNextlvattrText(string data)=>UIListener.SetText(m_view.m_nextlvattr,data);
 		string GetNextlvattrText()=>UIListener.GetText(m_view.m_nextlvattr);
+		void _OnFuncClick(EventContext data){
+			OnFuncClick(data);
+		}
+		partial void OnFuncClick(EventContext data);
+		void SetFuncText(string data)=>UIListener.SetText(m_view.m_func,data);
+		string GetFuncText()=>UIListener.GetText(m_view.m_func);
+		void SetQualitytipsText(string data)=>UIListener.SetText(m_view.m_qualitytips,data);
+		string GetQualitytipsText()=>UIListener.GetText(m_view.m_qualitytips);
 		void SetCostText(string data)=>UIListener.SetText(m_view.m_cost,data);
 		string GetCostText()=>UIListener.GetText(m_view.m_cost);
-		void _Onuplevelprogress_StateChanged(EventContext data){
-			Onuplevelprogress_StateChanged(data);
-		}
-		partial void Onuplevelprogress_StateChanged(EventContext data);
-		void Switchuplevelprogress_StatePage(int index)=>m_view.m_progress.m_state.selectedIndex=index;
-		void _OnProgressClick(EventContext data){
-			OnProgressClick(data);
-		}
-		partial void OnProgressClick(EventContext data);
-		void SetProgressValue(float data)=>UIListener.SetValue(m_view.m_progress,data);
-		float GetProgressValue()=>UIListener.GetValue(m_view.m_progress);
-		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
-		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
 		void _OnClickClick(EventContext data){
 			OnClickClick(data);
 		}
@@ -126,12 +115,6 @@ namespace SGame.UI{
 		partial void OnClick2Click(EventContext data);
 		void SetClick2Text(string data)=>UIListener.SetText(m_view.m_click2,data);
 		string GetClick2Text()=>UIListener.GetText(m_view.m_click2);
-		void _OnFuncClick(EventContext data){
-			OnFuncClick(data);
-		}
-		partial void OnFuncClick(EventContext data);
-		void SetFuncText(string data)=>UIListener.SetText(m_view.m_func,data);
-		string GetFuncText()=>UIListener.GetText(m_view.m_func);
 
 	}
 }

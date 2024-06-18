@@ -11,6 +11,7 @@ namespace SGame.UI
 	using SGame.UI.Main;
 	using System.Linq;
 	using System.Collections;
+	using SGame.UI.Common;
 
 	public partial class UIPlayer
 	{
@@ -39,7 +40,6 @@ namespace SGame.UI
 			m_view.m_eqTab.selectedIndex = 0;
 			OnDataRefresh(false);
 
-			m_view.m_suit.onClick.AddCapture(OnCheckTabOpen);
 			m_view.m_equipup.onClick.AddCapture(OnCheckTabOpen);
 
 
@@ -70,7 +70,10 @@ namespace SGame.UI
 
 		private void InitEquipPage()
 		{
-			m_view.m_EquipPage.Init((i, g) => OnEqClick(g, DataCenter.Instance.equipData.equipeds[i]));
+			m_view.m_EquipPage.Init(
+				(i, g) => OnEqClick(g, DataCenter.Instance.equipData.equipeds[i]),
+				(i) => RequestExcuteSystem.EquipUpLevel(DataCenter.Instance.equipData.equipeds[i])
+			);
 		}
 
 		private void OnEquipPage()
@@ -118,7 +121,6 @@ namespace SGame.UI
 			m_view.m_EquipQuality.m_nexteq.SetEquipInfo(next, true);
 			m_view.m_EquipQuality.m_curattr.SetText(string.Format(pstr, _current.GetAttrVal(false)), false);
 			m_view.m_EquipQuality.m_nextattr.SetText(string.Format(pstr, next.GetAttrVal(false)), false);
-			m_view.m_EquipQuality.m_addeffect.SetInfo(next);
 
 		}
 
@@ -135,6 +137,9 @@ namespace SGame.UI
 					break;
 				case 2:
 					eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality && _current.type == e.type);
+					break;
+				case 4:
+					eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality && _current.cfgID == e.cfgID);
 					break;
 				case 3:
 					matcount = 1;
@@ -180,7 +185,7 @@ namespace SGame.UI
 
 		void EquipSelectUp(GObject gObject, EquipItem data)
 		{
-			var eq = gObject as UI_Equip;
+			var eq = (gObject as UI_EqPos).m_body;
 			if (_current == null)
 			{
 				if (data.quality >= 7) { "@ui_equip_max_quality".Tips(); return; }
@@ -245,6 +250,33 @@ namespace SGame.UI
 				SGame.UIUtils.OpenUI("upqualitytips", _current, count);
 				SwitchEquipUpQuality_StatePage(0);
 			}
+		}
+
+		partial void OnEquipUpQuality_MergeClick(EventContext data)
+		{
+
+			if (RequestExcuteSystem.EquipAutoUpQuality(out var eqs, out var recycle))
+				SGame.Utils.ShowRewards(title: "@ui_equip_merge_title", contentCall: (view) => ShowRewardContent(view, eqs, recycle));
+			else
+				"@ui_equip_merge_tips".Tips();
+		}
+
+		void ShowRewardContent(UI_CommonRewardUI view, List<BaseEquip> eqs, double recycle)
+		{
+			const string rich_text = "<img src='{0}' width='45%' height='45%' />";
+			if (recycle > 0)
+			{
+				var url = UIListener.GetUIResFromPkgs(Utils.GetItemIcon(1, ConstDefine.EQUIP_UPLV_MAT));
+				view.m_tips.SetText("ui_equip_upquality_recycle".Local(null, Utils.ConvertNumberStr(recycle)) + string.Format(rich_text, url));
+			}
+
+			view.m_list.columnGap = 25;
+			SGame.UIUtils.AddListItems(view.m_list, eqs, SetRewardEqView, res: "ui://Player/EquipBox");
+		}
+
+		void SetRewardEqView(int index , object data , GObject g)
+		{
+			g.asCom.GetChild("body").SetEquipInfo(data as BaseEquip, true);
 		}
 
 		#endregion
@@ -327,10 +359,11 @@ namespace SGame.UI
 		{
 			gObject.name = index.ToString();
 			var info = _eqs[index];
-			(gObject as UI_Equip).SetEquipInfo(info);
-			(gObject as UI_Equip).onClick.Clear();
-			(gObject as UI_Equip).onClick.Add(() => OnEqClick(gObject, info));
-			(gObject as UI_Equip).m_select.selectedIndex = info.selected ? 1 : 0;
+			var eq = (gObject as UI_EqPos).m_body;
+			gObject.SetEquipInfo(info);
+			eq.onClick.Clear();
+			eq.onClick.Add(() => OnEqClick(gObject, info));
+			eq.m_select.selectedIndex = info.selected ? 1 : 0;
 		}
 
 		void OnEqClick(GObject gObject, EquipItem data)

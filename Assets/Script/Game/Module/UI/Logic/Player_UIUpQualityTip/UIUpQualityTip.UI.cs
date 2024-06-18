@@ -14,9 +14,6 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_body.m_state.onChanged.Add(new EventCallback1(_OnUpQualityTipBody_StateChanged));
-			m_view.m_body.m_addeffect.m_quality.onChanged.Add(new EventCallback1(_Onattrlabel_Body_addeffect_qualityChanged));
-			m_view.m_body.m_addeffect.m_lock.onChanged.Add(new EventCallback1(_Onattrlabel_Body_addeffect_lockChanged));
-			UIListener.ListenerIcon(m_view.m_body.m_addeffect, new EventCallback1(_OnUpQualityTipBody_AddeffectClick));
 			m_view.m_body.m_equip.m_type.onChanged.Add(new EventCallback1(_OnEquip_Bodyquip_typeChanged));
 			m_view.m_body.m_equip.m_quality.onChanged.Add(new EventCallback1(_OnEquip_Bodyquip_qualityChanged));
 			UIListener.Listener(m_view.m_body.m_equip, new EventCallback1(_OnUpQualityTipBody_EquipClick));
@@ -26,9 +23,6 @@ namespace SGame.UI{
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_body.m_state.onChanged.Remove(new EventCallback1(_OnUpQualityTipBody_StateChanged));
-			m_view.m_body.m_addeffect.m_quality.onChanged.Remove(new EventCallback1(_Onattrlabel_Body_addeffect_qualityChanged));
-			m_view.m_body.m_addeffect.m_lock.onChanged.Remove(new EventCallback1(_Onattrlabel_Body_addeffect_lockChanged));
-			UIListener.ListenerIcon(m_view.m_body.m_addeffect, new EventCallback1(_OnUpQualityTipBody_AddeffectClick),remove:true);
 			m_view.m_body.m_equip.m_type.onChanged.Remove(new EventCallback1(_OnEquip_Bodyquip_typeChanged));
 			m_view.m_body.m_equip.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_Bodyquip_qualityChanged));
 			UIListener.Listener(m_view.m_body.m_equip, new EventCallback1(_OnUpQualityTipBody_EquipClick),remove:true);
@@ -51,18 +45,14 @@ namespace SGame.UI{
 			Onattrlabel_Body_addeffect_qualityChanged(data);
 		}
 		partial void Onattrlabel_Body_addeffect_qualityChanged(EventContext data);
-		void Switchattrlabel_Body_addeffect_qualityPage(int index)=>m_view.m_body.m_addeffect.m_quality.selectedIndex=index;
 		void _Onattrlabel_Body_addeffect_lockChanged(EventContext data){
 			Onattrlabel_Body_addeffect_lockChanged(data);
 		}
 		partial void Onattrlabel_Body_addeffect_lockChanged(EventContext data);
-		void Switchattrlabel_Body_addeffect_lockPage(int index)=>m_view.m_body.m_addeffect.m_lock.selectedIndex=index;
 		void _OnUpQualityTipBody_AddeffectClick(EventContext data){
 			OnUpQualityTipBody_AddeffectClick(data);
 		}
 		partial void OnUpQualityTipBody_AddeffectClick(EventContext data);
-		void SetUpQualityTipBody_Body_addeffectText(string data)=>UIListener.SetText(m_view.m_body.m_addeffect,data);
-		string GetUpQualityTipBody_Body_addeffectText()=>UIListener.GetText(m_view.m_body.m_addeffect);
 		void _OnEquip_Bodyquip_typeChanged(EventContext data){
 			OnEquip_Bodyquip_typeChanged(data);
 		}

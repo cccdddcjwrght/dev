@@ -4,6 +4,7 @@ using FairyGUI;
 using GameConfigs;
 using SGame;
 using SGame.UI;
+using SGame.UI.Player;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,8 +31,21 @@ partial class UIListenerExt
 		}
 	}
 
-	static public bool SetEquipInfo(this GObject gObject, BaseEquip equip, bool hidered = false, int part = 0, double needcount = 0, bool showmask = false)
+	static public bool SetEquipInfo(
+		this GObject gObject,
+		BaseEquip equip,
+		bool hidered = false, int part = 0, double needcount = 0, bool showmask = false,
+		string lvformat = null,
+		bool hideother = true
+	)
 	{
+		var root = gObject;
+		if (root is UI_EqPos eqPos)
+		{
+			gObject = eqPos.m_body;
+			if (!hideother)
+				eqPos.SetEquipUpState(equip);
+		}
 		if (equip == null || equip.cfgID <= 0)
 		{
 			UIListener.SetControllerSelect(gObject, "type", 0, false);
@@ -43,25 +57,28 @@ partial class UIListenerExt
 			var issuit = equip.type < 100 && equip.level == 0;//Ì××°Í¼Ö½
 			if (issuit || equip.type < 100)
 			{
+				lvformat = lvformat ?? "ui_equip_lv_format";
 				UIListener.SetControllerSelect(gObject, "type", 1, false);
 				SetEquipInfo(gObject, equip.cfg, false);
-				UIListener.SetTextWithName(gObject, "level", equip.level.ToString() , false);
+				UIListener.SetTextWithName(gObject, "level", lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
+
 				UIListener.SetControllerSelect(gObject, "quality", equip.quality, false);
 				UIListener.SetTextWithName(gObject, "qname", $"ui_quality_name_{equip.quality}".Local());
-				UIListener.SetTextWithName(gObject, "attribute", "+" + equip.GetAttrVal() + "%" , false);
+				UIListener.SetTextWithName(gObject, "attribute", "+" + equip.GetAttrVal() + "%", false);
 				UIListener.SetControllerSelect(gObject, "suitmat", issuit ? 1 : 0, false);
-				UIListener.SetTextWithName(gObject, "count", equip.count == 0 ? "" : Utils.ConvertNumberStr(equip.count) , false);
+				UIListener.SetTextWithName(gObject, "count", equip.count == 0 ? "" : Utils.ConvertNumberStr(equip.count), false);
 
 				if (!hidered)
-					UIListener.SetControllerSelect(gObject, "__redpoint", (equip.isnew == 1 || equip.CheckMats()) ? 1 : 0, false);
+					UIListener.SetControllerSelect(root, "__redpoint", (equip.isnew == 1 || equip.CheckMats()) ? 1 : 0, false);
 				if (equip.qcfg.IsValid())
-					UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax) , false);
+					UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax), false);
 			}
 			else
 			{
 				gObject.SetIcon(equip.icon);
 				UIListener.SetControllerSelect(gObject, "type", 2, false);
-				if (!hidered) UIListener.SetControllerSelect(gObject, "__redpoint", equip.isnew, false);
+				if (!hidered)
+					UIListener.SetControllerSelect(root, "__redpoint", equip.isnew, false);
 				var c = Utils.ConvertNumberStr(equip.count);
 				if (needcount <= 0)
 					UIListener.SetTextWithName(gObject, "count", equip.count > 0 ? c : $"[color=#ff0000]{c}[/color]");
@@ -70,7 +87,7 @@ partial class UIListenerExt
 					var f = equip.count >= needcount;
 					var n = Utils.ConvertNumberStr(needcount);
 					var s = needcount == 1 ? null : (equip.count >= needcount ? "ui_equip_mat_tips1" : "ui_equip_mat_tips2").Local(null, c, n);
-					UIListener.SetTextWithName(gObject, "count", s , false);
+					UIListener.SetTextWithName(gObject, "count", s, false);
 					if (showmask)
 						UIListener.SetControllerSelect(gObject, "mask", needcount > equip.count ? 1 : 0, false);
 					return f;
@@ -90,6 +107,21 @@ partial class UIListenerExt
 			UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax));
 	}
 
+	static public void SetEquipUpState(this UI_EqPos pos, BaseEquip equip)
+	{
+		if (pos != null)
+		{
+			if (equip == null || !equip.cfg.IsValid()) pos.m_state.selectedIndex = 0;
+			else if (equip.IsMaxLv()) pos.m_state.selectedIndex = 2;
+			else
+			{
+				pos.m_state.selectedIndex = 1;
+				pos.m_currency.SetIcon(Utils.GetItemIcon(1, ConstDefine.EQUIP_UPLV_MAT));
+				pos.SetText(Utils.ConvertNumberStr(equip.upLvCost), false);
+				pos.m_attr.SetText("+" + equip.GetNextAttrVal().ToString() + "%", false);
+			}
+		}
+	}
 }
 
 

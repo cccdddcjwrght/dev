@@ -25,10 +25,10 @@ namespace SGame.UI
 				DoCloseUIClick(null);
 				return;
 			}
+			flag = false;
 
 			m_view.m_body.SetEquipInfo(equip, true);
 			m_view.m_body.m_equip.SetEquipInfo(equip, true);
-			m_view.m_body.m_addeffect.SetInfo(equip);
 			m_view.m_body.m_state.selectedIndex = recycle > 0 ? 1 : 0;
 			m_view.m_body.m_recycle.SetText("ui_equip_upquality_recycle".Local(null, recycle), false);
 			UIListener.Listener(m_view, new EventCallback1(OnClick));
@@ -41,6 +41,7 @@ namespace SGame.UI
 			effect = EffectSystem.Instance.AddEffect(28, m_view.m_body);
 			yield return EffectSystem.Instance.WaitEffectLoaded(effect);
 			anim.Play();
+			yield return null;
 			flag = true;
 		}
 

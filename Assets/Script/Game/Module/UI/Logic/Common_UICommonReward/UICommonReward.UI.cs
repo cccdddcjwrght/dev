@@ -18,6 +18,8 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 
 		}
+		void SetTipsText(string data)=>UIListener.SetText(m_view.m_tips,data);
+		string GetTipsText()=>UIListener.GetText(m_view.m_tips);
 
 	}
 }

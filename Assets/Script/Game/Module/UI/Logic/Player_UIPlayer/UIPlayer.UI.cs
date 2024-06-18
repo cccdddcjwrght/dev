@@ -14,12 +14,28 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			m_view.m_eqTab.onChanged.Add(new EventCallback1(_OnEqTabChanged));
+			m_view.m_c1.onChanged.Add(new EventCallback1(_OnC1Changed));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_EquipPage.m_bg.onChanged.Add(new EventCallback1(_OnEquipPage_BgChanged));
 			m_view.m_EquipPage.m_pos.onChanged.Add(new EventCallback1(_OnEquipPage_PosChanged));
 			m_view.m_EquipPage.m_model.m_bg.onChanged.Add(new EventCallback1(_Onbgclick_EquipPage_model_bgChanged));
 			UIListener.ListenerIcon(m_view.m_EquipPage.m_model, new EventCallback1(_OnEquipPage_ModelClick));
 			UIListener.Listener(m_view.m_EquipPage.m_attrbtn, new EventCallback1(_OnEquipPage_AttrbtnClick));
+			m_view.m_EquipPage.m_eq1.m_state.onChanged.Add(new EventCallback1(_OnEqPos_EquipPageq1_stateChanged));
+			m_view.m_EquipPage.m_eq1.m_body.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq1_body_typeChanged));
+			m_view.m_EquipPage.m_eq1.m_body.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq1_body_qualityChanged));
+			UIListener.ListenerClose(m_view.m_EquipPage.m_eq1.m_body, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_EquipPage.m_eq1, new EventCallback1(_OnEquipPage_Eq1Click));
+			m_view.m_EquipPage.m_eq2.m_state.onChanged.Add(new EventCallback1(_OnEqPos_EquipPageq2_stateChanged));
+			m_view.m_EquipPage.m_eq2.m_body.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq2_body_typeChanged));
+			m_view.m_EquipPage.m_eq2.m_body.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq2_body_qualityChanged));
+			UIListener.ListenerClose(m_view.m_EquipPage.m_eq2.m_body, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_EquipPage.m_eq2, new EventCallback1(_OnEquipPage_Eq2Click));
+			m_view.m_EquipPage.m_eq3.m_state.onChanged.Add(new EventCallback1(_OnEqPos_EquipPageq3_stateChanged));
+			m_view.m_EquipPage.m_eq3.m_body.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq3_body_typeChanged));
+			m_view.m_EquipPage.m_eq3.m_body.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq3_body_qualityChanged));
+			UIListener.ListenerClose(m_view.m_EquipPage.m_eq3.m_body, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_EquipPage.m_eq3, new EventCallback1(_OnEquipPage_Eq3Click));
 			m_view.m_EquipPage.m_eq5.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq5_typeChanged));
 			m_view.m_EquipPage.m_eq5.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq5_qualityChanged));
 			UIListener.Listener(m_view.m_EquipPage.m_eq5, new EventCallback1(_OnEquipPage_Eq5Click));
@@ -29,15 +45,6 @@ namespace SGame.UI{
 			m_view.m_EquipPage.m_eq4.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq4_typeChanged));
 			m_view.m_EquipPage.m_eq4.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq4_qualityChanged));
 			UIListener.Listener(m_view.m_EquipPage.m_eq4, new EventCallback1(_OnEquipPage_Eq4Click));
-			m_view.m_EquipPage.m_eq1.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq1_typeChanged));
-			m_view.m_EquipPage.m_eq1.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq1_qualityChanged));
-			UIListener.Listener(m_view.m_EquipPage.m_eq1, new EventCallback1(_OnEquipPage_Eq1Click));
-			m_view.m_EquipPage.m_eq2.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq2_typeChanged));
-			m_view.m_EquipPage.m_eq2.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq2_qualityChanged));
-			UIListener.Listener(m_view.m_EquipPage.m_eq2, new EventCallback1(_OnEquipPage_Eq2Click));
-			m_view.m_EquipPage.m_eq3.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq3_typeChanged));
-			m_view.m_EquipPage.m_eq3.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipPageq3_qualityChanged));
-			UIListener.Listener(m_view.m_EquipPage.m_eq3, new EventCallback1(_OnEquipPage_Eq3Click));
 			UIListener.ListenerIcon(m_view.m_EquipPage, new EventCallback1(_OnEquipPageClick));
 			m_view.m_EquipQuality.m_state.onChanged.Add(new EventCallback1(_OnEquipUpQuality_StateChanged));
 			m_view.m_EquipQuality.m_type.onChanged.Add(new EventCallback1(_OnEquipUpQuality_TypeChanged));
@@ -45,24 +52,37 @@ namespace SGame.UI{
 			m_view.m_EquipQuality.m_nexteq.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipQuality_nexteq_qualityChanged));
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick));
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick));
-			m_view.m_EquipQuality.m_addeffect.m_quality.onChanged.Add(new EventCallback1(_Onattrlabel_EquipQuality_addeffect_qualityChanged));
-			m_view.m_EquipQuality.m_addeffect.m_lock.onChanged.Add(new EventCallback1(_Onattrlabel_EquipQuality_addeffect_lockChanged));
-			UIListener.ListenerIcon(m_view.m_EquipQuality.m_addeffect, new EventCallback1(_OnEquipUpQuality_AddeffectClick));
+			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick));
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick));
 			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick));
 			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick));
-			UIListener.Listener(m_view.m_suit, new EventCallback1(_OnSuitClick));
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_eqTab.onChanged.Remove(new EventCallback1(_OnEqTabChanged));
+			m_view.m_c1.onChanged.Remove(new EventCallback1(_OnC1Changed));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_EquipPage.m_bg.onChanged.Remove(new EventCallback1(_OnEquipPage_BgChanged));
 			m_view.m_EquipPage.m_pos.onChanged.Remove(new EventCallback1(_OnEquipPage_PosChanged));
 			m_view.m_EquipPage.m_model.m_bg.onChanged.Remove(new EventCallback1(_Onbgclick_EquipPage_model_bgChanged));
 			UIListener.ListenerIcon(m_view.m_EquipPage.m_model, new EventCallback1(_OnEquipPage_ModelClick),remove:true);
 			UIListener.Listener(m_view.m_EquipPage.m_attrbtn, new EventCallback1(_OnEquipPage_AttrbtnClick),remove:true);
+			m_view.m_EquipPage.m_eq1.m_state.onChanged.Remove(new EventCallback1(_OnEqPos_EquipPageq1_stateChanged));
+			m_view.m_EquipPage.m_eq1.m_body.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq1_body_typeChanged));
+			m_view.m_EquipPage.m_eq1.m_body.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq1_body_qualityChanged));
+			UIListener.ListenerClose(m_view.m_EquipPage.m_eq1.m_body, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_EquipPage.m_eq1, new EventCallback1(_OnEquipPage_Eq1Click),remove:true);
+			m_view.m_EquipPage.m_eq2.m_state.onChanged.Remove(new EventCallback1(_OnEqPos_EquipPageq2_stateChanged));
+			m_view.m_EquipPage.m_eq2.m_body.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq2_body_typeChanged));
+			m_view.m_EquipPage.m_eq2.m_body.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq2_body_qualityChanged));
+			UIListener.ListenerClose(m_view.m_EquipPage.m_eq2.m_body, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_EquipPage.m_eq2, new EventCallback1(_OnEquipPage_Eq2Click),remove:true);
+			m_view.m_EquipPage.m_eq3.m_state.onChanged.Remove(new EventCallback1(_OnEqPos_EquipPageq3_stateChanged));
+			m_view.m_EquipPage.m_eq3.m_body.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq3_body_typeChanged));
+			m_view.m_EquipPage.m_eq3.m_body.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq3_body_qualityChanged));
+			UIListener.ListenerClose(m_view.m_EquipPage.m_eq3.m_body, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_EquipPage.m_eq3, new EventCallback1(_OnEquipPage_Eq3Click),remove:true);
 			m_view.m_EquipPage.m_eq5.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq5_typeChanged));
 			m_view.m_EquipPage.m_eq5.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq5_qualityChanged));
 			UIListener.Listener(m_view.m_EquipPage.m_eq5, new EventCallback1(_OnEquipPage_Eq5Click),remove:true);
@@ -72,15 +92,6 @@ namespace SGame.UI{
 			m_view.m_EquipPage.m_eq4.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq4_typeChanged));
 			m_view.m_EquipPage.m_eq4.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq4_qualityChanged));
 			UIListener.Listener(m_view.m_EquipPage.m_eq4, new EventCallback1(_OnEquipPage_Eq4Click),remove:true);
-			m_view.m_EquipPage.m_eq1.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq1_typeChanged));
-			m_view.m_EquipPage.m_eq1.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq1_qualityChanged));
-			UIListener.Listener(m_view.m_EquipPage.m_eq1, new EventCallback1(_OnEquipPage_Eq1Click),remove:true);
-			m_view.m_EquipPage.m_eq2.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq2_typeChanged));
-			m_view.m_EquipPage.m_eq2.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq2_qualityChanged));
-			UIListener.Listener(m_view.m_EquipPage.m_eq2, new EventCallback1(_OnEquipPage_Eq2Click),remove:true);
-			m_view.m_EquipPage.m_eq3.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq3_typeChanged));
-			m_view.m_EquipPage.m_eq3.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipPageq3_qualityChanged));
-			UIListener.Listener(m_view.m_EquipPage.m_eq3, new EventCallback1(_OnEquipPage_Eq3Click),remove:true);
 			UIListener.ListenerIcon(m_view.m_EquipPage, new EventCallback1(_OnEquipPageClick),remove:true);
 			m_view.m_EquipQuality.m_state.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_StateChanged));
 			m_view.m_EquipQuality.m_type.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_TypeChanged));
@@ -88,13 +99,10 @@ namespace SGame.UI{
 			m_view.m_EquipQuality.m_nexteq.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipQuality_nexteq_qualityChanged));
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick),remove:true);
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick),remove:true);
-			m_view.m_EquipQuality.m_addeffect.m_quality.onChanged.Remove(new EventCallback1(_Onattrlabel_EquipQuality_addeffect_qualityChanged));
-			m_view.m_EquipQuality.m_addeffect.m_lock.onChanged.Remove(new EventCallback1(_Onattrlabel_EquipQuality_addeffect_lockChanged));
-			UIListener.ListenerIcon(m_view.m_EquipQuality.m_addeffect, new EventCallback1(_OnEquipUpQuality_AddeffectClick),remove:true);
+			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick),remove:true);
 			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick),remove:true);
 			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick),remove:true);
-			UIListener.Listener(m_view.m_suit, new EventCallback1(_OnSuitClick),remove:true);
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 
 		}
@@ -103,6 +111,11 @@ namespace SGame.UI{
 		}
 		partial void OnEqTabChanged(EventContext data);
 		void SwitchEqTabPage(int index)=>m_view.m_eqTab.selectedIndex=index;
+		void _OnC1Changed(EventContext data){
+			OnC1Changed(data);
+		}
+		partial void OnC1Changed(EventContext data);
+		void SwitchC1Page(int index)=>m_view.m_c1.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
@@ -141,6 +154,75 @@ namespace SGame.UI{
 		string GetEquipPage_EquipPage_attrbtnText()=>UIListener.GetText(m_view.m_EquipPage.m_attrbtn);
 		void SetEquipPage_AttrText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_attr,data);
 		string GetEquipPage_AttrText()=>UIListener.GetText(m_view.m_EquipPage.m_attr);
+		void _OnEqPos_EquipPageq1_stateChanged(EventContext data){
+			OnEqPos_EquipPageq1_stateChanged(data);
+		}
+		partial void OnEqPos_EquipPageq1_stateChanged(EventContext data);
+		void SwitchEqPos_EquipPageq1_statePage(int index)=>m_view.m_EquipPage.m_eq1.m_state.selectedIndex=index;
+		void _OnEquip_EquipPageq1_body_typeChanged(EventContext data){
+			OnEquip_EquipPageq1_body_typeChanged(data);
+		}
+		partial void OnEquip_EquipPageq1_body_typeChanged(EventContext data);
+		void SwitchEquip_EquipPageq1_body_typePage(int index)=>m_view.m_EquipPage.m_eq1.m_body.m_type.selectedIndex=index;
+		void _OnEquip_EquipPageq1_body_qualityChanged(EventContext data){
+			OnEquip_EquipPageq1_body_qualityChanged(data);
+		}
+		partial void OnEquip_EquipPageq1_body_qualityChanged(EventContext data);
+		void SwitchEquip_EquipPageq1_body_qualityPage(int index)=>m_view.m_EquipPage.m_eq1.m_body.m_quality.selectedIndex=index;
+		void SetEqPos_EquipPageq1_bodyText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq1.m_body,data);
+		string GetEqPos_EquipPageq1_bodyText()=>UIListener.GetText(m_view.m_EquipPage.m_eq1.m_body);
+		void _OnEquipPage_Eq1Click(EventContext data){
+			OnEquipPage_Eq1Click(data);
+		}
+		partial void OnEquipPage_Eq1Click(EventContext data);
+		void SetEquipPage_EquipPageq1Text(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq1,data);
+		string GetEquipPage_EquipPageq1Text()=>UIListener.GetText(m_view.m_EquipPage.m_eq1);
+		void _OnEqPos_EquipPageq2_stateChanged(EventContext data){
+			OnEqPos_EquipPageq2_stateChanged(data);
+		}
+		partial void OnEqPos_EquipPageq2_stateChanged(EventContext data);
+		void SwitchEqPos_EquipPageq2_statePage(int index)=>m_view.m_EquipPage.m_eq2.m_state.selectedIndex=index;
+		void _OnEquip_EquipPageq2_body_typeChanged(EventContext data){
+			OnEquip_EquipPageq2_body_typeChanged(data);
+		}
+		partial void OnEquip_EquipPageq2_body_typeChanged(EventContext data);
+		void SwitchEquip_EquipPageq2_body_typePage(int index)=>m_view.m_EquipPage.m_eq2.m_body.m_type.selectedIndex=index;
+		void _OnEquip_EquipPageq2_body_qualityChanged(EventContext data){
+			OnEquip_EquipPageq2_body_qualityChanged(data);
+		}
+		partial void OnEquip_EquipPageq2_body_qualityChanged(EventContext data);
+		void SwitchEquip_EquipPageq2_body_qualityPage(int index)=>m_view.m_EquipPage.m_eq2.m_body.m_quality.selectedIndex=index;
+		void SetEqPos_EquipPageq2_bodyText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq2.m_body,data);
+		string GetEqPos_EquipPageq2_bodyText()=>UIListener.GetText(m_view.m_EquipPage.m_eq2.m_body);
+		void _OnEquipPage_Eq2Click(EventContext data){
+			OnEquipPage_Eq2Click(data);
+		}
+		partial void OnEquipPage_Eq2Click(EventContext data);
+		void SetEquipPage_EquipPageq2Text(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq2,data);
+		string GetEquipPage_EquipPageq2Text()=>UIListener.GetText(m_view.m_EquipPage.m_eq2);
+		void _OnEqPos_EquipPageq3_stateChanged(EventContext data){
+			OnEqPos_EquipPageq3_stateChanged(data);
+		}
+		partial void OnEqPos_EquipPageq3_stateChanged(EventContext data);
+		void SwitchEqPos_EquipPageq3_statePage(int index)=>m_view.m_EquipPage.m_eq3.m_state.selectedIndex=index;
+		void _OnEquip_EquipPageq3_body_typeChanged(EventContext data){
+			OnEquip_EquipPageq3_body_typeChanged(data);
+		}
+		partial void OnEquip_EquipPageq3_body_typeChanged(EventContext data);
+		void SwitchEquip_EquipPageq3_body_typePage(int index)=>m_view.m_EquipPage.m_eq3.m_body.m_type.selectedIndex=index;
+		void _OnEquip_EquipPageq3_body_qualityChanged(EventContext data){
+			OnEquip_EquipPageq3_body_qualityChanged(data);
+		}
+		partial void OnEquip_EquipPageq3_body_qualityChanged(EventContext data);
+		void SwitchEquip_EquipPageq3_body_qualityPage(int index)=>m_view.m_EquipPage.m_eq3.m_body.m_quality.selectedIndex=index;
+		void SetEqPos_EquipPageq3_bodyText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq3.m_body,data);
+		string GetEqPos_EquipPageq3_bodyText()=>UIListener.GetText(m_view.m_EquipPage.m_eq3.m_body);
+		void _OnEquipPage_Eq3Click(EventContext data){
+			OnEquipPage_Eq3Click(data);
+		}
+		partial void OnEquipPage_Eq3Click(EventContext data);
+		void SetEquipPage_EquipPageq3Text(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq3,data);
+		string GetEquipPage_EquipPageq3Text()=>UIListener.GetText(m_view.m_EquipPage.m_eq3);
 		void _OnEquip_EquipPageq5_typeChanged(EventContext data){
 			OnEquip_EquipPageq5_typeChanged(data);
 		}
@@ -189,54 +271,6 @@ namespace SGame.UI{
 		partial void OnEquipPage_Eq4Click(EventContext data);
 		void SetEquipPage_EquipPageq4Text(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq4,data);
 		string GetEquipPage_EquipPageq4Text()=>UIListener.GetText(m_view.m_EquipPage.m_eq4);
-		void _OnEquip_EquipPageq1_typeChanged(EventContext data){
-			OnEquip_EquipPageq1_typeChanged(data);
-		}
-		partial void OnEquip_EquipPageq1_typeChanged(EventContext data);
-		void SwitchEquip_EquipPageq1_typePage(int index)=>m_view.m_EquipPage.m_eq1.m_type.selectedIndex=index;
-		void _OnEquip_EquipPageq1_qualityChanged(EventContext data){
-			OnEquip_EquipPageq1_qualityChanged(data);
-		}
-		partial void OnEquip_EquipPageq1_qualityChanged(EventContext data);
-		void SwitchEquip_EquipPageq1_qualityPage(int index)=>m_view.m_EquipPage.m_eq1.m_quality.selectedIndex=index;
-		void _OnEquipPage_Eq1Click(EventContext data){
-			OnEquipPage_Eq1Click(data);
-		}
-		partial void OnEquipPage_Eq1Click(EventContext data);
-		void SetEquipPage_EquipPageq1Text(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq1,data);
-		string GetEquipPage_EquipPageq1Text()=>UIListener.GetText(m_view.m_EquipPage.m_eq1);
-		void _OnEquip_EquipPageq2_typeChanged(EventContext data){
-			OnEquip_EquipPageq2_typeChanged(data);
-		}
-		partial void OnEquip_EquipPageq2_typeChanged(EventContext data);
-		void SwitchEquip_EquipPageq2_typePage(int index)=>m_view.m_EquipPage.m_eq2.m_type.selectedIndex=index;
-		void _OnEquip_EquipPageq2_qualityChanged(EventContext data){
-			OnEquip_EquipPageq2_qualityChanged(data);
-		}
-		partial void OnEquip_EquipPageq2_qualityChanged(EventContext data);
-		void SwitchEquip_EquipPageq2_qualityPage(int index)=>m_view.m_EquipPage.m_eq2.m_quality.selectedIndex=index;
-		void _OnEquipPage_Eq2Click(EventContext data){
-			OnEquipPage_Eq2Click(data);
-		}
-		partial void OnEquipPage_Eq2Click(EventContext data);
-		void SetEquipPage_EquipPageq2Text(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq2,data);
-		string GetEquipPage_EquipPageq2Text()=>UIListener.GetText(m_view.m_EquipPage.m_eq2);
-		void _OnEquip_EquipPageq3_typeChanged(EventContext data){
-			OnEquip_EquipPageq3_typeChanged(data);
-		}
-		partial void OnEquip_EquipPageq3_typeChanged(EventContext data);
-		void SwitchEquip_EquipPageq3_typePage(int index)=>m_view.m_EquipPage.m_eq3.m_type.selectedIndex=index;
-		void _OnEquip_EquipPageq3_qualityChanged(EventContext data){
-			OnEquip_EquipPageq3_qualityChanged(data);
-		}
-		partial void OnEquip_EquipPageq3_qualityChanged(EventContext data);
-		void SwitchEquip_EquipPageq3_qualityPage(int index)=>m_view.m_EquipPage.m_eq3.m_quality.selectedIndex=index;
-		void _OnEquipPage_Eq3Click(EventContext data){
-			OnEquipPage_Eq3Click(data);
-		}
-		partial void OnEquipPage_Eq3Click(EventContext data);
-		void SetEquipPage_EquipPageq3Text(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq3,data);
-		string GetEquipPage_EquipPageq3Text()=>UIListener.GetText(m_view.m_EquipPage.m_eq3);
 		void _OnEquipPageClick(EventContext data){
 			OnEquipPageClick(data);
 		}
@@ -273,26 +307,16 @@ namespace SGame.UI{
 		partial void OnEquipUpQuality_ClickClick(EventContext data);
 		void SetEquipUpQuality_EquipQuality_clickText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_click,data);
 		string GetEquipUpQuality_EquipQuality_clickText()=>UIListener.GetText(m_view.m_EquipQuality.m_click);
-		void _Onattrlabel_EquipQuality_addeffect_qualityChanged(EventContext data){
-			Onattrlabel_EquipQuality_addeffect_qualityChanged(data);
-		}
-		partial void Onattrlabel_EquipQuality_addeffect_qualityChanged(EventContext data);
-		void Switchattrlabel_EquipQuality_addeffect_qualityPage(int index)=>m_view.m_EquipQuality.m_addeffect.m_quality.selectedIndex=index;
-		void _Onattrlabel_EquipQuality_addeffect_lockChanged(EventContext data){
-			Onattrlabel_EquipQuality_addeffect_lockChanged(data);
-		}
-		partial void Onattrlabel_EquipQuality_addeffect_lockChanged(EventContext data);
-		void Switchattrlabel_EquipQuality_addeffect_lockPage(int index)=>m_view.m_EquipQuality.m_addeffect.m_lock.selectedIndex=index;
-		void _OnEquipUpQuality_AddeffectClick(EventContext data){
-			OnEquipUpQuality_AddeffectClick(data);
-		}
-		partial void OnEquipUpQuality_AddeffectClick(EventContext data);
-		void SetEquipUpQuality_EquipQuality_addeffectText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_addeffect,data);
-		string GetEquipUpQuality_EquipQuality_addeffectText()=>UIListener.GetText(m_view.m_EquipQuality.m_addeffect);
 		void SetEquipUpQuality_NextattrText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_nextattr,data);
 		string GetEquipUpQuality_NextattrText()=>UIListener.GetText(m_view.m_EquipQuality.m_nextattr);
 		void SetEquipUpQuality_CurattrText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_curattr,data);
 		string GetEquipUpQuality_CurattrText()=>UIListener.GetText(m_view.m_EquipQuality.m_curattr);
+		void _OnEquipUpQuality_MergeClick(EventContext data){
+			OnEquipUpQuality_MergeClick(data);
+		}
+		partial void OnEquipUpQuality_MergeClick(EventContext data);
+		void SetEquipUpQuality_EquipQuality_mergeText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_merge,data);
+		string GetEquipUpQuality_EquipQuality_mergeText()=>UIListener.GetText(m_view.m_EquipQuality.m_merge);
 		void _OnEquipQualityClick(EventContext data){
 			OnEquipQualityClick(data);
 		}
@@ -309,12 +333,6 @@ namespace SGame.UI{
 		partial void OnEquipupClick(EventContext data);
 		void SetEquipupText(string data)=>UIListener.SetText(m_view.m_equipup,data);
 		string GetEquipupText()=>UIListener.GetText(m_view.m_equipup);
-		void _OnSuitClick(EventContext data){
-			OnSuitClick(data);
-		}
-		partial void OnSuitClick(EventContext data);
-		void SetSuitText(string data)=>UIListener.SetText(m_view.m_suit,data);
-		string GetSuitText()=>UIListener.GetText(m_view.m_suit);
 		void _OnClickBtnClick(EventContext data){
 			OnClickBtnClick(data);
 		}
