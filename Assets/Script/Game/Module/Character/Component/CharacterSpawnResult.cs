@@ -6,6 +6,7 @@ namespace SGame
     {
         public Entity entity;
         public int    characterID; // 角色ID
+        public bool   isClose = false;
 
         /// <summary>
         /// 等待角色创建完毕
@@ -14,6 +15,17 @@ namespace SGame
         public bool IsReadly()
         {
             return entity != Entity.Null;
+        }
+        
+        public bool Close()
+        {
+            isClose = true;
+            if (IsReadly())
+            {
+                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<DespawningEntity>(entity);
+                entity = Entity.Null;
+            }
+            return true;
         }
     }
 }

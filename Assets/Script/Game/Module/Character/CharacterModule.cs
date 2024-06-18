@@ -42,6 +42,17 @@ namespace SGame
         }
 
         /// <summary>
+        /// 创建汽车顾客 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public CharacterSpawnResult CreateCarCustomer(int id, int roleAI, Vector3 pos)
+        {
+            return CharacterSpawnSystem.CharacterSpawn.Create(id, pos, true, 0, roleAI);
+        }
+
+        /// <summary>
         /// 是否加载完成
         /// </summary>
         /// <param name="e"></param>

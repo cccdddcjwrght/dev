@@ -32,10 +32,10 @@ namespace SGame
             // 雇佣好友ID
             public long playerID;
 
-            // 是否拥有AI
-            public bool hasAI;
+            // 角色AI配置表
+            public int roleAI;
 
-            public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true, long playerID = 0)
+            public static CharacterSpawnResult Create(int id, Vector3 pos, bool hasAttriburte = true, long playerID = 0, int roleAI = 0)
             {
                 var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
                 var entity = mgr.CreateEntity(typeof(CharacterSpawn));
@@ -44,8 +44,8 @@ namespace SGame
                     id          = id,
                     pos         = pos,
                     hasAttribute = hasAttriburte,
-                    playerID  = playerID,
-                    hasAI = false,
+                    playerID    = playerID,
+                    roleAI      = roleAI,
                 });
 
                 var request = new CharacterSpawnResult()
@@ -172,6 +172,12 @@ namespace SGame
             {
                 if (EntityManager.Exists(item.entity) && !EntityManager.HasComponent<DespawningEntity>(item.entity))
                 {
+                    if (item.result.isClose)
+                    {
+                        EntityManager.AddComponent<DespawningEntity>(item.entity);
+                        continue;
+                    }
+                    
                     if (item.character != null && item.character.model != null)
                     {
                         EntityManager.AddComponent<CharacterInitalized>(item.entity);
@@ -215,7 +221,17 @@ namespace SGame
                 }
 
                 string configAI = config.Ai;
-                if (req.playerID != 0 && !string.IsNullOrEmpty(config.FriendAI))
+                if (req.roleAI != 0)
+                {
+                    if (!ConfigSystem.Instance.TryGet(req.roleAI, out GameConfigs.roleRowData aiConfig))
+                    {
+                        log.Error("role ai config not found=" + req.roleAI);
+                        EntityManager.DestroyEntity(e);
+                        return;
+                    }
+                    configAI = aiConfig.Ai;
+                }
+                else if (req.playerID != 0 && !string.IsNullOrEmpty(config.FriendAI))
                 {
                     // 好友AI
                     configAI = config.FriendAI;
@@ -273,16 +289,12 @@ namespace SGame
                     EntityManager.AddComponent<DisableAttributeTag>(characterEntity);
 
                 // 创建AI
-                GameObject ai = null;
-                //if (req.hasAI)
-                {
-                    ai = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
-                    ai.transform.parent = character.transform;
-                    ai.transform.localRotation = Quaternion.identity;
-                    ai.transform.localPosition = Vector3.zero;
-                    ai.transform.localScale = Vector3.one;
-                    ai.name = "AI";
-                }
+                GameObject ai = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
+                ai.transform.parent = character.transform;
+                ai.transform.localRotation = Quaternion.identity;
+                ai.transform.localPosition = Vector3.zero;
+                ai.transform.localScale = Vector3.one;
+                ai.name = "AI";
 
                 // 创建对象
                 //var id = loading.pool.Spawn();

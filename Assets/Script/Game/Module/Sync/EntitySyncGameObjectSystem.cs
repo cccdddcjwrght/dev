@@ -19,13 +19,13 @@ namespace SGame
     {
         protected override void OnUpdate()
         {
-            Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e,  Transform sycnTransform, ref Translation trans, ref Rotation rot) =>
+            Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e, Transform sycnTransform, ref LocalToWorld LocalToWorld) =>
             {
                 // 同步对象
                 if (sycnTransform != null)
                 {
-                    sycnTransform.position = trans.Value;
-                    sycnTransform.rotation = rot.Value;
+                    sycnTransform.position = LocalToWorld.Position;
+                    sycnTransform.rotation = LocalToWorld.Rotation;
                 }
             });
         }

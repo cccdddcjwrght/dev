@@ -10,6 +10,7 @@ using Unity.Entities;
 using libx;
 using log4net;
 using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace SGame
 {
@@ -177,9 +178,9 @@ namespace SGame
             List<int> roles = new List<int>();
             List<int> widgets = new List<int>();
             for (int i = 0; i < config.CustomerIdLength; i++)
-                roles.Add(i);
+                roles.Add(config.CustomerId(i));
             for (int i = 0; i < config.CustomerWeightLength; i++)
-                widgets.Add(i);
+                widgets.Add(config.CustomerWeight(i));
             if (m_config.ChairNum == 0)
             {
                 log.Error("chair num can't be zero");
@@ -188,6 +189,10 @@ namespace SGame
             for (int i = 0; i < m_config.ChairNum; i++)
             {
                 int roleID = RandomSystem.Instance.GetRandomID(roles, widgets);
+                if (roleID == 0)
+                {
+                    log.Error("role id = 0");
+                }
                 m_customers.Add(new CarCustomer(){RoleID = roleID, ItemID = 0, ItemNum = 0, hud = Entity.Null});
             }
         }
@@ -291,10 +296,58 @@ namespace SGame
             // 设置位置信息
             SetupGameObject();
             
+            // 设置挂点
             SetupAttachement();
 
             // 设置顾客
             SetupCustomer();
+
+            // 创建顾客
+            yield return CreateCustomer();
+        }
+
+        /// <summary>
+        /// 创建船上顾客 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator CreateCustomer()
+        {
+            if (m_config.ShowCustomer == 0)
+                yield break;
+
+            List<CharacterSpawnResult> spawnResult = new List<CharacterSpawnResult>();
+            yield return new Fiber.OnTerminate(() =>
+            {
+                // 在加载中被销毁
+                for (int i = 0; i < spawnResult.Count; i++)
+                    spawnResult[i].Close();
+            });
+            
+            int roleAI = m_config.CustomerAI;
+            for (int i = 0; i < m_customers.Count; i++)
+            {
+                var customer = m_customers[i];
+                spawnResult.Add(CharacterModule.Instance.CreateCarCustomer(customer.RoleID, roleAI, m_seatAttachement[i].position));
+            }
+
+            // 等待角色全部创建完毕
+            for (int i = 0; i < spawnResult.Count; i++)
+            {
+                while (spawnResult[i].IsReadly() == false)
+                    yield return null;
+            }
+
+            // 保存返回值
+            for (int i = 0; i < m_customers.Count; i++)
+            {
+                m_customers[i].customer = spawnResult[i].entity;
+                
+                // 设置角色位置
+                Vector3 childPos = m_seatAttachement[i].position - transform.position;
+                EntityManager.SetComponentData(m_customers[i].customer, new Translation(){Value = childPos});
+                EntityManager.AddComponentData(m_customers[i].customer, new Parent(){Value = m_entity});
+                EntityManager.AddComponent<LocalToParent>(m_customers[i].customer);
+            }
         }
 
         public bool IsMoving
@@ -316,6 +369,19 @@ namespace SGame
             }
 
             ClearHud();
+            ClearCahracter();
+        }
+
+        void ClearCahracter()
+        {
+            foreach (var customer in m_customers)
+            {
+                if (customer.customer != Entity.Null)
+                {
+                    EntityManager.AddComponent<DespawningEntity>(customer.customer);
+                    customer.customer = Entity.Null;
+                }
+            }
         }
 
         public void ClearHud()
