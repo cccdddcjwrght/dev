@@ -13,6 +13,7 @@ namespace SGame
         {
             var isUpdate = m_Config.FloatParam(0);
             DataCenter.Instance.guideData.isStopCreate = isUpdate < 0;
+            Finish();
             yield break;
         }
     }
