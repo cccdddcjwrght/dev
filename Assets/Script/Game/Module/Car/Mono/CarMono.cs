@@ -29,7 +29,8 @@ namespace SGame
         private List<Vector3>               m_roads;    // 路径点
         private CarQueue                    m_queue;    // 队伍
         private int                         m_nextIndex; // 当前位置
-        private List<CarCustomer>           m_customers; // 座位上的玩家
+        //private List<CarCustomer>           m_customers; // 座位上的玩家
+        private CarSeats                    m_seats;          // 汽车上的座位
         private List<Transform>             m_hudAttachement; // HUD 挂点
         private List<Transform>             m_seatAttachement; // 座位挂点
 
@@ -39,7 +40,7 @@ namespace SGame
 
         //public Entity                       hud;
 
-        public int                          customerNum => m_customers.Count;
+        public int                          customerNum => m_seats.customerNum;
 
         /// <summary>
         /// 初始化对象
@@ -167,34 +168,8 @@ namespace SGame
         /// </summary>
         void SetupCustomer()
         {
-            m_customers = new List<CarCustomer>();
-            int currentLevelID = DataCenter.Instance.GetUserData().scene;
-            if (!ConfigSystem.Instance.TryGet(currentLevelID, out LevelRowData config))
-            {
-                log.Error("not found scene id=" + currentLevelID);
-                return;
-            }
-
-            List<int> roles = new List<int>();
-            List<int> widgets = new List<int>();
-            for (int i = 0; i < config.CustomerIdLength; i++)
-                roles.Add(config.CustomerId(i));
-            for (int i = 0; i < config.CustomerWeightLength; i++)
-                widgets.Add(config.CustomerWeight(i));
-            if (m_config.ChairNum == 0)
-            {
-                log.Error("chair num can't be zero");
-                return;
-            }
-            for (int i = 0; i < m_config.ChairNum; i++)
-            {
-                int roleID = RandomSystem.Instance.GetRandomID(roles, widgets);
-                if (roleID == 0)
-                {
-                    log.Error("role id = 0");
-                }
-                m_customers.Add(new CarCustomer(){RoleID = roleID, ItemID = 0, ItemNum = 0, hud = Entity.Null});
-            }
+            m_seats = new CarSeats(m_entity, transform, m_hudAttachement, m_seatAttachement);
+            m_seats.SetupCustomer(m_config.ChairNum);
         }
 
         /// <summary>
@@ -206,29 +181,7 @@ namespace SGame
         /// <param name="itemNum">点单的数量</param>
         public void CreateCustomerOrder(int customerIndex, ChairData chair, int itemID, int itemNum)
         {
-            if (itemNum <= 0 || itemID == 0)
-            {
-                log.Error("param not valid itemid=" + itemID + " itemNum=" + itemNum);
-                return;
-            }
-
-            if (customerIndex < 0 || customerIndex >= m_customers.Count)
-            {
-                log.Error("customerIndex not valid customerIndex=" + customerIndex);
-                return;
-            }
-            
-            // 设置角色订单信息
-            var customer        = m_customers[customerIndex];
-            customer.ItemID     = itemID;
-            customer.ItemNum    = itemNum;
-
-            // 创建订单
-            for (int i = 0; i < itemNum; i++)
-                OrderManager.Instance.Create(chair, itemID);
-            
-            // 创建并关连HUD
-            customer.hud = UIUtils.ShowOrderTips(itemID, itemNum, m_hudAttachement[customerIndex]);
+            m_seats.CreateCustomerOrder(customerIndex, chair, itemNum, itemNum);
         }
 
         /// <summary>
@@ -236,48 +189,9 @@ namespace SGame
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        public int FinishOrder(int orderID)
-        {
-            var order = OrderManager.Instance.Get(orderID);
-            bool findIt = false;
-            foreach (var customer in m_customers)
-            {
-                if (customer.ItemNum > 0 && customer.ItemID == order.foodType)
-                {
-                    // 找到相关点单数据, 更新面版
-                    customer.ItemNum--;
-                    
-                    // 更新小费数量
-                    if (customer.ItemNum > 0)
-                    {
-                        UIUtils.TriggerUIEvent(customer.hud, "OrderNumUpdate", customer.ItemNum);
-                    }
-                    else
-                    {
-                        UIUtils.CloseUI(customer.hud);
-                        customer.hud = Entity.Null;
-                    }
-                    findIt = true;
-                    break;
-                }
-            }
+        public int FinishOrder(int orderID) => m_seats.FinishOrder(orderID);
 
-            if (!findIt)
-            {
-                log.Error("order not match=" + orderID);
-            }
-            
-            return GetOrderNum();
-        }
-
-        public int GetOrderNum()
-        {
-            int orderNum = 0;
-            for (int i = 0; i < m_customers.Count; i++)
-                orderNum += m_customers[i].ItemNum;
-
-            return orderNum;
-        }
+        public int GetOrderNum() => m_seats.GetOrderNum();
 
         /// <summary>
         /// 汽车线性逻辑代码
@@ -303,53 +217,10 @@ namespace SGame
             SetupCustomer();
 
             // 创建顾客
-            yield return CreateCustomer();
+            if (m_config.ShowCustomer != 0)
+                yield return m_seats.CreateCustomer(m_entity, transform, m_config.CustomerAI);
         }
-
-        /// <summary>
-        /// 创建船上顾客 
-        /// </summary>
-        /// <returns></returns>
-        IEnumerator CreateCustomer()
-        {
-            if (m_config.ShowCustomer == 0)
-                yield break;
-
-            List<CharacterSpawnResult> spawnResult = new List<CharacterSpawnResult>();
-            yield return new Fiber.OnTerminate(() =>
-            {
-                // 在加载中被销毁
-                for (int i = 0; i < spawnResult.Count; i++)
-                    spawnResult[i].Close();
-            });
-            
-            int roleAI = m_config.CustomerAI;
-            for (int i = 0; i < m_customers.Count; i++)
-            {
-                var customer = m_customers[i];
-                spawnResult.Add(CharacterModule.Instance.CreateCarCustomer(customer.RoleID, roleAI, m_seatAttachement[i].position));
-            }
-
-            // 等待角色全部创建完毕
-            for (int i = 0; i < spawnResult.Count; i++)
-            {
-                while (spawnResult[i].IsReadly() == false)
-                    yield return null;
-            }
-
-            // 保存返回值
-            for (int i = 0; i < m_customers.Count; i++)
-            {
-                m_customers[i].customer = spawnResult[i].entity;
-                
-                // 设置角色位置
-                Vector3 childPos = m_seatAttachement[i].position - transform.position;
-                EntityManager.SetComponentData(m_customers[i].customer, new Translation(){Value = childPos});
-                EntityManager.AddComponentData(m_customers[i].customer, new Parent(){Value = m_entity});
-                EntityManager.AddComponent<LocalToParent>(m_customers[i].customer);
-            }
-        }
-
+        
         public bool IsMoving
         {
             get
@@ -368,33 +239,12 @@ namespace SGame
                 m_logic = null;
             }
 
-            ClearHud();
-            ClearCahracter();
+            m_seats.Clear();
         }
 
-        void ClearCahracter()
-        {
-            foreach (var customer in m_customers)
-            {
-                if (customer.customer != Entity.Null)
-                {
-                    EntityManager.AddComponent<DespawningEntity>(customer.customer);
-                    customer.customer = Entity.Null;
-                }
-            }
-        }
+        void ClearCahracter() => m_seats.ClearCahracter();
 
-        public void ClearHud()
-        {
-            foreach (var customer in m_customers)
-            {
-                if (customer.hud != Entity.Null)
-                {
-                    UIUtils.CloseUI(customer.hud);
-                    customer.hud = Entity.Null;
-                }
-            }
-        }
+        public void ClearHud() => m_seats.ClearHud();
 
         /// <summary>
         /// 进入排队
@@ -424,6 +274,9 @@ namespace SGame
             return m_queue.GetOrder(m_entity);
         }
 
+        /// <summary>
+        /// 汽车移动
+        /// </summary>
         private void DoMove()
         {
             List<Vector3> roads = m_roads;
@@ -481,5 +334,11 @@ namespace SGame
         {
             return transform;
         }
+
+        public CarSeats seats => m_seats;
+
+        public void UpdateChairCustomer(int chairIndex) => seats.UpdateChairCustomer(chairIndex);
+
+        public bool LeaveChair(int chairIndex) => seats.LeaveChair(chairIndex);
     }
 }

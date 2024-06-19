@@ -272,8 +272,43 @@ namespace SGame
             {
                 entityManager.AddComponent<FindPathParams>(entity);
             }
+
+            if (entityManager.HasComponent<FPathPositions>(entity))
+            {
+                entityManager.RemoveComponent<FPathPositions>(entity);
+            }
             
             entityManager.SetComponentData(entity, find);
+        }
+
+        
+        /// <summary>
+        /// 调用路径移动
+        /// </summary>
+        /// <param name="pos"></param>
+        public void Move3dPosition(Vector3 pos)
+        {
+            // 清空普通查询
+            if (entityManager.HasComponent<PathPositions>(entity))
+            {
+                entityManager.RemoveComponent<PathPositions>(entity);
+            }
+            if (entityManager.HasComponent<FindPathParams>(entity))
+            {
+                entityManager.RemoveComponent<FindPathParams>(entity);
+            }
+
+            if (!entityManager.HasComponent<FPathPositions>(entity))
+            {
+                entityManager.AddComponent<FPathPositions>(entity);
+            }
+            var buffer = entityManager.GetBuffer<FPathPositions>(entity);
+            buffer.Clear();
+            buffer.Add(new FPathPositions() { Value = pos });
+            entityManager.SetComponentData(entity, new Follow()
+            {
+                Value = 1
+            });
         }
 
         /// <summary>
@@ -437,7 +472,8 @@ namespace SGame
                 if (entityManager.HasComponent<FindPathParams>(entity))
                     return true;
                 
-                if (entityManager.HasComponent<PathPositions>(entity) == false)
+                if (entityManager.HasComponent<PathPositions>(entity) == false &&
+                    entityManager.HasComponent<FPathPositions>(entity) == false)
                     return false;
 
                 if (!entityManager.HasComponent<Follow>(entity))

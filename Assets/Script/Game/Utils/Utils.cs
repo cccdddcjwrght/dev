@@ -544,11 +544,25 @@ namespace SGame
 		{
 			Vector2 dir = new Vector2(x, y);
 			dir = dir.normalized;
+			if (dir.sqrMagnitude < 0.0001) // 距离太短
+				return 0;
+			
 			float cosAngle = Mathf.Acos(dir.y); // 通过反余弦计算角度
 			if (x >= 0)
 				return cosAngle * Mathf.Rad2Deg;
 
 			return 360 - cosAngle * Mathf.Rad2Deg;
+		}
+
+		/// <summary>
+		/// 获得2维平面的
+		/// </summary>
+		/// <param name="rot"></param>
+		/// <returns></returns>
+		public static float GetRotationAngle(Quaternion rot)
+		{
+			Vector3 ret = rot * Vector3.forward;
+			return GetRotation(ret.x, ret.z);
 		}
 
 		public static bool SwitchRemove(List<int> value, int index)

@@ -312,6 +312,18 @@ namespace SGame
             int id = RandomSystem.Instance.GetRandomID(m_carIDs, m_carWidgets);
             return id;
         }
+
+        /// <summary>
+        /// 获得队伍第一个
+        /// </summary>
+        /// <returns></returns>
+        public Entity GetFirst()
+        {
+            if (m_queue.Count == 0)
+                return Entity.Null;
+
+            return m_queue[0].entity;
+        }
     }
     
     /// <summary>
