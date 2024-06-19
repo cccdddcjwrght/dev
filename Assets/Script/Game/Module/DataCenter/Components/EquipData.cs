@@ -120,8 +120,10 @@ namespace SGame
 				if (equip != null && equip.cfg.IsValid())
 				{
 					rets = rets ?? new List<int[]>();
-					if (equip.effectID > 0)
+#if ENABLE_BUFF
+					if (equip.effectID > 0) 
 						rets.AddRange(equip.GetEffects(valid));
+#endif
 					if (needmain && equip.attrID > 0)
 						rets.Add(new int[] { equip.attrID, equip.attrVal });
 				}
@@ -710,13 +712,17 @@ namespace SGame
 			{
 				if (type < 5)
 				{
-					//屏蔽词条
-					_effects = new List<int[]>();
 					this.level = Math.Max(1, this.level);
+					//屏蔽词条
+#if !ENABLE_BUFF
+					_effects = _effects ?? new List<int[]>();
+					effectID = 1;
+#else
 					if (effectID == 0)
 						effectID = DataCenter.EquipUtil.RandomEffects(this.cfg.Type, out _effects);
 					else if (_effects == null)
 						_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
+#endif
 				}
 			}
 			return this;
@@ -778,10 +784,12 @@ namespace SGame
 
 		public List<int[]> GetEffects(bool valid = false)
 		{
-			/*if (_effects == null && effectID > 0)
-				_effects =  DataCenter.EquipUtil.ConvertId2Effects(type, effectID);//屏蔽词条
+#if ENABLE_BUFF
+			if (_effects == null && effectID > 0)
+				_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);//屏蔽词条
 			if (valid && _effects != null && _effects.Count > 0)
-				return _effects.Take(quality - 1).ToList();*/
+				return _effects.Take(quality - 1).ToList(); 
+#endif
 			return _effects;
 		}
 
