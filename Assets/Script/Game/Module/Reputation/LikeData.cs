@@ -25,6 +25,9 @@ namespace SGame
     {
         public int id;
         public int num;
+
+        public int itemType;
+        public int typeId;
     }
 
     public partial class DataCenter 
@@ -33,6 +36,7 @@ namespace SGame
 
         public static class LikeUtil 
         {
+            private static List<ItemData.Value> _dropItems = new List<ItemData.Value>();
 
             /// <summary>
             /// 获取随机到的奖励配置Id
@@ -50,7 +54,7 @@ namespace SGame
                     weights.Add(weight);
                 }
                 var index = SGame.Randoms.Random._R.NextWeight(weights) + 1;
-                return 36;
+                return index;
             }
 
             /// <summary>
@@ -70,6 +74,40 @@ namespace SGame
                 }
                 var index = SGame.Randoms.Random._R.NextWeight(weights) + 1;
                 return index;
+            }
+
+            /// <summary>
+            /// 随机掉落物品
+            /// </summary>
+            /// <param name="dropId">掉落id</param>
+            /// <param name="count">数量</param>
+            /// <param name="isClear"></param>
+            /// <returns></returns>
+            public static List<ItemData.Value> GetItemDrop(int dropId, int count = 1 ,bool isClear = true) 
+            {
+                if(isClear) _dropItems.Clear();
+
+                if (ConfigSystem.Instance.TryGet<GameConfigs.ItemDropRowData>(dropId, out var config)) 
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        var weights = config.GetWeightArray();
+                        var ret = Randoms.Random._R.NextWeights(weights, config.Num, config.Repeat == 1);
+
+                        for (int j = 0; j < ret.Length; j++)
+                        {
+                            int id = config.ItemId(ret[j] * 2);
+                            int num = config.ItemId(ret[j] * 2 + 1);
+                            _dropItems.Add(new ItemData.Value()
+                            {
+                                id = id,
+                                num = num,
+                                type = PropertyGroup.ITEM
+                            });
+                        }
+                    }
+                }
+                return _dropItems;
             }
 
 
@@ -95,11 +133,15 @@ namespace SGame
             {
                 var list = DataCenter.Instance.likeData.likeRewardDatas;
                 var index = list.FindIndex((r) => r.id == id);
+                var config = ConfigSystem.Instance.Find<GameConfigs.ItemRowData>((i) => i.ItemId == id);
+
                 if (index >= 0) list[index].num += num;
                 else list.Add(new LikeRewardData()
                 {
                     id = id,
-                    num = num
+                    num = num,
+                    itemType = config.Type,
+                    typeId = config.TypeId,
                 });
             }
         }

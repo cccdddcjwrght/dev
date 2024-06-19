@@ -63,13 +63,13 @@ namespace SGame
             m_data = DataCenter.Instance.reputationData;
             m_handles += EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLevelRoom);
             m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEnterRoom);
-            m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, (pause) =>
-            {
-                int validTime = DataCenter.ReputationUtils.GetBuffValidTime();
-                if (validTime <= 0 && m_data.progress >= maxLikeNum)
-                    DataCenter.ReputationUtils.Reset();
-                EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
-            });
+            //m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, (pause) =>
+            //{
+            //    int validTime = DataCenter.ReputationUtils.GetBuffValidTime();
+            //    if (validTime <= 0 && m_data.progress >= maxLikeNum)
+            //        DataCenter.ReputationUtils.Reset();
+            //    EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
+            //});
 
             m_RoomTypeList = new List<TotalItem>()
             {
@@ -101,8 +101,9 @@ namespace SGame
                 //int likeNum = 1;
                 int roleId = CharacterModule.Instance.FindCharacter(characterID).roleID;
                 int likeNum = (int)AttributeSystem.Instance.GetValueByRoleID(roleId, EnumAttribute.LikeNum);
-                m_data.progress += likeNum;
-                if (m_data.progress >= maxLikeNum) DataCenter.ReputationUtils.RandomSelect();
+                DataCenter.Instance.likeData.likeNum += likeNum;
+                //m_data.progress += likeNum;
+                //if (m_data.progress >= maxLikeNum) DataCenter.ReputationUtils.RandomSelect();
 
                 EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, likeNum);
             }    

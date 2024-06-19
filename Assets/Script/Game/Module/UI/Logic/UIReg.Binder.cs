@@ -89,6 +89,8 @@ namespace SGame.UI{
 			context.uiModule.Reg("GuideDialogueUI", "Guide", ()=>new UIGuideDialogue());
 			context.uiModule.Reg("GetWorkerTipsUI", "Hud", ()=>new UIGetWorkerTips());
 			context.uiModule.Reg("GuidePiercingUI", "Guide", ()=>new UIGuidePiercing());
+			context.uiModule.Reg("LuckLikeUI", "Reputation", () => new UILuckLike());
+			context.uiModule.Reg("FragmentUI", "Reputation", ()=>new UIFragment());
 		}
 	}
 }

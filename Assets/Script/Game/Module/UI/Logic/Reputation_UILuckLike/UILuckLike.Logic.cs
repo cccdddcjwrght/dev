@@ -5,21 +5,28 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.Reputation;
     using System.Collections.Generic;
+    using System.Linq;
 
     public partial class UILuckLike
 	{
 		int m_LikeCfgId;        //好评奖励Id
 		int m_HiddenCfgId;		//隐藏奖励Id
-		List<LikeRewardData> m_RewardData;
+		List<LikeRewardData> m_RewardData;  //储存的奖励
+		List<LikeRewardData> m_DropRewardData;
+		List<ItemData.Value> m_DropItem;	//随机的掉落物品
+
 		List<int> m_HideCfgIds = new List<int>();
 
 		int m_TotalNum = 6;		//抽奖类型数量
 		float m_Height = 200;   //抽奖item高度
 
-
+		EventHandleContainer m_Event = new EventHandleContainer();
 		partial void InitLogic(UIContext context){
 
+			m_Event += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, (num)=> RefreshLikeNum());
+
 			InitLotteryList();
+			RefreshLikeNum();
 			RefreshRewardList();
 		}
 
@@ -43,6 +50,11 @@ namespace SGame.UI{
 			});
 		}
 
+		public void RefreshLikeNum() 
+		{
+			m_view.m_count.text = DataCenter.Instance.likeData.likeNum.ToString();
+		}
+
 		public void RefreshRewardList() 
 		{
 			m_RewardData = DataCenter.Instance.likeData.likeRewardDatas;
@@ -52,6 +64,16 @@ namespace SGame.UI{
 
 		public void PlayLottery() 
 		{
+			if (DataCenter.Instance.likeData.likeNum <= 0)
+			{
+				"@ui_likes_tips".Tips();
+				return;
+			}
+
+			UILockManager.Instance.Require("LuckLike");
+			DataCenter.Instance.likeData.likeNum--;
+			EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
+
 			m_LikeCfgId = DataCenter.LikeUtil.GetLotteryIndex();
 			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config)) 
 			{
@@ -70,6 +92,7 @@ namespace SGame.UI{
 				}
 				else if (config.ResultType == 3) 
 				{
+					//抽到隐藏大奖需要到隐藏奖配置再随机一次
 					m_HiddenCfgId = DataCenter.LikeUtil.GetHiddenRewardIndex();
 					if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_JackpotRowData>(m_HiddenCfgId, out var cfg)) 
 					{
@@ -91,6 +114,7 @@ namespace SGame.UI{
 		
 		public void LotteryFinish() 
 		{
+			UILockManager.Instance.Release("LuckLike");
 			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config)) 
 			{
 				if (config.ResultType == 1)
@@ -148,16 +172,43 @@ namespace SGame.UI{
 			gObject.SetIcon(Utils.GetItemIcon(1, cfgId));
 		}
 
+		//打开碎片宝箱
+		void OpenFramentUI() 
+		{
+			if (m_DropItem.Count <= 0) return;
+			SGame.UIUtils.OpenUI("frament", m_DropItem);
+		}
 
 		partial void UnInitLogic(UIContext context){
-			List<int[]> list = new List<int[]>();
-			var rewardDatas = DataCenter.Instance.likeData.likeRewardDatas;
+			m_Event.Close();
+			m_Event = null;
 
-			if (rewardDatas.Count > 0)
+			PropertyManager.Instance.CombineCache2Items();
+			List<int[]> list = new List<int[]>();
+
+			if (m_RewardData.Count > 0)
 			{
-				rewardDatas.Foreach((r) =>{ list.Add(new int[] { 1, r.id, r.num });});
-				Utils.ShowRewards(list, updatedata: true);
-				rewardDatas.Clear();
+				//如果有食谱碎片宝箱，先加上
+				m_DropRewardData = m_RewardData.Where((r) => r.itemType == (int)EnumItemType.ChestKey).ToList();
+				m_RewardData.RemoveAll((r) => r.itemType == (int)EnumItemType.ChestKey);
+				for (int i = 0; i < m_DropRewardData.Count; i++)
+				{
+					var data = m_DropRewardData[i];
+					m_DropItem = DataCenter.LikeUtil.GetItemDrop(data.typeId, data.num, i == 0);
+				}
+				m_DropItem.Foreach((d) => PropertyManager.Instance.Update(d.type, d.id, d.num));
+
+				if (m_RewardData.Count > 0)
+				{
+					//关闭界面的时候打开领取普通大奖获得的奖励
+					m_RewardData.Foreach((r) => { list.Add(new int[] { 1, r.id, r.num }); });
+					Utils.ShowRewards(list, OpenFramentUI, updatedata: true);
+				}
+				else 
+				{
+					OpenFramentUI();
+				}
+				m_RewardData.Clear();
 			}
 		}
 	}

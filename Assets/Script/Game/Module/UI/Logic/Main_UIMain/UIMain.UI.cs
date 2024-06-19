@@ -26,8 +26,6 @@ namespace SGame.UI{
 			m_view.m_buff.m_isTime.onChanged.Add(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			m_view.m_buff.m_tipState.onChanged.Add(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
-			m_view.m_likeBtn.m_state.onChanged.Add(new EventCallback1(_OnLikeBtn_StateChanged));
-			m_view.m_likeBtn.m_markState.onChanged.Add(new EventCallback1(_OnLikeBtn_MarkStateChanged));
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick));
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
@@ -52,8 +50,6 @@ namespace SGame.UI{
 			m_view.m_buff.m_isTime.onChanged.Remove(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			m_view.m_buff.m_tipState.onChanged.Remove(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
-			m_view.m_likeBtn.m_state.onChanged.Remove(new EventCallback1(_OnLikeBtn_StateChanged));
-			m_view.m_likeBtn.m_markState.onChanged.Remove(new EventCallback1(_OnLikeBtn_MarkStateChanged));
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick),remove:true);
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
 			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
@@ -135,20 +131,10 @@ namespace SGame.UI{
 		partial void OnBuffClick(EventContext data);
 		void SetBuffText(string data)=>UIListener.SetText(m_view.m_buff,data);
 		string GetBuffText()=>UIListener.GetText(m_view.m_buff);
-		void _OnLikeBtn_StateChanged(EventContext data){
-			OnLikeBtn_StateChanged(data);
-		}
-		partial void OnLikeBtn_StateChanged(EventContext data);
-		void SwitchLikeBtn_StatePage(int index)=>m_view.m_likeBtn.m_state.selectedIndex=index;
-		void _OnLikeBtn_MarkStateChanged(EventContext data){
-			OnLikeBtn_MarkStateChanged(data);
-		}
-		partial void OnLikeBtn_MarkStateChanged(EventContext data);
-		void SwitchLikeBtn_MarkStatePage(int index)=>m_view.m_likeBtn.m_markState.selectedIndex=index;
-		void SetLikeBtn_TimeText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_time,data);
-		string GetLikeBtn_TimeText()=>UIListener.GetText(m_view.m_likeBtn.m_time);
 		void SetLikeBtn_NumText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_num,data);
 		string GetLikeBtn_NumText()=>UIListener.GetText(m_view.m_likeBtn.m_num);
+		void SetLikeBtn_CountText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_count,data);
+		string GetLikeBtn_CountText()=>UIListener.GetText(m_view.m_likeBtn.m_count);
 		void SetLikeBtn_InfoText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_info,data);
 		string GetLikeBtn_InfoText()=>UIListener.GetText(m_view.m_likeBtn.m_info);
 		void _OnLikeBtnClick(EventContext data){

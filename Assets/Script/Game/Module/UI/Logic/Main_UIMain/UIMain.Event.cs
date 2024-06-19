@@ -62,7 +62,7 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
 			m_handles += EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
-			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeTime);
+			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeCount);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnUpdatePiggyProgress);
 			m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) => RefreshAdBtn());
 			m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, AppPasueRefresh);
@@ -70,7 +70,7 @@ namespace SGame.UI
 			OnHeadSetting();
 			OnEventRefreshItem();
 			OnRefeshBuffTime();
-			OnRefreshLikeTime(0);
+			OnRefreshLikeCount(0);
 			OnRefreshAdTime();
 		}
 
@@ -298,7 +298,7 @@ namespace SGame.UI
 
 		void OnRoomLikeClick()
 		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("goodreputation"));
+			SGame.UIUtils.OpenUI("lucklike");
 		}
 
 		partial void OnAdBtnClick(EventContext data)
@@ -363,49 +363,19 @@ namespace SGame.UI
 		}
 
 		/// <summary>
-		/// 好评buff生效时间
+		/// 刷新好评数量
 		/// </summary>
-		void OnRefreshLikeTime(int likeNum)
+		void OnRefreshLikeCount(int likeNum)
 		{
-			var validTime = DataCenter.ReputationUtils.GetBuffValidTime();
-			m_view.m_likeBtn.m_progress.fillAmount = (float)DataCenter.Instance.reputationData.progress / ReputationModule.Instance.maxLikeNum;
-			m_view.m_likeBtn.m_state.selectedIndex = validTime > 0 ? 1 : 0;
-			m_view.m_likeBtn.SetIcon(ReputationModule.Instance.icon);
-			if (ReputationModule.Instance.roomLikeData.IsValid())
-				m_view.m_likeBtn.m_markState.selectedIndex = ReputationModule.Instance.roomLikeData.BuffMark;
-
-
-			if (validTime > 0)
-			{
-				Utils.Timer(validTime, () =>
-				{
-					validTime = DataCenter.ReputationUtils.GetBuffValidTime();
-					m_view.m_likeBtn.m_time.SetText(Utils.FormatTime(validTime));
-				}, m_view, completed: () => OnLikeFinish());
-			}
+			var curNum = DataCenter.Instance.likeData.likeNum;
+			m_view.m_likeBtn.m_count.text = curNum.ToString();
+			m_view.m_likeBtn.m_count_group.visible = curNum > 0;
 
 			if (likeNum > 0)
 			{
 				m_view.m_likeBtn.m_add.Play();
 				m_view.m_likeBtn.m_num.SetText(string.Format("+{0}", likeNum));
-				if (DataCenter.Instance.reputationData.progress >= ReputationModule.Instance.maxLikeNum)
-				{
-					var data = ReputationModule.Instance.roomLikeData;
-					m_view.m_likeBtn.m_info.SetText(string.Format("{0}:{1}", UIListener.Local(data.BuffName),
-						string.Format(UIListener.Local(data.BuffDesc), data.BuffValue == 0 ? data.BuffDuration : data.BuffValue, data.BuffDuration)));
-					m_view.m_likeBtn.m_play.Play();
-				}
 			}
-			OnRefreshTotalState();
-		}
-
-		void OnLikeFinish()
-		{
-			m_view.m_likeBtn.m_state.selectedIndex = 0;
-			m_view.m_likeBtn.m_progress.fillAmount = 0;
-			DataCenter.ReputationUtils.Reset();
-			m_view.m_likeBtn.SetIcon(ReputationModule.Instance.icon);
-			OnRefreshTotalState();
 		}
 
 		void OnRefreshTotalState()
