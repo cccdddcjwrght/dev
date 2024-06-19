@@ -48,6 +48,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_EquipPage, new EventCallback1(_OnEquipPageClick));
 			m_view.m_EquipQuality.m_state.onChanged.Add(new EventCallback1(_OnEquipUpQuality_StateChanged));
 			m_view.m_EquipQuality.m_type.onChanged.Add(new EventCallback1(_OnEquipUpQuality_TypeChanged));
+			m_view.m_EquipQuality.m_combine.onChanged.Add(new EventCallback1(_OnEquipUpQuality_CombineChanged));
 			m_view.m_EquipQuality.m_nexteq.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipQuality_nexteq_typeChanged));
 			m_view.m_EquipQuality.m_nexteq.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipQuality_nexteq_qualityChanged));
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick));
@@ -95,6 +96,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_EquipPage, new EventCallback1(_OnEquipPageClick),remove:true);
 			m_view.m_EquipQuality.m_state.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_StateChanged));
 			m_view.m_EquipQuality.m_type.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_TypeChanged));
+			m_view.m_EquipQuality.m_combine.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_CombineChanged));
 			m_view.m_EquipQuality.m_nexteq.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipQuality_nexteq_typeChanged));
 			m_view.m_EquipQuality.m_nexteq.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipQuality_nexteq_qualityChanged));
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick),remove:true);
@@ -171,6 +173,8 @@ namespace SGame.UI{
 		void SwitchEquip_EquipPageq1_body_qualityPage(int index)=>m_view.m_EquipPage.m_eq1.m_body.m_quality.selectedIndex=index;
 		void SetEqPos_EquipPageq1_bodyText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq1.m_body,data);
 		string GetEqPos_EquipPageq1_bodyText()=>UIListener.GetText(m_view.m_EquipPage.m_eq1.m_body);
+		void SetEqPos_EquipPageq1_attrText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq1.m_attr,data);
+		string GetEqPos_EquipPageq1_attrText()=>UIListener.GetText(m_view.m_EquipPage.m_eq1.m_attr);
 		void _OnEquipPage_Eq1Click(EventContext data){
 			OnEquipPage_Eq1Click(data);
 		}
@@ -194,6 +198,8 @@ namespace SGame.UI{
 		void SwitchEquip_EquipPageq2_body_qualityPage(int index)=>m_view.m_EquipPage.m_eq2.m_body.m_quality.selectedIndex=index;
 		void SetEqPos_EquipPageq2_bodyText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq2.m_body,data);
 		string GetEqPos_EquipPageq2_bodyText()=>UIListener.GetText(m_view.m_EquipPage.m_eq2.m_body);
+		void SetEqPos_EquipPageq2_attrText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq2.m_attr,data);
+		string GetEqPos_EquipPageq2_attrText()=>UIListener.GetText(m_view.m_EquipPage.m_eq2.m_attr);
 		void _OnEquipPage_Eq2Click(EventContext data){
 			OnEquipPage_Eq2Click(data);
 		}
@@ -217,6 +223,8 @@ namespace SGame.UI{
 		void SwitchEquip_EquipPageq3_body_qualityPage(int index)=>m_view.m_EquipPage.m_eq3.m_body.m_quality.selectedIndex=index;
 		void SetEqPos_EquipPageq3_bodyText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq3.m_body,data);
 		string GetEqPos_EquipPageq3_bodyText()=>UIListener.GetText(m_view.m_EquipPage.m_eq3.m_body);
+		void SetEqPos_EquipPageq3_attrText(string data)=>UIListener.SetText(m_view.m_EquipPage.m_eq3.m_attr,data);
+		string GetEqPos_EquipPageq3_attrText()=>UIListener.GetText(m_view.m_EquipPage.m_eq3.m_attr);
 		void _OnEquipPage_Eq3Click(EventContext data){
 			OnEquipPage_Eq3Click(data);
 		}
@@ -285,6 +293,11 @@ namespace SGame.UI{
 		}
 		partial void OnEquipUpQuality_TypeChanged(EventContext data);
 		void SwitchEquipUpQuality_TypePage(int index)=>m_view.m_EquipQuality.m_type.selectedIndex=index;
+		void _OnEquipUpQuality_CombineChanged(EventContext data){
+			OnEquipUpQuality_CombineChanged(data);
+		}
+		partial void OnEquipUpQuality_CombineChanged(EventContext data);
+		void SwitchEquipUpQuality_CombinePage(int index)=>m_view.m_EquipQuality.m_combine.selectedIndex=index;
 		void _OnEquip_EquipQuality_nexteq_typeChanged(EventContext data){
 			OnEquip_EquipQuality_nexteq_typeChanged(data);
 		}

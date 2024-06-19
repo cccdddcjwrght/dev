@@ -32,7 +32,14 @@ public struct CookBookRowData : IFlatbufferObject
 #endif
   public int[] GetCostArray() { return __p.__vector_as_array<int>(12); }
   public int ConditionType { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ConditionValue { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ConditionValue(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int ConditionValueLength { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetConditionValueBytes() { return __p.__vector_as_span<int>(16, 4); }
+#else
+  public ArraySegment<byte>? GetConditionValueBytes() { return __p.__vector_as_arraysegment(16); }
+#endif
+  public int[] GetConditionValueArray() { return __p.__vector_as_array<int>(16); }
   public int Map { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Price { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Time { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
@@ -44,7 +51,7 @@ public struct CookBookRowData : IFlatbufferObject
       int Star = 0,
       VectorOffset CostOffset = default(VectorOffset),
       int ConditionType = 0,
-      int ConditionValue = 0,
+      VectorOffset ConditionValueOffset = default(VectorOffset),
       int Map = 0,
       int Price = 0,
       int Time = 0) {
@@ -52,7 +59,7 @@ public struct CookBookRowData : IFlatbufferObject
     CookBookRowData.AddTime(builder, Time);
     CookBookRowData.AddPrice(builder, Price);
     CookBookRowData.AddMap(builder, Map);
-    CookBookRowData.AddConditionValue(builder, ConditionValue);
+    CookBookRowData.AddConditionValue(builder, ConditionValueOffset);
     CookBookRowData.AddConditionType(builder, ConditionType);
     CookBookRowData.AddCost(builder, CostOffset);
     CookBookRowData.AddStar(builder, Star);
@@ -72,7 +79,10 @@ public struct CookBookRowData : IFlatbufferObject
   public static VectorOffset CreateCostVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCostVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddConditionType(FlatBufferBuilder builder, int ConditionType) { builder.AddInt(5, ConditionType, 0); }
-  public static void AddConditionValue(FlatBufferBuilder builder, int ConditionValue) { builder.AddInt(6, ConditionValue, 0); }
+  public static void AddConditionValue(FlatBufferBuilder builder, VectorOffset ConditionValueOffset) { builder.AddOffset(6, ConditionValueOffset.Value, 0); }
+  public static VectorOffset CreateConditionValueVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateConditionValueVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartConditionValueVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddMap(FlatBufferBuilder builder, int Map) { builder.AddInt(7, Map, 0); }
   public static void AddPrice(FlatBufferBuilder builder, int Price) { builder.AddInt(8, Price, 0); }
   public static void AddTime(FlatBufferBuilder builder, int Time) { builder.AddInt(9, Time, 0); }

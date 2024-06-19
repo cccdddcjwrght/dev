@@ -65,17 +65,29 @@ namespace SGame.UI
 		void SetBookInfo(int index, GObject gObject)
 		{
 			var data = DataCenter.CookbookUtils.GetBook((int)_itemDatas[index]);
-			var openFoodTypes = 					TableManager.Instance.GetOpenFoodTypes();
+			var openFoodTypes = TableManager.Instance.GetOpenFoodTypes();
 
 			gObject.name = index.ToString();
 			gObject.data = data;
 			if (data != null)
 			{
 				gObject.SetIcon(data.cfg.Icon);
+				(gObject as UI_BookItem).m_level.SetTextByKey("ui_common_lv", data.level);
 				gObject.onClick.Clear();
 				gObject.onClick.Add(OnBookClick);
-				gObject.grayed = !(openFoodTypes.Contains(data.id));
-				UIListener.SetControllerSelect(gObject, "__redpoint", data.CanUpLv(out _) ? 1 : 0, false);
+				//gObject.grayed = !(openFoodTypes.Contains(data.id));
+
+				var state = 0;
+				if (!data.IsEnable())
+				{
+					state = 3;
+					if (data.lvCfg.ConditionType == 3 && Utils.CheckItemCount(data.lvCfg.ConditionValue(0), data.lvCfg.ConditionValue(1),false))
+						state = 2;
+				}
+				else if (data.CanUpLv(out _))
+					state = 1;
+
+				UIListener.SetControllerSelect(gObject, "state", state, false);
 			}
 		}
 
@@ -84,7 +96,7 @@ namespace SGame.UI
 			var d = (data.sender as GObject)?.data;
 			if (d != null)
 			{
-				DelayExcuter.Instance.OnlyWaitUIClose("cookbookup", OnCookBookTab , true);
+				DelayExcuter.Instance.OnlyWaitUIClose("cookbookup", OnCookBookTab, true);
 				SGame.UIUtils.OpenUI("cookbookup", d);
 			}
 			else

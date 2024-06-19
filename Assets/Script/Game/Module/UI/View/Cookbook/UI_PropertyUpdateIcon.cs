@@ -23,9 +23,9 @@ namespace SGame.UI.Cookbook
             base.ConstructFromXML(xml);
 
             m_state = GetControllerAt(0);
-            m_val2 = (GTextField)GetChildAt(1);
-            m_val = (GTextField)GetChildAt(2);
-            m_next = (GTextField)GetChildAt(4);
+            m_val2 = (GTextField)GetChildAt(0);
+            m_val = (GTextField)GetChildAt(1);
+            m_next = (GTextField)GetChildAt(3);
         }
     }
 }

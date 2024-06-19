@@ -17,6 +17,7 @@ namespace SGame
 			public static void Init()
 			{
 				data.Refresh();
+				EventManager.Instance.Reg<int, int>(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), (a, b) => data.Refresh());
 			}
 
 			public static CookBookItem GetBook(int id, bool missadd = true)
@@ -47,17 +48,28 @@ namespace SGame
 				return data.bookIDs.ToArray();
 			}
 
-			public static void UpLv(int id)
+			public static bool UpLv(int id)
 			{
 				var book = GetBook(id);
 				if (book != null)
 				{
-					var cost = book.lvCfg.GetCostArray();
-					PropertyManager.Instance.UpdateByArgs(true, cost);
-					book.level++;
-					book.Refresh();
-					EventManager.Instance.Trigger(((int)GameEvent.COOKBOOK_UP_LV), id, book.level);
+					var enable = book.IsEnable();
+					if (book.CanUpLv(out _, enable))
+					{
+						var cost = book.GetCost(out var ty, out var item);
+						PropertyManager.Instance.Update(ty, item, cost, true);
+						if (enable)
+						{
+							book.level++;
+							book.Refresh();
+						}
+						else
+							book.enable = true;
+						EventManager.Instance.Trigger(((int)GameEvent.COOKBOOK_UP_LV), id, book.level);
+						return true;
+					}
 				}
+				return false;
 			}
 
 		}
@@ -92,6 +104,7 @@ namespace SGame
 	{
 		public int id;
 		public int level;
+		public bool enable;
 
 		[NonSerialized]
 		public int maxLv;
@@ -111,24 +124,47 @@ namespace SGame
 			return level >= maxLv;
 		}
 
+		public bool IsEnable()
+		{
+			if (level > 1) return true;
+			if (lvCfg.ConditionType == 3) return enable;
+			else
+			{
+				if (!enable)
+					enable = CanUpLv(out _, false);
+				return enable;
+			}
+		}
+
 		public double GetCost(out int type, out int id)
 		{
 			type = id = 0;
+
 			if (lvCfg.IsValid())
 			{
-				var cost = lvCfg.GetCostArray();
-				type = (int)cost[0];
-				id = (int)cost[1];
-				return cost[2];
+				if (lvCfg.ConditionType == 3 && !enable)
+				{
+					type = 1;
+					id = lvCfg.ConditionValue(0);
+					return lvCfg.ConditionValue(1);
+				}
+				else
+				{
+					var cost = lvCfg.GetCostArray();
+					type = (int)cost[0];
+					id = (int)cost[1];
+					return cost[2];
+				}
 			}
 			return 0;
 		}
-		public bool CanUpLv(out bool scenelimit)
+
+		public bool CanUpLv(out bool scenelimit, bool checkcost = true)
 		{
-			return CanUpLv(out scenelimit, out _);
+			return CanUpLv(out scenelimit, out _, checkcost);
 		}
 
-		public bool CanUpLv(out bool scenelimit, out bool itemnot)
+		public bool CanUpLv(out bool scenelimit, out bool itemnot, bool checkcost = true)
 		{
 			scenelimit = false;
 			itemnot = false;
@@ -142,14 +178,18 @@ namespace SGame
 					switch (lvCfg.ConditionType)
 					{
 						case 1:
-							f = DataCenter.Instance.roomData.tables.Contains(lvCfg.ConditionValue);
+							f = DataCenter.Instance.roomData.tables.Contains(lvCfg.ConditionValue(0));
 							break;
 						case 2:
-							f = DataCenter.MachineUtil.IsAreaEnable(lvCfg.ConditionValue);
+							f = DataCenter.MachineUtil.IsAreaEnable(lvCfg.ConditionValue(0));
+							break;
+						case 3:
+							f = Utils.CheckItemCount(lvCfg.ConditionValue(0), lvCfg.ConditionValue(1), false);
+							if (!f) itemnot = true;
 							break;
 					}
 					if (!f) return false;
-					if (!PropertyManager.Instance.CheckCountByArgs(lvCfg.GetCostArray()))
+					if (checkcost && !PropertyManager.Instance.CheckCountByArgs(lvCfg.GetCostArray()))
 					{
 						itemnot = true;
 						return false;
@@ -184,7 +224,7 @@ namespace SGame
 				if (cfgLists?.Count > 0)
 				{
 					level = Math.Clamp(level, 1, maxLv);
-					lvCfg = cfgLists[level - 1];
+					lvCfg = level > 0 ? cfgLists[level - 1] : default;
 					nextLvCfg = level >= cfgLists.Count ? default : cfgLists[level];
 				}
 			}

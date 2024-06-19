@@ -7,8 +7,10 @@ namespace SGame.UI.Cookbook
 {
     public partial class UI_BookItem : GButton
     {
-        public Controller m___redpoint;
+        public Controller m_state;
+        public Controller m_hidelv;
         public GLabel m_body;
+        public GTextField m_level;
         public const string URL = "ui://n2tgmsyur4i18";
 
         public static UI_BookItem CreateInstance()
@@ -20,8 +22,10 @@ namespace SGame.UI.Cookbook
         {
             base.ConstructFromXML(xml);
 
-            m___redpoint = GetControllerAt(0);
+            m_state = GetControllerAt(0);
+            m_hidelv = GetControllerAt(1);
             m_body = (GLabel)GetChildAt(0);
+            m_level = (GTextField)GetChildAt(1);
         }
     }
 }
