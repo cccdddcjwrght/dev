@@ -61,6 +61,7 @@ namespace SGame
 			yield return null;
 			methods.Foreach(m => m.Invoke(null, Array.Empty<object>()));
 			DataCenter.HunterUtil.Init();
+			DataCenter.CookbookUtils.Init();
 		}
 
 

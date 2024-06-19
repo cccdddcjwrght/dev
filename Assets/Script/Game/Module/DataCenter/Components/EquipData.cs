@@ -508,9 +508,9 @@ namespace SGame
 						var eq = equips[i];
 						if (eq.temp != 0) continue;
 						if (quality != 0 && quality != eq.quality) continue;
-						//由于已经按照部位和id排序，所以如果一个不符合就直接结束
+						//由于已经按照部位和Group排序，所以如果一个不符合就直接结束
 						if (type != 0 && type != eq.cfg.Type) break;
-						if (id != 0 && id != eq.cfgID) break;
+						if (id != 0 && id != eq.cfg.Group) break;
 						rets.Add(eq);
 						count--;
 					}
@@ -554,7 +554,7 @@ namespace SGame
 								switch (eq.qcfg.AdvanceType)
 								{
 									case 2: ctype = eq.type; break;
-									case 4: cid = eq.cfgID; break;
+									case 4: cid = eq.cfg.Group; break;
 								}
 								eq.temp = 1;
 								if (eqs.Count - 1 < val || !FindEquip(eqs, val, ref packs, i + 1, quality: quality, type: ctype, id: cid))
@@ -587,7 +587,7 @@ namespace SGame
 				var ret = a.type.CompareTo(b.type);
 				if (ret == 0)
 				{
-					ret = a.cfgID.CompareTo(b.cfgID);
+					ret = a.cfg.Group.CompareTo(b.cfg.Group);
 					if (ret == 0)
 						ret = a.level.CompareTo(b.level);
 				}

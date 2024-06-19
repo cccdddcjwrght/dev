@@ -118,7 +118,7 @@ partial class UIListenerExt
 				pos.m_state.selectedIndex = 1;
 				pos.m_currency.SetIcon(Utils.GetItemIcon(1, ConstDefine.EQUIP_UPLV_MAT));
 				pos.SetText(Utils.ConvertNumberStr(equip.upLvCost), false);
-				pos.m_attr.SetText("+" + equip.GetNextAttrVal().ToString() + "%", false);
+				pos.m_attr.SetText("+" + equip.qcfg.MainBuffAdd + "%", false);
 			}
 		}
 	}

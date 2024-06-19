@@ -139,7 +139,7 @@ namespace SGame.UI
 					eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality && _current.type == e.type);
 					break;
 				case 4:
-					eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality && _current.cfgID == e.cfgID);
+					eqs = DataCenter.Instance.equipData.items.FindAll(e => e != _current && _current.quality == e.quality && _current.cfg.Group == e.cfg.Group);
 					break;
 				case 3:
 					matcount = 1;
@@ -256,14 +256,21 @@ namespace SGame.UI
 		{
 
 			if (RequestExcuteSystem.EquipAutoUpQuality(out var eqs, out var recycle))
-				SGame.Utils.ShowRewards(title: "@ui_equip_merge_title", contentCall: (view) => ShowRewardContent(view, eqs, recycle));
+			{
+				SGame.Utils.ShowRewards(title: "@ui_equip_merge_title", contentCall: (view) => ShowRewardContent(view, eqs, recycle).Start());
+			}
 			else
 				"@ui_equip_merge_tips".Tips();
 		}
 
-		void ShowRewardContent(UI_CommonRewardUI view, List<BaseEquip> eqs, double recycle)
+		IEnumerator ShowRewardContent(UI_CommonRewardUI view, List<BaseEquip> eqs, double recycle)
 		{
 			const string rich_text = "<img src='{0}' width='45%' height='45%' />";
+
+			var effect = EffectSystem.Instance.AddEffect(28, view);
+			yield return EffectSystem.Instance.WaitEffectLoaded(effect);
+			yield return new WaitForSeconds(1.5f);
+
 			if (recycle > 0)
 			{
 				var url = UIListener.GetUIResFromPkgs(Utils.GetItemIcon(1, ConstDefine.EQUIP_UPLV_MAT));
@@ -274,7 +281,7 @@ namespace SGame.UI
 			SGame.UIUtils.AddListItems(view.m_list, eqs, SetRewardEqView, res: "ui://Player/EquipBox");
 		}
 
-		void SetRewardEqView(int index , object data , GObject g)
+		void SetRewardEqView(int index, object data, GObject g)
 		{
 			g.asCom.GetChild("body").SetEquipInfo(data as BaseEquip, true);
 		}
