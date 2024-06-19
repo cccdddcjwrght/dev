@@ -172,7 +172,7 @@ namespace SGame
 			if (lvCfg.IsValid())
 			{
 				var scene = DataCenter.Instance.roomData.roomID;
-				if (lvCfg.Map == scene)
+				if (lvCfg.Map <= scene)
 				{
 					var f = true;
 					switch (lvCfg.ConditionType)
