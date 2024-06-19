@@ -27,6 +27,7 @@ namespace SGame
 
         public override void Dispose()
         {
+            UIUtils.CloseUIByName("dialogue");
             UIUtils.CloseUIByName("piercing");
         }
     }
