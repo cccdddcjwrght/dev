@@ -30,6 +30,11 @@ namespace SGame
         private List<Vector3>   m_pathPoints;
 
         /// <summary>
+        /// 公交站点
+        /// </summary>
+        private List<Vector2Int> m_busStops;
+
+        /// <summary>
         /// 汽车队伍
         /// </summary>
         private List<Data>      m_queue;
@@ -87,6 +92,8 @@ namespace SGame
         /// </summary>
         public LevelPathRowData cfg => m_config;
 
+        public List<Vector2Int> busStopses => m_busStops;
+
         /// <summary>
         /// 用于获取汽车随机
         /// </summary>
@@ -128,9 +135,27 @@ namespace SGame
                 m_carIDs.Add(config.CarId(i));
             for (int i = 0; i < config.CarWeightLength; i++)
                 m_carWidgets.Add(config.CarWeight(i));
+
+            SetupBusStop();
             return true;
         }
-        
+    
+        void SetupBusStop()
+        {
+             m_busStops = new List<Vector2Int>();
+             if (m_config.BusStop1Length != 2)
+                 return;
+             m_busStops.Add(new Vector2Int(m_config.BusStop1(0), m_config.BusStop1(1)));
+             
+             if (m_config.BusStop2Length != 2)
+                 return;
+             m_busStops.Add(new Vector2Int(m_config.BusStop2(0), m_config.BusStop2(1)));
+             
+             if (m_config.BusStop3Length != 2)
+                 return;
+             m_busStops.Add(new Vector2Int(m_config.BusStop3(0), m_config.BusStop3(1)));
+        }
+
         public int GetRandomCar()
         {
             if (m_carIDs.Count == 0 || m_carIDs.Count != m_carWidgets.Count)

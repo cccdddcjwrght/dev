@@ -73,7 +73,7 @@ namespace SGame.VS
 
                 var bus = carQueue.GetFirst();
                 var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-                if (EntityManager.HasComponent<CarMono>(bus))
+                if (!EntityManager.HasComponent<CarMono>(bus))
                 {
                     log.Error("no car mono script=" + tag);
                     return failTrigger;

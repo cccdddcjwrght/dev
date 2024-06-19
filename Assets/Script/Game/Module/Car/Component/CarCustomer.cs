@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using log4net;
 using Unity.Entities;
 using UnityEngine;
 
@@ -10,10 +11,13 @@ namespace SGame
     {
         public enum SeatState
         {
-            NOLEAVE = 0, // 顾客初始未离开
-            LEAVE   = 1, // 顾客已经离开了
-            RETURN  = 2, // 顾客回来了
+            NOLEAVE     = 0, // 顾客初始未离开
+            LEAVE       = 1, // 顾客已经离开了
+            RETURNING   = 2, // 正在回归
+            RETURN      = 3, // 顾客回来了
         }
+
+        private static ILog log = LogManager.GetLogger("game.car");
         
         public int RoleID;      // 角色ID
         public int ItemID;      // 点单食物ID
@@ -25,7 +29,24 @@ namespace SGame
 
         public bool IsEmptySeat => state == SeatState.LEAVE;
 
-        public bool Return(Entity customer)
+        public bool ReturnEnd(Entity customer)
+        {
+            if (state != SeatState.LEAVE)
+            {
+                return false;
+            }
+
+            if (this.customer != customer)
+            {
+                log.Error("customer not match");
+                return false;
+            }
+            
+            state = SeatState.RETURN;
+            return true;
+        }
+
+        public bool ReturnBegin(Entity customer)
         {
             if (state != SeatState.LEAVE)
             {
@@ -33,6 +54,7 @@ namespace SGame
             }
             
             this.customer = customer;
+            state = SeatState.RETURNING;
             return true;
         }
     }

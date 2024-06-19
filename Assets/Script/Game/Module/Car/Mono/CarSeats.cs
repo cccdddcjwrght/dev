@@ -66,7 +66,7 @@ namespace SGame
                 {
                     log.Error("role id = 0");
                 }
-                m_customers.Add(new CarCustomer(){RoleID = roleID, ItemID = 0, ItemNum = 0, hud = Entity.Null});
+                m_customers.Add(new CarCustomer(){RoleID = roleID, ItemID = 0, ItemNum = 0, hud = Entity.Null, customer = Entity.Null});
             }
         }
         
@@ -256,11 +256,16 @@ namespace SGame
             return m_seatAttachement[seatIndex].rotation;
         }
 
+        public float GetSeatAngle(int seatIndex)
+        {
+            return Utils.GetRotationAngle(GetSeatRotation(seatIndex));
+        }
+
         // 坐上空椅子
         public bool SitEmptySeat(Entity customer, int seatIndex)
         {
             CarCustomer chair = GetSeat(seatIndex);
-            return chair.Return(customer);
+            return chair.ReturnBegin(customer);
         }
 
         /// <summary>
@@ -319,10 +324,30 @@ namespace SGame
                 log.Error("no customer in chair");
                 return false;
             }
+
+            EntityManager.RemoveComponent<Parent>(chair.customer);
+            EntityManager.RemoveComponent<LocalToParent>(chair.customer);
+            EntityManager.SetComponentData<Rotation>(chair.customer, new Rotation(){Value = m_transform.rotation});
+            EntityManager.SetComponentData<Translation>(chair.customer, new Translation() { Value = m_transform.position });
             
-            chair.customer = Entity.Null;
+            //chair.customer = Entity.Null;
             chair.state = CarCustomer.SeatState.LEAVE;
             return true;
+        }
+
+        /// <summary>
+        /// 角色回归
+        /// </summary>
+        /// <param name="seatIndex"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public bool ReturnChairEnd(int seatIndex, Entity customer)
+        {
+            var seat = GetSeat(seatIndex);
+            bool ret = seat.ReturnEnd(customer);
+            if (ret)
+                UpdateChairCustomer(seatIndex);
+            return ret;
         }
 
         /// <summary>

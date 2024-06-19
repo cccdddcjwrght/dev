@@ -37,10 +37,14 @@ namespace SGame
         public GameObject                   script => m_ai;
 
         public Entity                       entity => m_entity;
-
+        
         //public Entity                       hud;
 
         public int                          customerNum => m_seats.customerNum;
+
+        private bool                        m_isInit = false;
+
+        public bool                         isInit => m_isInit;
 
         /// <summary>
         /// 初始化对象
@@ -219,6 +223,8 @@ namespace SGame
             // 创建顾客
             if (m_config.ShowCustomer != 0)
                 yield return m_seats.CreateCustomer(m_entity, transform, m_config.CustomerAI);
+
+            m_isInit = true;
         }
         
         public bool IsMoving
@@ -337,8 +343,25 @@ namespace SGame
 
         public CarSeats seats => m_seats;
 
-        public void UpdateChairCustomer(int chairIndex) => seats.UpdateChairCustomer(chairIndex);
+        /// <summary>
+        /// 公交站点
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public Vector2Int GetBusStop(int index)
+        {
+            return m_queue.busStopses[index];
+        }
 
-        public bool LeaveChair(int chairIndex) => seats.LeaveChair(chairIndex);
+        public int BusStopNum => m_queue.busStopses.Count;
+        
+        // 判断顾客是否都回来了
+        public bool IsReadyToLeave => m_seats.IsReadyToLeave;
+
+        public bool LeaveChair(int chairIndex) => m_seats.LeaveChair(chairIndex);
+
+        public bool ReturnEnd(int chairIndex, Entity customer) => m_seats.ReturnChairEnd(chairIndex, customer);
+
+        public void UpdateChairCustomer(int chairIndex) => m_seats.UpdateChairCustomer(chairIndex);
     }
 }
