@@ -63,6 +63,7 @@ namespace SGame
         public override void Dispose()
         {
             UIUtils.CloseUIByName("guidemask");
+            UIUtils.CloseUIByName("dialogue");
             GTween.Kill(m_Timer);
             GameObject.Destroy(m_Arrow);
             m_Arrow = null;
