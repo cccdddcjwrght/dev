@@ -72,7 +72,7 @@ namespace SGame.UI
 			if (data != null)
 			{
 				gObject.SetIcon(data.cfg.Icon);
-				(gObject as UI_BookItem).m_level.SetTextByKey("ui_common_lv", data.level);
+				(gObject as UI_BookItem).m_level.SetTextByKey("ui_common_lv", data.level,data.maxLv);
 				gObject.onClick.Clear();
 				gObject.onClick.Add(OnBookClick);
 				//gObject.grayed = !(openFoodTypes.Contains(data.id));

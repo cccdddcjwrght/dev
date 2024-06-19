@@ -198,7 +198,7 @@ namespace SGame
 
 				}
 				scenelimit = true;
-				return scene > lvCfg.Map;
+				return false;
 			}
 			return false;
 		}

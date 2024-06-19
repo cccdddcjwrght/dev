@@ -54,7 +54,7 @@ namespace SGame.UI
 
 		private void SetChangeInfo()
 		{
-			m_view.m_level.SetTextByKey("ui_common_lv", data.level);
+			m_view.m_level.SetTextByKey("ui_common_lv1", data.level);
 
 			isEnable = data.IsEnable();
 			if (isEnable)
