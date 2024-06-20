@@ -9,6 +9,8 @@ namespace SGame.UI{
 
     public partial class UILuckLike
 	{
+		private LongPressGesture _press;
+
 		int m_LikeCfgId;        //好评奖励Id
 		int m_HiddenCfgId;		//隐藏奖励Id
 		List<LikeRewardData> m_RewardData;  //储存的奖励
@@ -20,9 +22,12 @@ namespace SGame.UI{
 		int m_TotalNum = 6;		//抽奖类型数量
 		float m_Height = 200;   //抽奖item高度
 
+		bool m_IsPlaying = false;	//是否抽奖中
+		bool m_Auto = false;		//是否自动抽奖
+
 		EventHandleContainer m_Event = new EventHandleContainer();
 		partial void InitLogic(UIContext context){
-
+			context.onUpdate += OnUpdate;
 			m_Event += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, (num)=> RefreshLikeNum());
 
 			InitLotteryList();
@@ -42,12 +47,27 @@ namespace SGame.UI{
 			m_view.m_list1.numItems = m_TotalNum;
 			m_view.m_list2.numItems = m_TotalNum;
 
+			_press = new LongPressGesture(m_view.m_startBtn)
+			{
+				once = true,
+			};
+			_press.onBegin.Add(() => {
+				m_Auto = true;
+				RefreshAutoState();
+			});
+
 			m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
 			m_view.m_BigLuckShow.onClick.Add(() =>
 			{
 				m_view.m_BigLuckShow.visible = false;
 				RefreshRewardList();
 			});
+		}
+
+		public void RefreshAutoState() 
+		{
+			m_view.m_auto.selectedIndex = m_Auto ? 1 : 0;
+			Debug.Log(m_view.m_auto.selectedIndex);
 		}
 
 		public void RefreshLikeNum() 
@@ -70,7 +90,9 @@ namespace SGame.UI{
 				return;
 			}
 
-			UILockManager.Instance.Require("LuckLike");
+			if (m_IsPlaying) return;
+			m_IsPlaying = true;
+			//UILockManager.Instance.Require("LuckLike");
 			DataCenter.Instance.likeData.likeNum--;
 			EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
 
@@ -114,7 +136,8 @@ namespace SGame.UI{
 		
 		public void LotteryFinish() 
 		{
-			UILockManager.Instance.Release("LuckLike");
+			m_IsPlaying = false;
+			//UILockManager.Instance.Release("LuckLike");
 			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config)) 
 			{
 				if (config.ResultType == 1)
@@ -141,12 +164,35 @@ namespace SGame.UI{
 			}
 		}
 
-        partial void OnBtnClick(EventContext data)
+		private void OnUpdate(UIContext context)
+		{
+			if (m_Auto) 
+			{
+				if (!m_IsPlaying) 
+				{
+					if (DataCenter.Instance.likeData.likeNum > 0)
+						PlayLottery();
+					else
+					{
+						m_Auto = false;
+						RefreshAutoState();
+					}
+				}
+			}
+		}
+
+        partial void OnStartBtnClick(EventContext data)
         {
 			PlayLottery();
         }
 
-		void OnRewardItemRenderer(int index, GObject gObject) 
+        partial void OnStopBtnClick(EventContext data)
+        {
+			m_Auto = false;
+			RefreshAutoState();
+        }
+
+        void OnRewardItemRenderer(int index, GObject gObject) 
 		{
 			var data = m_RewardData[index];
 
@@ -180,6 +226,8 @@ namespace SGame.UI{
 		}
 
 		partial void UnInitLogic(UIContext context){
+			context.onUpdate -= OnUpdate;
+			_press?.Dispose();
 			m_Event.Close();
 			m_Event = null;
 
