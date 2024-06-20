@@ -115,7 +115,7 @@ namespace SGame.UI{
 				if (setItemData.label != null)
 				{
 					string title=Regex.Replace(setItemData.label,  @"\*", setItemData.val.ToString());
-					//body.m_nomal.m_title.text=UIListener.Local(title);
+					body.m_nomal.title = UIListener.Local(title);
 				}
 				body.m_nomal.onClick.Set(() =>
 				{
