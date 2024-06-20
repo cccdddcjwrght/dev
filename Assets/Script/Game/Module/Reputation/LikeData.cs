@@ -47,7 +47,7 @@ namespace SGame
                 List<int> weights = new List<int>();
                 var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Rewards>();
                 var len = configs.DatalistLength;
-                for (int i = 0; i < len - 1; i++)
+                for (int i = 0; i < len; i++)
                 {
                     var config = configs.Datalist(i).Value;
                     var weight = GetRewardWeight(config.ConditionType, config.ConditionValue, config.Weight);
@@ -66,7 +66,7 @@ namespace SGame
                 List<int> weights = new List<int>();
                 var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Jackpot>();
                 var len = configs.DatalistLength;
-                for (int i = 0; i < len - 1; i++)
+                for (int i = 0; i < len; i++)
                 {
                     var config = configs.Datalist(i).Value;
                     var weight = GetRewardWeight(config.ConditionType, config.ConditionValue, config.Weight);
