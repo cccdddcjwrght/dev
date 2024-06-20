@@ -6,6 +6,7 @@ using System.Text;
 using libx;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Fibers.Fiber;
 
 namespace SGame
 {
@@ -38,6 +39,7 @@ namespace SGame
 			{
 				case 0:
 					UILockManager.Instance.Require(shop_lock);
+					SceneCameraSystem.Instance.disableTouch = true;
 					var goods = DataCenter.Instance.shopData.goodDic[id];
 					if (goods != null)
 					{
@@ -61,7 +63,10 @@ namespace SGame
 						}
 					}
 					break;
-				default: code.ToString().ErrorTips(); break;
+				default: 
+					code.ToString().ErrorTips();
+					call?.Invoke(false);
+					break;
 			}
 		}
 
@@ -85,6 +90,7 @@ namespace SGame
 			}
 			call?.Invoke(state);
 			UILockManager.Instance.Release(shop_lock);
+			SceneCameraSystem.Instance.disableTouch = false;
 		}
 
 	}

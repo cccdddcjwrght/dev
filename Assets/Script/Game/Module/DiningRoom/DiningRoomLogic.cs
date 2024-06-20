@@ -395,7 +395,8 @@ namespace SGame.Dining
 
 		public void OnClick()
 		{
-			onClick?.Invoke(region, place);
+			if (UIUtils.CheckIsOnlyMainUI())
+				onClick?.Invoke(region, place);
 		}
 
 
