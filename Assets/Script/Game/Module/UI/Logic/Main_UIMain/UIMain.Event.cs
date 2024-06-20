@@ -369,7 +369,7 @@ namespace SGame.UI
 		{
 			var curNum = DataCenter.Instance.likeData.likeNum;
 			m_view.m_likeBtn.m_count.text = curNum.ToString();
-			m_view.m_likeBtn.m_count_group.visible = curNum > 0;
+			m_view.m_likeBtn.m_count.visible = curNum > 0;
 
 			if (likeNum > 0)
 			{

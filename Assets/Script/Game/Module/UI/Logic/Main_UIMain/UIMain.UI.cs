@@ -135,8 +135,6 @@ namespace SGame.UI{
 		string GetLikeBtn_NumText()=>UIListener.GetText(m_view.m_likeBtn.m_num);
 		void SetLikeBtn_CountText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_count,data);
 		string GetLikeBtn_CountText()=>UIListener.GetText(m_view.m_likeBtn.m_count);
-		void SetLikeBtn_InfoText(string data)=>UIListener.SetText(m_view.m_likeBtn.m_info,data);
-		string GetLikeBtn_InfoText()=>UIListener.GetText(m_view.m_likeBtn.m_info);
 		void _OnLikeBtnClick(EventContext data){
 			OnLikeBtnClick(data);
 		}
