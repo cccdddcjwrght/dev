@@ -1,3 +1,4 @@
+using System;
 using log4net;
 using SGame;
 using Unity.VisualScripting;
@@ -63,6 +64,10 @@ namespace SGame.VS
             {
                 var tag = flow.GetValue<string>(pathTag);
                 var customer = flow.GetValue<Entity>(customerEntity);
+                if (customer == Entity.Null)
+                {
+                    throw new Exception("customer is null");
+                }
                 
                 CarQueue carQueue = CarQueueManager.Instance.GetOrCreate(tag);
                 if (carQueue == null)

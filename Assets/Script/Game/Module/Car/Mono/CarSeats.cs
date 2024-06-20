@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameConfigs;
 using log4net;
 using Unity.Entities;
@@ -343,6 +344,9 @@ namespace SGame
         /// <returns></returns>
         public bool ReturnChairEnd(int seatIndex, Entity customer)
         {
+            if (customer == Entity.Null)
+                throw new Exception("entity is null");
+            
             var seat = GetSeat(seatIndex);
             bool ret = seat.ReturnEnd(customer);
             if (ret)

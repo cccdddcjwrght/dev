@@ -31,7 +31,7 @@ namespace SGame
 
         public bool ReturnEnd(Entity customer)
         {
-            if (state != SeatState.LEAVE)
+            if (state != SeatState.RETURNING)
             {
                 return false;
             }
