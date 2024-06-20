@@ -27,6 +27,11 @@ public struct EquipUpLevelCostRowData : IFlatbufferObject
   public int Quality5Need { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Quality6Need { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Quality7Need { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality8Need { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality9Need { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality10Need { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality11Need { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Quality12Need { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.EquipUpLevelCostRowData> CreateEquipUpLevelCostRowData(FlatBufferBuilder builder,
       int level = 0,
@@ -36,8 +41,18 @@ public struct EquipUpLevelCostRowData : IFlatbufferObject
       int Quality4Need = 0,
       int Quality5Need = 0,
       int Quality6Need = 0,
-      int Quality7Need = 0) {
-    builder.StartTable(8);
+      int Quality7Need = 0,
+      int Quality8Need = 0,
+      int Quality9Need = 0,
+      int Quality10Need = 0,
+      int Quality11Need = 0,
+      int Quality12Need = 0) {
+    builder.StartTable(13);
+    EquipUpLevelCostRowData.AddQuality12Need(builder, Quality12Need);
+    EquipUpLevelCostRowData.AddQuality11Need(builder, Quality11Need);
+    EquipUpLevelCostRowData.AddQuality10Need(builder, Quality10Need);
+    EquipUpLevelCostRowData.AddQuality9Need(builder, Quality9Need);
+    EquipUpLevelCostRowData.AddQuality8Need(builder, Quality8Need);
     EquipUpLevelCostRowData.AddQuality7Need(builder, Quality7Need);
     EquipUpLevelCostRowData.AddQuality6Need(builder, Quality6Need);
     EquipUpLevelCostRowData.AddQuality5Need(builder, Quality5Need);
@@ -49,7 +64,7 @@ public struct EquipUpLevelCostRowData : IFlatbufferObject
     return EquipUpLevelCostRowData.EndEquipUpLevelCostRowData(builder);
   }
 
-  public static void StartEquipUpLevelCostRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StartEquipUpLevelCostRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddLevel(FlatBufferBuilder builder, int level) { builder.AddInt(0, level, 0); }
   public static void AddQuality1Need(FlatBufferBuilder builder, int Quality1Need) { builder.AddInt(1, Quality1Need, 0); }
   public static void AddQuality2Need(FlatBufferBuilder builder, int Quality2Need) { builder.AddInt(2, Quality2Need, 0); }
@@ -58,6 +73,11 @@ public struct EquipUpLevelCostRowData : IFlatbufferObject
   public static void AddQuality5Need(FlatBufferBuilder builder, int Quality5Need) { builder.AddInt(5, Quality5Need, 0); }
   public static void AddQuality6Need(FlatBufferBuilder builder, int Quality6Need) { builder.AddInt(6, Quality6Need, 0); }
   public static void AddQuality7Need(FlatBufferBuilder builder, int Quality7Need) { builder.AddInt(7, Quality7Need, 0); }
+  public static void AddQuality8Need(FlatBufferBuilder builder, int Quality8Need) { builder.AddInt(8, Quality8Need, 0); }
+  public static void AddQuality9Need(FlatBufferBuilder builder, int Quality9Need) { builder.AddInt(9, Quality9Need, 0); }
+  public static void AddQuality10Need(FlatBufferBuilder builder, int Quality10Need) { builder.AddInt(10, Quality10Need, 0); }
+  public static void AddQuality11Need(FlatBufferBuilder builder, int Quality11Need) { builder.AddInt(11, Quality11Need, 0); }
+  public static void AddQuality12Need(FlatBufferBuilder builder, int Quality12Need) { builder.AddInt(12, Quality12Need, 0); }
   public static Offset<GameConfigs.EquipUpLevelCostRowData> EndEquipUpLevelCostRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipUpLevelCostRowData>(o);

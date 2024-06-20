@@ -81,7 +81,7 @@ public struct CarDataRowData : IFlatbufferObject
       float MoveSpeed = 0.0f,
       int WorkerArea = 0,
       StringOffset AIOffset = default(StringOffset),
-      int customerAI = 0,
+      int CustomerAI = 0,
       int ChairNum = 0,
       int ShowCustomer = 0,
       VectorOffset positionOffset = default(VectorOffset),
@@ -97,7 +97,7 @@ public struct CarDataRowData : IFlatbufferObject
     CarDataRowData.AddPosition(builder, positionOffset);
     CarDataRowData.AddShowCustomer(builder, ShowCustomer);
     CarDataRowData.AddChairNum(builder, ChairNum);
-    CarDataRowData.AddCustomerAI(builder, customerAI);
+    CarDataRowData.AddCustomerAI(builder, CustomerAI);
     CarDataRowData.AddAI(builder, AIOffset);
     CarDataRowData.AddWorkerArea(builder, WorkerArea);
     CarDataRowData.AddMoveSpeed(builder, MoveSpeed);
@@ -116,7 +116,7 @@ public struct CarDataRowData : IFlatbufferObject
   public static void AddMoveSpeed(FlatBufferBuilder builder, float MoveSpeed) { builder.AddFloat(4, MoveSpeed, 0.0f); }
   public static void AddWorkerArea(FlatBufferBuilder builder, int WorkerArea) { builder.AddInt(5, WorkerArea, 0); }
   public static void AddAI(FlatBufferBuilder builder, StringOffset AIOffset) { builder.AddOffset(6, AIOffset.Value, 0); }
-  public static void AddCustomerAI(FlatBufferBuilder builder, int customerAI) { builder.AddInt(7, customerAI, 0); }
+  public static void AddCustomerAI(FlatBufferBuilder builder, int CustomerAI) { builder.AddInt(7, CustomerAI, 0); }
   public static void AddChairNum(FlatBufferBuilder builder, int ChairNum) { builder.AddInt(8, ChairNum, 0); }
   public static void AddShowCustomer(FlatBufferBuilder builder, int ShowCustomer) { builder.AddInt(9, ShowCustomer, 0); }
   public static void AddPosition(FlatBufferBuilder builder, VectorOffset positionOffset) { builder.AddOffset(10, positionOffset.Value, 0); }

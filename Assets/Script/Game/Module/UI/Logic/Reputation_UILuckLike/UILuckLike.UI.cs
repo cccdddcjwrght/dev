@@ -56,8 +56,6 @@ namespace SGame.UI{
 			OnBigLuckShowClick(data);
 		}
 		partial void OnBigLuckShowClick(EventContext data);
-		void SetBigLuckShowText(string data)=>UIListener.SetText(m_view.m_BigLuckShow,data);
-		string GetBigLuckShowText()=>UIListener.GetText(m_view.m_BigLuckShow);
 
 	}
 }
