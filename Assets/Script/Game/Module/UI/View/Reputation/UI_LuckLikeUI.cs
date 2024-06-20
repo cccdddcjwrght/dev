@@ -33,15 +33,15 @@ namespace SGame.UI.Reputation
             m_reward = GetControllerAt(0);
             m_close = (GButton)GetChildAt(0);
             m_name = (GTextField)GetChildAt(3);
-            m_top_icon = (GGroup)GetChildAt(7);
-            m_rewardList = (GList)GetChildAt(9);
-            m_reward_group = (GGroup)GetChildAt(10);
-            m_btn = (GButton)GetChildAt(16);
-            m_count = (GTextField)GetChildAt(18);
-            m_list1 = (GList)GetChildAt(19);
-            m_list2 = (GList)GetChildAt(20);
-            m_content = (GGroup)GetChildAt(21);
-            m_BigLuckShow = (UI_BigLuckShow)GetChildAt(22);
+            m_top_icon = (GGroup)GetChildAt(8);
+            m_rewardList = (GList)GetChildAt(10);
+            m_reward_group = (GGroup)GetChildAt(11);
+            m_btn = (GButton)GetChildAt(17);
+            m_count = (GTextField)GetChildAt(19);
+            m_list1 = (GList)GetChildAt(20);
+            m_list2 = (GList)GetChildAt(21);
+            m_content = (GGroup)GetChildAt(22);
+            m_BigLuckShow = (UI_BigLuckShow)GetChildAt(23);
         }
     }
 }
