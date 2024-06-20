@@ -8,6 +8,7 @@ using SGame;
 using Sirenix.Utilities;
 using UnityEngine;
 using Unity.Entities;
+using Unity.VisualScripting;
 
 namespace SGame
 {
@@ -18,11 +19,13 @@ namespace SGame
     {
         private static ILog log = LogManager.GetLogger("game.car");
 
-        struct Data
-        {
-            public Entity entity;
-            public float carLength; // 汽车长度
-        }
+        //struct Data
+        //{
+       //     public Entity entity;
+         //   public float carLength; // 汽车长度
+        //}
+
+        private QueueData       m_queue;
         
         /// <summary>
         /// 路径队列
@@ -33,11 +36,6 @@ namespace SGame
         /// 公交站点
         /// </summary>
         private List<Vector2Int> m_busStops;
-
-        /// <summary>
-        /// 汽车队伍
-        /// </summary>
-        private List<Data>      m_queue;
 
         /// <summary>
         /// 汽车间隔
@@ -70,19 +68,11 @@ namespace SGame
         private string          m_pathTag => m_config.PathTag;
 
         /// <summary>
-        /// 最大数量
-        /// </summary>
-        private int             m_max; 
-
-        /// <summary>
         /// 最大汽车数量
         /// </summary>
-        public int max => m_max;
-
-        /// <summary>
-        /// 当前汽车数量 
-        /// </summary>
-        public int m_carNum;
+        public int max => m_queue.max;
+        
+        public int queueID => m_queue.id;
 
         // 配置表
         private LevelPathRowData m_config;
@@ -123,11 +113,10 @@ namespace SGame
 
             m_pathPoints    = path;
             m_gap           = config.Gap;
-            m_tableID       = 0;//config.MachineID;
-            m_queue         = new List<Data>();
+            m_tableID       = 0;
+            m_queue         = ShareQueueManager.Instance.GetOrCreate(config.ShareQueueID, config.CarNum);
             m_orderDistance = PathModule.GetDistance(m_orderIndex, path);
             m_pathDistance  = PathModule.GetDistance(path.Count - 1, path);
-            m_max           = config.CarNum; // 初始最大数量
 
             m_carIDs = new List<int>();
             m_carWidgets = new List<int>();
@@ -171,34 +160,15 @@ namespace SGame
         /// </summary>
         /// <param name="e"></param>
         /// <param name="length"></param>
-        public bool Add(Entity e, float length = 10.0f)
-        {
-            if (GetOrder(e) >= 0)
-            {
-                // 已经有了
-                log.Error("alreay add queue=" + e);
-                return false;
-            }
-            
-            m_queue.Add(new Data() {entity = e, carLength = length});
-            return true;
-        }
+        public bool Add(Entity e, float length = 10.0f) => m_queue.Add(e, length);
+
 
         /// <summary>
         /// 退出队列
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public bool Remove(Entity e)
-        {
-            int order = GetOrder(e);
-            if (order < 0)
-                return false;
-            
-            m_queue.RemoveAt(order);
-            m_carNum--;
-            return true;
-        }
+        public bool Remove(Entity e) => m_queue.Remove(e);
 
         public int tableID { get => m_tableID; set => m_tableID = value; }
 
@@ -209,16 +179,7 @@ namespace SGame
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public int GetOrder(Entity e)
-        {
-            for (int i = 0; i < m_queue.Count; i++)
-            {
-                if (m_queue[i].entity == e)
-                    return i;
-            }
-
-            return -1;
-        }
+        public int GetOrder(Entity e) => m_queue.GetOrder(e);
 
         /// <summary>
         /// 获取排队距离
@@ -230,7 +191,7 @@ namespace SGame
             float offset = 0; // 相对开始路径的排队距离
             for (int i = 1; i <= order; i++)
             {
-                offset += (m_queue[i].carLength + m_queue[i-1].carLength)/ 2 + m_gap;
+                offset += (m_queue.Get(i).carLength + m_queue.Get(i-1).carLength)/ 2 + m_gap;
             }
 
             float distance = m_orderDistance - offset;
@@ -312,13 +273,14 @@ namespace SGame
         {
             if (!IsValid)
                 return;
+
             
-            if (m_carNum >= max)
+            if (m_queue.isFull)//m_carNum >= max)
             {
                 return;
             }
 
-            m_carNum++;
+            m_queue.AddCar();
             CarModule.Create(GetRandomCarID());
         }
 
@@ -347,7 +309,7 @@ namespace SGame
             if (m_queue.Count == 0)
                 return Entity.Null;
 
-            return m_queue[0].entity;
+            return m_queue.Get(0).entity;
         }
     }
     
@@ -362,6 +324,8 @@ namespace SGame
         /// 关卡内包含多个队列
         /// </summary>
         private Dictionary<string, CarQueue> m_datas = new Dictionary<string, CarQueue>();
+
+        private ShareQueueManager m_shareQueue = new ShareQueueManager();
 
         /// <summary>
         /// 创建队伍
@@ -414,6 +378,7 @@ namespace SGame
         public void Clear()
         {
             m_datas.Clear();
+            ShareQueueManager.Instance.Clear();
         }
 
         /// <summary>

@@ -79,6 +79,11 @@ namespace SGame
         public string pathTag => m_config.PathTag;
 
         /// <summary>
+        /// 队列ID
+        /// </summary>
+        public int queueID => m_queue.queueID;
+
+        /// <summary>
         /// 加载AI脚本
         /// </summary>
         /// <param name="name"></param>
@@ -267,8 +272,22 @@ namespace SGame
         {
             if (m_queue.Remove(m_entity))
             {
-                EventManager.Instance.AsyncTrigger((int)GameEvent.LEVELPATH_QUEUE_UPDATE, pathTag);
+                EventManager.Instance.AsyncTrigger((int)GameEvent.LEVELPATH_QUEUE_UPDATE, pathTag, m_queue.queueID);
             }
+        }
+
+        /// <summary>
+        /// 用于匹配是否是同一个队列
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <param name="queueID"></param>
+        /// <returns></returns>
+        public bool IsMatchPath(string tag, int queueID)
+        {
+            if (queueID == 0)
+                return tag == pathTag;
+
+            return queueID == this.queueID;
         }
 
         /// <summary>
