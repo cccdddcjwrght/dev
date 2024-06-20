@@ -257,6 +257,7 @@ namespace SGame.UI
 
 			if (RequestExcuteSystem.EquipAutoUpQuality(out var eqs, out var recycle))
 			{
+				SwitchEquipUpQuality_StatePage(0);
 				SGame.Utils.ShowRewards(title: "@ui_equip_merge_title", contentCall: (view) => ShowRewardContent(view, eqs, recycle).Start());
 			}
 			else
