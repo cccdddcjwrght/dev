@@ -175,7 +175,7 @@ namespace SGame.UI{
 		//打开碎片宝箱
 		void OpenFramentUI() 
 		{
-			if (m_DropItem.Count <= 0) return;
+			if (m_DropItem == null || m_DropItem.Count <= 0) return;
 			SGame.UIUtils.OpenUI("frament", m_DropItem);
 		}
 
