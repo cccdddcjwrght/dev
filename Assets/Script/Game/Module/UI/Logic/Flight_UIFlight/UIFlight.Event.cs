@@ -33,7 +33,7 @@ namespace SGame.UI{
 			int index = 0;
 			ids.ForEach((id)=> 
 			{
-				Utils.Timer(0.1f, null, delay: timer, completed: () =>
+				Utils.Timer(0.01f, null, delay: timer, completed: () =>
 				{
 					Play(id, startPos[index], endPos, duration);
 					index++;
@@ -186,8 +186,14 @@ namespace SGame.UI{
 					m_view.m_Diamond.xy = ui.Value.contentPane.GetChild("Diamond").xy;
 
 					var boxGObject = ui.Value.contentPane.GetChildByPath("leftList.right.eqgift");
-					if (boxGObject != null) 
+					if (boxGObject != null)
 						m_view.m_Box.xy = GRoot.inst.GlobalToLocal(boxGObject.LocalToGlobal(Vector2.zero));
+					else
+					{
+						var list = ui.Value.contentPane.GetChildByPath("leftList.right").asList;
+						var pos = GRoot.inst.GlobalToLocal(list.LocalToGlobal(Vector2.zero));
+						m_view.m_Box.xy = pos + new Vector2(15, 119 * list.numChildren);
+					}
 
 					m_view.m_Pet.xy = ui.Value.contentPane.GetChildByPath("petBtn").xy;
 					m_view.m_totalBtn.xy = ui.Value.contentPane.GetChildByPath("totalBtn").xy;
