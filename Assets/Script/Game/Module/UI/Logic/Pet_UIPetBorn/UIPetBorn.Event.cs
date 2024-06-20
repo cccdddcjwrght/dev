@@ -11,12 +11,6 @@ namespace SGame.UI
 		partial void InitEvent(UIContext context)
 		{
 
-			context.window.AddEventListener("OnMaskClick", () =>
-			{
-				if (_isCompleted)
-					SGame.UIUtils.CloseUIByID(__id);
-
-			});
 
 		}
 		partial void UnInitEvent(UIContext context)

@@ -23,6 +23,7 @@ namespace SGame.UI.Pet
             UIObjectFactory.SetPackageItemExtension(UI_Exchange.URL, typeof(UI_Exchange));
             UIObjectFactory.SetPackageItemExtension(UI_PetBornUI.URL, typeof(UI_PetBornUI));
             UIObjectFactory.SetPackageItemExtension(UI_PetTipsUI.URL, typeof(UI_PetTipsUI));
+            UIObjectFactory.SetPackageItemExtension(UI_ChangeProperty.URL, typeof(UI_ChangeProperty));
         }
     }
 }

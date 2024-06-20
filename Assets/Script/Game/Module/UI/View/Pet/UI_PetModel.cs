@@ -8,11 +8,12 @@ namespace SGame.UI.Pet
     public partial class UI_PetModel : GLabel
     {
         public Controller m_quality;
-        public Controller m_step;
+        public Controller m_type;
         public GLoader m_tbg;
         public UI_SimplePetModel m_model;
         public GButton m_click;
         public GButton m_free;
+        public GTextField m_level;
         public const string URL = "ui://srlw77obl7ed15";
 
         public static UI_PetModel CreateInstance()
@@ -25,11 +26,12 @@ namespace SGame.UI.Pet
             base.ConstructFromXML(xml);
 
             m_quality = GetControllerAt(0);
-            m_step = GetControllerAt(1);
+            m_type = GetControllerAt(1);
             m_tbg = (GLoader)GetChildAt(0);
             m_model = (UI_SimplePetModel)GetChildAt(1);
             m_click = (GButton)GetChildAt(2);
             m_free = (GButton)GetChildAt(4);
+            m_level = (GTextField)GetChildAt(5);
         }
     }
 }

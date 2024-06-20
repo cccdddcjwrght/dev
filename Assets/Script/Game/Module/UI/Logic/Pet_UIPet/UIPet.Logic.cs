@@ -29,8 +29,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			m_view.z = 800;
-
+			EventManager.Instance.Reg<PetItem, Action>(((int)GameEvent.PET_BORN_EVO), OnPetBornEvo);
 			InitList();
 			SwitchTabPage(0);
 			OnTabChanged(null);
@@ -53,29 +52,56 @@ namespace SGame.UI
 
 		void OnPetTab()
 		{
-			_current = _data.pet;
+			_current = _current ?? _data.pet;
 			var pBody = m_view.m_pet;
 			var flag = _current != null && _current.cfg.IsValid();
-			m_view.m_top.SetCurrency(flag ? _current.evoMat.ItemId : 3, "c1", null, "price");
 			pBody.m_model.visible = flag;
 			pBody.SetPet(_current, showbuff: true);
 			if (flag)
 			{
-				pBody.m_model.m_step.selectedPage = _current.evoMat.ItemId.ToString();
-				pBody.m_model.m_free.visible = _data.pets?.Count > 1;
+				pBody.m_model.m_level.SetTextByKey("ui_common_lv1", _current.level);
 				pBody.m_model.m_model.SetPetInfo(_current);
+				pBody.m_model.m_type.selectedIndex = _current != _data.pet ? 1 : 0;
 			}
+
+		}
+
+		void OnPetClick(int index, PetItem data)
+		{
+			m_view.m_list.selectedIndex = index;
+			if (_current != null) _current.ResetNewFlag();
+			_current = data;
+			OnPetTab();
 
 		}
 
 		partial void OnPetModel_Pet_model_clickClick(EventContext data)
 		{
-			RequestExcuteSystem.PetUp(_current);
+			if (_current.isselected) return;
+			RequestExcuteSystem.PetFollow(_current);
 		}
 
-		partial void OnPetModel_Pet_model_freeClick(EventContext data)
+		void OnPetBornEvo(PetItem pet, Action complete)
 		{
-			RequestExcuteSystem.PetFree(_current);
+			IEnumerator Run()
+			{
+				SwitchTabPage(0);
+				m_view.m___effect.xy = m_view.size * 0.5f;
+				var e = EffectSystem.Instance.AddEffect(24, m_view);
+				yield return EffectSystem.Instance.WaitEffectLoaded(e);
+				var index = DataCenter.Instance.petData.pets.IndexOf(pet);
+				m_view.m_list.ScrollToView(index);
+				index = m_view.m_list.ItemIndexToChildIndex(index);
+				var target = m_view.m_list.GetChildAt(index);
+				var tweener = m_view.m___effect.TweenMove(target.TransformPoint(target.size * 0.5f, m_view), 0.5f);
+				yield return new WaitForSeconds(0.5f);
+				EffectSystem.Instance.ReleaseEffect(e);
+				m_view.m___effect.xy = m_view.size * 0.5f;
+				e = EffectSystem.Instance.AddEffect(28, m_view);
+				yield return new WaitForSeconds(1.5f);
+				complete?.Invoke();
+			}
+			Run().Start();
 		}
 
 		#endregion
@@ -87,6 +113,11 @@ namespace SGame.UI
 			eggState = -1;
 			_isClickEgg = true;
 			SetEggHatching();
+			if (eggState == 0)
+			{
+				if (_pets?.Count > 0)
+					OnEggItemClick(0, _pets[0], null);
+			}
 		}
 
 		void SetEggHatching()
@@ -194,13 +225,13 @@ namespace SGame.UI
 					}
 					if (_current != null)
 					{
-						RequestExcuteSystem.SetEggToBorn(_current.Clone().Bron());
+						RequestExcuteSystem.SetEggToBorn(_current.Clone().Born());
 						SetEggHatching();
 						RefreshList();
 					}
 					break;
 				case 2:
-					var p = RequestExcuteSystem.PetBron(_data.egg);
+					var p = RequestExcuteSystem.PetBorn(_data.egg);
 					if (p != null) DelayExcuter.Instance.OnlyWaitUIClose("petborn", () => SwitchTabPage(0), true);
 					break;
 			}
@@ -255,6 +286,7 @@ namespace SGame.UI
 			if (sort && _pets?.Count > 1)
 				_pets.Sort(DataCenter.PetUtil.PetSort);
 			m_view.m_list.numItems = _pets.Count;
+			m_view.m_list.selectedIndex = _pets.FindIndex(p => p.isselected);
 		}
 
 
@@ -283,10 +315,7 @@ namespace SGame.UI
 				data.isnew = 0;
 				switch (data.type)
 				{
-					case 0:
-						if (data.id != _data.petID)
-							SGame.UIUtils.OpenUI("pettips", data);
-						break;
+					case 0: OnPetClick(index, data); break;
 					case 1: OnEggItemClick(index, data, gObject); break;
 				}
 			}
@@ -304,6 +333,8 @@ namespace SGame.UI
 			_timer?.Invoke(false);
 			DataCenter.PetUtil.ClearNewFlag(_isClickEgg ? -1 : 0);
 			m_view.m_pet.m_model.m_model.Release();
+			EventManager.Instance.UnReg<PetItem, Action>(((int)GameEvent.PET_BORN_EVO), OnPetBornEvo);
+
 		}
 	}
 }

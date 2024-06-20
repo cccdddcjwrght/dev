@@ -8,8 +8,10 @@ namespace SGame.UI.Pet
     public partial class UI_PetBornUI : GLabel
     {
         public Controller m_quality;
+        public Controller m_type;
         public GGraph m___effect;
         public UI_SimplePetModel m_model;
+        public UI_ChangeProperty m_change;
         public Transition m_doshow;
         public const string URL = "ui://srlw77obl7ed1w";
 
@@ -23,8 +25,10 @@ namespace SGame.UI.Pet
             base.ConstructFromXML(xml);
 
             m_quality = GetControllerAt(0);
+            m_type = GetControllerAt(1);
             m___effect = (GGraph)GetChildAt(2);
             m_model = (UI_SimplePetModel)GetChildAt(8);
+            m_change = (UI_ChangeProperty)GetChildAt(9);
             m_doshow = GetTransitionAt(0);
         }
     }

@@ -7,12 +7,15 @@ using GameConfigs;
 
 namespace SGame
 {
-	[Flags]
-	public enum EvoStep
+
+	public enum EffectIndex : int
 	{
-		Evo1 = 1,
-		Evo2 = 2,
-		Evo3 = 4
+		Key = 0,
+		Val,
+		Max,
+		RandomMin,
+		RandomMax,
+		Weight
 	}
 
 	partial class DataCenter
@@ -58,25 +61,40 @@ namespace SGame
 				}
 			}
 
-			static public PetItem AddPet(int id, bool triggerevent = true, bool iseggborn = false)
+			static public PetItem CreatePet(int id)
 			{
 				if (id > 0)
 				{
 					if (ConfigSystem.Instance.TryGet<PetsRowData>(id, out var cfg))
 					{
-						var p = new PetItem() { cfgID = id, cfg = cfg, isnew = 1 }.Refresh();
-						_data.pets.Add(p);
-						if (iseggborn) { _data.egg.Clear(); _data.egg = null; }
-						_eMgr.Trigger(((int)GameEvent.PET_ADD), p);
-						if (_data.pet == null || !_data.pet.cfg.IsValid())
-							Follow(p);
-						if (triggerevent)
-						{
-							Resort();
-							_eMgr.Trigger(((int)GameEvent.PET_LIST_REFRESH));
-						}
-						return p;
+						return new PetItem() { cfgID = id, cfg = cfg, isnew = 1 ,level = 1}.Refresh();
 					}
+				}
+				return default;
+			}
+			static public PetItem AddPet(PetItem pet, bool triggerevent = true, bool iseggborn = false)
+			{
+
+				if (pet != null && pet.cfgID > 0)
+				{
+					_data.pets.Add(pet);
+					if (iseggborn) { _data.egg.Clear(); _data.egg = null; }
+					_eMgr.Trigger(((int)GameEvent.PET_ADD), pet);
+					if (_data.pet == null || !_data.pet.cfg.IsValid()) Follow(pet);
+					if (triggerevent)
+					{
+						Resort();
+						_eMgr.Trigger(((int)GameEvent.PET_LIST_REFRESH));
+					}
+				}
+				return pet;
+			}
+
+			static public PetItem AddPet(int id, bool triggerevent = true, bool iseggborn = false)
+			{
+				if (id > 0)
+				{
+					return AddPet(CreatePet(id), triggerevent, iseggborn);
 				}
 				return default;
 			}
@@ -137,7 +155,7 @@ namespace SGame
 				}
 			}
 
-			static public List<PetItem> GetPetsByCondition(Predicate<PetItem> condition = null, List<PetItem> rets = null)
+			static public List<PetItem> GetPetsByCondition(Predicate<PetItem> condition = null, List<PetItem> rets = null, bool onlyone = false)
 			{
 				rets = rets ?? new List<PetItem>();
 				if (condition != null)
@@ -146,7 +164,10 @@ namespace SGame
 					{
 						var p = _data.pets[i];
 						if (condition(p))
+						{
 							rets.Add(p);
+							if (onlyone) break;
+						}
 					}
 				}
 				else rets.AddRange(_data.pets);
@@ -240,7 +261,7 @@ namespace SGame
 				var c = -a.quality.CompareTo(b.quality);
 				if (c == 0)
 				{
-					c = b.evoMat.ItemId.CompareTo(a.evoMat.ItemId);
+					c = b.level.CompareTo(a.level);
 					if (c == 0)
 					{
 						c = -a.cfgID.CompareTo(b.cfgID);
@@ -281,16 +302,15 @@ namespace SGame
 
 		public int id;
 		public int cfgID;
+		public int level;
 		public int type;
 
-		public int step;
-		public int[] evotimes;
-
-		public int time;
 		public ulong effectID;
 		public int[] effectAdd = new int[9];
+
 		public int isnew;
 		public int uptime;
+		public int time;
 
 		public string name { get { return cfg.IsValid() ? cfg.Name : item.IsValid() ? item.Name : null; } }
 		public string icon { get { return cfg.IsValid() ? cfg.Icon : item.IsValid() ? item.Icon : null; } }
@@ -301,14 +321,9 @@ namespace SGame
 		public GameConfigs.PetsRowData cfg;
 		public GameConfigs.ItemRowData item;
 		public GameConfigs.EggRowData eCfg;
-		public GameConfigs.EvolutionRowData evoCfg;
-
-		public GameConfigs.ItemRowData evoMat;
-		[NonSerialized]
-		public double evoMatCount;
 
 		[NonSerialized]
-		public List<int[]> effects;
+		public List<int[]> effects;//0：id,1:val,2:Max,3:randomMin,4:randomMax
 		[NonSerialized]
 		public double count;
 		[NonSerialized]
@@ -327,14 +342,18 @@ namespace SGame
 			{
 				if (cfg.IsValid() || ConfigSystem.Instance.TryGet(cfgID, out cfg))
 				{
-					ConfigSystem.Instance.TryGet(cfg.Quality, out evoCfg);
-					if (evotimes == null) evotimes = evoCfg.GetBasicEvolutionTimeArray();
-
-					if (this.effectID == 0)
-						this.effectID = DataCenter.PetUtil.RandomEffectID(quality, out effects);
-					else
-						this.effects = Utils.ConvertId2Effects(effectID, DataCenter.PetUtil.GetBuffList(quality));
-					GetEvoMat(out evoMatCount, out evoMat);
+					if (this.effects == null)
+					{
+						this.effects = new List<int[]>();
+						if (cfg.BuffsLength > 0)
+						{
+							for (int i = 0; i < cfg.BuffsLength; i++)
+							{
+								if (ConfigSystem.Instance.TryGet(cfg.Buffs(i), out PetBuffConfigRowData buff))
+									this.effects.Add(new int[] { buff.Buff, buff.Default, buff.Most, buff.Range(0), buff.Range(1), cfg.WeightsLength > i ? cfg.Weights(i) : 100 });
+							}
+						}
+					}
 
 				}
 			}
@@ -369,7 +388,7 @@ namespace SGame
 			return this;
 		}
 
-		public PetItem Bron()
+		public PetItem Born()
 		{
 			if (eCfg.IsValid())
 			{
@@ -379,9 +398,29 @@ namespace SGame
 			return this;
 		}
 
+		public PetItem Evo(PetItem mat, out int index, out int add)
+		{
+			index = add = -1;
+			if (mat != null && mat.cfg.IsValid())
+			{
+				index = SGame.Randoms.Random._R.NextWeight(GetEffectRandomWeight());
+				if (index >= 0)
+				{
+					level++;
+					isnew = 1;
+					var effect = effects[index];
+					add = SGame.Randoms.Random._R.Next(effect[((int)EffectIndex.RandomMin)], effect[((int)EffectIndex.RandomMax)]);
+					add = Math.Clamp(add, 0, effect[2] - effect[1] - effectAdd[index]);
+					effectAdd[index] += add;
+					evo |= 1 << index;
+				}
+			}
+			return this;
+		}
+
 		public PetItem Clone()
 		{
-			return new PetItem() { type = type, cfgID = cfgID, step = step, effectID = effectID }.Refresh();
+			return new PetItem() { type = type, cfgID = cfgID, effectID = effectID }.Refresh();
 		}
 
 		public double GetImmCost()
@@ -405,16 +444,10 @@ namespace SGame
 				if (type == 0)
 				{
 					var rets = new List<int[]>();
-					var s = GetEvoStep();
 					for (int i = 0; i < effects.Count; i++)
 					{
 						int[] buff = null;
-						//前三条是进化属性
-						if (i < MAX_EVO && !(1 << i).IsInState(s))
-						{
-							if (!replaceNull) continue;
-						}
-						else if (!useAdd)
+						if (!useAdd)
 							buff = effects[i];
 						else
 							buff = new int[] { effects[i][0], (int)Utils.ToInt(effects[i][1] * (100 + effectAdd[i]) * 0.01f) };
@@ -426,121 +459,26 @@ namespace SGame
 			return effects;
 		}
 
-		public int[] GetEffectRandomWeight(int weight = 100)
+		public int GetBuffVal(int index, bool useAdd = true)
 		{
-
-			var ws = new int[effects.Count];
-			var s = GetEvoStep();
-
-			for (int i = 0; i < effects.Count; i++)
+			if (index >= 0 && index < effects.Count)
 			{
-				if (effects[i] == null || (i < MAX_EVO && !(1 << i).IsInState(s))) ws[i] = 0;
-				else ws[i] = weight;
+				var effect = effects[index][((int)EffectIndex.Val)];
+				if (useAdd && effectAdd.Length > index) return effect + effectAdd[index];
+				return effect;
+			}
+			return 0;
+		}
 
+		public int[] GetEffectRandomWeight()
+		{
+			var ws = new int[effects.Count];
+			for (int i = 0; i < ws.Length; i++)
+			{
+				var max = effects[i][((int)EffectIndex.Max)];
+				ws[i] = GetBuffVal(i, true) >= max ? 0 : effects[i][((int)EffectIndex.Weight)];
 			}
 			return ws;
-		}
-
-		public bool GetEvoMat(out double num, out GameConfigs.ItemRowData mat)
-		{
-			num = 0;
-			mat = default;
-			if (type == 0)
-			{
-				if (evoCfg.IsValid())
-				{
-					var id = 0;
-					if (CanEvo(out var index, out _))
-					{
-						id = evoCfg.BadgeId(index);
-						num = evoCfg.BadgeNum(index);
-					}
-					else
-					{
-						id = evoCfg.SpecialEvolutionNeed(1);
-						num = evoCfg.SpecialEvolutionNeed(2);
-					}
-					if (id > 0)
-						ConfigSystem.Instance.TryGet(id, out mat);
-				}
-			}
-			return default;
-		}
-
-		public bool IsMaxEnhance()
-		{
-			return step >= evoCfg.SpecialEvolutionTime * 10;
-		}
-
-		public int[] Evo(out bool isevo)
-		{
-			isevo = false;
-			uptime++;
-			if (CanEvo(out var index, out var count))
-			{
-				isevo = true;
-				if (SGame.Randoms.Random._R.Rate(evoCfg.BasicEvolutionRate(index)))
-				{
-					step += 1 << index;
-					evotimes[index] = 0;
-					Refresh();
-					//evo = (evo << 1) + (1 << 0);
-					evo = evo | (1 << index);
-					return GetEffects(false)[index];
-				}
-				else
-				{
-					if (count > 0)
-					{
-						evotimes[index] = count - 1;
-						if (count == 1) GetEvoMat(out evoMatCount, out evoMat);
-						else
-						{
-							"@ui_pet_evo_fail2".Tips();
-							return null;
-						}
-					}
-					"@ui_pet_evo_fail".Tips();
-				}
-			}
-			else
-			{
-				step += 10;
-				Refresh();
-				var value = SGame.Randoms.Random._R.Next(evoCfg.SpecialEvolutionValue(0), evoCfg.SpecialEvolutionValue(1));
-				index = SGame.Randoms.Random._R.NextWeight(GetEffectRandomWeight());
-				effectAdd[index] = effectAdd[index] + value;
-				evo = evo | (1 << index);
-				return effects[index];
-			}
-			return null;
-		}
-
-		public int GetEvoStep()
-		{
-			return step % 10;
-		}
-
-		public int GetEvoSuccessCount()
-		{
-			var s = GetEvoStep();
-			if (s > 0)
-			{
-				var c = 0;
-				for (int i = 1; i <= MAX_EVO; i++)
-				{
-					if (i.IsInState(s)) c++;
-				}
-				return c;
-			}
-			return 0;
-		}
-
-		public int GetFreeRebackItemCount()
-		{
-			if (type == 0)
-				return evoCfg.ReleaseReward + GetEvoSuccessCount() * evoCfg.EvolutionReward + Math.Clamp(step / 10, 0, evoCfg.SpecialEvolutionTime) * evoCfg.SpecialEvolutionReward;
-			return 0;
 		}
 
 		public void ResetNewFlag()
@@ -553,29 +491,12 @@ namespace SGame
 		{
 			cfg = default;
 			eCfg = default;
-			evoCfg = default;
 			effectID = 0;
 			effects?.Clear();
 			effects = default;
 			item = default;
 		}
 
-		public bool CanEvo(out int index, out int count)
-		{
-			index = -1;
-			count = 0;
-			if (type == 0 && step < 10)
-			{
-				if (evotimes == null && evoCfg.IsValid())
-					evotimes = evoCfg.GetBasicEvolutionTimeArray();
-				for (index = 0; index < evotimes.Length; index++)
-				{
-					count = evotimes[index];
-					if (count > 0 || count == -1) return true;
-				}
-			}
-			return false;
-		}
 	}
 
 

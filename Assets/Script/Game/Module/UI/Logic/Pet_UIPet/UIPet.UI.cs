@@ -17,10 +17,8 @@ namespace SGame.UI{
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_pet.m_quality.onChanged.Add(new EventCallback1(_OnPetInfo_QualityChanged));
-			m_view.m_pet.m_step.onChanged.Add(new EventCallback1(_OnPetInfo_StepChanged));
-			m_view.m_pet.m_lock.onChanged.Add(new EventCallback1(_OnPetInfo_LockChanged));
 			m_view.m_pet.m_model.m_quality.onChanged.Add(new EventCallback1(_OnPetModel_Pet_model_qualityChanged));
-			m_view.m_pet.m_model.m_step.onChanged.Add(new EventCallback1(_OnPetModel_Pet_model_stepChanged));
+			m_view.m_pet.m_model.m_type.onChanged.Add(new EventCallback1(_OnPetModel_Pet_model_typeChanged));
 			UIListener.ListenerIcon(m_view.m_pet.m_model.m_model, new EventCallback1(_OnPetModel_Pet_model_modelClick));
 			UIListener.Listener(m_view.m_pet.m_model.m_click, new EventCallback1(_OnPetModel_Pet_model_clickClick));
 			UIListener.Listener(m_view.m_pet.m_model.m_free, new EventCallback1(_OnPetModel_Pet_model_freeClick));
@@ -34,13 +32,6 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_egg.m_get2, new EventCallback1(_OnPetEgg_Get2Click));
 			UIListener.Listener(m_view.m_egg.m_get3, new EventCallback1(_OnPetEgg_Get3Click));
 			UIListener.ListenerIcon(m_view.m_egg, new EventCallback1(_OnEggClick));
-			m_view.m_top.m_type.onChanged.Add(new EventCallback1(_OnPetMedalList_TypeChanged));
-			m_view.m_top.m_price.onChanged.Add(new EventCallback1(_OnPetMedalList_PriceChanged));
-			m_view.m_top.m_price2.onChanged.Add(new EventCallback1(_OnPetMedalList_Price2Changed));
-			UIListener.Listener(m_view.m_top.m_c1, new EventCallback1(_OnPetMedalList_C1Click));
-			UIListener.Listener(m_view.m_top.m_c2, new EventCallback1(_OnPetMedalList_C2Click));
-			UIListener.Listener(m_view.m_top.m_c3, new EventCallback1(_OnPetMedalList_C3Click));
-			UIListener.ListenerIcon(m_view.m_top, new EventCallback1(_OnTopClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -48,10 +39,8 @@ namespace SGame.UI{
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_pet.m_quality.onChanged.Remove(new EventCallback1(_OnPetInfo_QualityChanged));
-			m_view.m_pet.m_step.onChanged.Remove(new EventCallback1(_OnPetInfo_StepChanged));
-			m_view.m_pet.m_lock.onChanged.Remove(new EventCallback1(_OnPetInfo_LockChanged));
 			m_view.m_pet.m_model.m_quality.onChanged.Remove(new EventCallback1(_OnPetModel_Pet_model_qualityChanged));
-			m_view.m_pet.m_model.m_step.onChanged.Remove(new EventCallback1(_OnPetModel_Pet_model_stepChanged));
+			m_view.m_pet.m_model.m_type.onChanged.Remove(new EventCallback1(_OnPetModel_Pet_model_typeChanged));
 			UIListener.ListenerIcon(m_view.m_pet.m_model.m_model, new EventCallback1(_OnPetModel_Pet_model_modelClick),remove:true);
 			UIListener.Listener(m_view.m_pet.m_model.m_click, new EventCallback1(_OnPetModel_Pet_model_clickClick),remove:true);
 			UIListener.Listener(m_view.m_pet.m_model.m_free, new EventCallback1(_OnPetModel_Pet_model_freeClick),remove:true);
@@ -65,13 +54,6 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_egg.m_get2, new EventCallback1(_OnPetEgg_Get2Click),remove:true);
 			UIListener.Listener(m_view.m_egg.m_get3, new EventCallback1(_OnPetEgg_Get3Click),remove:true);
 			UIListener.ListenerIcon(m_view.m_egg, new EventCallback1(_OnEggClick),remove:true);
-			m_view.m_top.m_type.onChanged.Remove(new EventCallback1(_OnPetMedalList_TypeChanged));
-			m_view.m_top.m_price.onChanged.Remove(new EventCallback1(_OnPetMedalList_PriceChanged));
-			m_view.m_top.m_price2.onChanged.Remove(new EventCallback1(_OnPetMedalList_Price2Changed));
-			UIListener.Listener(m_view.m_top.m_c1, new EventCallback1(_OnPetMedalList_C1Click),remove:true);
-			UIListener.Listener(m_view.m_top.m_c2, new EventCallback1(_OnPetMedalList_C2Click),remove:true);
-			UIListener.Listener(m_view.m_top.m_c3, new EventCallback1(_OnPetMedalList_C3Click),remove:true);
-			UIListener.ListenerIcon(m_view.m_top, new EventCallback1(_OnTopClick),remove:true);
 
 		}
 		void _OnTabChanged(EventContext data){
@@ -98,26 +80,16 @@ namespace SGame.UI{
 		}
 		partial void OnPetInfo_QualityChanged(EventContext data);
 		void SwitchPetInfo_QualityPage(int index)=>m_view.m_pet.m_quality.selectedIndex=index;
-		void _OnPetInfo_StepChanged(EventContext data){
-			OnPetInfo_StepChanged(data);
-		}
-		partial void OnPetInfo_StepChanged(EventContext data);
-		void SwitchPetInfo_StepPage(int index)=>m_view.m_pet.m_step.selectedIndex=index;
-		void _OnPetInfo_LockChanged(EventContext data){
-			OnPetInfo_LockChanged(data);
-		}
-		partial void OnPetInfo_LockChanged(EventContext data);
-		void SwitchPetInfo_LockPage(int index)=>m_view.m_pet.m_lock.selectedIndex=index;
 		void _OnPetModel_Pet_model_qualityChanged(EventContext data){
 			OnPetModel_Pet_model_qualityChanged(data);
 		}
 		partial void OnPetModel_Pet_model_qualityChanged(EventContext data);
 		void SwitchPetModel_Pet_model_qualityPage(int index)=>m_view.m_pet.m_model.m_quality.selectedIndex=index;
-		void _OnPetModel_Pet_model_stepChanged(EventContext data){
-			OnPetModel_Pet_model_stepChanged(data);
+		void _OnPetModel_Pet_model_typeChanged(EventContext data){
+			OnPetModel_Pet_model_typeChanged(data);
 		}
-		partial void OnPetModel_Pet_model_stepChanged(EventContext data);
-		void SwitchPetModel_Pet_model_stepPage(int index)=>m_view.m_pet.m_model.m_step.selectedIndex=index;
+		partial void OnPetModel_Pet_model_typeChanged(EventContext data);
+		void SwitchPetModel_Pet_model_typePage(int index)=>m_view.m_pet.m_model.m_type.selectedIndex=index;
 		void _OnPetModel_Pet_model_modelClick(EventContext data){
 			OnPetModel_Pet_model_modelClick(data);
 		}
@@ -134,6 +106,8 @@ namespace SGame.UI{
 		partial void OnPetModel_Pet_model_freeClick(EventContext data);
 		void SetPetModel_Pet_model_freeText(string data)=>UIListener.SetText(m_view.m_pet.m_model.m_free,data);
 		string GetPetModel_Pet_model_freeText()=>UIListener.GetText(m_view.m_pet.m_model.m_free);
+		void SetPetModel_Pet_model_levelText(string data)=>UIListener.SetText(m_view.m_pet.m_model.m_level,data);
+		string GetPetModel_Pet_model_levelText()=>UIListener.GetText(m_view.m_pet.m_model.m_level);
 		void _OnPetInfo_ModelClick(EventContext data){
 			OnPetInfo_ModelClick(data);
 		}
@@ -193,43 +167,6 @@ namespace SGame.UI{
 			OnEggClick(data);
 		}
 		partial void OnEggClick(EventContext data);
-		void _OnPetMedalList_TypeChanged(EventContext data){
-			OnPetMedalList_TypeChanged(data);
-		}
-		partial void OnPetMedalList_TypeChanged(EventContext data);
-		void SwitchPetMedalList_TypePage(int index)=>m_view.m_top.m_type.selectedIndex=index;
-		void _OnPetMedalList_PriceChanged(EventContext data){
-			OnPetMedalList_PriceChanged(data);
-		}
-		partial void OnPetMedalList_PriceChanged(EventContext data);
-		void SwitchPetMedalList_PricePage(int index)=>m_view.m_top.m_price.selectedIndex=index;
-		void _OnPetMedalList_Price2Changed(EventContext data){
-			OnPetMedalList_Price2Changed(data);
-		}
-		partial void OnPetMedalList_Price2Changed(EventContext data);
-		void SwitchPetMedalList_Price2Page(int index)=>m_view.m_top.m_price2.selectedIndex=index;
-		void _OnPetMedalList_C1Click(EventContext data){
-			OnPetMedalList_C1Click(data);
-		}
-		partial void OnPetMedalList_C1Click(EventContext data);
-		void SetPetMedalList_Top_c1Text(string data)=>UIListener.SetText(m_view.m_top.m_c1,data);
-		string GetPetMedalList_Top_c1Text()=>UIListener.GetText(m_view.m_top.m_c1);
-		void _OnPetMedalList_C2Click(EventContext data){
-			OnPetMedalList_C2Click(data);
-		}
-		partial void OnPetMedalList_C2Click(EventContext data);
-		void SetPetMedalList_Top_c2Text(string data)=>UIListener.SetText(m_view.m_top.m_c2,data);
-		string GetPetMedalList_Top_c2Text()=>UIListener.GetText(m_view.m_top.m_c2);
-		void _OnPetMedalList_C3Click(EventContext data){
-			OnPetMedalList_C3Click(data);
-		}
-		partial void OnPetMedalList_C3Click(EventContext data);
-		void SetPetMedalList_Top_c3Text(string data)=>UIListener.SetText(m_view.m_top.m_c3,data);
-		string GetPetMedalList_Top_c3Text()=>UIListener.GetText(m_view.m_top.m_c3);
-		void _OnTopClick(EventContext data){
-			OnTopClick(data);
-		}
-		partial void OnTopClick(EventContext data);
 
 	}
 }

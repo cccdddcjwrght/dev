@@ -266,8 +266,9 @@ namespace SGame.UI
 		IEnumerator ShowRewardContent(UI_CommonRewardUI view, List<BaseEquip> eqs, double recycle)
 		{
 			const string rich_text = "<img src='{0}' width='45%' height='45%' />";
-
 			var effect = EffectSystem.Instance.AddEffect(28, view);
+			view.touchable = false;
+
 			yield return EffectSystem.Instance.WaitEffectLoaded(effect);
 			yield return new WaitForSeconds(1.5f);
 
@@ -278,7 +279,10 @@ namespace SGame.UI
 			}
 
 			view.m_list.columnGap = 25;
+			eqs.Sort((a, b) => -a.quality.CompareTo(b.quality));
 			SGame.UIUtils.AddListItems(view.m_list, eqs, SetRewardEqView, res: "ui://Player/EquipBox");
+			yield return new WaitForSeconds(0.5f);
+			view.touchable = true;
 		}
 
 		void SetRewardEqView(int index, object data, GObject g)

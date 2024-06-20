@@ -229,6 +229,14 @@ namespace SGame
 			return default;
 		}
 
+		public static UIWindow GetUIView(string uiname)
+		{
+			Entity e = GetUIEntity(uiname);
+			if (e != default && UIModule.Instance.GetEntityManager().Exists(e))
+				return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
+			return default;
+		}
+
 		public static bool CheckUIIsOpen(string name)
 		{
 			if (string.IsNullOrEmpty(name)) return false;
@@ -338,6 +346,12 @@ namespace SGame
 				return ui.gameWorld.GetEntityManager().GetComponentObject<UIParam>(ui.entity);
 			}
 			return default;
+		}
+
+		public static T GetParam<T>(this UIContext ui)
+		{
+			var v = ui.GetParam()?.Value;
+			return v.To<T>();
 		}
 
 		public static bool IsExists(this Entity entity)
@@ -667,7 +681,7 @@ namespace SGame
 				}
 			}).SetTarget(textField);
 		}
-		
+
 		/// <summary>
 		/// 判断是否是水滴屏
 		/// </summary>
@@ -705,10 +719,10 @@ namespace SGame
 				var mainui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
 				mainSorting = mainui.Value.sortingOrder;
 				List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI();
-                foreach (var ui in allUI)
-                {
-					if (ResidentUI.Contains(ui.Value.uiname)) continue;	
-					if (ui.Value.sortingOrder > mainSorting) 
+				foreach (var ui in allUI)
+				{
+					if (ResidentUI.Contains(ui.Value.uiname)) continue;
+					if (ui.Value.sortingOrder > mainSorting)
 						return false;
 				}
 			}

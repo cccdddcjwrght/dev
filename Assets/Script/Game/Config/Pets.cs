@@ -44,6 +44,30 @@ public struct PetsRowData : IFlatbufferObject
   public byte[] GetResourceArray() { return __p.__vector_as_array<byte>(12); }
   public int Activity { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public float Size { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int Buffs(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int BuffsLength { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetBuffsBytes() { return __p.__vector_as_span<int>(18, 4); }
+#else
+  public ArraySegment<byte>? GetBuffsBytes() { return __p.__vector_as_arraysegment(18); }
+#endif
+  public int[] GetBuffsArray() { return __p.__vector_as_array<int>(18); }
+  public int Weights(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int WeightsLength { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetWeightsBytes() { return __p.__vector_as_span<int>(20, 4); }
+#else
+  public ArraySegment<byte>? GetWeightsBytes() { return __p.__vector_as_arraysegment(20); }
+#endif
+  public int[] GetWeightsArray() { return __p.__vector_as_array<int>(20); }
+  public int RecycleReward(int j) { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int RecycleRewardLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetRecycleRewardBytes() { return __p.__vector_as_span<int>(22, 4); }
+#else
+  public ArraySegment<byte>? GetRecycleRewardBytes() { return __p.__vector_as_arraysegment(22); }
+#endif
+  public int[] GetRecycleRewardArray() { return __p.__vector_as_array<int>(22); }
 
   public static Offset<GameConfigs.PetsRowData> CreatePetsRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -52,8 +76,14 @@ public struct PetsRowData : IFlatbufferObject
       StringOffset IconOffset = default(StringOffset),
       StringOffset ResourceOffset = default(StringOffset),
       int Activity = 0,
-      float Size = 0.0f) {
-    builder.StartTable(7);
+      float Size = 0.0f,
+      VectorOffset BuffsOffset = default(VectorOffset),
+      VectorOffset WeightsOffset = default(VectorOffset),
+      VectorOffset RecycleRewardOffset = default(VectorOffset)) {
+    builder.StartTable(10);
+    PetsRowData.AddRecycleReward(builder, RecycleRewardOffset);
+    PetsRowData.AddWeights(builder, WeightsOffset);
+    PetsRowData.AddBuffs(builder, BuffsOffset);
     PetsRowData.AddSize(builder, Size);
     PetsRowData.AddActivity(builder, Activity);
     PetsRowData.AddResource(builder, ResourceOffset);
@@ -64,7 +94,7 @@ public struct PetsRowData : IFlatbufferObject
     return PetsRowData.EndPetsRowData(builder);
   }
 
-  public static void StartPetsRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartPetsRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddQuality(FlatBufferBuilder builder, int Quality) { builder.AddInt(1, Quality, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(2, NameOffset.Value, 0); }
@@ -72,6 +102,18 @@ public struct PetsRowData : IFlatbufferObject
   public static void AddResource(FlatBufferBuilder builder, StringOffset ResourceOffset) { builder.AddOffset(4, ResourceOffset.Value, 0); }
   public static void AddActivity(FlatBufferBuilder builder, int Activity) { builder.AddInt(5, Activity, 0); }
   public static void AddSize(FlatBufferBuilder builder, float Size) { builder.AddFloat(6, Size, 0.0f); }
+  public static void AddBuffs(FlatBufferBuilder builder, VectorOffset BuffsOffset) { builder.AddOffset(7, BuffsOffset.Value, 0); }
+  public static VectorOffset CreateBuffsVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateBuffsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartBuffsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddWeights(FlatBufferBuilder builder, VectorOffset WeightsOffset) { builder.AddOffset(8, WeightsOffset.Value, 0); }
+  public static VectorOffset CreateWeightsVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateWeightsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartWeightsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddRecycleReward(FlatBufferBuilder builder, VectorOffset RecycleRewardOffset) { builder.AddOffset(9, RecycleRewardOffset.Value, 0); }
+  public static VectorOffset CreateRecycleRewardVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateRecycleRewardVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartRecycleRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.PetsRowData> EndPetsRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.PetsRowData>(o);

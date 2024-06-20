@@ -13,7 +13,7 @@ namespace SGame.UI.Pet
         public UI_PetInfo m_pet;
         public UI_PetEgg m_egg;
         public GList m_list;
-        public UI_PetMedalList m_top;
+        public GGraph m___effect;
         public const string URL = "ui://srlw77obl7ed12";
 
         public static UI_PetUI CreateInstance()
@@ -31,7 +31,7 @@ namespace SGame.UI.Pet
             m_pet = (UI_PetInfo)GetChildAt(2);
             m_egg = (UI_PetEgg)GetChildAt(3);
             m_list = (GList)GetChildAt(6);
-            m_top = (UI_PetMedalList)GetChildAt(7);
+            m___effect = (GGraph)GetChildAt(7);
         }
     }
 }

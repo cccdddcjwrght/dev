@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 using FairyGUI;
 using GameConfigs;
 using UnityEngine;
@@ -33,7 +34,6 @@ namespace SGame.UI.Pet
 		{
 			if (gObject != null)
 			{
-				UIListener.SetControllerSelect(gObject, "step", 0, false);
 				if (pet != null && pet.cfgID > 0)
 				{
 					gObject.SetIcon(pet.icon);
@@ -47,9 +47,6 @@ namespace SGame.UI.Pet
 					if (!hidered) UIListener.SetControllerSelect(gObject, "__redpoint", pet.isnew, false);
 					if (pet.type == 0)
 					{
-						UIListener.SetControllerSelect(gObject, "step", pet.GetEvoStep(), false);
-						UIListener.SetControllerSelect(gObject, "lock", pet.step > 0 || pet.effects.Count > 3 ? 0 : 1, false);
-
 						if (showbuff)
 						{
 							var list = gObject.asCom?.GetChild("bufflist")?.asList;
@@ -70,15 +67,14 @@ namespace SGame.UI.Pet
 				{
 					gObject.SetText(null, false);
 					UIListener.SetControllerSelect(gObject, "quality", 1);
-					UIListener.SetControllerSelect(gObject, "lock", 1, false);
 					gObject.asCom?.GetChild("bufflist")?.asList?.RemoveChildrenToPool();
 				}
 			}
 		}
 
-		static public GObject SetCurrency(this GObject gObject, 
+		static public GObject SetCurrency(this GObject gObject,
 			int itemID, string name = null, string str = default,
-			string iconCtr = default, bool listen = true, 
+			string iconCtr = default, bool listen = true,
 			EventCallback1 addCall = null
 		)
 		{
@@ -133,10 +129,11 @@ namespace SGame.UI.Pet
 
 		private GoWrapper goWrapper;
 		private SwipeGesture swipe;
+		private Animator animation;
 
 		public Action onModelLoaded;
 
-		public UI_SimplePetModel SetPetInfo(PetItem pet, bool focusrefresh = false , float delay = 0)
+		public UI_SimplePetModel SetPetInfo(PetItem pet, bool focusrefresh = false, float delay = 0, string animationName = null)
 		{
 			if (!focusrefresh && this.pet != null && this.pet.cfgID == pet.cfgID) return this;
 			this.pet = pet;
@@ -147,7 +144,8 @@ namespace SGame.UI.Pet
 				goWrapper = new GoWrapper();
 				m_holder.SetNativeObject(goWrapper);
 			}
-			RefreshModel(delay);
+			RefreshModel(delay, animationName);
+
 			return this;
 		}
 
@@ -158,6 +156,7 @@ namespace SGame.UI.Pet
 			goWrapper = null;
 			swipe = null;
 			pet = null;
+			animation = null;
 		}
 
 		public override void Dispose()
@@ -166,14 +165,22 @@ namespace SGame.UI.Pet
 			Release();
 		}
 
-		public UI_SimplePetModel RefreshModel( float delay = 0)
+		public UI_SimplePetModel RefreshModel(float delay = 0, string animationName = null)
 		{
-			CreateRole(delay).Start();
+			CreateRole(delay, animationName).Start();
 			return this;
 		}
 
+		public UI_SimplePetModel Play(string clip)
+		{
+			if(animation && !string.IsNullOrEmpty(clip))
+			{
+				animation.Play(clip);
+			}
+			return this;
+		}
 
-		IEnumerator CreateRole(float delay = 0)
+		IEnumerator CreateRole(float delay = 0, string animationName = null)
 		{
 			yield return null;
 
@@ -185,7 +192,7 @@ namespace SGame.UI.Pet
 				path = "Assets/BuildAsset/Prefabs/Pets/mouse";
 			}
 #endif
-			if(delay>0)
+			if (delay > 0)
 				yield return new WaitForSeconds(delay);
 			var wait = SpawnSystem.Instance.SpawnAndWait(path);
 			yield return wait;
@@ -198,18 +205,20 @@ namespace SGame.UI.Pet
 					if (old) GameObject.Destroy(old);
 					goWrapper.SetWrapTarget(go, false);
 					go.SetActive(false);
-					go.transform.localScale = Vector3.one * 300;
+					go.transform.localScale = Vector3.one * 250;
 					go.transform.localPosition = new Vector3(0, 0, -100);
 					go.transform.localRotation = Quaternion.Euler(8, -145, 8);
 					go.SetLayer("UILight");
 					go.SetActive(true);
 					onModelLoaded?.Invoke();
-					go.GetComponent<Animator>()?.Play("idle");
+					animation = go.GetComponent<Animator>();
+					animation?.Play(animationName ?? "idle");
 					yield break;
 				}
 				GameObject.Destroy(go);
 			}
 		}
+
 
 		void OnTouchMove(EventContext context)
 		{

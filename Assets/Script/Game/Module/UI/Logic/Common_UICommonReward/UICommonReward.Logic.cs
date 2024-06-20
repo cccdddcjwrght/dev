@@ -27,13 +27,16 @@ namespace SGame.UI
 		private List<double[]> _rewards;
 		private bool _get;
 		private bool _flag;
+		private ItemList _itemList;
 
 		partial void InitLogic(UIContext context)
 		{
+			m_view.z = -300;
 			_flag = false;
 			context.window.AddEventListener("OnMaskClick", OnClickClick);
 			var args = context.GetParam()?.Value.To<object[]>();
-			_rewards = args.Val<List<double[]>>(0) ?? args.Val<ItemList>(0)?.vals;
+			_itemList = args.Val<ItemList>(0);
+			_rewards = _itemList == null ? args.Val<List<double[]>>(0) : _itemList.vals;
 
 			if (_rewards?.Count > 0)
 			{
@@ -66,7 +69,7 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-			if (_get)
+			if (_get || _itemList?.fly == true)
 			{
 				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
 				Do().Start();
@@ -85,7 +88,7 @@ namespace SGame.UI
 
 		void OnClickClick()
 		{
-			if (!_flag) return;
+			if (!_flag || !m_view.touchable) return;
 			SGame.UIUtils.CloseUIByID(__id);
 			var c = _call;
 			_call = null;
@@ -110,6 +113,7 @@ namespace SGame
 
 		public readonly List<double[]> vals = new List<double[]>();
 		public string tips;
+		public bool fly;
 
 		public ItemList Append(int id, double count, int type = 1, bool clear = false, bool ignorezero = false)
 		{

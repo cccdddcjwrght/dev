@@ -94,6 +94,7 @@ namespace SGame.Randoms
 			if (weights != null && weights.Count > 0)
 			{
 				var sum = weights.Sum((w) => { return Math.Max(0, w); });
+				if (sum == 0) return -1;
 				var val = Next(0, sum);
 				for (int i = 0; i < weights.Count; i++)
 				{

@@ -36,14 +36,6 @@ namespace SGame.UI
 				DoCloseUIClick(null);
 		}
 
-		partial void OnFreeClick(EventContext data)
-		{
-			RequestExcuteSystem.PetFree(_pet, true, () =>
-			{
-				DoCloseUIClick(null);
-			});
-		}
-
 		partial void UnInitLogic(UIContext context)
 		{
 			m_view.m_model?.Release();
