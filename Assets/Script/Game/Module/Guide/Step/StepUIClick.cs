@@ -57,10 +57,12 @@ namespace SGame
 
         }
 
-        public void Stop() 
-        {
-            GuideManager.Instance.StopGuide(m_Config.GuideId);
-        }
+        //public override void Stop()
+        //{
+        //    GuideManager.Instance.StopGuide(m_Config.GuideId);
+        //    base.Stop();
+        //}
+
 
         public override void Dispose()
         {

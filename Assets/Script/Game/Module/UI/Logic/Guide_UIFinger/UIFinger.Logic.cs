@@ -12,6 +12,7 @@ namespace SGame.UI{
         {
             context.onUpdate += OnUpdate;
             m_Handler = context.gameWorld.GetEntityManager().GetComponentObject<UIParam>(context.entity).Value as GuideFingerHandler;
+            m_view.m_Finger.rotation = m_Handler.config.Angle;
         }
 
         private void OnUpdate(UIContext context)

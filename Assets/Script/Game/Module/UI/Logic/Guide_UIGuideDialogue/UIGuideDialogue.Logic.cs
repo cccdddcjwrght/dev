@@ -29,6 +29,7 @@ namespace SGame.UI{
 
 			//设置对话框宽度
 			if(m_Handler.config.Width > 0) m_view.m_dialogue.width = m_Handler.config.Width;
+			if (m_Handler.config.Height > 0) m_view.m_dialogue.height = m_Handler.config.Height;
 
 			if (m_Handler.config.Force == 1)//弱指引 需要点击关闭
 				m_view.m_mask.visible = true;
