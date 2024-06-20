@@ -22,6 +22,7 @@ namespace SGame.UI{
 		int m_TotalNum = 6;		//抽奖类型数量
 		float m_Height = 200;   //抽奖item高度
 
+		bool isHaveBox = false;		//是否有装备宝箱
 		bool m_IsPlaying = false;	//是否抽奖中
 		bool m_Auto = false;		//是否自动抽奖
 
@@ -84,13 +85,13 @@ namespace SGame.UI{
 
 		public void PlayLottery() 
 		{
-			if (DataCenter.Instance.likeData.likeNum <= 0)
-			{
-				"@ui_likes_tips".Tips();
-				return;
-			}
+            if (DataCenter.Instance.likeData.likeNum <= 0)
+            {
+                "@ui_likes_tips".Tips();
+                return;
+            }
 
-			if (m_IsPlaying) return;
+            if (m_IsPlaying) return;
 			m_IsPlaying = true;
 			//UILockManager.Instance.Require("LuckLike");
 			DataCenter.Instance.likeData.likeNum--;
@@ -222,7 +223,15 @@ namespace SGame.UI{
 		void OpenFramentUI() 
 		{
 			if (m_DropItem == null || m_DropItem.Count <= 0) return;
-			SGame.UIUtils.OpenUI("frament", m_DropItem);
+
+			if (isHaveBox)
+			{
+				DelayExcuter.Instance.OnlyWaitUIClose("eqgiftui", () =>
+				{
+					SGame.UIUtils.OpenUI("frament", m_DropItem);
+				});
+			}
+			else SGame.UIUtils.OpenUI("frament", m_DropItem);
 		}
 
 		partial void UnInitLogic(UIContext context){
@@ -238,6 +247,7 @@ namespace SGame.UI{
 			{
 				//如果有食谱碎片宝箱，先加上
 				m_DropRewardData = m_RewardData.Where((r) => r.itemType == (int)EnumItemType.ChestKey).ToList();
+				isHaveBox = m_RewardData.Find((r) => r.itemType == (int)EnumItemType.Chest) !=null;
 				m_RewardData.RemoveAll((r) => r.itemType == (int)EnumItemType.ChestKey);
 				for (int i = 0; i < m_DropRewardData.Count; i++)
 				{
