@@ -53,6 +53,9 @@ namespace SGame.VS
         public ValueOutput angle { get; private set; }
         
         public ValueOutput customerEntity { get; private set; }
+        
+        public ValueOutput IsNoLeave { get; private set; }
+
 
         private Vector3 m_position;
 
@@ -60,6 +63,7 @@ namespace SGame.VS
 
         private Entity m_customerEntity = Entity.Null;
 
+        private bool m_IsNoLeave = false;
 
         protected override void Definition()
         {
@@ -82,6 +86,7 @@ namespace SGame.VS
                 var rot = seats.GetSeatRotation(index);
                 m_angle = Utils.GetRotationAngle(rot);
                 m_customerEntity = seats.GetSeat(index).customer;
+                m_IsNoLeave = seats.GetSeat(index).state == CarCustomer.SeatState.NOLEAVE;
                 return successTrigger;
             });
 
@@ -90,7 +95,7 @@ namespace SGame.VS
             position3d            = ValueOutput<Vector3>("position", (flow) => m_position);
             angle               = ValueOutput<float>("angle", (flow) => m_angle);
             customerEntity      = ValueOutput<Entity>("customer", (flow) => m_customerEntity);
-            
+            IsNoLeave = ValueOutput<bool>("isNotLeave", (flow) => m_IsNoLeave);
             successTrigger    = ControlOutput("Success");
             failTrigger       = ControlOutput("Fail");
         }

@@ -88,7 +88,12 @@ namespace SGame.VS
                 int emptySeatIndex = seats.GetEmptySeat();
                 if (emptySeatIndex < 0)
                 {
+                    //log.Info("get sit fail bus=" + bus + " customer=" + customer);
                     return failTrigger;
+                }
+                else
+                {
+                    //log.Info("get sit success bus=" + bus + " customer=" + customer);
                 }
                 
                 // 坐下位置

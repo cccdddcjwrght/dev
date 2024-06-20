@@ -332,7 +332,8 @@ namespace SGame
             EntityManager.SetComponentData<Translation>(chair.customer, new Translation() { Value = m_transform.position });
             
             //chair.customer = Entity.Null;
-            chair.state = CarCustomer.SeatState.LEAVE;
+            chair.Leave();
+            //chair.state = CarCustomer.SeatState.LEAVE;
             return true;
         }
 
@@ -378,6 +379,18 @@ namespace SGame
 
                 return true;
             }
+        }
+
+        public int GetCustomerNum(CarCustomer.SeatState state)
+        {
+            int i = 0;
+            foreach (var customer in m_customers)
+            {
+                if (customer.state == state)
+                    i++;
+            }
+
+            return i;
         }
         
     }

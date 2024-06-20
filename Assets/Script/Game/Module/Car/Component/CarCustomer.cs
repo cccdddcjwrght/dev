@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Fibers;
 using log4net;
 using Unity.Entities;
 using UnityEngine;
@@ -28,6 +29,18 @@ namespace SGame
         
 
         public bool IsEmptySeat => state == SeatState.LEAVE;
+
+        public bool Leave()
+        {
+            if (state != SeatState.NOLEAVE)
+            {
+                log.Error("leave state not match");
+                return false;
+            }
+
+            state = SeatState.LEAVE;
+            return true;
+        }
 
         public bool ReturnEnd(Entity customer)
         {

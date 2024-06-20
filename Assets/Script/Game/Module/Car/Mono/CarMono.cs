@@ -363,5 +363,23 @@ namespace SGame
         public bool ReturnEnd(int chairIndex, Entity customer) => m_seats.ReturnChairEnd(chairIndex, customer);
 
         public void UpdateChairCustomer(int chairIndex) => m_seats.UpdateChairCustomer(chairIndex);
+
+        /// <summary>
+        /// 是否需要下车
+        /// </summary>
+        /// <returns></returns>
+        public bool NeedTakeOff()
+        {
+            // 队伍排名
+            int order = GetQueueOrder();
+            if (order >= m_queue.busStopses.Count)
+            {
+                // 不在公交队列中
+                return false;
+            }
+            
+            // 必须座位上有人才能下车
+            return m_seats.GetCustomerNum(CarCustomer.SeatState.NOLEAVE) > 0;
+        }
     }
 }
