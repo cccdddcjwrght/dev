@@ -11,7 +11,14 @@ namespace SGame.UI{
 	{
 		partial void InitEvent(UIContext context)
 		{
-			
+			if (!string.IsNullOrEmpty(DataCenter.Instance.accountData.playerName))
+			{
+				m_view.m_input.promptText = DataCenter.Instance.accountData.playerName;
+			}
+			else
+			{
+				m_view.m_input.promptText = UIListener.Local("player_name");
+			}
 		}
 		partial void UnInitEvent(UIContext context){
 
