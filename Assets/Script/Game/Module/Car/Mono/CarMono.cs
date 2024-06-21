@@ -53,6 +53,7 @@ namespace SGame
         /// <param name="config"></param>
         public bool Initalize(EntityManager entityManager, Entity e,  int id)
         {
+            log.Debug(string.Format("CarMono Create Entity={0} id={1} gameobject={2}", e, id, GetInstanceID()));
             if (!ConfigSystem.Instance.TryGet(id, out GameConfigs.CarDataRowData config))
             {
                 log.Error("car config not found=" + id);
@@ -63,9 +64,15 @@ namespace SGame
             m_entity = e;
             m_config = config;
             EntityManager.SetComponentData(e, new Speed(){Value =  config.MoveSpeed});
-            m_logic = FiberCtrl.Pool.Run(Logic());
             m_nextIndex = 0;
+            m_logic = new Fiber(Logic(), FiberBucket.Manual);//FiberCtrl.Pool.Run(Logic());
             return true;
+        }
+
+        void Update()
+        {
+            if (m_logic != null)
+                m_logic.Step();
         }
 
         /// <summary>
@@ -104,10 +111,10 @@ namespace SGame
             var modelRequest = Assets.LoadAssetAsync(ASSET_PATH + m_config.Model, typeof(GameObject));
             yield return aiReq;
             yield return modelRequest;
-            aiReq.Release();
-            modelRequest.Release();
             aiReq.Require(gameObject);
             modelRequest.Require(gameObject);
+            aiReq.Release();
+            modelRequest.Release();
 
             if (!string.IsNullOrEmpty(aiReq.error) || !string.IsNullOrEmpty(modelRequest.error))
             {
@@ -208,6 +215,7 @@ namespace SGame
         /// <returns></returns>
         IEnumerator Logic()
         {
+            log.Debug(string.Format("CarMono Create step1 gameobject={0}", GetInstanceID()));
             m_queue = CarQueueManager.Instance.GetOrCreate(pathTag);
             m_roads = new List<Vector3>();
 
@@ -215,14 +223,16 @@ namespace SGame
             if (m_model == null || m_ai == null)
                 yield break;
             
-
             // 设置位置信息
+            log.Debug(string.Format("CarMono Create step2 gameobject={0}", GetInstanceID()));
             SetupGameObject();
             
             // 设置挂点
+            log.Debug(string.Format("CarMono Create step3 gameobject={0}", GetInstanceID()));
             SetupAttachement();
 
             // 设置顾客
+            log.Debug(string.Format("CarMono Create step4 gameobject={0}", GetInstanceID()));
             SetupCustomer();
 
             // 创建顾客
@@ -244,6 +254,7 @@ namespace SGame
 
         private void OnDestroy()
         {
+            log.Debug(string.Format("CarMono OnDestroy Entity={0} ameobject={1}", entity, GetInstanceID()));
             if (m_logic != null)
             {
                 m_logic.Terminate();
