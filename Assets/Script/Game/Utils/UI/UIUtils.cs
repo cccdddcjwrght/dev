@@ -710,18 +710,19 @@ namespace SGame
 		/// 检测是否只有主界面
 		/// </summary>
 		/// <returns></returns>
-		public static bool CheckIsOnlyMainUI()
+		public static bool CheckIsOnlyMainUI(List<string> residentuis = null)
 		{
 			var e = GetUIEntity("mainui");
 			int mainSorting = 0;
 			if (e != Entity.Null)
 			{
+				residentuis = residentuis ?? ResidentUI;
 				var mainui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
 				mainSorting = mainui.Value.sortingOrder;
 				List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI();
 				foreach (var ui in allUI)
 				{
-					if (ResidentUI.Contains(ui.Value.uiname)) continue;
+					if (residentuis.Contains(ui.Value.uiname)) continue;
 					if (ui.Value.sortingOrder > mainSorting)
 						return false;
 				}

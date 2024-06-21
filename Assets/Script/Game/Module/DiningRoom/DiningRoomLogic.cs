@@ -325,7 +325,7 @@ namespace SGame.Dining
 		{
 			UILockManager.Instance.Require("dining");
 			SceneCameraSystem.Instance.disableControl = true;
-			SceneCameraSystem.Instance.Focus(holder.gameObject, false);
+			SceneCameraSystem.Instance.Focus(holder.gameObject, false,11);
 			_effect.SetActive(true);
 			if (delay > 0) yield return new WaitForSeconds(delay);
 			_lockBody.SetActive(false);
@@ -345,6 +345,12 @@ namespace SGame.Dining
 
 	class RegionHit : MonoBehaviour, ITouchOrHited
 	{
+		private List<string> C_IGNORE_UI = new List<string>() {
+			"gmui","mask","guidefinger","guideui",
+			"scenedecorui","hud","flight","SystemTip",
+			"guideback","fingerui"
+		};
+
 		public int region;
 		public int place;
 		public Action<int, int> onClick;
@@ -395,7 +401,7 @@ namespace SGame.Dining
 
 		public void OnClick()
 		{
-			if (UIUtils.CheckIsOnlyMainUI())
+			if (UIUtils.CheckIsOnlyMainUI(C_IGNORE_UI))
 				onClick?.Invoke(region, place);
 		}
 
