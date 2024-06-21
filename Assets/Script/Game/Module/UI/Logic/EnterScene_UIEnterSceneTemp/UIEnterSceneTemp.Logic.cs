@@ -93,6 +93,10 @@ namespace SGame.UI{
 			view.m_goBtn.onClick.Add(() =>
 			{
 				UILockManager.Instance.Require("enterScene");
+
+				//提前设置当前场景id
+				DataCenter.Instance.roomData.roomID = _nextScene;
+				
 				var lastObj = (UI_PassItem)m_view.m_list.GetChildAt(index + 1);
 				m_view.m_list.ScrollToView(index + 1);
 				if (lastObj.m_dir.selectedIndex == 0) lastObj.m_right.Play(LoadNextScene);
@@ -109,6 +113,7 @@ namespace SGame.UI{
 		void LoadNextScene() 
 		{
 			UILockManager.Instance.Release("enterScene");
+
 			SGame.UIUtils.CloseUIByID(__id);
 			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
 		}
