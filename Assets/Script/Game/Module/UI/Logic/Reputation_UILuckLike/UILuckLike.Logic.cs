@@ -57,6 +57,7 @@ namespace SGame.UI{
 				RefreshAutoState();
 			});
 
+			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
 			m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
 			m_view.m_BigLuckShow.onClick.Add(() =>
 			{
@@ -93,7 +94,8 @@ namespace SGame.UI{
 
             if (m_IsPlaying) return;
 			m_IsPlaying = true;
-			//UILockManager.Instance.Require("LuckLike");
+			m_view.m_t1.Play();
+			m_view.m_t0.Stop();
 			DataCenter.Instance.likeData.likeNum--;
 			EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
 
@@ -103,7 +105,7 @@ namespace SGame.UI{
 				int a = config.ResultShow(0);
 				int b = config.ResultShow(1);
 				LotteryAnim(a, m_view.m_list1, 1f);
-				LotteryAnim(b, m_view.m_list2, 1f, LotteryFinish, 0.2f);
+				LotteryAnim(b, m_view.m_list2, 1f, LotteryFinish, 1f);
 
 				if (config.ResultType == 1)
 				{
@@ -138,9 +140,10 @@ namespace SGame.UI{
 		public void LotteryFinish() 
 		{
 			m_IsPlaying = false;
-			//UILockManager.Instance.Release("LuckLike");
 			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config)) 
 			{
+				m_view.m_t1.Stop();
+				m_view.m_t0.Play();
 				if (config.ResultType == 1)
 				{
 					PropertyManager.Instance.CombineCache2Items();
@@ -148,7 +151,26 @@ namespace SGame.UI{
 				}
 				else if (config.ResultType == 2)
 				{
-					RefreshRewardList();
+					//特效表现
+					EffectSystem.Instance.AddEffect(30, m_view);
+					EffectSystem.Instance.AddEffect(33, m_view.m_fly_effect1);
+					EffectSystem.Instance.AddEffect(33, m_view.m_fly_effect2);
+
+					Vector2 start_pos1 = new Vector2(m_view.m_list1.x, m_view.m_list1.y);
+					Vector2 start_pos2 = new Vector2(m_view.m_list2.x, m_view.m_list2.y);
+					m_view.m_fly_effect1.xy = start_pos1;
+					m_view.m_fly_effect2.xy = start_pos2;
+					Vector2 end_pos = new Vector2(m_view.m_rewardList.x, m_view.m_rewardList.y);
+					GTween.To(start_pos1, end_pos, 1).SetTarget(m_view).OnUpdate((t)=> 
+					{
+						m_view.m_fly_effect1.xy = t.value.vec2;
+					});
+
+					GTween.To(start_pos2, end_pos, 1).SetTarget(m_view).OnUpdate((t) =>
+					{
+						m_view.m_fly_effect2.xy = t.value.vec2;
+					}).OnComplete(RefreshRewardList);
+					//RefreshRewardList();
 				}
 				else if (config.ResultType == 3) 
 				{
@@ -157,6 +179,7 @@ namespace SGame.UI{
 					{
 						m_view.m_BigLuckShow.visible = true;
 						m_view.m_BigLuckShow.m_show.Play();
+						EffectSystem.Instance.AddEffect(31, m_view.m_BigLuckShow.m_effect);
 						m_HideCfgIds.Add(cfg.Reward(0));
 
 						m_view.m_BigLuckShow.m_list.numItems = m_HideCfgIds.Count;
@@ -247,7 +270,7 @@ namespace SGame.UI{
 			{
 				//如果有食谱碎片宝箱，先加上
 				m_DropRewardData = m_RewardData.Where((r) => r.itemType == (int)EnumItemType.ChestKey).ToList();
-				isHaveBox = m_RewardData.Find((r) => r.itemType == (int)EnumItemType.Chest) !=null;
+				isHaveBox = m_RewardData.Find((r) => r.itemType == (int)EnumItemType.Chest && r.subType == 0) !=null;
 				m_RewardData.RemoveAll((r) => r.itemType == (int)EnumItemType.ChestKey);
 				for (int i = 0; i < m_DropRewardData.Count; i++)
 				{

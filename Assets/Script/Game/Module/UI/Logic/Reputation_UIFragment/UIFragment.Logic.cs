@@ -16,6 +16,8 @@ namespace SGame.UI{
 
 			m_view.m_list.itemRenderer = OnItemRenderer;
 			m_view.m_list.numItems = _args.Count;
+
+			EffectSystem.Instance.AddEffect(32, m_view.m_effect);
 		}
 
 		void OnItemRenderer(int index, GObject gObject) 

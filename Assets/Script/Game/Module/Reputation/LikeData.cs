@@ -27,6 +27,7 @@ namespace SGame
         public int num;
 
         public int itemType;
+        public int subType;
         public int typeId;
     }
 
@@ -141,6 +142,7 @@ namespace SGame
                     id = id,
                     num = num,
                     itemType = config.Type,
+                    subType = config.SubType,
                     typeId = config.TypeId,
                 });
             }

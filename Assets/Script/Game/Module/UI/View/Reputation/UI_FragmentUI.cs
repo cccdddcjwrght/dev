@@ -9,6 +9,7 @@ namespace SGame.UI.Reputation
     {
         public GButton m_btn;
         public GList m_list;
+        public GGraph m_effect;
         public GGroup m_content;
         public Transition m_show;
         public const string URL = "ui://vnok3a30jlm51h";
@@ -24,7 +25,8 @@ namespace SGame.UI.Reputation
 
             m_btn = (GButton)GetChildAt(4);
             m_list = (GList)GetChildAt(5);
-            m_content = (GGroup)GetChildAt(6);
+            m_effect = (GGraph)GetChildAt(6);
+            m_content = (GGroup)GetChildAt(7);
             m_show = GetTransitionAt(0);
         }
     }
