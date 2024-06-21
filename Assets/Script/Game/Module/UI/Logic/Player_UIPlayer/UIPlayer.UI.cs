@@ -15,6 +15,7 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_eqTab.onChanged.Add(new EventCallback1(_OnEqTabChanged));
 			m_view.m_c1.onChanged.Add(new EventCallback1(_OnC1Changed));
+			m_view.m_canmerge.onChanged.Add(new EventCallback1(_OnCanmergeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_EquipPage.m_bg.onChanged.Add(new EventCallback1(_OnEquipPage_BgChanged));
 			m_view.m_EquipPage.m_pos.onChanged.Add(new EventCallback1(_OnEquipPage_PosChanged));
@@ -49,20 +50,22 @@ namespace SGame.UI{
 			m_view.m_EquipQuality.m_state.onChanged.Add(new EventCallback1(_OnEquipUpQuality_StateChanged));
 			m_view.m_EquipQuality.m_type.onChanged.Add(new EventCallback1(_OnEquipUpQuality_TypeChanged));
 			m_view.m_EquipQuality.m_combine.onChanged.Add(new EventCallback1(_OnEquipUpQuality_CombineChanged));
+			m_view.m_EquipQuality.m_canmerge.onChanged.Add(new EventCallback1(_OnEquipUpQuality_CanmergeChanged));
 			m_view.m_EquipQuality.m_nexteq.m_type.onChanged.Add(new EventCallback1(_OnEquip_EquipQuality_nexteq_typeChanged));
 			m_view.m_EquipQuality.m_nexteq.m_quality.onChanged.Add(new EventCallback1(_OnEquip_EquipQuality_nexteq_qualityChanged));
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick));
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick));
 			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick));
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick));
-			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick));
-			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick));
+			UIListener.ListenerIcon(m_view.m_info, new EventCallback1(_OnInfoClick));
+			UIListener.ListenerIcon(m_view.m_equipup, new EventCallback1(_OnEquipupClick));
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_eqTab.onChanged.Remove(new EventCallback1(_OnEqTabChanged));
 			m_view.m_c1.onChanged.Remove(new EventCallback1(_OnC1Changed));
+			m_view.m_canmerge.onChanged.Remove(new EventCallback1(_OnCanmergeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_EquipPage.m_bg.onChanged.Remove(new EventCallback1(_OnEquipPage_BgChanged));
 			m_view.m_EquipPage.m_pos.onChanged.Remove(new EventCallback1(_OnEquipPage_PosChanged));
@@ -97,14 +100,15 @@ namespace SGame.UI{
 			m_view.m_EquipQuality.m_state.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_StateChanged));
 			m_view.m_EquipQuality.m_type.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_TypeChanged));
 			m_view.m_EquipQuality.m_combine.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_CombineChanged));
+			m_view.m_EquipQuality.m_canmerge.onChanged.Remove(new EventCallback1(_OnEquipUpQuality_CanmergeChanged));
 			m_view.m_EquipQuality.m_nexteq.m_type.onChanged.Remove(new EventCallback1(_OnEquip_EquipQuality_nexteq_typeChanged));
 			m_view.m_EquipQuality.m_nexteq.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_EquipQuality_nexteq_qualityChanged));
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick),remove:true);
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick),remove:true);
 			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick),remove:true);
-			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick),remove:true);
-			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_info, new EventCallback1(_OnInfoClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_equipup, new EventCallback1(_OnEquipupClick),remove:true);
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 
 		}
@@ -118,6 +122,11 @@ namespace SGame.UI{
 		}
 		partial void OnC1Changed(EventContext data);
 		void SwitchC1Page(int index)=>m_view.m_c1.selectedIndex=index;
+		void _OnCanmergeChanged(EventContext data){
+			OnCanmergeChanged(data);
+		}
+		partial void OnCanmergeChanged(EventContext data);
+		void SwitchCanmergePage(int index)=>m_view.m_canmerge.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
@@ -298,6 +307,11 @@ namespace SGame.UI{
 		}
 		partial void OnEquipUpQuality_CombineChanged(EventContext data);
 		void SwitchEquipUpQuality_CombinePage(int index)=>m_view.m_EquipQuality.m_combine.selectedIndex=index;
+		void _OnEquipUpQuality_CanmergeChanged(EventContext data){
+			OnEquipUpQuality_CanmergeChanged(data);
+		}
+		partial void OnEquipUpQuality_CanmergeChanged(EventContext data);
+		void SwitchEquipUpQuality_CanmergePage(int index)=>m_view.m_EquipQuality.m_canmerge.selectedIndex=index;
 		void _OnEquip_EquipQuality_nexteq_typeChanged(EventContext data){
 			OnEquip_EquipQuality_nexteq_typeChanged(data);
 		}
@@ -338,14 +352,10 @@ namespace SGame.UI{
 			OnInfoClick(data);
 		}
 		partial void OnInfoClick(EventContext data);
-		void SetInfoText(string data)=>UIListener.SetText(m_view.m_info,data);
-		string GetInfoText()=>UIListener.GetText(m_view.m_info);
 		void _OnEquipupClick(EventContext data){
 			OnEquipupClick(data);
 		}
 		partial void OnEquipupClick(EventContext data);
-		void SetEquipupText(string data)=>UIListener.SetText(m_view.m_equipup,data);
-		string GetEquipupText()=>UIListener.GetText(m_view.m_equipup);
 		void _OnClickBtnClick(EventContext data){
 			OnClickBtnClick(data);
 		}

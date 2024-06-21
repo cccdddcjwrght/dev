@@ -17,7 +17,7 @@ namespace SGame
 		{
 			var items = DataCenter.Instance.equipData.items;
 			var l = items.Count;
-
+			if (DataCenter.Instance.equipData.canMerge) return true;
 			for (int i = 0; i < l; i++)
 			{
 				if (items[i].isnew == 1) return true;

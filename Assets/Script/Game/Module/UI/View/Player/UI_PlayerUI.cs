@@ -9,12 +9,13 @@ namespace SGame.UI.Player
     {
         public Controller m_eqTab;
         public Controller m_c1;
+        public Controller m_canmerge;
         public GLabel m_body;
         public GComponent m_GuideEmpty;
         public UI_EquipPage m_EquipPage;
         public UI_EquipUpQuality m_EquipQuality;
-        public GButton m_info;
-        public GButton m_equipup;
+        public UI_EqTab m_info;
+        public UI_EqTab m_equipup;
         public GList m_list;
         public GLoader m_clickBtn;
         public const string URL = "ui://cmw7t1elk6220";
@@ -30,12 +31,13 @@ namespace SGame.UI.Player
 
             m_eqTab = GetControllerAt(0);
             m_c1 = GetControllerAt(1);
+            m_canmerge = GetControllerAt(2);
             m_body = (GLabel)GetChildAt(0);
             m_GuideEmpty = (GComponent)GetChildAt(1);
             m_EquipPage = (UI_EquipPage)GetChildAt(2);
             m_EquipQuality = (UI_EquipUpQuality)GetChildAt(3);
-            m_info = (GButton)GetChildAt(5);
-            m_equipup = (GButton)GetChildAt(6);
+            m_info = (UI_EqTab)GetChildAt(5);
+            m_equipup = (UI_EqTab)GetChildAt(6);
             m_list = (GList)GetChildAt(7);
             m_clickBtn = (GLoader)GetChildAt(8);
         }

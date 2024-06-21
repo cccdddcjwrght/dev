@@ -37,6 +37,7 @@ namespace SGame.UI
 				m_view.m_EquipPage.SetEquipInfo();
 				SetEquipList();
 			}
+			RefreshMergeState();
 		}
 
 		private void OnPlayerEquipChange()

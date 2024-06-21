@@ -24,6 +24,7 @@ namespace SGame
 				_data.items?.ForEach(e => e.Refresh());
 				_data.equipeds.Foreach(e => e?.Refresh());
 				StaticDefine.EQUIP_MAX_LEVEL = ConfigSystem.Instance.GetConfigCount(typeof(EquipUpLevelCost));
+				CheckCanMerge();
 			}
 
 			static public void InitEquipEffects()
@@ -258,6 +259,7 @@ namespace SGame
 
 					foreach (var item in eqs)
 						AddEquip(item.Id, isnew: isnew, triggerevent: false, cfg: item);
+					CheckCanMerge();
 					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_ADD));
 					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 				}
@@ -284,6 +286,7 @@ namespace SGame
 
 					if (triggerevent)
 					{
+						CheckCanMerge();
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_ADD));
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 					}
@@ -330,6 +333,7 @@ namespace SGame
 					_data.equipeds[equip.pos] = default;
 					_data.items.Add(equip);
 					equip.pos = 0;
+					CheckCanMerge();
 					if (triggerevent)
 					{
 						OnRoleEquipChange();
@@ -354,6 +358,7 @@ namespace SGame
 							EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 						if (!isputon)
 							EventManager.Instance.Trigger((int)GameEvent.EQUIP_NUM_UPDATE, equip.cfgID, -1);
+						if (isputon || triggerevent) CheckCanMerge();
 					}
 				}
 			}
@@ -413,6 +418,11 @@ namespace SGame
 						case 5: count = cfg.Quality5Need; break;
 						case 6: count = cfg.Quality6Need; break;
 						case 7: count = cfg.Quality7Need; break;
+						case 8: count = cfg.Quality8Need; break;
+						case 9: count = cfg.Quality9Need; break;
+						case 10: count = cfg.Quality10Need; break;
+						case 11: count = cfg.Quality11Need; break;
+						case 12: count = cfg.Quality12Need; break;
 					}
 				}
 				return count;
@@ -482,7 +492,7 @@ namespace SGame
 				return num;
 			}
 
-			static public List<List<EquipItem>> GetCombineList(int qualitymask = -1)
+			static public List<List<EquipItem>> GetCombineList(int qualitymask = -1 , bool ischeck = false)
 			{
 				if (qualitymask < 0)
 				{
@@ -490,7 +500,10 @@ namespace SGame
 					for (int i = 1; i < (int)EnumQuality.Max; i++)
 					{
 						if (qualitymask < 0 || i.IsInState(qualitymask))
+						{
 							GetCombineListByQuality(i, ref rets);
+							if (ischeck && rets.Count > 0) return rets;
+						}
 					}
 					return rets;
 				}
@@ -576,6 +589,25 @@ namespace SGame
 				return false;
 			}
 
+			static public void ConvertQuality(int quality, out int qType, out int qStep)
+			{
+				qType = quality;
+				qStep = 0;
+				var q = (EnumQuality)quality;
+				var mq = EnumQuality.Red;
+
+				if (q >= EnumQuality.Purple && q < mq)
+				{
+					if (q < EnumQuality.Orange)
+					{ qType = ((int)EnumQualityType.Purple); q = EnumQuality.Purple; }
+					else if (q < EnumQuality.Red)
+					{ qType = ((int)EnumQualityType.Orange); q = EnumQuality.Orange; }
+					qStep = quality - (int)q;
+				}
+				else if (q >= mq)
+					qType -= 5;
+			}
+
 			static private void OnRoleEquipChange(bool remove = false)
 			{
 				EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = EQ_FROM_ID });
@@ -594,6 +626,12 @@ namespace SGame
 						ret = a.level.CompareTo(b.level);
 				}
 				return ret;
+			}
+
+			static public void CheckCanMerge()
+			{
+				var rets = GetCombineList(ischeck: true);
+				_data.canMerge = rets?.Count > 0;
 			}
 
 		}
@@ -629,6 +667,8 @@ namespace SGame
 
 		[NonSerialized]
 		public Dictionary<string, string> defaultEquipPart;
+		[NonSerialized]
+		public bool canMerge;
 	}
 
 	public class BaseEquip
@@ -655,6 +695,16 @@ namespace SGame
 		public EquipQualityRowData qcfg;
 		[NonSerialized]
 		public List<int[]> mats;
+		/// <summary>
+		/// 品质类型
+		/// </summary>
+		[NonSerialized]
+		public int qType;
+		/// <summary>
+		/// 品质阶段
+		/// </summary>
+		[NonSerialized]
+		public int qStep;
 
 		[NonSerialized]
 		public int temp;
@@ -666,6 +716,7 @@ namespace SGame
 		public int attrID { get; private set; }
 		public int attrVal { get { return GetAttrVal(); } }
 		public int realType { get { return _type > 0 ? _type : type; } }
+
 
 		protected int _type;
 		protected string _name;
@@ -712,6 +763,7 @@ namespace SGame
 			{
 				if (type < 5)
 				{
+					DataCenter.EquipUtil.ConvertQuality(quality, out qType, out qStep);
 					this.level = Math.Max(1, this.level);
 					//屏蔽词条
 #if !ENABLE_BUFF
@@ -833,7 +885,6 @@ namespace SGame
 
 		[NonSerialized]
 		public bool selected;
-
 
 
 		public EquipItem()

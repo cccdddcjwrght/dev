@@ -17,10 +17,15 @@ namespace SGame.UI.Player
         public Controller m_type;
         public Controller m_suitmat;
         public Controller m_mask;
+        public Controller m_step;
+        public Controller m_merge;
+        public Controller m_partstate;
+        public Controller m_outside;
         public GImage m_bg;
         public GLoader m_quality_2;
         public GTextField m_level;
         public GLoader m___icon;
+        public GTextField m_step_2;
         public GTextField m_count;
         public const string URL = "ui://cmw7t1elk62213";
 
@@ -43,11 +48,16 @@ namespace SGame.UI.Player
             m_type = GetControllerAt(7);
             m_suitmat = GetControllerAt(8);
             m_mask = GetControllerAt(9);
+            m_step = GetControllerAt(10);
+            m_merge = GetControllerAt(11);
+            m_partstate = GetControllerAt(12);
+            m_outside = GetControllerAt(13);
             m_bg = (GImage)GetChildAt(0);
             m_quality_2 = (GLoader)GetChildAt(1);
             m_level = (GTextField)GetChildAt(4);
             m___icon = (GLoader)GetChildAt(9);
-            m_count = (GTextField)GetChildAt(10);
+            m_step_2 = (GTextField)GetChildAt(12);
+            m_count = (GTextField)GetChildAt(14);
         }
     }
 }

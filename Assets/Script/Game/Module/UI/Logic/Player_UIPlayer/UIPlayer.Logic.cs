@@ -58,6 +58,7 @@ namespace SGame.UI
 
 		partial void OnEqTabChanged(EventContext data)
 		{
+			RefreshMergeState();
 			switch (m_view.m_eqTab.selectedIndex)
 			{
 				case 0: OnEquipPage(); break;
@@ -161,15 +162,18 @@ namespace SGame.UI
 
 				if (data is BaseEquip eq)
 				{
-					(gObject as UI_Equip)?.SetEquipInfo(eq, true);
+					gObject.SetEquipInfo(eq, true);
+					UIListener.SetControllerSelect(gObject, "outside", 1, false);
 					gObject.onClick.Clear();
 					gObject.onClick.Add(() => SwitchEquipUpQuality_StatePage(0));
 				}
 				else if (data is int)
 					(gObject as UI_MatDiv).m_type.selectedIndex = _items.Count > 3 ? 0 : 1;
 				else
-					(gObject as UI_Equip)?.SetEquipInfo(null, true, 0);
-
+				{
+					gObject.SetEquipInfo(_current.qcfg.AdvanceType == 3 ? null : _current, true);
+					gObject.SetMerge(_current);
+				}
 
 			}, null, new Func<object, string>(GetMatRes));
 
@@ -188,7 +192,7 @@ namespace SGame.UI
 			var eq = (gObject as UI_EqPos).m_body;
 			if (_current == null)
 			{
-				if (data.quality >= 7) { "@ui_equip_max_quality".Tips(); return; }
+				if (data.quality >= (int)EnumQuality.Max) { "@ui_equip_max_quality".Tips(); return; }
 				_current = data;
 				SwitchEquipUpQuality_StatePage(1);
 			}
@@ -197,6 +201,7 @@ namespace SGame.UI
 				var s = !data.selected;
 				var index = _items.IndexOf(data);
 				var list = m_view.m_EquipQuality.m_list;
+
 				if (!s)
 				{
 					_items[index] = null;
@@ -208,9 +213,15 @@ namespace SGame.UI
 					_items[index] = data;
 					_mats.Add(data);
 				}
-				list.GetChildAt(index).SetEquipInfo(_items[index] as EquipItem, true, needcount: _current.qcfg.AdvanceValue);
+				var item = list.GetChildAt(index);
 				data.selected = s;
 				eq.m_select.selectedIndex = s ? 1 : 0;
+				item.SetEquipInfo(
+					s ? _items[index] as EquipItem : _current.qcfg.AdvanceType != 3 ? _current : null,
+					true, needcount: _current.qcfg.AdvanceValue
+				);
+				if (!s) item.SetMerge(_current);
+				else UIListener.SetControllerSelect(item, "outside", 1, false);
 
 			}
 		}
@@ -399,6 +410,14 @@ namespace SGame.UI
 					SGame.UIUtils.OpenUI("eqtipsui", data);
 				HideRed(gObject, data);
 			}
+		}
+
+		void RefreshMergeState()
+		{
+			var index = DataCenter.Instance.equipData.canMerge ? 1 : 0;
+			m_view.m_canmerge.selectedIndex = index;
+			if (m_view.m_eqTab.selectedIndex == 1) index = 0;
+			m_view.m_equipup.m___redpoint.selectedIndex = index;
 		}
 
 		void HideRed(GObject gObject, EquipItem data)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FairyGUI;
 using GameConfigs;
+using Microsoft.SqlServer.Server;
 using SGame;
 using SGame.UI;
 using SGame.UI.Player;
@@ -18,7 +19,7 @@ partial class UIListenerExt
 			{
 				com.SetTextByKey(cfg.Name);
 				com.SetIcon(cfg.Icon);
-				UIListener.SetTextWithName(com, "level", cfg.Level.ToString());
+				UIListener.SetTextWithName(gObject, "level", "ui_equip_lv_format".Local(null, cfg.Level), false);
 
 				if (setq)
 				{
@@ -36,7 +37,8 @@ partial class UIListenerExt
 		BaseEquip equip,
 		bool hidered = false, int part = 0, double needcount = 0, bool showmask = false,
 		string lvformat = null,
-		bool hideother = true
+		bool hideother = true,
+		int merge = 0
 	)
 	{
 		var root = gObject;
@@ -46,6 +48,7 @@ partial class UIListenerExt
 			if (!hideother)
 				eqPos.SetEquipUpState(equip);
 		}
+		UIListener.SetControllerSelect(gObject, "merge", 0, false);
 		if (equip == null || equip.cfgID <= 0)
 		{
 			UIListener.SetControllerSelect(gObject, "type", 0, false);
@@ -59,10 +62,13 @@ partial class UIListenerExt
 			{
 				lvformat = lvformat ?? "ui_equip_lv_format";
 				UIListener.SetControllerSelect(gObject, "type", 1, false);
+				UIListener.SetControllerSelect(gObject, "lvstate", 1, false);
 				SetEquipInfo(gObject, equip.cfg, false);
 				UIListener.SetTextWithName(gObject, "level", lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
 
-				UIListener.SetControllerSelect(gObject, "quality", equip.quality, false);
+				UIListener.SetControllerSelect(gObject, "quality", equip.qType, false);
+				UIListener.SetControllerSelect(gObject, "step", equip.qStep, false);
+
 				UIListener.SetTextWithName(gObject, "qname", $"ui_quality_name_{equip.quality}".Local());
 				UIListener.SetTextWithName(gObject, "attribute", "+" + equip.GetAttrVal() + "%", false);
 				UIListener.SetControllerSelect(gObject, "suitmat", issuit ? 1 : 0, false);
@@ -72,11 +78,13 @@ partial class UIListenerExt
 					UIListener.SetControllerSelect(root, "__redpoint", (equip.isnew == 1 || equip.CheckMats()) ? 1 : 0, false);
 				if (equip.qcfg.IsValid())
 					UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax), false);
+
 			}
 			else
 			{
 				gObject.SetIcon(equip.icon);
 				UIListener.SetControllerSelect(gObject, "type", 2, false);
+				UIListener.SetControllerSelect(gObject, "partstate", 0);
 				if (!hidered)
 					UIListener.SetControllerSelect(root, "__redpoint", equip.isnew, false);
 				var c = Utils.ConvertNumberStr(equip.count);
@@ -86,7 +94,7 @@ partial class UIListenerExt
 				{
 					var f = equip.count >= needcount;
 					var n = Utils.ConvertNumberStr(needcount);
-					var s = needcount == 1 ? null : (equip.count >= needcount ? "ui_equip_mat_tips1" : "ui_equip_mat_tips2").Local(null, c, n);
+					var s = (equip.count >= needcount ? "ui_equip_mat_tips1" : "ui_equip_mat_tips2").Local(null, c, n);
 					UIListener.SetTextWithName(gObject, "count", s, false);
 					if (showmask)
 						UIListener.SetControllerSelect(gObject, "mask", needcount > equip.count ? 1 : 0, false);
@@ -97,6 +105,45 @@ partial class UIListenerExt
 		}
 		return false;
 
+	}
+
+	static public void SetMerge(this GObject gObject , BaseEquip equip)
+	{
+		if (gObject != null)
+		{
+			var merge = equip.qcfg.AdvanceType;
+			UIListener.SetControllerSelect(gObject, "merge", merge);
+			switch (merge)
+			{
+				case 1:
+					UIListener.SetControllerSelect(gObject, "type", 0);
+					UIListener.SetControllerSelect(gObject, "quality", equip.qType, false);
+					UIListener.SetControllerSelect(gObject, "step", equip.qStep, false);
+					UIListener.SetControllerSelect(gObject, "state", 0);
+					UIListener.SetControllerSelect(gObject, "rightbottom", 0);
+					UIListener.SetControllerSelect(gObject, "partstate", 0);
+					break;
+				case 2:
+					UIListener.SetControllerSelect(gObject, "type", 0);
+					UIListener.SetControllerSelect(gObject, "quality", equip.qType, false);
+					UIListener.SetControllerSelect(gObject, "step", equip.qStep, false);
+					UIListener.SetControllerSelect(gObject, "state", 0);
+					UIListener.SetControllerSelect(gObject, "rightbottom", 0);
+					UIListener.SetControllerSelect(gObject, "partstate", 1);
+					UIListener.SetControllerSelect(gObject, "part", equip.cfg.Type);
+
+					break;
+				case 4:
+					UIListener.SetControllerSelect(gObject, "type", 1);
+					UIListener.SetControllerSelect(gObject, "quality", equip.qType, false);
+					UIListener.SetControllerSelect(gObject, "step", equip.qStep, false);
+					UIListener.SetControllerSelect(gObject, "rightbottom", 1);
+					UIListener.SetControllerSelect(gObject, "partstate", 0);
+					break;
+			}
+
+			UIListener.SetControllerSelect(gObject, "lvstate", 0);
+		}
 	}
 
 	static public void RefreshLevel(this GObject gObject, BaseEquip equip)

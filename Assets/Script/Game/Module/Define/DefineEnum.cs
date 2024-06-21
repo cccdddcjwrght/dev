@@ -15,7 +15,7 @@ namespace SGame
 		Orange = 4,
 	}
 
-	public enum EnumQuality
+	public enum EnumQualityType
 	{
 		None = 0,
 		White = 1,
@@ -25,6 +25,23 @@ namespace SGame
 		Orange,
 		Red,
 		Max = 7
+	}
+
+	public enum EnumQuality
+	{
+		None = 0,
+		White = 1,
+		Green,
+		Blue,
+		Purple,
+		Purple_1,
+		Purple_2,
+		Orange,
+		Orange_1,
+		Orange_2,
+		Orange_3,
+		Red,
+		Max = 12
 	}
 
 	/// <summary>
