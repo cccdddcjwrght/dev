@@ -703,7 +703,7 @@ namespace SGame
 
 		//常驻UI
 		static List<string> ResidentUI = new List<string>() {
-			"gmui","mask", "hud","flight","SystemTip"
+			"gmui","mask", "hud","flight","SystemTip","fingerui","guideback"
 		};
 
 		/// <summary>
