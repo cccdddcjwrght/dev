@@ -79,6 +79,7 @@ public struct RoleDataRowData : IFlatbufferObject
   public ArraySegment<byte>? GetUnlockRewardBytes() { return __p.__vector_as_arraysegment(44); }
 #endif
   public int[] GetUnlockRewardArray() { return __p.__vector_as_array<int>(44); }
+  public int Book { get { int o = __p.__offset(46); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoleDataRowData> CreateRoleDataRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -101,8 +102,10 @@ public struct RoleDataRowData : IFlatbufferObject
       StringOffset IconOffset = default(StringOffset),
       VectorOffset LikeGoodsOffset = default(VectorOffset),
       VectorOffset UnlockAreaOffset = default(VectorOffset),
-      VectorOffset UnlockRewardOffset = default(VectorOffset)) {
-    builder.StartTable(21);
+      VectorOffset UnlockRewardOffset = default(VectorOffset),
+      int Book = 0) {
+    builder.StartTable(22);
+    RoleDataRowData.AddBook(builder, Book);
     RoleDataRowData.AddUnlockReward(builder, UnlockRewardOffset);
     RoleDataRowData.AddUnlockArea(builder, UnlockAreaOffset);
     RoleDataRowData.AddLikeGoods(builder, LikeGoodsOffset);
@@ -127,7 +130,7 @@ public struct RoleDataRowData : IFlatbufferObject
     return RoleDataRowData.EndRoleDataRowData(builder);
   }
 
-  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(21); }
+  public static void StartRoleDataRowData(FlatBufferBuilder builder) { builder.StartTable(22); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -158,6 +161,7 @@ public struct RoleDataRowData : IFlatbufferObject
   public static VectorOffset CreateUnlockRewardVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateUnlockRewardVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartUnlockRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBook(FlatBufferBuilder builder, int Book) { builder.AddInt(21, Book, 0); }
   public static Offset<GameConfigs.RoleDataRowData> EndRoleDataRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoleDataRowData>(o);
