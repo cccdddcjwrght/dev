@@ -32,11 +32,11 @@ namespace SGame
         /// <summary>
         /// 当前汽车数量 
         /// </summary>
-        //public int m_carNum = 0;
+        public int m_carNum = 0;
 
         private int m_id = 0;
 
-        public bool isFull => m_queue.Count >= m_max;
+        public bool isFull => m_carNum >= m_max;
 
         public int Count => m_queue.Count;
 
@@ -46,12 +46,12 @@ namespace SGame
         {
             m_id = id;
             m_max = maxNum;
-            //m_carNum = 0;
+            m_carNum = 0;
         }
 
         public Data Get(int index) => m_queue[index];
 
-        //public void AddCar() => m_carNum++;
+        public void AddCar() => m_carNum++;
         
         /// <summary>
         /// 添加排队车辆
@@ -83,7 +83,7 @@ namespace SGame
                 return false;
             
             m_queue.RemoveAt(order);
-            //m_carNum--;
+            m_carNum--;
             return true;
         }
 

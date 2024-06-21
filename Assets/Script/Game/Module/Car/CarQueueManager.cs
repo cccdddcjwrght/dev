@@ -275,12 +275,12 @@ namespace SGame
                 return;
 
             
-            if (m_queue.isFull)//m_carNum >= max)
+            if (m_queue.isFull)
             {
                 return;
             }
 
-            //m_queue.AddCar();
+            m_queue.AddCar();
             CarModule.Create(GetRandomCarID());
         }
 
