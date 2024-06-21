@@ -62,6 +62,9 @@ namespace SGame
 		[SerializeField]
 		public FriendData m_friendData = new FriendData(); // 好友数据
 
+		[SerializeField]
+		public CustomerBookReward m_customerBookReward = new CustomerBookReward(); // 图鉴奖励领取记录
+
 		private GameWorld m_world;
 		static DataCenter s_instance;
 
