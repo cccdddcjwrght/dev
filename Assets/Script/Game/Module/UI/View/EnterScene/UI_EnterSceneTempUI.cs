@@ -10,7 +10,10 @@ namespace SGame.UI.EnterScene
         public GList m_list;
         public GTextField m_title;
         public GButton m_close;
-        public GGroup m_titleGroup;
+        public GGroup m_title_group;
+        public GImage m_bar;
+        public GTextField m_tip;
+        public GGroup m_tip_group;
         public const string URL = "ui://cxpm3jfbq90g2z";
 
         public static UI_EnterSceneTempUI CreateInstance()
@@ -23,9 +26,12 @@ namespace SGame.UI.EnterScene
             base.ConstructFromXML(xml);
 
             m_list = (GList)GetChildAt(3);
-            m_title = (GTextField)GetChildAt(5);
-            m_close = (GButton)GetChildAt(6);
-            m_titleGroup = (GGroup)GetChildAt(7);
+            m_title = (GTextField)GetChildAt(6);
+            m_close = (GButton)GetChildAt(7);
+            m_title_group = (GGroup)GetChildAt(8);
+            m_bar = (GImage)GetChildAt(10);
+            m_tip = (GTextField)GetChildAt(11);
+            m_tip_group = (GGroup)GetChildAt(12);
         }
     }
 }

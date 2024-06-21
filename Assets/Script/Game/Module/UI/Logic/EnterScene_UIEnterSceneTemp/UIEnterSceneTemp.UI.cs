@@ -31,6 +31,8 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
 		string GetCloseText()=>UIListener.GetText(m_view.m_close);
+		void SetTipText(string data)=>UIListener.SetText(m_view.m_tip,data);
+		string GetTipText()=>UIListener.GetText(m_view.m_tip);
 
 	}
 }

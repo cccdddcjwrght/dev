@@ -9,10 +9,15 @@ namespace SGame.UI.EnterScene
     {
         public Controller m_dir;
         public Controller m_isMeet;
+        public Controller m_max;
         public GLoader m_icon;
         public GTextField m_name;
-        public GButton m_btn;
-        public GImage m_lock;
+        public GImage m_leftBar;
+        public GImage m_rightBar;
+        public GLoader m_goBtn;
+        public GGroup m_group;
+        public Transition m_right;
+        public Transition m_left;
         public const string URL = "ui://cxpm3jfb9n6p34";
 
         public static UI_PassItem CreateInstance()
@@ -26,10 +31,15 @@ namespace SGame.UI.EnterScene
 
             m_dir = GetControllerAt(0);
             m_isMeet = GetControllerAt(1);
-            m_icon = (GLoader)GetChildAt(2);
-            m_name = (GTextField)GetChildAt(3);
-            m_btn = (GButton)GetChildAt(4);
-            m_lock = (GImage)GetChildAt(5);
+            m_max = GetControllerAt(2);
+            m_icon = (GLoader)GetChildAt(0);
+            m_name = (GTextField)GetChildAt(2);
+            m_leftBar = (GImage)GetChildAt(4);
+            m_rightBar = (GImage)GetChildAt(5);
+            m_goBtn = (GLoader)GetChildAt(10);
+            m_group = (GGroup)GetChildAt(11);
+            m_right = GetTransitionAt(0);
+            m_left = GetTransitionAt(1);
         }
     }
 }
