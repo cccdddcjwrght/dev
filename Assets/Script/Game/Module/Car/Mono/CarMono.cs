@@ -190,7 +190,7 @@ namespace SGame
         /// <param name="itemNum">点单的数量</param>
         public void CreateCustomerOrder(int customerIndex, ChairData chair, int itemID, int itemNum)
         {
-            m_seats.CreateCustomerOrder(customerIndex, chair, itemNum, itemNum);
+            m_seats.CreateCustomerOrder(customerIndex, chair, itemID, itemNum);
         }
 
         /// <summary>
