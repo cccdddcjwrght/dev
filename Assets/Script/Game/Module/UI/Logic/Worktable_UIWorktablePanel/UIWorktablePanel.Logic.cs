@@ -255,6 +255,7 @@ namespace SGame.UI
 
 				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
 				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+				m_view.m_click.touchable = state;
 			}
 		}
 
