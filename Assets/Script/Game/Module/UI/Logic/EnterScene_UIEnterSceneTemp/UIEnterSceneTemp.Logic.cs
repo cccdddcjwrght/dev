@@ -56,7 +56,7 @@ namespace SGame.UI{
 					_sceneCfgs = ConfigSystem.Instance.Finds<RoomRowData>((c) => c.RegionId == region.ID);
 					_sceneCfgs.Reverse();
 
-					m_view.m_tip.SetTextByKey("ui_enterscene_tips_1", maxLevel);
+					m_view.m_tip.SetTextByKey("ui_enterscene_tips_1", cfg.LevelMax);
 					m_view.m_list.numItems = _sceneCfgs.Count + 1;
 				}
 			}
