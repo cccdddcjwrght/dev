@@ -24,7 +24,10 @@ namespace SGame.UI{
 
 		bool isHaveBox = false;		//是否有装备宝箱
 		bool m_IsPlaying = false;	//是否抽奖中
-		bool m_Auto = false;		//是否自动抽奖
+		bool m_Auto = false;        //是否自动抽奖
+
+		float m_AutoTime = 0;
+		float m_AutoCloseTime = 3f;	//自动关闭时间
 
 		EventHandleContainer m_Event = new EventHandleContainer();
 		partial void InitLogic(UIContext context){
@@ -194,6 +197,18 @@ namespace SGame.UI{
 			{
 				if (!m_IsPlaying) 
 				{
+					if (m_view.m_BigLuckShow.visible)
+					{
+						m_AutoTime += Time.deltaTime;
+						if (m_AutoTime >= m_AutoCloseTime)
+						{
+							m_view.m_BigLuckShow.visible = false;
+							RefreshRewardList();
+							m_AutoTime = 0;
+						}
+						return;
+					}
+	
 					if (DataCenter.Instance.likeData.likeNum > 0)
 						PlayLottery();
 					else
