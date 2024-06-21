@@ -280,7 +280,7 @@ namespace SGame
                 return;
             }
 
-            m_queue.AddCar();
+            //m_queue.AddCar();
             CarModule.Create(GetRandomCarID());
         }
 
