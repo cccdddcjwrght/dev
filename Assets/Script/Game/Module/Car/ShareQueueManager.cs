@@ -80,8 +80,11 @@ namespace SGame
         {
             int order = GetOrder(e);
             if (order < 0)
+            {
+                log.Error("leave queue fail=" + e);
                 return false;
-            
+            }
+
             m_queue.RemoveAt(order);
             m_carNum--;
             return true;
