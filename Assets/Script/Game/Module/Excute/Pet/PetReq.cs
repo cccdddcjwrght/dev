@@ -47,7 +47,6 @@ namespace SGame
 				var ps = ConfigSystem.Instance.Finds<PetsRowData>(p => p.Quality == index);
 				var r =  SGame.Randoms.Random._R.NextItem(ps);
 				var p = DataCenter.PetUtil.CreatePet(r.Id);
-				p.tempQuality = quality;
 
 				var buffindex = -1;
 				var addVal = 0;
@@ -62,7 +61,7 @@ namespace SGame
 					DataCenter.PetUtil.AddPet(p, true, true);
 
 				DataCenter.Instance.petData.egg = default;
-
+				p.tempQuality = quality;
 				UIUtils.OpenUI("petborn", p, buffindex, addVal);
 				PropertyManager.Instance.Update(1, egg.cfgID, 1, true);
 				_eMgr.Trigger(((int)GameEvent.GAME_MAIN_REFRESH));
