@@ -25,7 +25,7 @@ namespace SGame.UI.Shop
 
             m_show = GetControllerAt(0);
             m_bg = (GLabel)GetChildAt(1);
-            m_list = (GList)GetChildAt(2);
+            m_list = (GList)GetChildAt(3);
             m_t0 = GetTransitionAt(0);
             m_hide = GetTransitionAt(1);
         }

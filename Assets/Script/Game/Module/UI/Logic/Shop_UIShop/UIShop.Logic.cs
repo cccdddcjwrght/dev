@@ -93,19 +93,22 @@ namespace SGame.UI
 			list.RemoveChildrenToPool();
 			for (var i = EnumShopArea.Item; i <= EnumShopArea.Diamond; i++)
 			{
-				if ($"shop_{i}".ToLower().IsOpend(false))
+				if ( $"shop_{i}".ToLower().IsOpend(false))
 				{
 					var goods = DataCenter.ShopUtil.GetShopGoodsByArea((int)i);
 					if (goods?.Count > 0)
 					{
-						var div = list.AddItemFromPool("ui://Shop/Div") as UI_Div ;
+						var div = list.AddItemFromPool("ui://Shop/Div") as UI_Div;
 						div.text = i.ToString().ToLower().Local("ui_shop_div_");
 						div.m_bg.width = GRoot.inst.width;
 						for (int j = 0; j < goods.Count; j++)
+						{
 							SGame.UIUtils.AddListItem(list, SetGoodsInfo, goods[j]);
+						}
 					}
 				}
 			}
+			list.ResizeToFit();
 		}
 
 		void SetGiftItem(int index, GObject gObject)
