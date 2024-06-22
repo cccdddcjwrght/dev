@@ -14,7 +14,8 @@ namespace SGame
     [Serializable]
     public class LikeData 
     {
-        public int likeNum;     //好评数量
+        public int likeNum = 1;         //好评数量
+        public bool isFirst = true;    //是否第一次抽奖（第一次必中隐藏奖励）
 
         //好评抽到的大奖
         public List<LikeRewardData> likeRewardDatas = new List<LikeRewardData>();    
@@ -45,6 +46,10 @@ namespace SGame
             /// <returns></returns>
             public static int GetLotteryIndex() 
             {
+                //第一次必中隐藏大奖
+                if (Instance.likeData.isFirst)
+                    return ConfigSystem.Instance.Find<GameConfigs.Likes_RewardsRowData>((c)=>c.ResultType == 3).Id;
+
                 List<int> weights = new List<int>();
                 var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Rewards>();
                 var len = configs.DatalistLength;
@@ -64,14 +69,23 @@ namespace SGame
             /// <returns></returns>
             public static int GetHiddenRewardIndex() 
             {
+                if (Instance.likeData.isFirst) 
+                {
+                    Instance.likeData.isFirst = false;
+                    return ConfigSystem.Instance.Find<GameConfigs.Likes_JackpotRowData>((c)=>c.Id > 100).Id;
+                }
+
                 List<int> weights = new List<int>();
                 var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Jackpot>();
                 var len = configs.DatalistLength;
                 for (int i = 0; i < len; i++)
                 {
                     var config = configs.Datalist(i).Value;
-                    var weight = GetRewardWeight(config.ConditionType, config.ConditionValue, config.Weight);
-                    weights.Add(weight);
+                    if(config.Id <= 100) 
+                    {
+                        var weight = GetRewardWeight(config.ConditionType, config.ConditionValue, config.Weight);
+                        weights.Add(weight);
+                    }
                 }
                 var index = SGame.Randoms.Random._R.NextWeight(weights) + 1;
                 return index;
