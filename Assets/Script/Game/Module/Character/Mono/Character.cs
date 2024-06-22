@@ -629,7 +629,7 @@ namespace SGame
 
         public void ShowEffect(int effectId) 
         {
-            EffectSystem.Instance.Spawn3d(effectId, gameObject);
+            EffectSystem.Instance.Spawn3d(effectId, GetSlot(SlotType.HUD).gameObject);
         }
 
         /// <summary>
