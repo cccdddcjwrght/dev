@@ -28,6 +28,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_content, new EventCallback1(_OnContentClick));
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 			m_view.m_rate_2.m_show.onChanged.Add(new EventCallback1(_OnProbability_ShowChanged));
+			m_view.m_rate_2.m_type.onChanged.Add(new EventCallback1(_OnProbability_TypeChanged));
 			UIListener.ListenerIcon(m_view.m_rate_2, new EventCallback1(_OnRate_2Click));
 
 		}
@@ -47,6 +48,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_content, new EventCallback1(_OnContentClick),remove:true);
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 			m_view.m_rate_2.m_show.onChanged.Remove(new EventCallback1(_OnProbability_ShowChanged));
+			m_view.m_rate_2.m_type.onChanged.Remove(new EventCallback1(_OnProbability_TypeChanged));
 			UIListener.ListenerIcon(m_view.m_rate_2, new EventCallback1(_OnRate_2Click),remove:true);
 
 		}
@@ -137,6 +139,11 @@ namespace SGame.UI{
 		}
 		partial void OnProbability_ShowChanged(EventContext data);
 		void SwitchProbability_ShowPage(int index)=>m_view.m_rate_2.m_show.selectedIndex=index;
+		void _OnProbability_TypeChanged(EventContext data){
+			OnProbability_TypeChanged(data);
+		}
+		partial void OnProbability_TypeChanged(EventContext data);
+		void SwitchProbability_TypePage(int index)=>m_view.m_rate_2.m_type.selectedIndex=index;
 		void SetProbability_BgText(string data)=>UIListener.SetText(m_view.m_rate_2.m_bg,data);
 		string GetProbability_BgText()=>UIListener.GetText(m_view.m_rate_2.m_bg);
 		void _OnRate_2Click(EventContext data){

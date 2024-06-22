@@ -25,13 +25,13 @@ namespace SGame.UI.EnterScene
         {
             base.ConstructFromXML(xml);
 
-            m_list = (GList)GetChildAt(3);
-            m_title = (GTextField)GetChildAt(6);
-            m_close = (GButton)GetChildAt(7);
-            m_title_group = (GGroup)GetChildAt(8);
-            m_bar = (GImage)GetChildAt(10);
-            m_tip = (GTextField)GetChildAt(11);
-            m_tip_group = (GGroup)GetChildAt(12);
+            m_list = (GList)GetChildAt(1);
+            m_title = (GTextField)GetChildAt(4);
+            m_close = (GButton)GetChildAt(5);
+            m_title_group = (GGroup)GetChildAt(6);
+            m_bar = (GImage)GetChildAt(8);
+            m_tip = (GTextField)GetChildAt(9);
+            m_tip_group = (GGroup)GetChildAt(10);
         }
     }
 }

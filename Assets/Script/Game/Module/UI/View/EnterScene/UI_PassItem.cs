@@ -32,12 +32,12 @@ namespace SGame.UI.EnterScene
             m_dir = GetControllerAt(0);
             m_isMeet = GetControllerAt(1);
             m_max = GetControllerAt(2);
-            m_icon = (GLoader)GetChildAt(0);
-            m_name = (GTextField)GetChildAt(2);
-            m_leftBar = (GImage)GetChildAt(4);
-            m_rightBar = (GImage)GetChildAt(5);
-            m_goBtn = (GLoader)GetChildAt(10);
-            m_group = (GGroup)GetChildAt(11);
+            m_icon = (GLoader)GetChildAt(2);
+            m_name = (GTextField)GetChildAt(4);
+            m_leftBar = (GImage)GetChildAt(6);
+            m_rightBar = (GImage)GetChildAt(7);
+            m_goBtn = (GLoader)GetChildAt(12);
+            m_group = (GGroup)GetChildAt(13);
             m_right = GetTransitionAt(0);
             m_left = GetTransitionAt(1);
         }

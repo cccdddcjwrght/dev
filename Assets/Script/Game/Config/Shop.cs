@@ -107,6 +107,13 @@ public struct ShopRowData : IFlatbufferObject
 #endif
   public byte[] GetMarkValueArray() { return __p.__vector_as_array<byte>(44); }
   public int UnlockArea { get { int o = __p.__offset(46); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public string ChestOpen { get { int o = __p.__offset(48); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetChestOpenBytes() { return __p.__vector_as_span<byte>(48, 1); }
+#else
+  public ArraySegment<byte>? GetChestOpenBytes() { return __p.__vector_as_arraysegment(48); }
+#endif
+  public byte[] GetChestOpenArray() { return __p.__vector_as_array<byte>(48); }
 
   public static Offset<GameConfigs.ShopRowData> CreateShopRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -130,8 +137,10 @@ public struct ShopRowData : IFlatbufferObject
       VectorOffset Item4Offset = default(VectorOffset),
       VectorOffset ChestInfoOffset = default(VectorOffset),
       StringOffset MarkValueOffset = default(StringOffset),
-      int UnlockArea = 0) {
-    builder.StartTable(22);
+      int UnlockArea = 0,
+      StringOffset ChestOpenOffset = default(StringOffset)) {
+    builder.StartTable(23);
+    ShopRowData.AddChestOpen(builder, ChestOpenOffset);
     ShopRowData.AddUnlockArea(builder, UnlockArea);
     ShopRowData.AddMarkValue(builder, MarkValueOffset);
     ShopRowData.AddChestInfo(builder, ChestInfoOffset);
@@ -157,7 +166,7 @@ public struct ShopRowData : IFlatbufferObject
     return ShopRowData.EndShopRowData(builder);
   }
 
-  public static void StartShopRowData(FlatBufferBuilder builder) { builder.StartTable(22); }
+  public static void StartShopRowData(FlatBufferBuilder builder) { builder.StartTable(23); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddShopName(FlatBufferBuilder builder, StringOffset ShopNameOffset) { builder.AddOffset(1, ShopNameOffset.Value, 0); }
   public static void AddShopDes(FlatBufferBuilder builder, StringOffset ShopDesOffset) { builder.AddOffset(2, ShopDesOffset.Value, 0); }
@@ -198,6 +207,7 @@ public struct ShopRowData : IFlatbufferObject
   public static void StartChestInfoVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddMarkValue(FlatBufferBuilder builder, StringOffset MarkValueOffset) { builder.AddOffset(20, MarkValueOffset.Value, 0); }
   public static void AddUnlockArea(FlatBufferBuilder builder, int UnlockArea) { builder.AddInt(21, UnlockArea, 0); }
+  public static void AddChestOpen(FlatBufferBuilder builder, StringOffset ChestOpenOffset) { builder.AddOffset(22, ChestOpenOffset.Value, 0); }
   public static Offset<GameConfigs.ShopRowData> EndShopRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ShopRowData>(o);

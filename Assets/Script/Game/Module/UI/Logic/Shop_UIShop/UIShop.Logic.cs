@@ -288,6 +288,9 @@ namespace SGame.UI
 			var rates = goods.cfg.GetChestInfoArray();
 			m_view.m_rate_2.SetRates(rates);
 			m_view.m_rate.selectedIndex = 1;
+
+			m_view.m_rate_2.m_icon.SetIcon(goods.cfg.ChestOpen);
+
 		}
 	
 		IEnumerator Loop()
