@@ -86,6 +86,7 @@ public struct LevelPathRowData : IFlatbufferObject
 #endif
   public int[] GetBusStop3Array() { return __p.__vector_as_array<int>(24); }
   public int ShareQueueID { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int CountNum { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.LevelPathRowData> CreateLevelPathRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -99,8 +100,10 @@ public struct LevelPathRowData : IFlatbufferObject
       VectorOffset BusStop1Offset = default(VectorOffset),
       VectorOffset BusStop2Offset = default(VectorOffset),
       VectorOffset BusStop3Offset = default(VectorOffset),
-      int shareQueueID = 0) {
-    builder.StartTable(12);
+      int shareQueueID = 0,
+      int CountNum = 0) {
+    builder.StartTable(13);
+    LevelPathRowData.AddCountNum(builder, CountNum);
     LevelPathRowData.AddShareQueueID(builder, shareQueueID);
     LevelPathRowData.AddBusStop3(builder, BusStop3Offset);
     LevelPathRowData.AddBusStop2(builder, BusStop2Offset);
@@ -116,7 +119,7 @@ public struct LevelPathRowData : IFlatbufferObject
     return LevelPathRowData.EndLevelPathRowData(builder);
   }
 
-  public static void StartLevelPathRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
+  public static void StartLevelPathRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddPathTag(FlatBufferBuilder builder, StringOffset PathTagOffset) { builder.AddOffset(1, PathTagOffset.Value, 0); }
   public static void AddOrderPosition(FlatBufferBuilder builder, VectorOffset OrderPositionOffset) { builder.AddOffset(2, OrderPositionOffset.Value, 0); }
@@ -150,6 +153,7 @@ public struct LevelPathRowData : IFlatbufferObject
   public static VectorOffset CreateBusStop3VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartBusStop3Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddShareQueueID(FlatBufferBuilder builder, int shareQueueID) { builder.AddInt(11, shareQueueID, 0); }
+  public static void AddCountNum(FlatBufferBuilder builder, int CountNum) { builder.AddInt(12, CountNum, 0); }
   public static Offset<GameConfigs.LevelPathRowData> EndLevelPathRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.LevelPathRowData>(o);
