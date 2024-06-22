@@ -113,12 +113,21 @@ namespace SGame
                         {
                             int id = config.ItemId(ret[j] * 2);
                             int num = config.ItemId(ret[j] * 2 + 1);
-                            _dropItems.Add(new ItemData.Value()
+                            var index = _dropItems.FindIndex((i) => i.id == id);
+                            if (index == -1)
                             {
-                                id = id,
-                                num = num,
-                                type = PropertyGroup.ITEM
-                            });
+                                _dropItems.Add(new ItemData.Value()
+                                {
+                                    id = id,
+                                    num = num,
+                                    type = PropertyGroup.ITEM
+                                });
+                            }
+                            else 
+                            {
+                                _dropItems[index].SetNum(_dropItems[index].num + num);
+                            }
+                            
                         }
                     }
                 }

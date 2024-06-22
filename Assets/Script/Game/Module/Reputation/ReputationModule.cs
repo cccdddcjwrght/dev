@@ -86,12 +86,23 @@ namespace SGame
 
         void OnEnterRoom(int scene) 
         {
-            int validTime = DataCenter.ReputationUtils.GetBuffValidTime();
-            if (validTime > 0)
-                DataCenter.ReputationUtils.AddBuff(m_data.cfgId);
-
-            if (validTime <= 0 && m_data.progress >= maxLikeNum)
-                DataCenter.ReputationUtils.Reset();
+            var list = DataCenter.Instance.likeData.likeRewardDatas;
+            if (list.Count > 0)
+            {
+                list.ForEach((i) =>
+                {
+                    if (i.typeId == (int)EnumItemType.ChestKey)
+                    {
+                        var reward = DataCenter.LikeUtil.GetItemDrop(i.typeId, i.num);
+                        reward.ForEach((r) => PropertyManager.Instance.Update(r.type, r.id, r.num));
+                    }
+                    else 
+                    {
+                        PropertyManager.Instance.Update(1, i.id, i.num);
+                    }
+                });
+                list.Clear();
+            }
         }
 
         public void AddLikeNum(int characterID) 
