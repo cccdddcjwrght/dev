@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameConfigs;
+using SGame.Dining;
 
 namespace SGame 
 {
@@ -117,6 +118,31 @@ namespace SGame
         public void SetCoerceGuideState(bool state) 
         {
             isCoerceGuide = state;
+        }
+
+
+        RegionHit mono;
+        public void CheckRecruitOpen() 
+        {
+            var v = GlobalDesginConfig.GetIntArray("guide_recruit");
+            if (mono == null) 
+            {
+                var go = GameObject.FindGameObjectWithTag("recruit");
+                mono = go?.GetComponent<RegionHit>();
+            }
+
+            if (mono) 
+            {
+                var region = DataCenter.MachineUtil.GetWorktable(mono.region);
+                if (region != null)
+                {
+                    var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
+                    mono.gameObject?.SetActive(worktable?.lv >= v[1]);
+                }
+            }
+            
+            
+
         }
 
         public void GuideClick() 
