@@ -26,6 +26,7 @@ namespace SGame
         public Entity customer; // 顾客实体
         public Entity hud;      // 点单UI
         public SeatState state; // 座位状态
+        public int Index = 0;
         
 
         public bool IsEmptySeat => state == SeatState.LEAVE;

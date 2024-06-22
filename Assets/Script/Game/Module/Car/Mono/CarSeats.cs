@@ -9,6 +9,7 @@ using System.Collections;
 
 using Unity.Mathematics;
 using Unity.Transforms;
+using Unity.VisualScripting;
 
 
 namespace SGame
@@ -74,7 +75,7 @@ namespace SGame
                 {
                     log.Error("role id = 0");
                 }
-                m_customers.Add(new CarCustomer(){RoleID = roleID, ItemID = 0, ItemNum = 0, hud = Entity.Null, customer = Entity.Null});
+                m_customers.Add(new CarCustomer(){RoleID = roleID, ItemID = 0, ItemNum = 0, hud = Entity.Null, customer = Entity.Null, Index = i});
             }
         }
         
@@ -137,6 +138,7 @@ namespace SGame
                     {
                         UIUtils.CloseUI(customer.hud);
                         customer.hud = Entity.Null;
+                        TriggerFinishOrder(customer);
                     }
                     findIt = true;
                     break;
@@ -149,6 +151,23 @@ namespace SGame
             }
             
             return GetOrderNum();
+        }
+
+        /// <summary>
+        /// 给角色头顶触发订单结束事件
+        /// </summary>
+        /// <param name="customer"></param>
+        void TriggerFinishOrder(CarCustomer customer)
+        {
+            if (customer.customer == Entity.Null)
+                return;
+            
+            Transform hudAttachement = m_hudAttachement[customer.Index];
+            var character = Utils.GetCharacterFromEntity(customer.customer);
+            if (character != null && character.script != null)
+            {
+                CustomEvent.Trigger( character.script, "OrderFinish", character.CharacterID, hudAttachement);
+            }
         }
         
         /// <summary>

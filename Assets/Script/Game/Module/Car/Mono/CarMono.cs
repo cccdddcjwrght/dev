@@ -414,5 +414,27 @@ namespace SGame
             // 必须座位上有人才能下车
             return m_seats.GetCustomerNum(CarCustomer.SeatState.NOLEAVE) > 0;
         }
+
+        /// <summary>
+        /// 判断某个座位上是否有顾客
+        /// </summary>
+        /// <param name="seatIndex"></param>
+        /// <returns></returns>
+        public bool HasCustomer(int seatIndex)
+        {
+            if (seatIndex < 0 || seatIndex >= m_seats.customerNum)
+            {
+                return false;
+            }
+
+            return m_seats.GetSeat(seatIndex).customer != Entity.Null;
+        }
+
+        /// <summary>
+        /// 获得顾客乘员
+        /// </summary>
+        /// <param name="seatIndex"></param>
+        /// <returns></returns>
+        public Entity GetCustomer(int seatIndex) => m_seats.GetSeat(seatIndex).customer;
     }
 }
