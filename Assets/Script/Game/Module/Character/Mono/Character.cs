@@ -53,6 +53,11 @@ namespace SGame
         public Entity m_sleep { get; private set; }
 
         /// <summary>
+        /// 完美制作特效
+        /// </summary>
+        public Entity m_perfect_eff { get; private set; }
+
+        /// <summary>
         /// uiEnitty
         /// </summary>
         public Entity m_hud { get; set; }
@@ -328,7 +333,6 @@ namespace SGame
             {
                 log.Error("item effect id not found=" + itemId.ToString());
             }
-            
             return m_food;
         }
         
@@ -439,6 +443,12 @@ namespace SGame
                 //FoodModule.Instance.CloseFood(m_food);
                 EffectSystem.Instance.CloseEffect(m_food);
                 m_food = Entity.Null;
+            }
+
+            if (m_perfect_eff != Entity.Null) 
+            {
+                EffectSystem.Instance.CloseEffect(m_perfect_eff);
+                m_perfect_eff = Entity.Null;
             }
         }
 
@@ -601,6 +611,11 @@ namespace SGame
         {
             if(m_sleep == Entity.Null)
                 m_sleep = EffectSystem.Instance.Spawn3d(8, gameObject);
+        }
+
+        public void ShowPrefect() 
+        {
+            m_perfect_eff = EffectSystem.Instance.AddEffect(34, GetSlot(SlotType.FOOD).gameObject);
         }
 
         public void ClearSleep() 

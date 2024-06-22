@@ -138,6 +138,12 @@ namespace SGame
                 return false;
             }
 
+            if (isPerfect) 
+            {
+                var c = CharacterModule.Instance.FindCharacter(cookerID);
+                c.ShowPrefect();
+            }
+
             this.foodID = foodID;
             this.price  = price;
             this.perfect = isPerfect;
