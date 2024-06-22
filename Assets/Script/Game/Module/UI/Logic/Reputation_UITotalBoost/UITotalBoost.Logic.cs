@@ -21,7 +21,7 @@ namespace SGame.UI{
 			CharacterModule.Instance.FindCharacters(list, (c) => c.roleType == (int)EnumRole.Cook
 			|| c.roleType == (int)EnumRole.Waiter);
 			m_view.m_worker.SetTextByKey("total_worker_name", list.Count);
-			m_view.m_customer.SetTextByKey("total_customer_name", Utils.GetMaxCustomer());
+			m_view.m_customer.SetTextByKey("total_customer_name", Utils.GetAllMaxCustomer());
 
 			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_list.numItems = m_TotalItems.Count;
