@@ -13,11 +13,10 @@ namespace SGame
             yield return m_Handler.FindTarget();
 
             var target = m_Handler.GetTarget();
-            if (target.parent is GList)
+            if (target.parent is GComponent)
             {
-                var list = target.parent.asList;
-                int index = list.GetChildIndex(target);
-                list.ScrollToView(index);
+                var com = target.asCom;
+                com.scrollPane.SetPercY(1, false);
             }
             Finish();
         }

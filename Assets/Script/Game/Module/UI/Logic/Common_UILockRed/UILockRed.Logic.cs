@@ -50,8 +50,8 @@ namespace SGame.UI
 #if GAME_GUIDE
 				if (Game.Instance.enableGuide) 
 				{
-					//等指引6完成后再显示区域解锁，避免提前解锁了
-					m_view.m_child.visible = DataCenter.Instance.guideData.guideId > 6;
+					//等对应任务完成后显示
+					m_view.m_child.visible = DataCenter.Instance.taskMainData.cfgId > GlobalDesginConfig.GetInt("guide_are_taskId");
 				}
 #endif
 				SetUnlockBtn(cfg.GetCostArray());
