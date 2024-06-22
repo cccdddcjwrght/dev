@@ -1128,10 +1128,13 @@ namespace SGame
 			for (int i = 0; i < paths.DatalistLength; i++)
 			{
 				var item = paths.Datalist(i);
-				var path = CarQueueManager.Instance.GetOrCreate(item.Value.PathTag);
-				if (path.IsValid)
+				if (item.Value.Id == currentLevelID)
 				{
-					v2 += item.Value.CountNum;
+					var path = CarQueueManager.Instance.GetOrCreate(item.Value.PathTag);
+					if (path.IsValid)
+					{
+						v2 += item.Value.CountNum;
+					}
 				}
 			}
 
