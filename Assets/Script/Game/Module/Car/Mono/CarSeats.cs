@@ -6,6 +6,7 @@ using Unity.Entities;
 using UnityEngine;
 using Fibers;
 using System.Collections;
+
 using Unity.Mathematics;
 using Unity.Transforms;
 
@@ -22,7 +23,8 @@ namespace SGame
         public int customerNum => m_customers.Count;
         
         private List<Transform>             m_hudAttachement;  // HUD 挂点
-        private List<Transform>             m_seatAttachement; // 座位挂点
+        //private List<Transform>             m_seatAttachement; // 座位挂点
+        private List<Vector3>               m_seatOffset;   
         private EntityManager               EntityManager;
         private Transform                   m_transform;
         private Entity                      m_entity;
@@ -30,7 +32,12 @@ namespace SGame
         public CarSeats(Entity e, Transform transform, List<Transform> hud, List<Transform> seat)
         {
             m_hudAttachement = hud;
-            m_seatAttachement = seat;
+            
+            //m_seatAttachement = seat;
+            m_seatOffset = new List<Vector3>();
+            foreach (var t in seat)
+                m_seatOffset.Add(t.position - transform.position);
+                
             m_transform = transform;
             m_entity = e;
             EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -162,7 +169,7 @@ namespace SGame
             for (int i = 0; i < m_customers.Count; i++)
             {
                 var customer = m_customers[i];
-                spawnResult.Add(CharacterModule.Instance.CreateCarCustomer(customer.RoleID, roleAI, m_seatAttachement[i].position));
+                spawnResult.Add(CharacterModule.Instance.CreateCarCustomer(customer.RoleID, roleAI, GetSeatPosition(i)));
             }
 
             // 等待角色全部创建完毕
@@ -244,7 +251,7 @@ namespace SGame
         /// <returns></returns>
         public Vector3 GetSeatPosition(int seatIndex)
         {
-            return m_seatAttachement[seatIndex].position;
+            return m_seatOffset[seatIndex] + m_transform.position;
         }
 
         /// <summary>
@@ -254,7 +261,7 @@ namespace SGame
         /// <returns></returns>
         public Quaternion GetSeatRotation(int seatIndex)
         {
-            return m_seatAttachement[seatIndex].rotation;
+            return m_transform.rotation; //m_seatAttachement[seatIndex].rotation;
         }
 
         public float GetSeatAngle(int seatIndex)
@@ -280,8 +287,25 @@ namespace SGame
             {
                 int i = seatIndex;
                 var customer = m_customers[i].customer;
-                Vector3 childPos = m_seatAttachement[i].position - m_transform.position;
-                Quaternion localRot = m_seatAttachement[i].rotation * Quaternion.Inverse(m_transform.rotation);
+
+                var p1 = m_transform.localPosition;
+                var p2 = EntityManager.GetComponentData<Translation>(m_entity);
+
+                Vector3 childPos = m_seatOffset[i];//m_seatAttachement[i].position - m_transform.position;
+                Quaternion localRot = Quaternion.identity; //m_seatAttachement[i].rotation * Quaternion.Inverse(m_transform.rotation);
+
+                if (EntityManager.HasComponent<LastRotation>(customer))
+                    EntityManager.RemoveComponent<LastRotation>(customer);
+
+                // 设置转换节点
+                if (!EntityManager.HasComponent<LocalToParent>(customer))
+                    EntityManager.AddComponent<LocalToParent>(customer);
+                
+                // 设置父节点
+                if (!EntityManager.HasComponent<Parent>(customer))
+                    EntityManager.AddComponentData(customer, new Parent(){Value = m_entity});
+                else
+                    EntityManager.SetComponentData(customer, new Parent(){Value = m_entity});
 
                 // 设置位置
                 EntityManager.SetComponentData(customer, new Translation(){Value = childPos});
@@ -291,16 +315,6 @@ namespace SGame
                     EntityManager.AddComponentData(customer, new Rotation(){Value = localRot});
                 else
                     EntityManager.SetComponentData(customer, new Rotation(){Value = localRot});
-                
-                // 设置父节点
-                if (!EntityManager.HasComponent<Parent>(customer))
-                    EntityManager.AddComponentData(customer, new Parent(){Value = m_entity});
-                else
-                    EntityManager.SetComponentData(customer, new Parent(){Value = m_entity});
-                
-                // 设置转换节点
-                if (!EntityManager.HasComponent<LocalToParent>(customer))
-                    EntityManager.AddComponent<LocalToParent>(customer);
             }
         }
 
