@@ -21,6 +21,10 @@ namespace SGame
 
         private static ILog log = LogManager.GetLogger("game.car");
 
+        private int             m_customerNum = 0;
+
+        public int customerNum => m_customerNum;
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -45,9 +49,20 @@ namespace SGame
                 }
             };
             m_CloseQuery = EntityManager.CreateEntityQuery(query);
+            m_customerNum = 0;
 
             EventManager.Instance.Reg((int)GameEvent.GAME_START, OnGameStart);
             EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLeaveRoom);
+        }
+
+        public void AddCustomerRef(int num)
+        {
+            
+        }
+
+        public void ReleaseCustomerRef(int num)
+        {
+            
         }
         
         void OnGameStart()

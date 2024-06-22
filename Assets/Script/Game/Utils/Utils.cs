@@ -1113,5 +1113,14 @@ namespace SGame
 			int value = Unity.VisualScripting.SceneVariables.Instance(SceneManager.GetActiveScene()).variables.declarations.Get<int>("MaxCustomer");
 			return value;
 		}
+
+		/// <summary>
+		/// 包含汽车里面的顾客
+		/// </summary>
+		/// <returns></returns>
+		public static int GetAllMaxCustomer()
+		{
+			return GetMaxCustomer();
+		}
 	}
 }

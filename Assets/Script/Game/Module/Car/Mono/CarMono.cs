@@ -234,6 +234,8 @@ namespace SGame
             // 设置顾客
             log.Debug(string.Format("CarMono Create step4 gameobject={0}", GetInstanceID()));
             SetupCustomer();
+            
+            //CarModule.Instance.AddCustomerRef(m_config.ChairNum);
 
             // 创建顾客
             if (m_config.ShowCustomer != 0)
@@ -283,6 +285,7 @@ namespace SGame
         {
             if (m_queue.Remove(m_entity))
             {
+                //CarModule.Instance.ReleaseCustomerRef(m_config.ChairNum);
                 EventManager.Instance.AsyncTrigger((int)GameEvent.LEVELPATH_QUEUE_UPDATE, pathTag, m_queue.queueID);
             }
         }
