@@ -91,7 +91,7 @@ namespace SGame
             {
                 list.ForEach((i) =>
                 {
-                    if (i.typeId == (int)EnumItemType.ChestKey)
+                    if (i.itemType == (int)EnumItemType.ChestKey)
                     {
                         var reward = DataCenter.LikeUtil.GetItemDrop(i.typeId, i.num);
                         reward.ForEach((r) => PropertyManager.Instance.Update(r.type, r.id, r.num));
