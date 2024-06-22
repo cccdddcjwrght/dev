@@ -1120,7 +1120,22 @@ namespace SGame
 		/// <returns></returns>
 		public static int GetAllMaxCustomer()
 		{
-			return GetMaxCustomer();
+			int v1 =  GetMaxCustomer();
+			int currentLevelID = DataCenter.Instance.roomData.roomID;
+			int v2 = 0;
+
+			GameConfigs.LevelPath paths = ConfigSystem.Instance.LoadConfig<LevelPath>();
+			for (int i = 0; i < paths.DatalistLength; i++)
+			{
+				var item = paths.Datalist(i);
+				var path = CarQueueManager.Instance.GetOrCreate(item.Value.PathTag);
+				if (path.IsValid)
+				{
+					v2 += item.Value.CountNum;
+				}
+			}
+
+			return v1 + v2;
 		}
 	}
 }
