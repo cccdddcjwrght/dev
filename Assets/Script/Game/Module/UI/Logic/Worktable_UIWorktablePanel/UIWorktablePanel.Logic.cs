@@ -132,7 +132,7 @@ namespace SGame.UI
 						m_view.m_maxlv.selectedIndex = 2;
 				}
 			}
-			UIListener.SetTextByKey(m_view, data.name);
+			UIListener.SetText(m_view, data.foodName,false);
 			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice()));
 			m_view.m_level.SetText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
 			SetRoleChangeInfo();
@@ -357,7 +357,7 @@ namespace SGame.UI
 		{
 			var index = m_view.m_foods.selectedIndex;
 			var book = books[index];
-			UIListener.SetTextByKey(m_view, book.cfg.Name);
+			UIListener.SetText(m_view, data.foodName, false);
 			SetFoodInfo(book.id);
 		}
 

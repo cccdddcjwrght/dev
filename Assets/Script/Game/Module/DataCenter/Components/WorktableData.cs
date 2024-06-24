@@ -566,7 +566,9 @@ namespace SGame
 
 		public int level { get { return lvStart + lv; } }
 
-		public string name { get { return  cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
+		public string name { get { return foodCfg.IsValid() ?  foodCfg.Name : cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
+
+		public string foodName { get { return foodCfg.IsValid() ? "ui_worktable_name".Local(null, foodCfg.Name.Local()) : name.Local(); } }
 
 		public bool IsMaxLv()
 		{
