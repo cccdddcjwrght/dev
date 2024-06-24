@@ -9,12 +9,14 @@ namespace SGame.UI
 	using System.Collections.Generic;
 	using GameConfigs;
 	using System.Linq;
+	using System;
 
 	public partial class UIWorktablePanel
 	{
 		private SGame.Worktable data;
 		private WorktableInfo info;
 		private int[] stars;
+		private List<CookBookItem> books;
 
 		partial void BeforeInit(UIContext context)
 		{
@@ -53,19 +55,30 @@ namespace SGame.UI
 						break;
 				}
 				m_view.m_pos.selectedIndex = GetOffset(info.target);
+				m_view.m_foods.onClickItem.Add(OnFoodClick);
 			}
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
-
+			books?.Clear();
+			books = null;
+			data = null;
+			info = default;
 		}
 
 		private void SetUnlockInfo()
 		{
 			m_view.m_type.selectedIndex = 1;
-			if (!data.isTable || data.type > 3)
-				SetUnlockBtn(data.GetUnlockPrice());
+			if (!data.isTable)
+			{
+				books = data.cfg.GetItemIdArray().Select(id => DataCenter.CookbookUtils.GetBook(id)).ToList();
+
+				SGame.UIUtils.AddListItems(m_view.m_foods, books, OnSetFoodItemInfo);
+				m_view.m_foods.selectedIndex = Utils.FindCompareIndex(books, (a, b) => a.GetPrice().CompareTo(b.GetPrice()), b => b.IsEnable(), def: 0);
+				OnFoodClick();
+				SetUnlockBtn(data.GetUnlockPrice(), books.Any(b => b.IsEnable()));
+			}
 			else
 			{
 				UIListener.SetControllerSelect(m_view.m_click, "hasIcon", 1);
@@ -129,9 +142,9 @@ namespace SGame.UI
 			if (m_view.m_isAd.selectedIndex == 1) AdRefresh();
 		}
 
-		private void SetUnlockBtn(float[] cost)
+		private void SetUnlockBtn(float[] cost, bool enable = true)
 		{
-			var state = PropertyManager.Instance.CheckCountByArgs(cost);
+			var state = enable && PropertyManager.Instance.CheckCountByArgs(cost);
 			UIListener.SetText(m_view.m_click, SGame.Utils.ConvertNumberStr(cost[2]));
 			UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
 			UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
@@ -186,7 +199,7 @@ namespace SGame.UI
 						next = data.objNextLvCfg.ChefNum + data.objNextLvCfg.WaiterNum;
 				}
 			}
-			if(data.objLvCfg.PartNum > 0)
+			if (data.objLvCfg.PartNum > 0)
 			{
 				m_view.m_typeicon.SetIcon(data.objCfg.Icon);
 				m_view.m_typeicon2.SetIcon(data.objCfg.Icon);
@@ -279,6 +292,11 @@ namespace SGame.UI
 
 		private void Unlock()
 		{
+			if (!data.isTable)
+			{
+				var book = books[m_view.m_foods.selectedIndex];
+				if (!book.IsEnable()) return;
+			}
 			switch (DataCenter.MachineUtil.CheckCanActiveMachine(info.mid))
 			{
 				case Error_Code.MACHINE_DEPENDS_NOT_ENABLE:
@@ -288,6 +306,7 @@ namespace SGame.UI
 					//"@tips_unlock_item_not_enough".Tips();
 					break;
 				case 0:
+					data.SetFood(m_view.m_foods.selectedIndex);
 					DataCenter.MachineUtil.AddMachine(info.mid);
 					PropertyManager.Instance.UpdateByArgs(true, data.GetUnlockPrice());
 					SGame.UIUtils.CloseUIByID(__id);
@@ -332,6 +351,31 @@ namespace SGame.UI
 				ls.Add(item.SetTextByKey("tips_main_btn_upgrade_2", data.addProfit));
 			}
 			AddItem(ls.ToArray()).Start();
+		}
+
+		void OnFoodClick()
+		{
+			var index = m_view.m_foods.selectedIndex;
+			var book = books[index];
+			UIListener.SetTextByKey(m_view, book.cfg.Name);
+			SetFoodInfo(book.id);
+		}
+
+		void SetFoodInfo(int id)
+		{
+			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice(id, true)));
+			UIListener.SetText(m_view.m_time, data.GetWorkTime(id).ToString() + "s");
+		}
+
+		void OnSetFoodItemInfo(int index, object data, GObject gObject)
+		{
+			var view = gObject as UI_SelectFoodItem;
+			var book = data as CookBookItem;
+			if (book != null && view != null)
+			{
+				view.SetIcon(book.cfg.Icon);
+				UIListener.SetControllerSelect(gObject, "lock", book.IsEnable() ? 0 : 1);
+			}
 		}
 
 		System.Collections.IEnumerator AddItem(params GObject[] items)

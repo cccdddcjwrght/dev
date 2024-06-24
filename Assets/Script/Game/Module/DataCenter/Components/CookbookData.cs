@@ -100,7 +100,7 @@ namespace SGame
 	}
 
 	[Serializable]
-	public class CookBookItem
+	public class CookBookItem 
 	{
 		public int id;
 		public int level;
@@ -157,6 +157,11 @@ namespace SGame
 				}
 			}
 			return 0;
+		}
+
+		public double GetPrice()
+		{
+			return 0.01D * cfg.Price(2) * lvCfg.Price;
 		}
 
 		public bool CanUpLv(out bool scenelimit, bool checkcost = true)

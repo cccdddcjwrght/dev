@@ -45,7 +45,7 @@ namespace SGame.VS
                     return 0;
                 }
 
-                return mconfig.ItemId;
+                return mconfig.ItemId(0);
             });
         }
     }

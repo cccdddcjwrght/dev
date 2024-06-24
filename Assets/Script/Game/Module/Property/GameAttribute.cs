@@ -126,6 +126,13 @@ namespace SGame
 
 		public GameAttribute(int id) => this.id = id;
 
+		public GameAttribute SetOrigin(double val)
+		{
+			this.origin = val;
+			Final();
+			return this;
+		}
+
 		public GameAttribute Break()
 		{
 			origin = value;
@@ -480,7 +487,7 @@ namespace SGame
 			return ToArray();
 		}
 
-		private GameAttribute GetAttribute(int id)
+		public GameAttribute GetAttribute(int id)
 		{
 			if (_indexs.TryGetValue(id, out var index) && _values.Length > index)
 				return _values[index];

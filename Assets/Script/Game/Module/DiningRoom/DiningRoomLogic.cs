@@ -7,6 +7,8 @@ using GameConfigs;
 using GameTools.Maps;
 using libx;
 using log4net;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
+using plyLib;
 using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
 using UnityEngine;
@@ -73,9 +75,12 @@ namespace SGame.Dining
 		public int index;
 		public Transform transform;
 		public string asset;
+		public bool forceLoad;
+
 
 		private State _state = State.None;
 		private AssetRequest _req;
+
 
 		public override bool isDone
 		{
@@ -92,7 +97,7 @@ namespace SGame.Dining
 			switch (_state)
 			{
 				case State.None:
-					if (transform != null && transform.childCount == 0)
+					if (transform != null && (forceLoad || transform.childCount == 0))
 						_req = Load();
 					else
 						_state = State.Loaded;
@@ -121,7 +126,15 @@ namespace SGame.Dining
 
 		public bool IsNeedLoad()
 		{
-			return transform != null && (transform.childCount == 0 || !transform.GetChild(0).gameObject.activeSelf);
+			return transform != null && (forceLoad || transform.childCount == 0 || !transform.GetChild(0).gameObject.activeSelf);
+		}
+
+		public Part SetLoad(string asset = null)
+		{
+			forceLoad = true;
+			if (asset != null) this.asset = asset;
+			if (transform != null && transform.childCount > 0) transform.DestroyImmediateAllChildren();
+			return this;
 		}
 
 		public override void Close()
@@ -172,6 +185,7 @@ namespace SGame.Dining
 	{
 		public int index;
 		public bool enable;
+		public bool isBegin;
 		public List<Part> parts;
 		public List<Seat> seats;
 
@@ -187,8 +201,9 @@ namespace SGame.Dining
 		{
 			get
 			{
-				if (!enable) return true;
-				return parts == null || parts.All(p => p.isDone);
+				if (!enable || parts == null) return true;
+				var val = parts.All(p => p.isDone);
+				return val;
 			}
 			set => base.isDone = value;
 		}
@@ -231,6 +246,34 @@ namespace SGame.Dining
 			if (waittime > 0) yield return new WaitForSeconds(waittime);
 		}
 
+		public Place SetFoodTex(object texture)
+		{
+			if (isBegin && parts?.Count > 0 && texture != null)
+			{
+				Texture2D tex = default;
+				if (texture is Texture2D)
+					tex = texture as Texture2D;
+				else if (texture is string asset)
+					tex = Assets.LoadAsset("Assets/BuildAsset/Textures/Foods/" + asset, typeof(Texture2D))?.asset as Texture2D;
+				if (tex)
+				{
+					var renderer = parts[0].transform.GetComponentInChildren<Renderer>(true);
+					if (renderer)
+						renderer.material.mainTexture = tex;
+				}
+			}
+			return this;
+		}
+
+		public Place SetBegin(Region region)
+		{
+			isBegin = true;
+			if (transform != null)
+				transform.tag = ConstDefine.C_WORKER_TABLE_GO_TAG;
+			return this;
+		}
+
+
 
 	}
 
@@ -259,6 +302,13 @@ namespace SGame.Dining
 		public Place GetLockPlace()
 		{
 			return machines.Find(m => !m.enable);
+		}
+
+		public Region RefreshFood()
+		{
+			if (!data.isTable && begin != null && begin.transform)
+				begin.SetFoodTex(data.GetFoodAsset());
+			return this;
 		}
 
 		public void SetNextUnlock(Place next)
@@ -325,7 +375,7 @@ namespace SGame.Dining
 		{
 			UILockManager.Instance.Require("dining");
 			SceneCameraSystem.Instance.disableControl = true;
-			SceneCameraSystem.Instance.Focus(holder.gameObject, false,11);
+			SceneCameraSystem.Instance.Focus(holder.gameObject, false, 11);
 			_effect.SetActive(true);
 			if (delay > 0) yield return new WaitForSeconds(delay);
 			_lockBody.SetActive(false);
@@ -504,6 +554,7 @@ namespace SGame.Dining
 			while (!isDone) yield return null;
 			yield return SceneCameraSystem.WaitInited();
 			while ((time -= GlobalTime.deltaTime) > 0) yield return null;
+			_regions.ForEach(r => r.RefreshFood());
 		}
 
 		public Region GetRegion(int id)
@@ -650,8 +701,9 @@ namespace SGame.Dining
 							},
 							state: DataCenter.MachineUtil.IsActived(m.ID) && DataCenter.MachineUtil.IsAreaEnable(m.RoomArea), region: row)
 						).ToList();
-						if (row.begin?.transform != null)
-							row.begin.transform.tag = ConstDefine.C_WORKER_TABLE_GO_TAG;
+
+						row.begin?.SetBegin(row);
+
 						return row;
 					}).ToList();
 					if (_cfg.IsValid())
@@ -1069,7 +1121,12 @@ namespace SGame.Dining
 				var needload = p.NeedLoadAsset();
 				region.gHandler?.DestroyAllEntity();
 				region.SetNextUnlock(null);
-				ActiveBuild(p, region: region)?.Wait(0.15f)?.Wait(e => PlayClip(p.index, "appear", false));
+				ActiveBuild(p, region: region)?.Wait(0.15f)?.Wait(e =>
+				{
+					if (region.data.type == 0)
+						p.SetFoodTex(region.data.GetFoodAsset());
+					PlayClip(p.index, "appear", false);
+				});
 				if (needload)
 				{
 					3.ToAudioID().PlayAudio();

@@ -25,6 +25,7 @@ namespace SGame
 			EventManager.Instance.Reg<BuffData>(((int)GameEvent.BUFF_TRIGGER), OnBuffAdd);
 			EventManager.Instance.Reg<long, int, RoleData>(((int)GameEvent.FRIEND_HIRING), (id, type, data) => OnRoleAdd(data));
 			EventManager.Instance.Reg<RoleData>(((int)GameEvent.BUFF_ADD_ROLE), OnRoleAdd);
+			EventManager.Instance.Reg<RoleData>(((int)GameEvent.WORK_TABLE_ENABLE), OnRoleAdd);
 
 
 			//全局
@@ -77,6 +78,7 @@ namespace SGame
 				//工作台
 				for (int i = 0; i < cfg.MachineIdLength; i++)
 					attrSys.Register(((int)EnumTarget.Machine), cfg.MachineId(i), CreateAttribute(0, cfg.MachineId(i)));
+
 				//顾客
 				for (int i = 0; i < cfg.CustomerIdLength; i++)
 					attrSys.Register(((int)EnumTarget.Customer), cfg.CustomerId(i), CreateAttribute(2, cfg.CustomerId(i)));
@@ -94,8 +96,9 @@ namespace SGame
 			switch (type)
 			{
 				case 0://工作台
+					var w = DataCenter.MachineUtil.GetWorktable(id);
 					if (ConfigSystem.Instance.TryGet<MachineRowData>(id, out var m)
-						&& ConfigSystem.Instance.TryGet<ItemRowData>(m.ItemId, out var item))
+						&& ConfigSystem.Instance.TryGet<ItemRowData>(w == null ? m.ItemId(0) : w.item, out var item))
 					{
 						attr[((int)EnumAttribute.Price)] = item.Price(2);
 						attr[((int)EnumAttribute.WorkSpeed)] = m.Efficiency;
@@ -197,7 +200,20 @@ namespace SGame
 				attrSys.RemoveBuffByFrom(data.from);
 		}
 
-
+		/// <summary>
+		/// 工作台激活，选择新菜谱
+		/// </summary>
+		/// <param name="id"></param>
+		private void OnWorktableEnable(int id)
+		{
+			var w = DataCenter.MachineUtil.GetWorktable(id);
+			if (w != null)
+			{
+				var list = attrSys.GetAttributeList(((int)EnumTarget.Machine), id);
+				var book = DataCenter.CookbookUtils.GetBook(w.item);
+				if (list != null && book!=null) list.GetAttribute((int)EnumAttribute.Price).SetOrigin(book.cfg.Price(2));
+			}
+		}
 
 		#endregion
 

@@ -546,7 +546,7 @@ namespace SGame
 			dir = dir.normalized;
 			if (dir.sqrMagnitude < 0.0001) // 距离太短
 				return 0;
-			
+
 			float cosAngle = Mathf.Acos(dir.y); // 通过反余弦计算角度
 			if (x >= 0)
 				return cosAngle * Mathf.Rad2Deg;
@@ -1077,7 +1077,7 @@ namespace SGame
 			dir = dir.normalized * (len - radius);
 			return start + dir;
 		}
-		
+
 		/// <summary>
 		/// 通过MACHINE ID 获得权重
 		/// </summary>
@@ -1099,11 +1099,11 @@ namespace SGame
 					return config.OrderWeight(i);
 				}
 			}
-            
+
 			log.Error("machine id not found=" + machineID);
 			return 0;
 		}
-		
+
 		/// <summary>
 		/// 获得最大顾客上限
 		/// </summary>
@@ -1120,7 +1120,7 @@ namespace SGame
 		/// <returns></returns>
 		public static int GetAllMaxCustomer()
 		{
-			int v1 =  GetMaxCustomer();
+			int v1 = GetMaxCustomer();
 			int currentLevelID = DataCenter.Instance.roomData.roomID;
 			int v2 = 0;
 
@@ -1140,5 +1140,38 @@ namespace SGame
 
 			return v1 + v2;
 		}
+
+		public static int FindCompareIndex<T>(IList<T> items, Comparison<T> compare, Func<T, bool> condition = null, int def = -1)
+		{
+			if (items?.Count > 0 && compare != null)
+			{
+				var index = 0;
+				var val = items[index];
+				var flag = condition == null;
+				for (int i = 1; i < items.Count; i++)
+				{
+					var c = items[i];
+					if (condition != null)
+					{
+						if (!condition(val))
+						{
+							index = i;
+							val = c;
+							continue;
+						}
+						else if (!condition(c)) continue;
+						flag = true;
+					}
+					if (compare(c, val) == 1)
+					{
+						index = i;
+						val = c;
+					}
+				}
+				return flag ? index : def;
+			}
+			return def;
+		}
+
 	}
 }

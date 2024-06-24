@@ -48,7 +48,14 @@ public struct MachineRowData : IFlatbufferObject
   public int Time { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public float Efficiency { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
   public int NumMax { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int ItemId { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ItemId(int j) { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int ItemIdLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetItemIdBytes() { return __p.__vector_as_span<int>(22, 4); }
+#else
+  public ArraySegment<byte>? GetItemIdBytes() { return __p.__vector_as_arraysegment(22); }
+#endif
+  public int[] GetItemIdArray() { return __p.__vector_as_array<int>(22); }
   public string MachineModel { get { int o = __p.__offset(24); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
   public Span<byte> GetMachineModelBytes() { return __p.__vector_as_span<byte>(24, 1); }
@@ -67,11 +74,11 @@ public struct MachineRowData : IFlatbufferObject
       int Time = 0,
       float Efficiency = 0.0f,
       int NumMax = 0,
-      int ItemId = 0,
+      VectorOffset ItemIdOffset = default(VectorOffset),
       StringOffset MachineModelOffset = default(StringOffset)) {
     builder.StartTable(11);
     MachineRowData.AddMachineModel(builder, MachineModelOffset);
-    MachineRowData.AddItemId(builder, ItemId);
+    MachineRowData.AddItemId(builder, ItemIdOffset);
     MachineRowData.AddNumMax(builder, NumMax);
     MachineRowData.AddEfficiency(builder, Efficiency);
     MachineRowData.AddTime(builder, Time);
@@ -100,7 +107,10 @@ public struct MachineRowData : IFlatbufferObject
   public static void AddTime(FlatBufferBuilder builder, int Time) { builder.AddInt(6, Time, 0); }
   public static void AddEfficiency(FlatBufferBuilder builder, float Efficiency) { builder.AddFloat(7, Efficiency, 0.0f); }
   public static void AddNumMax(FlatBufferBuilder builder, int NumMax) { builder.AddInt(8, NumMax, 0); }
-  public static void AddItemId(FlatBufferBuilder builder, int ItemId) { builder.AddInt(9, ItemId, 0); }
+  public static void AddItemId(FlatBufferBuilder builder, VectorOffset ItemIdOffset) { builder.AddOffset(9, ItemIdOffset.Value, 0); }
+  public static VectorOffset CreateItemIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateItemIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartItemIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddMachineModel(FlatBufferBuilder builder, StringOffset MachineModelOffset) { builder.AddOffset(10, MachineModelOffset.Value, 0); }
   public static Offset<GameConfigs.MachineRowData> EndMachineRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();

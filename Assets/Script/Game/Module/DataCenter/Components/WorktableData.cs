@@ -365,9 +365,9 @@ namespace SGame
 					if (m.DependsLevelLength > 1)//工作台等级依赖
 					{
 						var dw = GetWorktable(m.DependsLevel(0));
-						if(dw!=null && dw.level > 0)
+						if (dw != null && dw.level > 0)
 						{
-							if(dw.level<m.DependsLevel(1))
+							if (dw.level < m.DependsLevel(1))
 								return Error_Code.MACHINE_DEPENDS_LEVEL_ERROR;
 						}
 					}
@@ -517,6 +517,7 @@ namespace SGame
 
 		public int lv;
 		public int star;
+		public int food;
 
 		[NonSerialized]
 		public bool isTable;
@@ -535,6 +536,8 @@ namespace SGame
 		public MachineRowData cfg;
 		[NonSerialized]
 		public RoomObjRowData objCfg;
+		[NonSerialized]
+		public ItemRowData foodCfg;
 		[NonSerialized]
 		public MachineUpgradeRowData lvcfg;
 		[NonSerialized]
@@ -559,13 +562,11 @@ namespace SGame
 		public int lvStart;
 
 
-		public int item { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
-
-		public int price { get { return cfg.IsValid() ? cfg.ItemId : 0; } }
+		public int item { get { return cfg.IsValid() && food <= 0 ? cfg.ItemId(0) : food; } }
 
 		public int level { get { return lvStart + lv; } }
 
-		public string name { get { return cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
+		public string name { get { return  cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
 
 		public bool IsMaxLv()
 		{
@@ -589,24 +590,32 @@ namespace SGame
 			return default;
 		}
 
-		public double GetPrice()
+		public double GetPrice(int bookid = 0, bool baseval = false)
 		{
-			if (!isTable && lvcfg.IsValid())
+			if (!isTable)
 			{
-				var book = DataCenter.CookbookUtils.GetBook(cfg.ItemId);
+				var book = DataCenter.CookbookUtils.GetBook(bookid == 0 ? item : bookid);
 				if (book != null)
-					return (1D * book.lvCfg.Price * 0.01 * AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id) * lvcfg.ShopPriceRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
+				{
+					if (!lvcfg.IsValid())
+						ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(1, out lvcfg);
+
+					var price = baseval ? book.cfg.Price(2) : AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.Price, id);
+					return (1D * book.lvCfg.Price * 0.01 * price * lvcfg.ShopPriceRatio * lvcfg.ShopPriceStarRatio * 0.0001).ToInt();
+				}
 			}
 			return 0;
 		}
 
-		public double GetWorkTime()
+		public double GetWorkTime(int bookid = 0)
 		{
-			if (!isTable && lvcfg.IsValid())
+			if (!isTable)
 			{
-				var book = DataCenter.CookbookUtils.GetBook(cfg.ItemId);
+				var book = DataCenter.CookbookUtils.GetBook(bookid == 0 ? item : bookid);
 				if (book != null)
 				{
+					if (!lvcfg.IsValid())
+						ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(1, out lvcfg);
 					var t = book.lvCfg.Time * lvcfg.TimeRatio * 0.01d;
 					return (t / AttributeSystem.Instance.GetValue(EnumTarget.Machine, EnumAttribute.WorkSpeed, id)).Round();
 				}
@@ -650,6 +659,17 @@ namespace SGame
 			return addRole > 0 ? addRole : objLvCfg.IsValid() ? objLvCfg.CustomerNum : 0;
 		}
 
+		public void SetFood(int foodindex)
+		{
+			if (isTable) return;
+			this.food = cfg.ItemId(foodindex);
+		}
+
+		public string GetFoodAsset()
+		{
+			return "machine_icon_item_" + item + ".png";
+		}
+
 		public void Refresh()
 		{
 			if (lvcfg.IsValid()) star = lvcfg.MachineStar;
@@ -682,8 +702,10 @@ namespace SGame
 				ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level, out objLvCfg);
 				ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level + 1, out objNextLvCfg);
 			}
-			else if (ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg))
+			else if (!isTable && ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg))
 			{
+				if (food == 0) food = cfg.ItemId(0);
+				ConfigSystem.Instance.TryGet(item, out foodCfg);
 				if ((starRewards == null || lvcfg.MachineStar > star))
 				{
 					if (ConfigSystem.Instance.TryGet(lvcfg.MachineStar + 1, out MachineStarRowData scfg))
