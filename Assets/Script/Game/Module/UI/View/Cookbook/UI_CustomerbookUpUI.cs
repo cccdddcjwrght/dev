@@ -31,10 +31,10 @@ namespace SGame.UI.Cookbook
             m_body = (GLabel)GetChildAt(0);
             m_customer = (UI_Customer)GetChildAt(1);
             m___effect = (GGraph)GetChildAt(2);
-            m_pros = (GList)GetChildAt(4);
-            m_txtDesc = (GRichTextField)GetChildAt(5);
-            m_txtDesc2 = (GTextField)GetChildAt(6);
-            m_click = (UI_BtnIconItem)GetChildAt(8);
+            m_pros = (GList)GetChildAt(5);
+            m_txtDesc = (GRichTextField)GetChildAt(6);
+            m_txtDesc2 = (GTextField)GetChildAt(7);
+            m_click = (UI_BtnIconItem)GetChildAt(9);
             m_t0 = GetTransitionAt(0);
         }
     }
