@@ -23,7 +23,7 @@ namespace SGame.UI.Setting
             base.ConstructFromXML(xml);
 
             m_btn = GetControllerAt(0);
-            m_del = (GLoader)GetChildAt(0);
+            m_del = (GLoader)GetChildAt(1);
             m_toggle = (UI_SwitchBtn)GetChildAt(3);
             m_nomal = (UI_NormalBtn)GetChildAt(4);
         }
