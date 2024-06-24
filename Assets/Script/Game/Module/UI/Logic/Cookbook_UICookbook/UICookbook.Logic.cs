@@ -18,6 +18,8 @@ namespace SGame.UI
 			m_view.m_list.itemRenderer = OnSetItemInfo;
 			SwitchTabsPage(0);
 			OnTabsChanged(null);
+			
+			CustomerBookInit();
 		}
 
 		partial void UnInitLogic(UIContext context)

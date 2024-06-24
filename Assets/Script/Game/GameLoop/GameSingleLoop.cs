@@ -74,6 +74,8 @@ namespace SGame
 			RankModule.Instance.Initalize();
 			TransitionModule.Instance.Initalize();
 			RecordModule.Instance.Initalize();
+			
+			CustomerBookModule.Instance.Initalize();
 		}
 
 		/// <summary>

@@ -8,19 +8,19 @@ namespace SGame
 {
     public class CustomerBookData
     {
-        private bool     m_reward = false;
+        private bool     _mIsRewarded = false;
         public int       ID => Config.Id;                         // 角色ID
 
-        public string    Icon => Config.Icon;                     // 图标
+        public string    Icon => "ui://Cookbook/" + Config.Icon;                     // 图标
 
         public int       FoodID(int i) => Config.LikeGoods(i);    // 喜欢食物ID
 
         public int       FoodLength => Config.LikeGoodsLength;    // 喜欢食物数量
 
-        public CustomerBookData(RoleDataRowData cfg, bool isReward)
+        public CustomerBookData(RoleDataRowData cfg, bool isIsRewarded)
         {
             this.Config = cfg;
-            this.m_reward = isReward;
+            this._mIsRewarded = isIsRewarded;
         }
         
         // 解锁区域[x=关卡,y=解锁区域]
@@ -83,12 +83,12 @@ namespace SGame
         public RoleDataRowData Config;
         
         // 奖励是否已经领取
-        public bool reward { get => m_reward;
+        public bool isRewarded { get => _mIsRewarded;
             set
             {
-                if (value != m_reward && value == true)
+                if (value != _mIsRewarded && value == true)
                 {
-                    m_reward = value;
+                    _mIsRewarded = value;
                     CustomerBookModule.Instance.AddReward(ID);
                 }
             }

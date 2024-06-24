@@ -10,6 +10,7 @@ namespace SGame.UI.Cookbook
         public Controller m_tabs;
         public GLabel m_body;
         public GList m_list;
+        public GList m_listCustomer;
         public const string URL = "ui://n2tgmsyur4i16";
 
         public static UI_CookbookUI CreateInstance()
@@ -24,6 +25,7 @@ namespace SGame.UI.Cookbook
             m_tabs = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
             m_list = (GList)GetChildAt(5);
+            m_listCustomer = (GList)GetChildAt(6);
         }
     }
 }
