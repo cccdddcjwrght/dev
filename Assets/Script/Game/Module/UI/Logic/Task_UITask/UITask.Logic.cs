@@ -22,7 +22,7 @@ namespace SGame.UI{
 			m_view.m_list.itemRenderer = OnItemRenderer;
 			m_view.m_mask.onClick.Add(DoCloseUIClick);
 
-			m_EventHandle += EventManager.Instance.Reg((int)GameEvent.MAIN_TASK_UPDATE, RefreshTaskData);
+			m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.MAIN_TASK_UPDATE,(id)=> RefreshTaskData());
 			RefreshTaskData();
 		}
 

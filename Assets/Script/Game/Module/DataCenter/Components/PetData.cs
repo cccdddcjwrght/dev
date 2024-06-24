@@ -306,6 +306,7 @@ namespace SGame
 		public int cfgID;
 		public int level;
 		public int type;
+		public int bornType; //孵化方式 0-正常 1-钻石 2-广告
 
 		public ulong effectID;
 		public int[] effectAdd = new int[9];

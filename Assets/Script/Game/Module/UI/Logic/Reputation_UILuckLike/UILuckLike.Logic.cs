@@ -103,6 +103,7 @@ namespace SGame.UI{
 			EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
 
 			m_LikeCfgId = DataCenter.LikeUtil.GetLotteryIndex();
+			EventManager.Instance.Trigger((int)GameEvent.LIKE_SPIN, m_LikeCfgId);
 			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config)) 
 			{
 				int a = config.ResultShow(0);

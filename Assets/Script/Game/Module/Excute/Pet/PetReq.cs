@@ -66,6 +66,7 @@ namespace SGame
 				PropertyManager.Instance.Update(1, egg.cfgID, 1, true);
 				_eMgr.Trigger(((int)GameEvent.GAME_MAIN_REFRESH));
 				_eMgr.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.PET_BORN, 1);
+				_eMgr.Trigger((int)GameEvent.PET_BORN, p.cfgID, egg.bornType, p.quality, p.level);
 				return p;
 			}
 			return default;

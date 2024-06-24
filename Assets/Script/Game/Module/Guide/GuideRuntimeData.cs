@@ -47,8 +47,11 @@ namespace SGame
             if (guideId != __guideId) return;
             GuideManager.Instance.CheckRecruitOpen();
             //清除主线以外的指引
-            if (ConfigSystem.Instance.TryGet<GameConfigs.GuideRowData>(__guideId, out var cfg) && cfg.GuideType == 0)
+            if (ConfigSystem.Instance.TryGet<GameConfigs.GuideRowData>((i) => i.GuideId ==__guideId && i.Step == __stepIndex, out var cfg) && cfg.GuideType == 0) 
+            {
                 GuideManager.Instance.ClearOtherGuide();
+                EventManager.Instance.Trigger((int)GameEvent.GUIDE_STEP, cfg.Id);
+            }
 
             if (__stepIndex < steps.Count)
             {

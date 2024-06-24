@@ -152,6 +152,7 @@ namespace SGame
 		PET_ADD							= 13002, //宠物添加
 		PET_FOLLOW_CHANGE				= 13003, //宠物跟随修改（PetItem pet,bool state）
 		PET_BORN_EVO					= 13004, //宠物吞噬事件（PetItem pet,Action completed)
+		PET_BORN						= 13005, //宠物孵化
 
 
 		ACTIVITY_OPEN					= 14000, // 活动开启(int activeID)
@@ -193,5 +194,6 @@ namespace SGame
 
 		RELOAD_ALL_UI					= 24000, //重新加载所有UI				
 
+		LIKE_SPIN						= 25000, //好评奖励id
 	}
 }

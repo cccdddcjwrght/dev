@@ -109,7 +109,7 @@ namespace SGame
                         if (newCfg.CountType == 1)
                             RecordModule.Instance.ClearValue(newCfg.TaskType, (int)RecordFunctionId.TASK);
                     }
-                    EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_UPDATE);
+                    EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_UPDATE, id);
                 }
             }
 

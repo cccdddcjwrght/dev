@@ -194,6 +194,7 @@ namespace SGame.UI
 					if (cost > 0) PropertyManager.Instance.Update(1, ((int)ItemID.DIAMOND), cost, true);
 					_data.egg.time = 0;
 					_data.egg.count = cost;
+					_data.egg.bornType = 1;
 					CloseTimer();
 					OnPetEgg_Get3Click(null);
 				}
@@ -207,6 +208,7 @@ namespace SGame.UI
 				if (s)
 				{
 					_data.egg.time = 0;
+					_data.egg.bornType = 2;
 					CloseTimer();
 					OnPetEgg_Get3Click(null);
 				}

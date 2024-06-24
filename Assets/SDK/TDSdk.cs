@@ -23,7 +23,7 @@ namespace SDK.TDSDK
 		item_cost,
 		shop_buy,
 		level_finish,
-		machine_star,
+		machine_level,
 		equipment_upgrade,
 		equipment_merge,
 		equipment_reset,
@@ -37,7 +37,15 @@ namespace SDK.TDSDK
 		ad_show,
 		ad_close,
 		ad_reward,
-
+		level_complete,
+		level_open,
+		new_area,
+		pet_born,
+		pet_grow,
+		cook_unlock,
+		cook_upgrade,
+		task_reward,
+		likes_spin,
 	}
 
 	public enum TableType
@@ -245,10 +253,14 @@ namespace SDK.TDSDK
 				if (ConfigSystem.Instance.TryGet<GameConfigs.RoomRowData>(DataCenter.Instance.roomData.roomID, out var data)) { TrackNormal(TDEvent.level_finish.ToString(), "level_sub_id", data.SubId, "level_region_id", data.RegionId); }
 			});
 
-			//工作台升星埋点
-			EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UP_STAR, (machineCfgId, machineStar) => TrackNormal(TDEvent.machine_star.ToString(),
-				 "machine_id", machineCfgId,
-				 "machine_star", machineStar));
+			//工作台升级埋点
+			EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UPLEVEL, (id, lv) => {
+				var w = DataCenter.MachineUtil.GetWorktable(id);
+				TrackNormal(TDEvent.machine_level.ToString(),
+					 "machine_id", id,
+					 "machine_level", lv,
+					 "machine_star", w.star);
+				});
 
 			//装备升级，品质提升，重置，分解埋点
 			EventManager.Instance.Reg<string, int, int, int, int>((int)GameEvent.EQUIP_BURYINGPOINT, (id, e1, e2, e3, e4) => OnEquiped(id, e1, e2, e3, e4));
@@ -269,6 +281,27 @@ namespace SDK.TDSDK
 			EventManager.Instance.Reg<string>((int)GameEvent.AD_FAILED, (id) => OnAded(TDEvent.ad_failed.ToString(), id));
 			EventManager.Instance.Reg<string>((int)GameEvent.AD_SHOW, (id) => OnAded(TDEvent.ad_show.ToString(), id));
 			EventManager.Instance.Reg<string>((int)GameEvent.AD_REWARD, (id) => OnAded(TDEvent.ad_reward.ToString(), id));
+
+
+			//关卡开始结束埋点
+			EventManager.Instance.Reg<string>((int)GameEvent.UI_SHOW, (uiname) =>
+			{
+				if (uiname == "welcomenewlevel") TrackNormal(TDEvent.level_open.ToString());
+				else if (uiname == "levelcomplete") TrackNormal(TDEvent.level_complete.ToString());
+			});
+
+			EventManager.Instance.Reg<int, int, int, int>((int)GameEvent.PET_BORN, (id, born_type, level, qualty) => TrackNormal(
+				 TDEvent.pet_born.ToString(), "pet_id", id, "pet_born_type", born_type, "pet_quality", qualty, "grow_num", level));
+
+			//区域解锁埋点
+			EventManager.Instance.Reg<int>((int)GameEvent.WORK_AREA_UNLOCK, (area) => TrackNormal(TDEvent.new_area.ToString(), "area_id", area));
+			//菜品升级埋点
+			EventManager.Instance.Reg<int, int>((int)GameEvent.COOKBOOK_UP_LV, (id, lv) => TrackNormal(TDEvent.cook_unlock.ToString(), "cook_id", id, "cook_level", lv));
+			//主线任务埋点
+			EventManager.Instance.Reg<int>((int)GameEvent.MAIN_TASK_UPDATE, (id) => TrackNormal(TDEvent.task_reward.ToString(), "task_id", id));
+			//好评抽奖埋点
+			EventManager.Instance.Reg<int>((int)(GameEvent.LIKE_SPIN), (id) => TrackNormal(TDEvent.likes_spin.ToString(), "likes_spin", id));
+
 		}
 
 		private void RegisterProperties()
