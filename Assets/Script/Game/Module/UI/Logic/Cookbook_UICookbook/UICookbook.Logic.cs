@@ -25,6 +25,8 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			_itemDatas = null;
+			m_eventContainer.Close();
+			m_eventContainer = null;
 		}
 		#endregion
 

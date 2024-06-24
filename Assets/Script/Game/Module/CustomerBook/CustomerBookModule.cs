@@ -42,16 +42,32 @@ namespace SGame
         {
             return m_rewardDatas.Values.Contains(roleID);
         }
+        
+        /// <summary>
+        /// 获取奖励
+        /// </summary>
+        /// <param name="data"></param>
+        public void TakeReward(CustomerBookData data)
+        {
+            int[] item = data.Config.GetUnlockRewardArray();
+            List<int[]> items = new List<int[]>() { item };
+            PropertyManager.Instance.Update(item[0], item[1], item[2]);
+
+            Utils.ShowRewards(items);
+
+            m_rewardDatas.Values.Add(data.ID);
+            data.SetRewared();
+            
+            EventManager.Instance.Trigger((int)GameEvent.CUSTOMER_BOOK_UPDATE);
+        }
 
         /// <summary>
-        /// 添加奖励
+        /// 首次打开需要标记
         /// </summary>
-        /// <param name="roleID"></param>
-        /// <returns></returns>
-        public bool AddReward(int roleID)
+        /// <param name="data"></param>
+        public void MarkOpened(CustomerBookData data)
         {
-            m_rewardDatas.Values.Add(roleID);
-            return true;
+            
         }
     }
 }

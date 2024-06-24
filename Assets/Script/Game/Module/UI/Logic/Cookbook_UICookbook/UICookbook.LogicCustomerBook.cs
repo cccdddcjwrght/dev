@@ -7,9 +7,11 @@ namespace SGame.UI
 	using SGame.UI.Cookbook;
 	using System.Collections;
 	using System.Collections.Generic;
+	using Unity.Entities;
 
 	public partial class UICookbook
 	{
+		private EventHandleContainer m_eventContainer = new EventHandleContainer();
 		public enum CustomerBookState
 		{
 			UNLOCK	= 0, // 已解锁已领取
@@ -20,11 +22,19 @@ namespace SGame.UI
 		{
 			m_view.m_listCustomer.itemRenderer = OnRenderCustomer;
 			m_view.m_listCustomer.numItems = CustomerBookModule.Instance.Datas.Count;
+			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.CUSTOMER_BOOK_UPDATE, OnCustomerBookUpdate);
+		}
+
+		void OnCustomerBookUpdate()
+		{
+			m_view.m_listCustomer.numItems = CustomerBookModule.Instance.Datas.Count;
 		}
 
 		void OnCustomerBookClick(EventContext data)
 		{
-			log.Info("on click =");
+			EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = UIRequest.Create(mgr, SGame.UIUtils.GetUI("customerbookup"));
+			ui.SetParam((data.sender as GObject).data);
 		}
 		
 		void OnRenderCustomer(int index, GObject gObject)
@@ -32,6 +42,7 @@ namespace SGame.UI
 			var ui = gObject as UI_BookCustomer;
 			var datas = CustomerBookModule.Instance.Datas;
 			var data = datas[index];
+			gObject.data = data;
 			
 			// 设置UI状态
 			CustomerBookState state = CustomerBookState.LOCK;

@@ -7,16 +7,13 @@ namespace SGame.UI.Cookbook
 {
     public partial class UI_CustomerbookUpUI : GLabel
     {
-        public Controller m_type;
-        public Controller m_mode;
+        public Controller m_take_reward;
         public GLabel m_body;
+        public UI_Customer m_customer;
         public GGraph m___effect;
         public GList m_pros;
-        public GTextField m_tips;
-        public GTextField m_level;
-        public GTextField m_limit;
-        public GRichTextField m_cost;
-        public GLoader m_item;
+        public GRichTextField m_txtDesc;
+        public GTextField m_txtDesc2;
         public GButton m_click;
         public Transition m_t0;
         public const string URL = "ui://n2tgmsyutkwvz";
@@ -30,17 +27,14 @@ namespace SGame.UI.Cookbook
         {
             base.ConstructFromXML(xml);
 
-            m_type = GetControllerAt(0);
-            m_mode = GetControllerAt(1);
+            m_take_reward = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
-            m___effect = (GGraph)GetChildAt(5);
-            m_pros = (GList)GetChildAt(6);
-            m_tips = (GTextField)GetChildAt(9);
-            m_level = (GTextField)GetChildAt(10);
-            m_limit = (GTextField)GetChildAt(11);
-            m_cost = (GRichTextField)GetChildAt(12);
-            m_item = (GLoader)GetChildAt(13);
-            m_click = (GButton)GetChildAt(16);
+            m_customer = (UI_Customer)GetChildAt(1);
+            m___effect = (GGraph)GetChildAt(2);
+            m_pros = (GList)GetChildAt(4);
+            m_txtDesc = (GRichTextField)GetChildAt(5);
+            m_txtDesc2 = (GTextField)GetChildAt(6);
+            m_click = (GButton)GetChildAt(8);
             m_t0 = GetTransitionAt(0);
         }
     }

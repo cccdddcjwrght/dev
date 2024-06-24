@@ -16,6 +16,7 @@ namespace SGame
         public int       FoodID(int i) => Config.LikeGoods(i);    // 喜欢食物ID
 
         public int       FoodLength => Config.LikeGoodsLength;    // 喜欢食物数量
+        
 
         public CustomerBookData(RoleDataRowData cfg, bool isIsRewarded)
         {
@@ -34,23 +35,6 @@ namespace SGame
                 }
                 
                 throw new Exception("UnlockAreaLength Not 2");
-            }
-        } 
-
-        /// <summary>
-        /// 解锁奖励
-        /// </summary>
-        /// <exception cref="Exception"></exception>
-        public Vector3Int UnlockReward
-        {
-            get
-            {
-                if (Config.UnlockRewardLength == 3)
-                {
-                    return new Vector3Int(Config.UnlockArea(0), Config.UnlockReward(1), Config.UnlockReward(2));
-                }
-
-                throw new Exception("UnlockRewardLength Not 3");
             }
         }
 
@@ -89,9 +73,13 @@ namespace SGame
                 if (value != _mIsRewarded && value == true)
                 {
                     _mIsRewarded = value;
-                    CustomerBookModule.Instance.AddReward(ID);
                 }
             }
+        }
+
+        public void SetRewared()
+        {
+            _mIsRewarded = true;
         }
     }
 }
