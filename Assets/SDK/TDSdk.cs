@@ -256,11 +256,14 @@ namespace SDK.TDSDK
 			//工作台升级埋点
 			EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UPLEVEL, (id, lv) => {
 				var w = DataCenter.MachineUtil.GetWorktable(id);
-				TrackNormal(TDEvent.machine_level.ToString(),
+				if (w.isTable)
+				{
+					TrackNormal(TDEvent.machine_level.ToString(),
 					 "machine_id", id,
 					 "machine_level", lv,
 					 "machine_star", w.star);
-				});
+				}
+			});
 
 			//装备升级，品质提升，重置，分解埋点
 			EventManager.Instance.Reg<string, int, int, int, int>((int)GameEvent.EQUIP_BURYINGPOINT, (id, e1, e2, e3, e4) => OnEquiped(id, e1, e2, e3, e4));
