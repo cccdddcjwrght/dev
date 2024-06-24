@@ -8,7 +8,6 @@ namespace SGame.UI.Shop
     public partial class UI_Probability : GComponent
     {
         public Controller m_show;
-        public Controller m_type;
         public GLabel m_bg;
         public GLoader m_icon;
         public GList m_list;
@@ -26,7 +25,6 @@ namespace SGame.UI.Shop
             base.ConstructFromXML(xml);
 
             m_show = GetControllerAt(0);
-            m_type = GetControllerAt(1);
             m_bg = (GLabel)GetChildAt(1);
             m_icon = (GLoader)GetChildAt(2);
             m_list = (GList)GetChildAt(4);
