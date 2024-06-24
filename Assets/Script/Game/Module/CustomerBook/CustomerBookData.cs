@@ -8,7 +8,10 @@ namespace SGame
 {
     public class CustomerBookData
     {
-        private bool     _mIsRewarded = false;
+        private bool     m_IsRewarded = false;
+
+        private bool     m_IsOpened = false;
+        
         public int       ID => Config.Id;                         // 角色ID
 
         public string    Icon => "ui://Cookbook/" + Config.Icon;                     // 图标
@@ -16,12 +19,15 @@ namespace SGame
         public int       FoodID(int i) => Config.LikeGoods(i);    // 喜欢食物ID
 
         public int       FoodLength => Config.LikeGoodsLength;    // 喜欢食物数量
+
+        public string   Name => LanagueSystem.Instance.GetValue(Config.Name);
         
 
-        public CustomerBookData(RoleDataRowData cfg, bool isIsRewarded)
+        public CustomerBookData(RoleDataRowData cfg, bool isIsRewarded, bool isOpened)
         {
             this.Config = cfg;
-            this._mIsRewarded = isIsRewarded;
+            this.m_IsRewarded = isIsRewarded;
+            this.m_IsOpened = isOpened;
         }
         
         // 解锁区域[x=关卡,y=解锁区域]
@@ -67,19 +73,18 @@ namespace SGame
         public RoleDataRowData Config;
         
         // 奖励是否已经领取
-        public bool isRewarded { get => _mIsRewarded;
-            set
-            {
-                if (value != _mIsRewarded && value == true)
-                {
-                    _mIsRewarded = value;
-                }
-            }
-        }
+        public bool isRewarded => m_IsRewarded;
+
+        public bool isOpened => m_IsOpened;
 
         public void SetRewared()
         {
-            _mIsRewarded = true;
+            m_IsRewarded = true;
+        }
+
+        public void SetOpened()
+        {
+            m_IsOpened = true;
         }
     }
 }

@@ -33,7 +33,12 @@ namespace SGame.UI
 		void OnCustomerBookClick(EventContext data)
 		{
 			EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
-			Entity ui = UIRequest.Create(mgr, SGame.UIUtils.GetUI("customerbookup"));
+			var customerData = (data.sender as GObject).data as CustomerBookData;
+				
+			string uiName = "customerbookup";
+			if (!customerData.isOpened)
+				uiName = "customerbookfirstup";
+			Entity ui = UIRequest.Create(mgr, SGame.UIUtils.GetUI(uiName));
 			ui.SetParam((data.sender as GObject).data);
 		}
 		

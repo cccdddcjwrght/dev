@@ -11,6 +11,9 @@ namespace SGame
     public class CustomerBookReward
     {
         // 已领取奖励ID
-        public List<int> Values = new List<int>();
+        public List<int> Rewarded = new List<int>();
+
+        // 已经打开过UI
+        public List<int> Opened = new List<int>();
     }
 }

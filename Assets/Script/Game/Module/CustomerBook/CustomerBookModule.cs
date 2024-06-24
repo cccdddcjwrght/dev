@@ -9,7 +9,7 @@ namespace SGame
     // 图鉴系统
     public class CustomerBookModule : Singleton<CustomerBookModule>
     {
-        private CustomerBookReward              m_rewardDatas;
+        private CustomerBookReward              m_recordData;
         private List<CustomerBookData>          m_customerBookData;
         public List<CustomerBookData>           Datas => m_customerBookData;
 
@@ -17,7 +17,7 @@ namespace SGame
         public void Initalize()
         {
             // 保存图鉴
-            m_rewardDatas = DataCenter.Instance.m_customerBookReward;
+            m_recordData = DataCenter.Instance.m_customerBookReward;
 
             // 初始化图鉴数据
             m_customerBookData = new List<CustomerBookData>();
@@ -28,7 +28,7 @@ namespace SGame
                 if (conf.Value.Book != 0)
                 {
                     // 保存图鉴数据
-                    m_customerBookData.Add(new CustomerBookData(conf.Value, IsRewarded(conf.Value.Id)));
+                    m_customerBookData.Add(new CustomerBookData(conf.Value, IsRewarded(conf.Value.Id), IsOpened(conf.Value.Id)));
                 }
             }
         }
@@ -40,9 +40,14 @@ namespace SGame
         /// <returns></returns>
         bool IsRewarded(int roleID)
         {
-            return m_rewardDatas.Values.Contains(roleID);
+            return m_recordData.Rewarded.Contains(roleID);
         }
-        
+
+        bool IsOpened(int roleID)
+        {
+            return m_recordData.Opened.Contains(roleID);
+        }
+
         /// <summary>
         /// 获取奖励
         /// </summary>
@@ -55,10 +60,26 @@ namespace SGame
 
             Utils.ShowRewards(items);
 
-            m_rewardDatas.Values.Add(data.ID);
+            m_recordData.Rewarded.Add(data.ID);
             data.SetRewared();
             
             EventManager.Instance.Trigger((int)GameEvent.CUSTOMER_BOOK_UPDATE);
+        }
+
+        public bool HasNew
+        {
+            get
+            {
+                foreach (var d in m_customerBookData)
+                {
+                    if (d.IsUnlock && d.isOpened == false)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
 
         /// <summary>
@@ -67,7 +88,8 @@ namespace SGame
         /// <param name="data"></param>
         public void MarkOpened(CustomerBookData data)
         {
-            
+            m_recordData.Opened.Add(data.ID);
+            data.SetOpened();
         }
     }
 }
