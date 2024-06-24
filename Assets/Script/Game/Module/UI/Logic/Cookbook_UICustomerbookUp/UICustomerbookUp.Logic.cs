@@ -1,4 +1,5 @@
 ﻿
+using System.Drawing;
 using Unity.Entities;
 namespace SGame.UI{
 	using FairyGUI;
@@ -22,6 +23,17 @@ namespace SGame.UI{
 
 			m_view.m_take_reward.selectedIndex = m_data.isRewarded ? 1 : 0;
 			m_view.m_click.onClick.Set(OnClickReward);
+			
+			// 设置按钮图标
+			if (m_data.Config.UnlockRewardLength != 3)
+			{
+				log.Error("config UnlockRewardLength not 3");
+				return;
+			}
+			var item = m_data.Config.GetUnlockRewardArray();
+			m_view.m_click.m_item.title = "X" + item[2];
+			var icon = Utils.GetItemIcon(item[0], item[1]);
+			m_view.m_click.m_item.SetIcon(icon);
 		}
 
 		void OnClickReward()

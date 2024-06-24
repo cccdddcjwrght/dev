@@ -63,11 +63,15 @@ namespace SGame.UI
 			}
 			ui.m_state.selectedIndex = (int)state;
 			
-			// 设置图标
 			if (state != CustomerBookState.UNLOCK)
 			{
+				// 设置图标
 				ui.m_body.m_body.icon = data.Icon;
+				
+				// 设置名称
+				ui.title = data.Name;
 			}
+
 
 			// 设置按钮响应
 			if (state == CustomerBookState.CANTAKE)
