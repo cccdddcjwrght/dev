@@ -38,7 +38,14 @@ public struct RoleDataRowData : IFlatbufferObject
   public int Tip { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int TipRatio { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Price { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int LikeRatio { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int LikeRatio(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int LikeRatioLength { get { int o = __p.__offset(30); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetLikeRatioBytes() { return __p.__vector_as_span<int>(30, 4); }
+#else
+  public ArraySegment<byte>? GetLikeRatioBytes() { return __p.__vector_as_arraysegment(30); }
+#endif
+  public int[] GetLikeRatioArray() { return __p.__vector_as_array<int>(30); }
   public int LikeNum { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int WorkerArea { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public string Des { get { int o = __p.__offset(36); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
@@ -95,7 +102,7 @@ public struct RoleDataRowData : IFlatbufferObject
       int Tip = 0,
       int TipRatio = 0,
       int Price = 0,
-      int LikeRatio = 0,
+      VectorOffset LikeRatioOffset = default(VectorOffset),
       int LikeNum = 0,
       int WorkerArea = 0,
       StringOffset DesOffset = default(StringOffset),
@@ -113,7 +120,7 @@ public struct RoleDataRowData : IFlatbufferObject
     RoleDataRowData.AddDes(builder, DesOffset);
     RoleDataRowData.AddWorkerArea(builder, WorkerArea);
     RoleDataRowData.AddLikeNum(builder, LikeNum);
-    RoleDataRowData.AddLikeRatio(builder, LikeRatio);
+    RoleDataRowData.AddLikeRatio(builder, LikeRatioOffset);
     RoleDataRowData.AddPrice(builder, Price);
     RoleDataRowData.AddTipRatio(builder, TipRatio);
     RoleDataRowData.AddTip(builder, Tip);
@@ -144,7 +151,10 @@ public struct RoleDataRowData : IFlatbufferObject
   public static void AddTip(FlatBufferBuilder builder, int Tip) { builder.AddInt(10, Tip, 0); }
   public static void AddTipRatio(FlatBufferBuilder builder, int TipRatio) { builder.AddInt(11, TipRatio, 0); }
   public static void AddPrice(FlatBufferBuilder builder, int Price) { builder.AddInt(12, Price, 0); }
-  public static void AddLikeRatio(FlatBufferBuilder builder, int LikeRatio) { builder.AddInt(13, LikeRatio, 0); }
+  public static void AddLikeRatio(FlatBufferBuilder builder, VectorOffset LikeRatioOffset) { builder.AddOffset(13, LikeRatioOffset.Value, 0); }
+  public static VectorOffset CreateLikeRatioVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateLikeRatioVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartLikeRatioVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddLikeNum(FlatBufferBuilder builder, int LikeNum) { builder.AddInt(14, LikeNum, 0); }
   public static void AddWorkerArea(FlatBufferBuilder builder, int WorkerArea) { builder.AddInt(15, WorkerArea, 0); }
   public static void AddDes(FlatBufferBuilder builder, StringOffset DesOffset) { builder.AddOffset(16, DesOffset.Value, 0); }

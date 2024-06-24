@@ -2,6 +2,7 @@ using log4net;
 using SGame;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SGame
@@ -107,8 +108,8 @@ namespace SGame
 
         public void AddLikeNum(int characterID) 
         {
-            if (m_data.progress < maxLikeNum)
-            {
+            //if (m_data.progress < maxLikeNum)
+            //{
                 //int likeNum = 1;
                 int roleId = CharacterModule.Instance.FindCharacter(characterID).roleID;
                 int likeNum = (int)AttributeSystem.Instance.GetValueByRoleID(roleId, EnumAttribute.LikeNum);
@@ -117,7 +118,7 @@ namespace SGame
                 //if (m_data.progress >= maxLikeNum) DataCenter.ReputationUtils.RandomSelect();
 
                 EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, likeNum);
-            }    
+            //}    
         }
 
         public List<TotalItem> GetVailedBuffList()
@@ -179,6 +180,18 @@ namespace SGame
                 value *= m_TotalList[i].multiple;
             }
             return value;
+        }
+
+        public bool GetLike(OrderData orderData, int characterId) 
+        {
+            int rate = Random.Range(0, 100);
+            var character = CharacterModule.Instance.FindCharacter(characterId);
+            ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(character.roleID, out var cfg);
+            var isLikeFood = cfg.GetLikeGoodsArray().ToList().Contains(orderData.foodType);
+            if (isLikeFood)
+                return rate < cfg.LikeRatio(1);
+            else
+                return rate < cfg.LikeRatio(0);
         }
     }
 
