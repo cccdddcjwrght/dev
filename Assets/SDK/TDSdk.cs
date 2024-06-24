@@ -256,7 +256,7 @@ namespace SDK.TDSDK
 			//工作台升级埋点
 			EventManager.Instance.Reg<int, int>((int)GameEvent.WORK_TABLE_UPLEVEL, (id, lv) => {
 				var w = DataCenter.MachineUtil.GetWorktable(id);
-				if (w.isTable)
+				if (!w.isTable)
 				{
 					TrackNormal(TDEvent.machine_level.ToString(),
 					 "machine_id", id,
