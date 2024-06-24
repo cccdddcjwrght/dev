@@ -62,11 +62,11 @@ namespace SGame.UI{
 
 			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
 			m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
-			m_view.m_BigLuckShow.onClick.Add(() =>
-			{
-				m_view.m_BigLuckShow.visible = false;
-				RefreshRewardList();
-			});
+			//m_view.m_BigLuckShow.onClick.Add(() =>
+			//{
+			//	m_view.m_BigLuckShow.visible = false;
+			//	RefreshRewardList();
+			//});
 		}
 
 		public void RefreshAutoState() 
@@ -182,6 +182,10 @@ namespace SGame.UI{
 					{
 						m_view.m_BigLuckShow.visible = true;
 						m_view.m_BigLuckShow.m_show.Play();
+						Utils.Timer(m_AutoCloseTime, null, m_view, completed: () =>
+						{
+							m_view.m_BigLuckShow.visible = false;
+						});
 						EffectSystem.Instance.AddEffect(31, m_view.m_BigLuckShow.m_effect);
 						m_HideCfgIds.Add(cfg.Reward(0));
 
@@ -202,7 +206,6 @@ namespace SGame.UI{
 						m_AutoTime += Time.deltaTime;
 						if (m_AutoTime >= m_AutoCloseTime)
 						{
-							m_view.m_BigLuckShow.visible = false;
 							RefreshRewardList();
 							m_AutoTime = 0;
 						}
@@ -285,25 +288,25 @@ namespace SGame.UI{
 			{
 				//如果有食谱碎片宝箱，先加上
 				m_DropRewardData = m_RewardData.Where((r) => r.itemType == (int)EnumItemType.ChestKey).ToList();
-				isHaveBox = m_RewardData.Find((r) => r.itemType == (int)EnumItemType.Chest && r.subType == 0) !=null;
-				m_RewardData.RemoveAll((r) => r.itemType == (int)EnumItemType.ChestKey);
-				for (int i = 0; i < m_DropRewardData.Count; i++)
-				{
-					var data = m_DropRewardData[i];
-					m_DropItem = DataCenter.LikeUtil.GetItemDrop(data.typeId, data.num, i == 0);
-				}
-				m_DropItem.Foreach((d) => PropertyManager.Instance.Update(d.type, d.id, d.num));
+				//isHaveBox = m_RewardData.Find((r) => r.itemType == (int)EnumItemType.Chest && r.subType == 0) !=null;
+				//m_RewardData.RemoveAll((r) => r.itemType == (int)EnumItemType.ChestKey);
+				//for (int i = 0; i < m_DropRewardData.Count; i++)
+				//{
+				//	var data = m_DropRewardData[i];
+				//	m_DropItem = DataCenter.LikeUtil.GetItemDrop(data.typeId, data.num, i == 0);
+				//}
+				//m_DropItem.Foreach((d) => PropertyManager.Instance.Update(d.type, d.id, d.num));
 
 				if (m_RewardData.Count > 0)
 				{
 					//关闭界面的时候打开领取普通大奖获得的奖励
 					m_RewardData.Foreach((r) => { list.Add(new int[] { 1, r.id, r.num }); });
-					Utils.ShowRewards(list, OpenFramentUI, updatedata: true);
+					Utils.ShowRewards(list, updatedata: true);
 				}
-				else 
-				{
-					OpenFramentUI();
-				}
+				//else 
+				//{
+				//	OpenFramentUI();
+				//}
 				m_RewardData.Clear();
 			}
 		}
