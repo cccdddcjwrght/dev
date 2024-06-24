@@ -30,7 +30,7 @@ namespace SGame.UI
 			_index = args.Val<int>(1);
 			_add = args.Val<int>(2);
 
-			m_view.z = -300;
+			m_view.z = -400;
 			m_view.SetTextByKey(pet.name);
 			m_view.m_model.SetPetInfo(pet);
 			m_view.m_quality.selectedIndex = pet.tempQuality;
@@ -87,7 +87,7 @@ namespace SGame.UI
 					if (_mask != null)
 					{
 						_mask.Value.alpha = 0.01f;
-						_mask.Value.z = -200;
+						_mask.Value.z = -250;
 					}
 					m_view.visible = false;
 					EventManager.Instance.Trigger(((int)GameEvent.PET_BORN_EVO), _pet, new Action(OnEffectCompleted));
