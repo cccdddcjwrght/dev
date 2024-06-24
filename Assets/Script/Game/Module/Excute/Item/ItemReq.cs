@@ -38,6 +38,7 @@ namespace SGame
 		private static List<int> _chestIds;
 		private static Queue<ItemData.Value> _chestQueues = new Queue<ItemData.Value>();
 
+		private static List<int> _chestKeyIds;
 
 		private static ChestRowData _chest;
 		private static ItemRowData _item;
@@ -45,7 +46,9 @@ namespace SGame
 		static public void Init()
 		{
 			InitChestIDs();
+			InitChestKeyIDs();
 			RefreshChestNums();
+			OpenChestKey();
 			if (_chestcount > 0)
 			{
 				var cid = DataCenter.GetIntValue(c_best_chest, 0);
@@ -64,6 +67,30 @@ namespace SGame
 			   .Finds<ItemRowData>(i => i.Type == ((int)EnumItemType.Chest))
 			   .Select(i => i.ItemId)
 			   .ToList();
+		}
+
+		static public void InitChestKeyIDs() 
+		{
+			_chestKeyIds = ConfigSystem
+			   .Instance
+			   .Finds<ItemRowData>(i => i.Type == ((int)EnumItemType.ChestKey))
+			   .Select(i => i.ItemId)
+			   .ToList();
+		}
+
+		static void OpenChestKey() 
+		{
+			_chestKeyIds?.ForEach((id)=> 
+			{
+				var num = PropertyManager.Instance.GetItem(id).num;
+				if (num > 0) 
+				{
+					ConfigSystem.Instance.TryGet<ItemRowData>(id, out var cfg);
+					var list = DataCenter.LikeUtil.GetItemDrop(cfg.TypeId, (int)num);
+                    list.Foreach((i)=> PropertyManager.Instance.Update(1, i.id, i.num)) ;
+					PropertyManager.Instance.Update(1, id, num, true);
+				}
+			});
 		}
 
 		static public double GetChestCount()
@@ -124,7 +151,22 @@ namespace SGame
 				}
 			}
 
+			if (_chestKeyIds.Contains(id))
+			{
+				if (ConfigSystem.Instance.TryGet<ItemRowData>(id, out var cfg))
+				{
+					var c = num - old;
+					var dropId = cfg.TypeId;
+					if (num > old) 
+					{
+						DoExcuteChestKey(dropId, (int)c);
+						PropertyManager.Instance.Update(1, id, c, true);
+					}
+				}
+			}
+
 		}
+
 
 		private static void DoExcuteEqGift(ItemRowData item, int count, ChestRowData chest)
 		{
@@ -137,6 +179,17 @@ namespace SGame
 					if (!UIUtils.CheckUIIsOpen("eqgiftui"))
 						UIUtils.OpenUI("eqgiftui", _chestQueues);
 				}
+			}
+		}
+
+		private static void DoExcuteChestKey(int dropId, int count) 
+		{
+			if (count > 0) 
+			{
+				var list = DataCenter.LikeUtil.GetItemDrop(dropId, count);
+				list.Foreach((i) => PropertyManager.Instance.Update(i.type, i.id, i.num));
+				if(!UIUtils.CheckUIIsOpen("frament"))
+					UIUtils.OpenUI("frament", list);
 			}
 		}
 

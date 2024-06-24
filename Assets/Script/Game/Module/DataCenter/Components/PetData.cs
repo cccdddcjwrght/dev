@@ -273,7 +273,9 @@ namespace SGame
 
 			static public bool IsEgg(int id)
 			{
-				return _eggs.Contains(id);
+				if(_eggs != null)
+					return _eggs.Contains(id);
+				return false;
 			}
 
 		}
