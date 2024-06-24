@@ -20,6 +20,8 @@ namespace SGame.UI{
 
 			m_view.m_title.text = m_data.Name;
 			m_view.m_icon.SetIcon(m_data.Icon);
+
+			EffectSystem.Instance.SpawnUI(9, m_view.m___effect);
 		}
 
 		void OnMaskClick()
