@@ -33,6 +33,7 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 			context.onUpdate += OnUpdate;
 			m_Event += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, (num)=> RefreshLikeNum());
+			m_Event += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, (pause) => SetAutoState(false));
 
 			InitLotteryList();
 			RefreshLikeNum();
@@ -56,8 +57,7 @@ namespace SGame.UI{
 				once = true,
 			};
 			_press.onBegin.Add(() => {
-				m_Auto = true;
-				RefreshAutoState();
+				SetAutoState(true);
 			});
 
 			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
@@ -72,7 +72,6 @@ namespace SGame.UI{
 		public void RefreshAutoState() 
 		{
 			m_view.m_auto.selectedIndex = m_Auto ? 1 : 0;
-			Debug.Log(m_view.m_auto.selectedIndex);
 		}
 
 		public void RefreshLikeNum() 
@@ -232,9 +231,14 @@ namespace SGame.UI{
 
         partial void OnStopBtnClick(EventContext data)
         {
-			m_Auto = false;
+			SetAutoState(false);
+		}
+
+		void SetAutoState(bool state) 
+		{
+			m_Auto = state;
 			RefreshAutoState();
-        }
+		}
 
         void OnRewardItemRenderer(int index, GObject gObject) 
 		{
