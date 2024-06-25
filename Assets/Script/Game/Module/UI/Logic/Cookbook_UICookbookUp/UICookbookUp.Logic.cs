@@ -100,9 +100,9 @@ namespace SGame.UI
 		}
 
 
-		private void SetUpChangeInfo(GList list = null , int fcolor = 0)
+		private void SetUpChangeInfo(GList list = null , int fcolor = 0 , bool neednext = true)
 		{
-			var f = isEnable && data.nextLvCfg.IsValid();
+			var f = neednext && isEnable && data.nextLvCfg.IsValid();
 			list = list ?? m_view.m_pros;
 			SetPropertInfo(
 				list.GetChildAt(0) as UI_PropertyUpdateIcon,
@@ -177,7 +177,7 @@ namespace SGame.UI
 				if (panel == null) yield break;
 				panel.SetIcon(this.data.cfg.Icon);
 				panel.m_uplv.selectedIndex = isuplv ? 1 : 0;
-				SetUpChangeInfo(panel.m_pros , 1);
+				SetUpChangeInfo(panel.m_pros , 1 , false);
 				call?.Invoke();
 			}
 
