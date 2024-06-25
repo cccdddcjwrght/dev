@@ -195,7 +195,9 @@ namespace SGame
 				if (data.isremove && from != 0)
 					attrSys.RemoveBuff(data.id, from, data.targetid);
 				if (!data.isremove)
-					attrSys.AddBuff(data.id, data.val, data.targetid, data.time, data.from);
+				{
+					attrSys.AddBuff(data.id,  data.val, data.targetid, data.time, data.from);
+				}
 			}
 			else if (data.from != 0)
 				attrSys.RemoveBuffByFrom(data.from);

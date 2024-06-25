@@ -303,7 +303,7 @@ namespace SGame
 		/// <param name="targetid">目标类型对应的个体id ， 现在只有工作台需要</param>
 		/// <param name="time">生效时长：0永久，-1：当前关卡，>0:秒 </param>
 		/// <param name="from">buff来源，可以依据这个from清除buff</param>
-		public void AddBuff(int id, int val, int targetid = 0, int time = 0, int from = 0)
+		public bool AddBuff(int id, int val, int targetid = 0, int time = 0, int from = 0)
 		{
 			if (id > 0)
 			{
@@ -313,10 +313,15 @@ namespace SGame
 					var ct = GetCurrentTime();
 					time = time != 0 ? time : cfg.Time;
 					time = time > 0 ? ct + time : time;
+					val = val == 0 ? cfg.Value : val;
 					if (targets?.Count > 0)
-						targets.ForEach(t => t.SetTime(ct).Change(cfg.Attribute, val == 0 ? cfg.Value : val, cfg.AddType, time, from, cfg.RepeatType, id));
+					{
+						targets.ForEach(t => t.SetTime(ct).Change(cfg.Attribute, val, cfg.AddType, time, from, cfg.RepeatType, id));
+						return true;
+					}
 				}
 			}
+			return false;
 		}
 
 		/// <summary>
