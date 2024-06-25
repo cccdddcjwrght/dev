@@ -186,6 +186,7 @@ namespace SGame.UI{
 						Utils.Timer(m_AutoCloseTime, null, m_view, completed: () =>
 						{
 							m_view.m_BigLuckShow.visible = false;
+							RefreshRewardList();
 						});
 						EffectSystem.Instance.AddEffect(31, m_view.m_BigLuckShow.m_effect);
 						m_HideCfgIds.Add(cfg.Reward(0));

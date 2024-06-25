@@ -125,7 +125,7 @@ namespace SGame
                             }
                             else 
                             {
-                                _dropItems[index].SetNum(_dropItems[index].num + num);
+                                _dropItems[index]= _dropItems[index].SetNum(_dropItems[index].num + num);
                             }
                             
                         }
