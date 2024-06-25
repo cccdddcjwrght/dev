@@ -49,8 +49,8 @@ namespace SGame.UI.Reputation
             m_startBtn = (GButton)GetChildAt(17);
             m_stopBtn = (GButton)GetChildAt(19);
             m_count = (GTextField)GetChildAt(21);
-            m_list1 = (GList)GetChildAt(24);
-            m_list2 = (GList)GetChildAt(25);
+            m_list1 = (GList)GetChildAt(23);
+            m_list2 = (GList)GetChildAt(24);
             m_content = (GGroup)GetChildAt(30);
             m_BigLuckShow = (UI_BigLuckShow)GetChildAt(31);
             m___effect = (GGraph)GetChildAt(32);

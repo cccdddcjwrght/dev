@@ -62,6 +62,7 @@ namespace SGame.UI{
 
 			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
 			m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
+			m_view.m_t1.Play();
 			//m_view.m_BigLuckShow.onClick.Add(() =>
 			//{
 			//	m_view.m_BigLuckShow.visible = false;
