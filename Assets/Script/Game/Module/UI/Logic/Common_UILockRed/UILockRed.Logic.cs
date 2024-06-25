@@ -31,7 +31,7 @@ namespace SGame.UI
 			eHandler += EventManager.Instance.Reg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnGoldRefresh);
 			eHandler += EventManager.Instance.Reg<int>(((int)GameEvent.WORK_AREA_UNLOCK), a => RefreshInfo());
 			eHandler += EventManager.Instance.Reg((int)GameEvent.GUIDE_START, RefreshInfo);
-			eHandler += EventManager.Instance.Reg((int)GameEvent.RELOAD_ALL_UI, RefreshInfo);
+			eHandler += EventManager.Instance.Reg((int)GameEvent.RELOAD_ALL_UI, UpdateText);
 
 			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<SpawnUISystem>();
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
@@ -64,6 +64,15 @@ namespace SGame.UI
 				panel = null;
 				m_view.m_child.url = null;
 			}
+		}
+
+		//更新文本
+		void UpdateText() 
+		{
+			panel?.Dispose();
+			panel = null;
+			m_view.m_child.url = null;
+			RefreshInfo();
 		}
 
 		private void OnGoldRefresh(double v1, double v2)
