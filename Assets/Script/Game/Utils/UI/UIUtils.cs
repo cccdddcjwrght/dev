@@ -88,7 +88,7 @@ namespace SGame
 				var configID = ui.Value.configID;
 				if (ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData uiconfig))
 				{
-					if (HasUIGroup(configID, 11))
+					if (HasUIGroup(configID, 11) || uiconfig.Name == "mask")
 					{
 						continue;
 					}
