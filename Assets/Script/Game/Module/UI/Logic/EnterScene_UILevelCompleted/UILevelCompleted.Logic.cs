@@ -20,6 +20,7 @@ namespace SGame.UI
 				SGame.UIUtils.CloseUI(context.entity);
 				return;
 			}
+			m_view.SetIcon("ui_end_bg_"+ cfg.RegionId);
 
 			list = Utils.GetArrayList(cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
 			PropertyManager.Instance.Insert2Cache(list);
@@ -27,7 +28,6 @@ namespace SGame.UI
 
 			EffectSystem.Instance.AddEffect(9, m_view.m_body, m_view);
 			this.Delay(AddEffect, 300);
-
 
 		}
 

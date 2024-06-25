@@ -7,7 +7,9 @@ namespace SGame.UI.Cookbook
 {
     public partial class UI_NewBook : GLabel
     {
+        public Controller m_uplv;
         public GGraph m___effect;
+        public GList m_pros;
         public Transition m_t0;
         public const string URL = "ui://n2tgmsyup8z4l";
 
@@ -20,7 +22,9 @@ namespace SGame.UI.Cookbook
         {
             base.ConstructFromXML(xml);
 
+            m_uplv = GetControllerAt(0);
             m___effect = (GGraph)GetChildAt(0);
+            m_pros = (GList)GetChildAt(4);
             m_t0 = GetTransitionAt(0);
         }
     }

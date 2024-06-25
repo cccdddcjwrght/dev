@@ -16,8 +16,7 @@ namespace SGame.UI
 		{
 			_call = (context.GetParam()?.Value as object[])?.Val<Action>(0);
 			var scene = DataCenter.Instance.roomData.roomID;
-			if (ConfigSystem.Instance.TryGet<RoomRowData>(scene, out var cfg))
-				m_view.SetIcon("ui_region" + cfg.RegionId + "_bg");
+			m_view.SetIcon("ui_begin_bg_" + scene);
 		}
 
 		partial void UnInitLogic(UIContext context)

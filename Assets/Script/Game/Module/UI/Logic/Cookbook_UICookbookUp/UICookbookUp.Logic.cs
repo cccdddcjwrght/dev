@@ -10,6 +10,7 @@ namespace SGame.UI
 	using SGame.UI.Common;
 	using Unity.Entities;
 	using System.Collections;
+	using System;
 
 	public partial class UICookbookUp
 	{
@@ -99,29 +100,31 @@ namespace SGame.UI
 		}
 
 
-		private void SetUpChangeInfo()
+		private void SetUpChangeInfo(GList list = null , int fcolor = 0)
 		{
 			var f = isEnable && data.nextLvCfg.IsValid();
-
+			list = list ?? m_view.m_pros;
 			SetPropertInfo(
-				m_view.m_pros.GetChildAt(0) as UI_PropertyUpdateIcon,
+				list.GetChildAt(0) as UI_PropertyUpdateIcon,
 				"ui_cookbook_time",
 				data.lvCfg.Time,
 				f ? data.nextLvCfg.Time : 0,
-				"s"
+				"s" , fcolor
 			);
 
 			SetPropertInfo(
-				m_view.m_pros.GetChildAt(1) as UI_PropertyUpdateIcon,
+				list.GetChildAt(1) as UI_PropertyUpdateIcon,
 				"ui_cookbook_price",
 				(0.01d * data.lvCfg.Price * data.cfg.Price(2)).ToInt(),
-				f ? (0.01d * data.nextLvCfg.Price * data.cfg.Price(2)).ToInt() : 0
+				f ? (0.01d * data.nextLvCfg.Price * data.cfg.Price(2)).ToInt() : 0,
+				fcolor: fcolor
 			);
 
 			SetPropertInfo(
-				m_view.m_pros.GetChildAt(2) as UI_PropertyUpdateIcon,
+				list.GetChildAt(2) as UI_PropertyUpdateIcon,
 				"ui_cookbook_price",
-				DataCenter.MachineUtil.GetWorkItemPrice(data.id), 0
+				DataCenter.MachineUtil.GetWorkPriceByItem(data.id), 0,
+				fcolor:fcolor
 			);
 		}
 
@@ -130,13 +133,13 @@ namespace SGame.UI
 			UIListener.SetControllerSelect(star, "type", stars[index]);
 		}
 
-		private void SetPropertInfo(UI_PropertyUpdateIcon view, string name, double val, double next, string ext = null)
+		private void SetPropertInfo(UI_PropertyUpdateIcon view, string name, double val, double next, string ext = null , int fcolor = 0)
 		{
 			if (view != null)
 			{
 				view.SetTextByKey(name);
 				view.m_state.selectedIndex = next > 0 && next != val ? 0 : 1;
-
+				view.m_fcolor.selectedIndex = fcolor;
 				if (ext != null)
 				{
 					view.m_val.SetText(val.ToString() + ext, false);
@@ -154,27 +157,28 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
+
 			var state = isEnable;
-			if (DataCenter.CookbookUtils.UpLv(this.data.id))
+			if ( DataCenter.CookbookUtils.UpLv(this.data.id))
 			{
-				SetChangeInfo();
-				if (!state)
-					ShowGetNewBook();
-				else
-					EffectSystem.Instance.AddEffect(27, m_view);
+				ShowGetNewBook(SetChangeInfo, state);
 			}
 		}
 
-		void ShowGetNewBook()
+		void ShowGetNewBook(Action call = null, bool isuplv = false)
 		{
 			IEnumerator Run(GLoader loader)
 			{
-				effect = EffectSystem.Instance.AddEffect(9, loader.parent);
-				yield return new WaitForSeconds(0.1f);
+				effect = EffectSystem.Instance.AddEffect(35, loader.parent);
+				yield return new WaitForSeconds(1.5f);
+				if (m_view == null) yield break;
 				loader.url = "ui://Cookbook/NewBook";
 				var panel = loader.component as UI_NewBook;
 				if (panel == null) yield break;
 				panel.SetIcon(this.data.cfg.Icon);
+				panel.m_uplv.selectedIndex = isuplv ? 1 : 0;
+				SetUpChangeInfo(panel.m_pros , 1);
+				call?.Invoke();
 			}
 
 			Utils.ShowRewards(title: "@ui_cookbook_unlock_title", contentCall: (view) =>

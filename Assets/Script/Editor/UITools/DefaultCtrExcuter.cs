@@ -2,7 +2,6 @@
 using System.Text;
 using System;
 using FairyGUI;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 
 public class DefaultCtrExcuter : IUIExcute
 {

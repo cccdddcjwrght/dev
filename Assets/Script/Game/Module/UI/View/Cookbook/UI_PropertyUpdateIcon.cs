@@ -8,6 +8,7 @@ namespace SGame.UI.Cookbook
     public partial class UI_PropertyUpdateIcon : GLabel
     {
         public Controller m_state;
+        public Controller m_fcolor;
         public GTextField m_val2;
         public GTextField m_val;
         public GTextField m_next;
@@ -23,6 +24,7 @@ namespace SGame.UI.Cookbook
             base.ConstructFromXML(xml);
 
             m_state = GetControllerAt(0);
+            m_fcolor = GetControllerAt(1);
             m_val2 = (GTextField)GetChildAt(0);
             m_val = (GTextField)GetChildAt(1);
             m_next = (GTextField)GetChildAt(3);

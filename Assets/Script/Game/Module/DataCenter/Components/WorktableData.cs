@@ -249,6 +249,12 @@ namespace SGame
 				return 0;
 			}
 
+			public static double GetWorkPriceByItem(int item)
+			{
+				var w = GetWorktables()?.Find(w => w.item == item);
+				return w == null ? 0 : w.GetPrice();
+			}
+
 			/// <summary>
 			/// 星级进度
 			/// </summary>
