@@ -15,9 +15,12 @@ namespace SGame.UI{
 		int m_HiddenCfgId;		//隐藏奖励Id
 		List<LikeRewardData> m_RewardData;  //储存的奖励
 		List<LikeRewardData> m_DropRewardData;
-		List<ItemData.Value> m_DropItem;	//随机的掉落物品
+		List<ItemData.Value> m_DropItem;    //随机的掉落物品
 
-		List<int> m_HideCfgIds = new List<int>();
+		ItemData.Value m_CurReward;     //当前抽中的奖励
+		List<int[]> m_CommonRewardList = new List<int[]>();	//普通奖励（不用暂存）
+
+		//List<int> m_HideCfgIds = new List<int>();
 
 		int m_TotalNum = 6;		//抽奖类型数量
 		float m_Height = 200;   //抽奖item高度
@@ -26,8 +29,9 @@ namespace SGame.UI{
 		bool m_IsPlaying = false;	//是否抽奖中
 		bool m_Auto = false;        //是否自动抽奖
 
-		float m_AutoTime = 0;
-		float m_AutoCloseTime = 3f;	//自动关闭时间
+		//float m_AutoTime = 0;
+		float m_AutoCloseTime = 3f; //自动关闭时间
+		bool isPop = false;			//是否有奖励弹框
 
 		EventHandleContainer m_Event = new EventHandleContainer();
 		partial void InitLogic(UIContext context){
@@ -61,13 +65,15 @@ namespace SGame.UI{
 			});
 
 			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
-			m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
+			//m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
+			m_view.m_LuckShow.onClick.Add(() =>
+			{
+				isPop = false;
+				m_view.m_LuckShow.visible = false;
+				RefreshRewardList();
+			});
+
 			m_view.m_t1.Play();
-			//m_view.m_BigLuckShow.onClick.Add(() =>
-			//{
-			//	m_view.m_BigLuckShow.visible = false;
-			//	RefreshRewardList();
-			//});
 		}
 
 		public void RefreshAutoState() 
@@ -113,10 +119,12 @@ namespace SGame.UI{
 
 				if (config.ResultType == 1)
 				{
+					m_CurReward = new ItemData.Value() { id = config.Reward(0), num = config.Reward(1) };
 					PropertyManager.Instance.Insert2Cache(new List<int[]>() { new int[] { 1, config.Reward(0), config.Reward(1) } });
 				}
 				else if (config.ResultType == 2)
 				{
+					m_CurReward = new ItemData.Value() { id = config.Reward(0), num = config.Reward(1) };
 					DataCenter.LikeUtil.AddRewardData(config.Reward(0), config.Reward(1));
 				}
 				else if (config.ResultType == 3) 
@@ -125,6 +133,7 @@ namespace SGame.UI{
 					m_HiddenCfgId = DataCenter.LikeUtil.GetHiddenRewardIndex();
 					if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_JackpotRowData>(m_HiddenCfgId, out var cfg)) 
 					{
+						m_CurReward = new ItemData.Value() { id = cfg.Reward(0), num = cfg.Reward(1) };
 						DataCenter.LikeUtil.AddRewardData(cfg.Reward(0), cfg.Reward(1));
 					}
 				}
@@ -150,52 +159,73 @@ namespace SGame.UI{
 				m_view.m_t0.Play();
 				if (config.ResultType == 1)
 				{
-					PropertyManager.Instance.CombineCache2Items();
-					TransitionModule.Instance.PlayFlight(m_view.m_list1, config.Reward(0), m_view.m_list1.width * 0.5f);
+					m_CommonRewardList.Clear();
+					m_CommonRewardList.Add(new int[] { 1, config.Reward(0), config.Reward(1) });
+
+					isPop = true;
+					Utils.ShowRewards(m_CommonRewardList, closeCall:()=>
+					{
+						isPop = false;
+						PropertyManager.Instance.CombineCache2Items();
+					});
+
+					//自动抽奖需要关闭领取奖励界面
+					if (m_Auto) 
+					{
+						Utils.Timer(1, null, m_view, completed: () =>
+						{
+							isPop = false;
+							PropertyManager.Instance.CombineCache2Items();
+							SGame.UIUtils.CloseUIByName("rewardlist");
+						});
+					}
 				}
 				else if (config.ResultType == 2)
 				{
 					//特效表现
 					EffectSystem.Instance.AddEffect(30, m_view);
-					EffectSystem.Instance.AddEffect(33, m_view.m_fly_effect1);
-					EffectSystem.Instance.AddEffect(33, m_view.m_fly_effect2);
-
-					Vector2 start_pos1 = new Vector2(m_view.m_list1.x, m_view.m_list1.y);
-					Vector2 start_pos2 = new Vector2(m_view.m_list2.x, m_view.m_list2.y);
-					m_view.m_fly_effect1.xy = start_pos1;
-					m_view.m_fly_effect2.xy = start_pos2;
-					Vector2 end_pos = new Vector2(m_view.m_rewardList.x, m_view.m_rewardList.y);
-					GTween.To(start_pos1, end_pos, 1).SetTarget(m_view).OnUpdate((t)=> 
-					{
-						m_view.m_fly_effect1.xy = t.value.vec2;
-					});
-
-					GTween.To(start_pos2, end_pos, 1).SetTarget(m_view).OnUpdate((t) =>
-					{
-						m_view.m_fly_effect2.xy = t.value.vec2;
-					}).OnComplete(RefreshRewardList);
-					//RefreshRewardList();
+					PlayLuckShow();
 				}
 				else if (config.ResultType == 3) 
 				{
-					m_HideCfgIds.Clear();
 					if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_JackpotRowData>(m_HiddenCfgId, out var cfg))
 					{
+						isPop = true;
 						m_view.m_BigLuckShow.visible = true;
 						m_view.m_BigLuckShow.m_show.Play();
 						Utils.Timer(m_AutoCloseTime, null, m_view, completed: () =>
 						{
 							m_view.m_BigLuckShow.visible = false;
-							RefreshRewardList();
+							PlayLuckShow();
 						});
 						EffectSystem.Instance.AddEffect(31, m_view.m_BigLuckShow.m_effect);
-						m_HideCfgIds.Add(cfg.Reward(0));
-
-						m_view.m_BigLuckShow.m_list.numItems = m_HideCfgIds.Count;
 					}
 				}
 			}
 		}
+
+		void PlayLuckShow() 
+		{
+			isPop = true;
+			m_view.m_LuckShow.visible = true;
+			Vector2 start_pos = new Vector2(m_view.m_list1.x, m_view.m_list1.y);
+			Vector2 end_pos = new Vector2(m_view.m_rewardList.x, m_view.m_rewardList.y);
+
+			m_view.m_LuckShow.m_reward.SetIcon(Utils.GetItemIcon(1, m_CurReward.id));
+			m_view.m_LuckShow.m_reward.SetText("x" + m_CurReward.num);
+			EffectSystem.Instance.AddEffect(36, m_view.m_LuckShow.m_reward);
+
+			m_view.m_LuckShow.m_reward.xy = start_pos;
+			GTween.To(start_pos, end_pos, 1).SetDelay(1).SetTarget(m_view).OnUpdate((t) =>
+            {
+                m_view.m_LuckShow.m_reward.xy = t.value.vec2;
+            }).OnComplete(()=> 
+			{
+				RefreshRewardList();
+				m_view.m_LuckShow.visible = false;
+				isPop = false;
+			});
+        }
 
 		private void OnUpdate(UIContext context)
 		{
@@ -203,17 +233,8 @@ namespace SGame.UI{
 			{
 				if (!m_IsPlaying) 
 				{
-					if (m_view.m_BigLuckShow.visible)
-					{
-						m_AutoTime += Time.deltaTime;
-						if (m_AutoTime >= m_AutoCloseTime)
-						{
-							RefreshRewardList();
-							m_AutoTime = 0;
-						}
-						return;
-					}
-	
+					if (isPop) return;
+
 					if (DataCenter.Instance.likeData.likeNum > 0)
 						PlayLottery();
 					else
@@ -261,26 +282,26 @@ namespace SGame.UI{
 				gObject.SetIcon(config.Icon);
 		}
 
-		void OnBigRewardItemRenderer(int index, GObject gObject) 
-		{
-			var cfgId = m_HideCfgIds[index];
-			gObject.SetIcon(Utils.GetItemIcon(1, cfgId));
-		}
+		//void OnBigRewardItemRenderer(int index, GObject gObject) 
+		//{
+		//	var cfgId = m_HideCfgIds[index];
+		//	gObject.SetIcon(Utils.GetItemIcon(1, cfgId));
+		//}
 
 		//打开碎片宝箱
-		void OpenFramentUI() 
-		{
-			if (m_DropItem == null || m_DropItem.Count <= 0) return;
+		//void OpenFramentUI() 
+		//{
+		//	if (m_DropItem == null || m_DropItem.Count <= 0) return;
 
-			if (isHaveBox)
-			{
-				DelayExcuter.Instance.OnlyWaitUIClose("eqgiftui", () =>
-				{
-					SGame.UIUtils.OpenUI("frament", m_DropItem);
-				});
-			}
-			else SGame.UIUtils.OpenUI("frament", m_DropItem);
-		}
+		//	if (isHaveBox)
+		//	{
+		//		DelayExcuter.Instance.OnlyWaitUIClose("eqgiftui", () =>
+		//		{
+		//			SGame.UIUtils.OpenUI("frament", m_DropItem);
+		//		});
+		//	}
+		//	else SGame.UIUtils.OpenUI("frament", m_DropItem);
+		//}
 
 		partial void UnInitLogic(UIContext context){
 			context.onUpdate -= OnUpdate;

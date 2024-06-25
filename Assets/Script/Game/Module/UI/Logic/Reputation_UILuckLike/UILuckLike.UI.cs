@@ -18,6 +18,11 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_startBtn, new EventCallback1(_OnStartBtnClick));
 			UIListener.Listener(m_view.m_stopBtn, new EventCallback1(_OnStopBtnClick));
+			UIListener.ListenerClose(m_view.m_LuckShow.m_mask, new EventCallback1(DoCloseUIClick));
+			m_view.m_LuckShow.m_reward.m_bg.onChanged.Add(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_bgChanged));
+			m_view.m_LuckShow.m_reward.m_color.onChanged.Add(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_colorChanged));
+			UIListener.ListenerIcon(m_view.m_LuckShow.m_reward, new EventCallback1(_OnLuckShow_RewardClick));
+			UIListener.ListenerIcon(m_view.m_LuckShow, new EventCallback1(_OnLuckShowClick));
 			UIListener.ListenerClose(m_view.m_BigLuckShow.m_mask, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_BigLuckShow, new EventCallback1(_OnBigLuckShowClick));
 
@@ -28,6 +33,11 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_startBtn, new EventCallback1(_OnStartBtnClick),remove:true);
 			UIListener.Listener(m_view.m_stopBtn, new EventCallback1(_OnStopBtnClick),remove:true);
+			UIListener.ListenerClose(m_view.m_LuckShow.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
+			m_view.m_LuckShow.m_reward.m_bg.onChanged.Remove(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_bgChanged));
+			m_view.m_LuckShow.m_reward.m_color.onChanged.Remove(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_colorChanged));
+			UIListener.ListenerIcon(m_view.m_LuckShow.m_reward, new EventCallback1(_OnLuckShow_RewardClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_LuckShow, new EventCallback1(_OnLuckShowClick),remove:true);
 			UIListener.ListenerClose(m_view.m_BigLuckShow.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_BigLuckShow, new EventCallback1(_OnBigLuckShowClick),remove:true);
 
@@ -67,6 +77,24 @@ namespace SGame.UI{
 		string GetStopBtnText()=>UIListener.GetText(m_view.m_stopBtn);
 		void SetCountText(string data)=>UIListener.SetText(m_view.m_count,data);
 		string GetCountText()=>UIListener.GetText(m_view.m_count);
+		void _OnLuckRewardItem_LuckShow_reward_bgChanged(EventContext data){
+			OnLuckRewardItem_LuckShow_reward_bgChanged(data);
+		}
+		partial void OnLuckRewardItem_LuckShow_reward_bgChanged(EventContext data);
+		void SwitchLuckRewardItem_LuckShow_reward_bgPage(int index)=>m_view.m_LuckShow.m_reward.m_bg.selectedIndex=index;
+		void _OnLuckRewardItem_LuckShow_reward_colorChanged(EventContext data){
+			OnLuckRewardItem_LuckShow_reward_colorChanged(data);
+		}
+		partial void OnLuckRewardItem_LuckShow_reward_colorChanged(EventContext data);
+		void SwitchLuckRewardItem_LuckShow_reward_colorPage(int index)=>m_view.m_LuckShow.m_reward.m_color.selectedIndex=index;
+		void _OnLuckShow_RewardClick(EventContext data){
+			OnLuckShow_RewardClick(data);
+		}
+		partial void OnLuckShow_RewardClick(EventContext data);
+		void _OnLuckShowClick(EventContext data){
+			OnLuckShowClick(data);
+		}
+		partial void OnLuckShowClick(EventContext data);
 		void _OnBigLuckShowClick(EventContext data){
 			OnBigLuckShowClick(data);
 		}

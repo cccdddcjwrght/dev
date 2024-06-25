@@ -21,10 +21,9 @@ namespace SGame.UI.Reputation
         public GList m_list1;
         public GList m_list2;
         public GGroup m_content;
+        public UI_LuckShow m_LuckShow;
         public UI_BigLuckShow m_BigLuckShow;
         public GGraph m___effect;
-        public GGraph m_fly_effect1;
-        public GGraph m_fly_effect2;
         public Transition m_t0;
         public Transition m_t1;
         public const string URL = "ui://vnok3a30wbw3f";
@@ -52,10 +51,9 @@ namespace SGame.UI.Reputation
             m_list1 = (GList)GetChildAt(23);
             m_list2 = (GList)GetChildAt(24);
             m_content = (GGroup)GetChildAt(30);
-            m_BigLuckShow = (UI_BigLuckShow)GetChildAt(31);
-            m___effect = (GGraph)GetChildAt(32);
-            m_fly_effect1 = (GGraph)GetChildAt(33);
-            m_fly_effect2 = (GGraph)GetChildAt(34);
+            m_LuckShow = (UI_LuckShow)GetChildAt(31);
+            m_BigLuckShow = (UI_BigLuckShow)GetChildAt(32);
+            m___effect = (GGraph)GetChildAt(33);
             m_t0 = GetTransitionAt(0);
             m_t1 = GetTransitionAt(1);
         }
