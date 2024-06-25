@@ -6,9 +6,9 @@ namespace SGame.UI
 	using SGame;
 	using SGame.UI.EnterScene;
 	using GameConfigs;
-    using System.Collections.Generic;
+	using System.Collections.Generic;
 
-    public partial class UILevelCompleted
+	public partial class UILevelCompleted
 	{
 
 		List<int[]> list;
@@ -20,7 +20,7 @@ namespace SGame.UI
 				SGame.UIUtils.CloseUI(context.entity);
 				return;
 			}
-			m_view.SetIcon("ui_end_bg_"+ cfg.RegionId);
+			m_view.SetIcon(string.IsNullOrEmpty(cfg.EndImage) ? "ui_end_bg_" + roomID : cfg.EndImage);
 
 			list = Utils.GetArrayList(cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
 			PropertyManager.Instance.Insert2Cache(list);
