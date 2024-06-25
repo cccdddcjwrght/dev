@@ -125,7 +125,8 @@ namespace SGame.UI{
 				else if (config.ResultType == 2)
 				{
 					m_CurReward = new ItemData.Value() { id = config.Reward(0), num = config.Reward(1) };
-					DataCenter.LikeUtil.AddRewardData(config.Reward(0), config.Reward(1));
+					if(config.Reward(0) == 0 || config.Reward(0) == 1) PropertyManager.Instance.Insert2Cache(new List<int[]>() { new int[] { 1, config.Reward(0), config.Reward(1) } });
+					else DataCenter.LikeUtil.AddRewardData(config.Reward(0), config.Reward(1));
 				}
 				else if (config.ResultType == 3) 
 				{
@@ -149,42 +150,25 @@ namespace SGame.UI{
 			}).OnComplete(callback);
 		}
 
-		
-		public void LotteryFinish() 
+
+		public void LotteryFinish()
 		{
 			m_IsPlaying = false;
-			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config)) 
+			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config))
 			{
 				m_view.m_t1.Stop();
 				m_view.m_t0.Play();
 				if (config.ResultType == 1)
 				{
-					m_CommonRewardList.Clear();
-					m_CommonRewardList.Add(new int[] { 1, config.Reward(0), config.Reward(1) });
-
-					isPop = true;
-					Utils.ShowRewards(m_CommonRewardList, closeCall:()=>
-					{
-						isPop = false;
-						PropertyManager.Instance.CombineCache2Items();
-					});
-
-					//自动抽奖需要关闭领取奖励界面
-					if (m_Auto) 
-					{
-						Utils.Timer(1, null, m_view, completed: () =>
-						{
-							isPop = false;
-							PropertyManager.Instance.CombineCache2Items();
-							SGame.UIUtils.CloseUIByName("rewardlist");
-						});
-					}
+					PlayCommonShow();
 				}
 				else if (config.ResultType == 2)
 				{
 					//特效表现
 					EffectSystem.Instance.AddEffect(30, m_view);
-					PlayLuckShow();
+					if (config.Reward(0) == 1 || config.Reward(0) == 2)
+						PlayCommonShow();
+					else PlayLuckShow();
 				}
 				else if (config.ResultType == 3) 
 				{
@@ -201,6 +185,30 @@ namespace SGame.UI{
 						EffectSystem.Instance.AddEffect(31, m_view.m_BigLuckShow.m_effect);
 					}
 				}
+			}
+		}
+
+		void PlayCommonShow() 
+		{
+			m_CommonRewardList.Clear();
+			m_CommonRewardList.Add(new int[] { 1, m_CurReward.id, (int)m_CurReward.num });
+
+			isPop = true;
+			Utils.ShowRewards(m_CommonRewardList, closeCall: () =>
+			{
+				isPop = false;
+				PropertyManager.Instance.CombineCache2Items();
+			});
+
+			//自动抽奖需要关闭领取奖励界面
+			if (m_Auto)
+			{
+				Utils.Timer(1, null, m_view, completed: () =>
+				{
+					isPop = false;
+					PropertyManager.Instance.CombineCache2Items();
+					SGame.UIUtils.CloseUIByName("rewardlist");
+				});
 			}
 		}
 
