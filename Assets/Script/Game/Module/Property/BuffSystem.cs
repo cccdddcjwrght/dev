@@ -26,7 +26,7 @@ namespace SGame
 			EventManager.Instance.Reg<long, int, RoleData>(((int)GameEvent.FRIEND_HIRING), (id, type, data) => OnRoleAdd(data));
 			EventManager.Instance.Reg<RoleData>(((int)GameEvent.BUFF_ADD_ROLE), OnRoleAdd);
 			EventManager.Instance.Reg<RoleData>(((int)GameEvent.WORK_TABLE_ENABLE), OnRoleAdd);
-
+			EventManager.Instance.Reg<int>(((int)GameEvent.SHOP_GOODS_BUY_RESULT), OnNoAdBuy);
 
 			//全局
 			InitGlobalAttribute();
@@ -38,6 +38,7 @@ namespace SGame
 			//重置当前关卡所有角色属性
 			ReInitAllAttribute(room);
 			EventManager.Instance.Trigger(((int)GameEvent.BUFF_RESET));
+			OnNoAdBuy(-1);
 			//关卡科技生效
 			DataCenter.RoomUtil.InitTechBuffs();
 			//装备属性
@@ -211,10 +212,21 @@ namespace SGame
 			{
 				var list = attrSys.GetAttributeList(((int)EnumTarget.Machine), id);
 				var book = DataCenter.CookbookUtils.GetBook(w.item);
-				if (list != null && book!=null) list.GetAttribute((int)EnumAttribute.Price).SetOrigin(book.cfg.Price(2));
+				if (list != null && book != null) list.GetAttribute((int)EnumAttribute.Price).SetOrigin(book.cfg.Price(2));
 			}
 		}
 
+
+		private void OnNoAdBuy(int id)
+		{
+			if (id == -1 && DataCenter.IsIgnoreAd()) id = 1;
+			if (id == 1)
+			{
+				var buff = GlobalDesginConfig.GetIntArray("no_ads_buff");
+				if (buff != null)
+					OnBuffAdd(new BuffData() { id = buff[0], val = buff[1], from = ((int)EnumFrom.NoAd) });
+			}
+		}
 		#endregion
 
 	}

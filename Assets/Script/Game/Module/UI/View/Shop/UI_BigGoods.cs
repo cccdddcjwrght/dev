@@ -40,7 +40,7 @@ namespace SGame.UI.Shop
             m_items = (GList)GetChildAt(3);
             m_desc = (GTextField)GetChildAt(5);
             m_count = (GTextField)GetChildAt(6);
-            m_time = (GTextField)GetChildAt(9);
+            m_time = (GTextField)GetChildAt(7);
             m_t0 = GetTransitionAt(0);
         }
     }

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using GameConfigs;
 using libx;
-using Unity.VisualScripting;
 using UnityEngine;
-using static Fibers.Fiber;
 
 namespace SGame
 {
@@ -15,6 +14,7 @@ namespace SGame
 		private static readonly string c_shop_cfg_path = Assets.updatePath + "/Shop.bytes";
 
 		static private string shop_lock = "shop";
+		static private int[] G_GAME_BUFF;
 
 		[InitCall]
 		static void InitShop()
@@ -87,10 +87,16 @@ namespace SGame
 
 				Utils.ShowRewards(items);
 				EventManager.Instance.Trigger(((int)GameEvent.SHOP_GOODS_BUY_RESULT), id);
+				if(id == 1)
+				{
+
+				}
 			}
 			call?.Invoke(state);
 			UILockManager.Instance.Release(shop_lock);
 			SceneCameraSystem.Instance.disableTouch = false;
+
+
 		}
 
 	}

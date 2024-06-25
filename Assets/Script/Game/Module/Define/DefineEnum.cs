@@ -266,6 +266,10 @@ namespace SGame
 		/// 俱乐部
 		/// </summary>
 		Club,
+		/// <summary>
+		/// 无广告
+		/// </summary>
+		NoAd,
 	}
 
 	/// <summary>
