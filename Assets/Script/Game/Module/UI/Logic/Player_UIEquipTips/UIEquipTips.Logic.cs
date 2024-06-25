@@ -151,10 +151,14 @@ namespace SGame.UI
 				return;
 			}
 			needRefreshPlayUI = true;
-			itemcount -= RequestExcuteSystem.EquipUpLevel(equip);
+			itemcount -= RequestExcuteSystem.EquipUpLevel(equip , out var success);
+
+			if (success)
+				EffectSystem.Instance.AddEffect(27, m_view);
+
 			SetSimpleInfo();
 			if (itemcount < equip.upLvCost)
-				pressHandler.Cancel();
+				pressHandler?.Cancel();
 
 		}
 

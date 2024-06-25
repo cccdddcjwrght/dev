@@ -12,6 +12,7 @@ namespace SGame.UI
 	using System.Linq;
 	using System.Collections;
 	using SGame.UI.Common;
+	using Unity.Entities.UniversalDelegates;
 
 	public partial class UIPlayer
 	{
@@ -73,7 +74,7 @@ namespace SGame.UI
 		{
 			m_view.m_EquipPage.Init(
 				(i, g) => OnEqClick(g, DataCenter.Instance.equipData.equipeds[i]),
-				(i) => RequestExcuteSystem.EquipUpLevel(DataCenter.Instance.equipData.equipeds[i])
+				DoUpLv
 			);
 		}
 
@@ -106,6 +107,15 @@ namespace SGame.UI
 				.SetInfo(null)
 				.SetEquipInfo()
 				.RefreshModel();
+		}
+
+		void DoUpLv(int i, GObject gObject)
+		{
+			RequestExcuteSystem.EquipUpLevel(DataCenter.Instance.equipData.equipeds[i] , out var success);
+			if (success)
+			{
+				EffectSystem.Instance.AddEffect(27, gObject);
+			}
 		}
 
 		#endregion

@@ -27,6 +27,7 @@ namespace SGame.UI.Player
         public GLoader m___icon;
         public GTextField m_step_2;
         public GTextField m_count;
+        public GGraph m___effect;
         public const string URL = "ui://cmw7t1elk62213";
 
         public static UI_Equip CreateInstance()
@@ -58,6 +59,7 @@ namespace SGame.UI.Player
             m___icon = (GLoader)GetChildAt(9);
             m_step_2 = (GTextField)GetChildAt(12);
             m_count = (GTextField)GetChildAt(14);
+            m___effect = (GGraph)GetChildAt(18);
         }
     }
 }

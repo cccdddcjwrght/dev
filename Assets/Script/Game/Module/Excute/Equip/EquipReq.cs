@@ -66,10 +66,12 @@ namespace SGame
 			return false;
 		}
 
-		static public double EquipUpLevel(EquipItem equip)
+		static public double EquipUpLevel(EquipItem equip , out bool success)
 		{
+			success = false;
 			if (equip != null && !equip.IsMaxLv() && Utils.CheckItemCount(ConstDefine.EQUIP_UPLV_MAT, equip.upLvCost))
 			{
+				success = true;
 				var cost = equip.upLvCost;
 				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, equip.upLvCost, true);
 				equip.level++;

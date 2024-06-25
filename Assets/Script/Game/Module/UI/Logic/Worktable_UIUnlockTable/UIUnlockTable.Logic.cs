@@ -48,7 +48,7 @@ namespace SGame.UI
 
 		void SetInfo()
 		{
-			var add = data.objNextLvCfg.CustomerNum - (data.objLvCfg.IsValid() ? data.objLvCfg.CustomerNum : 0);
+			var add = data.objNextLvCfg.ShowNum > 0 ? data.objNextLvCfg.ShowNum : data.objNextLvCfg.CustomerNum - (data.objLvCfg.IsValid() ? data.objLvCfg.CustomerNum : 0);
 			price = data.GetUnlockPrice();
 			m_view.SetIcon(data.objCfg.Icon);
 			m_view.m_tips.SetTextByKey(data.objCfg.Des);

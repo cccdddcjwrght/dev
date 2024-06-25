@@ -15,7 +15,7 @@ namespace SGame.UI.Player
 
 		private Action<int, GObject> eqclick;
 
-		public UI_EquipPage Init(Action<int, GObject> eqclick, Action<int> uplvClick = null)
+		public UI_EquipPage Init(Action<int, GObject> eqclick, Action<int , GObject> uplvClick = null)
 		{
 
 			this.eqclick = eqclick;
@@ -46,9 +46,9 @@ namespace SGame.UI.Player
 				m_eq2.m_upclick.onClick.Clear();
 				m_eq3.m_upclick.onClick.Clear();
 
-				m_eq1.m_upclick.onClick.Add(() => uplvClick?.Invoke(1));
-				m_eq2.m_upclick.onClick.Add(() => uplvClick?.Invoke(2));
-				m_eq3.m_upclick.onClick.Add(() => uplvClick?.Invoke(3));
+				m_eq1.m_upclick.onClick.Add(() => uplvClick?.Invoke(1, m_eq1.m_body));
+				m_eq2.m_upclick.onClick.Add(() => uplvClick?.Invoke(2, m_eq2.m_body));
+				m_eq3.m_upclick.onClick.Add(() => uplvClick?.Invoke(3, m_eq3.m_body));
 			}
 
 			return this;
