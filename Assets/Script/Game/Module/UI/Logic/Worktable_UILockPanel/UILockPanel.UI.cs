@@ -34,10 +34,16 @@ namespace SGame.UI{
 		}
 		partial void OnTypeChanged(EventContext data);
 		void SwitchTypePage(int index)=>m_view.m_type.selectedIndex=index;
+		void SetUnlockText(string data)=>UIListener.SetText(m_view.m_unlock,data);
+		string GetUnlockText()=>UIListener.GetText(m_view.m_unlock);
 		void _OnClickClick(EventContext data){
 			OnClickClick(data);
 		}
 		partial void OnClickClick(EventContext data);
+		void SetClickText(string data)=>UIListener.SetText(m_view.m_click,data);
+		string GetClickText()=>UIListener.GetText(m_view.m_click);
+		void SetTipsText(string data)=>UIListener.SetText(m_view.m_tips,data);
+		string GetTipsText()=>UIListener.GetText(m_view.m_tips);
 
 	}
 }

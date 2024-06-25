@@ -14,11 +14,15 @@ namespace SGame.UI
 	{
 		private int area;
 		private GameObject target;
-		private GameConfigs.RedConfigRowData redCfg;
 		private UI_LockPanelUI panel;
+
+		private GameConfigs.RedConfigRowData redCfg;
 		private GameConfigs.RoomAreaRowData cfg;
 
 		private EventHandleContainer eHandler = new EventHandleContainer();
+
+		private SGame.Worktable worktable;
+		private GameConfigs.MachineRowData machineCfg;
 
 		partial void InitLogic(UIContext context)
 		{
@@ -67,7 +71,7 @@ namespace SGame.UI
 		}
 
 		//更新文本
-		void UpdateText() 
+		void UpdateText()
 		{
 			panel?.Dispose();
 			panel = null;
@@ -84,17 +88,51 @@ namespace SGame.UI
 		private void SetUnlockBtn(float[] cost)
 		{
 			if (panel == null) return;
-			var state = PropertyManager.Instance.CheckCountByArgs(cost);
-			panel.m_unlock.SetTextByKey("ui_unlock_tips");
-			panel.m_btnty.selectedIndex = state ? 0 : 1;
-			panel.m_click.touchable = state;
-			UIListener.SetText(panel.m_click, SGame.Utils.ConvertNumberStr(cost[2]));
-			UIListener.SetControllerSelect(panel.m_click, "limit", 0);
-			UIListener.SetControllerSelect(panel.m_click, "gray", state ? 0 : 1);
 
-			if (!state) panel.m_click.GetChild("bg").icon = null;
-			panel.m_click.onClick?.Clear();
-			panel.m_click.onClick.Add(Unlock);
+			if (CheckMainCondition())
+			{
+				var state = PropertyManager.Instance.CheckCountByArgs(cost);
+				panel.m_type.selectedIndex = 0;
+				panel.m_unlock.SetTextByKey("ui_unlock_tips");
+				panel.m_btnty.selectedIndex = state ? 0 : 1;
+				panel.m_click.touchable = state;
+				UIListener.SetText(panel.m_click, SGame.Utils.ConvertNumberStr(cost[2]));
+				UIListener.SetControllerSelect(panel.m_click, "limit", 0);
+				UIListener.SetControllerSelect(panel.m_click, "gray", state ? 0 : 1);
+
+				if (!state) panel.m_click.GetChild("bg").icon = null;
+				panel.m_click.onClick?.Clear();
+				panel.m_click.onClick.Add(Unlock);
+			}
+			else
+				panel.m_type.selectedIndex = 1;
+		}
+
+		private bool CheckMainCondition()
+		{
+			if (cfg.Type > 0)
+			{
+				var ret = true;
+				var tips = default(string);
+				switch (cfg.Type)
+				{
+					case 1://工作台等级
+						worktable = worktable ?? DataCenter.MachineUtil.GetWorktable(cfg.TypeValue(0));
+						if (!machineCfg.IsValid()) ConfigSystem.Instance.TryGet<MachineRowData>(cfg.TypeValue(0), out machineCfg);
+						ret = worktable !=null && worktable.level >= cfg.TypeValue(1);
+						if (!ret) tips = "ui_area_unlock_tips1".Local(null, machineCfg.MachineName.Local(), cfg.TypeValue(1));
+						break;
+				}
+
+				if (!ret)
+				{
+					panel.m_tips.SetText(tips, false);
+					panel.SetIcon(cfg.TypeIcon);
+				}
+
+				return ret;
+			}
+			return true;
 		}
 
 		private void Unlock()
@@ -107,6 +145,8 @@ namespace SGame.UI
 		{
 			eHandler?.Close();
 			eHandler = null;
+			worktable = default;
+			machineCfg = default;
 		}
 	}
 }

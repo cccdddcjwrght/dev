@@ -12,6 +12,7 @@ namespace SGame.UI.Worktable
         public GTextField m_unlock;
         public GButton m_click;
         public GGroup m_info;
+        public GTextField m_tips;
         public GGroup m_view;
         public Transition m_t0;
         public const string URL = "ui://m8rpv7f9k7tei";
@@ -30,7 +31,8 @@ namespace SGame.UI.Worktable
             m_unlock = (GTextField)GetChildAt(1);
             m_click = (GButton)GetChildAt(3);
             m_info = (GGroup)GetChildAt(4);
-            m_view = (GGroup)GetChildAt(5);
+            m_tips = (GTextField)GetChildAt(5);
+            m_view = (GGroup)GetChildAt(8);
             m_t0 = GetTransitionAt(0);
         }
     }
