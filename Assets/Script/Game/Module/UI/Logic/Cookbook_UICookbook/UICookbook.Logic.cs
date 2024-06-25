@@ -18,7 +18,7 @@ namespace SGame.UI
 			m_view.m_list.itemRenderer = OnSetItemInfo;
 			SwitchTabsPage(0);
 			OnTabsChanged(null);
-			
+
 			CustomerBookInit();
 		}
 
@@ -62,13 +62,31 @@ namespace SGame.UI
 		void OnCookBookTab()
 		{
 			m_view.m_list.RemoveChildrenToPool();
-			_itemDatas = DataCenter.CookbookUtils.GetBookIDs();
+			var bs = DataCenter.CookbookUtils.GetBooks();
+			bs.Sort((b, a) =>
+			{
+
+				var v1 = a.IsEnable();
+				var v2 = b.IsEnable();
+				var ret = v1.CompareTo(v2);
+				if (ret == 0)
+				{
+					v1 = a.CanUpLv(out _);
+					v2 = b.CanUpLv(out _);
+					ret = v1.CompareTo(v2);
+					if (ret == 0)
+						ret = -a.id.CompareTo(b.id);
+				}
+				return ret;
+
+			});
+			_itemDatas = bs;
 			m_view.m_list.numItems = _itemDatas.Count;
 		}
 
 		void SetBookInfo(int index, GObject gObject)
 		{
-			var data = DataCenter.CookbookUtils.GetBook((int)_itemDatas[index]);
+			var data = (CookBookItem)_itemDatas[index];
 			var openFoodTypes = TableManager.Instance.GetOpenFoodTypes();
 
 			gObject.name = index.ToString();
@@ -76,7 +94,7 @@ namespace SGame.UI
 			if (data != null)
 			{
 				gObject.SetIcon(data.cfg.Icon);
-				(gObject as UI_BookItem).m_level.SetTextByKey("ui_common_lv", data.level,data.maxLv);
+				(gObject as UI_BookItem).m_level.SetTextByKey("ui_common_lv", data.level, data.maxLv);
 				gObject.onClick.Clear();
 				gObject.onClick.Add(OnBookClick);
 				//gObject.grayed = !(openFoodTypes.Contains(data.id));
@@ -85,7 +103,7 @@ namespace SGame.UI
 				if (!data.IsEnable())
 				{
 					state = 3;
-					if (data.lvCfg.ConditionType == 3 && Utils.CheckItemCount(data.lvCfg.ConditionValue(0), data.lvCfg.ConditionValue(1),false))
+					if (data.lvCfg.ConditionType == 3 && Utils.CheckItemCount(data.lvCfg.ConditionValue(0), data.lvCfg.ConditionValue(1), false))
 						state = 2;
 				}
 				else if (data.CanUpLv(out _))

@@ -107,10 +107,10 @@ namespace SGame.UI
 			SetPropertInfo(
 				list.GetChildAt(0) as UI_PropertyUpdateIcon,
 				"ui_cookbook_time",
-				data.lvCfg.Time,
-				f ? data.nextLvCfg.Time : 0,
-				"s" , fcolor
-			);
+				((double)data.lvCfg.Time).Round(),
+				f ? ((double)data.nextLvCfg.Time).Round() : 0,
+				"s", fcolor
+			); ;
 
 			SetPropertInfo(
 				list.GetChildAt(1) as UI_PropertyUpdateIcon,
@@ -169,6 +169,7 @@ namespace SGame.UI
 		{
 			IEnumerator Run(GLoader loader)
 			{
+				loader.parent.touchable = false;
 				effect = EffectSystem.Instance.AddEffect(35, loader.parent);
 				yield return new WaitForSeconds(1.5f);
 				if (m_view == null) yield break;
@@ -179,6 +180,8 @@ namespace SGame.UI
 				panel.m_uplv.selectedIndex = isuplv ? 1 : 0;
 				SetUpChangeInfo(panel.m_pros , 1 , false);
 				call?.Invoke();
+				yield return new WaitForSeconds(0.5f);
+				loader.parent.touchable = true;
 			}
 
 			Utils.ShowRewards(title: "@ui_cookbook_unlock_title", contentCall: (view) =>
