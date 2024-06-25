@@ -10,6 +10,7 @@ namespace SGame.UI.Common
         public Controller m_hidebg;
         public Controller m_fontsize;
         public Controller m_type;
+        public GGraph m___effect;
         public GTextField m___title;
         public GLoader m_top;
         public GLoader m_bottom;
@@ -27,9 +28,10 @@ namespace SGame.UI.Common
             m_hidebg = GetControllerAt(0);
             m_fontsize = GetControllerAt(1);
             m_type = GetControllerAt(2);
-            m___title = (GTextField)GetChildAt(3);
-            m_top = (GLoader)GetChildAt(4);
-            m_bottom = (GLoader)GetChildAt(5);
+            m___effect = (GGraph)GetChildAt(0);
+            m___title = (GTextField)GetChildAt(4);
+            m_top = (GLoader)GetChildAt(5);
+            m_bottom = (GLoader)GetChildAt(6);
         }
     }
 }

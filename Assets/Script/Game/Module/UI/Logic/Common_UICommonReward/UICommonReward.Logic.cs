@@ -14,20 +14,22 @@ namespace SGame.UI
 	using SGame;
 	using SGame.UI.Common;
 	using System;
+    using Unity.Entities;
 
-	/// <summary>
-	/// 参数0：奖励列表
-	/// 参数1：点击回调
-	/// 参数2：标题
-	/// 参数3：界面打开就领取奖励
-	/// </summary>
-	public partial class UICommonReward
+    /// <summary>
+    /// 参数0：奖励列表
+    /// 参数1：点击回调
+    /// 参数2：标题
+    /// 参数3：界面打开就领取奖励
+    /// </summary>
+    public partial class UICommonReward
 	{
 		private Action _call;
 		private List<double[]> _rewards;
 		private bool _get;
 		private bool _flag;
 		private ItemList _itemList;
+		List<Entity> _effects = new List<Entity>();
 
 		partial void InitLogic(UIContext context)
 		{
@@ -74,6 +76,7 @@ namespace SGame.UI
 				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
 				Do().Start();
 			}
+			_effects.Foreach((e) => EffectSystem.Instance.ReleaseEffect(e));
 		}
 
 		IEnumerator Do()
@@ -101,6 +104,8 @@ namespace SGame.UI
 			SGame.UIUtils.AddListItems(m_view.m_list, _rewards, (index, data, g) =>
 			{
 				g.SetCommonItem(null, data as double[]);
+				var item = (UI_BigItem)g;
+				_effects.Add(EffectSystem.Instance.AddEffect(36, item.m_body));
 			}, ignoreNull: true);
 		}
 	}
