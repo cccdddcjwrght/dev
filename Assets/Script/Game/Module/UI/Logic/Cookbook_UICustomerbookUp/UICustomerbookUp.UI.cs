@@ -19,7 +19,7 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_customer.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerClose(m_view.m_customer.m_nobody, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_customer, new EventCallback1(_OnCustomerClick));
-			UIListener.ListenerIcon(m_view.m_click, new EventCallback1(_OnClickClick));
+			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -29,7 +29,7 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_customer.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerClose(m_view.m_customer.m_nobody, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_customer, new EventCallback1(_OnCustomerClick),remove:true);
-			UIListener.ListenerIcon(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
+			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 
 		}
 		void _OnTake_rewardChanged(EventContext data){
@@ -65,6 +65,8 @@ namespace SGame.UI{
 			OnClickClick(data);
 		}
 		partial void OnClickClick(EventContext data);
+		void SetClickText(string data)=>UIListener.SetText(m_view.m_click,data);
+		string GetClickText()=>UIListener.GetText(m_view.m_click);
 
 	}
 }
