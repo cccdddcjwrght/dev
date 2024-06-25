@@ -45,6 +45,7 @@ namespace SGame.UI{
 		{
 			ConfigSystem.Instance.TryGet(NewbieGiftModule.GOOD_ITEM_ID, out ShopRowData config);
 			probabilityUI.SetRates(config.GetChestInfoArray());
+			probabilityUI.SetIcon(config.ChestOpen);
 			probabilityUI.m_show.selectedIndex = 1;
 		}
 

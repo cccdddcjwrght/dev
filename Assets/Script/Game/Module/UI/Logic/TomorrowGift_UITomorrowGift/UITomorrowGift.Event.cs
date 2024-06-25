@@ -95,6 +95,7 @@ namespace SGame.UI{
 			ConfigSystem.Instance.TryGet(TomorrowGiftModule.GOOD_ITEM_ID, out ShopRowData config);
 			//m_view.m_probablity.visible = true;
 			probabilityUI.SetRates(config.GetChestInfoArray());
+			probabilityUI.SetIcon(config.ChestOpen);
 			probabilityUI.m_show.selectedIndex = 1;
 		}
 
