@@ -23,7 +23,7 @@ namespace SGame
 		private static GameObject __inst;
 		private static bool _isLoading;
 
-		const int C_DEF_FOV = 50;
+		const int C_DEF_FOV = 11;
 
 		const string C_CTR_TAG = "__cameratarget";
 		const string C_RES_PATH = "Assets/BuildAsset/Prefabs/CameraCtr.prefab";
@@ -212,7 +212,10 @@ namespace SGame
 				leftRight.inputValue = rot;
 				leftRight.currentValue %= 360;
 			}
-			fieldOfView.inputValue = fov >= 0 ? fov : fieldOfView.inputValue;
+			if (fieldOfView.isEnable)
+				fieldOfView.inputValue = fov >= 0 ? fov : fieldOfView.inputValue;
+			/*else if (fieldSize.isEnable)
+				fieldSize.inputValue = fov >= 0 ? fov : fieldOfView.inputValue;*/
 
 			if (time > 0)
 			{
@@ -221,6 +224,7 @@ namespace SGame
 				zMove.CalulateSpeed(zMove.inputValue, time, true);
 				leftRight.CalulateSpeed(leftRight.inputValue, time, true);
 				fieldOfView.CalulateSpeed(fieldOfView.inputValue, time, true);
+				/*fieldSize.CalulateSpeed(fieldSize.inputValue, time, true);*/
 			}
 		}
 
@@ -502,7 +506,7 @@ namespace SGame
 			sceneXMove = xMove;
 			sceneZMove = zMove;
 			sceneFOV = fieldOfView;
-			SetOrginVal(xMove.startValue, yMove.startValue, zMove.startValue, leftRight.startValue, fieldOfView.startValue);
+			SetOrginVal(xMove.startValue, yMove.startValue, zMove.startValue, leftRight.startValue, fieldSize.startValue);
 			InitCameraBrain();
 			CreateTarget();
 			CreateVCamera();

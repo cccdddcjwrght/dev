@@ -357,8 +357,10 @@ namespace SGame.UI
 		{
 			var index = m_view.m_foods.selectedIndex;
 			var book = books[index];
-			UIListener.SetText(m_view, data.foodName, false);
+			UIListener.SetText(m_view, "ui_worktable_name".Local(null, book.cfg.Name.Local()), false);
 			SetFoodInfo(book.id);
+			if (!book.IsEnable())
+				SGame.UIUtils.OpenUI("cookbookup", book);
 		}
 
 		void SetFoodInfo(int id)
