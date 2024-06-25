@@ -194,8 +194,10 @@ namespace SGame
 
 		RELOAD_ALL_UI					= 24000, //重新加载所有UI				
 		
-		CUSTOMER_BOOK_UPDATE			= 25000, // 角色图鉴数据刷新
 
 		LIKE_SPIN						= 25000, //好评奖励id
+		
+		CUSTOMER_BOOK_UPDATE			= 26000, // 角色图鉴数据刷新
+
 	}
 }
