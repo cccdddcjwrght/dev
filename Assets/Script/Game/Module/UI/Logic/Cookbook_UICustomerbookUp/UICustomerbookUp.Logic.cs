@@ -23,6 +23,7 @@ namespace SGame.UI{
 
 			m_view.m_take_reward.selectedIndex = m_data.isRewarded ? 1 : 0;
 			m_view.m_click.onClick.Set(OnClickReward);
+			m_view.m_txtDesc.SetText(m_data.Config.Des);
 			
 			// 设置按钮图标
 			if (m_data.Config.UnlockRewardLength != 3)

@@ -68,7 +68,7 @@ namespace SGame.UI
 			}
 			ui.m_state.selectedIndex = (int)state;
 			
-			if (state != CustomerBookState.UNLOCK)
+			if (state != CustomerBookState.LOCK)
 			{
 				// 设置图标
 				ui.m_body.m_body.icon = data.Icon;
@@ -79,7 +79,7 @@ namespace SGame.UI
 
 
 			// 设置按钮响应
-			if (state == CustomerBookState.CANTAKE)
+			if (state != CustomerBookState.LOCK)
 			{
 				ui.onClick.Set(OnCustomerBookClick);
 			}
