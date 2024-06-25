@@ -87,7 +87,7 @@ namespace SGame.UI
 			{
 				SwitchTabPage(0);
 				m_view.m___effect.xy = m_view.size * 0.5f;
-				var e = EffectSystem.Instance.AddEffect(24, m_view);
+				var e = EffectSystem.Instance.AddEffect(33, m_view);
 				yield return EffectSystem.Instance.WaitEffectLoaded(e);
 				var index = DataCenter.Instance.petData.pets.IndexOf(pet);
 				m_view.m_list.ScrollToView(index);
@@ -95,9 +95,9 @@ namespace SGame.UI
 				var target = m_view.m_list.GetChildAt(index);
 				var tweener = m_view.m___effect.TweenMove(target.TransformPoint(target.size * 0.5f, m_view), 0.5f);
 				yield return new WaitForSeconds(0.5f);
-				EffectSystem.Instance.ReleaseEffect(e);
-				m_view.m___effect.xy = m_view.size * 0.5f;
-				e = EffectSystem.Instance.AddEffect(28, m_view);
+				//EffectSystem.Instance.ReleaseEffect(e);
+				//m_view.m___effect.xy = m_view.size * 0.5f;
+				e = EffectSystem.Instance.AddEffect(28, m_view.m___effect2);
 				yield return new WaitForSeconds(1.5f);
 				complete?.Invoke();
 			}

@@ -87,7 +87,7 @@ namespace SGame.UI
 					if (_mask != null)
 					{
 						_mask.Value.alpha = 0.01f;
-						_mask.Value.z = -250;
+						_mask.Value.z = -350;
 					}
 					m_view.visible = false;
 					EventManager.Instance.Trigger(((int)GameEvent.PET_BORN_EVO), _pet, new Action(OnEffectCompleted));
