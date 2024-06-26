@@ -94,6 +94,12 @@ namespace SGame.UI{
 		void RenderListItem(int index, GObject obj)
 		{
 			var setItemData = _setItemDataList[index];
+			if (setItemData.id == "contact us")
+			{
+				obj.visible = false;
+				return;
+			}
+
 			var setItem = obj as UI_SetItem;
 			var body = setItem.m_body;
 			body.icon = string.Format("ui://Setting/{0}",setItemData.iconPath);
