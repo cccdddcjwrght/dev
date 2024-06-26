@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FairyGUI;
 using SGame.UI.Common;
-using Unity.VisualScripting;
 
 namespace SGame.UI
 {
@@ -14,15 +13,15 @@ namespace SGame.UI
 	using SGame;
 	using SGame.UI.Common;
 	using System;
-    using Unity.Entities;
+	using Unity.Entities;
 
-    /// <summary>
-    /// 参数0：奖励列表
-    /// 参数1：点击回调
-    /// 参数2：标题
-    /// 参数3：界面打开就领取奖励
-    /// </summary>
-    public partial class UICommonReward
+	/// <summary>
+	/// 参数0：奖励列表
+	/// 参数1：点击回调
+	/// 参数2：标题
+	/// 参数3：界面打开就领取奖励
+	/// </summary>
+	public partial class UICommonReward
 	{
 		private Action _call;
 		private List<double[]> _rewards;
@@ -33,6 +32,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
+
 			m_view.z = -300;
 			_flag = false;
 			context.window.AddEventListener("OnMaskClick", OnClickClick);
@@ -83,7 +83,8 @@ namespace SGame.UI
 		{
 			UILockManager.Instance.Require("rewardlist");
 			yield return new WaitForSeconds(0.1f);
-			this.Call(PropertyManager.Instance.CombineCache2Items, () => !TransitionModule.isPlay);
+			yield return new WaitUntil(() => !TransitionModule.isPlay);
+			PropertyManager.Instance.CombineCache2Items();
 			yield return new WaitForSeconds(0.1f);
 			UILockManager.Instance.Release("rewardlist");
 

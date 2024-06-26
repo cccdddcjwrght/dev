@@ -89,12 +89,16 @@ namespace SGame
 		public void Refresh()
 		{
 			if (bookIDs == null)
+			{
 				bookIDs = ConfigSystem.Instance
 					.Finds<CookBookRowData>(c => c.Level == 1)
 					.Select(c => c.CookId)
 					.ToList();
+			}
 			books.ForEach(b => b.Refresh());
 			bookDics = books.ToDictionary(b => b.id);
+			bookIDs.ForEach(b => DataCenter.CookbookUtils.GetBook(b));
+
 		}
 
 	}
