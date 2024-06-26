@@ -14,7 +14,7 @@ namespace SGame.UI{
 		int m_LikeCfgId;        //好评奖励Id
 		int m_HiddenCfgId;		//隐藏奖励Id
 		List<LikeRewardData> m_RewardData;  //储存的奖励
-		List<LikeRewardData> m_DropRewardData;
+		//List<LikeRewardData> m_DropRewardData;
 		List<ItemData.Value> m_DropItem;    //随机的掉落物品
 
 		ItemData.Value m_CurReward;     //当前抽中的奖励
@@ -30,6 +30,7 @@ namespace SGame.UI{
 		bool m_Auto = false;        //是否自动抽奖
 
 		//float m_AutoTime = 0;
+		GTweener m_Tweener;
 		float m_AutoCloseTime = 3f; //自动关闭时间
 		bool isPop = false;			//是否有奖励弹框
 
@@ -69,6 +70,7 @@ namespace SGame.UI{
 			m_view.m_LuckShow.onClick.Add(() =>
 			{
 				isPop = false;
+				m_Tweener?.Kill();
 				m_view.m_LuckShow.visible = false;
 				RefreshRewardList();
 			});
@@ -224,12 +226,13 @@ namespace SGame.UI{
 			EffectSystem.Instance.AddEffect(36, m_view.m_LuckShow.m_reward);
 
 			m_view.m_LuckShow.m_reward.xy = start_pos;
-			GTween.To(start_pos, end_pos, 1).SetDelay(1).SetTarget(m_view).OnUpdate((t) =>
+			m_Tweener = GTween.To(start_pos, end_pos, 1).SetDelay(1).SetTarget(m_view).OnUpdate((t) =>
             {
                 m_view.m_LuckShow.m_reward.xy = t.value.vec2;
             }).OnComplete(()=> 
 			{
 				RefreshRewardList();
+				EffectSystem.Instance.AddEffect(37, m_view.m___luckeff);
 				m_view.m_LuckShow.visible = false;
 				isPop = false;
 			});
@@ -322,27 +325,9 @@ namespace SGame.UI{
 
 			if (m_RewardData.Count > 0)
 			{
-				//如果有食谱碎片宝箱，先加上
-				m_DropRewardData = m_RewardData.Where((r) => r.itemType == (int)EnumItemType.ChestKey).ToList();
-				//isHaveBox = m_RewardData.Find((r) => r.itemType == (int)EnumItemType.Chest && r.subType == 0) !=null;
-				//m_RewardData.RemoveAll((r) => r.itemType == (int)EnumItemType.ChestKey);
-				//for (int i = 0; i < m_DropRewardData.Count; i++)
-				//{
-				//	var data = m_DropRewardData[i];
-				//	m_DropItem = DataCenter.LikeUtil.GetItemDrop(data.typeId, data.num, i == 0);
-				//}
-				//m_DropItem.Foreach((d) => PropertyManager.Instance.Update(d.type, d.id, d.num));
-
-				if (m_RewardData.Count > 0)
-				{
-					//关闭界面的时候打开领取普通大奖获得的奖励
-					m_RewardData.Foreach((r) => { list.Add(new int[] { 1, r.id, r.num }); });
-					Utils.ShowRewards(list, updatedata: true);
-				}
-				//else 
-				//{
-				//	OpenFramentUI();
-				//}
+				//关闭界面的时候打开领取普通大奖获得的奖励
+				m_RewardData.Foreach((r) => { list.Add(new int[] { 1, r.id, r.num }); });
+				Utils.ShowRewards(list, updatedata: true);
 				m_RewardData.Clear();
 			}
 		}
