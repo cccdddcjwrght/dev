@@ -65,7 +65,7 @@ namespace SGame.UI
 		{
 			ConfigSystem.Instance.TryGet<BuffRowData>(equip.attrID, out buff);
 
-			m_view.SetEquipInfo(equip);
+			m_view.GetChild("icon").SetEquipInfo(equip, lvformat: "-1");
 			m_view.m_qualitytips.SetTextByKey("ui_quality_name_" + equip.quality);
 			m_view.m_click.SetTextByKey(equip.pos == 0 ? "ui_equip_on" : "ui_equip_off");
 			m_view.m_click2.SetText(m_view.m_click.text);
@@ -151,7 +151,7 @@ namespace SGame.UI
 				return;
 			}
 			needRefreshPlayUI = true;
-			itemcount -= RequestExcuteSystem.EquipUpLevel(equip , out var success);
+			itemcount -= RequestExcuteSystem.EquipUpLevel(equip, out var success);
 
 			if (success)
 				EffectSystem.Instance.AddEffect(27, m_view);

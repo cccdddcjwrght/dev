@@ -64,7 +64,7 @@ partial class UIListenerExt
 				UIListener.SetControllerSelect(gObject, "type", 1, false);
 				UIListener.SetControllerSelect(gObject, "lvstate", 1, false);
 				SetEquipInfo(gObject, equip.cfg, false);
-				UIListener.SetTextWithName(gObject, "level", lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
+				UIListener.SetTextWithName(gObject, "level", lvformat == "-1" ? null : lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
 
 				UIListener.SetControllerSelect(gObject, "quality", equip.qType, false);
 				UIListener.SetControllerSelect(gObject, "step", equip.qStep, false);
@@ -107,7 +107,7 @@ partial class UIListenerExt
 
 	}
 
-	static public void SetMerge(this GObject gObject , BaseEquip equip)
+	static public void SetMerge(this GObject gObject, BaseEquip equip)
 	{
 		if (gObject != null)
 		{
