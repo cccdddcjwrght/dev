@@ -23,7 +23,7 @@ namespace SGame.UI.Common
         {
             base.ConstructFromXML(xml);
 
-            m_list = (GList)GetChildAt(3);
+            m_list = (GList)GetChildAt(0);
             m___effect = (GGraph)GetChildAt(4);
             m_loader = (GLoader)GetChildAt(5);
             m_tips = (GRichTextField)GetChildAt(6);
