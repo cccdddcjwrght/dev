@@ -199,5 +199,7 @@ namespace SGame
 		
 		CUSTOMER_BOOK_UPDATE			= 26000, // 角色图鉴数据刷新
 
+		TOTAL_REFRESH					= 27000, //店铺刷新
+
 	}
 }

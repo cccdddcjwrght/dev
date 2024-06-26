@@ -227,7 +227,9 @@ namespace SGame
 				var buff = GlobalDesginConfig.GetIntArray("no_ads_buff");
 				if (buff != null)
 					OnBuffAdd(new BuffData() { id = buff[0], val = buff[1], from = ((int)EnumFrom.NoAd) });
+				ReputationModule.Instance.RefreshVailedBuffList();
 			}
+			
 		}
 		#endregion
 

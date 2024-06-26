@@ -61,17 +61,19 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
 			m_handles += EventManager.Instance.Reg(((int)GameEvent.SETTING_UPDATE_HEAD), OnHeadSetting);
-			m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
+			//m_handles += EventManager.Instance.Reg((int)GameEvent.ROOM_START_BUFF, OnRefeshBuffTime);
 			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ROOM_LIKE_ADD, OnRefreshLikeCount);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PIGGYBANK_UPDATE, OnUpdatePiggyProgress);
 			m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) => RefreshAdBtn());
 			m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, AppPasueRefresh);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.TOTAL_REFRESH, OnRefreshTotalState);
 
 			OnHeadSetting();
 			OnEventRefreshItem();
-			OnRefeshBuffTime();
+			//OnRefeshBuffTime();
 			OnRefreshLikeCount(0);
 			OnRefreshAdTime();
+			OnRefreshTotalState();
 		}
 
 		void OpenUI(FunctionID id)
@@ -326,7 +328,7 @@ namespace SGame.UI
 		}
 
 		/// <summary>
-		/// 刷新开局局内buff时间
+		/// 刷新开局局内buff时间(弃用)
 		/// </summary>
 		void OnRefeshBuffTime()
 		{
@@ -348,7 +350,7 @@ namespace SGame.UI
 					time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
 					m_view.m_buff.m_time.SetText(Utils.FormatTime(time));
 				}, m_view, completed: () => BuffTimeFinish());
-				OnRefreshTotalState();
+				//OnRefreshTotalState();
 			}
 		}
 
@@ -356,7 +358,7 @@ namespace SGame.UI
 		{
 			m_view.m_buff.m_isTime.selectedIndex = 1;
 			m_view.m_buff.visible = false;
-			OnRefreshTotalState();
+			//OnRefreshTotalState();
 		}
 
 		/// <summary>
@@ -378,9 +380,9 @@ namespace SGame.UI
 		void OnRefreshTotalState()
 		{
 			//m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
-			ReputationModule.Instance.GetVailedBuffList();
+			//ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
-			EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
+			//EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
 
 		void OnRefreshAdState()
@@ -434,10 +436,10 @@ namespace SGame.UI
 				}, m_view, completed: () =>
 				{
 					UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", 0);
-					OnRefreshTotalState();
+					//OnRefreshTotalState();
 				});
 			}
-			OnRefreshTotalState();
+			//OnRefreshTotalState();
 		}
 
 		void RefreshAdBtn()
@@ -445,7 +447,7 @@ namespace SGame.UI
 			m_view.m_AdBtn.GetChild("boostTxt").SetText(UIListener.Local("ui_ad_boost") + "x" + AdModule.Instance.GetAdRatio());
 			m_view.m_AdBtn.GetChild("timeTxt").SetText("+" + Utils.FormatTime(AdModule.Instance.GetAdDuration(), formats:
 				AdModule.Instance.GetAdDuration() % 60 == 0 ? new string[] { "{0}min" } : new string[] { "{0}min{1}s" }));
-			OnRefreshTotalState();
+			//OnRefreshTotalState();
 		}
 
 		void AppPasueRefresh(bool pause)

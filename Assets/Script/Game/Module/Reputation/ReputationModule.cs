@@ -1,3 +1,4 @@
+using GameConfigs;
 using log4net;
 using SGame;
 using System.Collections;
@@ -7,11 +8,15 @@ using UnityEngine;
 
 namespace SGame
 {
-    public enum RoomBuffEnum
+    //店铺显示buff类型
+    public enum ShopBuffEnum
     {
-        Exclusive,      //开局buff
-        RoomLike,       //好评buff
-        AdBuff,         //广告buff
+        //Exclusive,      //开局buff
+        //RoomLike,       //好评buff
+        //AdBuff,         //广告buff
+
+        NO_AD_BUFF,       //去广告buff
+        PET_BUFF,         //当前跟随宠物buff
     }
 
     public class ReputationModule : Singleton<ReputationModule>
@@ -20,7 +25,6 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("game.reputation");
         private ReputationData m_data;
 
-        private List<TotalItem> m_RoomTypeList;
         private List<TotalItem> m_TotalList = new List<TotalItem>();
         private EventHandleContainer m_handles = new EventHandleContainer();
 
@@ -62,31 +66,25 @@ namespace SGame
         public void Initalize() 
         {
             m_data = DataCenter.Instance.reputationData;
-            m_handles += EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLevelRoom);
             m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEnterRoom);
-            //m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, (pause) =>
-            //{
-            //    int validTime = DataCenter.ReputationUtils.GetBuffValidTime();
-            //    if (validTime <= 0 && m_data.progress >= maxLikeNum)
-            //        DataCenter.ReputationUtils.Reset();
-            //    EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
-            //});
+            m_handles += EventManager.Instance.Reg<BuffData>((int)GameEvent.BUFF_TRIGGER, (b) => RefreshVailedBuffList());
 
-            m_RoomTypeList = new List<TotalItem>()
+            var buff = GlobalDesginConfig.GetIntArray("no_ads_buff");
+            m_TotalList = new List<TotalItem>()
             {
-                new TotalItem(){ roomBuffEnum = RoomBuffEnum.Exclusive },
-                new TotalItem(){ roomBuffEnum = RoomBuffEnum.RoomLike},
-                new TotalItem(){ roomBuffEnum = RoomBuffEnum.AdBuff },
+                new TotalItem(){ name = UIListener.Local("ui_boosts_name_3"), type = ShopBuffEnum.NO_AD_BUFF, multiple = 1 + buff[1] * PERCENTAGE_VALUE, isEver = true },
+                new TotalItem(){ name = UIListener.Local("ui_boosts_name_2"), type = ShopBuffEnum.PET_BUFF, isEver = true },
             };
-        }
-
-        void OnLevelRoom() 
-        {
-            DataCenter.ReputationUtils.Clear();
         }
 
         void OnEnterRoom(int scene) 
         {
+            AddLikeRewardData();
+        }
+
+        public void AddLikeRewardData() 
+        {
+            //好评储存的奖励 进入场景加入数据
             var list = DataCenter.Instance.likeData.likeRewardDatas;
             if (list.Count > 0)
             {
@@ -97,78 +95,45 @@ namespace SGame
                         var reward = DataCenter.LikeUtil.GetItemDrop(i.typeId, i.num);
                         reward.ForEach((r) => PropertyManager.Instance.Update(r.type, r.id, r.num));
                     }
-                    else 
-                    {
-                        PropertyManager.Instance.Update(1, i.id, i.num);
-                    }
+                    else PropertyManager.Instance.Update(1, i.id, i.num);
                 });
                 list.Clear();
             }
         }
 
+        //增加好评数量
         public void AddLikeNum(int characterID) 
         {
-            //if (m_data.progress < maxLikeNum)
-            //{
-                //int likeNum = 1;
-                int roleId = CharacterModule.Instance.FindCharacter(characterID).roleID;
-                int likeNum = (int)AttributeSystem.Instance.GetValueByRoleID(roleId, EnumAttribute.LikeNum);
-                DataCenter.Instance.likeData.likeNum += likeNum;
-                //m_data.progress += likeNum;
-                //if (m_data.progress >= maxLikeNum) DataCenter.ReputationUtils.RandomSelect();
-
-                EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, likeNum);
-            //}    
+            int roleId = CharacterModule.Instance.FindCharacter(characterID).roleID;
+            int likeNum = (int)AttributeSystem.Instance.GetValueByRoleID(roleId, EnumAttribute.LikeNum);
+            DataCenter.Instance.likeData.likeNum += likeNum;
+            EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, likeNum);
         }
 
-        public List<TotalItem> GetVailedBuffList()
+        public void RefreshVailedBuffList()
         {
-            m_TotalList.Clear();
-            m_RoomTypeList.ForEach((r) => r.Reset());
-
-            var t1 = m_RoomTypeList.Find((t) => t.roomBuffEnum == RoomBuffEnum.Exclusive);
-            var exclusiveData = DataCenter.Instance.exclusiveData;
-            if (ConfigSystem.Instance.TryGet<GameConfigs.RoomExclusiveRowData>(exclusiveData.cfgId, out var data1))
+            //免广告buff
+            m_TotalList.Find((t) => t.type == ShopBuffEnum.NO_AD_BUFF).isForce = DataCenter.ShopUtil.IsIgnoreAd();
+            //宠物buff
+            var pet_buff = m_TotalList.Find((t) => t.type == ShopBuffEnum.PET_BUFF);
+            var pet_item = DataCenter.Instance.petData.pet;
+            if (pet_item != null) 
             {
-                if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(data1.BuffId, out var buffRowData)
-                    && buffRowData.Attribute == (int)EnumAttribute.Price)
+                var list = pet_item.GetEffects(true, false, true);
+                float multiple = 0;
+                list.ForEach((i) =>
                 {
-                    t1.name = data1.BuffName;
-                    t1.multiple = 1 + data1.BuffValue * PERCENTAGE_VALUE;
-                    t1.time = exclusiveData.endTime - GameServerTime.Instance.serverTime;
-                    t1.isEver = data1.BuffDuration <= 0;
-                }
+                    //对应buff配置id
+                    if (i[0] == 7) multiple = 1 + i[1] * PERCENTAGE_VALUE;
+                });
+                pet_buff.multiple = multiple;
+                pet_buff.isForce = multiple > 0;
             }
+            EventManager.Instance.Trigger((int)GameEvent.TOTAL_REFRESH);
+        }
 
-            var t2 = m_RoomTypeList.Find((t) => t.roomBuffEnum == RoomBuffEnum.RoomLike);
-            var reputationData = DataCenter.Instance.reputationData;
-            if (ConfigSystem.Instance.TryGet<GameConfigs.RoomLikeRowData>(reputationData.cfgId, out var data2))
-            {
-                if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(data2.BuffId, out var buffRowData)
-                    && buffRowData.Attribute == (int)EnumAttribute.Price)
-                {
-                    t2.name = data2.BuffName;
-                    t2.multiple = 1 + data2.BuffValue * PERCENTAGE_VALUE;
-                    t2.time = reputationData.endTime - GameServerTime.Instance.serverTime;
-                    t2.isEver = data2.BuffDuration <= 0;
-                }
-            }
-
-            var t3 = m_RoomTypeList.Find((t) => t.roomBuffEnum == RoomBuffEnum.AdBuff);
-            if (ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(AdModule.AD_BUFF_ID, out var data3)) 
-            {
-                t3.name = UIListener.Local("ui_boosts_name_1");
-                t3.multiple = AdModule.Instance.GetAdRatio();
-                t3.time = AdModule.Instance.GetBuffTime();
-                t3.isEver = false;
-            }
-
-            for (int i = 0; i < m_RoomTypeList.Count; i++)
-            {
-                if (m_RoomTypeList[i].time > 0 || m_RoomTypeList[i].isEver)
-                    m_TotalList.Add(m_RoomTypeList[i]);
-            }
-
+        public List<TotalItem> GetVailedBuffList() 
+        {
             return m_TotalList;
         }
 
@@ -177,11 +142,12 @@ namespace SGame
             float value = 1;
             for (int i = 0; i < m_TotalList.Count; i++)
             {
-                value *= m_TotalList[i].multiple;
+                if(m_TotalList[i].isForce) value *= m_TotalList[i].multiple;
             }
             return value;
         }
 
+        //获取好评
         public bool GetLike(OrderData orderData, int characterId) 
         {
             int rate = Random.Range(0, 100);
@@ -215,9 +181,14 @@ namespace SGame
         public bool isEver;
 
         /// <summary>
+        /// 是否生效
+        /// </summary>
+        public bool isForce;
+
+        /// <summary>
         /// 类型
         /// </summary>
-        public RoomBuffEnum roomBuffEnum;
+        public ShopBuffEnum type;
 
         public void Reset() 
         {
@@ -225,7 +196,6 @@ namespace SGame
             multiple    = 0;
             time        = 0;
             isEver      = false;
-
         }
     }
 }
