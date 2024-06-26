@@ -34,6 +34,15 @@ namespace SGame.Firend
             return OPEN_ID.IsOpend(false);
         }
 
+        /// <summary>
+        /// 判断好友客人是否开启
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsCustomerFriendOpened()
+        {
+            return IsOpened() && ((int)FunctionID.FRIEND_CUSTOMER).IsOpend(false);
+        }
+
         void TestJsonData()
         {
             if (m_friendData == null || (m_friendData.RecommendFriends.Count == 0 && m_friendData.Friends.Count == 0))

@@ -13,5 +13,7 @@ namespace SGame
         SHOP	   = 10, // 商城
         FRIEND	   = 14, // 好友
         PET        = 24, // 宠物
+        
+        FRIEND_CUSTOMER = 35, // 好友客人功能定义 
     }
 }
