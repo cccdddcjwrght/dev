@@ -1173,5 +1173,18 @@ namespace SGame
 			return def;
 		}
 
+		/// <summary>
+		/// 快速获取两点间距离
+		/// </summary>
+		/// <param name="p1"></param>
+		/// <param name="p2"></param>
+		/// <returns></returns>
+		public static int GetInt2DistanceFast(int2 p1, int2 p2)
+		{
+			int2 ret = p1 - p2;
+			ret.x = ret.x > 0 ? ret.x : -ret.x;
+			ret.y = ret.y > 0 ? ret.y : -ret.y;
+			return ret.x + ret.y;
+		}
 	}
 }

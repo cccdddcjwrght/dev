@@ -49,6 +49,8 @@ namespace SGame
         {
             Clear();
         }
+
+        public List<TableData> Datas => m_datas;
         
         /// <summary>
         /// 获得桌子数据
@@ -508,5 +510,6 @@ namespace SGame
 
             return m_cache.m_foodTypes[index];
         }
+
     }
 }
