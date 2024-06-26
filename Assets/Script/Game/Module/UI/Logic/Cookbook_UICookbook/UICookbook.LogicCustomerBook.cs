@@ -17,6 +17,7 @@ namespace SGame.UI
 			UNLOCK	= 0, // 已解锁已领取
 			CANTAKE = 1, // 已解锁未领取
 			LOCK	= 2, // 未解锁
+			FIRST   = 3, // 首次打开
 		}
 		void CustomerBookInit()
 		{
@@ -51,7 +52,11 @@ namespace SGame.UI
 			
 			// 设置UI状态
 			CustomerBookState state = CustomerBookState.LOCK;
-			if (!data.IsUnlock)
+			if (!data.isOpened && data.IsUnlock)
+			{
+				state = CustomerBookState.FIRST;
+			}
+			else if (!data.IsUnlock)
 			{
 				// 已锁
 				state = CustomerBookState.LOCK;

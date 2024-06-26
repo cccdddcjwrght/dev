@@ -59,8 +59,6 @@ namespace SGame.UI{
 		string GetTxtDescText()=>UIListener.GetText(m_view.m_txtDesc);
 		void SetTxtDesc2Text(string data)=>UIListener.SetText(m_view.m_txtDesc2,data);
 		string GetTxtDesc2Text()=>UIListener.GetText(m_view.m_txtDesc2);
-		void SetBtnIconItem_ItemText(string data)=>UIListener.SetText(m_view.m_click.m_item,data);
-		string GetBtnIconItem_ItemText()=>UIListener.GetText(m_view.m_click.m_item);
 		void _OnClickClick(EventContext data){
 			OnClickClick(data);
 		}

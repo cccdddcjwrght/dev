@@ -14,7 +14,7 @@ namespace SGame.UI.Cookbook
         public GList m_pros;
         public GRichTextField m_txtDesc;
         public GTextField m_txtDesc2;
-        public UI_BtnIconItem m_click;
+        public GButton m_click;
         public Transition m_t0;
         public const string URL = "ui://n2tgmsyutkwvz";
 
@@ -34,7 +34,7 @@ namespace SGame.UI.Cookbook
             m_pros = (GList)GetChildAt(5);
             m_txtDesc = (GRichTextField)GetChildAt(6);
             m_txtDesc2 = (GTextField)GetChildAt(7);
-            m_click = (UI_BtnIconItem)GetChildAt(9);
+            m_click = (GButton)GetChildAt(9);
             m_t0 = GetTransitionAt(0);
         }
     }

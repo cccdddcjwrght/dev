@@ -23,7 +23,7 @@ namespace SGame.UI{
 
 			m_view.m_take_reward.selectedIndex = m_data.isRewarded ? 1 : 0;
 			m_view.m_click.onClick.Set(OnClickReward);
-			m_view.m_txtDesc.SetText(m_data.Config.Des);
+			m_view.m_txtDesc.SetTextByKey(m_data.Config.Des);
 			
 			// 设置按钮图标
 			if (m_data.Config.UnlockRewardLength != 3)
@@ -32,9 +32,9 @@ namespace SGame.UI{
 				return;
 			}
 			var item = m_data.Config.GetUnlockRewardArray();
-			m_view.m_click.m_item.title = "X" + item[2];
+			m_view.m_click.title = "x" + item[2];
 			var icon = Utils.GetItemIcon(item[0], item[1]);
-			m_view.m_click.m_item.SetIcon(icon);
+			m_view.m_click.SetIcon(icon);
 		}
 
 		void OnClickReward()

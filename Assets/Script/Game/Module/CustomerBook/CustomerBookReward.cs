@@ -16,5 +16,11 @@ namespace SGame
 
         // 已经打开过UI
         public List<int> Opened = new List<int>();
+
+        public void Clear()
+        {
+            Rewarded.Clear();
+            Opened.Clear();
+        }
     }
 }

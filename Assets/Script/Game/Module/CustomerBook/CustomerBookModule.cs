@@ -18,6 +18,8 @@ namespace SGame
         {
             // 保存图鉴
             m_recordData = DataCenter.Instance.m_customerBookReward;
+            
+            // m_recordData.Clear();
 
             // 初始化图鉴数据
             m_customerBookData = new List<CustomerBookData>();
@@ -90,6 +92,7 @@ namespace SGame
         {
             m_recordData.Opened.Add(data.ID);
             data.SetOpened();
+            EventManager.Instance.Trigger((int)GameEvent.CUSTOMER_BOOK_UPDATE);
         }
     }
 }
