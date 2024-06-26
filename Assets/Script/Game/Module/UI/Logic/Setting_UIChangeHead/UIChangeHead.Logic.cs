@@ -30,6 +30,21 @@ namespace SGame.UI{
 			headFramelist = _setData.headDataList;
 			list.itemRenderer = OnSetHeadList;
 			list.numItems = headFramelist.Count;
+
+			LoadSelfHead();
+		}
+
+		public void LoadSelfHead() 
+		{
+			int head = _accountData.head;
+			int frame = _accountData.frame;
+
+			ConfigSystem.Instance.TryGet<GameConfigs.AvatarRowData>(head, out var headCfg);
+			var showHead = m_view.m_icon as UI_HeadBtn;
+			showHead.m_headImg.url = string.Format("ui://IconHead/{0}", headCfg.Icon);
+
+			ConfigSystem.Instance.TryGet<GameConfigs.AvatarRowData>(frame, out var frameCfg);
+			showHead.m_frame.url = string.Format("ui://IconHead/{0}", frameCfg.Icon);
 		}
 		
 
@@ -38,8 +53,6 @@ namespace SGame.UI{
 			if (m_view.m_State.selectedIndex == 0)
 			{
 				headFramelist = _setData.headDataList;
-				
-				
 			}
 			else
 			{
