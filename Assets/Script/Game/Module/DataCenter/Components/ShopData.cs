@@ -153,7 +153,7 @@ namespace SGame
 			/// <returns></returns>
 			static public bool IsIgnoreAd()
 			{
-				return _data.goods[0].buy > 0;
+				return _data.goods?.Count > 0 && _data.goods[0].buy > 0;
 			}
 
 			static public bool HasFree()

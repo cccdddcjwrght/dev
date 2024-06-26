@@ -181,7 +181,6 @@ namespace SGame.UI
 		partial void OnPetEgg_AddClick(EventContext data)
 		{
 			"shop".Goto();
-			DelayExcuter.Instance.OnlyWaitUIClose("shopui", () => OnTabChanged(null), true);
 		}
 
 		partial void OnPetEgg_Get1Click(EventContext data)

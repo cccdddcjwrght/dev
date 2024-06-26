@@ -14,6 +14,9 @@ namespace SGame.UI
 			EventManager.Instance.Reg(((int)GameEvent.PET_LIST_REFRESH), OnPetListRefresh);
 			EventManager.Instance.Reg<PetItem, bool>(((int)GameEvent.PET_FOLLOW_CHANGE), OnPetFollowChange);
 			EventManager.Instance.Reg<PetItem, int>(((int)GameEvent.PET_REFRESH), OnPetRefresh);
+			EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnUIClose);
+
+
 		}
 
 		partial void UnInitEvent(UIContext context)
@@ -21,6 +24,7 @@ namespace SGame.UI
 			EventManager.Instance.UnReg(((int)GameEvent.PET_LIST_REFRESH), OnPetListRefresh);
 			EventManager.Instance.UnReg<PetItem, bool>(((int)GameEvent.PET_FOLLOW_CHANGE), OnPetFollowChange);
 			EventManager.Instance.UnReg<PetItem, int>(((int)GameEvent.PET_REFRESH), OnPetRefresh);
+			EventManager.Instance.UnReg<string>(((int)GameEvent.UI_HIDE), OnUIClose);
 		}
 
 		void OnPetListRefresh()
@@ -38,6 +42,14 @@ namespace SGame.UI
 		{
 			OnPetTab();
 			RefreshList();
+		}
+
+		void OnUIClose(string name)
+		{
+			if(name == "shopui")
+			{
+				OnTabChanged(null);
+			}
 		}
 
 	}
