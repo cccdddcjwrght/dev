@@ -117,7 +117,7 @@ namespace SGame
 
 		bool CheckGetFlag(bool state)
 		{
-			if (_workerFlag == null)
+			if (_workerFlag == null || _workerFlag.parent == null || _workerFlag.isDisposed)
 			{
 				var main = UIUtils.GetUIView("mainui");
 				if (main != null)
