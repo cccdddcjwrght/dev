@@ -554,27 +554,25 @@ namespace SGame
 		public int addProfit;
 		[NonSerialized]
 		public int addMachine;
-		[NonSerialized]
+		[NonReorderable]
 		public int reward;
-		[NonSerialized]
+		[NonReorderable]
 		public List<int[]> starRewards;
-		[NonSerialized]
+		[NonReorderable]
 		public int addCooker;
-		[NonSerialized]
+		[NonReorderable]
 		public int addRole;
-		[NonSerialized]
+		[NonReorderable]
 		public int addWaiter;
-		[NonSerialized]
+		[NonReorderable]
 		public int lvStart;
-		[NonSerialized]
-		private CookBookItem book;
 
 
 		public int item { get { return cfg.IsValid() && food <= 0 ? cfg.ItemId(0) : food; } }
 
 		public int level { get { return lvStart + lv; } }
 
-		public string name { get { return foodCfg.IsValid() ? foodCfg.Name : cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
+		public string name { get { return foodCfg.IsValid() ?  foodCfg.Name : cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
 
 		public string foodName { get { return foodCfg.IsValid() ? "ui_worktable_name".Local(null, foodCfg.Name.Local()) : name.Local(); } }
 
@@ -604,7 +602,7 @@ namespace SGame
 		{
 			if (!isTable)
 			{
-				var book = GetBook(bookid);
+				var book = DataCenter.CookbookUtils.GetBook(bookid == 0 ? item : bookid);
 				if (book != null)
 				{
 					if (!lvcfg.IsValid())
@@ -621,7 +619,7 @@ namespace SGame
 		{
 			if (!isTable)
 			{
-				var book = GetBook(bookid);
+				var book = DataCenter.CookbookUtils.GetBook(bookid == 0 ? item : bookid);
 				if (book != null)
 				{
 					if (!lvcfg.IsValid())
@@ -735,19 +733,6 @@ namespace SGame
 
 		public void RefreshStarRewards()
 		{
-
-		}
-
-		private CookBookItem GetBook(int id)
-		{
-
-			if (id != 0)
-			{
-				var b = DataCenter.CookbookUtils.GetBook(id);
-				return b;
-			}
-			if (book == null) book = DataCenter.CookbookUtils.GetBook(item);
-			return book;
 
 		}
 
