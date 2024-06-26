@@ -48,7 +48,7 @@ namespace SGame.UI
 		{
 			if(name == "shopui")
 			{
-				OnTabChanged(null);
+				this.Delay(()=>OnTabChanged(null),1);
 			}
 		}
 

@@ -44,6 +44,7 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
+			PropertyManager.Instance.CombineCache2Items();
 			_refreshCall?.Clear();
 			_goodsItems?.Clear();
 			_timer?.Stop();

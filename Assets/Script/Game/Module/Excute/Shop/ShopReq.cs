@@ -87,10 +87,6 @@ namespace SGame
 
 				Utils.ShowRewards(items);
 				EventManager.Instance.Trigger(((int)GameEvent.SHOP_GOODS_BUY_RESULT), id);
-				if(id == 1)
-				{
-
-				}
 			}
 			call?.Invoke(state);
 			UILockManager.Instance.Release(shop_lock);
