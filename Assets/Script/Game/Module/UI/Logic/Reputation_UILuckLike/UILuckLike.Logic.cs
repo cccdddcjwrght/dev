@@ -125,7 +125,7 @@ namespace SGame.UI{
 				else if (config.ResultType == 2)
 				{
 					m_CurReward = new ItemData.Value() { id = config.Reward(0), num = config.Reward(1) };
-					if(config.Reward(0) == 0 || config.Reward(0) == 1) PropertyManager.Instance.Insert2Cache(new List<int[]>() { new int[] { 1, config.Reward(0), config.Reward(1) } });
+					if(config.Reward(0) == 1 || config.Reward(0) == 2) PropertyManager.Instance.Insert2Cache(new List<int[]>() { new int[] { 1, config.Reward(0), config.Reward(1) } });
 					else DataCenter.LikeUtil.AddRewardData(config.Reward(0), config.Reward(1));
 				}
 				else if (config.ResultType == 3) 
