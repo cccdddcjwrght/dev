@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FlatBuffers;
 using SGame.Dining;
+using SGame.UI;
+using SGame.UI.Main;
 using UnityEngine;
 
 namespace SGame
@@ -67,7 +69,10 @@ namespace SGame
 			{
 				var mono = go.GetComponent<RegionHit>();
 				if (!_datas.TryGetValue(mono.region, out var region))
+				{
 					_datas[mono.region] = region = DataCenter.MachineUtil.GetWorktable(mono.region);
+					InCameraCheck.AddCheckGo(go, region);
+				}
 				if (region != null && DataCenter.MachineUtil.CheckCanUpLevel(region) == 0)
 				{
 					mono.Play("idle");
@@ -79,5 +84,55 @@ namespace SGame
 			return false;
 		}
 
+
 	}
+
+
+	public class InCameraCheck : MonoBehaviour
+	{
+
+		static public void AddCheckGo(GameObject target, Worktable worktable)
+		{
+			if (target != null)
+			{
+				var go = new GameObject("__check");
+				go.transform.SetParent(target.transform, false);
+				go.AddComponent<InCameraCheck>()._data = worktable;
+			}
+		}
+
+		private Worktable _data;
+		UI_GetWorkerFlag _workerFlag;
+
+		private void Update()
+		{
+			if (!StaticDefine.G_IN_VIEW_GET_WORKER)
+			{
+				if (CheckGetFlag(DataCenter.MachineUtil.CheckCanUpLevel(_data) == 0))
+					LookAt();
+			}
+			else if (_workerFlag?.visible == true)
+				_workerFlag.visible = false;
+		}
+
+		bool CheckGetFlag(bool state)
+		{
+			if (_workerFlag == null)
+			{
+				var main = UIUtils.GetUIView("mainui");
+				if (main != null)
+					_workerFlag = main.Value.contentPane.GetChild("workflag") as UI_GetWorkerFlag;
+			}
+			if (_workerFlag != null) _workerFlag.visible = state;
+			return state && _workerFlag != null;
+		}
+
+		void LookAt()
+		{
+			Vector2 pos = SGame.UIUtils.GetUIPosition(_workerFlag.parent, transform.parent.position + new Vector3(0,1,0), PositionType.POS3D);
+			_workerFlag.m_bg.rotation =  Vector2.SignedAngle(Vector2.up, pos - _workerFlag.xy) - 180;
+		}
+
+	}
+
 }

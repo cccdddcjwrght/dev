@@ -9,6 +9,7 @@ namespace SGame.UI.Main
         public static void BindAll()
         {
             UIObjectFactory.SetPackageItemExtension(UI_LikeBtn.URL, typeof(UI_LikeBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_GetWorkerFlag.URL, typeof(UI_GetWorkerFlag));
             UIObjectFactory.SetPackageItemExtension(UI_BuffBtn.URL, typeof(UI_BuffBtn));
             UIObjectFactory.SetPackageItemExtension(UI_MainUI.URL, typeof(UI_MainUI));
             UIObjectFactory.SetPackageItemExtension(UI_ActBtnList.URL, typeof(UI_ActBtnList));

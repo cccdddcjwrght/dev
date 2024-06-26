@@ -34,6 +34,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick));
 			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick));
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick));
+			UIListener.ListenerIcon(m_view.m_workflag, new EventCallback1(_OnWorkflagClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -58,6 +59,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick),remove:true);
 			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick),remove:true);
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_workflag, new EventCallback1(_OnWorkflagClick),remove:true);
 
 		}
 		void _OnMainChanged(EventContext data){
@@ -183,6 +185,10 @@ namespace SGame.UI{
 		partial void OnInvestBtnClick(EventContext data);
 		void SetInvestBtnText(string data)=>UIListener.SetText(m_view.m_InvestBtn,data);
 		string GetInvestBtnText()=>UIListener.GetText(m_view.m_InvestBtn);
+		void _OnWorkflagClick(EventContext data){
+			OnWorkflagClick(data);
+		}
+		partial void OnWorkflagClick(EventContext data);
 
 	}
 }
