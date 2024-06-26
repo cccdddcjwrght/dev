@@ -41,10 +41,8 @@ namespace SGame.UI{
 
 			ConfigSystem.Instance.TryGet<GameConfigs.AvatarRowData>(head, out var headCfg);
 			var showHead = m_view.m_icon as UI_HeadBtn;
-			showHead.m_headImg.url = string.Format("ui://IconHead/{0}", headCfg.Icon);
-
-			ConfigSystem.Instance.TryGet<GameConfigs.AvatarRowData>(frame, out var frameCfg);
-			showHead.m_frame.url = string.Format("ui://IconHead/{0}", frameCfg.Icon);
+			if(head > 0) showHead.m_headImg.url = string.Format("ui://IconHead/{0}", _setData.GetHeadFrameIcon(1, head));
+			if(frame > 0) showHead.m_frame.url = string.Format("ui://IconHead/{0}", _setData.GetHeadFrameIcon(2, frame));
 		}
 		
 
