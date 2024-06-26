@@ -126,6 +126,20 @@ namespace SGame
         IEnumerator TakeTips()
         {
             List<TableData> tables = new List<TableData>();
+
+                
+            // 1.获取小费的工作台
+            List<TableData> allTables = TableManager.Instance.Datas;
+            foreach (var t in allTables)
+            {
+                if (t.foodTip != Entity.Null && EntityManager.Exists(t.foodTip))
+                {
+                    tables.Add(t);
+                }
+            }
+            if (tables.Count == 0)
+                yield break;
+
             m_entity = EntityManager.CreateEntity(typeof(Follow),
                 typeof(LocalToWorld),
                 typeof(Rotation),
@@ -139,16 +153,6 @@ namespace SGame
             EntityManager.SetComponentData(m_entity, new RotationSpeed(){Value = 10.0f});
             EntityManager.SetComponentData(m_entity, new Rotation(){Value = m_transform.rotation});
             EntityManager.SetComponentData(m_entity, new Translation(){Value = transform.position});
-                
-            // 1.获取小费的工作台
-            List<TableData> allTables = TableManager.Instance.Datas;
-            foreach (var t in allTables)
-            {
-                if (t.foodTip != Entity.Null && EntityManager.Exists(t.foodTip))
-                {
-                    tables.Add(t);
-                }
-            }
 
             // 获得最近的区域
             int GetNearstTable(List<TableData> t, int2 pos, int count)
@@ -178,6 +182,7 @@ namespace SGame
             }
 
             // 找到最近的点获取小费
+            m_animator.SetBool(WALK_NAME, true);
             for (int i = 0; i < tables.Count; i++)
             {
                 float3      pos = EntityManager.GetComponentData<Translation>(m_entity).Value;
