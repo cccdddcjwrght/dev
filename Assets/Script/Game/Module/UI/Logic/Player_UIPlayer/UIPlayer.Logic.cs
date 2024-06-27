@@ -111,7 +111,7 @@ namespace SGame.UI
 
 		void DoUpLv(int i, GObject gObject)
 		{
-			RequestExcuteSystem.EquipUpLevel(DataCenter.Instance.equipData.equipeds[i] , out var success);
+			RequestExcuteSystem.EquipUpLevel(DataCenter.Instance.equipData.equipeds[i], out var success);
 			if (success)
 			{
 				EffectSystem.Instance.AddEffect(27, gObject);
@@ -305,6 +305,7 @@ namespace SGame.UI
 			SGame.UIUtils.AddListItems(view.m_list, eqs, SetRewardEqView, res: "ui://Player/EquipBox");
 			yield return new WaitForSeconds(0.5f);
 			view.touchable = true;
+			DataCenter.EquipUtil.CheckCanMerge();
 		}
 
 		void SetRewardEqView(int index, object data, GObject g)
@@ -372,11 +373,15 @@ namespace SGame.UI
 				_eqs.Sort((a, b) =>
 				{
 					a.selected = b.selected = false;
-					var c = a.realType.CompareTo(b.realType);
+					var c = m_view.m_eqTab.selectedIndex == 1 ? -a.upflag.CompareTo(b.upflag) : 0;
 					if (c == 0)
 					{
-						c = -a.quality.CompareTo(b.quality);
-						if (c == 0) c = a.cfgID.CompareTo(b.cfgID);
+						c = a.realType.CompareTo(b.realType);
+						if (c == 0)
+						{
+							c = -a.quality.CompareTo(b.quality);
+							if (c == 0) c = a.cfgID.CompareTo(b.cfgID);
+						}
 					}
 					return c;
 
@@ -393,7 +398,7 @@ namespace SGame.UI
 			gObject.name = index.ToString();
 			var info = _eqs[index];
 			var eq = (gObject as UI_EqPos).m_body;
-			gObject.SetEquipInfo(info);
+			gObject.SetEquipInfo(info, checkup: m_view.m_eqTab.selectedIndex == 1);
 			eq.onClick.Clear();
 			eq.onClick.Add(() => OnEqClick(gObject, info));
 			eq.m_select.selectedIndex = info.selected ? 1 : 0;

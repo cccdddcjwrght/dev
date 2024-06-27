@@ -38,7 +38,8 @@ partial class UIListenerExt
 		bool hidered = false, int part = 0, double needcount = 0, bool showmask = false,
 		string lvformat = null,
 		bool hideother = true,
-		int merge = 0
+		int merge = 0,
+		bool checkup = false
 	)
 	{
 		var root = gObject;
@@ -75,7 +76,7 @@ partial class UIListenerExt
 				UIListener.SetTextWithName(gObject, "count", equip.count == 0 ? "" : Utils.ConvertNumberStr(equip.count), false);
 
 				if (!hidered)
-					UIListener.SetControllerSelect(root, "__redpoint", (equip.isnew == 1 || equip.CheckMats()) ? 1 : 0, false);
+					UIListener.SetControllerSelect(root, "__redpoint", equip.RedState(checkup), false);
 				if (equip.qcfg.IsValid())
 					UIListener.SetTextWithName(gObject, labelName: "levelpstr", "ui_level_progress".Local(null, equip.level, equip.qcfg.LevelMax), false);
 
@@ -86,7 +87,7 @@ partial class UIListenerExt
 				UIListener.SetControllerSelect(gObject, "type", 2, false);
 				UIListener.SetControllerSelect(gObject, "partstate", 0);
 				if (!hidered)
-					UIListener.SetControllerSelect(root, "__redpoint", equip.isnew, false);
+					UIListener.SetControllerSelect(root, "__redpoint", equip.RedState(), false);
 				var c = Utils.ConvertNumberStr(equip.count);
 				if (needcount <= 0)
 					UIListener.SetTextWithName(gObject, "count", equip.count > 0 ? c : $"[color=#ff0000]{c}[/color]");
