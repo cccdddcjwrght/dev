@@ -22,6 +22,8 @@ namespace SGame
         private float       m_radius;
         private Transform   m_transform;
         private float       m_speed = 1.0f;
+
+        private const int HALO_EFFECT_ID = 39; // 光环特效ID
             
         private static ConfigValueFloat PET_START_ANGLE     = new ConfigValueFloat("pet_start_angle", 20);
         private static ConfigValueFloat PET_START_DISTANCE  = new ConfigValueFloat("pet_start_distance", 2);
@@ -32,6 +34,8 @@ namespace SGame
         private Entity      m_entity = Entity.Null; // 代理对象, 用于
         private EntityManager EntityManager;
 
+        private Entity m_haloEntity = Entity.Null; // 光环特效
+
         void Start()
         {
             if (WALK_NAME == 0)
@@ -41,10 +45,16 @@ namespace SGame
 
         private void OnDestroy()
         {
-            if (m_entity != null)
+            if (m_entity != Entity.Null)
             {
                 EntityManager.DestroyEntity(m_entity);
                 m_entity = Entity.Null;
+            }
+
+            if (m_haloEntity != Entity.Null)
+            {
+                EffectSystem.Instance.CloseEffect(m_haloEntity);
+                m_haloEntity = Entity.Null;
             }
         }
 
@@ -71,6 +81,8 @@ namespace SGame
 
         IEnumerator Logic()
         {
+            // 创建光环 
+            m_haloEntity = EffectSystem.Instance.Spawn3d(HALO_EFFECT_ID, gameObject, Vector3.zero);
             while (true)
             {
                 yield return RandomMove(PET_TAKETIPS_TIME.Value);
