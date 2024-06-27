@@ -95,6 +95,7 @@ namespace SGame.UI
 				var target = m_view.m_list.GetChild(pet.cfgID.ToString());
 				var tweener = m_view.m___effect.TweenMove(target.TransformPoint(target.size * 0.5f, m_view), 0.5f);
 				yield return new WaitForSeconds(0.5f);
+				22.ToAudioID().PlayAudio();
 				e = EffectSystem.Instance.AddEffect(28, m_view.m___effect2);
 				yield return new WaitForSeconds(1.5f);
 				complete?.Invoke();
@@ -231,7 +232,11 @@ namespace SGame.UI
 					break;
 				case 2:
 					var p = RequestExcuteSystem.PetBorn(_data.egg);
-					if (p != null) DelayExcuter.Instance.OnlyWaitUIClose("petborn", () => SwitchTabPage(0), true);
+					if (p != null) DelayExcuter.Instance.OnlyWaitUIClose("petborn", () => 
+					{
+						if (m_view == null) return;
+						SwitchTabPage(0);
+					}, true);
 					break;
 			}
 		}
