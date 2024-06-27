@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using GameConfigs;
 using SGame.UI.Common;
 namespace SGame.UI{
@@ -155,10 +156,15 @@ namespace SGame.UI{
 				log.Warn("now state=" + friendItem.state);
 				return;
 			}
-			
+
 			if (FriendModule.Instance.CanHire(friendItem.player_id))
+			{
 				FriendModule.Instance.HireFriend(friendItem.player_id);
+				SGame.UIUtils.CloseUIByID(__id);
+			}
 		}
+
+
 
 		/// <summary>
 		/// 按下邀请键

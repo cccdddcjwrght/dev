@@ -54,7 +54,10 @@ namespace SGame.VS
                 var effectID = flow.GetValue<int>(m_effectID);
                 var parent = flow.GetValue<GameObject>(m_parent);
                 var pos = flow.GetValue<Vector3>(m_position);
-                resultValue = EffectSystem.Instance.AddEffect(effectID, parent, pos);
+                if (parent != null)
+                    resultValue = EffectSystem.Instance.AddEffect(effectID, parent, null, pos);
+                else
+                    EffectSystem.Instance.Spawn3d(effectID, null, pos);
                 return outputTrigger;
             });
             

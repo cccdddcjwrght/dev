@@ -1186,5 +1186,11 @@ namespace SGame
 			ret.y = ret.y > 0 ? ret.y : -ret.y;
 			return ret.x + ret.y;
 		}
+
+		public static int GetCurrentLevelID()
+		{
+			int currentLevelID = DataCenter.Instance.roomData.roomID;
+			return currentLevelID;
+		}
 	}
 }
