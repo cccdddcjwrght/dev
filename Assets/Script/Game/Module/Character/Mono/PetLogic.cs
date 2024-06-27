@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FairyGUI;
 using Fibers;
 using GameTools;
+using GameTools.Paths;
 using log4net;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -28,6 +29,10 @@ namespace SGame
         private static ConfigValueFloat PET_START_ANGLE     = new ConfigValueFloat("pet_start_angle", 20);
         private static ConfigValueFloat PET_START_DISTANCE  = new ConfigValueFloat("pet_start_distance", 2);
         private static ConfigValueFloat PET_TAKETIPS_TIME   = new ConfigValueFloat("pet_taketips_time", 3); // 获取小费配置
+        private static ConfigValueFloat PET_RANDOMMOVE_INTERVAL  = new ConfigValueFloat("pet_randommove_interval", 3); // 获取小费配置
+        private static ConfigValueFloat PET_TAKETIP_SPPED     = new ConfigValueFloat("pet_taketip_speed", 20);
+        
+
         private Animator    m_animator;
         private static int WALK_NAME = 0;
         private Fiber       m_fiber;
@@ -81,6 +86,21 @@ namespace SGame
             {
                 EffectSystem.Instance.Spawn3d(m_config.ShowEffect, null, m_transform.position);
             }
+            
+            m_entity = EntityManager.CreateEntity(typeof(Follow),
+                typeof(LocalToWorld),
+                typeof(Rotation),
+                typeof(Translation),
+                typeof(Speed),
+                typeof(RotationSpeed),
+                typeof(PathPositions),
+                typeof(GameObjectSyncTag));
+            
+            EntityManager.AddComponentObject(m_entity, transform);
+            EntityManager.SetComponentData(m_entity, new Speed(){Value = m_speed});
+            EntityManager.SetComponentData(m_entity, new RotationSpeed(){Value = 20.0f});
+            EntityManager.SetComponentData(m_entity, new Rotation(){Value = m_transform.rotation});
+            EntityManager.SetComponentData(m_entity, new Translation(){Value = transform.position});
 
             m_fiber = new Fiber(Logic(), FiberBucket.Manual);
         }
@@ -105,6 +125,120 @@ namespace SGame
             }
 
         }
+        
+
+        // 从0-7, 8个数返回偏移位置
+        static Vector2Int GetIndexOffset(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return new Vector2Int(-1, -1);
+                case 1:
+                    return new Vector2Int(0, -1);
+                case 2:
+                    return new Vector2Int(1, -1);
+                case 3:
+                    return new Vector2Int(-1, 0);
+                case 4:
+                    return new Vector2Int(1, 0);
+                case 5:
+                    return new Vector2Int(-1, 1);
+                case 6:
+                    return new Vector2Int(0, 1);
+                case 7:
+                    return new Vector2Int(1, 1);
+            }
+
+            throw new Exception("error index");
+        }
+
+        /// <summary>
+        /// 通过玩家位置返回周围可移动的位置
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="map_pos"></param>
+        /// <returns></returns>
+        bool GetRandomWalkable(Vector3 pos, out Vector2Int map_pos, out Vector2Int dir)
+        {
+            Vector2Int centerGrid = MapAgent.VectorToGrid(pos);
+            map_pos = Vector2Int.zero;
+            dir = Vector2Int.zero;
+            int startIndex = RandomSystem.Instance.NextInt(0, 8);
+            for (int i = 0; i < 8; i++)
+            {
+                int index = (startIndex + i) % 8;
+                dir = GetIndexOffset(index);
+
+                map_pos = centerGrid + dir;
+                int mapIndex = MapAgent.XYToCellIndex(map_pos.x, map_pos.y);
+                if (MapAgent.agent.GetWalkable(mapIndex))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 随机移动到跟随对象附近
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator FollowCharacter(float waitTime)
+        {
+            if (waitTime > 0)
+            {
+                // 等待时间移动 
+                yield return FiberHelper.Wait(waitTime);
+            }
+            
+            Vector2Int map_pos;
+            Vector2Int map_dir;
+            if (m_followTarget == null)
+                yield break;
+            
+            if (!GetRandomWalkable(m_followTarget.position, out map_pos, out map_dir))
+            {
+                log.Error("walkable pos not found!");
+                yield break;
+            }
+            
+            // 圈外跟随
+            m_animator.SetBool(WALK_NAME, true);
+            float3 curPos = EntityManager.GetComponentData<Translation>(m_entity).Value;
+
+            Vector2Int curMapPos =  MapAgent.VectorToGrid(curPos);
+            SetFindPath(Utils.GetAStarPosFromMapPos(curMapPos), Utils.GetAStarPosFromMapPos(map_pos));
+
+            m_animator.SetBool(WALK_NAME, true);
+            while (IsMoving() == true)
+                yield return null;
+
+            m_animator.SetBool(WALK_NAME, false);
+        }
+
+        void SetFindPath(int2 startPos, int2 endPos)
+        {
+            if (EntityManager.HasComponent<FindPathParams>(m_entity))
+            {
+                EntityManager.SetComponentData(m_entity, new FindPathParams(){start_pos = startPos, end_pos = endPos});
+            }
+            else
+            {
+                EntityManager.AddComponentData(m_entity, new FindPathParams() { start_pos = startPos, end_pos = endPos });
+            }
+        }
+
+        void Stop()
+        {
+            if (EntityManager.HasComponent<FindPathParams>(m_entity))
+            {
+                EntityManager.RemoveComponent<FindPathParams>(m_entity);
+            }
+            
+            EntityManager.SetComponentData(m_entity, new Follow(){Value = 0});
+        }
 
         /// <summary>
         /// 随机移动 
@@ -112,37 +246,36 @@ namespace SGame
         /// <returns></returns>
         IEnumerator RandomMove(float runTime)
         {
+            Fiber fiberFollow = new Fiber(FollowCharacter(0), FiberBucket.Manual);
+            
             // 圈内不移动 
             while (runTime > 0)
             {
                 runTime -= Time.deltaTime;
-                yield return null;
-                
-                var currPos = m_transform.position;
-                var targetPos = m_followTarget.position;
-                Vector3 diff = m_followTarget.position - currPos;
-                diff.y = 0;
-                float diffLen = diff.magnitude;
-                if (diffLen <= (m_radius + 0.01f))
+                bool inStep = fiberFollow.Step();
+                if (!IsMoving())
                 {
-                    m_animator.SetBool(WALK_NAME, false);
-                    continue;
+                    if (Vector3.Distance(m_followTarget.position, m_transform.position) > m_radius)
+                    {
+                        fiberFollow.Start(FollowCharacter(0));
+                    }
+                    else
+                    {
+                        if (!inStep)
+                        {
+                            fiberFollow.Start(FollowCharacter(PET_RANDOMMOVE_INTERVAL.Value));
+                        }
+                    }
                 }
+                yield return null;
+            }
+        }
 
-                // 圈外跟随
-                m_animator.SetBool(WALK_NAME, true);
-                var target = Utils.GetCircleHitPoint(currPos, targetPos, m_radius);
-                float moveLen = Time.deltaTime * m_speed;
-                float t = moveLen / diffLen;
-                var pos = Vector3.Lerp(currPos, target, t);
-                pos.y = 0;
-
-                // 设置位置
-                m_transform.position = pos;
-
-                // 设置旋转
-                diff.y = 0;
-                m_transform.rotation = Quaternion.LookRotation(diff, Vector3.up);
+        private float speed
+        {
+            set
+            {
+                EntityManager.SetComponentData(m_entity, new Speed(){Value = m_speed});
             }
         }
 
@@ -166,20 +299,6 @@ namespace SGame
             }
             if (tables.Count == 0)
                 yield break;
-
-            m_entity = EntityManager.CreateEntity(typeof(Follow),
-                typeof(LocalToWorld),
-                typeof(Rotation),
-                typeof(Translation),
-                typeof(Speed),
-                typeof(RotationSpeed),
-                typeof(PathPositions),
-                typeof(GameObjectSyncTag));
-            EntityManager.AddComponentObject(m_entity, transform);
-            EntityManager.SetComponentData(m_entity, new Speed(){Value = m_speed});
-            EntityManager.SetComponentData(m_entity, new RotationSpeed(){Value = 10.0f});
-            EntityManager.SetComponentData(m_entity, new Rotation(){Value = m_transform.rotation});
-            EntityManager.SetComponentData(m_entity, new Translation(){Value = transform.position});
 
             // 获得最近的区域
             int GetNearstTable(List<TableData> t, int2 pos, int count)
@@ -210,6 +329,7 @@ namespace SGame
 
             // 找到最近的点获取小费
             m_animator.SetBool(WALK_NAME, true);
+            speed = PET_TAKETIP_SPPED.Value;
             for (int i = 0; i < tables.Count; i++)
             {
                 float3      pos = EntityManager.GetComponentData<Translation>(m_entity).Value;
@@ -222,9 +342,9 @@ namespace SGame
                 yield return GoAndTakeTips(currentPos, tables[index]);
                 RemoveAndSwap(tables, index, itemCount);
             }
-            
-            EntityManager.DestroyEntity(m_entity);
-            m_entity = Entity.Null;
+            speed = m_speed;
+            //EntityManager.DestroyEntity(m_entity);
+            //m_entity = Entity.Null;
         }
 
         /// <summary>

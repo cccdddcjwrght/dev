@@ -1192,5 +1192,12 @@ namespace SGame
 			int currentLevelID = DataCenter.Instance.roomData.roomID;
 			return currentLevelID;
 		}
+		
+		// 调用AStar寻路查询
+		public static int2 GetAStarPosFromMapPos(Vector2Int mapPos)
+		{
+			var ret = MapAgent.GridToIndex(mapPos);
+			return new int2(ret.x, ret.y);
+		}
 	}
 }
