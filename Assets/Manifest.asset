@@ -17,7 +17,6 @@ MonoBehaviour:
   - assets/buildasset/aotmeta
   - assets/buildasset/app/logo
   - assets/buildasset/art/scenes/animal
-  - assets/buildasset/art/scenes/foods
   - assets/buildasset/art/scenes/monster
   - assets/buildasset/art/scenes/ruins
   - assets/buildasset/art/scenes/scene_01
@@ -62,6 +61,8 @@ MonoBehaviour:
   - assets/buildasset/prefabs/scenes/tool/mats
   - assets/buildasset/prefabs/scenes/tool
   - assets/buildasset/scenes/markeds
+  - assets/buildasset/shaders
+  - assets/buildasset/textures/foods
   - assets/buildasset/ui
   - assets/buildasset/visualscript/excute
   - assets/buildasset/visualscript
@@ -144,25 +145,34 @@ MonoBehaviour:
   - name: animal_cattle-1.fbx
     bundle: 23
     dir: 2
+  - name: animal_cattle-1@show.fbx
+    bundle: 23
+    dir: 2
   - name: animal_cattle-1@walk.fbx
     bundle: 23
     dir: 2
   - name: animal_cattle-1_1.png
     bundle: 23
     dir: 2
-  - name: animal_duck-1.fbx
+  - name: animal_chicken-1.fbx
     bundle: 23
     dir: 2
-  - name: animal_duck-1.png
+  - name: animal_chicken-1.png
     bundle: 23
     dir: 2
-  - name: animal_duck-1@walk.fbx
+  - name: animal_chicken-1@show.fbx
+    bundle: 23
+    dir: 2
+  - name: animal_chicken-1@walk.fbx
     bundle: 23
     dir: 2
   - name: animal_fox-1.fbx
     bundle: 23
     dir: 2
   - name: animal_fox-1.png
+    bundle: 23
+    dir: 2
+  - name: animal_fox-1@show.fbx
     bundle: 23
     dir: 2
   - name: animal_fox-1@walk.fbx
@@ -174,6 +184,9 @@ MonoBehaviour:
   - name: animal_giraffe-1.png
     bundle: 23
     dir: 2
+  - name: animal_giraffe-1@show.fbx
+    bundle: 23
+    dir: 2
   - name: animal_giraffe-1@walk.fbx
     bundle: 23
     dir: 2
@@ -181,6 +194,9 @@ MonoBehaviour:
     bundle: 23
     dir: 2
   - name: animal_mouse-1.png
+    bundle: 23
+    dir: 2
+  - name: animal_mouse-1@show.fbx
     bundle: 23
     dir: 2
   - name: animal_mouse-1@walk.fbx
@@ -192,6 +208,9 @@ MonoBehaviour:
   - name: animal_penguin-1.png
     bundle: 23
     dir: 2
+  - name: animal_penguin-1@show.fbx
+    bundle: 23
+    dir: 2
   - name: animal_penguin-1@walk.fbx
     bundle: 23
     dir: 2
@@ -199,6 +218,9 @@ MonoBehaviour:
     bundle: 23
     dir: 2
   - name: animal_pig-1.png
+    bundle: 23
+    dir: 2
+  - name: animal_pig-1@show.fbx
     bundle: 23
     dir: 2
   - name: animal_pig-1@walk.fbx
@@ -210,10 +232,16 @@ MonoBehaviour:
   - name: animal_sheep-1.png
     bundle: 23
     dir: 2
+  - name: animal_sheep-1@show.fbx
+    bundle: 23
+    dir: 2
   - name: animal_sheep-1@walk.fbx
     bundle: 23
     dir: 2
   - name: animal_squirrel-1.fbx
+    bundle: 23
+    dir: 2
+  - name: animal_squirrel-1@show.fbx
     bundle: 23
     dir: 2
   - name: animal_squirrel-1@walk.fbx
@@ -222,3105 +250,3408 @@ MonoBehaviour:
   - name: animal_squirrel.png
     bundle: 23
     dir: 2
-  - name: machine_icon_item_1001.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1002.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1003.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1004.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1005.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1006.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1007.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1008.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1009.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1010.png
-    bundle: 24
-    dir: 3
-  - name: machine_icon_item_1011.png
-    bundle: 24
-    dir: 3
   - name: boss-2.fbx
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-2.png
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-3.fbx
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-3.png
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-3@idle1.fbx
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-3@idle2.fbx
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-3@walk.fbx
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-4.fbx
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-4.png
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-4@hit.fbx
-    bundle: 36
-    dir: 4
+    bundle: 35
+    dir: 3
   - name: boss-4@idle.fbx
+    bundle: 35
+    dir: 3
+  - name: test_scene02_object_13.fbx
     bundle: 36
     dir: 4
-  - name: test_scene02_object_13.fbx
-    bundle: 37
-    dir: 5
   - name: test_scene02_object_13.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_14.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_14.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_15.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_15.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_16.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_16.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_17.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_17.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_18.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_18.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_19.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_19.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_20.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_20.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_21.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_21.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_22.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_22.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_23.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_23.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_24.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_24.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_25.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_25.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_26.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_26.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_27.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_27.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_28.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_28.png
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_29.fbx
-    bundle: 37
-    dir: 5
+    bundle: 36
+    dir: 4
   - name: test_scene02_object_29.png
+    bundle: 36
+    dir: 4
+  - name: test_scene01_object_01.fbx
     bundle: 37
     dir: 5
-  - name: test_scene01_object_01.fbx
-    bundle: 38
-    dir: 6
   - name: test_scene01_object_01.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_02.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_02.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_03.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_03.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_04.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_04.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_05.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_05.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_06.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_object_06.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_table_01.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_table_01.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_table_02.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_table_02.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_terrain_01.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scene01_terrain_01.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scenes01_tool_01.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scenes01_tool_01.png
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scenes01_tool_02.fbx
-    bundle: 38
-    dir: 6
+    bundle: 37
+    dir: 5
   - name: test_scenes01_tool_02.png
+    bundle: 37
+    dir: 5
+  - name: car_01.fbx
     bundle: 38
     dir: 6
-  - name: car_01.fbx
-    bundle: 39
-    dir: 7
   - name: car_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01_02.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01_03.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01_04.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01_05.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01_06.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_building_01_07.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_02.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_02.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_03.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_03.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_04.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_04.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_05.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_05.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_06.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_06.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_07.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_07.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_08.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_08.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_09.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_09.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_10.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_10.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_11.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_food_11.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_01_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_02.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_02_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_02_02.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_03.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_03_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_04.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_04.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_05.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_05.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_06.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_06_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_07.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_07.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_08.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_08.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
+  - name: test_scene02_object_08_02.png
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_09.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_09.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_09_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_10.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_10.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_10_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_11.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_11.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_12.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_12.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_12_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_object_12_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_table_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_table_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_table_02.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_table_02.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_table_03.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_table_03_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_table_03_02.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_terrain_01.png
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_terrain_01_01.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_terrain_01_02.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_terrain_01_03.fbx
-    bundle: 39
-    dir: 7
+    bundle: 38
+    dir: 6
   - name: test_scene02_terrain_02.fbx
+    bundle: 38
+    dir: 6
+  - name: test_scene03_building_01.png
     bundle: 39
     dir: 7
-  - name: test_scene03_building_01.png
-    bundle: 40
-    dir: 8
   - name: test_scene03_building_01_01.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_building_01_02.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_building_01_03.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_building_01_04.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_building_01_05.fbx
-    bundle: 40
-    dir: 8
-  - name: test_scene03_building_01_06.fbx
-    bundle: 40
-    dir: 8
-  - name: test_scene03_building_01_07.fbx
-    bundle: 40
-    dir: 8
-  - name: test_scene03_building_01_08.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_object_01.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_object_01.png
-    bundle: 40
-    dir: 8
-  - name: test_scene03_object_01_01.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_object_01_01.png
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_object_02.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_object_02.png
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_object_03.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_object_03.png
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
+  - name: test_scene03_object_05.fbx
+    bundle: 39
+    dir: 7
+  - name: test_scene03_object_05.png
+    bundle: 39
+    dir: 7
+  - name: test_scene03_table_01.fbx
+    bundle: 39
+    dir: 7
+  - name: test_scene03_table_01.png
+    bundle: 39
+    dir: 7
+  - name: test_scene03_table_02.fbx
+    bundle: 39
+    dir: 7
+  - name: test_scene03_table_02.png
+    bundle: 39
+    dir: 7
   - name: test_scene03_terrain_01.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_terrain_01.png
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
+  - name: test_scene03_terrain_01_02.fbx
+    bundle: 39
+    dir: 7
+  - name: test_scene03_terrain_01_03.fbx
+    bundle: 39
+    dir: 7
+  - name: test_scene03_terrain_01_04.fbx
+    bundle: 39
+    dir: 7
+  - name: test_scene03_terrain_01_05.fbx
+    bundle: 39
+    dir: 7
   - name: test_scene03_terrain_02.fbx
-    bundle: 40
-    dir: 8
+    bundle: 39
+    dir: 7
   - name: test_scene03_terrain_02.png
+    bundle: 39
+    dir: 7
+  - name: test_scene02_food_12.fbx
     bundle: 40
     dir: 8
-  - name: test_scene02_food_12.fbx
-    bundle: 41
-    dir: 9
   - name: test_scene02_food_12.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_13.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_13.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_14.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_14.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_15.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_15.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_16.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_16.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_17.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_17.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_18.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_18.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_19.fbx
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_19.png
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_20.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_20.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_21.fbx
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_21.png
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_22.fbx
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_22.png
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_23.fbx
+    bundle: 40
+    dir: 8
+  - name: test_scene02_food_23.png
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_24.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_24.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_25.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_25.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_26.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_food_26.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_01.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_01.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_02.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_02.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_03.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_03.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_04.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_04.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_05.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_05.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_06.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_06.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_07.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_07.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_08.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_08.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_09.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_09.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_10.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_10.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_11.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_11.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_11_01.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_11_02.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_11_03.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_12.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_12.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_12_01.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_13.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_13.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_13_01.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_14.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_14.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_14_01.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_15.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_15.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_16.fbx
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_16.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_24.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_25.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: test_scene02_tool_26.png
-    bundle: 41
-    dir: 9
+    bundle: 40
+    dir: 8
   - name: game.mixer
+    bundle: 43
+    dir: 9
+  - name: bgm_level.ogg
     bundle: 44
     dir: 10
-  - name: bgm_level.ogg
-    bundle: 45
-    dir: 11
   - name: sound_click.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_click_prize.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_coins.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_diamond.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_end.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_friend.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_friend_tips.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_instant.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_interface_close.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_interface_open.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_make.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_order.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_perfect.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_power_up.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_science_up.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_start.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_tip.ogg
-    bundle: 45
-    dir: 11
+    bundle: 44
+    dir: 10
   - name: sound_up.ogg
+    bundle: 44
+    dir: 10
+  - name: game.dll.bytes
     bundle: 45
     dir: 11
-  - name: game.dll.bytes
-    bundle: 46
-    dir: 12
   - name: abilitylevel.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: abilitylist.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: activitytime.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: adconfig.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: avatar.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: buff.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: bullet.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: cardata.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: chest.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: clubframe.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: clubhead.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: clubreward.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: clubtask.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: cmdconfig.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: cookbook.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: design_global.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: effects.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: egg.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: entry.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: equip.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: equipbuff.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: equipment.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: equipquality.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: equipuplevelcost.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: evolution.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: exchange.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: fonts.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: friend.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: functionconfig.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: game_global.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: guide.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: hunterwheel.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: item.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: itemdrop.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: language.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: language_chn.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: language_en.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: language_hi.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: language_setting.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: level.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: levelpath.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: likes_icon.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: likes_jackpot.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: likes_rewards.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: machine.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: machinestar.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: machineupgrade.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: maintask.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: merchantmission.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: merchantreward.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: monsterhunter.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
+  - name: petbuffconfig.bytes
+    bundle: 181
+    dir: 12
   - name: pets.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: progresspack.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: rankconfig.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: redconfig.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: region.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: role.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roledata.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: room.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roomarea.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roomexclusive.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roomlike.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roommachine.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roomobj.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roomobjlevel.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: roomtech.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: scene.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: settingconfig.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: shop.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: sound_effect.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: table.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: ui_groups.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: ui_res.bytes
-    bundle: 175
-    dir: 13
+    bundle: 181
+    dir: 12
   - name: characterelementdatabase.asset
-    bundle: 174
-    dir: 14
+    bundle: 180
+    dir: 13
   - name: characterbase.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-1.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-10.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-10_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-11.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-11_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-12.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-12_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-13.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-13_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-14.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-14_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-15.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-15_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-16.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-16_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-17.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-17_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-18.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-18_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-19.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-19_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-1_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-2.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-20.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-20_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-21.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-21_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-22.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-22_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-23.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-23_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-24.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-24_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-25.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-25_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-26.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-26_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-27.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-27_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-28.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-28_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-29.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-29_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-2_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-3.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
+  - name: clothes-30.prefab
+    bundle: 180
+    dir: 14
+  - name: clothes-30_mesh.asset
+    bundle: 180
+    dir: 14
   - name: clothes-3_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-4.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-4_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-5.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-5_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-6.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-6_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-7.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-7_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-8.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-8_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-9.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: clothes-9_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-1.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-10.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-10_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-11.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-11_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-12.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-12_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-13.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-13_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-14.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-14_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-15.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-15_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-16.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-16_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-17.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-17_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-18.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-18_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-19.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-19_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-1_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-2.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-20.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-20_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-21.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-21_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-22.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-22_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-23.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-23_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-24.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-24_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-25.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-25_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-26.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-26_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-27.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-27_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-28.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-28_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-29.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-29_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-2_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-3.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
+  - name: hair-30.prefab
+    bundle: 180
+    dir: 14
+  - name: hair-30_mesh.asset
+    bundle: 180
+    dir: 14
   - name: hair-3_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-4.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-4_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-5.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-5_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-6.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-6_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-7.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-7_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-8.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-8_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-9.prefab
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: hair-9_mesh.asset
-    bundle: 174
-    dir: 15
+    bundle: 180
+    dir: 14
   - name: 1001.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1002.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1003.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1004.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1005.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1006.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1007.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1008.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1009.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1010.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: 1011.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: 1012.prefab
+    bundle: 72
+    dir: 15
+  - name: 1013.prefab
+    bundle: 72
+    dir: 15
+  - name: 1014.prefab
+    bundle: 72
+    dir: 15
+  - name: 1015.prefab
+    bundle: 72
+    dir: 15
+  - name: 1016.prefab
+    bundle: 72
+    dir: 15
+  - name: 1017.prefab
+    bundle: 72
+    dir: 15
+  - name: 1018.prefab
+    bundle: 72
+    dir: 15
+  - name: 1019.prefab
+    bundle: 72
+    dir: 15
+  - name: 1020.prefab
+    bundle: 72
+    dir: 15
+  - name: 1021.prefab
+    bundle: 72
+    dir: 15
+  - name: 1022.prefab
+    bundle: 72
+    dir: 15
+  - name: 1023.prefab
+    bundle: 72
+    dir: 15
+  - name: 1024.prefab
+    bundle: 72
+    dir: 15
+  - name: 1025.prefab
+    bundle: 72
+    dir: 15
+  - name: 1026.prefab
+    bundle: 72
+    dir: 15
   - name: angel_halo.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: bigluckshow.prefab
+    bundle: 72
+    dir: 15
   - name: box_401.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: box_402.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: box_403.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: cookbook_merge.prefab
+    bundle: 72
+    dir: 15
   - name: diamond_01.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: diamond_02.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: diamond_03.prefab
+    bundle: 72
+    dir: 15
   - name: egg.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: equip_merge.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: footprint.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: fragmentui.prefab
+    bundle: 72
+    dir: 15
+  - name: friendshire.prefab
+    bundle: 72
+    dir: 15
   - name: gold_01.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: gold_02.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: gold_03.prefab
+    bundle: 72
+    dir: 15
   - name: gold_a_01.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: gold_a_02.5.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: gold_a_02.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: gold_hair.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: guangquan.prefab
+    bundle: 72
+    dir: 15
+  - name: guangquan01.prefab
+    bundle: 72
+    dir: 15
+  - name: guangquan02.prefab
+    bundle: 72
+    dir: 15
+  - name: guangquan03.prefab
+    bundle: 72
+    dir: 15
+  - name: guangquan04.prefab
+    bundle: 72
+    dir: 15
   - name: hailang.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: haiou.prefab
-    bundle: 70
-    dir: 16
-  - name: house pet.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: huanzhuang.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: baozha.prefab
-    bundle: 71
-    dir: 17
+    bundle: 73
+    dir: 16
   - name: bullet01.prefab
-    bundle: 71
-    dir: 17
+    bundle: 73
+    dir: 16
   - name: bullet02.prefab
-    bundle: 71
-    dir: 17
+    bundle: 73
+    dir: 16
   - name: bullet03.prefab
-    bundle: 71
-    dir: 17
+    bundle: 73
+    dir: 16
   - name: huode.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: huode_item.prefab
+    bundle: 72
+    dir: 15
   - name: instant.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: jiesuo.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: level11.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level12.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level13.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level14.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level15.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level16.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level17.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level21.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level22.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level23.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level24.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level25.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level26.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: level27.prefab
-    bundle: 72
-    dir: 18
+    bundle: 74
+    dir: 17
   - name: diamond.prefab
-    bundle: 73
-    dir: 19
+    bundle: 75
+    dir: 18
   - name: diamond2.prefab
-    bundle: 73
-    dir: 19
+    bundle: 75
+    dir: 18
   - name: lights.prefab
-    bundle: 73
-    dir: 19
+    bundle: 75
+    dir: 18
   - name: smoke.prefab
-    bundle: 73
-    dir: 19
+    bundle: 75
+    dir: 18
   - name: torch (3).prefab
-    bundle: 73
-    dir: 19
+    bundle: 75
+    dir: 18
   - name: levelcompletedui_01.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: levelcompletedui_02.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: lucklikeui.prefab
+    bundle: 72
+    dir: 15
+  - name: luckylikes01.prefab
+    bundle: 72
+    dir: 15
   - name: material.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: perfect.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: perfect_food.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: pet_appear.prefab
+    bundle: 72
+    dir: 15
   - name: piggybank_hammer01.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: piggybank_hammer02.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: railway.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: renderer.prefab
+    bundle: 72
+    dir: 15
   - name: blizzard.prefab
-    bundle: 74
-    dir: 20
+    bundle: 76
+    dir: 19
   - name: ice_cake.prefab
-    bundle: 74
-    dir: 20
+    bundle: 76
+    dir: 19
   - name: effects_planet01_boos_baodian.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_boos_suishi.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes01_tool_goods_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes01_tool_goods_01_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes02_tool_goods_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes04_tool_goods_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes04_tool_goods_01b.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes05_tool_goods_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes06_tool_goods_01_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_01b.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_02.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_05.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_06.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_07.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_08.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_08_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_09_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_10.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_10_01.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: effects_planet01_scenes07_tool_goods_10b.prefab
-    bundle: 75
-    dir: 21
+    bundle: 77
+    dir: 20
   - name: sleep.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: smoke.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: spark.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
+  - name: tandorifish.prefab
+    bundle: 72
+    dir: 15
   - name: torch.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: hong.prefab
-    bundle: 76
-    dir: 22
+    bundle: 78
+    dir: 21
   - name: jin.prefab
-    bundle: 76
-    dir: 22
+    bundle: 78
+    dir: 21
   - name: lan.prefab
-    bundle: 76
-    dir: 22
+    bundle: 78
+    dir: 21
   - name: transitions01.prefab
-    bundle: 76
-    dir: 22
+    bundle: 78
+    dir: 21
   - name: ui_transitions01.prefab
-    bundle: 76
-    dir: 22
+    bundle: 78
+    dir: 21
   - name: ui_transitions02.prefab
-    bundle: 76
-    dir: 22
+    bundle: 78
+    dir: 21
   - name: treasure_chest.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: ui_arrow.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: ui_ring.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: upgrade.prefab
-    bundle: 70
-    dir: 16
+    bundle: 72
+    dir: 15
   - name: alibaba-puhuiti-heavy-sdf.asset
-    bundle: 104
-    dir: 23
-  - name: alibaba-puhuiti-heavy.ttf
-    bundle: 105
-    dir: 23
-  - name: lilitaone-regular-sdf.asset
-    bundle: 106
-    dir: 23
-  - name: lilitaone-regular.ttf
-    bundle: 107
-    dir: 23
-  - name: mukta-extrabold-sdf.asset
-    bundle: 108
-    dir: 23
-  - name: mukta-extrabold.ttf
     bundle: 109
-    dir: 23
-  - name: testfrienddata.txt.bytes
+    dir: 22
+  - name: alibaba-puhuiti-heavy.ttf
     bundle: 110
-    dir: 24
-  - name: testrankdata.txt.bytes
-    bundle: 110
-    dir: 24
-  - name: lan.bytes
+    dir: 22
+  - name: lilitaone-regular-sdf.asset
     bundle: 111
-    dir: 25
-  - name: log4net.xml.bytes
+    dir: 22
+  - name: lilitaone-regular.ttf
     bundle: 112
-    dir: 25
-  - name: camera01.prefab
+    dir: 22
+  - name: mukta-extrabold-sdf.asset
     bundle: 113
-    dir: 26
-  - name: camera02.prefab
-    bundle: 113
-    dir: 26
-  - name: cameractr.prefab
-    bundle: 113
-    dir: 26
-  - name: car_01.prefab
+    dir: 22
+  - name: mukta-extrabold.ttf
     bundle: 114
-    dir: 27
-  - name: car_02.prefab
-    bundle: 114
-    dir: 27
-  - name: car_03.prefab
-    bundle: 114
-    dir: 27
-  - name: carroot.prefab
-    bundle: 114
-    dir: 27
-  - name: character.prefab
+    dir: 22
+  - name: testfrienddata.txt.bytes
     bundle: 115
-    dir: 28
-  - name: weapon1.prefab
+    dir: 23
+  - name: testrankdata.txt.bytes
+    bundle: 115
+    dir: 23
+  - name: lan.bytes
     bundle: 116
-    dir: 29
-  - name: weapon10.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon11.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon12.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon2.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon3.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon4.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon5.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon6.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon7.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon8.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon9.prefab
-    bundle: 116
-    dir: 29
-  - name: weapon9_1.prefab
-    bundle: 116
-    dir: 29
-  - name: game.prefab
-    bundle: 113
+    dir: 24
+  - name: log4net.xml.bytes
+    bundle: 117
+    dir: 24
+  - name: camera01.prefab
+    bundle: 118
+    dir: 25
+  - name: camera02.prefab
+    bundle: 118
+    dir: 25
+  - name: cameractr.prefab
+    bundle: 118
+    dir: 25
+  - name: boat_01.prefab
+    bundle: 119
     dir: 26
-  - name: hotfix.prefab
-    bundle: 113
-    dir: 26
-  - name: boss-2.prefab
-    bundle: 117
-    dir: 30
-  - name: boss-3.prefab
-    bundle: 117
-    dir: 30
-  - name: boss-4.prefab
-    bundle: 117
-    dir: 30
-  - name: directional light.prefab
-    bundle: 118
-    dir: 31
-  - name: enable01.prefab
-    bundle: 118
-    dir: 31
-  - name: enable02.prefab
-    bundle: 118
-    dir: 31
-  - name: guidearrow.prefab
-    bundle: 118
-    dir: 31
-  - name: cattle.prefab
-    bundle: 119
-    dir: 32
-  - name: duck.prefab
-    bundle: 119
-    dir: 32
-  - name: fox.prefab
-    bundle: 119
-    dir: 32
-  - name: giraffe.prefab
-    bundle: 119
-    dir: 32
-  - name: mouse.prefab
-    bundle: 119
-    dir: 32
-  - name: penguin.prefab
-    bundle: 119
-    dir: 32
-  - name: pig.prefab
-    bundle: 119
-    dir: 32
-  - name: sheep.prefab
-    bundle: 119
-    dir: 32
-  - name: squirrel.prefab
-    bundle: 119
-    dir: 32
-  - name: role_boss-1.prefab
-    bundle: 120
-    dir: 33
-  - name: ui_focus_mask.mat
-    bundle: 121
-    dir: 34
-  - name: pian_01.mat
-    bundle: 123
-    dir: 35
-  - name: pian_02.mat
-    bundle: 123
-    dir: 35
-  - name: pian_03.mat
-    bundle: 123
-    dir: 35
-  - name: pian_01.prefab
-    bundle: 122
-    dir: 36
-  - name: rewardbox.prefab
-    bundle: 122
-    dir: 36
-  - name: scene_grid.prefab
-    bundle: 122
-    dir: 36
-  - name: scene_grid1.prefab
-    bundle: 122
-    dir: 36
-  - name: scene_grid2.prefab
-    bundle: 122
-    dir: 36
-  - name: scene_grid3.prefab
-    bundle: 122
-    dir: 36
-  - name: scene_grid4.prefab
-    bundle: 122
-    dir: 36
-  - name: table.prefab
-    bundle: 122
-    dir: 36
-  - name: test_scene02_object_13.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_14.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_15.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_16.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_17.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_18.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_19.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_20.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_21.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_22.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_23.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_24.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_25.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_26.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_27.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_28.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_29.mat
-    bundle: 125
-    dir: 37
-  - name: test_scene02_object_13.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_14.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_15.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_16.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_17.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_18.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_19.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_20.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_21.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_22.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_23.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_24.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_25.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_26.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_27.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_28.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene02_object_29.prefab
-    bundle: 124
-    dir: 38
-  - name: test_scene01_object_01.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_object_02.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_object_03.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_object_04.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_object_05.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_object_06.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_table_01.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_table_02.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_terrain_01.mat
-    bundle: 127
-    dir: 39
-  - name: test_scenes01_tool_01.mat
-    bundle: 127
-    dir: 39
-  - name: test_scenes01_tool_02.mat
-    bundle: 127
-    dir: 39
-  - name: test_scene01_object_01.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_object_02.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_object_03.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_object_04.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_object_05.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_object_06.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_table_01.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_table_02.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scene01_terrain_01.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scenes01_tool_01.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scenes01_tool_02.prefab
-    bundle: 126
-    dir: 40
-  - name: test_scenes01_tool_goods_02.prefab
-    bundle: 126
-    dir: 40
   - name: car_01.prefab
+    bundle: 119
+    dir: 26
+  - name: car_02.prefab
+    bundle: 119
+    dir: 26
+  - name: car_03.prefab
+    bundle: 119
+    dir: 26
+  - name: carroot.prefab
+    bundle: 119
+    dir: 26
+  - name: character.prefab
+    bundle: 120
+    dir: 27
+  - name: weapon1.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon10.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon11.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon12.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon13.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon14.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon15.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon16.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon17.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon2.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon3.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon4.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon5.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon6.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon7.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon8.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon9.prefab
+    bundle: 121
+    dir: 28
+  - name: weapon9_1.prefab
+    bundle: 121
+    dir: 28
+  - name: game.prefab
+    bundle: 118
+    dir: 25
+  - name: hotfix.prefab
+    bundle: 118
+    dir: 25
+  - name: boss-2.prefab
+    bundle: 122
+    dir: 29
+  - name: boss-3.prefab
+    bundle: 122
+    dir: 29
+  - name: boss-4.prefab
+    bundle: 122
+    dir: 29
+  - name: directional light.prefab
+    bundle: 123
+    dir: 30
+  - name: enable01.prefab
+    bundle: 123
+    dir: 30
+  - name: enable02.prefab
+    bundle: 123
+    dir: 30
+  - name: guidearrow.prefab
+    bundle: 123
+    dir: 30
+  - name: cattle.prefab
+    bundle: 124
+    dir: 31
+  - name: chicken.prefab
+    bundle: 124
+    dir: 31
+  - name: fox.prefab
+    bundle: 124
+    dir: 31
+  - name: giraffe.prefab
+    bundle: 124
+    dir: 31
+  - name: mouse.prefab
+    bundle: 124
+    dir: 31
+  - name: penguin.prefab
+    bundle: 124
+    dir: 31
+  - name: pig.prefab
+    bundle: 124
+    dir: 31
+  - name: sheep.prefab
+    bundle: 124
+    dir: 31
+  - name: squirrel.prefab
+    bundle: 124
+    dir: 31
+  - name: role_boss-1.prefab
+    bundle: 125
+    dir: 32
+  - name: ui_focus_mask.mat
+    bundle: 126
+    dir: 33
+  - name: pian_01.mat
     bundle: 128
-    dir: 41
+    dir: 34
+  - name: pian_02.mat
+    bundle: 128
+    dir: 34
+  - name: pian_03.mat
+    bundle: 128
+    dir: 34
+  - name: pian_01.prefab
+    bundle: 127
+    dir: 35
+  - name: rewardbox.prefab
+    bundle: 127
+    dir: 35
+  - name: scene_grid.prefab
+    bundle: 127
+    dir: 35
+  - name: scene_grid1.prefab
+    bundle: 127
+    dir: 35
+  - name: scene_grid2.prefab
+    bundle: 127
+    dir: 35
+  - name: scene_grid3.prefab
+    bundle: 127
+    dir: 35
+  - name: scene_grid4.prefab
+    bundle: 127
+    dir: 35
+  - name: table.prefab
+    bundle: 127
+    dir: 35
+  - name: test_scene02_object_13.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_14.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_15.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_16.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_17.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_18.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_19.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_20.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_21.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_22.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_23.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_24.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_25.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_26.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_27.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_28.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_29.mat
+    bundle: 130
+    dir: 36
+  - name: test_scene02_object_13.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_14.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_15.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_16.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_17.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_18.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_19.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_20.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_21.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_22.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_23.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_24.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_25.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_26.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_27.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_28.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene02_object_29.prefab
+    bundle: 129
+    dir: 37
+  - name: test_scene01_object_01.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_object_02.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_object_03.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_object_04.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_object_05.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_object_06.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_table_01.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_table_02.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_terrain_01.mat
+    bundle: 132
+    dir: 38
+  - name: test_scenes01_tool_01.mat
+    bundle: 132
+    dir: 38
+  - name: test_scenes01_tool_02.mat
+    bundle: 132
+    dir: 38
+  - name: test_scene01_object_01.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_object_02.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_object_03.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_object_04.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_object_05.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_object_06.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_table_01.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_table_02.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scene01_terrain_01.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scenes01_tool_01.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scenes01_tool_02.prefab
+    bundle: 131
+    dir: 39
+  - name: test_scenes01_tool_goods_02.prefab
+    bundle: 131
+    dir: 39
+  - name: car_01.prefab
+    bundle: 133
+    dir: 40
   - name: car_01.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_building_01-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_building_01.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_01.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_02.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_03.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_04.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_05.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_06.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_07-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_07.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_08.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_09.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_10-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_10.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_food_11.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_01-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_01.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_02-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_02.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_03-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_03.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_04.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_05-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_05.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_06-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_06.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_07.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_08.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_09-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_09.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_10.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_11.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_12-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_12.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_object_12_01.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_table_01.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_table_02.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_table_03.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_terrain_01-1.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_terrain_01.mat
-    bundle: 129
-    dir: 42
-  - name: test_scene02_building_01_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_building_01_02.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_building_01_03.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_building_01_04.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_building_01_05.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_building_01_06.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_building_01_07.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_02.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_03.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_04.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_05.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_06.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_07.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_08.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_09.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_10.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_food_11.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_01_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_02_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_02_02.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_03_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_04.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_05.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_06.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_07.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_08.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_09.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_09_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_10.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_11.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_12.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_object_12_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_table_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_table_02.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_table_03_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_table_03_02.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_terrain_01_01.prefab
-    bundle: 128
-    dir: 41
-  - name: test_scene02_terrain_02.prefab
-    bundle: 128
-    dir: 41
-  - name: boat_1.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01-1.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_building_01.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_object_01.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_object_01_01.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_object_02.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_object_03.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_terrain_01.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_terrain_02.mat
-    bundle: 131
-    dir: 44
-  - name: test_scene03_building_01_01.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01_02.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01_03.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01_04.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01_05.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01_06.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01_07.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_building_01_08.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_object_01.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_object_01_01.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_object_02.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_terrain_01.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene03_terrain_02.prefab
-    bundle: 130
-    dir: 43
-  - name: test_scene02_food_12.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_13.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_14.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_15.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_16.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_17.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_18.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_20.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_24.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_25.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_26.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_01.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_02.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_03.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_04.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_05.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_06.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_07-1.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_07.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_08.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_09.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_10-1.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_10.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_11.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_12.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_13.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_14.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_15.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_tool_16.mat
-    bundle: 133
-    dir: 45
-  - name: test_scene02_food_12.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_13.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_14.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_15.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_16.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_17.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_18.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_20.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_24.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_25.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_food_26.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_01.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_02.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_03.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_04.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_05.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_06.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_07.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_08.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_09.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_10.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_11.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_12.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_13.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_14.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_15.prefab
-    bundle: 132
-    dir: 46
-  - name: test_scene02_tool_16.prefab
-    bundle: 132
-    dir: 46
-  - name: level01_marked.unity
     bundle: 134
-    dir: 47
-  - name: level02_marked.unity
+    dir: 41
+  - name: test_scene02_building_01-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_building_01.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_01.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_02.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_03.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_04.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_05.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_06.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_07-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_07.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_08.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_09.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_10-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_10.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_food_11.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_01-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_01.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_02-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_02.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_03-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_03.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_04.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_05-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_05.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_06-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_06.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_07.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_08-2.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_08.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_09-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_09.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_10.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_11.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_12-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_12.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_object_12_01.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_table_01.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_table_02.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_table_03.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_terrain_01-1.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_terrain_01.mat
+    bundle: 134
+    dir: 41
+  - name: test_scene02_building_01_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_building_01_02.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_building_01_03.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_building_01_04.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_building_01_05.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_building_01_06.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_building_01_07.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_02.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_03.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_04.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_05.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_06.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_07.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_08.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_09.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_10.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_food_11.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_01_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_02_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_02_02.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_03_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_04.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_05.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_06.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_07.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_08.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_08_2.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_09.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_09_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_10.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_11.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_12.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_object_12_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_table_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_table_02.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_table_03_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_table_03_02.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_terrain_01_01.prefab
+    bundle: 133
+    dir: 40
+  - name: test_scene02_terrain_02.prefab
+    bundle: 133
+    dir: 40
+  - name: boat_1.prefab
     bundle: 135
-    dir: 47
-  - name: buff_atlas0.png
+    dir: 42
+  - name: test_scene03_building_01-1.mat
     bundle: 136
-    dir: 48
-  - name: buff_fui.bytes
+    dir: 43
+  - name: test_scene03_building_01.mat
     bundle: 136
-    dir: 48
-  - name: club_atlas0.png
+    dir: 43
+  - name: test_scene03_object_01.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_object_01_01.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_object_02.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_object_03.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_object_05.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_table_01.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_table_02.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_terrain_01.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_terrain_02.mat
+    bundle: 136
+    dir: 43
+  - name: test_scene03_building_01_01.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_building_01_02.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_building_01_03.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_building_01_04.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_building_01_05.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_object_01.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_object_02.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_object_03.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_object_05.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_table_01.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_table_02.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_terrain_01.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_terrain_01_02.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_terrain_01_03.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_terrain_01_04.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_terrain_01_05.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene03_terrain_02.prefab
+    bundle: 135
+    dir: 42
+  - name: test_scene02_food_12.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_13.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_14.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_15.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_16.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_17.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_18.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_19.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_20.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_21.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_22.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_23.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_24.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_25.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_food_26.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_01.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_02.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_03.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_04.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_05.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_06.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_07-1.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_07.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_08.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_09.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_10-1.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_10.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_11.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_11_01.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_11_02.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_11_03.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_12.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_12_01.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_13.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_13_01.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_14.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_14_01.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_15.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_16.mat
+    bundle: 138
+    dir: 44
+  - name: test_scene02_tool_01.prefab
     bundle: 137
-    dir: 48
-  - name: club_atlas_lu5mp.png
+    dir: 45
+  - name: test_scene02_tool_02.prefab
     bundle: 137
-    dir: 48
-  - name: club_fui.bytes
+    dir: 45
+  - name: test_scene02_tool_03.prefab
     bundle: 137
-    dir: 48
-  - name: common_atlas0.png
-    bundle: 138
-    dir: 48
-  - name: common_atlas_e9cj3lfa.png
-    bundle: 138
-    dir: 48
-  - name: common_atlas_k62210.png
-    bundle: 138
-    dir: 48
-  - name: common_fui.bytes
-    bundle: 138
-    dir: 48
-  - name: cookbook_fui.bytes
+    dir: 45
+  - name: test_scene02_tool_04.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_05.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_06.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_07.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_08.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_09.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_10.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_11.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_11_1.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_11_2.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_11_3.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_12.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_12_1.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_13.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_13_1.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_14.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_14_1.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_15.prefab
+    bundle: 137
+    dir: 45
+  - name: test_scene02_tool_16.prefab
+    bundle: 137
+    dir: 45
+  - name: level01_marked.unity
     bundle: 139
-    dir: 48
-  - name: enterscene_atlas0.png
+    dir: 46
+  - name: level02_marked.unity
     bundle: 140
-    dir: 48
-  - name: enterscene_atlas_eo1e2s.png
-    bundle: 140
-    dir: 48
-  - name: enterscene_atlas_eo1e2t.png
-    bundle: 140
-    dir: 48
-  - name: enterscene_atlas_udvnm.png
-    bundle: 140
-    dir: 48
-  - name: enterscene_atlas_udvnp.png
-    bundle: 140
-    dir: 48
-  - name: enterscene_atlas_udvnq.png
-    bundle: 140
-    dir: 48
-  - name: enterscene_fui.bytes
-    bundle: 140
-    dir: 48
-  - name: exchange_atlas0.png
+    dir: 46
+  - name: shadercollect.shadervariants
+    bundle: 182
+    dir: 47
+  - name: machine_icon_item_1001.png
     bundle: 141
     dir: 48
-  - name: exchange_fui.bytes
+  - name: machine_icon_item_1002.png
     bundle: 141
     dir: 48
-  - name: firend_fui.bytes
+  - name: machine_icon_item_1003.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1004.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1005.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1006.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1007.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1008.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1009.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1010.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1011.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1012.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1013.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1014.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1015.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1016.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1017.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1018.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1019.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1020.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1021.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1022.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1023.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1024.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1025.png
+    bundle: 141
+    dir: 48
+  - name: machine_icon_item_1026.png
+    bundle: 141
+    dir: 48
+  - name: buff_atlas0.png
     bundle: 142
-    dir: 48
-  - name: flight_fui.bytes
+    dir: 49
+  - name: buff_fui.bytes
+    bundle: 142
+    dir: 49
+  - name: club_atlas0.png
     bundle: 143
-    dir: 48
-  - name: gamefriend_atlas0.png
+    dir: 49
+  - name: club_atlas_lu5mp.png
+    bundle: 143
+    dir: 49
+  - name: club_fui.bytes
+    bundle: 143
+    dir: 49
+  - name: common_atlas0.png
     bundle: 144
-    dir: 48
-  - name: gamefriend_fui.bytes
+    dir: 49
+  - name: common_atlas_e9cj3lfa.png
     bundle: 144
-    dir: 48
-  - name: gameloge_atlas_vm0m1.png
+    dir: 49
+  - name: common_atlas_k62210.png
+    bundle: 144
+    dir: 49
+  - name: common_fui.bytes
+    bundle: 144
+    dir: 49
+  - name: cookbook_atlas0.png
     bundle: 145
-    dir: 48
-  - name: gameloge_atlas_vm0m2.png
+    dir: 49
+  - name: cookbook_fui.bytes
     bundle: 145
-    dir: 48
-  - name: gameloge_atlas_vm0m3.png
-    bundle: 145
-    dir: 48
-  - name: gameloge_atlas_vm0m4.png
-    bundle: 145
-    dir: 48
-  - name: gameloge_fui.bytes
-    bundle: 145
-    dir: 48
-  - name: gm_fui.bytes
+    dir: 49
+  - name: enterscene_atlas0.png
     bundle: 146
-    dir: 48
-  - name: growgift_atlas0.png
+    dir: 49
+  - name: enterscene_atlas_udvnm.png
+    bundle: 146
+    dir: 49
+  - name: enterscene_atlas_udvnp.png
+    bundle: 146
+    dir: 49
+  - name: enterscene_atlas_udvnq.png
+    bundle: 146
+    dir: 49
+  - name: enterscene_atlas_z3ht3o.png
+    bundle: 146
+    dir: 49
+  - name: enterscene_atlas_z3ht3p.png
+    bundle: 146
+    dir: 49
+  - name: enterscene_atlas_z3ht3q.png
+    bundle: 146
+    dir: 49
+  - name: enterscene_atlas_z3ht3r.png
+    bundle: 146
+    dir: 49
+  - name: enterscene_fui.bytes
+    bundle: 146
+    dir: 49
+  - name: exchange_atlas0.png
     bundle: 147
-    dir: 48
-  - name: growgift_fui.bytes
+    dir: 49
+  - name: exchange_fui.bytes
     bundle: 147
-    dir: 48
-  - name: guide_atlas0.png
+    dir: 49
+  - name: firend_fui.bytes
     bundle: 148
-    dir: 48
-  - name: guide_fui.bytes
-    bundle: 148
-    dir: 48
-  - name: hotfix_fui.bytes
+    dir: 49
+  - name: flight_fui.bytes
     bundle: 149
-    dir: 48
+    dir: 49
+  - name: gamefriend_atlas0.png
+    bundle: 150
+    dir: 49
+  - name: gamefriend_fui.bytes
+    bundle: 150
+    dir: 49
+  - name: gameloge_atlas_vm0m1.png
+    bundle: 151
+    dir: 49
+  - name: gameloge_atlas_vm0m2.png
+    bundle: 151
+    dir: 49
+  - name: gameloge_atlas_vm0m3.png
+    bundle: 151
+    dir: 49
+  - name: gameloge_atlas_vm0m4.png
+    bundle: 151
+    dir: 49
+  - name: gameloge_fui.bytes
+    bundle: 151
+    dir: 49
+  - name: gm_fui.bytes
+    bundle: 152
+    dir: 49
+  - name: growgift_atlas0.png
+    bundle: 153
+    dir: 49
+  - name: growgift_fui.bytes
+    bundle: 153
+    dir: 49
+  - name: guide_atlas0.png
+    bundle: 154
+    dir: 49
+  - name: guide_fui.bytes
+    bundle: 154
+    dir: 49
+  - name: hotfix_fui.bytes
+    bundle: 155
+    dir: 49
   - name: hud_atlas0.png
-    bundle: 150
-    dir: 48
-  - name: hud_fui.bytes
-    bundle: 150
-    dir: 48
-  - name: icon_atlas0.png
-    bundle: 151
-    dir: 48
-  - name: icon_fui.bytes
-    bundle: 151
-    dir: 48
-  - name: iconequip_atlas0.png
-    bundle: 152
-    dir: 48
-  - name: iconequip_fui.bytes
-    bundle: 152
-    dir: 48
-  - name: iconhead_atlas0.png
-    bundle: 153
-    dir: 48
-  - name: iconhead_fui.bytes
-    bundle: 153
-    dir: 48
-  - name: iconlevel_atlas_9n6p35.png
-    bundle: 154
-    dir: 48
-  - name: iconlevel_atlas_9n6p3b.png
-    bundle: 154
-    dir: 48
-  - name: iconlevel_fui.bytes
-    bundle: 154
-    dir: 48
-  - name: icontech_atlas0.png
-    bundle: 155
-    dir: 48
-  - name: icontech_fui.bytes
-    bundle: 155
-    dir: 48
-  - name: loading_fui.bytes
     bundle: 156
-    dir: 48
+    dir: 49
+  - name: hud_fui.bytes
+    bundle: 156
+    dir: 49
+  - name: icon_atlas0.png
+    bundle: 157
+    dir: 49
+  - name: icon_fui.bytes
+    bundle: 157
+    dir: 49
+  - name: iconequip_atlas0.png
+    bundle: 158
+    dir: 49
+  - name: iconequip_fui.bytes
+    bundle: 158
+    dir: 49
+  - name: iconhead_atlas0.png
+    bundle: 159
+    dir: 49
+  - name: iconhead_fui.bytes
+    bundle: 159
+    dir: 49
+  - name: iconlevel_atlas_9n6p35.png
+    bundle: 160
+    dir: 49
+  - name: iconlevel_atlas_9n6p3b.png
+    bundle: 160
+    dir: 49
+  - name: iconlevel_fui.bytes
+    bundle: 160
+    dir: 49
+  - name: icontech_atlas0.png
+    bundle: 161
+    dir: 49
+  - name: icontech_fui.bytes
+    bundle: 161
+    dir: 49
+  - name: loading_fui.bytes
+    bundle: 162
+    dir: 49
   - name: login_atlas0.png
-    bundle: 157
-    dir: 48
+    bundle: 163
+    dir: 49
   - name: login_fui.bytes
-    bundle: 157
-    dir: 48
+    bundle: 163
+    dir: 49
   - name: main_atlas0.png
-    bundle: 158
-    dir: 48
+    bundle: 164
+    dir: 49
   - name: main_fui.bytes
-    bundle: 158
-    dir: 48
+    bundle: 164
+    dir: 49
   - name: monsterhunter_atlas0.png
-    bundle: 159
-    dir: 48
+    bundle: 165
+    dir: 49
   - name: monsterhunter_fui.bytes
-    bundle: 159
-    dir: 48
+    bundle: 165
+    dir: 49
   - name: offline_atlas0.png
-    bundle: 160
-    dir: 48
+    bundle: 166
+    dir: 49
   - name: offline_fui.bytes
-    bundle: 160
-    dir: 48
+    bundle: 166
+    dir: 49
   - name: pet_atlas0.png
-    bundle: 161
-    dir: 48
+    bundle: 167
+    dir: 49
   - name: pet_atlas_835x4e.png
-    bundle: 161
-    dir: 48
+    bundle: 167
+    dir: 49
   - name: pet_atlas_l7ed11.png
-    bundle: 161
-    dir: 48
+    bundle: 167
+    dir: 49
   - name: pet_fui.bytes
-    bundle: 161
-    dir: 48
+    bundle: 167
+    dir: 49
   - name: piggybank_atlas0.png
-    bundle: 162
-    dir: 48
+    bundle: 168
+    dir: 49
   - name: piggybank_fui.bytes
-    bundle: 162
-    dir: 48
+    bundle: 168
+    dir: 49
   - name: player_atlas0.png
-    bundle: 163
-    dir: 48
+    bundle: 169
+    dir: 49
   - name: player_atlas_k6221.png
-    bundle: 163
-    dir: 48
+    bundle: 169
+    dir: 49
   - name: player_fui.bytes
-    bundle: 163
-    dir: 48
+    bundle: 169
+    dir: 49
   - name: rank_atlas0.png
-    bundle: 164
-    dir: 48
-  - name: rank_fui.bytes
-    bundle: 164
-    dir: 48
-  - name: reputation_atlas0.png
-    bundle: 165
-    dir: 48
-  - name: reputation_fui.bytes
-    bundle: 165
-    dir: 48
-  - name: roomexclusive_atlas0.png
-    bundle: 166
-    dir: 48
-  - name: roomexclusive_fui.bytes
-    bundle: 166
-    dir: 48
-  - name: scenedecor_atlas0.png
-    bundle: 167
-    dir: 48
-  - name: scenedecor_fui.bytes
-    bundle: 167
-    dir: 48
-  - name: setting_atlas0.png
-    bundle: 168
-    dir: 48
-  - name: setting_fui.bytes
-    bundle: 168
-    dir: 48
-  - name: shop_atlas0.png
-    bundle: 169
-    dir: 48
-  - name: shop_fui.bytes
-    bundle: 169
-    dir: 48
-  - name: task_fui.bytes
     bundle: 170
-    dir: 48
+    dir: 49
+  - name: rank_fui.bytes
+    bundle: 170
+    dir: 49
+  - name: reputation_atlas0.png
+    bundle: 171
+    dir: 49
+  - name: reputation_fui.bytes
+    bundle: 171
+    dir: 49
+  - name: roomexclusive_atlas0.png
+    bundle: 172
+    dir: 49
+  - name: roomexclusive_fui.bytes
+    bundle: 172
+    dir: 49
+  - name: scenedecor_atlas0.png
+    bundle: 173
+    dir: 49
+  - name: scenedecor_fui.bytes
+    bundle: 173
+    dir: 49
+  - name: setting_atlas0.png
+    bundle: 174
+    dir: 49
+  - name: setting_fui.bytes
+    bundle: 174
+    dir: 49
+  - name: shop_atlas0.png
+    bundle: 175
+    dir: 49
+  - name: shop_fui.bytes
+    bundle: 175
+    dir: 49
+  - name: task_fui.bytes
+    bundle: 176
+    dir: 49
   - name: technology_atlas0.png
-    bundle: 171
-    dir: 48
-  - name: technology_fui.bytes
-    bundle: 171
-    dir: 48
-  - name: tomorrowgift_atlas0.png
-    bundle: 172
-    dir: 48
-  - name: tomorrowgift_fui.bytes
-    bundle: 172
-    dir: 48
-  - name: worktable_atlas0.png
-    bundle: 173
-    dir: 48
-  - name: worktable_fui.bytes
-    bundle: 173
-    dir: 48
-  - name: excute.asset
     bundle: 177
     dir: 49
+  - name: technology_fui.bytes
+    bundle: 177
+    dir: 49
+  - name: tomorrowgift_atlas0.png
+    bundle: 178
+    dir: 49
+  - name: tomorrowgift_fui.bytes
+    bundle: 178
+    dir: 49
+  - name: worktable_atlas0.png
+    bundle: 179
+    dir: 49
+  - name: worktable_fui.bytes
+    bundle: 179
+    dir: 49
+  - name: excute.asset
+    bundle: 183
+    dir: 50
   - name: game.asset
-    bundle: 177
-    dir: 50
+    bundle: 183
+    dir: 51
   - name: getgratuity.asset
-    bundle: 177
-    dir: 51
-  - name: getgratuityrate.asset
-    bundle: 177
-    dir: 51
-  - name: gameaudio.asset
-    bundle: 177
+    bundle: 183
     dir: 52
+  - name: getgratuityrate.asset
+    bundle: 183
+    dir: 52
+  - name: gameaudio.asset
+    bundle: 183
+    dir: 53
   - name: createelevator.asset
-    bundle: 177
-    dir: 53
+    bundle: 183
+    dir: 54
   - name: elevator.asset
-    bundle: 177
-    dir: 53
+    bundle: 183
+    dir: 54
   - name: initlevelelevator.asset
-    bundle: 177
-    dir: 53
+    bundle: 183
+    dir: 54
   - name: moveobjectto.asset
-    bundle: 177
-    dir: 53
+    bundle: 183
+    dir: 54
+  - name: bus.asset
+    bundle: 183
+    dir: 55
+  - name: buscustomer.asset
+    bundle: 183
+    dir: 55
   - name: car.asset
-    bundle: 177
-    dir: 54
+    bundle: 183
+    dir: 55
+  - name: carcustomer.asset
+    bundle: 183
+    dir: 55
   - name: carfactory.asset
-    bundle: 177
-    dir: 54
+    bundle: 183
+    dir: 55
   - name: carorder.asset
-    bundle: 177
-    dir: 54
+    bundle: 183
+    dir: 55
   - name: chef.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: createcharacterevent.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: createcharactersinelevator.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: createcustomer.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: createelevatorcustomer.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: customer.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
+  - name: customer2.asset
+    bundle: 183
+    dir: 56
+  - name: customercommon.asset
+    bundle: 183
+    dir: 56
   - name: friendcustomer.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: getcustomerfoodnum.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: player.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: superwaiter.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: characterfinishorder.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
+  - name: characterinitstate.asset
+    bundle: 183
+    dir: 57
   - name: cheftakeorder.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: cooking.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: customerleave.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: quitsleepcustomer.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: startcooking.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: startordering.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: walktonewcustomer.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: walktoordercustomer.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: walktosleepcustomer.asset
-    bundle: 177
-    dir: 56
+    bundle: 183
+    dir: 57
   - name: waitcharacterfinish.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: waiter.asset
-    bundle: 177
-    dir: 55
+    bundle: 183
+    dir: 56
   - name: checkfriendcustomercreate.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: firendcustomertrigger.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: friendcustomercreater.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: getfriendconfig.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: getfriendgratuity.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: getfriendgratuityrate.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: getfriendordernum.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: getfriendtriggertime.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: getrandromfriendid.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
+  - name: hirefriendanimation.asset
+    bundle: 183
+    dir: 58
   - name: hirefriendcharacter.asset
-    bundle: 177
-    dir: 57
+    bundle: 183
+    dir: 58
   - name: closeguidefinger.asset
-    bundle: 177
-    dir: 58
-  - name: closemask.asset
-    bundle: 177
-    dir: 58
-  - name: guide.asset
-    bundle: 177
-    dir: 58
-  - name: guideaddstep.asset
-    bundle: 177
-    dir: 58
-  - name: guideclick.asset
-    bundle: 177
-    dir: 58
-  - name: guidestep.asset
-    bundle: 177
-    dir: 58
-  - name: guidewaitevent.asset
-    bundle: 177
-    dir: 58
-  - name: guidewaititem.asset
-    bundle: 177
-    dir: 58
-  - name: guidewaitui.asset
-    bundle: 177
-    dir: 58
-  - name: showguidefinger.asset
-    bundle: 177
-    dir: 58
-  - name: showmask.asset
-    bundle: 177
-    dir: 58
-  - name: createlevelcharacter.asset
-    bundle: 177
+    bundle: 183
     dir: 59
-  - name: ordercookfinish.asset
-    bundle: 177
-    dir: 60
-  - name: ordercookstart.asset
-    bundle: 177
-    dir: 60
-  - name: orderfinish.asset
-    bundle: 177
-    dir: 60
-  - name: orderfoodtips.asset
-    bundle: 177
-    dir: 60
-  - name: orderreputationtip.asset
-    bundle: 177
-    dir: 60
-  - name: createbullet.asset
-    bundle: 177
-    dir: 61
-  - name: customerleavebullet.asset
-    bundle: 177
-    dir: 61
-  - name: customerleavedressup.asset
-    bundle: 177
-    dir: 61
-  - name: customerleavereturn.asset
-    bundle: 177
-    dir: 61
-  - name: getbullettargetposition.asset
-    bundle: 177
-    dir: 61
-  - name: iselevatorroom.asset
-    bundle: 177
-    dir: 61
-  - name: dispatchfoodreadlyorder2woker.asset
-    bundle: 177
-    dir: 62
-  - name: dispatchorder2woker.asset
-    bundle: 177
-    dir: 62
-  - name: dispatchwaitcustomer2worker.asset
-    bundle: 177
-    dir: 62
-  - name: getbestemptychef.asset
-    bundle: 177
-    dir: 62
-  - name: getbestemptywaiter.asset
-    bundle: 177
-    dir: 62
-  - name: getbestemptyworker.asset
-    bundle: 177
-    dir: 62
-  - name: getdistanceonlypriority.asset
-    bundle: 177
-    dir: 62
-  - name: getworkerspriority.asset
-    bundle: 177
-    dir: 62
-  - name: roommanager.asset
-    bundle: 177
-    dir: 62
-  - name: onapppause.asset
-    bundle: 177
-    dir: 61
-  - name: oncustomerclose.asset
-    bundle: 177
-    dir: 61
-  - name: oncustomercreate.asset
-    bundle: 177
-    dir: 61
-  - name: railwaylooking.asset
-    bundle: 177
-    dir: 61
-  - name: roomcleanup.asset
-    bundle: 177
-    dir: 61
-  - name: additem.asset
-    bundle: 177
-    dir: 63
-  - name: charactermove.asset
-    bundle: 177
-    dir: 63
-  - name: createcharacter.asset
-    bundle: 177
-    dir: 63
+  - name: closemask.asset
+    bundle: 183
+    dir: 59
+  - name: guide.asset
+    bundle: 183
+    dir: 59
+  - name: guideaddstep.asset
+    bundle: 183
+    dir: 59
+  - name: guideclick.asset
+    bundle: 183
+    dir: 59
+  - name: guidestep.asset
+    bundle: 183
+    dir: 59
+  - name: guidewaitevent.asset
+    bundle: 183
+    dir: 59
+  - name: guidewaititem.asset
+    bundle: 183
+    dir: 59
+  - name: guidewaitui.asset
+    bundle: 183
+    dir: 59
+  - name: showguidefinger.asset
+    bundle: 183
+    dir: 59
+  - name: showmask.asset
+    bundle: 183
+    dir: 59
   - name: createlevelcharacter.asset
-    bundle: 177
+    bundle: 183
+    dir: 60
+  - name: ordercookfinish.asset
+    bundle: 183
+    dir: 61
+  - name: ordercookstart.asset
+    bundle: 183
+    dir: 61
+  - name: orderfinish.asset
+    bundle: 183
+    dir: 61
+  - name: orderfoodtips.asset
+    bundle: 183
+    dir: 61
+  - name: orderreputationtip.asset
+    bundle: 183
+    dir: 61
+  - name: createbullet.asset
+    bundle: 183
+    dir: 62
+  - name: customerleavebullet.asset
+    bundle: 183
+    dir: 62
+  - name: customerleavedressup.asset
+    bundle: 183
+    dir: 62
+  - name: customerleavereturn.asset
+    bundle: 183
+    dir: 62
+  - name: getbullettargetposition.asset
+    bundle: 183
+    dir: 62
+  - name: iselevatorroom.asset
+    bundle: 183
+    dir: 62
+  - name: dispatchfoodreadlyorder2woker.asset
+    bundle: 183
     dir: 63
-  - name: getcharacerattribute.asset
-    bundle: 177
+  - name: dispatchorder2woker.asset
+    bundle: 183
     dir: 63
-  - name: getcookingpos.asset
-    bundle: 177
+  - name: dispatchwaitcustomer2worker.asset
+    bundle: 183
     dir: 63
-  - name: getfoodtype.asset
-    bundle: 177
+  - name: getbestemptychef.asset
+    bundle: 183
     dir: 63
-  - name: getindexpos.asset
-    bundle: 177
+  - name: getbestemptywaiter.asset
+    bundle: 183
     dir: 63
-  - name: getonlinetime.asset
-    bundle: 177
+  - name: getbestemptyworker.asset
+    bundle: 183
     dir: 63
-  - name: getorderchairfromchair.asset
-    bundle: 177
+  - name: getdistanceonlypriority.asset
+    bundle: 183
     dir: 63
-  - name: getorderpos.asset
-    bundle: 177
+  - name: getworkerspriority.asset
+    bundle: 183
     dir: 63
-  - name: getrandomfoodtype.asset
-    bundle: 177
+  - name: roommanager.asset
+    bundle: 183
     dir: 63
-  - name: gettablechair.asset
-    bundle: 177
-    dir: 63
-  - name: recovercharacter.asset
-    bundle: 177
-    dir: 63
-  - name: recoverlevelcharacter.asset
-    bundle: 177
-    dir: 63
-  - name: setitem.asset
-    bundle: 177
-    dir: 63
-  - name: gameelevator.asset
-    bundle: 177
-    dir: 50
-  - name: gmscript.asset
-    bundle: 177
-    dir: 50
-  - name: login.asset
-    bundle: 177
+  - name: onapppause.asset
+    bundle: 183
+    dir: 62
+  - name: oncustomerclose.asset
+    bundle: 183
+    dir: 62
+  - name: oncustomercreate.asset
+    bundle: 183
+    dir: 62
+  - name: railwaylooking.asset
+    bundle: 183
+    dir: 62
+  - name: roomcleanup.asset
+    bundle: 183
+    dir: 62
+  - name: additem.asset
+    bundle: 183
     dir: 64
-  - name: car.prefab
-    bundle: 177
+  - name: charactermove.asset
+    bundle: 183
+    dir: 64
+  - name: charactermove3d.asset
+    bundle: 183
+    dir: 64
+  - name: createcharacter.asset
+    bundle: 183
+    dir: 64
+  - name: createlevelcharacter.asset
+    bundle: 183
+    dir: 64
+  - name: getcharacerattribute.asset
+    bundle: 183
+    dir: 64
+  - name: getcookingpos.asset
+    bundle: 183
+    dir: 64
+  - name: getfoodtype.asset
+    bundle: 183
+    dir: 64
+  - name: getindexpos.asset
+    bundle: 183
+    dir: 64
+  - name: getonlinetime.asset
+    bundle: 183
+    dir: 64
+  - name: getorderchairfromchair.asset
+    bundle: 183
+    dir: 64
+  - name: getorderpos.asset
+    bundle: 183
+    dir: 64
+  - name: getrandomfoodtype.asset
+    bundle: 183
+    dir: 64
+  - name: gettablechair.asset
+    bundle: 183
+    dir: 64
+  - name: recovercharacter.asset
+    bundle: 183
+    dir: 64
+  - name: recoverlevelcharacter.asset
+    bundle: 183
+    dir: 64
+  - name: setitem.asset
+    bundle: 183
+    dir: 64
+  - name: gameelevator.asset
+    bundle: 183
+    dir: 51
+  - name: gmscript.asset
+    bundle: 183
+    dir: 51
+  - name: login.asset
+    bundle: 183
     dir: 65
-  - name: chef.prefab
-    bundle: 177
-    dir: 65
-  - name: customer.prefab
-    bundle: 177
-    dir: 65
-  - name: customertest.prefab
-    bundle: 177
-    dir: 65
-  - name: friendcustomer.prefab
-    bundle: 177
-    dir: 65
-  - name: player.prefab
-    bundle: 177
-    dir: 65
-  - name: player2.prefab
-    bundle: 177
-    dir: 65
-  - name: superwaiter.prefab
-    bundle: 177
-    dir: 65
-  - name: waiter.prefab
-    bundle: 177
-    dir: 65
-  - name: elevator.prefab
-    bundle: 177
+  - name: bus.prefab
+    bundle: 183
     dir: 66
+  - name: buscustomer.prefab
+    bundle: 183
+    dir: 66
+  - name: car.prefab
+    bundle: 183
+    dir: 66
+  - name: carcustomer.prefab
+    bundle: 183
+    dir: 66
+  - name: chef.prefab
+    bundle: 183
+    dir: 66
+  - name: customer.prefab
+    bundle: 183
+    dir: 66
+  - name: customertest.prefab
+    bundle: 183
+    dir: 66
+  - name: friendcustomer.prefab
+    bundle: 183
+    dir: 66
+  - name: player.prefab
+    bundle: 183
+    dir: 66
+  - name: player2.prefab
+    bundle: 183
+    dir: 66
+  - name: superwaiter.prefab
+    bundle: 183
+    dir: 66
+  - name: waiter.prefab
+    bundle: 183
+    dir: 66
+  - name: elevator.prefab
+    bundle: 183
+    dir: 67
   - name: game.prefab
-    bundle: 177
-    dir: 67
+    bundle: 183
+    dir: 68
   - name: guide.prefab
-    bundle: 177
-    dir: 67
+    bundle: 183
+    dir: 68
   - name: login.prefab
-    bundle: 177
-    dir: 67
+    bundle: 183
+    dir: 68
   - name: reqexcute.prefab
-    bundle: 177
-    dir: 67
+    bundle: 183
+    dir: 68
   - name: scenevariables.prefab
-    bundle: 177
-    dir: 67
+    bundle: 183
+    dir: 68
   - name: cartest.asset
-    bundle: 177
-    dir: 68
+    bundle: 183
+    dir: 69
   - name: createtestcustomer.asset
-    bundle: 177
-    dir: 68
+    bundle: 183
+    dir: 69
   - name: customertest.asset
-    bundle: 177
-    dir: 68
+    bundle: 183
+    dir: 69
   - name: gametest.asset
-    bundle: 177
-    dir: 68
+    bundle: 183
+    dir: 69
   - name: testfriendconfig.asset
-    bundle: 177
-    dir: 68
+    bundle: 183
+    dir: 69
   - name: testevent.asset
-    bundle: 177
-    dir: 50
+    bundle: 183
+    dir: 51
   bundles:
   - name: applogo.unity3d
     id: 0
@@ -3411,7 +3742,7 @@ MonoBehaviour:
     id: 17
     deps: 12000000
     len: 180661
-    hash: 61ae6caf64f022c2ca35cc7151bdc2fb
+    hash: c90f0f25525dd6217e1a5d0d0faa1328
   - name: assets/buildasset/art/model/other/materials/scene_02.png.unity3d
     id: 18
     deps: 
@@ -3421,7 +3752,7 @@ MonoBehaviour:
     id: 19
     deps: 
     len: 189192
-    hash: ae7fc77a4a1e5af42915c399158af4d7
+    hash: 332aa58c6e872ae09b1624fa68efbadf
   - name: assets/buildasset/art/model/other/pian_01.png.unity3d
     id: 20
     deps: 
@@ -3440,775 +3771,805 @@ MonoBehaviour:
   - name: assets/buildasset/art/scenes/animal.unity3d
     id: 23
     deps: 
-    len: 1600383
-    hash: 79797fbe4ebc0c2792a898fcf5f97bd2
-  - name: assets/buildasset/art/scenes/foods.unity3d
-    id: 24
-    deps: 
-    len: 19701
-    hash: fe07ffed4f1dd79005bd5761d1952370
+    len: 2449176
+    hash: 7e5cc51681c543991c05187f37972263
   - name: assets/buildasset/art/scenes/foods/mats/1.mat.unity3d
-    id: 25
-    deps: 18000000
-    len: 40786
-    hash: 50569871d1143f748f7c26b9987a6e64
+    id: 24
+    deps: 8d000000
+    len: 40793
+    hash: 820b9ff4982b924b318f8fd98d35242d
   - name: assets/buildasset/art/scenes/foods/mats/10.mat.unity3d
-    id: 26
-    deps: 18000000
-    len: 41222
-    hash: 0f2872da9e00e44a22fd44e584123b61
+    id: 25
+    deps: 8d000000
+    len: 41130
+    hash: cad66da29a8d0bed3d9961188f25e8af
   - name: assets/buildasset/art/scenes/foods/mats/11.mat.unity3d
-    id: 27
-    deps: 18000000
-    len: 41056
-    hash: 71c418d9837a3ceed6e7bc7f42744338
+    id: 26
+    deps: 8d000000
+    len: 41089
+    hash: 506292cff93aa2d2f6e6e38cbeab9aa3
   - name: assets/buildasset/art/scenes/foods/mats/2.mat.unity3d
-    id: 28
-    deps: 18000000
-    len: 41010
-    hash: c119580946de422518422f2bcb56e24d
+    id: 27
+    deps: 8d000000
+    len: 41017
+    hash: fe1e7a883ca09bdde2aec53eebc0ad45
   - name: assets/buildasset/art/scenes/foods/mats/3.mat.unity3d
-    id: 29
-    deps: 18000000
-    len: 41000
-    hash: b80ee751f9e43ae9b20f10642815abc1
+    id: 28
+    deps: 8d000000
+    len: 40898
+    hash: d1f53d42592616beb2e05a139c3369ce
   - name: assets/buildasset/art/scenes/foods/mats/4.mat.unity3d
-    id: 30
-    deps: 18000000
-    len: 41077
-    hash: e139bb456fab5a068f273457316f4bd3
+    id: 29
+    deps: 8d000000
+    len: 40975
+    hash: 5d90b645eb13e8b7334f28d9d8af8a9a
   - name: assets/buildasset/art/scenes/foods/mats/5.mat.unity3d
-    id: 31
-    deps: 18000000
-    len: 40970
-    hash: 4ab731cff9376152ae2be73fab11d9de
+    id: 30
+    deps: 8d000000
+    len: 41026
+    hash: 268851173925fef521fccb3c3faa5986
   - name: assets/buildasset/art/scenes/foods/mats/6.mat.unity3d
-    id: 32
-    deps: 18000000
+    id: 31
+    deps: 8d000000
     len: 41106
-    hash: 25aac615fce3f2d912759f562d644a7a
+    hash: 1630c38b1b62e0a093037fc76e4b45fd
   - name: assets/buildasset/art/scenes/foods/mats/7.mat.unity3d
-    id: 33
-    deps: 18000000
-    len: 40897
-    hash: b15d8ea5b8db23f5ba5d8c7d0b341662
+    id: 32
+    deps: 8d000000
+    len: 41084
+    hash: d53583e61eda72062db2b37a4cdbce3c
   - name: assets/buildasset/art/scenes/foods/mats/8.mat.unity3d
-    id: 34
-    deps: 18000000
-    len: 40966
-    hash: aeb0c8266c4465487e6a46f7fc3c26f3
+    id: 33
+    deps: 8d000000
+    len: 41068
+    hash: 276eb58ce73eff1c1008d38c70160993
   - name: assets/buildasset/art/scenes/foods/mats/9.mat.unity3d
-    id: 35
-    deps: 18000000
-    len: 40984
-    hash: 2e4612a2c7e0606216367e3ad9b0a36e
+    id: 34
+    deps: 8d000000
+    len: 40964
+    hash: 332cb5fee81cd47cadb15ca8c2c313e7
   - name: assets/buildasset/art/scenes/monster.unity3d
-    id: 36
+    id: 35
     deps: 
     len: 2293341
     hash: d75493992edaba9c634884bcf287afad
   - name: assets/buildasset/art/scenes/ruins.unity3d
-    id: 37
+    id: 36
     deps: 
     len: 458065
-    hash: 3697ed97d97399071b9901786a94744a
+    hash: 4adf48a78b62a3ed4af17bb056c87213
   - name: assets/buildasset/art/scenes/scene_01.unity3d
-    id: 38
+    id: 37
     deps: 
     len: 845286
-    hash: d25b44892d2e948df72616676a29b48b
+    hash: eee1fc34c6d40eb18eded6d34973f53c
   - name: assets/buildasset/art/scenes/scene_02.unity3d
+    id: 38
+    deps: 
+    len: 1500305
+    hash: 8c2c60f715a0313ec9be55de97bf3008
+  - name: assets/buildasset/art/scenes/scene_03.unity3d
     id: 39
     deps: 
-    len: 1489753
-    hash: f3ff910904e30244c3a954b17b0b4494
-  - name: assets/buildasset/art/scenes/scene_03.unity3d
+    len: 901157
+    hash: 09b80cea5f34fc7f41c92914ffc51b75
+  - name: assets/buildasset/art/scenes/tool.unity3d
     id: 40
     deps: 
-    len: 602455
-    hash: dc6151e04dffd50dcfe3f792b43f6ce6
-  - name: assets/buildasset/art/scenes/tool.unity3d
-    id: 41
-    deps: 
-    len: 1082854
-    hash: 5be4020218389c4493ffeadae89130aa
+    len: 1058519
+    hash: e7e36871af80898b64ff9c2cb8f89773
   - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_18_day_a.mat.unity3d
-    id: 42
-    deps: 2b000000
+    id: 41
+    deps: 2a000000
     len: 21017
     hash: 32591ce97ad77e3509244a39ac77ae5b
   - name: assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_18_day_a.png.unity3d
-    id: 43
+    id: 42
     deps: 
     len: 45252
     hash: ea2dae3cf76e1d203c834b4f069387ca
   - name: assets/buildasset/audio/mixer.unity3d
-    id: 44
+    id: 43
     deps: 
     len: 3253
     hash: e876560ff48716a0c17d70575b424472
   - name: assets/buildasset/audio/ogg.unity3d
-    id: 45
+    id: 44
     deps: 
     len: 1486796
     hash: 58ce42654f5ef54c045c27b9489033f1
   - name: assets/buildasset/code/game.dll.bytes.unity3d
-    id: 46
+    id: 45
     deps: 
     len: 689222
     hash: 7c853d92f44c90483875efab5b3a4db6
   - name: assets/buildasset/effects/materials/andan.mat.unity3d
-    id: 47
-    deps: 55000000
+    id: 46
+    deps: 57000000
     len: 22720
     hash: 5dbd3d7864f47591a02e0aa78a2f0cb9
+  - name: assets/buildasset/effects/materials/bai.mat.unity3d
+    id: 47
+    deps: 64000000
+    len: 22754
+    hash: 967cb6f665ba6e07ec5a32b5121efd2d
   - name: assets/buildasset/effects/materials/baozha.mat.unity3d
     id: 48
-    deps: 54000000
+    deps: 56000000
     len: 22728
     hash: 4e3126f252bc5c3f4ce4f714c867b44b
   - name: assets/buildasset/effects/materials/dahai.mat.unity3d
     id: 49
-    deps: 5f000000
+    deps: 61000000
     len: 343733
-    hash: d4a4f7f77e942876fe7a6fb853ec5638
+    hash: 802968b0431b82a20a282573fa6e5461
   - name: assets/buildasset/effects/materials/dian.mat.unity3d
     id: 50
-    deps: 55000000
+    deps: 57000000
     len: 22767
     hash: 33259a6cb78c6e14c28b0d16e789e5ea
   - name: assets/buildasset/effects/materials/guntog.mat.unity3d
     id: 51
-    deps: 5c000000
+    deps: 5e000000
     len: 22700
     hash: d5e10b16f1224c679ee04282cd6c722b
   - name: assets/buildasset/effects/materials/hainiao.mat.unity3d
     id: 52
-    deps: 63000000
+    deps: 67000000
     len: 22694
     hash: 112195ea00223e292cd3c0f28c2978b8
   - name: assets/buildasset/effects/materials/hm04.mat.unity3d
     id: 53
-    deps: 4d0000004e0000004f00000050000000510000005d00000061000000b0000000
-    len: 4803
-    hash: cd647f925a032eecd7f83e7af95cae31
+    deps: 4f000000500000005100000052000000530000005f00000063000000b6000000
+    len: 4796
+    hash: 216fa71be4c907326ad59b0fd07774cc
   - name: assets/buildasset/effects/materials/huan 1.mat.unity3d
     id: 54
-    deps: 52000000
+    deps: 54000000
     len: 22798
     hash: 62501bba5dcd41c1dbb800cc7ebdda4b
   - name: assets/buildasset/effects/materials/huan 3.mat.unity3d
     id: 55
-    deps: 53000000
+    deps: 55000000
     len: 22773
     hash: 47487399fefc7a2b12a882ae5bc67dbf
   - name: assets/buildasset/effects/materials/huan 4.mat.unity3d
     id: 56
-    deps: 67000000
+    deps: 6b000000
     len: 22761
     hash: 1d4c556f47ec16bc1a81d0bea58aa2b7
   - name: assets/buildasset/effects/materials/huan.mat.unity3d
     id: 57
-    deps: 57000000
+    deps: 59000000
     len: 22760
     hash: a2464752e32f7336a75dc173f5bcbc59
   - name: assets/buildasset/effects/materials/huomiao 3.mat.unity3d
     id: 58
-    deps: 5b000000
+    deps: 5d000000
     len: 22790
     hash: 9a696c87edffdf00772dcaf624db1b9c
   - name: assets/buildasset/effects/materials/langhua.mat.unity3d
     id: 59
-    deps: 5e000000
+    deps: 60000000
     len: 22720
     hash: 3424f2baed71aadfc2c6036cd5fca280
   - name: assets/buildasset/effects/materials/leidian.mat.unity3d
     id: 60
-    deps: 62000000
+    deps: 65000000
     len: 22765
     hash: f9a1d9d0c4189c021938e65e5f2dbea6
   - name: assets/buildasset/effects/materials/lianju.mat.unity3d
     id: 61
-    deps: 60000000
+    deps: 62000000
     len: 22772
     hash: 9ea452348be45fb7c66ec224b8b5fa71
   - name: assets/buildasset/effects/materials/paopao.mat.unity3d
     id: 62
-    deps: 66000000
+    deps: 6a000000
     len: 22750
     hash: b34e54671dfdcf18c97cb54718e67a77
   - name: assets/buildasset/effects/materials/smoke 1.mat.unity3d
     id: 63
-    deps: 65000000
+    deps: 69000000
     len: 22733
     hash: 49bfd3612deb6d9cb1dfeb2f3b27de32
   - name: assets/buildasset/effects/materials/smoke.mat.unity3d
     id: 64
-    deps: 64000000
+    deps: 68000000
     len: 22719
     hash: 2684fb25d596a4a7aa309b1aac2fbb57
-  - name: assets/buildasset/effects/materials/xian 1.mat.unity3d
+  - name: assets/buildasset/effects/materials/tuowei.mat.unity3d
     id: 65
-    deps: 58000000
+    deps: 66000000
+    len: 22763
+    hash: eaf878b55ca6b10cc7f81abf67f96447
+  - name: assets/buildasset/effects/materials/xian 1.mat.unity3d
+    id: 66
+    deps: 5a000000
     len: 22769
     hash: 892062c48f1c9920df678897667884dc
   - name: assets/buildasset/effects/materials/xian 2.mat.unity3d
-    id: 66
-    deps: 5a000000
+    id: 67
+    deps: 5c000000
     len: 22770
     hash: b90300ca5cec8cb4a3c76f222a18050d
+  - name: assets/buildasset/effects/materials/xian.mat.unity3d
+    id: 68
+    deps: 6c000000
+    len: 22753
+    hash: 6c9925a305c40dc5b40b9644cc53caef
   - name: assets/buildasset/effects/materials/yanhua1.mat.unity3d
-    id: 67
-    deps: 59000000
+    id: 69
+    deps: 5b000000
     len: 22746
     hash: c1a0aea5a55f109cc2dc67e261a3eb90
   - name: assets/buildasset/effects/materials/yanhuatuo.mat.unity3d
-    id: 68
-    deps: 56000000
+    id: 70
+    deps: 58000000
     len: 22777
     hash: 75de12af1b5e7b46a34c6a7de56c3409
   - name: assets/buildasset/effects/mod/zidan.fbx.unity3d
-    id: 69
+    id: 71
     deps: 
     len: 189497
-    hash: cde512a755b31b771ae74470b4012b9a
+    hash: 593e867dabe7823204991f5439c02d5d
   - name: assets/buildasset/effects/prefabs.unity3d
-    id: 70
-    deps: 270000002f00000032000000330000003400000036000000390000003a0000003b0000003c00000040000000410000004200000043000000440000005200000055000000560000005700000058000000590000005a0000005b0000005c0000005e00000062000000630000006400000081000000
-    len: 987031
-    hash: 062340428547bcd49fe7045bcd30bf20
-  - name: assets/buildasset/effects/prefabs/hunter.unity3d
-    id: 71
-    deps: 2f00000030000000370000003a000000450000005300000054000000550000005b000000
-    len: 90654
-    hash: 3a1933c05b1a8368a0ee541dcacbecb0
-  - name: assets/buildasset/effects/prefabs/level.unity3d
     id: 72
-    deps: 2f00000032000000380000003a0000003d0000003e0000003f00000042000000550000005a0000005b00000060000000650000006600000067000000
-    len: 343892
-    hash: 3440d65a97e564d8c4f8186295b06bac
-  - name: assets/buildasset/effects/prefabs/level03.unity3d
+    deps: 26000000280000002e0000002f00000032000000330000003400000036000000390000003a0000003b0000003c00000040000000410000004200000043000000440000004500000046000000540000005700000058000000590000005a0000005b0000005c0000005d0000005e0000006000000064000000650000006600000067000000680000006c000000860000008a000000
+    len: 1150783
+    hash: 133c0630a2c7fb4cecd39ccb890c51cd
+  - name: assets/buildasset/effects/prefabs/hunter.unity3d
     id: 73
-    deps: 32000000390000003f00000043000000440000005500000056000000570000005900000065000000
-    len: 79029
-    hash: ae52ee4c1488a0e0c109684146d4aa78
-  - name: assets/buildasset/effects/prefabs/scenesbullet/adtest.unity3d
+    deps: 2e00000030000000370000003a000000470000005500000056000000570000005d000000
+    len: 90654
+    hash: 9c8b8f1b76ac398b4c42afe93ad93f22
+  - name: assets/buildasset/effects/prefabs/level.unity3d
     id: 74
+    deps: 2e00000032000000380000003a0000003d0000003e0000003f00000043000000570000005c0000005d00000062000000690000006a0000006b000000
+    len: 343892
+    hash: f44d6c2ea60ae331955ac204c6719f6e
+  - name: assets/buildasset/effects/prefabs/level03.unity3d
+    id: 75
+    deps: 32000000390000003f00000045000000460000005700000058000000590000005b00000069000000
+    len: 79029
+    hash: f65cf2f4df0b1498375c520914195962
+  - name: assets/buildasset/effects/prefabs/scenesbullet/adtest.unity3d
+    id: 76
     deps: 
     len: 142700
     hash: c4ba88fa626ead231be43d0605094f99
   - name: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
-    id: 75
-    deps: 2f000000300000003200000037000000390000003a0000003c0000003d0000003e000000400000004100000043000000450000005300000054000000550000005700000058000000590000005b00000060000000620000006400000066000000
-    len: 561822
-    hash: c213aa0e90af66548b6862dfb1262106
-  - name: assets/buildasset/effects/prefabs/transitions01.unity3d
-    id: 76
-    deps: 3200000036000000370000003800000039000000430000004400000052000000530000005500000056000000570000005900000067000000
-    len: 545980
-    hash: e4e9e506304a83414ee8e170afd20637
-  - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/intersectionnoise.png.unity3d
     id: 77
+    deps: 2e000000300000003200000037000000390000003a0000003c0000003d0000003e0000004000000041000000420000004500000047000000550000005600000057000000590000005a0000005b0000005d000000620000006500000066000000680000006a000000
+    len: 546003
+    hash: 40e5bf4b258fae14b8a63ac7cb23c4d2
+  - name: assets/buildasset/effects/prefabs/transitions01.unity3d
+    id: 78
+    deps: 2f000000320000003600000037000000380000003900000044000000450000004600000054000000550000005700000058000000590000005b000000640000006b0000006c000000
+    len: 478240
+    hash: 4e25e9e8e501e77ca2f38883ed8af6a5
+  - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/intersectionnoise.png.unity3d
+    id: 79
     deps: 
     len: 241869
     hash: 06e57b12546c031ab28c7d164f765515
   - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/roughwaves.png.unity3d
-    id: 78
+    id: 80
     deps: 
     len: 623688
     hash: edc5d0e80dd52ef79aaa1bd0da752cd9
   - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/smoothwaves.png.unity3d
-    id: 79
+    id: 81
     deps: 
     len: 490043
     hash: 0b2a9b714549391edf18222ebc66227d
   - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_caustics.png.unity3d
-    id: 80
+    id: 82
     deps: 
     len: 920198
     hash: bdf3943132aff5f9bce467f86b919eaa
   - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_foamsea.png.unity3d
-    id: 81
+    id: 83
     deps: 
     len: 552440
     hash: 3689ed2e8b631ee5543d9f4a6d15aa52
   - name: assets/buildasset/effects/textures/barbarian_earthquake_rings_add (0-00-00-00).png.unity3d
-    id: 82
+    id: 84
     deps: 
     len: 86982
     hash: 35103f845515e2baf9a138e8868e8dc2
   - name: assets/buildasset/effects/textures/fb_explosion_firering.png.unity3d
-    id: 83
+    id: 85
     deps: 
     len: 97707
     hash: b635b5189064e74ae4e6159364f54959
   - name: assets/buildasset/effects/textures/generic_explosion_1_sheet.png.unity3d
-    id: 84
+    id: 86
     deps: 
     len: 47875
     hash: 8b9ef91f792983e4d39395766cde106d
   - name: assets/buildasset/effects/textures/glow_1007.png.unity3d
-    id: 85
+    id: 87
     deps: 
     len: 7154
     hash: 9430587f9c606ecd0840e07428eb3f47
   - name: assets/buildasset/effects/textures/glow_1022.png.unity3d
-    id: 86
+    id: 88
     deps: 
     len: 4287
     hash: 6825bc440ca2da3a3758ac5fc8113203
   - name: assets/buildasset/effects/textures/glow_11008.png.unity3d
-    id: 87
+    id: 89
     deps: 
     len: 9601
     hash: caf89a633a32781306d75a42fba54d22
   - name: assets/buildasset/effects/textures/glow_3024.png.unity3d
-    id: 88
+    id: 90
     deps: 
     len: 3870
     hash: 8fb30993c557639f28785ecb35b9b6ec
   - name: assets/buildasset/effects/textures/glow_4027.png.unity3d
-    id: 89
+    id: 91
     deps: 
     len: 9499
     hash: 6dadcf65145958ee5e2105e24623491d
   - name: assets/buildasset/effects/textures/glow_6047.png.unity3d
-    id: 90
+    id: 92
     deps: 
     len: 6125
     hash: 27bb470781474409af73cf5d93ef016d
   - name: assets/buildasset/effects/textures/glowing_particles_sheet.png.unity3d
-    id: 91
+    id: 93
     deps: 
     len: 14782
     hash: f2df139331d47b7a97bf1c9271277d49
   - name: assets/buildasset/effects/textures/gunzi.png.unity3d
-    id: 92
+    id: 94
     deps: 
     len: 18628
     hash: 7268ab79c461d0a6c1eb427de0a3267c
   - name: assets/buildasset/effects/textures/hai03.png.unity3d
-    id: 93
+    id: 95
     deps: 
     len: 149547
     hash: f64aa50dde1b4ca506c0dfa1721255f4
   - name: assets/buildasset/effects/textures/hailang1 2.png.unity3d
-    id: 94
+    id: 96
     deps: 
     len: 26831
     hash: fb2fa601eb6b05cda6251750f1d55223
   - name: assets/buildasset/effects/textures/haishui.png.unity3d
-    id: 95
+    id: 97
     deps: 
     len: 24731
     hash: a40fca9f540d64cbac5e6dada48399e3
   - name: assets/buildasset/effects/textures/haruyuki_rotation_00_03.png.unity3d
-    id: 96
+    id: 98
     deps: 
     len: 31272
     hash: b36dc2f3cefac4cf09276dfe41267a84
   - name: assets/buildasset/effects/textures/intersectionnoise 1.png.unity3d
-    id: 97
+    id: 99
     deps: 
     len: 241873
     hash: b25ab58cf64ce0ab1153c6cbe7e2cda5
+  - name: assets/buildasset/effects/textures/kuagn.png.unity3d
+    id: 100
+    deps: 
+    len: 3130
+    hash: a30d321fcd33c5032dace95ed7a23005
   - name: assets/buildasset/effects/textures/leiqiu.png.unity3d
-    id: 98
+    id: 101
     deps: 
     len: 34821
     hash: 9e7f13fcf04b4301cb109dc64013f99e
+  - name: assets/buildasset/effects/textures/mask_1024.png.unity3d
+    id: 102
+    deps: 
+    len: 16158
+    hash: 2f9035463b305dde481adaae6c688328
   - name: assets/buildasset/effects/textures/niao1.png.unity3d
-    id: 99
+    id: 103
     deps: 
     len: 12877
     hash: e78efc3c2bc03485b252997942651233
   - name: assets/buildasset/effects/textures/smoke_1025.png.unity3d
-    id: 100
+    id: 104
     deps: 
     len: 14469
     hash: af7cb5f4e436a753e8d7346605a75f5d
   - name: assets/buildasset/effects/textures/smoke_7004.png.unity3d
-    id: 101
+    id: 105
     deps: 
     len: 34051
     hash: dff4ed0976c1fac163f9223d8c7f0bfe
   - name: assets/buildasset/effects/textures/wb_paopao_01.png.unity3d
-    id: 102
+    id: 106
     deps: 
     len: 26866
     hash: 246a27dd23a4bab0a09b8fbc31ac8c13
   - name: assets/buildasset/effects/textures/xuewo.png.unity3d
-    id: 103
+    id: 107
     deps: 
     len: 19834
     hash: 8ef5e2b7a1c2ac32d6e421f7bad657cc
+  - name: assets/buildasset/effects/textures/xxaa.png.unity3d
+    id: 108
+    deps: 
+    len: 32778
+    hash: 9b23e46ac434cbbde267829a2c022739
   - name: assets/buildasset/fonts/lilitaone/alibaba-puhuiti-heavy-sdf.asset.unity3d
-    id: 104
-    deps: 4d0000004e0000004f000000500000005100000069000000b0000000
-    len: 890618
-    hash: 6ff23bc2109460da06aec2f1c0e6c882
+    id: 109
+    deps: 4f000000500000005100000052000000530000006e000000b6000000
+    len: 984176
+    hash: f94ccc7de2523b49680e77c7b9f6b444
   - name: assets/buildasset/fonts/lilitaone/alibaba-puhuiti-heavy.ttf.unity3d
-    id: 105
+    id: 110
     deps: 
     len: 4322644
     hash: 1db54d3395e322743f40af48d320baeb
   - name: assets/buildasset/fonts/lilitaone/lilitaone-regular-sdf.asset.unity3d
-    id: 106
-    deps: 4d0000004e0000004f00000050000000510000006b000000b0000000
-    len: 153697
-    hash: 8872f3d22e783cd289bad9d210029f05
+    id: 111
+    deps: 4f0000005000000051000000520000005300000070000000b6000000
+    len: 163060
+    hash: 392935bc379700f2d53ac45f0d7eea99
   - name: assets/buildasset/fonts/lilitaone/lilitaone-regular.ttf.unity3d
-    id: 107
+    id: 112
     deps: 
     len: 89136
     hash: a78289a7c3537e6ed3c22984263d5a99
   - name: assets/buildasset/fonts/lilitaone/mukta-extrabold-sdf.asset.unity3d
-    id: 108
-    deps: 4d0000004e0000004f00000050000000510000006d000000b0000000
+    id: 113
+    deps: 4f0000005000000051000000520000005300000072000000b6000000
     len: 262881
     hash: 8fa5a47e308f8b7998e78afcd630fcf6
   - name: assets/buildasset/fonts/lilitaone/mukta-extrabold.ttf.unity3d
-    id: 109
+    id: 114
     deps: 
     len: 231854
     hash: e659a4664fffb030be167a6086552f0d
   - name: assets/buildasset/json.unity3d
-    id: 110
+    id: 115
     deps: 
     len: 2174
     hash: e3bfd04f0259f84039b7f40590217824
   - name: assets/buildasset/log/lan.bytes.unity3d
-    id: 111
+    id: 116
     deps: 
     len: 1192
     hash: 401f015034490ef07fa1dd43ec710bbd
   - name: assets/buildasset/log/log4net.xml.bytes.unity3d
-    id: 112
+    id: 117
     deps: 
     len: 1956
     hash: 59e9b7da8da7496e74f6c8e95535654c
   - name: assets/buildasset/prefabs.unity3d
-    id: 113
+    id: 118
     deps: 
-    len: 10543
-    hash: 0cfcc72d8f6570b3b58914ee5e2da883
+    len: 10554
+    hash: dab9443344c6162a8bc1f3d22edcfe3b
   - name: assets/buildasset/prefabs/car.unity3d
-    id: 114
-    deps: 
-    len: 219336
-    hash: dc9bca6a654bac6bcf986f2282e5745b
+    id: 119
+    deps: 27000000
+    len: 219826
+    hash: accbfb0845e38bf6ea7fae9394dfdfe0
   - name: assets/buildasset/prefabs/ecs.unity3d
-    id: 115
+    id: 120
     deps: 
     len: 2806
     hash: 2a80de8543dad05ac1b990beaf1db58b
   - name: assets/buildasset/prefabs/equipments.unity3d
-    id: 116
+    id: 121
     deps: 
-    len: 343602
-    hash: a0b1579638e96722b527ff19d794c503
+    len: 452878
+    hash: e1d8f05610b7f5cea3efc4c58435f1fe
   - name: assets/buildasset/prefabs/monster.unity3d
-    id: 117
-    deps: 24000000
+    id: 122
+    deps: 23000000
     len: 200599
-    hash: c7dd84d8aa4eee2f10128575a55cd985
+    hash: a0d4c64771d93e9e3802d22aac603b29
   - name: assets/buildasset/prefabs/other.unity3d
-    id: 118
+    id: 123
     deps: 
     len: 464613
-    hash: fa13b31170c744567675d3f8c4151c05
+    hash: 30a03f46d3eb6e077475894e617f30c7
   - name: assets/buildasset/prefabs/pets.unity3d
-    id: 119
+    id: 124
     deps: 17000000
-    len: 219148
-    hash: fe1fccdb9cc1e4b97c395b53546234b2
+    len: 220083
+    hash: 47a42d64fab2c22e347ad2dedf87aa27
   - name: assets/buildasset/prefabs/scenes/boss.unity3d
-    id: 120
+    id: 125
     deps: 
     len: 6037
     hash: 7e495c5096c1c9e2caa8a72c6ed72dca
   - name: assets/buildasset/prefabs/scenes/guide/mat.unity3d
-    id: 121
+    id: 126
     deps: 
     len: 25478
-    hash: a93bf8e44ead1405dc106b9d36712e1e
+    hash: cbfebb704c87076198b42aba88e15bb9
   - name: assets/buildasset/prefabs/scenes/other.unity3d
-    id: 122
-    deps: 1100000012000000130000001400000015000000160000007b000000
+    id: 127
+    deps: 11000000120000001300000014000000150000001600000080000000
     len: 8090
-    hash: 7751ac0bf6915b2013cd9ac5f36aa91e
+    hash: 0ee7e8ebf8e951937c609aaec12782a0
   - name: assets/buildasset/prefabs/scenes/other/mats.unity3d
-    id: 123
+    id: 128
     deps: 1400000015000000
     len: 42181
-    hash: 2543894aeb10fa5cd2578570ca06bc26
+    hash: 36f11b1ec9cd8a22e95b7eba98d02f8e
   - name: assets/buildasset/prefabs/scenes/ruins.unity3d
-    id: 124
-    deps: 250000007d000000
+    id: 129
+    deps: 2400000082000000
     len: 6165
     hash: 1aef854a1dd11272c8e3078b40197832
   - name: assets/buildasset/prefabs/scenes/ruins/mats.unity3d
-    id: 125
-    deps: 25000000
+    id: 130
+    deps: 24000000
     len: 106849
-    hash: be09f6d45dbf33cae8c816c8938ec5f4
+    hash: 8adbfd0266f72f499570aa78b796051c
   - name: assets/buildasset/prefabs/scenes/scene_01.unity3d
-    id: 126
-    deps: 260000007f000000
+    id: 131
+    deps: 2500000084000000
     len: 6564
     hash: 3003315252eea825039a52143b5827ea
   - name: assets/buildasset/prefabs/scenes/scene_01/mats.unity3d
-    id: 127
-    deps: 26000000
-    len: 126853
-    hash: a69a578d30f9b65faf08447ef2ec7524
-  - name: assets/buildasset/prefabs/scenes/scene_02.unity3d
-    id: 128
-    deps: 1300000018000000190000001a0000001b0000001c0000001d0000001e0000001f0000002000000021000000220000002300000027000000310000005f00000081000000
-    len: 14223
-    hash: 5aa738554cd850d80935cef0af780837
-  - name: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
-    id: 129
-    deps: 27000000
-    len: 132152
-    hash: 1c03ab22698670802e9c75a78d96c46a
-  - name: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    id: 130
-    deps: 28000000350000004d0000004e0000004f00000050000000510000005d0000006100000083000000b0000000
-    len: 5698
-    hash: 8f02b5256877b904a1646ed1e93128dd
-  - name: assets/buildasset/prefabs/scenes/scene_03/mats.unity3d
-    id: 131
-    deps: 28000000
-    len: 126318
-    hash: 61f8a8d9237289a257dd476d04ac47ae
-  - name: assets/buildasset/prefabs/scenes/tool.unity3d
     id: 132
-    deps: 2900000085000000
-    len: 13676
-    hash: 9df0464f1b9428b74f1704d4b8abc284
-  - name: assets/buildasset/prefabs/scenes/tool/mats.unity3d
+    deps: 25000000
+    len: 126853
+    hash: c3ddf0368f5a6e1a0fcb214d8b257904
+  - name: assets/buildasset/prefabs/scenes/scene_02.unity3d
     id: 133
-    deps: 29000000
-    len: 129822
-    hash: 80cfe9ab9f08239b67c9650cc0adf6d5
-  - name: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
+    deps: 1300000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000260000003100000061000000860000008d000000
+    len: 14413
+    hash: d129f8b881baeb87e26ce431655661a3
+  - name: assets/buildasset/prefabs/scenes/scene_02/mats.unity3d
     id: 134
-    deps: 1100000012000000130000001600000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002500000027000000290000002a0000002b0000002f0000003100000032000000330000003400000036000000390000003a0000003b0000003c0000004000000041000000420000004300000044000000460000005200000055000000560000005700000058000000590000005a0000005b0000005c0000005e0000005f0000006200000063000000640000007c0000007d000000800000008100000085000000
-    len: 804138
-    hash: 61ae79db8290c7777398ac2145241c19
-  - name: assets/buildasset/scenes/markeds/level02_marked.unity.unity3d
+    deps: 26000000
+    len: 132255
+    hash: 9ebc27f4686de5480e4bca889ba5f309
+  - name: assets/buildasset/prefabs/scenes/scene_03.unity3d
     id: 135
-    deps: 1100000012000000130000001600000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000020000000210000002200000023000000250000002700000028000000290000002a0000002b0000003100000033000000350000003b000000400000004d0000004e0000004f00000050000000510000005c0000005d0000005e0000005f00000061000000640000007c0000007d0000008000000081000000820000008300000085000000b0000000
-    len: 455996
-    hash: b9a5c7cf7520cabc93856bcd3021424e
-  - name: assets/buildasset/ui/buff.unity3d
+    deps: 27000000350000004f000000500000005100000052000000530000005f0000006300000088000000b6000000
+    len: 7142
+    hash: 3abc6b08cac1d20644ed4cd59c008c63
+  - name: assets/buildasset/prefabs/scenes/scene_03/mats.unity3d
     id: 136
+    deps: 27000000
+    len: 126748
+    hash: b79325268e7d80160e0991991f35664e
+  - name: assets/buildasset/prefabs/scenes/tool.unity3d
+    id: 137
+    deps: 280000008a000000
+    len: 15816
+    hash: db20ef7d17e83aedfd9818ed32300b6d
+  - name: assets/buildasset/prefabs/scenes/tool/mats.unity3d
+    id: 138
+    deps: 28000000
+    len: 131312
+    hash: 855056d1fd92578c4ad3c89604f17133
+  - name: assets/buildasset/scenes/markeds/level01_marked.unity.unity3d
+    id: 139
+    deps: 1100000012000000130000001600000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000240000002600000028000000290000002a0000002e0000002f0000003100000032000000330000003400000036000000390000003a0000003b0000003c0000004000000041000000420000004300000044000000450000004600000048000000540000005700000058000000590000005a0000005b0000005c0000005d0000005e000000600000006100000064000000650000006600000067000000680000006c000000810000008200000085000000860000008a0000008d000000
+    len: 763766
+    hash: ff57099a42b3791c391195fb2b17673f
+  - name: assets/buildasset/scenes/markeds/level02_marked.unity.unity3d
+    id: 140
+    deps: 1100000012000000130000001600000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000020000000210000002200000024000000260000002700000028000000290000002a0000003100000033000000350000003b000000400000004f000000500000005100000052000000530000005e0000005f000000600000006100000063000000680000008100000082000000850000008600000087000000880000008a0000008d000000b6000000
+    len: 356681
+    hash: 3bd08da28a5b307ad931ecac25c596b1
+  - name: assets/buildasset/textures/foods.unity3d
+    id: 141
+    deps: 
+    len: 38796
+    hash: 875ff7d8cc17e5515ae4dec26091f54d
+  - name: assets/buildasset/ui/buff.unity3d
+    id: 142
     deps: 
     len: 16211
     hash: e5e7e24a2e5594ee94800cb3ced6ee97
   - name: assets/buildasset/ui/club.unity3d
-    id: 137
+    id: 143
     deps: 
     len: 262092
     hash: c8a1aa37ff715b51aab3ec1c108d92fe
   - name: assets/buildasset/ui/common.unity3d
-    id: 138
+    id: 144
     deps: 
-    len: 603364
-    hash: 2445adc566a627aab37de3ad22c22a9b
+    len: 630671
+    hash: 67bb6e4bce6bb97aeef4148577424a59
   - name: assets/buildasset/ui/cookbook.unity3d
-    id: 139
+    id: 145
     deps: 
-    len: 4227
-    hash: ab377f91065d37ba1f5920ac306b5b45
+    len: 159016
+    hash: 3c377839b16ffbd78a448546bfd6a7f0
   - name: assets/buildasset/ui/enterscene.unity3d
-    id: 140
+    id: 146
     deps: 
-    len: 1046853
-    hash: 8cc61b41b4bab166c991c62d9012fd51
+    len: 1719402
+    hash: 4eb8d3de2f08b3736efabf80437a20f5
   - name: assets/buildasset/ui/exchange.unity3d
-    id: 141
+    id: 147
     deps: 
     len: 7182
     hash: 9db894fe8d50be7485ec5a00aaed8b74
   - name: assets/buildasset/ui/firend.unity3d
-    id: 142
+    id: 148
     deps: 
     len: 1545
     hash: c8c5631655eb4d30ecaaae394ed48268
   - name: assets/buildasset/ui/flight.unity3d
-    id: 143
+    id: 149
     deps: 
     len: 1853
     hash: dc318c1046377db1005334e5b78a5039
   - name: assets/buildasset/ui/gamefriend.unity3d
-    id: 144
+    id: 150
     deps: 
-    len: 47174
-    hash: d07a03ea6d41455873c3ec50ff04572b
+    len: 47200
+    hash: b42f5a0639dc17028f16aa2f2b163a72
   - name: assets/buildasset/ui/gameloge.unity3d
-    id: 145
+    id: 151
     deps: 
     len: 208701
     hash: edb066936c8b3d3a01dafd9a637e1195
   - name: assets/buildasset/ui/gm.unity3d
-    id: 146
+    id: 152
     deps: 
     len: 3362
     hash: 9f683bdc8c2c957197063229277659d0
   - name: assets/buildasset/ui/growgift.unity3d
-    id: 147
+    id: 153
     deps: 
     len: 8650
     hash: 0f0ab545528a1e9cf49542118bdd06f1
   - name: assets/buildasset/ui/guide.unity3d
-    id: 148
+    id: 154
     deps: 
-    len: 17110
-    hash: 3baaece1bfbf78b9780cbbdda59d3cf3
+    len: 17093
+    hash: 2edcd4bfdbf166c43af91c256b869f20
   - name: assets/buildasset/ui/hotfix.unity3d
-    id: 149
+    id: 155
     deps: 
     len: 2064
     hash: 00943b6fd92a3450274426a7166bb9ff
   - name: assets/buildasset/ui/hud.unity3d
-    id: 150
+    id: 156
     deps: 
     len: 9531
     hash: 4637bb180004aabbcc0107658b4cfaea
   - name: assets/buildasset/ui/icon.unity3d
-    id: 151
+    id: 157
     deps: 
-    len: 252510
-    hash: 50346e38d4b7443023cea577d26d11e5
+    len: 281001
+    hash: f36cc728551bfd746faae646d22e07c5
   - name: assets/buildasset/ui/iconequip.unity3d
-    id: 152
+    id: 158
     deps: 
-    len: 228433
-    hash: d1e4cba2fe0730b4556bb00bebdc29a7
+    len: 186488
+    hash: b7cbac8811697a0b75bdc72265c3ca50
   - name: assets/buildasset/ui/iconhead.unity3d
-    id: 153
+    id: 159
     deps: 
     len: 136490
     hash: 1488339e335120e95c32a887a9ff9852
   - name: assets/buildasset/ui/iconlevel.unity3d
-    id: 154
+    id: 160
     deps: 
-    len: 74451
-    hash: f2ded67d4bdf4f8965b6c527cd018aa9
+    len: 50813
+    hash: 37bdc8b11510221135bb87e9d6501dc1
   - name: assets/buildasset/ui/icontech.unity3d
-    id: 155
+    id: 161
     deps: 
     len: 92186
     hash: 5ee02c2956e060b9e7c3fe0d3f311e9e
   - name: assets/buildasset/ui/loading.unity3d
-    id: 156
+    id: 162
     deps: 
     len: 1933
     hash: f08ee6a21d14e1c164d5a4fd634ffe4a
   - name: assets/buildasset/ui/login.unity3d
-    id: 157
+    id: 163
     deps: 
     len: 3936
     hash: 90ee891e6c3b2f5b989f84d6b1d3ff2a
   - name: assets/buildasset/ui/main.unity3d
-    id: 158
+    id: 164
     deps: 
-    len: 14963
-    hash: 6b906af8a6b4773c8f921da6a99fb465
+    len: 16507
+    hash: d3306f1c1f0456f4d00f0de6208391d0
   - name: assets/buildasset/ui/monsterhunter.unity3d
-    id: 159
+    id: 165
     deps: 
     len: 266212
     hash: 5a142a535e2ec28c2ab2d4be210b2679
   - name: assets/buildasset/ui/offline.unity3d
-    id: 160
+    id: 166
     deps: 
-    len: 31856
-    hash: 92a61a339e72eea24bdeabcb4b512609
+    len: 31857
+    hash: 96b3a4bdc243b5627777e46db55a9ac7
   - name: assets/buildasset/ui/pet.unity3d
-    id: 161
+    id: 167
     deps: 
-    len: 243773
-    hash: b1005cf2578a2e3ba6f310bf51b0d179
+    len: 244140
+    hash: 20d0499e748a48f7743ba69d7a7585eb
   - name: assets/buildasset/ui/piggybank.unity3d
-    id: 162
+    id: 168
     deps: 
     len: 122132
     hash: 13299946449acf2020f24b49a652639b
   - name: assets/buildasset/ui/player.unity3d
-    id: 163
+    id: 169
     deps: 
-    len: 64327
-    hash: 67b7ad2a77610e40ece1fe3d26b4b1e4
+    len: 65645
+    hash: 55445c7567757c11ac9409df8abc608a
   - name: assets/buildasset/ui/rank.unity3d
-    id: 164
+    id: 170
     deps: 
     len: 85363
     hash: 96aee974b32bf1f208cfcc4f0c47f379
   - name: assets/buildasset/ui/reputation.unity3d
-    id: 165
+    id: 171
     deps: 
-    len: 132221
-    hash: e474312ec360ba99bd260563e8f10b3d
+    len: 108637
+    hash: cc2a62e23cd9f27980a13aec2b5d72dc
   - name: assets/buildasset/ui/roomexclusive.unity3d
-    id: 166
+    id: 172
     deps: 
     len: 141307
     hash: 80acee910d228c837939862a015032e5
   - name: assets/buildasset/ui/scenedecor.unity3d
-    id: 167
+    id: 173
     deps: 
     len: 26836
     hash: caa762cd6a41c7327a91f97bd390932d
   - name: assets/buildasset/ui/setting.unity3d
-    id: 168
+    id: 174
     deps: 
-    len: 21358
-    hash: 0923a234e1c003509d4c8b6450e486a8
+    len: 21381
+    hash: 8614d0b27d48ba32b17508752a6a9767
   - name: assets/buildasset/ui/shop.unity3d
-    id: 169
+    id: 175
     deps: 
-    len: 74742
-    hash: cc9e946f7f72e370cb51db29d6eddba8
+    len: 77194
+    hash: 2d6c60cdab33856d6cfe7021d5ac8f05
   - name: assets/buildasset/ui/task.unity3d
-    id: 170
+    id: 176
     deps: 
-    len: 2499
-    hash: 701fd438e99e57eab9dbdaf10833c287
+    len: 2502
+    hash: c1bcbfd8c993da7a5a52f225e0155afd
   - name: assets/buildasset/ui/technology.unity3d
-    id: 171
+    id: 177
     deps: 
     len: 6675
     hash: 719f17290b0c2a944bf8e2708700e85e
   - name: assets/buildasset/ui/tomorrowgift.unity3d
-    id: 172
+    id: 178
     deps: 
-    len: 172193
-    hash: e6cc54e385e419a5483ec8a525769815
+    len: 172186
+    hash: 657b26a90c32151eab18fe2ad2b2310e
   - name: assets/buildasset/ui/worktable.unity3d
-    id: 173
+    id: 179
     deps: 
-    len: 28880
-    hash: 75e37fe6d1554cc91e0bf78de2b04400
+    len: 29485
+    hash: 76f5f4db15e3af6257c45ee7f8cd6b58
   - name: characters.unity3d
-    id: 174
+    id: 180
     deps: 
-    len: 8361705
-    hash: af135f62c2765d2a823d086a5b2fee63
+    len: 8624100
+    hash: 5475146e99fa87907a1d23d24488f1e6
   - name: configs.unity3d
-    id: 175
+    id: 181
     deps: 
-    len: 183584
-    hash: 51f58afc23bd1331c04581a1f3b8d594
+    len: 200598
+    hash: dcb6c5f1d0cd668cc20cece0e829815a
   - name: shaders.unity3d
-    id: 176
-    deps: 4d0000004e0000004f0000005000000051000000
-    len: 206285
-    hash: 5d7146e80636295ddba45dce13791322
+    id: 182
+    deps: 4f00000050000000510000005200000053000000
+    len: 1609601
+    hash: 8555aebb1fe8af189ef4baf8e209ac8a
   - name: visualscript.unity3d
-    id: 177
+    id: 183
     deps: 
-    len: 345002
-    hash: b912ff69aec2b33c8344ec4c687ab2bd
+    len: 383197
+    hash: ed8a54c2e4674f3cef22bbe1f99eb464
