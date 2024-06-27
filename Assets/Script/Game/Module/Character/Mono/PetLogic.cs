@@ -86,12 +86,9 @@ namespace SGame
             m_transform.position = follow.position + offset;
             m_transform.rotation = Quaternion.identity;
             m_transform.localScale = new Vector3(scale, scale, scale);
-            
-            if (m_config.ShowEffect > 0)
-            {
-                EffectSystem.Instance.Spawn3d(m_config.ShowEffect, null, m_transform.position);
-            }
-            
+
+            LoadEffect();
+
             m_entity = EntityManager.CreateEntity(typeof(Follow),
                 typeof(LocalToWorld),
                 typeof(Rotation),
@@ -108,6 +105,14 @@ namespace SGame
             EntityManager.SetComponentData(m_entity, new Translation(){Value = transform.position});
 
             m_fiber = new Fiber(Logic(), FiberBucket.Manual);
+        }
+
+        public void LoadEffect() 
+        {
+            if (m_config.ShowEffect > 0)
+            {
+                EffectSystem.Instance.Spawn3d(m_config.ShowEffect, null, m_transform.position);
+            }
         }
 
         IEnumerator Logic()
