@@ -49,11 +49,11 @@ namespace SGame.UI
 			}
 			else
 			{
-				var call = args.Val<Action<UI_CommonRewardUI>>(4);
+				var call = args.Val<Action<UI_CommonRewardBody>>(4);
 				if (call != null)
 				{
 					SetBaseInfo(args);
-					call?.Invoke(m_view);
+					call?.Invoke(m_view.m_body);
 					return;
 				}
 			}
@@ -73,7 +73,7 @@ namespace SGame.UI
 		{
 			if (_get || _itemList?.fly == true)
 			{
-				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
+				TransitionModule.Instance.PlayFlight(m_view.m_body.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
 				Do().Start();
 			}
 			_effects.Foreach((e) => EffectSystem.Instance.ReleaseEffect(e));
@@ -102,7 +102,7 @@ namespace SGame.UI
 
 		void SetRewards()
 		{
-			SGame.UIUtils.AddListItems(m_view.m_list, _rewards, (index, data, g) =>
+			SGame.UIUtils.AddListItems(m_view.m_body.m_list, _rewards, (index, data, g) =>
 			{
 				g.SetCommonItem(null, data as double[]);
 				var item = (UI_BigItem)g;
@@ -222,7 +222,7 @@ namespace SGame
 
 		static public ItemList ShowRewards(
 			Action closeCall = null, string title = null, bool updatedata = true,
-			Action<UI_CommonRewardUI> contentCall = null)
+			Action<UI_CommonRewardBody> contentCall = null)
 		{
 			var list = new ItemList();
 			UIUtils.OpenUI("rewardlist", list, closeCall, title, updatedata, contentCall);

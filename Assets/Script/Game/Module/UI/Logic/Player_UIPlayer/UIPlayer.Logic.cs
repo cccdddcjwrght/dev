@@ -285,7 +285,7 @@ namespace SGame.UI
 				"@ui_equip_merge_tips".Tips();
 		}
 
-		IEnumerator ShowRewardContent(UI_CommonRewardUI view, List<BaseEquip> eqs, double recycle)
+		IEnumerator ShowRewardContent(UI_CommonRewardBody view, List<BaseEquip> eqs, double recycle)
 		{
 			const string rich_text = "<img src='{0}' width='45%' height='45%' />";
 			var effect = EffectSystem.Instance.AddEffect(28, view);
