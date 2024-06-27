@@ -96,7 +96,9 @@ namespace SGame.UI{
 
 				//提前设置当前场景id
 				DataCenter.Instance.roomData.roomID = _nextScene;
-				
+				//记录关卡完成数量
+				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.LEVEL, 1);
+
 				var lastObj = (UI_PassItem)m_view.m_list.GetChildAt(index + 1);
 				m_view.m_list.ScrollToView(index + 1);
 				if (lastObj.m_dir.selectedIndex == 0) lastObj.m_right.Play(LoadNextScene);
