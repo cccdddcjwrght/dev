@@ -68,13 +68,13 @@ namespace SGame.UI{
 			if (m_view.m_btn.GetController("bgColor").selectedIndex == 1)
 			{
 				TransitionModule.Instance.PlayFlight(m_view.m_list, m_TaskRewardData);
-				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
-
 				m_view.m_content.visible = false;
+				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
 				EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_HIDE, m_Context);
 
 				Utils.Timer(lockTime, null, m_view, completed: () => 
-				{ 
+				{
+					if (m_view == null) return;
 					m_view.m_content.visible = true;
 					EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_SHOW, m_Context);
 				});
