@@ -124,13 +124,13 @@ namespace SGame
 					_workerFlag = main.Value.contentPane.GetChild("workflag") as UI_GetWorkerFlag;
 			}
 			if (_workerFlag != null) _workerFlag.visible = state;
-			return state && _workerFlag != null;
+			return state && _workerFlag != null && _workerFlag.parent != null;
 		}
 
 		void LookAt()
 		{
-			Vector2 pos = SGame.UIUtils.GetUIPosition(_workerFlag.parent, transform.parent.position + new Vector3(0,1,0), PositionType.POS3D);
-			_workerFlag.m_bg.rotation =  Vector2.SignedAngle(Vector2.up, pos - _workerFlag.xy) - 180;
+			Vector2 pos = SGame.UIUtils.GetUIPosition(_workerFlag.parent, transform.parent.position + new Vector3(0, 1, 0), PositionType.POS3D);
+			_workerFlag.m_bg.rotation = Vector2.SignedAngle(Vector2.up, pos - _workerFlag.xy) - 180;
 		}
 
 	}

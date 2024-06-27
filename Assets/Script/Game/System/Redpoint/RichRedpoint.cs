@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FlatBuffers;
 using GameConfigs;
+using GameTools;
 using log4net;
 using SGame.UI;
 using Unity.Entities;
@@ -39,15 +40,18 @@ namespace SGame
 	{
 		private static ILog log = LogManager.GetLogger("redpoint");
 		private static Dictionary<int, string> _keys = new Dictionary<int, string>();
+		private static Entity G_LOCK = new Entity() { Index = -1 };
 
 
 		private Dictionary<int, Entity> _hudID = new Dictionary<int, Entity>();
+
 
 		protected override void OnCreate()
 		{
 			base.OnCreate();
 			EventManager.Instance.Reg<string>(((int)GameEvent.UI_SHOW), OnUIShow);
 			EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnUIHide);
+			EventManager.Instance.Reg(((int)GameEvent.PREPARE_LEVEL_ROOM), OnLevelRoom);
 		}
 
 		#region Override
@@ -74,18 +78,19 @@ namespace SGame
 				var id = child.GetInstanceID();
 				if (status)
 				{
-					if (!_hudID.TryGetValue(id, out var e) || !EntityManager.Exists(e))
+					if (!_hudID.TryGetValue(id, out var e) || (e != G_LOCK && !EntityManager.Exists(e)))
 					{
-						_hudID[id] = default;
-						this.Delay(() =>
+						_hudID[id] = G_LOCK;
+
+						_hudID[id] = UIUtils.ShowHUD(data.Res.Substring(1), child.transform, new float3(data.Offset(0), data.Offset(1), data.Offset(2)));
+						_hudID[id].SetParam(new object[] { child, data });
+						/*this.Delay(() =>
 						{
-							_hudID[id] = UIUtils.ShowHUD(data.Res.Substring(1), child.transform, new float3(data.Offset(0), data.Offset(1), data.Offset(2)));
-							_hudID[id].SetParam(new object[] { child , data });
-						}, 1);
+						}, 1);*/
 
 					}
 				}
-				else if (_hudID.TryGetValue(id, out var e))
+				else if (_hudID.TryGetValue(id, out var e) && e != G_LOCK && e != default)
 				{
 					_hudID.Remove(id);
 					UIUtils.CloseUI(e);
@@ -113,6 +118,19 @@ namespace SGame
 		{
 			if (!_isInited) return;
 			this.Delay(() => MarkRedpointGroup(ui, false), 1);
+		}
+
+		private void OnLevelRoom()
+		{
+			if(_hudID?.Count > 0)
+			{
+				foreach (var item in _hudID)
+				{
+					if (item.Value!=default && EntityManager.Exists(item.Value))
+						UIUtils.CloseUI(item.Value);
+				}
+				_hudID.Clear();
+			}
 		}
 
 		#endregion
