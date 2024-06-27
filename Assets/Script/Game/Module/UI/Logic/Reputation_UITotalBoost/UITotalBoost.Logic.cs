@@ -32,12 +32,6 @@ namespace SGame.UI{
 		void OnItemRenderer(int index, GObject gObject) 
 		{
 			var data = m_TotalItems[index];
-			if (!data.isForce)
-			{
-				gObject.visible = false;
-				return;
-			}
-
 			var item = gObject as UI_BoosItem;
 			item.m_name.SetText(UIListener.Local(data.name));
 			item.m_multiple.SetText(string.Format("X{0}",data.multiple));

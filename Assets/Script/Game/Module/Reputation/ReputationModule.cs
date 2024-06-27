@@ -142,7 +142,7 @@ namespace SGame
 
         public List<TotalItem> GetVailedBuffList() 
         {
-            return m_TotalList;
+            return m_TotalList.FindAll((t)=> t.isForce);
         }
 
         public float GetTotalValue() 
