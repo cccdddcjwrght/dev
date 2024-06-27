@@ -503,6 +503,19 @@ namespace SGame
 		void Init()
 		{
 #if !DISABLE_CAMERA
+
+#if GAME_GUIDE
+			var str = GameConfigs.GlobalDesginConfig.GetStr("guide_cam_pos");
+			var val = str.Split('|');
+			int guideId = int.Parse(val[0]);
+			var x = float.Parse(val[1]);
+			var z = float.Parse(val[2]);
+			if (guideId >= DataCenter.Instance.guideData.guideId) 
+			{
+				xMove.startValue = x;
+				zMove.startValue = z;
+			}
+#endif
 			sceneXMove = xMove;
 			sceneZMove = zMove;
 			sceneFOV = fieldOfView;
