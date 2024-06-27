@@ -71,9 +71,9 @@ namespace SGame
             var buff = GlobalDesginConfig.GetIntArray("no_ads_buff");
             m_TotalList = new List<TotalItem>()
             {
-                new TotalItem(){ name = UIListener.Local("ui_boosts_name_1"), type = ShopBuffEnum.AD_BUFF },
-                new TotalItem(){ name = UIListener.Local("ui_boosts_name_3"), type = ShopBuffEnum.NO_AD_BUFF, multiple = 1 + buff[1] * PERCENTAGE_VALUE, isEver = true },
-                new TotalItem(){ name = UIListener.Local("ui_boosts_name_2"), type = ShopBuffEnum.PET_BUFF, isEver = true },
+                new TotalItem(){ name = "ui_boosts_name_1", type = ShopBuffEnum.AD_BUFF },
+                new TotalItem(){ name = "ui_boosts_name_2", type = ShopBuffEnum.PET_BUFF, isEver = true },
+                new TotalItem(){ name = "ui_boosts_name_3", type = ShopBuffEnum.NO_AD_BUFF, multiple = 1 + buff[1] * PERCENTAGE_VALUE, isEver = true },
             };
         }
 

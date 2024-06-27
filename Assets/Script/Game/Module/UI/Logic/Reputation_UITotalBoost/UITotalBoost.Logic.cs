@@ -33,7 +33,7 @@ namespace SGame.UI{
 		{
 			var data = m_TotalItems[index];
 			var item = gObject as UI_BoosItem;
-			item.m_name.SetText(UIListener.Local(data.name));
+			item.m_name.SetTextByKey(data.name);
 			item.m_multiple.SetText(string.Format("X{0}",data.multiple));
 			int startTime = GameServerTime.Instance.serverTime;
 			if (data.time > 0)
