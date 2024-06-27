@@ -10,8 +10,19 @@ namespace SGame
         public override IEnumerator Excute()
         {
             m_uiname = m_Config.StringParam;
+            yield return WaitUIOpen();
             yield return WaitUIClose();
             Finish();
+        }
+
+        IEnumerator WaitUIOpen() 
+        {
+            while (true)
+            {
+                bool isOpen = UIUtils.CheckUIIsOpen(m_uiname);
+                if (isOpen) yield break;
+                yield return null;
+            }
         }
 
         IEnumerator WaitUIClose()
