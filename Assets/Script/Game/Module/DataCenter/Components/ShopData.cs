@@ -165,7 +165,7 @@ namespace SGame
 						var g = _data.goods[i];
 						if (g.type < 6)
 						{
-							if (g.IsFree())
+							if (g.IsUnlock() && g.IsFree())
 								return true;
 						}
 					}
