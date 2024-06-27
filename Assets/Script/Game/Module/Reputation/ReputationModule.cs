@@ -13,8 +13,7 @@ namespace SGame
     {
         //Exclusive,      //开局buff
         //RoomLike,       //好评buff
-        //AdBuff,         //广告buff
-
+        AD_BUFF,           //广告buff
         NO_AD_BUFF,       //去广告buff
         PET_BUFF,         //当前跟随宠物buff
     }
@@ -72,6 +71,7 @@ namespace SGame
             var buff = GlobalDesginConfig.GetIntArray("no_ads_buff");
             m_TotalList = new List<TotalItem>()
             {
+                new TotalItem(){ name = UIListener.Local("ui_boosts_name_1"), type = ShopBuffEnum.AD_BUFF },
                 new TotalItem(){ name = UIListener.Local("ui_boosts_name_3"), type = ShopBuffEnum.NO_AD_BUFF, multiple = 1 + buff[1] * PERCENTAGE_VALUE, isEver = true },
                 new TotalItem(){ name = UIListener.Local("ui_boosts_name_2"), type = ShopBuffEnum.PET_BUFF, isEver = true },
             };
@@ -129,6 +129,14 @@ namespace SGame
                 pet_buff.multiple = multiple;
                 pet_buff.isForce = multiple > 0;
             }
+
+            //广告buff
+            var buff_time = AdModule.Instance.GetBuffTime();
+            var ad_buff = m_TotalList.Find((t) => t.type == ShopBuffEnum.AD_BUFF);
+            ad_buff.time = buff_time;
+            ad_buff.isForce = buff_time > 0;
+            ad_buff.multiple = AdModule.Instance.GetAdRatio();
+
             EventManager.Instance.Trigger((int)GameEvent.TOTAL_REFRESH);
         }
 

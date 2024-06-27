@@ -23,6 +23,7 @@ namespace SGame.UI{
 			m_view.m_worker.SetTextByKey("total_worker_name", list.Count);
 			m_view.m_customer.SetTextByKey("total_customer_name", Utils.GetAllMaxCustomer());
 
+			ReputationModule.Instance.RefreshVailedBuffList();
 			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_list.numItems = m_TotalItems.Count;
 			m_view.m_totalNum.SetText(string.Format("X{0}", ReputationModule.Instance.GetTotalValue().ToString()));
@@ -31,7 +32,11 @@ namespace SGame.UI{
 		void OnItemRenderer(int index, GObject gObject) 
 		{
 			var data = m_TotalItems[index];
-			if (!data.isForce) gObject.visible = false;
+			if (!data.isForce)
+			{
+				gObject.visible = false;
+				return;
+			}
 
 			var item = gObject as UI_BoosItem;
 			item.m_name.SetText(UIListener.Local(data.name));
@@ -56,7 +61,7 @@ namespace SGame.UI{
 		void TimeDoFinish() 
 		{
 			RefreshTotalList();
-			if (m_TotalItems.Count <= 0) SGame.UIUtils.CloseUIByID(__id);
+			//if (m_TotalItems.Count <= 0) SGame.UIUtils.CloseUIByID(__id);
 		}
 
 		partial void UnInitLogic(UIContext context){

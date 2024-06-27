@@ -74,6 +74,7 @@ namespace SGame
             }
 
             var time = DataCenter.GetIntValue(AD_BUFF_TIME) - serverTime;
+            ReputationModule.Instance.RefreshVailedBuffList();
             //if(time > 0) 
             //    EventManager.Instance.Trigger((int)GameEvent.BUFF_TRIGGER, new BuffData(AD_BUFF_ID, GetAdRatio() - 100, 0, time){ from = (int)EnumFrom.Ad});
         }
