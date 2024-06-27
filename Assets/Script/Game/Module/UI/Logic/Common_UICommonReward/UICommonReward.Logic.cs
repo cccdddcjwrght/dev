@@ -93,7 +93,7 @@ namespace SGame.UI
 		void OnClickClick()
 		{
 			//界面不能点击时，不能关闭
-			if (!_flag || !m_view.touchable) return;
+			if (!_flag || !m_view.touchable || !m_view.m_body.touchable) return;
 			SGame.UIUtils.CloseUIByID(__id);
 			var c = _call;
 			_call = null;
