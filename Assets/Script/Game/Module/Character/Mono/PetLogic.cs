@@ -35,6 +35,7 @@ namespace SGame
         private EntityManager EntityManager;
 
         private Entity m_haloEntity = Entity.Null; // 光环特效
+        private GameConfigs.PetsRowData m_config;
 
         void Start()
         {
@@ -58,10 +59,10 @@ namespace SGame
             }
         }
 
-        public void Initalzie(Transform follow, float radius, float speed, float scale)
+        public void Initalzie(int petID, Transform follow, float radius, float speed, float scale)
         {
             EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
+            ConfigSystem.Instance.TryGet(petID,  out m_config);
             m_followTarget  = follow;
             m_radius        = radius;
             m_transform     = transform;
@@ -82,7 +83,8 @@ namespace SGame
         IEnumerator Logic()
         {
             // 创建光环 
-            m_haloEntity = EffectSystem.Instance.Spawn3d(HALO_EFFECT_ID, gameObject, Vector3.zero);
+            if (m_config.FootEffect > 0)
+                m_haloEntity = EffectSystem.Instance.Spawn3d(m_config.FootEffect, gameObject, Vector3.zero);
             while (true)
             {
                 yield return RandomMove(PET_TAKETIPS_TIME.Value);

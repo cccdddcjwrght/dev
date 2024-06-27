@@ -295,7 +295,7 @@ namespace SGame
             var script = petObject.AddComponent<PetLogic>();
             var slot = GetSlot(SlotType.FOOT);
             var scale = config.Size;
-            script.Initalzie(slot, PET_RADIUS, PET_SPEED, scale);
+            script.Initalzie(petID, slot, PET_RADIUS, PET_SPEED, scale);
         }
         
 
