@@ -358,11 +358,11 @@ MonoBehaviour:
     currentValue: 11
     inputValue: 11
     wrapValue: 0
-    speed: 30
+    speed: 35
     refSpeed: 0
     time: 1
     isAxis: 1
-    lerp: 0
+    lerp: 1
     startPos: {x: 1, y: 0, z: 1.2}
     endPos: {x: 0, y: 0, z: 0.72}
     enableControl: 1
@@ -370,7 +370,7 @@ MonoBehaviour:
     control:
     - axisName: Mouse ScrollWheel
       sensitivity: 2
-      touchRevise: 0.8
+      touchRevise: 1.5
       isInvertAxis: 1
       additionalKey: 0
       additionalMouseButton: -10
