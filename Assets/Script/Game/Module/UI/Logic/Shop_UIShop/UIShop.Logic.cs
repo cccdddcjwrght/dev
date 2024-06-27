@@ -21,6 +21,7 @@ namespace SGame.UI
 		private List<ShopGoods> _gifts;
 		private UnityEngine.Coroutine _timer;
 		private bool _flag = false;
+		private bool _isFirst;
 
 		private Dictionary<int, Action> _refreshCall = new Dictionary<int, Action>();
 
@@ -34,6 +35,7 @@ namespace SGame.UI
 			DataCenter.ShopUtil.Refresh();
 			m_view.m_content.m_gifts.itemRenderer = SetGiftItem;
 			m_view.m_content.m_gifts.onTouchMove.Add(() => _flag = true);
+			_isFirst = true;
 		}
 
 		partial void InitLogic(UIContext context)
@@ -94,7 +96,7 @@ namespace SGame.UI
 			list.RemoveChildrenToPool();
 			for (var i = EnumShopArea.Item; i <= EnumShopArea.Diamond; i++)
 			{
-				if ( $"shop_{i}".ToLower().IsOpend(false))
+				if ($"shop_{i}".ToLower().IsOpend(false))
 				{
 					var goods = DataCenter.ShopUtil.GetShopGoodsByArea((int)i);
 					if (goods?.Count > 0)
@@ -109,7 +111,11 @@ namespace SGame.UI
 					}
 				}
 			}
-			list.ResizeToFit();
+			if (_isFirst)
+			{
+				list.ResizeToFit();
+				_isFirst = false;
+			}
 		}
 
 		void SetGiftItem(int index, GObject gObject)
@@ -255,7 +261,7 @@ namespace SGame.UI
 			v.m_saled.selectedIndex = g.IsSaled() ? 1 : 0;
 		}
 
-		void OnGoodsClick(ShopGoods goods) 
+		void OnGoodsClick(ShopGoods goods)
 		{
 			RequestExcuteSystem.BuyGoods(goods.id);
 		}
@@ -263,17 +269,17 @@ namespace SGame.UI
 		void OnGoodsClick(ShopGoods goods, EventContext context)
 		{
 			GObject btn = context.sender as GObject;
-			RequestExcuteSystem.BuyGoods(goods.id, (state)=> 
+			RequestExcuteSystem.BuyGoods(goods.id, (state) =>
 			{
-                if (!state) return;
-                if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(goods.id, out var data))
-                {
-                    /*if (data.Item1Length <= 1) return;
+				if (!state) return;
+				if (ConfigSystem.Instance.TryGet<GameConfigs.ShopRowData>(goods.id, out var data))
+				{
+					/*if (data.Item1Length <= 1) return;
                     int itemId = data.Item1(1);
                     if (itemId != (int)FlightType.GOLD && itemId != (int)FlightType.DIAMOND) return;
 					TransitionModule.Instance.PlayFlight(btn, itemId);*/
-                }
-            });
+				}
+			});
 		}
 
 
@@ -293,7 +299,7 @@ namespace SGame.UI
 			m_view.m_rate_2.m_icon.SetIcon(goods.cfg.ChestOpen);
 
 		}
-	
+
 		IEnumerator Loop()
 		{
 			if (m_view.m_content.m_pages.pageCount > 1)
