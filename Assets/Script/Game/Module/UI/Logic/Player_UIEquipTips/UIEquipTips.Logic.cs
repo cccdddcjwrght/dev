@@ -64,7 +64,7 @@ namespace SGame.UI
 		void SetInfo()
 		{
 			ConfigSystem.Instance.TryGet<BuffRowData>(equip.attrID, out buff);
-
+			m_view.SetTextByKey(equip.name);
 			m_view.GetChild("icon").SetEquipInfo(equip, lvformat: "-1");
 			m_view.m_qualitytips.SetTextByKey("ui_quality_name_" + equip.quality);
 			m_view.m_click.SetTextByKey(equip.pos == 0 ? "ui_equip_on" : "ui_equip_off");
