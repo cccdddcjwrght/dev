@@ -70,6 +70,7 @@ public struct PetsRowData : IFlatbufferObject
   public int[] GetRecycleRewardArray() { return __p.__vector_as_array<int>(22); }
   public int FootEffect { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int ShowEffect { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float DelayMove { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
 
   public static Offset<GameConfigs.PetsRowData> CreatePetsRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -83,8 +84,10 @@ public struct PetsRowData : IFlatbufferObject
       VectorOffset WeightsOffset = default(VectorOffset),
       VectorOffset RecycleRewardOffset = default(VectorOffset),
       int FootEffect = 0,
-      int ShowEffect = 0) {
-    builder.StartTable(12);
+      int ShowEffect = 0,
+      float DelayMove = 0.0f) {
+    builder.StartTable(13);
+    PetsRowData.AddDelayMove(builder, DelayMove);
     PetsRowData.AddShowEffect(builder, ShowEffect);
     PetsRowData.AddFootEffect(builder, FootEffect);
     PetsRowData.AddRecycleReward(builder, RecycleRewardOffset);
@@ -100,7 +103,7 @@ public struct PetsRowData : IFlatbufferObject
     return PetsRowData.EndPetsRowData(builder);
   }
 
-  public static void StartPetsRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
+  public static void StartPetsRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddQuality(FlatBufferBuilder builder, int Quality) { builder.AddInt(1, Quality, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(2, NameOffset.Value, 0); }
@@ -122,6 +125,7 @@ public struct PetsRowData : IFlatbufferObject
   public static void StartRecycleRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddFootEffect(FlatBufferBuilder builder, int FootEffect) { builder.AddInt(10, FootEffect, 0); }
   public static void AddShowEffect(FlatBufferBuilder builder, int ShowEffect) { builder.AddInt(11, ShowEffect, 0); }
+  public static void AddDelayMove(FlatBufferBuilder builder, float DelayMove) { builder.AddFloat(12, DelayMove, 0.0f); }
   public static Offset<GameConfigs.PetsRowData> EndPetsRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.PetsRowData>(o);

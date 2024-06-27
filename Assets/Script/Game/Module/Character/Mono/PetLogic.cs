@@ -89,7 +89,15 @@ namespace SGame
         {
             // 创建光环 
             if (m_config.FootEffect > 0)
+            {
                 m_haloEntity = EffectSystem.Instance.Spawn3d(m_config.FootEffect, gameObject, Vector3.zero);
+            }
+
+            if (m_config.DelayMove > 0)
+            {
+                yield return new Fiber.Wait(m_config.DelayMove);
+            }
+            
             while (true)
             {
                 yield return RandomMove(PET_TAKETIPS_TIME.Value);
