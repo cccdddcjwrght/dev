@@ -79,6 +79,7 @@ namespace SGame.UI
 		{
 			if (_current.isselected) return;
 			RequestExcuteSystem.PetFollow(_current);
+			DoCloseUIClick(null);
 		}
 
 		void OnPetBornEvo(PetItem pet, Action complete)
