@@ -207,6 +207,12 @@ namespace SGame
         /// <returns></returns>
         IEnumerator GoAndTakeTips(int2 curPos, TableData target)
         {
+            if (target.foodTip == Entity.Null || !EntityManager.Exists(target.foodTip))
+            {
+                target.foodTip = Entity.Null;
+                yield break;
+            }
+            
             // 调用AStar寻路查询
             ChairData chair = target.GetFirstChair(CHAIR_TYPE.ORDER);
             var searchCurPos = MapAgent.GridToIndex(new Vector2Int(curPos.x, curPos.y));
@@ -222,6 +228,7 @@ namespace SGame
             
             log.Info("Pet Logic GoAndTakeTips Step");
             EventManager.Instance.Trigger((int)GameEvent.FOOD_TIP_CLICK, target.foodTip);
+            target.foodTip = Entity.Null;
             yield return null;
         }
 

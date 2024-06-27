@@ -29,7 +29,7 @@ namespace SGame.VS
         // 端口定义
         protected override void Definition()
         {
-            m_v2 = ValueInput<ValueInput>("Vector2Int");
+            m_v2 = ValueInput<Vector2Int>("Vector2Int");
             m_int2 = ValueOutput<int2>("int2", (flow) =>
             {
                 var ret = flow.GetValue<Vector2Int>(m_v2);

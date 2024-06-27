@@ -56,6 +56,9 @@ namespace SGame
         /// <param name="foodTip"></param>
         public void OnFoodClick(Entity foodTip)
         {
+            if (!m_EntityManager.Exists(foodTip))
+                return;
+            
             FoodTips food = m_EntityManager.GetComponentData<FoodTips>(foodTip);
             var property = PropertyManager.Instance.GetGroup(PropertyGroup.ITEM);
             
