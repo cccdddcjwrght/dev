@@ -24,6 +24,10 @@ namespace SGame
         private Transform   m_transform;
         private float       m_speed = 1.0f;
 
+        private static PetLogic s_instance = null;
+
+        public static PetLogic Instance => s_instance;
+
         private const int HALO_EFFECT_ID = 39; // 光环特效ID
             
         private static ConfigValueFloat PET_START_ANGLE     = new ConfigValueFloat("pet_start_angle", 20);
@@ -66,6 +70,7 @@ namespace SGame
 
         public void Initalzie(int petID, Transform follow, float radius, float speed, float scale)
         {
+            s_instance = this;
             EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             ConfigSystem.Instance.TryGet(petID,  out m_config);
             m_followTarget  = follow;
