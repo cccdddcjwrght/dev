@@ -33,6 +33,7 @@ namespace SGame
   
             clickTarget = m_Handler.GetTarget();
             clickTarget.onClick.Add(Finish);
+            clickTarget.onTouchBegin.Clear();
 
             if (m_Config.Force == 0)
             {
@@ -68,9 +69,7 @@ namespace SGame
         {
             if(clickTarget != null)
                 clickTarget.onClick.Remove(Finish);
-
             UIUtils.CloseUIByName("fingerui");
-
             if (m_Config.Force == 0)
             {
                 UIUtils.CloseUIByName("guideback");
