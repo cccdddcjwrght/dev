@@ -300,7 +300,10 @@ namespace SGame
 					foreach (var item in equips)
 						RemoveEquip(item, false);
 					if (trigger)
+					{
+						CheckCanMerge();
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+					}
 				}
 			}
 
@@ -742,11 +745,13 @@ namespace SGame
 		private int _baseAttrVal;
 		private List<int[]> _effects;
 
-		public BaseEquip UpQuality()
+		public virtual BaseEquip UpQuality()
 		{
 			if (quality < (int)EnumQuality.Max)
 			{
 				quality++;
+				level = 1;
+				isnew = 1;
 				Refresh();
 			}
 			return this;

@@ -29,10 +29,8 @@ namespace SGame
 			if (count > 0)
 				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, count);
 
-			equip.level = 1;
 			equip.progress = 0;
 			equip.UpQuality();
-			equip.isnew = 1;
 			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EQUIP_STAGE, 1);
 			EventManager.Instance.Trigger((int)GameEvent.EQUIP_BURYINGPOINT, "equipment_merge", equip.cfgID, equip.level, equip.quality, equip.cfg.Type);
 			DataCenter.EquipUtil.RemoveEquips(trigger, eqs);
