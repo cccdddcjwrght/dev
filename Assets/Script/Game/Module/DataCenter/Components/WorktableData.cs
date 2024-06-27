@@ -444,9 +444,7 @@ namespace SGame
 			{
 				if (area > 1)
 				{
-					var room = DataCenter.Instance.roomData?.room;
-					if (room != null)
-						return room.areas.Contains(area);
+					return RoomUtil.IsAreaEnable(area);
 				}
 				return true;
 			}
