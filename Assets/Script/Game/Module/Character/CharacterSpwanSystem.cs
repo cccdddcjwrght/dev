@@ -186,6 +186,11 @@ namespace SGame
                         item.character.OnInitCharacter(item.entity, EntityManager);
                         item.result.entity = item.entity;
                         item.result.characterID = item.character.CharacterID;
+                        
+                        EventManager.Instance.AsyncTrigger((int)GameEvent.CHARACTER_CREATE, 
+                            item.character.CharacterID, 
+                            item.character.roleID, 
+                            item.character.roleType);
                     }
                     else
                     {

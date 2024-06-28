@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameConfigs;
+using SGame.VS;
 using UnityEngine;
 
 namespace SGame
@@ -30,26 +31,62 @@ namespace SGame
                 if (conf.Value.Book != 0)
                 {
                     // 保存图鉴数据
-                    m_customerBookData.Add(new CustomerBookData(conf.Value, IsRewarded(conf.Value.Id), IsOpened(conf.Value.Id)));
+                    m_customerBookData.Add(new CustomerBookData(conf.Value, m_recordData.GetOrCreate(conf.Value.Id)));
+                }
+            }
+
+            EventManager.Instance.Reg<int,int,int>((int)GameEvent.CHARACTER_CREATE, OnCharacterCreate);
+        }
+
+        CustomerBookData GetBookData(int roleID)
+        {
+            foreach (var item in m_customerBookData)
+            {
+                if (item.ID == roleID)
+                    return item;
+            }
+
+            return null;
+        }
+        
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public void ReSort()
+        {
+            m_customerBookData.Sort((a, b) =>
+            {
+                // 先排除未解锁的
+                if (!a.IsUnlock)
+                    return 1;
+                if (!b.IsUnlock)
+                    return -1;
+
+                return a.ID - b.ID;
+            });
+        }
+
+        void OnCharacterCreate(int id, int roleID, int roleType)
+        {
+            if (roleType == (int)EnumRole.Customer)
+            {
+                if (ConfigSystem.Instance.TryGet(roleID, out RoleDataRowData config))
+                {
+                    if (config.Book != 0)
+                    {
+                        // 记录图鉴
+                        var record = m_recordData.GetOrCreate(roleID);
+                        if (record.isUnlock == false)
+                        {
+                            record.isUnlock = true;
+                            EventManager.Instance.Trigger((int)GameEvent.CUSTOMER_BOOK_UPDATE);
+                        }
+                        //m_recordData.GetOrCreate(roleID).isUnlock = true;
+                    }
                 }
             }
         }
-
-        /// <summary>
-        /// 是否有奖励
-        /// </summary>
-        /// <param name="roleID"></param>
-        /// <returns></returns>
-        bool IsRewarded(int roleID)
-        {
-            return m_recordData.Rewarded.Contains(roleID);
-        }
-
-        bool IsOpened(int roleID)
-        {
-            return m_recordData.Opened.Contains(roleID);
-        }
-
+        
         /// <summary>
         /// 获取奖励
         /// </summary>
@@ -62,7 +99,7 @@ namespace SGame
 
             Utils.ShowRewards(items);
 
-            m_recordData.Rewarded.Add(data.ID);
+            //m_recordData.Rewarded.Add(data.ID);
             data.SetRewared();
             
             EventManager.Instance.Trigger((int)GameEvent.CUSTOMER_BOOK_UPDATE);
@@ -90,7 +127,6 @@ namespace SGame
         /// <param name="data"></param>
         public void MarkOpened(CustomerBookData data)
         {
-            m_recordData.Opened.Add(data.ID);
             data.SetOpened();
             EventManager.Instance.Trigger((int)GameEvent.CUSTOMER_BOOK_UPDATE);
         }

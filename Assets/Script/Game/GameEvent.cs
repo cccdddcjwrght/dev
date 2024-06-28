@@ -51,7 +51,7 @@ namespace SGame
 		ORDER_START					= 205,       // 顾客创建订单 (int 顾客实例ID)
 		
 		/// 角色
-		CHARACTER_CREATE			= 301, // 角色创建 (int 角色实例ID)
+		CHARACTER_CREATE			= 301, // 角色创建 (int 角色实例ID, int roleID, int roleType)
 		CHARACTER_REMOVE			= 302, // 角色销毁 (int 角色实例ID)
 		
 		/// <summary>
