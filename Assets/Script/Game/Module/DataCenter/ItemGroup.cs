@@ -69,11 +69,11 @@ public class ItemGroup
 		if (m_values.TryGetValue(id, out int cur_index))
 		{
 			var item = m_itemData.Values[cur_index];
-			oldValue = item.num;
-			item.num = value;
 			item.change++;
+			oldValue = item.num;
+			if (oldValue == value) return false;
+			item.num = value;
 			m_itemData.Values[cur_index] = item;
-			if (item.num == value) return false;
 			EventManager.Instance.Trigger(((int)GameEvent.PROPERTY_GOLD));
 		}
 		else
