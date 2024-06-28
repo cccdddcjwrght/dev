@@ -55,7 +55,6 @@ namespace SGame.UI
 						break;
 				}
 				m_view.m_pos.selectedIndex = GetOffset(info.target);
-				m_view.m_foods.onClickItem.Add(OnFoodClick);
 			}
 		}
 
@@ -75,8 +74,8 @@ namespace SGame.UI
 				books = data.cfg.GetItemIdArray().Select(id => DataCenter.CookbookUtils.GetBook(id)).ToList();
 
 				SGame.UIUtils.AddListItems(m_view.m_foods, books, OnSetFoodItemInfo);
-				m_view.m_foods.selectedIndex = Utils.FindCompareIndex(books, (a, b) => a.GetPrice().CompareTo(b.GetPrice()), b => b.IsEnable(), def: 0);
-				OnFoodClick();
+				var index = Utils.FindCompareIndex(books, (a, b) => a.GetPrice().CompareTo(b.GetPrice()), b => b.IsEnable(), def: 0);
+				OnFoodClick(index, books[index]);
 				SetUnlockBtn(data.GetUnlockPrice(), books.Any(b => b.IsEnable()));
 			}
 			else
@@ -132,7 +131,7 @@ namespace SGame.UI
 						m_view.m_maxlv.selectedIndex = 2;
 				}
 			}
-			UIListener.SetText(m_view, data.foodName,false);
+			UIListener.SetText(m_view, data.foodName, false);
 			UIListener.SetText(m_view.m_price, SGame.Utils.ConvertNumberStr(data.GetPrice()));
 			m_view.m_level.SetText(UIListener.LocalFormat("ui_main_btn_upgradelevel", data.level));
 			SetRoleChangeInfo();
@@ -353,14 +352,19 @@ namespace SGame.UI
 			AddItem(ls.ToArray()).Start();
 		}
 
-		void OnFoodClick()
+		void OnFoodClick(int index, CookBookItem book)
 		{
-			var index = m_view.m_foods.selectedIndex;
-			var book = books[index];
-			UIListener.SetText(m_view, "ui_worktable_name".Local(null, book.cfg.Name.Local()), false);
-			SetFoodInfo(book.id);
 			if (!book.IsEnable())
+			{
 				SGame.UIUtils.OpenUI("cookbookup", book);
+				SGame.UIUtils.CloseUIByID(__id);
+			}
+			else
+			{
+				m_view.m_foods.selectedIndex = index;
+				UIListener.SetText(m_view, "ui_worktable_name".Local(null, book.cfg.Name.Local()), false);
+				SetFoodInfo(book.id);
+			}
 		}
 
 		void SetFoodInfo(int id)
@@ -377,6 +381,8 @@ namespace SGame.UI
 			{
 				view.SetIcon(book.cfg.Icon);
 				UIListener.SetControllerSelect(gObject, "lock", book.IsEnable() ? 0 : 1);
+				view.onClick.Clear();
+				view.onClick.Add((e) => OnFoodClick(index, book));
 			}
 		}
 
