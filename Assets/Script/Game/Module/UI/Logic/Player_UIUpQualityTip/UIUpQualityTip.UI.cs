@@ -39,20 +39,8 @@ namespace SGame.UI{
 		string GetUpQualityTipBody_QnameText()=>UIListener.GetText(m_view.m_body.m_qname);
 		void SetUpQualityTipBody_AttributeText(string data)=>UIListener.SetText(m_view.m_body.m_attribute,data);
 		string GetUpQualityTipBody_AttributeText()=>UIListener.GetText(m_view.m_body.m_attribute);
-		void SetUpQualityTipBody_RecycleText(string data)=>UIListener.SetText(m_view.m_body.m_recycle,data);
-		string GetUpQualityTipBody_RecycleText()=>UIListener.GetText(m_view.m_body.m_recycle);
-		void _Onattrlabel_Body_addeffect_qualityChanged(EventContext data){
-			Onattrlabel_Body_addeffect_qualityChanged(data);
-		}
-		partial void Onattrlabel_Body_addeffect_qualityChanged(EventContext data);
-		void _Onattrlabel_Body_addeffect_lockChanged(EventContext data){
-			Onattrlabel_Body_addeffect_lockChanged(data);
-		}
-		partial void Onattrlabel_Body_addeffect_lockChanged(EventContext data);
-		void _OnUpQualityTipBody_AddeffectClick(EventContext data){
-			OnUpQualityTipBody_AddeffectClick(data);
-		}
-		partial void OnUpQualityTipBody_AddeffectClick(EventContext data);
+		void SetUpQualityTipBody_TipsText(string data)=>UIListener.SetText(m_view.m_body.m_tips,data);
+		string GetUpQualityTipBody_TipsText()=>UIListener.GetText(m_view.m_body.m_tips);
 		void _OnEquip_Bodyquip_typeChanged(EventContext data){
 			OnEquip_Bodyquip_typeChanged(data);
 		}
@@ -78,6 +66,8 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetUpQualityTipBody_Body_closeText(string data)=>UIListener.SetText(m_view.m_body.m_close,data);
 		string GetUpQualityTipBody_Body_closeText()=>UIListener.GetText(m_view.m_body.m_close);
+		void SetUpQualityTipBody_RecycleText(string data)=>UIListener.SetText(m_view.m_body.m_recycle,data);
+		string GetUpQualityTipBody_RecycleText()=>UIListener.GetText(m_view.m_body.m_recycle);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 

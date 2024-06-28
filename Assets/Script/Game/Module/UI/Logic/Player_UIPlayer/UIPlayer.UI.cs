@@ -57,8 +57,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick));
 			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick));
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick));
-			UIListener.ListenerIcon(m_view.m_info, new EventCallback1(_OnInfoClick));
-			UIListener.ListenerIcon(m_view.m_equipup, new EventCallback1(_OnEquipupClick));
+			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick));
+			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick));
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 
 		}
@@ -107,8 +107,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick),remove:true);
 			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick),remove:true);
-			UIListener.ListenerIcon(m_view.m_info, new EventCallback1(_OnInfoClick),remove:true);
-			UIListener.ListenerIcon(m_view.m_equipup, new EventCallback1(_OnEquipupClick),remove:true);
+			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick),remove:true);
+			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick),remove:true);
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 
 		}
@@ -352,10 +352,14 @@ namespace SGame.UI{
 			OnInfoClick(data);
 		}
 		partial void OnInfoClick(EventContext data);
+		void SetInfoText(string data)=>UIListener.SetText(m_view.m_info,data);
+		string GetInfoText()=>UIListener.GetText(m_view.m_info);
 		void _OnEquipupClick(EventContext data){
 			OnEquipupClick(data);
 		}
 		partial void OnEquipupClick(EventContext data);
+		void SetEquipupText(string data)=>UIListener.SetText(m_view.m_equipup,data);
+		string GetEquipupText()=>UIListener.GetText(m_view.m_equipup);
 		void _OnClickBtnClick(EventContext data){
 			OnClickBtnClick(data);
 		}

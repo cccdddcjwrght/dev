@@ -11,6 +11,7 @@ namespace SGame.UI.Cookbook
         public GTextField m_title;
         public GGraph m___effect;
         public GLoader m_icon;
+        public Transition m_t0;
         public const string URL = "ui://n2tgmsyusj1y14";
 
         public static UI_CustomerbookFirstUpUI CreateInstance()
@@ -26,6 +27,7 @@ namespace SGame.UI.Cookbook
             m_title = (GTextField)GetChildAt(2);
             m___effect = (GGraph)GetChildAt(3);
             m_icon = (GLoader)GetChildAt(4);
+            m_t0 = GetTransitionAt(0);
         }
     }
 }

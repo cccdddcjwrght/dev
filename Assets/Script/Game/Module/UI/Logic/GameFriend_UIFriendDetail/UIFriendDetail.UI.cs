@@ -20,6 +20,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick));
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnCancle, new EventCallback1(_OnComfirm_BtnCancleClick));
+			UIListener.Listener(m_view.m_comfirmDialog.m_headIcon, new EventCallback1(_OnComfirm_HeadIconClick));
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnOK, new EventCallback1(_OnComfirm_BtnOKClick));
 			UIListener.ListenerIcon(m_view.m_comfirmDialog, new EventCallback1(_OnComfirmDialogClick));
 
@@ -32,6 +33,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick),remove:true);
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnCancle, new EventCallback1(_OnComfirm_BtnCancleClick),remove:true);
+			UIListener.Listener(m_view.m_comfirmDialog.m_headIcon, new EventCallback1(_OnComfirm_HeadIconClick),remove:true);
 			UIListener.Listener(m_view.m_comfirmDialog.m_btnOK, new EventCallback1(_OnComfirm_BtnOKClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_comfirmDialog, new EventCallback1(_OnComfirmDialogClick),remove:true);
 
@@ -81,6 +83,12 @@ namespace SGame.UI{
 		partial void OnComfirm_BtnCancleClick(EventContext data);
 		void SetComfirm_ComfirmDialog_btnCancleText(string data)=>UIListener.SetText(m_view.m_comfirmDialog.m_btnCancle,data);
 		string GetComfirm_ComfirmDialog_btnCancleText()=>UIListener.GetText(m_view.m_comfirmDialog.m_btnCancle);
+		void _OnComfirm_HeadIconClick(EventContext data){
+			OnComfirm_HeadIconClick(data);
+		}
+		partial void OnComfirm_HeadIconClick(EventContext data);
+		void SetComfirm_ComfirmDialog_headIconText(string data)=>UIListener.SetText(m_view.m_comfirmDialog.m_headIcon,data);
+		string GetComfirm_ComfirmDialog_headIconText()=>UIListener.GetText(m_view.m_comfirmDialog.m_headIcon);
 		void _OnComfirm_BtnOKClick(EventContext data){
 			OnComfirm_BtnOKClick(data);
 		}
