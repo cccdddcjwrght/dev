@@ -225,6 +225,7 @@ namespace SGame.UI{
 		{
 			isPop = true;
 			m_view.m_LuckShow.visible = true;
+			32.ToAudioID().PlayAudio();
 			Vector2 start_pos = new Vector2(m_view.m_list1.x, m_view.m_list1.y);
 			Vector2 end_pos = new Vector2(m_view.m_rewardList.x, m_view.m_rewardList.y);
 

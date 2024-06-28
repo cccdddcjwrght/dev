@@ -51,6 +51,7 @@ namespace SGame.UI
 				return;
 			}
 
+			33.ToAudioID().PlayAudio();
 			_list = m_view.m_body.m_items;
 			_icon = m_view.m_body.GetChild("icon");
 			_list.itemRenderer = OnSetEquipInfo;
