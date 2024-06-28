@@ -10,6 +10,9 @@ namespace SGame.UI{
 	public partial class UICustomerbookUp
 	{
 		private CustomerBookData m_data;
+		private Entity m_rewardEffect;
+		private const int BUTTON_EFFECT_ID = 45;
+		
 		partial void InitLogic(UIContext context)
 		{
 			var mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -35,12 +38,27 @@ namespace SGame.UI{
 			m_view.m_click.title = "x" + item[2];
 			var icon = Utils.GetItemIcon(item[0], item[1]);
 			m_view.m_click.SetIcon(icon);
+
+			if (!m_data.isRewarded)
+			{
+				m_rewardEffect = EffectSystem.Instance.SpawnUI(BUTTON_EFFECT_ID, m_view.m___effect);
+			}
+		}
+
+		void ClearUIEffect()
+		{
+			if (m_rewardEffect != Entity.Null)
+			{
+				EffectSystem.Instance.CloseEffect(m_rewardEffect);
+				m_rewardEffect = Entity.Null;
+			}
 		}
 
 		void OnClickReward()
 		{
 			CustomerBookModule.Instance.TakeReward(m_data);
 			m_view.m_take_reward.selectedIndex = m_data.isRewarded ? 1 : 0;
+			ClearUIEffect();
 		}
 
 		void OnRenderFoodItems(int index, GObject gObject)
@@ -49,8 +67,9 @@ namespace SGame.UI{
 			gObject.SetIcon(Utils.GetItemIcon(1, itemID));
 		}
 		
-		partial void UnInitLogic(UIContext context){
-
+		partial void UnInitLogic(UIContext context)
+		{
+			ClearUIEffect();
 		}
 	}
 }
