@@ -256,7 +256,7 @@ namespace SGame
 
 		public bool IsFree()
 		{
-			return free > 0 || (cfg.IsValid() && cfg.PurchaseType == 1 && !IsSaled() && CDTime() <= 0);
+			return free > 0 /*|| (cfg.IsValid() && cfg.PurchaseType == 1 && !IsSaled() && CDTime() <= 0)*/;
 		}
 
 		public bool IsUnlock()
