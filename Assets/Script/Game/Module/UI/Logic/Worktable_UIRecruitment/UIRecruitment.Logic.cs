@@ -61,6 +61,7 @@ namespace SGame.UI
 					Debug.Log($"{data.id} 升级道具不足!!!");
 					break;
 				case 0:
+					20.ToAudioID().PlayAudio();
 					DataCenter.MachineUtil.UpdateLevel(data.id, 0);
 					//EffectSystem.Instance.AddEffect(2, m_view.m_click);
 					DoCloseUIClick(null);
