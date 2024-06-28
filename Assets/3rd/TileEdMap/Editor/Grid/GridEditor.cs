@@ -10,6 +10,9 @@ namespace GameTools.Maps
 	[CustomEditor(typeof(GameTools.Maps.Grid))]
 	public class GridEditor : Editor
 	{
+		private GUIStyle labStyle;
+
+
 		private string[] tags;
 		private int selectTags;
 
@@ -40,15 +43,15 @@ namespace GameTools.Maps
 		{
 			plane = new Plane(Vector3.up, new Vector3(0f, 0, 0f));
 			var ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-
+			labStyle = labStyle ??  new GUIStyle(GUI.skin.label) { fontSize = 30 };
 			if (plane.Raycast(ray, out var d))
 			{
 				gridWorldPos = ray.GetPoint(d);
 				var gp = RecalcCalcGridPos(ref gridWorldPos);
 				grid.selectIndex = grid.CellIndex(gridWorldPos);
 				Handles.DrawWireCube(gridWorldPos, Vector3.one * 0.5f);
-				GUI.color = Color.green;
-				Handles.Label(gridWorldPos + new Vector3(0,1,0), grid.GridPos(gridWorldPos).ToString());
+				GUI.color = Color.black;
+				Handles.Label(gridWorldPos + new Vector3(0,1,0), grid.GridPos(gridWorldPos).ToString(), labStyle);
 			}
 			SceneView.currentDrawingSceneView.Repaint();
 		}
