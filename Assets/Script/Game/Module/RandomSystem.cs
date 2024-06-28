@@ -103,7 +103,7 @@ namespace SGame
 	        }
                 
 	        // 计算随机数
-	        if (weights == null || (weights.Count - len) == 0)
+	        if (weights == null || weights.Count < len || weights.Count == 0)
 	        {
 		        int randIndex = RandomSystem.Instance.NextInt(0, len);
 		        return randIndex;
