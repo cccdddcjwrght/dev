@@ -114,6 +114,9 @@ namespace SGame.UI
 			if (_isFirst)
 			{
 				list.ResizeToFit();
+				//m_view.m_content.height += list.height;
+				/*var h = m_view.viewHeight - m_view.m_content.y;
+				if (h > m_view.m_content.viewHeight) m_view.m_content.viewHeight = h;*/
 				_isFirst = false;
 			}
 		}
