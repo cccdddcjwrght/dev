@@ -14,6 +14,7 @@ namespace SGame.UI.Player
 		private RoleData roleData;
 
 		private Action<int, GObject> eqclick;
+		private bool showTips ;
 
 		public UI_EquipPage Init(Action<int, GObject> eqclick, Action<int , GObject> uplvClick = null)
 		{
@@ -51,6 +52,12 @@ namespace SGame.UI.Player
 				m_eq3.m_upclick.onClick.Add(() => uplvClick?.Invoke(3, m_eq3.m_body));
 			}
 
+			return this;
+		}
+
+		public UI_EquipPage EnableTips(bool state = true)
+		{
+			this.showTips = state;
 			return this;
 		}
 
@@ -120,7 +127,7 @@ namespace SGame.UI.Player
 		private void OnEqClick(int index, EventContext context)
 		{
 			eqclick?.Invoke(index, (context.sender as GObject).parent);
-			if (roleData != null && roleData.isEmployee)
+			if ( showTips && roleData != null && roleData.isEmployee)
 			{
 				var e = roleData.equips.Find(e => e != null && e.type == index);
 				if (e != null)
