@@ -115,6 +115,11 @@ namespace SGame
             }
         }
 
+        public void StopWalkAnim() 
+        {
+            m_animator.SetBool(WALK_NAME, false);
+        }
+
         IEnumerator Logic()
         {
             // 创建光环 
@@ -240,7 +245,7 @@ namespace SGame
             }
         }
 
-        void Stop()
+        public void Stop()
         {
             if (EntityManager.HasComponent<FindPathParams>(m_entity))
             {
