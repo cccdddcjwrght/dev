@@ -15,6 +15,7 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_quality.onChanged.Add(new EventCallback1(_OnQualityChanged));
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
+			m_view.m_state.onChanged.Add(new EventCallback1(_OnStateChanged));
 			UIListener.ListenerIcon(m_view.m_model, new EventCallback1(_OnModelClick));
 			m_view.m_change.m_type.onChanged.Add(new EventCallback1(_OnChangeProperty_TypeChanged));
 			UIListener.ListenerIcon(m_view.m_change, new EventCallback1(_OnChangeClick));
@@ -23,6 +24,7 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 			m_view.m_quality.onChanged.Remove(new EventCallback1(_OnQualityChanged));
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
+			m_view.m_state.onChanged.Remove(new EventCallback1(_OnStateChanged));
 			UIListener.ListenerIcon(m_view.m_model, new EventCallback1(_OnModelClick),remove:true);
 			m_view.m_change.m_type.onChanged.Remove(new EventCallback1(_OnChangeProperty_TypeChanged));
 			UIListener.ListenerIcon(m_view.m_change, new EventCallback1(_OnChangeClick),remove:true);
@@ -38,6 +40,11 @@ namespace SGame.UI{
 		}
 		partial void OnTypeChanged(EventContext data);
 		void SwitchTypePage(int index)=>m_view.m_type.selectedIndex=index;
+		void _OnStateChanged(EventContext data){
+			OnStateChanged(data);
+		}
+		partial void OnStateChanged(EventContext data);
+		void SwitchStatePage(int index)=>m_view.m_state.selectedIndex=index;
 		void _OnModelClick(EventContext data){
 			OnModelClick(data);
 		}

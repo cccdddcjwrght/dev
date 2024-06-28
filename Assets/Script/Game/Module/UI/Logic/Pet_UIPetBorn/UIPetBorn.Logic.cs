@@ -68,12 +68,19 @@ namespace SGame.UI
 
 		void OnEffectCompleted()
 		{
-			if (_mask != null) _mask.Value.alpha = 1;
-			m_view.m_type.selectedIndex = 3;
-			m_view.visible = true;
-			_isCompleted = true;
-			_index = -1;
-			_isNew = true;
+			IEnumerator Run()
+			{
+				23.ToAudioID().PlayAudio();
+				EffectSystem.Instance.AddEffect(28, m_view.m_effect2);
+				yield return new WaitForSeconds(1.5f);
+				if (_mask != null) _mask.Value.alpha = 1;
+				m_view.m_type.selectedIndex = 3;
+				m_view.m_state.selectedIndex = 0;
+				_isCompleted = true;
+				_index = -1;
+				_isNew = true;
+			}
+			Run().Start();
 		}
 
 		void DoClose()
@@ -89,7 +96,7 @@ namespace SGame.UI
 						_mask.Value.alpha = 0.01f;
 						_mask.Value.z = -350;
 					}
-					m_view.visible = false;
+					m_view.m_state.selectedIndex = 1;
 					EventManager.Instance.Trigger(((int)GameEvent.PET_BORN_EVO), _pet, new Action(OnEffectCompleted));
 				}
 				else
