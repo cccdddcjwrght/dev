@@ -30,7 +30,7 @@ namespace SGame
             yield return wait;
             m_Arrow = wait.Current as GameObject;
             m_Arrow.transform.SetParent(character.pos);
-            m_Arrow.transform.localPosition = new Vector3(0, 2, 0);
+            m_Arrow.transform.localPosition = new Vector3(0, 2, -0.2f);
 
             var duration = m_Config.FloatParam(0);
             SceneCameraSystem.Instance.GetLimitXZ(out float xMin, out float xMax, out float zMin, out float zMax);
