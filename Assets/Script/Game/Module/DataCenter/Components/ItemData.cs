@@ -14,6 +14,8 @@ namespace SGame
 			public double     num;
 			public PropertyGroup type;
 
+			public double change;
+
 			public Value SetNum(double num)
 			{
 				this.num = num;
