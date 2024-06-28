@@ -203,9 +203,11 @@ namespace SGame.UI{
 			isPop = true;
 			Utils.ShowRewards(m_CommonRewardList, closeCall: () =>
 			{
-				isPop = false;
+				var ui = SGame.UIUtils.GetUIView("rewardlist");
+				TransitionModule.Instance.PlayFlight(ui.Value.contentPane.GetChildByPath("body.list").asList, m_CommonRewardList);
 				PropertyManager.Instance.CombineCache2Items();
-			});
+				isPop = false;
+			}, updatedata: false);
 
 			//自动抽奖需要关闭领取奖励界面
 			if (m_Auto)
@@ -325,6 +327,7 @@ namespace SGame.UI{
 			m_Event.Close();
 			m_Event = null;
 
+			//AudioSystem.Instance.Stop(SoundType.MASTER);
 			PropertyManager.Instance.CombineCache2Items();
 			List<int[]> list = new List<int[]>();
 
