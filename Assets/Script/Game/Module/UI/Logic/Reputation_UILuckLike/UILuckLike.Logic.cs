@@ -104,6 +104,9 @@ namespace SGame.UI{
             }
 
             if (m_IsPlaying) return;
+
+			27.ToAudioID().PlayAudio();
+			28.ToAudioID().PlayAudio();
 			m_IsPlaying = true;
 			m_view.m_t1.Play();
 			m_view.m_t0.Stop();
@@ -156,6 +159,7 @@ namespace SGame.UI{
 		public void LotteryFinish()
 		{
 			m_IsPlaying = false;
+			29.ToAudioID().PlayAudio();
 			if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_RewardsRowData>(m_LikeCfgId, out var config))
 			{
 				m_view.m_t1.Stop();
@@ -177,6 +181,7 @@ namespace SGame.UI{
 					if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_JackpotRowData>(m_HiddenCfgId, out var cfg))
 					{
 						isPop = true;
+						30.ToAudioID().PlayAudio();
 						m_view.m_BigLuckShow.visible = true;
 						m_view.m_BigLuckShow.m_show.Play();
 						Utils.Timer(m_AutoCloseTime, null, m_view, completed: () =>

@@ -36,7 +36,7 @@ namespace SGame.UI
 			m_view.m_quality.selectedIndex = pet.tempQuality;
 			_isCompleted = false;
 			Logic().Start();
-
+			26.ToAudioID().PlayAudio();
 			context.window.AddEventListener("OnMaskClick", DoClose);
 
 		}

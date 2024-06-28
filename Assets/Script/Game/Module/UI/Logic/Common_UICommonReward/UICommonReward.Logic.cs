@@ -39,7 +39,7 @@ namespace SGame.UI
 			var args = context.GetParam()?.Value.To<object[]>();
 			_itemList = args.Val<ItemList>(0);
 			_rewards = _itemList == null ? args.Val<List<double[]>>(0) : _itemList.vals;
-
+			21.ToAudioID().PlayAudio();
 			if (_rewards?.Count > 0)
 			{
 				SetBaseInfo(args);

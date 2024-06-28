@@ -171,6 +171,7 @@ namespace SGame.UI
 			{
 				loader.parent.touchable = false;
 				effect = EffectSystem.Instance.AddEffect(35, loader.parent);
+				24.ToAudioID().PlayAudio();
 				yield return new WaitForSeconds(1.5f);
 				if (m_view == null) yield break;
 				loader.url = "ui://Cookbook/NewBook";

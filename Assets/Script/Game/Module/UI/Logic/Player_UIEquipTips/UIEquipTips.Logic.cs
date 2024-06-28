@@ -150,6 +150,7 @@ namespace SGame.UI
 				"@ui_equip_uplv_error1".Tips();
 				return;
 			}
+			25.ToAudioID().PlayAudio();
 			needRefreshPlayUI = true;
 			itemcount -= RequestExcuteSystem.EquipUpLevel(equip, out var success);
 

@@ -51,7 +51,7 @@ namespace SGame.UI{
 		{
 			int effectId1 = id + 20;
 			int effectId2 = id + 22;
-
+			PlayAudio(id);
 			if (TransitionModule.Instance.CheckIsBox(id))
 			{
 				effectId1 = 26;
@@ -107,6 +107,12 @@ namespace SGame.UI{
 					 Refresh();
 				 });
 			});
+		}
+
+		void PlayAudio(int id) 
+		{
+			if (id == 1) 4.ToAudioID().PlayAudio();
+			else if (id == 2) 5.ToAudioID().PlayAudio();
 		}
 
 

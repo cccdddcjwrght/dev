@@ -37,9 +37,11 @@ namespace SGame.UI
 
 		IEnumerator Effect()
 		{
+
 			var anim = m_view.m_body.m_upqualitytipui;
 			effect = EffectSystem.Instance.AddEffect(28, m_view.m_body);
 			yield return EffectSystem.Instance.WaitEffectLoaded(effect);
+			22.ToAudioID().PlayAudio();
 			anim.Play();
 			yield return null;
 			flag = true;
