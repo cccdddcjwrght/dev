@@ -69,6 +69,7 @@ namespace SGame
 			success = false;
 			if (equip != null && !equip.IsMaxLv() && Utils.CheckItemCount(ConstDefine.EQUIP_UPLV_MAT, equip.upLvCost))
 			{
+				25.ToAudioID().PlayAudio();
 				success = true;
 				var cost = equip.upLvCost;
 				PropertyManager.Instance.Update(1, ConstDefine.EQUIP_UPLV_MAT, equip.upLvCost, true);
