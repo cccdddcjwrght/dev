@@ -193,10 +193,10 @@ namespace SGame.UI
 		{
 
 			var id = ss.Val<int>(1);
-			var count = ss.Val<int>(2,1);
+			var count = ss.Val<int>(2, 1);
 
 			if (id > 0)
-				DataCenter.EquipUtil.AddEquip(id,count);
+				DataCenter.EquipUtil.AddEquip(id, count);
 		}
 
 		private void DoEvent(string[] ss)
@@ -210,11 +210,14 @@ namespace SGame.UI
 					if (eid != 0)
 					{
 						var args = new List<int>();
-						for (int i = 1; i < ss.Length; i++)
+						for (int i = 2; i < ss.Length; i++)
 							if (!string.IsNullOrEmpty(ss[i]) && int.TryParse(ss[i], out var r)) args.Add(r);
 						try
 						{
-							EventManager.Instance.AsyncTrigger(eid, args.Select(i => (object)i).ToArray());
+							if (args.Count > 0)
+								EventManager.Instance.AsyncTrigger(eid);
+							else
+								EventManager.Instance.AsyncTrigger(eid, args.Select(i => (object)i).ToArray());
 						}
 						catch (Exception e)
 						{

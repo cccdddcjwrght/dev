@@ -20,7 +20,7 @@ namespace SGame.UI
 				SGame.UIUtils.CloseUI(context.entity);
 				return;
 			}
-			m_view.SetIcon(string.IsNullOrEmpty(cfg.EndImage) ? "ui_end_bg_" + roomID : cfg.EndImage);
+			m_view.m_build.SetIcon(string.IsNullOrEmpty(cfg.EndImage) ? "ui_end_bg_" + roomID : cfg.EndImage);
 
 			list = Utils.GetArrayList(cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
 			PropertyManager.Instance.Insert2Cache(list);
