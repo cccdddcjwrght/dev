@@ -131,6 +131,8 @@ namespace SGame
 		{
 			Vector2 pos = SGame.UIUtils.GetUIPosition(_workerFlag.parent, transform.parent.position + new Vector3(0, 1, 0), PositionType.POS3D);
 			_workerFlag.m_bg.rotation = Vector2.SignedAngle(Vector2.up, pos - _workerFlag.xy) - 180;
+			_workerFlag.m_type.selectedIndex = StaticDefine.G_GET_WORKER_TYPE;
+
 		}
 
 	}

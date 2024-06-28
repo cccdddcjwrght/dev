@@ -44,6 +44,7 @@ public struct RoomObjLevelRowData : IFlatbufferObject
   public int Condition { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int PartNum { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int ShowNum { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ShowType { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomObjLevelRowData> CreateRoomObjLevelRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -56,8 +57,10 @@ public struct RoomObjLevelRowData : IFlatbufferObject
       int SetNum = 0,
       int Condition = 0,
       int PartNum = 0,
-      int ShowNum = 0) {
-    builder.StartTable(11);
+      int ShowNum = 0,
+      int ShowType = 0) {
+    builder.StartTable(12);
+    RoomObjLevelRowData.AddShowType(builder, ShowType);
     RoomObjLevelRowData.AddShowNum(builder, ShowNum);
     RoomObjLevelRowData.AddPartNum(builder, PartNum);
     RoomObjLevelRowData.AddCondition(builder, Condition);
@@ -72,7 +75,7 @@ public struct RoomObjLevelRowData : IFlatbufferObject
     return RoomObjLevelRowData.EndRoomObjLevelRowData(builder);
   }
 
-  public static void StartRoomObjLevelRowData(FlatBufferBuilder builder) { builder.StartTable(11); }
+  public static void StartRoomObjLevelRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddStar(FlatBufferBuilder builder, int Star) { builder.AddInt(1, Star, 0); }
   public static void AddCost(FlatBufferBuilder builder, VectorOffset CostOffset) { builder.AddOffset(2, CostOffset.Value, 0); }
@@ -90,6 +93,7 @@ public struct RoomObjLevelRowData : IFlatbufferObject
   public static void AddCondition(FlatBufferBuilder builder, int Condition) { builder.AddInt(8, Condition, 0); }
   public static void AddPartNum(FlatBufferBuilder builder, int PartNum) { builder.AddInt(9, PartNum, 0); }
   public static void AddShowNum(FlatBufferBuilder builder, int ShowNum) { builder.AddInt(10, ShowNum, 0); }
+  public static void AddShowType(FlatBufferBuilder builder, int ShowType) { builder.AddInt(11, ShowType, 0); }
   public static Offset<GameConfigs.RoomObjLevelRowData> EndRoomObjLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomObjLevelRowData>(o);

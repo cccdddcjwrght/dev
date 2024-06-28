@@ -21,6 +21,7 @@ namespace SGame.UI
 			if (data == null) DoCloseUIClick(null);
 			else SetInfo();
 			context.window.AddEventListener("OnMaskClick", () => DoCloseUIClick(null));
+			m_view.m_roletype.selectedIndex = StaticDefine.G_GET_WORKER_TYPE;
 		}
 
 		partial void UnInitLogic(UIContext context)

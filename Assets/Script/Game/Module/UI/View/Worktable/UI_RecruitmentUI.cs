@@ -9,6 +9,7 @@ namespace SGame.UI.Worktable
     {
         public Controller m_currency;
         public Controller m_type;
+        public Controller m_roletype;
         public GTextField m_desc;
         public GTextField m_areatips;
         public GTextField m_cost;
@@ -27,6 +28,7 @@ namespace SGame.UI.Worktable
 
             m_currency = GetControllerAt(0);
             m_type = GetControllerAt(1);
+            m_roletype = GetControllerAt(2);
             m_desc = (GTextField)GetChildAt(6);
             m_areatips = (GTextField)GetChildAt(7);
             m_cost = (GTextField)GetChildAt(8);

@@ -22,7 +22,6 @@ namespace SGame
 		private string _icStr;
 		private bool _red;
 		private float _time;
-
 		public Condition_17_id()
 		{
 			EventManager.Instance.Reg<int>(((int)GameEvent.AFTER_ENTER_ROOM), (a) => Clear());

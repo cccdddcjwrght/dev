@@ -203,6 +203,7 @@ namespace SGame
 		public static List<string> CUSTOMER_TAG_BORN = new List<string>();
 
 		public static bool G_IN_VIEW_GET_WORKER = false;
+		public static int G_GET_WORKER_TYPE = 0;
 
 	}
 }
