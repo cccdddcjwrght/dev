@@ -166,7 +166,7 @@ namespace SGame
             ClearHudEntity();
             m_slot.Clear();
         }
-
+        
         public void Clear()
         {
             ClearFood();
@@ -504,6 +504,8 @@ namespace SGame
             m_modelLoading.Start(ChangLooking(part));
         }
 
+        public bool IsModelDone => m_modelLoading.IsTerminated;
+
         /// <summary>
         /// 更新外观
         /// </summary>
@@ -525,8 +527,6 @@ namespace SGame
         /// <returns></returns>
         IEnumerator ChangLooking(string part)
         {
-            // 回收老的样式
-
             m_characterLooking = part;
             var data = CharacterPartGen.ParseString(part);
             List<string> weapons = data.GetValues("weapon");
