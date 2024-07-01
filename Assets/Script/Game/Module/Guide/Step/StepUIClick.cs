@@ -80,7 +80,7 @@ namespace SGame
             }
             if (isLock) 
             {
-                UILockManager.Instance.Release("guide");
+                UILockManager.Instance.Release("guide_uiclick");
                 m_Handler.DisableControl(false);
                 Debug.Log("<color=bule> ui unlock-------------</color>");
             }
