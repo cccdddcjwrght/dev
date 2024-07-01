@@ -297,7 +297,10 @@ namespace SDK.TDSDK
 				 TDEvent.pet_born.ToString(), "pet_id", id, "pet_born_type", born_type, "pet_quality", qualty, "grow_num", level));
 
 			//区域解锁埋点
-			EventManager.Instance.Reg<int>((int)GameEvent.WORK_AREA_UNLOCK, (area) => TrackNormal(TDEvent.new_area.ToString(), "area_id", area));
+			EventManager.Instance.Reg<int>((int)GameEvent.WORK_AREA_UNLOCK, (area) => 
+			{
+				if (area != -1) TrackNormal(TDEvent.new_area.ToString(), "area_id", area);
+			});
 			//菜品升级埋点
 			EventManager.Instance.Reg<int, int>((int)GameEvent.COOKBOOK_UP_LV, (id, lv) => TrackNormal(TDEvent.cook_unlock.ToString(), "cook_id", id, "cook_level", lv));
 			//主线任务埋点
