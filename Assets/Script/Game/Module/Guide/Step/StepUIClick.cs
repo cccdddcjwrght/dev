@@ -20,7 +20,7 @@ namespace SGame
             {
                 GuideManager.Instance.SetCoerceGuideState(true);
                 //Ëø¶¨UI
-                UILockManager.Instance.Require("guide");
+                UILockManager.Instance.Require("guide_uiclick");
                 isLock = true;
                 Debug.Log("<color=white> ui lock-------------</color>");
                 m_Handler.DisableControl(true);
@@ -28,6 +28,8 @@ namespace SGame
             }
 
             yield return m_Handler.WaitFingerClose();
+            yield return m_Handler.WaitGuideMaskClose();
+
             m_Handler.InitConfig(m_Config);
             yield return m_Handler.FindTarget();
   
@@ -42,7 +44,7 @@ namespace SGame
                 yield return m_Handler.WaitGuideMaskOpen();
                 isLock = false;
                 //½â¿ªUI
-                UILockManager.Instance.Release("guide");
+                UILockManager.Instance.Release("guide_uiclick");
                 m_Handler.DisableControl(false);
                 Debug.Log("<color=bule> ui unlock-------------</color>");
             }

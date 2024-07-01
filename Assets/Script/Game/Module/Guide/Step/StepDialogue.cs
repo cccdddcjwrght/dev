@@ -10,11 +10,11 @@ namespace SGame
         public override IEnumerator Excute()
         {
             m_Handler.InitConfig(m_Config);
-            m_Handler.DisableControl(true);
+            UILockManager.Instance.Require("guide_dialogue");
             yield return WaitClose();
             UIUtils.OpenUI("dialogue", new UIParam() { Value = m_Handler });
             yield return WaitUI();
-            m_Handler.DisableControl(false);
+            UILockManager.Instance.Release("guide_dialogue");
             if (m_Config.Force == 0) //强指引直接结束（等待UIClick点击后关闭）
             {
                 Finish();
