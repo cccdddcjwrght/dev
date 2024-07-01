@@ -1023,8 +1023,11 @@ namespace SGame.Dining
 			}
 		}
 
+		private int lastclicktime = 0;
 		private void OnRegionClick(int region, int place)
 		{
+			if (lastclicktime == Time.frameCount) return;//忽略重复点击
+			lastclicktime = Time.frameCount;
 			if (place > 0)
 			{
 				var r = GetRegion(region);
