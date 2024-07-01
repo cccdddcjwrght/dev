@@ -261,13 +261,13 @@ namespace SGame
         /// <param name="map_pos"></param>
         public void MoveTo(int2 map_pos)
         {
-            // Debug.Log("you move to =" + map_pos.ToString());
             var searchPos = GameTools.MapAgent.GridToIndex(new Vector2Int(map_pos.x, map_pos.y));
             map_pos.x = searchPos.x;
             map_pos.y = searchPos.y;
             float3 pos = entityManager.GetComponentData<Translation>(entity).Value;
             int2 curPos = AStar.GetGridPos(pos);
-            if (curPos.x == map_pos.x && curPos.y == map_pos.y)
+            Vector2Int checkPos = MapAgent.VectorToGrid(pos);
+            if (checkPos.x == map_pos.x && checkPos.y == map_pos.y)
             {
                 return;
             }

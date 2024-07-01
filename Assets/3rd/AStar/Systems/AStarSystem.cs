@@ -356,14 +356,14 @@ namespace GameTools.Paths
 		#region ecs override
 
 		EntityQuery m_Group;
-		BeginInitializationEntityCommandBufferSystem m_EntityCommandBufferSystem;
+		EndSimulationEntityCommandBufferSystem m_EntityCommandBufferSystem;
 
 		protected override void OnCreate()
 		{
 			// Cached access to a set of ComponentData based on a specific query
 			m_Group = GetEntityQuery(typeof(FindPathParams));//typeof(Rotation), ComponentType.ReadOnly<RotationSpeed_IJobChunk>());
 															 //EndSimulationEntityCommandBufferSystem
-			m_EntityCommandBufferSystem = World.GetOrCreateSystem<BeginInitializationEntityCommandBufferSystem>();
+			m_EntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
 		}
 
 		protected override void OnDestroy()
