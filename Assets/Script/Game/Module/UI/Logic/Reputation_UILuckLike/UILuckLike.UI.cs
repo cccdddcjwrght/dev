@@ -91,14 +91,10 @@ namespace SGame.UI{
 			OnLuckShow_RewardClick(data);
 		}
 		partial void OnLuckShow_RewardClick(EventContext data);
-		void SetLuckShow_LuckShow_rewardText(string data)=>UIListener.SetText(m_view.m_LuckShow.m_reward,data);
-		string GetLuckShow_LuckShow_rewardText()=>UIListener.GetText(m_view.m_LuckShow.m_reward);
 		void _OnLuckShowClick(EventContext data){
 			OnLuckShowClick(data);
 		}
 		partial void OnLuckShowClick(EventContext data);
-		void SetLuckShowText(string data)=>UIListener.SetText(m_view.m_LuckShow,data);
-		string GetLuckShowText()=>UIListener.GetText(m_view.m_LuckShow);
 		void _OnBigLuckShowClick(EventContext data){
 			OnBigLuckShowClick(data);
 		}
