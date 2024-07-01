@@ -288,6 +288,7 @@ namespace SGame.UI
 		IEnumerator ShowRewardContent(UI_CommonRewardBody view, List<BaseEquip> eqs, double recycle)
 		{
 			const string rich_text = "<img src='{0}' width='45%' height='45%' />";
+			22.ToAudioID().PlayAudio();
 			var effect = EffectSystem.Instance.AddEffect(28, view);
 			view.touchable = false;
 
