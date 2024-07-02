@@ -90,11 +90,12 @@ namespace SGame
             else EventManager.Instance.Trigger((int)GameEvent.FLIGHT_LIST_CREATE, ids, startPos, Vector2.zero, duration);
         }
 
-        public void PlayFlight(GObject gObject, int id, float offsetX = 0, float offsetY = 0) 
+        public void PlayFlight(GObject gObject, int id, float offsetX = 0, float offsetY = 0, int type = 0) 
         {
             if (gObject == null || gObject.isDisposed) return;
             var startPos = ConvertGObjectGlobalPos(gObject) + new Vector2(offsetX, offsetY);
-            EventManager.Instance.Trigger((int)GameEvent.FLIGHT_SINGLE_CREATE, id, startPos, Vector2.zero, duration);
+            if(type > 0) EventManager.Instance.Trigger((int)GameEvent.FLIGHT_SINGLE_TYPE, id, startPos, Vector2.zero, duration, type);
+            else EventManager.Instance.Trigger((int)GameEvent.FLIGHT_SINGLE_CREATE, id, startPos, Vector2.zero, duration);
         }
 
         public void AddDepend(int id)

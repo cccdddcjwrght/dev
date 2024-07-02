@@ -20,6 +20,7 @@ namespace SGame.UI{
 			m_EventHandle += EventManager.Instance.Reg<int, Vector2, Vector2, float>((int)GameEvent.FLIGHT_SINGLE_CREATE, Play);
 			m_EventHandle += EventManager.Instance.Reg<List<int>, List<Vector2>, Vector2, float>((int)GameEvent.FLIGHT_LIST_CREATE, Play);
 			m_EventHandle += EventManager.Instance.Reg<List<int>, List<Vector2>, Vector2, float, int>((int)GameEvent.FLIGHT_LIST_TYPE, Play);
+			m_EventHandle += EventManager.Instance.Reg<int, Vector2, Vector2, float, int>((int)GameEvent.FLIGHT_SINGLE_TYPE, Play);
 
 			m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, PlayRankShow);
 		}
