@@ -44,7 +44,7 @@ namespace SGame
         List<Vector2> m_TempVecList     = new List<Vector2>();
         List<FlightItem> m_FlightItemList = new List<FlightItem>();
 
-        public void PlayFlight(GList list, List<int[]> reward) 
+        public void PlayFlight(GList list, List<int[]> reward, int type = 0) 
         {
             m_TempIdList.Clear();
             m_TempVecList.Clear();
@@ -54,9 +54,9 @@ namespace SGame
                 int[] r = reward[i];
                 if (r.Length >= 2) 
                 {
-                    int type = r[0];
+                    int t = r[0];
                     int itemId = r[1];
-                    if (type == 1 && CheckIsTranId(itemId))
+                    if (t == 1 && CheckIsTranId(itemId))
                     {
                         Vector2 pos = ConvertGObjectGlobalPos(list.GetChildAt(i));
                         m_FlightItemList.Add(new FlightItem()
@@ -68,8 +68,8 @@ namespace SGame
                 }
             }
 
-            foreach (var t in m_FlightItemList)
-                m_TempIdList.Add(t.id);
+            foreach (var i in m_FlightItemList)
+                m_TempIdList.Add(i.id);
 
             m_TempIdList.Sort();
             foreach (var id in m_TempIdList)
@@ -81,12 +81,13 @@ namespace SGame
                     m_FlightItemList.RemoveAt(index);
                 }
             }
-            PlayFlight(m_TempIdList, m_TempVecList);
+            PlayFlight(m_TempIdList, m_TempVecList, type);
         }
 
-        public void PlayFlight(List<int> ids, List<Vector2> startPos) 
+        public void PlayFlight(List<int> ids, List<Vector2> startPos, int type = 0) 
         {
-            EventManager.Instance.Trigger((int)GameEvent.FLIGHT_LIST_CREATE, ids, startPos, Vector2.zero, duration);
+            if (type > 0) EventManager.Instance.Trigger((int)GameEvent.FLIGHT_LIST_TYPE, ids, startPos, Vector2.zero, duration, type);
+            else EventManager.Instance.Trigger((int)GameEvent.FLIGHT_LIST_CREATE, ids, startPos, Vector2.zero, duration);
         }
 
         public void PlayFlight(GObject gObject, int id, float offsetX = 0, float offsetY = 0) 

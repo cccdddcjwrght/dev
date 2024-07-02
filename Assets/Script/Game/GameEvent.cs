@@ -162,6 +162,7 @@ namespace SGame
 
 		FLIGHT_SINGLE_CREATE			= 15000, //飞行特效创建
 		FLIGHT_LIST_CREATE				= 15001, 
+		FLIGHT_LIST_TYPE				= 15002,
 
 		AD_CLICK						= 16000, //广告点击
 		AD_FAILED						= 16001, //广告加载失败

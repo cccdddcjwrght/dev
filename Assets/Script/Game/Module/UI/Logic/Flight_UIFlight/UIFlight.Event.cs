@@ -19,6 +19,7 @@ namespace SGame.UI{
 		partial void InitEvent(UIContext context){
 			m_EventHandle += EventManager.Instance.Reg<int, Vector2, Vector2, float>((int)GameEvent.FLIGHT_SINGLE_CREATE, Play);
 			m_EventHandle += EventManager.Instance.Reg<List<int>, List<Vector2>, Vector2, float>((int)GameEvent.FLIGHT_LIST_CREATE, Play);
+			m_EventHandle += EventManager.Instance.Reg<List<int>, List<Vector2>, Vector2, float, int>((int)GameEvent.FLIGHT_LIST_TYPE, Play);
 
 			m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, PlayRankShow);
 		}
@@ -27,7 +28,9 @@ namespace SGame.UI{
 			m_EventHandle = null;
 		}
 
-		void Play(List<int> ids, List<Vector2> startPos, Vector2 endPos, float duration) 
+		void Play(List<int> ids, List<Vector2> startPos, Vector2 endPos, float duration) => Play(ids, startPos, endPos, duration, 0);
+
+		void Play(List<int> ids, List<Vector2> startPos, Vector2 endPos, float duration, int type = 0) 
 		{
 			float timer = 0;
 			int index = 0;
@@ -35,45 +38,34 @@ namespace SGame.UI{
 			{
 				Utils.Timer(0.01f, null, delay: timer, completed: () =>
 				{
-					Play(id, startPos[index], endPos, duration);
+					Play(id, startPos[index], endPos, duration, type);
 					index++;
 				});
 				timer += 0.5f;
 			});
 		}
 
-		void Play(int id, Vector2 startPos, Vector2 endPos, float duration) 
+		void Play(int id, Vector2 startPos, Vector2 endPos, float duration) => Play(id, startPos, endPos, duration, 0);
+
+		void Play(int id, Vector2 startPos, Vector2 endPos, float duration, int type = 0) 
 		{
-			AddEffect(id, startPos, endPos, duration);
+			AddEffect(id, startPos, endPos, duration, type);
 		}
 
-		void AddEffect(int id, Vector2 startPos, Vector2 endPos, float duration) 
+		void AddEffect(int id, Vector2 startPos, Vector2 endPos, float duration, int type) 
 		{
-			int effectId1 = id + 20;
-			int effectId2 = id + 22;
 			PlayAudio(id);
+			int flyEffectID = GetFlyEffectID(id);   //飞行特效id
+			//初始点特效
+			int startEffectID = GetBoomEffectID(id, type);
+
 			if (TransitionModule.Instance.CheckIsBox(id))
 			{
-				effectId1 = 26;
-				effectId2 = id;
-				if (ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var config)) 
-				{
-					m_view.m_Box.SetIcon(config.Icon);
-				}
-				TransitionModule.Instance.AddDepend((int)FlightType.BOX);
+				ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(id, out var config);
+				m_view.m_Box.SetIcon(config.Icon);
 			}
-			else if (TransitionModule.Instance.CheckIsPet(id))
-			{
-				effectId1 = 26;
-				effectId2 = 500;
-				TransitionModule.Instance.AddDepend((int)FlightType.PET);
-			}
-			else
-			{
-				TransitionModule.Instance.AddDepend(id);
-			}
-
 			SetPos();
+			TransitionModule.Instance.AddDepend(GetDependType(id));
 			if (endPos == Vector2.zero) endPos = GetFinalPos(id);
 			var graph1 = GetGraph(startPos.x, startPos.y);
 
@@ -81,14 +73,11 @@ namespace SGame.UI{
 			float time = d / speed ;
 			float delay = time * 0.9f;
 
-			EffectSystem.Instance.AddEffect(effectId1, graph1);
-			if (ConfigSystem.Instance.TryGet<GameConfigs.effectsRowData>(effectId1, out var data)) 
-			{
-				Utils.Timer(time, null, m_view, completed: () => Push(graph1, id));
-			}
+			EffectSystem.Instance.AddEffect(startEffectID, graph1);
+			Utils.Timer(time, null, m_view, completed: () => Push(graph1, id));
 
 			var graph2 = GetGraph(startPos.x, startPos.y);
-			EffectSystem.Instance.AddEffect(effectId2, graph2);
+			EffectSystem.Instance.AddEffect(flyEffectID, graph2);
 
 			GTween.To(startPos, endPos, time).SetTarget(m_view).OnUpdate((t) =>
 			{
@@ -100,13 +89,44 @@ namespace SGame.UI{
 				Utils.Timer(delay, null, m_view, completed: () =>
 				{
 					 Push(graph2, id);
-					 if (TransitionModule.Instance.CheckIsBox(id)) TransitionModule.Instance.SubDepend((int)FlightType.BOX);
-					 else if (TransitionModule.Instance.CheckIsPet(id)) TransitionModule.Instance.SubDepend((int)FlightType.PET);
-					 else TransitionModule.Instance.SubDepend(id);
-
+					 TransitionModule.Instance.SubDepend(GetDependType(id));
 					 Refresh();
 				 });
 			});
+		}
+
+
+		//type -1 小的炸开特效 2-大的炸开特效（金币钻石才有）其他的默认26特效id
+		int GetBoomEffectID(int id, int type) 
+		{
+			if (id == 1)
+			{
+				if (type == 2) return 46;
+				return 21;
+			}
+
+			else if (id == 2) 
+			{
+				if (type == 2) return 47;
+				return 22;
+			} 
+			return 26;
+		}
+
+		int GetFlyEffectID(int id) 
+		{
+			if (id == 1) return 23;			//金币飞行特效id
+			else if (id == 2) return 24;	//钻石飞行特效id
+			//宠物蛋飞行特效
+			else if(TransitionModule.Instance.CheckIsPet(id)) return 500;
+			return id;
+		}
+
+		int GetDependType(int id) 
+		{
+			if (TransitionModule.Instance.CheckIsBox(id)) return (int)FlightType.BOX;
+			else if (TransitionModule.Instance.CheckIsPet(id)) return (int)FlightType.PET;
+			return id;
 		}
 
 		void PlayAudio(int id) 
@@ -131,7 +151,6 @@ namespace SGame.UI{
 			holder.visible = true;
             return holder;
         }
-
 
 		void Push(GObject holder, int id) 
 		{
