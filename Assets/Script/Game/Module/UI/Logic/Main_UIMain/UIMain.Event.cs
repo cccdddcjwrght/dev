@@ -129,6 +129,7 @@ namespace SGame.UI
 
 			// 左排
 			m_funcManager.Register((int)FunctionID.SHOP);
+			m_funcManager.Register((int)FunctionID.TECH);
 			//俱乐部
 			m_funcManager.Register(30, () => DataCenter.ClubUtil.IsOpen());
 			m_funcManager.Register(31, () => DataCenter.ClubUtil.CheckIsInClub());
