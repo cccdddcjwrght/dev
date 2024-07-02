@@ -13,7 +13,6 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-
 			context.onUpdate += OnUpdate;
 			worktable = DataCenter.MachineUtil.GetWorktables((w) => w.type == 4)?.FirstOrDefault();
 			if (worktable == null)

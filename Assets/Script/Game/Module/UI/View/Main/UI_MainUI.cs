@@ -9,6 +9,7 @@ namespace SGame.UI.Main
     {
         public Controller m_main;
         public Controller m_ad;
+        public Controller m_getworker;
         public GImage m_bgTop;
         public GImage m_bgBottom;
         public GLoader m_top;
@@ -42,6 +43,7 @@ namespace SGame.UI.Main
 
             m_main = GetControllerAt(0);
             m_ad = GetControllerAt(1);
+            m_getworker = GetControllerAt(2);
             m_bgTop = (GImage)GetChildAt(0);
             m_bgBottom = (GImage)GetChildAt(1);
             m_top = (GLoader)GetChildAt(2);

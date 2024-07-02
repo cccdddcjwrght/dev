@@ -5,7 +5,7 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.Main
 {
-    public partial class UI_GetWorkerFlag : GComponent
+    public partial class UI_GetWorkerFlag : GButton
     {
         public Controller m_type;
         public GComponent m_bg;

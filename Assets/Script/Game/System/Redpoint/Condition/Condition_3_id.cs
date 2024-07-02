@@ -98,6 +98,7 @@ namespace SGame
 				var go = new GameObject("__check");
 				go.transform.SetParent(target.transform, false);
 				go.AddComponent<InCameraCheck>()._data = worktable;
+				StaticDefine.G_GET_WORKER_POS = target.transform.position;
 			}
 		}
 

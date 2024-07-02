@@ -99,7 +99,7 @@ namespace GameTools
 				if (interval <= 0)
 				{
 					version++;
-					interval = 30;
+					interval = 20;
 				}
 			}
 			return false;

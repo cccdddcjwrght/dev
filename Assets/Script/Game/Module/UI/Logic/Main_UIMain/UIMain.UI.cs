@@ -15,6 +15,7 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_main.onChanged.Add(new EventCallback1(_OnMainChanged));
 			m_view.m_ad.onChanged.Add(new EventCallback1(_OnAdChanged));
+			m_view.m_getworker.onChanged.Add(new EventCallback1(_OnGetworkerChanged));
 			m_view.m_rightList.m_side.onChanged.Add(new EventCallback1(_OnActBtnList_SideChanged));
 			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick));
 			m_view.m_leftList.m_side.onChanged.Add(new EventCallback1(_OnActBtnList_LeftList_sideChanged));
@@ -35,12 +36,13 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick));
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick));
 			m_view.m_workflag.m_type.onChanged.Add(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
-			UIListener.ListenerIcon(m_view.m_workflag, new EventCallback1(_OnWorkflagClick));
+			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_main.onChanged.Remove(new EventCallback1(_OnMainChanged));
 			m_view.m_ad.onChanged.Remove(new EventCallback1(_OnAdChanged));
+			m_view.m_getworker.onChanged.Remove(new EventCallback1(_OnGetworkerChanged));
 			m_view.m_rightList.m_side.onChanged.Remove(new EventCallback1(_OnActBtnList_SideChanged));
 			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick),remove:true);
 			m_view.m_leftList.m_side.onChanged.Remove(new EventCallback1(_OnActBtnList_LeftList_sideChanged));
@@ -61,7 +63,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick),remove:true);
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick),remove:true);
 			m_view.m_workflag.m_type.onChanged.Remove(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
-			UIListener.ListenerIcon(m_view.m_workflag, new EventCallback1(_OnWorkflagClick),remove:true);
+			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick),remove:true);
 
 		}
 		void _OnMainChanged(EventContext data){
@@ -74,6 +76,11 @@ namespace SGame.UI{
 		}
 		partial void OnAdChanged(EventContext data);
 		void SwitchAdPage(int index)=>m_view.m_ad.selectedIndex=index;
+		void _OnGetworkerChanged(EventContext data){
+			OnGetworkerChanged(data);
+		}
+		partial void OnGetworkerChanged(EventContext data);
+		void SwitchGetworkerPage(int index)=>m_view.m_getworker.selectedIndex=index;
 		void _OnActBtnList_SideChanged(EventContext data){
 			OnActBtnList_SideChanged(data);
 		}
@@ -196,6 +203,8 @@ namespace SGame.UI{
 			OnWorkflagClick(data);
 		}
 		partial void OnWorkflagClick(EventContext data);
+		void SetWorkflagText(string data)=>UIListener.SetText(m_view.m_workflag,data);
+		string GetWorkflagText()=>UIListener.GetText(m_view.m_workflag);
 
 	}
 }

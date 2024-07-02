@@ -188,6 +188,8 @@ namespace SGame.UI
 			m_view.m_petBtn.visible = CheckFuncOpen(FunctionID.PET);
 			m_view.m_equipBtn.visible = CheckFuncOpen(FunctionID.ROLE_EQUIP);
 			m_view.m_friendBtn.visible = CheckFuncOpen(FunctionID.FRIEND);
+			m_view.m_getworker.selectedIndex =  36.IsOpend(false) ? 1 : 0;
+
 			SGame.UIUtils.RefreshFuncBtnTime((m_view.m_friendBtn as UI_FuncBtn).m_time, () => FriendModule.Instance.hiringTime);
 
 			// 处理左右列表
@@ -478,6 +480,11 @@ namespace SGame.UI
 		partial void OnDiamondClick(EventContext data)
 		{
 			"shop".Goto();
+		}
+
+		partial void OnWorkflagClick(EventContext data)
+		{
+			SceneCameraSystem.Instance.Focus(StaticDefine.G_GET_WORKER_POS , useY:false , time:0.5f);
 		}
 
 	}
