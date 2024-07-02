@@ -265,8 +265,15 @@ namespace SGame.UI
 					state = DataCenter.MachineUtil.CheckCanUpLevel(data) == 0;
 
 
-				UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
-				UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+				try
+				{
+					UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
+					UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+				}
+				catch (Exception e)
+				{
+					log.Warn(e.Message);
+				}
 				m_view.m_click.touchable = state;
 			}
 		}
