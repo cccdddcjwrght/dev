@@ -18,6 +18,8 @@ namespace SGame.UI{
 			m_view.m_list.numItems = _args.Count;
 
 			31.ToAudioID().PlayAudio();
+			m_view.m_btn.touchable = false;
+			Utils.Timer(1.2f, null, m_view, completed: () => m_view.m_btn.touchable = true);
 			Utils.Timer(0.75f, null, m_view, completed: () =>
 			{
 				EffectSystem.Instance.AddEffect(32, m_view.m_effect);
