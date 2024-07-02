@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameConfigs;
 using log4net;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 namespace SGame
@@ -21,6 +23,8 @@ namespace SGame
             public List<int>                   m_matchineID = new List<int>();  // 机器ID
             public List<int>                   m_foodWidgets = new List<int>(); // 已打开食物权重
             public List<int>                   m_foodWorkArea = new List<int>();
+            public int                         m_foodWorkAreaMask = 0;          // 工作区域标签
+            
 
             public void Clear()
             {
@@ -37,6 +41,16 @@ namespace SGame
 
         // 下一个tableID
         private int m_nextTableID = 0;
+
+        /// <summary>
+        /// 判断是否拥有某个区域
+        /// </summary>
+        /// <param name="area"></param>
+        /// <returns></returns>
+        public bool HasWorkArea(int area)
+        {
+            return BitOperator.Get(m_cache.m_foodWorkAreaMask, area);
+        }
 
         public void Clear()
         {
@@ -420,6 +434,8 @@ namespace SGame
                     int area = GetWorkerAreaFromMachineID(t.machineID, currentLevelID);
                     m_cache.m_foodWorkArea.Add(area);
                     m_cache.m_foodWidgets.Add(Utils.GetLevelWeight(currentLevelID, t.machineID));
+
+                    m_cache.m_foodWorkAreaMask = BitOperator.Set(m_cache.m_foodWorkAreaMask, area, true);
                     EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, t.machineID, t.foodType);
                 }
             }

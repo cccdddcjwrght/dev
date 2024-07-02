@@ -102,7 +102,7 @@ namespace SGame
         /// <summary>
         /// 工作区域ID, 用于区分厨师与服务员的做菜区域
         /// </summary>
-        public int workerAread => M_workArea;
+        public int workerAread => m_workAreaMask;
 
         
         public Transform pos
@@ -120,7 +120,7 @@ namespace SGame
 
         private string     m_characterLooking;
 
-        private int         M_workArea = 0;
+        private int         m_workAreaMask = 0;
         
         
 
@@ -197,8 +197,20 @@ namespace SGame
             {
                 log.Error("role id not found=" + roleID);
             }
-            M_workArea = roleConfig.WorkerArea;
-         
+
+            m_workAreaMask = 0;
+            if (roleConfig.WorkerAreaLength > 0)
+            {
+                for (int i = 0; i < roleConfig.WorkerAreaLength; i++)
+                {
+                    m_workAreaMask = BitOperator.Set(m_workAreaMask, roleConfig.WorkerArea(i), true);
+                }
+            }
+            else
+            {
+                m_workAreaMask = BitOperator.Set(0, 0, true);
+            }
+
             // 触发初始化角色事件
             if (script != null)
                 EventBus.Trigger(CharacterInit.EventHook, script, this);
