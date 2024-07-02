@@ -167,6 +167,9 @@ namespace SGame.UI
 				case "level":
 					DoLevel(ss);
 					break;
+				case "pet":
+					DoPet(ss);
+					break;
 			}
 
 
@@ -197,6 +200,13 @@ namespace SGame.UI
 
 			if (id > 0)
 				DataCenter.EquipUtil.AddEquip(id, count);
+		}
+
+		private void DoPet(string[] ss)
+		{
+			var id = ss.Val<int>(1);
+			if (id > 0)
+				RequestExcuteSystem.AddPet(id, 1);
 		}
 
 		private void DoEvent(string[] ss)

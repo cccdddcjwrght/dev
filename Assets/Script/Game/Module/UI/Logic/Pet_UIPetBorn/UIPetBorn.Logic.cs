@@ -89,23 +89,24 @@ namespace SGame.UI
 			{
 				if (_index >= 0)
 				{
-					_isCompleted = false;
-					_mask = SGame.UIUtils.GetUIView("mask");
-					if (_mask != null)
+					if (SGame.UIUtils.CheckUIIsOpen("pet"))
 					{
-						_mask.Value.alpha = 0.01f;
-						_mask.Value.z = -350;
+						_isCompleted = false;
+						_mask = SGame.UIUtils.GetUIView("mask");
+						if (_mask != null)
+						{
+							_mask.Value.alpha = 0.01f;
+							_mask.Value.z = -350;
+						}
+						m_view.m_state.selectedIndex = 1;
+						EventManager.Instance.Trigger(((int)GameEvent.PET_BORN_EVO), _pet, new Action(OnEffectCompleted));
+						return;
 					}
-					m_view.m_state.selectedIndex = 1;
-					EventManager.Instance.Trigger(((int)GameEvent.PET_BORN_EVO), _pet, new Action(OnEffectCompleted));
+					_isNew = true;
 				}
-				else
-				{
-					if (!_isNew)
-						SGame.Utils.ShowRewards(title: "@ui_pet_recycle_title").Append(_pet.cfg.GetRecycleRewardArray()).fly = true;
-
-					SGame.UIUtils.CloseUIByID(__id);
-				}
+				if (!_isNew)
+					SGame.Utils.ShowRewards(title: "@ui_pet_recycle_title").Append(_pet.cfg.GetRecycleRewardArray()).fly = true;
+				SGame.UIUtils.CloseUIByID(__id);
 			}
 		}
 	}
