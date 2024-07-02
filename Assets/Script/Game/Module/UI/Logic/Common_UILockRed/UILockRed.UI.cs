@@ -15,11 +15,13 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
 			m_view.m_flag.onChanged.Add(new EventCallback1(_OnFlagChanged));
+			UIListener.Listener(m_view.m_nearflag, new EventCallback1(_OnNearflagClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
 			m_view.m_flag.onChanged.Remove(new EventCallback1(_OnFlagChanged));
+			UIListener.Listener(m_view.m_nearflag, new EventCallback1(_OnNearflagClick),remove:true);
 
 		}
 		void _OnTypeChanged(EventContext data){
@@ -32,6 +34,12 @@ namespace SGame.UI{
 		}
 		partial void OnFlagChanged(EventContext data);
 		void SwitchFlagPage(int index)=>m_view.m_flag.selectedIndex=index;
+		void _OnNearflagClick(EventContext data){
+			OnNearflagClick(data);
+		}
+		partial void OnNearflagClick(EventContext data);
+		void SetNearflagText(string data)=>UIListener.SetText(m_view.m_nearflag,data);
+		string GetNearflagText()=>UIListener.GetText(m_view.m_nearflag);
 
 	}
 }

@@ -37,6 +37,9 @@ namespace SGame.UI
 			eHandler += EventManager.Instance.Reg((int)GameEvent.GUIDE_START, RefreshInfo);
 			eHandler += EventManager.Instance.Reg((int)GameEvent.RELOAD_ALL_UI, UpdateText);
 
+			GRoot.inst.onClick.Add(OnOtherUIClick);
+			ControlAxis.ListenEvent(OnClickOther);
+
 			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<SpawnUISystem>();
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
 		}
@@ -58,8 +61,8 @@ namespace SGame.UI
 					m_view.m_child.visible = DataCenter.Instance.taskMainData.cfgId > GlobalDesginConfig.GetInt("guide_are_taskId");
 				}
 #endif
-				SetUnlockBtn(cfg.GetCostArray());
 				m_view.m_flag.selectedIndex = 1;
+				SetUnlockBtn(cfg.GetCostArray());
 			}
 			else
 			{
@@ -103,6 +106,7 @@ namespace SGame.UI
 				if (!state) panel.m_click.GetChild("bg").icon = null;
 				panel.m_click.onClick?.Clear();
 				panel.m_click.onClick.Add(Unlock);
+				m_view.m_flag.selectedIndex = state ? 2 : 1;
 			}
 			else
 				panel.m_type.selectedIndex = 1;
@@ -141,8 +145,24 @@ namespace SGame.UI
 			SGame.UIUtils.CloseUIByID(__id);
 		}
 
+		void OnClickOther()
+		{
+			m_view.m_type.selectedIndex = 0;
+		}
+
+		void OnOtherUIClick(EventContext data)
+		{
+			if (GRoot.inst.focus != null && panel!=null && !SGame.UIUtils.IsChild(m_view, GRoot.inst.focus))
+			{
+				if (GuideManager.Instance.IsCoerce) return;
+				m_view.m_type.selectedIndex = 0;
+			}
+		}
+
 		partial void UnInitLogic(UIContext context)
 		{
+			GRoot.inst.onClick.Remove(OnOtherUIClick);
+			ControlAxis.ListenEvent(OnClickOther,true);
 			eHandler?.Close();
 			eHandler = null;
 			worktable = default;
