@@ -60,7 +60,7 @@ namespace SGame
 			{
 				if (_cid == build.cfgID) return;
 				_cid = build.cfgID;
-				_hud = UIUtils.ShowHUD("worktable", build.holder, new float3(0,1,0));
+				_hud = UIUtils.ShowHUD("worktable", build.holder, new float3(0, 1, 0));
 				_hud.SetParam(new WorktableInfo()
 				{
 					id = build.cfgID,
@@ -75,8 +75,8 @@ namespace SGame
 		{
 			if (_hud.IsExists())
 			{
-				UIUtils.CloseUI(_hud);
-				//UIModule.Instance.GetEntityManager().AddComponent<DespawningEntity>(_hud);
+				if (UIUtils.CloseUI(_hud))
+					UIModule.Instance.GetEntityManager().AddComponent<DespawningEntity>(_hud);//不延迟
 			}
 			_cid = 0;
 			_hud = default;

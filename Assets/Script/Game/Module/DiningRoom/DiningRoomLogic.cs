@@ -10,6 +10,7 @@ using log4net;
 using plyLib;
 using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using MapGrid = GameTools.Maps.Grid;
 
@@ -225,9 +226,10 @@ namespace SGame.Dining
 
 		public void EnableClick(bool state)
 		{
+
 			if (transform)
 			{
-				var c = transform?.GetComponent<BoxCollider>();
+				var c = transform.GetComponent<BoxCollider>() ?? transform.GetComponentInChildren<BoxCollider>();
 				if (c)
 					c.enabled = state;
 			}
@@ -907,7 +909,7 @@ namespace SGame.Dining
 					h.place = placeid;
 					h.onClick = OnRegionClick;
 				}
-				if (cs.Count > 1)
+				if (cs.Count > 1 && !region.data.isTable)
 				{
 					foreach (var item in cs)
 						AddPlaceHit(item, region.cfgID, cfg.ID);
@@ -1015,7 +1017,7 @@ namespace SGame.Dining
 			if (c != null)
 			{
 				var g = c.GetBuildLayer();
-				if (!g) return;
+				if (!g || g.GetComponent<RegionHit>() != null) return;
 				var h = g.gameObject.AddComponent<RegionHit>();
 				h.region = region;
 				h.place = placeid;
