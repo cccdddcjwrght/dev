@@ -131,10 +131,10 @@ namespace SGame
         {
             var entities = m_CloseQuery.ToEntityArray(Allocator.Temp);
             foreach (var e in entities)
-            {
+            { 
                 EntityManager.AddComponent<DespawningTag>(e);
             }
-            m_CloseQuery.Dispose();
+            entities.Dispose();
         }
 
         /// <summary>
