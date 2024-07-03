@@ -66,15 +66,15 @@ namespace SGame.UI.Worktable
             m_now1 = (GTextField)GetChildAt(19);
             m_time = (GLabel)GetChildAt(22);
             m_price = (GLabel)GetChildAt(23);
-            m_unlock = (GTextField)GetChildAt(26);
-            m_foods = (GList)GetChildAt(27);
-            m_clickBtn = (GLoader)GetChildAt(28);
-            m_click = (GButton)GetChildAt(30);
-            m_info = (GGroup)GetChildAt(32);
-            m_tips = (GList)GetChildAt(33);
-            m_adBtn = (GButton)GetChildAt(34);
-            m_adArea = (GLoader)GetChildAt(35);
-            m_view = (GGroup)GetChildAt(36);
+            m_unlock = (GTextField)GetChildAt(27);
+            m_foods = (GList)GetChildAt(28);
+            m_clickBtn = (GLoader)GetChildAt(29);
+            m_click = (GButton)GetChildAt(31);
+            m_info = (GGroup)GetChildAt(33);
+            m_tips = (GList)GetChildAt(34);
+            m_adBtn = (GButton)GetChildAt(35);
+            m_adArea = (GLoader)GetChildAt(36);
+            m_view = (GGroup)GetChildAt(37);
             m_t0 = GetTransitionAt(0);
         }
     }
