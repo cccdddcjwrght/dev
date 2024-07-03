@@ -68,7 +68,7 @@ namespace SGame.VS
                 {
                     throw new Exception("customer is null");
                 }
-                
+
                 CarQueue carQueue = CarQueueManager.Instance.GetOrCreate(tag);
                 if (carQueue == null)
                 {
@@ -76,36 +76,44 @@ namespace SGame.VS
                     return failTrigger;
                 }
 
-                var bus = carQueue.GetFirst();
-                var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-                if (!EntityManager.HasComponent<CarMono>(bus))
+                CarMono busMono = null;
+                if (carQueue.cfg.Group == 0)
                 {
-                    log.Error("no car mono script=" + tag);
+                    var bus = carQueue.GetFirst();
+                    var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                    if (!EntityManager.HasComponent<CarMono>(bus))
+                    {
+                        log.Error("no car mono script=" + tag);
+                        return failTrigger;
+                    }
+                    busMono = EntityManager.GetComponentObject<CarMono>(bus);
+                }
+                else
+                {
+                    busMono = CarQueueManager.Instance.GetMinFreeInGroup(carQueue.cfg.Group);
+                }
+                if (busMono == null)
+                {
                     return failTrigger;
                 }
-                var busMono = EntityManager.GetComponentObject<CarMono>(bus);
+                
                 var seats = busMono.seats;
                 int emptySeatIndex = seats.GetEmptySeat();
                 if (emptySeatIndex < 0)
                 {
-                    //log.Info("get sit fail bus=" + bus + " customer=" + customer);
                     return failTrigger;
                 }
-                else
-                {
-                    //log.Info("get sit success bus=" + bus + " customer=" + customer);
-                }
-                
+
                 // 坐下位置
                 if (!seats.SitEmptySeat(customer, emptySeatIndex))
                 {
                     log.Error("sit emtpty fail");
                     return failTrigger;
                 }
-                
+
                 // 返回位置信息, 用于角色移动过去
-                m_chairIndex = emptySeatIndex;
-                m_busEntity = busMono.entity;
+                m_chairIndex    = emptySeatIndex;
+                m_busEntity     = busMono.entity;
                 return successTrigger;
             });
 

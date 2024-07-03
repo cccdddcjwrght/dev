@@ -257,6 +257,49 @@ namespace SGame
 
             return -1;
         }
+
+        /// <summary>
+        /// 获得空余座位数量
+        /// </summary>
+        /// <returns></returns>
+        public int GetEmptySeatCount()
+        {
+            int count = 0;
+            for (int i = 0; i < m_customers.Count; i++)
+            {
+                if (m_customers[i].IsEmptySeat)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// 获得上船的角色数量 
+        /// </summary>
+        /// <returns></returns>
+        public bool GetSeatInfo(out int returnCount, out int emptyCount)
+        { 
+            returnCount = 0;
+            emptyCount = 0;
+            for (int i = 0; i < m_customers.Count; i++)
+            {
+                var state = m_customers[i].state;
+                if (state == CarCustomer.SeatState.RETURN ||
+                    state == CarCustomer.SeatState.RETURNING)
+                {
+                    returnCount++;
+                }
+                else if (state == CarCustomer.SeatState.LEAVE)
+                {
+                    emptyCount++;
+                }
+            }
+
+            return emptyCount > 0;
+        }
         
         public CarCustomer GetSeat(int seatIndex)
         {

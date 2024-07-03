@@ -68,6 +68,11 @@ namespace SGame
         private string          m_pathTag => m_config.PathTag;
 
         /// <summary>
+        /// 停靠时间
+        /// </summary>
+        private int             m_parkTime = 0;
+
+        /// <summary>
         /// 最大汽车数量
         /// </summary>
         public int max => m_queue.max;
@@ -168,11 +173,17 @@ namespace SGame
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public bool Remove(Entity e) => m_queue.Remove(e);
+        public bool Remove(Entity e)
+        {
+            UpdateTime();
+            return m_queue.Remove(e);
+        }
 
         public int tableID { get => m_tableID; set => m_tableID = value; }
 
         public bool IsValid => m_tableID > 0;
+
+        public int parkTime => m_parkTime;
 
         /// <summary>
         /// 获取排名
@@ -265,6 +276,11 @@ namespace SGame
                 path.Add(m_pathPoints[i]);
             return true;
         }
+
+        void UpdateTime()
+        {
+            m_parkTime = GameServerTime.Instance.serverTime;
+        }
         
         /// <summary>
         /// 创建新的车辆
@@ -278,6 +294,11 @@ namespace SGame
             if (m_queue.isFull)
             {
                 return;
+            }
+
+            if (m_queue.Count == 0)
+            {
+                UpdateTime();
             }
 
             m_queue.AddCar();
@@ -324,7 +345,7 @@ namespace SGame
         /// 关卡内包含多个队列
         /// </summary>
         private Dictionary<string, CarQueue> m_datas = new Dictionary<string, CarQueue>();
-
+        
         private ShareQueueManager m_shareQueue = new ShareQueueManager();
 
         /// <summary>
@@ -407,6 +428,55 @@ namespace SGame
                 return false;
 
             return queue.IsValid;
+        }
+
+        /// <summary>
+        /// 在队伍中查找最少的空余队伍
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        public CarMono GetMinFreeInGroup(int group)
+        {
+            EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
+            
+            if (group <= 0)
+            {
+                log.Error("group is zero");
+                return null;
+            }
+
+            CarMono retCar = null;
+            CarQueue retQueue = null;
+            int maxFreeNum = -1;
+            foreach (var item in m_datas.Values)
+            {
+                if (item.cfg.Group == group)
+                {
+                    var e = item.GetFirst();
+                    if (e == Entity.Null)
+                        continue;
+                    if (mgr.HasComponent<CarMono>(e))
+                    {
+                        CarMono car = mgr.GetComponentObject<CarMono>(e);
+                        if (car != null)
+                        {
+                            car.seats.GetSeatInfo(out int customerNum, out int emptyCount);
+                            if (emptyCount == 0)
+                                continue;
+                            
+                            if (customerNum > maxFreeNum
+                                || (customerNum == maxFreeNum && item.parkTime < retQueue.parkTime))
+                            {
+                                retCar = car;
+                                maxFreeNum = customerNum;
+                                retQueue = item;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return retCar;
         }
     }
 }
