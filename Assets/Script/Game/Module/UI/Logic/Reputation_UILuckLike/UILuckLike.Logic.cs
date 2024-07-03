@@ -6,6 +6,7 @@ namespace SGame.UI{
 	using SGame.UI.Reputation;
     using System.Collections.Generic;
     using System.Linq;
+    using Unity.Entities;
 
     public partial class UILuckLike
 	{
@@ -63,9 +64,23 @@ namespace SGame.UI{
 			};
 			_press.onBegin.Add(() => {
 				SetAutoState(true);
+				EffectSystem.Instance.AddEffect(48, m_view.m___clickeffect);
 			});
 
-			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
+			Entity effect = Entity.Null;
+			m_view.m_startBtn.onTouchBegin.Add(() =>
+			{
+				effect = EffectSystem.Instance.AddEffect(49, m_view.m___clickeffect);
+			});
+			m_view.m_startBtn.onTouchEnd.Add(() =>
+			{
+				if (effect != Entity.Null) EffectSystem.Instance.CloseEffect(effect);
+			});
+
+			m_view.m_closeBg.onClick.Add(()=> {
+				Debug.Log("close:" + Time.realtimeSinceStartupAsDouble);
+				DoCloseUIClick(null);
+			});
 			//m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
 			m_view.m_LuckShow.onClick.Add(() =>
 			{

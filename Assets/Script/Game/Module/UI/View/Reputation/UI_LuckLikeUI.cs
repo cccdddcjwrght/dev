@@ -18,6 +18,7 @@ namespace SGame.UI.Reputation
         public GGroup m_reward_group;
         public GButton m_startBtn;
         public GButton m_stopBtn;
+        public GGraph m___clickeffect;
         public GTextField m_count;
         public GList m_list1;
         public GList m_list2;
@@ -49,13 +50,14 @@ namespace SGame.UI.Reputation
             m_reward_group = (GGroup)GetChildAt(13);
             m_startBtn = (GButton)GetChildAt(18);
             m_stopBtn = (GButton)GetChildAt(20);
-            m_count = (GTextField)GetChildAt(22);
-            m_list1 = (GList)GetChildAt(24);
-            m_list2 = (GList)GetChildAt(25);
-            m_content = (GGroup)GetChildAt(31);
-            m_LuckShow = (UI_LuckShow)GetChildAt(32);
-            m_BigLuckShow = (UI_BigLuckShow)GetChildAt(33);
-            m___effect = (GGraph)GetChildAt(34);
+            m___clickeffect = (GGraph)GetChildAt(21);
+            m_count = (GTextField)GetChildAt(23);
+            m_list1 = (GList)GetChildAt(25);
+            m_list2 = (GList)GetChildAt(26);
+            m_content = (GGroup)GetChildAt(32);
+            m_LuckShow = (UI_LuckShow)GetChildAt(33);
+            m_BigLuckShow = (UI_BigLuckShow)GetChildAt(34);
+            m___effect = (GGraph)GetChildAt(35);
             m_t0 = GetTransitionAt(0);
             m_t1 = GetTransitionAt(1);
         }
