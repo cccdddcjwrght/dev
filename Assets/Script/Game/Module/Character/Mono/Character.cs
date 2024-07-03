@@ -671,5 +671,7 @@ namespace SGame
         public bool hasWorking => m_orderRecord.hasWorking;
         public bool AddFoodReadlyOrder(OrderData order) => m_orderRecord.AddFoodReadlyOrder(order);
         public bool IsMakingFood => order.progress == ORDER_PROGRESS.FOOD_START;
+        
+        public int takeOrderNum => m_orderRecord.takeOrderNum;
     }
 }

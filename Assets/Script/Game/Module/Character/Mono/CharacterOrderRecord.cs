@@ -11,8 +11,9 @@ namespace SGame
     public class CharacterOrderRecord
     {
         private static ILog log = LogManager.GetLogger("game.character");
-        private bool m_isIdle = false;
-        private int m_characterID = 0;
+        private bool m_isIdle       = false;
+        private int  m_characterID  = 0;
+        private int  m_takeOrderNum     = 0;  // 
         
         /// <summary>
         /// 是否是空闲状态
@@ -38,6 +39,8 @@ namespace SGame
         
         public ChairData workerChair => m_workerChair;
 
+        public int takeOrderNum => m_takeOrderNum;
+
         public void Initalize(int characterID)
         {
             m_characterID = characterID;
@@ -51,6 +54,7 @@ namespace SGame
         /// <param name="workerChair">工位</param>
         public bool AddOrder(OrderData order, ChairData workerChair)
         {
+            m_takeOrderNum = 0;
             m_orderData = order;
             if (workerChair == ChairData.Null)
             {
@@ -75,6 +79,7 @@ namespace SGame
         /// <returns></returns>
         public bool AddFoodReadlyOrder(OrderData order)
         {
+            m_takeOrderNum = 0;
             m_orderData = order;
             order.MoveToCustom(m_characterID);
             m_isIdle = false;
@@ -87,6 +92,7 @@ namespace SGame
         /// <param name="chair"></param>
         public void AddCustomerChair(ChairData chair)
         {
+            m_takeOrderNum++;
             m_customerChair = chair;
             m_isIdle = false;
         }

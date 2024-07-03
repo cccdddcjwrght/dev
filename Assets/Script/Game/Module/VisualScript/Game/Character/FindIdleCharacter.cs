@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 namespace SGame.VS
 {
-    [UnitTitle("FindIdleCharacter")] // 返回某个角色类型的角色
+    [UnitTitle("FindIdleCharacter")] // 查找点单工人
     [UnitCategory("Game/Character")]
     public sealed class FindIdleCharacter : Unit
     {
@@ -14,12 +14,14 @@ namespace SGame.VS
         public ValueOutput value { get; private set; }
 
         /// <summary>
-        /// The value to return if the variable is not defined.
+        /// 角色 MASK
         /// </summary>
         [DoNotSerialize]
         public ValueInput m_roleTypeMask { get; private set; }
         
-        
+        /// <summary>
+        /// 工作quyu
+        /// </summary>
         [DoNotSerialize]
         public ValueInput m_workerArea { get; private set; }
 
