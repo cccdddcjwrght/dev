@@ -73,11 +73,13 @@ namespace SGame
 
 		public void Close()
 		{
-			if (_hud.IsExists())
+			/*if (_hud != default && _hud.IsExists())
 			{
 				if (UIUtils.CloseUI(_hud))
 					UIModule.Instance.GetEntityManager().AddComponent<DespawningEntity>(_hud);//不延迟
-			}
+			}*/
+			if (UIUtils.CheckUIIsOpen("worktable"))
+				UIUtils.CloseUIByName("worktable");
 			_cid = 0;
 			_hud = default;
 		}

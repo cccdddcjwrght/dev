@@ -254,7 +254,11 @@ namespace SGame.UI
 
 		private void RefreshClick()
 		{
-			if (m_view == null || data == null) return;
+			if (m_view == null || data == null)
+			{
+				SGame.UIUtils.CloseUIByID(__id);
+				return;
+			}
 			var lvmax = data.maxlv <= data.level;
 			if (!lvmax)
 			{
