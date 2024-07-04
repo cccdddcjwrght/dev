@@ -124,7 +124,7 @@ namespace SGame.VS
                         if (index >= 0)
                         {
                             // 改操作台已打开
-                            _foodWidgets.Add(widgets[index]);
+                            _foodWidgets.Add(widgets[index] + HotFoodModule.Instance.GetHotFoodWeight(foods[index]));
                             _foodIDs.Add(foods[index]);
                         }
                     }

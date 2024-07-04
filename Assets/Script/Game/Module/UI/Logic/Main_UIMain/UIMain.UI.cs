@@ -37,6 +37,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick));
 			m_view.m_workflag.m_type.onChanged.Add(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick));
+			m_view.m_hotFoodBtn.m_hoting.onChanged.Add(new EventCallback1(_OnHotFoodBtn_HotingChanged));
+			UIListener.Listener(m_view.m_hotFoodBtn, new EventCallback1(_OnHotFoodBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -64,6 +66,8 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick),remove:true);
 			m_view.m_workflag.m_type.onChanged.Remove(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick),remove:true);
+			m_view.m_hotFoodBtn.m_hoting.onChanged.Remove(new EventCallback1(_OnHotFoodBtn_HotingChanged));
+			UIListener.Listener(m_view.m_hotFoodBtn, new EventCallback1(_OnHotFoodBtnClick),remove:true);
 
 		}
 		void _OnMainChanged(EventContext data){
@@ -205,6 +209,17 @@ namespace SGame.UI{
 		partial void OnWorkflagClick(EventContext data);
 		void SetWorkflagText(string data)=>UIListener.SetText(m_view.m_workflag,data);
 		string GetWorkflagText()=>UIListener.GetText(m_view.m_workflag);
+		void _OnHotFoodBtn_HotingChanged(EventContext data){
+			OnHotFoodBtn_HotingChanged(data);
+		}
+		partial void OnHotFoodBtn_HotingChanged(EventContext data);
+		void SwitchHotFoodBtn_HotingPage(int index)=>m_view.m_hotFoodBtn.m_hoting.selectedIndex=index;
+		void _OnHotFoodBtnClick(EventContext data){
+			OnHotFoodBtnClick(data);
+		}
+		partial void OnHotFoodBtnClick(EventContext data);
+		void SetHotFoodBtnText(string data)=>UIListener.SetText(m_view.m_hotFoodBtn,data);
+		string GetHotFoodBtnText()=>UIListener.GetText(m_view.m_hotFoodBtn);
 
 	}
 }

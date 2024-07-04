@@ -57,6 +57,7 @@ namespace SGame.UI
 			m_view.m_equipBtn.onClick.Add(() => OpenUI(FunctionID.ROLE_EQUIP));
 			m_view.m_friendBtn.onClick.Add(()=> OpenUI(FunctionID.FRIEND));
 			m_view.m_petBtn.onClick.Add(()=>OpenUI(FunctionID.PET));
+			m_view.m_hotFoodBtn.onClick.Add(() => OpenUI(FunctionID.HOT_FOOD));
 
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
@@ -67,6 +68,7 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg<int, int>((int)GameEvent.TECH_LEVEL, (id, level) => RefreshAdBtn());
 			m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, AppPasueRefresh);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.TOTAL_REFRESH, OnRefreshTotalState);
+			m_handles += EventManager.Instance.Reg((int)GameEvent.HOTFOOD_REFRESH, OnRefreshHotFood);
 
 			OnHeadSetting();
 			OnEventRefreshItem();
@@ -181,6 +183,7 @@ namespace SGame.UI
 			m_view.m_levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
+			m_view.m_hotFoodBtn.visible = 37.IsOpend(false);
 			RefreshAdBtn();
 
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
@@ -409,6 +412,27 @@ namespace SGame.UI
 				string url = itemId == (int)ItemID.GOLD ? "ui_shop_icon_coin_03" : "ui_shop_icon_gem_02";
 				btn.SetText(string.Format("+{0}", Utils.ConvertNumberStr(num)));
 				btn.SetIcon(url);
+			}
+		}
+
+		void OnRefreshHotFood() 
+		{
+			var hotFoodData = DataCenter.Instance.hotFoodData;
+			if (hotFoodData.IsForce())
+			{
+				m_view.m_hotFoodBtn.m_hoting.selectedIndex = 1;
+				m_view.m_hotFoodBtn.SetIcon(Utils.GetItemIcon(1, hotFoodData.foodID));
+
+				Utils.Timer(hotFoodData.GetTime(), () =>
+				{
+					var t = HotFoodModule.Instance.HotDuration;
+					var p = hotFoodData.GetTime();
+					m_view.m_hotFoodBtn.m_progress.fillAmount = (float)p / t;
+				}, m_view);
+			}
+			else 
+			{
+				m_view.m_hotFoodBtn.m_hoting.selectedIndex = 0;
 			}
 		}
 

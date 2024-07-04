@@ -28,6 +28,7 @@ namespace SGame.UI.Main
         public GButton m_petBtn;
         public UI_InvestMan m_InvestBtn;
         public UI_GetWorkerFlag m_workflag;
+        public UI_HotFoodBtn m_hotFoodBtn;
         public Transition m_doshow;
         public Transition m_dohide;
         public const string URL = "ui://ktixaqljgmj1l";
@@ -62,6 +63,7 @@ namespace SGame.UI.Main
             m_petBtn = (GButton)GetChildAt(15);
             m_InvestBtn = (UI_InvestMan)GetChildAt(17);
             m_workflag = (UI_GetWorkerFlag)GetChildAt(18);
+            m_hotFoodBtn = (UI_HotFoodBtn)GetChildAt(19);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }

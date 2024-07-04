@@ -93,6 +93,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("FragmentUI", "Reputation", ()=>new UIFragment());
 			context.uiModule.Reg("CustomerbookUpUI", "Cookbook", ()=>new UICustomerbookUp());
 			context.uiModule.Reg("CustomerbookFirstUpUI", "Cookbook", ()=>new UICustomerbookFirstUp());
+			context.uiModule.Reg("HotFoodUI", "HotFood", ()=>new UIHotFood());SGame.UI.HotFood.HotFoodBinder.BindAll();;
 		}
 	}
 }
