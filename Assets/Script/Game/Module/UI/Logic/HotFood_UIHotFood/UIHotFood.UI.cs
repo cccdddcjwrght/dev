@@ -46,6 +46,8 @@ namespace SGame.UI{
 		string GetDurationText()=>UIListener.GetText(m_view.m_duration);
 		void SetFoodTipText(string data)=>UIListener.SetText(m_view.m_foodTip,data);
 		string GetFoodTipText()=>UIListener.GetText(m_view.m_foodTip);
+		void SetDesText(string data)=>UIListener.SetText(m_view.m_des,data);
+		string GetDesText()=>UIListener.GetText(m_view.m_des);
 		void _OnStartBtnClick(EventContext data){
 			OnStartBtnClick(data);
 		}
