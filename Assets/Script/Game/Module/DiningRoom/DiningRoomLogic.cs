@@ -1042,6 +1042,7 @@ namespace SGame.Dining
 					{
 						if ((r.next ?? r.begin).waitActive == true)
 						{
+#if !AUTO_ENABLE
 							if (r.begin.waitActive && r.data.type > 3)
 							{
 								switch (r.data.type)
@@ -1056,7 +1057,8 @@ namespace SGame.Dining
 							}
 							else if (!r.data.isTable && r.begin.waitActive)
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
-							else
+							else 
+#endif
 							{
 								ClickAddMachine(r, r.next.cfgID);
 								return;
@@ -1074,13 +1076,19 @@ namespace SGame.Dining
 								switch (r.data.type)
 								{
 									case 4:
-										UIUtils.OpenUI("getworker", r.data);
+#if !AUTO_ENABLE
+										UIUtils.OpenUI("getworker", r.data); 
+#else
+										DataCenter.MachineUtil.UpdateLevel(r.data.id, 0);
+#endif
 										break;
 									case 5:
 										UIUtils.OpenUI("unlocktable", r.data, r.begin.cfgID);
 										break;
 									default:
+#if !AUTO_ENABLE
 										EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 4);
+#endif										
 										break;
 								}
 
