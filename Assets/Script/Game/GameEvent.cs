@@ -203,5 +203,6 @@ namespace SGame
 
 		TOTAL_REFRESH					= 27000, //店铺刷新
 
+		HOTFOOD_REFRESH					= 28000, //热卖商品刷新
 	}
 }
