@@ -29,7 +29,7 @@ namespace SGame.UI{
 				m_SelectFoodId = hotFoodData.foodID;
 				m_view.m_icon.SetIcon(Utils.GetItemIcon(1, hotFoodData.foodID));
 				ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(hotFoodData.foodID, out var cfg);
-				m_view.m_des.SetTextByKey("ui_hotfood_info2", cfg.Name);
+				m_view.m_des.SetTextByKey("ui_hotfood_info2", UIListener.Local(cfg.Name));
 				m_view.m_hoting.selectedIndex = 1;
 
 				Utils.Timer(hotFoodData.GetTime(), () =>
@@ -43,7 +43,7 @@ namespace SGame.UI{
 			}
 			else if (hotFoodData.GetCdTime() > 0)
 			{
-				m_view.m_hoting.selectedIndex = 0;
+				m_view.m_hoting.selectedIndex = 2;
 				Utils.Timer(hotFoodData.GetCdTime(), () =>
 				{
 					m_view.m_cdtime.SetText(Utils.TimeFormat(hotFoodData.GetCdTime()));
