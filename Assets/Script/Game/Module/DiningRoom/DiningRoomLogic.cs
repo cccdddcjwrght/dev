@@ -1042,7 +1042,7 @@ namespace SGame.Dining
 					{
 						if ((r.next ?? r.begin).waitActive == true)
 						{
-#if !AUTO_ENABLE
+#if !MAT_ENABLE
 							if (r.begin.waitActive && r.data.type > 3)
 							{
 								switch (r.data.type)
@@ -1076,7 +1076,7 @@ namespace SGame.Dining
 								switch (r.data.type)
 								{
 									case 4:
-#if !AUTO_ENABLE
+#if !MAT_ENABLE
 										UIUtils.OpenUI("getworker", r.data); 
 #else
 										DataCenter.MachineUtil.UpdateLevel(r.data.id, 0);
@@ -1086,7 +1086,7 @@ namespace SGame.Dining
 										UIUtils.OpenUI("unlocktable", r.data, r.begin.cfgID);
 										break;
 									default:
-#if !AUTO_ENABLE
+#if !MAT_ENABLE
 										EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 4);
 #endif										
 										break;
