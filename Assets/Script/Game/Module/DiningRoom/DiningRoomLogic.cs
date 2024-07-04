@@ -1070,7 +1070,13 @@ namespace SGame.Dining
 						if (p.enable)
 						{
 							if (!r.data.isTable)
-								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
+							{
+#if !MAT_ENABLE
+								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2); 
+#else
+								DataCenter.MachineUtil.UpdateLevel(r.data.id, 0);
+#endif
+							}
 							else if (r.data.objCfg.IsValid() && r.data.CanUpLv())
 							{
 								switch (r.data.type)
@@ -1088,7 +1094,7 @@ namespace SGame.Dining
 									default:
 #if !MAT_ENABLE
 										EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 4);
-#endif										
+#endif
 										break;
 								}
 
