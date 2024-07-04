@@ -16,12 +16,12 @@ namespace SGame
 {
     public class CarMono : MonoBehaviour
     {
-        private const int MAX_CUSTOMER = 4; // 最大乘客数量
-        private Entity                      m_entity;   // 车的ENTITY      
-        private GameConfigs.CarDataRowData  m_config;   // 配置表
-        private GameObject                  m_ai;       // AI 脚本
-        private GameObject                  m_model;    // 模型
-        private Fiber                       m_logic;    // 逻辑运行
+        private const int MAX_CUSTOMER = 4;           // 最大乘客数量
+        private Entity                      m_entity; // 车的ENTITY      
+        private GameConfigs.CarDataRowData  m_config; // 配置表
+        private GameObject                  m_ai;     // AI 脚本
+        private GameObject                  m_model;  // 模型
+        private FiberHandle                 m_logicHandle;     // 逻辑运行
         
         private static ILog                 log = LogManager.GetLogger("game.car");
         private EntityManager               EntityManager;
@@ -65,15 +65,10 @@ namespace SGame
             m_config = config;
             EntityManager.SetComponentData(e, new Speed(){Value =  config.MoveSpeed});
             m_nextIndex = 0;
-            m_logic = new Fiber(Logic(), FiberBucket.Manual);//FiberCtrl.Pool.Run(Logic());
+            m_logicHandle = FiberCtrl.Pool.Run(Logic());
             return true;
         }
-
-        void Update()
-        {
-            if (m_logic != null)
-                m_logic.Step();
-        }
+        
 
         /// <summary>
         /// 车辆长度信息
@@ -216,9 +211,10 @@ namespace SGame
         IEnumerator Logic()
         {
             log.Debug(string.Format("CarMono Create step1 gameobject={0}", GetInstanceID()));
+            yield return null;
             m_queue = CarQueueManager.Instance.GetOrCreate(pathTag);
             m_roads = new List<Vector3>();
-
+            
             yield return LoadResources();
             if (m_model == null || m_ai == null)
                 yield break;
@@ -257,12 +253,7 @@ namespace SGame
         private void OnDestroy()
         {
             log.Debug(string.Format("CarMono OnDestroy Entity={0} ameobject={1}", entity, GetInstanceID()));
-            if (m_logic != null)
-            {
-                m_logic.Terminate();
-                m_logic = null;
-            }
-
+            m_logicHandle.Close();
             m_seats.Clear();
         }
 

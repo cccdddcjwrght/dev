@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Fibers;
 
 namespace Fibers
 {
@@ -204,6 +205,9 @@ namespace Fibers
         private int m_instId = 0; // 实例化ID
         private bool m_isInStep = false; // 是否在运行状体
         public bool  isInStep {  get { return m_isInStep;  } }
+
+        public int version => m_instId;
+        
         public Fiber()
 		{
             m_instId = 0;
@@ -426,14 +430,14 @@ public class FiberCtrl : MonoBehaviour
 			}
 		}
 
-		public Fibers.Fiber Run(IEnumerator e, bool stepOneTime = false) {
+		public FiberHandle Run(IEnumerator e, bool stepOneTime = false) {
 			Fibers.Fiber f = AllocateFiber(e, Fibers.FiberBucket.Manual);
 			running.Add(f);
 			if (stepOneTime) {
 				f.Step();
 			}
 
-			return f;
+			return new FiberHandle(f);
 		}
 
 		public void Step() {
