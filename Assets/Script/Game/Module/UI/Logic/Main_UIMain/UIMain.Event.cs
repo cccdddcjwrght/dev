@@ -76,6 +76,7 @@ namespace SGame.UI
 			OnRefreshLikeCount(0);
 			OnRefreshAdTime();
 			OnRefreshTotalState();
+			OnRefreshHotFood();
 		}
 
 		void OpenUI(FunctionID id)
@@ -428,7 +429,7 @@ namespace SGame.UI
 					var t = HotFoodModule.Instance.HotDuration;
 					var p = hotFoodData.GetTime();
 					m_view.m_hotFoodBtn.m_progress.fillAmount = (float)p / t;
-				}, m_view);
+				}, m_view, completed : OnRefreshHotFood);
 			}
 			else 
 			{
