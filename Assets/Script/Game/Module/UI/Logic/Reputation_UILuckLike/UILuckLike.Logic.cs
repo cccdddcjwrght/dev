@@ -63,6 +63,7 @@ namespace SGame.UI{
 				once = true,
 			};
 			_press.onBegin.Add(() => {
+				if (DataCenter.Instance.likeData.likeNum <= 0) return;
 				SetAutoState(true);
 				EffectSystem.Instance.AddEffect(48, m_view.m___clickeffect);
 			});
@@ -70,6 +71,7 @@ namespace SGame.UI{
 			Entity effect = Entity.Null;
 			m_view.m_startBtn.onTouchBegin.Add(() =>
 			{
+				if (DataCenter.Instance.likeData.likeNum <= 0) return;
 				effect = EffectSystem.Instance.AddEffect(49, m_view.m___clickeffect);
 			});
 			m_view.m_startBtn.onTouchEnd.Add(() =>
@@ -77,10 +79,7 @@ namespace SGame.UI{
 				if (effect != Entity.Null) EffectSystem.Instance.CloseEffect(effect);
 			});
 
-			m_view.m_closeBg.onClick.Add(()=> {
-				Debug.Log("close:" + Time.realtimeSinceStartupAsDouble);
-				DoCloseUIClick(null);
-			});
+			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
 			//m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
 			m_view.m_LuckShow.onClick.Add(() =>
 			{
@@ -89,6 +88,8 @@ namespace SGame.UI{
 				m_view.m_LuckShow.visible = false;
 				RefreshRewardList();
 			});
+			m_view.m_tipBtn.onClick.Add(() => m_view.m_LuckHelp.visible = true);
+			m_view.m_LuckHelp.onClick.Add(() => m_view.m_LuckHelp.visible = false);
 
 			m_view.m_t1.Play();
 		}
