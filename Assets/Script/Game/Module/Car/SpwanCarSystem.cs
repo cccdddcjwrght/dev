@@ -65,15 +65,15 @@ namespace SGame
                 typeof(CarData)
                 //typeof(CarCustomer)
                 );
-
-            m_baseCar = Assets.LoadAssetAsync("Assets/BuildAsset/Prefabs/Car/CarRoot.prefab", typeof(GameObject));
+            
+            RequireSingletonForUpdate<GameInitFinish>();
         }
 
         protected override void OnStartRunning()
         {
+            m_baseCar = Assets.LoadAssetAsync("Assets/BuildAsset/Prefabs/Car/CarRoot.prefab", typeof(GameObject));
         }
         
-
         public void Clear()
         {
             

@@ -1,3 +1,4 @@
+using System;
 using SGame;
 using Unity.VisualScripting;
 
@@ -30,6 +31,8 @@ namespace SGame.VS
         private TableData Get(Flow flow)
         {
             var id = flow.GetValue<int>(this.tableID);
+            if (id <= 0)
+                throw new Exception("table id zero or negative");
             return TableManager.Instance.Get(id);
         }
     }
