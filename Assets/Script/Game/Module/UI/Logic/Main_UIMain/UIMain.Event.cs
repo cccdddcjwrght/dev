@@ -434,7 +434,7 @@ namespace SGame.UI
 				Utils.Timer(hotFoodData.GetTime(), () =>
 				{
 					var t = HotFoodModule.Instance.HotDuration;
-					var p = hotFoodData.GetTime();
+					var p = t - hotFoodData.GetTime();
 					m_view.m_hotFoodBtn.m_progress.fillAmount = (float)p / t;
 				}, m_view, completed : OnRefreshHotFood);
 			}

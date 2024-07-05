@@ -40,7 +40,7 @@ namespace SGame.UI{
 				m_Timer = Utils.Timer(hotFoodData.GetTime(), () =>
 				{
 					var t = HotFoodModule.Instance.HotDuration;
-					var p = hotFoodData.GetTime();
+					var p = t - hotFoodData.GetTime();
 					m_view.m_progress.fillAmount = (float)p / t;
 
 					m_view.m_duration.SetText(Utils.TimeFormat(hotFoodData.GetTime()));
