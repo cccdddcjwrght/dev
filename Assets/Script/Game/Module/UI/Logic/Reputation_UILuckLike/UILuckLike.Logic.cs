@@ -11,6 +11,7 @@ namespace SGame.UI{
     public partial class UILuckLike
 	{
 		private LongPressGesture _press;
+		private LongPressGesture _effpress;
 
 		int m_LikeCfgId;        //好评奖励Id
 		int m_HiddenCfgId;		//隐藏奖励Id
@@ -68,8 +69,14 @@ namespace SGame.UI{
 				EffectSystem.Instance.AddEffect(48, m_view.m___clickeffect);
 			});
 
+			_effpress = new LongPressGesture(m_view.m_startBtn)
+			{
+				once = true,
+				trigger = 0.1f,
+			};
+
 			Entity effect = Entity.Null;
-			m_view.m_startBtn.onTouchBegin.Add(() =>
+			_effpress.onBegin.Add(() =>
 			{
 				if (DataCenter.Instance.likeData.likeNum <= 0) return;
 				effect = EffectSystem.Instance.AddEffect(49, m_view.m___clickeffect);
@@ -350,6 +357,7 @@ namespace SGame.UI{
 		partial void UnInitLogic(UIContext context){
 			context.onUpdate -= OnUpdate;
 			_press?.Dispose();
+			_effpress?.Dispose();
 			m_Event.Close();
 			m_Event = null;
 
