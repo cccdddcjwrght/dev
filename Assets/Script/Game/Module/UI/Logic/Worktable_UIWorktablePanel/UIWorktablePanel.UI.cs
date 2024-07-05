@@ -19,9 +19,9 @@ namespace SGame.UI{
 			m_view.m_btnty.onChanged.Add(new EventCallback1(_OnBtntyChanged));
 			m_view.m_maxlv.onChanged.Add(new EventCallback1(_OnMaxlvChanged));
 			m_view.m_roleType.onChanged.Add(new EventCallback1(_OnRoleTypeChanged));
+			UIListener.Listener(m_view.m_adBtn, new EventCallback1(_OnAdBtnClick));
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
-			UIListener.Listener(m_view.m_adBtn, new EventCallback1(_OnAdBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -31,9 +31,9 @@ namespace SGame.UI{
 			m_view.m_btnty.onChanged.Remove(new EventCallback1(_OnBtntyChanged));
 			m_view.m_maxlv.onChanged.Remove(new EventCallback1(_OnMaxlvChanged));
 			m_view.m_roleType.onChanged.Remove(new EventCallback1(_OnRoleTypeChanged));
+			UIListener.Listener(m_view.m_adBtn, new EventCallback1(_OnAdBtnClick),remove:true);
 			UIListener.Listener(m_view.m_clickBtn, new EventCallback1(_OnClickBtnClick),remove:true);
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
-			UIListener.Listener(m_view.m_adBtn, new EventCallback1(_OnAdBtnClick),remove:true);
 
 		}
 		void _OnTypeChanged(EventContext data){
@@ -66,6 +66,12 @@ namespace SGame.UI{
 		}
 		partial void OnRoleTypeChanged(EventContext data);
 		void SwitchRoleTypePage(int index)=>m_view.m_roleType.selectedIndex=index;
+		void _OnAdBtnClick(EventContext data){
+			OnAdBtnClick(data);
+		}
+		partial void OnAdBtnClick(EventContext data);
+		void SetAdBtnText(string data)=>UIListener.SetText(m_view.m_adBtn,data);
+		string GetAdBtnText()=>UIListener.GetText(m_view.m_adBtn);
 		void SetLevelText(string data)=>UIListener.SetText(m_view.m_level,data);
 		string GetLevelText()=>UIListener.GetText(m_view.m_level);
 		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
@@ -92,12 +98,6 @@ namespace SGame.UI{
 		partial void OnClickClick(EventContext data);
 		void SetClickText(string data)=>UIListener.SetText(m_view.m_click,data);
 		string GetClickText()=>UIListener.GetText(m_view.m_click);
-		void _OnAdBtnClick(EventContext data){
-			OnAdBtnClick(data);
-		}
-		partial void OnAdBtnClick(EventContext data);
-		void SetAdBtnText(string data)=>UIListener.SetText(m_view.m_adBtn,data);
-		string GetAdBtnText()=>UIListener.GetText(m_view.m_adBtn);
 
 	}
 }
