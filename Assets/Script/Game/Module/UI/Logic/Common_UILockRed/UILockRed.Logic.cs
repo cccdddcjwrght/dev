@@ -111,7 +111,9 @@ namespace SGame.UI
 				if (!state) panel.m_click.GetChild("bg").icon = null;
 				panel.m_click.onClick?.Clear();
 				panel.m_click.onClick.Add(Unlock);
-				m_view.m_flag.selectedIndex = state ? 2 : 1;
+#if !MAT_ENABLE
+				m_view.m_flag.selectedIndex = state ? 2 : 1; 
+#endif
 			}
 			else
 				panel.m_type.selectedIndex = 1;
