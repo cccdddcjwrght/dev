@@ -11,7 +11,7 @@ namespace SGame
 
 	partial class RequestExcuteSystem
 	{
-		static public void UnlockArea(int area)
+		static public bool UnlockArea(int area)
 		{
 			if (area > 0)
 			{
@@ -21,16 +21,19 @@ namespace SGame
 					var state = PropertyManager.Instance.CheckCountByArgs(cfg.GetCostArray());
 					if (state)
 					{
+						PropertyManager.Instance.UpdateByArgs(true, cfg.GetCostArray());
 						DataCenter.RoomUtil.UnlockArea(area);
 						if (!string.IsNullOrEmpty(cfg.CustomerBorn))
 							StaticDefine.CUSTOMER_TAG_BORN.Add(cfg.CustomerBorn);
 						_eMgr.Trigger(((int)GameEvent.WORK_AREA_UNLOCK), area);
 						_eMgr.Trigger((int)GameEvent.GAME_MAIN_REFRESH);
 						DelayTriggerAddRole(cfg).Start();
+						return true;
 					}
 				}
 
 			}
+			return false;
 		}
 
 		static IEnumerator DelayTriggerAddRole(RoomAreaRowData cfg)

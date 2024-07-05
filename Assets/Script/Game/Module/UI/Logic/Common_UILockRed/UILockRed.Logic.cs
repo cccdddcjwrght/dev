@@ -40,6 +40,11 @@ namespace SGame.UI
 			GRoot.inst.onClick.Add(OnOtherUIClick);
 			ControlAxis.ListenEvent(OnClickOther);
 
+#if MAT_ENABLE
+			m_view.m_child.visible = false;
+#endif
+
+
 			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<SpawnUISystem>();
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
 		}
@@ -123,7 +128,7 @@ namespace SGame.UI
 					case 1://工作台等级
 						worktable = worktable ?? DataCenter.MachineUtil.GetWorktable(cfg.TypeValue(0));
 						if (!machineCfg.IsValid()) ConfigSystem.Instance.TryGet<MachineRowData>(cfg.TypeValue(0), out machineCfg);
-						ret = worktable !=null && worktable.level >= cfg.TypeValue(1);
+						ret = worktable != null && worktable.level >= cfg.TypeValue(1);
 						if (!ret) tips = "ui_area_unlock_tips1".Local(null, machineCfg.MachineName.Local(), cfg.TypeValue(1));
 						break;
 				}
@@ -141,8 +146,15 @@ namespace SGame.UI
 
 		private void Unlock()
 		{
-			RequestExcuteSystem.UnlockArea(area);
-			SGame.UIUtils.CloseUIByID(__id);
+			if (RequestExcuteSystem.UnlockArea(area))
+				SGame.UIUtils.CloseUIByID(__id);
+		}
+
+		partial void OnNearflagClick(EventContext data)
+		{
+#if MAT_ENABLE
+			Unlock();
+#endif
 		}
 
 		void OnClickOther()
@@ -152,7 +164,7 @@ namespace SGame.UI
 
 		void OnOtherUIClick(EventContext data)
 		{
-			if (GRoot.inst.focus != null && panel!=null && !SGame.UIUtils.IsChild(m_view, GRoot.inst.focus))
+			if (GRoot.inst.focus != null && panel != null && !SGame.UIUtils.IsChild(m_view, GRoot.inst.focus))
 			{
 				if (GuideManager.Instance.IsCoerce) return;
 				m_view.m_type.selectedIndex = 0;
@@ -162,7 +174,7 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			GRoot.inst.onClick.Remove(OnOtherUIClick);
-			ControlAxis.ListenEvent(OnClickOther,true);
+			ControlAxis.ListenEvent(OnClickOther, true);
 			eHandler?.Close();
 			eHandler = null;
 			worktable = default;
