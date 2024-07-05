@@ -21,9 +21,9 @@ namespace SGame.UI.Reputation
         {
             base.ConstructFromXML(xml);
 
-            m_name = (GTextField)GetChildAt(2);
-            m_multiple = (GTextField)GetChildAt(3);
-            m_duration = (GTextField)GetChildAt(4);
+            m_name = (GTextField)GetChildAt(0);
+            m_multiple = (GTextField)GetChildAt(1);
+            m_duration = (GTextField)GetChildAt(2);
         }
     }
 }
