@@ -74,13 +74,13 @@ namespace SGame.UI{
 				if (DataCenter.Instance.likeData.likeNum <= 0) return;
 				effect = EffectSystem.Instance.AddEffect(49, m_view.m___clickeffect);
 			});
+
 			m_view.m_startBtn.onTouchEnd.Add(() =>
 			{
 				if (effect != Entity.Null) EffectSystem.Instance.CloseEffect(effect);
 			});
 
 			m_view.m_closeBg.onClick.Add(DoCloseUIClick);
-			//m_view.m_BigLuckShow.m_list.itemRenderer = OnBigRewardItemRenderer;
 			m_view.m_LuckShow.onClick.Add(() =>
 			{
 				isPop = false;
@@ -97,6 +97,14 @@ namespace SGame.UI{
 		public void RefreshAutoState() 
 		{
 			m_view.m_auto.selectedIndex = m_Auto ? 1 : 0;
+		}
+
+		public void RefreshPlayBtnState() 
+		{
+			if (m_IsPlaying == m_view.m_startBtn.enabled) 
+			{
+				m_view.m_startBtn.enabled = !m_IsPlaying;
+			}
 		}
 
 		public void RefreshLikeNum() 
@@ -279,6 +287,7 @@ namespace SGame.UI{
 					}
 				}
 			}
+			RefreshPlayBtnState();
 		}
 
         partial void OnStartBtnClick(EventContext data)
