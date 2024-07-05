@@ -17,6 +17,9 @@ namespace SGame.UI{
 		{
 			m_eventContainer  += EventManager.Instance.Reg((int)GameEvent.FRIEND_DATE_UPDATE, OnFirendUpdate); // 好友数据更新
 			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.CROSS_DAY, OnFirendUpdate);		   // 跨天更新
+			//FRIEND_HIRING					= 10001, // 好友雇佣 (long playerID, int roleID, RoleData equipData)
+
+			m_eventContainer += EventManager.Instance.Reg<long, int, RoleData>((int)GameEvent.FRIEND_HIRING, (i1, i2, i3) => OnHireFriend());
 			m_view.m_listFirends.SetVirtual();
 			m_view.m_listRecomment.SetVirtual();
 			m_view.m_listFirends.itemRenderer	= ItemRenderFriend;
@@ -160,11 +163,14 @@ namespace SGame.UI{
 			if (FriendModule.Instance.CanHire(friendItem.player_id))
 			{
 				FriendModule.Instance.HireFriend(friendItem.player_id);
-				SGame.UIUtils.CloseUIByID(__id);
 			}
 		}
 
-
+		void OnHireFriend()
+		{
+			SGame.UIUtils.CloseUIByID(__id);
+			//FRIEND_HIRING					= 10001, // 好友雇佣 (long playerID, int roleID, RoleData equipData)
+		}
 
 		/// <summary>
 		/// 按下邀请键
