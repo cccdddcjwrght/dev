@@ -24,14 +24,16 @@ namespace SGame.UI
 
 		public class CheckItem
 		{
-			public int funcID;      // 功能ID
+			public int funcID;							 // 功能ID
 			public FunctionConfigRowData config;        // 配置信息
-			public Func<bool> funcCanShow;  // 额外判定是否可显示
-			public Func<int> funcTime;      // 倒计时
-			public int visibaleCount = 0; // 显示次数统计 0 未显示, 1 首次显示, 2多次显示
-			public object param;         // 额外参数
+			public Func<bool> funcCanShow;				// 额外判定是否可显示
+			public Func<int> funcTime;					// 倒计时
+			public int visibaleCount = 0;				// 显示次数统计 0 未显示, 1 首次显示, 2多次显示
+			public object param;						// 额外参数
 			public string Name;
-			public Action complete;     //完成回调		
+			public Action complete;						//完成回调		
+			public Action OnClick;						// 按下按钮
+				
 			public int order => config.Order;           // 排序
 
 			public Func<string> getIcon;
@@ -73,6 +75,17 @@ namespace SGame.UI
 				return funcID.IsOpend(false);
 			}
 
+			/// <summary>
+			/// 设置按下按钮功能
+			/// </summary>
+			/// <param name="onClick"></param>
+			/// <returns></returns>
+			public CheckItem SetOnClick(Action onClick)
+			{
+				this.OnClick = onClick;
+				return this;
+			}
+
 			public void Goto()
 			{
 				config.Uniqid.Goto();
@@ -92,6 +105,12 @@ namespace SGame.UI
 			/// <param name="index"></param>
 			public void OpenUI()
 			{
+				if (OnClick != null)
+				{
+					OnClick();
+					return;
+				}
+				
 				if (!string.IsNullOrEmpty(config.Ui))
 				{
 					if (param != null)
@@ -274,6 +293,7 @@ namespace SGame.UI
 				param = param,
 				Name = uiname,
 				complete = complete,
+				OnClick = null,
 			};
 			item.Add(data);
 			return data;

@@ -23,17 +23,23 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick));
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
+			m_view.m_btnShop.m_timeColor.onChanged.Add(new EventCallback1(_OnActBtn_TimeColorChanged));
+			m_view.m_btnShop.m_ctrlTime.onChanged.Add(new EventCallback1(_OnActBtn_CtrlTimeChanged));
+			m_view.m_btnShop.m_side.onChanged.Add(new EventCallback1(_OnActBtn_SideChanged));
+			UIListener.ListenerClose(m_view.m_btnShop.m_body, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_btnShop.m_redpoint, new EventCallback1(_OnActBtn_RedpointClick));
+			UIListener.Listener(m_view.m_btnShop, new EventCallback1(_OnBtnShopClick));
 			m_view.m_buff.m_markState.onChanged.Add(new EventCallback1(_OnBuffBtn_MarkStateChanged));
 			m_view.m_buff.m_isTime.onChanged.Add(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			m_view.m_buff.m_tipState.onChanged.Add(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick));
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
-			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick));
 			UIListener.Listener(m_view.m_friendBtn, new EventCallback1(_OnFriendBtnClick));
+			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick));
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick));
-			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick));
+			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick));
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick));
 			m_view.m_workflag.m_type.onChanged.Add(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick));
@@ -52,17 +58,23 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick),remove:true);
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
+			m_view.m_btnShop.m_timeColor.onChanged.Remove(new EventCallback1(_OnActBtn_TimeColorChanged));
+			m_view.m_btnShop.m_ctrlTime.onChanged.Remove(new EventCallback1(_OnActBtn_CtrlTimeChanged));
+			m_view.m_btnShop.m_side.onChanged.Remove(new EventCallback1(_OnActBtn_SideChanged));
+			UIListener.ListenerClose(m_view.m_btnShop.m_body, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_btnShop.m_redpoint, new EventCallback1(_OnActBtn_RedpointClick),remove:true);
+			UIListener.Listener(m_view.m_btnShop, new EventCallback1(_OnBtnShopClick),remove:true);
 			m_view.m_buff.m_markState.onChanged.Remove(new EventCallback1(_OnBuffBtn_MarkStateChanged));
 			m_view.m_buff.m_isTime.onChanged.Remove(new EventCallback1(_OnBuffBtn_IsTimeChanged));
 			m_view.m_buff.m_tipState.onChanged.Remove(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick),remove:true);
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
-			UIListener.Listener(m_view.m_levelBtn, new EventCallback1(_OnLevelBtnClick),remove:true);
 			UIListener.Listener(m_view.m_friendBtn, new EventCallback1(_OnFriendBtnClick),remove:true);
+			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick),remove:true);
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick),remove:true);
-			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick),remove:true);
+			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick),remove:true);
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick),remove:true);
 			m_view.m_workflag.m_type.onChanged.Remove(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick),remove:true);
@@ -121,6 +133,42 @@ namespace SGame.UI{
 		partial void OnDiamondClick(EventContext data);
 		void SetDiamondText(string data)=>UIListener.SetText(m_view.m_Diamond,data);
 		string GetDiamondText()=>UIListener.GetText(m_view.m_Diamond);
+		void _OnActBtn_TimeColorChanged(EventContext data){
+			OnActBtn_TimeColorChanged(data);
+		}
+		partial void OnActBtn_TimeColorChanged(EventContext data);
+		void SwitchActBtn_TimeColorPage(int index)=>m_view.m_btnShop.m_timeColor.selectedIndex=index;
+		void _OnActBtn_CtrlTimeChanged(EventContext data){
+			OnActBtn_CtrlTimeChanged(data);
+		}
+		partial void OnActBtn_CtrlTimeChanged(EventContext data);
+		void SwitchActBtn_CtrlTimePage(int index)=>m_view.m_btnShop.m_ctrlTime.selectedIndex=index;
+		void _OnActBtn_SideChanged(EventContext data){
+			OnActBtn_SideChanged(data);
+		}
+		partial void OnActBtn_SideChanged(EventContext data);
+		void SwitchActBtn_SidePage(int index)=>m_view.m_btnShop.m_side.selectedIndex=index;
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
+		}
+		partial void OnUICloseClick(ref bool state);
+		void _OnActBtn_RedpointClick(EventContext data){
+			OnActBtn_RedpointClick(data);
+		}
+		partial void OnActBtn_RedpointClick(EventContext data);
+		void SetActBtn_BtnShop_redpointText(string data)=>UIListener.SetText(m_view.m_btnShop.m_redpoint,data);
+		string GetActBtn_BtnShop_redpointText()=>UIListener.GetText(m_view.m_btnShop.m_redpoint);
+		void SetActBtn_ContentText(string data)=>UIListener.SetText(m_view.m_btnShop.m_content,data);
+		string GetActBtn_ContentText()=>UIListener.GetText(m_view.m_btnShop.m_content);
+		void _OnBtnShopClick(EventContext data){
+			OnBtnShopClick(data);
+		}
+		partial void OnBtnShopClick(EventContext data);
+		void SetBtnShopText(string data)=>UIListener.SetText(m_view.m_btnShop,data);
+		string GetBtnShopText()=>UIListener.GetText(m_view.m_btnShop);
 		void _OnBuffBtn_MarkStateChanged(EventContext data){
 			OnBuffBtn_MarkStateChanged(data);
 		}
@@ -162,18 +210,18 @@ namespace SGame.UI{
 			OnTotalBtnClick(data);
 		}
 		partial void OnTotalBtnClick(EventContext data);
-		void _OnLevelBtnClick(EventContext data){
-			OnLevelBtnClick(data);
-		}
-		partial void OnLevelBtnClick(EventContext data);
-		void SetLevelBtnText(string data)=>UIListener.SetText(m_view.m_levelBtn,data);
-		string GetLevelBtnText()=>UIListener.GetText(m_view.m_levelBtn);
 		void _OnFriendBtnClick(EventContext data){
 			OnFriendBtnClick(data);
 		}
 		partial void OnFriendBtnClick(EventContext data);
 		void SetFriendBtnText(string data)=>UIListener.SetText(m_view.m_friendBtn,data);
 		string GetFriendBtnText()=>UIListener.GetText(m_view.m_friendBtn);
+		void _OnPetBtnClick(EventContext data){
+			OnPetBtnClick(data);
+		}
+		partial void OnPetBtnClick(EventContext data);
+		void SetPetBtnText(string data)=>UIListener.SetText(m_view.m_petBtn,data);
+		string GetPetBtnText()=>UIListener.GetText(m_view.m_petBtn);
 		void _OnAdBtnClick(EventContext data){
 			OnAdBtnClick(data);
 		}
@@ -186,12 +234,12 @@ namespace SGame.UI{
 		partial void OnEquipBtnClick(EventContext data);
 		void SetEquipBtnText(string data)=>UIListener.SetText(m_view.m_equipBtn,data);
 		string GetEquipBtnText()=>UIListener.GetText(m_view.m_equipBtn);
-		void _OnPetBtnClick(EventContext data){
-			OnPetBtnClick(data);
+		void _OnTaskBtnClick(EventContext data){
+			OnTaskBtnClick(data);
 		}
-		partial void OnPetBtnClick(EventContext data);
-		void SetPetBtnText(string data)=>UIListener.SetText(m_view.m_petBtn,data);
-		string GetPetBtnText()=>UIListener.GetText(m_view.m_petBtn);
+		partial void OnTaskBtnClick(EventContext data);
+		void SetTaskBtnText(string data)=>UIListener.SetText(m_view.m_taskBtn,data);
+		string GetTaskBtnText()=>UIListener.GetText(m_view.m_taskBtn);
 		void _OnInvestBtnClick(EventContext data){
 			OnInvestBtnClick(data);
 		}

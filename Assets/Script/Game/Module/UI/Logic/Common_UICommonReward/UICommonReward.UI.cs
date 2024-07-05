@@ -29,6 +29,8 @@ namespace SGame.UI{
 			 
 		}
 		partial void OnUICloseClick(ref bool state);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 
 	}
 }

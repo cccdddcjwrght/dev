@@ -52,6 +52,8 @@ namespace SGame.UI
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
+			m_view.m_btnShop.onClick.Set(()=>((int)FunctionID.SHOP).Goto());
+			m_view.m_taskBtn.onClick.Set(()=>((int)FunctionID.TASK).Goto());
 
 			//m_view.m_skillBtn.onClick.Add(() => OpenUI(FunctionID.TECH));
 			m_view.m_equipBtn.onClick.Add(() => OpenUI(FunctionID.ROLE_EQUIP));
@@ -105,8 +107,11 @@ namespace SGame.UI
 
 			m_funcManager = new CheckingManager();
 
+			// 地图
+			m_funcManager.Register((int)FunctionID.MAP).SetOnClick(()=>SGame.UIUtils.OpenUI("enterscenetemp", DataCenter.Instance.roomData.current.id + 1));
+
 			//任务
-			m_funcManager.Register(32, () => DataCenter.TaskMainUtil.IsShow());
+			//m_funcManager.Register(32, () => DataCenter.TaskMainUtil.IsShow());
 			//排行榜
 			m_funcManager.Register(26, () => RankModule.Instance.IsOpen(), () => RankModule.Instance.GetRankTime());
 
@@ -131,7 +136,7 @@ namespace SGame.UI
 			m_funcManager.Register(GrowGiftModule.OPEND_ID, () => GrowGiftModule.Instance.IsOpend(1), () => GrowGiftModule.Instance.GetActiveTime(1), 1, "growgift2");
 
 			// 左排
-			m_funcManager.Register((int)FunctionID.SHOP);
+			//m_funcManager.Register((int)FunctionID.SHOP);
 			m_funcManager.Register((int)FunctionID.TECH);
 			//俱乐部
 			m_funcManager.Register(30, () => DataCenter.ClubUtil.IsOpen());
@@ -181,13 +186,15 @@ namespace SGame.UI
 			if (StaticDefine.PAUSE_MAIN_REFRESH) return;
 
 			m_view.m_Diamond.visible = 34.IsOpend(false);
-			m_view.m_levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
+			m_view.m_taskBtn.visible = CheckFuncOpen(FunctionID.TASK);
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			m_view.m_hotFoodBtn.visible = 37.IsOpend(false);
 			RefreshAdBtn();
 
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
+
+			m_view.m_btnShop.visible = ((int)FunctionID.SHOP).IsOpend(false);
 
 			//m_view.m_skillBtn.visible = CheckFuncOpen(FunctionID.TECH);
 			m_view.m_petBtn.visible = CheckFuncOpen(FunctionID.PET);
@@ -488,13 +495,12 @@ namespace SGame.UI
 //		{
 //			"leveltech".Goto();
 //		}
-
+/*
 		partial void OnLevelBtnClick(EventContext data)
 		{
-			//SGame.UIUtils.OpenUI("rewardshow", new List<int[]> { new int[] { 1,1,1 }, new int[] { 1, 2, 1 }, new int[] { 1, 6, 1 } }, true);
-			//SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.current.id + 1);
 			SGame.UIUtils.OpenUI("enterscenetemp", DataCenter.Instance.roomData.current.id + 1);
 		}
+		*/
 
 		partial void UnInitEvent(UIContext context)
 		{

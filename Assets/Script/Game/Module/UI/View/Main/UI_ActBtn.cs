@@ -33,10 +33,10 @@ namespace SGame.UI.Main
             m_ctrlTime = GetControllerAt(2);
             m_side = GetControllerAt(3);
             m_effect = (GGraph)GetChildAt(0);
-            m_body = (GGroup)GetChildAt(4);
-            m_redpoint = (GButton)GetChildAt(5);
-            m_content = (GTextField)GetChildAt(7);
-            m_time = (GGroup)GetChildAt(8);
+            m_body = (GGroup)GetChildAt(5);
+            m_redpoint = (GButton)GetChildAt(6);
+            m_content = (GTextField)GetChildAt(8);
+            m_time = (GGroup)GetChildAt(9);
             m_t0 = GetTransitionAt(0);
         }
     }
