@@ -5,11 +5,14 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.HotFood;
     using System.Collections.Generic;
+    using System;
 
     public partial class UIHotFood
 	{
 		EventHandleContainer m_Event = new EventHandleContainer();
 		List<int> m_FoodList = new List<int>();
+
+		Action<bool> m_Timer;
 		//当前选中的id
 		int m_SelectFoodId = 0;
 		partial void InitLogic(UIContext context){
@@ -24,6 +27,8 @@ namespace SGame.UI{
 		{
 			var hotFoodData = DataCenter.Instance.hotFoodData;
 			m_view.m_startBtn.enabled = hotFoodData.GetCdTime() <= 0;
+			m_Timer?.Invoke(false);
+
 			if (hotFoodData.IsForce())
 			{
 				m_SelectFoodId = hotFoodData.foodID;
@@ -32,19 +37,23 @@ namespace SGame.UI{
 				m_view.m_des.SetTextByKey("ui_hotfood_info2", UIListener.Local(cfg.Name));
 				m_view.m_hoting.selectedIndex = 1;
 
-				Utils.Timer(hotFoodData.GetTime(), () =>
+				m_Timer = Utils.Timer(hotFoodData.GetTime(), () =>
 				{
 					var t = HotFoodModule.Instance.HotDuration;
 					var p = hotFoodData.GetTime();
 					m_view.m_progress.fillAmount = (float)p / t;
 
 					m_view.m_duration.SetText(Utils.TimeFormat(hotFoodData.GetTime()));
-				}, m_view, completed: RefreshHotFood);
+				}, m_view, completed:()=> 
+				{
+					m_SelectFoodId = 0;
+					RefreshHotFood();
+				});
 			}
 			else if (hotFoodData.GetCdTime() > 0)
 			{
 				m_view.m_hoting.selectedIndex = 2;
-				Utils.Timer(hotFoodData.GetCdTime(), () =>
+				m_Timer = Utils.Timer(hotFoodData.GetCdTime(), () =>
 				{
 					m_view.m_cdtime.SetText(Utils.TimeFormat(hotFoodData.GetCdTime()));
 				}, m_view, completed: RefreshHotFood);
@@ -93,6 +102,7 @@ namespace SGame.UI{
 
         partial void OnStopBtnClick(EventContext data)
         {
+			m_SelectFoodId = 0;
 			HotFoodModule.Instance.StopFood();
         }
 
