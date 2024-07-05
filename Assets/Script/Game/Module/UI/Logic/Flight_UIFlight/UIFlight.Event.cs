@@ -166,8 +166,8 @@ namespace SGame.UI{
 
 		Vector2 GetFinalPos(int id) 
 		{
-			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy - new Vector2(100, 0);
-			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy - new Vector2(100, 0);
+			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy - new Vector2(m_view.m_Gold.width * 0.5f, 0);
+			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy - new Vector2(m_view.m_Diamond.width * 0.5f, 0);
 			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f) + new Vector2(-8, 3)/*偏差*/;
 			else if (TransitionModule.Instance.CheckIsPet(id)) return m_view.m_Pet.xy;
 			return default;
