@@ -73,9 +73,12 @@ namespace SGame
 									DataCenter.Instance.roomData.tables.Add(worktable.id);
 							}
 						}
+					}
+					if (machine != null && !machine.active)
+					{
+						machine.active = true;
 						EventManager.Instance.Trigger(((int)GameEvent.WORK_TABLE_MACHINE_ENABLE), worktable.id, id);
 						if (worktable.lv == 0) UpdateLevel(worktable.id, worktable.scene);
-
 						return machine;
 					}
 				}
@@ -741,6 +744,7 @@ namespace SGame
 	{
 		public int id;
 		public bool enable;
+		public bool active;
 
 		[NonSerialized]
 		public RoomMachineRowData cfg;

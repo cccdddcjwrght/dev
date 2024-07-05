@@ -376,7 +376,9 @@ namespace SGame.Dining
 		{
 			UILockManager.Instance.Require("dining");
 			SceneCameraSystem.Instance.disableControl = true;
-			SceneCameraSystem.Instance.Focus(holder.gameObject, false, 11);
+#if !MAT_ENABLE
+			SceneCameraSystem.Instance.Focus(holder.gameObject, false, 11); 
+#endif
 			_effect.SetActive(true);
 			if (delay > 0) yield return new WaitForSeconds(delay);
 			_lockBody.SetActive(false);
