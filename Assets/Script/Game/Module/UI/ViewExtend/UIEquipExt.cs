@@ -19,7 +19,7 @@ partial class UIListenerExt
 			{
 				com.SetTextByKey(cfg.Name);
 				com.SetIcon(cfg.Icon);
-				UIListener.SetTextWithName(gObject, "level", "ui_equip_lv_format".Local(null, cfg.Level), false);
+				UIListener.SetTextWithName(gObject, "level", cfg.Level.ToString(), false);
 
 				if (setq)
 				{
@@ -61,11 +61,11 @@ partial class UIListenerExt
 			var issuit = equip.type < 100 && equip.level == 0;//Ì××°Í¼Ö½
 			if (issuit || equip.type < 100)
 			{
-				lvformat = lvformat ?? "ui_equip_lv_format";
+				lvformat = lvformat ?? null;
 				UIListener.SetControllerSelect(gObject, "type", 1, false);
 				UIListener.SetControllerSelect(gObject, "lvstate", 1, false);
 				SetEquipInfo(gObject, equip.cfg, false);
-				UIListener.SetTextWithName(gObject, "level", lvformat == "-1" ? null : lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
+				UIListener.SetTextWithName(gObject, "level", lvformat == "-1" ? null : lvformat == null ? equip.level.ToString(): lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
 
 				UIListener.SetControllerSelect(gObject, "quality", equip.qType, false);
 				UIListener.SetControllerSelect(gObject, "step", equip.qStep, false);

@@ -28,6 +28,7 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_ConfirmUI.URL, typeof(UI_ConfirmUI));
             UIObjectFactory.SetPackageItemExtension(UI_ConfirmBody.URL, typeof(UI_ConfirmBody));
             UIObjectFactory.SetPackageItemExtension(UI_ChestBtn.URL, typeof(UI_ChestBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_CommonProgress.URL, typeof(UI_CommonProgress));
             UIObjectFactory.SetPackageItemExtension(UI_TabBtn.URL, typeof(UI_TabBtn));
             UIObjectFactory.SetPackageItemExtension(UI_MaskUI.URL, typeof(UI_MaskUI));
             UIObjectFactory.SetPackageItemExtension(UI_LockRedUI.URL, typeof(UI_LockRedUI));

@@ -32,14 +32,14 @@ namespace SGame.UI.Pet
             m_state = GetControllerAt(0);
             m_select = GetControllerAt(1);
             m_quality = GetControllerAt(2);
-            m_add = (GButton)GetChildAt(3);
-            m_eggborn = (GLoader)GetChildAt(5);
-            m_progress = (GProgressBar)GetChildAt(7);
-            m_time = (GTextField)GetChildAt(8);
-            m_price = (GTextField)GetChildAt(10);
-            m_get1 = (GButton)GetChildAt(12);
-            m_get2 = (GButton)GetChildAt(14);
-            m_get3 = (GButton)GetChildAt(15);
+            m_add = (GButton)GetChildAt(2);
+            m_eggborn = (GLoader)GetChildAt(4);
+            m_progress = (GProgressBar)GetChildAt(6);
+            m_time = (GTextField)GetChildAt(7);
+            m_price = (GTextField)GetChildAt(9);
+            m_get1 = (GButton)GetChildAt(11);
+            m_get2 = (GButton)GetChildAt(13);
+            m_get3 = (GButton)GetChildAt(14);
         }
     }
 }

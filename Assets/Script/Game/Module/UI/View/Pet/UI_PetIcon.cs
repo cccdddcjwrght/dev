@@ -12,6 +12,7 @@ namespace SGame.UI.Pet
         public Controller m___redpoint;
         public GLoader m_bg;
         public GTextField m_count;
+        public GTextField m_qname;
         public const string URL = "ui://srlw77obl7ed1l";
 
         public static UI_PetIcon CreateInstance()
@@ -27,7 +28,8 @@ namespace SGame.UI.Pet
             m_selected = GetControllerAt(1);
             m___redpoint = GetControllerAt(2);
             m_bg = (GLoader)GetChildAt(0);
-            m_count = (GTextField)GetChildAt(3);
+            m_count = (GTextField)GetChildAt(4);
+            m_qname = (GTextField)GetChildAt(5);
         }
     }
 }

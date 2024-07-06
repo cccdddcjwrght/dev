@@ -5,6 +5,7 @@ using System.IO;
 using System.Xml.Linq;
 using FairyGUI;
 using GameConfigs;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SGame.UI.Pet
@@ -12,6 +13,21 @@ namespace SGame.UI.Pet
 
 	static public partial class UIPetExt
 	{
+
+		static private string GetQName(int quality)
+		{
+			switch ((EnumQualityType)quality)
+			{
+				case EnumQualityType.Red:
+					return $"ui_quality_name_{(int)EnumQuality.Red}".Local();
+				case EnumQualityType.Orange:
+					return $"ui_quality_name_{(int)EnumQuality.Orange}".Local();
+				case EnumQualityType.Max:
+					return $"ui_quality_name_{(int)EnumQuality.Max}".Local();
+				default:
+					return $"ui_quality_name_{quality}".Local();
+			}
+		}
 
 		static public void SetPet(this GObject gObject, PetsRowData cfg, bool setq = true)
 		{
@@ -24,7 +40,7 @@ namespace SGame.UI.Pet
 					if (setq)
 					{
 						UIListener.SetControllerSelect(com, "quality", cfg.Quality);
-						UIListener.SetTextWithName(com, "qname", $"ui_quality_name_{cfg.Quality}".Local());
+						UIListener.SetTextWithName(com, "qname", GetQName(cfg.Quality));
 					}
 				}
 			}
@@ -38,11 +54,12 @@ namespace SGame.UI.Pet
 				{
 					gObject.SetIcon(pet.icon);
 					gObject.SetTextByKey(pet.name);
-
+					var count = pet.level > 0 ? pet.level : pet.count;
 					UIListener.SetControllerSelect(gObject, "quality", pet.quality);
 					UIListener.SetControllerSelect(gObject, "selected", pet.isselected ? 1 : 0, false);
-					UIListener.SetTextWithName(gObject, "count", pet.count == 0 ? "" : pet.count.ToString(), false);
+					UIListener.SetTextWithName(gObject, "count", count == 0 ? "" : count.ToString(), false);
 					UIListener.SetTextWithName(gObject, "model", pet.name.Local(), false);
+					UIListener.SetTextWithName(gObject, "qname", GetQName(pet.quality));
 
 					if (!hidered) UIListener.SetControllerSelect(gObject, "__redpoint", pet.isnew, false);
 					if (pet.type == 0)
@@ -56,7 +73,7 @@ namespace SGame.UI.Pet
 								var effects = pet.GetEffects(true, true);
 								SGame.UIUtils.AddListItems(list, effects, (i, d, g) =>
 								{
-									g.SetBuffItem(effects[i], 0, false, (1 << i).IsInState(pet.evo) ? 1 : 0, pet.effectAdd[i]);
+									g.SetBuffItem(effects[i], 0, false, (1 << i).IsInState(pet.evo) ? 1 : 0, pet.effectAdd[i],appendadd:true);
 								}, ignoreNull: true, useIdx: true);
 							}
 						}

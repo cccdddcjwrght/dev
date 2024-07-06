@@ -82,9 +82,9 @@ namespace SGame.UI.Player
 			{
 				IList<BaseEquip> eqs = DataCenter.Instance.equipData.equipeds;
 
-				UIListenerExt.SetEquipInfo(m_eq1, eqs[1], true, 1, lvformat: "ui_level_progress", hideother: false);
-				UIListenerExt.SetEquipInfo(m_eq2, eqs[2], true, 2, lvformat: "ui_level_progress", hideother: false);
-				UIListenerExt.SetEquipInfo(m_eq3, eqs[3], true, 3, lvformat: "ui_level_progress", hideother: false);
+				UIListenerExt.SetEquipInfo(m_eq1, eqs[1], true, 1, hideother: false);
+				UIListenerExt.SetEquipInfo(m_eq2, eqs[2], true, 2, hideother: false);
+				UIListenerExt.SetEquipInfo(m_eq3, eqs[3], true, 3, hideother: false);
 				/*UIListenerExt.SetEquipInfo(m_eq4, eqs[4], true, 4);
 				UIListenerExt.SetEquipInfo(m_eq5, eqs[5], true, 5);
 				UIListenerExt.SetEquipInfo(m_eq6, eqs[6], true, 6);*/

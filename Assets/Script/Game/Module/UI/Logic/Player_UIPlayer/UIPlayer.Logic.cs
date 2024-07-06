@@ -199,7 +199,7 @@ namespace SGame.UI
 
 		void EquipSelectUp(GObject gObject, EquipItem data)
 		{
-			var eq = (gObject as UI_EqPos).m_body;
+			var eq = (gObject as UI_BigEquip);
 			if (_current == null)
 			{
 				if (data.quality >= (int)EnumQuality.Max) { "@ui_equip_max_quality".Tips(); return; }
@@ -398,7 +398,7 @@ namespace SGame.UI
 		{
 			gObject.name = index.ToString();
 			var info = _eqs[index];
-			var eq = (gObject as UI_EqPos).m_body;
+			var eq = gObject as UI_BigEquip;
 			gObject.SetEquipInfo(info, checkup: m_view.m_eqTab.selectedIndex == 1);
 			eq.onClick.Clear();
 			eq.onClick.Add(() => OnEqClick(gObject, info));
