@@ -29,7 +29,7 @@ namespace SGame.UI{
 		void OnItemRenderer(int index, GObject gObject) 
 		{
 			gObject.SetIcon(Utils.GetItemIcon((int)_args[index].type, _args[index].id));
-			gObject.SetText("x" + _args[index].num);
+			gObject.SetText("X" + _args[index].num);
 		}
 
         partial void OnBtnClick(EventContext data)

@@ -261,7 +261,7 @@ namespace SGame.UI{
 			Vector2 end_pos = new Vector2(m_view.m_rewardList.x, m_view.m_rewardList.y);
 
 			m_view.m_LuckShow.m_reward.SetIcon(Utils.GetItemIcon(1, m_CurReward.id));
-			m_view.m_LuckShow.m_reward.SetText("x" + m_CurReward.num);
+			m_view.m_LuckShow.m_reward.SetText("X" + m_CurReward.num);
 			EffectSystem.Instance.AddEffect(36, m_view.m_LuckShow.m_reward);
 
 			m_view.m_LuckShow.m_reward.xy = start_pos;
@@ -318,7 +318,7 @@ namespace SGame.UI{
 			var data = m_RewardData[index];
 
 			gObject.SetIcon(Utils.GetItemIcon(1, data.id));
-			gObject.SetText("x" + Utils.ConvertNumberStr(data.num));
+			gObject.SetText("X" + Utils.ConvertNumberStr(data.num));
 		}
 
         void OnItem1Renderer(int index, GObject gObject) 
