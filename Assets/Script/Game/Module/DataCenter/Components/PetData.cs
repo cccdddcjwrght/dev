@@ -453,7 +453,7 @@ namespace SGame
 						if (!useAdd)
 							buff = effects[i];
 						else
-							buff = new int[] { effects[i][0], (int)Utils.ToInt(effects[i][1] * (100 + effectAdd[i]) * 0.01f) };
+							buff = new int[] { effects[i][0], effects[i][1] + effectAdd[i] };
 						rets.Add(buff);
 					}
 					return rets;
