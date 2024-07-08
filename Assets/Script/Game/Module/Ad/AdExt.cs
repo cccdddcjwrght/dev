@@ -41,8 +41,9 @@ namespace SGame
 			{
 				var flag = false;
 				var c = default(Action<bool>);
+				var error = false;
 				if (type != EnumAD.Banner)
-					c = AdWait(() => flag, key, c_ad_timeout);
+					c = AdWait(() => flag, key, c_ad_timeout, error: () => { complete(false, "net error"); error = true; });
 				UILockManager.Instance.Require(key);
 				THSdk.Instance.PlayAd(type, key, (s) =>
 				{
@@ -51,8 +52,11 @@ namespace SGame
 					c?.Invoke(true);
 					flag = true;
 					Debug.Log("[ad]end!!!");
-					try { complete?.Invoke(s, null); }
-					catch (Exception e) { log.Error(e.Message + "-" + e.StackTrace); }
+					if (!error)
+					{
+						try { complete?.Invoke(s, null); }
+						catch (Exception e) { log.Error(e.Message + "-" + e.StackTrace); }
+					}
 				}, timeout: c_ad_timeout);
 			}
 		}
@@ -62,7 +66,7 @@ namespace SGame
 			state = THSdk.Instance.IsAdLoaded(ad);
 		}
 
-		static Action<bool> AdWait(Func<bool> cacncel, string key = null, float wait = 0)
+		static Action<bool> AdWait(Func<bool> cacncel, string key = null, float wait = 0, Action error = null)
 		{
 			wait = wait > 0 ? wait : 10;
 			Action<bool> timer = null;
@@ -72,7 +76,8 @@ namespace SGame
 				//Õ¯¬Á“Ï≥£
 				if (Application.internetReachability == NetworkReachability.NotReachable)
 				{
-					timer.Invoke(obj: true);
+					timer?.Invoke(true);
+					error?.Invoke();
 					"@ui_net_error".Tips();
 				}
 				else if (cacncel())
