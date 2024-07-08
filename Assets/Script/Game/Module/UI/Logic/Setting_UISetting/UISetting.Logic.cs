@@ -115,6 +115,7 @@ namespace SGame.UI{
 				{
 					_setData.SetIntItemData(setItemData.id,body.m_toggle.selected ? 1 : 0);
 					body.m_del.visible = setItemData.val == 0;
+					DataCenter.Instance.SavePlayerData();
 				});
 			}else if (type == 1)
 			{
