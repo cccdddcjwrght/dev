@@ -87,12 +87,17 @@ using System.Collections.Generic;
             m_slot              = gameObject.AddComponent<Equipments>();
         }
         
+        
         /// <summary>
         /// 初始化AI
         /// </summary>
         /// <returns></returns>
         IEnumerator InitAI()
         {
+            // 等待上一个AI结束
+            var waitReq = AILoader.Instance.AddWait();
+            yield return waitReq;
+            
             /// 获得AI配置
             string configAI = "";
             ConfigSystem.Instance.TryGet(m_roleConfig.Model, out GameConfigs.roleRowData config);
