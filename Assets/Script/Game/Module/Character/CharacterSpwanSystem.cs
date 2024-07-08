@@ -86,7 +86,7 @@ namespace SGame
         
         private static ILog log = LogManager.GetLogger("game.character");
         private GameObject                             m_characterbase;
-        private List<CharacterEvent>                   m_triggerInit;
+        //private List<CharacterEvent>                   m_triggerInit;
         private int lasterCharacterID;
 
         private Dictionary<int, Entity>                 m_characters;
@@ -100,7 +100,7 @@ namespace SGame
         
         protected override void OnCreate()
         {
-            m_triggerInit = new List<CharacterEvent>();
+            //m_triggerInit = new List<CharacterEvent>();
             m_characters = new Dictionary<int, Entity>();
 
             m_prefabReadly = EntityManager.CreateEntityQuery( typeof(GameInitFinish));
@@ -155,75 +155,19 @@ namespace SGame
             if (CharacterGenerator.ReadyToUse == false)
                 return;
             
-            // 触发事件
-            foreach (var item in m_triggerInit)
-            {
-                if (EntityManager.Exists(item.entity) && !EntityManager.HasComponent<DespawningEntity>(item.entity))
-                {
-                    if (item.result.isClose)
-                    {
-                        EntityManager.AddComponent<DespawningEntity>(item.entity);
-                        continue;
-                    }
-                    
-                    if (item.character != null && item.character.model != null)
-                    {
-                        EntityManager.AddComponent<CharacterInitalized>(item.entity);
-                        m_characters.Add(item.character.CharacterID, item.entity);
-                        item.character.model.SetActive(true);
-                        item.character.OnInitCharacter(item.entity, EntityManager, item.result);
-                    }
-                    else
-                    {
-                        log.Warn("character already destory!");
-                    }
-                }
-            }
-            m_triggerInit.Clear();
-            
-            // 获取数据
-            //var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithNone<CharacterLoading, DespawningEntity>().ForEach((Entity e, ref CharacterSpawn req) =>
+            // 等待资源加载并生成对象
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, ref CharacterSpawn req, CharacterSpawnResult result) =>
             {
                 if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData))
                 {
-                    log.Error("role data config not found=" + req.id);
-                    EntityManager.DestroyEntity(e);
+                    log.Error("load character id fail=" + req.id);
                     return;
                 }
-                
                 if (!ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config))
                 {
-                    log.Error("role model config not found=" + roleData.Model + " role id=" + req.id);
-                    EntityManager.DestroyEntity(e);
+                    log.Error("load character model id fail=" + roleData.Model);
                     return;
                 }
-
-                if (string.IsNullOrEmpty(config.Part))
-                {
-                    log.Error("role part is null" + config.Part + " role id=" + req.id + " model id=" + roleData.Model);
-                    EntityManager.DestroyEntity(e);
-                    return;
-                }
-
-                CharacterLoading loading = new CharacterLoading()
-                {
-                    pool      = CharacterFactory.Instance.GetOrCreate(config.Part),
-                };
-                EntityManager.AddComponentData(e, loading);
-            });
-            
-            // 等待资源加载并生成对象
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, ref CharacterSpawn req, CharacterSpawnResult result, CharacterLoading loading) =>
-            {
-                if (!loading.isDone)
-                {
-                    return;
-                }
-                
-                
-                ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData);
-                ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
 
                 lasterCharacterID++;
 
@@ -241,30 +185,16 @@ namespace SGame
                 // 禁用属性系统
                 if (!req.hasAttribute)
                     EntityManager.AddComponent<DisableAttributeTag>(characterEntity);
-
-                // 创建对象
-                GameObject ani = CharacterFactory.Instance.Spawn(loading.pool);  //loading.pool.GetObject(id);
-                ani.transform.SetParent(character.transform, false);
-                ani.transform.localRotation = Quaternion.identity;
-                ani.transform.localPosition = Vector3.zero;
-                ani.transform.localScale = Vector3.one;
-                ani.name = "Model";
-                ani.SetActive(false);
-                if (config.RoleScaleLength == 3)
-                {
-                    var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
-                    ani.transform.localScale = scaleVector;
-                }
                 
-                c.model = ani;
+                
+                c.model = null;
                 c.entity = characterEntity;
                 c.CharacterID = lasterCharacterID;
                 c.roleType = roleData.Type;
                 c.roleID = roleData.Id;
                 c.playerID = req.playerID;
                 c.roleAI = req.roleAI;
-                c.SetLooking(loading.pool.config);
-
+                
 				//TODO:先不使用CommandBuff处理
 
 				// 设置属性
@@ -272,15 +202,11 @@ namespace SGame
 				EntityManager.SetComponentData(characterEntity, new CharacterAttribue() { roleID = roleData.Id, roleType = roleData.Type, characterID = lasterCharacterID });
 				EntityManager.SetComponentData(characterEntity, new Speed() { Value = roleData.MoveSpeed });
 				EntityManager.AddComponentObject(characterEntity, result);
-				EntityManager.DestroyEntity(e);
+
+                m_characters.Add(lasterCharacterID, characterEntity);
+                c.OnInitCharacter(characterEntity, EntityManager, result);
+                EntityManager.DestroyEntity(e);
 			});
-            
-            // 等待角色创建完成
-            Entities.WithNone<DespawningEntity, CharacterInitalized>().ForEach((Entity entity, CharacterSpawnResult result, Character character) =>
-            {
-                m_triggerInit.Add(new CharacterEvent() {entity = entity, character = character, result = result});
-                EntityManager.RemoveComponent<CharacterSpawnResult>(entity);
-            });
         }
     }
 }

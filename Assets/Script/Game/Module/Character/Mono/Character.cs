@@ -146,7 +146,7 @@ using System.Collections.Generic;
         
         void Start()
         {
-            m_slot = gameObject.AddComponent<Equipments>();
+            // m_slot = gameObject.AddComponent<Equipments>();
         }
 
         void Update()

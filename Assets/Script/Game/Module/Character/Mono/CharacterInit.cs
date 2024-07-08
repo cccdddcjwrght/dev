@@ -31,7 +31,6 @@ using System.Collections.Generic;
         {
             this.entity         = entity;
             this.entityManager  = mgr;
-            modelAnimator       = model.GetComponent<Animator>();
             m_orderRecord.Initalize(this.CharacterID);
 
             if (!ConfigSystem.Instance.TryGet(roleID, out m_roleConfig))
@@ -54,6 +53,38 @@ using System.Collections.Generic;
 
             // 触发初始化角色事件
             m_init.Start(RunInit(result));
+        }
+
+        /// <summary>
+        /// 初始化形象
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator InitModel()
+        {
+            ConfigSystem.Instance.TryGet(m_roleConfig.Model, out GameConfigs.roleRowData config);
+            var pool = CharacterFactory.Instance.GetOrCreate(config.Part);
+            while (!pool.isDone)
+                yield return null;
+            
+            // 创建对象
+            GameObject ani = CharacterFactory.Instance.Spawn(pool); //loading.pool.GetObject(id);
+            ani.transform.SetParent(transform, false);
+            ani.transform.localRotation = Quaternion.identity;
+            ani.transform.localPosition = Vector3.zero;
+            ani.transform.localScale = Vector3.one;
+            ani.name = "Model";
+            ani.SetActive(true);
+            if (config.RoleScaleLength == 3)
+            {
+                var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
+                ani.transform.localScale = scaleVector;
+            }
+
+            model = ani;
+            SetLooking(pool.config);
+            
+            modelAnimator       = model.GetComponent<Animator>();
+            m_slot              = gameObject.AddComponent<Equipments>();
         }
         
         /// <summary>
@@ -103,6 +134,7 @@ using System.Collections.Generic;
 
         IEnumerator RunInit(CharacterSpawnResult result)
         {
+            yield return InitModel();
             yield return InitAI();
 
             if (result != null)
