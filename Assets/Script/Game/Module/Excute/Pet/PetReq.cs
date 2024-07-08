@@ -36,7 +36,7 @@ namespace SGame
 			}
 		}
 
-		static public PetItem AddPet(int petid , int quality = 1)
+		static public PetItem AddPet(int petid, int quality = 1)
 		{
 			if (petid > 0)
 			{
@@ -49,6 +49,9 @@ namespace SGame
 					p = ownerPet[0].Evo(p, out buffindex, out addVal);
 					if (buffindex < 0)
 						PropertyManager.Instance.Insert2Cache(new List<int[]>() { p.cfg.GetRecycleRewardArray() });
+					else if (p.id == DataCenter.Instance.petData.petID)
+						DataCenter.PetUtil.UpdatePetBuff();
+
 				}
 				else
 					DataCenter.PetUtil.AddPet(p, true, true);
@@ -73,7 +76,7 @@ namespace SGame
 				var quality = egg.eCfg.Quality;
 				var index = SGame.Randoms.Random._R.NextWeight(ws) + 1;
 				var ps = ConfigSystem.Instance.Finds<PetsRowData>(p => p.Quality == index);
-				var r =  SGame.Randoms.Random._R.NextItem(ps);
+				var r = SGame.Randoms.Random._R.NextItem(ps);
 
 				var p = AddPet(r.Id, quality);
 				if (p != null)
