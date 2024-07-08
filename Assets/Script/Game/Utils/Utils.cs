@@ -628,10 +628,10 @@ namespace SGame
 		#region TimeFormat
 
 		static List<string[]> tfs = new List<string[]>(){
-			new string[]{ "{0:D2}:{1:D2}", "{0}:{1:D2}", "{0}:{1:D2}:{2:D2}", "{0}Day {1:D2}", "{0}Day" },
-			new string[]{ "{0:D2}分{1:D2}秒", "{0}小时{1:D2}分", "{0}小时{1:D2}分{2:D2}秒", "{1}天{1:D2}小时", "{0}天" },
-			new string[]{ "{0}M{1:d2}S", "{0}H{1:D2}M", "{0}H{1:D2}M{2:D2}S", "{0}D{1:D2}H", "{0}D" },
-			new string[]{ "{0:D2}m {1:D2}s", "{0}h {1:D2}m", "{0}h {1:D2}m {2:D2}s", "{0}d {1:D2}h", "{0}d" }
+			new string[]{ "{0:D2}:{1:D2}", "{0}:{1:D2}", "{0}:{1:D2}:{2:D2}", "{0}Day {1:D2}", "{0}Day","{1:d2}S" },
+			new string[]{ "{0:D2}分{1:D2}秒", "{0}小时{1:D2}分", "{0}小时{1:D2}分{2:D2}秒", "{1}天{1:D2}小时", "{0}天","{1:d2}秒" },
+			new string[]{ "{0}M{1:d2}S", "{0}H{1:D2}M", "{0}H{1:D2}M{2:D2}S", "{0}D{1:D2}H", "{0}D","{1:d2}S" },
+			new string[]{ "{0:D2}m {1:D2}s", "{0}h {1:D2}m", "{0}h {1:D2}m {2:D2}s", "{0}d {1:D2}h", "{0}d", "{1:d2}s" }
 		};
 
 		/// <summary>
@@ -650,7 +650,12 @@ namespace SGame
 			var sec = (int)math.fmod(math.fmod(time, 3600), 60);
 			formats = formats ?? tfs[math.clamp(locType, 0, tfs.Count - 1)];
 
-			if (hour <= 0) return string.Format(formats[0], min, sec);
+			if (hour <= 0)
+			{
+				if (min <= 0)
+					return string.Format(formats[5], sec);
+				return string.Format(formats[0], min, sec);
+			}
 			if (hour > 24 && daylimit > 0)
 			{
 				var day = math.floor(hour / 24);
@@ -1192,14 +1197,14 @@ namespace SGame
 			int currentLevelID = DataCenter.Instance.roomData.roomID;
 			return currentLevelID;
 		}
-		
+
 		// 调用AStar寻路查询
 		public static int2 GetAStarPosFromMapPos(Vector2Int mapPos)
 		{
 			var ret = MapAgent.GridToIndex(mapPos);
 			return new int2(ret.x, ret.y);
 		}
-		
+
 		/// <summary>
 		/// 加载AI脚本
 		/// </summary>
