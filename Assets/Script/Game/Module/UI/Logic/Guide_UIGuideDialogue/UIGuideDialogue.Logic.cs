@@ -24,8 +24,8 @@ namespace SGame.UI{
 			float ww = Mathf.Abs(GRoot.inst.width - 750f) * wr;
 			float hh = Mathf.Abs(GRoot.inst.height - 1334f) * hr;
 
-			if(x1 > 0 && y1 > 0) m_view.m_icon.xy = new Vector2(x1 * (1 + wr) + ww, y1 * (1 + hr) - hh);
-			if(x2 > 0 && y2 > 0) m_view.m_dialogue.xy = new Vector2(x2 * (1 + wr) + ww, y2 * (1 + hr) - hh);
+			if(x1 > 0 && y1 > 0) m_view.m_icon.xy = new Vector2(x1 * (1 + wr) + ww, y1 * (1 + hr) + hh);
+			if(x2 > 0 && y2 > 0) m_view.m_dialogue.xy = new Vector2(x2 * (1 + wr) + ww, y2 * (1 + hr) + hh);
 
 			//设置对话框宽度
 			if(m_Handler.config.Width > 0) m_view.m_dialogue.width = m_Handler.config.Width;
