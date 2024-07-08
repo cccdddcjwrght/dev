@@ -1199,5 +1199,16 @@ namespace SGame
 			var ret = MapAgent.GridToIndex(mapPos);
 			return new int2(ret.x, ret.y);
 		}
+		
+		/// <summary>
+		/// 加载AI脚本
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public static string GetAIPath(string name)
+		{
+			string path = "Assets/BuildAsset/VisualScript/Prefabs/AI/" + name + ".prefab";
+			return path;
+		}
 	}
 }
