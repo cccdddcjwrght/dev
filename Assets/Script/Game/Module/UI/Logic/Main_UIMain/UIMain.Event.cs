@@ -229,6 +229,8 @@ namespace SGame.UI
 			ui.data = config;
 			ui.m_side.selectedIndex = isLeft ? 0 : 1;
 
+			if ((int)FunctionID.TREASURE == config.funcID)
+				ui.m_side.selectedIndex = 3;
 
 			if (!string.IsNullOrEmpty(config.uiname))
 				item.name = config.uiname;
