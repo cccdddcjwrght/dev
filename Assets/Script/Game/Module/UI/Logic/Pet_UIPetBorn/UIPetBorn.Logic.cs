@@ -48,7 +48,7 @@ namespace SGame.UI
 			_effect = EffectSystem.Instance.AddEffect(9, m_view);
 			if (_index >= 0 && _add > 0)
 			{
-				m_view.m_change.SetBuffItem(_pet.effects[_index], 0, false, 0, _add, true);
+				m_view.m_change.SetBuffItem(_pet.effects[_index], 0, false, 0, _pet.effectAdd[_index], true);
 				m_view.m_change.m_level.SetTextByKey("ui_common_lv1", _pet.level);
 			}
 			m_view.m_type.selectedIndex = _isNew ? 0 : _index >= 0 ? 1 : 2;
