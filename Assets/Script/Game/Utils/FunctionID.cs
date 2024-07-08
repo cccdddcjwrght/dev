@@ -13,6 +13,7 @@ namespace SGame
         SHOP	   = 10, // 商城
         FRIEND	   = 14, // 好友
         PET        = 24, // 宠物
+        TREASURE   = 25, // 宝箱仓库
         TASK       = 32, // 任务
         FRIEND_CUSTOMER = 35, // 好友客人功能定义 
         HOT_FOOD   =    37,   //热卖菜品
