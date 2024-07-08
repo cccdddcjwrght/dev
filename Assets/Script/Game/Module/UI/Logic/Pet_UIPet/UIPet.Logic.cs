@@ -55,7 +55,7 @@ namespace SGame.UI
 			_current = _current ?? _data.pet;
 			var pBody = m_view.m_pet;
 			var flag = _current != null && _current.cfg.IsValid();
-			pBody.m_model.visible = flag;
+			pBody.m_nullpet.selectedIndex = flag ? 0 : 1;
 			pBody.SetPet(_current, showbuff: true);
 			if (flag)
 			{
@@ -230,7 +230,7 @@ namespace SGame.UI
 					break;
 				case 2:
 					var p = RequestExcuteSystem.PetBorn(_data.egg);
-					if (p != null) DelayExcuter.Instance.OnlyWaitUIClose("petborn", () => 
+					if (p != null) DelayExcuter.Instance.OnlyWaitUIClose("petborn", () =>
 					{
 						if (m_view == null) return;
 						SwitchTabPage(0);

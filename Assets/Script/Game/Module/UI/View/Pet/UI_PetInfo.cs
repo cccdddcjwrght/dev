@@ -8,6 +8,7 @@ namespace SGame.UI.Pet
     public partial class UI_PetInfo : GComponent
     {
         public Controller m_quality;
+        public Controller m_nullpet;
         public UI_PetModel m_model;
         public GList m_bufflist;
         public const string URL = "ui://srlw77obl7ed1j";
@@ -22,6 +23,7 @@ namespace SGame.UI.Pet
             base.ConstructFromXML(xml);
 
             m_quality = GetControllerAt(0);
+            m_nullpet = GetControllerAt(1);
             m_model = (UI_PetModel)GetChildAt(1);
             m_bufflist = (GList)GetChildAt(3);
         }
