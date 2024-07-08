@@ -12,18 +12,20 @@ using SGame.VS;
 using Unity.Mathematics;
 using Unity.Transforms;
 using System.Collections.Generic;
+    using libx;
 
-    
-namespace SGame
+
+    namespace SGame
 {
     /// <summary>
     /// 角色数据处理
     /// </summary>
-    public class Character : MonoBehaviour
+    public partial class Character : MonoBehaviour
     {
         private static ILog log = LogManager.GetLogger("game.character");
         private const string DISH_OFFSET_NAME = "dish_offsety"; // 放餐偏移
         private Fiber m_modelLoading;
+        private Fiber m_init;
         
         /// <summary>
         /// 脚本数据
@@ -80,6 +82,11 @@ namespace SGame
         public int roleID = 0;
 
         /// <summary>
+        /// 角色AI
+        /// </summary>
+        public int roleAI = 0;
+
+        /// <summary>
         /// 是否是雇员
         /// </summary>
         public bool isEmployee => playerID != 0;
@@ -121,6 +128,8 @@ namespace SGame
         private string     m_characterLooking;
 
         private int         m_workAreaMask = 0;
+
+        private RoleDataRowData m_roleConfig;
         
         
 
@@ -132,6 +141,7 @@ namespace SGame
         void Awake()
         {
             m_modelLoading = new Fiber(FiberBucket.Manual);
+            m_init = new Fiber(FiberBucket.Manual);
         }
         
         void Start()
@@ -141,6 +151,9 @@ namespace SGame
 
         void Update()
         {
+            if (m_init != null && !m_init.IsTerminated)
+                m_init.Step();
+            
             if (m_modelLoading != null && !m_modelLoading.IsTerminated)
                 m_modelLoading.Step();
         }
@@ -165,6 +178,8 @@ namespace SGame
             ClearFood();
             ClearHudEntity();
             m_slot.Clear();
+            if (m_init != null)
+                m_init.Terminate();
         }
         
         public void Clear()
@@ -181,41 +196,6 @@ namespace SGame
             }
         }
         
-        /// <summary>
-        /// 初始化角色
-        /// </summary>
-        /// <param name="entity">角色的ENTITY</param>
-        /// <param name="mgr">Entity管理器</param>
-        public void OnInitCharacter(Entity entity, EntityManager mgr)
-        {
-            this.entity         = entity;
-            this.entityManager  = mgr;
-            modelAnimator       = model.GetComponent<Animator>();
-            m_orderRecord.Initalize(this.CharacterID);
-
-            if (!ConfigSystem.Instance.TryGet(roleID, out RoleDataRowData roleConfig))
-            {
-                log.Error("role id not found=" + roleID);
-            }
-
-            m_workAreaMask = 0;
-            if (roleConfig.WorkerAreaLength > 0)
-            {
-                for (int i = 0; i < roleConfig.WorkerAreaLength; i++)
-                {
-                    m_workAreaMask = BitOperator.Set(m_workAreaMask, roleConfig.WorkerArea(i), true);
-                }
-            }
-            else
-            {
-                m_workAreaMask = BitOperator.Set(0, 0, true);
-            }
-
-            // 触发初始化角色事件
-            if (script != null)
-                EventBus.Trigger(CharacterInit.EventHook, script, this);
-        }
-
         public void CacheCharacter()
         {
             PriorityManager.Instance.AddRoleData(this);

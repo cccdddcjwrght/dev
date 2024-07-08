@@ -72,9 +72,8 @@ namespace SGame
             //public AssetRequest       baseChacterPrefab;
             //public CharacterGenerator gen;
             public CharacterPool        pool;
-            public AssetRequest       aiPrefab;
-            public int modelId;
-            public bool isDone => pool.isDone && aiPrefab.isDone;
+            //public int modelId;
+            public bool isDone => pool.isDone;
         }
 
         public struct CharacterEvent
@@ -145,17 +144,6 @@ namespace SGame
         {
             m_characters.Remove(characterid);
         }
-        
-        /// <summary>
-        /// 加载AI脚本
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        AssetRequest LoadAI(string name)
-        {
-            string path = "Assets/BuildAsset/VisualScript/Prefabs/AI/" + name + ".prefab";
-            return Assets.LoadAssetAsync(path, typeof(GameObject));
-        }
 
         public void Clear()
         {
@@ -183,14 +171,7 @@ namespace SGame
                         EntityManager.AddComponent<CharacterInitalized>(item.entity);
                         m_characters.Add(item.character.CharacterID, item.entity);
                         item.character.model.SetActive(true);
-                        item.character.OnInitCharacter(item.entity, EntityManager);
-                        item.result.entity = item.entity;
-                        item.result.characterID = item.character.CharacterID;
-                        
-                        EventManager.Instance.AsyncTrigger((int)GameEvent.CHARACTER_CREATE, 
-                            item.character.CharacterID, 
-                            item.character.roleID, 
-                            item.character.roleType);
+                        item.character.OnInitCharacter(item.entity, EntityManager, item.result);
                     }
                     else
                     {
@@ -225,28 +206,9 @@ namespace SGame
                     return;
                 }
 
-                string configAI = config.Ai;
-                if (req.roleAI != 0)
-                {
-                    if (!ConfigSystem.Instance.TryGet(req.roleAI, out GameConfigs.roleRowData aiConfig))
-                    {
-                        log.Error("role ai config not found=" + req.roleAI);
-                        EntityManager.DestroyEntity(e);
-                        return;
-                    }
-                    configAI = aiConfig.Ai;
-                }
-                else if (req.playerID != 0 && !string.IsNullOrEmpty(config.FriendAI))
-                {
-                    // 好友AI
-                    configAI = config.FriendAI;
-                }
-
                 CharacterLoading loading = new CharacterLoading()
                 {
-                    pool      = CharacterFactory.Instance.GetOrCreate(config.Part),//CharacterGenerator.CreateWithConfig(config.Part),
-                    modelId   = config.ID,
-                    aiPrefab  = LoadAI(configAI)
+                    pool      = CharacterFactory.Instance.GetOrCreate(config.Part),
                 };
                 EntityManager.AddComponentData(e, loading);
             });
@@ -258,20 +220,7 @@ namespace SGame
                 {
                     return;
                 }
-
-                if (!string.IsNullOrEmpty(loading.aiPrefab.error))
-                {
-                    log.Error("prefab load fail=" + loading.aiPrefab.error);
-                    EntityManager.DestroyEntity(e);
-                    return;
-                }
-                var aiPrefab = loading.aiPrefab.asset as GameObject;
-                if (aiPrefab == null)
-                {
-                    log.Error("ai prefab load null=" + loading.aiPrefab.error);
-                    EntityManager.DestroyEntity(e);
-                    return;
-                }
+                
                 
                 ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData);
                 ConfigSystem.Instance.TryGet(roleData.Model, out GameConfigs.roleRowData config);
@@ -293,37 +242,27 @@ namespace SGame
                 if (!req.hasAttribute)
                     EntityManager.AddComponent<DisableAttributeTag>(characterEntity);
 
-                // 创建AI
-                GameObject ai = GameObject.Instantiate(loading.aiPrefab.asset as GameObject);
-                ai.transform.parent = character.transform;
-                ai.transform.localRotation = Quaternion.identity;
-                ai.transform.localPosition = Vector3.zero;
-                ai.transform.localScale = Vector3.one;
-                ai.name = "AI";
-
                 // 创建对象
-                //var id = loading.pool.Spawn();
                 GameObject ani = CharacterFactory.Instance.Spawn(loading.pool);  //loading.pool.GetObject(id);
                 ani.transform.SetParent(character.transform, false);
                 ani.transform.localRotation = Quaternion.identity;
                 ani.transform.localPosition = Vector3.zero;
                 ani.transform.localScale = Vector3.one;
-                //ani.name = "Model";
+                ani.name = "Model";
                 ani.SetActive(false);
                 if (config.RoleScaleLength == 3)
                 {
                     var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
                     ani.transform.localScale = scaleVector;
                 }
-
-                if (ai != null)
-                    c.script = ai;
+                
                 c.model = ani;
                 c.entity = characterEntity;
                 c.CharacterID = lasterCharacterID;
                 c.roleType = roleData.Type;
                 c.roleID = roleData.Id;
                 c.playerID = req.playerID;
+                c.roleAI = req.roleAI;
                 c.SetLooking(loading.pool.config);
 
 				//TODO:先不使用CommandBuff处理
