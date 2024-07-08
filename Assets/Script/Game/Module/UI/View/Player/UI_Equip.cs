@@ -55,11 +55,11 @@ namespace SGame.UI.Player
             m_outside = GetControllerAt(13);
             m_bg = (GImage)GetChildAt(0);
             m_quality_2 = (GLoader)GetChildAt(1);
-            m_level = (GTextField)GetChildAt(4);
-            m___icon = (GLoader)GetChildAt(9);
-            m_step_2 = (GTextField)GetChildAt(12);
-            m_count = (GTextField)GetChildAt(14);
-            m___effect = (GGraph)GetChildAt(18);
+            m_level = (GTextField)GetChildAt(5);
+            m___icon = (GLoader)GetChildAt(10);
+            m_step_2 = (GTextField)GetChildAt(13);
+            m_count = (GTextField)GetChildAt(15);
+            m___effect = (GGraph)GetChildAt(19);
         }
     }
 }
