@@ -388,7 +388,11 @@ namespace SGame.UI
 
 			if (likeNum > 0)
 			{
-				m_view.m_likeBtn.m_add.Play();
+				if (!m_view.m_likeBtn.m_add.playing) 
+				{
+					m_view.m_likeBtn.m_add.Play();
+					m_view.m_likeBtn.m_zan.Play();
+				}
 				m_view.m_likeBtn.m_num.SetText(string.Format("+{0}", likeNum));
 			}
 		}

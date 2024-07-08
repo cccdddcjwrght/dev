@@ -11,6 +11,7 @@ namespace SGame.UI.Main
         public GTextField m_count;
         public Transition m_add;
         public Transition m_play;
+        public Transition m_zan;
         public const string URL = "ui://ktixaqlj9ehblb1";
 
         public static UI_LikeBtn CreateInstance()
@@ -26,6 +27,7 @@ namespace SGame.UI.Main
             m_count = (GTextField)GetChildAt(3);
             m_add = GetTransitionAt(0);
             m_play = GetTransitionAt(1);
+            m_zan = GetTransitionAt(2);
         }
     }
 }
