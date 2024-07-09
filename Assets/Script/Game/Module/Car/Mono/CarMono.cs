@@ -105,7 +105,6 @@ namespace SGame
         /// <returns></returns>
         IEnumerator LoadResources()
         {
-            var aiWait = AILoader.Instance.AddWait();
             var aiReq = LoadAI(m_config.AI);
             var modelRequest = Assets.LoadAssetAsync(ASSET_PATH + m_config.Model, typeof(GameObject));
             yield return aiReq;
@@ -121,8 +120,9 @@ namespace SGame
                 yield break;
             }
 
-            yield return aiWait; // AI创建需要等待
             m_model = GameObject.Instantiate(modelRequest.asset as GameObject, transform);
+            var aiWait = AILoader.Instance.AddWait();
+            yield return aiWait; // AI创建需要等待
             m_ai = GameObject.Instantiate(aiReq.asset as GameObject, transform);
         }
 
