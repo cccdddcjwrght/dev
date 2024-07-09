@@ -244,6 +244,8 @@ namespace SGame
 
             log.Debug(string.Format("CarMono Create Finish gameobject={0}", GetInstanceID()));
             m_isInit = true;
+            if (script != null)
+                Unity.VisualScripting.EventBus.Trigger(SGame.VS.CarInit.EventHook, script, this);
         }
         
         public bool IsMoving
