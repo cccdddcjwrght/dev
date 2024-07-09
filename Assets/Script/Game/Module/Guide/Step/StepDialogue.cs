@@ -1,5 +1,7 @@
+using SGame.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace SGame 
@@ -7,13 +9,17 @@ namespace SGame
     public class StepDialogue : Step
     {
         public EventHandleContainer m_EventHandle = new EventHandleContainer();
+        bool isLock = false;
         public override IEnumerator Excute()
         {
             m_Handler.InitConfig(m_Config);
             UILockManager.Instance.Require("guide_dialogue");
+            isLock = true;
             yield return WaitClose();
             UIUtils.OpenUI("dialogue", new UIParam() { Value = m_Handler });
             yield return WaitUI();
+
+            isLock = false;
             UILockManager.Instance.Release("guide_dialogue");
             if (m_Config.Force == 0) //强指引直接结束（等待UIClick点击后关闭）
             {
@@ -52,6 +58,8 @@ namespace SGame
             {
                 UIUtils.CloseUIByName("dialogue");
             }
+            if(isLock) UILockManager.Instance.Release("guide_dialogue");
+
             m_EventHandle.Close();
             m_EventHandle = null;
         }
@@ -59,6 +67,7 @@ namespace SGame
         public override void Stop()
         {
             UIUtils.CloseUIByName("dialogue");
+
             base.Stop();
         }
     }

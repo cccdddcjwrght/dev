@@ -13,19 +13,25 @@ namespace SGame.UI{
 			m_view.m_icon.SetIcon(m_Handler.config.Icon);
 			m_view.m_dialogue.SetText(UIListener.Local(m_Handler.config.StringParam));
 
-			float x1 = m_Handler.config.FloatParam(0);
-			float y1 = m_Handler.config.FloatParam(1);
-			float x2 = m_Handler.config.FloatParam(2);
-			float y2 = m_Handler.config.FloatParam(3);
+			float x1 = m_Handler.config.FloatParam(0) / 750f;
+			float y1 = m_Handler.config.FloatParam(1) / 1334f;
+			float x2 = m_Handler.config.FloatParam(2) / 750f;
+			float y2 = m_Handler.config.FloatParam(3) / 1334f;
 
-			float wr = GRoot.inst.width / 750f - 1;
-			float hr = GRoot.inst.height / 1334f - 1;
+			x1 = x1 * GRoot.inst.width;
+			y1 = y1 * GRoot.inst.height;
 
-			float ww = Mathf.Abs(GRoot.inst.width - 750f) * wr;
-			float hh = Mathf.Abs(GRoot.inst.height - 1334f) * hr;
+			x2 = x2 * GRoot.inst.width;
+			y2 = y1 + (m_Handler.config.FloatParam(3) - m_Handler.config.FloatParam(1));
+			//y2 = y2 * GRoot.inst.height;
+			//float wr = GRoot.inst.width / 750f ;
+			//float hr = GRoot.inst.height / 1334f ;
 
-			if(x1 > 0 && y1 > 0) m_view.m_icon.xy = new Vector2(x1 * (1 + wr) + ww, y1 * (1 + hr) + hh);
-			if(x2 > 0 && y2 > 0) m_view.m_dialogue.xy = new Vector2(x2 * (1 + wr) + ww, y2 * (1 + hr) + hh);
+			//float ww = (750 * wr) - 750;
+			//float hh = (1334 * hr) - 1334;
+
+			if (x1 > 0 && y1 > 0) m_view.m_icon.xy = new Vector2(x1, y1);
+			if(x2 > 0 && y2 > 0) m_view.m_dialogue.xy = new Vector2(x2, y2);
 
 			//设置对话框宽度
 			if(m_Handler.config.Width > 0) m_view.m_dialogue.width = m_Handler.config.Width;
