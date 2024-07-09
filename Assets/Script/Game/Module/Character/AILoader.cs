@@ -16,9 +16,8 @@ public class AILoader : MonoSingleton<AILoader>
     }
 
     private List<Request> m_request = new List<Request>();
-    private float         m_waitTime = 0;
-
-    public float WAIT_TIME = .1f;
+    //private float         m_waitTime = 0;
+    //public float WAIT_TIME = .1f;
 
     public AILoader()
     {
@@ -46,15 +45,13 @@ public class AILoader : MonoSingleton<AILoader>
     // Update is called once per frame
     void Update()
     {
+        //if (m_waitTime > 0)
+        //    m_waitTime -= Time.deltaTime;
+
         if (m_request.Count == 0)
             return;
         
-        m_waitTime -= Time.deltaTime;
-        if (m_waitTime <= 0)
-        {
-            m_request[0].isFinish = true;
-            m_request.RemoveAt(0);
-            m_waitTime = WAIT_TIME;
-        }
+        m_request[0].isFinish = true;
+        m_request.RemoveAt(0);
     }
 }
