@@ -17,7 +17,7 @@ namespace SGame
     public class CarMono : MonoBehaviour
     {
         private const int MAX_CUSTOMER = 4;           // 最大乘客数量
-        private Entity                      m_entity; // 车的ENTITY      
+        private Entity                      m_entity = Entity.Null; // 车的ENTITY      
         private GameConfigs.CarDataRowData  m_config; // 配置表
         private GameObject                  m_ai;     // AI 脚本
         private GameObject                  m_model;  // 模型
@@ -46,6 +46,8 @@ namespace SGame
 
         public bool                         isInit => m_isInit;
 
+        public int                          InstanceID = 0;
+
         /// <summary>
         /// 初始化对象
         /// </summary>
@@ -53,6 +55,7 @@ namespace SGame
         /// <param name="config"></param>
         public bool Initalize(EntityManager entityManager, Entity e,  int id)
         {
+            InstanceID = GetInstanceID();
             log.Debug(string.Format("CarMono Create Entity={0} id={1} gameobject={2}", e, id, GetInstanceID()));
             if (!ConfigSystem.Instance.TryGet(id, out GameConfigs.CarDataRowData config))
             {
@@ -239,6 +242,7 @@ namespace SGame
             if (m_config.ShowCustomer != 0)
                 yield return m_seats.CreateCustomer(m_entity, transform, m_config.CustomerAI);
 
+            log.Debug(string.Format("CarMono Create Finish gameobject={0}", GetInstanceID()));
             m_isInit = true;
         }
         
@@ -268,6 +272,11 @@ namespace SGame
         /// </summary>
         public void EnterQueue()
         {
+            if (m_entity == Entity.Null)
+            {
+                log.Error("enter queue is null=" + GetInstanceID());
+            }
+            log.Debug("CarMono Enter Queue=" + GetInstanceID());
             m_queue.Add(m_entity, bodyLength);
         }
 

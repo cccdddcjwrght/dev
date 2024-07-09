@@ -39,7 +39,7 @@
                 
     
     <root>
-        <level value="INFO" />
+        <level value="ERROR" />
         <appender-ref ref="UnityAppender" /><!-- Unity控制台日志 -->
 		<!--
 		<appender-ref ref="RollingFile" /> 
@@ -48,11 +48,11 @@
     </root>
 
 
-	<!--
-    <logger name="TestLogger">
+    <logger name="game.car">
         <level value="DEBUG" />
     </logger>
-    
+	
+   <!--
     <logger name="xl.gameevent">
         <level value="DEBUG" />
     </logger>
