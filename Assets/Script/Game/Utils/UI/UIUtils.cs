@@ -497,7 +497,9 @@ namespace SGame
 		public static Entity ShowReputationTip(Transform pos, int characterID)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			Entity ui = ShowHUD("reputationtip", pos, float3.zero);
+			Character c = CharacterModule.Instance.FindCharacter(characterID);
+
+			Entity ui = ShowHUD("reputationtip", c.GetSlot(SlotType.HUD), float3.zero);
 			ReputationModule.Instance.AddLikeNum(characterID);
 			return ui;
 		}
