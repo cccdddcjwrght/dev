@@ -261,9 +261,10 @@ using System.Collections.Generic;
             Vector2Int checkPos = MapAgent.VectorToGrid(pos);
             if (checkPos.x == map_pos.x && checkPos.y == map_pos.y)
             {
+                log.Warn(string.Format("cancle move target_pos={0} currentMapPos={1} current3dPos={2} characterID={3} ", map_pos, checkPos, pos, CharacterID) );
                 return;
             }
-            
+
             FindPathParams find = new FindPathParams() { start_pos = curPos, end_pos = map_pos };
             if (!entityManager.HasComponent<FindPathParams>(entity))
             {
