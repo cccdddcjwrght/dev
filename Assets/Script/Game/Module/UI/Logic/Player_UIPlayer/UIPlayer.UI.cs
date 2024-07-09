@@ -56,6 +56,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick));
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick));
 			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick));
+			UIListener.Listener(m_view.m_EquipQuality.m_help, new EventCallback1(_OnEquipUpQuality_HelpClick));
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick));
 			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick));
 			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick));
@@ -106,6 +107,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_EquipQuality.m_nexteq, new EventCallback1(_OnEquipUpQuality_NexteqClick),remove:true);
 			UIListener.Listener(m_view.m_EquipQuality.m_click, new EventCallback1(_OnEquipUpQuality_ClickClick),remove:true);
 			UIListener.Listener(m_view.m_EquipQuality.m_merge, new EventCallback1(_OnEquipUpQuality_MergeClick),remove:true);
+			UIListener.Listener(m_view.m_EquipQuality.m_help, new EventCallback1(_OnEquipUpQuality_HelpClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_EquipQuality, new EventCallback1(_OnEquipQualityClick),remove:true);
 			UIListener.Listener(m_view.m_info, new EventCallback1(_OnInfoClick),remove:true);
 			UIListener.Listener(m_view.m_equipup, new EventCallback1(_OnEquipupClick),remove:true);
@@ -344,6 +346,12 @@ namespace SGame.UI{
 		partial void OnEquipUpQuality_MergeClick(EventContext data);
 		void SetEquipUpQuality_EquipQuality_mergeText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_merge,data);
 		string GetEquipUpQuality_EquipQuality_mergeText()=>UIListener.GetText(m_view.m_EquipQuality.m_merge);
+		void _OnEquipUpQuality_HelpClick(EventContext data){
+			OnEquipUpQuality_HelpClick(data);
+		}
+		partial void OnEquipUpQuality_HelpClick(EventContext data);
+		void SetEquipUpQuality_EquipQuality_helpText(string data)=>UIListener.SetText(m_view.m_EquipQuality.m_help,data);
+		string GetEquipUpQuality_EquipQuality_helpText()=>UIListener.GetText(m_view.m_EquipQuality.m_help);
 		void _OnEquipQualityClick(EventContext data){
 			OnEquipQualityClick(data);
 		}

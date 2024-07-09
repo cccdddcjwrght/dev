@@ -14,6 +14,8 @@ namespace SGame.UI.Player
             UIObjectFactory.SetPackageItemExtension(UI_Equip.URL, typeof(UI_Equip));
             UIObjectFactory.SetPackageItemExtension(UI_bgclick.URL, typeof(UI_bgclick));
             UIObjectFactory.SetPackageItemExtension(UI_EqTab.URL, typeof(UI_EqTab));
+            UIObjectFactory.SetPackageItemExtension(UI_EqUpHelpUI.URL, typeof(UI_EqUpHelpUI));
+            UIObjectFactory.SetPackageItemExtension(UI_EqHelpItem.URL, typeof(UI_EqHelpItem));
             UIObjectFactory.SetPackageItemExtension(UI_BigEquip.URL, typeof(UI_BigEquip));
             UIObjectFactory.SetPackageItemExtension(UI_EquipPage.URL, typeof(UI_EquipPage));
             UIObjectFactory.SetPackageItemExtension(UI_EquipUpQuality.URL, typeof(UI_EquipUpQuality));

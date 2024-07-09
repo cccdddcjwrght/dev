@@ -65,14 +65,14 @@ partial class UIListenerExt
 				UIListener.SetControllerSelect(gObject, "type", 1, false);
 				UIListener.SetControllerSelect(gObject, "lvstate", 1, false);
 				SetEquipInfo(gObject, equip.cfg, false);
-				UIListener.SetTextWithName(gObject, "level", lvformat == "-1" ? null : lvformat == null ? equip.level.ToString(): lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
+				UIListener.SetTextWithName(gObject, "level", lvformat == "-1" ? null : lvformat == null ? equip.level.ToString() : lvformat.Local(null, equip.level, equip.qcfg.LevelMax), false);
 
 				UIListener.SetControllerSelect(gObject, "quality", equip.qType, false);
 				UIListener.SetControllerSelect(gObject, "step", equip.qStep, false);
 
 				UIListener.SetTextWithName(gObject, "qname", $"ui_quality_name_{equip.quality}".Local());
 				UIListener.SetTextWithName(gObject, "attribute", "+" + equip.GetAttrVal() + "%", false);
-				UIListener.SetControllerSelect(gObject, "suitmat", issuit ? 1 : 0, false);
+				//UIListener.SetControllerSelect(gObject, "suitmat", issuit ? 1 : 0, false);
 				UIListener.SetTextWithName(gObject, "count", equip.count == 0 ? "" : Utils.ConvertNumberStr(equip.count), false);
 
 				if (!hidered)
@@ -108,7 +108,7 @@ partial class UIListenerExt
 
 	}
 
-	static public void SetMerge(this GObject gObject, BaseEquip equip)
+	static public void SetMerge(this GObject gObject, BaseEquip equip, bool showlv = false)
 	{
 		if (gObject != null)
 		{
@@ -143,7 +143,7 @@ partial class UIListenerExt
 					break;
 			}
 
-			UIListener.SetControllerSelect(gObject, "lvstate", 0);
+			UIListener.SetControllerSelect(gObject, "lvstate", showlv ? 1 : 0);
 		}
 	}
 

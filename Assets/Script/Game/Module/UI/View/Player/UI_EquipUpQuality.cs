@@ -18,6 +18,7 @@ namespace SGame.UI.Player
         public GTextField m_curattr;
         public GGraph m___effect;
         public UI_MergeBrn m_merge;
+        public GButton m_help;
         public const string URL = "ui://cmw7t1elmk8f1m";
 
         public static UI_EquipUpQuality CreateInstance()
@@ -40,6 +41,7 @@ namespace SGame.UI.Player
             m_curattr = (GTextField)GetChildAt(10);
             m___effect = (GGraph)GetChildAt(18);
             m_merge = (UI_MergeBrn)GetChildAt(19);
+            m_help = (GButton)GetChildAt(20);
         }
     }
 }

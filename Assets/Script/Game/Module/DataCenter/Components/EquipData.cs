@@ -501,7 +501,7 @@ namespace SGame
 				{
 					_data.items.ForEach(i => i.upflag = 0);
 					List<List<EquipItem>> rets = new List<List<EquipItem>>();
-					for (int i = (int)EnumQuality.Max-1; i > 0; i--)
+					for (int i = (int)EnumQuality.Max - 1; i > 0; i--)
 					{
 						if (qualitymask < 0 || i.IsInState(qualitymask))
 						{
@@ -552,7 +552,7 @@ namespace SGame
 				return false;
 			}
 
-			static public bool GetCombineListByQuality(int quality, ref List<List<EquipItem>> list, bool ignoreselected = false , bool onlycheck = true)
+			static public bool GetCombineListByQuality(int quality, ref List<List<EquipItem>> list, bool ignoreselected = false, bool onlycheck = true)
 			{
 				bool FindConditon(BaseEquip equip)
 				{
@@ -649,7 +649,7 @@ namespace SGame
 
 			static public void CheckCanMerge()
 			{
-				var rets = GetCombineList(ignoreselected:true);
+				var rets = GetCombineList(ignoreselected: true);
 				_data.canMerge = rets?.Count > 0;
 			}
 
@@ -745,11 +745,12 @@ namespace SGame
 		private int _baseAttrVal;
 		private List<int[]> _effects;
 
-		public virtual BaseEquip UpQuality()
+		public virtual BaseEquip UpQuality(int nextquality = -1)
 		{
 			if (quality < (int)EnumQuality.Max)
 			{
-				quality++;
+				if (nextquality < 0) quality++;
+				else quality = nextquality;
 				level = 1;
 				isnew = 1;
 				Refresh();

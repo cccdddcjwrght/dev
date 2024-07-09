@@ -285,6 +285,11 @@ namespace SGame.UI
 				"@ui_equip_merge_tips".Tips();
 		}
 
+		partial void OnEquipUpQuality_HelpClick(EventContext data)
+		{
+			SGame.UIUtils.OpenUI("equphelp");
+		}
+
 		IEnumerator ShowRewardContent(UI_CommonRewardBody view, List<BaseEquip> eqs, double recycle)
 		{
 			const string rich_text = "<img src='{0}' width='45%' height='45%' />";
