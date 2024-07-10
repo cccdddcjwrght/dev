@@ -85,8 +85,10 @@ using System.Collections.Generic;
             
             modelAnimator       = model.GetComponent<Animator>();
             m_slot              = gameObject.AddComponent<Equipments>();
-            
-            model.SetActive(roleType != (int)EnumRole.Player);
+            ani.SetActive(true);
+            m_slot.UpdateModel();
+            if (roleType == (int)EnumRole.Player)
+                model.SetActive(false);
         }
         
         

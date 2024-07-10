@@ -53,7 +53,7 @@ namespace SGame
 
         void Start()
         {
-            UpdateModel();
+            //UpdateModel();
         }
 
         void Update()
