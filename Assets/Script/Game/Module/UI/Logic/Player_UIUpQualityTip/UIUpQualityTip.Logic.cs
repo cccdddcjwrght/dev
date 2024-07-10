@@ -16,7 +16,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-
+			flag = false;
 			var equip = (context.GetParam()?.Value as object[])?.Val<BaseEquip>(0);
 			var recycle = (context.GetParam()?.Value as object[])?.Val<double>(1);
 
@@ -25,7 +25,6 @@ namespace SGame.UI
 				DoCloseUIClick(null);
 				return;
 			}
-			flag = false;
 
 			m_view.m_body.SetEquipInfo(equip, true);
 			m_view.m_body.m_equip.SetEquipInfo(equip, true);
@@ -43,7 +42,7 @@ namespace SGame.UI
 			yield return EffectSystem.Instance.WaitEffectLoaded(effect);
 			22.ToAudioID().PlayAudio();
 			anim.Play();
-			yield return null;
+			yield return new WaitForSeconds(2f);
 			flag = true;
 		}
 
@@ -58,15 +57,13 @@ namespace SGame.UI
 
 		void OnClick(EventContext context) {
 
-			if (!flag) return;
-			if (m_view.m_body.m_upqualitytipui.playing)
-			{
-				/*m_view.m_body.m_upqualitytipui.Stop(true , true);
-				EffectSystem.Instance.ReleaseEffect(effect);*/
-				return;
-			}
 			DoCloseUIClick(null);
+		}
 
+		partial void OnUICloseClick(ref bool state)
+		{
+			if (!flag) state = false;
+			if (m_view.m_body.m_upqualitytipui.playing) state = false;
 		}
 	}
 }
