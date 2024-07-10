@@ -96,7 +96,7 @@ namespace SGame
         AssetRequest LoadAI(string name)
         {
             string path = "Assets/BuildAsset/VisualScript/Prefabs/AI/" + name + ".prefab";
-            return Assets.LoadAssetAsync(path, typeof(GameObject));
+            return Assets.LoadAsset(path, typeof(GameObject));
         }
 
         /// <summary>
@@ -121,11 +121,11 @@ namespace SGame
             }
 
             m_model = GameObject.Instantiate(modelRequest.asset as GameObject, transform);
-            var aiWait = AILoader.Instance.AddWait();
-            yield return aiWait; // AI创建需要等待
             m_ai = GameObject.Instantiate(aiReq.asset as GameObject, transform);
-            //var s = m_ai.GetComponent<Unity.VisualScripting.ScriptMachine>();
-            //s.graph.Prewarm();
+            //var aiWait = AILoader.Instance.AddWait(aiReq.asset as GameObject);
+            //yield return aiWait;
+            //m_ai = aiWait.Current as GameObject;
+            //m_ai.transform.SetParent(transform);
         }
 
         /// <summary>

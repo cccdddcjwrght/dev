@@ -86,7 +86,7 @@ using System.Collections.Generic;
             modelAnimator       = model.GetComponent<Animator>();
             m_slot              = gameObject.AddComponent<Equipments>();
             ani.SetActive(true);
-            m_slot.UpdateModel();
+            //m_slot.UpdateModel();
             if (roleType == (int)EnumRole.Player)
                 model.SetActive(false);
         }
@@ -121,13 +121,13 @@ using System.Collections.Generic;
             }
 
             var ai_path = Utils.GetAIPath(configAI);
-            var req = Assets.LoadAssetAsync(ai_path, typeof(GameObject));
+            var req = Assets.LoadAsset(ai_path, typeof(GameObject));
             yield return req;
             var prefab = req.asset as GameObject;
             
             // 等待上一个AI结束
-            var waitReq = AILoader.Instance.AddWait();
-            yield return waitReq;
+            //var waitReq = AILoader.Instance.AddWait();
+            //yield return waitReq;
             
             var ai = GameObject.Instantiate(prefab);
             ai.transform.parent = transform;
