@@ -176,6 +176,12 @@ using System.Collections.Generic;
         private void OnDestroy()
         {
             Clear();
+            
+            if (m_init != null)
+            {
+                m_init.Terminate();
+                m_init = null;
+            }
         }
         
         public void Clear()
@@ -190,12 +196,6 @@ using System.Collections.Generic;
                 model.SetActive(false);
                 CharacterFactory.Instance.Despawn(model);
                 model = null;
-            }
-
-            if (m_init != null)
-            {
-                m_init.Terminate();
-                m_init = null;
             }
         }
         
