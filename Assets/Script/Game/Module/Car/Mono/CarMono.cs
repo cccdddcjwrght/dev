@@ -109,10 +109,10 @@ namespace SGame
             var modelRequest = Assets.LoadAssetAsync(ASSET_PATH + m_config.Model, typeof(GameObject));
             yield return aiReq;
             yield return modelRequest;
-            aiReq.Require(gameObject);
-            modelRequest.Require(gameObject);
-            aiReq.Release();
-            modelRequest.Release();
+            //aiReq.Require(gameObject);
+            //modelRequest.Require(gameObject);
+            //aiReq.Release();
+            //modelRequest.Release();
 
             if (!string.IsNullOrEmpty(aiReq.error) || !string.IsNullOrEmpty(modelRequest.error))
             {
@@ -124,6 +124,8 @@ namespace SGame
             var aiWait = AILoader.Instance.AddWait();
             yield return aiWait; // AI创建需要等待
             m_ai = GameObject.Instantiate(aiReq.asset as GameObject, transform);
+            //var s = m_ai.GetComponent<Unity.VisualScripting.ScriptMachine>();
+            //s.graph.Prewarm();
         }
 
         /// <summary>

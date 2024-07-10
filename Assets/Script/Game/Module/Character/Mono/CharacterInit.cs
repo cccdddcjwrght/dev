@@ -73,7 +73,7 @@ using System.Collections.Generic;
             ani.transform.localPosition = Vector3.zero;
             ani.transform.localScale = Vector3.one;
             ani.name = "Model";
-            ani.SetActive(true);
+            //ani.SetActive(true);
             if (config.RoleScaleLength == 3)
             {
                 var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
@@ -85,6 +85,8 @@ using System.Collections.Generic;
             
             modelAnimator       = model.GetComponent<Animator>();
             m_slot              = gameObject.AddComponent<Equipments>();
+            
+            model.SetActive(roleType != (int)EnumRole.Player);
         }
         
         
@@ -94,10 +96,6 @@ using System.Collections.Generic;
         /// <returns></returns>
         IEnumerator InitAI()
         {
-            // 等待上一个AI结束
-            var waitReq = AILoader.Instance.AddWait();
-            yield return waitReq;
-            
             /// 获得AI配置
             string configAI = "";
             ConfigSystem.Instance.TryGet(m_roleConfig.Model, out GameConfigs.roleRowData config);
@@ -124,6 +122,11 @@ using System.Collections.Generic;
             var req = Assets.LoadAssetAsync(ai_path, typeof(GameObject));
             yield return req;
             var prefab = req.asset as GameObject;
+            
+            // 等待上一个AI结束
+            var waitReq = AILoader.Instance.AddWait();
+            yield return waitReq;
+            
             var ai = GameObject.Instantiate(prefab);
             ai.transform.parent = transform;
             ai.transform.localRotation = Quaternion.identity;

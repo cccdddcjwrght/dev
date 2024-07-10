@@ -175,11 +175,7 @@ using System.Collections.Generic;
 
         private void OnDestroy()
         {
-            ClearFood();
-            ClearHudEntity();
-            m_slot.Clear();
-            if (m_init != null)
-                m_init.Terminate();
+            Clear();
         }
         
         public void Clear()
@@ -191,8 +187,15 @@ using System.Collections.Generic;
 
             if (model != null)
             {
+                model.SetActive(false);
                 CharacterFactory.Instance.Despawn(model);
                 model = null;
+            }
+
+            if (m_init != null)
+            {
+                m_init.Terminate();
+                m_init = null;
             }
         }
         
