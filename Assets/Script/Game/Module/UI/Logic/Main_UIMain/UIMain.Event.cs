@@ -228,7 +228,7 @@ namespace SGame.UI
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
 			ui.m_side.selectedIndex = isLeft ? 0 : 1;
-
+			ui.m_redpoint.visible = true;
 			if ((int)FunctionID.TREASURE == config.funcID)
 				ui.m_side.selectedIndex = 3;
 
