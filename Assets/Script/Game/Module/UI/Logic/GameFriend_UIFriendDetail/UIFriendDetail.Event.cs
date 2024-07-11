@@ -23,7 +23,7 @@ namespace SGame.UI{
 		}
 		partial void InitEvent(UIContext context){
 			context.window.AddEventListener("OnMaskClick", OnMaskClick);
-			m_view.m_btnClose.onClick.Add(OnMaskClick);
+			//m_view.m_btnClose.onClick.Add(OnMaskClick);
 			m_view.m_btnDelete.onClick.Add(OnClickUnFriend);
 			m_view.m_btnOK.onClick.Add(OnClickHire);
 			

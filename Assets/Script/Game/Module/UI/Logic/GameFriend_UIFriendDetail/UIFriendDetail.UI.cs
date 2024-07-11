@@ -15,7 +15,7 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_recomment.onChanged.Add(new EventCallback1(_OnRecommentChanged));
 			m_view.m_comfirm.onChanged.Add(new EventCallback1(_OnComfirmChanged));
-			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick));
+			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick));
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick));
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick));
@@ -28,7 +28,7 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 			m_view.m_recomment.onChanged.Remove(new EventCallback1(_OnRecommentChanged));
 			m_view.m_comfirm.onChanged.Remove(new EventCallback1(_OnComfirmChanged));
-			UIListener.Listener(m_view.m_btnClose, new EventCallback1(_OnBtnCloseClick),remove:true);
+			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_btnOK, new EventCallback1(_OnBtnOKClick),remove:true);
 			UIListener.Listener(m_view.m_btnDelete, new EventCallback1(_OnBtnDeleteClick),remove:true);
 			UIListener.ListenerClose(m_view.m_comfirmDialog.m_body, new EventCallback1(DoCloseUIClick),remove:true);
@@ -48,14 +48,17 @@ namespace SGame.UI{
 		}
 		partial void OnComfirmChanged(EventContext data);
 		void SwitchComfirmPage(int index)=>m_view.m_comfirm.selectedIndex=index;
-		void _OnBtnCloseClick(EventContext data){
-			OnBtnCloseClick(data);
-		}
-		partial void OnBtnCloseClick(EventContext data);
-		void SetBtnCloseText(string data)=>UIListener.SetText(m_view.m_btnClose,data);
-		string GetBtnCloseText()=>UIListener.GetText(m_view.m_btnClose);
 		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
 		string GetTitleText()=>UIListener.GetText(m_view.m_title);
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
+		}
+		partial void OnUICloseClick(ref bool state);
+		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
+		string GetCloseText()=>UIListener.GetText(m_view.m_close);
 		void _OnBtnOKClick(EventContext data){
 			OnBtnOKClick(data);
 		}
@@ -68,13 +71,6 @@ namespace SGame.UI{
 		partial void OnBtnDeleteClick(EventContext data);
 		void SetBtnDeleteText(string data)=>UIListener.SetText(m_view.m_btnDelete,data);
 		string GetBtnDeleteText()=>UIListener.GetText(m_view.m_btnDelete);
-		void DoCloseUIClick(EventContext data){
-			 bool __closestate = true;
-			 OnUICloseClick(ref __closestate);
-			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
-			 
-		}
-		partial void OnUICloseClick(ref bool state);
 		void SetComfirm_TitleNameText(string data)=>UIListener.SetText(m_view.m_comfirmDialog.m_titleName,data);
 		string GetComfirm_TitleNameText()=>UIListener.GetText(m_view.m_comfirmDialog.m_titleName);
 		void _OnComfirm_BtnCancleClick(EventContext data){
