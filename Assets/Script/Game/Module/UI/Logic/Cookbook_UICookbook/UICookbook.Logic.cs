@@ -16,6 +16,9 @@ namespace SGame.UI
 		partial void InitLogic(UIContext context)
 		{
 			m_view.m_list.itemRenderer = OnSetItemInfo;
+
+			m_eventContainer += EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnCookbookUpClose);
+
 			SwitchTabsPage(0);
 			OnTabsChanged(null);
 
@@ -58,9 +61,14 @@ namespace SGame.UI
 
 		#region CookBook
 
+		void OnCookbookUpClose(string name)
+		{
+			if (name == "cookbookup") OnCookBookTab();
+		}
 
 		void OnCookBookTab()
 		{
+			if (m_view == null || m_view.m_list == null) return;
 			m_view.m_list.RemoveChildrenToPool();
 			var bs = DataCenter.CookbookUtils.GetBooks();
 			bs.Sort((b, a) =>
@@ -117,10 +125,7 @@ namespace SGame.UI
 		{
 			var d = (data.sender as GObject)?.data;
 			if (d != null)
-			{
-				DelayExcuter.Instance.OnlyWaitUIClose("cookbookup", OnCookBookTab, true);
 				SGame.UIUtils.OpenUI("cookbookup", d);
-			}
 			else
 				log.Error("数据为空");
 		}
