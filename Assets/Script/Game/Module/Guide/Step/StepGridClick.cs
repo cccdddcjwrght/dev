@@ -3,69 +3,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SGame 
+namespace SGame
 {
     public class StepGridClick : Step
     {
-        bool isLock = false;
         public EventHandleContainer m_EventHandle = new EventHandleContainer();
         public override IEnumerator Excute()
         {
-            if (m_Config.Force == 0) 
+            if (m_Config.Force == 0)
             {
                 GuideManager.Instance.SetCoerceGuideState(true);
-                m_Handler.DisableControl(true);
-                UILockManager.Instance.Require("guide_grid");
                 m_Handler.DisableCameraDrag(true);
-                isLock = true;
             }
-       
+
             Debug.Log("<color=yellow>GridClick wait</color>");
             yield return m_Handler.WaitFingerClose();
 
+            Debug.Log("<color=yellow>GridClick runing</color>");
+            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.WORK_REGION_CLICK, Finish);
             m_Handler.InitConfig(m_Config);
+
             if (m_Config.Force == 0)
             {
                 UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
                 UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
-
-                yield return m_Handler.WaitGuideMaskOpen();
-                m_Handler.DisableControl(false);
-                UILockManager.Instance.Release("guide_grid");
-                isLock = false;
             }
-            else 
+            else
             {
-                if(m_Config.GuideType == 0) m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Finish);
+                if (m_Config.GuideType == 0) m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Finish);
                 else m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
                 UIUtils.OpenUI("guidefingerscene", new UIParam() { Value = m_Handler });
             }
-            Debug.Log("<color=yellow>GridClick runing</color>");
-            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.WORK_REGION_CLICK, Finish);
 
             yield break;
         }
 
-        //public void Stop() 
-        //{
-        //    GuideManager.Instance.StopGuide(m_Config.GuideId);
-        //}
+        public void Stop()
+        {
+            GuideManager.Instance.StopGuide(m_Config.GuideId);
+        }
 
-        public override void Dispose() 
+        public override void Dispose()
         {
             //Ç¿Ö¸Òý
-            if (m_Config.Force == 0) 
+            if (m_Config.Force == 0)
             {
                 UIUtils.CloseUIByName("guideback");
                 GuideManager.Instance.SetCoerceGuideState(false);
                 m_Handler.DisableCameraDrag(false);
-
-                if (isLock) 
-                {
-                    m_Handler.DisableControl(false);
-                    UILockManager.Instance.Release("guide_grid");
-                }
-                
             }
             UIUtils.CloseUIByName("fingerui");
             UIUtils.CloseUIByName("guidefingerscene");
