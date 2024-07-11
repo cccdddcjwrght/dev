@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 50
     OrthographicSize: 11
-    NearClipPlane: -30
+    NearClipPlane: -10
     FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
@@ -268,9 +268,9 @@ MonoBehaviour:
     name: xm
     isEnable: 1
     isUselimit: 1
-    startValue: -6
-    minValue: -11
-    maxValue: 11
+    startValue: -4
+    minValue: -7
+    maxValue: 7
     currentValue: 0
     inputValue: 0
     wrapValue: 0
@@ -320,9 +320,9 @@ MonoBehaviour:
     name: zm
     isEnable: 1
     isUselimit: 1
-    startValue: 0
-    minValue: -30
-    maxValue: 30
+    startValue: 26
+    minValue: -33
+    maxValue: 31
     currentValue: 0
     inputValue: 0
     wrapValue: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
     isAxis: 1
     lerp: 1
     startPos: {x: 1, y: 0, z: 1.2}
-    endPos: {x: 0.6, y: 0, z: 0.72}
+    endPos: {x: 0.4, y: 0, z: 0.72}
     enableControl: 1
     disableBounce: 1
     control:
