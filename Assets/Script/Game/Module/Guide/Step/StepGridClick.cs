@@ -7,6 +7,7 @@ namespace SGame
 {
     public class StepGridClick : Step
     {
+        bool isLock = false;
         public EventHandleContainer m_EventHandle = new EventHandleContainer();
         public override IEnumerator Excute()
         {
@@ -14,8 +15,9 @@ namespace SGame
             {
                 GuideManager.Instance.SetCoerceGuideState(true);
                 m_Handler.DisableControl(true);
-                //UILockManager.Instance.Require("guide_grid");
+                UILockManager.Instance.Require("guide_grid");
                 m_Handler.DisableCameraDrag(true);
+                isLock = true;
             }
        
             Debug.Log("<color=yellow>GridClick wait</color>");
@@ -29,7 +31,8 @@ namespace SGame
 
                 yield return m_Handler.WaitGuideMaskOpen();
                 m_Handler.DisableControl(false);
-                //UILockManager.Instance.Release("guide_grid");
+                UILockManager.Instance.Release("guide_grid");
+                isLock = false;
             }
             else 
             {
@@ -56,12 +59,18 @@ namespace SGame
                 UIUtils.CloseUIByName("guideback");
                 GuideManager.Instance.SetCoerceGuideState(false);
                 m_Handler.DisableCameraDrag(false);
-                m_Handler.DisableControl(false);
+
+                if (isLock) 
+                {
+                    m_Handler.DisableControl(false);
+                    UILockManager.Instance.Release("guide_grid");
+                }
+                
             }
             UIUtils.CloseUIByName("fingerui");
             UIUtils.CloseUIByName("guidefingerscene");
             UIUtils.CloseUIByName("dialogue");
-            m_EventHandle.Close();
+            m_EventHandle?.Close();
             m_EventHandle = null;
         }
     }
