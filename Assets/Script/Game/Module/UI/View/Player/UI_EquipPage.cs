@@ -36,12 +36,12 @@ namespace SGame.UI.Player
             m_attrbtn = (GButton)GetChildAt(1);
             m_attr = (GTextField)GetChildAt(4);
             m_holder = (GGraph)GetChildAt(7);
-            m_eq1 = (UI_EqPos)GetChildAt(9);
-            m_eq2 = (UI_EqPos)GetChildAt(10);
-            m_eq3 = (UI_EqPos)GetChildAt(11);
-            m_eq5 = (UI_Equip)GetChildAt(13);
-            m_eq6 = (UI_Equip)GetChildAt(14);
-            m_eq4 = (UI_Equip)GetChildAt(15);
+            m_eq1 = (UI_EqPos)GetChildAt(10);
+            m_eq2 = (UI_EqPos)GetChildAt(11);
+            m_eq3 = (UI_EqPos)GetChildAt(12);
+            m_eq5 = (UI_Equip)GetChildAt(14);
+            m_eq6 = (UI_Equip)GetChildAt(15);
+            m_eq4 = (UI_Equip)GetChildAt(16);
         }
     }
 }
