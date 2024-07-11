@@ -13,20 +13,23 @@ namespace SGame
             if (m_Config.Force == 0) 
             {
                 GuideManager.Instance.SetCoerceGuideState(true);
+                m_Handler.DisableControl(true);
+                //UILockManager.Instance.Require("guide_grid");
                 m_Handler.DisableCameraDrag(true);
             }
        
             Debug.Log("<color=yellow>GridClick wait</color>");
             yield return m_Handler.WaitFingerClose();
 
-            Debug.Log("<color=yellow>GridClick runing</color>");
-            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.WORK_REGION_CLICK, Finish);
             m_Handler.InitConfig(m_Config);
-
             if (m_Config.Force == 0)
             {
                 UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
                 UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
+
+                yield return m_Handler.WaitGuideMaskOpen();
+                m_Handler.DisableControl(false);
+                //UILockManager.Instance.Release("guide_grid");
             }
             else 
             {
@@ -34,14 +37,16 @@ namespace SGame
                 else m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
                 UIUtils.OpenUI("guidefingerscene", new UIParam() { Value = m_Handler });
             }
- 
+            Debug.Log("<color=yellow>GridClick runing</color>");
+            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.WORK_REGION_CLICK, Finish);
+
             yield break;
         }
 
-        public void Stop() 
-        {
-            GuideManager.Instance.StopGuide(m_Config.GuideId);
-        }
+        //public void Stop() 
+        //{
+        //    GuideManager.Instance.StopGuide(m_Config.GuideId);
+        //}
 
         public override void Dispose() 
         {
@@ -51,6 +56,7 @@ namespace SGame
                 UIUtils.CloseUIByName("guideback");
                 GuideManager.Instance.SetCoerceGuideState(false);
                 m_Handler.DisableCameraDrag(false);
+                m_Handler.DisableControl(false);
             }
             UIUtils.CloseUIByName("fingerui");
             UIUtils.CloseUIByName("guidefingerscene");

@@ -44,6 +44,7 @@ namespace SGame
 
         public void Run(int guideId)
         {
+            UILockManager.Instance.Release("guide_step_runing");
             if (guideId != __guideId) return;
             //清除主线以外的指引
             if (ConfigSystem.Instance.TryGet<GameConfigs.GuideRowData>((i) => i.GuideId ==__guideId && i.Step == __stepIndex, out var cfg) && cfg.GuideType == 0) 
@@ -55,7 +56,9 @@ namespace SGame
 
             if (__stepIndex < steps.Count)
             {
+                var config = steps[__stepIndex].m_Config;
                 Debug.Log(string.Format("<color=green>cur guide id:{0}, step: {1}, cmd: {2}</color>", __guideId, __stepIndex, steps[__stepIndex].m_Config.Cmd));
+                Debug.Log(string.Format("<color=cyan> guideId:{0} step:{1} cmd: {2}  start time : {3} </color>", config.GuideId, config.Step, config.Cmd, Time.realtimeSinceStartupAsDouble));
                 m_Coroutine = steps[__stepIndex++].Excute().Start();
             }
             else
