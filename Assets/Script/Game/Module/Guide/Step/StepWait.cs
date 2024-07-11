@@ -10,12 +10,13 @@ namespace SGame
     /// </summary>
     public class StepWait : Step
     {
+        GTweener tween;
         public override IEnumerator Excute()
         {
             float time = m_Config.FloatParam(0);
             UILockManager.Instance.Require("guide");
             m_Handler.DisableControl(true);
-            GTween.To(0, 1, time).OnComplete(Finish);
+            tween = GTween.To(0, 1, time).OnComplete(Finish);
             yield break;
         }
 
@@ -23,6 +24,7 @@ namespace SGame
         {
             UILockManager.Instance.Release("guide");
             m_Handler.DisableControl(false);
+            tween?.Kill();
         }
     }
 }
