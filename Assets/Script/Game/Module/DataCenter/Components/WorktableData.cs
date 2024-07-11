@@ -136,7 +136,7 @@ namespace SGame
 				}
 				if (ifMissAdd && (val == null || val.id == 0))
 				{ val = AddWorktable(id, scene); }
-				if (val != null && !(val.cfg.IsValid() || val.objCfg.IsValid()))
+				if (val != null && val.type != 1 && !(val.cfg.IsValid() || val.objCfg.IsValid()))
 					val.Refresh();
 				return val;
 			}
@@ -573,7 +573,7 @@ namespace SGame
 
 		public int level { get { return lvStart + lv; } }
 
-		public string name { get { return foodCfg.IsValid() ?  foodCfg.Name : cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
+		public string name { get { return foodCfg.IsValid() ? foodCfg.Name : cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
 
 		public string foodName { get { return foodCfg.IsValid() ? "ui_worktable_name".Local(null, foodCfg.Name.Local()) : name.Local(); } }
 
@@ -708,7 +708,7 @@ namespace SGame
 
 			if (type > 3)
 			{
-				ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level, out objLvCfg);
+				if (lv > 0) ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level, out objLvCfg);
 				ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level + 1, out objNextLvCfg);
 			}
 			else if (!isTable && ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg))
