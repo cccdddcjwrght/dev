@@ -13,9 +13,10 @@ namespace SGame
             if (m_Config.Force == 0)
             {
                 GuideManager.Instance.SetCoerceGuideState(true);
+                m_Handler.DisableControl(true);
                 m_Handler.DisableCameraDrag(true);
             }
-
+            
             Debug.Log("<color=yellow>GridClick wait</color>");
             yield return m_Handler.WaitFingerClose();
 
@@ -27,6 +28,9 @@ namespace SGame
             {
                 UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
                 UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
+                yield return m_Handler.WaitGuideMaskOpen();
+
+                m_Handler.DisableControl(false);
             }
             else
             {
@@ -38,10 +42,10 @@ namespace SGame
             yield break;
         }
 
-        public void Stop()
-        {
-            GuideManager.Instance.StopGuide(m_Config.GuideId);
-        }
+        //public void Stop()
+        //{
+        //    GuideManager.Instance.StopGuide(m_Config.GuideId);
+        //}
 
         public override void Dispose()
         {
@@ -50,6 +54,7 @@ namespace SGame
             {
                 UIUtils.CloseUIByName("guideback");
                 GuideManager.Instance.SetCoerceGuideState(false);
+                m_Handler.DisableControl(false);
                 m_Handler.DisableCameraDrag(false);
             }
             UIUtils.CloseUIByName("fingerui");

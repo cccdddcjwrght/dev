@@ -26,7 +26,7 @@ namespace SGame
 
 		void ListenClick()
 		{
-			if (DataCenter.Instance.guideData.isGuide) return;
+			if (GuideManager.Instance.IsCoerce) return;
 			if (!_hit) Close();
 			_hit = false;
 		}
