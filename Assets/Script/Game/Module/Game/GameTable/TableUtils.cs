@@ -24,5 +24,24 @@ namespace SGame
             int score = data.foodsCount * MAX_LEN + len;
             return score;
         }
+
+        /// <summary>
+        /// 获得菜品工作时间
+        /// </summary>
+        /// <returns></returns>
+        public static float GetFoodMakingTime(int roleID, int foodType)
+        {
+            int machineID = TableManager.Instance.FindMachineIDFromFoodType(foodType);
+            
+            // 食物制作时间
+            double workTime = DataCenter.MachineUtil.GetWorkTime(machineID);
+            
+            // 玩家制作效率
+            double workSpeed = AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.WorkSpeed);
+            
+            // 最终时间
+            double finalTime = workTime / workSpeed;
+            return (float)finalTime;
+        }
     }
 }

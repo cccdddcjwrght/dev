@@ -31,7 +31,7 @@ using System.Collections.Generic;
         {
             this.entity         = entity;
             this.entityManager  = mgr;
-            m_orderRecord.Initalize(this.CharacterID);
+            m_orderRecord.Initalize(this.CharacterID, roleID);
 
             if (!ConfigSystem.Instance.TryGet(roleID, out m_roleConfig))
             {

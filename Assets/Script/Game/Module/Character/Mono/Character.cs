@@ -657,5 +657,22 @@ using System.Collections.Generic;
         public bool IsMakingFood => order.progress == ORDER_PROGRESS.FOOD_START;
         
         public int takeOrderNum => m_orderRecord.takeOrderNum;
+
+        /// <summary>
+        /// 计算到目的地的工作时间
+        /// </summary>
+        /// <param name="targetPos"></param>
+        /// <returns></returns>
+        public float GetWorkTime(Vector2Int pos)
+        {
+            var curPos = GetVector2IntPos();
+            var speed = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<Speed>(entity);
+            float time1 = m_orderRecord.GetOrderTime();
+            float distance = m_orderRecord.GetOrderDistance(curPos, pos);
+            float time2 = distance / speed.Value;
+
+            return time1 + time2;
+        }
+    
     }
 }

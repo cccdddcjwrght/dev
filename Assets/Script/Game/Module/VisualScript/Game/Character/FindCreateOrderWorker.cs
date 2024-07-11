@@ -54,14 +54,14 @@ namespace SGame.VS
                 {
                     CharacterModule.Instance.FindCharacters(m_result, (character) =>
                         BitOperator.Get(character.workerAread, area)           // 区域匹配
-                        && character.isIdle                                                  // 状态匹配
+                        //&& character.isIdle                                                  // 状态匹配
                         && BitOperator.Get(roleTypeMask, character.roleType));          // (character.roleType == roleType1 || character.roleType == roleType2));
                 }
                 else
                 {
                     CharacterModule.Instance.FindCharacters(m_result, (character) =>
                         BitOperator.Get(character.workerAread, area)           // 区域匹配
-                        && character.isIdle                                                  // 状态匹配
+                        //&& character.isIdle                                                  // 状态匹配
                         && character.takeOrderNum <  maxTakeOrderNum                         // 连续接单数量
                         && BitOperator.Get(roleTypeMask, character.roleType)); 
                 }
