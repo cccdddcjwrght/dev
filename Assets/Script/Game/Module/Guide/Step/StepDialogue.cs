@@ -14,6 +14,7 @@ namespace SGame
         {
             m_Handler.InitConfig(m_Config);
             UILockManager.Instance.Require("guide_dialogue");
+            m_Handler.DisableControl(true);
             isLock = true;
             yield return WaitClose();
             UIUtils.OpenUI("dialogue", new UIParam() { Value = m_Handler });
@@ -21,6 +22,7 @@ namespace SGame
 
             isLock = false;
             UILockManager.Instance.Release("guide_dialogue");
+            m_Handler.DisableControl(false);
             if (m_Config.Force == 0) //强指引直接结束（等待UIClick点击后关闭）
             {
                 Finish();
@@ -59,6 +61,7 @@ namespace SGame
                 UIUtils.CloseUIByName("dialogue");
             }
             if(isLock) UILockManager.Instance.Release("guide_dialogue");
+            m_Handler.DisableControl(false);
 
             m_EventHandle.Close();
             m_EventHandle = null;
