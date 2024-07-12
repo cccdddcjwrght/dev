@@ -62,7 +62,7 @@ public class GameServerTime : Singleton<GameServerTime>
 			m_nextServerDayTime = d.ToUnixTimeSeconds();
 			m_lastDay = DateTimeOffset.FromUnixTimeSeconds(serverTime).DateTime.DayOfYear;
 		}
-		m_localTime = GlobalTime.passTime;
+		m_localTime = realtime;// GlobalTime.passTime;
 		m_serverTime = serverTime;
 		m_lastDay = serverDay;
 
@@ -76,7 +76,7 @@ public class GameServerTime : Singleton<GameServerTime>
 			if (m_localTime == 0 || m_serverTime == 0)
 				return 0;
 
-			double diffTime = GlobalTime.passTime - m_localTime;
+			double diffTime = realtime - m_localTime;
 			int ret = m_serverTime + (int)diffTime;
 			return ret;
 		}
@@ -84,4 +84,5 @@ public class GameServerTime : Singleton<GameServerTime>
 
 	public int nextDayTime { get { return (int)m_nextServerDayTime; } }
 
+	private double realtime { get { return Time.realtimeSinceStartupAsDouble; } }
 }

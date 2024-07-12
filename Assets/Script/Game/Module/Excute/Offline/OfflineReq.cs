@@ -82,6 +82,7 @@ namespace SGame
 			}
 			if (!cache)
 				PropertyManager.Instance.CombineCache2Items();
+			DataCenter.Instance.SavePlayerData();
 		}
 	}
 }
