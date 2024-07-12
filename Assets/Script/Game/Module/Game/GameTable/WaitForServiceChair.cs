@@ -80,6 +80,21 @@ public class WaitForServiceChair : Singleton<WaitForServiceChair>
     }
 
     /// <summary>
+    /// 获取第一个
+    /// </summary>
+    /// <param name="chair"></param>
+    /// <returns></returns>
+    public bool Peek(out ChairData chair)
+    {
+        chair = ChairData.Null;
+        if (m_chairQuee.Count == 0)
+            return false;
+
+        chair = m_chairQuee.Peek();
+        return true;
+    }
+
+    /// <summary>
     /// 判断当前是否有座位
     /// </summary>
     /// <returns></returns>

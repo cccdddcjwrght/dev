@@ -98,7 +98,7 @@ namespace SGame
         
         public ChairData workerChair => m_datas[0].workerChair;
 
-        public int takeOrderNum => m_takeOrderNum;
+        public int takeOrderNum => m_datas.Count == 0 ? 0 : m_takeOrderNum;
 
         public void Initalize(int characterID, int roleID)
         {
@@ -160,8 +160,8 @@ namespace SGame
         public void EnterIdle()
         {
             // 没有待处理的数据
-            PopTask();
-            //LeaveAllChairs();
+            if (m_datas.Count > 0)
+                PopTask();
         }
 
         void AddTask(TaskData task)
