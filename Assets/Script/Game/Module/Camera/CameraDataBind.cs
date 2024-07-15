@@ -147,10 +147,11 @@ public class CameraDataBind
 		return this;
 	}
 
-	public float Rate()
+	public float Rate(float val = 0)
 	{
+		val = val == 0 ? GetValue() : val;
 		if (maxValue != 0 && minValue != 0)
-			return (GetValue() - minValue) / (maxValue - minValue);
+			return (val - minValue) / (maxValue - minValue);
 		return -1f;
 	}
 }
