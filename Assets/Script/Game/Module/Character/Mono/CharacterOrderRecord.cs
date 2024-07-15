@@ -25,11 +25,9 @@ namespace SGame
         public struct TaskData
         {
             public OrderData orderData;      // 订单数据
-            public ChairData customerChair;  // 点单的顾客位置
-            public ChairData workerChair;    // 分配的工作位置
-            public float     foodTime;
+            public float     workTime;       // 用于缓存订单时间, 用于后续判定订单分配
 
-            public bool isOrder => orderData != null;
+            public bool isOrder => orderData.progress != ORDER_PROGRESS.WAIT_ORDER;
 
             /// <summary>
             /// 获得任务完成时的位置
@@ -39,29 +37,7 @@ namespace SGame
             public bool GetPosition(out int2 pos)
             {
                 pos = int2.zero;
-                if (orderData != null)
-                {
-                    if (orderData.progress == ORDER_PROGRESS.MOVETO_CUSTOM)
-                    {
-                        if (orderData.customer == ChairData.Null)
-                            return false;
-                        pos = orderData.customer.map_pos;
-                    }
-                    else
-                    {
-                        if (workerChair == ChairData.Null)
-                            return false;
-                        pos = workerChair.map_pos;
-                    }
-                    return true;
-                }
-                else
-                {
-                    if (customerChair == ChairData.Null)
-                         return false;
-                    pos = customerChair.map_pos;
-                }
-
+                pos = orderData.GetPosition();
                 return true;
             }
         }
@@ -75,15 +51,7 @@ namespace SGame
         public bool isIdle => m_datas.Count == 0;
 
         public bool hasWorking => m_datas.Count > 0;//(m_orderData != null || m_customerChair != ChairData.Null);
-
-        // 身上待处理的订单
-        //private OrderData m_orderData = null; 
-
-        // 待处理的角色座椅, 用于去到客户位置
-        //private ChairData m_customerChair = ChairData.Null;
         
-        // 工作台位置, 用于制作食物 
-        //private ChairData m_workerChair = ChairData.Null;
 
         public OrderData order => m_datas[0].orderData;
 
@@ -94,9 +62,9 @@ namespace SGame
         
         public int       orderID => m_datas.Count > 0 && m_datas[0].orderData != null ? m_datas[0].orderData.id : 0;
 
-        public ChairData customerChair => m_datas[0].customerChair;
+        public ChairData customerChair => m_datas[0].orderData.customer;
         
-        public ChairData workerChair => m_datas[0].workerChair;
+        public ChairData workerChair => m_datas[0].orderData.workerChair;
 
         public int takeOrderNum => m_datas.Count == 0 ? 0 : m_takeOrderNum;
 
@@ -119,13 +87,20 @@ namespace SGame
                 log.Error("worker chair is null");
                 return false;
             }
+
+            if (order.progress != ORDER_PROGRESS.ORDED)
+            {
+                log.Error("order progress error=" + order.progress);
+                return false;
+            }
+
             
             // 锁定座位
             TableManager.Instance.SitChair(workerChair, m_characterID);
 
             // 修改订单状态
-            order.CookerTake(m_characterID);
-            AddTask(new TaskData() { orderData = order, workerChair = workerChair});
+            order.CookerTake(m_characterID, workerChair);
+            AddTask(new TaskData() { orderData = order});
             return true;
         }
 
@@ -140,15 +115,15 @@ namespace SGame
             AddTask(new TaskData() { orderData = order });
             return true;
         }
+        
         /// <summary>
-        /// 添加待处理椅子
+        /// 添加待处理椅子订单
         /// </summary>
         /// <param name="chair"></param>
-        public void AddCustomerChair(ChairData chair)
+        public void AddCustomerChair(OrderData order)
         {
-            AddTask(new TaskData() { orderData = null, customerChair = chair});
+            AddTask(new TaskData() { orderData = order });
         }
-
 
         public bool hasOrder => m_datas.Count > 0 && m_datas[0].isOrder;//m_orderData != null;
 
@@ -171,18 +146,7 @@ namespace SGame
             else
                 m_takeOrderNum++;
 
-            if (task.orderData != null)
-            {
-                if (task.orderData.progress == ORDER_PROGRESS.FOOD_START)
-                {
-                    task.foodTime = TableUtils.GetFoodMakingTime(this.m_characterID, task.orderData.foodType);
-                }
-                else
-                {
-                    task.foodTime = 0;
-                }
-            }
-            
+            task.workTime = TableUtils.GetOrderWorkTime(task.orderData, m_roleID);
             m_datas.Add(task);
         }
 
@@ -195,9 +159,9 @@ namespace SGame
             }
 
             var item = m_datas[0];
-            if (item.isOrder && item.workerChair != ChairData.Null)
+            if (item.orderData.workerChair != ChairData.Null)
             {
-                TableManager.Instance.LeaveChair(item.workerChair, m_characterID);
+                TableManager.Instance.LeaveChair(item.orderData.workerChair, m_characterID);
             }
             m_datas.RemoveAt(0);
         }
@@ -208,11 +172,9 @@ namespace SGame
         public void LeaveAllChairs()
         {
             var item = m_datas[0];
-            if (item.isOrder && item.workerChair != ChairData.Null)
+            if (item.orderData.workerChair != ChairData.Null)
             {
-                TableManager.Instance.LeaveChair(item.workerChair, m_characterID);
-                item.workerChair = ChairData.Null;
-                item.customerChair = ChairData.Null;
+                TableManager.Instance.LeaveChair(item.orderData.workerChair, m_characterID);
                 m_datas[0] = item;
             }
         }
@@ -225,7 +187,7 @@ namespace SGame
         {
             float t = 0;
             foreach (var item in m_datas)
-                t += item.foodTime;
+                t += item.workTime;
 
             return t;
         }

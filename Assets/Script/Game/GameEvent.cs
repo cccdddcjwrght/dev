@@ -42,13 +42,14 @@ namespace SGame
 		ENTER_NEW_ROOM				= 117,//进入新场景
 		GAME_ENTER_VIEW_STATR		= 118,//进场视频开始
 		GAME_ENTER_VIEW_END			= 119,//进场视频结束
-
+		
 		ORDER = 200,                             // 创建新订单 (int 订单ID)
-		ORDER_FOODMAKED				= 201,       // 
+		//ORDER_FOODMAKED				= 201,   // 食物完成了
 		ORDER_FINSIH				= 202,       // 订单完成 (int 订单ID)
 		ORDER_INSTANT				= 203,       // 订单立即完成 (int 订单ID)
 		ORDER_PERFECT				= 204,       // 订单完美制作 (int 订单ID)
-		ORDER_START					= 205,       // 顾客创建订单 (int 顾客实例ID)
+		ORDER_REQUEST				= 205,       // 顾客请求创建订单 (int 订单ID)
+		ORDER_FOOD_READLY			= 206,		 // 食物已经准备好了 (int 订单ID)
 		
 		/// 角色
 		CHARACTER_CREATE			= 301, // 角色创建 (int 角色实例ID, int roleID, int roleType)

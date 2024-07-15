@@ -43,5 +43,34 @@ namespace SGame
             double finalTime = workTime / workSpeed;
             return (float)finalTime;
         }
+        
+        private static ConfigValueFloat ORDER_BASE_TIME     = new ConfigValueFloat("order_time", 1);
+
+        /// <summary>
+        /// 获得点单时间
+        /// </summary>
+        /// <param name="roleID"></param>
+        /// <returns></returns>
+        public static float GetOrderTime(int roleID)
+        {
+            double orderSpeed = AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.OrderSpeed);
+            return ORDER_BASE_TIME.Value / (float)orderSpeed;
+        }
+
+        public static float GetOrderWorkTime(OrderData order, int roleID)
+        {
+            if (order.progress == ORDER_PROGRESS.FOOD_START)
+            {
+                // 工作时间
+                return TableUtils.GetFoodMakingTime(roleID, order.foodType);
+            }
+            else if (order.progress == ORDER_PROGRESS.WAIT_ORDER)
+            {
+                // 等待点单
+                return TableUtils.GetOrderTime(roleID);
+            }
+
+            return 0;
+        }
     }
 }

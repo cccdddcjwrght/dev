@@ -21,20 +21,7 @@ namespace SGame.VS
         {
             base.Definition();
 
-            
             resultTime          = ValueOutput<float>("time", GetValue);
-        }
-
-        private static float _baseOrderTime = 0;
-        static float baseOrderTime
-        {
-            get
-            {
-                if (_baseOrderTime == 0)
-                    _baseOrderTime = GlobalDesginConfig.GetFloat("order_time");
-
-                return _baseOrderTime;
-            }
         }
 
         /// <summary>
@@ -45,8 +32,7 @@ namespace SGame.VS
         float GetValue(Flow flow)
         {
             int roleID = GetRoleID(flow);
-            double orderSpeed = AttributeSystem.Instance.GetValueByRoleID(roleID, EnumAttribute.OrderSpeed);
-            return baseOrderTime / (float)orderSpeed;
+            return TableUtils.GetOrderTime(roleID);
         }
     }
 }

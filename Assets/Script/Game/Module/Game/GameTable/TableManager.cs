@@ -19,12 +19,12 @@ namespace SGame
 
         private class CacheData
         {
-            public List<int>                   m_foodTypes = new List<int>();   // 已打开食物类型
-            public List<int>                   m_matchineID = new List<int>();  // 机器ID
-            public List<int>                   m_foodWidgets = new List<int>(); // 已打开食物权重
+            public List<int>                   m_foodTypes = new List<int>();                   // 已打开食物类型
+            public List<int>                   m_matchineID = new List<int>();                  // 机器ID
+            public List<int>                   m_foodWidgets = new List<int>();                 // 已打开食物权重
             public List<int>                   m_foodWorkArea = new List<int>();
-            public int                         m_foodWorkAreaMask = 0;          // 工作区域标签
-            
+            public int                         m_foodWorkAreaMask = 0;                          // 工作区域标签
+            public Dictionary<int, TableData>  m_food2Table = new Dictionary<int, TableData>(); // 通过食物类型找到第一个TABLE
 
             public void Clear()
             {
@@ -32,6 +32,7 @@ namespace SGame
                 m_matchineID.Clear();
                 m_foodWorkArea.Clear();
                 m_foodWidgets.Clear();
+                m_food2Table.Clear();
             }
         }
         
@@ -427,13 +428,14 @@ namespace SGame
             var currentLevelID = DataCenter.Instance.GetUserData().scene;
             if (t.type == TABLE_TYPE.MACHINE)
             {
-                if (!m_cache.m_foodTypes.Contains(t.foodType))
+                if (!m_cache.m_food2Table.ContainsKey(t.foodType))
                 {
                     m_cache.m_foodTypes.Add(t.foodType);
                     m_cache.m_matchineID.Add(t.machineID);
                     int area = GetWorkerAreaFromMachineID(t.machineID, currentLevelID);
                     m_cache.m_foodWorkArea.Add(area);
                     m_cache.m_foodWidgets.Add(Utils.GetLevelWeight(currentLevelID, t.machineID));
+                    m_cache.m_food2Table.Add(t.foodType, t);
 
                     m_cache.m_foodWorkAreaMask = BitOperator.Set(m_cache.m_foodWorkAreaMask, area, true);
                     EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, t.machineID, t.foodType);
@@ -527,5 +529,21 @@ namespace SGame
             return m_cache.m_foodTypes[index];
         }
 
+
+        /// <summary>
+        /// 找到第一个食物的工作台
+        /// </summary>
+        /// <param name="foodType"></param>
+        /// <returns></returns>
+        public TableData GetFoodTable(int foodType)
+        {
+            if (m_cache.m_food2Table.TryGetValue(foodType, out TableData value))
+            {
+                return value;
+            }
+
+            log.Error("not found foodType=" + foodType);
+            return null;
+        }
     }
 }

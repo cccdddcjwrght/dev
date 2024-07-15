@@ -39,7 +39,10 @@ namespace SGame.VS
                 // Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
                 var chair = flow.GetValue<ChairData>(_chair);
                 m_resultChair = chair;
-                WaitForServiceChair.Instance.Enqueue(chair);
+
+                OrderManager.Instance.Create(chair, 0); // 自动添加到队列
+                //OrderTaskManager.Instance.GetOrCreateTask()
+               //WaitForServiceChair.Instance.Enqueue(chair);
                 return output;
             });
             output = ControlOutput("Output");

@@ -1,6 +1,7 @@
 
 using log4net;
 using Unity.Entities;
+using Unity.Mathematics;
 
 namespace SGame
 {
@@ -10,13 +11,14 @@ namespace SGame
     public enum ORDER_PROGRESS : uint
     {
          NONE           = 0, // 未知状态
-         ORDED          = 1, // 顾客下单
-         FOOD_START     = 2, // 厨师接单
-         FOOD_MAKING    = 3, // 制作中
-         FOOD_MAKED     = 4, // 制作完成
-         FOOD_READLY    = 5, // 食物已经放置到该有位置
-         MOVETO_CUSTOM  = 6, // 移动到顾客身边
-         FINISH         = 7, // 订单完成
+         WAIT_ORDER     = 1, // 等待点单
+         ORDED          = 2, // 顾客已下单
+         FOOD_START     = 3, // 厨师接单
+         FOOD_MAKING    = 4, // 制作中
+         FOOD_MAKED     = 5, // 制作完成
+         FOOD_READLY    = 6, // 食物已经放置到该有位置
+         MOVETO_CUSTOM  = 7, // 移动到顾客身边
+         FINISH         = 8, // 订单完成
     }
     
     // 订单数据 
@@ -29,12 +31,14 @@ namespace SGame
         public int          cookTime;                          // 制作时间
         public int          finishTime;                        // 订单完成时间
         
-        public ChairData    customer { get; private set; }   // 顾客
+        public ChairData    customer { get; private set; }     // 顾客位置
         public int          servicerID { get; private set; }   // 服务员ID （包含下单和清单)
         public int          cookerID { get; private set; }     // 厨师ID
         
         public bool         perfect { get; private set; }       // 是否完美菜品
         public int          dishPointID { get; private set; }   // 放餐点 talbe ID
+
+        public ChairData    workerChair { get; private set; }   // 工作位置
 
         public Entity        foodID { get; private set; }        // 食物实例ID
         
@@ -60,8 +64,16 @@ namespace SGame
             v.id = id;
             v.customer = customerChair;
             v.foodType = foodType;
-            v.progress = ORDER_PROGRESS.ORDED;
-            EventManager.Instance.Trigger((int)GameEvent.ORDER, v.id);
+
+            if (foodType != 0)
+            {
+                v.progress = ORDER_PROGRESS.ORDED;
+                v.workerChair = ChairData.Null;
+            }
+            else
+            {
+                v.progress = ORDER_PROGRESS.WAIT_ORDER; // 等待点单
+            }
             return v;
         }
 
@@ -86,7 +98,7 @@ namespace SGame
         /// </summary>
         /// <param name="cookerID"></param>
         /// <returns></returns>
-        public bool CookerTake(int cookerID)
+        public bool CookerTake(int cookerID, ChairData workerChair)
         {
             if (progress != ORDER_PROGRESS.ORDED)
             {
@@ -95,6 +107,7 @@ namespace SGame
             }
 
             this.cookerID = cookerID;
+            this.workerChair = workerChair;
             progress = ORDER_PROGRESS.FOOD_START;
             return true;
         }
@@ -148,6 +161,7 @@ namespace SGame
             this.price  = price;
             this.perfect = isPerfect;
             progress = ORDER_PROGRESS.FOOD_MAKED;
+            
             return true;
         }
 
@@ -173,6 +187,8 @@ namespace SGame
 
             this.dishPointID = dishPointID;
             this.progress = ORDER_PROGRESS.FOOD_READLY;
+            EventManager.Instance.Trigger((int)GameEvent.ORDER_FOOD_READLY, id);
+            //ORDER_FOOD_READLY
             return true;
         }
 
@@ -201,6 +217,12 @@ namespace SGame
         /// <returns></returns>
         public bool Finish(int servicerID)
         {
+            if (progress == ORDER_PROGRESS.WAIT_ORDER)
+            {
+                this.progress = ORDER_PROGRESS.FINISH;
+                return true;
+            }
+            
             if (progress != ORDER_PROGRESS.MOVETO_CUSTOM && progress != ORDER_PROGRESS.FOOD_MAKED)
             {
                 log.Error("order progress not match =" + progress.ToString());
@@ -224,6 +246,38 @@ namespace SGame
         public bool IsFinished
         {
             get { return progress == ORDER_PROGRESS.FINISH; }
+        }
+
+        /// <summary>
+        /// 获得订单处理位置
+        /// </summary>
+        /// <returns></returns>
+        public int2 GetPosition()
+        {
+            switch (this.progress)
+            {
+                case ORDER_PROGRESS.WAIT_ORDER:     // 等待点单
+                    return this.customer.map_pos;
+                case ORDER_PROGRESS.ORDED:          // 顾客已下单
+                    {
+                        if (workerChair != ChairData.Null)
+                            return workerChair.map_pos;
+                        
+                        workerChair = TableManager.Instance.GetFoodTable(foodType).GetFirstChair(CHAIR_TYPE.OPERATOR);
+                        return workerChair.map_pos;
+                    }
+                case ORDER_PROGRESS.FOOD_START:
+                case ORDER_PROGRESS.FOOD_MAKING:
+                    return this.workerChair.map_pos;
+                case ORDER_PROGRESS.FOOD_MAKED:
+                    return this.customer.map_pos;
+                case ORDER_PROGRESS.FOOD_READLY:                                // 食物准备好了
+                    return TableManager.Instance.Get(dishPointID).map_pos;
+                case ORDER_PROGRESS.MOVETO_CUSTOM:
+                    return this.customer.map_pos;;
+            }
+
+            return int2.zero;
         }
     }
 }

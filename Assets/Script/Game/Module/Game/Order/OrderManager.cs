@@ -108,7 +108,7 @@ namespace SGame
 
             return 0;
         }
-
+        
         /// <summary>
         /// 创建新的订单
         /// </summary>
@@ -126,7 +126,13 @@ namespace SGame
                 log.Error("order id add fail=" + order.id);
                 return null;
             }
-            
+
+            if (foodType != 0)
+            {
+                EventManager.Instance.Trigger((int)GameEvent.ORDER, order.id);
+            }
+            else
+                EventManager.Instance.Trigger((int)GameEvent.ORDER_REQUEST, order.id);
             return order;
         }
 

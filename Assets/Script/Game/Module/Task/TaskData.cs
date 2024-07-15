@@ -8,9 +8,9 @@ namespace SGame
 {
     public enum TaskState 
     {
-        WAIT_GET        = 0,//´ıÁìÈ¡
-        IN_PROGRESS     = 1,//½øĞĞÖĞ
-        GET_REWARD      = 2,//ÒÑÁìÈ¡
+        WAIT_GET        = 0,//å¾…é¢†å–
+        IN_PROGRESS     = 1,//è¿›è¡Œä¸­
+        GET_REWARD      = 2,//å·²é¢†å–
     }
 
     [Serializable]
@@ -30,12 +30,12 @@ namespace SGame
     [Serializable]
     public class TaskItem 
     {
-        public int taskId;      //ÈÎÎñid
-        public int taskType;    //ÈÎÎñÀàĞÍ
-        public int value;       //ÈÎÎñµ±Ç°½ø¶È
-        public int maxValue;    //ÈÎÎñ×Ü½ø¶È
-        public int state;       //ÈÎÎñ×´Ì¬
-        public bool isGet;      //½±ÀøÊÇ·ñÁìÈ¡
+        public int taskId;      //ä»»åŠ¡id
+        public int taskType;    //ä»»åŠ¡ç±»å‹
+        public int value;       //ä»»åŠ¡å½“å‰è¿›åº¦
+        public int maxValue;    //ä»»åŠ¡æ€»è¿›åº¦
+        public int state;       //ä»»åŠ¡çŠ¶æ€
+        public bool isGet;      //å¥–åŠ±æ˜¯å¦é¢†å–
     }
 
     [Serializable]
@@ -50,8 +50,8 @@ namespace SGame
 
         public static class TaskUtil
         {
-            public const int TASK_TYPE = 3;         //¶Ò»»ÈÎÎñ»î¶¯ÀàĞÍ
-            //public const int TASK_CURRENCY = 7;     //¶Ò»»ÈÎÎñ»õ±Ò
+            public const int TASK_TYPE = 3;         //å…‘æ¢ä»»åŠ¡æ´»åŠ¨ç±»å‹
+            //public const int TASK_CURRENCY = 7;     //å…‘æ¢ä»»åŠ¡è´§å¸
 
             static EventHandleContainer m_EventHandle = new EventHandleContainer();
 
@@ -99,7 +99,7 @@ namespace SGame
                 if (m_Data.startTime != timeRange.tMin) 
                 {
                     m_Data.startTime = timeRange.tMin;
-                    ClearData();    //Çå³ıÊı¾İ
+                    ClearData();    //æ¸…é™¤æ•°æ®
                 }
 
                 var olds = m_Data.taskItems.ToDictionary(t => t.taskId);
@@ -190,7 +190,7 @@ namespace SGame
                     m_Data.taskGoods.Add(list[randomId]);
                     list.Remove(list[randomId]);
      
-                    //list.ForEach((i) => Debug.Log("-----------Ê£Óà:" + i));
+                    //list.ForEach((i) => Debug.Log("-----------å‰©ä½™:" + i));
 
                     if (lastGoodId > 0)
                     {
@@ -254,7 +254,7 @@ namespace SGame
             }
 
             /// <summary>
-            /// »ñÈ¡¿ªÆôµÄ¶Ò»»»î¶¯id
+            /// è·å–å¼€å¯çš„å…‘æ¢æ´»åŠ¨id
             /// </summary>
             /// <returns></returns>
             public static int GetTaskActivityId()
@@ -272,7 +272,7 @@ namespace SGame
 
 
             /// <summary>
-            /// »ñÈ¡¶Ò»»ÈÎÎñ»î¶¯Ê£ÓàÊ±¼ä
+            /// è·å–å…‘æ¢ä»»åŠ¡æ´»åŠ¨å‰©ä½™æ—¶é—´
             /// </summary>
             public static int GetTaskActiveTime()
             {
@@ -285,7 +285,7 @@ namespace SGame
             }
 
             /// <summary>
-            /// ÈÎÎñÊÇ·ñ¿ÉÒÔÁìÈ¡½±Àø
+            /// ä»»åŠ¡æ˜¯å¦å¯ä»¥é¢†å–å¥–åŠ±
             /// </summary>
             /// <returns></returns>
             public static bool CheckTaskIsGetReward(int id) 
@@ -297,7 +297,7 @@ namespace SGame
             }
 
             /// <summary>
-            /// ¼ì²âÊÇ·ñÓĞÈÎÎñ¿ÉÁìÈ¡
+            /// æ£€æµ‹æ˜¯å¦æœ‰ä»»åŠ¡å¯é¢†å–
             /// </summary>
             /// <returns></returns>
             public static bool CheckHasTaskIsGet() 
@@ -311,7 +311,7 @@ namespace SGame
             }
 
             /// <summary>
-            /// ¼ì²âÊÇ·ñÓĞÉÌÆ·¿ÉÒÔ¶Ò»»
+            /// æ£€æµ‹æ˜¯å¦æœ‰å•†å“å¯ä»¥å…‘æ¢
             /// </summary>
             /// <returns></returns>
             public static bool CheckIsHasExchange() 
@@ -329,7 +329,7 @@ namespace SGame
             }
 
             /// <summary>
-            /// Ìø×ªµ½Ä³¸ö¸ñ×Ó
+            /// è·³è½¬åˆ°æŸä¸ªæ ¼å­
             /// </summary>
             /// <param name="x"></param>
             /// <param name="z"></param>

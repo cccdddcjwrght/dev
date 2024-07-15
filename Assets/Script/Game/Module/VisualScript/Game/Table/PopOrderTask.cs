@@ -5,9 +5,9 @@ using Unity.VisualScripting;
 namespace SGame.VS
 {
     // 弹出正在等待的座椅
-    [UnitTitle("DequeueChair")] 
+    [UnitTitle("PopOrderTask")] 
     [UnitCategory("Game/Table")]
-    public class DequeueChair : Unit
+    public class PopOrderTask : Unit
     {
         [DoNotSerialize]
         public ControlInput inputTrigger;
@@ -19,11 +19,14 @@ namespace SGame.VS
         // 成功返回流程
         [DoNotSerialize]
         public ControlOutput    outputFail;
+        
+        [DoNotSerialize]
+        public ValueInput       OrderType;
 
         [DoNotSerialize]
-        public ValueOutput       _out_chair;
+        public ValueOutput       Order;
         
-        private ChairData       m_resultChair;
+        private OrderData        m_resultOrder;
         
         // 端口定义
         protected override void Definition()
@@ -31,16 +34,19 @@ namespace SGame.VS
             inputTrigger = ControlInput("Input", (flow) =>
             {
                 // Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
-                if (!WaitForServiceChair.Instance.Dequeue(out m_resultChair))
-                {
+                var orderType = flow.GetValue<ORDER_PROGRESS>(OrderType);
+                var tasks = OrderTaskManager.Instance.GetOrCreateTask(orderType);
+                if (tasks.Count == 0)
                     return outputFail;
-                }
 
+                m_resultOrder = tasks.Pop();
                 return outputSuccess;
             });
+            
             outputSuccess   = ControlOutput("Success");
             outputFail      = ControlOutput("Fail");
-            _out_chair      = ValueOutput<ChairData>("chair", (flow) => m_resultChair);
+            Order           = ValueOutput<OrderData>("Order", (flow) => m_resultOrder);
+            OrderType       = ValueInput<ORDER_PROGRESS>("Type", ORDER_PROGRESS.WAIT_ORDER);
         }
     }
 }
