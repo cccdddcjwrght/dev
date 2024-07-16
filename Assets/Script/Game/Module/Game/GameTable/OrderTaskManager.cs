@@ -23,6 +23,11 @@ namespace SGame
             m_tasks.RemoveAt(0);
             return r;
         }
+
+        public OrderData Peek()
+        {
+            return m_tasks[0];
+        }
         
         public void Add(OrderData order)
         {

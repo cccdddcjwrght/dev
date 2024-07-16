@@ -51,6 +51,9 @@ namespace SGame
 
         // 区域ID
         public int                roomAreaID;
+        
+        // 工作区域ID
+        public int                workAreaID;
 
         // 该位置是否位空
         public bool IsFoodEmpty =>  foodsCount == 0;

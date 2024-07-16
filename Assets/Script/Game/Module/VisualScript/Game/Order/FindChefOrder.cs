@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using log4net;
 using UnityEngine;
 using Unity.VisualScripting;
@@ -46,28 +47,36 @@ namespace SGame.VS
             {
                 var workerArea = flow.GetValue<int>(m_WorkerArea);
                 var tableManager = TableManager.Instance;
-                var foodTypes = tableManager.GetOpenFoodTypes(); // 获得所有开启的食物
-                var foodAreas = tableManager.GetOpenArea();
-                for (int i = 0; i  < foodTypes.Count;i++)
-                {
-                    var foodType = foodTypes[i];
-                    var area = foodAreas[i];
+                var tasks = OrderTaskManager.Instance.GetOrCreateTask(ORDER_PROGRESS.ORDED);
+                var order = tasks.Pop();
+                if (order == null)
+                    return outputFail;
 
-                    if (area == workerArea)
-                    {
-                        // 确定有空位
-                        resultChairData = tableManager.FindMachineChairFromFoodType(foodType);
-                        if (!resultChairData.IsNull)
-                        {
-                            // 订单中查询
-                            resultValue = OrderManager.Instance.FindChefOrder(foodType);
-                            if (resultValue != null)
-                                return outputSuccess;
-                        }
-                    }
+                /*
+                if (!foodTypes.Contains(order.foodType))
+                {
+                    tasks.Add(order);
+                    return outputFail;
                 }
-                
-                return outputFail;
+                */
+
+                TableData t = tableManager.GetFoodTable(order.foodType);
+                if (t == null || t.workAreaID != workerArea)
+                {
+                    // 只匹配符合区域的订单
+                    tasks.Add(order);
+                    return outputFail;
+                }
+
+                resultValue = order;
+                resultChairData = tableManager.FindMachineChairFromFoodType(order.foodType);
+                if (resultChairData.IsNull)
+                {
+                    tasks.Add(order);
+                    return outputFail;
+                }
+
+                return outputSuccess;
             });
             
             outputSuccess  = ControlOutput("Success");

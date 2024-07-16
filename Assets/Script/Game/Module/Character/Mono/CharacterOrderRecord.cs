@@ -159,10 +159,15 @@ namespace SGame
             }
 
             var item = m_datas[0];
+            /*
             if (item.orderData.workerChair != ChairData.Null)
             {
-                TableManager.Instance.LeaveChair(item.orderData.workerChair, m_characterID);
+                if (!TableManager.Instance.LeaveChair(item.orderData.workerChair, m_characterID))
+                {
+                    log.Error("leave chair fail order id=" + item.orderData.id + " progress=" + item.orderData.progress);
+                }
             }
+            */
             m_datas.RemoveAt(0);
         }
         

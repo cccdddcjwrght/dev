@@ -433,10 +433,11 @@ namespace SGame
                     m_cache.m_foodTypes.Add(t.foodType);
                     m_cache.m_matchineID.Add(t.machineID);
                     int area = GetWorkerAreaFromMachineID(t.machineID, currentLevelID);
+                    t.workAreaID = area;
                     m_cache.m_foodWorkArea.Add(area);
                     m_cache.m_foodWidgets.Add(Utils.GetLevelWeight(currentLevelID, t.machineID));
                     m_cache.m_food2Table.Add(t.foodType, t);
-
+    
                     m_cache.m_foodWorkAreaMask = BitOperator.Set(m_cache.m_foodWorkAreaMask, area, true);
                     EventManager.Instance.Trigger((int)GameEvent.MACHINE_ADD, t.machineID, t.foodType);
                 }
@@ -542,7 +543,7 @@ namespace SGame
                 return value;
             }
 
-            log.Error("not found foodType=" + foodType);
+            //log.Error("not found foodType=" + foodType);
             return null;
         }
     }
