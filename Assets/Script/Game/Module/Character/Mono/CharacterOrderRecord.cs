@@ -147,6 +147,7 @@ namespace SGame
                 m_takeOrderNum++;
 
             task.workTime = TableUtils.GetOrderWorkTime(task.orderData, m_roleID);
+            //log.Debug("Order Push order id=" + task.orderData.id + " progress=" + task.orderData.progress + " characterID=" + m_characterID + " worktime=" + task.workTime);
             m_datas.Add(task);
         }
 
@@ -168,6 +169,7 @@ namespace SGame
                 }
             }
             */
+            //log.Debug("Order Pop order id=" + m_datas[0].orderData.id + " progress=" + m_datas[0].orderData.progress + " characterID=" + m_characterID);
             m_datas.RemoveAt(0);
         }
         

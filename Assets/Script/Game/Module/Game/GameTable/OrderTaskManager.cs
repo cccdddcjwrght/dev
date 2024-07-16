@@ -13,6 +13,7 @@ namespace SGame
 {
     public class OrderTask
     {
+        private static ILog log = LogManager.GetLogger("game.order");
         private List<OrderData> m_tasks = new List<OrderData>();
 
         public int Count => m_tasks.Count;

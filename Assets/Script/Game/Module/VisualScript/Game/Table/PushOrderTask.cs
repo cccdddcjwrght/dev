@@ -31,7 +31,9 @@ namespace SGame.VS
                     throw new Exception("value is null");
                 
                 // Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
-                
+                var orderType = order.progress;
+                var tasks = OrderTaskManager.Instance.GetOrCreateTask(orderType);
+                tasks.Add(order);
                 return outputTrigger;
             });
             
