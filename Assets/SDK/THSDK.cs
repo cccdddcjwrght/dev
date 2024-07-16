@@ -187,6 +187,9 @@ namespace SDK.THSDK
 					_adloading.RemoveAll(a => a == id);
 				}
 			}
+
+			Debug.Log($"[ad]{id} load status:{flag}");
+
 			call?.Invoke(flag);
 			yield return flag;
 		}
@@ -205,7 +208,10 @@ namespace SDK.THSDK
 				case EnumAD.Reward:
 				case EnumAD.Inner:
 					if (!IsAdLoaded(id))
+					{
+						Debug.Log($"[ad]loading:{id}");
 						ThirdSdk.ThirdSDK.inst.LoadAd(id);
+					}
 					break;
 			}
 		}
