@@ -44,7 +44,7 @@ namespace SGame
 
 		void SetRecruit(RegionHit mono)
 		{
-			if (mono)
+			if (mono && mono.collider)
 			{
 				var size = mono.collider.size;
 				size.y = 5;
