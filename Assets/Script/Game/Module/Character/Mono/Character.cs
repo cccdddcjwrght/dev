@@ -672,7 +672,7 @@ using System.Collections.Generic;
             float distance = m_orderRecord.GetOrderDistance(curPos, pos);
             float time2 = distance / speed.Value;
 
-            return time1 + time2;
+            return time1 + time2 + math.pow(2, m_orderRecord.taskNum) / 5; // 每个任务额外多一个
         }
 
         /// <summary>

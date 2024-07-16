@@ -66,7 +66,7 @@ namespace SGame
         
         public ChairData workerChair => m_datas[0].orderData.workerChair;
 
-        public int takeOrderNum => m_datas.Count == 0 ? 0 : m_takeOrderNum;
+        public int takeOrderNum => 0;//m_datas.Count == 0 ? 0 : m_takeOrderNum;
 
         public void Initalize(int characterID, int roleID)
         {
