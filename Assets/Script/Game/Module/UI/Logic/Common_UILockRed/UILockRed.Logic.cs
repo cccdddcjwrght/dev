@@ -49,7 +49,11 @@ namespace SGame.UI
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
 		}
 
-		private void RefreshInfo()
+        partial void DoShow(UIContext context)
+        {
+			context.window.name += area;
+		}
+        private void RefreshInfo()
 		{
 			var state = DataCenter.Instance.roomData.current.GetAreaType(area);
 			if (state == 0)
@@ -65,7 +69,8 @@ namespace SGame.UI
 						log.Error(e.Message);
 					}
 					panel = m_view.m_child.component as UI_LockPanelUI;
-					if(panel == null) return;
+					//panel.name = "lockpanel";
+					if (panel == null) return;
 				}
 #if GAME_GUIDE
 				if (Game.Instance.enableGuide) 

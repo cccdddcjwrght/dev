@@ -46,11 +46,49 @@ namespace SGame
         {
             while (!isFind) 
             {
-                target = GRoot.inst.GetChildByPath(path);
+                target = GetChildByPath(path);
                 isFind = target != null;
                 yield return null;
                 if (isFind) yield break;
             }
+        }
+
+        public GObject GetChildByPath(string path)
+        {
+            string[] arr = path.Split('.');
+            int cnt = arr.Length;
+            GComponent gcom = GRoot.inst;
+            GObject obj = null;
+            for (int i = 0; i < cnt; ++i)
+            {
+                obj = gcom.GetChild(arr[i]);
+                if (obj == null)
+                    break;
+
+                if (i != cnt - 1)
+                {
+                    if (obj is GLoader) 
+                    {
+                        var loader = obj.asLoader;
+                        if (loader.component != null)
+                            gcom = loader.component;
+                        else 
+                        {
+                            obj = null;
+                            break;
+                        }
+                    }
+                    else if (!(obj is GComponent))
+                    {
+                        obj = null;
+                        break;
+                    }
+                    else
+                        gcom = (GComponent)obj;
+                }
+            }
+
+            return obj;
         }
 
         public IEnumerator WaitFingerClose() 

@@ -175,7 +175,7 @@ namespace SGame
                 {
                     List<string> uiNames = new List<string>();
                     GObject clickGObject = GRoot.inst.touchTarget;
-                    while (clickGObject != GRoot.inst) 
+                    while (clickGObject != GRoot.inst && clickGObject != null) 
                     {
                         if(clickGObject is GComponent) uiNames.Add(clickGObject.name);
                         clickGObject = clickGObject.parent;
