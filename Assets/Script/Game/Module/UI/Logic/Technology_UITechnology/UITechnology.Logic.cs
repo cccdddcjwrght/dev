@@ -32,6 +32,7 @@ namespace SGame.UI{
 
 		private void RenderListItem(int index, GObject item)
 		{
+			item.name = index.ToString();
 			var listData = m_AbilityData.GetAbilityList();
 			int levelIndex = listData[index].LevelIndex;
 			//图标
