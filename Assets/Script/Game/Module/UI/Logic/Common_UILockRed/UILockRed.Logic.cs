@@ -56,8 +56,16 @@ namespace SGame.UI
 			{
 				if (panel == null)
 				{
-					m_view.m_child.icon = "ui://Worktable/LockPanelUI";
+					try
+					{
+						m_view.m_child.icon = "ui://Worktable/LockPanelUI";
+					}
+					catch (System.Exception e)
+					{
+						log.Error(e.Message);
+					}
 					panel = m_view.m_child.component as UI_LockPanelUI;
+					if(panel == null) return;
 				}
 #if GAME_GUIDE
 				if (Game.Instance.enableGuide) 

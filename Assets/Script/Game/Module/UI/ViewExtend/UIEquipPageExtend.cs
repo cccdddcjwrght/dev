@@ -14,9 +14,9 @@ namespace SGame.UI.Player
 		private RoleData roleData;
 
 		private Action<int, GObject> eqclick;
-		private bool showTips ;
+		private bool showTips;
 
-		public UI_EquipPage Init(Action<int, GObject> eqclick, Action<int , GObject> uplvClick = null)
+		public UI_EquipPage Init(Action<int, GObject> eqclick, Action<int, GObject> uplvClick = null)
 		{
 
 			this.eqclick = eqclick;
@@ -127,7 +127,7 @@ namespace SGame.UI.Player
 		private void OnEqClick(int index, EventContext context)
 		{
 			eqclick?.Invoke(index, (context.sender as GObject).parent);
-			if ( showTips && roleData != null && roleData.isEmployee)
+			if (showTips && roleData != null && roleData.isEmployee)
 			{
 				var e = roleData.equips.Find(e => e != null && e.type == index);
 				if (e != null)
@@ -161,7 +161,8 @@ namespace SGame.UI.Player
 
 		void OnTouchMove(EventContext context)
 		{
-			goWrapper.wrapTarget.transform.Rotate(Vector3.up, -swipe.delta.x);
+			if (goWrapper != null && goWrapper.wrapTarget)
+				goWrapper.wrapTarget.transform.Rotate(Vector3.up, -swipe.delta.x);
 
 		}
 	}

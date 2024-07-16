@@ -377,7 +377,7 @@ namespace SGame.Dining
 			UILockManager.Instance.Require("dining");
 			SceneCameraSystem.Instance.disableControl = true;
 #if !MAT_ENABLE
-			SceneCameraSystem.Instance.Focus(holder.gameObject, false, 11); 
+			SceneCameraSystem.Instance.Focus(holder.gameObject, false, 11);
 #endif
 			_effect.SetActive(true);
 			if (delay > 0) yield return new WaitForSeconds(delay);
@@ -398,6 +398,10 @@ namespace SGame.Dining
 
 	class RegionHit : MonoBehaviour, ITouchOrHited
 	{
+		static private Vector3 _g_size;
+		static private Vector3 _g_center;
+
+
 		private List<string> C_IGNORE_UI = new List<string>() {
 			"gmui","mask","guidefinger","guideui",
 			"scenedecorui","hud","flight","SystemTip",
@@ -421,17 +425,28 @@ namespace SGame.Dining
 		{
 			if (g_size == Vector3.zero)
 			{
-				var ss = GlobalDesginConfig.GetStr("region_size")?.Split('|');
-				if (ss != null && ss.Length >= 3)
-					g_size = new Vector3(float.Parse(ss[0]), float.Parse(ss[1]), float.Parse(ss[2]));
-				else
-					g_size = new Vector3(0.9f, 0.5f, 0.9f);
+				if(_g_size == Vector3.zero)
+				{
+					_g_size = new Vector3(0.9f, 0.5f, 0.9f);
+					_g_center = new Vector3(0, 0.22f, 0);
+					try
+					{
+						var ss = GlobalDesginConfig.GetStr("region_size")?.Split('|');
+						if (ss != null && ss.Length >= 3)
+							_g_size = new Vector3(float.Parse(ss[0]), float.Parse(ss[1]), float.Parse(ss[2]));
+						ss = GlobalDesginConfig.GetStr("region_center")?.Split('|');
+						if (ss != null && ss.Length >= 3)
+							_g_center = new Vector3(float.Parse(ss[0]), float.Parse(ss[1]), float.Parse(ss[2]));
+					}
+					catch (Exception e)
+					{
+						Debug.LogException(e);
+					}
+				}
 
-				ss = GlobalDesginConfig.GetStr("region_center")?.Split('|');
-				if (ss != null && ss.Length >= 3)
-					g_center = new Vector3(float.Parse(ss[0]), float.Parse(ss[1]), float.Parse(ss[2]));
-				else
-					g_center = new Vector3(0, 0.22f, 0);
+				g_size = _g_size;
+				g_center = _g_center;
+
 			}
 
 			var o = transform.gameObject.GetComponentInChildren<BoxCollider>();
@@ -1059,7 +1074,7 @@ namespace SGame.Dining
 							}
 							else if (!r.data.isTable && r.begin.waitActive)
 								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 1);
-							else 
+							else
 #endif
 							{
 								ClickAddMachine(r, r.next.cfgID);
@@ -1074,7 +1089,7 @@ namespace SGame.Dining
 							if (!r.data.isTable)
 							{
 #if !MAT_ENABLE
-								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2); 
+								EventManager.Instance.Trigger<Build, int>(((int)GameEvent.WORK_TABLE_CLICK), r, 2);
 #else
 								DataCenter.MachineUtil.UpdateLevel(r.data.id, 0);
 #endif
@@ -1085,7 +1100,7 @@ namespace SGame.Dining
 								{
 									case 4:
 #if !MAT_ENABLE
-										UIUtils.OpenUI("getworker", r.data); 
+										UIUtils.OpenUI("getworker", r.data);
 #else
 										DataCenter.MachineUtil.UpdateLevel(r.data.id, 0);
 #endif
