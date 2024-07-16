@@ -76,7 +76,7 @@ namespace SGame.UI
 				if (Game.Instance.enableGuide) 
 				{
 					//等对应任务完成后显示
-					m_view.m_child.visible = DataCenter.Instance.taskMainData.cfgId > GlobalDesginConfig.GetInt("guide_are_taskId");
+					m_view.visible = DataCenter.Instance.taskMainData.cfgId > GlobalDesginConfig.GetInt("guide_are_taskId");
 				}
 #endif
 				m_view.m_flag.selectedIndex = 1;
