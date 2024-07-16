@@ -263,7 +263,7 @@ namespace Ad
 			InitUint(info);
 		}
 
-		#region Interstitial callback handlers
+#region Interstitial callback handlers
 
 		private void HandleInterstitialLoaded(InterstitialAd ad, LoadAdError args)
 		{
@@ -312,7 +312,7 @@ namespace Ad
 			OnError(args.GetMessage());
 		}
 
-		#endregion
+#endregion
 	}
 
 	internal class GgoRewardBasedVideoAd : ADUnitBase
@@ -351,7 +351,7 @@ namespace Ad
 		{
 			base.LoadAd();
 			DestroyAd();
-			GameDebug.Log($"[ad]{_key} sdkload");
+			UnityEngine.Debug.LogWarning($"[ad]{_key} sdkload");
 			RewardedAd.Load(_key, GgoAdBroker.CreateAdRequest(), HandleRewardVideoLoaded);
 		}
 
@@ -386,7 +386,7 @@ namespace Ad
 
 		private void ProcessRewardVideoLoaded(RewardedAd ad, LoadAdError args)
 		{
-			Debug.LogWarning($"[ad]{_key} sdkload end:{args?.ToString()} ==== {args?.GetMessage()}");
+			UnityEngine.Debug.LogWarning($"[ad]{_key} sdkload end:{args?.ToString()} ==== {args?.GetMessage()}");
 			if (args == null && ad != null)
 			{
 				this.rewardAd = ad;
