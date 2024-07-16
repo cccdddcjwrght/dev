@@ -26,12 +26,17 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
-			data = null;
 			EventManager.Instance.UnReg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnChange);
+			data = null;
 		}
 
 		void OnChange(int a, int b, int c, int d)
 		{
+			if (m_view == null || data == null)
+			{
+				DoCloseUIClick(null);
+				return;
+			}
 			var type = 3;
 			if (!data.IsMaxLv())
 			{
@@ -40,7 +45,14 @@ namespace SGame.UI
 				else
 					type = Utils.CheckItemCount((int)price[1], price[2], false) ? 0 : 1;
 			}
-			m_view.m_type.selectedIndex = type;
+			try
+			{
+				m_view.m_type.selectedIndex = type;
+			}
+			catch (System.Exception e)
+			{
+				DoCloseUIClick(null);
+			}
 		}
 
 		void SetInfo()
