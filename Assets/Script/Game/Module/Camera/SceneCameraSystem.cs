@@ -495,6 +495,7 @@ namespace SGame
 			var v = fieldSize.GetValue();
 			_vcamera.m_Lens.OrthographicSize = v;
 			var size = fieldSize.GetVector();
+			v = fieldSize.startValue / v + (0.1f * v / fieldSize.startValue);
 			xMove.limitScale = size.x;
 			yMove.limitScale = size.y;
 			zMove.limitScale = size.z;
@@ -507,11 +508,10 @@ namespace SGame
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide) 
 			{
-				var str = GameConfigs.GlobalDesginConfig.GetStr("guide_cam_pos");
-				var val = str.Split('|');
-				int guideId = int.Parse(val[0]);
-				var x = float.Parse(val[1]);
-				var z = float.Parse(val[2]);
+				var val = GameConfigs.GlobalDesginConfig.GetIntArray("guide_cam_pos");
+				int guideId = val[0];
+				var x = val[1] * 0.1f;
+				var z = val[2] * 0.1f;
 				if (guideId >= DataCenter.Instance.guideData.guideId)
 				{
 					xMove.startValue = x;
