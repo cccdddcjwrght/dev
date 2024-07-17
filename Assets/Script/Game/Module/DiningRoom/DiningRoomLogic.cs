@@ -1052,14 +1052,13 @@ namespace SGame.Dining
 				var r = GetRegion(region);
 				if (r != null)
 				{
-					EventManager.Instance.Trigger((int)GameEvent.WORK_REGION_CLICK);
 					var p = r.GetPlace(place);
-
 					if ((!r.enable && r.begin.cfgID == place) || r.next?.cfgID == place)
 					{
 						if ((r.next ?? r.begin).waitActive == true)
 						{
 #if !MAT_ENABLE
+							EventManager.Instance.Trigger((int)GameEvent.WORK_REGION_CLICK);
 							if (r.begin.waitActive && r.data.type > 3)
 							{
 								switch (r.data.type)
@@ -1086,6 +1085,7 @@ namespace SGame.Dining
 					{
 						if (p.enable)
 						{
+							EventManager.Instance.Trigger((int)GameEvent.WORK_REGION_CLICK);
 							if (!r.data.isTable)
 							{
 #if !MAT_ENABLE
