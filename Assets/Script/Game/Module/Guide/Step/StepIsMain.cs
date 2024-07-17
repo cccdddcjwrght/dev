@@ -9,7 +9,7 @@ namespace SGame
     {
         public override IEnumerator Excute()
         {
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
             yield return Wait();
             Finish();
         }
