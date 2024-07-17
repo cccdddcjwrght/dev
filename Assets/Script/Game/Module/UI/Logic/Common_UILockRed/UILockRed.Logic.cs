@@ -122,8 +122,8 @@ namespace SGame.UI
 				UIListener.SetControllerSelect(panel.m_click, "gray", state ? 0 : 1);
 
 				if (!state) panel.m_click.GetChild("bg").icon = null;
-				panel.m_click.onClick?.Clear();
-				panel.m_click.onClick.Add(Unlock);
+				//panel.m_click.onClick?.Clear();
+				if(panel.m_click.onClick.isEmpty) panel.m_click.onClick.Add(Unlock);
 #if !MAT_ENABLE
 				m_view.m_flag.selectedIndex = state ? 2 : 1; 
 #endif

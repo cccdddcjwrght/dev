@@ -26,6 +26,10 @@ namespace SGame
         public void Initalize() 
         {
             EventManager.Instance.Reg<int>((int)GameEvent.GUIDE_FINISH, FinishGuide);
+            EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, (s) => 
+            {
+                Utils.Timer(0.5f, null, completed: CheckRecruitOpen);
+            });
             GRoot.inst.onClick.Add(GuideClick);
         }
 
@@ -140,9 +144,6 @@ namespace SGame
                     mono.gameObject?.SetActive(worktable?.lv >= v[1]);
                 }
             }
-            
-            
-
         }
 
         public void GuideClick() 
