@@ -174,6 +174,7 @@ namespace SGame.UI
 
 		void OnClickOther()
 		{
+			if (GuideManager.Instance.IsCoerce) return;
 			m_view.m_type.selectedIndex = 0;
 		}
 

@@ -45,6 +45,7 @@ namespace SGame
         public void Run(int guideId)
         {
             UILockManager.Instance.Release("guide_step_runing");
+            __handler.DisableControl(false);
             if (guideId != __guideId) return;
             //清除主线以外的指引
             if (ConfigSystem.Instance.TryGet<GameConfigs.GuideRowData>((i) => i.GuideId ==__guideId && i.Step == __stepIndex, out var cfg) && cfg.GuideType == 0) 
