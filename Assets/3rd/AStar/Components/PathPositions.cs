@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 
-[GenerateAuthoringComponent]
+//[GenerateAuthoringComponent]
 public struct PathPositions : IBufferElementData
 {
     public int2 Value;

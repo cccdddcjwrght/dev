@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -19,8 +20,8 @@ namespace GameTools.Paths
 
 		protected override void OnCreate()
 		{
-			m_command = World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
-			m_astarsys = World.GetOrCreateSystem<AStarSystem>();
+			m_command = World.GetExistingSystemManaged<EndSimulationEntityCommandBufferSystem>();
+			m_astarsys = World.GetOrCreateSystemManaged<AStarSystem>();
 			m_query = GetEntityQuery(new EntityQueryDesc()
 			{
 				All = new ComponentType[] { typeof(Follow), typeof(PathPositions) },
@@ -34,7 +35,7 @@ namespace GameTools.Paths
 
 			var command = m_command.CreateCommandBuffer().AsParallelWriter();
 			var chunkTypeFollow = GetComponentTypeHandle<Follow>();
-			var chunkTypeTranslation = GetComponentTypeHandle<Translation>();
+			var chunkTypeTranslation = GetComponentTypeHandle<LocalTransform>();
 			var chunkTypePathPositions = GetBufferTypeHandle<PathPositions>(true);
 			var entityType = GetEntityTypeHandle();
 
@@ -63,13 +64,13 @@ namespace GameTools.Paths
 			[ReadOnly]
 			public ComponentTypeHandle<Follow> chunkTypeFollow;
 			[ReadOnly]
-			public ComponentTypeHandle<Translation> chunkTypeTranslation;
+			public ComponentTypeHandle<LocalTransform> chunkTypeTranslation;
 			[ReadOnly]
 			public BufferTypeHandle<PathPositions> chunkTypePathPositions;
 			[ReadOnly]
 			public EntityTypeHandle entityType;
 
-			public void Execute(ArchetypeChunk chunk, int chunkIndex, int firstEntityIndex)
+			public void Execute(in ArchetypeChunk chunk, int unfilteredChunkIndex, bool useEnabledMask, in v128 chunkEnabledMask)
 			{
 				var chunkEntities = chunk.GetNativeArray(entityType);
 				var chunkFollow = chunk.GetNativeArray(chunkTypeFollow);
@@ -92,8 +93,8 @@ namespace GameTools.Paths
 					if (!p.isWalkable || flag) {
 
 						var tpos = points[0].Value;
-						var spos = AStar.GetGridPos(translation.Value, mapInfo);
-						parallelWriter.AddComponent<FindPathParams>(chunkIndex, e, new FindPathParams
+						var spos = AStar.GetGridPos(translation.Position, mapInfo);
+						parallelWriter.AddComponent<FindPathParams>(unfilteredChunkIndex, e, new FindPathParams
 						{
 							start_pos = spos,
 							end_pos = tpos

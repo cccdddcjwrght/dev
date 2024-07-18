@@ -15,15 +15,12 @@ namespace GameTools.Paths
 			if (AStar.map == null) return;
 
 			AStar.map?.Hold(-1, -1, 0);
-			Entities.WithAll<Translation, Follow>().WithoutBurst().ForEach((Entity e, in Translation t) =>
+			Entities.WithAll<Follow>().WithoutBurst().ForEach((Entity e, in LocalTransform t) =>
 			{
-				var index = AStar.GetGridPos(t.Value);
+				var index = AStar.GetGridPos(t.Position);
 				AStar.map?.Hold(index.x, index.y, e.Index);
-
 			}).Schedule();
 		}
-
-
 	}
 
 }

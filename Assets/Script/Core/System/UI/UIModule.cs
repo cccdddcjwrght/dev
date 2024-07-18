@@ -55,8 +55,8 @@ namespace SGame.UI
 		public void Initalize(GameWorld gameWorld, IPreprocess preProcessing)
 		{
 			m_gameWorld = gameWorld;
-			m_spawnSystem = gameWorld.GetECSWorld().GetOrCreateSystem<SpawnUISystem>();
-			m_despawnSystem = gameWorld.GetECSWorld().GetOrCreateSystem<DespawnUISystem>();
+			m_spawnSystem = gameWorld.GetECSWorld().GetOrCreateSystemManaged<SpawnUISystem>();
+			m_despawnSystem = gameWorld.GetECSWorld().GetOrCreateSystemManaged<DespawnUISystem>();
 
 			if (m_factory != null)
 				m_factory.Dispose();

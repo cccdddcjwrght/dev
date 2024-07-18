@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SGame
 {
-    [GenerateAuthoringComponent]
+   // [GenerateAuthoringComponent]
     public struct FoodItem : IComponentData
     {
         // 食物类型

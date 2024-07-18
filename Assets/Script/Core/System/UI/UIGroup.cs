@@ -23,7 +23,7 @@ using System;
 
 namespace SGame.UI
 {
-	public class UIGroup : ComponentSystemGroup
+	public partial class UIGroup : ComponentSystemGroup
 	{
 	}
 }

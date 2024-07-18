@@ -439,11 +439,10 @@ namespace SGame
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("floattext", pos, float3.zero);
-			entityManager.AddComponent<Translation>(ui);
+			entityManager.AddComponent<LocalTransform>(ui);
 			entityManager.AddComponent<HUDTips>(ui);
 			entityManager.AddComponent<LiveTime>(ui);
-
-			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
+			entityManager.SetComponentData(ui, LocalTransform.FromPosition(pos.position));
 			entityManager.SetComponentData(ui, new HUDTips { title = Utils.ConvertNumberStr(gold), color = color, fontSize = fontSize, speed = speed });
 			entityManager.SetComponentData(ui, new LiveTime { Value = duration });
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, gold);
@@ -458,9 +457,8 @@ namespace SGame
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("ordertip", pos, float3.zero);
-			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponentData<FoodItem>(ui, new FoodItem { itemID = foodType, num = foodNum, isFriend = isFriend });
-			entityManager.SetComponentData(ui, new Translation { Value = pos.position });
+			entityManager.AddComponentData(ui, LocalTransform.FromPosition(pos.position));
 			return ui;
 		}
 
@@ -474,9 +472,9 @@ namespace SGame
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			Entity ui = ShowHUD("friendtip", pos, float3.zero);
-			entityManager.AddComponent<Translation>(ui);
 			entityManager.AddComponentData(ui, new UIParam() { Value = playerID });
-			entityManager.AddComponentData(ui, new Translation { Value = pos.position });
+			entityManager.AddComponentData(ui, LocalTransform.FromPosition(pos.position));
+
 			return ui;
 		}
 

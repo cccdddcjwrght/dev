@@ -2,6 +2,6 @@
 using Unity.Entities;
 namespace SGame
 {
-    [GenerateAuthoringComponent]
+   // [GenerateAuthoringComponent]
     public struct GameObjectSyncTag : IComponentData { }
 }

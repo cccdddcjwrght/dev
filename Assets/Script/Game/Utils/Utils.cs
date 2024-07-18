@@ -101,7 +101,7 @@ namespace SGame
 		/// <param name="data"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public static bool TryGetSingletonData<T>(EntityManager entityManager, out T data) where T : struct, IComponentData
+		public static bool TryGetSingletonData<T>(EntityManager entityManager, out T data) where T : unmanaged, IComponentData
 		{
 			data = default;
 			EntityQuery query = entityManager.CreateEntityQuery(typeof(T));
@@ -465,7 +465,7 @@ namespace SGame
 
 		#endregion
 
-
+/*
 		/// <summary>
 		/// 添加子节点
 		/// </summary>
@@ -533,7 +533,7 @@ namespace SGame
 				EntityManager.RemoveComponent<LocalToParent>(child);
 			}
 		}
-
+*/
 		/// <summary>
 		/// 获取旋转角度, 以二维里的Y轴为起点
 		/// </summary>

@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace SGame
 {
     public class GameCamera : MonoBehaviour

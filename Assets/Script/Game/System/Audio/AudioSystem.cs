@@ -58,7 +58,7 @@ namespace SGame
 	}
 
 	// 声音系统
-	public partial class AudioSystem : ComponentSystem
+	public partial class AudioSystem : SystemBase
 	{
 		public const string AUDIO_RES_FORMAT = "Assets/BuildAsset/Audio/ogg/{0}.ogg";
 		// 播放声音请求
@@ -105,7 +105,7 @@ namespace SGame
 		{
 			get
 			{
-				return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<AudioSystem>();
+				return World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<AudioSystem>();
 			}
 		}
 
@@ -232,7 +232,7 @@ namespace SGame
 					{
 						EntityManager.AddComponent<DespawnedTag>(e);
 					}
-				});
+				}).WithoutBurst().WithStructuralChanges().Run();
 				m_stopRequest.Clear();
 			}
 
@@ -246,7 +246,7 @@ namespace SGame
 					asset_ref = Assets.LoadAssetAsync(request.audio_path, typeof(AudioClip)),
 					audio = PopAudioSource()
 				});
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();;
 
 			// 2. 产生新的clip
 			Entities.ForEach((Entity e,
@@ -280,7 +280,7 @@ namespace SGame
 
 					EntityManager.DestroyEntity(e);
 				}
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();;
 
 			float time = (float)GlobalTime.deltaTime;
 			//3. 时间到销毁clip
@@ -310,14 +310,14 @@ namespace SGame
 						}
 					}
 				}
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();;
 
 			// 销毁声音
 			Entities.WithAll<DespawnedTag>().ForEach((Entity entity, SoundAsset asset) =>
 			{
 				FreeSound(asset);
 				EntityManager.DestroyEntity(entity);
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();;
 		}
 
 		partial void OnInit();

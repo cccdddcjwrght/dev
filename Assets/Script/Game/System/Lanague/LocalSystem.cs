@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SGame
 {
-	public partial class LocalSystem : ComponentSystem
+	public partial class LocalSystem : SystemBase
 	{
 		private const string ROOT_PATH = "Assets/BuildAsset/";
 
@@ -18,7 +18,7 @@ namespace SGame
 		{
 			base.OnCreate();
 			EventManager.Instance.Reg<string>(((int)GameEvent.LANGUAGE_CHANGE), ChangeLanguage);
-			//µ±ui¶ÔÏó´´½¨Ê±£¬½øĞĞ±¾µØ»¯´¦Àí
+			//å½“uiå¯¹è±¡åˆ›å»ºæ—¶ï¼Œè¿›è¡Œæœ¬åœ°åŒ–å¤„ç†
 			UIPackage.onObjectCreate += OnUICreate;
 		}
 
@@ -32,32 +32,31 @@ namespace SGame
 		{
 		}
 
-
-		// ¸ü¸ÄÓïÑÔ
+		// æ›´æ”¹è¯­è¨€
 		public void ChangeLanguage(string lang)
 		{
 			if (ConfigSystem.Instance.TryGet(lang, out GameConfigs.languageRowData config) == false)
 				return;
 			m_lang = lang;
-			// ¶àÓïÑÔÎÄ×Ö
+			// å¤šè¯­è¨€æ–‡å­—
 			string lang_file = config.LanguageText;
-			// ·ÖÖ§Ãû×Ö
+			// åˆ†æ”¯åå­—
 			string lang_branch = config.BranchName;
-			// ¶àÓïÑÔÄ¬ÈÏ×ÖÌå
+			// å¤šè¯­è¨€é»˜è®¤å­—ä½“
 			string lang_font = config.DefaultFont;
-			/*// ¶àÓïÑÔÎÄ×Ö
+			/*// å¤šè¯­è¨€æ–‡å­—
 			var lang_req = libx.Assets.LoadAsset(ROOT_PATH + lang_file, typeof(TextAsset));
 			var fileContent = (lang_req.asset as TextAsset)?.text;
 			lang_req.Release();
 			if (!string.IsNullOrEmpty(fileContent))
 			{
-				// ÉèÖÃXML¶àÓïÑÔ
+				// è®¾ç½®XMLå¤šè¯­è¨€
 				FairyGUI.Utils.XML xml = new FairyGUI.Utils.XML(fileContent);
 				UIPackage.SetStringsSource(xml);
 			}*/
-			// ÉèÖÃ°üµÄ·ÖÖ§
+			// è®¾ç½®åŒ…çš„åˆ†æ”¯
 			UIPackage.branch = lang_branch;
-			// ÉèÖÃÄ¬ÈÏ×ÖÌå
+			// è®¾ç½®é»˜è®¤å­—ä½“
 			UIConfig.defaultFont = lang_font;
 
 		}

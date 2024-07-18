@@ -7,7 +7,7 @@ using Unity.Entities;
 namespace SGame
 {
     [UpdateInGroup(typeof(GameLogicGroup))]
-    public class CharacterAttributeSystem : ComponentSystem
+    public partial class CharacterAttributeSystem : SystemBase
     {
         private static ILog log = LogManager.GetLogger("game.character");
         private EndInitializationEntityCommandBufferSystem m_commandBuffer;
@@ -15,7 +15,7 @@ namespace SGame
         protected override void OnCreate()
         {
             base.OnCreate();
-            m_commandBuffer = World.GetOrCreateSystem<EndInitializationEntityCommandBufferSystem>();
+            m_commandBuffer = World.GetOrCreateSystemManaged<EndInitializationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()
@@ -36,7 +36,7 @@ namespace SGame
                     v = 10;
                 }
                 speed.Value = (float)(v) + character.externSpeed;
-            });
+            }).WithoutBurst().Run();
         }
     }
 }

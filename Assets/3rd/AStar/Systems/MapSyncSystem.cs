@@ -6,7 +6,7 @@ namespace GameTools.Paths
 {
 	// 地图数据同步系统
 	[UpdateBefore(typeof(AStarSystem))]
-	public class MapSyncSystem : ComponentSystem
+	public partial class MapSyncSystem : SystemBase
 	{
 		EntityManager _entityManager;
 		AStarSystem _astarSystem;
@@ -14,7 +14,7 @@ namespace GameTools.Paths
 		protected override void OnCreate()
 		{
 			_entityManager = this.EntityManager;
-			_astarSystem = World.GetOrCreateSystem<AStarSystem>();
+			_astarSystem = World.GetOrCreateSystemManaged<AStarSystem>();
 		}
 
 		protected override void OnUpdate()

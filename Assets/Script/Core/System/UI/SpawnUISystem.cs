@@ -26,7 +26,7 @@ namespace SGame.UI
         {
             base.OnCreate();
             m_packageRequest = new ResourceLoader<UIPackageRequest>(PackageRequestFactory);
-            m_commandSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commandSystem = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
             isInit = false;
         }
 

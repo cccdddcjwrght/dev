@@ -3,13 +3,13 @@ using Unity.Entities;
 
 namespace SGame
 {
-	public  abstract partial class ECSSystem<T> : ComponentSystem where T : ECSSystem<T>
+	public  abstract partial class ECSSystem<T> : SystemBase where T : ECSSystem<T>
 	{
 		static public T Instance
 		{
 			get
 			{
-				return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<T>();
+				return World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<T>();
 			}
 		}
 

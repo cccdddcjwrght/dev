@@ -15,7 +15,7 @@ namespace SGame
 {
     [UpdateAfter(typeof(CharacterSpawnSystem))]
     [UpdateInGroup(typeof(GameLogicGroup))]
-    public class CharacterDespawnSystem : ComponentSystem
+    public partial class CharacterDespawnSystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
 
@@ -30,8 +30,8 @@ namespace SGame
         private CharacterSpawnSystem                    m_spawnSystem;
         protected override void OnCreate()
         {
-            m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-            m_spawnSystem = World.GetOrCreateSystem<CharacterSpawnSystem>();
+            m_commandBuffer = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
+            m_spawnSystem = World.GetOrCreateSystemManaged<CharacterSpawnSystem>();
             m_destoryGameObject = new List<EventData>();
         }
         
@@ -41,7 +41,7 @@ namespace SGame
             Entities.WithAll<DespawningEntity>().ForEach((Entity entity, Character character) =>
             {
                 m_destoryGameObject.Add(new EventData() {character = character, entity = entity, characterID = character.CharacterID});
-            });
+            }).WithoutBurst().Run();
 
             foreach (var item in m_destoryGameObject)
             {

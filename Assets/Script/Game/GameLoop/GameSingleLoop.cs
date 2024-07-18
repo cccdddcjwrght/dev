@@ -29,7 +29,6 @@ namespace SGame
 		void InitModule()
 		{
 			//GameLogicGroup.UpdateSystem();
-			m_commonSystem		 = new SystemCollection();
 			m_commonModule		 = new List<IModule>();
 			var world			 = m_gameWorld;
 			var ecsWorld		 = world.GetECSWorld();
@@ -127,9 +126,6 @@ namespace SGame
 			// 公共模块更新
 			foreach (var module in m_commonModule)
 				module.Update();
-			
-			// 公共系统更新
-			m_commonSystem.Update();
 
 			// 状态机更新
 			m_stateMachine.Update();
@@ -175,8 +171,7 @@ namespace SGame
 			
 			foreach (var m in m_commonModule)
 				m.Shutdown();
-			m_commonSystem.Shutdown(m_gameWorld.GetECSWorld());
-			
+
 			m_gameWorld.Shutdown();
 		}
 
@@ -198,11 +193,6 @@ namespace SGame
 		/// 公共模块
 		/// </summary>
 		private List<IModule>    m_commonModule;
-
-		/// <summary>
-		/// SYSTEM 组成的公共模块
-		/// </summary>
-		private SystemCollection m_commonSystem;
 
 		/// <summary>
 		/// 登录模块

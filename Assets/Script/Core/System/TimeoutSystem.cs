@@ -19,7 +19,7 @@ namespace SGame
     {
         protected override void OnUpdate()
         {
-            float deltaTime = Time.DeltaTime;
+            float deltaTime = World.Time.DeltaTime;
             Entities.ForEach((ref TimeoutData data) =>
             {
                 if (data.Value > 0)

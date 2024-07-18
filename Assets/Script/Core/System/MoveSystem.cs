@@ -31,14 +31,14 @@ namespace SGame
         protected override void OnCreate()
         {
             base.OnCreate();
-            m_bufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_bufferSystem = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
         
         protected override void OnUpdate()
         {
-            float deltaTime = Time.DeltaTime;
+            float deltaTime = World.Time.DeltaTime;
             var entityCommandBufferParallel =  m_bufferSystem.CreateCommandBuffer().AsParallelWriter();
-            Entities.ForEach((int entityInQueryIndex, Entity e,ref Translation trans, ref MoveDirection data) =>
+            Entities.ForEach((int entityInQueryIndex, Entity e,ref LocalTransform trans, ref MoveDirection data) =>
             {
                 if (data.duration > 0)
                 {
@@ -49,7 +49,7 @@ namespace SGame
                     }
                 }
 
-                trans.Value += data.Value * deltaTime;
+                trans.Position += data.Value * deltaTime;
             }).WithBurst().ScheduleParallel();
             
             m_bufferSystem.AddJobHandleForProducer(Dependency);

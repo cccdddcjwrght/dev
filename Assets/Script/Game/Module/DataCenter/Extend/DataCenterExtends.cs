@@ -13,7 +13,7 @@ namespace SGame
 		[System.NonSerialized]
 		public int offlinetime;
 
-		public void SetData<T>(T data) where T : struct, IComponentData
+		public void SetData<T>(T data) where T : unmanaged, IComponentData
 		{
 			if (EntityManager.HasComponent<T>(m_data))
 				EntityManager.SetComponentData<T>(m_data, data);
@@ -21,12 +21,12 @@ namespace SGame
 				EntityManager.AddComponentData<T>(m_data, data);
 		}
 
-		public T GetData<T>() where T : struct, IComponentData
+		public T GetData<T>() where T : unmanaged, IComponentData
 		{
 			return EntityManager.GetComponentData<T>(m_data);
 		}
 
-		public void UpdateData<T>(DataExcute<T> excute) where T : struct, IComponentData
+		public void UpdateData<T>(DataExcute<T> excute) where T : unmanaged, IComponentData
 		{
 			if (excute != null)
 			{

@@ -1268,7 +1268,7 @@ namespace Jacovone
             position = Handles.Slider(position, rotation * Vector3.forward, handleSize, Handles.ArrowHandleCap, EditorPrefs.GetFloat("MoveSnapZ"));
             Handles.color = Handles.centerColor;
 
-            position = Handles.FreeMoveHandle(position, Quaternion.identity, handleSize * 0.15f, new Vector3(xPresent ? 0.5f : 0f, 0.5f, 0.5f), Handles.RectangleHandleCap);
+            var fmh_1271_57_638568387177364240 = Quaternion.identity; position = Handles.FreeMoveHandle(position, handleSize * 0.15f, new Vector3(xPresent ? 0.5f : 0f, 0.5f, 0.5f), Handles.RectangleHandleCap);
             Handles.color = color;
             return position;
         }

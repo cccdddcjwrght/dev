@@ -15,39 +15,39 @@ namespace SGame
     /// <summary>
     /// 计时系统
     /// </summary>
-    public class MoveTargetSystem : ComponentSystem
+    public partial class MoveTargetSystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_bufferSystem;
         protected override void OnCreate()
         {
             base.OnCreate();
-            m_bufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_bufferSystem = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
         
         protected override void OnUpdate()
         {
-            float deltaTime = Time.DeltaTime;
+            float deltaTime = World.Time.DeltaTime;
             var entityCommandBufferParallel =  m_bufferSystem.CreateCommandBuffer();//.AsParallelWriter();
-            Entities.ForEach((Entity e, 
-                ref Translation trans, 
-                ref MoveTarget target, 
-                ref Speed speed) =>
+            Entities.ForEach((Entity e,
+                ref LocalTransform trans,
+                in MoveTarget target,
+                in Speed speed) =>
             {
-                var target_pos  = target.Value;
-                float3 dir           = target_pos - trans.Value;
+                var target_pos = target.Value;
+                float3 dir = target_pos - trans.Position;
                 float distanceLength = math.length(dir);
-                float moveLen        = deltaTime * speed.Value;
+                float moveLen = deltaTime * speed.Value;
                 if (moveLen >= distanceLength)
                 {
                     // 已经到达了
-                    trans.Value = target.Value;
+                    trans.Position = target.Value;
                     entityCommandBufferParallel.RemoveComponent<MoveTarget>(e);
                     return;
                 }
 
                 float3 moveDir = moveLen * math.normalize(dir);
-                trans.Value += moveDir;
-            });
+                trans.Position += moveDir;
+            }).WithBurst().ScheduleParallel();
         }
     }
 }

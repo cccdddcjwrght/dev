@@ -24,7 +24,7 @@ namespace SGame.Http
 	}
 
 	[UpdateInGroup(typeof(GameLogicAfterGroup))]
-	public partial class HttpSystemSpawn : ComponentSystem
+	public partial class HttpSystemSpawn : SystemBase
 	{
 		private EntityQuery m_query;
 		private static ILog log = LogManager.GetLogger("httpsystem");
@@ -54,7 +54,7 @@ namespace SGame.Http
 					}
 					else
 					{
-						data.request = UnityWebRequest.Post(req.url, req.post);
+						data.request = UnityWebRequest.PostWwwForm(req.url, req.post);
 						data.request.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
 					}
 					data.request.SetRequestHeader("Authorization", "token " + req.token);
