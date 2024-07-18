@@ -76,6 +76,7 @@ namespace SGame
 			RecordModule.Instance.Initalize();
 			
 			CustomerBookModule.Instance.Initalize();
+			BuffShopModule.Instance.Initalize();
 		}
 
 		/// <summary>
