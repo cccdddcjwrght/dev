@@ -146,8 +146,8 @@ namespace SGame.UI.Player
 				if (goWrapper != null)
 				{
 					var old = goWrapper.wrapTarget;
-					if (old) GameObject.Destroy(old);
 					goWrapper.SetWrapTarget(go, false);
+					if (old) GameObject.Destroy(old);
 					go.transform.localScale = Vector3.one * 300;
 					go.transform.localRotation = Quaternion.Euler(0, -145, 0);
 					go.SetLayer("UILight");

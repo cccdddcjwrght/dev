@@ -72,11 +72,18 @@ namespace SGame.UI
 
 		private void OnShow(UIContext context)
 		{
-			this.Delay(OpenChest, 100);
+			this.Delay(OpenChest, 20);
 		}
 
 		private void OpenChest()
 		{
+
+			if(m_view == null || _list == null || _list.itemRenderer == null)
+			{
+				CloseUI(true);
+				return;
+			}
+
 			_count = 0;
 			if (_current.id == 0)
 			{
