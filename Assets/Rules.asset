@@ -831,6 +831,8 @@ MonoBehaviour:
   - bundle: configs.unity3d
     path: assets/buildasset/configs/avatar.bytes
   - bundle: configs.unity3d
+    path: assets/buildasset/configs/boostshop.bytes
+  - bundle: configs.unity3d
     path: assets/buildasset/configs/buff.bytes
   - bundle: configs.unity3d
     path: assets/buildasset/configs/bullet.bytes
@@ -1512,6 +1514,8 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/camera02.prefab
   - bundle: assets/buildasset/prefabs.unity3d
     path: assets/buildasset/prefabs/camera03.prefab
+  - bundle: assets/buildasset/prefabs.unity3d
+    path: assets/buildasset/prefabs/camera04.prefab
   - bundle: assets/buildasset/prefabs.unity3d
     path: assets/buildasset/prefabs/cameractr.prefab
   - bundle: assets/buildasset/prefabs/car.unity3d
@@ -2252,6 +2256,8 @@ MonoBehaviour:
     path: assets/buildasset/scenes/markeds/level02_marked.unity
   - bundle: assets/buildasset/scenes/markeds/level03_marked.unity.unity3d
     path: assets/buildasset/scenes/markeds/level03_marked.unity
+  - bundle: assets/buildasset/scenes/markeds/level04_marked.unity.unity3d
+    path: assets/buildasset/scenes/markeds/level04_marked.unity
   - bundle: shaders.unity3d
     path: assets/buildasset/shaders/shadercollect.shadervariants
   - bundle: assets/buildasset/textures/foods.unity3d
@@ -3155,6 +3161,7 @@ MonoBehaviour:
     - assets/buildasset/configs/activitytime.bytes
     - assets/buildasset/configs/adconfig.bytes
     - assets/buildasset/configs/avatar.bytes
+    - assets/buildasset/configs/boostshop.bytes
     - assets/buildasset/configs/buff.bytes
     - assets/buildasset/configs/bullet.bytes
     - assets/buildasset/configs/cardata.bytes
@@ -3399,6 +3406,7 @@ MonoBehaviour:
     - assets/buildasset/prefabs/camera01.prefab
     - assets/buildasset/prefabs/camera02.prefab
     - assets/buildasset/prefabs/camera03.prefab
+    - assets/buildasset/prefabs/camera04.prefab
     - assets/buildasset/prefabs/cameractr.prefab
     - assets/buildasset/prefabs/game.prefab
     - assets/buildasset/prefabs/hotfix.prefab
@@ -3863,6 +3871,9 @@ MonoBehaviour:
   - name: assets/buildasset/scenes/markeds/level03_marked.unity.unity3d
     assets:
     - assets/buildasset/scenes/markeds/level03_marked.unity
+  - name: assets/buildasset/scenes/markeds/level04_marked.unity.unity3d
+    assets:
+    - assets/buildasset/scenes/markeds/level04_marked.unity
   - name: applogo.unity3d
     assets:
     - assets/buildasset/app/logo/ui_loading_logo@chs.png
