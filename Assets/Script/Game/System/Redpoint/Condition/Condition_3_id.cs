@@ -73,7 +73,7 @@ namespace SGame
 					_datas[mono.region] = region = DataCenter.MachineUtil.GetWorktable(mono.region);
 					InCameraCheck.AddCheckGo(go, region);
 				}
-				if (region != null && DataCenter.MachineUtil.CheckCanUpLevel(region) == 0)
+				if (region != null && DataCenter.MachineUtil.CheckCanUpLevel(region) == 0 && GuideManager.Instance.GetWorktableShow())
 				{
 					mono.Play("idle");
 					return true;

@@ -128,7 +128,8 @@ namespace SGame
         RegionHit mono;
         public void CheckRecruitOpen() 
         {
-            var v = GlobalDesginConfig.GetIntArray("guide_recruit");
+            if (DataCenter.Instance.roomData.roomID != 1) return;
+            
             if (mono == null) 
             {
                 var go = GameObject.FindGameObjectWithTag("recruit");
@@ -140,11 +141,22 @@ namespace SGame
                 var region = DataCenter.MachineUtil.GetWorktable(mono.region);
                 if (region != null)
                 {
+                    var v = GlobalDesginConfig.GetIntArray("guide_recruit");
                     var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
                     mono.gameObject?.SetActive(worktable?.lv >= v[1]);
                 }
             }
         }
+
+        public bool GetWorktableShow() 
+        {
+            if (DataCenter.Instance.roomData.roomID != 1) return true;
+
+            var v = GlobalDesginConfig.GetIntArray("guide_recruit");
+            var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
+            return worktable?.lv >= v[1];
+        }
+
 
         public void GuideClick() 
         {
