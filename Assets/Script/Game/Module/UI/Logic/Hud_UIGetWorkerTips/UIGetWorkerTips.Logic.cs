@@ -32,8 +32,11 @@ namespace SGame.UI
 
 		void Refresh()
 		{
-			StaticDefine.G_GET_WORKER_TYPE = worktable.objLvCfg.ShowType;
-			m_view.m_type.selectedIndex = StaticDefine.G_GET_WORKER_TYPE;
+			if (worktable.objCfg.IsValid())
+			{
+				StaticDefine.G_GET_WORKER_TYPE = worktable.objLvCfg.ShowType;
+				m_view.m_type.selectedIndex = StaticDefine.G_GET_WORKER_TYPE;
+			}
 		}
 
 		partial void UnInitLogic(UIContext context)

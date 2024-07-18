@@ -45,7 +45,7 @@ namespace SGame.UI
 #endif
 
 
-			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<SpawnUISystem>();
+			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystemManaged<SpawnUISystem>();
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
 		}
 

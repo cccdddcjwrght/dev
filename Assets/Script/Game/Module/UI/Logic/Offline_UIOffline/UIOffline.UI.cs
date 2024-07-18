@@ -46,8 +46,6 @@ namespace SGame.UI{
 			OnProgressClick(data);
 		}
 		partial void OnProgressClick(EventContext data);
-		void SetProgressValue(float data)=>UIListener.SetValue(m_view.m_progress,data);
-		float GetProgressValue()=>UIListener.GetValue(m_view.m_progress);
 		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
 		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
 		void SetCountText(string data)=>UIListener.SetText(m_view.m_count,data);

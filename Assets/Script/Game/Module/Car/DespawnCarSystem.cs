@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SGame
 {
-    public class DespawnCarSystem : ComponentSystem
+    public partial class DespawnCarSystem : SystemBase
     {
         private List<CarMono> m_destoryGameObject = new List<CarMono>();
             
@@ -13,8 +13,9 @@ namespace SGame
             Entities.WithAll<DespawningTag, CarData>().ForEach((Entity entity, CarMono car) =>
             {
                 m_destoryGameObject.Add(car);
-                PostUpdateCommands.DestroyEntity(entity);
-            });
+                EntityManager.DestroyEntity(entity);
+                //PostUpdateCommands.DestroyEntity(entity);
+            }).WithoutBurst().WithStructuralChanges().Run();
             
             foreach (var item in m_destoryGameObject)
             {

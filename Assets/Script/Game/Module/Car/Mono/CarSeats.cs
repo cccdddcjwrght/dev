@@ -351,7 +351,7 @@ namespace SGame
                 var customer = m_customers[i].customer;
 
                 var p1 = m_transform.localPosition;
-                var p2 = EntityManager.GetComponentData<Translation>(m_entity);
+                var p2 = EntityManager.GetComponentData<LocalTransform>(m_entity);
 
                 Vector3 childPos = m_seatOffset[i];//m_seatAttachement[i].position - m_transform.position;
                 Quaternion localRot = Quaternion.identity; //m_seatAttachement[i].rotation * Quaternion.Inverse(m_transform.rotation);
@@ -360,8 +360,8 @@ namespace SGame
                     EntityManager.RemoveComponent<LastRotation>(customer);
 
                 // 设置转换节点
-                if (!EntityManager.HasComponent<LocalToParent>(customer))
-                    EntityManager.AddComponent<LocalToParent>(customer);
+                //if (!EntityManager.HasComponent<LocalToParent>(customer))
+                //    EntityManager.AddComponent<LocalToParent>(customer);
                 
                 // 设置父节点
                 if (!EntityManager.HasComponent<Parent>(customer))
@@ -370,13 +370,10 @@ namespace SGame
                     EntityManager.SetComponentData(customer, new Parent(){Value = m_entity});
 
                 // 设置位置
-                EntityManager.SetComponentData(customer, new Translation(){Value = childPos});
-                
-                // 设置旋转
-                if (!EntityManager.HasComponent<Rotation>(customer))
-                    EntityManager.AddComponentData(customer, new Rotation(){Value = localRot});
-                else
-                    EntityManager.SetComponentData(customer, new Rotation(){Value = localRot});
+                var trans = EntityManager.GetComponentData<LocalTransform>(customer);
+                trans.Position = childPos;
+                trans.Rotation = localRot;
+                EntityManager.SetComponentData(customer, trans);
             }
         }
 
@@ -401,11 +398,15 @@ namespace SGame
                 log.Error("no customer in chair");
                 return false;
             }
-
-            EntityManager.RemoveComponent<Parent>(chair.customer);
-            EntityManager.RemoveComponent<LocalToParent>(chair.customer);
-            EntityManager.SetComponentData<Rotation>(chair.customer, new Rotation(){Value = m_transform.rotation});
-            EntityManager.SetComponentData<Translation>(chair.customer, new Translation() { Value = m_transform.position });
+            
+            if (EntityManager.HasComponent<Parent>(chair.customer))
+                EntityManager.RemoveComponent<Parent>(chair.customer);
+            //EntityManager.RemoveComponent<LocalToParent>(chair.customer);
+            var trans = EntityManager.GetComponentData<LocalTransform>(chair.customer);
+            trans.Rotation = m_transform.rotation;
+            trans.Position = m_transform.position;
+            //EntityManager.SetComponentData<Rotation>(chair.customer, new Rotation(){Value = m_transform.rotation});
+            //EntityManager.SetComponentData<Translation>(chair.customer, new Translation() { Value = m_transform.position });
             
             //chair.customer = Entity.Null;
             chair.Leave();

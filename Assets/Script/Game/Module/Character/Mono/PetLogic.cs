@@ -91,8 +91,9 @@ namespace SGame
 
             m_entity = EntityManager.CreateEntity(typeof(Follow),
                 typeof(LocalToWorld),
-                typeof(Rotation),
-                typeof(Translation),
+                typeof(LocalTransform),
+                //typeof(Rotation),
+                //typeof(Translation),
                 typeof(Speed),
                 typeof(RotationSpeed),
                 typeof(PathPositions),
@@ -101,8 +102,9 @@ namespace SGame
             EntityManager.AddComponentObject(m_entity, transform);
             EntityManager.SetComponentData(m_entity, new Speed(){Value = m_speed});
             EntityManager.SetComponentData(m_entity, new RotationSpeed(){Value = 20.0f});
-            EntityManager.SetComponentData(m_entity, new Rotation(){Value = m_transform.rotation});
-            EntityManager.SetComponentData(m_entity, new Translation(){Value = transform.position});
+            EntityManager.SetComponentData(m_entity, LocalTransform.FromPositionRotation(m_transform.position, m_transform.rotation));
+            //EntityManager.SetComponentData(m_entity, new Rotation(){Value = m_transform.rotation});
+            //EntityManager.SetComponentData(m_entity, new Translation(){Value = transform.position});
 
             m_fiber = new Fiber(Logic(), FiberBucket.Manual);
         }
@@ -221,7 +223,7 @@ namespace SGame
             
             // 圈外跟随
             m_animator.SetBool(WALK_NAME, true);
-            float3 curPos = EntityManager.GetComponentData<Translation>(m_entity).Value;
+            float3 curPos = EntityManager.GetComponentData<LocalTransform>(m_entity).Position;
 
             Vector2Int curMapPos =  MapAgent.VectorToGrid(curPos);
             SetFindPath(Utils.GetAStarPosFromMapPos(curMapPos), Utils.GetAStarPosFromMapPos(map_pos));
@@ -347,7 +349,7 @@ namespace SGame
             speed = PET_TAKETIP_SPPED.Value;
             for (int i = 0; i < tables.Count; i++)
             {
-                float3      pos = EntityManager.GetComponentData<Translation>(m_entity).Value;
+                float3      pos = EntityManager.GetComponentData<LocalTransform>(m_entity).Position;
                 Vector2Int v2Pos = MapAgent.VectorToGrid(pos);
                 int2 currentPos = new int2(v2Pos.x, v2Pos.y);
 

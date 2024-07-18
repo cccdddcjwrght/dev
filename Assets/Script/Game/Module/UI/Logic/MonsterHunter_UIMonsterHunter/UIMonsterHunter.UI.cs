@@ -130,8 +130,6 @@ namespace SGame.UI{
 			OnHpClick(data);
 		}
 		partial void OnHpClick(EventContext data);
-		void SetHpValue(float data)=>UIListener.SetValue(m_view.m_hp,data);
-		float GetHpValue()=>UIListener.GetValue(m_view.m_hp);
 		void SetHpText(string data)=>UIListener.SetText(m_view.m_hp,data);
 		string GetHpText()=>UIListener.GetText(m_view.m_hp);
 		void _OnShowrewardClick(EventContext data){
