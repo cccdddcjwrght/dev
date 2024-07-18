@@ -12,14 +12,16 @@ namespace SGame
     {
         protected override void OnUpdate()
         {
+            if (AStar.map == null)
+                return;
+            
             var mapInfo = AStar.map.GetMapInfo();
-            float deltaTime = Time.DeltaTime;
+            float deltaTime = World.Time.DeltaTime;
             Entities.WithNone<LastRotation>().ForEach(
                 (   Entity                       e, 
-                ref Rotation                     rot, 
+                ref LocalTransform                translation, 
                 in  DynamicBuffer<FPathPositions> paths, 
                 in Follow follow,
-                in Translation translation,
                 in RotationSpeed speed) =>
             {
                 if (follow.Value <= 0)
@@ -30,7 +32,7 @@ namespace SGame
                 int targetIndex     = follow.Value - 1;
                 var map_pos     = paths[targetIndex].Value;
                 float3 target_pos = map_pos;//AStar.GetPos(map_pos.x, map_pos.y, mapInfo);
-                float3 dir = target_pos - translation.Value;
+                float3 dir = target_pos - translation.Position;
                 dir.y = 0;
                 if (math.lengthsq(dir) <= 0.01) // 距离太短, 不足以判定
                     return;
@@ -38,24 +40,23 @@ namespace SGame
                 dir = math.normalize(dir);
                 quaternion target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
 
-                float cos_value = math.dot(rot.Value, target_rot);
+                float cos_value = math.dot(translation.Rotation, target_rot);
                 if (cos_value >= 0.99998f)
                 {
-                    rot.Value = target_rot;
+                    translation.Rotation = target_rot;
                 }
                 else
                 {
                     float t = math.clamp(deltaTime * speed.Value, 0, 1.0f);
-                    rot.Value = math.nlerp(rot.Value, target_rot, t);;
+                    translation.Rotation = math.nlerp(translation.Rotation, target_rot, t);;
                 }
             }).WithBurst().ScheduleParallel();
             
             Entities.ForEach(
                 (   Entity                       e, 
-                    ref Rotation                     rot, 
+                    ref LocalTransform                translation, 
                     in  DynamicBuffer<FPathPositions> paths, 
                     in Follow follow,
-                    in Translation translation,
                     in RotationSpeed speed,
                     in LastRotation lookAt) =>
                 {
@@ -69,7 +70,7 @@ namespace SGame
                         int targetIndex     = follow.Value - 1;
                         var map_pos    = paths[targetIndex].Value;
                         float3 target_pos   = map_pos;
-                        float3 dir = target_pos - translation.Value;
+                        float3 dir = target_pos - translation.Position;
                         dir.y = 0;
                         if (math.lengthsq(dir) <= 0.01) // 距离太短, 不足以判定
                             return;
@@ -78,15 +79,15 @@ namespace SGame
                         target_rot = quaternion.LookRotation(dir, new float3(0, 1, 0));
                     }
 
-                    float cos_value = math.dot(rot.Value, target_rot);
+                    float cos_value = math.dot(translation.Rotation, target_rot);
                     if (cos_value >= 0.99998f)
                     {
-                        rot.Value = target_rot;
+                        translation.Rotation = target_rot;
                     }
                     else
                     {
                         float t = math.clamp(deltaTime * speed.Value, 0, 1.0f);
-                        rot.Value = math.nlerp(rot.Value, target_rot, t);;
+                        translation.Rotation = math.nlerp(translation.Rotation, target_rot, t);;
                     }
                 }).WithBurst().ScheduleParallel();
         }

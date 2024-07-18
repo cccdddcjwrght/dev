@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Jobs;
 using Unity.Burst;
+using Unity.Burst.Intrinsics;
 
 namespace GameTools.Paths
 {
@@ -18,7 +19,7 @@ namespace GameTools.Paths
 
 		// 节点
 		#region Class
-		[BurstCompatible]
+		[GenerateTestsForBurstCompatibility]
 		public struct Node
 		{
 			public int2 pos;
@@ -42,7 +43,7 @@ namespace GameTools.Paths
 			}
 		}
 
-		[BurstCompatible]
+		[GenerateTestsForBurstCompatibility]
 		public struct MapData
 		{
 			public NativeArray<Node> _datas;    // 地图查找数据
@@ -362,8 +363,7 @@ namespace GameTools.Paths
 		{
 			// Cached access to a set of ComponentData based on a specific query
 			m_Group = GetEntityQuery(typeof(FindPathParams));//typeof(Rotation), ComponentType.ReadOnly<RotationSpeed_IJobChunk>());
-															 //EndSimulationEntityCommandBufferSystem
-			m_EntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+			m_EntityCommandBufferSystem = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
 		}
 
 		protected override void OnDestroy()
@@ -386,7 +386,7 @@ namespace GameTools.Paths
 
 			var findJob = new FindJob()
 			{
-				DeltaTime = Time.DeltaTime,
+				DeltaTime = World.Time.DeltaTime,
 				map_size = _mapData._size,
 				FindParamType = FindParamType,
 				FollowType = FollowType,
@@ -426,7 +426,7 @@ namespace GameTools.Paths
 				AStarSystem.FindPath(param.start_pos, param.end_pos, mapData, map_size, paths);
 			}
 
-			public void Execute(ArchetypeChunk chunk, int chunkIndex, int firstEntityIndex)
+			public void Execute(in ArchetypeChunk chunk, int chunkIndex, bool useEnabledMask, in v128 chunkEnabledMask)
 			{
 				var chunkFindParams = chunk.GetNativeArray(FindParamType);
 				//chunk.Ge

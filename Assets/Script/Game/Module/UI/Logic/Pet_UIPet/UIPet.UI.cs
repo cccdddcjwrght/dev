@@ -17,6 +17,7 @@ namespace SGame.UI{
 			m_view.m_type.onChanged.Add(new EventCallback1(_OnTypeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			m_view.m_pet.m_quality.onChanged.Add(new EventCallback1(_OnPetInfo_QualityChanged));
+			m_view.m_pet.m_nullpet.onChanged.Add(new EventCallback1(_OnPetInfo_NullpetChanged));
 			m_view.m_pet.m_model.m_quality.onChanged.Add(new EventCallback1(_OnPetModel_Pet_model_qualityChanged));
 			m_view.m_pet.m_model.m_type.onChanged.Add(new EventCallback1(_OnPetModel_Pet_model_typeChanged));
 			UIListener.ListenerIcon(m_view.m_pet.m_model.m_model, new EventCallback1(_OnPetModel_Pet_model_modelClick));
@@ -39,6 +40,7 @@ namespace SGame.UI{
 			m_view.m_type.onChanged.Remove(new EventCallback1(_OnTypeChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_pet.m_quality.onChanged.Remove(new EventCallback1(_OnPetInfo_QualityChanged));
+			m_view.m_pet.m_nullpet.onChanged.Remove(new EventCallback1(_OnPetInfo_NullpetChanged));
 			m_view.m_pet.m_model.m_quality.onChanged.Remove(new EventCallback1(_OnPetModel_Pet_model_qualityChanged));
 			m_view.m_pet.m_model.m_type.onChanged.Remove(new EventCallback1(_OnPetModel_Pet_model_typeChanged));
 			UIListener.ListenerIcon(m_view.m_pet.m_model.m_model, new EventCallback1(_OnPetModel_Pet_model_modelClick),remove:true);
@@ -80,6 +82,11 @@ namespace SGame.UI{
 		}
 		partial void OnPetInfo_QualityChanged(EventContext data);
 		void SwitchPetInfo_QualityPage(int index)=>m_view.m_pet.m_quality.selectedIndex=index;
+		void _OnPetInfo_NullpetChanged(EventContext data){
+			OnPetInfo_NullpetChanged(data);
+		}
+		partial void OnPetInfo_NullpetChanged(EventContext data);
+		void SwitchPetInfo_NullpetPage(int index)=>m_view.m_pet.m_nullpet.selectedIndex=index;
 		void _OnPetModel_Pet_model_qualityChanged(EventContext data){
 			OnPetModel_Pet_model_qualityChanged(data);
 		}

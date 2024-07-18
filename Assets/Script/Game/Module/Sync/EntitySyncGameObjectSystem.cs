@@ -15,19 +15,19 @@ namespace SGame
     
     // 对象同步系统
     [UpdateInGroup(typeof(GameLogicAfterGroup))]
-    public partial class EntitySyncGameObjectSystem : ComponentSystem
+    public partial class EntitySyncGameObjectSystem : SystemBase
     {
         protected override void OnUpdate()
         {
-            Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e, Transform sycnTransform, ref LocalToWorld LocalToWorld) =>
+            Entities.WithAll<EntitySyncGameObjectTag>().ForEach((Entity e, Transform sycnTransform, in LocalTransform trans) =>
             {
                 // 同步对象
                 if (sycnTransform != null)
                 {
-                    sycnTransform.position = LocalToWorld.Position;
-                    sycnTransform.rotation = LocalToWorld.Rotation;
+                    sycnTransform.position = trans.Position;
+                    sycnTransform.rotation = trans.Rotation;
                 }
-            });
+            }).WithoutBurst().Run();
         }
     }
 }

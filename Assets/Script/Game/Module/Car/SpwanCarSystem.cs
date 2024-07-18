@@ -15,7 +15,7 @@ using Unity.Mathematics;
 namespace SGame
 {
     [UpdateInGroup(typeof(GameLogicGroup))]
-    public class SpawnCarSystem : ComponentSystem
+    public partial class SpawnCarSystem : SystemBase
     {
         private static ILog log = LogManager.GetLogger("game.car");
 
@@ -55,8 +55,7 @@ namespace SGame
         {
             m_carArchetype = EntityManager.CreateArchetype(
                 typeof(Speed), 
-                typeof(Translation), 
-                typeof(Rotation),
+                typeof(LocalTransform),
                 typeof(LocalToWorld),
                 typeof(RotationSpeed),
                 typeof(Follow),
@@ -66,7 +65,7 @@ namespace SGame
                 //typeof(CarCustomer)
                 );
             
-            RequireSingletonForUpdate<GameInitFinish>();
+            RequireForUpdate<GameInitFinish>();
         }
 
         protected override void OnStartRunning()
@@ -92,8 +91,10 @@ namespace SGame
             obj.transform.position = pos;
             EntityManager.AddComponentObject(entity, obj.transform);
             EntityManager.AddComponentObject(entity, carscript);
-            EntityManager.SetComponentData(entity, new Translation(){Value = pos});
-            EntityManager.SetComponentData(entity, new Rotation(){Value = rot});
+            var trans = EntityManager.GetComponentData<LocalTransform>(entity);
+            trans.Position = pos;
+            trans.Rotation = rot;
+            EntityManager.SetComponentData(entity, trans);
             EntityManager.SetComponentData(entity, new RotationSpeed(){Value =  10.0f});
             EntityManager.SetComponentData(entity, new CarData(){id = req.id});
             if (!carscript.Initalize(EntityManager, entity, req.id))
@@ -120,7 +121,7 @@ namespace SGame
                 
                 // 删除请求对象
                 EntityManager.DestroyEntity(e);
-            });
+            }).WithoutBurst().WithStructuralChanges().Run();
         }
     }
 }

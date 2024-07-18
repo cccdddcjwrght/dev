@@ -14,7 +14,7 @@ using Unity.VisualScripting;
 namespace SGame
 {
     [UpdateInGroup(typeof(GameLogicGroup))]
-    public class CharacterSpawnSystem : ComponentSystem
+    public partial class CharacterSpawnSystem : SystemBase
     {
         public string ENTITY_PREFAB_PATH = "Assets/BuildAsset/Prefabs/ECS/Character.prefab";
         
@@ -118,8 +118,7 @@ namespace SGame
                 typeof(CharacterAttribue),
                 typeof(Follow),
                 typeof(LocalToWorld),
-                typeof(Translation),
-                typeof(Rotation),
+                typeof(LocalTransform),
                 typeof(Prefab),
                 typeof(GameObjectSyncTag));
             EntityManager.SetComponentData(m_characterPerfab, new Speed(){Value = 10.0f});
@@ -156,7 +155,7 @@ namespace SGame
                 return;
             
             // 等待资源加载并生成对象
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, ref CharacterSpawn req, CharacterSpawnResult result) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, CharacterSpawnResult result, ref CharacterSpawn req) =>
             {
                 if (!ConfigSystem.Instance.TryGet(req.id, out GameConfigs.RoleDataRowData roleData))
                 {
@@ -198,7 +197,7 @@ namespace SGame
 				//TODO:先不使用CommandBuff处理
 
 				// 设置属性
-				EntityManager.SetComponentData(characterEntity, new Translation() { Value = req.pos });
+                EntityManager.SetComponentData(characterEntity, LocalTransform.FromPosition(req.pos));//new Translation() { Value = req.pos }));
 				EntityManager.SetComponentData(characterEntity, new CharacterAttribue() { roleID = roleData.Id, roleType = roleData.Type, characterID = lasterCharacterID });
 				EntityManager.SetComponentData(characterEntity, new Speed() { Value = roleData.MoveSpeed });
 				EntityManager.AddComponentObject(characterEntity, result);
@@ -206,7 +205,7 @@ namespace SGame
                 m_characters.Add(lasterCharacterID, characterEntity);
                 c.OnInitCharacter(characterEntity, EntityManager, result);
                 EntityManager.DestroyEntity(e);
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();
         }
     }
 }

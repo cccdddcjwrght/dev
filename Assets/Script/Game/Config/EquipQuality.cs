@@ -40,6 +40,7 @@ public struct EquipQualityRowData : IFlatbufferObject
   public ArraySegment<byte>? GetBreakRewardBytes() { return __p.__vector_as_arraysegment(16); }
 #endif
   public int[] GetBreakRewardArray() { return __p.__vector_as_array<int>(16); }
+  public int BuffNum { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.EquipQualityRowData> CreateEquipQualityRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -48,8 +49,10 @@ public struct EquipQualityRowData : IFlatbufferObject
       int MainBuffAdd = 0,
       int AdvanceType = 0,
       int AdvanceValue = 0,
-      VectorOffset BreakRewardOffset = default(VectorOffset)) {
-    builder.StartTable(7);
+      VectorOffset BreakRewardOffset = default(VectorOffset),
+      int BuffNum = 0) {
+    builder.StartTable(8);
+    EquipQualityRowData.AddBuffNum(builder, BuffNum);
     EquipQualityRowData.AddBreakReward(builder, BreakRewardOffset);
     EquipQualityRowData.AddAdvanceValue(builder, AdvanceValue);
     EquipQualityRowData.AddAdvanceType(builder, AdvanceType);
@@ -60,7 +63,7 @@ public struct EquipQualityRowData : IFlatbufferObject
     return EquipQualityRowData.EndEquipQualityRowData(builder);
   }
 
-  public static void StartEquipQualityRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartEquipQualityRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddMainBuff(FlatBufferBuilder builder, VectorOffset MainBuffOffset) { builder.AddOffset(1, MainBuffOffset.Value, 0); }
   public static VectorOffset CreateMainBuffVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
@@ -74,6 +77,7 @@ public struct EquipQualityRowData : IFlatbufferObject
   public static VectorOffset CreateBreakRewardVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateBreakRewardVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartBreakRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddBuffNum(FlatBufferBuilder builder, int BuffNum) { builder.AddInt(7, BuffNum, 0); }
   public static Offset<GameConfigs.EquipQualityRowData> EndEquipQualityRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipQualityRowData>(o);

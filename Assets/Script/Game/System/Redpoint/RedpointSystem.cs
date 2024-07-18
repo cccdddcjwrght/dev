@@ -206,7 +206,7 @@ namespace SGame
 					else
 						redpoint.time = (d.Interval > 0 ? d.Interval : __red_check_time) + t;
 				}
-			}).WithoutBurst().Run();
+			}).WithoutBurst().WithStructuralChanges().Run();
 		}
 
 		protected override void OnDestroy()
