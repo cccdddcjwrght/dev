@@ -128,6 +128,7 @@ namespace SGame
         RegionHit mono;
         public void CheckRecruitOpen() 
         {
+#if GAME_GUIDE
             if (DataCenter.Instance.roomData.roomID != 1) return;
             
             if (mono == null) 
@@ -146,15 +147,20 @@ namespace SGame
                     mono.gameObject?.SetActive(worktable?.lv >= v[1]);
                 }
             }
+#endif
         }
 
         public bool GetWorktableShow() 
         {
+#if GAME_GUIDE
             if (DataCenter.Instance.roomData.roomID != 1) return true;
 
             var v = GlobalDesginConfig.GetIntArray("guide_recruit");
             var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
             return worktable?.lv >= v[1];
+#else
+            return true;
+#endif
         }
 
 

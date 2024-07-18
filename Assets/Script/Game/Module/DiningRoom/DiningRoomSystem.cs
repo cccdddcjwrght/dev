@@ -134,8 +134,6 @@ namespace SGame.Dining
 				yield return new WaitUntil(() => !StaticDefine.G_WAIT_WELCOME);
 			}
 			log.Info("EnterRoom :" + _currentRoom.cfgID);
-			EventManager.Instance.Trigger((int)GameEvent.GUIDE_CREATE);
-
 			EventManager.Instance.AsyncTrigger(((int)GameEvent.ENTER_ROOM), _currentRoom.cfgID);
 			EventManager.Instance.AsyncTrigger(((int)GameEvent.AFTER_ENTER_ROOM), _currentRoom.cfgID);
 			_gameWorld.GetEntityManager().DestroyEntity(_sceneFlag);
