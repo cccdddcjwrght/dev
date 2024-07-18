@@ -9,13 +9,13 @@ variables:
   BUILD_NAME: $CI_PROJECT_NAME-$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA-$CI_JOB_ID
   UNITY_ACTIVATION_FILE: ./unity3d.alf
   IMAGE: unityci/editor # https://hub.docker.com/r/unityci/editor
-  IMAGE_VERSION: "2.0.0" # This will automatically use latest v1.x.x, see https://github.com/game-ci/docker/releases
+  IMAGE_VERSION: "3.1.0" # This will automatically use latest v1.x.x, see https://github.com/game-ci/docker/releases
   UNITY_DIR: $CI_PROJECT_DIR # this needs to be an absolute path. Defaults to the root of your tree.
   # You can expose this in Unity via Application.version
   VERSION_NUMBER_VAR:  1.$CI_PIPELINE_ID.$CI_JOB_ID
   VERSION_BUILD_VAR: $CI_PIPELINE_IID
   #GRADLE_USER_HOME: /cache/.gradle
-  UNITY_VERSION: "2021.3.30f1"
+  UNITY_VERSION: "2022.3.37f1"
   GIT_DEPTH: 1
 
 image: $IMAGE:$UNITY_VERSION-base-$IMAGE_VERSION
