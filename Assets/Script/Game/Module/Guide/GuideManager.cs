@@ -129,22 +129,25 @@ namespace SGame
         public void CheckRecruitOpen() 
         {
 #if GAME_GUIDE
-            if (DataCenter.Instance.roomData.roomID != 1) return;
-            
-            if (mono == null) 
+            if (Game.Instance.enableGuide)
             {
-                var go = GameObject.FindGameObjectWithTag("recruit");
-                mono = go?.GetComponent<RegionHit>();
-            }
+                if (DataCenter.Instance.roomData.roomID != 1) return;
 
-            if (mono) 
-            {
-                var region = DataCenter.MachineUtil.GetWorktable(mono.region);
-                if (region != null)
+                if (mono == null)
                 {
-                    var v = GlobalDesginConfig.GetIntArray("guide_recruit");
-                    var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
-                    mono.gameObject?.SetActive(worktable?.lv >= v[1]);
+                    var go = GameObject.FindGameObjectWithTag("recruit");
+                    mono = go?.GetComponent<RegionHit>();
+                }
+
+                if (mono)
+                {
+                    var region = DataCenter.MachineUtil.GetWorktable(mono.region);
+                    if (region != null)
+                    {
+                        var v = GlobalDesginConfig.GetIntArray("guide_recruit");
+                        var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
+                        mono.gameObject?.SetActive(worktable?.lv >= v[1]);
+                    }
                 }
             }
 #endif
@@ -153,11 +156,15 @@ namespace SGame
         public bool GetWorktableShow() 
         {
 #if GAME_GUIDE
-            if (DataCenter.Instance.roomData.roomID != 1) return true;
+            if (Game.Instance.enableGuide)
+            {
+                if (DataCenter.Instance.roomData.roomID != 1) return true;
 
-            var v = GlobalDesginConfig.GetIntArray("guide_recruit");
-            var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
-            return worktable?.lv >= v[1];
+                var v = GlobalDesginConfig.GetIntArray("guide_recruit");
+                var worktable = DataCenter.MachineUtil.GetWorktable(v[0]);
+                return worktable?.lv >= v[1];
+            }
+            return true;
 #else
             return true;
 #endif
