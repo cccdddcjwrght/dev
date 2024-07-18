@@ -173,7 +173,7 @@ PlayerSettings:
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 23
-  AndroidTargetSdkVersion: 33
+  AndroidTargetSdkVersion: 34
   AndroidPreferredInstallLocation: 0
   aotOptions: 
   stripEngineCode: 0
@@ -259,7 +259,7 @@ PlayerSettings:
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 1
   useCustomBaseGradleTemplate: 1
-  useCustomGradlePropertiesTemplate: 1
+  useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 1
   AndroidTargetArchitectures: 2
@@ -852,9 +852,9 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;BUILD_FAST;ODIN_INSPECTOR_3_1
+    Android: ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;BUILD_FAST
     Server: 
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;BUILD_FAST
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP;FAIRYGUI_TMPRO;URP;XASSET_MD5_FILE;XASSET_DISABLE_VDISK;FAIRYGUI_TEST;BUILD_FAST;ODIN_INSPECTOR_3_1
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
