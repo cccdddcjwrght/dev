@@ -368,9 +368,23 @@ using System.Collections.Generic;
         /// <param name="food"></param>
         public void TakeFood(Entity food)
         {
+            OrderData orderData = order;
+            if (orderData == null)
+            {
+                log.Error("order not found!");
+                return;
+            }
+
+            if (orderData.foodID != food)
+            {
+                log.Error("food entity not match!");
+                return;
+            }
+            
             // 设置父节点为自己
             EffectData effetctData = entityManager.GetComponentData<EffectData>(food);
             Transform foodTransform = entityManager.GetComponentObject<Transform>(food);
+            foodTransform.gameObject.SetActive(true);
             if (!ConfigSystem.Instance.TryGet(effetctData.effectId, out GameConfigs.effectsRowData config))
             {
                 log.Error("effect id not found=" + effetctData.effectId.ToString());
@@ -382,8 +396,42 @@ using System.Collections.Generic;
             foodTransform.localPosition = Vector3.zero;
             foodTransform.localRotation = Quaternion.identity;
             this.m_food = food;
+            
+            // 去除桌面上的食物
+            TableData table = TableManager.Instance.Get(orderData.dishPointID);
+            table.m_foodList.Remove(food);
+            UpdateFoodVisible(table.m_foodList);
         }
 
+        public bool PushToDishPoint(int tableID)
+        {
+            OrderData orderData = order;
+            if (!orderData.PutToDishPoint(CharacterID, tableID))
+                return false;
+            TableData table = TableManager.Instance.Get(tableID);
+            Entity foodEntity = PlaceFoodToTable(table.map_pos);
+            
+            // 隐藏之前所有的
+            table.m_foodList.Add(foodEntity);
+            UpdateFoodVisible(table.m_foodList);
+            return true;
+        }
+
+        void UpdateFoodVisible(List<Entity> foods)
+        {
+            if (foods.Count > 0)
+            {
+                for (int i = 0; i < foods.Count - 1; i++)
+                {
+                    var f = foods[i];
+                    var mono = entityManager.GetComponentObject<Transform>(f);
+                    mono.gameObject.SetActive(false);
+                }
+                
+                var top = entityManager.GetComponentObject<Transform>(foods[foods.Count - 1]);
+                top.gameObject.SetActive(true);
+            }
+        }
         
         /// <summary>
         /// 放置食物到目标位置上去

@@ -57,6 +57,8 @@ namespace SGame
 
         // 该位置是否位空
         public bool IsFoodEmpty =>  foodsCount == 0;
+
+        public List<Entity>      m_foodList = new List<Entity>();
         
         public void ClearChairs()
         {
