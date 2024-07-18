@@ -36,7 +36,7 @@ namespace SGame
 
 
 	[UpdateAfter(typeof(GameLogicAfterGroup))]
-	public class RichRedpoint : RedpointSystem
+	public partial class RichRedpoint : RedpointSystem
 	{
 		private static ILog log = LogManager.GetLogger("redpoint");
 		private static Dictionary<int, string> _keys = new Dictionary<int, string>();

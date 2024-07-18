@@ -81,7 +81,7 @@ namespace SGame
             var entityManager   = UIModule.Instance.GetEntityManager();
             var uiEntity        = UIRequest.Create(entityManager, UIUtils.GetUI("GameTip"));
             entityManager.AddComponentData(uiEntity, new GameTipParam() { type = tipType, text = text });
-            entityManager.AddComponentData(uiEntity, new Translation() { Value = pos });
+            entityManager.AddComponentData(uiEntity, LocalTransform.FromPosition(pos));
             return uiEntity;
         }
         

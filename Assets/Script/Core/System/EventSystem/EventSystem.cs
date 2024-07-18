@@ -26,14 +26,14 @@ namespace SGame
         {
             get
             {
-                EventSystem ret = Unity.Entities.World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<EventSystem>();
+                EventSystem ret = Unity.Entities.World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<EventSystem>();
                 return ret;
             }
         }
 
         protected override void OnCreate()
         {
-            m_commandBufferSystem   = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commandBufferSystem   = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
             m_events                = new Dictionary<int, Action<Entity>>();
             m_eventArchetype        = EntityManager.CreateArchetype(typeof(EventData));
         }
@@ -90,7 +90,7 @@ namespace SGame
 
         // eventId, 事件Id
         // param， 事件参数
-        public Entity FireEvent<T>(EntityCommandBuffer cmdBuff, int eventId, T param) where T : struct, IComponentData
+        public Entity FireEvent<T>(EntityCommandBuffer cmdBuff, int eventId, T param) where T : unmanaged, IComponentData
         {
             var archeType = EntityManager.CreateArchetype(typeof(EventData), typeof(T));
             var e = cmdBuff.CreateEntity(archeType);

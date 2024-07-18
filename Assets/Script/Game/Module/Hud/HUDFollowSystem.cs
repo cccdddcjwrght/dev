@@ -29,7 +29,7 @@ namespace SGame.UI
 
     [UpdateAfter(typeof(SpawnUISystem))]
     [UpdateInGroup(typeof(GameUIGroup))]
-    public class HUDFlowSystem : ComponentSystem
+    public partial class HUDFlowSystem : SystemBase
     {
         private static ILog              log = LogManager.GetLogger("game.hud");
 
@@ -37,17 +37,17 @@ namespace SGame.UI
 
         protected override void OnCreate()
         {
-            m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commandBuffer = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, HUDFlow flow, ref Translation trans) =>
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e, HUDFlow flow, ref LocalTransform trans) =>
             {
                 if (flow.Value != null)
                 {
-                    trans.Value = (float3)flow.Value.position + flow.offset;
+                    trans.Position = (float3)flow.Value.position + flow.offset;
                 }
                 else
                 {
@@ -55,15 +55,15 @@ namespace SGame.UI
                     commandBuffer.RemoveComponent<HUDFlow>(e);
                     commandBuffer.AddComponent<DespawningEntity>(e);
                 }
-            });
+            }).WithoutBurst().WithStructuralChanges().Run();
 
-            var translationQuery = GetComponentDataFromEntity<Translation>();
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e,  ref Translation trans, ref HUDFlowE flow) =>
+            var translationQuery = GetComponentLookup<LocalTransform>();
+            Entities.WithNone<DespawningEntity>().ForEach((Entity e,  ref LocalTransform trans, ref HUDFlowE flow) =>
             {
                 if (flow.Value != Entity.Null && translationQuery.HasComponent(flow.Value))
                 {
-                    Translation other = translationQuery[flow.Value];
-                    trans.Value = other.Value + flow.offset;
+                    LocalTransform other = translationQuery[flow.Value];
+                    trans.Position = other.Position + flow.offset;
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace SGame.UI
                     commandBuffer.RemoveComponent<HUDFlow>(e);
                     commandBuffer.AddComponent<DespawningEntity>(e);
                 }
-            });
+            }).WithoutBurst().WithStructuralChanges().Run();
         }
     }
 }

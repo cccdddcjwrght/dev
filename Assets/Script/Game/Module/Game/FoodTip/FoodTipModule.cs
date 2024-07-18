@@ -47,7 +47,7 @@ namespace SGame
 
         public void CloseTip(Entity e)
         {
-            World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>().DespawnEntity(e);
+            World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<DespawnEntitySystem>().DespawnEntity(e);
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace SGame
             //m_EntityManager.AddComponent<DespawningEntity>(food.ui);
 
             // 显示点击特效
-            var trans = m_EntityManager.GetComponentData<Translation>(foodTip);
-            EffectSystem.Instance.Spawn3d((int)EffectDefine.FOOD_TIP_GOLD_EFFECT, null, trans.Value);
+            var trans = m_EntityManager.GetComponentData<LocalTransform>(foodTip);
+            EffectSystem.Instance.Spawn3d((int)EffectDefine.FOOD_TIP_GOLD_EFFECT, null, trans.Position);
             
 
             // UIUtils.ShowTipsNew(food.gold, )

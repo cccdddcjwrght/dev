@@ -259,7 +259,7 @@ using System.Collections.Generic;
             var searchPos = GameTools.MapAgent.GridToIndex(new Vector2Int(map_pos.x, map_pos.y));
             map_pos.x = searchPos.x;
             map_pos.y = searchPos.y;
-            float3 pos = entityManager.GetComponentData<Translation>(entity).Value;
+            float3 pos = entityManager.GetComponentData<LocalTransform>(entity).Position;
             int2 curPos = AStar.GetGridPos(pos);
             Vector2Int checkPos = MapAgent.VectorToGrid(pos);
             if (checkPos.x == map_pos.x && checkPos.y == map_pos.y)

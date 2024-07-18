@@ -82,9 +82,9 @@ public class GameWorld
                 
                 continue;
 
-            var gameObjectEntity = entity.GetComponent<GameObjectEntity>();
-            if (gameObjectEntity != null && !m_EntityManager.Exists(gameObjectEntity.Entity))
-                continue;
+            //var gameObjectEntity = entity.GetComponent<GameObjectEntity>();
+            //if (gameObjectEntity != null && !m_EntityManager.Exists(gameObjectEntity.Entity))
+             //   continue;
             //#endif            
 
             RequestDespawn(entity);
@@ -105,7 +105,7 @@ public class GameWorld
     {
         return m_ECSWorld;
     }
-
+/*
     public T Spawn<T>(GameObject prefab) where T : Component
     {
         return Spawn<T>(prefab, Vector3.zero, Quaternion.identity);
@@ -147,7 +147,7 @@ public class GameWorld
 
         return go;
     }
-
+*/
     ////////////////////////////////////////////////////////////////////////////////
     public void RequestDespawn(GameObject entity)
     {
@@ -157,9 +157,9 @@ public class GameWorld
             return;
         }
 
-        var gameObjectEntity = entity.GetComponent<GameObjectEntity>();
-        if (gameObjectEntity != null)
-            m_EntityManager.AddComponent(gameObjectEntity.Entity, typeof(DespawningEntity));
+        //var gameObjectEntity = entity.GetComponent<GameObjectEntity>();
+        //if (gameObjectEntity != null)
+        //    m_EntityManager.AddComponent(gameObjectEntity.Entity, typeof(DespawningEntity));
 
         m_DespawnRequests.Add(entity);
     }
@@ -172,9 +172,9 @@ public class GameWorld
             return;
         }
 
-        var gameObjectEntity = entity.GetComponent<GameObjectEntity>();
-        if (gameObjectEntity != null)
-            commandBuffer.AddComponent(gameObjectEntity.Entity, new DespawningEntity());
+        //var gameObjectEntity = entity.GetComponent<GameObjectEntity>();
+        //if (gameObjectEntity != null)
+        //    commandBuffer.AddComponent(gameObjectEntity.Entity, new DespawningEntity());
 
         m_DespawnRequests.Add(entity);
     }
@@ -240,7 +240,7 @@ public class GameWorld
 
         //m_destroyDespawningSystem.Update();
     }
-
+/*
     Entity RegisterInternal(GameObject gameObject, bool isDynamic)
     {
         // If gameObject has GameObjectEntity it is already registered in entitymanager. If not we register it here  
@@ -254,39 +254,7 @@ public class GameWorld
 
         return gameObjectEntity != null ? gameObjectEntity.Entity : retEntity;
     }
-    
-    /// <summary>
-    /// 需要将转换Entity
-    /// </summary>
-    /// <param name="prefab"></param>
-    /// <param name="position"></param>
-    /// <param name="rotation"></param>
-    /// <param name="entity"></param>
-    /// <returns></returns>
-    public GameObject SpawnAndCovert(GameObject prefab, Vector3 position, Quaternion rotation, out Entity entity)
-    {
-        Profiler.BeginSample("GameWorld.SpawnInternal");
-
-        var go = Object.Instantiate(prefab, position, rotation);
-        entity = CoverToEntity(go);
-        m_dynamicEntities.Add(go);
-
-        Profiler.EndSample();
-
-        return go;
-    }
-    
-    // 将Prefab专函为Entity, 也可转换prefab!
-    public Entity CoverToEntity(GameObject go)
-    {
-        Entity entityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(go, new GameObjectConversionSettings
-        {
-            DestinationWorld = GetECSWorld(),
-            ConversionFlags = GameObjectConversionUtility.ConversionFlags.AssignName,
-        });
-
-        return entityPrefab;
-    }
+    */
 
     EntityManager m_EntityManager;
     World m_ECSWorld;

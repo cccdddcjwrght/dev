@@ -49,7 +49,7 @@ namespace SGame.UI
 		/// </summary>
 		protected override void OnUpdate()
 		{
-			float deltaTime = Time.DeltaTime;
+			float deltaTime = World.Time.DeltaTime;
 			
 			// 1. UI更新
 			Entities.WithAll<UIInitalized>().ForEach((Entity e, UIWindow win) =>

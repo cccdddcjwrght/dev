@@ -89,7 +89,7 @@ namespace SGame
         public Character FindCharacter(int characterID)
         {
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var spawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<CharacterSpawnSystem>();
+            var spawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<CharacterSpawnSystem>();
             Entity e = spawnSystem.GetCharacter(characterID);
             if (e == Entity.Null)
                 return null;
@@ -109,7 +109,7 @@ namespace SGame
             var entities = m_characterQuery.ToEntityArray(Allocator.Temp);
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
+            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<DespawnEntitySystem>();
             foreach (var e in entities)
             {
                 if (entityManager.HasComponent<Character>(e))
@@ -170,7 +170,7 @@ namespace SGame
 
         public bool DespawnCharacter(int charcterID)
         {
-            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
+            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<DespawnEntitySystem>();
             
             var character = FindCharacter(charcterID);
             if (character == null)
@@ -182,7 +182,7 @@ namespace SGame
 
         public bool DespawnCharacterEntity(Entity e)
         {
-            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<DespawnEntitySystem>();
+            var despawnSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<DespawnEntitySystem>();
             despawnSystem.DespawnEntity(e);
             return true;
         }

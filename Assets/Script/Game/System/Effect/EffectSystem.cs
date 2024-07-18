@@ -39,7 +39,7 @@ namespace SGame
 	}
 
 	// 创建好的特效会添加
-	public struct EffectSysData : ISystemStateComponentData
+	public struct EffectSysData : ICleanupComponentData
 	{
 	}
 
@@ -50,7 +50,7 @@ namespace SGame
 	}
 
 	// 特效系统
-	public partial class EffectSystem : ComponentSystem
+	public partial class EffectSystem : SystemBase
 	{
 		// 配置表系统
 		private ConfigSystem configSystem;
@@ -81,13 +81,13 @@ namespace SGame
 			configSystem = ConfigSystem.Instance;
 			//m_commandBuffer             = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
 
-			m_actEffect = EntityManager.CreateArchetype(typeof(EffectData), typeof(Translation), typeof(Rotation), typeof(LocalToWorld));
+			m_actEffect = EntityManager.CreateArchetype(typeof(EffectData), typeof(LocalTransform), typeof(LocalToWorld));
 			m_actRequestUIEffect = EntityManager.CreateArchetype(typeof(RequestSpawnUIEffect));
 		}
 
 		public static EffectSystem Instance
 		{
-			get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<EffectSystem>(); }
+			get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<EffectSystem>(); }
 		}
 
 		protected override void OnUpdate()
@@ -122,13 +122,15 @@ namespace SGame
 				// 3D对象特殊处理, 使用Entity属性来完成
 				GameObject parent = new GameObject("effect");
 				obj.transform.parent = parent.transform;
-				parent.transform.position = EntityManager.GetComponentData<Translation>(effect).Value;
-				parent.transform.rotation = EntityManager.GetComponentData<Rotation>(effect).Value;
-				if (EntityManager.HasComponent<Scale>(effect))
-				{
-					float scale = EntityManager.GetComponentData<Scale>(effect).Value;
-					parent.transform.localScale = new Vector3(scale, scale, scale);
-				}
+				var localTransform = EntityManager.GetComponentData<LocalTransform>(effect);
+				parent.transform.position = localTransform.Position;
+				parent.transform.rotation = localTransform.Rotation;
+				//if (EntityManager.HasComponent<Scale>(effect))
+				//{
+				//	float scale = EntityManager.GetComponentData<Scale>(effect).Value;
+				//	parent.transform.localScale = new Vector3(scale, scale, scale);
+				//}
+				parent.transform.localScale = new Vector3(localTransform.Scale, localTransform.Scale, localTransform.Scale);
 				m_effectObjects.Add(effect, parent);
 				
 				EffectMono mono = parent.AddComponent<EffectMono>();
@@ -261,7 +263,7 @@ namespace SGame
 					req.prefabRequest = null;
 					EntityManager.DestroyEntity(e);
 				}
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();
 		}
 
 		// 清理创建的GameObject对象
@@ -276,7 +278,7 @@ namespace SGame
 				}
 
 				EntityManager.RemoveComponent<EffectSysData>(e);
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();
 		}
 
 		// 删除特效
@@ -399,8 +401,7 @@ namespace SGame
 					EntityManager.AddComponent<EntitySyncGameObjectTag>(spawnData.entity);
 			}
 			
-			EntityManager.SetComponentData(spawnData.entity, new Translation(){Value = float3.zero});
-			EntityManager.SetComponentData(spawnData.entity, new Rotation(){Value = quaternion.identity});
+			EntityManager.SetComponentData(spawnData.entity, LocalTransform.Identity);
 			return spawnData.entity;
 		}
 
@@ -450,7 +451,9 @@ namespace SGame
 
 			// 设置位置等信息
 			var e = SpawnBase(req);
-			EntityManager.SetComponentData(e, new Translation(){Value = point});
+			LocalTransform trans = EntityManager.GetComponentData<LocalTransform>(e);
+			trans.Position = point;
+			EntityManager.SetComponentData(e, trans);
 			return e;
 		}
 

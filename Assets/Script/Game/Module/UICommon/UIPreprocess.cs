@@ -116,10 +116,8 @@ namespace SGame
 			// 添加3D 信息
 			if (!entityManager.HasComponent<LocalToWorld>(ui))
 				entityManager.AddComponent<LocalToWorld>(ui);
-			if (!entityManager.HasComponent<Translation>(ui))
-				entityManager.AddComponent<Translation>(ui);
-			if (!entityManager.HasComponent<Rotation>(ui))
-				entityManager.AddComponent<Rotation>(ui);
+			if (!entityManager.HasComponent<LocalTransform>(ui))
+				entityManager.AddComponentData(ui, LocalTransform.Identity);
 		}
 
 		public void AfterShow(UIContext context)
@@ -140,11 +138,12 @@ namespace SGame
 					if (entityManager.HasComponent<HUDFlow>(e))
 					{
 						var flow = entityManager.GetComponentObject<HUDFlow>(e);
-						Translation t = new Translation() { Value = (float3)flow.Value.position + flow.offset };
-						entityManager.SetComponentData(e, t);
+						LocalTransform trans = entityManager.GetComponentData<LocalTransform>(e);
+						trans.Position = (float3)flow.Value.position + flow.offset;
+						entityManager.SetComponentData(e, trans);
 
 						var uiwindow = context.window;
-						Vector2 pos = SGame.UIUtils.GetUIPosition(uiwindow.parent, t.Value, PositionType.POS3D);
+						Vector2 pos = SGame.UIUtils.GetUIPosition(uiwindow.parent, trans.Position, PositionType.POS3D);
 						uiwindow.xy = pos;
 					}
 				}

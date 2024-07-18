@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
-
+/*
 public class EntityHandle : MonoBehaviour, IConvertGameObjectToEntity
 {
     Entity _entity;
@@ -22,3 +22,4 @@ public class EntityHandle : MonoBehaviour, IConvertGameObjectToEntity
         _entityManager = dstManager;
     }
 }
+*/

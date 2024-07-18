@@ -17,7 +17,7 @@ namespace SGame.UI
         protected override void OnCreate()
         {
             base.OnCreate();
-            m_commandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commandBufferSystem = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
 
         public void RemoveEntity(Entity e)

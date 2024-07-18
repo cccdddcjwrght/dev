@@ -139,7 +139,7 @@ public class Game : SGame.MonoSingleton<Game>
 			GameDebug.LogError("Audio Mixer Load Fail = " + audioReq.error);
 			yield break;
 		}
-		World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
+		World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
 
 		yield return SDK.SDKProxy.Init();
 	}

@@ -2,7 +2,7 @@
 using Unity.Mathematics;
 
 // 速度
-[GenerateAuthoringComponent]
+//[GenerateAuthoringComponent]
 public struct Speed : IComponentData
 {
     public float Value;

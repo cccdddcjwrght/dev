@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GameConfigs;
 using log4net;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
-using UnityEngine.Networking.Types;
 
 namespace SGame
 {

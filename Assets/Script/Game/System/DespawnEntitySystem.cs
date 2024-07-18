@@ -6,7 +6,7 @@ using Unity.Entities;
 namespace SGame
 {
     [UpdateBefore(typeof(EndSimulationEntityCommandBufferSystem))]
-    public class DespawnEntitySystem : ComponentSystem
+    public partial class DespawnEntitySystem : SystemBase
     {
         private List<Entity>                            m_entitys;
         private List<Entity>                            m_destoryEntitys;
@@ -17,7 +17,7 @@ namespace SGame
             m_entitys = new List<Entity>(10);
             m_destoryEntitys = new List<Entity>(10);
 
-            m_commanderBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commanderBuffer = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
         
         protected override void OnUpdate()

@@ -62,7 +62,9 @@ namespace SGame
             // 设置旋转
             var dir = targetPos - slot.position;
             Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
-            entityManager.SetComponentData(bulletEntity, new Rotation(){Value = rot});
+            var trans = entityManager.GetComponentData<LocalTransform>(bulletEntity);
+            trans.Rotation = rot;
+            entityManager.SetComponentData(bulletEntity, trans);
             entityManager.AddComponentData(bulletEntity, new BulletData() { bulletID = bulletID, explorerEffectID = bulletConfig.HitEffectId });
             return bulletEntity;
         }

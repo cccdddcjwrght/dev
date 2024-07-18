@@ -17,20 +17,19 @@ namespace SGame.Http
 {
 	[UpdateAfter(typeof(HttpSystemSpawn))]
 	[UpdateInGroup(typeof(GameLogicAfterGroup))]
-	public partial class HttpSystem : ComponentSystem
+	public partial class HttpSystem : SystemBase
 	{
 		private string m_token;
 		private string m_baseUrl;
 
 		public static HttpSystem Instance
 		{
-			get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<HttpSystem>(); }
+			get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<HttpSystem>(); }
 		}
 
 		protected override void OnCreate()
 		{
-			m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-
+			m_commandBuffer = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
 		}
 
 		public void SetToken(string value)
@@ -55,7 +54,7 @@ namespace SGame.Http
 			Entities.ForEach((Entity e, HttpData data, HttpResult result) =>
 			{
 				// 将返回值存入结果中去
-				if (data.result.isDone)
+				if (data.result != null && data.result.isDone)
 				{
 					result.isDone = true;
 					result.error = null;
@@ -74,7 +73,7 @@ namespace SGame.Http
 					data.request.Dispose();
 					commandBuffer.DestroyEntity(e);
 				}
-			});
+			}).WithoutBurst().Run();
 		}
 
 		/// <summary>

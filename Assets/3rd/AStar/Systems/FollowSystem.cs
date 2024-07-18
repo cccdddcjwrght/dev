@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Jobs;
 using Unity.Burst;
+using Unity.Burst.Intrinsics;
 
 //using UnityEngine;
 // 自动寻路的跟随系统 (多线程加速版)
@@ -27,7 +28,7 @@ namespace GameTools.Paths
 			public MapInfo mapInfo;
 
 			public ComponentTypeHandle<Follow> chunkTypeFollow;
-			public ComponentTypeHandle<Translation> chunkTypeTranslation;
+			public ComponentTypeHandle<LocalTransform> chunkTypeTranslation;
 
 			[ReadOnly]
 			public ComponentTypeHandle<Speed> chunkTypeSpeed;
@@ -35,7 +36,7 @@ namespace GameTools.Paths
 			[ReadOnly]
 			public BufferTypeHandle<PathPositions> chunkTypePathPositions;
 
-			public void Execute(ArchetypeChunk chunk, int chunkIndex, int firstEntityIndex)
+			public void Execute(in ArchetypeChunk chunk, int unfilteredChunkIndex, bool useEnabledMask, in v128 chunkEnabledMask)
 			{
 				var chunkFollow = chunk.GetNativeArray(chunkTypeFollow);
 				var chunkTranslation = chunk.GetNativeArray(chunkTypeTranslation);
@@ -50,28 +51,28 @@ namespace GameTools.Paths
 
 					Speed comSpeed = chunkSpeed[i];
 					DynamicBuffer<PathPositions> comPositions = chunkPathPositions[i];
-					Translation translation = chunkTranslation[i];
+					LocalTransform translation = chunkTranslation[i];
 
 					float deltaMovement = DeltaTime * comSpeed.Value;
 					int fllowIndex = pathIndex.Value - 1;
 					var map_pos = comPositions[fllowIndex].Value;
 
 					float3 target_pos = AStar.GetPos(map_pos.x, map_pos.y, mapInfo);
-					var currentPos = translation.Value;//transform.position;
+					var currentPos = translation.Position;//transform.position;
 
 					var offset = (target_pos - currentPos);
 					var offsetLen = math.length(offset);
 					if (offsetLen <= deltaMovement || offsetLen <= 0.001f)
 					{
 						// Next Node
-						translation.Value = target_pos;
+						translation.Position = target_pos;
 						pathIndex.Value--;
 						chunkFollow[i] = pathIndex;
 					}
 					else
 					{
 						// 直接移动
-						translation.Value = currentPos + math.normalize(offset) * deltaMovement;
+						translation.Position = currentPos + math.normalize(offset) * deltaMovement;
 					}
 					chunkTranslation[i] = translation;
 
@@ -85,7 +86,7 @@ namespace GameTools.Paths
 			{
 				All = new ComponentType[] {
 					typeof(Follow),
-					typeof(Translation),
+					typeof(LocalTransform),
 					ComponentType.ReadOnly<Speed>(),
 					ComponentType.ReadOnly<PathPositions>()
 				},
@@ -93,22 +94,25 @@ namespace GameTools.Paths
 					typeof(FindPathParams)
 				}
 			};
-			m_Query = GetEntityQuery(query);
-			m_AStarSys = World.GetOrCreateSystem<AStarSystem>();
-			m_CommandBuffer = this.World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+			m_Query			= GetEntityQuery(query);
+			m_AStarSys		= World.GetOrCreateSystemManaged<AStarSystem>();
+			m_CommandBuffer = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
 		}
 
 		protected override void OnUpdate()
 		{
+			if (AStar.map == null)
+				return;
+			
 			var chunkTypeFollow = GetComponentTypeHandle<Follow>();
-			var chunkTypeTranslation = GetComponentTypeHandle<Translation>();
+			var chunkTypeTranslation = GetComponentTypeHandle<LocalTransform>();
 			var chunkTypeSpeed = GetComponentTypeHandle<Speed>(true);
 			var chunkTypePathPositions = GetBufferTypeHandle<PathPositions>(true);
 			var commandBuffer = m_CommandBuffer.CreateCommandBuffer().AsParallelWriter();
 
 			FollowJob job = new FollowJob()
 			{
-				DeltaTime = Time.DeltaTime,
+				DeltaTime = World.Time.DeltaTime, //SystemAPI.Time.DeltaTime,// Time.DeltaTime,
 				mapInfo = AStar.map.GetMapInfo(),
 				chunkTypeFollow = chunkTypeFollow,
 				chunkTypeTranslation = chunkTypeTranslation,

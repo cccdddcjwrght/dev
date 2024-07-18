@@ -88,7 +88,7 @@ namespace SGame
 
 		public EventCallback1 clickCall;
 
-		public T GetData<T>(EntityManager mgr) where T : struct, IComponentData
+		public T GetData<T>(EntityManager mgr) where T : unmanaged, IComponentData
 		{
 			if (IsExists(mgr))
 			{
@@ -128,7 +128,7 @@ namespace SGame
 
 	}
 
-	public abstract partial class RedpointSystem : ComponentSystem
+	public abstract partial class RedpointSystem : SystemBase
 	{
 		const string TAG = nameof(RedpointSystem);
 
@@ -161,8 +161,8 @@ namespace SGame
 
 		protected override void OnCreate()
 		{
-			RequireSingletonForUpdate<GameInitFinish>();
-			_commandBuffSys = this.EntityManager.World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+			RequireForUpdate<GameInitFinish>();
+			_commandBuffSys = this.EntityManager.World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
 		}
 
 		protected override void OnUpdate()
@@ -171,42 +171,42 @@ namespace SGame
 			var cmd = _commandBuffSys.CreateCommandBuffer();
 
 			//清理
-			Entities.WithAny<RedDestroy>().ForEach((Entity e, ref Redpoint r) =>
+			Entities.WithAny<RedDestroy>().ForEach((Entity e, in Redpoint r) =>
 			{
 				if (_datas.TryGetValue(r.id, out var h)) h.ehandler?.Close();
 				cmd.DestroyEntity(e);
-			});
+			}).WithoutBurst().WithStructuralChanges().Run();
 
 			//事件触发计算
-			Entities.WithAll<RedCheck, RedEvent>().WithNone<RedPause>().ForEach((Entity e, ref Redpoint r, ref RedEvent evt) =>
+			Entities.WithAll<RedCheck, RedEvent>().WithNone<RedPause>().ForEach((Entity e, ref Redpoint r, in RedEvent evt) =>
 			{
 				if (evt.flag > 0) r.status = 1;
 				else Calculation(e, cmd, ref r);
-			});
+			}).WithoutBurst().Run();
 
 			//定时计算
 			Entities.WithAll<RedCheck>().WithNone<RedPause>().ForEach((Entity e, ref Redpoint r) =>
 			{
-				if (Time.ElapsedTime * 1000 > r.time)
+				if (World.Time.ElapsedTime * 1000 > r.time)
 					Calculation(e, cmd, ref r);
-			});
+			}).WithoutBurst().Run();
 
 			//红点标记操作
 			Entities.WithAll<RedNode, RedStatusChange>().ForEach((Entity e, ref Redpoint redpoint) =>
 			{
-				if (Time.ElapsedTime * 1000 > redpoint.time)
+				if (World.Time.ElapsedTime * 1000 > redpoint.time)
 				{
 					var old = redpoint.status;
 					var d = GetConfig(redpoint.id);
 					var s = CheckRedStatus(redpoint.id, d);
-					var t = (int)(Time.ElapsedTime * 1000);
+					var t = (int)(World.Time.ElapsedTime * 1000);
 					redpoint.status = (byte)(s ? 1 : 0);
 					if (d.Type == 5 || old != redpoint.status)
 						redpoint.time = OnRedpointStatusChange(redpoint.id, s, d) + t;
 					else
 						redpoint.time = (d.Interval > 0 ? d.Interval : __red_check_time) + t;
 				}
-			});
+			}).WithoutBurst().Run();
 		}
 
 		protected override void OnDestroy()
@@ -593,7 +593,7 @@ namespace SGame
 						if (OnCalculation != null)
 							status = OnCalculation(cfg, null, null);
 						redpoint.status = (byte)(status ? 1 : 0);
-						redpoint.time = (cfg.Interval == 0 ? __red_check_time : cfg.Interval) + (int)math.floor(Time.ElapsedTime) * 1000;
+						redpoint.time = (cfg.Interval == 0 ? __red_check_time : cfg.Interval) + (int)math.floor(World.Time.ElapsedTime) * 1000;
 						return old == redpoint.status ? 0 : 1;
 					}
 				}

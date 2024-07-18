@@ -6,13 +6,13 @@ namespace SGame
     /// 食物小费管理
     /// </summary>
     [UpdateInGroup(typeof(GameLogicAfterGroup))]
-    public partial class DespawnFoodTipSystem : ComponentSystem
+    public partial class DespawnFoodTipSystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_commandBuffer;
 
         protected override void OnCreate()
         {
-            m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commandBuffer = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()
@@ -24,7 +24,7 @@ namespace SGame
                 {
                     commandBuffer.AddComponent<DespawningEntity>(tip.ui);
                 }
-            });
+            }).WithoutBurst().WithStructuralChanges().Run();
         }
     }
 }

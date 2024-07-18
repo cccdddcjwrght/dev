@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Unity.Entities;
-
+/*
 public class SystemCollection
 {
     List<ComponentSystemBase> systems = new List<ComponentSystemBase>();
@@ -22,3 +22,4 @@ public class SystemCollection
             world.DestroySystem(system);
     }
 }
+*/

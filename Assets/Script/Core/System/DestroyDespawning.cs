@@ -11,7 +11,7 @@ namespace SGame
         protected override void OnCreate()
         {
             base.OnCreate();
-            m_commandBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            m_commandBuffer = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()

@@ -4,6 +4,7 @@ using Unity.Transforms;
 using UnityEngine;
 using Unity.Jobs;
 using Unity.Burst;
+using Unity.Burst.Intrinsics;
 using Unity.Collections;
 using Unity.Core;
 
@@ -33,11 +34,11 @@ namespace GameTools.Paths.Test
 			_messageQueue = new NativeQueue<int>(Allocator.Persistent);
 			m_query = GetEntityQuery(new EntityQueryDesc()
 			{
-				All = new ComponentType[] { ComponentType.ReadOnly<Follow>(), ComponentType.ReadOnly<Translation>() },
+				All = new ComponentType[] { ComponentType.ReadOnly<Follow>(), ComponentType.ReadOnly<LocalTransform>() },
 				None = new ComponentType[] { ComponentType.ReadOnly<FindPathParams>() }
 			});
-			m_CommandBuffer = this.World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-			_astarSystem = World.GetOrCreateSystem<AStarSystem>();
+			m_CommandBuffer = this.World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
+			_astarSystem = World.GetOrCreateSystemManaged<AStarSystem>();
 		}
 
 		protected override void OnDestroy()
@@ -73,7 +74,7 @@ namespace GameTools.Paths.Test
 			var commandBuffer = m_CommandBuffer.CreateCommandBuffer().AsParallelWriter();
 			var entityType = GetEntityTypeHandle();
 			var followType = GetComponentTypeHandle<Follow>(true);
-			var translationType = GetComponentTypeHandle<Translation>(true);
+			var translationType = GetComponentTypeHandle<LocalTransform>(true);
 			var job = new SpawnJOB()
 			{
 				_commandBuffer = commandBuffer,
@@ -103,7 +104,7 @@ namespace GameTools.Paths.Test
 			public ComponentTypeHandle<Follow> _followType;
 
 			[ReadOnly]
-			public ComponentTypeHandle<Translation> _translationType;
+			public ComponentTypeHandle<LocalTransform> _translationType;
 
 			public ComponentTypeHandle<Speed> _speedType;
 
@@ -122,7 +123,7 @@ namespace GameTools.Paths.Test
 				return ret;
 			}
 
-			public void Execute(ArchetypeChunk chunk, int chunkIndex, int firstEntityIndex)
+			public void Execute(in ArchetypeChunk chunk, int chunkIndex, bool useEnabledMask, in v128 chunkEnabledMask)
 			{
 				var chunkEntities = chunk.GetNativeArray(_entityType);
 				var chunkFollow = chunk.GetNativeArray(_followType);
@@ -143,7 +144,7 @@ namespace GameTools.Paths.Test
 					var speed = chunkSpeed[i];
 
 					// 添加寻路
-					int2 startPos = AStar.GetGridPos(trans.Value, _mapData);// AStarSystem.GetGridPos(trans.Value, _startPos, _cellSize);
+					int2 startPos = AStar.GetGridPos(trans.Position, _mapData);// AStarSystem.GetGridPos(trans.Value, _startPos, _cellSize);
 																			//int2 startPos = Global.map.GetGridPos(new Vector3(trans.Value.x, trans.Value.y, trans.Value.z));
 					int2 endPos = GetRandomValue(_map._size, ref rnd); //new int2 { x = _random.NextInt(_map._size.x), y = _random.NextInt(_map._size.y) };
 					int j = 0;

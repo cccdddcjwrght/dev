@@ -14,7 +14,7 @@ namespace SGame
 		public uint wait;
 	}
 
-	public class RewardSystem : ComponentSystem
+	public partial class RewardSystem : SystemBase
 	{
 
 		private const string c_def_asset = "Assets/BuildAsset/Prefabs/Scenes/other/rewardbox.prefab";
@@ -53,7 +53,7 @@ namespace SGame
 		protected override void OnCreate()
 		{
 			base.OnCreate();
-			_command = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+			_command = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
 			EventManager.Instance.Reg<Vector2Int, Action, string>(((int)GameEvent.SCENE_REWARD), OnSceneReward);
 
 		}
@@ -75,7 +75,7 @@ namespace SGame
 					}
 					handler.DestroyEntity(e);
 				}
-			});
+			}).WithoutBurst().Run();
 
 
 			Entities.WithAll<RewardData>().WithNone<RewardWait>().ForEach((Entity e, ref RewardData data) =>
@@ -88,8 +88,7 @@ namespace SGame
 					parentID = data.parentID,
 					pos = data.pos
 				});
-
-			});
+			}).WithoutBurst().Run();
 
 		}
 
