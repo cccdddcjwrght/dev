@@ -499,6 +499,7 @@ namespace SGame
 			xMove.limitScale = size.x;
 			yMove.limitScale = v;// size.y;
 			zMove.limitScale = v;// size.z;
+			
 		}
 
 		void Init()
@@ -512,10 +513,12 @@ namespace SGame
 				int guideId = val[0];
 				var x = val[1] * 0.1f;
 				var z = val[2] * 0.1f;
+				var fs = val.GetVal(3);
 				if (guideId >= DataCenter.Instance.guideData.guideId)
 				{
 					xMove.startValue = x;
 					zMove.startValue = z;
+					fieldSize.startValue = fieldSize.currentValue = fieldSize.inputValue = fs != 0 ? fs : fieldSize.startValue;
 				}
 			}
 #endif
