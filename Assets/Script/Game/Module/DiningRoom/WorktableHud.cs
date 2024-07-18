@@ -26,7 +26,6 @@ namespace SGame
 
 		void ListenClick()
 		{
-			if (GuideManager.Instance.IsCoerce) return;
 			if (!_hit) Close();
 			_hit = false;
 		}
@@ -78,6 +77,12 @@ namespace SGame
 				if (UIUtils.CloseUI(_hud))
 					UIModule.Instance.GetEntityManager().AddComponent<DespawningEntity>(_hud);//不延迟
 			}*/
+
+			if (GuideManager.Instance.IsCoerce) return;
+#if GAME_GUIDE
+			UnityEngine.Debug.Log("Worktable close -------------");
+#endif
+
 			if (UIUtils.CheckUIIsOpen("worktable"))
 				UIUtils.CloseUIByName("worktable");
 			_cid = 0;

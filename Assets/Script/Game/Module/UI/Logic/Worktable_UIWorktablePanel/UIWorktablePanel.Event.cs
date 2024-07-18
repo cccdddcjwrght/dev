@@ -86,6 +86,9 @@ namespace SGame.UI
 			{
 				if (GuideManager.Instance.IsCoerce) return;
 				SGame.UIUtils.CloseUIByID(__id);
+#if GAME_GUIDE
+				UnityEngine.Debug.Log("Worktable close -------------");
+#endif
 			}
 		}
 
