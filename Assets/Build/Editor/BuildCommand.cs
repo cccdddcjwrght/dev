@@ -717,7 +717,7 @@ static class BuildCommand
 		PlayerSettings.Android.minifyWithR8 = true;
 		PlayerSettings.Android.minifyRelease = true;
 		PlayerSettings.Android.minifyDebug = true;
-		
+
 		var target = PlayerSettings.Android.targetArchitectures;
 		if (TryGetEnv(CPU_TYPE, out var type) && !string.IsNullOrEmpty(type) && Enum.TryParse<AndroidArchitecture>(type, true, out var v))
 			target = v;
@@ -730,7 +730,7 @@ static class BuildCommand
 		PlayerSettings.Android.targetArchitectures = target;
 
 		if (TryGetEnv(BUILD_OPTIONS_SYMBOL, out string s) && !string.IsNullOrEmpty(s))
-			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
+			EditorUserBuildSettings.androidCreateSymbols = s == "2" ? AndroidCreateSymbols.Public : AndroidCreateSymbols.Debugging;
 		else
 			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Disabled;
 	}

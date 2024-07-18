@@ -12,7 +12,7 @@ public class SceneAssetProcessor
 	static int G_TEX_NAME_ID = Shader.PropertyToID("_BaseMap");
 
 	static string G_SCENE_ASSET_SAVE_DIR = "Assets/BuildAsset/Art/scenes/";
-	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/"; 
+	static string G_TILE_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/";
 	static string G_ASSET_PREFAB_ROOT = "Assets/BuildAsset/Prefabs/Scenes/";
 
 	static string[] G_PATTERNS = new string[] {
@@ -84,7 +84,8 @@ public class SceneAssetProcessor
 	}
 
 	[MenuItem("Assets/地块/替换简单shader")]
-	static void ExcuteShader() {
+	static void ExcuteShader()
+	{
 
 		var select = Selection.activeObject;
 		if (select != null)
@@ -93,9 +94,9 @@ public class SceneAssetProcessor
 			if (System.IO.Directory.Exists(dir))
 			{
 				var mats = AssetDatabase.FindAssets("t:Material", new string[] { dir })
-					.Select(g=>AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(g))).ToList();
-			
-				if(mats?.Count > 0)
+					.Select(g => AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(g))).ToList();
+
+				if (mats?.Count > 0)
 				{
 					var shader = Shader.Find(G_SHADER);
 					var oldName = "Universal Render Pipeline/Lit";
@@ -103,7 +104,7 @@ public class SceneAssetProcessor
 					{
 						foreach (var item in mats)
 						{
-							if(item!=null && item.shader.name == oldName)
+							if (item != null && item.shader.name == oldName)
 							{
 								item.shader = shader;
 								AssetDatabase.SaveAssetIfDirty(item);
@@ -115,6 +116,24 @@ public class SceneAssetProcessor
 			}
 		}
 
+	}
+
+	[MenuItem("Assets/地块/批量场景资源参数")]
+	static void ExcuteFbxSetting()
+	{
+
+		var select = Selection.activeObject;
+		if (select != null)
+		{
+			var path = AssetDatabase.GetAssetPath(select);
+			if (Directory.Exists(path))
+			{
+				var fbxs = AssetDatabase.FindAssets("t:model", new string[] { path })
+					.Select(g => AssetDatabase.GUIDToAssetPath(g)).ToList();
+				if (fbxs?.Count > 0)
+					fbxs.ForEach(ExcuteCommonFbx);
+			}
+		}
 	}
 
 	static void ExcuteSceneAsset(object select)
@@ -154,7 +173,7 @@ public class SceneAssetProcessor
 				var matname = dir;
 
 				_currentObjPath = opath;
-				dir =  G_TILE_PREFAB_ROOT + dir;
+				dir = G_TILE_PREFAB_ROOT + dir;
 				if (!System.IO.Directory.Exists(dir))
 					System.IO.Directory.CreateDirectory(dir);
 
@@ -272,10 +291,30 @@ public class SceneAssetProcessor
 		GameObject.DestroyImmediate(p);
 	}
 
-	static void ExcuteFbx(List<string> assets)
+	static void ExcuteFbx(List<string> assets, bool common = false)
 	{
 		if (assets?.Count > 0)
-			assets.ForEach(ExcuteFbx);
+		{
+			if (common) assets.ForEach(ExcuteCommonFbx);
+			else assets.ForEach(ExcuteFbx);
+		}
+	}
+
+	static void ExcuteCommonFbx(string asset)
+	{
+		var import = AssetImporter.GetAtPath(asset) as ModelImporter;
+		if (import == null) return;
+		if (!asset.Contains("_terrain"))
+			import.meshCompression = ModelImporterMeshCompression.High;
+		else
+			import.meshCompression = ModelImporterMeshCompression.Off;
+
+		import.materialImportMode = ModelImporterMaterialImportMode.None;
+		import.importBlendShapes = false;
+		import.importCameras = import.importLights = false;
+		import.importTangents = ModelImporterTangents.CalculateMikk;
+		import.isReadable = false;
+		import.SaveAndReimport();
 	}
 
 	static void ExcuteFbx(string asset)
@@ -291,8 +330,17 @@ public class SceneAssetProcessor
 				import.animationType = ModelImporterAnimationType.Legacy;
 				import.clipAnimations = ans;
 				import.animationWrapMode = WrapMode.Loop;
+				import.materialImportMode = ModelImporterMaterialImportMode.None;
+				import.meshCompression = ModelImporterMeshCompression.High;
+				import.importBlendShapes = false;
+				import.importCameras = import.importLights = false;
+				import.importTangents = ModelImporterTangents.CalculateMikk;
 				import.SaveAndReimport();
 			}
+		}
+		else
+		{
+			ExcuteCommonFbx(asset);
 		}
 	}
 
