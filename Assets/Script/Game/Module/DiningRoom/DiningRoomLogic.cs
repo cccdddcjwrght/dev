@@ -1013,7 +1013,7 @@ namespace SGame.Dining
 										var servr = place.seats?.Find(seat => seat.tag == ConstDefine.TAG_TAKE_SERVE);
 										if (servr != null) order = grid.GetCell(servr.index).ToGrid();
 									}
-									TableFactory.CreateDish(cell.ToGrid(), grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_TAKE), order);
+									TableFactory.CreateDish(cell.ToGrid(), grid.GetNearTagPos(cell.x, cell.y, ConstDefine.TAG_TAKE), order, m.cfg.RoomArea);
 									break;
 								case EnumMachineType.MACHINE:
 									if (m.cfg.Nowork != 1)

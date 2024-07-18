@@ -124,17 +124,22 @@ namespace SGame
         /// 获得放餐区空闲位置
         /// </summary>
         /// <returns></returns>
-        public int FindPutDishTable(int2 character_pos )
+        public int FindPutDishTable(int foodType, int2 character_pos )
         {
             int score = int.MaxValue;
             int tableID = -1;
+            
+            // 先找到
+            var foodTable = GetFoodTable(foodType);
+            var roomAreaID = foodTable.roomAreaID;
 
             foreach (var item in m_datas)
             {
                 if (item.type == TABLE_TYPE.DISH)
                 {
+                    //item.roomAreaID
                     int itemScore = TableUtils.GetPutDishTableScore(item, character_pos);
-                    if (itemScore < score)
+                    if (roomAreaID == item.roomAreaID && itemScore < score)
                     {
                         score = itemScore;
                         tableID = item.id;

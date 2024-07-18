@@ -53,12 +53,12 @@ namespace SGame
         /// <param name="takerPos">取餐位置</param>
         /// <param name="puterPos">放餐位置</param>
         /// <returns>桌子对象</returns>
-        public static TableData CreateDish(Vector2Int tablePos, Vector2Int takerPos, Vector2Int puterPos)
+        public static TableData CreateDish(Vector2Int tablePos, Vector2Int takerPos, Vector2Int puterPos, int roomAreaID)
         {
             TableData value = TableManager.Instance.GetOrCreateTable(TABLE_TYPE.DISH, tablePos);  
             value.AddChair(CHAIR_TYPE.CUSTOMER, new int2(takerPos.x, takerPos.y));
             value.AddChair(CHAIR_TYPE.ORDER, new int2(puterPos.x, puterPos.y));
-            
+            value.roomAreaID = roomAreaID;
              log.Debug(string.Format("Create Dish tablePos={0}, takerPos={1}, puterPos={2}", tablePos, takerPos, puterPos) );
              return value;
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FlatBuffers;
 using GameTools;
+using log4net;
 using UnityEngine;
 using Unity.VisualScripting;
 using SGame.UI;
@@ -39,6 +40,8 @@ namespace SGame.VS
         [DoNotSerialize]
         private ChairData       _valueChair;
 
+        private static ILog log = LogManager.GetLogger("game.table");
+
         protected override void Definition()
         {
             inputTrigger = ControlInput("Input", (flow) =>
@@ -49,10 +52,14 @@ namespace SGame.VS
                     return outputFail;
                 }
 
+                var order = character.order;
                 var character_pos = GameTools.MapAgent.VectorToGrid(character.transform.position);
-                int tableID = TableManager.Instance.FindPutDishTable(new int2(character_pos.x, character_pos.y));
+                int tableID = TableManager.Instance.FindPutDishTable(order.foodType, new int2(character_pos.x, character_pos.y));
                 if (tableID <= 0)
+                {
+                    log.Error("PutDishTable Not found foodType=" + order.foodType + " character id=" + cID + " pos=" + character_pos);
                     return outputFail;
+                }
 
                 var table = TableManager.Instance.Get(tableID);
                 if (table == null)
