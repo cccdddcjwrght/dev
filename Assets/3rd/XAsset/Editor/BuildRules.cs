@@ -81,16 +81,15 @@ namespace libx
 			foreach (var item in patterns)
 			{
 				var files = Directory.GetFiles(searchPath, item, SearchOption.AllDirectories);
+				var litem = item.ToLower();
 				foreach (var file in files)
 				{
 					if (Directory.Exists(file)) continue;
 					var ext = Path.GetExtension(file).ToLower();
-					Debug.Log("file:" + file);
-					if ((ext == ".fbx" || ext == ".anim") && !item.Contains(ext)) continue;
+					if ((ext == ".fbx" || ext == ".anim") && !litem.Contains(ext)) continue;
 					if (!BuildRules.ValidateAsset(file)) continue;
 					var asset = file.Replace("\\", "/");
 					if(getFiles.Contains(asset)) continue;
-					Debug.Log("file add:" + file);
 					getFiles.Add(asset);
 				}
 			}
