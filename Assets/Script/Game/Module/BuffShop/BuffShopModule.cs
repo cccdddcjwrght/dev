@@ -108,7 +108,7 @@ namespace SGame
         }
 
 
-        public void AddBoostShopBuff(int cfgId) 
+        public void AddBoostShopBuff(int cfgId, bool reset = false, bool refresh = true) 
         {
             var buff = m_Data.buffList.Find((v) => v.cfgId == cfgId);
             var config = GetConfig(cfgId);
@@ -127,7 +127,7 @@ namespace SGame
             }
             else 
             {
-                if (buff.GetTime() > 0) buff.endTime += config.BuffTime;
+                if (buff.GetTime() > 0 && !reset) buff.endTime += config.BuffTime;
                 else buff.endTime = GameServerTime.Instance.serverTime + config.BuffTime;
             }
             InitBuffShopData();
@@ -141,8 +141,8 @@ namespace SGame
                 time = buff.GetTime(),
                 from = from
             });
-            EventManager.Instance.Trigger((int)GameEvent.BUFFSHOP_REFRESH);
 
+            if(refresh) EventManager.Instance.Trigger((int)GameEvent.BUFFSHOP_REFRESH);
         }
 
         //type:1 Ëæ»ú 2:¹Ì¶¨

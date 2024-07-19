@@ -12,10 +12,10 @@ namespace SGame.UI{
 		List<int> randomIds;
 		List<int> fixedIds;
 
-		int m_Height = -100;
+		int m_Height = 100;
 		bool playing = false;
 		float moveY = GlobalDesginConfig.GetFloat("buffshop_lottery_move_y", 2f);
-		int whirlCount = GlobalDesginConfig.GetInt("buffshop_lottery_whirl_count", 2);
+		int whirlCount = GlobalDesginConfig.GetInt("buffshop_lottery_whirl_count", 6);
 		float duration = GlobalDesginConfig.GetFloat("buffshop_lottery_duration", 1.5f);
 
 		BuffShopData m_forceData;
@@ -156,9 +156,22 @@ namespace SGame.UI{
 			v.m_saled.selectedIndex = g.IsSaled() ? 1 : 0;
 		}
 
+
+		bool isRefresh = false;
 		void Update(UIContext context) 
 		{
-            if (m_forceData?.GetTime() > 0) return;
+			if (m_forceData?.GetTime() > 0) 
+			{
+				isRefresh = true;
+				return;
+			}
+
+			if (isRefresh) 
+			{
+				RefreshData();
+				isRefresh = false;
+			}
+				
             var posY = m_view.m_lotteryList.scrollPane.posY;
             m_view.m_lotteryList.scrollPane.SetPosY(posY - moveY, false);
         }
@@ -171,7 +184,7 @@ namespace SGame.UI{
                 var cfgId = BuffShopModule.Instance.GetRandomBuff();
                 PlayLotteryAnim(cfgId);
 
-                BuffShopModule.Instance.AddBoostShopBuff(cfgId);
+                BuffShopModule.Instance.AddBoostShopBuff(cfgId, false, false);
             });
         }
 
@@ -179,13 +192,15 @@ namespace SGame.UI{
 		{
 			playing = true;
 			int index = cfgId;
-			float pos_y = randomIds.Count * m_Height * 1 + (randomIds.Count - index + 1) * m_Height + m_Height * 0.5f; ;
-			GTween.To(0, pos_y, duration).SetTarget(m_view).OnUpdate((t) =>
+			float end_y = (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
+			float pos_y = randomIds.Count * m_Height * whirlCount + (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
+			GTween.To(pos_y, end_y, duration).SetTarget(m_view).OnUpdate((t) =>
 			{
 				m_view.m_lotteryList.scrollPane.SetPosY((float)t.value.d, false);
 			}).OnComplete(() => 
 			{
 				playing = false;
+				BuffShopModule.Instance.AddBoostShopBuff(cfgId, true, true);
 				RefreshData();
 			});
 		}
@@ -195,7 +210,7 @@ namespace SGame.UI{
 			if (m_forceData?.GetTime() > 0) 
 			{
 				int index = m_forceData.cfgId;
-				float pos_y = (randomIds.Count - index + 1) * m_Height + m_Height * 0.5f;
+				float pos_y = (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
 				m_view.m_lotteryList.scrollPane.SetPosY(pos_y, false);
 			}
 		}
