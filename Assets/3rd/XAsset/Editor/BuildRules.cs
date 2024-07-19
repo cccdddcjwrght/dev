@@ -71,6 +71,7 @@ namespace libx
 		public string[] GetAssets()
 		{
 			var patterns = searchPattern.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+			Debug.Log("searchPattern: "+searchPattern);
 			if (!Directory.Exists(searchPath))
 			{
 				Debug.LogWarning("Rule searchPath not exist:" + searchPath);
