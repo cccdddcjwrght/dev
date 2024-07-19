@@ -90,6 +90,9 @@ public struct RoomRowData : IFlatbufferObject
   public ArraySegment<byte>? GetEndImageBytes() { return __p.__vector_as_arraysegment(30); }
 #endif
   public byte[] GetEndImageArray() { return __p.__vector_as_array<byte>(30); }
+  public int InvestorChance { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int InvestorGems { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int InvestorRatio { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomRowData> CreateRoomRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -105,8 +108,14 @@ public struct RoomRowData : IFlatbufferObject
       VectorOffset Reward3Offset = default(VectorOffset),
       int LevelMax = 0,
       StringOffset StartImageOffset = default(StringOffset),
-      StringOffset EndImageOffset = default(StringOffset)) {
-    builder.StartTable(14);
+      StringOffset EndImageOffset = default(StringOffset),
+      int InvestorChance = 0,
+      int InvestorGems = 0,
+      int InvestorRatio = 0) {
+    builder.StartTable(17);
+    RoomRowData.AddInvestorRatio(builder, InvestorRatio);
+    RoomRowData.AddInvestorGems(builder, InvestorGems);
+    RoomRowData.AddInvestorChance(builder, InvestorChance);
     RoomRowData.AddEndImage(builder, EndImageOffset);
     RoomRowData.AddStartImage(builder, StartImageOffset);
     RoomRowData.AddLevelMax(builder, LevelMax);
@@ -124,7 +133,7 @@ public struct RoomRowData : IFlatbufferObject
     return RoomRowData.EndRoomRowData(builder);
   }
 
-  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(14); }
+  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(17); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
@@ -148,6 +157,9 @@ public struct RoomRowData : IFlatbufferObject
   public static void AddLevelMax(FlatBufferBuilder builder, int LevelMax) { builder.AddInt(11, LevelMax, 0); }
   public static void AddStartImage(FlatBufferBuilder builder, StringOffset StartImageOffset) { builder.AddOffset(12, StartImageOffset.Value, 0); }
   public static void AddEndImage(FlatBufferBuilder builder, StringOffset EndImageOffset) { builder.AddOffset(13, EndImageOffset.Value, 0); }
+  public static void AddInvestorChance(FlatBufferBuilder builder, int InvestorChance) { builder.AddInt(14, InvestorChance, 0); }
+  public static void AddInvestorGems(FlatBufferBuilder builder, int InvestorGems) { builder.AddInt(15, InvestorGems, 0); }
+  public static void AddInvestorRatio(FlatBufferBuilder builder, int InvestorRatio) { builder.AddInt(16, InvestorRatio, 0); }
   public static Offset<GameConfigs.RoomRowData> EndRoomRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomRowData>(o);

@@ -35,6 +35,8 @@ namespace SGame
 		public void ReInitRoomAttribute(int room)
 		{
 			attrSys.TypeUnRegister(_TypeFollowLevel);
+			//重置关卡相关全局属性
+			ReInitGlobalSceneAttribute(room);
 			//重置当前关卡所有角色属性
 			ReInitAllAttribute(room);
 			EventManager.Instance.Trigger(((int)GameEvent.BUFF_RESET));
@@ -51,15 +53,23 @@ namespace SGame
 		private void InitGlobalAttribute()
 		{
 			var attr = attrSys.GetAttributeList(((int)EnumTarget.Game));
-			attr[((int)EnumAttribute.DiamondRate)] = GlobalDesginConfig.GetInt("investor_gems_chance");
-			attr[((int)EnumAttribute.Diamond)] = GlobalDesginConfig.GetInt("investor_gems");
-			attr[((int)EnumAttribute.Gold)] = GlobalDesginConfig.GetInt("investor_coin_ratio");
 			attr[((int)EnumAttribute.LevelGold)] = GlobalDesginConfig.GetInt("initial_coin");
 			attr[((int)EnumAttribute.OfflineAddition)] = GlobalDesginConfig.GetInt("offline_ratio");
 			attr[((int)EnumAttribute.OfflineTime)] = GlobalDesginConfig.GetInt("max_offline_time");
 			attr[((int)EnumAttribute.AdAddition)] = GlobalDesginConfig.GetInt("ad_boost_ratio");
 			attr[((int)EnumAttribute.AdTime)] = GlobalDesginConfig.GetInt("ad_boost_time");
 			attr.Break();
+		}
+
+		private void ReInitGlobalSceneAttribute(int scene)
+		{
+			var attr = attrSys.GetAttributeList(((int)EnumTarget.Game));
+			if (ConfigSystem.Instance.TryGet(scene, out GameConfigs.RoomRowData room))
+			{
+				attr.GetAttribute(((int)EnumAttribute.DiamondRate))?.SetOrigin(room.InvestorChance);
+				attr.GetAttribute(((int)EnumAttribute.Diamond))?.SetOrigin(room.InvestorGems);
+				attr.GetAttribute(((int)EnumAttribute.Gold))?.SetOrigin(room.InvestorRatio);
+			}
 		}
 
 		/// <summary>
@@ -196,7 +206,7 @@ namespace SGame
 					attrSys.RemoveBuff(data.id, from, data.targetid);
 				if (!data.isremove)
 				{
-					attrSys.AddBuff(data.id,  data.val, data.targetid, data.time, data.from);
+					attrSys.AddBuff(data.id, data.val, data.targetid, data.time, data.from);
 				}
 			}
 			else if (data.from != 0)
@@ -229,7 +239,7 @@ namespace SGame
 					OnBuffAdd(new BuffData() { id = buff[0], val = buff[1], from = ((int)EnumFrom.NoAd) });
 				ReputationModule.Instance.RefreshVailedBuffList();
 			}
-			
+
 		}
 		#endregion
 
