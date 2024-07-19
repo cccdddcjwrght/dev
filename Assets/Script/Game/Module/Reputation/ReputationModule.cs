@@ -16,6 +16,9 @@ namespace SGame
         AD_BUFF,           //广告buff
         NO_AD_BUFF,       //去广告buff
         PET_BUFF,         //当前跟随宠物buff
+        SHOP_BUFF1,
+        SHOP_BUFF2,
+        SHOP_BUFF3,
     }
 
     public class ReputationModule : Singleton<ReputationModule>
@@ -74,6 +77,9 @@ namespace SGame
                 new TotalItem(){ name = "ui_boosts_name_1", type = ShopBuffEnum.AD_BUFF },
                 new TotalItem(){ name = "ui_boosts_name_2", type = ShopBuffEnum.PET_BUFF, isEver = true },
                 new TotalItem(){ name = "ui_boosts_name_3", type = ShopBuffEnum.NO_AD_BUFF, multiple = 1 + buff[1] * PERCENTAGE_VALUE, isEver = true },
+                new TotalItem(){ name = "ui_boosts_name_4", type = ShopBuffEnum.SHOP_BUFF1 },
+                new TotalItem(){ name = "ui_boosts_name_5", type = ShopBuffEnum.SHOP_BUFF2 },
+                new TotalItem(){ name = "ui_boosts_name_6", type = ShopBuffEnum.SHOP_BUFF3 },
             };
         }
 
@@ -136,6 +142,18 @@ namespace SGame
             ad_buff.time = buff_time;
             ad_buff.isForce = buff_time > 0;
             ad_buff.multiple = AdModule.Instance.GetAdRatio();
+
+            //商店buff
+            for (int i = 0; i < 3; i++)
+            {
+                var cfgId = BuffShopModule.Instance.GetFixedBuffShopCfgId(i);
+                DataCenter.Instance.boostShopData.buffDict.TryGetValue(cfgId, out var data);
+                var shop_buff = m_TotalList.Find((t) => t.type == ShopBuffEnum.SHOP_BUFF1 + i);
+                buff_time = data != null ? data.GetTime() : 0;
+                shop_buff.time = buff_time;
+                shop_buff.isForce = buff_time > 0;
+                shop_buff.multiple = data != null ? 1 + data.value * PERCENTAGE_VALUE : 0;
+            }
 
             EventManager.Instance.Trigger((int)GameEvent.TOTAL_REFRESH);
         }

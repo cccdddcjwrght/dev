@@ -5,6 +5,7 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.BuffShop;
     using System.Collections.Generic;
+    using GameConfigs;
 
     public partial class UIBuffShop
 	{
@@ -13,6 +14,9 @@ namespace SGame.UI{
 
 		int m_Height = 100;
 		bool playing = false;
+		float moveY = GlobalDesginConfig.GetFloat("buffshop_lottery_move_y", 2f);
+		int whirlCount = GlobalDesginConfig.GetInt("buffshop_lottery_whirl_count", 2);
+		float duration = GlobalDesginConfig.GetFloat("buffshop_lottery_duration", 1.5f);
 
 		BuffShopData m_forceData;
 		EventHandleContainer m_Event = new EventHandleContainer();
@@ -152,7 +156,7 @@ namespace SGame.UI{
 		{
 			if (m_forceData?.GetTime() > 0) return;
 			var posY = m_view.m_lotteryList.scrollPane.posY;
-			m_view.m_lotteryList.scrollPane.SetPosY(posY + 5, false);
+			m_view.m_lotteryList.scrollPane.SetPosY(posY + moveY, false);
 		}
 
 		partial void OnLotteryBtnClick(EventContext data)
@@ -171,8 +175,8 @@ namespace SGame.UI{
 		{
 			playing = true;
 			int index = cfgId;
-			float pos_y = randomIds.Count * m_Height * 2 + (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
-			GTween.To(0, pos_y, 1).SetTarget(m_view).OnUpdate((t) =>
+			float pos_y = randomIds.Count * m_Height * whirlCount + (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
+			GTween.To(0, pos_y, duration).SetTarget(m_view).OnUpdate((t) =>
 			{
 				m_view.m_lotteryList.scrollPane.SetPosY((float)t.value.d, false);
 			}).OnComplete(() => 

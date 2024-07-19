@@ -51,6 +51,7 @@ namespace SGame.UI
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
+			m_view.m_Gold.onClick.Add(OnOpenTotalClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
 			m_view.m_btnShop.onClick.Set(()=>((int)FunctionID.SHOP).Goto());
 			m_view.m_taskBtn.onClick.Set(()=>((int)FunctionID.TASK).Goto());
@@ -308,7 +309,8 @@ namespace SGame.UI
 
 		void OnOpenTotalClick()
 		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("totalBoost"));
+			if(38.IsOpend(false)) SGame.UIUtils.OpenUI("buffshop");
+			else SGame.UIUtils.OpenUI("totalBoost");
 		}
 
 		void OnRoomLikeClick()

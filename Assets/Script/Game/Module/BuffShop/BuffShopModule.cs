@@ -152,12 +152,35 @@ namespace SGame
             else return fixedBuffs;
         }
 
+        public int GetFixedBuffShopCfgId(int index) 
+        {
+            if(index < fixedBuffs.Count)
+                return fixedBuffs[index];
+            return 0;
+        }
+
 
         public GameConfigs.BoostShopRowData GetConfig(int id) 
         {
             if (ConfigSystem.Instance.TryGet<GameConfigs.BoostShopRowData>(id, out var config))
                 return config;
             return default;
+        }
+
+        //检测商店buff是否有免费次数
+        public bool CheckBuffShopIsFree() 
+        {
+            if (DataCenter.Instance.shopData.goodDic == null) return false; 
+            var good = DataCenter.Instance.shopData.goodDic[GetRandomShopId()];
+            if (good.IsFree() && good.CDTime() <= 0) return true;
+
+            for (int i = 0; i < fixedBuffs.Count; i++)
+            {
+                var config = GetConfig(fixedBuffs[i]);
+                good = DataCenter.Instance.shopData.goodDic[config.ShopId];
+                if (good.IsFree() && good.CDTime() <= 0) return true;
+            }
+            return false;
         }
     }
 }
