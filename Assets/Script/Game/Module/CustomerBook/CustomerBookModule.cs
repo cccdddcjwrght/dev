@@ -95,7 +95,7 @@ namespace SGame
         {
             int[] item = data.Config.GetUnlockRewardArray();
             List<int[]> items = new List<int[]>() { item };
-            PropertyManager.Instance.Update(item[0], item[1], item[2]);
+            //PropertyManager.Instance.Update(item[0], item[1], item[2]);
 
             Utils.ShowRewards(items);
 
