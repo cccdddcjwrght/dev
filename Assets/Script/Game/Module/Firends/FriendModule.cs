@@ -53,6 +53,7 @@ namespace SGame.Firend
 
                 DataCenter.Instance.m_friendData = JsonUtility.FromJson<FriendData>(data);
             }
+            UpdateFriends();
         }
 
         /// <summary>
