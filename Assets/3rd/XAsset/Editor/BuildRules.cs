@@ -87,9 +87,11 @@ namespace libx
 					if (Directory.Exists(file)) continue;
 					var ext = Path.GetExtension(file).ToLower();
 					if ((ext == ".fbx" || ext == ".anim") && !litem.Contains(ext)) continue;
+					Debug.Log("file:" + file + "--" + item);
 					if (!BuildRules.ValidateAsset(file)) continue;
 					var asset = file.Replace("\\", "/");
-					//if(getFiles.Contains(asset)) continue;
+					if(getFiles.Contains(asset)) continue;
+					Debug.Log("file add:" + file + "--" + item);
 					getFiles.Add(asset);
 				}
 			}
