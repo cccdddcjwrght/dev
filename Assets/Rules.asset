@@ -20,13 +20,13 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 2
+  version: 3
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   ignoreOps: []
   rules:
   - searchPath: Assets/BuildAsset/Art/scenes
-    searchPattern: '*.png,*.FBX'
+    searchPattern: '*.png,*.FBX,*.fbx'
     nameBy: 2
     assetBundleName: 
   - searchPath: Assets/BuildAsset/configs
@@ -2368,6 +2368,10 @@ MonoBehaviour:
     path: assets/buildasset/ui/buff_atlas0.png
   - bundle: assets/buildasset/ui/buff.unity3d
     path: assets/buildasset/ui/buff_fui.bytes
+  - bundle: assets/buildasset/ui/buffshop.unity3d
+    path: assets/buildasset/ui/buffshop_atlas0.png
+  - bundle: assets/buildasset/ui/buffshop.unity3d
+    path: assets/buildasset/ui/buffshop_fui.bytes
   - bundle: assets/buildasset/ui/club.unity3d
     path: assets/buildasset/ui/club_atlas0.png
   - bundle: assets/buildasset/ui/club.unity3d
@@ -2705,13 +2709,11 @@ MonoBehaviour:
   - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/manager/dispatchorder2woker.asset
   - bundle: visualscript.unity3d
+    path: assets/buildasset/visualscript/game/room/manager/dispatchordertask.asset
+  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/manager/dispatchwaitcustomer2worker.asset
   - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/room/manager/getbestemptychef.asset
-  - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/manager/getbestemptywaiter.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/room/manager/getbestemptyworker.asset
   - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/room/manager/getdistanceonlypriority.asset
   - bundle: visualscript.unity3d
@@ -3230,6 +3232,10 @@ MonoBehaviour:
     - assets/buildasset/configs/sound_effect.bytes
     - assets/buildasset/configs/ui_groups.bytes
     - assets/buildasset/configs/ui_res.bytes
+  - name: assets/buildasset/ui/buffshop.unity3d
+    assets:
+    - assets/buildasset/ui/buffshop_atlas0.png
+    - assets/buildasset/ui/buffshop_fui.bytes
   - name: assets/buildasset/ui/buff.unity3d
     assets:
     - assets/buildasset/ui/buff_atlas0.png
@@ -4140,10 +4146,9 @@ MonoBehaviour:
     - assets/buildasset/visualscript/game/room/manager/dispatchfoodreadlyorder2woker.asset
     - assets/buildasset/visualscript/game/room/manager/dispatchorder2waitergetfood.asset
     - assets/buildasset/visualscript/game/room/manager/dispatchorder2woker.asset
+    - assets/buildasset/visualscript/game/room/manager/dispatchordertask.asset
     - assets/buildasset/visualscript/game/room/manager/dispatchwaitcustomer2worker.asset
-    - assets/buildasset/visualscript/game/room/manager/getbestemptychef.asset
     - assets/buildasset/visualscript/game/room/manager/getbestemptywaiter.asset
-    - assets/buildasset/visualscript/game/room/manager/getbestemptyworker.asset
     - assets/buildasset/visualscript/game/room/manager/getdistanceonlypriority.asset
     - assets/buildasset/visualscript/game/room/manager/getworkerspriority.asset
     - assets/buildasset/visualscript/game/room/manager/roommanager.asset
