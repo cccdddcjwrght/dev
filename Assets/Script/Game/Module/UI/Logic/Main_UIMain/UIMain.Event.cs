@@ -76,6 +76,7 @@ namespace SGame.UI
 			OnHeadSetting();
 			OnEventRefreshItem();
 			//OnRefeshBuffTime();
+			RepeatPlayLikeEffect();
 			OnRefreshLikeCount(0);
 			OnRefreshAdTime();
 			OnRefreshTotalState();
@@ -397,6 +398,15 @@ namespace SGame.UI
 				}
 				m_view.m_likeBtn.m_num.SetText(string.Format("+{0}", likeNum));
 			}
+		}
+
+		void RepeatPlayLikeEffect() 
+		{
+			GTween.To(0, 1, 30).SetTarget(m_view).OnComplete(() =>
+			{
+				if(DataCenter.Instance.likeData.likeNum > 0) EffectSystem.Instance.AddEffect(51, m_view.m_likeBtn);
+				RepeatPlayLikeEffect();
+			});
 		}
 
 		void OnRefreshTotalState()
