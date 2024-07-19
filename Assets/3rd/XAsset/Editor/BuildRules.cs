@@ -82,6 +82,7 @@ namespace libx
 			{
 				var files = Directory.GetFiles(searchPath, item, SearchOption.AllDirectories);
 				var litem = item.ToLower();
+				Debug.Log("Filter:"+item);
 				foreach (var file in files)
 				{
 					if (Directory.Exists(file)) continue;
