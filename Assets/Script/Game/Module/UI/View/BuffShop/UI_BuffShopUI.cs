@@ -10,6 +10,8 @@ namespace SGame.UI.BuffShop
         public GLabel m_body;
         public GLoader m_tip;
         public GTextField m_total;
+        public GImage m_time_bg;
+        public GImage m_time_icon;
         public GTextField m_time;
         public GList m_lotteryList;
         public UI_ShopBuffBtn m_lotteryBtn;
@@ -29,11 +31,13 @@ namespace SGame.UI.BuffShop
             m_body = (GLabel)GetChildAt(0);
             m_tip = (GLoader)GetChildAt(2);
             m_total = (GTextField)GetChildAt(4);
-            m_time = (GTextField)GetChildAt(9);
-            m_lotteryList = (GList)GetChildAt(10);
-            m_lotteryBtn = (UI_ShopBuffBtn)GetChildAt(11);
-            m_shopBuffList = (GList)GetChildAt(13);
-            m_content = (GGroup)GetChildAt(16);
+            m_time_bg = (GImage)GetChildAt(8);
+            m_time_icon = (GImage)GetChildAt(9);
+            m_time = (GTextField)GetChildAt(10);
+            m_lotteryList = (GList)GetChildAt(11);
+            m_lotteryBtn = (UI_ShopBuffBtn)GetChildAt(12);
+            m_shopBuffList = (GList)GetChildAt(14);
+            m_content = (GGroup)GetChildAt(17);
         }
     }
 }

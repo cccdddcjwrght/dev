@@ -12,7 +12,7 @@ namespace SGame.UI{
 		List<int> randomIds;
 		List<int> fixedIds;
 
-		int m_Height = 100;
+		int m_Height = -100;
 		bool playing = false;
 		float moveY = GlobalDesginConfig.GetFloat("buffshop_lottery_move_y", 2f);
 		int whirlCount = GlobalDesginConfig.GetInt("buffshop_lottery_whirl_count", 2);
@@ -48,7 +48,7 @@ namespace SGame.UI{
 			DoRefreshGoodsInfo(good, m_view.m_lotteryBtn);
 
 			m_forceData = BuffShopModule.Instance.GetForceRandomBuffData();
-			DoRefreshBuffInfo(m_forceData, m_view.m_time);
+			DoRefreshBuffInfo(m_forceData, m_view.m_time, m_view.m_time_bg, m_view.m_time_icon);
 
 			randomIds = BuffShopModule.Instance.GetBuffList(1);
 			fixedIds = BuffShopModule.Instance.GetBuffList(2);
@@ -79,11 +79,11 @@ namespace SGame.UI{
 
 			ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(buffShopConfig.BuffId(0), out var buffConfig);
 			item.m_des.SetTextByKey(buffShopConfig.BuffDes, buffShopConfig.BuffId(1), buffShopConfig.BuffTime);
-			item.m_value.SetText("x" + buffShopConfig.BuffId(1));
+			item.m_value.SetText("x" + (1 + buffShopConfig.BuffId(1) * 0.01f));
 			item.SetIcon(buffConfig.Icon);
 
 			DataCenter.Instance.boostShopData.buffDict.TryGetValue(buffShopCfgId, out var buff);
-			DoRefreshBuffInfo(buff, item.m_time);
+			DoRefreshBuffInfo(buff, item.m_time, item.m_time_bg, null);
 
 			var good = DataCenter.Instance.shopData.goodDic[buffShopConfig.ShopId];
 			DoRefreshGoodsInfo(good, item.m_click);
@@ -95,16 +95,20 @@ namespace SGame.UI{
 			}));
 		}
 
-		void DoRefreshBuffInfo(BuffShopData data, GTextField text) 
+		void DoRefreshBuffInfo(BuffShopData data, GTextField text, GImage border, GImage icon) 
 		{
 			var time = data !=null ? data.GetTime() : 0;
 			text.SetText(Utils.FormatTime(time), false);
+			if (icon != null) icon.visible = time > 0;
+			if (border != null) border.visible = time > 0;
+			text.visible = time > 0;
+
 			if (time > 0) 
 			{
 				Utils.Timer(time, () =>
 				{
 					text.SetText(Utils.FormatTime(data.GetTime()), false);
-				}, m_view, completed: () => DoRefreshBuffInfo(data, text));
+				}, m_view, completed: () => DoRefreshBuffInfo(data, text, border, icon));
 			}
 		}
 
@@ -154,28 +158,28 @@ namespace SGame.UI{
 
 		void Update(UIContext context) 
 		{
-			if (m_forceData?.GetTime() > 0) return;
-			var posY = m_view.m_lotteryList.scrollPane.posY;
-			m_view.m_lotteryList.scrollPane.SetPosY(posY + moveY, false);
-		}
+            if (m_forceData?.GetTime() > 0) return;
+            var posY = m_view.m_lotteryList.scrollPane.posY;
+            m_view.m_lotteryList.scrollPane.SetPosY(posY - moveY, false);
+        }
 
-		partial void OnLotteryBtnClick(EventContext data)
+        partial void OnLotteryBtnClick(EventContext data)
         {
-			RequestExcuteSystem.BuyGoods(BuffShopModule.Instance.GetRandomShopId(), (success) =>
-			{
-				if (!success) return;
-				var cfgId = BuffShopModule.Instance.GetRandomBuff();
-				PlayLotteryAnim(cfgId);
+            RequestExcuteSystem.BuyGoods(BuffShopModule.Instance.GetRandomShopId(), (success) =>
+            {
+                if (!success) return;
+                var cfgId = BuffShopModule.Instance.GetRandomBuff();
+                PlayLotteryAnim(cfgId);
 
-				BuffShopModule.Instance.AddBoostShopBuff(cfgId);
-			});
-		}
+                BuffShopModule.Instance.AddBoostShopBuff(cfgId);
+            });
+        }
 
 		void PlayLotteryAnim(int cfgId) 
 		{
 			playing = true;
 			int index = cfgId;
-			float pos_y = randomIds.Count * m_Height * whirlCount + (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
+			float pos_y = randomIds.Count * m_Height * 1 + (randomIds.Count - index + 1) * m_Height + m_Height * 0.5f; ;
 			GTween.To(0, pos_y, duration).SetTarget(m_view).OnUpdate((t) =>
 			{
 				m_view.m_lotteryList.scrollPane.SetPosY((float)t.value.d, false);
@@ -191,7 +195,7 @@ namespace SGame.UI{
 			if (m_forceData?.GetTime() > 0) 
 			{
 				int index = m_forceData.cfgId;
-				float pos_y = (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
+				float pos_y = (randomIds.Count - index + 1) * m_Height + m_Height * 0.5f;
 				m_view.m_lotteryList.scrollPane.SetPosY(pos_y, false);
 			}
 		}

@@ -7,6 +7,7 @@ namespace SGame.UI.BuffShop
 {
     public partial class UI_BuffShopItem : GLabel
     {
+        public GImage m_time_bg;
         public GTextField m_time;
         public GTextField m_value;
         public GTextField m_des;
@@ -22,6 +23,7 @@ namespace SGame.UI.BuffShop
         {
             base.ConstructFromXML(xml);
 
+            m_time_bg = (GImage)GetChildAt(2);
             m_time = (GTextField)GetChildAt(3);
             m_value = (GTextField)GetChildAt(4);
             m_des = (GTextField)GetChildAt(5);
