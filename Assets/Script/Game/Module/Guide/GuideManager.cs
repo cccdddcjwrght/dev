@@ -25,12 +25,57 @@ namespace SGame
 
         public void Initalize() 
         {
-            EventManager.Instance.Reg<int>((int)GameEvent.GUIDE_FINISH, FinishGuide);
-            EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, (s) => 
+#if GAME_GUIDE
+            if (Game.Instance.enableGuide)
             {
-                Utils.Timer(0.5f, null, completed: CheckRecruitOpen);
-            });
+                EventManager.Instance.Reg<int>((int)GameEvent.GUIDE_FINISH, FinishGuide);
+                EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, (s) =>
+                {
+                    FindRecruit().Start();
+                    StartAllLoopGuide();
+                });
+            }
+#endif
             GRoot.inst.onClick.Add(GuideClick);
+        }
+
+
+        /// <summary>
+        /// 开始执行循环指引
+        /// </summary>
+        void StartAllLoopGuide() 
+        {
+            var guides = ConfigSystem.Instance.Finds<GuideRowData>((v) => v.GuideType == 2);
+            for (int i = 0; i < guides.Count; i++)
+            {
+                var guide = guides[i];
+                StartLoopGuide(guide);
+            }
+        }
+
+        void StartLoopGuide(GuideRowData loopConfig) 
+        {
+            var worktableId = loopConfig.Condition(0);
+            var needLevel = loopConfig.Condition(1);
+            var loopTime = loopConfig.Condition(2);
+            var table = DataCenter.MachineUtil.GetWorktable(worktableId);
+            if (table == null || table.lv < needLevel) 
+            {
+                GTween.To(0, 1, loopTime).OnComplete(() => 
+                {
+                    if (runtimeDataList.Count <= 1)
+                    {
+                        var config = runtimeDataList[0].config;
+                        if (config.IsValid())
+                        {
+                            if (config.GuideType == 0 && (config.Cmd == "Check" || config.Cmd == "Region" || config.Cmd == "Area" || config.Cmd == "Task"))
+                                StartGuide(loopConfig.GuideId);
+                        }
+                    }
+                    else if(runtimeDataList.Count <= 0) StartGuide(loopConfig.GuideId);
+                    StartLoopGuide(loopConfig);
+                });
+            }
         }
 
         /// <summary>
@@ -126,19 +171,29 @@ namespace SGame
 
 
         RegionHit mono;
+        IEnumerator FindRecruit() 
+        {
+            while (true) 
+            {
+                if (mono == null) 
+                {
+                    var go = GameObject.FindGameObjectWithTag("recruit");
+                    mono = go?.GetComponent<RegionHit>();
+                }
+
+                if (mono != null) break;
+                yield return null;
+            }
+            yield return mono;
+            CheckRecruitOpen();
+        }
+
         public void CheckRecruitOpen() 
         {
 #if GAME_GUIDE
             if (Game.Instance.enableGuide)
             {
                 if (DataCenter.Instance.roomData.roomID != 1) return;
-
-                if (mono == null)
-                {
-                    var go = GameObject.FindGameObjectWithTag("recruit");
-                    mono = go?.GetComponent<RegionHit>();
-                }
-
                 if (mono)
                 {
                     var region = DataCenter.MachineUtil.GetWorktable(mono.region);

@@ -8,18 +8,27 @@ namespace SGame
     public class GuideRuntimeData
     {
         int __guideId;    //当前指引id
-        int __stepIndex;  //当前步骤索引
+        int __stepIndex;  
+        int _curStep;     //当前步骤
 
         UnityEngine.Coroutine m_Coroutine;
         GuideFingerHandler __handler;
 
         public int guideId { get { return __guideId; } }
+        public GameConfigs.GuideRowData config {
+            get 
+            {
+                if(_curStep < steps.Count) return steps[_curStep].m_Config;
+                return default;
+            }
+        }
 
         List<Step> steps = new List<Step>();
         EventHandleContainer __event = new EventHandleContainer();
         public GuideRuntimeData(int guideId)
         {
             __guideId = guideId;
+            _curStep = 0;
             __stepIndex = 0;
             __event += EventManager.Instance.Reg<int>((int)GameEvent.STEP_NEXT, Run);
             __handler = new GuideFingerHandler();
@@ -47,6 +56,7 @@ namespace SGame
             UILockManager.Instance.Release("guide_step_runing");
             __handler.DisableControl(false);
             if (guideId != __guideId) return;
+
             //清除主线以外的指引
             if (ConfigSystem.Instance.TryGet<GameConfigs.GuideRowData>((i) => i.GuideId ==__guideId && i.Step == __stepIndex, out var cfg) && cfg.GuideType == 0) 
             {
@@ -57,7 +67,9 @@ namespace SGame
 
             if (__stepIndex < steps.Count)
             {
+                _curStep = __stepIndex;
                 var config = steps[__stepIndex].m_Config;
+
                 Debug.Log(string.Format("<color=green>cur guide id:{0}, step: {1}, cmd: {2}</color>", __guideId, __stepIndex, steps[__stepIndex].m_Config.Cmd));
                 Debug.Log(string.Format("<color=cyan> guideId:{0} step:{1} cmd: {2}  start time : {3} </color>", config.GuideId, config.Step, config.Cmd, Time.realtimeSinceStartupAsDouble));
                 m_Coroutine = steps[__stepIndex++].Excute().Start();
@@ -83,10 +95,10 @@ namespace SGame
             }
             else if(code == 1) 
             {
-                int lastStepIndex = __stepIndex - 1;
-                steps[lastStepIndex].Stop();
+                //int lastStepIndex = __stepIndex - 1;
+                steps[_curStep].Stop();
                 m_Coroutine.Stop();
-                Debug.Log(string.Format("<color=red>guide stop id:{0} step: {1}</color>", __guideId, lastStepIndex));
+                Debug.Log(string.Format("<color=red>guide stop id:{0} step: {1}</color>", __guideId, _curStep));
             }
             Dispose();
         }
