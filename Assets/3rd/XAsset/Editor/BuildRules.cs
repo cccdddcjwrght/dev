@@ -89,7 +89,7 @@ namespace libx
 					if ((ext == ".fbx" || ext == ".anim") && !litem.Contains(ext)) continue;
 					if (!BuildRules.ValidateAsset(file)) continue;
 					var asset = file.Replace("\\", "/");
-					if(getFiles.Contains(asset)) continue;
+					if (getFiles.Contains(asset)) continue;
 					getFiles.Add(asset);
 				}
 			}
@@ -264,7 +264,7 @@ namespace libx
 			AssetDatabase.SaveAssets();
 		}
 
-	
+
 		private void OptimizeAssets()
 		{
 			int i = 0, max = _conflicted.Count;
@@ -382,7 +382,12 @@ namespace libx
 				case NameBy.Directory:
 					{
 						foreach (var asset in assets)
-							_asset2Bundles[asset] = RuledAssetBundleName(Path.GetDirectoryName(asset));
+						{
+							var path = Path.GetDirectoryName(asset);
+							if (Path.GetFileNameWithoutExtension(path) == "mats")
+								path = Path.GetDirectoryName(path);
+							_asset2Bundles[asset] = RuledAssetBundleName(path);
+						}
 
 						break;
 					}
