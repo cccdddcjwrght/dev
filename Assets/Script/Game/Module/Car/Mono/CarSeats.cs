@@ -401,16 +401,9 @@ namespace SGame
             
             if (EntityManager.HasComponent<Parent>(chair.customer))
                 EntityManager.RemoveComponent<Parent>(chair.customer);
-            //EntityManager.RemoveComponent<LocalToParent>(chair.customer);
-            var trans = EntityManager.GetComponentData<LocalTransform>(chair.customer);
-            trans.Rotation = m_transform.rotation;
-            trans.Position = m_transform.position;
-            //EntityManager.SetComponentData<Rotation>(chair.customer, new Rotation(){Value = m_transform.rotation});
-            //EntityManager.SetComponentData<Translation>(chair.customer, new Translation() { Value = m_transform.position });
-            
-            //chair.customer = Entity.Null;
+            EntityManager.SetComponentData(chair.customer, 
+                LocalTransform.FromPositionRotationScale(m_transform.position, m_transform.rotation, m_transform.localScale.x));
             chair.Leave();
-            //chair.state = CarCustomer.SeatState.LEAVE;
             return true;
         }
 

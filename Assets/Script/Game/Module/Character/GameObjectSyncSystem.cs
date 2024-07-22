@@ -11,12 +11,12 @@ namespace SGame
     {
         protected override void OnUpdate()
         {
-            Entities.WithNone<DespawningEntity>().WithAll<GameObjectSyncTag>().ForEach((Entity e, Transform trans, in LocalToWorld LocalToWorld ) =>
+            Entities.WithNone<DespawningEntity>().WithAll<GameObjectSyncTag>().ForEach((Entity e, Transform trans, in LocalToWorld lt ) =>
             {
                 if (trans != null)
                 {
-                    trans.position = LocalToWorld.Position;
-                    trans.rotation = LocalToWorld.Rotation;
+                    trans.position = lt.Position;
+                    trans.rotation = lt.Rotation;
                 }
             }).WithoutBurst().Run();
         }

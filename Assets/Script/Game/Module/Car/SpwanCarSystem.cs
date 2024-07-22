@@ -91,10 +91,10 @@ namespace SGame
             obj.transform.position = pos;
             EntityManager.AddComponentObject(entity, obj.transform);
             EntityManager.AddComponentObject(entity, carscript);
-            var trans = EntityManager.GetComponentData<LocalTransform>(entity);
-            trans.Position = pos;
-            trans.Rotation = rot;
-            EntityManager.SetComponentData(entity, trans);
+            //var trans = EntityManager.GetComponentData<LocalTransform>(entity);
+            //trans.Position = pos;
+            //trans.Rotation = rot;
+            EntityManager.SetComponentData(entity, LocalTransform.FromPositionRotation(pos, rot));
             EntityManager.SetComponentData(entity, new RotationSpeed(){Value =  10.0f});
             EntityManager.SetComponentData(entity, new CarData(){id = req.id});
             if (!carscript.Initalize(EntityManager, entity, req.id))
