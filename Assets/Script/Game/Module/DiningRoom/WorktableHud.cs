@@ -78,8 +78,8 @@ namespace SGame
 					UIModule.Instance.GetEntityManager().AddComponent<DespawningEntity>(_hud);//不延迟
 			}*/
 
-			if (GuideManager.Instance.IsCoerce) return;
-#if GAME_GUIDE
+			if (GuideManager.Instance.IsCoerce || _cid == 0) return;
+#if GAME_GUIDE && !SVR_RELEASE
 			UnityEngine.Debug.Log("Worktable close -------------");
 #endif
 
