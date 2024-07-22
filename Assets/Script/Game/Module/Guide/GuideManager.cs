@@ -55,6 +55,8 @@ namespace SGame
 
         void StartLoopGuide(GuideRowData loopConfig) 
         {
+            if (DataCenter.Instance.roomData.roomID != 1) return;
+
             var worktableId = loopConfig.Condition(0);
             var needLevel = loopConfig.Condition(1);
             var loopTime = loopConfig.Condition(2);
