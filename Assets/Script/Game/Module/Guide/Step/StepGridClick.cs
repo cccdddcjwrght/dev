@@ -42,10 +42,10 @@ namespace SGame
             yield break;
         }
 
-        //public void Stop()
-        //{
-        //    GuideManager.Instance.StopGuide(m_Config.GuideId);
-        //}
+        public void Stop()
+        {
+            GuideManager.Instance.StopGuide(m_Config.GuideId);
+        }
 
         public override void Dispose()
         {

@@ -63,7 +63,7 @@ namespace SGame
             {
                 GTween.To(0, 1, loopTime).OnComplete(() => 
                 {
-                    if (runtimeDataList.Count <= 1)
+                    if (runtimeDataList.Count == 1)
                     {
                         var config = runtimeDataList[0].config;
                         if (config.IsValid())
