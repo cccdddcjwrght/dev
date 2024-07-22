@@ -36,6 +36,7 @@ namespace SGame.UI
 			eHandler += EventManager.Instance.Reg<int>(((int)GameEvent.WORK_AREA_UNLOCK), a => RefreshInfo());
 			eHandler += EventManager.Instance.Reg((int)GameEvent.GUIDE_START, RefreshInfo);
 			eHandler += EventManager.Instance.Reg((int)GameEvent.RELOAD_ALL_UI, UpdateText);
+			eHandler += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLOSE, OnClickOther);
 
 			GRoot.inst.onClick.Add(OnOtherUIClick);
 			ControlAxis.ListenEvent(OnClickOther);
