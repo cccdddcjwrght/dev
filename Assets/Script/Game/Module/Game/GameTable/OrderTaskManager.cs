@@ -16,10 +16,24 @@ namespace SGame
     {
         public OrderData    m_order;       // 订单
         public float        m_workTime;    // 预估订单处理时间
-        public int          m_characterID; // 角色ID
-        public bool         m_isRemoved;   // 是否已经删除
-        public bool         m_isReadly;    // 任务是否准备号
+        public int          m_characterID; // 角色ID, 分配的角色ID
+        public bool         m_isRemoved;   // 是否已经删除(已分配给玩家)
+        //public bool         m_isReadly;     // 任务是否准备号
         private static ILog log = LogManager.GetLogger("game.order");
+        
+        public bool isReadly {
+            get
+            {
+                if (m_order.progress == ORDER_PROGRESS.ORDED)
+                {
+                    // 需要准备号作为
+                    return false;
+                    // m_order.CookerTake()
+                }
+
+                return true;
+            }
+        }
 
         public OrderTaskItem(OrderData order)
         {
@@ -27,7 +41,13 @@ namespace SGame
             m_characterID = 0;
             m_order = order;
             m_isRemoved = false;
-            m_isReadly = false;
+            //m_isReadly = false;
+        }
+
+        public Vector2Int GetPosition()
+        {
+            var pos = m_order.GetPosition();
+            return new Vector2Int(pos.x, pos.y);
         }
 
         public Vector2Int GetCustomerPos()
@@ -216,12 +236,12 @@ namespace SGame
         {
             m_caches.Clear();
             
-            // 排序并过滤任务, 只处理
+            // 排序并过滤任务, 只处理可用处理的任务
             foreach (var item in m_tasks)
             {
                 foreach (var task in item.Value.Datas)
                 {
-                    if (task.m_isReadly)
+                    if (task.isReadly)
                     {
                         m_caches.Add(task);
                     }

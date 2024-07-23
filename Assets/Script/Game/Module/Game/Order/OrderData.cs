@@ -94,7 +94,7 @@ namespace SGame
         }
 
         /// <summary>
-        /// 厨师接单
+        /// 厨师接单（-1 可用重复接单)
         /// </summary>
         /// <param name="cookerID"></param>
         /// <returns></returns>
@@ -102,8 +102,11 @@ namespace SGame
         {
             if (progress != ORDER_PROGRESS.ORDED)
             {
-                log.Error("order progress not match!");
-                return false;
+                if (this.cookerID != -1 || progress != ORDER_PROGRESS.FOOD_START)
+                {
+                    log.Error("order progress not match!");
+                    return false;
+                }
             }
 
             this.cookerID = cookerID;

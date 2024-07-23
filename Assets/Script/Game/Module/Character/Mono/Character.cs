@@ -689,10 +689,6 @@ using System.Collections.Generic;
         }
         
         // ****************************** 订单相关存储接口 ********************************************************************
-        public bool     AddOrder(OrderData order, ChairData chairData) => m_orderRecord.AddOrder(order, chairData);
-        public void     AddCustomerChair(OrderData order) => m_orderRecord.AddCustomerChair(order);
-        public bool     AddFoodReadlyOrder(OrderData order) => m_orderRecord.AddFoodReadlyOrder(order);
-
         public void     EnterIdle() => m_orderRecord.EnterIdle(); 
         public void     LeaveAllChairs() => m_orderRecord.LeaveAllChairs();
         public bool     hasCustomerChair => m_orderRecord.hasCustomerChair;
@@ -738,25 +734,6 @@ using System.Collections.Generic;
         /// <summary>
         /// 获取订单, 将订单放入队列中 
         /// </summary>
-        public void TakeOrder(OrderData order)
-        {
-            switch (order.progress)
-            {
-                // 点单任务
-                case ORDER_PROGRESS.WAIT_ORDER:
-                    AddCustomerChair(order);
-                    break;
-                
-                // 做菜任务
-                case ORDER_PROGRESS.ORDED:
-                    AddOrder(order, order.workerChair);
-                    break;
-                
-                // 端菜任务
-                case ORDER_PROGRESS.FOOD_READLY:
-                    AddFoodReadlyOrder(order);
-                    break;
-            }
-        }
+        public void TakeOrder(OrderData order) => m_orderRecord.TakeOrder(order);
     }
 }

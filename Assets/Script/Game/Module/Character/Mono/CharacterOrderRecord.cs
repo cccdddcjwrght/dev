@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FlatBuffers;
 using GameConfigs;
 using log4net;
 using Unity.Entities;
@@ -80,7 +81,7 @@ namespace SGame
         /// </summary>
         /// <param name="orderID">订单ID</param>
         /// <param name="workerChair">工位</param>
-        public bool AddOrder(OrderData order, ChairData workerChair)
+        private bool AddTaskFoodMake(OrderData order, ChairData workerChair)
         {
             if (workerChair == ChairData.Null)
             {
@@ -88,14 +89,18 @@ namespace SGame
                 return false;
             }
 
-            if (order.progress != ORDER_PROGRESS.ORDED)
+            if (order.progress != ORDER_PROGRESS.FOOD_START)
             {
                 log.Error("order progress error=" + order.progress);
                 return false;
             }
 
             
-            // 锁定座位
+            // 重新锁定座位
+            if (!TableManager.Instance.LeaveChair(workerChair, -1))
+            {
+                log.Error("Chair PlayerID Is Not -1");
+            }
             TableManager.Instance.SitChair(workerChair, m_characterID);
 
             // 修改订单状态
@@ -109,7 +114,7 @@ namespace SGame
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        public bool AddFoodReadlyOrder(OrderData order)
+        private bool AddTaskFoodTake(OrderData order)
         {
             order.MoveToCustom(m_characterID);
             AddTask(new TaskData() { orderData = order });
@@ -120,7 +125,7 @@ namespace SGame
         /// 添加待处理椅子订单
         /// </summary>
         /// <param name="chair"></param>
-        public void AddCustomerChair(OrderData order)
+        private void AddTaskOrderStart(OrderData order)
         {
             AddTask(new TaskData() { orderData = order });
         }
@@ -220,6 +225,31 @@ namespace SGame
             
             distance += Vector2Int.Distance(start, end);
             return distance;
+        }
+        
+        public void TakeOrder(OrderData order)
+        {
+            switch (order.progress)
+            {
+                // 点单任务
+                case ORDER_PROGRESS.WAIT_ORDER:
+                    AddTaskOrderStart(order);
+                    break;
+
+                // 做菜任务
+                case ORDER_PROGRESS.ORDED:
+                case ORDER_PROGRESS.FOOD_START:
+                    AddTaskFoodMake(order, order.workerChair);
+                    break;
+
+                // 端菜任务
+                case ORDER_PROGRESS.FOOD_READLY:
+                    AddTaskFoodTake(order);
+                    break;
+                default:
+                    log.Error("error order progress=" + order.progress);
+                    break;
+            }
         }
     }
 }
