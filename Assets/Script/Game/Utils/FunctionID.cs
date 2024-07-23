@@ -15,6 +15,7 @@ namespace SGame
         PET        = 24, // 宠物
         TREASURE   = 25, // 宝箱仓库
         TASK       = 32, // 任务
+        RECIPE     = 33, // 食谱
         FRIEND_CUSTOMER = 35, // 好友客人功能定义 
         HOT_FOOD   =    37,   //热卖菜品
     }

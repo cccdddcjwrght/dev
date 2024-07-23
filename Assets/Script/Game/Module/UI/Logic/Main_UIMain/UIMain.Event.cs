@@ -54,11 +54,10 @@ namespace SGame.UI
 			m_view.m_Gold.onClick.Add(OnOpenTotalClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
 			m_view.m_btnShop.onClick.Set(()=>((int)FunctionID.SHOP).Goto());
-			m_view.m_taskBtn.onClick.Set(()=>((int)FunctionID.TASK).Goto());
+			m_view.m_techBtn.onClick.Set(()=>((int)FunctionID.TECH).Goto());
 
-			//m_view.m_skillBtn.onClick.Add(() => OpenUI(FunctionID.TECH));
 			m_view.m_equipBtn.onClick.Add(() => OpenUI(FunctionID.ROLE_EQUIP));
-			m_view.m_friendBtn.onClick.Add(()=> OpenUI(FunctionID.FRIEND));
+			m_view.m_recipeBtn.onClick.Add(()=> OpenUI(FunctionID.RECIPE));
 			m_view.m_petBtn.onClick.Add(()=>OpenUI(FunctionID.PET));
 			m_view.m_hotFoodBtn.onClick.Add(() => OpenUI(FunctionID.HOT_FOOD));
 
@@ -139,12 +138,13 @@ namespace SGame.UI
 
 			// 左排
 			//m_funcManager.Register((int)FunctionID.SHOP);
-			m_funcManager.Register((int)FunctionID.TECH);
+			//m_funcManager.Register((int)FunctionID.TECH);
+			
 			//俱乐部
 			m_funcManager.Register(30, () => DataCenter.ClubUtil.IsOpen());
 			m_funcManager.Register(31, () => DataCenter.ClubUtil.CheckIsInClub());
 
-			//m_funcManager.Register((int)FunctionID.FRIEND, null, () => FriendModule.Instance.hiringTime); // 好友
+			m_funcManager.Register((int)FunctionID.FRIEND, null, () => FriendModule.Instance.hiringTime); // 好友
 			//m_funcManager.Register((int)24);
 			m_funcManager.Register((int)25, () => ChestItemUtil.CheckEqGiftBag())
 				.SetIcon(ChestItemUtil.GetIcon)
@@ -188,7 +188,7 @@ namespace SGame.UI
 			if (StaticDefine.PAUSE_MAIN_REFRESH) return;
 
 			m_view.m_Diamond.visible = 34.IsOpend(false);
-			m_view.m_taskBtn.visible = CheckFuncOpen(FunctionID.TASK);
+			m_view.m_techBtn.visible = CheckFuncOpen(FunctionID.TECH);
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			m_view.m_hotFoodBtn.visible = 37.IsOpend(false);
@@ -201,10 +201,10 @@ namespace SGame.UI
 			//m_view.m_skillBtn.visible = CheckFuncOpen(FunctionID.TECH);
 			m_view.m_petBtn.visible = CheckFuncOpen(FunctionID.PET);
 			m_view.m_equipBtn.visible = CheckFuncOpen(FunctionID.ROLE_EQUIP);
-			m_view.m_friendBtn.visible = CheckFuncOpen(FunctionID.FRIEND);
+			m_view.m_recipeBtn.visible = CheckFuncOpen(FunctionID.RECIPE);
 			m_view.m_getworker.selectedIndex =  36.IsOpend(false) ? 1 : 0;
 
-			SGame.UIUtils.RefreshFuncBtnTime((m_view.m_friendBtn as UI_FuncBtn).m_time, () => FriendModule.Instance.hiringTime);
+			//SGame.UIUtils.RefreshFuncBtnTime((m_view.m_friendBtn as UI_FuncBtn).m_time, () => FriendModule.Instance.hiringTime);
 
 			// 处理左右列表
 			UpdateUIState();
@@ -229,10 +229,18 @@ namespace SGame.UI
 
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
-			ui.m_side.selectedIndex = isLeft ? 0 : 1;
+			if (config.effectID > 0)
+			{
+				ui.m_side.selectedIndex = 2;
+			}
+			else
+			{
+				ui.m_side.selectedIndex = isLeft ? 0 : 1;
+			}
+			config.ShowEffect(ui.m_effect);
 			ui.m_redpoint.visible = true;
-			if ((int)FunctionID.TREASURE == config.funcID)
-				ui.m_side.selectedIndex = 3;
+			//if ((int)FunctionID.TREASURE == config.funcID)
+			//	ui.m_side.selectedIndex = 3;
 
 			if (!string.IsNullOrEmpty(config.uiname))
 				item.name = config.uiname;

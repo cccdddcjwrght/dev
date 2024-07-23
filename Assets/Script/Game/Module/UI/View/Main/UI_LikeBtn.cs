@@ -9,7 +9,6 @@ namespace SGame.UI.Main
     {
         public GTextField m_num;
         public GTextField m_count;
-        public GGraph m___effect;
         public Transition m_add;
         public Transition m_play;
         public Transition m_zan;
@@ -26,7 +25,6 @@ namespace SGame.UI.Main
 
             m_num = (GTextField)GetChildAt(2);
             m_count = (GTextField)GetChildAt(3);
-            m___effect = (GGraph)GetChildAt(4);
             m_add = GetTransitionAt(0);
             m_play = GetTransitionAt(1);
             m_zan = GetTransitionAt(2);

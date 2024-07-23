@@ -33,11 +33,29 @@ namespace SGame.UI
 			public string Name;
 			public Action complete;						//完成回调		
 			public Action OnClick;						// 按下按钮
+			
 				
 			public int order => config.Order;           // 排序
 
+			public int effectID => config.Effect;
+			private Entity effect = Entity.Null;
+
 			public Func<string> getIcon;
 			public Func<string> getTooltip;
+
+			public void ShowEffect(FairyGUI.GGraph attachPoint)
+			{
+				if (effect != Entity.Null)
+				{
+					EffectSystem.Instance.CloseEffect(effect);
+					effect = Entity.Null;
+				}
+				
+				if (effectID > 0)
+				{
+					effect = EffectSystem.Instance.SpawnUI(effectID, attachPoint);
+				}
+			}
 
 			public string uiname
 			{

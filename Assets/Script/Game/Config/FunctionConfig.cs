@@ -95,6 +95,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
 #endif
   public byte[] GetNettipsArray() { return __p.__vector_as_array<byte>(42); }
   public int FirstOpen { get { int o = __p.__offset(44); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Effect { get { int o = __p.__offset(46); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.FunctionConfigRowData> CreateFunctionConfigRowData(FlatBufferBuilder builder,
       int id = 0,
@@ -117,8 +118,10 @@ public struct FunctionConfigRowData : IFlatbufferObject
       StringOffset resOffset = default(StringOffset),
       int net = 0,
       StringOffset nettipsOffset = default(StringOffset),
-      int firstOpen = 0) {
-    builder.StartTable(21);
+      int firstOpen = 0,
+      int effect = 0) {
+    builder.StartTable(22);
+    FunctionConfigRowData.AddEffect(builder, effect);
     FunctionConfigRowData.AddFirstOpen(builder, firstOpen);
     FunctionConfigRowData.AddNettips(builder, nettipsOffset);
     FunctionConfigRowData.AddNet(builder, net);
@@ -143,7 +146,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
     return FunctionConfigRowData.EndFunctionConfigRowData(builder);
   }
 
-  public static void StartFunctionConfigRowData(FlatBufferBuilder builder) { builder.StartTable(21); }
+  public static void StartFunctionConfigRowData(FlatBufferBuilder builder) { builder.StartTable(22); }
   public static void AddId(FlatBufferBuilder builder, int id) { builder.AddInt(0, id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddOrder(FlatBufferBuilder builder, int order) { builder.AddInt(2, order, 0); }
@@ -168,6 +171,7 @@ public struct FunctionConfigRowData : IFlatbufferObject
   public static void AddNet(FlatBufferBuilder builder, int net) { builder.AddInt(18, net, 0); }
   public static void AddNettips(FlatBufferBuilder builder, StringOffset nettipsOffset) { builder.AddOffset(19, nettipsOffset.Value, 0); }
   public static void AddFirstOpen(FlatBufferBuilder builder, int firstOpen) { builder.AddInt(20, firstOpen, 0); }
+  public static void AddEffect(FlatBufferBuilder builder, int effect) { builder.AddInt(21, effect, 0); }
   public static Offset<GameConfigs.FunctionConfigRowData> EndFunctionConfigRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.FunctionConfigRowData>(o);

@@ -35,11 +35,11 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick));
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
-			UIListener.Listener(m_view.m_friendBtn, new EventCallback1(_OnFriendBtnClick));
-			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick));
+			UIListener.Listener(m_view.m_techBtn, new EventCallback1(_OnTechBtnClick));
+			UIListener.Listener(m_view.m_recipeBtn, new EventCallback1(_OnRecipeBtnClick));
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick));
-			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick));
+			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick));
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick));
 			m_view.m_workflag.m_type.onChanged.Add(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick));
@@ -70,11 +70,11 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick),remove:true);
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
-			UIListener.Listener(m_view.m_friendBtn, new EventCallback1(_OnFriendBtnClick),remove:true);
-			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick),remove:true);
+			UIListener.Listener(m_view.m_techBtn, new EventCallback1(_OnTechBtnClick),remove:true);
+			UIListener.Listener(m_view.m_recipeBtn, new EventCallback1(_OnRecipeBtnClick),remove:true);
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick),remove:true);
-			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick),remove:true);
+			UIListener.Listener(m_view.m_petBtn, new EventCallback1(_OnPetBtnClick),remove:true);
 			UIListener.Listener(m_view.m_InvestBtn, new EventCallback1(_OnInvestBtnClick),remove:true);
 			m_view.m_workflag.m_type.onChanged.Remove(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick),remove:true);
@@ -210,18 +210,18 @@ namespace SGame.UI{
 			OnTotalBtnClick(data);
 		}
 		partial void OnTotalBtnClick(EventContext data);
-		void _OnFriendBtnClick(EventContext data){
-			OnFriendBtnClick(data);
+		void _OnTechBtnClick(EventContext data){
+			OnTechBtnClick(data);
 		}
-		partial void OnFriendBtnClick(EventContext data);
-		void SetFriendBtnText(string data)=>UIListener.SetText(m_view.m_friendBtn,data);
-		string GetFriendBtnText()=>UIListener.GetText(m_view.m_friendBtn);
-		void _OnPetBtnClick(EventContext data){
-			OnPetBtnClick(data);
+		partial void OnTechBtnClick(EventContext data);
+		void SetTechBtnText(string data)=>UIListener.SetText(m_view.m_techBtn,data);
+		string GetTechBtnText()=>UIListener.GetText(m_view.m_techBtn);
+		void _OnRecipeBtnClick(EventContext data){
+			OnRecipeBtnClick(data);
 		}
-		partial void OnPetBtnClick(EventContext data);
-		void SetPetBtnText(string data)=>UIListener.SetText(m_view.m_petBtn,data);
-		string GetPetBtnText()=>UIListener.GetText(m_view.m_petBtn);
+		partial void OnRecipeBtnClick(EventContext data);
+		void SetRecipeBtnText(string data)=>UIListener.SetText(m_view.m_recipeBtn,data);
+		string GetRecipeBtnText()=>UIListener.GetText(m_view.m_recipeBtn);
 		void _OnAdBtnClick(EventContext data){
 			OnAdBtnClick(data);
 		}
@@ -234,12 +234,12 @@ namespace SGame.UI{
 		partial void OnEquipBtnClick(EventContext data);
 		void SetEquipBtnText(string data)=>UIListener.SetText(m_view.m_equipBtn,data);
 		string GetEquipBtnText()=>UIListener.GetText(m_view.m_equipBtn);
-		void _OnTaskBtnClick(EventContext data){
-			OnTaskBtnClick(data);
+		void _OnPetBtnClick(EventContext data){
+			OnPetBtnClick(data);
 		}
-		partial void OnTaskBtnClick(EventContext data);
-		void SetTaskBtnText(string data)=>UIListener.SetText(m_view.m_taskBtn,data);
-		string GetTaskBtnText()=>UIListener.GetText(m_view.m_taskBtn);
+		partial void OnPetBtnClick(EventContext data);
+		void SetPetBtnText(string data)=>UIListener.SetText(m_view.m_petBtn,data);
+		string GetPetBtnText()=>UIListener.GetText(m_view.m_petBtn);
 		void _OnInvestBtnClick(EventContext data){
 			OnInvestBtnClick(data);
 		}
