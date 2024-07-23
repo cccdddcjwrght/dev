@@ -29,6 +29,8 @@ namespace SGame
 				context.window.sortingOrder = ui.Order;
 				context.window.uiname = ui.Name;
 
+				EventManager.Instance.Trigger((int)GameEvent.GUIDE_UI_SHOW, ui.Name);
+
 #if !EVENT_LOG_OFF
 				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type); 
 #endif
