@@ -734,5 +734,29 @@ using System.Collections.Generic;
             float distance = m_orderRecord.GetOrderDistance(curPos, pos);
             return distance;
         }
+
+        /// <summary>
+        /// 获取订单, 将订单放入队列中 
+        /// </summary>
+        public void TakeOrder(OrderData order)
+        {
+            switch (order.progress)
+            {
+                // 点单任务
+                case ORDER_PROGRESS.WAIT_ORDER:
+                    AddCustomerChair(order);
+                    break;
+                
+                // 做菜任务
+                case ORDER_PROGRESS.ORDED:
+                    AddOrder(order, order.workerChair);
+                    break;
+                
+                // 端菜任务
+                case ORDER_PROGRESS.FOOD_READLY:
+                    AddFoodReadlyOrder(order);
+                    break;
+            }
+        }
     }
 }
