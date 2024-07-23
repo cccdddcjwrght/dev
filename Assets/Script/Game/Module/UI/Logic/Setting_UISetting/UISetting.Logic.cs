@@ -37,7 +37,8 @@ namespace SGame.UI{
 			{
 				m_view.m_name.m___title.text=UIListener.Local("player_name");
 			}
-			
+
+			m_view.m_allName.visible = DataCenter.ClubUtil.CheckIsInClub();
 			setList = m_view.m_list;
 			setList.itemRenderer = RenderListItem;
 			setList.numItems = _setItemDataList.Count;
