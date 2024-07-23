@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using GameConfigs;
 
 namespace SGame 
 {
@@ -181,6 +182,15 @@ namespace SGame
                 if (good.IsFree() && good.CDTime() <= 0) return true;
             }
             return false;
+        }
+
+        public double GetBuffShopCoin(double gold) 
+        {
+            var rate = ReputationModule.Instance.GetTotalValue();//(int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Gold);
+            var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
+            if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
+            double coin = (gold * rate).ToInt();
+            return Math.Max(coin, GlobalDesginConfig.GetInt("buffshop_gold_lim"));
         }
     }
 }

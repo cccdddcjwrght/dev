@@ -77,13 +77,25 @@ namespace SGame.UI{
 			var buffShopCfgId = fixedIds[index];
 			var buffShopConfig = BuffShopModule.Instance.GetConfig(buffShopCfgId);
 
-			ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(buffShopConfig.BuffId(0), out var buffConfig);
-			item.m_des.SetTextByKey(buffShopConfig.BuffDes, buffShopConfig.BuffId(1), buffShopConfig.BuffTime);
-			item.m_value.SetText("x" + (1 + buffShopConfig.BuffId(1) * 0.01f));
-			item.SetIcon(buffConfig.Icon);
-
-			DataCenter.Instance.boostShopData.buffDict.TryGetValue(buffShopCfgId, out var buff);
-			DoRefreshBuffInfo(buff, item.m_time, item.m_time_bg, null);
+			if (buffShopConfig.BuffIdLength > 0)
+			{
+				ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(buffShopConfig.BuffId(0), out var buffConfig);
+				item.m_des.SetTextByKey(buffShopConfig.BuffDes, buffShopConfig.BuffId(1), buffShopConfig.BuffTime);
+				item.m_value.visible = true;
+				item.m_value.SetText("x" + (1 + buffShopConfig.BuffId(1) * 0.01f));
+				item.SetIcon(buffConfig.Icon);
+				DataCenter.Instance.boostShopData.buffDict.TryGetValue(buffShopCfgId, out var buff);
+				DoRefreshBuffInfo(buff, item.m_time, item.m_time_bg, null);
+			}
+			else 
+			{
+				ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(buffShopConfig.Itemid(1), out var itemConfig);
+				item.m_des.SetTextByKey(itemConfig.Description);
+				item.SetIcon(itemConfig.Icon);
+				item.m_value.visible = false;
+				item.m_time.text = Utils.ConvertNumberStr(BuffShopModule.Instance.GetBuffShopCoin((double)buffShopConfig.Itemid(2)));
+			}
+			
 
 			var good = DataCenter.Instance.shopData.goodDic[buffShopConfig.ShopId];
 			DoRefreshGoodsInfo(good, item.m_click);
@@ -91,7 +103,14 @@ namespace SGame.UI{
 			item.m_click.onClick.Set(()=>RequestExcuteSystem.BuyGoods(buffShopConfig.ShopId, (success)=> 
 			{
 				if (!success) return;
-				BuffShopModule.Instance.AddBoostShopBuff(buffShopCfgId);
+				if (buffShopConfig.BuffIdLength > 0) BuffShopModule.Instance.AddBoostShopBuff(buffShopCfgId);
+				else 
+				{
+					var value = BuffShopModule.Instance.GetBuffShopCoin((double)buffShopConfig.Itemid(2));
+					PropertyManager.Instance.Update(1, 1, value);
+					TransitionModule.Instance.PlayFlight(item.m_click, 1);
+					RefreshData();
+				}
 			}));
 		}
 

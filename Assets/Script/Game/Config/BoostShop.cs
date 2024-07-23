@@ -39,6 +39,14 @@ public struct BoostShopRowData : IFlatbufferObject
 #endif
   public byte[] GetBuffDesArray() { return __p.__vector_as_array<byte>(14); }
   public int ShopId { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Itemid(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int ItemidLength { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetItemidBytes() { return __p.__vector_as_span<int>(18, 4); }
+#else
+  public ArraySegment<byte>? GetItemidBytes() { return __p.__vector_as_arraysegment(18); }
+#endif
+  public int[] GetItemidArray() { return __p.__vector_as_array<int>(18); }
 
   public static Offset<GameConfigs.BoostShopRowData> CreateBoostShopRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -47,8 +55,10 @@ public struct BoostShopRowData : IFlatbufferObject
       int BuffTime = 0,
       int Weight = 0,
       StringOffset BuffDesOffset = default(StringOffset),
-      int ShopId = 0) {
-    builder.StartTable(7);
+      int ShopId = 0,
+      VectorOffset ItemidOffset = default(VectorOffset)) {
+    builder.StartTable(8);
+    BoostShopRowData.AddItemid(builder, ItemidOffset);
     BoostShopRowData.AddShopId(builder, ShopId);
     BoostShopRowData.AddBuffDes(builder, BuffDesOffset);
     BoostShopRowData.AddWeight(builder, Weight);
@@ -59,7 +69,7 @@ public struct BoostShopRowData : IFlatbufferObject
     return BoostShopRowData.EndBoostShopRowData(builder);
   }
 
-  public static void StartBoostShopRowData(FlatBufferBuilder builder) { builder.StartTable(7); }
+  public static void StartBoostShopRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(1, Type, 0); }
   public static void AddBuffId(FlatBufferBuilder builder, VectorOffset BuffIdOffset) { builder.AddOffset(2, BuffIdOffset.Value, 0); }
@@ -70,6 +80,10 @@ public struct BoostShopRowData : IFlatbufferObject
   public static void AddWeight(FlatBufferBuilder builder, int Weight) { builder.AddInt(4, Weight, 0); }
   public static void AddBuffDes(FlatBufferBuilder builder, StringOffset BuffDesOffset) { builder.AddOffset(5, BuffDesOffset.Value, 0); }
   public static void AddShopId(FlatBufferBuilder builder, int ShopId) { builder.AddInt(6, ShopId, 0); }
+  public static void AddItemid(FlatBufferBuilder builder, VectorOffset ItemidOffset) { builder.AddOffset(7, ItemidOffset.Value, 0); }
+  public static VectorOffset CreateItemidVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateItemidVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartItemidVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.BoostShopRowData> EndBoostShopRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.BoostShopRowData>(o);
