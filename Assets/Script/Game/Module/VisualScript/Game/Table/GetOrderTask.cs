@@ -5,28 +5,24 @@ using Unity.VisualScripting;
 namespace SGame.VS
 {
     // 弹出正在等待的座椅
-    [UnitTitle("PopOrderTask")] 
+    [UnitTitle("GetOrderTask")] 
     [UnitCategory("Game/Table")]
-    public class PopOrderTask : Unit
+    public class GetOrderTask : Unit
     {
         [DoNotSerialize]
         public ControlInput inputTrigger;
 
         // 成功返回流程
         [DoNotSerialize]
-        public ControlOutput    outputSuccess;
-        
-        // 成功返回流程
-        [DoNotSerialize]
-        public ControlOutput    outputFail;
-        
+        public ControlOutput    outputTrigger;
+
         [DoNotSerialize]
         public ValueInput       OrderType;
 
         [DoNotSerialize]
-        public ValueOutput       Order;
+        public ValueOutput       _Tasks;
         
-        private OrderData        m_resultOrder;
+        private OrderTask        m_tasks;
         
         // 端口定义
         protected override void Definition()
@@ -35,17 +31,12 @@ namespace SGame.VS
             {
                 // Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
                 var orderType = flow.GetValue<ORDER_PROGRESS>(OrderType);
-                var tasks = OrderTaskManager.Instance.GetOrCreateTask(orderType);
-                if (tasks.Count == 0)
-                    return outputFail;
-
-                m_resultOrder = tasks.Pop();
-                return outputSuccess;
+                m_tasks = OrderTaskManager.Instance.GetOrCreateTask(orderType);
+                return outputTrigger;
             });
             
-            outputSuccess   = ControlOutput("Success");
-            outputFail      = ControlOutput("Fail");
-            Order           = ValueOutput<OrderData>("Order", (flow) => m_resultOrder);
+            outputTrigger   = ControlOutput("Output");
+            _Tasks           = ValueOutput<OrderTask>("tasks", (flow) => m_tasks);
             OrderType       = ValueInput<ORDER_PROGRESS>("Type", ORDER_PROGRESS.WAIT_ORDER);
         }
     }
