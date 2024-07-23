@@ -78,6 +78,7 @@ namespace SGame.UI{
 			if (listData[index].IsLock)
 			{
 				techController.selectedIndex = 0;
+				techBtn.GetController("hasIcon").selectedIndex = 0;
 				buyTxt.text=listData[index].abilitLevelList[levelIndex].BuyData[1].ToString();
 				itemNum = listData[index].abilitLevelList[levelIndex].BuyData[1];
 				LevelValue = listData[index].abilitLevelList[levelIndex].NextLevelValue;
@@ -85,8 +86,16 @@ namespace SGame.UI{
 			else
 			{
 				techController.selectedIndex = 1;
-				if (listData[index].LockData[2] == 0) buyTxt.SetTextByKey("ui_vault_free");
-				else buyTxt.text=listData[index].LockData[2].ToString();
+				if (listData[index].LockData[2] == 0)
+				{
+					techBtn.GetController("hasIcon").selectedIndex = 1;
+					techBtn.SetTextByKey("ui_vault_free");
+				}
+				else 
+				{
+					techBtn.GetController("hasIcon").selectedIndex = 0;
+					buyTxt.text = listData[index].LockData[2].ToString();
+				};
 				itemNum = listData[index].LockData[2];
 				LevelValue = listData[index].abilitLevelList[levelIndex].CurLevelValue;
 			}
