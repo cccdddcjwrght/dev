@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6058648405838288866}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7307725499845987091}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4254222892949904618
 MonoBehaviour:
@@ -119,6 +119,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7613681460045541422}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.6463749, y: 0.00000003610403, z: -0.0000000305847, w: 0.76302}
   m_LocalPosition: {x: 2, y: 15, z: -5.0990777}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -126,7 +127,6 @@ Transform:
   m_Children:
   - {fileID: 214176918500181347}
   m_Father: {fileID: 8033859361519748328}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7366912108174600174
 MonoBehaviour:
@@ -157,6 +157,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
+    FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
@@ -190,6 +191,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8560517455614716650}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -197,7 +199,6 @@ Transform:
   m_Children:
   - {fileID: 7307725499845987091}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3786893755689920207
 MonoBehaviour:
@@ -269,8 +270,8 @@ MonoBehaviour:
     isEnable: 1
     isUselimit: 1
     startValue: 1
-    minValue: -7
-    maxValue: 7
+    minValue: -8.5
+    maxValue: 9
     currentValue: 0
     inputValue: 0
     wrapValue: 0
@@ -322,7 +323,7 @@ MonoBehaviour:
     isUselimit: 1
     startValue: -25
     minValue: -36
-    maxValue: 20
+    maxValue: 24
     currentValue: 0
     inputValue: 0
     wrapValue: 0
