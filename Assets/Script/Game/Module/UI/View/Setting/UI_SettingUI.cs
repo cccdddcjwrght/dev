@@ -26,9 +26,9 @@ namespace SGame.UI.Setting
             base.ConstructFromXML(xml);
 
             m_body = (GLabel)GetChildAt(0);
-            m_head = (GButton)GetChildAt(2);
-            m_name = (UI_NameComponent)GetChildAt(3);
-            m_allName = (GTextField)GetChildAt(4);
+            m_head = (GButton)GetChildAt(3);
+            m_name = (UI_NameComponent)GetChildAt(4);
+            m_allName = (GTextField)GetChildAt(5);
             m_list = (GList)GetChildAt(6);
             m_signBtn = (UI_SignBtn)GetChildAt(8);
             m_id = (GTextField)GetChildAt(9);
