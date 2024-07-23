@@ -28,25 +28,22 @@ namespace SGame.VS
         [DoNotSerialize]
         public ControlOutput outputFail;
 
-        // 返回订单
-        [DoNotSerialize]
-        public ValueOutput resultOrderTask;
-        
         // 返回列表
         [DoNotSerialize]
         private AotList m_resultObject = new AotList();
-
         
         // 对应的座位
         // 返回机器台
         [DoNotSerialize]
-        public ValueOutput resultChair;
+        public ValueOutput resultValue;
 
-        private OrderData   resultValue;
-        private ChairData   resultChairData;
+        private OrderData   m_resultValue;
+        //private ChairData   resultChairData;
         
         protected override void Definition()
         {
+            m_resultObject.Clear();
+            
             // 创建订单
             inputTrigger = ControlInput("Input", (flow) =>
             {
@@ -54,30 +51,10 @@ namespace SGame.VS
                 var workerArea = flow.GetValue<int>(m_WorkerArea);
                 var tableManager = TableManager.Instance;
                 var tasks = OrderTaskManager.Instance.GetOrCreateTask(ORDER_PROGRESS.ORDED);
-                //OrderData order = null;//tasks.Pop();
-                //if (order == null)
-               //     return outputFail;
-
-                /*
-                if (!foodTypes.Contains(order.foodType))
-                {
-                    tasks.Add(order);
-                    return outputFail;
-                }
-                */
 
                 for (int i = 0; i < tasks.Count; i++)
                 {
                     var task = tasks.Get(i);
-                    
-                    // 已经获取过了
-                    if (task.m_order.cookerID == -1)
-                    {
-                        m_resultObject.Add(task);
-                        continue;
-                    }
-                    
-                    
                     TableData t = tableManager.GetFoodTable(task.m_order.foodType);
                     if (t == null || t.workAreaID != workerArea)
                     {
@@ -85,20 +62,30 @@ namespace SGame.VS
                         continue;
                     }
                     
+                    // 已经获取过了
+                    if (task.isReadly) //.m_order.cookerID == -1)
+                    {
+                        m_resultObject.Add(task);
+                        continue;
+                    }
+                    
+                    // 找到可用的桌子
                     var workChair = tableManager.FindMachineChairFromFoodType(task.m_order.foodType);
                     if (workChair.IsNull)
                         continue;
+
+                    // 锁定座位
+                    tableManager.SitChair(workChair, -1);
                     
-                    
+                    // 保存座位
+                    task.m_order.CookerTake(-1, workChair);
+
+                    // 添加
+                    m_resultObject.Add(task);
                 }
 
-                resultValue = order;
-                resultChairData = tableManager.FindMachineChairFromFoodType(order.foodType);
-                if (resultChairData.IsNull)
-                {
-                    tasks.Add(order);
+                if (m_resultObject.Count == 0)
                     return outputFail;
-                }
 
                 return outputSuccess;
             });
@@ -106,8 +93,7 @@ namespace SGame.VS
             outputSuccess  = ControlOutput("Success");
             outputFail     = ControlOutput("Fail");
             
-            resultOrder    = ValueOutput<OrderData>("Order", (flow) => resultValue);
-            resultChair    = ValueOutput<ChairData>("Chair", (flow) => resultChairData);
+            resultValue    = ValueOutput<AotList>("Tasks", (flow) => m_resultObject);
             m_WorkerArea   = ValueInput<int>("WorkerArea", 0);
         }
     }
