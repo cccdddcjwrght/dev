@@ -85,7 +85,8 @@ namespace SGame.UI{
 			else
 			{
 				techController.selectedIndex = 1;
-				buyTxt.text=listData[index].LockData[2].ToString();
+				if (listData[index].LockData[2] == 0) buyTxt.SetTextByKey("ui_vault_free");
+				else buyTxt.text=listData[index].LockData[2].ToString();
 				itemNum = listData[index].LockData[2];
 				LevelValue = listData[index].abilitLevelList[levelIndex].CurLevelValue;
 			}
@@ -124,8 +125,8 @@ namespace SGame.UI{
 				{
 					if ("shop".IsOpend())
 					{
-
-						SGame.UIUtils.OpenUI("shopui", 15);
+						"@error_4".Tips();
+						//SGame.UIUtils.OpenUI("shopui", 15);
 					}
 				}
 					
