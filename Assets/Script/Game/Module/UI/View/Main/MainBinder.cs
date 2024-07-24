@@ -19,6 +19,7 @@ namespace SGame.UI.Main
             UIObjectFactory.SetPackageItemExtension(UI_ShowBtn.URL, typeof(UI_ShowBtn));
             UIObjectFactory.SetPackageItemExtension(UI_ShowBtnList.URL, typeof(UI_ShowBtnList));
             UIObjectFactory.SetPackageItemExtension(UI_TotalBtn.URL, typeof(UI_TotalBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_TaskBtn.URL, typeof(UI_TaskBtn));
             UIObjectFactory.SetPackageItemExtension(UI_InvestMan.URL, typeof(UI_InvestMan));
             UIObjectFactory.SetPackageItemExtension(UI_HotFoodBtn.URL, typeof(UI_HotFoodBtn));
         }

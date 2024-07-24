@@ -53,6 +53,7 @@ namespace SGame.UI
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
+			m_view.m_taskBtn.onClick.Add(OnOpenTaskClick);
 			m_view.m_Gold.onClick.Add(OnOpenTotalClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
 			m_view.m_btnShop.onClick.Set(()=>((int)FunctionID.SHOP).Goto());
@@ -194,6 +195,7 @@ namespace SGame.UI
 			RefreshAdBtn();
 
 			m_view.m_likeBtn.visible = 23.IsOpend(false);
+			m_view.m_taskBtn.visible = DataCenter.TaskMainUtil.IsShow();
 
 			m_view.m_btnShop.visible = ((int)FunctionID.SHOP).IsOpend(false);
 
@@ -331,6 +333,11 @@ namespace SGame.UI
 		void OnRoomLikeClick()
 		{
 			SGame.UIUtils.OpenUI("lucklike");
+		}
+
+		void OnOpenTaskClick() 
+		{
+			SGame.UIUtils.OpenUI("task");
 		}
 
 		partial void OnAdBtnClick(EventContext data)

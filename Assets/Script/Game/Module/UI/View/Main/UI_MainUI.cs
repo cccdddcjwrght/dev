@@ -21,6 +21,7 @@ namespace SGame.UI.Main
         public UI_ActBtn m_btnShop;
         public UI_BuffBtn m_buff;
         public UI_LikeBtn m_likeBtn;
+        public UI_TaskBtn m_taskBtn;
         public UI_TotalBtn m_totalBtn;
         public GButton m_techBtn;
         public GButton m_recipeBtn;
@@ -57,15 +58,16 @@ namespace SGame.UI.Main
             m_btnShop = (UI_ActBtn)GetChildAt(8);
             m_buff = (UI_BuffBtn)GetChildAt(9);
             m_likeBtn = (UI_LikeBtn)GetChildAt(10);
-            m_totalBtn = (UI_TotalBtn)GetChildAt(11);
-            m_techBtn = (GButton)GetChildAt(12);
-            m_recipeBtn = (GButton)GetChildAt(13);
-            m_AdBtn = (GButton)GetChildAt(14);
-            m_equipBtn = (GButton)GetChildAt(15);
-            m_petBtn = (GButton)GetChildAt(16);
-            m_InvestBtn = (UI_InvestMan)GetChildAt(18);
-            m_workflag = (UI_GetWorkerFlag)GetChildAt(19);
-            m_hotFoodBtn = (UI_HotFoodBtn)GetChildAt(20);
+            m_taskBtn = (UI_TaskBtn)GetChildAt(11);
+            m_totalBtn = (UI_TotalBtn)GetChildAt(12);
+            m_techBtn = (GButton)GetChildAt(13);
+            m_recipeBtn = (GButton)GetChildAt(14);
+            m_AdBtn = (GButton)GetChildAt(15);
+            m_equipBtn = (GButton)GetChildAt(16);
+            m_petBtn = (GButton)GetChildAt(17);
+            m_InvestBtn = (UI_InvestMan)GetChildAt(19);
+            m_workflag = (UI_GetWorkerFlag)GetChildAt(20);
+            m_hotFoodBtn = (UI_HotFoodBtn)GetChildAt(21);
             m_doshow = GetTransitionAt(0);
             m_dohide = GetTransitionAt(1);
         }
