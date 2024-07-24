@@ -367,7 +367,7 @@ namespace SGame
 								if (path.EndsWith(".*"))
 								{
 									path = path.Substring(0, path.Length - 2);
-									var list = p.GetChildByPath(path)?.asList;
+									var list = p.GetChildByPath(path)?.asCom;
 									if (list != null && list.numChildren > 0)
 									{
 										foreach (var item in list.GetChildren())
