@@ -87,6 +87,9 @@ namespace SGame
 
 		//=============================================================
 		COOKBOOK_UP_LV				= 2201,//食谱升级（int cookid , int lv）
+		WORKER_UP_LV				= 2202,//工作人员升级解锁
+		WORKER_SELECTED				= 2203,//使用工作人员皮肤（int type, int id）
+		WORKER_UPDAETE				= 2204,//工作人员更新（int id）
 
 
 		//buff===============================================

@@ -8,6 +8,15 @@ namespace SGame.UI.Cookbook
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_CollectBg.URL, typeof(UI_CollectBg));
+            UIObjectFactory.SetPackageItemExtension(UI_CollectTab.URL, typeof(UI_CollectTab));
+            UIObjectFactory.SetPackageItemExtension(UI_WorkerProgress.URL, typeof(UI_WorkerProgress));
+            UIObjectFactory.SetPackageItemExtension(UI_WorkerItem.URL, typeof(UI_WorkerItem));
+            UIObjectFactory.SetPackageItemExtension(UI_WorkerAddProperty.URL, typeof(UI_WorkerAddProperty));
+            UIObjectFactory.SetPackageItemExtension(UI_WorkerCollectPropertyUI.URL, typeof(UI_WorkerCollectPropertyUI));
+            UIObjectFactory.SetPackageItemExtension(UI_WorkerUpUI.URL, typeof(UI_WorkerUpUI));
+            UIObjectFactory.SetPackageItemExtension(UI_WorkerFirstGetUI.URL, typeof(UI_WorkerFirstGetUI));
+            UIObjectFactory.SetPackageItemExtension(UI_WorkStar.URL, typeof(UI_WorkStar));
             UIObjectFactory.SetPackageItemExtension(UI_Customer.URL, typeof(UI_Customer));
             UIObjectFactory.SetPackageItemExtension(UI_NewBook.URL, typeof(UI_NewBook));
             UIObjectFactory.SetPackageItemExtension(UI_PropertyUpdateIcon.URL, typeof(UI_PropertyUpdateIcon));

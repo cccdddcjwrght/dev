@@ -65,6 +65,17 @@ namespace SGame
 		[SerializeField]
 		public CustomerBookReward m_customerBookReward = new CustomerBookReward(); // 图鉴奖励领取记录
 
+		/// <summary>
+		/// 厨师皮肤
+		/// </summary>
+		[SerializeField]
+		public int cookerModel;
+		/// <summary>
+		/// 服务员皮肤
+		/// </summary>
+		[SerializeField]
+		public int waiterModel;
+
 		private GameWorld m_world;
 		static DataCenter s_instance;
 

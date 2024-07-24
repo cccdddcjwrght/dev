@@ -96,6 +96,9 @@ namespace SGame.UI{
 			context.uiModule.Reg("HotFoodUI", "HotFood", ()=>new UIHotFood());SGame.UI.HotFood.HotFoodBinder.BindAll();;
 			context.uiModule.Reg("EqUpHelpUI", "Player", ()=>new UIEqUpHelp());
 			context.uiModule.Reg("BuffShopUI", "BuffShop", ()=>new UIBuffShop());SGame.UI.BuffShop.BuffShopBinder.BindAll();;
+			context.uiModule.Reg("WorkerFirstGetUI", "Cookbook", ()=>new UIWorkerFirstGet());
+			context.uiModule.Reg("WorkerCollectPropertyUI", "Cookbook", ()=>new UIWorkerCollectProperty());
+			context.uiModule.Reg("WorkerUpUI", "Cookbook", ()=>new UIWorkerUp());
 		}
 	}
 }

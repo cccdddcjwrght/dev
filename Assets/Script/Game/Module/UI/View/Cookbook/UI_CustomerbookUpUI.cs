@@ -29,8 +29,8 @@ namespace SGame.UI.Cookbook
 
             m_take_reward = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
-            m_customer = (UI_Customer)GetChildAt(1);
-            m___effect = (GGraph)GetChildAt(2);
+            m_customer = (UI_Customer)GetChildAt(2);
+            m___effect = (GGraph)GetChildAt(3);
             m_pros = (GList)GetChildAt(5);
             m_txtDesc = (GRichTextField)GetChildAt(6);
             m_txtDesc2 = (GTextField)GetChildAt(7);

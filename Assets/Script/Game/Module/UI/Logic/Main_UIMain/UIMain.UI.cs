@@ -38,6 +38,7 @@ namespace SGame.UI{
 			m_view.m_buff.m_tipState.onChanged.Add(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick));
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick));
+			m_view.m_taskBtn.m_state.onChanged.Add(new EventCallback1(_OnTaskBtn_StateChanged));
 			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick));
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
 			UIListener.Listener(m_view.m_techBtn, new EventCallback1(_OnTechBtnClick));
@@ -78,6 +79,7 @@ namespace SGame.UI{
 			m_view.m_buff.m_tipState.onChanged.Remove(new EventCallback1(_OnBuffBtn_TipStateChanged));
 			UIListener.Listener(m_view.m_buff, new EventCallback1(_OnBuffClick),remove:true);
 			UIListener.Listener(m_view.m_likeBtn, new EventCallback1(_OnLikeBtnClick),remove:true);
+			m_view.m_taskBtn.m_state.onChanged.Remove(new EventCallback1(_OnTaskBtn_StateChanged));
 			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick),remove:true);
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
 			UIListener.Listener(m_view.m_techBtn, new EventCallback1(_OnTechBtnClick),remove:true);
@@ -233,12 +235,15 @@ namespace SGame.UI{
 		partial void OnLikeBtnClick(EventContext data);
 		void SetLikeBtnText(string data)=>UIListener.SetText(m_view.m_likeBtn,data);
 		string GetLikeBtnText()=>UIListener.GetText(m_view.m_likeBtn);
+		void _OnTaskBtn_StateChanged(EventContext data){
+			OnTaskBtn_StateChanged(data);
+		}
+		partial void OnTaskBtn_StateChanged(EventContext data);
+		void SwitchTaskBtn_StatePage(int index)=>m_view.m_taskBtn.m_state.selectedIndex=index;
 		void _OnTaskBtnClick(EventContext data){
 			OnTaskBtnClick(data);
 		}
 		partial void OnTaskBtnClick(EventContext data);
-		void SetTaskBtnText(string data)=>UIListener.SetText(m_view.m_taskBtn,data);
-		string GetTaskBtnText()=>UIListener.GetText(m_view.m_taskBtn);
 		void SetTotalBtn_NumText(string data)=>UIListener.SetText(m_view.m_totalBtn.m_num,data);
 		string GetTotalBtn_NumText()=>UIListener.GetText(m_view.m_totalBtn.m_num);
 		void _OnTotalBtnClick(EventContext data){

@@ -14,7 +14,9 @@ namespace SGame
 	{
 		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			return DataCenter.Instance.cookbook.books.Any(Check) || CustomerBookModule.Instance.HasNew;
+			return DataCenter.Instance.cookbook.books.Any(Check)
+				|| CustomerBookModule.Instance.HasNew
+				|| DataCenter.WorkerDataUtils.Check(0);
 		}
 
 		bool Check(CookBookItem cookBook) => cookBook.CanUpLv(out _);

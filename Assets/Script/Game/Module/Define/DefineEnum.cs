@@ -270,6 +270,10 @@ namespace SGame
 		/// 无广告
 		/// </summary>
 		NoAd,
+		/// <summary>
+		/// 工人收集
+		/// </summary>
+		WorkerCollect,
 	}
 
 	/// <summary>

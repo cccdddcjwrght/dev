@@ -33,14 +33,14 @@ namespace SGame.UI.Cookbook
             m_type = GetControllerAt(0);
             m_mode = GetControllerAt(1);
             m_body = (GLabel)GetChildAt(0);
-            m___effect = (GGraph)GetChildAt(4);
-            m_pros = (GList)GetChildAt(5);
-            m_tips = (GTextField)GetChildAt(8);
-            m_level = (GTextField)GetChildAt(9);
-            m_limit = (GTextField)GetChildAt(10);
-            m_cost = (GRichTextField)GetChildAt(11);
-            m_item = (GLoader)GetChildAt(12);
-            m_click = (GButton)GetChildAt(15);
+            m___effect = (GGraph)GetChildAt(7);
+            m_pros = (GList)GetChildAt(8);
+            m_tips = (GTextField)GetChildAt(11);
+            m_level = (GTextField)GetChildAt(12);
+            m_limit = (GTextField)GetChildAt(13);
+            m_cost = (GRichTextField)GetChildAt(14);
+            m_item = (GLoader)GetChildAt(15);
+            m_click = (GButton)GetChildAt(18);
             m_t0 = GetTransitionAt(0);
         }
     }

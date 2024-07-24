@@ -21,47 +21,31 @@ public struct WorkerRowData : IFlatbufferObject
 
   public int Id { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int RoleType { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public string Icon { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int RoleId { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Buff { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Default { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Range(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int RangeLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(8, 1); }
+  public Span<int> GetRangeBytes() { return __p.__vector_as_span<int>(14, 4); }
 #else
-  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(8); }
+  public ArraySegment<byte>? GetRangeBytes() { return __p.__vector_as_arraysegment(14); }
 #endif
-  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(8); }
-  public string Desc { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public int[] GetRangeArray() { return __p.__vector_as_array<int>(14); }
+  public float LevelRatio { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int Reward(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int RewardLength { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetDescBytes() { return __p.__vector_as_span<byte>(10, 1); }
+  public Span<int> GetRewardBytes() { return __p.__vector_as_span<int>(18, 4); }
 #else
-  public ArraySegment<byte>? GetDescBytes() { return __p.__vector_as_arraysegment(10); }
+  public ArraySegment<byte>? GetRewardBytes() { return __p.__vector_as_arraysegment(18); }
 #endif
-  public byte[] GetDescArray() { return __p.__vector_as_array<byte>(10); }
-  public int RoleId { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Buff { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Default { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Range(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int RangeLength { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
-#if ENABLE_SPAN_T
-  public Span<int> GetRangeBytes() { return __p.__vector_as_span<int>(18, 4); }
-#else
-  public ArraySegment<byte>? GetRangeBytes() { return __p.__vector_as_arraysegment(18); }
-#endif
-  public int[] GetRangeArray() { return __p.__vector_as_array<int>(18); }
-  public float LevelRatio { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public int Reward(int j) { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int RewardLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
-#if ENABLE_SPAN_T
-  public Span<int> GetRewardBytes() { return __p.__vector_as_span<int>(22, 4); }
-#else
-  public ArraySegment<byte>? GetRewardBytes() { return __p.__vector_as_arraysegment(22); }
-#endif
-  public int[] GetRewardArray() { return __p.__vector_as_array<int>(22); }
-  public int Unlock { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int[] GetRewardArray() { return __p.__vector_as_array<int>(18); }
+  public int Unlock { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.WorkerRowData> CreateWorkerRowData(FlatBufferBuilder builder,
       int Id = 0,
       int RoleType = 0,
-      StringOffset IconOffset = default(StringOffset),
-      StringOffset DescOffset = default(StringOffset),
       int RoleId = 0,
       int Buff = 0,
       int Default = 0,
@@ -69,7 +53,7 @@ public struct WorkerRowData : IFlatbufferObject
       float LevelRatio = 0.0f,
       VectorOffset RewardOffset = default(VectorOffset),
       int Unlock = 0) {
-    builder.StartTable(11);
+    builder.StartTable(9);
     WorkerRowData.AddUnlock(builder, Unlock);
     WorkerRowData.AddReward(builder, RewardOffset);
     WorkerRowData.AddLevelRatio(builder, LevelRatio);
@@ -77,31 +61,27 @@ public struct WorkerRowData : IFlatbufferObject
     WorkerRowData.AddDefault(builder, Default);
     WorkerRowData.AddBuff(builder, Buff);
     WorkerRowData.AddRoleId(builder, RoleId);
-    WorkerRowData.AddDesc(builder, DescOffset);
-    WorkerRowData.AddIcon(builder, IconOffset);
     WorkerRowData.AddRoleType(builder, RoleType);
     WorkerRowData.AddId(builder, Id);
     return WorkerRowData.EndWorkerRowData(builder);
   }
 
-  public static void StartWorkerRowData(FlatBufferBuilder builder) { builder.StartTable(11); }
+  public static void StartWorkerRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddRoleType(FlatBufferBuilder builder, int RoleType) { builder.AddInt(1, RoleType, 0); }
-  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
-  public static void AddDesc(FlatBufferBuilder builder, StringOffset DescOffset) { builder.AddOffset(3, DescOffset.Value, 0); }
-  public static void AddRoleId(FlatBufferBuilder builder, int RoleId) { builder.AddInt(4, RoleId, 0); }
-  public static void AddBuff(FlatBufferBuilder builder, int Buff) { builder.AddInt(5, Buff, 0); }
-  public static void AddDefault(FlatBufferBuilder builder, int Default) { builder.AddInt(6, Default, 0); }
-  public static void AddRange(FlatBufferBuilder builder, VectorOffset RangeOffset) { builder.AddOffset(7, RangeOffset.Value, 0); }
+  public static void AddRoleId(FlatBufferBuilder builder, int RoleId) { builder.AddInt(2, RoleId, 0); }
+  public static void AddBuff(FlatBufferBuilder builder, int Buff) { builder.AddInt(3, Buff, 0); }
+  public static void AddDefault(FlatBufferBuilder builder, int Default) { builder.AddInt(4, Default, 0); }
+  public static void AddRange(FlatBufferBuilder builder, VectorOffset RangeOffset) { builder.AddOffset(5, RangeOffset.Value, 0); }
   public static VectorOffset CreateRangeVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRangeVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRangeVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddLevelRatio(FlatBufferBuilder builder, float LevelRatio) { builder.AddFloat(8, LevelRatio, 0.0f); }
-  public static void AddReward(FlatBufferBuilder builder, VectorOffset RewardOffset) { builder.AddOffset(9, RewardOffset.Value, 0); }
+  public static void AddLevelRatio(FlatBufferBuilder builder, float LevelRatio) { builder.AddFloat(6, LevelRatio, 0.0f); }
+  public static void AddReward(FlatBufferBuilder builder, VectorOffset RewardOffset) { builder.AddOffset(7, RewardOffset.Value, 0); }
   public static VectorOffset CreateRewardVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRewardVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddUnlock(FlatBufferBuilder builder, int Unlock) { builder.AddInt(10, Unlock, 0); }
+  public static void AddUnlock(FlatBufferBuilder builder, int Unlock) { builder.AddInt(8, Unlock, 0); }
   public static Offset<GameConfigs.WorkerRowData> EndWorkerRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.WorkerRowData>(o);

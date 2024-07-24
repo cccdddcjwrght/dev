@@ -54,8 +54,8 @@ namespace SGame
                 int[] r = reward[i];
                 if (r.Length >= 2) 
                 {
-                    int t = r[0];
-                    int itemId = r[1];
+                    int t = r.Length == 2 ? 1 : r[0];
+                    int itemId = r.Length == 2 ? r[0] : r[1];
                     if (t == 1 && CheckIsTranId(itemId))
                     {
                         Vector2 pos = ConvertGObjectGlobalPos(list.GetChildAt(i));

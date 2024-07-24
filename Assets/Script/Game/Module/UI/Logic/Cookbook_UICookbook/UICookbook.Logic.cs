@@ -8,9 +8,27 @@ namespace SGame.UI
 	using System.Collections;
 	using System.Collections.Generic;
 
+	public interface ICookbookSub
+	{
+		public UI_CookbookUI view { get; set; }
+
+		public void Enter();
+
+		public void Update();
+
+		public void OnSetListItem(int index, GObject gObject);
+
+		public void Exit();
+
+		public void Clear();
+
+	}
+
 	public partial class UICookbook
 	{
 		private IList _itemDatas;
+		private Dictionary<int, ICookbookSub> _childs = new Dictionary<int, ICookbookSub>();
+		private ICookbookSub _currentChild;
 
 		#region Init
 		partial void InitLogic(UIContext context)
@@ -18,7 +36,23 @@ namespace SGame.UI
 			m_view.m_list.itemRenderer = OnSetItemInfo;
 
 			m_eventContainer += EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnCookbookUpClose);
+			m_eventContainer += EventManager.Instance.Reg(((int)GameEvent.GAME_MAIN_REFRESH), OnViewRefresh);
+			m_eventContainer += EventManager.Instance.Reg<int>(((int)GameEvent.WORKER_UPDAETE), id => OnViewRefresh());
 
+
+
+			#region 注册
+
+			_childs.Add(2, new CollectWorkerTab() { type = 2 });
+			_childs.Add(3, new CollectWorkerTab() { type = 3 });
+
+
+			#endregion
+
+			m_view.m_waiter.visible = m_view.m_waiter.name.IsOpend(false);
+			m_view.m_cooker.visible = m_view.m_cooker.name.IsOpend(false);
+			
+			OnViewRefresh();
 			SwitchTabsPage(0);
 			OnTabsChanged(null);
 
@@ -30,6 +64,9 @@ namespace SGame.UI
 			_itemDatas = null;
 			m_eventContainer.Close();
 			m_eventContainer = null;
+			foreach (var item in _childs)
+				item.Value?.Clear();
+			_childs.Clear();
 		}
 		#endregion
 
@@ -37,17 +74,38 @@ namespace SGame.UI
 
 		partial void OnTabsChanged(EventContext data)
 		{
-			switch (m_view.m_tabs.selectedIndex)
+			var index = m_view.m_tabs.selectedIndex;
+			m_view.m_body.SetTextByKey("ui_cookbook_title_" + index);
+			var child = GetChildTab(index);
+			if (_currentChild != null)
 			{
-				case 0:
-					OnCookBookTab();
-					break;
+				_currentChild.Exit();
+				_currentChild = null;
+			}
+			if (child != null)
+			{
+				child.view = m_view;
+				child.Enter();
+				_currentChild = child;
+			}
+			else
+			{
+				switch (m_view.m_tabs.selectedIndex)
+				{
+					case 0:
+						OnCookBookTab();
+						break;
+				}
 			}
 		}
 
 		void OnSetItemInfo(int index, GObject gObject)
 		{
-
+			if (_currentChild != null)
+			{
+				_currentChild.OnSetListItem(index, gObject);
+				return;
+			}
 			switch (m_view.m_tabs.selectedIndex)
 			{
 				case 0:
@@ -57,9 +115,22 @@ namespace SGame.UI
 
 		}
 
+		private ICookbookSub GetChildTab(int index)
+		{
+			if (_childs.TryGetValue(index, out var child)) return child;
+			return default;
+		}
+
 		#endregion
 
 		#region CookBook
+
+		void OnViewRefresh()
+		{
+			m_view.m_waiter.m___redpoint.selectedIndex = DataCenter.WorkerDataUtils.Check(2) ? 1 : 0;
+			m_view.m_cooker.m___redpoint.selectedIndex = DataCenter.WorkerDataUtils.Check(1) ? 1 : 0;
+
+		}
 
 		void OnCookbookUpClose(string name)
 		{

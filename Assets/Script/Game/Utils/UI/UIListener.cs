@@ -412,22 +412,28 @@ public class UIListener
 			var itemRenderer = method as ListItemRenderer;
 			var com = gObject.asCom;
 			if (com != null)
+			{
 				gObject = com.GetChild("__body") ?? gObject;
-
-			var listItem = gObject.asCom?.GetChild("__list") ?? gObject;
-			var inputItem = gObject.asCom?.GetChild("__textinput") ?? gObject;
-			var sliderItem = gObject.asCom?.GetChild("__slider") ?? gObject;
-			var comboItem = gObject.asCom?.GetChild("__combo") ?? gObject;
-			var clickItem = gObject.asCom?.GetChild("__btn") ?? gObject.asCom?.GetChild("click");
+				com = gObject.asCom;
+			}
+			var listItem = com?.GetChild("__list") ?? gObject;
+			var inputItem = com?.GetChild("__textinput") ?? gObject;
+			var sliderItem = com?.GetChild("__slider") ?? gObject;
+			var comboItem = com?.GetChild("__combo") ?? gObject;
+			var clickItem = com?.GetChild("__btn") ?? gObject.asCom?.GetChild("click");
 
 			if (clickItem == null)
 			{
-				var g = gObject.asCom?.GetChildByPath("icon.__btn")
-					?? gObject.asCom?.GetChildByPath("icon.close");
-				if (g != null)
-					clickItem = gObject.asCom?.GetChild("icon");
-				else
-					clickItem = gObject;
+				if (com != null)
+				{
+					var g = com?.GetChildByPath("icon.__btn")
+						?? com?.GetChildByPath("icon.close");
+					if (g != null)
+						clickItem = com?.GetChild("icon");
+					else
+						clickItem = gObject;
+				}
+				else clickItem = gObject;
 			}
 
 
@@ -511,11 +517,11 @@ public class UIListener
 
 	static public void ListenerClose(GObject gObject, object method, bool remove = false)
 	{
-		if (gObject != null && gObject is GComponent com)
+		if (gObject != null)
 		{
 			if (gObject.name == "close" || gObject.name == "mask")
 				Listener(gObject, method, remove: remove);
-			else
+			else if (gObject is GComponent com)
 			{
 				var icon = com.GetChild("close")
 					?? com.GetChild("Close")

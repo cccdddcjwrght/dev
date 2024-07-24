@@ -62,6 +62,7 @@ namespace SGame
 			methods.Foreach(m => m.Invoke(null, Array.Empty<object>()));
 			DataCenter.HunterUtil.Init();
 			DataCenter.CookbookUtils.Init();
+			DataCenter.WorkerDataUtils.Init();
 		}
 
 
