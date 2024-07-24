@@ -10,6 +10,9 @@ namespace SGame
     {
         public override IEnumerator Excute()
         {
+            UILockManager.Instance.Require("guide_close_ui");
+            m_Handler.DisableControl(true);
+
             UIUtils.CloseAllUI("mainui", "flight", "lockred", "SystemTip",
             "Redpoint", "ordertip", "progress", "FoodTip");
 
@@ -27,6 +30,12 @@ namespace SGame
 
             Finish();
             yield break;
+        }
+
+        public override void Dispose()
+        {
+            UILockManager.Instance.Release("guide_close_ui");
+            m_Handler.DisableControl(false);
         }
     }
 }

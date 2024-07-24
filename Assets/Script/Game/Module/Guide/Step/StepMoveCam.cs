@@ -12,6 +12,7 @@ namespace SGame
         public override IEnumerator Excute()
         {
             m_Handler.DisableControl(true);
+            UILockManager.Instance.Require("guide_move_cam");
 
             float duration;
             int grid_x, grid_z, to_gridx, to_gridz;
@@ -53,6 +54,7 @@ namespace SGame
 
         public override void Dispose()
         {
+            UILockManager.Instance.Release("guide_move_cam");
             m_Handler.DisableControl(false);
             m_Timer?.Kill();
             m_Timer = null;

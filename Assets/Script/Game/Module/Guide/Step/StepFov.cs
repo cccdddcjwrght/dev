@@ -11,6 +11,7 @@ namespace SGame
         GTweener m_Timer;
         public override IEnumerator Excute()
         {
+            UILockManager.Instance.Require("guide_fov");
             m_Handler.DisableControl(true);
 
             float target = m_Config.FloatParam(0);
@@ -26,6 +27,7 @@ namespace SGame
 
         public override void Dispose()
         {
+            UILockManager.Instance.Release("guide_fov");
             m_Handler.DisableControl(false);
             m_Timer.Kill();
             m_Timer = null;
