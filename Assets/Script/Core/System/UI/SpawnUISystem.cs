@@ -105,7 +105,6 @@ namespace SGame.UI
                     uiPackage = m_packageRequest.Load(request.pkgName)
                 };
                 EntityManager.AddComponentData(e, ui);
-				UIRequestMgr.Remove(request.configId);
             }
             ).WithStructuralChanges().WithoutBurst().Run();
             
@@ -160,7 +159,7 @@ namespace SGame.UI
                     {
                         fui.Show();
                     }
-
+                    UIRequestMgr.Remove(request.configId);
                     // 5. 设置加载完成标记
                     EntityManager.RemoveComponent<UIRequest>(e);
                     EntityManager.AddComponent<UIInitalized>(e);
