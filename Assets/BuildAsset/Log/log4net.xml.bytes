@@ -39,20 +39,15 @@
                 
     
     <root>
-        <level value="ERROR" />
+        <level value="WARN" />
         <appender-ref ref="UnityAppender" /><!-- Unity控制台日志 -->
 		<!--
 		<appender-ref ref="RollingFile" /> 
 		<appender-ref ref="RemotingAppender" />
 		-->
     </root>
-
-
-    <logger name="game.car">
-        <level value="DEBUG" />
-    </logger>
 	
-	<logger name="game.table">
+	<logger name="game.character">
         <level value="DEBUG" />
     </logger>
 		

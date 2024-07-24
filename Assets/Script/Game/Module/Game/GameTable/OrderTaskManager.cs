@@ -80,6 +80,14 @@ namespace SGame
                 return;
             }
 
+            /*
+            if (c.taskNum >= 4)
+            {
+                log.Warn("too manay orders = " + c.taskNum + " id=" + c.CharacterID);
+                return;
+            }
+            */
+
             c.TakeOrder(m_order);
             m_characterID = 0;
             m_isRemoved = true;
@@ -241,12 +249,14 @@ namespace SGame
             {
                 foreach (var task in item.Value.Datas)
                 {
-                    if (task.isReadly)
+                    if (task.isReadly && task.m_characterID > 0)
                     {
                         m_caches.Add(task);
                     }
                 }
             }
+            if (m_caches.Count == 0)
+                return;
             
             // 对得分排序
             m_caches.Sort(OrderTaskItem.Compare);

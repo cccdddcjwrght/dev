@@ -259,6 +259,7 @@ namespace SGame
         {
             switch (this.progress)
             {
+                    
                 case ORDER_PROGRESS.WAIT_ORDER:     // 等待点单
                     return this.customer.map_pos;
                 case ORDER_PROGRESS.ORDED:          // 顾客已下单

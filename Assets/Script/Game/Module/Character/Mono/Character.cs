@@ -703,6 +703,8 @@ using System.Collections.Generic;
         
         public int takeOrderNum => m_orderRecord.takeOrderNum;
 
+        public int taskNum => m_orderRecord.taskNum;
+
         /// <summary>
         /// 计算到目的地的工作时间
         /// </summary>
@@ -716,7 +718,9 @@ using System.Collections.Generic;
             float distance = m_orderRecord.GetOrderDistance(curPos, pos);
             float time2 = distance / speed.Value;
 
-            return time1 + time2 + math.pow(2, m_orderRecord.taskNum) / 5; // 每个任务额外多一个
+            float t = time1 + time2 + m_orderRecord.taskNum * 0.5f;
+            log.Debug("character id=" + CharacterID + " target=" + pos + " worktime=" + t + " orderNum=" + m_orderRecord.taskNum);
+            return t;// + math.pow(2, m_orderRecord.taskNum) / 5; // 每个任务额外多一个
         }
 
         /// <summary>

@@ -38,7 +38,7 @@ namespace SGame.VS
             {
                 int roleTypeMask = flow.GetValue<int>(m_roleTypeMask);
 
-                CharacterModule.Instance.FindCharacters(m_cache, (character) => BitOperator.Get(roleTypeMask, character.roleType));             // (character.roleType == roleType1 || character.roleType == roleType2));
+                CharacterModule.Instance.FindCharacters(m_cache, (character) => character.isIdle && BitOperator.Get(roleTypeMask, character.roleType));             // (character.roleType == roleType1 || character.roleType == roleType2));
 
                 return m_cache.Count > 0 ? m_yes : m_no;
             });
