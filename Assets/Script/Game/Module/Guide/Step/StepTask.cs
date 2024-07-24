@@ -18,7 +18,7 @@ namespace SGame
             while (true)
             {
                 if (DataCenter.Instance.taskMainData.cfgId == targetTaskId &&
-                    DataCenter.TaskMainUtil.IsReddot()) yield break;
+                    DataCenter.TaskMainUtil.CheckIsGet()) yield break;
                 yield return null;
             }
         }

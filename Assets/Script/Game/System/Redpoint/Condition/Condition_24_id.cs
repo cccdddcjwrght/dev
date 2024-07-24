@@ -14,7 +14,8 @@ namespace SGame
 	{
 		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			return DataCenter.TaskMainUtil.IsReddot();
+			DataCenter.TaskMainUtil.RefreshTaskState();
+			return false;
 		}
 	}
 

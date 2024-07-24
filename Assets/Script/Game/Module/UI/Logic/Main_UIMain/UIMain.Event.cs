@@ -75,9 +75,13 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg<bool>((int)GameEvent.APP_PAUSE, AppPasueRefresh);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.TOTAL_REFRESH, OnRefreshTotalState);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.HOTFOOD_REFRESH, OnRefreshHotFood);
+			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.MAIN_TASK_UPDATE, (t)=> RefreshTaskDes());
+			m_handles += EventManager.Instance.Reg((int)GameEvent.MAIN_TASK_PROGRESS_CHANGE, ()=> RefreshTaskState());
 
 			OnHeadSetting();
 			OnEventRefreshItem();
+			RefreshTaskDes();
+			RefreshTaskState(false);
 			//OnRefeshBuffTime();
 			RepeatPlayLikeEffect();
 			OnRefreshLikeCount(0);
@@ -418,6 +422,34 @@ namespace SGame.UI
 				}
 				m_view.m_likeBtn.m_num.SetText(string.Format("+{0}", likeNum));
 			}
+		}
+
+		GTweener m_TaskTweenr;
+		void RefreshTaskDes() 
+		{
+			m_TaskTweenr?.Kill();
+			m_TaskTweenr = null;
+			ConfigSystem.Instance.TryGet<MainTaskRowData>(DataCenter.TaskMainUtil.GetCurTaskCfgId(), out var config);
+			if (config.IsValid()) m_view.m_taskBtn.SetTextByKey(config.TaskDes);
+			m_view.m_taskBtn.m_state.selectedIndex = 0;
+		}
+
+		void RefreshTaskState(bool isPlay = true) 
+		{
+			m_TaskTweenr?.Kill();
+			m_TaskTweenr = null;
+
+			if (DataCenter.TaskMainUtil.CheckIsGet())
+			{
+				m_view.m_taskBtn.m_state.selectedIndex = 1;
+				return;
+			}
+			if (!isPlay) return;
+			m_view.m_taskBtn.m_state.selectedIndex = 1;
+			m_TaskTweenr = GTween.To(0, 1, 2).SetTarget(m_view).OnComplete(()=> 
+			{
+				m_view.m_taskBtn.m_state.selectedIndex = 0;
+			});
 		}
 
 		void RepeatPlayLikeEffect() 

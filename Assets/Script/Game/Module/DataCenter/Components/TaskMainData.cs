@@ -18,6 +18,7 @@ namespace SGame
         public static class TaskMainUtil
         {
             public static TaskMainData m_TaskMainData { get { return DataCenter.Instance.taskMainData; } }
+            static bool isGet = false;
 
             /// <summary>
             /// 获取当前任务id
@@ -124,15 +125,34 @@ namespace SGame
                 return false;
             }
 
-            public static bool IsReddot() 
+            static int oldTaskCfgId;
+            static int oldValue;
+            public static void RefreshTaskState() 
             {
-                if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(GetCurTaskCfgId(), out var cfg)) 
+                if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(GetCurTaskCfgId(), out var cfg))
                 {
                     var max = cfg.TaskValue(1);
                     var value = GetTaskProgress(cfg.TaskType, cfg.GetTaskValueArray());
-                    return value >= max;
+                    var state = value >= max;
+                    if (isGet != state && state == true)
+                    {
+                        isGet = state;
+                        EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_PROGRESS_CHANGE);
+                    }
+                    isGet = state;
+                    if (oldTaskCfgId == GetCurTaskCfgId() && oldValue != value)
+                    {
+                        EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_PROGRESS_CHANGE);
+                    }
+                    oldTaskCfgId = GetCurTaskCfgId();
+                    oldValue = value;
                 }
-                return false;
+                else isGet = false;
+            }
+
+            public static bool CheckIsGet() 
+            {
+                return isGet;
             }
         }
     }

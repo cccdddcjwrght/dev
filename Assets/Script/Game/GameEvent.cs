@@ -195,6 +195,7 @@ namespace SGame
 		CLUB_CHANGE_HEAD				= 21005, //俱乐部改变头像
 
 		MAIN_TASK_UPDATE				= 22000, //主线任务刷新
+		MAIN_TASK_PROGRESS_CHANGE		= 22001, //主线任务进度变化
 
 		LEVELPATH_QUEUE_UPDATE					= 23000, // 关卡排队更新 （string pathTag)
 
