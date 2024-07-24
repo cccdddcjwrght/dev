@@ -19,7 +19,7 @@ namespace SGame.UI.Main
         {
             base.ConstructFromXML(xml);
 
-            m_bar = (GImage)GetChildAt(5);
+            m_bar = (GImage)GetChildAt(1);
         }
     }
 }
