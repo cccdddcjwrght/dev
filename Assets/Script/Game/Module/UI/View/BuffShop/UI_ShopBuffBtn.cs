@@ -14,6 +14,7 @@ namespace SGame.UI.BuffShop
         public GLoader m_currency_2;
         public GTextField m_price;
         public GTextField m_time;
+        public GButton m___redpoint;
         public const string URL = "ui://ay4imj6tpvwqa";
 
         public static UI_ShopBuffBtn CreateInstance()
@@ -32,6 +33,7 @@ namespace SGame.UI.BuffShop
             m_currency_2 = (GLoader)GetChildAt(1);
             m_price = (GTextField)GetChildAt(2);
             m_time = (GTextField)GetChildAt(3);
+            m___redpoint = (GButton)GetChildAt(4);
         }
     }
 }

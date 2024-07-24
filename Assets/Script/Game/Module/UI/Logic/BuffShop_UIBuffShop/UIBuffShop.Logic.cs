@@ -40,13 +40,17 @@ namespace SGame.UI{
 			m_Event += EventManager.Instance.Reg((int)GameEvent.BUFFSHOP_REFRESH, RefreshData);
 		}
 
+		public void RefreshRandomBtnState() 
+		{
+			var good = DataCenter.Instance.shopData.goodDic[BuffShopModule.Instance.GetRandomShopId()];
+			DoRefreshGoodsInfo(good, m_view.m_lotteryBtn);
+		}
+
 		public void RefreshData() 
 		{
 			m_view.m_total.SetTextByKey("ui_boostshop_tips1", ReputationModule.Instance.GetTotalValue());
 
-			var good = DataCenter.Instance.shopData.goodDic[BuffShopModule.Instance.GetRandomShopId()];
-			DoRefreshGoodsInfo(good, m_view.m_lotteryBtn);
-
+			RefreshRandomBtnState();
 			m_forceData = BuffShopModule.Instance.GetForceRandomBuffData();
 			DoRefreshBuffInfo(m_forceData, m_view.m_time, m_view.m_time_bg, m_view.m_time_icon);
 
@@ -90,7 +94,7 @@ namespace SGame.UI{
 			else 
 			{
 				ConfigSystem.Instance.TryGet<GameConfigs.ItemRowData>(buffShopConfig.Itemid(1), out var itemConfig);
-				item.m_des.SetTextByKey(itemConfig.Description);
+				item.m_des.SetTextByKey(buffShopConfig.BuffDes);
 				item.SetIcon(itemConfig.Icon);
 				item.m_value.visible = false;
 				item.m_time.text = Utils.ConvertNumberStr(BuffShopModule.Instance.GetBuffShopCoin((double)buffShopConfig.Itemid(2)));
@@ -104,11 +108,13 @@ namespace SGame.UI{
 			{
 				if (!success) return;
 				if (buffShopConfig.BuffIdLength > 0) BuffShopModule.Instance.AddBoostShopBuff(buffShopCfgId);
-				else 
+				else
 				{
 					var value = BuffShopModule.Instance.GetBuffShopCoin((double)buffShopConfig.Itemid(2));
-					PropertyManager.Instance.Update(1, 1, value);
-					TransitionModule.Instance.PlayFlight(item.m_click, 1);
+					List<int[]> list = new List<int[]>();
+					list.Add(new int[] { 1, 1, (int)value});
+					
+					Utils.ShowRewards(list);
 					RefreshData();
 				}
 			}));
@@ -138,13 +144,14 @@ namespace SGame.UI{
 			var time = g.CDTime();
 
 			v.m_saled.selectedIndex = 0;
-			if (g.free > 0)
+			if (g.IsFree())
 			{
 				v.m_currency.selectedIndex = 0;
 				v.m_price.SetTextByKey("ui_shop_free");
 			}
 			else
 			{
+				v.m___redpoint.visible = false;
 				switch (g.cfg.PurchaseType)
 				{
 					case 1:
@@ -171,6 +178,7 @@ namespace SGame.UI{
 				}, gObject, completed: () => DoRefreshGoodsInfo(data, gObject));
 			}
 
+			v.m___redpoint.visible = g.IsFree() && time <= 0 && !g.IsSaled();
 			v.m_cd.selectedIndex = time > 0 ? 1 : 0;
 			v.m_saled.selectedIndex = g.IsSaled() ? 1 : 0;
 		}
@@ -203,7 +211,8 @@ namespace SGame.UI{
                 var cfgId = BuffShopModule.Instance.GetRandomBuff();
                 PlayLotteryAnim(cfgId);
 
-                BuffShopModule.Instance.AddBoostShopBuff(cfgId, false, false);
+				RefreshRandomBtnState();
+				BuffShopModule.Instance.AddBoostShopBuff(cfgId, false, false);
             });
         }
 

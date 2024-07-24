@@ -19,6 +19,7 @@ namespace SGame.UI{
 			m_view.m_lotteryBtn.m_saled.onChanged.Add(new EventCallback1(_OnShopBuffBtn_SaledChanged));
 			m_view.m_lotteryBtn.m_click.m_currency.onChanged.Add(new EventCallback1(_Onshopclick_LotteryBtn_click_currencyChanged));
 			UIListener.Listener(m_view.m_lotteryBtn.m_click, new EventCallback1(_OnShopBuffBtn_ClickClick));
+			UIListener.Listener(m_view.m_lotteryBtn.m___redpoint, new EventCallback1(_OnShopBuffBtn___redpointClick));
 			UIListener.Listener(m_view.m_lotteryBtn, new EventCallback1(_OnLotteryBtnClick));
 
 		}
@@ -29,6 +30,7 @@ namespace SGame.UI{
 			m_view.m_lotteryBtn.m_saled.onChanged.Remove(new EventCallback1(_OnShopBuffBtn_SaledChanged));
 			m_view.m_lotteryBtn.m_click.m_currency.onChanged.Remove(new EventCallback1(_Onshopclick_LotteryBtn_click_currencyChanged));
 			UIListener.Listener(m_view.m_lotteryBtn.m_click, new EventCallback1(_OnShopBuffBtn_ClickClick),remove:true);
+			UIListener.Listener(m_view.m_lotteryBtn.m___redpoint, new EventCallback1(_OnShopBuffBtn___redpointClick),remove:true);
 			UIListener.Listener(m_view.m_lotteryBtn, new EventCallback1(_OnLotteryBtnClick),remove:true);
 
 		}
@@ -75,6 +77,12 @@ namespace SGame.UI{
 		string GetShopBuffBtn_PriceText()=>UIListener.GetText(m_view.m_lotteryBtn.m_price);
 		void SetShopBuffBtn_TimeText(string data)=>UIListener.SetText(m_view.m_lotteryBtn.m_time,data);
 		string GetShopBuffBtn_TimeText()=>UIListener.GetText(m_view.m_lotteryBtn.m_time);
+		void _OnShopBuffBtn___redpointClick(EventContext data){
+			OnShopBuffBtn___redpointClick(data);
+		}
+		partial void OnShopBuffBtn___redpointClick(EventContext data);
+		void SetShopBuffBtn_LotteryBtn___redpointText(string data)=>UIListener.SetText(m_view.m_lotteryBtn.m___redpoint,data);
+		string GetShopBuffBtn_LotteryBtn___redpointText()=>UIListener.GetText(m_view.m_lotteryBtn.m___redpoint);
 		void _OnLotteryBtnClick(EventContext data){
 			OnLotteryBtnClick(data);
 		}
