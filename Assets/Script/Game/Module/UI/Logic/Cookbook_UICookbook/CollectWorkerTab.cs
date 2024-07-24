@@ -20,7 +20,8 @@ namespace SGame.UI.Cookbook
 
 		public void Enter()
 		{
-			_datas = DataCenter.WorkerDataUtils.GetDatas(d => d.cfg.RoleType == type - 1);
+			var ty = type == 2 ? 2 : 1;
+			_datas = DataCenter.WorkerDataUtils.GetDatas(d => d.cfg.RoleType == ty);
 			eventHandle += EventManager.Instance.Reg<int>(((int)GameEvent.WORKER_UPDAETE), OnWorkerSelected);
 			view.m_addpropertys.itemRenderer = OnSetBuffItem;
 			view.m_addpropertys.RemoveChildrenToPool();

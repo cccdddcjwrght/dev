@@ -9,8 +9,8 @@ namespace SGame.UI.Cookbook
     {
         public Controller m_tabs;
         public UI_CollectBg m_body;
-        public UI_CollectTab m_cooker;
         public UI_CollectTab m_waiter;
+        public UI_CollectTab m_cooker;
         public GGroup m_tabs_2;
         public GList m_list;
         public GList m_listCustomer;
@@ -31,8 +31,8 @@ namespace SGame.UI.Cookbook
 
             m_tabs = GetControllerAt(0);
             m_body = (UI_CollectBg)GetChildAt(0);
-            m_cooker = (UI_CollectTab)GetChildAt(3);
-            m_waiter = (UI_CollectTab)GetChildAt(4);
+            m_waiter = (UI_CollectTab)GetChildAt(3);
+            m_cooker = (UI_CollectTab)GetChildAt(4);
             m_tabs_2 = (GGroup)GetChildAt(5);
             m_list = (GList)GetChildAt(7);
             m_listCustomer = (GList)GetChildAt(8);

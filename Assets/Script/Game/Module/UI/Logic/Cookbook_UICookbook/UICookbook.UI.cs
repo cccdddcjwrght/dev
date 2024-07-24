@@ -17,8 +17,8 @@ namespace SGame.UI{
 			m_view.m_body.m_type.onChanged.Add(new EventCallback1(_OnCollectBg_TypeChanged));
 			UIListener.ListenerClose(m_view.m_body.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
-			UIListener.Listener(m_view.m_cooker, new EventCallback1(_OnCookerClick));
 			UIListener.Listener(m_view.m_waiter, new EventCallback1(_OnWaiterClick));
+			UIListener.Listener(m_view.m_cooker, new EventCallback1(_OnCookerClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -26,8 +26,8 @@ namespace SGame.UI{
 			m_view.m_body.m_type.onChanged.Remove(new EventCallback1(_OnCollectBg_TypeChanged));
 			UIListener.ListenerClose(m_view.m_body.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
-			UIListener.Listener(m_view.m_cooker, new EventCallback1(_OnCookerClick),remove:true);
 			UIListener.Listener(m_view.m_waiter, new EventCallback1(_OnWaiterClick),remove:true);
+			UIListener.Listener(m_view.m_cooker, new EventCallback1(_OnCookerClick),remove:true);
 
 		}
 		void _OnTabsChanged(EventContext data){
@@ -51,18 +51,18 @@ namespace SGame.UI{
 		string GetCollectBg_Body_closeText()=>UIListener.GetText(m_view.m_body.m_close);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
-		void _OnCookerClick(EventContext data){
-			OnCookerClick(data);
-		}
-		partial void OnCookerClick(EventContext data);
-		void SetCookerText(string data)=>UIListener.SetText(m_view.m_cooker,data);
-		string GetCookerText()=>UIListener.GetText(m_view.m_cooker);
 		void _OnWaiterClick(EventContext data){
 			OnWaiterClick(data);
 		}
 		partial void OnWaiterClick(EventContext data);
 		void SetWaiterText(string data)=>UIListener.SetText(m_view.m_waiter,data);
 		string GetWaiterText()=>UIListener.GetText(m_view.m_waiter);
+		void _OnCookerClick(EventContext data){
+			OnCookerClick(data);
+		}
+		partial void OnCookerClick(EventContext data);
+		void SetCookerText(string data)=>UIListener.SetText(m_view.m_cooker,data);
+		string GetCookerText()=>UIListener.GetText(m_view.m_cooker);
 
 	}
 }
