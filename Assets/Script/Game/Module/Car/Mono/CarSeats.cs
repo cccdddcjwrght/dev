@@ -233,7 +233,7 @@ namespace SGame
         {
             foreach (var customer in m_customers)
             {
-                if (customer.customer != Entity.Null)
+                if (customer.customer != Entity.Null && EntityManager.Exists(customer.customer))
                 {
                     EntityManager.AddComponent<DespawningEntity>(customer.customer);
                     customer.customer = Entity.Null;
