@@ -14,6 +14,7 @@ namespace SGame
             "Redpoint", "ordertip", "progress", "FoodTip");
 
             EventManager.Instance.Trigger((int)GameEvent.GUIDE_CLOSE);
+            WorktableHud.Instance.Close();
 
             EntityQuery entityQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(UIRequest));
             var uiRequest = entityQuery.ToEntityArray(Unity.Collections.Allocator.Temp);
