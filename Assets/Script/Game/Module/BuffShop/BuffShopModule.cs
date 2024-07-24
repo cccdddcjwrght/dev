@@ -184,13 +184,14 @@ namespace SGame
             return false;
         }
 
-        public double GetBuffShopCoin(double gold) 
+        public double GetBuffShopCoin(double v) 
         {
-            var rate = ReputationModule.Instance.GetTotalValue();//(int)AttributeSystem.Instance.GetValue(EnumTarget.Game, EnumAttribute.Gold);
+            double gold = 0;
+            var rate = ReputationModule.Instance.GetTotalValue();
             var ws = DataCenter.MachineUtil.GetWorktables((w) => !w.isTable && w.level > 0);
             if (ws?.Count > 0) ws.ForEach(w => gold += w.GetPrice() / w.GetWorkTime());
-            double coin = (gold * rate).ToInt();
-            return Math.Max(coin, GlobalDesginConfig.GetInt("buffshop_gold_lim"));
+            gold = Math.Max(gold, GlobalDesginConfig.GetInt("buffshop_gold_lim"));
+            return (gold * v * rate).ToInt();
         }
     }
 }
