@@ -105,6 +105,7 @@ namespace SGame
                     val.ForEach((v) =>{ PropertyManager.Instance.Update(v[0], v[1], v[2]);});
                     m_TaskMainData.cfgId++;
 
+                    isGet = false;
                     if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(m_TaskMainData.cfgId, out var newCfg)) 
                     {
                         if (newCfg.CountType == 1)
