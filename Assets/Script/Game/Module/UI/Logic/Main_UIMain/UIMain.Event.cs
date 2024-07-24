@@ -106,6 +106,10 @@ namespace SGame.UI
 
 		void RegisterUIState()
 		{
+			m_treasureItem = CheckingManager.CreateItem((int)FunctionID.TREASURE, () => ChestItemUtil.CheckEqGiftBag())
+				.SetIcon(ChestItemUtil.GetIcon)
+				.SetTips(() => ChestItemUtil.GetChestCount().ToString());
+			
 			if (m_funcManager != null)
 				return;
 
@@ -153,15 +157,10 @@ namespace SGame.UI
 			//m_funcManager.Register((int)FunctionID.TREASURE, () => ChestItemUtil.CheckEqGiftBag());
 			//	.SetIcon(ChestItemUtil.GetIcon)
 			//	.SetTips(() => ChestItemUtil.GetChestCount().ToString());
-				
-			m_funcManager.Register(33);
+
+			// m_funcManager.Register((int)FunctionID.RECIPE);
 
 			m_funcManager.RegisterAllActFunc();
-
-			
-			m_treasureItem = CheckingManager.CreateItem((int)FunctionID.TREASURE, () => ChestItemUtil.CheckEqGiftBag())
-				.SetIcon(ChestItemUtil.GetIcon)
-				.SetTips(() => ChestItemUtil.GetChestCount().ToString());
 		}
 
 		void UpdateUIState()
@@ -185,16 +184,6 @@ namespace SGame.UI
 
 		private void OnEventRefreshItem()
 		{
-			/*
-			if (DataCenter.Instance.guideData.isGuide)
-			{
-				var levelBtn = m_view.m_levelBtn;
-				levelBtn.visible = CheckFuncOpen(FunctionID.MAP);
-				//var leveltechBtn = m_view.m_taskRewardBtn;
-				//leveltechBtn.visible = CheckFuncOpen(FunctionID.LEVEL_TECH);
-			}
-			*/
-
 			if (StaticDefine.PAUSE_MAIN_REFRESH) return;
 
 			m_view.m_Diamond.visible = 34.IsOpend(false);
@@ -208,7 +197,6 @@ namespace SGame.UI
 
 			m_view.m_btnShop.visible = ((int)FunctionID.SHOP).IsOpend(false);
 
-			//m_view.m_skillBtn.visible = CheckFuncOpen(FunctionID.TECH);
 			m_view.m_petBtn.visible = CheckFuncOpen(FunctionID.PET);
 			m_view.m_equipBtn.visible = CheckFuncOpen(FunctionID.ROLE_EQUIP);
 			m_view.m_recipeBtn.visible = CheckFuncOpen(FunctionID.RECIPE);
@@ -217,26 +205,12 @@ namespace SGame.UI
 			if (m_treasureItem.IsVisible())
 			{
 				m_view.m_leftList.m_treasureBtn.visible = true;
-				//m_view.m_leftList.m_treasureBtn.SetIcon(ChestItemUtil.GetIcon()); //SetIcon(ChestItemUtil.GetIcon);
 				SetItemData(m_treasureItem, m_view.m_leftList.m_treasureBtn, true);
 			}
 			else
 			{
 				m_view.m_leftList.m_treasureBtn.visible = false;
 			}
-			/*
-			if (ChestItemUtil.CheckEqGiftBag())
-			{
-				
-				m_view.m_leftList.m_treasureBtn.visible = true;
-				m_view.m_leftList.m_treasureBtn.SetIcon(ChestItemUtil.GetIcon()); //SetIcon(ChestItemUtil.GetIcon);
-			}
-			else
-			{
-				m_view.m_leftList.m_treasureBtn.visible = false;
-			}
-			*/
-			//SGame.UIUtils.RefreshFuncBtnTime((m_view.m_friendBtn as UI_FuncBtn).m_time, () => FriendModule.Instance.hiringTime);
 
 			// 处理左右列表
 			UpdateUIState();
@@ -251,7 +225,6 @@ namespace SGame.UI
 
 		void SetItemData(CheckingManager.CheckItem config, GObject item, bool isLeft)
 		{
-			//var config = datas[index];
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
 			//if (config.effectID > 0)
@@ -260,12 +233,10 @@ namespace SGame.UI
 			//}
 			//else
 			//{
-			ui.m_side.selectedIndex = isLeft ? 2 : 1;
+			//ui.m_side.selectedIndex = isLeft ? 2 : 1;
 			//}
 			config.ShowEffect(ui.m_effect);
 			ui.m_redpoint.visible = true;
-			//if ((int)FunctionID.TREASURE == config.funcID)
-			//	ui.m_side.selectedIndex = 3;
 
 			if (!string.IsNullOrEmpty(config.uiname))
 				item.name = config.uiname;
@@ -412,7 +383,6 @@ namespace SGame.UI
 					time = DataCenter.ExclusiveUtils.GetBuffResiduTime();
 					m_view.m_buff.m_time.SetText(Utils.FormatTime(time));
 				}, m_view, completed: () => BuffTimeFinish());
-				//OnRefreshTotalState();
 			}
 		}
 
@@ -454,10 +424,7 @@ namespace SGame.UI
 
 		void OnRefreshTotalState()
 		{
-			//m_view.m_totalBtn.visible = ReputationModule.Instance.GetVailedBuffList().Count > 0;
-			//ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
-			//EventManager.Instance.Trigger((int)GameEvent.ROOM_BUFF_RESET);
 		}
 
 		void OnRefreshAdState()
@@ -551,17 +518,6 @@ namespace SGame.UI
 			OnRefeshBuffTime();
 			OnRefreshAdTime();
 		}
-
-//		partial void OnTaskRewardBtnClick(EventContext data)
-//		{
-//			"leveltech".Goto();
-//		}
-/*
-		partial void OnLevelBtnClick(EventContext data)
-		{
-			SGame.UIUtils.OpenUI("enterscenetemp", DataCenter.Instance.roomData.current.id + 1);
-		}
-		*/
 
 		partial void UnInitEvent(UIContext context)
 		{
