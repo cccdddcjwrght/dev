@@ -302,6 +302,25 @@ namespace SGame.UI
 			}
 
 			var item = GetOrCreateItem(config.Parent);
+			var data = CreateItem(funcID, canShow, funcTime, param, uiname, complete);
+			item.Add(data);
+			return data;
+		}
+
+		static public CheckItem CreateItem(int funcID, Func<bool> canShow = null, Func<int> funcTime = null, object param = null, string uiname = null, Action complete = null)
+		{
+			if (!ConfigSystem.Instance.TryGet(funcID, out FunctionConfigRowData config))
+			{
+				log.Error("function id not found=" + funcID);
+				return default;
+			}
+
+			if (config.Parent == 0)
+			{
+				log.Error("parent is zero function id=" + funcID);
+				return default;
+			}
+
 			var data = new CheckItem()
 			{
 				funcID = funcID,
@@ -313,7 +332,6 @@ namespace SGame.UI
 				complete = complete,
 				OnClick = null,
 			};
-			item.Add(data);
 			return data;
 		}
 

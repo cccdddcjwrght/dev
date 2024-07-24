@@ -14,7 +14,7 @@ namespace SGame.UI.Main
         public GImage m_bgBottom;
         public GLoader m_top;
         public UI_ActBtnList m_rightList;
-        public UI_ActBtnList m_leftList;
+        public UI_LeftBtnList m_leftList;
         public GButton m_head;
         public GButton m_Gold;
         public GButton m_Diamond;
@@ -50,7 +50,7 @@ namespace SGame.UI.Main
             m_bgBottom = (GImage)GetChildAt(1);
             m_top = (GLoader)GetChildAt(2);
             m_rightList = (UI_ActBtnList)GetChildAt(3);
-            m_leftList = (UI_ActBtnList)GetChildAt(4);
+            m_leftList = (UI_LeftBtnList)GetChildAt(4);
             m_head = (GButton)GetChildAt(5);
             m_Gold = (GButton)GetChildAt(6);
             m_Diamond = (GButton)GetChildAt(7);

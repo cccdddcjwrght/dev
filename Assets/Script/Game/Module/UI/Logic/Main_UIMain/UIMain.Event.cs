@@ -33,6 +33,8 @@ namespace SGame.UI
 
 		private List<CheckingManager.CheckItem> m_RightIconDatas;
 		private List<CheckingManager.CheckItem> m_LeftIconDatas;
+		
+		private CheckingManager.CheckItem m_treasureItem;
 
 
 		partial void InitEvent(UIContext context)
@@ -45,7 +47,7 @@ namespace SGame.UI
 			RegisterUIState();
 			var headBtn = m_view.m_head;
 			leftList.itemRenderer = (index, gobject) => RenderNormalItem(m_LeftIconDatas, index, gobject, true);//+= RenderListItem;
-			m_rightList.itemRenderer = (index, gobject) => RenderNormalItem(m_RightIconDatas, index, gobject, false); ;
+			m_rightList.itemRenderer = (index, gobject) => RenderNormalItem(m_RightIconDatas, index, gobject, false);
 
 			headBtn.onClick.Add(OnheadBtnClick);
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
@@ -60,6 +62,7 @@ namespace SGame.UI
 			m_view.m_recipeBtn.onClick.Add(()=> OpenUI(FunctionID.RECIPE));
 			m_view.m_petBtn.onClick.Add(()=>OpenUI(FunctionID.PET));
 			m_view.m_hotFoodBtn.onClick.Add(() => OpenUI(FunctionID.HOT_FOOD));
+			//m_view.m_leftList.m_treasureBtn.onClick.Add(()=> OpenUI(FunctionID.TREASURE));
 
 			m_handles += EventManager.Instance.Reg((int)GameEvent.PROPERTY_GOLD, OnEventGoldChange);
 			m_handles += EventManager.Instance.Reg((int)GameEvent.GAME_MAIN_REFRESH, OnEventRefreshItem);
@@ -146,13 +149,19 @@ namespace SGame.UI
 
 			m_funcManager.Register((int)FunctionID.FRIEND, null, () => FriendModule.Instance.hiringTime); // 好友
 			//m_funcManager.Register((int)24);
-			m_funcManager.Register((int)25, () => ChestItemUtil.CheckEqGiftBag())
-				.SetIcon(ChestItemUtil.GetIcon)
-				.SetTips(() => ChestItemUtil.GetChestCount().ToString());
+			
+			//m_funcManager.Register((int)FunctionID.TREASURE, () => ChestItemUtil.CheckEqGiftBag());
+			//	.SetIcon(ChestItemUtil.GetIcon)
+			//	.SetTips(() => ChestItemUtil.GetChestCount().ToString());
+				
 			m_funcManager.Register(33);
 
 			m_funcManager.RegisterAllActFunc();
 
+			
+			m_treasureItem = CheckingManager.CreateItem((int)FunctionID.TREASURE, () => ChestItemUtil.CheckEqGiftBag())
+				.SetIcon(ChestItemUtil.GetIcon)
+				.SetTips(() => ChestItemUtil.GetChestCount().ToString());
 		}
 
 		void UpdateUIState()
@@ -162,6 +171,7 @@ namespace SGame.UI
 
 			m_LeftIconDatas = m_funcManager.GetDatas((int)AREA.LEFT);
 			leftList.numItems = m_LeftIconDatas.Count;
+			leftList.ResizeToFit();
 
 			m_funcManager.UpdateState();
 		}
@@ -204,6 +214,28 @@ namespace SGame.UI
 			m_view.m_recipeBtn.visible = CheckFuncOpen(FunctionID.RECIPE);
 			m_view.m_getworker.selectedIndex =  36.IsOpend(false) ? 1 : 0;
 
+			if (m_treasureItem.IsVisible())
+			{
+				m_view.m_leftList.m_treasureBtn.visible = true;
+				//m_view.m_leftList.m_treasureBtn.SetIcon(ChestItemUtil.GetIcon()); //SetIcon(ChestItemUtil.GetIcon);
+				SetItemData(m_treasureItem, m_view.m_leftList.m_treasureBtn, true);
+			}
+			else
+			{
+				m_view.m_leftList.m_treasureBtn.visible = false;
+			}
+			/*
+			if (ChestItemUtil.CheckEqGiftBag())
+			{
+				
+				m_view.m_leftList.m_treasureBtn.visible = true;
+				m_view.m_leftList.m_treasureBtn.SetIcon(ChestItemUtil.GetIcon()); //SetIcon(ChestItemUtil.GetIcon);
+			}
+			else
+			{
+				m_view.m_leftList.m_treasureBtn.visible = false;
+			}
+			*/
 			//SGame.UIUtils.RefreshFuncBtnTime((m_view.m_friendBtn as UI_FuncBtn).m_time, () => FriendModule.Instance.hiringTime);
 
 			// 处理左右列表
@@ -217,26 +249,19 @@ namespace SGame.UI
 			item.OpenUI();
 		}
 
-		/// <summary>
-		/// 显示列表图片
-		/// </summary>
-		/// <param name="datas"></param>
-		/// <param name="index"></param>
-		/// <param name="item"></param>
-		private void RenderNormalItem(List<CheckingManager.CheckItem> datas, int index, GObject item, bool isLeft)
+		void SetItemData(CheckingManager.CheckItem config, GObject item, bool isLeft)
 		{
-			var config = datas[index];
-
+			//var config = datas[index];
 			UI_ActBtn ui = item as UI_ActBtn;
 			ui.data = config;
-			if (config.effectID > 0)
-			{
-				ui.m_side.selectedIndex = 2;
-			}
-			else
-			{
-				ui.m_side.selectedIndex = isLeft ? 0 : 1;
-			}
+			//if (config.effectID > 0)
+			//{
+			//	ui.m_side.selectedIndex = 2;
+			//}
+			//else
+			//{
+			ui.m_side.selectedIndex = isLeft ? 2 : 1;
+			//}
 			config.ShowEffect(ui.m_effect);
 			ui.m_redpoint.visible = true;
 			//if ((int)FunctionID.TREASURE == config.funcID)
@@ -283,9 +308,19 @@ namespace SGame.UI
 			}
 
 			ui.icon = config.config.Icon;
-
 		}
-
+		
+		/// <summary>
+		/// 显示列表图片
+		/// </summary>
+		/// <param name="datas"></param>
+		/// <param name="index"></param>
+		/// <param name="item"></param>
+		private void RenderNormalItem(List<CheckingManager.CheckItem> datas, int index, GObject item, bool isLeft)
+		{
+			var config = datas[index];
+			SetItemData(config, item, isLeft);
+		}
 
 		// 金币添加事件
 		void OnEventGoldChange()

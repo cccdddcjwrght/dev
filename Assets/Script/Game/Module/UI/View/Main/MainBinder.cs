@@ -14,6 +14,8 @@ namespace SGame.UI.Main
             UIObjectFactory.SetPackageItemExtension(UI_MainUI.URL, typeof(UI_MainUI));
             UIObjectFactory.SetPackageItemExtension(UI_ActBtnList.URL, typeof(UI_ActBtnList));
             UIObjectFactory.SetPackageItemExtension(UI_ActBtn.URL, typeof(UI_ActBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_LeftBtnList.URL, typeof(UI_LeftBtnList));
+            UIObjectFactory.SetPackageItemExtension(UI_LeftBtn.URL, typeof(UI_LeftBtn));
             UIObjectFactory.SetPackageItemExtension(UI_ShowBtn.URL, typeof(UI_ShowBtn));
             UIObjectFactory.SetPackageItemExtension(UI_ShowBtnList.URL, typeof(UI_ShowBtnList));
             UIObjectFactory.SetPackageItemExtension(UI_TotalBtn.URL, typeof(UI_TotalBtn));

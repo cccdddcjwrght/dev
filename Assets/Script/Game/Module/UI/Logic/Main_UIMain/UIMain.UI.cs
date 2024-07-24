@@ -16,9 +16,13 @@ namespace SGame.UI{
 			m_view.m_main.onChanged.Add(new EventCallback1(_OnMainChanged));
 			m_view.m_ad.onChanged.Add(new EventCallback1(_OnAdChanged));
 			m_view.m_getworker.onChanged.Add(new EventCallback1(_OnGetworkerChanged));
-			m_view.m_rightList.m_side.onChanged.Add(new EventCallback1(_OnActBtnList_SideChanged));
 			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick));
-			m_view.m_leftList.m_side.onChanged.Add(new EventCallback1(_OnActBtnList_LeftList_sideChanged));
+			m_view.m_leftList.m_treasureBtn.m_timeColor.onChanged.Add(new EventCallback1(_OnActBtn_LeftList_treasureBtn_timeColorChanged));
+			m_view.m_leftList.m_treasureBtn.m_ctrlTime.onChanged.Add(new EventCallback1(_OnActBtn_LeftList_treasureBtn_ctrlTimeChanged));
+			m_view.m_leftList.m_treasureBtn.m_side.onChanged.Add(new EventCallback1(_OnActBtn_LeftList_treasureBtn_sideChanged));
+			UIListener.ListenerClose(m_view.m_leftList.m_treasureBtn.m_body, new EventCallback1(DoCloseUIClick));
+			UIListener.Listener(m_view.m_leftList.m_treasureBtn.m_redpoint, new EventCallback1(_OnActBtn_LeftList_treasureBtn_redpointClick));
+			UIListener.Listener(m_view.m_leftList.m_treasureBtn, new EventCallback1(_OnLeftBtnList_TreasureBtnClick));
 			UIListener.ListenerIcon(m_view.m_leftList, new EventCallback1(_OnLeftListClick));
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick));
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
@@ -51,9 +55,13 @@ namespace SGame.UI{
 			m_view.m_main.onChanged.Remove(new EventCallback1(_OnMainChanged));
 			m_view.m_ad.onChanged.Remove(new EventCallback1(_OnAdChanged));
 			m_view.m_getworker.onChanged.Remove(new EventCallback1(_OnGetworkerChanged));
-			m_view.m_rightList.m_side.onChanged.Remove(new EventCallback1(_OnActBtnList_SideChanged));
 			UIListener.ListenerIcon(m_view.m_rightList, new EventCallback1(_OnRightListClick),remove:true);
-			m_view.m_leftList.m_side.onChanged.Remove(new EventCallback1(_OnActBtnList_LeftList_sideChanged));
+			m_view.m_leftList.m_treasureBtn.m_timeColor.onChanged.Remove(new EventCallback1(_OnActBtn_LeftList_treasureBtn_timeColorChanged));
+			m_view.m_leftList.m_treasureBtn.m_ctrlTime.onChanged.Remove(new EventCallback1(_OnActBtn_LeftList_treasureBtn_ctrlTimeChanged));
+			m_view.m_leftList.m_treasureBtn.m_side.onChanged.Remove(new EventCallback1(_OnActBtn_LeftList_treasureBtn_sideChanged));
+			UIListener.ListenerClose(m_view.m_leftList.m_treasureBtn.m_body, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.Listener(m_view.m_leftList.m_treasureBtn.m_redpoint, new EventCallback1(_OnActBtn_LeftList_treasureBtn_redpointClick),remove:true);
+			UIListener.Listener(m_view.m_leftList.m_treasureBtn, new EventCallback1(_OnLeftBtnList_TreasureBtnClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_leftList, new EventCallback1(_OnLeftListClick),remove:true);
 			UIListener.Listener(m_view.m_head, new EventCallback1(_OnHeadClick),remove:true);
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
@@ -97,20 +105,46 @@ namespace SGame.UI{
 		}
 		partial void OnGetworkerChanged(EventContext data);
 		void SwitchGetworkerPage(int index)=>m_view.m_getworker.selectedIndex=index;
-		void _OnActBtnList_SideChanged(EventContext data){
-			OnActBtnList_SideChanged(data);
-		}
-		partial void OnActBtnList_SideChanged(EventContext data);
-		void SwitchActBtnList_SidePage(int index)=>m_view.m_rightList.m_side.selectedIndex=index;
 		void _OnRightListClick(EventContext data){
 			OnRightListClick(data);
 		}
 		partial void OnRightListClick(EventContext data);
-		void _OnActBtnList_LeftList_sideChanged(EventContext data){
-			OnActBtnList_LeftList_sideChanged(data);
+		void _OnActBtn_LeftList_treasureBtn_timeColorChanged(EventContext data){
+			OnActBtn_LeftList_treasureBtn_timeColorChanged(data);
 		}
-		partial void OnActBtnList_LeftList_sideChanged(EventContext data);
-		void SwitchActBtnList_LeftList_sidePage(int index)=>m_view.m_leftList.m_side.selectedIndex=index;
+		partial void OnActBtn_LeftList_treasureBtn_timeColorChanged(EventContext data);
+		void SwitchActBtn_LeftList_treasureBtn_timeColorPage(int index)=>m_view.m_leftList.m_treasureBtn.m_timeColor.selectedIndex=index;
+		void _OnActBtn_LeftList_treasureBtn_ctrlTimeChanged(EventContext data){
+			OnActBtn_LeftList_treasureBtn_ctrlTimeChanged(data);
+		}
+		partial void OnActBtn_LeftList_treasureBtn_ctrlTimeChanged(EventContext data);
+		void SwitchActBtn_LeftList_treasureBtn_ctrlTimePage(int index)=>m_view.m_leftList.m_treasureBtn.m_ctrlTime.selectedIndex=index;
+		void _OnActBtn_LeftList_treasureBtn_sideChanged(EventContext data){
+			OnActBtn_LeftList_treasureBtn_sideChanged(data);
+		}
+		partial void OnActBtn_LeftList_treasureBtn_sideChanged(EventContext data);
+		void SwitchActBtn_LeftList_treasureBtn_sidePage(int index)=>m_view.m_leftList.m_treasureBtn.m_side.selectedIndex=index;
+		void DoCloseUIClick(EventContext data){
+			 bool __closestate = true;
+			 OnUICloseClick(ref __closestate);
+			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
+			 
+		}
+		partial void OnUICloseClick(ref bool state);
+		void _OnActBtn_LeftList_treasureBtn_redpointClick(EventContext data){
+			OnActBtn_LeftList_treasureBtn_redpointClick(data);
+		}
+		partial void OnActBtn_LeftList_treasureBtn_redpointClick(EventContext data);
+		void SetActBtn_LeftList_treasureBtn_redpointText(string data)=>UIListener.SetText(m_view.m_leftList.m_treasureBtn.m_redpoint,data);
+		string GetActBtn_LeftList_treasureBtn_redpointText()=>UIListener.GetText(m_view.m_leftList.m_treasureBtn.m_redpoint);
+		void SetActBtn_LeftList_treasureBtn_contentText(string data)=>UIListener.SetText(m_view.m_leftList.m_treasureBtn.m_content,data);
+		string GetActBtn_LeftList_treasureBtn_contentText()=>UIListener.GetText(m_view.m_leftList.m_treasureBtn.m_content);
+		void _OnLeftBtnList_TreasureBtnClick(EventContext data){
+			OnLeftBtnList_TreasureBtnClick(data);
+		}
+		partial void OnLeftBtnList_TreasureBtnClick(EventContext data);
+		void SetLeftBtnList_LeftList_treasureBtnText(string data)=>UIListener.SetText(m_view.m_leftList.m_treasureBtn,data);
+		string GetLeftBtnList_LeftList_treasureBtnText()=>UIListener.GetText(m_view.m_leftList.m_treasureBtn);
 		void _OnLeftListClick(EventContext data){
 			OnLeftListClick(data);
 		}
@@ -148,13 +182,6 @@ namespace SGame.UI{
 		}
 		partial void OnActBtn_SideChanged(EventContext data);
 		void SwitchActBtn_SidePage(int index)=>m_view.m_btnShop.m_side.selectedIndex=index;
-		void DoCloseUIClick(EventContext data){
-			 bool __closestate = true;
-			 OnUICloseClick(ref __closestate);
-			 if(__closestate)SGame.UIUtils.CloseUIByID(__id);
-			 
-		}
-		partial void OnUICloseClick(ref bool state);
 		void _OnActBtn_RedpointClick(EventContext data){
 			OnActBtn_RedpointClick(data);
 		}

@@ -7,7 +7,6 @@ namespace SGame.UI.Main
 {
     public partial class UI_ActBtnList : GComponent
     {
-        public Controller m_side;
         public GList m_right;
         public const string URL = "ui://ktixaqljgmj1v";
 
@@ -20,7 +19,6 @@ namespace SGame.UI.Main
         {
             base.ConstructFromXML(xml);
 
-            m_side = GetControllerAt(0);
             m_right = (GList)GetChildAt(0);
         }
     }
