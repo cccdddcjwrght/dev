@@ -129,6 +129,7 @@ namespace SGame.UI
 		{
 			m_view.m_waiter.m___redpoint.selectedIndex = DataCenter.WorkerDataUtils.Check(2) ? 1 : 0;
 			m_view.m_cooker.m___redpoint.selectedIndex = DataCenter.WorkerDataUtils.Check(1) ? 1 : 0;
+			DataCenter.WorkerDataUtils.CheckDefaultSelect();
 
 		}
 

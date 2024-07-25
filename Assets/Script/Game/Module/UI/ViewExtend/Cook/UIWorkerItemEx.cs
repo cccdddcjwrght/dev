@@ -14,7 +14,7 @@ partial class UIListenerExt
 		UIListener.SetControllerSelect(gObject, "type", (int)data);
 	}
 
-	static public GObject SetWorkerInfo(this GObject gObject, WorkerDataItem workerInfo, int starcount = -1)
+	static public GObject SetWorkerInfo(this GObject gObject, WorkerDataItem workerInfo, int starcount = -1, bool usedefaultval = false)
 	{
 		if (gObject != null)
 		{
@@ -32,13 +32,13 @@ partial class UIListenerExt
 				{
 					icon = workerInfo.roleCfg.Icon;
 					gObject.SetTextByKey(workerInfo.roleCfg.Name);
-					UIListener.SetTextWithName(gObject, "desc", workerInfo.roleCfg.Des);
+					UIListener.SetTextWithName(gObject, "desc", workerInfo.roleCfg.Des.Local(), false);
 				}
 				if (com != null)
 				{
 					var role = (com.GetChild("role") ?? com.GetChild("customer")) as UI_Customer;
-					if (role != null) role.SetIcon(icon);
-					else gObject.SetIcon(icon);
+					if (role != null) role.SetIcon(icon, "Cookbook");
+					else gObject.SetIcon(icon, "Cookbook");
 
 					var p = com.GetChild("progress")?.asProgress;
 					if (p != null)
@@ -60,14 +60,15 @@ partial class UIListenerExt
 					var pro = com.GetChild("property")?.asCom;
 					if (pro != null)
 					{
-						var val = workerInfo.GetBuffVal();
+						var val = workerInfo.GetBuffVal(usedefaultval);
+						var real = workerInfo.GetBuffVal();
 						var last = workerInfo.lastVal;
 
 						pro.SetText($"+{last}%", false);
-						UIListener.SetTextWithName(pro, "next", $"+{val}%", false);
+						UIListener.SetTextWithName(pro, "next", $"+{real}%", false);
 						if (ConfigSystem.Instance.TryGet<BuffRowData>(workerInfo.cfg.Buff, out var buff))
 						{
-							UIListener.SetTextWithName(pro, "full", buff.Describe.Local(null, val), false);
+							UIListener.SetTextWithName(pro, "full", buff.Describe.Local(null,  val), false);
 							pro.SetIcon(buff.Icon);
 						}
 					}

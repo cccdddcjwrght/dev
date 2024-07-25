@@ -15,7 +15,7 @@ namespace SGame.UI
 		{
 			_data = context.GetParam()?.Value.To<object[]>().Val<WorkerDataItem>(0);
 			if (_data == null) { DoCloseUIClick(null); return; }
-			m_view.SetWorkerInfo(_data);
+			m_view.SetWorkerInfo(_data, usedefaultval: _data.level <= 0);
 			SetInfo();
 		}
 
@@ -45,8 +45,8 @@ namespace SGame.UI
 			if (_data.IsSelected()) return;
 			if (DataCenter.WorkerDataUtils.Select(_data))
 			{
-				//DoCloseUIClick(null)
-				SwitchSelectedPage(1);
+				DoCloseUIClick(null);
+				//SwitchSelectedPage(1);
 			}
 		}
 

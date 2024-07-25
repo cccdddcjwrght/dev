@@ -43,10 +43,16 @@ namespace SGame.UI.Cookbook
 		{
 			_datas.Sort((a, b) =>
 			{
-
 				if (a.IsSelected()) return -1;
 				if (b.IsSelected()) return 1;
-				return a.id.CompareTo(b.id);
+				var c = b.CanUpLv().CompareTo(a.CanUpLv());
+				if(c == 0)
+				{
+					c = b.level.CompareTo(a.level);
+					if(c == 0)
+						return a.id.CompareTo(b.id);
+				}
+				return c;
 
 			});
 			view.m_listworker.RemoveChildrenToPool();

@@ -144,6 +144,7 @@ namespace SGame
 
 			public static void BuffTrigger()
 			{
+				CheckDefaultSelect();
 				EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = (int)EnumFrom.WorkerCollect });
 				GetBuffList(0, data.datas)
 				   .Where(s => s[1] != 0)
@@ -164,6 +165,12 @@ namespace SGame
 					if ((type == 0 || type == item.cfg.RoleType) && item.Check()) return true;
 				}
 				return false;
+			}
+
+			public static void CheckDefaultSelect()
+			{
+				if (data.selectID == 0 && "cooker".IsOpend(false)) Select(data.datas.Find(d => d.cfg.RoleType == 1 && d.level == 1));
+				if (data.selectWaiterID == 0 && "waiter".IsOpend(false)) Select(data.datas.Find(d => d.cfg.RoleType == 2 && d.level == 1));
 			}
 
 		}
@@ -192,6 +199,7 @@ namespace SGame
 			datas.ForEach(b => b.Refresh());
 			dataDics = datas.ToDictionary(b => b.id);
 			dataIDs.ForEach(b => DataCenter.WorkerDataUtils.GetData(b));
+
 		}
 
 	}
@@ -262,8 +270,10 @@ namespace SGame
 				return DataCenter.Instance.workerdata.selectWaiterID == this.id;
 		}
 
-		public int GetBuffVal()
+		public int GetBuffVal(bool usedefault = false)
 		{
+			if (usedefault || level <= 1)
+				return cfg.IsValid() ? cfg.Default : 0;
 			return cfg.IsValid() && level > 0 ? (cfg.Default + val) : 0;
 		}
 
@@ -276,7 +286,8 @@ namespace SGame
 				level += 1;
 				if (level == 1)
 					reward = 1;
-				val += SGame.Randoms.Random._R.Next(cfg.Range(0), cfg.Range(1));
+				if (level > 1)
+					val += SGame.Randoms.Random._R.Next(cfg.Range(0), cfg.Range(1));
 				Refresh();
 			}
 			return this;
@@ -295,8 +306,7 @@ namespace SGame
 				{
 					if (level == 0 && cfg.Unlock > 0)
 					{
-						level = 1;
-						reward = 1;
+						level = 1; reward = 1;
 					}
 					lvCfg = ConfigSystem.Instance.Find<WorkerLevelRowData>((c) => c.WorkerId == cfg.RoleType && c.Level == level + 1);
 				}

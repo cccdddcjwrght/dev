@@ -20,8 +20,7 @@ namespace SGame.UI
 			if (_data == null) { DoCloseUIClick(null); return; }
 			_isUnlock = _data.lastLv == 0;
 			m_view.m_type.selectedIndex = _isUnlock ? 0 : 1;
-			m_view.SetWorkerInfo(_data, _isUnlock ? 1 : _data.lastLv);
-			m_view.SetTextByKey("ui_workerup_tips_title");
+			m_view.SetWorkerInfo(_data, _isUnlock ? 1 : _data.lastLv , _isUnlock);
 			time = Time.realtimeSinceStartup + m_view.m_t0.totalDuration;
 		}
 
