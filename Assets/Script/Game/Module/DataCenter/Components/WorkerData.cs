@@ -60,7 +60,7 @@ namespace SGame
 				if (datas?.Count > 0)
 				{
 					return datas
-						.Select(d => new int[] { d.cfg.Buff, d.GetBuffVal() })
+						.Select(d => new int[] { d.cfg.Buff, d.level > 0 ? d.GetBuffVal() : 0 })
 						.GroupBy(v => v[0])
 						.ToDictionary(v => v.Key, v => v.Sum(i => i[1]))
 						.Select(v => new int[] { v.Key, v.Value })
