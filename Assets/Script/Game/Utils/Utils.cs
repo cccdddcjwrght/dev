@@ -1239,5 +1239,24 @@ namespace SGame
 
 			return config.Part;
 		}
+
+		/// <summary>
+		/// 获得工作人员显示皮肤
+		/// </summary>
+		/// <param name="roleType"></param>
+		/// <returns></returns>
+		public static int GetWorkerRoleID(int roleType)
+		{
+			switch (roleType)
+			{
+				case (int)EnumRole.Cook:
+					return DataCenter.Instance.cookerModel;
+
+				case (int)EnumRole.Waiter:
+					return DataCenter.Instance.waiterModel;
+			}
+
+			return 0;
+		}
 	}
 }
