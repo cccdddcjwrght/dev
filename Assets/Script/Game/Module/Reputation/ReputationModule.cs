@@ -1,6 +1,7 @@
 using GameConfigs;
 using log4net;
 using SGame;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,6 +102,13 @@ namespace SGame
                         var reward = DataCenter.LikeUtil.GetItemDrop(i.typeId, i.num);
                         reward.ForEach((r) => PropertyManager.Instance.Update(r.type, r.id, r.num));
                     }
+                    else if (i.itemType == (int)EnumItemType.Chest) 
+                    {
+                        List<EquipmentRowData> _eqs = new List<EquipmentRowData>();
+                        double num = i.num;
+                        GetRandomEqs(i.itemType, out var chest, ref num, _eqs);
+                        DataCenter.EquipUtil.AddEquips(true, _eqs.ToArray());
+                    }
                     else PropertyManager.Instance.Update(1, i.id, i.num);
                 });
                 list.Clear();
@@ -176,7 +184,7 @@ namespace SGame
         //ªÒ»°∫√∆¿
         public bool GetLike(OrderData orderData, int characterId) 
         {
-            int rate = Random.Range(0, 100);
+            int rate = UnityEngine.Random.Range(0, 100);
             var character = CharacterModule.Instance.FindCharacter(characterId);
             ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(character.roleID, out var cfg);
             var isLikeFood = cfg.GetLikeGoodsArray().ToList().Contains(orderData.foodType);
@@ -184,6 +192,33 @@ namespace SGame
                 return rate < cfg.LikeRatio(1);
             else
                 return rate < cfg.LikeRatio(0);
+        }
+
+        private List<EquipmentRowData> GetRandomEqs(int id, out ChestRowData chest, ref double count, List<EquipmentRowData> rets = null)
+        {
+            chest = default;
+            if (id != 0 && ConfigSystem.Instance.TryGet<ChestRowData>(id, out var cfg))
+            {
+                chest = cfg;
+                var weight = cfg.GetQualityWeightArray();
+                var rand = new SGame.Randoms.Random();
+                var acts = (cfg.GetActivityArray() ?? Array.Empty<int>()).ToList();
+                rets = rets ?? new List<EquipmentRowData>();
+
+                for (int i = 0; i < count; i++)
+                {
+                    var ws = rand.NextWeights(weight, cfg.Num, false).GroupBy(v => v);
+                    foreach (var item in ws)
+                    {
+                        var k = item.Key + 1;
+                        var ls = ConfigSystem.Instance.Finds<GameConfigs.EquipmentRowData>(e => e.Quality == k);
+                        var eqs = acts.Count == 0 ? ls : ls.FindAll(e => acts.Contains(e.Activity));
+                        rand.NextItem(eqs, item.Count(), ref rets);
+                    }
+                }
+                return rets;
+            }
+            return default;
         }
     }
 
