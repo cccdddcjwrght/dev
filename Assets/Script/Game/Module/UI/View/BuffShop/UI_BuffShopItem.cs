@@ -12,6 +12,7 @@ namespace SGame.UI.BuffShop
         public GTextField m_value;
         public GTextField m_des;
         public UI_ShopBuffBtn m_click;
+        public Transition m_icon;
         public const string URL = "ui://ay4imj6tq4m88";
 
         public static UI_BuffShopItem CreateInstance()
@@ -28,6 +29,7 @@ namespace SGame.UI.BuffShop
             m_value = (GTextField)GetChildAt(4);
             m_des = (GTextField)GetChildAt(5);
             m_click = (UI_ShopBuffBtn)GetChildAt(6);
+            m_icon = GetTransitionAt(0);
         }
     }
 }

@@ -6,11 +6,15 @@ namespace SGame.UI{
 	using SGame.UI.BuffShop;
     using System.Collections.Generic;
     using GameConfigs;
+    using Unity.Entities;
+    using System;
 
     public partial class UIBuffShop
 	{
 		List<int> randomIds;
 		List<int> fixedIds;
+
+		Entity m_effect = Entity.Null;
 
 		int m_Height = 100;
 		bool playing = false;
@@ -52,12 +56,19 @@ namespace SGame.UI{
 
 			RefreshRandomBtnState();
 			m_forceData = BuffShopModule.Instance.GetForceRandomBuffData();
-			DoRefreshBuffInfo(m_forceData, m_view.m_time, m_view.m_time_bg, m_view.m_time_icon);
+			if (m_forceData == null && m_effect != Entity.Null) 
+			{
+				EffectSystem.Instance.ReleaseEffect(m_effect);
+				m_effect = Entity.Null;
+			}
+
+			DoRefreshBuffInfo(m_forceData, m_view.m_time, m_view.m_time_bg, m_view.m_time_icon, RefreshData);
 
 			randomIds = BuffShopModule.Instance.GetBuffList(1);
 			fixedIds = BuffShopModule.Instance.GetBuffList(2);
 			m_view.m_lotteryList.numItems = randomIds.Count;
 			m_view.m_shopBuffList.numItems = fixedIds.Count;
+
 		}
 
 		void OnLotteryItemRenderer(int index, GObject gObject) 
@@ -70,7 +81,12 @@ namespace SGame.UI{
 			item.SetTextByKey(buffShopConfig.BuffDes, buffShopConfig.BuffId(1), buffShopConfig.BuffTime);
 			item.SetIcon(buffConfig.Icon);
 
-			if (m_forceData?.GetTime() > 0 && !playing) item.m_select.selectedIndex = m_forceData.cfgId == cfgId ? 1 : 0;
+			if (m_forceData?.GetTime() > 0 && !playing) 
+			{ 
+				item.m_select.selectedIndex = m_forceData.cfgId == cfgId ? 1 : 0;
+				if(m_forceData.cfgId == cfgId)
+					m_effect = EffectSystem.Instance.AddEffect(52, item);
+			}
 			else item.m_select.selectedIndex = 0;
 
 		}
@@ -107,20 +123,24 @@ namespace SGame.UI{
 			item.m_click.onClick.Set(()=>RequestExcuteSystem.BuyGoods(buffShopConfig.ShopId, (success)=> 
 			{
 				if (!success) return;
-				if (buffShopConfig.BuffIdLength > 0) BuffShopModule.Instance.AddBoostShopBuff(buffShopCfgId);
+				if (buffShopConfig.BuffIdLength > 0) 
+				{ 
+					BuffShopModule.Instance.AddBoostShopBuff(buffShopCfgId);
+					item.m_icon.Play();
+				}
 				else
 				{
 					var value = BuffShopModule.Instance.GetBuffShopCoin((double)buffShopConfig.Itemid(2));
 					List<int[]> list = new List<int[]>();
-					list.Add(new int[] { 1, 1, (int)value});
-					
+					list.Add(new int[] { 1, 1, (int)value });
+
 					Utils.ShowRewards(list);
 					RefreshData();
 				}
 			}));
 		}
 
-		void DoRefreshBuffInfo(BuffShopData data, GTextField text, GImage border, GImage icon) 
+		void DoRefreshBuffInfo(BuffShopData data, GTextField text, GImage border, GImage icon, Action callback = null) 
 		{
 			var time = data !=null ? data.GetTime() : 0;
 			text.SetText(Utils.FormatTime(time), false);
@@ -133,7 +153,10 @@ namespace SGame.UI{
 				Utils.Timer(time, () =>
 				{
 					text.SetText(Utils.FormatTime(data.GetTime()), false);
-				}, m_view, completed: () => DoRefreshBuffInfo(data, text, border, icon));
+				}, m_view, completed: () => {
+					DoRefreshBuffInfo(data, text, border, icon);
+					callback?.Invoke();
+				});
 			}
 		}
 
@@ -209,10 +232,12 @@ namespace SGame.UI{
             {
                 if (!success) return;
                 var cfgId = BuffShopModule.Instance.GetRandomBuff();
-                PlayLotteryAnim(cfgId);
-
-				RefreshRandomBtnState();
 				BuffShopModule.Instance.AddBoostShopBuff(cfgId, false, false);
+				RefreshRandomBtnState();
+				m_view.m_t0.Play(()=> 
+				{
+					PlayLotteryAnim(cfgId);
+				});
             });
         }
 

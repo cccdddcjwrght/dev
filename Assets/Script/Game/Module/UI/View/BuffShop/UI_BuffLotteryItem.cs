@@ -8,6 +8,7 @@ namespace SGame.UI.BuffShop
     public partial class UI_BuffLotteryItem : GLabel
     {
         public Controller m_select;
+        public GGraph m___effect;
         public const string URL = "ui://ay4imj6tq4m87";
 
         public static UI_BuffLotteryItem CreateInstance()
@@ -20,6 +21,7 @@ namespace SGame.UI.BuffShop
             base.ConstructFromXML(xml);
 
             m_select = GetControllerAt(0);
+            m___effect = (GGraph)GetChildAt(3);
         }
     }
 }
