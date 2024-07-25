@@ -455,6 +455,8 @@ using System.Collections.Generic;
                 float roteY = RandomSystem.Instance.NextInt(0, 360);
                 Quaternion randomRot = Quaternion.Euler(0, roteY, 0);
                 foodTrans.rotation = randomRot;
+
+                ClearPrefectEffect();
             }
             else
             {
@@ -489,7 +491,12 @@ using System.Collections.Generic;
                 m_food = Entity.Null;
             }
 
-            if (m_perfect_eff != Entity.Null) 
+            ClearPrefectEffect();
+        }
+
+        public void ClearPrefectEffect() 
+        {
+            if (m_perfect_eff != Entity.Null)
             {
                 EffectSystem.Instance.CloseEffect(m_perfect_eff);
                 m_perfect_eff = Entity.Null;
