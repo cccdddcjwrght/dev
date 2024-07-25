@@ -54,6 +54,8 @@ namespace SGame.UI
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
 			m_view.m_taskBtn.onClick.Add(OnOpenTaskClick);
+			m_view.m_taskBtn.m_click.onClick.Add(() => DataCenter.TaskMainUtil.autoGet = true);
+
 			m_view.m_Gold.onClick.Add(OnOpenTotalClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
 			m_view.m_btnShop.onClick.Set(()=>((int)FunctionID.SHOP).Goto());
@@ -308,7 +310,8 @@ namespace SGame.UI
 
 		void OnheadBtnClick(EventContext context)
 		{
-			Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));
+			SGame.UIUtils.OpenUI("setting");
+			//Entity popupUI = UIRequest.Create(EntityManager, SGame.UIUtils.GetUI("setting"));
 		}
 
 		Action<bool> m_buffTimer;
