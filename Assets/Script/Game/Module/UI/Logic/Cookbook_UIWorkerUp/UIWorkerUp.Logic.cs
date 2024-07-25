@@ -46,6 +46,7 @@ namespace SGame.UI
 			if (DataCenter.WorkerDataUtils.Select(_data))
 			{
 				DoCloseUIClick(null);
+				SGame.UIUtils.CloseUIByName("cookbook");
 				//SwitchSelectedPage(1);
 			}
 		}
