@@ -1219,5 +1219,25 @@ namespace SGame
 			string path = "Assets/BuildAsset/VisualScript/Prefabs/AI/" + name + ".prefab";
 			return path;
 		}
+
+		/// <summary>
+		/// 通过角色ID 获得身体部件
+		/// </summary>
+		/// <param name="roleID"></param>
+		/// <returns></returns>
+		public static string GetRolePartFromID(int roleID)
+		{
+			string configAI = "";
+			if (!ConfigSystem.Instance.TryGet(roleID, out RoleDataRowData roleData))
+			{
+				throw new Exception("not found roleID=" + roleID);
+			}
+			if (!ConfigSystem.Instance.TryGet(roleData.Model, out roleRowData config))
+			{
+				throw new Exception("not found roleModleID=" + roleData.Model);
+			}
+
+			return config.Part;
+		}
 	}
 }
