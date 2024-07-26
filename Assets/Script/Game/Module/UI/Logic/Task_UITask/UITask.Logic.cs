@@ -19,22 +19,12 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 
 			m_Context = context;
-			context.onShown = OnShown;
 			m_view.m_list.itemRenderer = OnItemRenderer;
 			m_view.m_mask.onClick.Add(DoCloseUIClick);
 
 			m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.MAIN_TASK_UPDATE,(id)=> RefreshTaskData());
 			RefreshTaskData();
 		}
-
-		void OnShown(UIContext context) 
-		{
-			if (DataCenter.TaskMainUtil.autoGet)
-			{
-				m_view.m_btn.FireClick(false, true);
-				DataCenter.TaskMainUtil.autoGet = false;
-			};
-		} 
 
 		public void RefreshTaskData() 
 		{

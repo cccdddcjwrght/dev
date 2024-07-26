@@ -53,8 +53,8 @@ namespace SGame.UI
 			m_view.m_buff.onClick.Add(OnBuffShowTipClick);
 			m_view.m_buff.onFocusOut.Add(OnBuffFoucsOutClick);
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
-			m_view.m_taskBtn.onClick.Add(OnOpenTaskClick);
-			m_view.m_taskBtn.m_click.onClick.Add(() => DataCenter.TaskMainUtil.autoGet = true);
+			m_view.m_taskBtn.GetChild("icon").onClick.Add(OnOpenTaskClick);
+			m_view.m_taskBtn.m_click.onClick.Add(OnTaskFinishClick);
 
 			m_view.m_Gold.onClick.Add(OnOpenTotalClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
@@ -345,6 +345,25 @@ namespace SGame.UI
 		void OnOpenTaskClick() 
 		{
 			SGame.UIUtils.OpenUI("task");
+		}
+
+		void OnTaskFinishClick() 
+		{
+			if (DataCenter.TaskMainUtil.CheckIsGet())
+			{
+				var taskCfgId = DataCenter.TaskMainUtil.GetCurTaskCfgId();
+				ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(taskCfgId, out var cfg);
+				if (cfg.IsValid())
+				{
+					var list = Utils.GetArrayList(true, cfg.GetTaskReward1Array, cfg.GetTaskReward2Array, cfg.GetTaskReward3Array);
+					Utils.ShowRewards(list, () => SGame.UIUtils.OpenUI("task"));
+					DataCenter.TaskMainUtil.FinishTaskId(taskCfgId);
+				}
+			}
+			else
+			{
+				SGame.UIUtils.OpenUI("task");
+			}
 		}
 
 		partial void OnAdBtnClick(EventContext data)

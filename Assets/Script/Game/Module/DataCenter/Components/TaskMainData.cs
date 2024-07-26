@@ -21,7 +21,7 @@ namespace SGame
             static bool isGet = false;
 
             //打开界面是否自动领取奖励
-            public static bool autoGet = false;
+            //public static bool autoGet = false;
 
             /// <summary>
             /// 获取当前任务id
