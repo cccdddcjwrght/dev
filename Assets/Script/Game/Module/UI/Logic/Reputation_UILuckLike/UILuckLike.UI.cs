@@ -19,14 +19,11 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_startBtn, new EventCallback1(_OnStartBtnClick));
 			UIListener.Listener(m_view.m_stopBtn, new EventCallback1(_OnStopBtnClick));
 			UIListener.Listener(m_view.m_tipBtn, new EventCallback1(_OnTipBtnClick));
-			UIListener.ListenerClose(m_view.m_LuckShow.m_mask, new EventCallback1(DoCloseUIClick));
 			m_view.m_LuckShow.m_reward.m_bg.onChanged.Add(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_bgChanged));
 			m_view.m_LuckShow.m_reward.m_color.onChanged.Add(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_colorChanged));
 			UIListener.ListenerIcon(m_view.m_LuckShow.m_reward, new EventCallback1(_OnLuckShow_RewardClick));
 			UIListener.ListenerIcon(m_view.m_LuckShow, new EventCallback1(_OnLuckShowClick));
-			UIListener.ListenerClose(m_view.m_BigLuckShow.m_mask, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_BigLuckShow, new EventCallback1(_OnBigLuckShowClick));
-			UIListener.ListenerClose(m_view.m_LuckHelp.m_mask, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_LuckHelp, new EventCallback1(_OnLuckHelpClick));
 
 		}
@@ -37,14 +34,11 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_startBtn, new EventCallback1(_OnStartBtnClick),remove:true);
 			UIListener.Listener(m_view.m_stopBtn, new EventCallback1(_OnStopBtnClick),remove:true);
 			UIListener.Listener(m_view.m_tipBtn, new EventCallback1(_OnTipBtnClick),remove:true);
-			UIListener.ListenerClose(m_view.m_LuckShow.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_LuckShow.m_reward.m_bg.onChanged.Remove(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_bgChanged));
 			m_view.m_LuckShow.m_reward.m_color.onChanged.Remove(new EventCallback1(_OnLuckRewardItem_LuckShow_reward_colorChanged));
 			UIListener.ListenerIcon(m_view.m_LuckShow.m_reward, new EventCallback1(_OnLuckShow_RewardClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_LuckShow, new EventCallback1(_OnLuckShowClick),remove:true);
-			UIListener.ListenerClose(m_view.m_BigLuckShow.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_BigLuckShow, new EventCallback1(_OnBigLuckShowClick),remove:true);
-			UIListener.ListenerClose(m_view.m_LuckHelp.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_LuckHelp, new EventCallback1(_OnLuckHelpClick),remove:true);
 
 		}

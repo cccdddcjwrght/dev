@@ -7,7 +7,7 @@ namespace SGame.UI.Reputation
 {
     public partial class UI_LuckShow : GLabel
     {
-        public GGraph m_mask;
+        public GGraph m_bg;
         public UI_LuckRewardItem m_reward;
         public const string URL = "ui://vnok3a308z8h1j";
 
@@ -20,7 +20,7 @@ namespace SGame.UI.Reputation
         {
             base.ConstructFromXML(xml);
 
-            m_mask = (GGraph)GetChildAt(0);
+            m_bg = (GGraph)GetChildAt(0);
             m_reward = (UI_LuckRewardItem)GetChildAt(1);
         }
     }
