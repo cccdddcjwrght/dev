@@ -12,7 +12,7 @@ namespace SGame.UI
 		private UI_OpenAnim openAnim;
 		private bool flag;
 
-		int[] soundIDs = new int[] { 35,36,37,38,39 };
+		int[] soundIDs = new int[] { 35,50 };
 
 		partial void InitLogic(UIContext context)
 		{
@@ -69,11 +69,11 @@ namespace SGame.UI
 					}
 				}
 
-				foreach (var item in soundIDs)
+				for (int i = soundIDs[0]; i <= soundIDs[1];i++)
 				{
 					try
 					{
-						openAnim.m_openanim2.SetHook("sound" + item, ()=> DoPlaySound(item));
+						openAnim.m_openanim2.SetHook("sound" + i, ()=> DoPlaySound(i));
 					}
 					catch (System.Exception e)
 					{
