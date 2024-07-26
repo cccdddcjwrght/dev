@@ -814,7 +814,7 @@ namespace SGame
 
 		public int GetAttrVal(bool needlv = true , int lv = 0)
 		{
-			lv = (lv > 0 ? level : lv) - 1;
+			lv = (lv > 0 ? lv : level) - 1;
 			return _baseAttrVal + (needlv && qcfg.IsValid() ? qcfg.MainBuffAdd * lv : 0);
 
 		}
