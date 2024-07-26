@@ -447,9 +447,12 @@ namespace SGame.UI
 		void RefreshMergeState()
 		{
 			var index = DataCenter.Instance.equipData.canMerge ? 1 : 0;
-			m_view.m_canmerge.selectedIndex = index;
 			if (m_view.m_eqTab.selectedIndex == 1) index = 0;
 			m_view.m_equipup.m___redpoint.selectedIndex = index;
+
+			index =  DataCenter.Instance.equipData.canAutoMerge ? 2 : index;
+			m_view.m_canmerge.selectedIndex = index;
+
 		}
 
 		void HideRed(GObject gObject, EquipItem data)

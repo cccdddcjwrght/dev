@@ -43,28 +43,31 @@ namespace SGame
 		{
 			equips = null;
 			recycle = 0D;
-			var list = DataCenter.EquipUtil.GetCombineList();
-			if (list?.Count > 0)
+			if (DataCenter.Instance.equipData.canAutoMerge)
 			{
-				equips = new List<BaseEquip>();
-				foreach (var item in list)
+				var list = DataCenter.EquipUtil.GetCombineList(-DataCenter.EquipUtil.c_max_auto_merge_quality);
+				if (list?.Count > 0)
 				{
-					if (item.Count > 0)
+					equips = new List<BaseEquip>();
+					foreach (var item in list)
 					{
-						var eq = item[0];
-						item.RemoveAt(0);
-						if (EquipUpQuality(eq as EquipItem, item, out recycle, trigger: false))
-							equips.Add(eq);
+						if (item.Count > 0)
+						{
+							var eq = item[0];
+							item.RemoveAt(0);
+							if (EquipUpQuality(eq as EquipItem, item, out recycle, trigger: false))
+								equips.Add(eq);
+						}
 					}
+					DataCenter.EquipUtil.CheckCanMerge();
+					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
+					return equips.Count > 0;
 				}
-				DataCenter.EquipUtil.CheckCanMerge();
-				EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
-				return equips.Count > 0;
 			}
 			return false;
 		}
 
-		static public double EquipUpLevel(EquipItem equip , out bool success)
+		static public double EquipUpLevel(EquipItem equip, out bool success)
 		{
 			success = false;
 			if (equip != null && !equip.IsMaxLv() && Utils.CheckItemCount(ConstDefine.EQUIP_UPLV_MAT, equip.upLvCost))

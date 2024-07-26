@@ -15,6 +15,7 @@ namespace SGame
 		public static class EquipUtil
 		{
 			readonly static int EQ_FROM_ID = (int)EnumFrom.Equipment;
+			static public int c_max_auto_merge_quality = 0;
 
 			private static EquipData _data { get { return Instance.equipData; } }
 			private static StringBuilder _sb = new StringBuilder();
@@ -25,6 +26,7 @@ namespace SGame
 
 				_data.items?.ForEach(e => e.Refresh());
 				_data.equipeds.Foreach(e => e?.Refresh());
+				c_max_auto_merge_quality = GlobalDesginConfig.GetInt("equip_automerge_max", 0);
 				StaticDefine.EQUIP_MAX_LEVEL = ConfigSystem.Instance.GetConfigCount(typeof(EquipUpLevelCost));
 				CheckCanMerge();
 			}
@@ -487,20 +489,24 @@ namespace SGame
 				return num;
 			}
 
-			static public List<List<EquipItem>> GetCombineList(int qualitymask = -1, bool ischeck = false, bool ignoreselected = false)
+			static public List<List<EquipItem>> GetCombineList(int qualitymask = 0, bool ischeck = false, bool ignoreselected = false, bool checkauto = false)
 			{
 				if (_data.items.Count > 1)
 				{
-					_data.items.ForEach(i => i.upflag = 0);
+					//_data.items.ForEach(i => i.upflag = 0);
 					List<List<EquipItem>> rets = new List<List<EquipItem>>();
+					var flag = false;
 					for (int i = (int)EnumQuality.Max - 1; i > 0; i--)
 					{
-						if (qualitymask < 0 || i.IsInState(qualitymask))
+						if (qualitymask == 0 || (qualitymask < 0 && i <= -qualitymask) || (qualitymask > 0 && i.IsInState(qualitymask)))
 						{
-							GetCombineListByQuality(i, ref rets, ignoreselected);
+							var ret = GetCombineListByQuality(i, ref rets, ignoreselected);
 							if (ischeck && rets.Count > 0) return rets;
+							if (!ischeck && checkauto && ret && !flag && c_max_auto_merge_quality >= i)
+								flag = true;
 						}
 					}
+					if (flag) rets.Add(null);
 					return rets;
 				}
 				return default;
@@ -553,6 +559,7 @@ namespace SGame
 				if (quality > 0 && quality < ((int)EnumQuality.Max))
 				{
 					var eqs = _data.items.FindAll(FindConditon);
+					var ret = false;
 					if (eqs?.Count > 0)
 					{
 						if (eqs.Count > 1) eqs.Sort(SortEqLevel);
@@ -592,9 +599,10 @@ namespace SGame
 							{
 								packs.Insert(0, eq);
 								list.Add(packs);
+								ret = true;
 							}
 						}
-						return list.Count > 0;
+						return ret;
 					}
 				}
 				return false;
@@ -667,8 +675,12 @@ namespace SGame
 
 			static public void CheckCanMerge()
 			{
-				var rets = GetCombineList(ignoreselected: true);
+				var rets = GetCombineList(ignoreselected: true , checkauto:true);
 				_data.canMerge = rets?.Count > 0;
+				if (_data.canMerge)
+					_data.canAutoMerge = c_max_auto_merge_quality > 0 ? rets[rets.Count - 1] == null : true;
+				else
+					_data.canAutoMerge = false;
 			}
 
 		}
@@ -706,6 +718,8 @@ namespace SGame
 		public Dictionary<string, string> defaultEquipPart;
 		[NonSerialized]
 		public bool canMerge;
+		[NonSerialized]
+		public bool canAutoMerge;
 	}
 
 	public class BaseEquip
@@ -812,7 +826,7 @@ namespace SGame
 			return this;
 		}
 
-		public int GetAttrVal(bool needlv = true , int lv = 0)
+		public int GetAttrVal(bool needlv = true, int lv = 0)
 		{
 			lv = (lv > 0 ? lv : level) - 1;
 			return _baseAttrVal + (needlv && qcfg.IsValid() ? qcfg.MainBuffAdd * lv : 0);

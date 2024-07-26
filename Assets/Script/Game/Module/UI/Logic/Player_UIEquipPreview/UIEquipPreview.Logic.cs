@@ -27,7 +27,7 @@ namespace SGame.UI
 			SetChangeInfo(m_view.m_main, equip.GetAttrVal(true, equip.qcfg.LevelMax) + "%", next.GetAttrVal(true, equip.qcfg.LevelMax) + "%");
 
 			var buff = DataCenter.EquipUtil.GetQualityUnlockBuff(equip.cfg, quality);
-			m_view.m_attr.SetBuffItem(buff, next.qType, false, usecolor: false);
+			m_view.m_attr.SetBuffItem(buff, next.qType, false , type:3, usecolor: false);
 
 		}
 
