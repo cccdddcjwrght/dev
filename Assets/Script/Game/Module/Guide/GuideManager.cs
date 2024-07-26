@@ -25,10 +25,10 @@ namespace SGame
 
         public void Initalize() 
         {
+            EventManager.Instance.Reg<int>((int)GameEvent.GUIDE_FINISH, FinishGuide);
 #if GAME_GUIDE
             if (Game.Instance.enableGuide)
             {
-                EventManager.Instance.Reg<int>((int)GameEvent.GUIDE_FINISH, FinishGuide);
                 EventManager.Instance.Reg<int>((int)GameEvent.AFTER_ENTER_ROOM, (s) =>
                 {
                     FindRecruit().Start();
