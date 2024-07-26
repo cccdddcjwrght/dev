@@ -158,6 +158,56 @@ namespace SGame
             {
                 return isGet;
             }
+
+            //获取当前关卡未完成的所有任务奖励
+            public static List<int[]> GetRoomAllTaskReward() 
+            {
+                List<int[]> list = new List<int[]>();
+                var roomID = DataCenter.Instance.roomData.roomID;
+                var configs = ConfigSystem.Instance.Finds<GameConfigs.MainTaskRowData>((v) => v.LevelTag == roomID);
+                var curCfgId = GetCurTaskCfgId();
+
+                for (int i = 0; i < configs.Count; i++)
+                {
+                    var config = configs[i];
+                    if (config.Id >= curCfgId) 
+                    {
+                        var rewardList = Utils.GetArrayList(true, config.GetTaskReward1Array, config.GetTaskReward2Array, config.GetTaskReward3Array);
+                        rewardList.ForEach((r) =>
+                        {
+                            var index = list.FindIndex((v) => v[0] == r[0] && v[1] == r[1]);
+                            if (index == -1) list.Add(r);
+                            else list[index][2] += r[2];
+                        });
+                    }
+                }
+                return list;
+            }
+
+            public static void SkipNextRoomTask() 
+            {
+                var roomID = DataCenter.Instance.roomData.roomID;
+                var configs = ConfigSystem.Instance.Finds<GameConfigs.MainTaskRowData>((v) => v.LevelTag == roomID);
+                var nextCfgId = configs[configs.Count - 1].Id + 1;
+                var curCfgId = DataCenter.Instance.taskMainData.cfgId;
+                DataCenter.Instance.taskMainData.cfgId = nextCfgId;
+
+                EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_UPDATE, -1);
+            }
+
+            public static void UpdateRoomTaskReward() 
+            {
+                if (DataCenter.MachineUtil.CheckAllWorktableIsMaxLv()) 
+                {
+                    var list = GetRoomAllTaskReward();
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        var v = list[i];
+                        PropertyManager.Instance.Update(v[0], v[1], v[2]);
+                    }
+                    SkipNextRoomTask();
+                }
+            }
         }
     }
 

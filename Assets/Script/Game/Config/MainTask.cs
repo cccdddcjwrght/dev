@@ -78,6 +78,7 @@ public struct MainTaskRowData : IFlatbufferObject
   public byte[] GetIconArray() { return __p.__vector_as_array<byte>(22); }
   public int GuideId { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int EffectType { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int LevelTag { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.MainTaskRowData> CreateMainTaskRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -91,8 +92,10 @@ public struct MainTaskRowData : IFlatbufferObject
       VectorOffset TaskReward4Offset = default(VectorOffset),
       StringOffset IconOffset = default(StringOffset),
       int GuideId = 0,
-      int EffectType = 0) {
-    builder.StartTable(12);
+      int EffectType = 0,
+      int LevelTag = 0) {
+    builder.StartTable(13);
+    MainTaskRowData.AddLevelTag(builder, LevelTag);
     MainTaskRowData.AddEffectType(builder, EffectType);
     MainTaskRowData.AddGuideId(builder, GuideId);
     MainTaskRowData.AddIcon(builder, IconOffset);
@@ -108,7 +111,7 @@ public struct MainTaskRowData : IFlatbufferObject
     return MainTaskRowData.EndMainTaskRowData(builder);
   }
 
-  public static void StartMainTaskRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
+  public static void StartMainTaskRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddTaskDes(FlatBufferBuilder builder, StringOffset TaskDesOffset) { builder.AddOffset(1, TaskDesOffset.Value, 0); }
   public static void AddTaskType(FlatBufferBuilder builder, int TaskType) { builder.AddInt(2, TaskType, 0); }
@@ -136,6 +139,7 @@ public struct MainTaskRowData : IFlatbufferObject
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(9, IconOffset.Value, 0); }
   public static void AddGuideId(FlatBufferBuilder builder, int GuideId) { builder.AddInt(10, GuideId, 0); }
   public static void AddEffectType(FlatBufferBuilder builder, int EffectType) { builder.AddInt(11, EffectType, 0); }
+  public static void AddLevelTag(FlatBufferBuilder builder, int LevelTag) { builder.AddInt(12, LevelTag, 0); }
   public static Offset<GameConfigs.MainTaskRowData> EndMainTaskRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.MainTaskRowData>(o);

@@ -83,6 +83,7 @@ namespace SGame
                 EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TIP, DataCenter.Instance.m_foodTipsCount);
                 DataCenter.Instance.m_foodTipsCount = 0;
             });
+            m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) => DataCenter.TaskMainUtil.UpdateRoomTaskReward());
             InitData();
         }
 

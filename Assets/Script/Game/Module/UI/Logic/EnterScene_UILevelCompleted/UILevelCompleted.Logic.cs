@@ -47,7 +47,13 @@ namespace SGame.UI
 			PropertyManager.Instance.CombineCache2Items();
 			DelayExcuter.Instance.DelayOpen(null, "mainui", true, () =>
 			{
-				SGame.UIUtils.OpenUI("enterscenetemp");
+				var list = DataCenter.TaskMainUtil.GetRoomAllTaskReward();
+				if (list.Count > 0) 
+				{
+					Utils.ShowRewards(list, () => SGame.UIUtils.OpenUI("enterscenetemp"), "@ui_taskreward_title");
+					DataCenter.TaskMainUtil.SkipNextRoomTask();	
+				}
+				else SGame.UIUtils.OpenUI("enterscenetemp");
 				//SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.roomID + 1);
 			});
 			m_view.m_body.m_click.touchable = false;
