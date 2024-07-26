@@ -12,6 +12,7 @@ namespace SGame.UI.Player
         public Controller m_combine;
         public Controller m_canmerge;
         public UI_Equip m_nexteq;
+        public UI_attrlabel m_attr;
         public GButton m_click;
         public GList m_list;
         public GTextField m_nextattr;
@@ -34,7 +35,8 @@ namespace SGame.UI.Player
             m_type = GetControllerAt(1);
             m_combine = GetControllerAt(2);
             m_canmerge = GetControllerAt(3);
-            m_nexteq = (UI_Equip)GetChildAt(3);
+            m_nexteq = (UI_Equip)GetChildAt(2);
+            m_attr = (UI_attrlabel)GetChildAt(3);
             m_click = (GButton)GetChildAt(4);
             m_list = (GList)GetChildAt(5);
             m_nextattr = (GTextField)GetChildAt(9);

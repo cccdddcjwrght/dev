@@ -18,13 +18,36 @@ namespace SGame
 
 			private static EquipData _data { get { return Instance.equipData; } }
 			private static StringBuilder _sb = new StringBuilder();
+			private static List<int> _unlockQualityDic;
 
 			static public void Init()
 			{
+
 				_data.items?.ForEach(e => e.Refresh());
 				_data.equipeds.Foreach(e => e?.Refresh());
 				StaticDefine.EQUIP_MAX_LEVEL = ConfigSystem.Instance.GetConfigCount(typeof(EquipUpLevelCost));
 				CheckCanMerge();
+			}
+
+			static public void InitQuality()
+			{
+				if (_unlockQualityDic == null)
+				{
+					_unlockQualityDic = new List<int>();
+					var ls = ConfigSystem.Instance.Finds<EquipQualityRowData>(q => q.BuffNum > 0);
+					if (ls?.Count > 0)
+					{
+						var num = 0;
+						foreach (var item in ls)
+						{
+							if (item.BuffNum > num)
+							{
+								_unlockQualityDic.Add(item.Id);
+								num = item.BuffNum;
+							}
+						}
+					}
+				}
 			}
 
 			static public void InitEquipEffects()
@@ -121,42 +144,11 @@ namespace SGame
 				if (equip != null && equip.cfg.IsValid())
 				{
 					rets = rets ?? new List<int[]>();
-#if ENABLE_BUFF
-					if (equip.effectID > 0) 
-						rets.AddRange(equip.GetEffects(valid));
-#endif
+					var es = equip.GetEffects(valid);
+					if (es?.Count > 0) rets.AddRange(es);
 					if (needmain && equip.attrID > 0)
 						rets.Add(new int[] { equip.attrID, equip.attrVal });
 				}
-				return rets;
-			}
-
-			static public List<int[]> GetEquipEffects(GameConfigs.EquipmentRowData equipment, int quality = 0, bool needMainBuff = false, List<int[]> rets = null)
-			{
-				/*if (equipment.IsValid())
-				{
-					quality = quality > 0 ? quality : equipment.Quality;
-
-					var list = rets ?? new List<int[]>();
-					if (quality > 1 && equipment.Buff1Length > 0)
-						list.Add(equipment.GetBuff1Array());
-					if (quality > 2 && equipment.Buff2Length > 0)
-						list.Add(equipment.GetBuff2Array());
-					if (quality > 3 && equipment.Buff3Length > 0)
-						list.Add(equipment.GetBuff3Array());
-					if (quality > 4 && equipment.Buff4Length > 0)
-						list.Add(equipment.GetBuff4Array());
-					if (quality > 5 && equipment.Buff5Length > 0)
-						list.Add(equipment.GetBuff5Array());
-
-
-					if (needMainBuff)
-					{
-						if (ConfigSystem.Instance.TryGet<EquipQualityRowData>(quality, out var cfg))
-							list.Add(cfg.GetMainBuffArray());
-					}
-					return list;
-				}*/
 				return rets;
 			}
 
@@ -627,6 +619,32 @@ namespace SGame
 					qType -= 5;
 			}
 
+			static public int[] GetQualityUnlockBuff(EquipmentRowData equipment, int quality)
+			{
+
+				if (equipment.IsValid() && quality > 0)
+				{
+					InitQuality();
+					var index = _unlockQualityDic.IndexOf(quality);
+					if (index >= 0)
+					{
+						var buff = new int[2];
+						Array.Copy(equipment.GetBuffArray(), index * 2, buff, 0, 2);
+						return buff;
+					}
+				}
+				return default;
+
+			}
+
+			static public int GetBuffUnlockQuality(int index)
+			{
+				InitQuality();
+				if (index >= 0 && index < _unlockQualityDic.Count)
+					return _unlockQualityDic[index];
+				return 0;
+			}
+
 			static private void OnRoleEquipChange(bool remove = false)
 			{
 				EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = EQ_FROM_ID });
@@ -744,6 +762,7 @@ namespace SGame
 		private Dictionary<string, string> _partData;
 		private int _baseAttrVal;
 		private List<int[]> _effects;
+		private List<int[]> _vEffects;
 
 		public virtual BaseEquip UpQuality(int nextquality = -1)
 		{
@@ -787,24 +806,16 @@ namespace SGame
 				{
 					DataCenter.EquipUtil.ConvertQuality(quality, out qType, out qStep);
 					this.level = Math.Max(1, this.level);
-					//屏蔽词条
-#if !ENABLE_BUFF
-					_effects = _effects ?? new List<int[]>();
-					effectID = 1;
-#else
-					if (effectID == 0)
-						effectID = DataCenter.EquipUtil.RandomEffects(this.cfg.Type, out _effects);
-					else if (_effects == null)
-						_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);
-#endif
+					ConvertBuff();
 				}
 			}
 			return this;
 		}
 
-		public int GetAttrVal(bool needlv = true)
+		public int GetAttrVal(bool needlv = true , int lv = 0)
 		{
-			return _baseAttrVal + (needlv && qcfg.IsValid() ? qcfg.MainBuffAdd * (level - 1) : 0);
+			lv = (lv > 0 ? level : lv) - 1;
+			return _baseAttrVal + (needlv && qcfg.IsValid() ? qcfg.MainBuffAdd * lv : 0);
 
 		}
 
@@ -858,12 +869,9 @@ namespace SGame
 
 		public List<int[]> GetEffects(bool valid = false)
 		{
-#if ENABLE_BUFF
-			if (_effects == null && effectID > 0)
-				_effects = DataCenter.EquipUtil.ConvertId2Effects(type, effectID);//屏蔽词条
-			if (valid && _effects != null && _effects.Count > 0)
-				return _effects.Take(quality - 1).ToList(); 
-#endif
+			ConvertBuff();
+			if (valid)
+				return _vEffects;
 			return _effects;
 		}
 
@@ -899,6 +907,30 @@ namespace SGame
 				_effects = _effects
 			};
 		}
+
+		private void ConvertBuff()
+		{
+			if (cfg.IsValid() && cfg.BuffLength > 1)
+			{
+				if (_effects?.Count > 0) return;
+				_effects = new List<int[]>();
+				for (int i = 0; i < cfg.BuffLength; i += 2)
+					_effects.Add(new int[] { cfg.Buff(i), cfg.Buff(i + 1) });
+			}
+			else
+				_effects = _effects ?? new List<int[]>();
+
+			if (_vEffects == null || _vEffects.Count != qcfg.BuffNum)
+			{
+				if (_effects.Count < qcfg.BuffNum)
+				{
+					UnityEngine.Debug.LogError($"装备{cfgID}: buff数量不满足品质设置数量");
+					return;
+				}
+				_vEffects = _effects.Take(qcfg.BuffNum).ToList();
+			}
+		}
+
 	}
 
 	[Serializable]

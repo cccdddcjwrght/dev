@@ -8,13 +8,16 @@ using FairyGUI;
 
 partial class UIListenerExt
 {
-	public static void SetBuffItem(this GObject gObject, int[] cfg, int quality, bool islock = false, int type = 0, int add = 0, bool appendadd = false)
+	public static void SetBuffItem(this GObject gObject, int[] cfg, int quality,
+		bool islock = false, int type = 0, int add = 0, bool appendadd = false,
+		bool usecolor = true
+	)
 	{
 		if (gObject != null && cfg != null && cfg.Length > 0 && ConfigSystem.Instance.TryGet<BuffRowData>(cfg[0], out var buff))
 		{
 			double v = cfg[1];
 			v = appendadd ? v + add : v;
-			gObject.SetText(buff.Describe.Local(null, $" [color=#05de6d]{v}" ), false);
+			gObject.SetText(buff.Describe.Local(null, usecolor ? $" [color=#05de6d]{v}" : v), false);
 			gObject.SetIcon(buff.Icon);
 			//UIListener.SetTextWithName(gObject, "add", $"+{add}%", false);
 			//UIListener.SetControllerSelect(gObject, "addstate", add != 0 ? 1 : 0, false);

@@ -99,6 +99,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("WorkerFirstGetUI", "Cookbook", ()=>new UIWorkerFirstGet());
 			context.uiModule.Reg("WorkerCollectPropertyUI", "Cookbook", ()=>new UIWorkerCollectProperty());
 			context.uiModule.Reg("WorkerUpUI", "Cookbook", ()=>new UIWorkerUp());
+			context.uiModule.Reg("EquipPreviewUI", "Player", ()=>new UIEquipPreview());
 		}
 	}
 }

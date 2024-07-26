@@ -23,6 +23,7 @@ namespace SGame.UI.Player
         public GTextField m_qualitytips;
         public GTextField m_cost;
         public GLoader m_item;
+        public GList m_attrs;
         public GButton m_click;
         public GButton m_up;
         public GButton m_click2;
@@ -46,18 +47,19 @@ namespace SGame.UI.Player
             m_part = GetControllerAt(5);
             m_maskbg = (GGraph)GetChildAt(0);
             m_body = (GLabel)GetChildAt(1);
-            m_levelpstr = (GTextField)GetChildAt(5);
-            m_attr = (GTextField)GetChildAt(7);
-            m___attr = (GTextField)GetChildAt(8);
-            m_nextlvattr = (GTextField)GetChildAt(9);
-            m_func = (GButton)GetChildAt(11);
-            m_qualitytips = (GTextField)GetChildAt(15);
-            m_cost = (GTextField)GetChildAt(16);
-            m_item = (GLoader)GetChildAt(17);
-            m_click = (GButton)GetChildAt(18);
-            m_up = (GButton)GetChildAt(19);
-            m_click2 = (GButton)GetChildAt(20);
-            m___effect = (GGraph)GetChildAt(21);
+            m_levelpstr = (GTextField)GetChildAt(6);
+            m_attr = (GTextField)GetChildAt(8);
+            m___attr = (GTextField)GetChildAt(9);
+            m_nextlvattr = (GTextField)GetChildAt(10);
+            m_func = (GButton)GetChildAt(18);
+            m_qualitytips = (GTextField)GetChildAt(20);
+            m_cost = (GTextField)GetChildAt(22);
+            m_item = (GLoader)GetChildAt(23);
+            m_attrs = (GList)GetChildAt(26);
+            m_click = (GButton)GetChildAt(28);
+            m_up = (GButton)GetChildAt(29);
+            m_click2 = (GButton)GetChildAt(30);
+            m___effect = (GGraph)GetChildAt(31);
         }
     }
 }

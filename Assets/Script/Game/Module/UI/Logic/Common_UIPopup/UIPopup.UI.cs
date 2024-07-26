@@ -43,6 +43,8 @@ namespace SGame.UI{
 		}
 		partial void OnHidecloseChanged(EventContext data);
 		void SwitchHideclosePage(int index)=>m_view.m_hideclose.selectedIndex=index;
+		void SetTextText(string data)=>UIListener.SetText(m_view.m_text,data);
+		string GetTextText()=>UIListener.GetText(m_view.m_text);
 		void _OnCloseBtn_TypeChanged(EventContext data){
 			OnCloseBtn_TypeChanged(data);
 		}

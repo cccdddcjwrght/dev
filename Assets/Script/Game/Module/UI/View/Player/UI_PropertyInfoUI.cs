@@ -23,7 +23,7 @@ namespace SGame.UI.Player
 
             m_mask = (GGraph)GetChildAt(0);
             m_body = (GLabel)GetChildAt(1);
-            m_list = (GList)GetChildAt(5);
+            m_list = (GList)GetChildAt(6);
         }
     }
 }

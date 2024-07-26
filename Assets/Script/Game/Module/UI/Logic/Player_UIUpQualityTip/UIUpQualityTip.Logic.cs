@@ -30,8 +30,23 @@ namespace SGame.UI
 			m_view.m_body.m_equip.SetEquipInfo(equip, true);
 			m_view.m_body.m_state.selectedIndex = recycle > 0 ? 1 : 0;
 			m_view.m_body.m_recycle.SetText("ui_equip_upquality_recycle".Local(null, recycle), false);
+			SetBuff(equip);
+
+
 			UIListener.Listener(m_view, new EventCallback1(OnClick));
 			Effect().Start();
+		}
+
+		void SetBuff(BaseEquip equip)
+		{
+			var attr = m_view.m_body.m_attr;
+			var buff = DataCenter.EquipUtil.GetQualityUnlockBuff(equip.cfg, equip.quality);
+			attr.visible = false;
+			if (buff != null)
+			{
+				attr.visible = true;
+				attr.SetBuffItem(buff, equip.qType, type: 1, usecolor: false);
+			}
 		}
 
 		IEnumerator Effect()

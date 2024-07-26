@@ -13,6 +13,7 @@ namespace SGame.UI
 	using System.Collections;
 	using SGame.UI.Common;
 	using Unity.Entities.UniversalDelegates;
+	using SGame.UI.Pet;
 
 	public partial class UIPlayer
 	{
@@ -41,8 +42,8 @@ namespace SGame.UI
 			m_view.m_eqTab.selectedIndex = 0;
 			OnDataRefresh(false);
 
+			m_view.m_body.SetCurrency(2, "currency");
 			m_view.m_equipup.onClick.AddCapture(OnCheckTabOpen);
-
 
 		}
 
@@ -125,13 +126,23 @@ namespace SGame.UI
 		private void SetQualityNextInfo()
 		{
 			const string pstr = "+ {0}%";
-
+			var attr = m_view.m_EquipQuality.m_attr;
 			var next = _current.Clone().UpQuality();
+			var quality = next.quality;
+			var qt = next.qType;
 			next.level = 1;
 
 			m_view.m_EquipQuality.m_nexteq.SetEquipInfo(next, true);
 			m_view.m_EquipQuality.m_curattr.SetText(string.Format(pstr, _current.GetAttrVal(false)), false);
 			m_view.m_EquipQuality.m_nextattr.SetText(string.Format(pstr, next.GetAttrVal(false)), false);
+
+			var buff = DataCenter.EquipUtil.GetQualityUnlockBuff(_current.cfg, quality);
+			attr.visible = false;
+			if (buff != null)
+			{
+				attr.visible = true;
+				attr.SetBuffItem(buff, qt, type: 1, usecolor: false);
+			}
 
 		}
 

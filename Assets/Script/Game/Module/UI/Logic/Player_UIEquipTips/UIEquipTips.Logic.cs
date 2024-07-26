@@ -81,7 +81,22 @@ namespace SGame.UI
 
 		void SetEffectsInfo()
 		{
+			m_view.m_attrs.RemoveChildrenToPool();
+			var buffs = equip.GetEffects();
+			if (buffs?.Count > 0)
+			{
+				m_view.m_attrs.scrollPane.touchEffect = buffs.Count > 5;
+				SGame.UIUtils.AddListItems(m_view.m_attrs, buffs, SetEffect);
+			}
+		}
 
+		void SetEffect(int index, object data, GObject gObject)
+		{
+			var q = DataCenter.EquipUtil.GetBuffUnlockQuality(index);
+			DataCenter.EquipUtil.ConvertQuality(q, out var qt, out var qs);
+			gObject.SetBuffItem(data as int[], qt, equip.quality < q, usecolor: false);
+			(gObject as UI_attrlabel).m_info.onClick.Clear();
+			(gObject as UI_attrlabel).m_info.onClick.Add(() => SGame.UIUtils.OpenUI("eqpreview", equip, q));
 		}
 
 		void SetSimpleInfo(bool uplv = true)

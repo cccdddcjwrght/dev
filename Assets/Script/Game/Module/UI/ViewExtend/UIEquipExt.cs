@@ -177,14 +177,17 @@ namespace SGame.UI.Player
 {
 	partial class UI_attrlabel
 	{
-		public UI_attrlabel SetInfo(BaseEquip equip, int quality = 0, bool checklock = false)
+		public UI_attrlabel SetInfo(BaseEquip equip, int index, int quality = 0, bool checklock = false)
 		{
 			quality = (quality == 0 ? equip.quality : quality);
 			if (equip.cfgID > 0 && quality >= 0)
 			{
-				var index = quality - 2;
 				if (index >= 0)
-					SetInfo(equip.GetEffects()[index], quality, checklock ? quality > equip.quality : false);
+				{
+					var es = equip.GetEffects();
+					if (es?.Count >= index)
+						SetInfo(es[index], quality, checklock ? quality > equip.quality : false);
+				}
 			}
 			return this;
 		}

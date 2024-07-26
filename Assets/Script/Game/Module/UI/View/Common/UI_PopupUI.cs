@@ -12,6 +12,7 @@ namespace SGame.UI.Common
         public Controller m_hideclose;
         public GGraph m_closeBg;
         public GLoader m_bg;
+        public GTextField m_text;
         public UI_CloseBtn m_close;
         public const string URL = "ui://2w8thcm7k0s63lam";
 
@@ -29,7 +30,8 @@ namespace SGame.UI.Common
             m_hideclose = GetControllerAt(2);
             m_closeBg = (GGraph)GetChildAt(0);
             m_bg = (GLoader)GetChildAt(1);
-            m_close = (UI_CloseBtn)GetChildAt(5);
+            m_text = (GTextField)GetChildAt(5);
+            m_close = (UI_CloseBtn)GetChildAt(6);
         }
     }
 }

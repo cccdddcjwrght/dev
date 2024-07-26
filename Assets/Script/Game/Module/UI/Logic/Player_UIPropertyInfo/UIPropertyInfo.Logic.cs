@@ -24,7 +24,8 @@ namespace SGame.UI
 			_mainVal = DataCenter.EquipUtil.GetRoleEquipAddValue(roleData?.equips);
 			_effects = DataCenter.EquipUtil.GetEquipEffects(roleData?.equips,pack:true);
 
-			m_view.SetTextByKey("ui_player_base_attr", _mainVal);
+			m_view.SetText($"+{_mainVal}%");
+			m_view.m_list.RemoveChildrenToPool();
 			m_view.m_list.itemRenderer = OnSetInfo;
 			m_view.m_list.numItems = _effects == null ? 0 : _effects.Count;
 		}
@@ -33,7 +34,10 @@ namespace SGame.UI
 		{
 			var cfg = _effects[index];
 			if (ConfigSystem.Instance.TryGet<BuffRowData>(cfg[0], out var buff))
+			{
+				UIListener.SetControllerSelect(gObject, "type", 2);
 				gObject.SetTextByKey(buff.Describe, cfg[1]);
+			}
 		}
 
 		partial void UnInitLogic(UIContext context)

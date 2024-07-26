@@ -9,6 +9,9 @@ namespace SGame.UI.Player
     {
         public Controller m_quality;
         public Controller m_lock;
+        public Controller m_type;
+        public GRichTextField m___title;
+        public GButton m_info;
         public const string URL = "ui://cmw7t1elw46k1j";
 
         public static UI_attrlabel CreateInstance()
@@ -22,6 +25,9 @@ namespace SGame.UI.Player
 
             m_quality = GetControllerAt(0);
             m_lock = GetControllerAt(1);
+            m_type = GetControllerAt(2);
+            m___title = (GRichTextField)GetChildAt(2);
+            m_info = (GButton)GetChildAt(4);
         }
     }
 }
