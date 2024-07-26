@@ -12,6 +12,8 @@ namespace SGame.UI
 		private UI_OpenAnim openAnim;
 		private bool flag;
 
+		int[] soundIDs = new int[] { 35,36,37,38,39 };
+
 		partial void InitLogic(UIContext context)
 		{
 
@@ -40,6 +42,7 @@ namespace SGame.UI
 					SetHook();
 					openAnim.visible = true;
 					openAnim.m_openanim2.Play(() => OnAnimCompleted().Start());
+					34.ToAudioID().PlayAudio();
 				});
 			}
 		}
@@ -65,6 +68,18 @@ namespace SGame.UI
 						log.Warn(e.Message);
 					}
 				}
+
+				foreach (var item in soundIDs)
+				{
+					try
+					{
+						openAnim.m_openanim2.SetHook("sound" + item, ()=> DoPlaySound(item));
+					}
+					catch (System.Exception e)
+					{
+						log.Warn(e.Message);
+					}
+				}
 			}
 		}
 
@@ -75,6 +90,12 @@ namespace SGame.UI
 				openAnim.m_openanim2.SetPaused(true);
 				LockUI(true, 0.5f);
 			}
+		}
+
+		private void DoPlaySound(int id) {
+
+			id.ToAudioID().PlayAudio();
+
 		}
 
 		private void DoContinue()
@@ -103,6 +124,7 @@ namespace SGame.UI
 
 		IEnumerator OnAnimCompleted()
 		{
+			40.ToAudioID().PlayAudio();
 			yield return new WaitForSeconds(1f);
 			StaticDefine.G_WAIT_WELCOME = false;
 			//m_view.TweenFade(0, 0.5f).OnComplete(() => SGame.UIUtils.CloseUIByID(__id));
