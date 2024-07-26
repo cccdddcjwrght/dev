@@ -493,7 +493,7 @@ namespace SGame
 			{
 				if (_data.items.Count > 1)
 				{
-					//_data.items.ForEach(i => i.upflag = 0);
+					_data.items.ForEach(i => i.upflag = 0);
 					List<List<EquipItem>> rets = new List<List<EquipItem>>();
 					var flag = false;
 					for (int i = (int)EnumQuality.Max - 1; i > 0; i--)
