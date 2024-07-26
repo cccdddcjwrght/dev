@@ -73,11 +73,11 @@ namespace SGame.UI
 				{
 					try
 					{
-						openAnim.m_openanim2.SetHook("sound" + i, ()=> DoPlaySound(i));
+						var id = i;
+						openAnim.m_openanim2.SetHook("sound" + i, ()=> DoPlaySound(id));
 					}
-					catch (System.Exception e)
+					catch 
 					{
-						log.Warn(e.Message);
 					}
 				}
 			}
