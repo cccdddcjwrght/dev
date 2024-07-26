@@ -5,11 +5,13 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.HotFood
 {
-    public partial class UI_HotFoodItem : GComponent
+    public partial class UI_HotFoodItem : GLabel
     {
         public Controller m_check;
         public Controller m_state;
-        public GLoader m_icon;
+        public Controller m_isMax;
+        public GGroup m_lv;
+        public GGroup m_max;
         public GGraph m_mask;
         public const string URL = "ui://zo86yb1ivlyvc";
 
@@ -24,8 +26,10 @@ namespace SGame.UI.HotFood
 
             m_check = GetControllerAt(0);
             m_state = GetControllerAt(1);
-            m_icon = (GLoader)GetChildAt(2);
-            m_mask = (GGraph)GetChildAt(4);
+            m_isMax = GetControllerAt(2);
+            m_lv = (GGroup)GetChildAt(5);
+            m_max = (GGroup)GetChildAt(8);
+            m_mask = (GGraph)GetChildAt(10);
         }
     }
 }

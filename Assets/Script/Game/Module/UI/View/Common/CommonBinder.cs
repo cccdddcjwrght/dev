@@ -9,6 +9,7 @@ namespace SGame.UI.Common
         public static void BindAll()
         {
             UIObjectFactory.SetPackageItemExtension(UI_PopTip.URL, typeof(UI_PopTip));
+            UIObjectFactory.SetPackageItemExtension(UI_FullBg.URL, typeof(UI_FullBg));
             UIObjectFactory.SetPackageItemExtension(UI_CenterText.URL, typeof(UI_CenterText));
             UIObjectFactory.SetPackageItemExtension(UI_HeadTitle.URL, typeof(UI_HeadTitle));
             UIObjectFactory.SetPackageItemExtension(UI_CommonRewardUI.URL, typeof(UI_CommonRewardUI));

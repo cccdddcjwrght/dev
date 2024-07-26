@@ -33,17 +33,17 @@ namespace SGame.UI.HotFood
 
             m_hoting = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
-            m_cdtime = (GTextField)GetChildAt(9);
-            m_duration = (GTextField)GetChildAt(10);
-            m_foodTip = (GTextField)GetChildAt(11);
-            m_des = (GTextField)GetChildAt(12);
-            m_startBtn = (GButton)GetChildAt(13);
-            m_stopBtn = (GButton)GetChildAt(14);
-            m_list = (GList)GetChildAt(15);
-            m_icon = (GLoader)GetChildAt(17);
-            m_progress = (GImage)GetChildAt(18);
-            m_hot_food = (GGroup)GetChildAt(19);
-            m_content = (GGroup)GetChildAt(20);
+            m_cdtime = (GTextField)GetChildAt(7);
+            m_duration = (GTextField)GetChildAt(9);
+            m_foodTip = (GTextField)GetChildAt(10);
+            m_des = (GTextField)GetChildAt(11);
+            m_startBtn = (GButton)GetChildAt(12);
+            m_stopBtn = (GButton)GetChildAt(13);
+            m_list = (GList)GetChildAt(14);
+            m_icon = (GLoader)GetChildAt(16);
+            m_progress = (GImage)GetChildAt(17);
+            m_hot_food = (GGroup)GetChildAt(18);
+            m_content = (GGroup)GetChildAt(19);
         }
     }
 }

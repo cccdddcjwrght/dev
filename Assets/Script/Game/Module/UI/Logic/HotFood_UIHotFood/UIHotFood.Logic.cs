@@ -10,7 +10,7 @@ namespace SGame.UI{
     public partial class UIHotFood
 	{
 		EventHandleContainer m_Event = new EventHandleContainer();
-		List<int> m_FoodList = new List<int>();
+		List<CookBookItem> m_FoodList = new List<CookBookItem>();
 
 		Action<bool> m_Timer;
 		//当前选中的id
@@ -64,18 +64,22 @@ namespace SGame.UI{
 				m_view.m_hoting.selectedIndex = 0;
 			}
 			
-			m_FoodList = TableManager.Instance.GetOpenFoodTypes();
+			m_FoodList = DataCenter.CookbookUtils.GetBooks();//TableManager.Instance.GetOpenFoodTypes();
 			m_view.m_list.numItems = m_FoodList.Count;
 		}
 
 		void OnItemRenderer(int index, GObject gObject) 
 		{
 			var item = (UI_HotFoodItem)gObject;
-			var id = m_FoodList[index];
+			var data = m_FoodList[index];
+			var id = data.id;
 			gObject.data = id;
 
-			item.m_icon.SetIcon(Utils.GetItemIcon(1, id));
+			item.SetIcon(Utils.GetItemIcon(1, id));
+			item.SetText(data.level + "/" + data.maxLv);
+			item.m_isMax.selectedIndex = data.IsMaxLv() ? 1 : 0;
 			item.m_check.selectedIndex = id == m_SelectFoodId ? 1 : 0;
+			item.visible = data.IsEnable();
 			if (m_view.m_hoting.selectedIndex == 1) 
 				item.m_state.selectedIndex = id == m_SelectFoodId ? 0 : 1;
 			else item.m_state.selectedIndex = 0;
