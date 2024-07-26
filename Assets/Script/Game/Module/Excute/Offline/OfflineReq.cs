@@ -45,7 +45,7 @@ namespace SGame
 						log.Info("[offlinetime end]->" + UnityEngine.Time.realtimeSinceStartup.ToString());
 
 						StaticDefine.G_Offline_Time = (int)UnityEngine.Time.realtimeSinceStartup - DataCenter.Instance.offlinetime;
-						if (StaticDefine.G_Offline_Time > minOfflineTime || flag)
+						if ((StaticDefine.G_Offline_Time > minOfflineTime || flag) && !GuideManager.Instance.IsCoerce)
 							offline_id.Goto();
 						else
 							GetOfflineReward(DataCenter.CaluOfflineReward(StaticDefine.G_Offline_Time));
