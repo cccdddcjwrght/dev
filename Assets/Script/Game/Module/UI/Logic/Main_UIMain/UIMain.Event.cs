@@ -454,13 +454,14 @@ namespace SGame.UI
 			ConfigSystem.Instance.TryGet<MainTaskRowData>(DataCenter.TaskMainUtil.GetCurTaskCfgId(), out var config);
 			if (config.IsValid()) m_view.m_taskBtn.SetTextByKey(config.TaskDes);
 			m_view.m_taskBtn.m_state.selectedIndex = 0;
+			m_view.m_taskBtn.m_finish.selectedIndex = DataCenter.TaskMainUtil.CheckIsGet() ? 1 : 0;
 		}
 
 		void RefreshTaskState(bool isPlay = true) 
 		{
 			m_TaskTweenr?.Kill();
 			m_TaskTweenr = null;
-
+			m_view.m_taskBtn.m_finish.selectedIndex = DataCenter.TaskMainUtil.CheckIsGet() ? 1 : 0;
 			if (DataCenter.TaskMainUtil.CheckIsGet())
 			{
 				m_view.m_taskBtn.m_state.selectedIndex = 1;

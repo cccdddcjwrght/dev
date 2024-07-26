@@ -8,6 +8,7 @@ namespace SGame.UI.Main
     public partial class UI_TaskBtn : GButton
     {
         public Controller m_state;
+        public Controller m_finish;
         public GLoader m_click;
         public GGroup m_group;
         public Transition m_show;
@@ -24,6 +25,7 @@ namespace SGame.UI.Main
             base.ConstructFromXML(xml);
 
             m_state = GetControllerAt(0);
+            m_finish = GetControllerAt(1);
             m_click = (GLoader)GetChildAt(0);
             m_group = (GGroup)GetChildAt(2);
             m_show = GetTransitionAt(0);

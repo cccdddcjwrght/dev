@@ -175,9 +175,12 @@ namespace SGame
                         var rewardList = Utils.GetArrayList(true, config.GetTaskReward1Array, config.GetTaskReward2Array, config.GetTaskReward3Array);
                         rewardList.ForEach((r) =>
                         {
-                            var index = list.FindIndex((v) => v[0] == r[0] && v[1] == r[1]);
-                            if (index == -1) list.Add(r);
-                            else list[index][2] += r[2];
+                            if (r[1] != 1) 
+                            {
+                                var index = list.FindIndex((v) => v[0] == r[0] && v[1] == r[1]);
+                                if (index == -1) list.Add(r);
+                                else list[index][2] += r[2];
+                            }
                         });
                     }
                 }
