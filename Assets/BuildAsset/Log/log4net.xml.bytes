@@ -39,7 +39,7 @@
                 
     
     <root>
-        <level value="WARN" />
+        <level value="DEBUG" />
         <appender-ref ref="UnityAppender" /><!-- Unity控制台日志 -->
 		<!--
 		<appender-ref ref="RollingFile" /> 
@@ -47,11 +47,11 @@
 		-->
     </root>
 	
-	<logger name="game.character">
-        <level value="DEBUG" />
+	<logger name="ui">
+        <level value="WARN" />
     </logger>
-		
-   <!--
+	<!--
+
     <logger name="xl.gameevent">
         <level value="DEBUG" />
     </logger>

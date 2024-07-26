@@ -9,7 +9,7 @@ class FBXPostprocessor : AssetPostprocessor
         ModelImporter mi = (ModelImporter)assetImporter;
         mi.globalScale = 1;
         if (!assetPath.Contains("/characters/")) return;
-        mi.animationCompression = ModelImporterAnimationCompression.Off;
+       // mi.animationCompression = ModelImporterAnimationCompression.Off;
 
         // Materials for characters are created using the GenerateMaterials script.
         //mi.generateMaterials = 0;

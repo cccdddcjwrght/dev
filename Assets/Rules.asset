@@ -31,7 +31,7 @@ MonoBehaviour:
     assetBundleName: 
   - searchPath: Assets/BuildAsset/configs
     searchPattern: '*.bytes'
-    nameBy: 0
+    nameBy: 1
     assetBundleName: configs
   - searchPath: Assets/BuildAsset/UI
     searchPattern: '*.png,*.bytes'
@@ -65,9 +65,13 @@ MonoBehaviour:
     searchPattern: '*.bytes'
     nameBy: 1
     assetBundleName: 
+  - searchPath: Assets/BuildAsset/Art/characters
+    searchPattern: '*.mat,*.png'
+    nameBy: 0
+    assetBundleName: characters_res
   - searchPath: Assets/BuildAsset/CustomCharacters
     searchPattern: '*.prefab,*.asset'
-    nameBy: 0
+    nameBy: 1
     assetBundleName: characters
   - searchPath: Assets/BuildAsset/VisualScript
     searchPattern: '*.prefab,*.asset'
@@ -77,9 +81,9 @@ MonoBehaviour:
     searchPattern: '*.asset,*.ttf'
     nameBy: 1
     assetBundleName: 
-  - searchPath: Assets/BuildAsset/Effects/Prefabs
-    searchPattern: '*.prefab'
-    nameBy: 2
+  - searchPath: Assets/BuildAsset/Effects
+    searchPattern: '*.prefab,*.mat,*.png'
+    nameBy: 0
     assetBundleName: effects
   - searchPath: Assets/BuildAsset/App/logo
     searchPattern: '*.png'
@@ -108,6 +112,246 @@ MonoBehaviour:
     path: assets/buildasset/app/logo/ui_loading_logo@en.png
   - bundle: applogo.unity3d
     path: assets/buildasset/app/logo/ui_loading_logo@hi.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-10_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-11_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-12_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-13_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-14_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-15_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-16_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-17_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-18_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-19_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-1_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-20_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-21_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-22_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-23_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-24_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-25_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-26_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-27_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-28_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-29_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-2_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-30_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-3_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-4_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-5_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-6_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-7_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-8_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_clothes-9_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-10_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-11_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-12_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-13_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-14_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-15_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-16_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-17_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-18_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-19_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-1_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-20_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-21_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-22_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-23_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-24_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-25_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-26_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-27_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-28_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-29_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-2_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-30_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-3_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-4_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-5_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-6_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-7_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-8_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/per texture materials/role_hair-9_1.mat
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-10_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-11_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-12_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-13_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-14_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-15_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-16_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-17_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-18_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-19_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-1_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-20_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-21_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-22_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-23_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-24_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-25_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-26_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-27_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-28_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-29_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-2_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-30_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-3_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-4_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-5_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-6_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-7_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-8_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_clothes-9_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-10_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-11_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-12_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-13_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-14_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-15_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-16_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-17_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-18_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-19_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-1_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-20_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-21_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-22_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-23_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-24_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-25_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-26_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-27_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-28_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-29_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-2_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-30_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-3_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-4_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-5_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-6_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-7_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-8_1.png
+  - bundle: characters_res.unity3d
+    path: assets/buildasset/art/characters/role/textures/role_hair-9_1.png
   - bundle: assets/buildasset/art/scenes/animal.unity3d
     path: assets/buildasset/art/scenes/animal/animal_cattle-2.png
   - bundle: assets/buildasset/art/scenes/animal.unity3d
@@ -507,14 +751,6 @@ MonoBehaviour:
   - bundle: assets/buildasset/art/scenes/scene_03.unity3d
     path: assets/buildasset/art/scenes/scene_03/test_scene03_object_05.png
   - bundle: assets/buildasset/art/scenes/scene_03.unity3d
-    path: assets/buildasset/art/scenes/scene_03/test_scene03_table_01.fbx
-  - bundle: assets/buildasset/art/scenes/scene_03.unity3d
-    path: assets/buildasset/art/scenes/scene_03/test_scene03_table_01.png
-  - bundle: assets/buildasset/art/scenes/scene_03.unity3d
-    path: assets/buildasset/art/scenes/scene_03/test_scene03_table_02.fbx
-  - bundle: assets/buildasset/art/scenes/scene_03.unity3d
-    path: assets/buildasset/art/scenes/scene_03/test_scene03_table_02.png
-  - bundle: assets/buildasset/art/scenes/scene_03.unity3d
     path: assets/buildasset/art/scenes/scene_03/test_scene03_terrain_01.fbx
   - bundle: assets/buildasset/art/scenes/scene_03.unity3d
     path: assets/buildasset/art/scenes/scene_03/test_scene03_terrain_01.png
@@ -608,6 +844,30 @@ MonoBehaviour:
     path: assets/buildasset/art/scenes/scene_04/test_scene04_terrain_01.png
   - bundle: assets/buildasset/art/scenes/scene_04.unity3d
     path: assets/buildasset/art/scenes/scene_04/test_scene04_terrain_02.fbx
+  - bundle: assets/buildasset/art/scenes/scene_04.unity3d
+    path: assets/buildasset/art/scenes/scene_04/test_scene06_object_01.fbx
+  - bundle: assets/buildasset/art/scenes/scene_04.unity3d
+    path: assets/buildasset/art/scenes/scene_04/test_scene06_object_01.png
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_01-1.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_01-2.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_01-3.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_01.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_01.png
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_02-1.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_02-2.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_02-3.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_02.fbx
+  - bundle: assets/buildasset/art/scenes/table.unity3d
+    path: assets/buildasset/art/scenes/table/scene_table_02.png
   - bundle: assets/buildasset/art/scenes/tool.unity3d
     path: assets/buildasset/art/scenes/tool/test_scene02_food_12.fbx
   - bundle: assets/buildasset/art/scenes/tool.unity3d
@@ -818,648 +1078,856 @@ MonoBehaviour:
     path: assets/buildasset/audio/ogg/sound_up.ogg
   - bundle: assets/buildasset/audio/ogg.unity3d
     path: assets/buildasset/audio/ogg/sound_upgrade.ogg
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/abilitylevel.bytes.unity3d
     path: assets/buildasset/configs/abilitylevel.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/abilitylist.bytes.unity3d
     path: assets/buildasset/configs/abilitylist.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/activitytime.bytes.unity3d
     path: assets/buildasset/configs/activitytime.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/adconfig.bytes.unity3d
     path: assets/buildasset/configs/adconfig.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/avatar.bytes.unity3d
     path: assets/buildasset/configs/avatar.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/boostshop.bytes.unity3d
     path: assets/buildasset/configs/boostshop.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/buff.bytes.unity3d
     path: assets/buildasset/configs/buff.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/bullet.bytes.unity3d
     path: assets/buildasset/configs/bullet.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/cardata.bytes.unity3d
     path: assets/buildasset/configs/cardata.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/chest.bytes.unity3d
     path: assets/buildasset/configs/chest.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/clubframe.bytes.unity3d
     path: assets/buildasset/configs/clubframe.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/clubhead.bytes.unity3d
     path: assets/buildasset/configs/clubhead.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/clubreward.bytes.unity3d
     path: assets/buildasset/configs/clubreward.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/clubtask.bytes.unity3d
     path: assets/buildasset/configs/clubtask.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/cmdconfig.bytes.unity3d
     path: assets/buildasset/configs/cmdconfig.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/cookbook.bytes.unity3d
     path: assets/buildasset/configs/cookbook.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/design_global.bytes.unity3d
     path: assets/buildasset/configs/design_global.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/effects.bytes.unity3d
     path: assets/buildasset/configs/effects.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/egg.bytes.unity3d
     path: assets/buildasset/configs/egg.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/entry.bytes.unity3d
     path: assets/buildasset/configs/entry.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/equip.bytes.unity3d
     path: assets/buildasset/configs/equip.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/equipbuff.bytes.unity3d
     path: assets/buildasset/configs/equipbuff.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/equipment.bytes.unity3d
     path: assets/buildasset/configs/equipment.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/equipquality.bytes.unity3d
     path: assets/buildasset/configs/equipquality.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/equipuplevelcost.bytes.unity3d
     path: assets/buildasset/configs/equipuplevelcost.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/evolution.bytes.unity3d
     path: assets/buildasset/configs/evolution.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/exchange.bytes.unity3d
     path: assets/buildasset/configs/exchange.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/fonts.bytes.unity3d
     path: assets/buildasset/configs/fonts.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/friend.bytes.unity3d
     path: assets/buildasset/configs/friend.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/functionconfig.bytes.unity3d
     path: assets/buildasset/configs/functionconfig.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/game_global.bytes.unity3d
     path: assets/buildasset/configs/game_global.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/guide.bytes.unity3d
     path: assets/buildasset/configs/guide.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/hunterwheel.bytes.unity3d
     path: assets/buildasset/configs/hunterwheel.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/item.bytes.unity3d
     path: assets/buildasset/configs/item.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/itemdrop.bytes.unity3d
     path: assets/buildasset/configs/itemdrop.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/language.bytes.unity3d
     path: assets/buildasset/configs/language.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/language_chn.bytes.unity3d
     path: assets/buildasset/configs/language_chn.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/language_en.bytes.unity3d
     path: assets/buildasset/configs/language_en.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/language_hi.bytes.unity3d
     path: assets/buildasset/configs/language_hi.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/language_setting.bytes.unity3d
     path: assets/buildasset/configs/language_setting.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/level.bytes.unity3d
     path: assets/buildasset/configs/level.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/levelpath.bytes.unity3d
     path: assets/buildasset/configs/levelpath.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/likes_icon.bytes.unity3d
     path: assets/buildasset/configs/likes_icon.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/likes_jackpot.bytes.unity3d
     path: assets/buildasset/configs/likes_jackpot.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/likes_rewards.bytes.unity3d
     path: assets/buildasset/configs/likes_rewards.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/machine.bytes.unity3d
     path: assets/buildasset/configs/machine.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/machinestar.bytes.unity3d
     path: assets/buildasset/configs/machinestar.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/machineupgrade.bytes.unity3d
     path: assets/buildasset/configs/machineupgrade.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/maintask.bytes.unity3d
     path: assets/buildasset/configs/maintask.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/merchantmission.bytes.unity3d
     path: assets/buildasset/configs/merchantmission.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/merchantreward.bytes.unity3d
     path: assets/buildasset/configs/merchantreward.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/monsterhunter.bytes.unity3d
     path: assets/buildasset/configs/monsterhunter.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/petbuffconfig.bytes.unity3d
     path: assets/buildasset/configs/petbuffconfig.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/pets.bytes.unity3d
     path: assets/buildasset/configs/pets.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/progresspack.bytes.unity3d
     path: assets/buildasset/configs/progresspack.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/rankconfig.bytes.unity3d
     path: assets/buildasset/configs/rankconfig.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/redconfig.bytes.unity3d
     path: assets/buildasset/configs/redconfig.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/region.bytes.unity3d
     path: assets/buildasset/configs/region.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/role.bytes.unity3d
     path: assets/buildasset/configs/role.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roledata.bytes.unity3d
     path: assets/buildasset/configs/roledata.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/room.bytes.unity3d
     path: assets/buildasset/configs/room.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roomarea.bytes.unity3d
     path: assets/buildasset/configs/roomarea.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roomexclusive.bytes.unity3d
     path: assets/buildasset/configs/roomexclusive.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roomlike.bytes.unity3d
     path: assets/buildasset/configs/roomlike.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roommachine.bytes.unity3d
     path: assets/buildasset/configs/roommachine.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roomobj.bytes.unity3d
     path: assets/buildasset/configs/roomobj.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roomobjlevel.bytes.unity3d
     path: assets/buildasset/configs/roomobjlevel.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/roomtech.bytes.unity3d
     path: assets/buildasset/configs/roomtech.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/scene.bytes.unity3d
     path: assets/buildasset/configs/scene.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/settingconfig.bytes.unity3d
     path: assets/buildasset/configs/settingconfig.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/shop.bytes.unity3d
     path: assets/buildasset/configs/shop.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/sound_effect.bytes.unity3d
     path: assets/buildasset/configs/sound_effect.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/ui_groups.bytes.unity3d
     path: assets/buildasset/configs/ui_groups.bytes
-  - bundle: configs.unity3d
+  - bundle: assets/buildasset/configs/ui_res.bytes.unity3d
     path: assets/buildasset/configs/ui_res.bytes
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/configs/worker.bytes.unity3d
+    path: assets/buildasset/configs/worker.bytes
+  - bundle: assets/buildasset/configs/workerlevel.bytes.unity3d
+    path: assets/buildasset/configs/workerlevel.bytes
+  - bundle: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
     path: assets/buildasset/customcharacters/characterelementdatabase.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
     path: assets/buildasset/customcharacters/role/characterbase.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-1.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-10.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-10.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-10_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-10_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-11.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-11.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-11_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-11_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-12.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-12.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-12_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-12_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-13.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-13.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-13_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-13_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-14.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-14.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-14_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-14_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-15.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-15.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-15_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-15_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-16.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-16.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-16_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-16_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-17.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-17.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-17_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-17_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-18.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-18.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-18_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-18_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-19.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-19.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-19_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-19_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-1_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-2.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-20.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-20.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-20_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-20_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-21.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-21.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-21_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-21_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-22.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-22.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-22_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-22_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-23.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-23.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-23_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-23_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-24.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-24.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-24_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-24_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-25.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-25.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-25_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-25_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-26.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-26.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-26_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-26_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-27.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-27.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-27_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-27_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-28.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-28.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-28_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-28_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-29.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-29.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-29_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-29_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-2_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-3.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-3.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-30.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-30.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-30_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-30_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-3_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-3_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-4.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-4.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-4_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-4_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-5.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-5.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-5_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-5_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-6.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-6.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-6_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-6_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-7.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-7.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-7_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-7_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-8.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-8.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-8_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-8_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-9.prefab.unity3d
     path: assets/buildasset/customcharacters/role/clothes-9.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/clothes-9_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/clothes-9_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-1.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-10.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-10.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-10_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-10_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-11.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-11.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-11_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-11_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-12.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-12.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-12_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-12_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-13.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-13.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-13_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-13_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-14.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-14.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-14_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-14_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-15.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-15.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-15_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-15_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-16.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-16.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-16_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-16_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-17.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-17.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-17_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-17_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-18.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-18.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-18_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-18_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-19.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-19.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-19_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-19_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-1_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-2.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-20.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-20.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-20_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-20_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-21.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-21.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-21_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-21_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-22.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-22.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-22_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-22_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-23.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-23.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-23_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-23_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-24.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-24.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-24_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-24_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-25.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-25.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-25_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-25_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-26.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-26.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-26_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-26_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-27.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-27.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-27_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-27_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-28.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-28.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-28_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-28_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-29.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-29.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-29_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-29_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-2_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-3.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-3.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-30.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-30.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-30_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-30_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-3_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-3_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-4.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-4.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-4_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-4_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-5.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-5.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-5_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-5_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-6.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-6.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-6_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-6_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-7.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-7.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-7_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-7_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-8.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-8.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-8_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-8_mesh.asset
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-9.prefab.unity3d
     path: assets/buildasset/customcharacters/role/hair-9.prefab
-  - bundle: characters.unity3d
+  - bundle: assets/buildasset/customcharacters/role/hair-9_mesh.asset.unity3d
     path: assets/buildasset/customcharacters/role/hair-9_mesh.asset
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/andan.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/bai.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/baodian 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/baodian.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/baozha.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/bed 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/bed.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/bingkuai.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/bingshuang 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/bingshuang.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/boww 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/boww.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/box_01.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/box_02.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/box_03.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/caitiao.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/chou.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/dahai.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/diamond.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/dian 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/dian 2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/dian.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/gold.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guagnbo.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guang 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guang 2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guang 3.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guang.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guanghuan 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guanghuan.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/guntog.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/hainiao.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/hm04.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huaduo.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan 2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan 3.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan 4.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan 5.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan 6.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan 7.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huan.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huomiao 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huomiao 2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huomiao 3.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huomiao.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/huomiao2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/item.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/jia dian.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/jia.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/jiantou.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/jiaoyin.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/jiaoyin01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/jinbi01.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/langhua.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/leidian 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/leidian 2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/leidian.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/lianju.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/material.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/object_2006.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/pai.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/pao.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/paopao.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/pian.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/sekuai 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/sekuai.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/shuaa.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/shui 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/shuye.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/smoke 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/smoke 2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/smoke.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/suishi.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/tuowei.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/uiss.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/wuuu.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xian 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xian 2.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xian 3.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xian 4.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xian.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xiaoyu.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xue.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xxx 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/xxx.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/yanhua1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/yanhuatuo.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/zidan 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/zidan.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/zipian.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/materials/zzzz.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/mod/gold 1.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/mod/gold_01.png
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1001.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1002.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1003.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1004.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1005.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1006.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1007.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1008.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1009.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1010.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1011.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1012.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1013.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1014.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1015.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1016.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1017.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1018.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1019.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1020.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1021.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1022.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1023.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1024.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1025.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/1026.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/angel_halo.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/baoxiangdizuo.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/bigluckshow.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/boosters.prefab
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/box_401.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/box_402.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/box_403.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/cookbook_merge.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/diamond_01.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/diamond_02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/diamond_03.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/egg.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/equip_merge.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/footprint.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/fragmentui.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/friendshire.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/gold_01.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/gold_02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/gold_03.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/gold_a_01.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/gold_a_02.5.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/gold_a_02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/gold_hair.prefab
-  - bundle: assets/buildasset/effects/prefabs/guangquan.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/guangquan/guangquan02.prefab
-  - bundle: assets/buildasset/effects/prefabs/guangquan.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/guangquan/guangquan03.prefab
-  - bundle: assets/buildasset/effects/prefabs/guangquan.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/guangquan/guangquan04.prefab
-  - bundle: assets/buildasset/effects/prefabs/guangquan.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/guangquan/guangquan05.prefab
-  - bundle: assets/buildasset/effects/prefabs/guangquan.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/guangquan/guangquan06.prefab
-  - bundle: assets/buildasset/effects/prefabs/guangquan.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/guangquan/guangquan07.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/hailang.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/haiou.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/huanzhuang.prefab
-  - bundle: assets/buildasset/effects/prefabs/hunter.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/hunter/baozha.prefab
-  - bundle: assets/buildasset/effects/prefabs/hunter.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/hunter/bullet01.prefab
-  - bundle: assets/buildasset/effects/prefabs/hunter.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/hunter/bullet02.prefab
-  - bundle: assets/buildasset/effects/prefabs/hunter.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/hunter/bullet03.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/hunter/bullet_01.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/hunter/bullet_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/hunter/bullet_02.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/hunter/bullet_02.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/hunter/bullet_03.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/hunter/bullet_03.png
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/huode.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/huode_item.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/instant.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/jiesuo.prefab
-  - bundle: assets/buildasset/effects/prefabs/level.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/level/level04.prefab
-  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/level03/diamond.prefab
-  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/level03/diamond2.prefab
-  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/level03/lights.prefab
-  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/level03/smoke.prefab
-  - bundle: assets/buildasset/effects/prefabs/level03.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/level03/torch (3).prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/levelcompletedui_01.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/levelcompletedui_02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/likebtn_xh.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/lucklikeui.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/luckylikes01.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/material.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/perfect.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/perfect_food.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/pet_appear.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/piggybank_hammer01.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/piggybank_hammer02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/railway.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/renderer.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/adtest.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/adtest/blizzard.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/adtest.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/adtest/ice_cake.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_boos_baodian.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_boos_suishi.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes01_tool_goods_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes01_tool_goods_01_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes02_tool_goods_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes04_tool_goods_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes04_tool_goods_01b.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes05_tool_goods_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes06_tool_goods_01_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_01b.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_02.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_05.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_06.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_07.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_08.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_08_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_09_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_10.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_10_01.prefab
-  - bundle: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_10b.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/sleep.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/smoke.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/spark.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/spin.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/spin01.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/spin02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/tandorifish.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/torch.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/transitions01/hong.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/transitions01/jin.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/transitions01/lan.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/transitions01/transitions01.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/transitions01/ui_transitions01.prefab
-  - bundle: assets/buildasset/effects/prefabs/transitions01.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/transitions01/ui_transitions02.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/treasure_chest.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/ui_arrow.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/ui_ring.prefab
-  - bundle: assets/buildasset/effects/prefabs.unity3d
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/upgrade.prefab
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/shaber/boguang.mat
   - bundle: assets/buildasset/effects/shaber/stylizedwater2/materials/textures.unity3d
     path: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/intersectionnoise.png
   - bundle: assets/buildasset/effects/shaber/stylizedwater2/materials/textures.unity3d
@@ -1470,6 +1938,250 @@ MonoBehaviour:
     path: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_caustics.png
   - bundle: assets/buildasset/effects/shaber/stylizedwater2/materials/textures.unity3d
     path: assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_foamsea.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/shaber/yanjiang.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/1fad674e.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/33.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/aa_note_long.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/afxl_glow08a_256d1.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/azir_base_e_shield_base.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/barbarian_earthquake_rings_add (0-00-00-00).png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/bbbing.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/bw_order_wispies.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/d_2d_block_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/d_2d_explode_04.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/d_2d_fireball_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/d_2d_hit_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/d_2d_punchattack_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/d_2d_ray_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/d_heal_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/enrage_bottom_parts_sheet.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/fb_explosion_firering.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/fire_loop_sheet.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/gameart8.com460.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/generic_explosion_1_sheet.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ggguan 1.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_1006.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_1007.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_1022.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_1097.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_11008.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_2003.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_3024.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_4027.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_4034.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_6047.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glow_6098.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/glowing_particles_sheet.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/green_leaf01_emis.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/guangxian.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/gunzi.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/hai03.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/hailang1 2.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/haishui.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/haruyuki_rotation_00_03.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/huaduo.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/huan11.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/huan13.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/huomiao.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/icon_item_101.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/intersectionnoise 1.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/jiantou.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/jiaoyin.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/jinbixz.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/kuagn.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/kuang01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/leiqiu.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/lig.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/lighting_11003.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/lighting_3005.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/lissandra_global_freeze.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/loading-2.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/mask_1024.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/niao1.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/noise_11002_re.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/object_3038.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/paopao_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/pet_light_02.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/pet_light_03.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/pian.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/public_huiguang_02 #5293.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/qwenthur_dazhaobg_01 #5605.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/rage_wave_core_sheet_new.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/sekuai.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/selvaria_dazhao_05.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/sequence_1008.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/sequence_1089.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/sequence_1103.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/sequence_3003.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/sf4_dds_0195.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/shandian.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/shuibo.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/shuikuai.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/smoke_1025.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/smoke_1044.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/smoke_11001.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/smoke_7004.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ssguang.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/suipian.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/texture_9001.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/texture_9015.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_bg.mat
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_bg.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_bg2.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_door_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_door_02.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_door_03.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_frame_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_frame_02.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_frame_03.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_02.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_03.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui/ui_cutscenes_portals.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_animation_cards.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_icon_box_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_icon_box_02.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_icon_box_03.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_icon_coin.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_icon_diamond.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_icon_material.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_ramp_01 #8376.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_star_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_unionfb_enterl.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/uihighlight_i2d.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/uiss.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/water_splash_3_new_sheet_bw.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/water_splash_4_new_sheet_bw.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/wb_paopao_01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/xin01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/xue.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/xuewo.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/xxaa.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/xxxwwo.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/yu01.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/zz.png
   - bundle: assets/buildasset/fonts/lilitaone/lilitaone-regular-sdf.asset.unity3d
     path: assets/buildasset/fonts/lilitaone/lilitaone-regular-sdf.asset
   - bundle: assets/buildasset/fonts/lilitaone/lilitaone-regular.ttf.unity3d
@@ -1498,6 +2210,12 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/cameractr.prefab
   - bundle: assets/buildasset/prefabs/car.unity3d
     path: assets/buildasset/prefabs/car/boat_01.prefab
+  - bundle: assets/buildasset/prefabs/car.unity3d
+    path: assets/buildasset/prefabs/car/boat_02.prefab
+  - bundle: assets/buildasset/prefabs/car.unity3d
+    path: assets/buildasset/prefabs/car/boat_03.prefab
+  - bundle: assets/buildasset/prefabs/car.unity3d
+    path: assets/buildasset/prefabs/car/boat_04.prefab
   - bundle: assets/buildasset/prefabs/car.unity3d
     path: assets/buildasset/prefabs/car/car_01.prefab
   - bundle: assets/buildasset/prefabs/car.unity3d
@@ -1981,10 +2699,6 @@ MonoBehaviour:
   - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
     path: assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_object_05.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_table_01.mat
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_table_02.mat
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
     path: assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_terrain_01.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
     path: assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_terrain_02.mat
@@ -2007,10 +2721,6 @@ MonoBehaviour:
   - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
     path: assets/buildasset/prefabs/scenes/scene_03/test_scene03_object_05.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/test_scene03_table_01.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
-    path: assets/buildasset/prefabs/scenes/scene_03/test_scene03_table_02.prefab
-  - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
     path: assets/buildasset/prefabs/scenes/scene_03/test_scene03_terrain_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
     path: assets/buildasset/prefabs/scenes/scene_03/test_scene03_terrain_01_02.prefab
@@ -2025,11 +2735,15 @@ MonoBehaviour:
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_01.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_02-1.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_02.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_03.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_04.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_05-1.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_05.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
@@ -2062,6 +2776,8 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_terrain_01-1.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_terrain_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene06_object_01.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/test_scene04_building_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
@@ -2102,6 +2818,28 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/scene_04/test_scene04_terrain_01.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/test_scene04_terrain_02.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_04/test_scene06_object_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/mats/scene_table_01.mat
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/mats/scene_table_02.mat
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_01-1.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_01-2.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_01-3.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_01.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_02-1.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_02-2.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_02-3.prefab
+  - bundle: assets/buildasset/prefabs/scenes/table.unity3d
+    path: assets/buildasset/prefabs/scenes/table/scene_table_02.prefab
   - bundle: assets/buildasset/prefabs/scenes/tool.unity3d
     path: assets/buildasset/prefabs/scenes/tool/mats/test_scene02_food_12.mat
   - bundle: assets/buildasset/prefabs/scenes/tool.unity3d
@@ -2514,10 +3252,6 @@ MonoBehaviour:
     path: assets/buildasset/ui/roomexclusive_atlas0.png
   - bundle: assets/buildasset/ui/roomexclusive.unity3d
     path: assets/buildasset/ui/roomexclusive_fui.bytes
-  - bundle: assets/buildasset/ui/scenedecor.unity3d
-    path: assets/buildasset/ui/scenedecor_atlas0.png
-  - bundle: assets/buildasset/ui/scenedecor.unity3d
-    path: assets/buildasset/ui/scenedecor_fui.bytes
   - bundle: assets/buildasset/ui/setting.unity3d
     path: assets/buildasset/ui/setting_atlas0.png
   - bundle: assets/buildasset/ui/setting.unity3d
@@ -2616,6 +3350,8 @@ MonoBehaviour:
     path: assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset
   - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset
+  - bundle: visualscript.unity3d
+    path: assets/buildasset/visualscript/game/character/utils/workerchangelook.asset
   - bundle: visualscript.unity3d
     path: assets/buildasset/visualscript/game/character/waitcharacterfinish.asset
   - bundle: visualscript.unity3d
@@ -3007,8 +3743,6 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/scene_03/test_scene03_object_02.png
     - assets/buildasset/art/scenes/scene_03/test_scene03_object_03.png
     - assets/buildasset/art/scenes/scene_03/test_scene03_object_05.png
-    - assets/buildasset/art/scenes/scene_03/test_scene03_table_01.png
-    - assets/buildasset/art/scenes/scene_03/test_scene03_table_02.png
     - assets/buildasset/art/scenes/scene_03/test_scene03_terrain_01.png
     - assets/buildasset/art/scenes/scene_03/test_scene03_terrain_02.png
     - assets/buildasset/art/scenes/scene_03/test_scene03_building_01_01.fbx
@@ -3020,8 +3754,6 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/scene_03/test_scene03_object_02.fbx
     - assets/buildasset/art/scenes/scene_03/test_scene03_object_03.fbx
     - assets/buildasset/art/scenes/scene_03/test_scene03_object_05.fbx
-    - assets/buildasset/art/scenes/scene_03/test_scene03_table_01.fbx
-    - assets/buildasset/art/scenes/scene_03/test_scene03_table_02.fbx
     - assets/buildasset/art/scenes/scene_03/test_scene03_terrain_01.fbx
     - assets/buildasset/art/scenes/scene_03/test_scene03_terrain_01_02.fbx
     - assets/buildasset/art/scenes/scene_03/test_scene03_terrain_01_03.fbx
@@ -3049,6 +3781,7 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/scene_04/test_scene04_object_12.png
     - assets/buildasset/art/scenes/scene_04/test_scene04_object_13.png
     - assets/buildasset/art/scenes/scene_04/test_scene04_terrain_01.png
+    - assets/buildasset/art/scenes/scene_04/test_scene06_object_01.png
     - assets/buildasset/art/scenes/scene_04/test_scene04_building_01.fbx
     - assets/buildasset/art/scenes/scene_04/test_scene04_building_02.fbx
     - assets/buildasset/art/scenes/scene_04/test_scene04_building_03.fbx
@@ -3069,6 +3802,19 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/scene_04/test_scene04_object_13.fbx
     - assets/buildasset/art/scenes/scene_04/test_scene04_terrain_01.fbx
     - assets/buildasset/art/scenes/scene_04/test_scene04_terrain_02.fbx
+    - assets/buildasset/art/scenes/scene_04/test_scene06_object_01.fbx
+  - name: assets/buildasset/art/scenes/table.unity3d
+    assets:
+    - assets/buildasset/art/scenes/table/scene_table_01.png
+    - assets/buildasset/art/scenes/table/scene_table_02.png
+    - assets/buildasset/art/scenes/table/scene_table_01-1.fbx
+    - assets/buildasset/art/scenes/table/scene_table_01-2.fbx
+    - assets/buildasset/art/scenes/table/scene_table_01-3.fbx
+    - assets/buildasset/art/scenes/table/scene_table_01.fbx
+    - assets/buildasset/art/scenes/table/scene_table_02-1.fbx
+    - assets/buildasset/art/scenes/table/scene_table_02-2.fbx
+    - assets/buildasset/art/scenes/table/scene_table_02-3.fbx
+    - assets/buildasset/art/scenes/table/scene_table_02.fbx
   - name: assets/buildasset/art/scenes/tool.unity3d
     assets:
     - assets/buildasset/art/scenes/tool/test_scene02_food_12.png
@@ -3142,82 +3888,234 @@ MonoBehaviour:
     - assets/buildasset/art/scenes/tool/test_scene02_tool_14.fbx
     - assets/buildasset/art/scenes/tool/test_scene02_tool_15.fbx
     - assets/buildasset/art/scenes/tool/test_scene02_tool_16.fbx
-  - name: configs.unity3d
+  - name: assets/buildasset/configs/abilitylevel.bytes.unity3d
     assets:
     - assets/buildasset/configs/abilitylevel.bytes
+  - name: assets/buildasset/configs/abilitylist.bytes.unity3d
+    assets:
     - assets/buildasset/configs/abilitylist.bytes
+  - name: assets/buildasset/configs/activitytime.bytes.unity3d
+    assets:
     - assets/buildasset/configs/activitytime.bytes
+  - name: assets/buildasset/configs/adconfig.bytes.unity3d
+    assets:
     - assets/buildasset/configs/adconfig.bytes
+  - name: assets/buildasset/configs/avatar.bytes.unity3d
+    assets:
     - assets/buildasset/configs/avatar.bytes
+  - name: assets/buildasset/configs/boostshop.bytes.unity3d
+    assets:
     - assets/buildasset/configs/boostshop.bytes
+  - name: assets/buildasset/configs/buff.bytes.unity3d
+    assets:
     - assets/buildasset/configs/buff.bytes
+  - name: assets/buildasset/configs/bullet.bytes.unity3d
+    assets:
     - assets/buildasset/configs/bullet.bytes
+  - name: assets/buildasset/configs/cardata.bytes.unity3d
+    assets:
     - assets/buildasset/configs/cardata.bytes
+  - name: assets/buildasset/configs/chest.bytes.unity3d
+    assets:
     - assets/buildasset/configs/chest.bytes
+  - name: assets/buildasset/configs/clubframe.bytes.unity3d
+    assets:
     - assets/buildasset/configs/clubframe.bytes
+  - name: assets/buildasset/configs/clubhead.bytes.unity3d
+    assets:
     - assets/buildasset/configs/clubhead.bytes
+  - name: assets/buildasset/configs/clubreward.bytes.unity3d
+    assets:
     - assets/buildasset/configs/clubreward.bytes
+  - name: assets/buildasset/configs/clubtask.bytes.unity3d
+    assets:
     - assets/buildasset/configs/clubtask.bytes
+  - name: assets/buildasset/configs/cmdconfig.bytes.unity3d
+    assets:
     - assets/buildasset/configs/cmdconfig.bytes
+  - name: assets/buildasset/configs/cookbook.bytes.unity3d
+    assets:
     - assets/buildasset/configs/cookbook.bytes
+  - name: assets/buildasset/configs/design_global.bytes.unity3d
+    assets:
     - assets/buildasset/configs/design_global.bytes
+  - name: assets/buildasset/configs/effects.bytes.unity3d
+    assets:
     - assets/buildasset/configs/effects.bytes
+  - name: assets/buildasset/configs/egg.bytes.unity3d
+    assets:
     - assets/buildasset/configs/egg.bytes
+  - name: assets/buildasset/configs/entry.bytes.unity3d
+    assets:
     - assets/buildasset/configs/entry.bytes
+  - name: assets/buildasset/configs/equip.bytes.unity3d
+    assets:
     - assets/buildasset/configs/equip.bytes
+  - name: assets/buildasset/configs/equipbuff.bytes.unity3d
+    assets:
     - assets/buildasset/configs/equipbuff.bytes
+  - name: assets/buildasset/configs/equipment.bytes.unity3d
+    assets:
     - assets/buildasset/configs/equipment.bytes
+  - name: assets/buildasset/configs/equipquality.bytes.unity3d
+    assets:
     - assets/buildasset/configs/equipquality.bytes
+  - name: assets/buildasset/configs/equipuplevelcost.bytes.unity3d
+    assets:
     - assets/buildasset/configs/equipuplevelcost.bytes
+  - name: assets/buildasset/configs/evolution.bytes.unity3d
+    assets:
     - assets/buildasset/configs/evolution.bytes
+  - name: assets/buildasset/configs/exchange.bytes.unity3d
+    assets:
     - assets/buildasset/configs/exchange.bytes
+  - name: assets/buildasset/configs/fonts.bytes.unity3d
+    assets:
     - assets/buildasset/configs/fonts.bytes
+  - name: assets/buildasset/configs/friend.bytes.unity3d
+    assets:
     - assets/buildasset/configs/friend.bytes
+  - name: assets/buildasset/configs/functionconfig.bytes.unity3d
+    assets:
     - assets/buildasset/configs/functionconfig.bytes
+  - name: assets/buildasset/configs/game_global.bytes.unity3d
+    assets:
     - assets/buildasset/configs/game_global.bytes
+  - name: assets/buildasset/configs/guide.bytes.unity3d
+    assets:
     - assets/buildasset/configs/guide.bytes
+  - name: assets/buildasset/configs/hunterwheel.bytes.unity3d
+    assets:
     - assets/buildasset/configs/hunterwheel.bytes
+  - name: assets/buildasset/configs/item.bytes.unity3d
+    assets:
     - assets/buildasset/configs/item.bytes
+  - name: assets/buildasset/configs/itemdrop.bytes.unity3d
+    assets:
     - assets/buildasset/configs/itemdrop.bytes
+  - name: assets/buildasset/configs/language.bytes.unity3d
+    assets:
     - assets/buildasset/configs/language.bytes
+  - name: assets/buildasset/configs/language_chn.bytes.unity3d
+    assets:
     - assets/buildasset/configs/language_chn.bytes
+  - name: assets/buildasset/configs/language_en.bytes.unity3d
+    assets:
     - assets/buildasset/configs/language_en.bytes
+  - name: assets/buildasset/configs/language_hi.bytes.unity3d
+    assets:
     - assets/buildasset/configs/language_hi.bytes
+  - name: assets/buildasset/configs/language_setting.bytes.unity3d
+    assets:
     - assets/buildasset/configs/language_setting.bytes
+  - name: assets/buildasset/configs/level.bytes.unity3d
+    assets:
     - assets/buildasset/configs/level.bytes
+  - name: assets/buildasset/configs/levelpath.bytes.unity3d
+    assets:
     - assets/buildasset/configs/levelpath.bytes
+  - name: assets/buildasset/configs/likes_icon.bytes.unity3d
+    assets:
     - assets/buildasset/configs/likes_icon.bytes
+  - name: assets/buildasset/configs/likes_jackpot.bytes.unity3d
+    assets:
     - assets/buildasset/configs/likes_jackpot.bytes
+  - name: assets/buildasset/configs/likes_rewards.bytes.unity3d
+    assets:
     - assets/buildasset/configs/likes_rewards.bytes
+  - name: assets/buildasset/configs/machine.bytes.unity3d
+    assets:
     - assets/buildasset/configs/machine.bytes
+  - name: assets/buildasset/configs/machinestar.bytes.unity3d
+    assets:
     - assets/buildasset/configs/machinestar.bytes
+  - name: assets/buildasset/configs/machineupgrade.bytes.unity3d
+    assets:
     - assets/buildasset/configs/machineupgrade.bytes
+  - name: assets/buildasset/configs/maintask.bytes.unity3d
+    assets:
     - assets/buildasset/configs/maintask.bytes
+  - name: assets/buildasset/configs/merchantmission.bytes.unity3d
+    assets:
     - assets/buildasset/configs/merchantmission.bytes
+  - name: assets/buildasset/configs/merchantreward.bytes.unity3d
+    assets:
     - assets/buildasset/configs/merchantreward.bytes
+  - name: assets/buildasset/configs/monsterhunter.bytes.unity3d
+    assets:
     - assets/buildasset/configs/monsterhunter.bytes
+  - name: assets/buildasset/configs/petbuffconfig.bytes.unity3d
+    assets:
     - assets/buildasset/configs/petbuffconfig.bytes
+  - name: assets/buildasset/configs/pets.bytes.unity3d
+    assets:
     - assets/buildasset/configs/pets.bytes
+  - name: assets/buildasset/configs/progresspack.bytes.unity3d
+    assets:
     - assets/buildasset/configs/progresspack.bytes
+  - name: assets/buildasset/configs/rankconfig.bytes.unity3d
+    assets:
     - assets/buildasset/configs/rankconfig.bytes
+  - name: assets/buildasset/configs/redconfig.bytes.unity3d
+    assets:
     - assets/buildasset/configs/redconfig.bytes
+  - name: assets/buildasset/configs/region.bytes.unity3d
+    assets:
     - assets/buildasset/configs/region.bytes
+  - name: assets/buildasset/configs/role.bytes.unity3d
+    assets:
     - assets/buildasset/configs/role.bytes
+  - name: assets/buildasset/configs/roledata.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roledata.bytes
+  - name: assets/buildasset/configs/room.bytes.unity3d
+    assets:
     - assets/buildasset/configs/room.bytes
+  - name: assets/buildasset/configs/roomarea.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roomarea.bytes
+  - name: assets/buildasset/configs/roomexclusive.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roomexclusive.bytes
+  - name: assets/buildasset/configs/roomlike.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roomlike.bytes
+  - name: assets/buildasset/configs/roommachine.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roommachine.bytes
+  - name: assets/buildasset/configs/roomobj.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roomobj.bytes
+  - name: assets/buildasset/configs/roomobjlevel.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roomobjlevel.bytes
+  - name: assets/buildasset/configs/roomtech.bytes.unity3d
+    assets:
     - assets/buildasset/configs/roomtech.bytes
+  - name: assets/buildasset/configs/scene.bytes.unity3d
+    assets:
     - assets/buildasset/configs/scene.bytes
+  - name: assets/buildasset/configs/settingconfig.bytes.unity3d
+    assets:
     - assets/buildasset/configs/settingconfig.bytes
+  - name: assets/buildasset/configs/shop.bytes.unity3d
+    assets:
     - assets/buildasset/configs/shop.bytes
+  - name: assets/buildasset/configs/sound_effect.bytes.unity3d
+    assets:
     - assets/buildasset/configs/sound_effect.bytes
+  - name: assets/buildasset/configs/ui_groups.bytes.unity3d
+    assets:
     - assets/buildasset/configs/ui_groups.bytes
+  - name: assets/buildasset/configs/ui_res.bytes.unity3d
+    assets:
     - assets/buildasset/configs/ui_res.bytes
+  - name: assets/buildasset/configs/worker.bytes.unity3d
+    assets:
+    - assets/buildasset/configs/worker.bytes
+  - name: assets/buildasset/configs/workerlevel.bytes.unity3d
+    assets:
+    - assets/buildasset/configs/workerlevel.bytes
   - name: assets/buildasset/ui/buffshop.unity3d
     assets:
     - assets/buildasset/ui/buffshop_atlas0.png
@@ -3354,10 +4252,6 @@ MonoBehaviour:
     assets:
     - assets/buildasset/ui/roomexclusive_atlas0.png
     - assets/buildasset/ui/roomexclusive_fui.bytes
-  - name: assets/buildasset/ui/scenedecor.unity3d
-    assets:
-    - assets/buildasset/ui/scenedecor_atlas0.png
-    - assets/buildasset/ui/scenedecor_fui.bytes
   - name: assets/buildasset/ui/setting.unity3d
     assets:
     - assets/buildasset/ui/setting_atlas0.png
@@ -3408,6 +4302,9 @@ MonoBehaviour:
   - name: assets/buildasset/prefabs/car.unity3d
     assets:
     - assets/buildasset/prefabs/car/boat_01.prefab
+    - assets/buildasset/prefabs/car/boat_02.prefab
+    - assets/buildasset/prefabs/car/boat_03.prefab
+    - assets/buildasset/prefabs/car/boat_04.prefab
     - assets/buildasset/prefabs/car/carroot.prefab
     - assets/buildasset/prefabs/car/car_01.prefab
     - assets/buildasset/prefabs/car/car_02.prefab
@@ -3670,8 +4567,6 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/scene_03/test_scene03_object_02.prefab
     - assets/buildasset/prefabs/scenes/scene_03/test_scene03_object_03.prefab
     - assets/buildasset/prefabs/scenes/scene_03/test_scene03_object_05.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/test_scene03_table_01.prefab
-    - assets/buildasset/prefabs/scenes/scene_03/test_scene03_table_02.prefab
     - assets/buildasset/prefabs/scenes/scene_03/test_scene03_terrain_01.prefab
     - assets/buildasset/prefabs/scenes/scene_03/test_scene03_terrain_01_02.prefab
     - assets/buildasset/prefabs/scenes/scene_03/test_scene03_terrain_01_03.prefab
@@ -3685,8 +4580,6 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_object_02.mat
     - assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_object_03.mat
     - assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_object_05.mat
-    - assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_table_01.mat
-    - assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_table_02.mat
     - assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_terrain_01.mat
     - assets/buildasset/prefabs/scenes/scene_03/mats/test_scene03_terrain_02.mat
   - name: assets/buildasset/prefabs/scenes/scene_04.unity3d
@@ -3711,10 +4604,13 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/scene_04/test_scene04_object_13.prefab
     - assets/buildasset/prefabs/scenes/scene_04/test_scene04_terrain_01.prefab
     - assets/buildasset/prefabs/scenes/scene_04/test_scene04_terrain_02.prefab
+    - assets/buildasset/prefabs/scenes/scene_04/test_scene06_object_01.prefab
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_01.mat
+    - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_02-1.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_02.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_03.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_04.mat
+    - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_05-1.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_05.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_object_01.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_object_02.mat
@@ -3731,6 +4627,19 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_object_13.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_terrain_01-1.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_terrain_01.mat
+    - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene06_object_01.mat
+  - name: assets/buildasset/prefabs/scenes/table.unity3d
+    assets:
+    - assets/buildasset/prefabs/scenes/table/scene_table_01-1.prefab
+    - assets/buildasset/prefabs/scenes/table/scene_table_01-2.prefab
+    - assets/buildasset/prefabs/scenes/table/scene_table_01-3.prefab
+    - assets/buildasset/prefabs/scenes/table/scene_table_01.prefab
+    - assets/buildasset/prefabs/scenes/table/scene_table_02-1.prefab
+    - assets/buildasset/prefabs/scenes/table/scene_table_02-2.prefab
+    - assets/buildasset/prefabs/scenes/table/scene_table_02-3.prefab
+    - assets/buildasset/prefabs/scenes/table/scene_table_02.prefab
+    - assets/buildasset/prefabs/scenes/table/mats/scene_table_01.mat
+    - assets/buildasset/prefabs/scenes/table/mats/scene_table_02.mat
   - name: assets/buildasset/prefabs/scenes/tool.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/tool/test_scene02_tool_01.prefab
@@ -3861,129 +4770,493 @@ MonoBehaviour:
   - name: assets/buildasset/log/log4net.xml.bytes.unity3d
     assets:
     - assets/buildasset/log/log4net.xml.bytes
-  - name: characters.unity3d
+  - name: characters_res.unity3d
+    assets:
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-10_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-11_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-12_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-13_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-14_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-15_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-16_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-17_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-18_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-19_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-1_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-20_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-21_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-22_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-23_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-24_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-25_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-26_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-27_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-28_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-29_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-2_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-30_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-3_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-4_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-5_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-6_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-7_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-8_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_clothes-9_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-10_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-11_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-12_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-13_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-14_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-15_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-16_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-17_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-18_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-19_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-1_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-20_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-21_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-22_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-23_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-24_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-25_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-26_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-27_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-28_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-29_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-2_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-30_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-3_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-4_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-5_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-6_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-7_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-8_1.mat
+    - assets/buildasset/art/characters/role/per texture materials/role_hair-9_1.mat
+    - assets/buildasset/art/characters/role/textures/role_clothes-10_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-11_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-12_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-13_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-14_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-15_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-16_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-17_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-18_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-19_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-1_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-20_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-21_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-22_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-23_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-24_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-25_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-26_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-27_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-28_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-29_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-2_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-30_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-3_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-4_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-5_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-6_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-7_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-8_1.png
+    - assets/buildasset/art/characters/role/textures/role_clothes-9_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-10_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-11_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-12_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-13_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-14_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-15_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-16_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-17_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-18_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-19_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-1_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-20_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-21_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-22_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-23_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-24_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-25_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-26_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-27_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-28_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-29_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-2_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-30_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-3_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-4_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-5_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-6_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-7_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-8_1.png
+    - assets/buildasset/art/characters/role/textures/role_hair-9_1.png
+  - name: assets/buildasset/customcharacters/role/characterbase.prefab.unity3d
     assets:
     - assets/buildasset/customcharacters/role/characterbase.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-1.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-1.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-10.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-10.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-11.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-11.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-12.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-12.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-13.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-13.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-14.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-14.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-15.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-15.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-16.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-16.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-17.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-17.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-18.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-18.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-19.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-19.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-2.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-2.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-20.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-20.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-21.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-21.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-22.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-22.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-23.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-23.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-24.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-24.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-25.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-25.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-26.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-26.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-27.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-27.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-28.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-28.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-29.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-29.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-3.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-3.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-30.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-30.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-4.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-4.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-5.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-5.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-6.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-6.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-7.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-7.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-8.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-8.prefab
+  - name: assets/buildasset/customcharacters/role/clothes-9.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-9.prefab
+  - name: assets/buildasset/customcharacters/role/hair-1.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-1.prefab
+  - name: assets/buildasset/customcharacters/role/hair-10.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-10.prefab
+  - name: assets/buildasset/customcharacters/role/hair-11.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-11.prefab
+  - name: assets/buildasset/customcharacters/role/hair-12.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-12.prefab
+  - name: assets/buildasset/customcharacters/role/hair-13.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-13.prefab
+  - name: assets/buildasset/customcharacters/role/hair-14.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-14.prefab
+  - name: assets/buildasset/customcharacters/role/hair-15.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-15.prefab
+  - name: assets/buildasset/customcharacters/role/hair-16.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-16.prefab
+  - name: assets/buildasset/customcharacters/role/hair-17.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-17.prefab
+  - name: assets/buildasset/customcharacters/role/hair-18.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-18.prefab
+  - name: assets/buildasset/customcharacters/role/hair-19.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-19.prefab
+  - name: assets/buildasset/customcharacters/role/hair-2.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-2.prefab
+  - name: assets/buildasset/customcharacters/role/hair-20.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-20.prefab
+  - name: assets/buildasset/customcharacters/role/hair-21.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-21.prefab
+  - name: assets/buildasset/customcharacters/role/hair-22.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-22.prefab
+  - name: assets/buildasset/customcharacters/role/hair-23.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-23.prefab
+  - name: assets/buildasset/customcharacters/role/hair-24.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-24.prefab
+  - name: assets/buildasset/customcharacters/role/hair-25.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-25.prefab
+  - name: assets/buildasset/customcharacters/role/hair-26.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-26.prefab
+  - name: assets/buildasset/customcharacters/role/hair-27.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-27.prefab
+  - name: assets/buildasset/customcharacters/role/hair-28.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-28.prefab
+  - name: assets/buildasset/customcharacters/role/hair-29.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-29.prefab
+  - name: assets/buildasset/customcharacters/role/hair-3.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-3.prefab
+  - name: assets/buildasset/customcharacters/role/hair-30.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-30.prefab
+  - name: assets/buildasset/customcharacters/role/hair-4.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-4.prefab
+  - name: assets/buildasset/customcharacters/role/hair-5.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-5.prefab
+  - name: assets/buildasset/customcharacters/role/hair-6.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-6.prefab
+  - name: assets/buildasset/customcharacters/role/hair-7.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-7.prefab
+  - name: assets/buildasset/customcharacters/role/hair-8.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-8.prefab
+  - name: assets/buildasset/customcharacters/role/hair-9.prefab.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-9.prefab
+  - name: assets/buildasset/customcharacters/characterelementdatabase.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/characterelementdatabase.asset
+  - name: assets/buildasset/customcharacters/role/clothes-10_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-10_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-11_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-11_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-12_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-12_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-13_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-13_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-14_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-14_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-15_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-15_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-16_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-16_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-17_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-17_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-18_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-18_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-19_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-19_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-1_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-1_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-20_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-20_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-21_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-21_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-22_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-22_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-23_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-23_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-24_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-24_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-25_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-25_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-26_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-26_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-27_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-27_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-28_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-28_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-29_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-29_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-2_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-2_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-30_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-30_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-3_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-3_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-4_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-4_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-5_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-5_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-6_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-6_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-7_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-7_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-8_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-8_mesh.asset
+  - name: assets/buildasset/customcharacters/role/clothes-9_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/clothes-9_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-10_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-10_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-11_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-11_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-12_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-12_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-13_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-13_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-14_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-14_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-15_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-15_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-16_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-16_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-17_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-17_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-18_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-18_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-19_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-19_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-1_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-1_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-20_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-20_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-21_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-21_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-22_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-22_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-23_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-23_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-24_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-24_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-25_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-25_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-26_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-26_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-27_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-27_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-28_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-28_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-29_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-29_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-2_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-2_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-30_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-30_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-3_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-3_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-4_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-4_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-5_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-5_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-6_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-6_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-7_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-7_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-8_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-8_mesh.asset
+  - name: assets/buildasset/customcharacters/role/hair-9_mesh.asset.unity3d
+    assets:
     - assets/buildasset/customcharacters/role/hair-9_mesh.asset
   - name: visualscript.unity3d
     assets:
@@ -4110,6 +5383,7 @@ MonoBehaviour:
     - assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset
     - assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset
     - assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset
+    - assets/buildasset/visualscript/game/character/utils/workerchangelook.asset
     - assets/buildasset/visualscript/game/room/manager/dispatchfoodreadlyorder2woker.asset
     - assets/buildasset/visualscript/game/room/manager/dispatchorder2waitergetfood.asset
     - assets/buildasset/visualscript/game/room/manager/dispatchorder2woker.asset
@@ -4131,7 +5405,7 @@ MonoBehaviour:
   - name: assets/buildasset/fonts/lilitaone/mukta-extrabold.ttf.unity3d
     assets:
     - assets/buildasset/fonts/lilitaone/mukta-extrabold.ttf
-  - name: assets/buildasset/effects/prefabs.unity3d
+  - name: effects.unity3d
     assets:
     - assets/buildasset/effects/prefabs/1001.prefab
     - assets/buildasset/effects/prefabs/1002.prefab
@@ -4162,6 +5436,7 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/angel_halo.prefab
     - assets/buildasset/effects/prefabs/baoxiangdizuo.prefab
     - assets/buildasset/effects/prefabs/bigluckshow.prefab
+    - assets/buildasset/effects/prefabs/boosters.prefab
     - assets/buildasset/effects/prefabs/box_401.prefab
     - assets/buildasset/effects/prefabs/box_402.prefab
     - assets/buildasset/effects/prefabs/box_403.prefab
@@ -4213,44 +5488,30 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/ui_arrow.prefab
     - assets/buildasset/effects/prefabs/ui_ring.prefab
     - assets/buildasset/effects/prefabs/upgrade.prefab
-  - name: assets/buildasset/effects/prefabs/guangquan.unity3d
-    assets:
     - assets/buildasset/effects/prefabs/guangquan/guangquan02.prefab
     - assets/buildasset/effects/prefabs/guangquan/guangquan03.prefab
     - assets/buildasset/effects/prefabs/guangquan/guangquan04.prefab
     - assets/buildasset/effects/prefabs/guangquan/guangquan05.prefab
     - assets/buildasset/effects/prefabs/guangquan/guangquan06.prefab
     - assets/buildasset/effects/prefabs/guangquan/guangquan07.prefab
-  - name: assets/buildasset/effects/prefabs/hunter.unity3d
-    assets:
     - assets/buildasset/effects/prefabs/hunter/baozha.prefab
     - assets/buildasset/effects/prefabs/hunter/bullet01.prefab
     - assets/buildasset/effects/prefabs/hunter/bullet02.prefab
     - assets/buildasset/effects/prefabs/hunter/bullet03.prefab
-  - name: assets/buildasset/effects/prefabs/level.unity3d
-    assets:
     - assets/buildasset/effects/prefabs/level/level04.prefab
-  - name: assets/buildasset/effects/prefabs/level03.unity3d
-    assets:
     - assets/buildasset/effects/prefabs/level03/diamond.prefab
     - assets/buildasset/effects/prefabs/level03/diamond2.prefab
     - assets/buildasset/effects/prefabs/level03/lights.prefab
     - assets/buildasset/effects/prefabs/level03/smoke.prefab
     - assets/buildasset/effects/prefabs/level03/torch (3).prefab
-  - name: assets/buildasset/effects/prefabs/transitions01.unity3d
-    assets:
     - assets/buildasset/effects/prefabs/transitions01/hong.prefab
     - assets/buildasset/effects/prefabs/transitions01/jin.prefab
     - assets/buildasset/effects/prefabs/transitions01/lan.prefab
     - assets/buildasset/effects/prefabs/transitions01/transitions01.prefab
     - assets/buildasset/effects/prefabs/transitions01/ui_transitions01.prefab
     - assets/buildasset/effects/prefabs/transitions01/ui_transitions02.prefab
-  - name: assets/buildasset/effects/prefabs/scenesbullet/adtest.unity3d
-    assets:
     - assets/buildasset/effects/prefabs/scenesbullet/adtest/blizzard.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/adtest/ice_cake.prefab
-  - name: assets/buildasset/effects/prefabs/scenesbullet/scenes01.unity3d
-    assets:
     - assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_boos_baodian.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_boos_suishi.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes01_tool_goods_01.prefab
@@ -4272,6 +5533,236 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_10.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_10b.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_scenes07_tool_goods_10_01.prefab
+    - assets/buildasset/effects/materials/andan.mat
+    - assets/buildasset/effects/materials/bai.mat
+    - assets/buildasset/effects/materials/baodian 1.mat
+    - assets/buildasset/effects/materials/baodian.mat
+    - assets/buildasset/effects/materials/baozha.mat
+    - assets/buildasset/effects/materials/bed 1.mat
+    - assets/buildasset/effects/materials/bed.mat
+    - assets/buildasset/effects/materials/bingkuai.mat
+    - assets/buildasset/effects/materials/bingshuang 1.mat
+    - assets/buildasset/effects/materials/bingshuang.mat
+    - assets/buildasset/effects/materials/boww 1.mat
+    - assets/buildasset/effects/materials/boww.mat
+    - assets/buildasset/effects/materials/box_01.mat
+    - assets/buildasset/effects/materials/box_02.mat
+    - assets/buildasset/effects/materials/box_03.mat
+    - assets/buildasset/effects/materials/caitiao.mat
+    - assets/buildasset/effects/materials/chou.mat
+    - assets/buildasset/effects/materials/dahai.mat
+    - assets/buildasset/effects/materials/diamond.mat
+    - assets/buildasset/effects/materials/dian 1.mat
+    - assets/buildasset/effects/materials/dian 2.mat
+    - assets/buildasset/effects/materials/dian.mat
+    - assets/buildasset/effects/materials/gold.mat
+    - assets/buildasset/effects/materials/guagnbo.mat
+    - assets/buildasset/effects/materials/guang 1.mat
+    - assets/buildasset/effects/materials/guang 2.mat
+    - assets/buildasset/effects/materials/guang 3.mat
+    - assets/buildasset/effects/materials/guang.mat
+    - assets/buildasset/effects/materials/guanghuan 1.mat
+    - assets/buildasset/effects/materials/guanghuan.mat
+    - assets/buildasset/effects/materials/guntog.mat
+    - assets/buildasset/effects/materials/hainiao.mat
+    - assets/buildasset/effects/materials/hm04.mat
+    - assets/buildasset/effects/materials/huaduo.mat
+    - assets/buildasset/effects/materials/huan 1.mat
+    - assets/buildasset/effects/materials/huan 2.mat
+    - assets/buildasset/effects/materials/huan 3.mat
+    - assets/buildasset/effects/materials/huan 4.mat
+    - assets/buildasset/effects/materials/huan 5.mat
+    - assets/buildasset/effects/materials/huan 6.mat
+    - assets/buildasset/effects/materials/huan 7.mat
+    - assets/buildasset/effects/materials/huan.mat
+    - assets/buildasset/effects/materials/huomiao 1.mat
+    - assets/buildasset/effects/materials/huomiao 2.mat
+    - assets/buildasset/effects/materials/huomiao 3.mat
+    - assets/buildasset/effects/materials/huomiao.mat
+    - assets/buildasset/effects/materials/huomiao2.mat
+    - assets/buildasset/effects/materials/item.mat
+    - assets/buildasset/effects/materials/jia dian.mat
+    - assets/buildasset/effects/materials/jia.mat
+    - assets/buildasset/effects/materials/jiantou.mat
+    - assets/buildasset/effects/materials/jiaoyin.mat
+    - assets/buildasset/effects/materials/jinbi01.mat
+    - assets/buildasset/effects/materials/langhua.mat
+    - assets/buildasset/effects/materials/leidian 1.mat
+    - assets/buildasset/effects/materials/leidian 2.mat
+    - assets/buildasset/effects/materials/leidian.mat
+    - assets/buildasset/effects/materials/lianju.mat
+    - assets/buildasset/effects/materials/material.mat
+    - assets/buildasset/effects/materials/pai.mat
+    - assets/buildasset/effects/materials/pao.mat
+    - assets/buildasset/effects/materials/paopao.mat
+    - assets/buildasset/effects/materials/pian.mat
+    - assets/buildasset/effects/materials/sekuai 1.mat
+    - assets/buildasset/effects/materials/sekuai.mat
+    - assets/buildasset/effects/materials/shuaa.mat
+    - assets/buildasset/effects/materials/shui 1.mat
+    - assets/buildasset/effects/materials/shuye.mat
+    - assets/buildasset/effects/materials/smoke 1.mat
+    - assets/buildasset/effects/materials/smoke 2.mat
+    - assets/buildasset/effects/materials/smoke.mat
+    - assets/buildasset/effects/materials/suishi.mat
+    - assets/buildasset/effects/materials/tuowei.mat
+    - assets/buildasset/effects/materials/uiss.mat
+    - assets/buildasset/effects/materials/wuuu.mat
+    - assets/buildasset/effects/materials/xian 1.mat
+    - assets/buildasset/effects/materials/xian 2.mat
+    - assets/buildasset/effects/materials/xian 3.mat
+    - assets/buildasset/effects/materials/xian 4.mat
+    - assets/buildasset/effects/materials/xian.mat
+    - assets/buildasset/effects/materials/xiaoyu.mat
+    - assets/buildasset/effects/materials/xue.mat
+    - assets/buildasset/effects/materials/xxx 1.mat
+    - assets/buildasset/effects/materials/xxx.mat
+    - assets/buildasset/effects/materials/yanhua1.mat
+    - assets/buildasset/effects/materials/yanhuatuo.mat
+    - assets/buildasset/effects/materials/zidan 1.mat
+    - assets/buildasset/effects/materials/zidan.mat
+    - assets/buildasset/effects/materials/zipian.mat
+    - assets/buildasset/effects/materials/zzzz.mat
+    - assets/buildasset/effects/mod/gold 1.mat
+    - assets/buildasset/effects/shaber/boguang.mat
+    - assets/buildasset/effects/shaber/yanjiang.mat
+    - assets/buildasset/effects/prefabs/hunter/bullet_01.mat
+    - assets/buildasset/effects/prefabs/hunter/bullet_02.mat
+    - assets/buildasset/effects/prefabs/hunter/bullet_03.mat
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_bg.mat
+    - assets/buildasset/effects/materials/jiaoyin01.png
+    - assets/buildasset/effects/materials/object_2006.png
+    - assets/buildasset/effects/mod/gold_01.png
+    - assets/buildasset/effects/textures/1fad674e.png
+    - assets/buildasset/effects/textures/33.png
+    - assets/buildasset/effects/textures/aa_note_long.png
+    - assets/buildasset/effects/textures/afxl_glow08a_256d1.png
+    - assets/buildasset/effects/textures/azir_base_e_shield_base.png
+    - assets/buildasset/effects/textures/barbarian_earthquake_rings_add (0-00-00-00).png
+    - assets/buildasset/effects/textures/bbbing.png
+    - assets/buildasset/effects/textures/bw_order_wispies.png
+    - assets/buildasset/effects/textures/d_2d_block_01.png
+    - assets/buildasset/effects/textures/d_2d_explode_04.png
+    - assets/buildasset/effects/textures/d_2d_fireball_01.png
+    - assets/buildasset/effects/textures/d_2d_hit_01.png
+    - assets/buildasset/effects/textures/d_2d_punchattack_01.png
+    - assets/buildasset/effects/textures/d_2d_ray_01.png
+    - assets/buildasset/effects/textures/d_heal_01.png
+    - assets/buildasset/effects/textures/enrage_bottom_parts_sheet.png
+    - assets/buildasset/effects/textures/fb_explosion_firering.png
+    - assets/buildasset/effects/textures/fire_loop_sheet.png
+    - assets/buildasset/effects/textures/gameart8.com460.png
+    - assets/buildasset/effects/textures/generic_explosion_1_sheet.png
+    - assets/buildasset/effects/textures/ggguan 1.png
+    - assets/buildasset/effects/textures/glowing_particles_sheet.png
+    - assets/buildasset/effects/textures/glow_1006.png
+    - assets/buildasset/effects/textures/glow_1007.png
+    - assets/buildasset/effects/textures/glow_1022.png
+    - assets/buildasset/effects/textures/glow_1097.png
+    - assets/buildasset/effects/textures/glow_11008.png
+    - assets/buildasset/effects/textures/glow_2003.png
+    - assets/buildasset/effects/textures/glow_3024.png
+    - assets/buildasset/effects/textures/glow_4027.png
+    - assets/buildasset/effects/textures/glow_4034.png
+    - assets/buildasset/effects/textures/glow_6047.png
+    - assets/buildasset/effects/textures/glow_6098.png
+    - assets/buildasset/effects/textures/green_leaf01_emis.png
+    - assets/buildasset/effects/textures/guangxian.png
+    - assets/buildasset/effects/textures/gunzi.png
+    - assets/buildasset/effects/textures/hai03.png
+    - assets/buildasset/effects/textures/hailang1 2.png
+    - assets/buildasset/effects/textures/haishui.png
+    - assets/buildasset/effects/textures/haruyuki_rotation_00_03.png
+    - assets/buildasset/effects/textures/huaduo.png
+    - assets/buildasset/effects/textures/huan11.png
+    - assets/buildasset/effects/textures/huan13.png
+    - assets/buildasset/effects/textures/huomiao.png
+    - assets/buildasset/effects/textures/icon_item_101.png
+    - assets/buildasset/effects/textures/intersectionnoise 1.png
+    - assets/buildasset/effects/textures/jiantou.png
+    - assets/buildasset/effects/textures/jiaoyin.png
+    - assets/buildasset/effects/textures/jinbixz.png
+    - assets/buildasset/effects/textures/kuagn.png
+    - assets/buildasset/effects/textures/kuang01.png
+    - assets/buildasset/effects/textures/leiqiu.png
+    - assets/buildasset/effects/textures/lig.png
+    - assets/buildasset/effects/textures/lighting_11003.png
+    - assets/buildasset/effects/textures/lighting_3005.png
+    - assets/buildasset/effects/textures/lissandra_global_freeze.png
+    - assets/buildasset/effects/textures/loading-2.png
+    - assets/buildasset/effects/textures/mask_1024.png
+    - assets/buildasset/effects/textures/niao1.png
+    - assets/buildasset/effects/textures/noise_11002_re.png
+    - assets/buildasset/effects/textures/object_3038.png
+    - assets/buildasset/effects/textures/paopao_01.png
+    - assets/buildasset/effects/textures/pet_light_02.png
+    - assets/buildasset/effects/textures/pet_light_03.png
+    - assets/buildasset/effects/textures/pian.png
+    - assets/buildasset/effects/textures/public_huiguang_02 #5293.png
+    - assets/buildasset/effects/textures/qwenthur_dazhaobg_01 #5605.png
+    - assets/buildasset/effects/textures/rage_wave_core_sheet_new.png
+    - assets/buildasset/effects/textures/sekuai.png
+    - assets/buildasset/effects/textures/selvaria_dazhao_05.png
+    - assets/buildasset/effects/textures/sequence_1008.png
+    - assets/buildasset/effects/textures/sequence_1089.png
+    - assets/buildasset/effects/textures/sequence_1103.png
+    - assets/buildasset/effects/textures/sequence_3003.png
+    - assets/buildasset/effects/textures/sf4_dds_0195.png
+    - assets/buildasset/effects/textures/shandian.png
+    - assets/buildasset/effects/textures/shuibo.png
+    - assets/buildasset/effects/textures/shuikuai.png
+    - assets/buildasset/effects/textures/smoke_1025.png
+    - assets/buildasset/effects/textures/smoke_1044.png
+    - assets/buildasset/effects/textures/smoke_11001.png
+    - assets/buildasset/effects/textures/smoke_7004.png
+    - assets/buildasset/effects/textures/ssguang.png
+    - assets/buildasset/effects/textures/suipian.png
+    - assets/buildasset/effects/textures/texture_9001.png
+    - assets/buildasset/effects/textures/texture_9015.png
+    - assets/buildasset/effects/textures/uihighlight_i2d.png
+    - assets/buildasset/effects/textures/uiss.png
+    - assets/buildasset/effects/textures/ui_animation_cards.png
+    - assets/buildasset/effects/textures/ui_icon_box_01.png
+    - assets/buildasset/effects/textures/ui_icon_box_02.png
+    - assets/buildasset/effects/textures/ui_icon_box_03.png
+    - assets/buildasset/effects/textures/ui_icon_coin.png
+    - assets/buildasset/effects/textures/ui_icon_diamond.png
+    - assets/buildasset/effects/textures/ui_icon_material.png
+    - assets/buildasset/effects/textures/ui_ramp_01 #8376.png
+    - assets/buildasset/effects/textures/ui_star_01.png
+    - assets/buildasset/effects/textures/ui_unionfb_enterl.png
+    - assets/buildasset/effects/textures/water_splash_3_new_sheet_bw.png
+    - assets/buildasset/effects/textures/water_splash_4_new_sheet_bw.png
+    - assets/buildasset/effects/textures/wb_paopao_01.png
+    - assets/buildasset/effects/textures/xin01.png
+    - assets/buildasset/effects/textures/xue.png
+    - assets/buildasset/effects/textures/xuewo.png
+    - assets/buildasset/effects/textures/xxaa.png
+    - assets/buildasset/effects/textures/xxxwwo.png
+    - assets/buildasset/effects/textures/yu01.png
+    - assets/buildasset/effects/textures/zz.png
+    - assets/buildasset/effects/prefabs/hunter/bullet_01.png
+    - assets/buildasset/effects/prefabs/hunter/bullet_02.png
+    - assets/buildasset/effects/prefabs/hunter/bullet_03.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_bg.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_bg2.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_door_01.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_door_02.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_door_03.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_frame_01.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_frame_02.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_frame_03.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_01.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_02.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_03.png
+    - assets/buildasset/effects/textures/ui/ui_cutscenes_portals.png
+  - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures.unity3d
+    assets:
+    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/intersectionnoise.png
+    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/roughwaves.png
+    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/smoothwaves.png
+    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_caustics.png
+    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_foamsea.png
   - name: assets/buildasset/json.unity3d
     assets:
     - assets/buildasset/json/testfrienddata.txt.bytes
@@ -4336,13 +5827,6 @@ MonoBehaviour:
     - assets/buildasset/effects/shaber/stylizedwater2/shaders/stylizedwater2.shader
     - assets/buildasset/effects/shaber/effect_base_gj.shader
     - assets/3rd/textmesh pro/shaders/tmp_sdf.shader
-  - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures.unity3d
-    assets:
-    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/intersectionnoise.png
-    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/roughwaves.png
-    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/smoothwaves.png
-    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_caustics.png
-    - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/sws_foamsea.png
   - name: assets/buildasset/art/model/other/pian_01.fbx.unity3d
     assets:
     - assets/buildasset/art/model/other/pian_01.fbx
@@ -4355,147 +5839,18 @@ MonoBehaviour:
   - name: assets/buildasset/art/model/other/materials/2.mat.unity3d
     assets:
     - assets/buildasset/art/model/other/materials/2.mat
-  - name: assets/buildasset/effects/textures/smoke_1025.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/smoke_1025.png
-  - name: assets/buildasset/effects/textures/hailang1 2.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/hailang1 2.png
-  - name: assets/buildasset/effects/materials/guntog.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/guntog.mat
-  - name: assets/buildasset/effects/materials/langhua.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/langhua.mat
-  - name: assets/buildasset/effects/textures/gunzi.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/gunzi.png
   - name: assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_18_day_a.png.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/textures/sky_anime_18_day_a.png
-  - name: assets/buildasset/effects/textures/haishui.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/haishui.png
-  - name: assets/buildasset/effects/materials/dahai.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/dahai.mat
   - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_18_day_a.mat.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_18_day_a.mat
-  - name: assets/buildasset/effects/materials/smoke.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/smoke.mat
-  - name: assets/buildasset/effects/materials/hm04.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/hm04.mat
-  - name: assets/buildasset/effects/textures/intersectionnoise 1.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/intersectionnoise 1.png
-  - name: assets/buildasset/effects/textures/hai03.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/hai03.png
   - name: assets/buildasset/effects/mod/pquan.fbx.unity3d
     assets:
     - assets/buildasset/effects/mod/pquan.fbx
-  - name: assets/buildasset/effects/materials/hainiao.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/hainiao.mat
-  - name: assets/buildasset/effects/materials/chou.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/chou.mat
-  - name: assets/buildasset/effects/textures/niao1.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/niao1.png
   - name: assets/buildasset/effects/textures/vein02.dds.unity3d
     assets:
     - assets/buildasset/effects/textures/vein02.dds
-  - name: assets/buildasset/effects/textures/water_splash_3_new_sheet_bw.png.unity3d
+  - name: assets/buildasset/art/characters/role/role.fbx.unity3d
     assets:
-    - assets/buildasset/effects/textures/water_splash_3_new_sheet_bw.png
-  - name: assets/buildasset/effects/shaber/boguang.mat.unity3d
-    assets:
-    - assets/buildasset/effects/shaber/boguang.mat
-  - name: assets/buildasset/effects/textures/glow_1007.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_1007.png
-  - name: assets/buildasset/effects/materials/huomiao 3.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/huomiao 3.mat
-  - name: assets/buildasset/effects/materials/andan.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/andan.mat
-  - name: assets/buildasset/effects/textures/glowing_particles_sheet.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glowing_particles_sheet.png
-  - name: assets/buildasset/effects/textures/glow_1022.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_1022.png
-  - name: assets/buildasset/effects/materials/yanhua1.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/yanhua1.mat
-  - name: assets/buildasset/effects/materials/dian.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/dian.mat
-  - name: assets/buildasset/effects/textures/glow_4027.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_4027.png
-  - name: assets/buildasset/effects/materials/yanhuatuo.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/yanhuatuo.mat
-  - name: assets/buildasset/effects/materials/huan.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/huan.mat
-  - name: assets/buildasset/effects/textures/glow_11008.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_11008.png
-  - name: assets/buildasset/effects/textures/xxaa.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/xxaa.png
-  - name: assets/buildasset/effects/materials/bai.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/bai.mat
-  - name: assets/buildasset/effects/textures/barbarian_earthquake_rings_add (0-00-00-00).png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/barbarian_earthquake_rings_add (0-00-00-00).png
-  - name: assets/buildasset/effects/textures/kuagn.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/kuagn.png
-  - name: assets/buildasset/effects/textures/fb_explosion_firering.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/fb_explosion_firering.png
-  - name: assets/buildasset/effects/materials/huan 3.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/huan 3.mat
-  - name: assets/buildasset/effects/materials/xian.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/xian.mat
-  - name: assets/buildasset/effects/materials/huan 1.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/huan 1.mat
-  - name: assets/buildasset/effects/textures/generic_explosion_1_sheet.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/generic_explosion_1_sheet.png
-  - name: assets/buildasset/effects/materials/xian 1.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/xian 1.mat
-  - name: assets/buildasset/effects/textures/leiqiu.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/leiqiu.png
-  - name: assets/buildasset/effects/materials/tuowei.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/tuowei.mat
-  - name: assets/buildasset/effects/materials/leidian.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/leidian.mat
-  - name: assets/buildasset/effects/mod/zidan.fbx.unity3d
-    assets:
-    - assets/buildasset/effects/mod/zidan.fbx
-  - name: assets/buildasset/effects/textures/glow_3024.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/glow_3024.png
-  - name: assets/buildasset/effects/materials/baozha.mat.unity3d
-    assets:
-    - assets/buildasset/effects/materials/baozha.mat
-  - name: assets/buildasset/effects/textures/mask_1024.png.unity3d
-    assets:
-    - assets/buildasset/effects/textures/mask_1024.png
+    - assets/buildasset/art/characters/role/role.fbx
