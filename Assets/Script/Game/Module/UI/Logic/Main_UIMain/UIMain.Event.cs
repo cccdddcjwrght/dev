@@ -489,6 +489,8 @@ namespace SGame.UI
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
 		}
 
+
+		bool m_OldAdShowState;
 		void OnRefreshAdState()
 		{
 			bool networkState = NetworkUtils.IsNetworkReachability();
@@ -501,7 +503,18 @@ namespace SGame.UI
 			}
 
 			AdModule.Instance.GetAdShowTime(AdType.Invest.ToString(), out bool state, out int time);
-			m_view.m_InvestBtn.visible = state;
+			//m_view.m_InvestBtn.visible = state;
+			if (m_OldAdShowState != state) 
+			{
+				m_OldAdShowState = state;
+				if (m_OldAdShowState) 
+				{
+					m_view.m_doshow.Play();
+					m_view.m_InvestBtn.visible = true;
+				}
+				else m_view.m_dohide.Play(()=>m_view.m_InvestBtn.visible = false);
+			}
+
 			if (state)
 			{
 				var btn = m_view.m_InvestBtn as UI_InvestMan;
