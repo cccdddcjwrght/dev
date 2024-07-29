@@ -100,12 +100,15 @@ namespace SGame
             /// 完成任务
             /// </summary>
             /// <param name="id"></param>
-            public static void FinishTaskId(int id) 
+            public static void FinishTaskId(int id, bool getReward = true) 
             {
                 if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(id, out var cfg)) 
                 {
-                    var val = Utils.GetArrayList(true, cfg.GetTaskReward1Array, cfg.GetTaskReward2Array, cfg.GetTaskReward3Array);
-                    val.ForEach((v) =>{ PropertyManager.Instance.Update(v[0], v[1], v[2]);});
+                    if (getReward) 
+                    {
+                        var val = Utils.GetArrayList(true, cfg.GetTaskReward1Array, cfg.GetTaskReward2Array, cfg.GetTaskReward3Array);
+                        val.ForEach((v) => { PropertyManager.Instance.Update(v[0], v[1], v[2]); });
+                    }
                     m_TaskMainData.cfgId++;
 
                     isGet = false;

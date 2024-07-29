@@ -357,7 +357,7 @@ namespace SGame.UI
 				{
 					var list = Utils.GetArrayList(true, cfg.GetTaskReward1Array, cfg.GetTaskReward2Array, cfg.GetTaskReward3Array);
 					Utils.ShowRewards(list, () => SGame.UIUtils.OpenUI("task"));
-					DataCenter.TaskMainUtil.FinishTaskId(taskCfgId);
+					DataCenter.TaskMainUtil.FinishTaskId(taskCfgId, false);
 				}
 			}
 			else
