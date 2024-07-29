@@ -211,7 +211,7 @@ namespace SGame.UI{
 					m_view.m_Gold.xy = ui.Value.contentPane.GetChild("Gold").xy;
 					m_view.m_Diamond.xy = ui.Value.contentPane.GetChild("Diamond").xy;
 
-					var boxGObject = ui.Value.contentPane.GetChildByPath("leftList.right.eqgift");
+					var boxGObject = ui.Value.contentPane.GetChildByPath("leftList.eqgift");
 					if (boxGObject != null)
 						m_view.m_Box.xy = GRoot.inst.GlobalToLocal(boxGObject.LocalToGlobal(Vector2.zero));
 					else
