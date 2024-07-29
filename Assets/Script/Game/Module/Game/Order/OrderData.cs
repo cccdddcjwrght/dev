@@ -190,8 +190,7 @@ namespace SGame
 
             this.dishPointID = dishPointID;
             this.progress = ORDER_PROGRESS.FOOD_READLY;
-            EventManager.Instance.Trigger((int)GameEvent.ORDER_FOOD_READLY, id);
-            //ORDER_FOOD_READLY
+            EventManager.Instance.AsyncTrigger((int)GameEvent.ORDER_FOOD_READLY, id);
             return true;
         }
 

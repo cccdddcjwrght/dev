@@ -406,8 +406,15 @@ using System.Collections.Generic;
         public bool PushToDishPoint(int tableID)
         {
             OrderData orderData = order;
+            if (m_food != orderData.foodID)
+            {
+                log.Error("food entity not match!");
+                return false;
+            }
+            
             if (!orderData.PutToDishPoint(CharacterID, tableID))
                 return false;
+            
             TableData table = TableManager.Instance.Get(tableID);
             Entity foodEntity = PlaceFoodToTable(table.map_pos);
             
@@ -440,13 +447,13 @@ using System.Collections.Generic;
         public Entity PlaceFoodToTable(int2 pos)
         {
             Entity old = m_food;
-            if (m_food != Entity.Null && entityManager.Exists(m_food))
+            if (m_food != Entity.Null && entityManager.Exists(m_food) && entityManager.HasComponent<Transform>(m_food))
             {
                 Vector3 postemp = GameTools.MapAgent.CellToVector(pos.x, pos.y);
                 float3 worldPos = postemp;
                 float posY = ConstDefine.DISH_OFFSET_Y;
                 worldPos += new float3(0, posY, 0);
-
+                
                 Transform foodTrans = entityManager.GetComponentObject<Transform>(m_food);
                 foodTrans.SetParent(null);
                 foodTrans.position = worldPos;
@@ -746,5 +753,10 @@ using System.Collections.Generic;
         /// 获取订单, 将订单放入队列中 
         /// </summary>
         public void TakeOrder(OrderData order) => m_orderRecord.TakeOrder(order);
+
+        /// <summary>
+        /// 等待食物创建完毕
+        /// </summary>
+        public bool FoodEntityReadly => m_food == Entity.Null || EffectSystem.Instance.IsLoaded(m_food);
     }
 }

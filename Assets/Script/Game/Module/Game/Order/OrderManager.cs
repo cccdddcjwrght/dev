@@ -129,10 +129,10 @@ namespace SGame
 
             if (foodType != 0)
             {
-                EventManager.Instance.Trigger((int)GameEvent.ORDER, order.id);
+                EventManager.Instance.AsyncTrigger((int)GameEvent.ORDER, order.id);
             }
             else
-                EventManager.Instance.Trigger((int)GameEvent.ORDER_REQUEST, order.id);
+                EventManager.Instance.AsyncTrigger((int)GameEvent.ORDER_REQUEST, order.id);
             return order;
         }
 
