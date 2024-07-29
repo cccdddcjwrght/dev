@@ -8,34 +8,12 @@ ShaderVariantCollection:
   m_PrefabAsset: {fileID: 0}
   m_Name: ShaderCollect
   m_Shaders:
-  - first: {fileID: 0}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
-  - first: {fileID: 0}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
-  - first: {fileID: 0}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
-  - first: {fileID: 0}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
   - first: {fileID: 4800000, guid: 263c97191482b3649ac7bf0810cc4f77, type: 3}
     second:
       variants:
       - keywords: 
         passType: 13
       - keywords: CLIPPED
-        passType: 13
-      - keywords: CLIPPED GRAYED
         passType: 13
       - keywords: GRAYED
         passType: 13
@@ -128,11 +106,6 @@ ShaderVariantCollection:
       variants:
       - keywords: 
         passType: 0
-  - first: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
   - first: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
     second:
       variants:
@@ -143,36 +116,29 @@ ShaderVariantCollection:
       variants:
       - keywords: 
         passType: 0
+  - first: {fileID: 4800000, guid: 93446b5c5339d4f00b85c159e1159b7c, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
   - first: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
     second:
       variants:
       - keywords: 
         passType: 8
-      - keywords: _ALPHATEST_ON
-        passType: 8
-      - keywords: 
-        passType: 13
-      - keywords: SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS
-          _ALPHATEST_ON _MAIN_LIGHT_SHADOWS _SPECULAR_SETUP _SURFACE_TYPE_TRANSPARENT
-        passType: 13
-      - keywords: SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS
+      - keywords: EVALUATE_SH_VERTEX SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX
           _MAIN_LIGHT_SHADOWS
         passType: 13
-      - keywords: SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS
+      - keywords: EVALUATE_SH_VERTEX SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX
           _MAIN_LIGHT_SHADOWS _SPECULAR_SETUP
         passType: 13
-      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS
-        passType: 13
-      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS
-          _SPECULAR_SETUP
+      - keywords: EVALUATE_SH_VERTEX _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS
         passType: 13
   - first: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
     second:
       variants:
       - keywords: _SURFACE_TYPE_TRANSPARENT
         passType: 0
-      - keywords: 
-        passType: 13
   - first: {fileID: 4800000, guid: e260cfa7296ee7642b167f1eb5be5023, type: 3}
     second:
       variants:
@@ -183,43 +149,30 @@ ShaderVariantCollection:
       variants:
       - keywords: 
         passType: 8
-      - keywords: 
-        passType: 13
-      - keywords: SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS
+      - keywords: EVALUATE_SH_VERTEX SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX
           _MAIN_LIGHT_SHADOWS
         passType: 13
-  - first: {fileID: -6465566751694194690, guid: 44245ab89240f51459a5077d7145c452, type: 3}
-    second:
-      variants:
-      - keywords: 
-        passType: 8
-      - keywords: 
-        passType: 13
-      - keywords: SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS
-          _MAIN_LIGHT_SHADOWS
-        passType: 13
-      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS
+      - keywords: EVALUATE_SH_VERTEX _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS
         passType: 13
   - first: {fileID: 4800000, guid: f04c9486b297dd848909db26983c9ddb, type: 3}
     second:
       variants:
-      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS _ADVANCED_SHADING
-          _DISTANCE_NORMALS _ENVIRONMENTREFLECTIONS_OFF _MAIN_LIGHT_SHADOWS _RECEIVE_SHADOWS_OFF
-          _SHARP_INERSECTION _SPECULARHIGHLIGHTS_OFF _UNLIT
-        passType: 13
-      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS _CAUSTICS _MAIN_LIGHT_SHADOWS
-          _NORMALMAP _REFRACTION
-        passType: 13
-      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS _DISTANCE_NORMALS
-          _ENVIRONMENTREFLECTIONS_OFF _MAIN_LIGHT_SHADOWS _RECEIVE_SHADOWS_OFF _RIVER
-          _SHARP_INERSECTION _SPECULARHIGHLIGHTS_OFF _UNLIT
-        passType: 13
-      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHT_SHADOWS _DISTANCE_NORMALS
-          _ENVIRONMENTREFLECTIONS_OFF _MAIN_LIGHT_SHADOWS _RECEIVE_SHADOWS_OFF _SHARP_INERSECTION
-          _SPECULARHIGHLIGHTS_OFF _UNLIT
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX _DISTANCE_NORMALS _ENVIRONMENTREFLECTIONS_OFF
+          _MAIN_LIGHT_SHADOWS _RECEIVE_SHADOWS_OFF _SHARP_INERSECTION _SPECULARHIGHLIGHTS_OFF
+          _UNLIT
         passType: 13
   - first: {fileID: 4800000, guid: 36e335017ad71d54fbb10842863188ae, type: 3}
     second:
       variants:
       - keywords: 
         passType: 0
+  - first: {fileID: 4800000, guid: 7517a39bd80dd82498f79fd79cef984f, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: e811162c37be4934bb86dac3cf1f2137, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 13
