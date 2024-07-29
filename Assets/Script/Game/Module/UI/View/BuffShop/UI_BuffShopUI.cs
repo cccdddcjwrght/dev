@@ -32,13 +32,13 @@ namespace SGame.UI.BuffShop
             m_body = (GLabel)GetChildAt(0);
             m_tip = (GLoader)GetChildAt(2);
             m_total = (GTextField)GetChildAt(4);
-            m_time_bg = (GImage)GetChildAt(9);
-            m_time_icon = (GImage)GetChildAt(10);
-            m_time = (GTextField)GetChildAt(11);
-            m_lotteryList = (GList)GetChildAt(12);
-            m_lotteryBtn = (UI_ShopBuffBtn)GetChildAt(13);
-            m_shopBuffList = (GList)GetChildAt(15);
-            m_content = (GGroup)GetChildAt(18);
+            m_time_bg = (GImage)GetChildAt(7);
+            m_time_icon = (GImage)GetChildAt(8);
+            m_time = (GTextField)GetChildAt(9);
+            m_lotteryList = (GList)GetChildAt(10);
+            m_lotteryBtn = (UI_ShopBuffBtn)GetChildAt(11);
+            m_shopBuffList = (GList)GetChildAt(13);
+            m_content = (GGroup)GetChildAt(16);
             m_t0 = GetTransitionAt(0);
         }
     }
