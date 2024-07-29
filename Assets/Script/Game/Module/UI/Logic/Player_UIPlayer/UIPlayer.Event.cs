@@ -61,7 +61,8 @@ namespace SGame.UI
 
 					var last = DataCenter.Instance.equipData.recordLastAttr;
 					var currnt = DataCenter.EquipUtil.GetRoleEquipAddValue();
-					if(currnt > last)
+					m_view.m_EquipPage.m_upeffect.z = -200;
+					if (currnt > last)
 						eMgr.AddEffect(55, m_view.m_EquipPage.m_upeffect);
 				}
 			}
