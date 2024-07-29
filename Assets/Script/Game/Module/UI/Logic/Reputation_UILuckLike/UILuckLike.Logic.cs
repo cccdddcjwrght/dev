@@ -7,6 +7,7 @@ namespace SGame.UI{
     using System.Collections.Generic;
     using System.Linq;
     using Unity.Entities;
+    using System.Collections;
 
     public partial class UILuckLike
 	{
@@ -367,10 +368,24 @@ namespace SGame.UI{
 
 			if (m_RewardData.Count > 0)
 			{
+				IEnumerator OpenReward()
+				{
+					yield return WaitRewardClose();
+					m_RewardData.Foreach((r) => { list.Add(new int[] { 1, r.id, r.num }); });
+					Utils.ShowRewards(list, updatedata: true);
+					m_RewardData.Clear();
+				}
 				//关闭界面的时候打开领取普通大奖获得的奖励
-				m_RewardData.Foreach((r) => { list.Add(new int[] { 1, r.id, r.num }); });
-				Utils.ShowRewards(list, updatedata: true);
-				m_RewardData.Clear();
+				OpenReward().Start();
+			}
+		}
+
+		IEnumerator WaitRewardClose() 
+		{
+			while (true) 
+			{
+				if (!SGame.UIUtils.CheckUIIsOpen("rewardlist")) yield break;
+				yield return null;
 			}
 		}
 	}
