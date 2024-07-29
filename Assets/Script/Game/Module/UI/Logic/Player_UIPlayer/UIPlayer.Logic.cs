@@ -12,7 +12,6 @@ namespace SGame.UI
 	using System.Linq;
 	using System.Collections;
 	using SGame.UI.Common;
-	using Unity.Entities.UniversalDelegates;
 	using SGame.UI.Pet;
 
 	public partial class UIPlayer

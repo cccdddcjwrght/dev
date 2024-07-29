@@ -308,6 +308,7 @@ namespace SGame
 					pos = pos == 0 ? equip.cfg.Type : pos;
 					if (pos > _data.equipeds.Length)
 					{ log.Error("装备格子不对，无法装备"); return; }
+					_data.recordLastAttr = GetRoleEquipAddValue();
 
 					PutOff(_data.equipeds[pos], false);
 					RemoveEquip(equip, false, true);
@@ -318,7 +319,7 @@ namespace SGame
 					OnRoleEquipChange();
 					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 					EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
-					EventManager.Instance.Trigger<int>((int)GameEvent.ROLE_EQUIP_PUTON, equip.cfgID);
+					EventManager.Instance.Trigger<int,int>((int)GameEvent.ROLE_EQUIP_PUTON, equip.cfgID, equip.pos);
 
 				}
 			}
@@ -337,7 +338,7 @@ namespace SGame
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 						EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
 					}
-					EventManager.Instance.Trigger<int>((int)GameEvent.ROLE_EQUIP_PUTON, -equip.cfgID);
+					EventManager.Instance.Trigger<int,int>((int)GameEvent.ROLE_EQUIP_PUTON, -equip.cfgID , equip.pos);
 				}
 			}
 
@@ -720,6 +721,8 @@ namespace SGame
 		public bool canMerge;
 		[NonSerialized]
 		public bool canAutoMerge;
+		[NonSerialized]
+		public int recordLastAttr;
 	}
 
 	public class BaseEquip

@@ -18,6 +18,7 @@ namespace SGame.UI.Shop
         public GLoader m_currency_2;
         public GLoader m_item_2;
         public GTextField m_price;
+        public GTextField m___title;
         public GTextField m_desc;
         public GTextField m_time;
         public GButton m_tips;
@@ -43,9 +44,10 @@ namespace SGame.UI.Shop
             m_currency_2 = (GLoader)GetChildAt(3);
             m_item_2 = (GLoader)GetChildAt(4);
             m_price = (GTextField)GetChildAt(6);
-            m_desc = (GTextField)GetChildAt(8);
-            m_time = (GTextField)GetChildAt(9);
-            m_tips = (GButton)GetChildAt(10);
+            m___title = (GTextField)GetChildAt(8);
+            m_desc = (GTextField)GetChildAt(9);
+            m_time = (GTextField)GetChildAt(10);
+            m_tips = (GButton)GetChildAt(11);
         }
     }
 }
