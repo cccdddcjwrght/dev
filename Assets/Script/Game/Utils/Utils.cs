@@ -1258,5 +1258,41 @@ namespace SGame
 
 			return 0;
 		}
+
+		/// <summary>
+		/// 查找网格属性
+		/// </summary>
+		/// <param name="levelID"></param>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public static GameConfigs.LevelGridPropertyRowData GetLevelGridProperty(int levelID, Vector2Int pos)
+		{
+			var cfg = ConfigSystem.Instance.Find((GameConfigs.LevelGridPropertyRowData cfg) =>
+				cfg.Id == levelID
+				&& pos.x >= cfg.MinX
+				&& pos.x <= cfg.MaxX
+				&& pos.y >= cfg.MinY
+				&& pos.y <= cfg.MaxY);
+			return cfg;
+		}
+
+		/// <summary>
+		/// 获得区域ID
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public static int GetLevelGridAreaID(Vector2Int pos)
+		{
+			var levelID = DataCenter.Instance.GetUserData().scene;
+			var cfg = GetLevelGridProperty(levelID, pos);
+			if (cfg.IsValid())
+			{
+				log.Debug("area valid area=" + cfg.Area + " pos=" + pos);
+				return cfg.Area;
+			}
+
+			log.Error("area not found " + " pos=" + pos);
+			return 0;
+		}
 	}
 }

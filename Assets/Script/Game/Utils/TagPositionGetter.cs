@@ -12,19 +12,33 @@ namespace SGame
     /// </summary>
     public class TagPositionGetter
     {
-        private List<Vector2Int>    m_posiitons;
+        private List<Vector2Int>    m_posiitons = new List<Vector2Int>();
         private int                 m_index;
         private static ILog log = LogManager.GetLogger("game.character");
 
         public void Initalize(string tag)
         {
-            m_posiitons = MapAgent.GetTagGrids(tag);
-            if (m_posiitons == null || m_posiitons.Count == 0)
+            //m_posiitons = MapAgent.GetTagGrids(tag);
+            
+            m_posiitons.Clear();
+            
+            var tagPos = MapAgent.GetTagGrids(tag);
+            if (tagPos == null || tagPos.Count == 0)
             {
                 log.Error("not foudn tag=" + tag);
                 return;
             }
 
+            foreach (var pos in tagPos)
+            {
+                int areaID = Utils.GetLevelGridAreaID(pos);
+                if (DataCenter.MachineUtil.IsAreaEnable(areaID))
+                {
+                    log.Debug("add valid pos=" + pos + " areaID=" + areaID);
+                    m_posiitons.Add(pos);
+                }
+            }
+            
             m_index = m_posiitons.Count / 2;
         }
         
