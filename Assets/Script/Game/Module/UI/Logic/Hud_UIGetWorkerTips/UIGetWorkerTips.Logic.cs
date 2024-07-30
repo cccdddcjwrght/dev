@@ -34,7 +34,7 @@ namespace SGame.UI
 		{
 			if (worktable.objCfg.IsValid())
 			{
-				StaticDefine.G_GET_WORKER_TYPE = worktable.objLvCfg.ShowType;
+				//StaticDefine.G_GET_WORKER_TYPE = worktable.objLvCfg.ShowType;
 				m_view.m_type.selectedIndex = StaticDefine.G_GET_WORKER_TYPE;
 			}
 		}

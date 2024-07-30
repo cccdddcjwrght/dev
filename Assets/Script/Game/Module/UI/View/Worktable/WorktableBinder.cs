@@ -16,6 +16,7 @@ namespace SGame.UI.Worktable
             UIObjectFactory.SetPackageItemExtension(UI_UnlockTableUI.URL, typeof(UI_UnlockTableUI));
             UIObjectFactory.SetPackageItemExtension(UI_RecruitmentUI.URL, typeof(UI_RecruitmentUI));
             UIObjectFactory.SetPackageItemExtension(UI_LockPanelUI.URL, typeof(UI_LockPanelUI));
+            UIObjectFactory.SetPackageItemExtension(UI_RecWorkerItem.URL, typeof(UI_RecWorkerItem));
         }
     }
 }

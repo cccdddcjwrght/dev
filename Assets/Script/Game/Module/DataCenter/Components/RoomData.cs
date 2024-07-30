@@ -61,9 +61,8 @@ namespace SGame
 					rd.rooms.Remove(r);
 					rd.rooms.Insert(0, r);
 					ud.scene = id;
-					r.roomAreas = ConfigSystem.Instance.Finds<RoomAreaRowData>(c => c.Scene == r.id).ToDictionary(c => c.ID);
-					r.waitAreas = r.roomAreas.Keys.Where(v => !r.areas.Contains(v)).ToList();
-					r.worktables?.ForEach(w => w.Refresh());
+					r.Refresh();
+
 					Instance.roomData.roomID = id;
 					Instance.roomData.room = r;
 					Instance.SetUserData(ud);
@@ -175,6 +174,13 @@ namespace SGame
 					EventManager.Instance.AsyncTrigger(((int)GameEvent.TECH_ADD_ROLE), roleid, count, tableid);
 				else
 				{
+					var room = DataCenter.Instance.roomData.current;
+					switch ((EnumRole)roleid)
+					{
+						case EnumRole.Waiter: room.waiter++; break;
+						case EnumRole.Cook: room.cooker++; break;
+					}
+
 					AddRoleReward(roleid, count, x, y, true);
 					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.WORKER, 1);
 				}
@@ -245,6 +251,8 @@ namespace SGame
 		public List<Worktable> worktables = new List<Worktable>();
 		public List<int> areas = new List<int>();
 		public List<int> techs = new List<int>();
+		public int waiter;
+		public int cooker;
 
 		[NonSerialized]
 		public List<int> waitAreas = new List<int>();
@@ -255,6 +263,8 @@ namespace SGame
 
 		[NonSerialized]
 		public bool isnew;
+		[NonSerialized]
+		public RoomRowData roomCfg;
 
 		public int GetAreaType(int area)
 		{
@@ -264,6 +274,17 @@ namespace SGame
 				if (waitAreas.Count > 1 && waitAreas[1] == area) return 1;
 			}
 			return -1;
+		}
+
+		public void Refresh()
+		{
+			if (!roomCfg.IsValid())
+				ConfigSystem.Instance.TryGet(id, out roomCfg);
+
+			roomAreas = ConfigSystem.Instance.Finds<RoomAreaRowData>(c => c.Scene == id).ToDictionary(c => c.ID);
+			waitAreas = roomAreas.Keys.Where(v => !areas.Contains(v)).ToList();
+			worktables?.ForEach(w => w.Refresh());
+
 		}
 
 	}

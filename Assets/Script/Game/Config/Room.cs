@@ -93,6 +93,14 @@ public struct RoomRowData : IFlatbufferObject
   public int InvestorChance { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int InvestorGems { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int InvestorRatio { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public float RecommendValue(int j) { int o = __p.__offset(38); return o != 0 ? __p.bb.GetFloat(__p.__vector(o) + j * 4) : (float)0; }
+  public int RecommendValueLength { get { int o = __p.__offset(38); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<float> GetRecommendValueBytes() { return __p.__vector_as_span<float>(38, 4); }
+#else
+  public ArraySegment<byte>? GetRecommendValueBytes() { return __p.__vector_as_arraysegment(38); }
+#endif
+  public float[] GetRecommendValueArray() { return __p.__vector_as_array<float>(38); }
 
   public static Offset<GameConfigs.RoomRowData> CreateRoomRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -111,8 +119,10 @@ public struct RoomRowData : IFlatbufferObject
       StringOffset EndImageOffset = default(StringOffset),
       int InvestorChance = 0,
       int InvestorGems = 0,
-      int InvestorRatio = 0) {
-    builder.StartTable(17);
+      int InvestorRatio = 0,
+      VectorOffset RecommendValueOffset = default(VectorOffset)) {
+    builder.StartTable(18);
+    RoomRowData.AddRecommendValue(builder, RecommendValueOffset);
     RoomRowData.AddInvestorRatio(builder, InvestorRatio);
     RoomRowData.AddInvestorGems(builder, InvestorGems);
     RoomRowData.AddInvestorChance(builder, InvestorChance);
@@ -133,7 +143,7 @@ public struct RoomRowData : IFlatbufferObject
     return RoomRowData.EndRoomRowData(builder);
   }
 
-  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(17); }
+  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(18); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
@@ -160,6 +170,10 @@ public struct RoomRowData : IFlatbufferObject
   public static void AddInvestorChance(FlatBufferBuilder builder, int InvestorChance) { builder.AddInt(14, InvestorChance, 0); }
   public static void AddInvestorGems(FlatBufferBuilder builder, int InvestorGems) { builder.AddInt(15, InvestorGems, 0); }
   public static void AddInvestorRatio(FlatBufferBuilder builder, int InvestorRatio) { builder.AddInt(16, InvestorRatio, 0); }
+  public static void AddRecommendValue(FlatBufferBuilder builder, VectorOffset RecommendValueOffset) { builder.AddOffset(17, RecommendValueOffset.Value, 0); }
+  public static VectorOffset CreateRecommendValueVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateRecommendValueVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartRecommendValueVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.RoomRowData> EndRoomRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomRowData>(o);

@@ -152,7 +152,7 @@ namespace SGame
 				return default;
 			}
 
-			public static Worktable UpdateLevel(int id, int scene, int val = 1, bool set = false)
+			public static Worktable UpdateLevel(int id, int scene, int val = 1, bool set = false, int select = 0)
 			{
 				var w = GetWorktable(id, scene);
 				if (w != null)
@@ -175,8 +175,13 @@ namespace SGame
 					if (w.objLvCfg.IsValid())
 					{
 						var f = pobjlv.IsValid();
-						w.addCooker = w.objLvCfg.ChefNum - (f ? pobjlv.ChefNum : 0);
-						w.addWaiter = w.objLvCfg.WaiterNum - (f ? pobjlv.WaiterNum : 0);
+
+						if (w.type == ((int)EnumMachineType.JOB) && f)
+						{
+							select = select == 0 ? pobjlv.ShowType : select;
+							if (select == 1) w.addWaiter = 1;
+							else if (select == 2) w.addCooker = 1;
+						}
 						w.addRole = w.objLvCfg.CustomerNum - (f ? pobjlv.CustomerNum : 0);
 						w.addMachine = w.objLvCfg.SetNum - (f ? pobjlv.SetNum : 0);
 					}
