@@ -26,7 +26,7 @@ namespace SGame
 
 				_data.items?.ForEach(e => e.Refresh());
 				_data.equipeds.Foreach(e => e?.Refresh());
-				c_max_auto_merge_quality = GlobalDesginConfig.GetInt("equip_automerge_max", 0);
+				c_max_auto_merge_quality = GlobalDesginConfig.GetInt("equip_automerge_max", 0); 
 				StaticDefine.EQUIP_MAX_LEVEL = ConfigSystem.Instance.GetConfigCount(typeof(EquipUpLevelCost));
 				CheckCanMerge();
 			}

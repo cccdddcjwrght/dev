@@ -12,8 +12,12 @@ namespace SGame
 
 		public static class WorkerDataUtils
 		{
+			const string enable_str_cook = "enable_collect_cook";
+			const string enable_str_wait = "enable_collect_wait";
+
 			static public int c_worker_maxlv = 0;
 			static public int c_waiter_maxlv = 0;
+
 
 			private static WorkerData data { get { return Instance.workerdata; } }
 
@@ -26,6 +30,8 @@ namespace SGame
 				}
 				data.Refresh();
 				EventManager.Instance.Reg(((int)GameEvent.BUFF_RESET), BuffTrigger);
+				EventManager.Instance.Reg<int>(((int)GameEvent.WORK_AREA_UNLOCK), (a) => RefreshBuff());
+
 
 			}
 
@@ -54,12 +60,15 @@ namespace SGame
 
 			public static List<int[]> GetBuffList(int type, List<WorkerDataItem> datas = null)
 			{
-
 				if (datas == null && type > 0)
 					datas = GetDatas((w) => w.cfg.RoleType == type);
 				if (datas?.Count > 0)
 				{
+					var ws = "waiter".IsOpend(false);
+					var cs = "cooker".IsOpend(false);
+
 					return datas
+						.Where(d => (d.cfg.RoleType == ((int)EnumRole.Cook) && cs) || (d.cfg.RoleType == ((int)EnumRole.Waiter) && ws))
 						.Select(d => new int[] { d.cfg.Buff, d.level > 0 ? d.GetBuffVal() : 0 })
 						.GroupBy(v => v[0])
 						.ToDictionary(v => v.Key, v => v.Sum(i => i[1]))
@@ -140,6 +149,27 @@ namespace SGame
 					}
 				}
 				return false;
+			}
+
+			public static void RefreshBuff(bool focus = false)
+			{
+				var s = focus;
+				if (s)
+				{
+					var cs = "cooker".IsOpend(false);
+					var ws = "watier".IsOpend(false);
+					if (cs && GetIntValue(enable_str_cook) == 0)
+					{
+						s = true;
+						SetIntValue(enable_str_cook, 1);
+					}
+					if (ws && GetIntValue(enable_str_wait) == 0)
+					{
+						s = true;
+						SetIntValue(enable_str_wait, 1);
+					}
+				}
+				if (s) BuffTrigger();
 			}
 
 			public static void BuffTrigger()

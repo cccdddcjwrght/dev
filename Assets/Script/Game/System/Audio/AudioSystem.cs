@@ -365,6 +365,10 @@ namespace SGame
 				result = Entity.Null
 			};
 			//log.Info("Play Audio Res=" + req.audio_path);
+			//背景音乐播放前先关闭之前的
+			if(req.audio_type >= SoundType.BACKGROUND && req.audio_type <= SoundType.BACKGROUND1)
+				Stop(req.audio_type);
+
 			Play(req);
 
 			return req;
