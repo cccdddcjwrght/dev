@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 1
+  version: 15
   scenesInBuild:
   - {fileID: 102900000, guid: 3578f065ab9f84749ace76a76cfebec6, type: 3}
   ignoreOps: []
@@ -38,7 +38,7 @@ MonoBehaviour:
     nameBy: 4
     assetBundleName: 
   - searchPath: Assets/BuildAsset/Prefabs
-    searchPattern: '*.prefab,*.mat'
+    searchPattern: '*.prefab,*.mat,*.FBX,*.fbx'
     nameBy: 2
     assetBundleName: prefabs
   - searchPath: Assets/BuildAsset/Audio
@@ -1797,6 +1797,10 @@ MonoBehaviour:
   - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/huanzhuang.prefab
   - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/huanzhuang01.prefab
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/huanzhuang02.prefab
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/hunter/baozha.prefab
   - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/hunter/bullet01.prefab
@@ -1823,19 +1827,11 @@ MonoBehaviour:
   - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/instant.prefab
   - bundle: effects.unity3d
+    path: assets/buildasset/effects/prefabs/jiantou.prefab
+  - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/jiesuo.prefab
   - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/level/level04.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/level03/diamond.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/level03/diamond2.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/level03/lights.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/level03/smoke.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/level03/torch (3).prefab
   - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/levelcompletedui_01.prefab
   - bundle: effects.unity3d
@@ -1924,18 +1920,6 @@ MonoBehaviour:
     path: assets/buildasset/effects/prefabs/tandorifish.prefab
   - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/torch.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/hong.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/jin.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/lan.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/transitions01.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/ui_transitions01.prefab
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/prefabs/transitions01/ui_transitions02.prefab
   - bundle: effects.unity3d
     path: assets/buildasset/effects/prefabs/treasure_chest.prefab
   - bundle: effects.unity3d
@@ -2133,31 +2117,9 @@ MonoBehaviour:
   - bundle: effects.unity3d
     path: assets/buildasset/effects/textures/ui/ui_cutscenes_bg.mat
   - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_bg.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_bg2.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_door_01.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_door_02.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_door_03.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_frame_01.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_frame_02.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_frame_03.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_01.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_02.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_03.png
-  - bundle: effects.unity3d
-    path: assets/buildasset/effects/textures/ui/ui_cutscenes_portals.png
-  - bundle: effects.unity3d
     path: assets/buildasset/effects/textures/ui_animation_cards.png
+  - bundle: effects.unity3d
+    path: assets/buildasset/effects/textures/ui_equipment_icon_arrow_01.png
   - bundle: effects.unity3d
     path: assets/buildasset/effects/textures/ui_icon_box_01.png
   - bundle: effects.unity3d
@@ -2750,6 +2712,8 @@ MonoBehaviour:
     path: assets/buildasset/prefabs/scenes/scene_03/test_scene03_terrain_01_05.prefab
   - bundle: assets/buildasset/prefabs/scenes/scene_03.unity3d
     path: assets/buildasset/prefabs/scenes/scene_03/test_scene03_terrain_02.prefab
+  - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
+    path: assets/buildasset/prefabs/scenes/scene_04/mats/pquan.fbx
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
     path: assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_building_01.mat
   - bundle: assets/buildasset/prefabs/scenes/scene_04.unity3d
@@ -4657,6 +4621,7 @@ MonoBehaviour:
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_terrain_01-1.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene04_terrain_01.mat
     - assets/buildasset/prefabs/scenes/scene_04/mats/test_scene06_object_01.mat
+    - assets/buildasset/prefabs/scenes/scene_04/mats/pquan.fbx
   - name: assets/buildasset/prefabs/scenes/table.unity3d
     assets:
     - assets/buildasset/prefabs/scenes/table/scene_table_01-1.prefab
@@ -5496,9 +5461,12 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/hailang.prefab
     - assets/buildasset/effects/prefabs/haiou.prefab
     - assets/buildasset/effects/prefabs/huanzhuang.prefab
+    - assets/buildasset/effects/prefabs/huanzhuang01.prefab
+    - assets/buildasset/effects/prefabs/huanzhuang02.prefab
     - assets/buildasset/effects/prefabs/huode.prefab
     - assets/buildasset/effects/prefabs/huode_item.prefab
     - assets/buildasset/effects/prefabs/instant.prefab
+    - assets/buildasset/effects/prefabs/jiantou.prefab
     - assets/buildasset/effects/prefabs/jiesuo.prefab
     - assets/buildasset/effects/prefabs/levelcompletedui_01.prefab
     - assets/buildasset/effects/prefabs/levelcompletedui_02.prefab
@@ -5536,17 +5504,6 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/hunter/bullet02.prefab
     - assets/buildasset/effects/prefabs/hunter/bullet03.prefab
     - assets/buildasset/effects/prefabs/level/level04.prefab
-    - assets/buildasset/effects/prefabs/level03/diamond.prefab
-    - assets/buildasset/effects/prefabs/level03/diamond2.prefab
-    - assets/buildasset/effects/prefabs/level03/lights.prefab
-    - assets/buildasset/effects/prefabs/level03/smoke.prefab
-    - assets/buildasset/effects/prefabs/level03/torch (3).prefab
-    - assets/buildasset/effects/prefabs/transitions01/hong.prefab
-    - assets/buildasset/effects/prefabs/transitions01/jin.prefab
-    - assets/buildasset/effects/prefabs/transitions01/lan.prefab
-    - assets/buildasset/effects/prefabs/transitions01/transitions01.prefab
-    - assets/buildasset/effects/prefabs/transitions01/ui_transitions01.prefab
-    - assets/buildasset/effects/prefabs/transitions01/ui_transitions02.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/adtest/blizzard.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/adtest/ice_cake.prefab
     - assets/buildasset/effects/prefabs/scenesbullet/scenes01/effects_planet01_boos_baodian.prefab
@@ -5759,6 +5716,7 @@ MonoBehaviour:
     - assets/buildasset/effects/textures/uihighlight_i2d.png
     - assets/buildasset/effects/textures/uiss.png
     - assets/buildasset/effects/textures/ui_animation_cards.png
+    - assets/buildasset/effects/textures/ui_equipment_icon_arrow_01.png
     - assets/buildasset/effects/textures/ui_icon_box_01.png
     - assets/buildasset/effects/textures/ui_icon_box_02.png
     - assets/buildasset/effects/textures/ui_icon_box_03.png
@@ -5781,18 +5739,6 @@ MonoBehaviour:
     - assets/buildasset/effects/prefabs/hunter/bullet_01.png
     - assets/buildasset/effects/prefabs/hunter/bullet_02.png
     - assets/buildasset/effects/prefabs/hunter/bullet_03.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_bg.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_bg2.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_door_01.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_door_02.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_door_03.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_frame_01.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_frame_02.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_frame_03.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_01.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_02.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_jewel_03.png
-    - assets/buildasset/effects/textures/ui/ui_cutscenes_portals.png
   - name: assets/buildasset/effects/shaber/stylizedwater2/materials/textures.unity3d
     assets:
     - assets/buildasset/effects/shaber/stylizedwater2/materials/textures/intersectionnoise.png
@@ -5882,9 +5828,6 @@ MonoBehaviour:
   - name: assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_18_day_a.mat.unity3d
     assets:
     - assets/buildasset/art/xxxxxxx/cubemap/materials/sky_anime_18_day_a.mat
-  - name: assets/buildasset/effects/mod/pquan.fbx.unity3d
-    assets:
-    - assets/buildasset/effects/mod/pquan.fbx
   - name: assets/buildasset/effects/textures/vein02.dds.unity3d
     assets:
     - assets/buildasset/effects/textures/vein02.dds
