@@ -929,10 +929,12 @@ namespace SGame
 		{
 			if (cfg.IsValid() && cfg.BuffLength > 1)
 			{
-				if (_effects?.Count > 0) return;
-				_effects = new List<int[]>();
-				for (int i = 0; i < cfg.BuffLength; i += 2)
-					_effects.Add(new int[] { cfg.Buff(i), cfg.Buff(i + 1) });
+				if (_effects == null || _effects.Count == 0)
+				{
+					_effects = new List<int[]>();
+					for (int i = 0; i < cfg.BuffLength; i += 2)
+						_effects.Add(new int[] { cfg.Buff(i), cfg.Buff(i + 1) });
+				}
 			}
 			else
 				_effects = _effects ?? new List<int[]>();
