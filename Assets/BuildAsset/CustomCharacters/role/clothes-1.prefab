@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8577853022089399250}
-  - component: {fileID: 6146763647241809349}
-  - component: {fileID: 6811485570149833344}
+  - component: {fileID: 6523022026952155977}
+  - component: {fileID: 4445370307816147471}
   m_Layer: 0
   m_Name: clothes-1
   m_TagString: Untagged
@@ -25,15 +25,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4349067208334324592}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &6146763647241809349
+--- !u!137 &6523022026952155977
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,10 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.04984972, y: -0.00019033253, z: 0.1148886}
-    m_Extent: {x: 0.27247766, y: 0.39496583, z: 0.23460197}
+    m_Center: {x: 0.04949209, y: -0.00019030273, z: 0.11430688}
+    m_Extent: {x: 0.27211997, y: 0.3953718, z: 0.23402031}
   m_DirtyAABB: 0
---- !u!114 &6811485570149833344
+--- !u!114 &4445370307816147471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

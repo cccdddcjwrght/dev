@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6840395978404706881}
-  - component: {fileID: 5231079342461378570}
-  - component: {fileID: 4891382067719876581}
+  - component: {fileID: 476282481975535877}
+  - component: {fileID: 3477390576326807608}
   m_Layer: 0
   m_Name: hair-16
   m_TagString: Untagged
@@ -25,15 +25,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417624326112466778}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &5231079342461378570
+--- !u!137 &476282481975535877
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,10 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.084141284, y: 0.00000059604645, z: 0.61187613}
-    m_Extent: {x: 0.3311001, y: 0.26418594, z: 0.34946513}
+    m_Center: {x: 0.08414125, y: 0.0000005662441, z: 0.61123294}
+    m_Extent: {x: 0.33110005, y: 0.26418588, z: 0.34946513}
   m_DirtyAABB: 0
---- !u!114 &4891382067719876581
+--- !u!114 &3477390576326807608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
