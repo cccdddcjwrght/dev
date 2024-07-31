@@ -10,6 +10,8 @@ namespace SGame.UI.Main
         public Controller m_state;
         public Controller m_finish;
         public GLoader m_click;
+        public GProgressBar m_taskProgress;
+        public GGraph m_effect;
         public GGroup m_group;
         public Transition m_show;
         public Transition m_hide;
@@ -27,7 +29,9 @@ namespace SGame.UI.Main
             m_state = GetControllerAt(0);
             m_finish = GetControllerAt(1);
             m_click = (GLoader)GetChildAt(0);
-            m_group = (GGroup)GetChildAt(2);
+            m_taskProgress = (GProgressBar)GetChildAt(1);
+            m_effect = (GGraph)GetChildAt(3);
+            m_group = (GGroup)GetChildAt(4);
             m_show = GetTransitionAt(0);
             m_hide = GetTransitionAt(1);
         }

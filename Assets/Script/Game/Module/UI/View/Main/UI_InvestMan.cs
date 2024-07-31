@@ -8,6 +8,7 @@ namespace SGame.UI.Main
     public partial class UI_InvestMan : GButton
     {
         public GImage m_bar;
+        public Transition m_t0;
         public const string URL = "ui://ktixaqlju2orlb9";
 
         public static UI_InvestMan CreateInstance()
@@ -20,6 +21,7 @@ namespace SGame.UI.Main
             base.ConstructFromXML(xml);
 
             m_bar = (GImage)GetChildAt(1);
+            m_t0 = GetTransitionAt(0);
         }
     }
 }

@@ -247,6 +247,8 @@ namespace SGame.UI{
 		}
 		partial void OnTaskBtn_FinishChanged(EventContext data);
 		void SwitchTaskBtn_FinishPage(int index)=>m_view.m_taskBtn.m_finish.selectedIndex=index;
+		void SetTaskBtn_TaskProgressText(string data)=>UIListener.SetText(m_view.m_taskBtn.m_taskProgress,data);
+		string GetTaskBtn_TaskProgressText()=>UIListener.GetText(m_view.m_taskBtn.m_taskProgress);
 		void _OnTaskBtnClick(EventContext data){
 			OnTaskBtnClick(data);
 		}

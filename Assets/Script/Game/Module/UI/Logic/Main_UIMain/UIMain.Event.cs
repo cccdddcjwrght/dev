@@ -17,6 +17,7 @@ namespace SGame.UI
 		private GList leftList;
 		private GList m_rightList;
 		private SetData m_setData;
+		private Entity  m_taskEffect = Entity.Null;
 
 		Action<bool> timer;
 
@@ -55,6 +56,8 @@ namespace SGame.UI
 			m_view.m_likeBtn.onClick.Add(OnRoomLikeClick);
 			m_view.m_taskBtn.GetChild("icon").onClick.Add(OnOpenTaskClick);
 			m_view.m_taskBtn.m_click.onClick.Add(OnTaskFinishClick);
+			m_view.m_taskBtn.m_taskProgress.onClick.Add(OnTaskFinishClick);
+
 
 			m_view.m_Gold.onClick.Add(OnOpenTotalClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
@@ -454,19 +457,52 @@ namespace SGame.UI
 			ConfigSystem.Instance.TryGet<MainTaskRowData>(DataCenter.TaskMainUtil.GetCurTaskCfgId(), out var config);
 			if (config.IsValid()) m_view.m_taskBtn.SetTextByKey(config.TaskDes);
 			m_view.m_taskBtn.m_state.selectedIndex = 0;
-			m_view.m_taskBtn.m_finish.selectedIndex = DataCenter.TaskMainUtil.CheckIsGet() ? 1 : 0;
+			bool isTaskFinish = DataCenter.TaskMainUtil.CheckIsGet();
+			m_view.m_taskBtn.m_finish.selectedIndex = isTaskFinish ? 1 : 0;
+			UpdateTaskEffect(isTaskFinish);
+		}
+
+		void UpdateTaskEffect(bool isTaskFinish)
+		{
+			if (isTaskFinish)
+			{
+				if (m_taskEffect == Entity.Null)
+				{
+					m_taskEffect = EffectSystem.Instance.SpawnUI(56, m_view.m_taskBtn.m_effect);
+				}
+				return;
+			}
+			else
+			{
+				if (m_taskEffect != Entity.Null)
+				{
+					EffectSystem.Instance.CloseEffect(m_taskEffect);
+					m_taskEffect = Entity.Null;
+				}
+			}
 		}
 
 		void RefreshTaskState(bool isPlay = true) 
 		{
 			m_TaskTweenr?.Kill();
 			m_TaskTweenr = null;
-			m_view.m_taskBtn.m_finish.selectedIndex = DataCenter.TaskMainUtil.CheckIsGet() ? 1 : 0;
-			if (DataCenter.TaskMainUtil.CheckIsGet())
+
+			bool isTaskFinish = DataCenter.TaskMainUtil.CheckIsGet();
+			m_view.m_taskBtn.m_finish.selectedIndex = isTaskFinish ? 1 : 0;
+			if (Utils.GetCurrentTaskProgress(out int value, out int max))
+			{
+				m_view.m_taskBtn.m_taskProgress.value = value;
+				m_view.m_taskBtn.m_taskProgress.max = max;
+			}
+			UpdateTaskEffect(isTaskFinish);
+
+			if (isTaskFinish)
 			{
 				m_view.m_taskBtn.m_state.selectedIndex = 1;
 				return;
 			}
+			
+
 			if (!isPlay) return;
 			m_view.m_taskBtn.m_state.selectedIndex = 1;
 			m_TaskTweenr = GTween.To(0, 1, 2).SetTarget(m_view).OnComplete(()=> 
@@ -599,6 +635,17 @@ namespace SGame.UI
 			timer?.Invoke(false);
 			m_buffTimer?.Invoke(false);
 			m_handles.Close();
+
+			CloseAllEffect();
+		}
+
+		void CloseAllEffect()
+		{
+			if (m_taskEffect != Entity.Null)
+			{
+				EffectSystem.Instance.CloseEffect(m_taskEffect);
+				m_taskEffect = Entity.Null;
+			}
 		}
 
 		partial void OnDiamondClick(EventContext data)

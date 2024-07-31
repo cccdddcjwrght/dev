@@ -1294,5 +1294,26 @@ namespace SGame
 			log.Error("area not found " + " pos=" + pos);
 			return 0;
 		}
+
+		/// <summary>
+		/// 获得当前任务进度
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="max"></param>
+		/// <returns></returns>
+		public static bool GetCurrentTaskProgress(out int value, out int max)
+		{
+			var CurTaskId = DataCenter.TaskMainUtil.GetCurTaskCfgId();
+			value = 0;
+			max = 0;
+			if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(CurTaskId, out var cfg))
+			{
+				max = cfg.TaskValue(1);
+				value = DataCenter.TaskMainUtil.GetTaskProgress(cfg.TaskType, cfg.GetTaskValueArray());
+				return true;
+			}
+
+			return false;
+		}
 	}
 }
