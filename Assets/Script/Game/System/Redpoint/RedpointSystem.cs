@@ -182,14 +182,14 @@ namespace SGame
 			{
 				if (evt.flag > 0) r.status = 1;
 				else Calculation(e, cmd, ref r);
-			}).WithoutBurst().Run();
+			}).WithoutBurst().WithStructuralChanges().Run();
 
 			//定时计算
 			Entities.WithAll<RedCheck>().WithNone<RedPause>().ForEach((Entity e, ref Redpoint r) =>
 			{
 				if (World.Time.ElapsedTime * 1000 > r.time)
 					Calculation(e, cmd, ref r);
-			}).WithoutBurst().Run();
+			}).WithoutBurst().WithStructuralChanges().Run();
 
 			//红点标记操作
 			Entities.WithAll<RedNode, RedStatusChange>().ForEach((Entity e, ref Redpoint redpoint) =>
