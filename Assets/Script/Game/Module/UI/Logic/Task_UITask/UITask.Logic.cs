@@ -1,4 +1,5 @@
 ﻿
+using SGame.UI.Common;
 namespace SGame.UI{
 	using FairyGUI;
 	using UnityEngine;
@@ -16,11 +17,18 @@ namespace SGame.UI{
 		//当前任务id
 		int m_CurTaskId;
 		List<int[]> m_TaskRewardData;
+
+		private GList m_GiftList;
+		
 		partial void InitLogic(UIContext context){
 
 			m_Context = context;
 			m_view.m_list.itemRenderer = OnItemRenderer;
 			m_view.m_mask.onClick.Add(DoCloseUIClick);
+			
+			m_GiftList = (m_view.m_gifts as UI_CommomGift).m_GiftItems;
+			m_GiftList.itemRenderer = OnGiftItemRenderer;
+
 
 			m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.MAIN_TASK_UPDATE,(id)=> RefreshTaskData());
 			RefreshTaskData();
@@ -33,6 +41,7 @@ namespace SGame.UI{
 			{
 				m_TaskRewardData = Utils.GetArrayList(true, cfg.GetTaskReward1Array, cfg.GetTaskReward2Array, cfg.GetTaskReward3Array);
 				m_view.m_list.numItems = m_TaskRewardData.Count;
+				m_GiftList.numItems = m_TaskRewardData.Count;
 				m_view.m_icon.SetIcon(cfg.Icon);
 
 				var max = cfg.TaskValue(1);
@@ -61,6 +70,14 @@ namespace SGame.UI{
 			item.SetIcon(Utils.GetItemIcon(val[0], val[1]));
 			item.SetText(Utils.ConvertNumberStr(val[2]));
 		}
+		
+		public void OnGiftItemRenderer(int index, GObject gObject) 
+		{
+			var item = (UI_CommGiftItem)gObject;
+			var val = m_TaskRewardData[index];
+			item.SetIcon(Utils.GetItemIcon(val[0], val[1]));
+			item.m_title.text = Utils.ConvertNumberStr(val[2]);
+		}
 
         partial void OnBtnClick(EventContext data)
         {
@@ -68,7 +85,8 @@ namespace SGame.UI{
 			if (m_view.m_btn.GetController("bgColor").selectedIndex == 1)
 			{
 				ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(m_CurTaskId, out var cfg);
-				TransitionModule.Instance.PlayFlight(m_view.m_list, m_TaskRewardData, cfg.EffectType);
+				//TransitionModule.Instance.PlayFlight(m_view.m_list, m_TaskRewardData, cfg.EffectType);
+				TransitionModule.Instance.PlayFlight(m_GiftList, m_TaskRewardData, cfg.EffectType);
 				m_view.m_content.visible = false;
 				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
 				EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_HIDE, m_Context);

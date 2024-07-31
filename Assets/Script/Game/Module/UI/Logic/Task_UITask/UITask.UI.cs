@@ -14,12 +14,14 @@ namespace SGame.UI{
 		partial void InitUI(UIContext context){
 			__id = context.configID;
 			UIListener.ListenerClose(m_view.m_mask, new EventCallback1(DoCloseUIClick));
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
 			UIListener.Listener(m_view.m_btn, new EventCallback1(_OnBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
 			UIListener.ListenerClose(m_view.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
 			UIListener.Listener(m_view.m_btn, new EventCallback1(_OnBtnClick),remove:true);
 
@@ -31,8 +33,8 @@ namespace SGame.UI{
 			 
 		}
 		partial void OnUICloseClick(ref bool state);
-		void SetTitleText(string data)=>UIListener.SetText(m_view.m_title,data);
-		string GetTitleText()=>UIListener.GetText(m_view.m_title);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 		void SetDesText(string data)=>UIListener.SetText(m_view.m_des,data);
 		string GetDesText()=>UIListener.GetText(m_view.m_des);
 		void SetTaskProgress_ValueText(string data)=>UIListener.SetText(m_view.m_progress.m_value,data);

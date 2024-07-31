@@ -37,6 +37,8 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_CommonRewardBody.URL, typeof(UI_CommonRewardBody));
             UIObjectFactory.SetPackageItemExtension(UI_BgIcon.URL, typeof(UI_BgIcon));
             UIObjectFactory.SetPackageItemExtension(UI_ColorText.URL, typeof(UI_ColorText));
+            UIObjectFactory.SetPackageItemExtension(UI_CommGiftItem.URL, typeof(UI_CommGiftItem));
+            UIObjectFactory.SetPackageItemExtension(UI_CommomGift.URL, typeof(UI_CommomGift));
             UIObjectFactory.SetPackageItemExtension(UI_Redpoint.URL, typeof(UI_Redpoint));
             UIObjectFactory.SetPackageItemExtension(UI_Redpoint_small.URL, typeof(UI_Redpoint_small));
             UIObjectFactory.SetPackageItemExtension(UI_CommonItem.URL, typeof(UI_CommonItem));
