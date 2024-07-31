@@ -170,6 +170,9 @@ namespace SGame.UI
 				case "pet":
 					DoPet(ss);
 					break;
+				case "unlock":
+					DataCenter.EquipUtil.c_max_auto_merge_quality = 0;
+					break;
 			}
 
 
