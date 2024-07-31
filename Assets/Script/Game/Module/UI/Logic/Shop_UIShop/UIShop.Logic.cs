@@ -10,6 +10,7 @@ namespace SGame.UI
 	using System.Linq;
 	using GameConfigs;
 	using System.Collections;
+	using SGame.UI.Pet;
 
 	public partial class UIShop
 	{
@@ -41,6 +42,9 @@ namespace SGame.UI
 		partial void InitLogic(UIContext context)
 		{
 			context.onShown += OnShow;
+			m_view.m_body.SetCurrency(1, "gold",iconCtr:"1");
+			m_view.m_body.SetCurrency(2, "diamond");
+
 			Refresh();
 		}
 

@@ -28,10 +28,10 @@ namespace SGame.UI.Shop
             m_pages = GetControllerAt(0);
             m_rate = GetControllerAt(1);
             m_top = (GGraph)GetChildAt(0);
-            m_body = (GLabel)GetChildAt(1);
-            m_content = (UI_ShopBody)GetChildAt(2);
-            m_clickBtn = (GLoader)GetChildAt(3);
-            m_rate_2 = (UI_Probability)GetChildAt(4);
+            m_body = (GLabel)GetChildAt(2);
+            m_content = (UI_ShopBody)GetChildAt(3);
+            m_clickBtn = (GLoader)GetChildAt(4);
+            m_rate_2 = (UI_Probability)GetChildAt(5);
         }
     }
 }

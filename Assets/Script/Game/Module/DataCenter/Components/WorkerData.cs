@@ -64,11 +64,11 @@ namespace SGame
 					datas = GetDatas((w) => w.cfg.RoleType == type);
 				if (datas?.Count > 0)
 				{
-					var ws = "waiter".IsOpend(false);
-					var cs = "cooker".IsOpend(false);
+					/*var ws = "waiter".IsOpend(false);
+					var cs = "cooker".IsOpend(false);*/
 
 					return datas
-						.Where(d => (d.cfg.RoleType == ((int)EnumRole.Cook) && cs) || (d.cfg.RoleType == ((int)EnumRole.Waiter) && ws))
+						//.Where(d => (d.cfg.RoleType == ((int)EnumRole.Cook) && cs) || (d.cfg.RoleType == ((int)EnumRole.Waiter) && ws))
 						.Select(d => new int[] { d.cfg.Buff, d.level > 0 ? d.GetBuffVal() : 0 })
 						.GroupBy(v => v[0])
 						.ToDictionary(v => v.Key, v => v.Sum(i => i[1]))
@@ -153,6 +153,7 @@ namespace SGame
 
 			public static void RefreshBuff(bool focus = false)
 			{
+				return;
 				var s = focus;
 				if (s)
 				{
