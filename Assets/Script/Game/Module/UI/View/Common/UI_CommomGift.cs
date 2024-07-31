@@ -7,6 +7,7 @@ namespace SGame.UI.Common
 {
     public partial class UI_CommomGift : GComponent
     {
+        public Controller m_show;
         public GList m_GiftItems;
         public const string URL = "ui://2w8thcm7s86pj";
 
@@ -19,6 +20,7 @@ namespace SGame.UI.Common
         {
             base.ConstructFromXML(xml);
 
+            m_show = GetControllerAt(0);
             m_GiftItems = (GList)GetChildAt(1);
         }
     }
