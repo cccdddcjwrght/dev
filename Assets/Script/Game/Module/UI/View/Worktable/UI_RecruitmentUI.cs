@@ -17,8 +17,7 @@ namespace SGame.UI.Worktable
         public GTextField m_cost;
         public GButton m_click;
         public GButton m_close;
-        public UI_RecWorkerItem m_select1;
-        public UI_RecWorkerItem m_select2;
+        public UI_RecBody m_roles;
         public const string URL = "ui://m8rpv7f9hx7up";
 
         public static UI_RecruitmentUI CreateInstance()
@@ -40,8 +39,7 @@ namespace SGame.UI.Worktable
             m_cost = (GTextField)GetChildAt(7);
             m_click = (GButton)GetChildAt(10);
             m_close = (GButton)GetChildAt(12);
-            m_select1 = (UI_RecWorkerItem)GetChildAt(14);
-            m_select2 = (UI_RecWorkerItem)GetChildAt(15);
+            m_roles = (UI_RecBody)GetChildAt(14);
         }
     }
 }

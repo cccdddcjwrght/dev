@@ -20,12 +20,16 @@ namespace SGame.UI{
 			m_view.m_selectctr.onChanged.Add(new EventCallback1(_OnSelectctrChanged));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
-			m_view.m_select1.m_type.onChanged.Add(new EventCallback1(_OnRecWorkerItem_TypeChanged));
-			m_view.m_select1.m_recommand.onChanged.Add(new EventCallback1(_OnRecWorkerItem_RecommandChanged));
-			UIListener.Listener(m_view.m_select1, new EventCallback1(_OnSelect1Click));
-			m_view.m_select2.m_type.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Select2_typeChanged));
-			m_view.m_select2.m_recommand.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Select2_recommandChanged));
-			UIListener.Listener(m_view.m_select2, new EventCallback1(_OnSelect2Click));
+			m_view.m_roles.m_roletype.onChanged.Add(new EventCallback1(_OnRecBody_RoletypeChanged));
+			m_view.m_roles.m_recommand.onChanged.Add(new EventCallback1(_OnRecBody_RecommandChanged));
+			m_view.m_roles.m_selectctr.onChanged.Add(new EventCallback1(_OnRecBody_SelectctrChanged));
+			m_view.m_roles.m_select1.m_type.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Roles_select1_typeChanged));
+			m_view.m_roles.m_select1.m_recommand.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Roles_select1_recommandChanged));
+			UIListener.Listener(m_view.m_roles.m_select1, new EventCallback1(_OnRecBody_Select1Click));
+			m_view.m_roles.m_select2.m_type.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Roles_select2_typeChanged));
+			m_view.m_roles.m_select2.m_recommand.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Roles_select2_recommandChanged));
+			UIListener.Listener(m_view.m_roles.m_select2, new EventCallback1(_OnRecBody_Select2Click));
+			UIListener.ListenerIcon(m_view.m_roles, new EventCallback1(_OnRolesClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -36,12 +40,16 @@ namespace SGame.UI{
 			m_view.m_selectctr.onChanged.Remove(new EventCallback1(_OnSelectctrChanged));
 			UIListener.Listener(m_view.m_click, new EventCallback1(_OnClickClick),remove:true);
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
-			m_view.m_select1.m_type.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_TypeChanged));
-			m_view.m_select1.m_recommand.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_RecommandChanged));
-			UIListener.Listener(m_view.m_select1, new EventCallback1(_OnSelect1Click),remove:true);
-			m_view.m_select2.m_type.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Select2_typeChanged));
-			m_view.m_select2.m_recommand.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Select2_recommandChanged));
-			UIListener.Listener(m_view.m_select2, new EventCallback1(_OnSelect2Click),remove:true);
+			m_view.m_roles.m_roletype.onChanged.Remove(new EventCallback1(_OnRecBody_RoletypeChanged));
+			m_view.m_roles.m_recommand.onChanged.Remove(new EventCallback1(_OnRecBody_RecommandChanged));
+			m_view.m_roles.m_selectctr.onChanged.Remove(new EventCallback1(_OnRecBody_SelectctrChanged));
+			m_view.m_roles.m_select1.m_type.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Roles_select1_typeChanged));
+			m_view.m_roles.m_select1.m_recommand.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Roles_select1_recommandChanged));
+			UIListener.Listener(m_view.m_roles.m_select1, new EventCallback1(_OnRecBody_Select1Click),remove:true);
+			m_view.m_roles.m_select2.m_type.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Roles_select2_typeChanged));
+			m_view.m_roles.m_select2.m_recommand.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Roles_select2_recommandChanged));
+			UIListener.Listener(m_view.m_roles.m_select2, new EventCallback1(_OnRecBody_Select2Click),remove:true);
+			UIListener.ListenerIcon(m_view.m_roles, new EventCallback1(_OnRolesClick),remove:true);
 
 		}
 		void _OnCurrencyChanged(EventContext data){
@@ -90,42 +98,61 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetCloseText(string data)=>UIListener.SetText(m_view.m_close,data);
 		string GetCloseText()=>UIListener.GetText(m_view.m_close);
-		void _OnRecWorkerItem_TypeChanged(EventContext data){
-			OnRecWorkerItem_TypeChanged(data);
+		void _OnRecBody_RoletypeChanged(EventContext data){
+			OnRecBody_RoletypeChanged(data);
 		}
-		partial void OnRecWorkerItem_TypeChanged(EventContext data);
-		void SwitchRecWorkerItem_TypePage(int index)=>m_view.m_select1.m_type.selectedIndex=index;
-		void _OnRecWorkerItem_RecommandChanged(EventContext data){
-			OnRecWorkerItem_RecommandChanged(data);
+		partial void OnRecBody_RoletypeChanged(EventContext data);
+		void SwitchRecBody_RoletypePage(int index)=>m_view.m_roles.m_roletype.selectedIndex=index;
+		void _OnRecBody_RecommandChanged(EventContext data){
+			OnRecBody_RecommandChanged(data);
 		}
-		partial void OnRecWorkerItem_RecommandChanged(EventContext data);
-		void SwitchRecWorkerItem_RecommandPage(int index)=>m_view.m_select1.m_recommand.selectedIndex=index;
-		void SetRecWorkerItem_CountText(string data)=>UIListener.SetText(m_view.m_select1.m_count,data);
-		string GetRecWorkerItem_CountText()=>UIListener.GetText(m_view.m_select1.m_count);
-		void _OnSelect1Click(EventContext data){
-			OnSelect1Click(data);
+		partial void OnRecBody_RecommandChanged(EventContext data);
+		void SwitchRecBody_RecommandPage(int index)=>m_view.m_roles.m_recommand.selectedIndex=index;
+		void _OnRecBody_SelectctrChanged(EventContext data){
+			OnRecBody_SelectctrChanged(data);
 		}
-		partial void OnSelect1Click(EventContext data);
-		void SetSelect1Text(string data)=>UIListener.SetText(m_view.m_select1,data);
-		string GetSelect1Text()=>UIListener.GetText(m_view.m_select1);
-		void _OnRecWorkerItem_Select2_typeChanged(EventContext data){
-			OnRecWorkerItem_Select2_typeChanged(data);
+		partial void OnRecBody_SelectctrChanged(EventContext data);
+		void SwitchRecBody_SelectctrPage(int index)=>m_view.m_roles.m_selectctr.selectedIndex=index;
+		void _OnRecWorkerItem_Roles_select1_typeChanged(EventContext data){
+			OnRecWorkerItem_Roles_select1_typeChanged(data);
 		}
-		partial void OnRecWorkerItem_Select2_typeChanged(EventContext data);
-		void SwitchRecWorkerItem_Select2_typePage(int index)=>m_view.m_select2.m_type.selectedIndex=index;
-		void _OnRecWorkerItem_Select2_recommandChanged(EventContext data){
-			OnRecWorkerItem_Select2_recommandChanged(data);
+		partial void OnRecWorkerItem_Roles_select1_typeChanged(EventContext data);
+		void SwitchRecWorkerItem_Roles_select1_typePage(int index)=>m_view.m_roles.m_select1.m_type.selectedIndex=index;
+		void _OnRecWorkerItem_Roles_select1_recommandChanged(EventContext data){
+			OnRecWorkerItem_Roles_select1_recommandChanged(data);
 		}
-		partial void OnRecWorkerItem_Select2_recommandChanged(EventContext data);
-		void SwitchRecWorkerItem_Select2_recommandPage(int index)=>m_view.m_select2.m_recommand.selectedIndex=index;
-		void SetRecWorkerItem_Select2_countText(string data)=>UIListener.SetText(m_view.m_select2.m_count,data);
-		string GetRecWorkerItem_Select2_countText()=>UIListener.GetText(m_view.m_select2.m_count);
-		void _OnSelect2Click(EventContext data){
-			OnSelect2Click(data);
+		partial void OnRecWorkerItem_Roles_select1_recommandChanged(EventContext data);
+		void SwitchRecWorkerItem_Roles_select1_recommandPage(int index)=>m_view.m_roles.m_select1.m_recommand.selectedIndex=index;
+		void SetRecWorkerItem_Roles_select1_countText(string data)=>UIListener.SetText(m_view.m_roles.m_select1.m_count,data);
+		string GetRecWorkerItem_Roles_select1_countText()=>UIListener.GetText(m_view.m_roles.m_select1.m_count);
+		void _OnRecBody_Select1Click(EventContext data){
+			OnRecBody_Select1Click(data);
 		}
-		partial void OnSelect2Click(EventContext data);
-		void SetSelect2Text(string data)=>UIListener.SetText(m_view.m_select2,data);
-		string GetSelect2Text()=>UIListener.GetText(m_view.m_select2);
+		partial void OnRecBody_Select1Click(EventContext data);
+		void SetRecBody_Roles_select1Text(string data)=>UIListener.SetText(m_view.m_roles.m_select1,data);
+		string GetRecBody_Roles_select1Text()=>UIListener.GetText(m_view.m_roles.m_select1);
+		void _OnRecWorkerItem_Roles_select2_typeChanged(EventContext data){
+			OnRecWorkerItem_Roles_select2_typeChanged(data);
+		}
+		partial void OnRecWorkerItem_Roles_select2_typeChanged(EventContext data);
+		void SwitchRecWorkerItem_Roles_select2_typePage(int index)=>m_view.m_roles.m_select2.m_type.selectedIndex=index;
+		void _OnRecWorkerItem_Roles_select2_recommandChanged(EventContext data){
+			OnRecWorkerItem_Roles_select2_recommandChanged(data);
+		}
+		partial void OnRecWorkerItem_Roles_select2_recommandChanged(EventContext data);
+		void SwitchRecWorkerItem_Roles_select2_recommandPage(int index)=>m_view.m_roles.m_select2.m_recommand.selectedIndex=index;
+		void SetRecWorkerItem_Roles_select2_countText(string data)=>UIListener.SetText(m_view.m_roles.m_select2.m_count,data);
+		string GetRecWorkerItem_Roles_select2_countText()=>UIListener.GetText(m_view.m_roles.m_select2.m_count);
+		void _OnRecBody_Select2Click(EventContext data){
+			OnRecBody_Select2Click(data);
+		}
+		partial void OnRecBody_Select2Click(EventContext data);
+		void SetRecBody_Roles_select2Text(string data)=>UIListener.SetText(m_view.m_roles.m_select2,data);
+		string GetRecBody_Roles_select2Text()=>UIListener.GetText(m_view.m_roles.m_select2);
+		void _OnRolesClick(EventContext data){
+			OnRolesClick(data);
+		}
+		partial void OnRolesClick(EventContext data);
 
 	}
 }
