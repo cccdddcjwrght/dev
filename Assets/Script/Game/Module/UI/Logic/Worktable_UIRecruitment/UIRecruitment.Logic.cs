@@ -95,7 +95,7 @@ namespace SGame.UI
 
 		public bool UpLevel()
 		{
-			if (data.objLvCfg.ShowType != 0 || m_view.m_selectctr.selectedIndex > 0)
+			if (data.objLvCfg.ShowType != 0 || m_view.m_roles.m_selectctr.selectedIndex > 0)
 			{
 				switch (DataCenter.MachineUtil.CheckCanUpLevel(data))
 				{
@@ -107,7 +107,7 @@ namespace SGame.UI
 						break;
 					case 0:
 						20.ToAudioID().PlayAudio();
-						DataCenter.MachineUtil.UpdateLevel(data.id, 0, select: m_view.m_selectctr.selectedIndex);
+						DataCenter.MachineUtil.UpdateLevel(data.id, 0, select: m_view.m_roles.m_selectctr.selectedIndex);
 						//EffectSystem.Instance.AddEffect(2, m_view.m_click);
 						DoCloseUIClick(null);
 						return true;
