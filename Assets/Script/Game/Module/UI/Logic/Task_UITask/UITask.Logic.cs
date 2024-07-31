@@ -88,6 +88,7 @@ namespace SGame.UI{
 				//TransitionModule.Instance.PlayFlight(m_view.m_list, m_TaskRewardData, cfg.EffectType);
 				TransitionModule.Instance.PlayFlight(m_GiftList, m_TaskRewardData, cfg.EffectType);
 				m_view.m_content.visible = false;
+				m_view.m_body.visible = false;
 				DataCenter.TaskMainUtil.FinishTaskId(m_CurTaskId);
 				EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_HIDE, m_Context);
 
@@ -95,6 +96,7 @@ namespace SGame.UI{
 				{
 					if (m_view == null) return;
 					m_view.m_content.visible = true;
+					m_view.m_body.visible = true;
 					EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_SHOW, m_Context);
 				});
 			}
