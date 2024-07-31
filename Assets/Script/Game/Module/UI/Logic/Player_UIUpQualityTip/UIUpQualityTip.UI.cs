@@ -17,6 +17,11 @@ namespace SGame.UI{
 			m_view.m_body.m_equip.m_type.onChanged.Add(new EventCallback1(_OnEquip_Bodyquip_typeChanged));
 			m_view.m_body.m_equip.m_quality.onChanged.Add(new EventCallback1(_OnEquip_Bodyquip_qualityChanged));
 			UIListener.Listener(m_view.m_body.m_equip, new EventCallback1(_OnUpQualityTipBody_EquipClick));
+			m_view.m_body.m_attr.m_quality.onChanged.Add(new EventCallback1(_Onattrlabel_Body_attr_qualityChanged));
+			m_view.m_body.m_attr.m_lock.onChanged.Add(new EventCallback1(_Onattrlabel_Body_attr_lockChanged));
+			m_view.m_body.m_attr.m_type.onChanged.Add(new EventCallback1(_Onattrlabel_Body_attr_typeChanged));
+			UIListener.Listener(m_view.m_body.m_attr.m_info, new EventCallback1(_Onattrlabel_Body_attr_infoClick));
+			UIListener.ListenerIcon(m_view.m_body.m_attr, new EventCallback1(_OnUpQualityTipBody_AttrClick));
 			UIListener.ListenerClose(m_view.m_body.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
@@ -26,6 +31,11 @@ namespace SGame.UI{
 			m_view.m_body.m_equip.m_type.onChanged.Remove(new EventCallback1(_OnEquip_Bodyquip_typeChanged));
 			m_view.m_body.m_equip.m_quality.onChanged.Remove(new EventCallback1(_OnEquip_Bodyquip_qualityChanged));
 			UIListener.Listener(m_view.m_body.m_equip, new EventCallback1(_OnUpQualityTipBody_EquipClick),remove:true);
+			m_view.m_body.m_attr.m_quality.onChanged.Remove(new EventCallback1(_Onattrlabel_Body_attr_qualityChanged));
+			m_view.m_body.m_attr.m_lock.onChanged.Remove(new EventCallback1(_Onattrlabel_Body_attr_lockChanged));
+			m_view.m_body.m_attr.m_type.onChanged.Remove(new EventCallback1(_Onattrlabel_Body_attr_typeChanged));
+			UIListener.Listener(m_view.m_body.m_attr.m_info, new EventCallback1(_Onattrlabel_Body_attr_infoClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_body.m_attr, new EventCallback1(_OnUpQualityTipBody_AttrClick),remove:true);
 			UIListener.ListenerClose(m_view.m_body.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
@@ -57,6 +67,37 @@ namespace SGame.UI{
 		partial void OnUpQualityTipBody_EquipClick(EventContext data);
 		void SetUpQualityTipBody_BodyquipText(string data)=>UIListener.SetText(m_view.m_body.m_equip,data);
 		string GetUpQualityTipBody_BodyquipText()=>UIListener.GetText(m_view.m_body.m_equip);
+		void _Onattrlabel_Body_attr_qualityChanged(EventContext data){
+			Onattrlabel_Body_attr_qualityChanged(data);
+		}
+		partial void Onattrlabel_Body_attr_qualityChanged(EventContext data);
+		void Switchattrlabel_Body_attr_qualityPage(int index)=>m_view.m_body.m_attr.m_quality.selectedIndex=index;
+		void _Onattrlabel_Body_attr_lockChanged(EventContext data){
+			Onattrlabel_Body_attr_lockChanged(data);
+		}
+		partial void Onattrlabel_Body_attr_lockChanged(EventContext data);
+		void Switchattrlabel_Body_attr_lockPage(int index)=>m_view.m_body.m_attr.m_lock.selectedIndex=index;
+		void _Onattrlabel_Body_attr_typeChanged(EventContext data){
+			Onattrlabel_Body_attr_typeChanged(data);
+		}
+		partial void Onattrlabel_Body_attr_typeChanged(EventContext data);
+		void Switchattrlabel_Body_attr_typePage(int index)=>m_view.m_body.m_attr.m_type.selectedIndex=index;
+		void Setattrlabel_Body_attr___titleText(string data)=>UIListener.SetText(m_view.m_body.m_attr.m___title,data);
+		string Getattrlabel_Body_attr___titleText()=>UIListener.GetText(m_view.m_body.m_attr.m___title);
+		void _Onattrlabel_Body_attr_infoClick(EventContext data){
+			Onattrlabel_Body_attr_infoClick(data);
+		}
+		partial void Onattrlabel_Body_attr_infoClick(EventContext data);
+		void Setattrlabel_Body_attr_infoText(string data)=>UIListener.SetText(m_view.m_body.m_attr.m_info,data);
+		string Getattrlabel_Body_attr_infoText()=>UIListener.GetText(m_view.m_body.m_attr.m_info);
+		void _OnUpQualityTipBody_AttrClick(EventContext data){
+			OnUpQualityTipBody_AttrClick(data);
+		}
+		partial void OnUpQualityTipBody_AttrClick(EventContext data);
+		void SetUpQualityTipBody_Body_attrText(string data)=>UIListener.SetText(m_view.m_body.m_attr,data);
+		string GetUpQualityTipBody_Body_attrText()=>UIListener.GetText(m_view.m_body.m_attr);
+		void SetUpQualityTipBody_RecycleText(string data)=>UIListener.SetText(m_view.m_body.m_recycle,data);
+		string GetUpQualityTipBody_RecycleText()=>UIListener.GetText(m_view.m_body.m_recycle);
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
@@ -66,8 +107,6 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetUpQualityTipBody_Body_closeText(string data)=>UIListener.SetText(m_view.m_body.m_close,data);
 		string GetUpQualityTipBody_Body_closeText()=>UIListener.GetText(m_view.m_body.m_close);
-		void SetUpQualityTipBody_RecycleText(string data)=>UIListener.SetText(m_view.m_body.m_recycle,data);
-		string GetUpQualityTipBody_RecycleText()=>UIListener.GetText(m_view.m_body.m_recycle);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 

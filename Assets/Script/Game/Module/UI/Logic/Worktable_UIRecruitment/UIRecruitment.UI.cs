@@ -22,10 +22,10 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			m_view.m_select1.m_type.onChanged.Add(new EventCallback1(_OnRecWorkerItem_TypeChanged));
 			m_view.m_select1.m_recommand.onChanged.Add(new EventCallback1(_OnRecWorkerItem_RecommandChanged));
-			UIListener.ListenerIcon(m_view.m_select1, new EventCallback1(_OnSelect1Click));
+			UIListener.Listener(m_view.m_select1, new EventCallback1(_OnSelect1Click));
 			m_view.m_select2.m_type.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Select2_typeChanged));
 			m_view.m_select2.m_recommand.onChanged.Add(new EventCallback1(_OnRecWorkerItem_Select2_recommandChanged));
-			UIListener.ListenerIcon(m_view.m_select2, new EventCallback1(_OnSelect2Click));
+			UIListener.Listener(m_view.m_select2, new EventCallback1(_OnSelect2Click));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -38,10 +38,10 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			m_view.m_select1.m_type.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_TypeChanged));
 			m_view.m_select1.m_recommand.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_RecommandChanged));
-			UIListener.ListenerIcon(m_view.m_select1, new EventCallback1(_OnSelect1Click),remove:true);
+			UIListener.Listener(m_view.m_select1, new EventCallback1(_OnSelect1Click),remove:true);
 			m_view.m_select2.m_type.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Select2_typeChanged));
 			m_view.m_select2.m_recommand.onChanged.Remove(new EventCallback1(_OnRecWorkerItem_Select2_recommandChanged));
-			UIListener.ListenerIcon(m_view.m_select2, new EventCallback1(_OnSelect2Click),remove:true);
+			UIListener.Listener(m_view.m_select2, new EventCallback1(_OnSelect2Click),remove:true);
 
 		}
 		void _OnCurrencyChanged(EventContext data){
@@ -106,6 +106,8 @@ namespace SGame.UI{
 			OnSelect1Click(data);
 		}
 		partial void OnSelect1Click(EventContext data);
+		void SetSelect1Text(string data)=>UIListener.SetText(m_view.m_select1,data);
+		string GetSelect1Text()=>UIListener.GetText(m_view.m_select1);
 		void _OnRecWorkerItem_Select2_typeChanged(EventContext data){
 			OnRecWorkerItem_Select2_typeChanged(data);
 		}
@@ -122,6 +124,8 @@ namespace SGame.UI{
 			OnSelect2Click(data);
 		}
 		partial void OnSelect2Click(EventContext data);
+		void SetSelect2Text(string data)=>UIListener.SetText(m_view.m_select2,data);
+		string GetSelect2Text()=>UIListener.GetText(m_view.m_select2);
 
 	}
 }

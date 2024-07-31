@@ -149,6 +149,8 @@ namespace SGame.UI{
 		}
 		partial void OnPopupBody_body_hidecloseChanged(EventContext data);
 		void SwitchPopupBody_body_hideclosePage(int index)=>m_view.m_body.m_body.m_hideclose.selectedIndex=index;
+		void SetPopupBody_body_textText(string data)=>UIListener.SetText(m_view.m_body.m_body.m_text,data);
+		string GetPopupBody_body_textText()=>UIListener.GetText(m_view.m_body.m_body.m_text);
 		void _OnCloseBtn_Body_body_close_TypeChanged(EventContext data){
 			OnCloseBtn_Body_body_close_TypeChanged(data);
 		}

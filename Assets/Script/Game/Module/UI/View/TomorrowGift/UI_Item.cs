@@ -27,7 +27,7 @@ namespace SGame.UI.TomorrowGift
             m_sizesetting = GetControllerAt(0);
             m___disable = GetControllerAt(1);
             m_tipicon = GetControllerAt(2);
-            m_icon = (GLoader)GetChildAt(1);
+            m_icon = (GLoader)GetChildAt(0);
             m_title = (GTextField)GetChildAt(2);
             m_btnInfo = (GLoader)GetChildAt(3);
         }

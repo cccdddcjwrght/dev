@@ -42,6 +42,7 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_CommonItem.URL, typeof(UI_CommonItem));
             UIObjectFactory.SetPackageItemExtension(UI_ChestReward.URL, typeof(UI_ChestReward));
             UIObjectFactory.SetPackageItemExtension(UI_ItemIcon.URL, typeof(UI_ItemIcon));
+            UIObjectFactory.SetPackageItemExtension(UI_CurrencyHead.URL, typeof(UI_CurrencyHead));
         }
     }
 }
