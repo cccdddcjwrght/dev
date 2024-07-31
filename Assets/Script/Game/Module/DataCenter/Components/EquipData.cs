@@ -319,8 +319,7 @@ namespace SGame
 					OnRoleEquipChange();
 					EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 					EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
-					EventManager.Instance.Trigger<int,int>((int)GameEvent.ROLE_EQUIP_PUTON, equip.cfgID, equip.pos);
-
+					EventManager.Instance.Trigger<int>((int)GameEvent.ROLE_EQUIP_PUTON, equip.cfgID);
 				}
 			}
 
@@ -338,7 +337,7 @@ namespace SGame
 						EventManager.Instance.Trigger(((int)GameEvent.EQUIP_REFRESH));
 						EventManager.Instance.Trigger(((int)GameEvent.ROLE_EQUIP_CHANGE));
 					}
-					EventManager.Instance.Trigger<int,int>((int)GameEvent.ROLE_EQUIP_PUTON, -equip.cfgID , equip.pos);
+					EventManager.Instance.Trigger<int>((int)GameEvent.ROLE_EQUIP_PUTON, -equip.cfgID);
 				}
 			}
 
