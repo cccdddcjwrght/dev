@@ -69,8 +69,8 @@ namespace SGame.UI
 			m_view.m_roletype.selectedIndex = data.objLvCfg.ShowType == 0 ? 2 : data.objLvCfg.ShowType - 1;
 			m_view.m_selectctr.selectedIndex = data.objLvCfg.ShowType == 0 ? 0 : data.objLvCfg.ShowType ;
 
-			m_view.m_select1.m_count.SetTextByKey("ui_recruitment_count", DataCenter.Instance.roomData.current.waiter);
-			m_view.m_select2.m_count.SetTextByKey("ui_recruitment_count", DataCenter.Instance.roomData.current.cooker);
+			m_view.m_roles.m_select1.m_count.SetTextByKey("ui_recruitment_count", DataCenter.Instance.roomData.current.waiter);
+			m_view.m_roles.m_select2.m_count.SetTextByKey("ui_recruitment_count", DataCenter.Instance.roomData.current.cooker);
 			SetRecommand();
 			OnChange(0, 0);
 		}
