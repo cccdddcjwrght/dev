@@ -45,6 +45,8 @@ namespace SGame
 			DataCenter.RoomUtil.InitTechBuffs();
 			//装备属性
 			DataCenter.EquipUtil.InitEquipEffects();
+			//全局科技
+			DataCenter.Instance.abilityData.InitAbilityList();
 
 		}
 		#endregion
