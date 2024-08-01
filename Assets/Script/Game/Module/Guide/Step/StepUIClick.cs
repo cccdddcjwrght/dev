@@ -1,6 +1,7 @@
 using FairyGUI;
 using System.Collections;
 using System.Collections.Generic;
+using SGame.UI;
 using UnityEngine;
 
 namespace SGame
@@ -13,8 +14,34 @@ namespace SGame
         GObject clickTarget;
         EventHandleContainer m_EventHandle = new EventHandleContainer();
         bool isLock = false;
-        public override IEnumerator Excute() 
+
+        static bool NeedWait()
         {
+            List<UIWindow> windows = UIModule.Instance.GetVisibleUI();
+            foreach (var w in windows)
+            {
+                if (w.name == "eqgiftui" ||
+                    w.name == "rewardlist")
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        // 等待安全环境 
+        static IEnumerator WaitSafeState()
+        {
+            do
+            {
+                yield return null;
+            } while (NeedWait());
+        }
+        
+        public override IEnumerator Excute()
+        {
+            yield return WaitSafeState();
 
             if (m_Config.Force == 0) 
             {
