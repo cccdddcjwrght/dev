@@ -78,15 +78,18 @@ namespace SGame
             m_transform     = transform;
             m_speed         =  speed;
 
-            var rot2 = Quaternion.Euler(0, PET_START_ANGLE.Value, 0); // 绕Y轴旋转20度
-            var dir = rot2 * m_followTarget.rotation * Vector3.forward;
-            dir.y = 0;
-            var offset = -dir.normalized * PET_START_DISTANCE.Value;
-
-            m_transform.position = follow.position + offset;
+            m_transform.position = follow.position;
             m_transform.rotation = Quaternion.identity;
             m_transform.localScale = new Vector3(scale, scale, scale);
-
+            if (GetRandomWalkable(m_followTarget.position, out Vector2Int map_pos, out Vector2Int map_dir))
+            {
+                m_transform.position = MapAgent.CellToVector(map_pos.x, map_pos.y);
+            }
+            else
+            {
+                log.Error("not found player pos=" + m_followTarget.position);
+            }
+            
             LoadEffect();
 
             m_entity = EntityManager.CreateEntity(typeof(Follow),
