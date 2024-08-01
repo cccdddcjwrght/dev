@@ -17,11 +17,12 @@ namespace SGame.UI
 		private GList leftList;
 		private GList m_rightList;
 		private SetData m_setData;
-		private Entity  m_taskEffect = Entity.Null;
+		private Entity  m_taskEffect = Entity.Null; // 任务特效对象
 
 		Action<bool> timer;
 
 		private const int RIGHT_ITEM_NUM = 7;
+		private const int INVEST_SHOW_EFFECTID = 57; // 广告特效ID
 
 		/// <summary>
 		/// 区域定义
@@ -539,14 +540,20 @@ namespace SGame.UI
 			}
 
 			AdModule.Instance.GetAdShowTime(AdType.Invest.ToString(), out bool state, out int time);
+			//state = true;
 			//m_view.m_InvestBtn.visible = state;
 			if (m_OldAdShowState != state) 
 			{
 				m_OldAdShowState = state;
-				if (m_OldAdShowState) 
+				if (m_OldAdShowState)
 				{
 					m_view.m_doshow.Play();
 					m_view.m_InvestBtn.visible = true;
+					
+					// 播放特效
+					m_view.m_InvestBtn.m_t0.Play();
+					EffectSystem.Instance.SpawnUI(INVEST_SHOW_EFFECTID, m_view.m_InvestBtn.m_effect);
+
 				}
 				else m_view.m_dohide.Play(()=>m_view.m_InvestBtn.visible = false);
 			}
