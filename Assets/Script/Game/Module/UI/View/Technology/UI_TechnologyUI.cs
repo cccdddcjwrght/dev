@@ -22,8 +22,8 @@ namespace SGame.UI.Technology
             base.ConstructFromXML(xml);
 
             m_techFrame = (GLabel)GetChildAt(0);
-            m_techList = (GList)GetChildAt(2);
-            m_clickBtn = (GLoader)GetChildAt(3);
+            m_techList = (GList)GetChildAt(1);
+            m_clickBtn = (GLoader)GetChildAt(2);
         }
     }
 }
