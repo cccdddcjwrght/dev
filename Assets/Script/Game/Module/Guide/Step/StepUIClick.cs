@@ -34,8 +34,8 @@ namespace SGame
         // 等待安全环境 
         static IEnumerator WaitSafeState()
         {
-            UIUtils.CloseAllUI("mainui", "flight", "lockred", "SystemTip",
-                "Redpoint", "ordertip", "progress", "FoodTip");
+            //UIUtils.CloseAllUI("mainui", "flight", "lockred", "SystemTip",
+            //    "Redpoint", "ordertip", "progress", "FoodTip");
             do
             {
                 yield return null;
