@@ -17,6 +17,7 @@ namespace SGame.UI
 		partial void InitLogic(UIContext context)
 		{
 
+			context.window.contentPane.fairyBatching = false;
 			var scale = (float)Screen.height / Screen.width;
 			if (scale < 1.6f)
 				m_view.m_anim.fill = FillType.ScaleMatchHeight;
