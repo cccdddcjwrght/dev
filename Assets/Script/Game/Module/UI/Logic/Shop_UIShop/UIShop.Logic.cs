@@ -43,7 +43,7 @@ namespace SGame.UI
 		{
 			context.onShown += OnShow;
 			m_view.m_body.SetCurrency(1, "gold",iconCtr:"1");
-			m_view.m_body.SetCurrency(2, "diamond");
+			m_view.m_body.SetCurrency(2, "diamond", iconCtr: "1");
 
 			Refresh();
 		}
