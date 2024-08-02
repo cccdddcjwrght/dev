@@ -34,11 +34,15 @@ namespace SGame
         {
             m_hudAttachement = hud;
             
-            //m_seatAttachement = seat;
             m_seatOffset = new List<Vector3>();
+            Quaternion invRot = Quaternion.Inverse(transform.rotation);
             foreach (var t in seat)
-                m_seatOffset.Add(t.position - transform.position);
-                
+            {
+                Vector3 offset = t.position - transform.position;
+                offset = invRot * offset;
+                m_seatOffset.Add(offset);
+            }
+
             m_transform = transform;
             m_entity = e;
             EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -313,7 +317,8 @@ namespace SGame
         /// <returns></returns>
         public Vector3 GetSeatPosition(int seatIndex)
         {
-            return m_seatOffset[seatIndex] + m_transform.position;
+            Vector3 offset = m_transform.rotation * m_seatOffset[seatIndex];
+            return offset + m_transform.position;
         }
 
         /// <summary>
@@ -402,7 +407,7 @@ namespace SGame
             if (EntityManager.HasComponent<Parent>(chair.customer))
                 EntityManager.RemoveComponent<Parent>(chair.customer);
             EntityManager.SetComponentData(chair.customer, 
-                LocalTransform.FromPositionRotationScale(m_transform.position, m_transform.rotation, m_transform.localScale.x));
+                LocalTransform.FromPositionRotationScale(GetSeatPosition(seatIndex),GetSeatRotation(seatIndex), m_transform.localScale.x));
             chair.Leave();
             return true;
         }
