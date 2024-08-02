@@ -57,6 +57,12 @@ namespace SGame
         }
 
         /// <summary>
+        /// 判断是否可领取
+        /// </summary>
+        public bool CanTake => m_data.state == (int)TomorrowGiftData.STATE.WAIT_TAKE && time <= 0;
+
+
+        /// <summary>
         /// 里可领取的剩余时间(秒)
         /// </summary>
         public int time
