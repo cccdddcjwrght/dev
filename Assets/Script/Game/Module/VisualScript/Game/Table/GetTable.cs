@@ -1,7 +1,9 @@
 using System;
 using SGame;
 using Unity.VisualScripting;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 namespace SGame.VS
 {
     /// <summary>
@@ -32,7 +34,13 @@ namespace SGame.VS
         {
             var id = flow.GetValue<int>(this.tableID);
             if (id <= 0)
+            {
+                #if UNITY_EDITOR
+                    EditorApplication.isPaused = true;
+                #endif
+                
                 throw new Exception("table id zero or negative");
+            }
             return TableManager.Instance.Get(id);
         }
     }
