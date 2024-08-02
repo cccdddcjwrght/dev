@@ -9,11 +9,9 @@ namespace SGame.UI.Pet
     {
         public Controller m_quality;
         public Controller m_type;
-        public GLoader m_tbg;
         public UI_SimplePetModel m_model;
-        public GButton m_click;
+        public GLoader m_tbg;
         public GButton m_free;
-        public GTextField m_level;
         public const string URL = "ui://srlw77obl7ed15";
 
         public static UI_PetModel CreateInstance()
@@ -27,11 +25,9 @@ namespace SGame.UI.Pet
 
             m_quality = GetControllerAt(0);
             m_type = GetControllerAt(1);
-            m_tbg = (GLoader)GetChildAt(0);
-            m_model = (UI_SimplePetModel)GetChildAt(1);
-            m_click = (GButton)GetChildAt(2);
-            m_free = (GButton)GetChildAt(4);
-            m_level = (GTextField)GetChildAt(5);
+            m_model = (UI_SimplePetModel)GetChildAt(0);
+            m_tbg = (GLoader)GetChildAt(1);
+            m_free = (GButton)GetChildAt(3);
         }
     }
 }

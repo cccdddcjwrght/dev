@@ -46,19 +46,22 @@ namespace SGame.UI.Pet
 			}
 		}
 
-		static public void SetPet(this GObject gObject, PetItem pet, bool hidered = false, bool showbuff = false)
+		static public void SetPet(this GObject gObject, PetItem pet, bool hidered = false, bool showbuff = false, string nameappend = null)
 		{
 			if (gObject != null)
 			{
 				if (pet != null && pet.cfgID > 0)
 				{
+					nameappend = nameappend + pet.name.Local();
 					gObject.SetIcon(pet.icon);
-					gObject.SetTextByKey(pet.name);
+					gObject.SetText(nameappend, false);
 					var count = pet.level > 0 ? pet.level : pet.count;
 					UIListener.SetControllerSelect(gObject, "quality", pet.quality);
 					UIListener.SetControllerSelect(gObject, "selected", pet.isselected ? 1 : 0, false);
-					UIListener.SetTextWithName(gObject, "count", count == 0 ? "" : count.ToString(), false);
-					UIListener.SetTextWithName(gObject, "model", pet.name.Local(), false);
+					UIListener.SetTextWithName(gObject, "count", count == 0 ? "" : (pet.level > 0 ? "" : "x") + count.ToString(), false);
+					UIListener.SetControllerSelect(gObject, "notempty", count > 0 ? 1 : 0, false);
+
+					UIListener.SetTextWithName(gObject, "model", nameappend, false);
 					UIListener.SetTextWithName(gObject, "qname", GetQName(pet.quality));
 
 					if (!hidered) UIListener.SetControllerSelect(gObject, "__redpoint", pet.isnew, false);
@@ -70,10 +73,10 @@ namespace SGame.UI.Pet
 							if (list != null)
 							{
 								list.RemoveChildrenToPool();
-								var effects = pet.GetEffects(true, true);
+								var effects = pet.GetEffects(true, true,true);
 								SGame.UIUtils.AddListItems(list, effects, (i, d, g) =>
 								{
-									g.SetBuffItem(effects[i], 0, false, (1 << i).IsInState(pet.evo) ? 1 : 0, pet.effectAdd[i],appendadd:true);
+									g.SetBuffItem(effects[i], i != 0 ? pet.quality : 0, false, (1 << i).IsInState(pet.evo) ? 1 : 0);
 								}, ignoreNull: true, useIdx: true);
 							}
 						}
@@ -149,6 +152,7 @@ namespace SGame.UI.Pet
 		private Animator animation;
 
 		public Action onModelLoaded;
+		public float scaleVal = 300;
 
 		public UI_SimplePetModel SetPetInfo(PetItem pet, bool focusrefresh = false, float delay = 0, string animationName = null)
 		{
@@ -190,7 +194,7 @@ namespace SGame.UI.Pet
 
 		public UI_SimplePetModel Play(string clip)
 		{
-			if(animation && !string.IsNullOrEmpty(clip))
+			if (animation && !string.IsNullOrEmpty(clip))
 			{
 				animation.Play(clip);
 			}
@@ -222,7 +226,7 @@ namespace SGame.UI.Pet
 					if (old) GameObject.Destroy(old);
 					goWrapper.SetWrapTarget(go, false);
 					go.SetActive(false);
-					go.transform.localScale = Vector3.one * 250;
+					go.transform.localScale = Vector3.one * scaleVal;
 					go.transform.localPosition = new Vector3(0, 0, -100);
 					go.transform.localRotation = Quaternion.Euler(8, -145, 8);
 					go.SetLayer("UILight");

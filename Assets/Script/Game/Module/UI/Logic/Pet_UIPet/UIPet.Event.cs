@@ -29,19 +29,19 @@ namespace SGame.UI
 
 		void OnPetListRefresh()
 		{
-			RefreshList(true);
+			RefreshList(true, type: 1);
 		}
 
 		void OnPetRefresh(PetItem pet, int type)
 		{
 			OnPetTab();
-			RefreshList();
+			RefreshList(type: 1);
 		}
 
 		void OnPetFollowChange(PetItem pet, bool state)
 		{
 			OnPetTab();
-			RefreshList();
+			RefreshList(type:1);
 		}
 
 		void OnUIClose(string name)

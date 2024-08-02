@@ -24,8 +24,8 @@ namespace SGame.UI.Pet
 
             m_quality = GetControllerAt(0);
             m_nullpet = GetControllerAt(1);
-            m_model = (UI_PetModel)GetChildAt(1);
-            m_bufflist = (GList)GetChildAt(3);
+            m_model = (UI_PetModel)GetChildAt(0);
+            m_bufflist = (GList)GetChildAt(1);
         }
     }
 }

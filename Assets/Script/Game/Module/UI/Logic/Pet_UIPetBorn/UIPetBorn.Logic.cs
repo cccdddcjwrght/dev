@@ -32,6 +32,7 @@ namespace SGame.UI
 
 			m_view.z = -400;
 			m_view.SetTextByKey(pet.name);
+			m_view.m_model.scaleVal = 250;
 			m_view.m_model.SetPetInfo(pet);
 			m_view.m_quality.selectedIndex = pet.tempQuality;
 			_isCompleted = false;
@@ -71,9 +72,9 @@ namespace SGame.UI
 			IEnumerator Run()
 			{
 				23.ToAudioID().PlayAudio();
+				if (_mask != null) _mask.Value.alpha = 1;
 				EffectSystem.Instance.AddEffect(28, m_view.m_effect2);
 				yield return new WaitForSeconds(1.5f);
-				if (_mask != null) _mask.Value.alpha = 1;
 				m_view.m_type.selectedIndex = 3;
 				m_view.m_state.selectedIndex = 0;
 				_isCompleted = true;

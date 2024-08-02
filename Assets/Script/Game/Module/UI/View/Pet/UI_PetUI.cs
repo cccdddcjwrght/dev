@@ -10,12 +10,17 @@ namespace SGame.UI.Pet
         public Controller m_tab;
         public Controller m_type;
         public GLabel m_body;
+        public GGraph m_middle;
+        public GGraph m_bottom;
         public UI_PetInfo m_pet;
-        public UI_PetEgg m_egg;
+        public GButton m_click;
+        public UI_PetEggBtn m_egg;
         public GList m_list;
+        public UI_PetEggPanel m_eggpanel;
+        public UI_PetBuffTips m_tips;
         public GGraph m___effect;
         public GGraph m___effect2;
-        public const string URL = "ui://srlw77obl7ed12";
+        public const string URL = "ui://srlw77oben1x4z";
 
         public static UI_PetUI CreateInstance()
         {
@@ -29,11 +34,16 @@ namespace SGame.UI.Pet
             m_tab = GetControllerAt(0);
             m_type = GetControllerAt(1);
             m_body = (GLabel)GetChildAt(0);
-            m_pet = (UI_PetInfo)GetChildAt(2);
-            m_egg = (UI_PetEgg)GetChildAt(3);
-            m_list = (GList)GetChildAt(6);
-            m___effect = (GGraph)GetChildAt(7);
-            m___effect2 = (GGraph)GetChildAt(8);
+            m_middle = (GGraph)GetChildAt(1);
+            m_bottom = (GGraph)GetChildAt(2);
+            m_pet = (UI_PetInfo)GetChildAt(4);
+            m_click = (GButton)GetChildAt(5);
+            m_egg = (UI_PetEggBtn)GetChildAt(6);
+            m_list = (GList)GetChildAt(9);
+            m_eggpanel = (UI_PetEggPanel)GetChildAt(11);
+            m_tips = (UI_PetBuffTips)GetChildAt(13);
+            m___effect = (GGraph)GetChildAt(14);
+            m___effect2 = (GGraph)GetChildAt(15);
         }
     }
 }

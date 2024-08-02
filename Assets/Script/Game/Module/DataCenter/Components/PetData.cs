@@ -15,7 +15,8 @@ namespace SGame
 		Max,
 		RandomMin,
 		RandomMax,
-		Weight
+		Weight,
+		Lv
 	}
 
 	partial class DataCenter
@@ -67,7 +68,7 @@ namespace SGame
 				{
 					if (ConfigSystem.Instance.TryGet<PetsRowData>(id, out var cfg))
 					{
-						return new PetItem() { cfgID = id, cfg = cfg, isnew = 1 ,level = 1}.Refresh();
+						return new PetItem() { cfgID = id, cfg = cfg, isnew = 1, level = 1 }.Refresh();
 					}
 				}
 				return default;
@@ -78,7 +79,7 @@ namespace SGame
 				if (pet != null && pet.cfgID > 0)
 				{
 					_data.pets.Add(pet);
-					if (iseggborn) { _data.egg.Clear(); _data.egg = null; }
+					if (iseggborn) { _data.egg?.Clear(); _data.egg = null; }
 					_eMgr.Trigger(((int)GameEvent.PET_ADD), pet);
 					if (_data.pet == null || !_data.pet.cfg.IsValid()) Follow(pet);
 					if (triggerevent)
@@ -145,7 +146,9 @@ namespace SGame
 
 			static public void ClearNewFlag(int eggid = 0)
 			{
-				_data.pets?.ForEach(p => p?.ResetNewFlag());
+				if (eggid <= 0)
+					_data.pets?.ForEach(p => p?.ResetNewFlag());
+
 				if (eggid != 0)
 				{
 					if (eggid < 0)
@@ -258,6 +261,9 @@ namespace SGame
 			{
 				if (a.isselected) return -1;
 				else if (b.isselected) return 1;
+				if (a.count > 0 && b.count == 0) return -1;
+				if (b.count > 0 && a.count == 0) return 1;
+
 				var c = -a.quality.CompareTo(b.quality);
 				if (c == 0)
 				{
@@ -273,9 +279,14 @@ namespace SGame
 
 			static public bool IsEgg(int id)
 			{
-				if(_eggs != null)
+				if (_eggs != null)
 					return _eggs.Contains(id);
 				return false;
+			}
+
+			static public int GetBornEgg()
+			{
+				return _data.egg != null ? _data.egg.cfgID : 0;
 			}
 
 		}
@@ -310,6 +321,7 @@ namespace SGame
 
 		public ulong effectID;
 		public int[] effectAdd = new int[9];
+		public int[] effectLv = new int[9];
 
 		public int isnew;
 		public int uptime;
@@ -326,7 +338,7 @@ namespace SGame
 		public GameConfigs.EggRowData eCfg;
 
 		[NonSerialized]
-		public List<int[]> effects;//0£ºid,1:val,2:Max,3:randomMin,4:randomMax
+		public List<int[]> effects;//0£ºid,1:val,2:Max,3:randomMin,4:randomMax,5:weight,6:lv
 		[NonSerialized]
 		public double count;
 		[NonSerialized]
@@ -353,7 +365,7 @@ namespace SGame
 							for (int i = 0; i < cfg.BuffsLength; i++)
 							{
 								if (ConfigSystem.Instance.TryGet(cfg.Buffs(i), out PetBuffConfigRowData buff))
-									this.effects.Add(new int[] { buff.Buff, buff.Default, buff.Most, buff.Range(0), buff.Range(1), cfg.WeightsLength > i ? cfg.Weights(i) : 100 });
+									this.effects.Add(new int[] { buff.Buff, buff.Default, buff.Most, buff.Range(0), buff.Range(1), cfg.WeightsLength > i ? cfg.Weights(i) : 100, 0 });
 							}
 						}
 					}
@@ -368,6 +380,7 @@ namespace SGame
 					count = PropertyManager.Instance.GetItem(cfgID).num;
 					isnew = DataCenter.Instance.petData.newegg.Contains(cfgID) ? 1 : 0;
 				}
+				isselected = DataCenter.PetUtil.GetBornEgg() == cfgID;
 			}
 			return this;
 		}
@@ -415,6 +428,7 @@ namespace SGame
 					add = SGame.Randoms.Random._R.Next(effect[((int)EffectIndex.RandomMin)], effect[((int)EffectIndex.RandomMax)]);
 					add = Math.Clamp(add, 0, effect[2] - effect[1] - effectAdd[index]);
 					effectAdd[index] += add;
+					effectLv[index] += 1;
 					evo |= 1 << index;
 				}
 			}
@@ -453,7 +467,7 @@ namespace SGame
 						if (!useAdd)
 							buff = effects[i];
 						else
-							buff = new int[] { effects[i][0], effects[i][1] + effectAdd[i] };
+							buff = new int[] { effects[i][0], effects[i][1] + effectAdd[i], 0, 0, 0, 0, effectLv[i] };
 						rets.Add(buff);
 					}
 					return rets;

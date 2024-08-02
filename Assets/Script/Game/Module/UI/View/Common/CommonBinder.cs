@@ -12,6 +12,7 @@ namespace SGame.UI.Common
             UIObjectFactory.SetPackageItemExtension(UI_FullBg.URL, typeof(UI_FullBg));
             UIObjectFactory.SetPackageItemExtension(UI_CenterText.URL, typeof(UI_CenterText));
             UIObjectFactory.SetPackageItemExtension(UI_HeadTitle.URL, typeof(UI_HeadTitle));
+            UIObjectFactory.SetPackageItemExtension(UI_MinBtn.URL, typeof(UI_MinBtn));
             UIObjectFactory.SetPackageItemExtension(UI_CommonRewardUI.URL, typeof(UI_CommonRewardUI));
             UIObjectFactory.SetPackageItemExtension(UI_BigItem.URL, typeof(UI_BigItem));
             UIObjectFactory.SetPackageItemExtension(UI_GiftItem.URL, typeof(UI_GiftItem));
