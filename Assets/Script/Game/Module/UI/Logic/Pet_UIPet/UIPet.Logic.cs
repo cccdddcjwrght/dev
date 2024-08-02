@@ -10,6 +10,7 @@ namespace SGame.UI
 	using System.Linq;
 	using System;
 	using GameConfigs;
+	using System.Drawing;
 
 	public partial class UIPet
 	{
@@ -49,6 +50,8 @@ namespace SGame.UI
 			SetEggHatching();
 			RefreshList(true, 1);
 			OnPetTab();
+			if (_isClickEgg)
+				DataCenter.PetUtil.ClearNewFlag(-1);
 		}
 
 		partial void OnTabChanged(EventContext data)
@@ -58,6 +61,7 @@ namespace SGame.UI
 			{
 				case 0:
 					SetInfo();
+
 					break;
 				case 1:
 					OnEggTab();
@@ -176,7 +180,9 @@ namespace SGame.UI
 
 		void OnEggItemClick(int index, PetItem data, GObject gObject)
 		{
+			data.ResetNewFlag();
 			DataCenter.PetUtil.ClearNewFlag(data.cfgID);
+			UIListener.SetControllerSelect(gObject, "__redpoint", 0, false);
 		}
 
 		partial void OnPetEggBtn_StateChanged(EventContext data)
@@ -278,7 +284,11 @@ namespace SGame.UI
 					if (egg != null)
 					{
 						RequestExcuteSystem.SetEggToBorn(egg.Clone().Born());
-						SwitchTabPage(0);
+						//SwitchTabPage(0);
+						egg.ResetNewFlag();
+						DataCenter.PetUtil.ClearNewFlag(egg.cfgID);
+						SetEggHatching();
+						RefreshList(true, 2);
 					}
 					break;
 				case 2:
