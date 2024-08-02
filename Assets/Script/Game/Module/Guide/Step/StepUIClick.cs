@@ -21,7 +21,8 @@ namespace SGame
             foreach (var w in windows)
             {
                 if (w.name == "eqgiftui" ||
-                    w.name == "rewardlist")
+                    w.name == "rewardlist" || 
+                    w.name == "task")
                 {
                     return true;
                 }
@@ -33,6 +34,8 @@ namespace SGame
         // 等待安全环境 
         static IEnumerator WaitSafeState()
         {
+            UIUtils.CloseAllUI("mainui", "flight", "lockred", "SystemTip",
+                "Redpoint", "ordertip", "progress", "FoodTip");
             do
             {
                 yield return null;
