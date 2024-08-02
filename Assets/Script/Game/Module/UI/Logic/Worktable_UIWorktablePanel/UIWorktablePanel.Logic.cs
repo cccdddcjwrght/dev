@@ -149,6 +149,7 @@ namespace SGame.UI
 			UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
 			m_view.m_btnty.selectedIndex = state ? 0 : 1;
 			if (!state) m_view.m_click.GetChild("bg").icon = null;
+			else UIListener.SetControllerSelect(m_view.m_click, "bgColor", 0 , false);
 		}
 
 		private void SetUpStarRewards()
@@ -273,6 +274,11 @@ namespace SGame.UI
 				{
 					UIListener.SetControllerSelect(m_view.m_click, "limit", 0);
 					UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
+					if (state)
+					{
+						m_view.m_btnty.selectedIndex = 0;
+						UIListener.SetControllerSelect(m_view.m_click, "bgColor", 0 , false);
+					}
 				}
 				catch (Exception e)
 				{
