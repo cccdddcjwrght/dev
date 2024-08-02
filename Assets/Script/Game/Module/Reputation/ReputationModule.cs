@@ -28,6 +28,8 @@ namespace SGame
         private static ILog log = LogManager.GetLogger("game.reputation");
         private ReputationData m_data;
 
+		private const int pet_buff_id = 105;
+
         private List<TotalItem> m_TotalList = new List<TotalItem>();
         private EventHandleContainer m_handles = new EventHandleContainer();
 
@@ -138,7 +140,7 @@ namespace SGame
                 list.ForEach((i) =>
                 {
                     //¶ÔÓ¦buffÅäÖÃid
-                    if (i[0] == 7) multiple = 1 + i[1] * PERCENTAGE_VALUE;
+                    if (i[0] == pet_buff_id) multiple = 1 + i[1] * PERCENTAGE_VALUE;
                 });
                 pet_buff.multiple = multiple;
                 pet_buff.isForce = multiple > 0;
