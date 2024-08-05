@@ -87,7 +87,7 @@ namespace SGame.UI
 					var cooker = Math.Max(1f, DataCenter.Instance.roomData.current.cooker);
 					var waiter = Math.Max(1f, DataCenter.Instance.roomData.current.waiter);
 					var v = waiter / cooker;
-					select = v > room.roomCfg.RecommendValue(0) ? 1 : v < room.roomCfg.RecommendValue(1) ? 2 : 0;
+					select = v > room.roomCfg.RecommendValue(0) ? 2 : v < room.roomCfg.RecommendValue(1) ? 1 : 0;
 				}
 			}
 			m_view.m_recommand.selectedIndex = select;
