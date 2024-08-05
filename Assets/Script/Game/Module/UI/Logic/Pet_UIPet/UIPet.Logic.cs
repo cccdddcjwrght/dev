@@ -132,12 +132,14 @@ namespace SGame.UI
 			view.name = pet.cfgID.ToString();
 			view.m_hideline.selectedIndex = index == 0 ? 1 : 0;
 			view.SetPet(pet);
-			view.onClick?.Clear();
-			view.onClick.Add(() => OnEggItemClick(index, pet, gObject));
-			view.m_get1.onClick.Clear();
-			view.m_get2.onClick.Clear();
-			view.m_get3.onClick.Clear();
+			view.data = pet;
 			view.m_get3.data = pet;
+			view.onClick.Remove(OnEggListItemClick);
+			view.onClick.Add(OnEggListItemClick);
+			
+			view.m_get1.onClick.Remove(OnPetEgg_Get1Click);
+			view.m_get2.onClick.Remove(OnPetEgg_Get2Click);
+			view.m_get3.onClick.Remove(OnPetEgg_Get3Click);
 			view.m_get1.onClick.Add(OnPetEgg_Get1Click);
 			view.m_get2.onClick.Add(OnPetEgg_Get2Click);
 			view.m_get3.onClick.Add(OnPetEgg_Get3Click);
@@ -158,6 +160,13 @@ namespace SGame.UI
 				view.m_state.selectedIndex = 0;
 				view.m_get3.SetTextByKey("ui_pet_select");
 			}
+		}
+
+		void OnEggListItemClick(EventContext data) {
+
+			var egg = data != null ? (data.sender as GObject)?.data as PetItem : null;
+			if(egg!= null)
+				OnEggItemClick(0, egg, data.sender as GObject);
 		}
 
 		void OnEggTab()
