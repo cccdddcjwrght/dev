@@ -11,7 +11,7 @@ namespace SGame
         UIWindow m_MainUI;
         public override IEnumerator Excute()
         {
-            yield return UIUtils.GetUIView("mainui");
+            yield return WaitMainUI();
             m_MainUI = UIUtils.GetUIView("mainui");
             m_MainUI.Value.touchable = false;
             Debug.Log("mainui lock ---------" + Time.realtimeSinceStartupAsDouble);
@@ -19,6 +19,16 @@ namespace SGame
             m_MainUI.Value.touchable = true;
             Debug.Log("mainui unlock ---------" + Time.realtimeSinceStartupAsDouble);
             Finish();
+        }
+
+        IEnumerator WaitMainUI()
+        {
+            while (true)
+            {
+                bool isOpen = UIUtils.CheckUIIsOpen("mainui");
+                if (isOpen) yield break;
+                yield return null;
+            }
         }
 
         IEnumerator Wait() 
