@@ -44,9 +44,9 @@ namespace SGame
         
         public override IEnumerator Excute()
         {
-            //yield return WaitSafeState();
+            yield return WaitSafeState();
 
-            if (m_Config.Force == 0) 
+            if (m_Config.Force == 0)
             {
                 GuideManager.Instance.SetCoerceGuideState(true);
                 //锁定UI
@@ -55,6 +55,14 @@ namespace SGame
                 Debug.Log("<color=white> ui lock-------------</color>");
                 m_Handler.DisableControl(true);
                 m_Handler.DisableCameraDrag(true);
+            }
+            else 
+            {
+                //如果是主线指引，弱指引点击其他地方相当于完成该指引
+                if (m_Config.GuideType == 0)
+                    m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Finish);
+                else
+                    m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
             }
 
             yield return m_Handler.WaitFingerClose();
@@ -78,14 +86,6 @@ namespace SGame
                 UILockManager.Instance.Release("guide_uiclick");
                 m_Handler.DisableControl(false);
                 Debug.Log("<color=bule> ui unlock-------------</color>");
-            }
-            else 
-            {
-                //如果是主线指引，弱指引点击其他地方相当于完成该指引
-                if (m_Config.GuideType == 0)
-                    m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Finish);
-                else
-                    m_EventHandle += EventManager.Instance.Reg((int)GameEvent.GUIDE_CLICK, Stop);
             }
             UIUtils.OpenUI("fingerui", new UIParam() { Value = m_Handler });
 
