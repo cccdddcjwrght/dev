@@ -44,7 +44,7 @@ namespace SGame
         
         public override IEnumerator Excute()
         {
-            yield return WaitSafeState();
+            //yield return WaitSafeState();
 
             if (m_Config.Force == 0) 
             {
