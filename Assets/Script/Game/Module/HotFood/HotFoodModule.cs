@@ -16,7 +16,7 @@ namespace SGame
 
         public void Initalize() 
         {
-            EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLevelRoom);
+            //EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLevelRoom);
             EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEnterRoom);
         }
 

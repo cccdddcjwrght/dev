@@ -68,10 +68,14 @@ namespace SGame
 			//科技数据初始化
 			DataCenter.Instance.abilityData.InitAbilityList();
 
+			//指引初始化
 			GuideManager.Instance.Initalize();
 			
 			// 汽车模块初始化
 			CarModule.Instance.Initalize();
+
+			//热卖菜品初始化
+			HotFoodModule.Instance.Initalize();
 		}
 
 		IEnumerator TestData()
