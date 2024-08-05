@@ -198,6 +198,7 @@ namespace SGame
                 var curCfgId = DataCenter.Instance.taskMainData.cfgId;
                 DataCenter.Instance.taskMainData.cfgId = nextCfgId;
 
+                RefreshTaskState();
                 EventManager.Instance.Trigger((int)GameEvent.MAIN_TASK_UPDATE, -1);
             }
 
