@@ -19,7 +19,7 @@ namespace SGame.UI
 			data = args.Val<SGame.Worktable>(0);
 			machineID = args.Val<int>(1);
 
-			EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnChange);
+			EventManager.Instance.Reg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnChange);
 
 			if (data == null) DoCloseUIClick(null);
 			else SetInfo();
@@ -28,7 +28,7 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			data = null;
-			EventManager.Instance.UnReg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnChange);
+			EventManager.Instance.UnReg<double, double>(((int)GameEvent.PROPERTY_GOLD_CHANGE), OnChange);
 		}
 
 		partial void OnClickClick(EventContext data)
@@ -41,7 +41,7 @@ namespace SGame.UI
 			}
 		}
 
-		void OnChange(int a, int b, int c, int d)
+		void OnChange(double a, double b)
 		{
 			m_view.m_type.selectedIndex = Utils.CheckItemCount((int)price[1], price[2], false) ? 0 : 1;
 		}
@@ -55,7 +55,7 @@ namespace SGame.UI
 			m_view.m_count.SetText("+" + add);
 			m_view.m_currency.selectedIndex = (int)price[0];
 			m_view.m_cost.SetText(Utils.ConvertNumberStr(price[2]), false);
-			OnChange(0, 0, 0, 0);
+			OnChange(0, 0);
 		}
 
 
