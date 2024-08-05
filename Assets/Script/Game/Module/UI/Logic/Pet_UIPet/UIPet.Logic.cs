@@ -451,7 +451,7 @@ namespace SGame.UI
 
 			if (!_clickSkillFlag)
 			{
-				if (m_view.m_tips.visible)
+				if (m_view != null && m_view.m_tips!= null && m_view.m_tips.visible)
 				{
 					m_view.m_tips.visible = false;
 					m_view.m_tips.data = default;
