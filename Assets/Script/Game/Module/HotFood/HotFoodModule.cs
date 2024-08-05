@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameConfigs;
 using System.Linq;
+using FairyGUI;
 
 namespace SGame 
 {
@@ -16,20 +17,39 @@ namespace SGame
         public void Initalize() 
         {
             EventManager.Instance.Reg((int)GameEvent.PREPARE_LEVEL_ROOM, OnLevelRoom);
+            EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEnterRoom);
         }
 
         public void StartFood(int foodID) 
         {
             m_HotFoodData.Start(foodID);
+            CdFinish();
             EventManager.Instance.Trigger((int)GameEvent.HOTFOOD_REFRESH);
         }
 
         public void StopFood() 
         {
             m_HotFoodData.Stop();
+            CdFinish();
             EventManager.Instance.Trigger((int)GameEvent.HOTFOOD_REFRESH);
         }
 
+        public void CdFinish() 
+        {
+            var cdTime = m_HotFoodData.GetCdTime();
+            if (cdTime > 0) 
+            {
+                GTween.To(0, 1, m_HotFoodData.GetCdTime()).OnComplete(() =>
+                {
+                    EventManager.Instance.Trigger((int)GameEvent.HOTFOOD_REFRESH);
+                });
+            }
+        }
+
+        public void OnEnterRoom(int scene) 
+        {
+            CdFinish();
+        }
         public void OnLevelRoom() 
         {
             m_HotFoodData.Reset();

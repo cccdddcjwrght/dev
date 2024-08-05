@@ -575,6 +575,7 @@ namespace SGame.UI
 			if (hotFoodData.IsForce())
 			{
 				m_view.m_hotFoodBtn.m_hoting.selectedIndex = 1;
+				m_view.m_hotFoodBtn.m_cd.selectedIndex = 0;
 				m_view.m_hotFoodBtn.SetIcon(Utils.GetItemIcon(1, hotFoodData.foodID));
 
 				Utils.Timer(hotFoodData.GetTime(), () =>
@@ -586,8 +587,10 @@ namespace SGame.UI
 			}
 			else 
 			{
+				m_view.m_hotFoodBtn.m_cd.selectedIndex = DataCenter.Instance.hotFoodData.GetCdTime() > 0 ? 1 : 0;
 				m_view.m_hotFoodBtn.m_hoting.selectedIndex = 0;
 			}
+			
 		}
 
 		void OnUpdatePiggyProgress()

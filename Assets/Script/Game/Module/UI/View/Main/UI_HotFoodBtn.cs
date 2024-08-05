@@ -8,7 +8,9 @@ namespace SGame.UI.Main
     public partial class UI_HotFoodBtn : GButton
     {
         public Controller m_hoting;
+        public Controller m_cd;
         public GImage m_progress;
+        public GImage m_cdMask;
         public const string URL = "ui://ktixaqljvlyvlbl";
 
         public static UI_HotFoodBtn CreateInstance()
@@ -21,7 +23,9 @@ namespace SGame.UI.Main
             base.ConstructFromXML(xml);
 
             m_hoting = GetControllerAt(0);
+            m_cd = GetControllerAt(1);
             m_progress = (GImage)GetChildAt(3);
+            m_cdMask = (GImage)GetChildAt(6);
         }
     }
 }
