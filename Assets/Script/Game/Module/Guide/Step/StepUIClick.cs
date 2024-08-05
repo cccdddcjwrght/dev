@@ -13,7 +13,7 @@ namespace SGame
     {
         GObject clickTarget;
         EventHandleContainer m_EventHandle = new EventHandleContainer();
-        bool isLock = false;
+        //bool isLock = false;
 
         static bool NeedWait()
         {
@@ -24,6 +24,7 @@ namespace SGame
                     w.name == "rewardlist" || 
                     w.name == "task")
                 {
+                    UILockManager.Instance.Release("guide_uiclick");
                     return true;
                 }
             }
@@ -36,10 +37,14 @@ namespace SGame
         {
             //UIUtils.CloseAllUI("mainui", "flight", "lockred", "SystemTip",
             //    "Redpoint", "ordertip", "progress", "FoodTip");
+            //Debug.Log("<color=white> ui lock-------------</color>");
+            UILockManager.Instance.Require("guide_uiclick");
             do
             {
                 yield return null;
             } while (NeedWait());
+            UILockManager.Instance.Release("guide_uiclick");
+            //Debug.Log("<color=white> ui unlock-------------</color>");
         }
         
         public override IEnumerator Excute()
@@ -51,7 +56,7 @@ namespace SGame
                 GuideManager.Instance.SetCoerceGuideState(true);
                 //锁定UI
                 UILockManager.Instance.Require("guide_uiclick");
-                isLock = true;
+                //isLock = true;
                 Debug.Log("<color=white> ui lock-------------</color>");
                 m_Handler.DisableControl(true);
                 m_Handler.DisableCameraDrag(true);
@@ -81,7 +86,7 @@ namespace SGame
                 UIUtils.OpenUI("guideback", new UIParam() { Value = m_Handler });
                 //等待遮罩打开
                 yield return m_Handler.WaitGuideMaskOpen();
-                isLock = false;
+                //isLock = false;
                 //解开UI
                 UILockManager.Instance.Release("guide_uiclick");
                 m_Handler.DisableControl(false);
@@ -109,12 +114,12 @@ namespace SGame
                 GuideManager.Instance.SetCoerceGuideState(false);
                 m_Handler.DisableCameraDrag(false);
             }
-            if (isLock) 
-            {
+            //if (isLock) 
+            //{
                 UILockManager.Instance.Release("guide_uiclick");
                 m_Handler.DisableControl(false);
-                Debug.Log("<color=bule> ui unlock-------------</color>");
-            }
+            //    Debug.Log("<color=bule> ui unlock-------------</color>");
+            //}
 
             UIUtils.CloseUIByName("dialogue");
 
