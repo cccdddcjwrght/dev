@@ -47,8 +47,11 @@ namespace SGame
 		{
 			InitChestIDs();
 			InitChestKeyIDs();
+
+			ReputationModule.Instance.AddLikeRewardData();
 			RefreshChestNums();
 			OpenChestKey();
+
 			if (_chestcount > 0)
 			{
 				var cid = DataCenter.GetIntValue(c_best_chest, 0);
