@@ -24,6 +24,7 @@ namespace SGame.UI
 		private int _chestID;
 		private double _count;
 		private Entity _effect;
+		private int _clicktime;
 
 
 		private Dictionary<int, List<EquipmentRowData>> _tables = new Dictionary<int, List<EquipmentRowData>>();
@@ -57,7 +58,6 @@ namespace SGame.UI
 			_list.itemRenderer = OnSetEquipInfo;
 			context.onShown += OnShow;
 			m_view.m_body.visible = false;
-			_mask = true;
 		}
 
 		partial void UnInitLogic(UIContext context)
@@ -78,7 +78,7 @@ namespace SGame.UI
 		private void OpenChest()
 		{
 
-			if(m_view == null || _list == null || _list.itemRenderer == null)
+			if (m_view == null || _list == null || _list.itemRenderer == null)
 			{
 				CloseUI(true);
 				return;
@@ -124,8 +124,8 @@ namespace SGame.UI
 				_list.numItems = _eqs.Count;
 				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EQUIP_BOX, _eqs.Count);
 
-				_mask = true;
-				m_view.m_open.Play(() => _mask = false);
+				_clicktime = GameServerTime.Instance.serverTime + 1;
+				m_view.m_open.Play();
 				this.Delay(() =>
 				{
 					if (m_view != null)
@@ -202,7 +202,7 @@ namespace SGame.UI
 
 		partial void OnGiftBody_ClickClick(EventContext data)
 		{
-			if (!_mask)
+			if (!m_view.m_open.playing && GameServerTime.Instance.serverTime > _clicktime)
 			{
 				_list.RemoveChildrenToPool();
 				OpenChest();
@@ -232,11 +232,11 @@ namespace SGame.UI
 
 		static int EqSort(EquipmentRowData a, EquipmentRowData b)
 		{
-			var v  = -a.Quality.CompareTo(b.Quality);
-			if(v == 0)
+			var v = -a.Quality.CompareTo(b.Quality);
+			if (v == 0)
 			{
 				v = a.Type.CompareTo(b.Type);
-				if(v == 0)
+				if (v == 0)
 					v = a.Id.CompareTo(b.Id);
 			}
 			return v;
