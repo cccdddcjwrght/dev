@@ -372,6 +372,14 @@ namespace SGame.UI
 
 		partial void OnAdBtnClick(EventContext data)
 		{
+			if (DataCenter.Instance.AdMainData.freeCount > 0) 
+			{
+				AdModule.Instance.AddBuff(true);
+				DataCenter.Instance.AdMainData.freeCount--;
+				OnRefreshAdTime();
+				return;
+			}
+
 			AdModule.PlayAd(AdType.Buff.ToString(), (state) =>
 			{
 				if (state)
@@ -609,6 +617,7 @@ namespace SGame.UI
 		{
 			var time = AdModule.Instance.GetBuffTime();
 			UIListener.SetControllerSelect(m_view.m_AdBtn, "isTime", time > 0 ? 1 : 0);
+			UIListener.SetControllerSelect(m_view.m_AdBtn, "isFree", DataCenter.Instance.AdMainData.freeCount > 0 ? 0 : 1);
 			if (time > 0)
 			{
 				UIListener.SetTextWithName(m_view.m_AdBtn, "time", Utils.TimeFormat(time));

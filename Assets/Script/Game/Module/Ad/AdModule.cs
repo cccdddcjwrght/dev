@@ -14,6 +14,18 @@ namespace SGame
         Invest,
     }
 
+    [Serializable]
+    public class AdMainData 
+    {
+        public int freeCount = 1;//主界面下方广告按钮免费次数
+    }
+
+    public partial class DataCenter 
+    {
+        public AdMainData AdMainData = new AdMainData();
+    }
+
+
     public class AdModule : Singleton<AdModule>
     {
         private static ILog log = LogManager.GetLogger("game.ad");

@@ -10,6 +10,7 @@ namespace SGame.UI.Common
         public Controller m_iconShow;
         public Controller m_redPointShow;
         public Controller m_isTime;
+        public Controller m_isFree;
         public GImage m_redPoint;
         public GTextField m_boostTxt;
         public GTextField m_timeTxt;
@@ -28,6 +29,7 @@ namespace SGame.UI.Common
             m_iconShow = GetControllerAt(1);
             m_redPointShow = GetControllerAt(2);
             m_isTime = GetControllerAt(3);
+            m_isFree = GetControllerAt(4);
             m_redPoint = (GImage)GetChildAt(2);
             m_boostTxt = (GTextField)GetChildAt(3);
             m_timeTxt = (GTextField)GetChildAt(4);
