@@ -196,6 +196,10 @@ namespace SGame
                 var configs = ConfigSystem.Instance.Finds<GameConfigs.MainTaskRowData>((v) => v.LevelTag == roomID);
                 var nextCfgId = configs[configs.Count - 1].Id + 1;
                 var curCfgId = DataCenter.Instance.taskMainData.cfgId;
+                if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(curCfgId, out var config))
+                {
+                    if (config.CountType == 1) RecordModule.Instance.ClearValue(config.TaskType, (int)RecordFunctionId.TASK);
+                }
                 DataCenter.Instance.taskMainData.cfgId = nextCfgId;
 
                 RefreshTaskState();
