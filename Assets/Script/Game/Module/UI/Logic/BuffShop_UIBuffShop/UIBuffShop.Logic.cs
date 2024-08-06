@@ -56,12 +56,11 @@ namespace SGame.UI{
 
 			RefreshRandomBtnState();
 			m_forceData = BuffShopModule.Instance.GetForceRandomBuffData();
-			if (m_forceData == null && m_effect != Entity.Null) 
+			if (m_effect != Entity.Null) 
 			{
 				EffectSystem.Instance.ReleaseEffect(m_effect);
 				m_effect = Entity.Null;
 			}
-
 			DoRefreshBuffInfo(m_forceData, m_view.m_time, m_view.m_time_bg, m_view.m_time_icon, RefreshData);
 
 			randomIds = BuffShopModule.Instance.GetBuffList(1);
@@ -74,7 +73,9 @@ namespace SGame.UI{
 		void OnLotteryItemRenderer(int index, GObject gObject) 
 		{
 			var item = (UI_BuffLotteryItem)gObject;
+
 			var cfgId = randomIds[index];
+			item.data = cfgId;
 			var buffShopConfig = BuffShopModule.Instance.GetConfig(cfgId);
 			
 			ConfigSystem.Instance.TryGet<GameConfigs.BuffRowData>(buffShopConfig.BuffId(0), out var buffConfig);
@@ -82,10 +83,17 @@ namespace SGame.UI{
 			item.SetIcon(buffConfig.Icon);
 
 			if (m_forceData?.GetTime() > 0 && !playing) 
-			{ 
+			{
 				item.m_select.selectedIndex = m_forceData.cfgId == cfgId ? 1 : 0;
-				if(m_forceData.cfgId == cfgId)
+				if (m_forceData.cfgId == cfgId)
+				{
+					if (m_effect != Entity.Null)
+					{
+						EffectSystem.Instance.ReleaseEffect(m_effect);
+						m_effect = Entity.Null;
+					}
 					m_effect = EffectSystem.Instance.AddEffect(52, item);
+				}
 			}
 			else item.m_select.selectedIndex = 0;
 
@@ -231,7 +239,7 @@ namespace SGame.UI{
             RequestExcuteSystem.BuyGoods(BuffShopModule.Instance.GetRandomShopId(), (success) =>
             {
                 if (!success) return;
-                var cfgId = BuffShopModule.Instance.GetRandomBuff();
+				var cfgId = BuffShopModule.Instance.GetRandomBuff();
 				BuffShopModule.Instance.AddBoostShopBuff(cfgId, false, false);
 				RefreshRandomBtnState();
 				m_view.m_t0.Play(()=> 
@@ -254,9 +262,9 @@ namespace SGame.UI{
 			{
 				playing = false;
 				BuffShopModule.Instance.AddBoostShopBuff(cfgId, true, true);
-				RefreshData();
 			});
 		}
+
 
 		void LocalScrollPosY() 
 		{
@@ -265,6 +273,8 @@ namespace SGame.UI{
 				int index = m_forceData.cfgId;
 				float pos_y = (index - 1) * m_Height - m_view.m_lotteryList.height * 0.5f + m_Height * 0.5f;
 				m_view.m_lotteryList.scrollPane.SetPosY(pos_y, false);
+
+				//m_view.m_lotteryList.numItems = randomIds.Count;
 			}
 		}
 
