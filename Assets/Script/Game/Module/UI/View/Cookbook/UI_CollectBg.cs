@@ -8,6 +8,7 @@ namespace SGame.UI.Cookbook
     public partial class UI_CollectBg : GLabel
     {
         public Controller m_type;
+        public GLoader m_closeBg;
         public GButton m_close;
         public const string URL = "ui://n2tgmsyuadfx26";
 
@@ -21,7 +22,8 @@ namespace SGame.UI.Cookbook
             base.ConstructFromXML(xml);
 
             m_type = GetControllerAt(0);
-            m_close = (GButton)GetChildAt(4);
+            m_closeBg = (GLoader)GetChildAt(0);
+            m_close = (GButton)GetChildAt(6);
         }
     }
 }
