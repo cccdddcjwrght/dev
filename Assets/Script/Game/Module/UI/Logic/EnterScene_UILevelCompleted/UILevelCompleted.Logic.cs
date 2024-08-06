@@ -7,10 +7,10 @@ namespace SGame.UI
 	using SGame.UI.EnterScene;
 	using GameConfigs;
 	using System.Collections.Generic;
-    using System.Collections;
-    using SGame.UI.Common;
+	using System.Collections;
+	using SGame.UI.Common;
 
-    public partial class UILevelCompleted
+	public partial class UILevelCompleted
 	{
 
 		List<int[]> list;
@@ -22,6 +22,8 @@ namespace SGame.UI
 				SGame.UIUtils.CloseUI(context.entity);
 				return;
 			}
+
+			m_view.m_buildold.SetIcon(string.IsNullOrEmpty(cfg.StartImage) ? "ui_begin_bg_" + roomID : cfg.StartImage);
 			m_view.m_build.SetIcon(string.IsNullOrEmpty(cfg.EndImage) ? "ui_end_bg_" + roomID : cfg.EndImage);
 
 			list = Utils.GetArrayList(cfg.GetReward1Array, cfg.GetReward2Array, cfg.GetReward3Array);
@@ -29,7 +31,7 @@ namespace SGame.UI
 			SGame.UIUtils.AddListItems(m_view.m_body.m_list, list, OnSetReward);
 
 			EffectSystem.Instance.AddEffect(58, m_view.m_body, m_view);
-			//this.Delay(AddEffect, 300);
+			EffectSystem.Instance.AddEffect(59, m_view);
 
 		}
 
@@ -50,9 +52,9 @@ namespace SGame.UI
 			DelayExcuter.Instance.DelayOpen(null, "mainui", true, () =>
 			{
 				var list = DataCenter.TaskMainUtil.GetRoomAllTaskReward();
-				if (list.Count > 0) 
+				if (list.Count > 0)
 				{
-					IEnumerator OpenReward() 
+					IEnumerator OpenReward()
 					{
 						Utils.ShowRewards(list, () => SGame.UIUtils.OpenUI("enterscenetemp"), "@ui_taskreward_title");
 						DataCenter.TaskMainUtil.SkipNextRoomTask();
@@ -76,7 +78,6 @@ namespace SGame.UI
 		{
 			EffectSystem.Instance.ReleaseEffect(m_view);
 			EffectSystem.Instance.ReleaseEffect(m_view.m_body.m___effect1);
-
 		}
 
 	}
