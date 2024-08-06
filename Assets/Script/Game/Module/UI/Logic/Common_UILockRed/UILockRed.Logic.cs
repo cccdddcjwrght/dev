@@ -48,6 +48,7 @@ namespace SGame.UI
 
 			var sys = World.DefaultGameObjectInjectionWorld.GetExistingSystemManaged<SpawnUISystem>();
 			sys.LoadPackage("Worktable").Wait(s => RefreshInfo());
+			RefreshGuideShow();
 		}
 
         partial void DoShow(UIContext context)
@@ -73,8 +74,6 @@ namespace SGame.UI
 					//panel.name = "lockpanel";
 					if (panel == null) return;
 				}
-				RefreshGuideShow();
-
 				m_view.m_flag.selectedIndex = 1;
 				SetUnlockBtn(cfg.GetCostArray());
 			}
@@ -85,17 +84,18 @@ namespace SGame.UI
 				panel = null;
 				m_view.m_child.url = null;
 			}
+			RefreshGuideShow();
 		}
 
 		void RefreshGuideShow() 
 		{
-			if (panel == null) return;
+			//if (panel == null) return;
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide)
 			{
-				if (DataCenter.GetIntValue("guide_are2_show") == 0 && area == 2)
+				if (area == 2) 
 				{
-					if (area == 2)
+					if (DataCenter.GetIntValue("guide_are2_show") == 0)
 					{
 						var v = GlobalDesginConfig.GetIntArray("guide_are_cost");
 						//金币数量达成和指定任务达成显示
