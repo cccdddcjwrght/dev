@@ -92,7 +92,7 @@ namespace SGame
         /// 清除对应 ID 的锁定
         /// </summary>
         /// <param name="name"></param>
-        void Clear(string name)
+        public void Clear(string name)
         {
             m_values.Remove(name);
             UpdateState();

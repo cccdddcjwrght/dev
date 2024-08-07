@@ -91,6 +91,16 @@ namespace SGame
             return obj;
         }
 
+        public IEnumerator WaitFingerOpen() 
+        {
+            while (true)
+            {
+                bool isOpen = UIUtils.CheckUIIsOpen("fingerui");
+                if (isOpen) yield break;
+                yield return null;
+            }
+        }
+
         public IEnumerator WaitFingerClose() 
         {
             while (true) 
