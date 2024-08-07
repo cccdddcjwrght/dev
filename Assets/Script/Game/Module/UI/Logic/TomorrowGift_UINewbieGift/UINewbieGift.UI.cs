@@ -33,6 +33,10 @@ namespace SGame.UI{
 		partial void OnUICloseClick(ref bool state);
 		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
 		string GetBodyText()=>UIListener.GetText(m_view.m_body);
+		void _OnCommomGift_ShowChanged(EventContext data){
+			OnCommomGift_ShowChanged(data);
+		}
+		partial void OnCommomGift_ShowChanged(EventContext data);
 		void _OnGiftClick(EventContext data){
 			OnGiftClick(data);
 		}

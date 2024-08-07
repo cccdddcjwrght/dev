@@ -39,6 +39,10 @@ namespace SGame.UI{
 		partial void OnBtnOKClick(EventContext data);
 		void SetBtnOKText(string data)=>UIListener.SetText(m_view.m_btnOK,data);
 		string GetBtnOKText()=>UIListener.GetText(m_view.m_btnOK);
+		void _OnCommomGift_ShowChanged(EventContext data){
+			OnCommomGift_ShowChanged(data);
+		}
+		partial void OnCommomGift_ShowChanged(EventContext data);
 		void _OnGiftClick(EventContext data){
 			OnGiftClick(data);
 		}

@@ -69,6 +69,7 @@ namespace SGame.UI
 			m_view.GetChild("icon").SetEquipInfo(equip);
 			m_view.m_qualitytips.SetTextByKey("ui_quality_name_" + equip.quality);
 			m_view.m_click.SetTextByKey(equip.pos == 0 ? "ui_equip_on" : "ui_equip_off");
+			UIListener.SetControllerSelect(m_view.m_click, "bgColor", equip.pos == 0 ? 0 : 4);
 			m_view.m_click2.SetText(m_view.m_click.text);
 
 			if (m_view.m_lvmax.selectedIndex == 0)
