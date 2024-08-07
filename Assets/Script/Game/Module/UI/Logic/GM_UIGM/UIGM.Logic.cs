@@ -173,6 +173,9 @@ namespace SGame.UI
 				case "unlock":
 					DataCenter.EquipUtil.c_max_auto_merge_quality = 0;
 					break;
+				case "console":
+					DoConsole(ss);
+					break;
 			}
 
 
@@ -210,6 +213,11 @@ namespace SGame.UI
 			var id = ss.Val<int>(1);
 			if (id > 0)
 				RequestExcuteSystem.AddPet(id, 1);
+		}
+
+		private void DoConsole(string[] ss)
+		{
+			Game.console.SetOpen(!Game.console.IsOpen);
 		}
 
 		private void DoEvent(string[] ss)

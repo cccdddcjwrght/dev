@@ -112,6 +112,8 @@ public class Console //: IGameSystem
         Show(m_ConsoleFoldoutDest);
     }
 
+    public bool IsOpen => m_ConsoleOpen;
+
     public void TickUpdate()
     {
         if (Input.GetKeyDown(KeyCode.F12))
