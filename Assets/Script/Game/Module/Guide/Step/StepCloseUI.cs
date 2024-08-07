@@ -14,7 +14,7 @@ namespace SGame
             m_Handler.DisableControl(true);
 
             UIUtils.CloseAllUI("mainui", "flight", "lockred", "SystemTip",
-            "Redpoint", "ordertip", "progress", "FoodTip");
+            "Redpoint", "ordertip", "progress", "FoodTip", "workertips");
 
             EventManager.Instance.Trigger((int)GameEvent.GUIDE_CLOSE);
             WorktableHud.Instance.Close();

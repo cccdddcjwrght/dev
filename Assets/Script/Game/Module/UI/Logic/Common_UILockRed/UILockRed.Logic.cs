@@ -93,15 +93,15 @@ namespace SGame.UI
 #if GAME_GUIDE
 			if (Game.Instance.enableGuide)
 			{
-				if (area == 2) 
+				//if (area == 2) 
 				{
-					if (DataCenter.GetIntValue("guide_are2_show") == 0)
+					if (DataCenter.GetIntValue("guide_are_show" + area) == 0)
 					{
 						var v = GlobalDesginConfig.GetIntArray("guide_are_cost");
 						//金币数量达成和指定任务达成显示
 						bool isShow = PropertyManager.Instance.CheckCount(v[0], v[1], PropertyGroup.ITEM) && DataCenter.Instance.taskMainData.cfgId > GlobalDesginConfig.GetInt("guide_are_taskId");
 						m_view.visible = isShow;
-						if (isShow) DataCenter.SetIntValue("guide_are2_show", 1);
+						if (isShow) DataCenter.SetIntValue("guide_are_show" + area, 1);
 					}
 				}
 			}
