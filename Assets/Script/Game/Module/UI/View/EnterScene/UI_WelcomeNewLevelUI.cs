@@ -8,6 +8,7 @@ namespace SGame.UI.EnterScene
     public partial class UI_WelcomeNewLevelUI : GLabel
     {
         public GButton m_click;
+        public GList m_list;
         public Transition m_show;
         public Transition m_t1;
         public const string URL = "ui://cxpm3jfbudvnt";
@@ -22,6 +23,7 @@ namespace SGame.UI.EnterScene
             base.ConstructFromXML(xml);
 
             m_click = (GButton)GetChildAt(1);
+            m_list = (GList)GetChildAt(2);
             m_show = GetTransitionAt(0);
             m_t1 = GetTransitionAt(1);
         }

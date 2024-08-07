@@ -91,6 +91,15 @@ namespace SGame.UI{
 				view.m_rightBar.fillAmount = 1;
 			}
 
+			view.m_foodList.itemRenderer = (int index, GObject obj)=> 
+			{
+				obj.SetIcon(Utils.GetItemIcon(1, cfg.NewGoods(index)));
+				obj.grayed = cfg.ID > _nextScene || (cfg.ID == _nextScene && !_canSwitch);
+				UIListener.SetControllerSelect(obj, "isNew", cfg.ID == _nextScene && _canSwitch ? 1 : 0);
+			};
+			view.m_foodList.numItems = cfg.NewGoodsLength;
+			UIListener.SetControllerSelect(view, "showFood", cfg.NewGoodsLength > 0 ? 0 : 1);
+
 			if (!_isLastScene && cfg.ID == _nextScene) 
 			{ 
 				view.m_isMeet.selectedIndex = _canSwitch ? 2 : 3;
@@ -125,6 +134,7 @@ namespace SGame.UI{
 				});
 			});
 		}
+
 
 		void LoadNextScene() 
 		{
