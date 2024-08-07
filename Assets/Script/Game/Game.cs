@@ -8,6 +8,7 @@ using libx;
 using Fibers;
 using System.IO;
 using SGame;
+using Unity.VisualScripting;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,13 @@ public struct GameInitFinish : IComponentData
 public class Game : SGame.MonoSingleton<Game>
 {
 	static public bool IsDebug = false;
+
+	public static DebugOverlay debugOverlay => Game.Instance.m_DebugOverlay;
+	public static Console console => Game.Instance.m_console;
+
+	private DebugOverlay	m_DebugOverlay;
+	private Console			m_console; 
+	private WaitForEndOfFrame wfeof;
 
 	public static IEnumerator Main()
 	{
@@ -52,6 +60,8 @@ public class Game : SGame.MonoSingleton<Game>
 
 	public Action EVENT_INIT_FINISH;
 
+	public Vector2Int DebugOverlaySize = new Vector2Int(1334, 750);
+
 	Fiber m_initProcess;
 
 
@@ -65,6 +75,14 @@ public class Game : SGame.MonoSingleton<Game>
 	protected override void Awake()
 	{
 		base.Awake();
+
+		wfeof = new WaitForEndOfFrame();
+		m_DebugOverlay = new DebugOverlay();
+		m_DebugOverlay.Init(DebugOverlaySize.x, DebugOverlaySize.y);
+
+		m_console = new Console();
+		m_console.Init();
+		StartCoroutine(EndOfFrame());
 
 		Application.targetFrameRate = 100;
 		m_isInitalized = false;
@@ -142,6 +160,14 @@ public class Game : SGame.MonoSingleton<Game>
 		World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
 
 		yield return SDK.SDKProxy.Init();
+		
+		console.AddCommand("close", OnExitConsole, "close console");
+		console.Write("Welcome Game Console...");
+	}
+
+	void OnExitConsole(string[] args)
+	{
+		console.SetOpen(false);
 	}
 
 	IEnumerator LoadScene()
@@ -251,7 +277,6 @@ public class Game : SGame.MonoSingleton<Game>
 		}
 
 #if UNITY_EDITOR
-
 		var d = DataCenter.Instance;
 		if (d != null) dataCenter = d;
 
@@ -259,13 +284,35 @@ public class Game : SGame.MonoSingleton<Game>
 			ScreenCapture.CaptureScreenshot(System.DateTime.Now.Ticks + ".png");
 #endif
 
+		// 调试功能
+		m_console.TickUpdate();
 	}
 
+	void LateUpdate()
+	{
+		m_console.TickLateUpdate();
+		m_DebugOverlay.TickLateUpdate();
+	}
+
+	IEnumerator EndOfFrame()
+	{
+		while (true)
+		{
+			yield return wfeof;
+			m_DebugOverlay.Render();
+		}
+	}
+	
 	void ShutdownGameLoops()
 	{
 		foreach (var gameLoop in m_gameLoops)
 			gameLoop.Shutdown();
 		m_gameLoops.Clear();
+		
+		m_DebugOverlay.Shutdown();
+		m_console.Shutdown();
+		m_DebugOverlay = null;
+		m_console = null;
 	}
 
 	private void OnApplicationQuit()

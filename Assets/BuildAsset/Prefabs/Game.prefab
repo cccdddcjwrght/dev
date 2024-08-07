@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3268052998788865125}
   - component: {fileID: 5051856491724972067}
   - component: {fileID: 2066008219946734103}
+  - component: {fileID: 3891602918966579706}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -25,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411763946796972511}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,7 +34,6 @@ Transform:
   m_Children:
   - {fileID: 5364420476484640698}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5051856491724972067
 MonoBehaviour:
@@ -50,12 +51,25 @@ MonoBehaviour:
   AudioMixerPath: Assets/BuildAsset/Audio/mixer/Game.mixer
   ShaderCollectPath: Assets/BuildAsset/Shaders/ShaderVariants.shadervariants
   enableGuide: 1
+  DebugOverlaySize: {x: 60, y: 60}
   dataCenter:
+    boostShopData:
+      buffList: []
+    clubTaskList:
+      taskList: []
+      rewardList: []
+      clubId: 0
+      currencyId: 0
+      oldValue: 0
+      start_time: 0
+      end_time: 0
     addatas:
       day: 0
       items: []
     cacheData:
       datas: []
+    cookbook:
+      books: []
     equipData:
       equipeds:
       - cfgID: 0
@@ -192,6 +206,8 @@ MonoBehaviour:
       randomBuffs: 
       cfgId: 0
       endTime: 0
+    hunterData:
+      hunters: []
     globalID: 0
     petData:
       pets: []
@@ -200,14 +216,15 @@ MonoBehaviour:
       egg:
         id: 0
         cfgID: 0
+        level: 0
         type: 0
-        step: 0
-        evotimes: 
-        time: 0
+        bornType: 0
         effectID: 0
         effectAdd: 000000000000000000000000000000000000000000000000000000000000000000000000
+        effectLv: 000000000000000000000000000000000000000000000000000000000000000000000000
         isnew: 0
         uptime: 0
+        time: 0
     piggybankData:
       progress: 0
       stage: 0
@@ -223,9 +240,17 @@ MonoBehaviour:
       roomID: 0
       time: 0
       rooms: []
+      tables: 
+      areas: 
     shopData:
       day: 0
       goods: []
+    taskMainData:
+      cfgId: 0
+    workerdata:
+      datas: []
+      selectID: 0
+      selectWaiterID: 0
     registertime: 0
     loadtime: 0
     accountData:
@@ -252,6 +277,7 @@ MonoBehaviour:
       freamDataList: []
     guideData:
       guideStep: 0
+      guideId: 1
     m_gameRecord:
       roleDatas: []
       tomorrowGift:
@@ -264,12 +290,21 @@ MonoBehaviour:
     m_growData:
       Values: []
     m_foodTipsGold: 0
+    m_foodTipsCount: 0
     m_friendData:
       Friends: []
       RecommendFriends: []
       nextHireTime: 0
       hiringTime: 0
       hiringPlayerID: 0
+    m_customerBookReward:
+      Values: []
+    cookerModel: 0
+    waiterModel: 0
+    hotFoodData:
+      foodID: 0
+      time: 0
+      cdTime: 0
     rankScore:
       type: 0
       tips: 0
@@ -277,10 +312,20 @@ MonoBehaviour:
       workers: 0
     rankData:
       list: []
-      reddot: 1
+    rankCacheData:
+      startTime: 0
+      reddot: 0
+      rewards: []
+    recordTotalData:
+      data: []
+    likeData:
+      likeNum: 1
+      isFirst: 1
+      likeRewardDatas: []
     taskData:
       taskItems: []
       taskGoods: 
+      startTime: 0
 --- !u!114 &2066008219946734103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,8 +341,24 @@ MonoBehaviour:
   fps: 0
   sampleTime: 1
   counter: 0
-  textColor: {r: 1, g: 0, b: 0, a: 1}
+  textColor: {r: 1, g: 0, b: 0, a: 0.29803923}
+  backgroundColor: {r: 0.16981131, g: 0.16260234, b: 0.16260234, a: 0.4392157}
   font_size: 30
+  drawPos: {x: 0, y: 0}
+--- !u!114 &3891602918966579706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411763946796972511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e6e83950de1cd4dac721e25e91c563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overlayPos: {x: 0, y: 0}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.39607844}
 --- !u!1 &4735780683635538310
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,13 +384,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4735780683635538310}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3268052998788865125}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!108 &6446560107155805794
 Light:
@@ -405,11 +466,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
+  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
   m_LightLayerMask: 1
+  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
   m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 1

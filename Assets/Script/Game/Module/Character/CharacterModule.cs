@@ -10,6 +10,8 @@ namespace SGame
     {
         private EntityQuery m_characterQuery;
         private EntityQuery m_characterFindQuery;
+        
+        public bool isInit { get; private set; }
 
         
         public void Initlaize()
@@ -28,6 +30,7 @@ namespace SGame
             m_characterQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(desc);
             m_characterFindQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(desc2);
             CharacterIdleModule.Instance.Initlaize();
+            isInit = true;
         }
 
         /// <summary>

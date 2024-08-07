@@ -1315,5 +1315,28 @@ namespace SGame
 
 			return false;
 		}
+		
+		/// <summary>
+		/// 通过3D坐标获得调试信息坐标
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public static Vector2 Cover3DToOverlayPos(Vector3 pos)
+		{
+			int width = DebugOverlay.Width;
+			int height = DebugOverlay.Height;
+			//int sreenWidth = Screen.width;
+			//int screenHeight = Screen.height;
+            
+			Vector3 screenPos = Camera.main.WorldToScreenPoint(pos);
+			screenPos.y = Camera.main.pixelHeight - screenPos.y;
+            
+			float y = screenPos.y / Camera.main.pixelHeight;
+			float x = screenPos.x / Camera.main.pixelWidth;
+			Vector2 ret = new Vector2();
+			ret.x = x * width;
+			ret.y = y * height;
+			return ret;
+		}
 	}
 }
