@@ -19,7 +19,7 @@ namespace SGame.UI
 			ConfigSystem.Instance.TryGet<RoomRowData>(scene, out var cfg);
 			m_view.SetIcon(string.IsNullOrEmpty(cfg.StartImage) ? "ui_begin_bg_" + scene : cfg.StartImage);
 
-			if (ConfigSystem.Instance.TryGet<RoomRowData>(scene + 1, out var config)) 
+			if (ConfigSystem.Instance.TryGet<RoomRowData>(scene, out var config)) 
 			{
 				m_view.m_list.itemRenderer = (int index, GObject gObject) =>
 				{
