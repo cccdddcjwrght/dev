@@ -62,7 +62,7 @@ namespace SGame.UI{
 			}
 		}
 
-		public void OnItemRenderer(int index, GObject gObject) 
+		public void OnItemRenderer(int index, GObject gObject)
 		{
 			var view = (UI_PassItem)gObject;
 			view.m_dir.selectedIndex = index % 2;
@@ -79,7 +79,11 @@ namespace SGame.UI{
 
 			view.m_leftBar.fillAmount = 0;
 			view.m_rightBar.fillAmount = 0;
-			if (_curScene == cfg.ID) view.m_isMeet.selectedIndex = _canSwitch ? 1 : 0;
+			if (_curScene == cfg.ID) 
+			{
+				if (_canSwitch) view.m_t4.Play();
+				view.m_isMeet.selectedIndex = _canSwitch ? 1 : 0;
+			}
 			else if (_curScene > cfg.ID) 
 			{ 
 				view.m_isMeet.selectedIndex = 1;
@@ -87,11 +91,21 @@ namespace SGame.UI{
 				view.m_rightBar.fillAmount = 1;
 			}
 
-			if (!_isLastScene && cfg.ID == _nextScene) view.m_isMeet.selectedIndex = _canSwitch ? 2 : 3;
+			if (!_isLastScene && cfg.ID == _nextScene) 
+			{ 
+				view.m_isMeet.selectedIndex = _canSwitch ? 2 : 3;
+				if (_canSwitch) 
+				{
+					if (view.m_dir.selectedIndex == 0) view.m_t2.Play(1, 0.45f ,null);
+					else view.m_t3.Play(1, 0.45f, null);
+				}
+			}
 			else if (cfg.ID > _nextScene) view.m_isMeet.selectedIndex = 3;
 
-			view.m_goBtn.onClick.Add(() =>
+			view.onClick.Set(() =>
 			{
+				if (view.m_isMeet.selectedIndex != 2) return;
+
 				UILockManager.Instance.Require("enterScene");
 
 				//提前设置当前场景id

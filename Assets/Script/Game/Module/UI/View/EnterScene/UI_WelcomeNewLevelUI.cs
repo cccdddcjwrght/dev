@@ -9,6 +9,7 @@ namespace SGame.UI.EnterScene
     {
         public GButton m_click;
         public Transition m_show;
+        public Transition m_t1;
         public const string URL = "ui://cxpm3jfbudvnt";
 
         public static UI_WelcomeNewLevelUI CreateInstance()
@@ -22,6 +23,7 @@ namespace SGame.UI.EnterScene
 
             m_click = (GButton)GetChildAt(1);
             m_show = GetTransitionAt(0);
+            m_t1 = GetTransitionAt(1);
         }
     }
 }

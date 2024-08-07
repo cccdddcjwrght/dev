@@ -19,6 +19,8 @@ namespace SGame.UI.EnterScene
         public Transition m_right;
         public Transition m_left;
         public Transition m_t2;
+        public Transition m_t3;
+        public Transition m_t4;
         public const string URL = "ui://cxpm3jfb9n6p34";
 
         public static UI_PassItem CreateInstance()
@@ -42,6 +44,8 @@ namespace SGame.UI.EnterScene
             m_right = GetTransitionAt(0);
             m_left = GetTransitionAt(1);
             m_t2 = GetTransitionAt(2);
+            m_t3 = GetTransitionAt(3);
+            m_t4 = GetTransitionAt(4);
         }
     }
 }
