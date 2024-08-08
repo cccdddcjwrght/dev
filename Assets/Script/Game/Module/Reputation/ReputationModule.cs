@@ -180,7 +180,7 @@ namespace SGame
             {
                 if(m_TotalList[i].isForce) value *= m_TotalList[i].multiple;
             }
-            return value;
+            return (float)Math.Round(value, 4);
         }
 
         //ªÒ»°∫√∆¿
