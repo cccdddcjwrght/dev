@@ -11,6 +11,7 @@ namespace SGame.UI.Main
         public Controller m_cd;
         public GImage m_progress;
         public GImage m_cdMask;
+        public GImage m_cd_2;
         public const string URL = "ui://ktixaqljvlyvlbl";
 
         public static UI_HotFoodBtn CreateInstance()
@@ -26,6 +27,7 @@ namespace SGame.UI.Main
             m_cd = GetControllerAt(1);
             m_progress = (GImage)GetChildAt(3);
             m_cdMask = (GImage)GetChildAt(6);
+            m_cd_2 = (GImage)GetChildAt(7);
         }
     }
 }

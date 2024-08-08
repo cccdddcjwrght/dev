@@ -97,6 +97,7 @@ namespace SGame
 		BUFF_TRIGGER = 3001,//触发一个buff （BuffData data)
 		BUFF_RESET = 3002,//buff系统重置
 		BUFF_ADD_ROLE = 3003,//添加角色(RoleData data)
+		BUFF_REMOVE = 3004,	//buff移除
 
 		//Tech===============================================
 		TECH_ADD_REWARD				= 4001,//科技添加奖励 （int tech)

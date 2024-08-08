@@ -73,6 +73,7 @@ namespace SGame
             m_data = DataCenter.Instance.reputationData;
             //m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEnterRoom);
             m_handles += EventManager.Instance.Reg<BuffData>((int)GameEvent.BUFF_TRIGGER, (b) => RefreshVailedBuffList());
+            m_handles += EventManager.Instance.Reg((int)GameEvent.BUFF_REMOVE, RefreshVailedBuffList);
 
             var buff = GlobalDesginConfig.GetIntArray("no_ads_buff");
             m_TotalList = new List<TotalItem>()

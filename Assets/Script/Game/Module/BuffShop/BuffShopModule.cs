@@ -193,6 +193,11 @@ namespace SGame
             gold = Math.Max(gold, GlobalDesginConfig.GetInt("buffshop_gold_lim"));
             return (gold * v * rate).ToInt();
         }
+
+        public bool GetHaveBuffVaild() 
+        {
+            return m_Data.buffList.Find((v) => v.GetTime() > 0) != null;
+        }
     }
 }
 

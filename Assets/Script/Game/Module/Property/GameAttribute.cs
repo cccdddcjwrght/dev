@@ -460,7 +460,7 @@ namespace SGame
 #if DEBUG
 					GameDebug.Log($" {name}->reset attribute:{item.id}-> {a} : {a.modify} ");
 #endif
-
+					EventManager.Instance.Trigger((int)GameEvent.BUFF_REMOVE);
 				}
 			}
 		}
