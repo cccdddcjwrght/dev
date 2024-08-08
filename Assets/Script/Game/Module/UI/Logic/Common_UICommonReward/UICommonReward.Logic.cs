@@ -217,7 +217,7 @@ namespace SGame
 
 		static public void ShowRewards(List<double[]> rewards, Action closeCall = null, string title = null, bool updatedata = true)
 		{
-			UIUtils.OpenUI("rewardlist", rewards, closeCall, title, updatedata);
+			UIUtils.OpenUI("rewardlist", ItemList.Current.Clear().Append(rewards).vals, closeCall, title, updatedata);
 		}
 
 		static public ItemList ShowRewards(
