@@ -79,10 +79,18 @@ namespace SGame
             Vector2 ovpos = Utils.Cover3DToOverlayPos(pos);
             DebugOverlay.SetOrigin(ovpos.x - 3, ovpos.y - 4);
             DebugOverlay.SetColor(GetColor(character.roleType));
-            
-            DebugOverlay.DrawRect(0, 0, 7, 2, backgroundColor);
-            DebugOverlay.Write(0, 0, "ID:{0,-4}", character.CharacterID);
-            DebugOverlay.Write(0, 1, "T:{0,-4}", character.taskNum);
+
+            if (character.roleType != (int)EnumRole.Customer)
+            {
+                DebugOverlay.DrawRect(0, 0, 7, 2, backgroundColor);
+                DebugOverlay.Write(0, 0, "ID:{0,-4}", character.CharacterID);
+                DebugOverlay.Write(0, 1, "T:{0,-4}", character.taskNum);
+            }
+            else
+            {
+                DebugOverlay.DrawRect(0, 0, 7, 1, backgroundColor);
+                DebugOverlay.Write(0, 0, "ID:{0,-4}", character.CharacterID);
+            }
         }
 
         void ShowTableInfo(TableData t)

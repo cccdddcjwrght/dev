@@ -237,10 +237,12 @@ namespace SGame
             }
         }
         
+        
         /// <summary>
         /// 派发角色任务
         /// </summary>
-        public void DispatchEvent()
+        /// <return>后续是否还能处理数据</return>
+        public bool DispatchEvent()
         {
             m_caches.Clear();
             
@@ -256,7 +258,7 @@ namespace SGame
                 }
             }
             if (m_caches.Count == 0)
-                return;
+                return false;
             
             // 对得分排序
             m_caches.Sort(OrderTaskItem.Compare);
@@ -281,6 +283,9 @@ namespace SGame
             // 清空角色信息
             foreach (var item in m_caches)
                 item.m_characterID = 0;
+
+            // 判断是否有任务分配出去了
+            return lastCharacter > 0 && TaskCount > 0;
         }
     }
 }
