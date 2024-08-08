@@ -138,9 +138,9 @@ namespace SGame.UI{
 				}
 				else
 				{
-					var value = BuffShopModule.Instance.GetBuffShopCoin((double)buffShopConfig.Itemid(2));
-					List<int[]> list = new List<int[]>();
-					list.Add(new int[] { 1, 1, (int)value });
+					var value = BuffShopModule.Instance.GetBuffShopCoin(buffShopConfig.Itemid(2));
+					List<double[]> list = new List<double[]>();
+					list.Add(new double[] { 1, 1, value });
 
 					Utils.ShowRewards(list);
 					RefreshData();
