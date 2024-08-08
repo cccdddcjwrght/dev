@@ -46,6 +46,11 @@ namespace SGame.UI{
 
 				var max = cfg.TaskValue(1);
 				var value = DataCenter.TaskMainUtil.GetTaskProgress(cfg.TaskType, cfg.GetTaskValueArray());
+				if (cfg.ProgressType == 1) 
+				{
+					value = value >= max ? 1 : 0;
+					max = 1;
+				}
 
 				m_view.m_progress.max = max;
 				m_view.m_progress.value = value;

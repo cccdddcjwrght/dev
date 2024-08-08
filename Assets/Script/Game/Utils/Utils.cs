@@ -1310,6 +1310,11 @@ namespace SGame
 			{
 				max = cfg.TaskValue(1);
 				value = DataCenter.TaskMainUtil.GetTaskProgress(cfg.TaskType, cfg.GetTaskValueArray());
+				if (cfg.ProgressType == 1)
+				{
+					value = value >= max ? 1 : 0;
+					max = 1;
+				}
 				return true;
 			}
 
