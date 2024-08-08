@@ -162,7 +162,7 @@ namespace SGame
         {
             if (config.RealitySize(0) > 0 && config.RealitySize(1) > 0)
                 return new Vector2(config.RealitySize(0), config.RealitySize(1));
-            if (type == GuideTargetEnum.UIPATH)
+            else if (type == GuideTargetEnum.UIPATH)
             {
                 return target.size;
             }
