@@ -538,6 +538,10 @@ namespace SGame.UI
 		bool m_OldAdShowState;
 		void OnRefreshAdState()
 		{
+			var hotFoodData = DataCenter.Instance.hotFoodData;
+			m_view.m_hotFoodBtn.m_hoting.selectedIndex = hotFoodData.IsForce() ? 1 : 0;
+			m_view.m_hotFoodBtn.m_cd.selectedIndex = !hotFoodData.IsForce() && hotFoodData.GetCdTime() > 0 ? 1 : 0;
+
 			bool networkState = NetworkUtils.IsNetworkReachability();
 			m_view.m_AdBtn.enabled = AdModule.Instance.GetBuffTime() > 0 || networkState;
 			if (!networkState)
@@ -582,8 +586,7 @@ namespace SGame.UI
 			var hotFoodData = DataCenter.Instance.hotFoodData;
 			if (hotFoodData.IsForce())
 			{
-				m_view.m_hotFoodBtn.m_hoting.selectedIndex = 1;
-				m_view.m_hotFoodBtn.m_cd.selectedIndex = 0;
+				//m_view.m_hotFoodBtn.m_hoting.selectedIndex = 1;
 				m_view.m_hotFoodBtn.SetIcon(Utils.GetItemIcon(1, hotFoodData.foodID));
 
 				Utils.Timer(hotFoodData.GetTime(), () =>
@@ -595,8 +598,8 @@ namespace SGame.UI
 			}
 			else 
 			{
-				m_view.m_hotFoodBtn.m_cd.selectedIndex = DataCenter.Instance.hotFoodData.GetCdTime() > 0 ? 1 : 0;
-				m_view.m_hotFoodBtn.m_hoting.selectedIndex = 0;
+				//m_view.m_hotFoodBtn.m_cd.selectedIndex = DataCenter.Instance.hotFoodData.GetCdTime() > 0 ? 1 : 0;
+				//m_view.m_hotFoodBtn.m_hoting.selectedIndex = 0;
 			}
 			
 		}

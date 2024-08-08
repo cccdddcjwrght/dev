@@ -23,14 +23,14 @@ namespace SGame
         public void StartFood(int foodID) 
         {
             m_HotFoodData.Start(foodID);
-            CdFinish();
+            //CdFinish();
             EventManager.Instance.Trigger((int)GameEvent.HOTFOOD_REFRESH);
         }
 
         public void StopFood() 
         {
             m_HotFoodData.Stop();
-            CdFinish();
+            //CdFinish();
             EventManager.Instance.Trigger((int)GameEvent.HOTFOOD_REFRESH);
         }
 
