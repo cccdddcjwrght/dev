@@ -15,18 +15,23 @@ namespace SGame.UI{
 
 		bool _canSwitch;
 		bool _isLastScene;
+		bool _canPlay;
 
 		partial void InitLogic(UIContext context){
-
+			
 			m_view.m_list.itemRenderer = OnItemRenderer;
-
 			InitData();
 			RefreshLevelList();
-
 			m_view.m_list.ScrollToView(_sceneCfgs.FindIndex(v => v.ID == _curScene) + 1);
 		}
 
-		public void InitData() 
+        partial void DoShow(UIContext context)
+        {
+			_canPlay = true;
+			RefreshLevelList();
+		}
+
+        public void InitData() 
 		{
 			_curScene = DataCenter.Instance.roomData.roomID;
 			_nextScene = _curScene + 1;
@@ -81,7 +86,15 @@ namespace SGame.UI{
 			view.m_rightBar.fillAmount = 0;
 			if (_curScene == cfg.ID) 
 			{
-				if (_canSwitch) view.m_t4.Play();
+				if (_canSwitch) 
+				{
+					if (_canPlay) 
+					{
+						view.GetChild("n20").visible = true;
+						view.m_t4.Play();
+					}
+					else view.GetChild("n20").visible = false;
+				}
 				view.m_isMeet.selectedIndex = _canSwitch ? 1 : 0;
 			}
 			else if (_curScene > cfg.ID) 
@@ -107,14 +120,17 @@ namespace SGame.UI{
 				{
 					float delayTime = 0.8f;
 					view.m_group.visible = false;
-					GTween.To(0, 1, delayTime).SetTarget(view).OnComplete(() => view.m_group.visible = true);
-					if (view.m_dir.selectedIndex == 0) view.m_t2.Play(1, delayTime, null);
-					else view.m_t3.Play(1, delayTime, null);
+					if (_canPlay) 
+					{
+						GTween.To(0, 1, delayTime).SetTarget(view).OnComplete(() => view.m_group.visible = true);
+						if (view.m_dir.selectedIndex == 0) view.m_t2.Play(1, delayTime, null);
+						else view.m_t3.Play(1, delayTime, null);
+					}
 				}
 			}
 			else if (cfg.ID > _nextScene) view.m_isMeet.selectedIndex = 3;
 
-			view.onClick.Set(() =>
+			view.m_goBtn.onClick.Set(() =>
 			{
 				if (view.m_isMeet.selectedIndex != 2) return;
 

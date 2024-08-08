@@ -14,8 +14,8 @@ namespace SGame.UI.EnterScene
         public GLoader m_icon;
         public GImage m_leftBar;
         public GImage m_rightBar;
-        public GLoader m_goBtn;
         public GGroup m_group;
+        public GLoader m_goBtn;
         public GTextField m_name;
         public GList m_foodList;
         public Transition m_right;
@@ -41,8 +41,8 @@ namespace SGame.UI.EnterScene
             m_icon = (GLoader)GetChildAt(2);
             m_leftBar = (GImage)GetChildAt(5);
             m_rightBar = (GImage)GetChildAt(6);
-            m_goBtn = (GLoader)GetChildAt(11);
-            m_group = (GGroup)GetChildAt(12);
+            m_group = (GGroup)GetChildAt(11);
+            m_goBtn = (GLoader)GetChildAt(14);
             m_name = (GTextField)GetChildAt(16);
             m_foodList = (GList)GetChildAt(17);
             m_right = GetTransitionAt(0);
