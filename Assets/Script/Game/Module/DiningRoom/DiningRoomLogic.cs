@@ -425,7 +425,7 @@ namespace SGame.Dining
 		{
 			if (g_size == Vector3.zero)
 			{
-				if(_g_size == Vector3.zero)
+				if (_g_size == Vector3.zero)
 				{
 					_g_size = new Vector3(0.9f, 0.5f, 0.9f);
 					_g_center = new Vector3(0, 0.22f, 0);
@@ -1138,7 +1138,14 @@ namespace SGame.Dining
 						autoactive = ConfigSystem.Instance.TryGet(place.cfgID, out RoomMachineRowData cfg) && cfg.ActiveBox == 0;
 
 					if (!autoactive)
-						region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject, name: "scene_grid");
+					{
+						if (place.transform == null)
+						{
+							Debug.LogError($"[worktable]加工台：{region.cfgID}-点位{place.index}，transform 为空");
+						}
+						else
+							region.gHandler += SpawnSystem.Instance.Spawn(string.IsNullOrEmpty(place.asset) ? c_def_asset : place.asset, place.transform.gameObject, name: "scene_grid");
+					}
 					else
 						ClickAddMachine(region, place.cfgID);
 					return place;
