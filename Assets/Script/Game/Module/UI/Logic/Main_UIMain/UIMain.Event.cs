@@ -18,6 +18,7 @@ namespace SGame.UI
 		private GList m_rightList;
 		private SetData m_setData;
 		private Entity  m_taskEffect = Entity.Null; // 任务特效对象
+		private Entity m_totalEffect = Entity.Null;	//店铺特效
 
 		Action<bool> timer;
 
@@ -529,9 +530,20 @@ namespace SGame.UI
 			});
 		}
 
+
 		void OnRefreshTotalState()
 		{
-			m_view.m_totalBtn.m_num.text = string.Format("X{0}", ReputationModule.Instance.GetTotalValue());
+			var value = ReputationModule.Instance.GetTotalValue();
+			m_view.m_totalBtn.m_num.text = string.Format("X{0}", value);
+			if (value > 1) 
+			{
+				if (m_totalEffect == Entity.Null) m_totalEffect = EffectSystem.Instance.AddEffect(60, m_view.m_Gold);
+			}	
+			else
+			{
+				if (m_totalEffect != null) EffectSystem.Instance.CloseEffect(m_totalEffect);
+				m_totalEffect = Entity.Null;
+			}
 		}
 
 
@@ -667,6 +679,12 @@ namespace SGame.UI
 			{
 				EffectSystem.Instance.CloseEffect(m_taskEffect);
 				m_taskEffect = Entity.Null;
+			}
+
+			if (m_totalEffect != Entity.Null)
+			{
+				EffectSystem.Instance.CloseEffect(m_totalEffect);
+				m_totalEffect = Entity.Null;
 			}
 		}
 
