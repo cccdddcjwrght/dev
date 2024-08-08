@@ -535,7 +535,11 @@ namespace SGame.UI
 		{
 			var value = ReputationModule.Instance.GetTotalValue();
 			m_view.m_totalBtn.m_num.text = string.Format("X{0}", value);
-			if (value > 1) 
+
+			var list = ReputationModule.Instance.GetVailedBuffList();
+			if (list.Find((v)=> v.type == ShopBuffEnum.SHOP_BUFF1) != null 
+				|| list.Find((v) => v.type == ShopBuffEnum.SHOP_BUFF2) != null
+				|| list.Find((v) => v.type == ShopBuffEnum.SHOP_BUFF3) != null) 
 			{
 				if (m_totalEffect == Entity.Null) m_totalEffect = EffectSystem.Instance.AddEffect(60, m_view.m_Gold);
 			}	
