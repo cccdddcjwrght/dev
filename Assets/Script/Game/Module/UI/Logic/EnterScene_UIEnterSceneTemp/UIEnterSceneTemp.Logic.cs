@@ -105,8 +105,11 @@ namespace SGame.UI{
 				view.m_isMeet.selectedIndex = _canSwitch ? 2 : 3;
 				if (_canSwitch) 
 				{
-					if (view.m_dir.selectedIndex == 0) view.m_t2.Play(1, 0.45f ,null);
-					else view.m_t3.Play(1, 0.45f, null);
+					float delayTime = 0.8f;
+					view.m_group.visible = false;
+					GTween.To(0, 1, delayTime).SetTarget(view).OnComplete(() => view.m_group.visible = true);
+					if (view.m_dir.selectedIndex == 0) view.m_t2.Play(1, delayTime, null);
+					else view.m_t3.Play(1, delayTime, null);
 				}
 			}
 			else if (cfg.ID > _nextScene) view.m_isMeet.selectedIndex = 3;
@@ -116,7 +119,6 @@ namespace SGame.UI{
 				if (view.m_isMeet.selectedIndex != 2) return;
 
 				UILockManager.Instance.Require("enterScene");
-
 				//提前设置当前场景id
 				DataCenter.Instance.roomData.roomID = _nextScene;
 				//记录关卡完成数量
@@ -124,8 +126,12 @@ namespace SGame.UI{
 
 				var lastObj = (UI_PassItem)m_view.m_list.GetChildAt(index + 1);
 				m_view.m_list.ScrollToView(index + 1);
+
+				lastObj.m_right.invalidateBatchingEveryFrame = true;
+				lastObj.m_left.invalidateBatchingEveryFrame = true;
 				if (lastObj.m_dir.selectedIndex == 0) lastObj.m_right.Play(LoadNextScene);
 				else lastObj.m_left.Play(LoadNextScene);
+				m_view.m_list.apexIndex = index + 1;
 
 				GTween.To(0, 1, lastObj.m_right.totalDuration - 0.2f).OnUpdate((t) =>
 				{
@@ -138,11 +144,11 @@ namespace SGame.UI{
 
 		void LoadNextScene() 
 		{
-			UILockManager.Instance.Release("enterScene");
+            UILockManager.Instance.Release("enterScene");
 
-			SGame.UIUtils.CloseUIByID(__id);
-			Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
-		}
+            SGame.UIUtils.CloseUIByID(__id);
+            Dining.DiningRoomSystem.Instance.LoadRoom(_nextScene);
+        }
 
 		partial void UnInitLogic(UIContext context){
 
