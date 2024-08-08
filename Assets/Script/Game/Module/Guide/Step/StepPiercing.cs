@@ -8,11 +8,25 @@ namespace SGame
     {
         public override IEnumerator Excute()
         {
+            UILockManager.Instance.Require("guide_piercing");
             m_Handler.InitConfig(m_Config);
             yield return m_Handler.FindTarget();
             UIUtils.OpenUI("piercing", new UIParam() { Value = m_Handler });
+            yield return WaitOpen();
+            UILockManager.Instance.Release("guide_piercing");
+
             yield return WaitClick();
             Finish();
+        }
+
+        IEnumerator WaitOpen() 
+        {
+            while (true) 
+            {
+                bool isOpen = UIUtils.CheckUIIsOpen("piercing");
+                if (isOpen) yield break;
+                yield return null;
+            }
         }
 
         IEnumerator WaitClick()
@@ -27,6 +41,7 @@ namespace SGame
 
         public override void Dispose()
         {
+            UILockManager.Instance.Clear("guide_piercing");
             UIUtils.CloseUIByName("dialogue");
             UIUtils.CloseUIByName("piercing");
         }
