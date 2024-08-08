@@ -197,7 +197,8 @@ namespace SGame.Dining
 
 		IEnumerator ShowCompletedUI()
 		{
-			yield return null;
+			yield return new WaitForSeconds(0.1f);
+			yield return new WaitUntil(() => !TransitionModule.isPlay);
 			WorktableHud.Instance.Close();
 			SGame.UIUtils.OpenUI("levelcomplete");
 		}
