@@ -1,4 +1,3 @@
-    using System;
 using System.Collections;
 using Fibers;
 using GameConfigs;
@@ -7,15 +6,12 @@ using GameTools.Paths;
 using log4net;
 using UnityEngine;
 using Unity.Entities;
-using Unity.VisualScripting;
-using SGame.VS;
 using Unity.Mathematics;
 using Unity.Transforms;
 using System.Collections.Generic;
-    using libx;
+    
 
-
-    namespace SGame
+namespace SGame
 {
     /// <summary>
     /// 角色数据处理
@@ -111,6 +107,10 @@ using System.Collections.Generic;
         /// </summary>
         public int workerAread => m_workAreaMask;
 
+        /// <summary>
+        /// 判断是否死亡
+        /// </summary>
+        public bool IsDead => m_isDeath;
         
         public Transform pos
         {
@@ -129,10 +129,10 @@ using System.Collections.Generic;
 
         private int         m_workAreaMask = 0;
 
+        private bool        m_isDeath = false;
+
         private RoleDataRowData m_roleConfig;
         
-        
-
         public void SetLooking(string str)
         {
             m_characterLooking = str;
@@ -758,5 +758,7 @@ using System.Collections.Generic;
         /// 等待食物创建完毕
         /// </summary>
         public bool FoodEntityReadly => m_food == Entity.Null || EffectSystem.Instance.IsLoaded(m_food);
+
+        public void SetDeath() => m_isDeath = true;
     }
 }

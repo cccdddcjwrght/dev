@@ -53,6 +53,8 @@ MonoBehaviour:
   enableGuide: 1
   DebugOverlaySize: {x: 60, y: 60}
   dataCenter:
+    AdMainData:
+      freeCount: 1
     boostShopData:
       buffList: []
     clubTaskList:
@@ -344,7 +346,7 @@ MonoBehaviour:
   textColor: {r: 1, g: 0, b: 0, a: 0.29803923}
   backgroundColor: {r: 0.16981131, g: 0.16260234, b: 0.16260234, a: 0.4392157}
   font_size: 30
-  drawPos: {x: 0, y: 0}
+  drawPos: {x: 45.37, y: 0.34}
 --- !u!114 &3891602918966579706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +361,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overlayPos: {x: 0, y: 0}
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.39607844}
+  playerColor: {r: 1, g: 0, b: 0, a: 1}
+  waiterColor: {r: 0, g: 1, b: 0, a: 1}
+  cookerColor: {r: 0, g: 0, b: 1, a: 1}
+  customerColor: {r: 1, g: 1, b: 1, a: 1}
+  tableColor: {r: 1, g: 0, b: 1, a: 1}
+  showOrder: 0
+  showTable: 0
 --- !u!1 &4735780683635538310
 GameObject:
   m_ObjectHideFlags: 0

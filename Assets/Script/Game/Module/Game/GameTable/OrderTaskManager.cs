@@ -230,7 +230,7 @@ namespace SGame
                 int count = 0;
                 foreach (var item in m_tasks)
                 {
-                    count = +item.Value.Count;
+                    count += item.Value.Count;
                 }
 
                 return count;

@@ -51,17 +51,15 @@ public class GameFPS : MonoBehaviour
             lastTime = t;
         }
         
+        // 显示FPS
         DebugOverlay.SetColor(textColor);
-        DebugOverlay.SetOrigin(0, 0);
-        DebugOverlay.DrawRect(drawPos.x - 1, 0, 12, 1, backgroundColor);
-        DebugOverlay.Write(drawPos.x, drawPos.y, "FPS:{0,6:###.##}", fps);
+        var oldPos = DebugOverlay.GetOrigin();
+        DebugOverlay.SetOrigin(drawPos.x, drawPos.y);
+        DebugOverlay.DrawRect(-1, 0, 12, 2, backgroundColor);
+        DebugOverlay.Write(0, 0, "FPS:{0,6:###.##}", fps);
+        
+        // 显示订单数量
+        DebugOverlay.Write(0, 1, "TASK:{0,-4}", OrderTaskManager.Instance.TaskCount);
+        DebugOverlay.SetOrigin(oldPos.x, oldPos.y);
     }
-
-    /*
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(Screen.width / 2, Mathf.Min(Screen.height / 100, 30) , 100, 100),"FPS=" + fps , guiStyle);
-    }
-    */
-    //#endif
 }
