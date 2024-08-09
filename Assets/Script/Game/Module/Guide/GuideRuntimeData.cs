@@ -1,3 +1,4 @@
+using FairyGUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,6 +56,7 @@ namespace SGame
         {
             UILockManager.Instance.Release("guide_step_runing");
             __handler.DisableControl(false);
+            Stage.inst.CancelClick(0);
             if (guideId != __guideId) return;
 
             //清除主线以外的指引
