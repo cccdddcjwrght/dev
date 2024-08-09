@@ -112,9 +112,8 @@ namespace SGame
             {
                 UIUtils.CloseUIByName("guideback");
                 GuideManager.Instance.SetCoerceGuideState(false);
-                m_Handler.DisableCameraDrag(false);
             }
-            
+            m_Handler.DisableCameraDrag(false);
             UILockManager.Instance.Clear("guide_uiclick");
             m_Handler.DisableControl(false);
             Debug.Log("<color=bule> ui unlock-------------</color>");
