@@ -124,8 +124,9 @@ class CreateCharacterAssets
 				//holder.content = boneNames.ToArray();
                 //AssetDatabase.CreateAsset(holder, stringholderpath);
                 //toinclude.Add(AssetDatabase.LoadAssetAtPath(stringholderpath, typeof (StringHolder)));
-                rendererClone.GetComponent<SkinnedMeshRenderer>().sharedMesh = CopyMesh(smr.sharedMesh, CharacterSetting.ASSET_PATH + name + "/" + smr.name);
-
+                var smr2 = rendererClone.GetComponent<SkinnedMeshRenderer>();
+                smr2.sharedMesh = CopyMesh(smr.sharedMesh, CharacterSetting.ASSET_PATH + name + "/" + smr.name);
+                smr2.materials = new Material[0];
                 Object rendererPrefab = GetPrefabPath(rendererClone, name + "/" + smr.name); //GetPrefab(rendererClone, "rendererobject");
 
                 // Save the assetbundle.
