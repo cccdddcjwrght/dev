@@ -17,6 +17,9 @@ Shader "FairyGUI/Text"
 
         _BlendSrcFactor ("Blend SrcFactor", Float) = 5
         _BlendDstFactor ("Blend DstFactor", Float) = 10
+        
+        _ClipBox ("clipbox",Vector)  = (-2,-2, 0, 0)
+        _ClipSoftness("clipsoft ness", Vector) = (0,0, 0, 0)
     }
 
     SubShader
@@ -83,6 +86,7 @@ Shader "FairyGUI/Text"
                 TEXTURE2D(_MainTex);
                 SAMPLER(sampler_MainTex);
                 half4 _MainTex_ST;
+            /*
                 CBUFFER_START(UnityPerMaterial)
                 #ifdef CLIPPED
                 float4 _ClipBox = float4(-2, -2, 0, 0);
@@ -93,7 +97,12 @@ Shader "FairyGUI/Text"
                 float4 _ClipSoftness = float4(0, 0, 0, 0);
                 #endif
                 CBUFFER_END
-
+            */
+            CBUFFER_START(UnityPerMaterial)
+                float4 _ClipBox = float4(-2, -2, 0, 0);
+                float4 _ClipSoftness = float4(0, 0, 0, 0);
+            CBUFFER_END
+            
                 inline half3 GammaToLinearSpace (half3 sRGB)
                 {
                     return sRGB * (sRGB * (sRGB * 0.305306011h + 0.682171111h) + 0.012522878h);
