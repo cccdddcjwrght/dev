@@ -16,6 +16,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick));
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick));
 			UIListener.Listener(m_view.m_rank, new EventCallback1(_OnRankClick));
+			UIListener.ListenerIcon(m_view.m_rankTran, new EventCallback1(_OnRankTranClick));
 			UIListener.Listener(m_view.m_Box, new EventCallback1(_OnBoxClick));
 			UIListener.Listener(m_view.m_Pet, new EventCallback1(_OnPetClick));
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
@@ -25,6 +26,7 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_Gold, new EventCallback1(_OnGoldClick),remove:true);
 			UIListener.Listener(m_view.m_Diamond, new EventCallback1(_OnDiamondClick),remove:true);
 			UIListener.Listener(m_view.m_rank, new EventCallback1(_OnRankClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_rankTran, new EventCallback1(_OnRankTranClick),remove:true);
 			UIListener.Listener(m_view.m_Box, new EventCallback1(_OnBoxClick),remove:true);
 			UIListener.Listener(m_view.m_Pet, new EventCallback1(_OnPetClick),remove:true);
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
@@ -48,6 +50,12 @@ namespace SGame.UI{
 		partial void OnRankClick(EventContext data);
 		void SetRankText(string data)=>UIListener.SetText(m_view.m_rank,data);
 		string GetRankText()=>UIListener.GetText(m_view.m_rank);
+		void SetRankTran___textText(string data)=>UIListener.SetText(m_view.m_rankTran.m___text,data);
+		string GetRankTran___textText()=>UIListener.GetText(m_view.m_rankTran.m___text);
+		void _OnRankTranClick(EventContext data){
+			OnRankTranClick(data);
+		}
+		partial void OnRankTranClick(EventContext data);
 		void _OnBoxClick(EventContext data){
 			OnBoxClick(data);
 		}

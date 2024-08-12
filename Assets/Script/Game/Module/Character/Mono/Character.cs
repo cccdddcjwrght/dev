@@ -733,7 +733,7 @@ namespace SGame
             float time2 = distance / speed.Value;
 
             float t = time1 + time2 + m_orderRecord.taskNum * 0.5f;
-            log.Debug("character id=" + CharacterID + " target=" + pos + " worktime=" + t + " orderNum=" + m_orderRecord.taskNum);
+            //log.Debug("character id=" + CharacterID + " target=" + pos + " worktime=" + t + " orderNum=" + m_orderRecord.taskNum);
             return t;// + math.pow(2, m_orderRecord.taskNum) / 5; // 每个任务额外多一个
         }
 

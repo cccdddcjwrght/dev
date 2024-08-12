@@ -31,7 +31,7 @@ namespace SGame
 		IEnumerator RunScriptLogin()
 		{
 			GameObject go = null;
-#if !SVR_RELEASE && !Auto_Login && !AUTO_LOGIN
+#if CHECK || (!SVR_RELEASE && !Auto_Login && !AUTO_LOGIN)
 			var asset = Assets.LoadAssetAsync(script, typeof(GameObject));
 			yield return asset;
 			if (!string.IsNullOrEmpty(asset.error))
@@ -43,9 +43,9 @@ namespace SGame
 			go = GameObject.Instantiate(asset.asset as GameObject);
 			var waitLogin = new WaitEvent<string>((int)GameEvent.ENTER_LOGIN);
 			yield return waitLogin;
-	#if DATA_SYNC
+#if DATA_SYNC
 			yield return DataSyncModule.GetDataFromServer(waitLogin.m_Value);
-	#endif
+#endif
 
 #else
 			EventManager.Instance.Trigger((int)GameEvent.ENTER_LOGIN, "aaa");
@@ -56,12 +56,12 @@ namespace SGame
 
 			while (!DataCenter.Instance.IsInitAll)
 				yield return null;
-			
+
 			EventManager.Instance.Trigger((int)GameEvent.LOGIN_COMPLETE);
 			if (go)
 				GameObject.Destroy(go);
 		}
-		
+
 		public void Shutdown()
 		{
 

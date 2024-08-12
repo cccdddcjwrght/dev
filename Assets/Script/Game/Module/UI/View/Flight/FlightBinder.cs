@@ -9,6 +9,7 @@ namespace SGame.UI.Flight
         public static void BindAll()
         {
             UIObjectFactory.SetPackageItemExtension(UI_FlightUI.URL, typeof(UI_FlightUI));
+            UIObjectFactory.SetPackageItemExtension(UI_RankTran.URL, typeof(UI_RankTran));
         }
     }
 }

@@ -86,9 +86,11 @@ namespace SGame
             {
                 if (c.map_pos.x == chairPos.x && c.map_pos.y == chairPos.y)
                 {
-                    log.Warn("chair pos repeate=" + chairPos + " tableid=" + id + " machineid=" + machineID);
-                    return false;
-                }
+#if !SVR_RELEASE
+					log.Warn("chair pos repeate=" + chairPos + " tableid=" + id + " machineid=" + machineID);
+#endif                    
+					return false;
+				}
             }
             
             var chair = new ChairData()

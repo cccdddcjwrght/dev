@@ -51,6 +51,7 @@ namespace SGame.UI{
 			m_view.m_workflag.m_type.onChanged.Add(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick));
 			m_view.m_hotFoodBtn.m_hoting.onChanged.Add(new EventCallback1(_OnHotFoodBtn_HotingChanged));
+			m_view.m_hotFoodBtn.m_cd.onChanged.Add(new EventCallback1(_OnHotFoodBtn_CdChanged));
 			UIListener.Listener(m_view.m_hotFoodBtn, new EventCallback1(_OnHotFoodBtnClick));
 
 		}
@@ -93,6 +94,7 @@ namespace SGame.UI{
 			m_view.m_workflag.m_type.onChanged.Remove(new EventCallback1(_OnGetWorkerFlag_TypeChanged));
 			UIListener.Listener(m_view.m_workflag, new EventCallback1(_OnWorkflagClick),remove:true);
 			m_view.m_hotFoodBtn.m_hoting.onChanged.Remove(new EventCallback1(_OnHotFoodBtn_HotingChanged));
+			m_view.m_hotFoodBtn.m_cd.onChanged.Remove(new EventCallback1(_OnHotFoodBtn_CdChanged));
 			UIListener.Listener(m_view.m_hotFoodBtn, new EventCallback1(_OnHotFoodBtnClick),remove:true);
 
 		}
@@ -313,6 +315,11 @@ namespace SGame.UI{
 		}
 		partial void OnHotFoodBtn_HotingChanged(EventContext data);
 		void SwitchHotFoodBtn_HotingPage(int index)=>m_view.m_hotFoodBtn.m_hoting.selectedIndex=index;
+		void _OnHotFoodBtn_CdChanged(EventContext data){
+			OnHotFoodBtn_CdChanged(data);
+		}
+		partial void OnHotFoodBtn_CdChanged(EventContext data);
+		void SwitchHotFoodBtn_CdPage(int index)=>m_view.m_hotFoodBtn.m_cd.selectedIndex=index;
 		void _OnHotFoodBtnClick(EventContext data){
 			OnHotFoodBtnClick(data);
 		}

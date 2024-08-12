@@ -391,7 +391,7 @@ namespace SGame
 						_units.Add(unit);
 				}
 #if DEBUG
-				GameDebug.Log($"<color='green'>[BUFF]{id}</color>{name} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
+				GameDebug.LogWarning($"<color='green'>[BUFF]{id}</color>{name} -> ::attribute {a} change: {a.modify} - deadtime {deadline} ");
 #endif
 
 			}
@@ -410,8 +410,8 @@ namespace SGame
 						var a = u.attribute;
 						u.Reset();
 						_units.RemoveAt(i);
-#if DEBUG
-						GameDebug.Log($"<color='red'>[BUFF]{u.id}</color>{name} -> ::attribute {a} change : {a.modify}");
+#if DEBUG 
+						GameDebug.LogWarning($"<color='red'>[BUFF]{u.id}</color>{name} -> ::attribute {a} change : {a.modify}");
 #endif
 					}
 				}
@@ -458,7 +458,7 @@ namespace SGame
 				{
 					_units.RemoveAt(i);
 #if DEBUG
-					GameDebug.Log($" {name}->reset attribute:{item.id}-> {a} : {a.modify} ");
+					GameDebug.LogWarning($" {name}->reset attribute:{item.id}-> {a} : {a.modify} ");
 #endif
 					EventManager.Instance.Trigger((int)GameEvent.BUFF_REMOVE);
 				}

@@ -593,8 +593,8 @@ namespace GameTools.Maps
 			if (_datas == null)
 			{
 				_datas = new Dictionary<string, CellData>();
-				tags = new List<string>();
-				builds = new List<string>();
+				tags = new List<string>(4);
+				builds = new List<string>(2);
 				if (cdatas?.Count > 0)
 				{
 					foreach (var item in cdatas)
@@ -614,6 +614,8 @@ namespace GameTools.Maps
 						}
 						_datas[name] = item;
 					}
+					cdatas.Clear();
+					cdatas = null ;
 				}
 			}
 			return this;

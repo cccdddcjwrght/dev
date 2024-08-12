@@ -349,12 +349,17 @@ namespace SGame.UI
 			funcID = config.Id;
 			if (config.Activity == 0)
 			{
-				log.Warn("function id not activity=" + funcID);
+#if !SVR_RELEASE
+
+				log.Warn("function id not activity=" + funcID); 
+#endif
 				return;
 			}
 			if (config.OpenType == -1)
 			{
-				log.Warn("function is close=" + funcID);
+#if !SVR_RELEASE
+				log.Warn("function is close=" + funcID); 
+#endif
 				return;
 			}
 

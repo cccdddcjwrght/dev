@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using FairyGUI;
+using log4net;
 using UnityEngine;
 
 namespace SGame
@@ -210,6 +212,42 @@ namespace SGame
 			{
 			}
 			return def;
+		}
+
+		[Conditional("CHECK")]
+		[Conditional("DEBUG")]
+		static public void LogDebug(this ILog log, string msg, params object[] args)
+		{
+			if (log == null) return;
+			if (args == null || args.Length == 0) log.Debug(msg);
+			else log.DebugFormat(msg, args);
+		}
+
+		[Conditional("CHECK")]
+		[Conditional("DEBUG")]
+		static public void LogInfo(this ILog log, string msg, params object[] args)
+		{
+			if (log == null) return;
+			if (args == null || args.Length == 0) log.Info(msg);
+			else log.InfoFormat(msg, args);
+		}
+
+		[Conditional("CHECK")]
+		[Conditional("DEBUG")]
+		static public void LogWarn(this ILog log, string msg, params object[] args)
+		{
+			if (log == null) return;
+			if (args == null || args.Length == 0) log.Info(msg);
+			else log.WarnFormat(msg, args);
+		}
+
+		[Conditional("CHECK")]
+		[Conditional("DEBUG")]
+		static public void LogError(this ILog log, string msg, params object[] args)
+		{
+			if (log == null) return;
+			if (args == null || args.Length == 0) log.Info(msg);
+			else log.ErrorFormat(msg, args);
 		}
 
 	}

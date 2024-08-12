@@ -84,7 +84,7 @@ namespace SGame
             value.AddChair(CHAIR_TYPE.OPERATOR, new int2(operatorPos.x, operatorPos.y));
             TableManager.Instance.UpdateTableInfo(value);
 
-            log.Debug(string.Format("Create FooTable tablePos={0}, machineID={1}, foodType={2}, operatorPos={3}", tablePos, machineID, foodType, operatorPos) );
+            //log.Debug(string.Format("Create FooTable tablePos={0}, machineID={1}, foodType={2}, operatorPos={3}", tablePos, machineID, foodType, operatorPos) );
             return value;
         }
     }

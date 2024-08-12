@@ -44,7 +44,7 @@ namespace SGame.VS
                 var id =  flow.GetValue<int>(AudioID);
                 var pos = flow.GetValue<Vector3>(mapPos);
 
-                log.Debug("audio play id=" + id.ToString());
+                //log.Debug("audio play id=" + id.ToString());
                 AudioSystem.Instance.Play(id);
                 return outputTrigger;
             });

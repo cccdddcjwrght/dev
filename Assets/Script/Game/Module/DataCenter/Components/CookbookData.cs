@@ -84,19 +84,23 @@ namespace SGame
 
 		public Dictionary<int, CookBookItem> bookDics { get; private set; }
 		public List<int> bookIDs { get; private set; }
-
+		public static Dictionary<int, List<CookBookRowData>> cfgs;
 
 		public void Refresh()
 		{
 			if (bookIDs == null)
 			{
-				bookIDs = ConfigSystem.Instance
-					.Finds<CookBookRowData>(c => c.Level == 1)
-					.Select(c => c.CookId)
-					.ToList();
+				cfgs = cfgs ?? ConfigSystem.Instance
+					.Finds<CookBookRowData>(c => true)
+					.GroupBy(v => v.CookId)
+					.ToDictionary(v => v.Key, v => v.ToList());
+				bookIDs = cfgs.Keys.ToList();
+				bookDics = new Dictionary<int, CookBookItem>();
 			}
-			books.ForEach(b => b.Refresh());
-			bookDics = books.ToDictionary(b => b.id);
+			books.ForEach(b => { 
+				b.Refresh();
+				bookDics[b.id] = b; 
+			});
 			bookIDs.ForEach(b => DataCenter.CookbookUtils.GetBook(b));
 
 		}
@@ -220,8 +224,7 @@ namespace SGame
 				{
 					if (cfgLists == null)
 					{
-						cfgLists = ConfigSystem.Instance.Finds<CookBookRowData>(c => c.CookId == id);
-						if (cfgLists?.Count > 0)
+						if (CookbookData.cfgs.TryGetValue(id, out cfgLists))
 						{
 							maxLv = cfgLists.Count;
 							maxStar = cfgLists.Last().Star;

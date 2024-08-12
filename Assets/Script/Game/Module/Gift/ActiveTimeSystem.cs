@@ -138,7 +138,7 @@ namespace SGame
 			var timeOffset2 = new DateTimeOffset(date2);
 			int offset1 = (int)timeOffset1.ToUnixTimeSeconds();
 			int offset2 = (int)timeOffset2.ToUnixTimeSeconds();
-			log.Info(string.Format("add time id={0}, time1={1}, time2={2} value1={3} value2={4}", id, date1.ToString(), date2.ToString(), offset1, offset2));
+			//log.Info(string.Format("add time id={0}, time1={1}, time2={2} value1={3} value2={4}", id, date1.ToString(), date2.ToString(), offset1, offset2));
 
 			if (offset1 >= offset2)
 			{

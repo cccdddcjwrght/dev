@@ -56,7 +56,7 @@ namespace SGame
         public bool Initalize(EntityManager entityManager, Entity e,  int id)
         {
             InstanceID = GetInstanceID();
-            log.Debug(string.Format("CarMono Create Entity={0} id={1} gameobject={2}", e, id, GetInstanceID()));
+            //log.Debug(string.Format("CarMono Create Entity={0} id={1} gameobject={2}", e, id, GetInstanceID()));
             if (!ConfigSystem.Instance.TryGet(id, out GameConfigs.CarDataRowData config))
             {
                 log.Error("car config not found=" + id);
@@ -217,7 +217,7 @@ namespace SGame
         /// <returns></returns>
         IEnumerator Logic()
         {
-            log.Debug(string.Format("CarMono Create step1 gameobject={0}", GetInstanceID()));
+            //log.Debug(string.Format("CarMono Create step1 gameobject={0}", GetInstanceID()));
             yield return null;
             m_queue = CarQueueManager.Instance.GetOrCreate(pathTag);
             m_roads = new List<Vector3>();
@@ -227,15 +227,15 @@ namespace SGame
                 yield break;
             
             // 设置位置信息
-            log.Debug(string.Format("CarMono Create step2 gameobject={0}", GetInstanceID()));
+            //log.Debug(string.Format("CarMono Create step2 gameobject={0}", GetInstanceID()));
             SetupGameObject();
             
             // 设置挂点
-            log.Debug(string.Format("CarMono Create step3 gameobject={0}", GetInstanceID()));
+            //log.Debug(string.Format("CarMono Create step3 gameobject={0}", GetInstanceID()));
             SetupAttachement();
 
             // 设置顾客
-            log.Debug(string.Format("CarMono Create step4 gameobject={0}", GetInstanceID()));
+            //log.Debug(string.Format("CarMono Create step4 gameobject={0}", GetInstanceID()));
             SetupCustomer();
             
             //CarModule.Instance.AddCustomerRef(m_config.ChairNum);
@@ -244,7 +244,7 @@ namespace SGame
             if (m_config.ShowCustomer != 0)
                 yield return m_seats.CreateCustomer(m_entity, transform, m_config.CustomerAI);
 
-            log.Debug(string.Format("CarMono Create Finish gameobject={0}", GetInstanceID()));
+            //log.Debug(string.Format("CarMono Create Finish gameobject={0}", GetInstanceID()));
             m_isInit = true;
             if (script != null)
                 Unity.VisualScripting.EventBus.Trigger(SGame.VS.CarInit.EventHook, script, this);

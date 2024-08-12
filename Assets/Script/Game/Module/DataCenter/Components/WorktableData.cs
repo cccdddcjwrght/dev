@@ -50,6 +50,7 @@ namespace SGame
 	{
 		public class MachineUtil
 		{
+
 			private static Dictionary<string, int> _areas = new Dictionary<string, int>();
 
 			public static Machine AddMachine(int id)
@@ -574,6 +575,9 @@ namespace SGame
 		public int lvStart;
 
 
+		static Dictionary<int, List<RoomMachineRowData>> ALL_TABLE_CFGS = null;
+
+
 		public int item { get { return cfg.IsValid() && food <= 0 ? cfg.ItemId(0) : food; } }
 
 		public int level { get { return lvStart + lv; } }
@@ -689,12 +693,15 @@ namespace SGame
 			if (lvcfg.IsValid()) star = lvcfg.MachineStar;
 			if (type == 0)
 			{
-				var ls = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => c.Machine == id);
+				if (ALL_TABLE_CFGS == null)
+					ALL_TABLE_CFGS = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => true).GroupBy(v => v.Machine).ToDictionary(c => c.Key, c => c.ToList());
+				
+				ALL_TABLE_CFGS.TryGetValue(id, out var ls);
 				var first = ls.FirstOrDefault();
 				lvStart = 0;
 				if (first.IsValid())
 				{
-					maxlv = ls.Count > 0 ? ls[0].MachineLevelMax : 10;
+					maxlv = first.MachineLevelMax;
 					max = ls.Count - 1;
 					type = first.Type;
 					if (type > 3 && ConfigSystem.Instance.TryGet(first.Machine, out objCfg))

@@ -26,8 +26,8 @@ public class Game : SGame.MonoSingleton<Game>
 	public static DebugOverlay debugOverlay => Game.Instance.m_DebugOverlay;
 	public static Console console => Game.Instance.m_console;
 
-	private DebugOverlay	m_DebugOverlay;
-	private Console			m_console; 
+	private DebugOverlay m_DebugOverlay;
+	private Console m_console;
 	private WaitForEndOfFrame wfeof;
 
 	public static IEnumerator Main()
@@ -54,6 +54,8 @@ public class Game : SGame.MonoSingleton<Game>
 	public bool IsInitalize { get { return m_isInitalized; } }
 
 	public string LogInitPath = "Assets/BuildAsset/Setting/log4net.xml";
+	private string LogInitPath_ERROR = "Assets/BuildAsset/Log/log4net-error.xml.bytes";
+
 	public string AudioMixerPath = "Assets/BuildAsset/Audio/mixer/Game.mixer";  // 声音Mixer资源
 	public string ShaderCollectPath = "Assets/BuildAsset/Shaders/ShaderVariants.shadervariants";
 	public bool enableGuide = true;
@@ -114,11 +116,11 @@ public class Game : SGame.MonoSingleton<Game>
 	IEnumerator InitSystem()
 	{
 		VSEventBridge.Instance.Init();
-		
+
 		// 版本设置
 		if (GameData.gameVersion == null)
 			GameData.gameVersion = IniUtils.LoadLocalVersion();
-		
+
 		// 资源加载初始化
 		ManifestRequest assetRequest = libx.Assets.Initialize();
 		yield return assetRequest;
@@ -129,7 +131,12 @@ public class Game : SGame.MonoSingleton<Game>
 		}
 
 		// 日志系统初始化
-		AssetRequest logReq = Assets.LoadAssetAsync(LogInitPath, typeof(TextAsset));
+#if CHECK || !SVR_RELEASE
+		AssetRequest logReq = Assets.LoadAssetAsync(LogInitPath, typeof(TextAsset)); 
+#else
+		AssetRequest logReq = Assets.LoadAssetAsync(LogInitPath_ERROR, typeof(TextAsset));
+#endif
+
 		yield return logReq;
 		if (!string.IsNullOrEmpty(logReq.error))
 		{
@@ -160,7 +167,7 @@ public class Game : SGame.MonoSingleton<Game>
 		World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
 
 		yield return SDK.SDKProxy.Init();
-		
+
 		console.AddCommand("close", OnExitConsole, "close console");
 		console.Write("Welcome Game Console...");
 	}
@@ -302,13 +309,13 @@ public class Game : SGame.MonoSingleton<Game>
 			m_DebugOverlay.Render();
 		}
 	}
-	
+
 	void ShutdownGameLoops()
 	{
 		foreach (var gameLoop in m_gameLoops)
 			gameLoop.Shutdown();
 		m_gameLoops.Clear();
-		
+
 		m_DebugOverlay.Shutdown();
 		m_console.Shutdown();
 		m_DebugOverlay = null;

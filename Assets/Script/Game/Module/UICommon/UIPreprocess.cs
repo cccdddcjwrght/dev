@@ -31,8 +31,8 @@ namespace SGame
 
 				EventManager.Instance.Trigger((int)GameEvent.GUIDE_UI_SHOW, ui.Name);
 
-#if !EVENT_LOG_OFF
-				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type); 
+#if !EVENT_LOG_OFF && !SVR_RELEASE
+				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type);
 #endif
 
 				if (ui.Type == (int)UIType.UI)
@@ -70,17 +70,23 @@ namespace SGame
 
 		void OnMaskShow(UIContext otherUI)
 		{
+#if !SVR_RELEASE
 			log.Debug("show mask =" + otherUI.window.uiname);
+
+#endif			
 			EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_SHOW, otherUI);
 		}
 
 		void OnMaskHide(UIContext otherUI)
 		{
+#if !SVR_RELEASE
+
 			log.Debug("hide mask =" + otherUI.window.uiname);
+#endif
 			EventManager.Instance.Trigger((int)GameEvent.ON_UI_MASK_HIDE, otherUI);
 		}
 
-		#region 音效
+#region 音效
 
 		void OnPlayUIShowAudio(UIContext context)
 		{
@@ -93,14 +99,14 @@ namespace SGame
 			8.ToAudioID().PlayAudio();
 		}
 
-		#endregion
+#endregion
 
-		#region 事件
+#region 事件
 
 		void OnUIShow(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_SHOW), context.window.uiname);
 		void OnUIHide(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_HIDE), context.window.uiname);
 
-		#endregion
+#endregion
 
 		/// <summary>
 		/// HUD ui设置
@@ -111,7 +117,7 @@ namespace SGame
 		{
 			var entityManager = context.gameWorld.GetEntityManager();
 			var ui = context.entity;
-			
+
 			// 添加同步功能
 			entityManager.AddComponent<HUDSync>(ui);
 

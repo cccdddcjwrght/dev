@@ -58,7 +58,7 @@ namespace SGame
 
 		private IEnumerator CallInitMethod(List<System.Reflection.MethodInfo> methods)
 		{
-			yield return null;
+			yield return new WaitEvent<int>(((int)GameEvent.ENTER_ROOM));
 			methods.Foreach(m => m.Invoke(null, Array.Empty<object>()));
 			DataCenter.HunterUtil.Init();
 			DataCenter.CookbookUtils.Init();

@@ -586,11 +586,13 @@ namespace SGame
 		{
 			var state = false;
 			if (perload) ad = "@" + ad;
-			log.Info("<color=green>[AD]</color>Play AD : " + ad);
+			//log.Info("<color=green>[AD]</color>Play AD : " + ad);
 			DoPlayAd(ad, complete, ref state);
 			if (!state)
 			{
-				log.Info("no ad sdk");
+#if !SVR_RELEASE
+				log.Info("no ad sdk"); 
+#endif
 				complete?.Invoke(true, null);
 			}
 		}
@@ -1287,7 +1289,9 @@ namespace SGame
 			var cfg = GetLevelGridProperty(levelID, pos);
 			if (cfg.IsValid())
 			{
-				log.Debug("area valid area=" + cfg.Area + " pos=" + pos);
+#if !SVR_RELEASE
+				log.Debug("area valid area=" + cfg.Area + " pos=" + pos); 
+#endif
 				return cfg.Area;
 			}
 

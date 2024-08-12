@@ -101,6 +101,14 @@ public struct RoomRowData : IFlatbufferObject
   public ArraySegment<byte>? GetRecommendValueBytes() { return __p.__vector_as_arraysegment(38); }
 #endif
   public float[] GetRecommendValueArray() { return __p.__vector_as_array<float>(38); }
+  public int NewGoods(int j) { int o = __p.__offset(40); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int NewGoodsLength { get { int o = __p.__offset(40); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetNewGoodsBytes() { return __p.__vector_as_span<int>(40, 4); }
+#else
+  public ArraySegment<byte>? GetNewGoodsBytes() { return __p.__vector_as_arraysegment(40); }
+#endif
+  public int[] GetNewGoodsArray() { return __p.__vector_as_array<int>(40); }
 
   public static Offset<GameConfigs.RoomRowData> CreateRoomRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -120,8 +128,10 @@ public struct RoomRowData : IFlatbufferObject
       int InvestorChance = 0,
       int InvestorGems = 0,
       int InvestorRatio = 0,
-      VectorOffset RecommendValueOffset = default(VectorOffset)) {
-    builder.StartTable(18);
+      VectorOffset RecommendValueOffset = default(VectorOffset),
+      VectorOffset NewGoodsOffset = default(VectorOffset)) {
+    builder.StartTable(19);
+    RoomRowData.AddNewGoods(builder, NewGoodsOffset);
     RoomRowData.AddRecommendValue(builder, RecommendValueOffset);
     RoomRowData.AddInvestorRatio(builder, InvestorRatio);
     RoomRowData.AddInvestorGems(builder, InvestorGems);
@@ -143,7 +153,7 @@ public struct RoomRowData : IFlatbufferObject
     return RoomRowData.EndRoomRowData(builder);
   }
 
-  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(18); }
+  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(19); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
@@ -174,6 +184,10 @@ public struct RoomRowData : IFlatbufferObject
   public static VectorOffset CreateRecommendValueVector(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddFloat(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRecommendValueVectorBlock(FlatBufferBuilder builder, float[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRecommendValueVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddNewGoods(FlatBufferBuilder builder, VectorOffset NewGoodsOffset) { builder.AddOffset(18, NewGoodsOffset.Value, 0); }
+  public static VectorOffset CreateNewGoodsVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateNewGoodsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartNewGoodsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.RoomRowData> EndRoomRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomRowData>(o);
