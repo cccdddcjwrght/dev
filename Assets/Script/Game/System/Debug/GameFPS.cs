@@ -22,7 +22,7 @@ public class GameFPS : MonoBehaviour
     {
         public const float TICK_TIME = 1.0f;
         public float    fpsTick = 0f;
-        public float[]  timerRecord = new float[256];
+        public float[]  timerRecord = new float[128];
         public bool     enable = false;
         public int      index;
         public int      callCount;
