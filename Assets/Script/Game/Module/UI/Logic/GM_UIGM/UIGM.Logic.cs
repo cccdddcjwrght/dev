@@ -1,4 +1,5 @@
-﻿#if !SVR_RELEASE
+﻿using System.Text;
+#if !SVR_RELEASE
 
 namespace SGame.UI
 {
@@ -217,13 +218,24 @@ namespace SGame.UI
 
 		private void DoConsole(string[] ss)
 		{
-			Game.console.SetOpen(!Game.console.IsOpen);
+			if (ss.Length <= 1)
+			{
+				Game.console.SetOpen(!Game.console.IsOpen);
+				return;
+			}
+
+			StringBuilder sb = new StringBuilder();
+			for(int i = 1; i < ss.Length; i++)
+			{
+				sb.Append(ss[i]);
+				sb.Append(" ");
+			}
+			string cmd = sb.ToString();
+			Game.console.ExecuteCommand(cmd);
 		}
 
 		private void DoEvent(string[] ss)
 		{
-
-
 			if (ss.Length > 1)
 			{
 				if (int.TryParse(ss[1], out var eid))

@@ -206,7 +206,7 @@ public class Console //: IGameSystem
         m_HistoryDisplayIndex = m_HistoryNextIndex;
     }
 
-    void ExecuteCommand(string command)
+    public void ExecuteCommand(string command)
     {
         var splitCommand = command.Split(null as char[], System.StringSplitOptions.RemoveEmptyEntries);
         if (splitCommand.Length < 1)

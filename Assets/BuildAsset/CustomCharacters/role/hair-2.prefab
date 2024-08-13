@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8834204920428320767}
-  - component: {fileID: 7643240336384541944}
-  - component: {fileID: 7693950793744061148}
+  - component: {fileID: 714490059089312689}
+  - component: {fileID: 5833359468834839148}
   m_Layer: 0
   m_Name: hair-2
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &7643240336384541944
+--- !u!137 &714490059089312689
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52,8 +52,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 6252452164902680341, guid: 270bfe9c2b8662a4da746e3cce41e3b0, type: 3}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,7 +118,7 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.06737509, y: 0.00000059604645, z: 0.6744572}
     m_Extent: {x: 0.33669958, y: 0.39970213, z: 0.42065465}
   m_DirtyAABB: 0
---- !u!114 &7693950793744061148
+--- !u!114 &5833359468834839148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

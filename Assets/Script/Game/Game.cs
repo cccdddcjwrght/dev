@@ -74,9 +74,21 @@ public class Game : SGame.MonoSingleton<Game>
 
 #endif
 
+	[System.Diagnostics.Conditional("ENABLE_DEBUG")]
+	private void DebugInit()
+	{
+		GameCamera.camera.gameObject.AddComponent<RemoteDebugAttach>();
+		this.gameObject.AddComponent<RemoteDebugAttach>();
+		FairyGUI.GRoot.inst.displayObject.gameObject.transform.parent.gameObject.AddComponent<RemoteDebugAttach>();
+		FairyGUI.StageCamera.main.gameObject.AddComponent<RemoteDebugAttach>();
+	}
+
+
 	protected override void Awake()
 	{
 		base.Awake();
+		
+		DebugInit();
 
 		wfeof = new WaitForEndOfFrame();
 		m_DebugOverlay = new DebugOverlay();
@@ -197,6 +209,7 @@ public class Game : SGame.MonoSingleton<Game>
 	{
 		GameDebug.Log("InitProcess");
 		GlobalTime.Start();
+		DebugCommand.Init();
 
 		yield return null;
 		// 事件系统
