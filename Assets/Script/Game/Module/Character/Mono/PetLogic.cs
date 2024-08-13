@@ -132,6 +132,9 @@ namespace SGame
 			{
 				m_haloEntity = EffectSystem.Instance.Spawn3d(m_config.FootEffect, gameObject, Vector3.zero);
 			}
+			
+			// 摄像头移动
+			SceneCameraSystem.Instance.Focus(this.gameObject);
 
 			if (m_config.DelayMove > 0)
 			{
