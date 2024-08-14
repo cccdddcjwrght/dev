@@ -40,6 +40,22 @@ namespace SGame
         {
             private static List<ItemData.Value> _dropItems = new List<ItemData.Value>();
 
+            private static List<int> m_Weights = new List<int>();
+            private static int m_BigPrizeId;        //大奖ID
+            private static int m_SpecialId;         //特殊奖励ID
+
+            static GameConfigs.Likes_Rewards m_LikesRewardConfigs;
+            static GameConfigs.Likes_Jackpot m_LikesJackpotConfigs;
+            
+
+            public static void Init() 
+            {
+                m_BigPrizeId = ConfigSystem.Instance.Find<GameConfigs.Likes_RewardsRowData>((c) => c.ResultType == 3).Id;
+                m_SpecialId = ConfigSystem.Instance.Find<GameConfigs.Likes_JackpotRowData>((c) => c.Id > 100).Id;
+                m_LikesRewardConfigs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Rewards>();
+                m_LikesJackpotConfigs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Jackpot>();
+            }
+
             /// <summary>
             /// 获取随机到的奖励配置Id
             /// </summary>
@@ -48,18 +64,17 @@ namespace SGame
             {
                 //第一次必中隐藏大奖
                 if (Instance.likeData.isFirst)
-                    return ConfigSystem.Instance.Find<GameConfigs.Likes_RewardsRowData>((c)=>c.ResultType == 3).Id;
+                    return m_BigPrizeId;
 
-                List<int> weights = new List<int>();
-                var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Rewards>();
-                var len = configs.DatalistLength;
+                m_Weights.Clear();
+                var len = m_LikesRewardConfigs.DatalistLength;
                 for (int i = 0; i < len; i++)
                 {
-                    var config = configs.Datalist(i).Value;
+                    var config = m_LikesRewardConfigs.Datalist(i).Value;
                     var weight = GetRewardWeight(config.ConditionType, config.ConditionValue, config.Weight);
-                    weights.Add(weight);
+                    m_Weights.Add(weight);
                 }
-                var index = SGame.Randoms.Random._R.NextWeight(weights) + 1;
+                var index = SGame.Randoms.Random._R.NextWeight(m_Weights) + 1;
                 return index;
             }
 
@@ -72,22 +87,21 @@ namespace SGame
                 if (Instance.likeData.isFirst) 
                 {
                     Instance.likeData.isFirst = false;
-                    return ConfigSystem.Instance.Find<GameConfigs.Likes_JackpotRowData>((c)=>c.Id > 100).Id;
+                    return m_SpecialId;
                 }
 
-                List<int> weights = new List<int>();
-                var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.Likes_Jackpot>();
-                var len = configs.DatalistLength;
+                m_Weights.Clear();
+                var len = m_LikesJackpotConfigs.DatalistLength;
                 for (int i = 0; i < len; i++)
                 {
-                    var config = configs.Datalist(i).Value;
+                    var config = m_LikesJackpotConfigs.Datalist(i).Value;
                     if(config.Id <= 100) 
                     {
                         var weight = GetRewardWeight(config.ConditionType, config.ConditionValue, config.Weight);
-                        weights.Add(weight);
+                        m_Weights.Add(weight);
                     }
                 }
-                var index = SGame.Randoms.Random._R.NextWeight(weights) + 1;
+                var index = SGame.Randoms.Random._R.NextWeight(m_Weights) + 1;
                 return index;
             }
 

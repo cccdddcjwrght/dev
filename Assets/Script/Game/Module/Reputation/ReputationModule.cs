@@ -12,8 +12,6 @@ namespace SGame
     //店铺显示buff类型
     public enum ShopBuffEnum
     {
-        //Exclusive,      //开局buff
-        //RoomLike,       //好评buff
         AD_BUFF,           //广告buff
         NO_AD_BUFF,       //去广告buff
         PET_BUFF,         //当前跟随宠物buff
@@ -70,6 +68,7 @@ namespace SGame
 
         public void Initalize() 
         {
+            DataCenter.LikeUtil.Init();
             m_data = DataCenter.Instance.reputationData;
             //m_handles += EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, OnEnterRoom);
             m_handles += EventManager.Instance.Reg<BuffData>((int)GameEvent.BUFF_TRIGGER, (b) => RefreshVailedBuffList());
@@ -197,32 +196,6 @@ namespace SGame
                 return rate < cfg.LikeRatio(0);
         }
 
-        //private List<EquipmentRowData> GetRandomEqs(int id, out ChestRowData chest, ref double count, List<EquipmentRowData> rets = null)
-        //{
-        //    chest = default;
-        //    if (id != 0 && ConfigSystem.Instance.TryGet<ChestRowData>(id, out var cfg))
-        //    {
-        //        chest = cfg;
-        //        var weight = cfg.GetQualityWeightArray();
-        //        var rand = new SGame.Randoms.Random();
-        //        var acts = (cfg.GetActivityArray() ?? Array.Empty<int>()).ToList();
-        //        rets = rets ?? new List<EquipmentRowData>();
-
-        //        for (int i = 0; i < count; i++)
-        //        {
-        //            var ws = rand.NextWeights(weight, cfg.Num, false).GroupBy(v => v);
-        //            foreach (var item in ws)
-        //            {
-        //                var k = item.Key + 1;
-        //                var ls = ConfigSystem.Instance.Finds<GameConfigs.EquipmentRowData>(e => e.Quality == k);
-        //                var eqs = acts.Count == 0 ? ls : ls.FindAll(e => acts.Contains(e.Activity));
-        //                rand.NextItem(eqs, item.Count(), ref rets);
-        //            }
-        //        }
-        //        return rets;
-        //    }
-        //    return default;
-        //}
     }
 
 
