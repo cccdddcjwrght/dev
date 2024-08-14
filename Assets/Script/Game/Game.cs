@@ -32,8 +32,12 @@ public class Game : SGame.MonoSingleton<Game>
 
 	public static IEnumerator Main()
 	{
+#if true
 		var asset = Assets.LoadAsset("Assets/BuildAsset/Prefabs/Game.prefab", typeof(GameObject));
-		Instantiate(asset.asset);
+		Instantiate(asset.asset); 
+#else
+		//GameObject.Instantiate(Resources.Load<Game>("Game"));
+#endif
 		GameDebug.Log("Game Start Running");
 		yield return null;
 	}
@@ -85,7 +89,7 @@ public class Game : SGame.MonoSingleton<Game>
 	protected override void Awake()
 	{
 		base.Awake();
-		
+
 		DebugInit();
 
 		wfeof = new WaitForEndOfFrame();

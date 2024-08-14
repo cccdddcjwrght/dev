@@ -38,26 +38,29 @@ namespace SGame
 			randomSystem.Initalize((uint)Time.frameCount);
 			propertyManager.Initalize();
 
-			// 初始化UI
-			InitalizeUI();
-
 			// 数据中心
 			var dataCenter = new DataCenter(m_gameWorld);
 			dataCenter.Load();
 			m_commonModule.Add(dataCenter);
 
+			// 初始化UI
+			InitalizeUI();
+
+
 			m_loginModule = new LoginModuleSingle(world);
 			m_gameModule = new GameModuleSingle(world, m_resourceManager, randomSystem);
 
 
-			AudioSystem.Instance.SetSoundVolume("BackgroundVolume", DataCenter.Instance.setData.musicVal);
-			AudioSystem.Instance.SetSoundVolume("UIVolume", DataCenter.Instance.setData.soundVal);
 
 
 		}
 
 		public void InitGameModule()
 		{
+
+			AudioSystem.Instance.SetSoundVolume("BackgroundVolume", DataCenter.Instance.setData.musicVal);
+			AudioSystem.Instance.SetSoundVolume("UIVolume", DataCenter.Instance.setData.soundVal);
+
 			// 初始化语言
 			DataCenter.Instance.setData.InitItemDataDic();
 			// 活动时间系统

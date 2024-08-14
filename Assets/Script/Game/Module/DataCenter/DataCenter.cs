@@ -145,45 +145,52 @@ namespace SGame
 		{
 			//GameServerTime.Instance.Update((int)DateTimeOffset.Now.ToUnixTimeSeconds(), -1);
 
-			PropertyManager.Instance.InitCache(cacheItem);
-			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
-			PropertyManager.Instance.CombineCache2Items();
+			try
+			{
+				PropertyManager.Instance.InitCache(cacheItem);
+				PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).Initalize(itemData);
+				PropertyManager.Instance.CombineCache2Items();
 
-			if (loadtime == 0)
-			{
-				IsNew = true;
-				registertime = GameServerTime.Instance.serverTime;
-				if (accountData.playerID == 0)
-					accountData.playerID = System.DateTime.Now.Ticks;
-				InitItem();
-				OnFirstInit();
-				IsFirstLogin = true;
-			}
-			else
-			{
-				// 小费恢复
-				if (m_foodTipsGold > 0)
+				if (loadtime == 0)
 				{
-					log.Info("FoodTip=" + m_foodTipsGold + " before=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
-					PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, m_foodTipsGold);
-					m_foodTipsGold = 0;
-					log.Info("FoodTip=" + m_foodTipsGold + " after=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
+					IsNew = true;
+					registertime = GameServerTime.Instance.serverTime;
+					if (accountData.playerID == 0)
+						accountData.playerID = System.DateTime.Now.Ticks;
+					InitItem();
+					OnFirstInit();
+					IsFirstLogin = true;
+				}
+				else
+				{
+					// 小费恢复
+					if (m_foodTipsGold > 0)
+					{
+						log.Info("FoodTip=" + m_foodTipsGold + " before=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
+						PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, m_foodTipsGold);
+						m_foodTipsGold = 0;
+						log.Info("FoodTip=" + m_foodTipsGold + " after=" + PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).GetNum((int)ItemID.GOLD));
+					}
+
+					if (m_foodTipsCount > 0)
+					{
+						EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TIP, m_foodTipsCount);
+						m_foodTipsCount = 0;
+					}
 				}
 
-				if (m_foodTipsCount > 0)
-				{
-					EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TIP, m_foodTipsCount);
-					m_foodTipsCount = 0;
-				}
+				var scene = roomData.roomID <= 0 ? 1 : roomData.roomID;
+				var ud = GetUserData();
+				ud.scene = scene;
+				SetUserData(ud);
+
+				DoInit();
+				m_gameRecord.Initalize();
 			}
-
-			var scene = roomData.roomID <= 0 ? 1 : roomData.roomID;
-			var ud = GetUserData();
-			ud.scene = scene;
-			SetUserData(ud);
-
-			DoInit();
-			m_gameRecord.Initalize();
+			catch (Exception e)
+			{
+				log.Error("init error" , e);
+			}
 
 			IsInitAll = true;
 			loadtime = GameServerTime.Instance.serverTime;

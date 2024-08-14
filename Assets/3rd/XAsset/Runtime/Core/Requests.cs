@@ -804,7 +804,7 @@ namespace libx
             if (_request == null)
             {
                 _request = AssetBundle.LoadFromFileAsync(name);
-				_request.priority = ((int)ThreadPriority.High);
+				//_request.priority = ((int)ThreadPriority.High);
 
 				if (_request == null)
                 {

@@ -367,6 +367,7 @@ namespace SDK.THSDK
 		{
 			Debug.Log($"event:{eventID}");
 #if !UNITY_EDITOR
+			if(_isInited)
 			ThirdSdk.ThirdSDK.inst.SendAnalyticsEvent(eventID, args);
 #endif
 

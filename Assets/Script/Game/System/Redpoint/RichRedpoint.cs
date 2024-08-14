@@ -112,7 +112,7 @@ namespace SGame
 
 		private void OnUIShow(string ui)
 		{
-			if (DataCenter.Instance.IsInitAll)
+			if (DataCenter.Instance!=null && DataCenter.Instance.IsInitAll)
 			{
 				Init();
 				this.Delay(() => MarkRedpointGroup(ui, true), 1);
