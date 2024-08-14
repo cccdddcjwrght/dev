@@ -51,7 +51,7 @@ namespace SGame
             for (int i = 0; i < config.PreloadLength; i++)
             {
                 var assetPath = config.Preload(i);
-                var asset = Assets.LoadAssetAsync(assetPath, GetType(assetPath));
+                var asset = Assets.LoadAsset(assetPath, GetType(assetPath));
                 m_assetGroups.Add(asset);
             }
             loadState = LoadState.LoadAsset;

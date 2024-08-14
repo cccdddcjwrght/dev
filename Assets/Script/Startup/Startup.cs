@@ -27,8 +27,8 @@ namespace SGame
 			public string m_dllName;
 			public string m_className;
 			public string m_funcName;
-			public bool	  m_initECS;		// 是否初始化ECS
-		}	
+			public bool m_initECS;      // 是否初始化ECS
+		}
 
 		[ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "m_dllName")]
 		public Module[] m_modules;
@@ -47,7 +47,12 @@ namespace SGame
 		// Start is called before the first frame update
 		void Start()
 		{
-			FiberCtrl.Pool.Run(Run());
+			Debug.Log("App Start begin:" + Time.realtimeSinceStartup);
+#if ENABLE_HOTFIX
+			FiberCtrl.Pool.Run(Run()); 
+#else
+			StartCoroutine(NoHotFixRun());
+#endif
 		}
 
 		// 基础模块初始化
@@ -55,7 +60,7 @@ namespace SGame
 		{
 			SetupAssetPath();
 
-			Debug.Log("call 1!!!");
+			Debug.Log("call 1!!!:" + Time.realtimeSinceStartup);
 
 			// 1. 初始化日志
 			TextAsset logAsset = Resources.Load<TextAsset>(LogInitPath);
@@ -81,14 +86,15 @@ namespace SGame
 				log.Error("Asset Bundle Load Fail=" + assetRequest.error);
 				yield break;
 			}
-			log.Info("Assets InitSuccess");
+			Debug.Log("Assets InitSuccess:" + Time.realtimeSinceStartup);
 
 
 			// 3. 初始化UI
 			yield return null;
-			
+			/*
 			// 4. 去报UDPATE 将Asset 销毁
 			yield return null;
+			*/
 		}
 
 		IEnumerator LoadModules()
@@ -96,7 +102,7 @@ namespace SGame
 			// 先处理热更新
 			foreach (var module in m_modules)
 			{
-				Debug.Log("module =" + module.m_className);
+				//Debug.Log("module =" + module.m_className);
 
 				log.Info("Moudle Start Load =" + module.m_dllName);
 				Type t = LoadDll(module.m_dllName, module.m_className, out Assembly assembly);
@@ -110,7 +116,7 @@ namespace SGame
 				{
 					InitializeECS(assembly);
 				}
-				
+
 				MethodInfo method = t.GetMethod(module.m_funcName);
 				if (method == null)
 				{
@@ -129,7 +135,38 @@ namespace SGame
 				log.Info("Moudle Call Finish =" + module.m_dllName);
 			}
 		}
-		
+
+		IEnumerator LoadModule(Module module)
+		{
+			log.Info("Moudle Start Load =" + module.m_dllName);
+			Type t = LoadDll(module.m_dllName, module.m_className, out Assembly assembly);
+			if (t == null)
+			{
+				log.Error("Module Load Fail=" + module.m_dllName);
+				yield break;
+			}
+
+			if (module.m_initECS == true)
+			{
+				InitializeECS(assembly);
+			}
+
+			MethodInfo method = t.GetMethod(module.m_funcName);
+			if (method == null)
+			{
+				log.Error("Method Not Found=" + module.m_dllName);
+				yield break;
+			}
+
+			IEnumerator iter = method.Invoke(null, null) as IEnumerator;
+			if (iter == null)
+			{
+				log.Error("Method Return Value Is Not IEnumerator Module Name=" + module.m_dllName);
+				yield break;
+			}
+			yield return iter;
+			log.Info("Moudle Call Finish =" + module.m_dllName);
+		}
 
 		// 加载startup
 		IEnumerator Run()
@@ -137,14 +174,14 @@ namespace SGame
 			// 初始化基础公共对象
 			yield return BaseModuleInitalize();
 
-			log.Info("BaseModuleInitalize Finish");
-			
-			// 运行热更新
-			#if ENABLE_HOTFIX
-				yield return HotfixModule.Instance.RunHotfix();
-			#endif
+			Debug.Log("BaseModuleInitalize Finish:" + Time.realtimeSinceStartup);
 
-			Debug.Log("call 2!!!");
+			// 运行热更新
+#if ENABLE_HOTFIX
+				yield return HotfixModule.Instance.RunHotfix();
+#endif
+
+			Debug.Log("call 2!!!:" + Time.realtimeSinceStartup);
 
 			LoadAOTMeta();
 
@@ -152,12 +189,29 @@ namespace SGame
 
 			log.Info("LoadAOTMeta Finish");
 
-			Debug.Log("LoadAOTMeta game scene!!!");
+			//Debug.Log("LoadAOTMeta game scene!!!");
+			Debug.Log("App Start 2:" + Time.realtimeSinceStartup);
 
 			// 销毁startup
 			Destroy(gameObject);
 		}
 
+		IEnumerator NoHotFixRun()
+		{
+			SetupAssetPath();
+			// 资源加载初始化
+			libx.ManifestRequest assetRequest = libx.Assets.Initialize();
+			yield return assetRequest;
+			if (!string.IsNullOrEmpty(assetRequest.error))
+			{
+				log.Error("Asset Bundle Load Fail=" + assetRequest.error);
+				yield break;
+			}
+			if (m_modules.Length > 0)
+				yield return LoadModule(m_modules[0]);
+			Debug.Log("App Start end:" + Time.realtimeSinceStartup);
+			Destroy(gameObject);
+		}
 
 		Type LoadDll(string module, string className, out Assembly assembly)
 		{
@@ -181,7 +235,7 @@ namespace SGame
 			Type t = hotUpdateAss.GetType(className);
 			return t;
 		}
-		
+
 
 		/// <summary>
 		/// 加载AOT 原数据
@@ -190,7 +244,7 @@ namespace SGame
 		{
 			//Assembly.GetAssembly()
 			//Assembly.GetEntryAssembly()
-			
+
 #if !UNITY_EDITOR && ENABLE_HOTFIX
             const string AOTBasePath = "Assets/BuildAsset/AOTMeta/";
 			var files = IniUtils.GetAotFiles();
@@ -225,7 +279,7 @@ namespace SGame
 		}
 
 		static bool ECS_Initalize = false;
-		
+
 		// 解决场景初始话可能导致失败的问题
 		//[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		private static void InitializeECS(Assembly asselbly)
@@ -236,9 +290,9 @@ namespace SGame
 				return;
 			}
 			ECS_Initalize = true;
-			
+
 #if UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP
-			#if !UNITY_EDITOR && ENABLE_HOTFIX
+#if !UNITY_EDITOR && ENABLE_HOTFIX
 				Debug.Log("BEGIN ECS TYPES...");
 				var dotsAssemblies = new Assembly[] {asselbly};
 				var componentTypes = new HashSet<System.Type>();
@@ -248,11 +302,13 @@ namespace SGame
 					Debug.Log("reg ecs component=" + c.FullName);
 				TypeManager.AddNewComponentTypes(components);
 				TypeManager.EarlyInitAssemblies(dotsAssemblies);
-			#endif
+#endif
 
 			log.Info("UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP Init!");
 			Unity.Entities.DefaultWorldInitialization.Initialize("Default World", false);
+			Debug.Log("ECS Inited");
 #endif
 		}
 	}
+
 }

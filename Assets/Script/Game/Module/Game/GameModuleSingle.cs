@@ -144,6 +144,7 @@ namespace SGame
 			var prefab = m_resourceManager.LoadPrefab(script);
 			log.Info("[game]LooadPrefab");
 			var go = GameObject.Instantiate(prefab);
+			go.SetActive(true);
 			log.Info("[game]End Game Init");
 			
 			CreateGuide();

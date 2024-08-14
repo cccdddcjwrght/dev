@@ -34,9 +34,7 @@ public class Game : SGame.MonoSingleton<Game>
 	{
 		var asset = Assets.LoadAsset("Assets/BuildAsset/Prefabs/Game.prefab", typeof(GameObject));
 		Instantiate(asset.asset);
-		//asset.Release();
-
-		log.Info("Game Start Running");
+		GameDebug.Log("Game Start Running");
 		yield return null;
 	}
 
@@ -53,7 +51,7 @@ public class Game : SGame.MonoSingleton<Game>
 
 	public bool IsInitalize { get { return m_isInitalized; } }
 
-	public string LogInitPath = "Assets/BuildAsset/Setting/log4net.xml";
+	public string LogInitPath = "Assets/BuildAsset/Log/log4net.xml.bytes";
 	private string LogInitPath_ERROR = "Assets/BuildAsset/Log/log4net-error.xml.bytes";
 
 	public string AudioMixerPath = "Assets/BuildAsset/Audio/mixer/Game.mixer";  // 声音Mixer资源
@@ -144,7 +142,7 @@ public class Game : SGame.MonoSingleton<Game>
 
 		// 日志系统初始化
 #if CHECK || !SVR_RELEASE
-		AssetRequest logReq = Assets.LoadAssetAsync(LogInitPath, typeof(TextAsset)); 
+		AssetRequest logReq = Assets.LoadAssetAsync(LogInitPath, typeof(TextAsset));
 #else
 		AssetRequest logReq = Assets.LoadAssetAsync(LogInitPath_ERROR, typeof(TextAsset));
 #endif
@@ -158,7 +156,6 @@ public class Game : SGame.MonoSingleton<Game>
 		var logConfig = logReq.asset as TextAsset;
 		using (MemoryStream ms = new MemoryStream(logConfig.bytes))
 		{
-			GameDebug.Log("logConfig bytes = " + logConfig.bytes.Length);
 			log4net.Config.XmlConfigurator.Configure(ms);
 		}
 
@@ -179,6 +176,8 @@ public class Game : SGame.MonoSingleton<Game>
 		World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<AudioSystem>().Initalize(audioReq.asset as AudioMixer);
 
 		yield return SDK.SDKProxy.Init();
+
+		logReq.Release();
 
 		console.AddCommand("close", OnExitConsole, "close console");
 		console.Write("Welcome Game Console...");
@@ -216,6 +215,7 @@ public class Game : SGame.MonoSingleton<Game>
 		eventManager = EventManager.Instance;
 
 		yield return InitSystem();
+		log.Info("Init System end...");
 
 		m_isInitalized = true;
 		m_initalizeEntity = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntity(typeof(GameInitFinish));

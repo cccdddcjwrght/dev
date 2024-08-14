@@ -214,6 +214,7 @@ namespace SGame
 		IEnumerator RunPreloadLogic(GSceneRequest loading)
 		{
 			loading.state = GSceneRequest.STATE.PRELOAD_ASSET;
+			yield return null;
 			loading.preloadAssets = SceneRequestFactory.CreatePreloadRequest(loading.name);
 			if (loading.preloadAssets != null)
 			{
@@ -274,27 +275,27 @@ namespace SGame
 				}
 
 				// 1. 切换场景与UI
-				log.Debug("sceneloading step 1");
+				log.LogDebug("sceneloading step 1");
 				yield return RunLoadingLogic(loading, config);
 
 				// 2. 预加载资源
-				log.Debug("sceneloading step 2");
+				log.LogDebug("sceneloading step 2");
 				yield return RunPreloadLogic(loading);
 
 				
 				// 3. 加载场景
 				loading.state = GSceneRequest.STATE.LOAD_SCENE;
-				log.Debug("sceneloading step 3");
+				log.LogDebug("sceneloading step 3");
 				loading.sceneRequest = libx.Assets.LoadSceneAsync(config.FullPath, false);
 				yield return loading.sceneRequest;
 				loading.state = GSceneRequest.STATE.LOAD_SCENE_COMPLETED;
 
-				log.Debug("sceneloading step 4");
+				log.LogDebug("sceneloading step 4");
 				if (loading.logic != null)
 					yield return loading.logic;
 
 				// 5. 等待服务器同步
-				log.Debug("sceneloading step 5");
+				log.LogDebug("sceneloading step 5");
 				if (loading.networkSync != null)
 				{
 					loading.state = GSceneRequest.STATE.APPLY_SERVER;
@@ -307,7 +308,7 @@ namespace SGame
 				loading.state = GSceneRequest.STATE.INIT_FINISH;
 
 				// 6. 清除加载UI
-				log.Debug("sceneloading step 6");
+				log.LogDebug("sceneloading step 6");
 				if (loading.loadingUI != default)
 				{
 					m_closeUI?.Invoke(loading.loadingUI);
@@ -315,7 +316,7 @@ namespace SGame
 				}
 
 				// 7. 清除加载资源
-				log.Debug("sceneloading step 7");
+				log.LogDebug("sceneloading step 7");
 				if (loading.loadingScene != null)
 				{
 					loading.loadingScene.Release();
@@ -327,7 +328,7 @@ namespace SGame
 				loading.Update();
 
 				// 错误处理
-				log.Debug("sceneloading step 8");
+				log.LogDebug("sceneloading step 8");
 				if (loading.isDone && string.IsNullOrEmpty(loading.error))
 				{
 					// 正常结束
@@ -357,5 +358,6 @@ namespace SGame
 			// 运行逻辑
 			m_fiber.Step();
 		}
+
 	}
 }

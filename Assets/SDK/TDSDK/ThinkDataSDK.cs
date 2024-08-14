@@ -38,6 +38,11 @@ namespace SDK.TDSDK
 	public partial class ThinkDataSDK : TDDynamicSuperProperties, TDAutoTrackEventCallback
 	{
 
+		private const string c_appid = "b1c596cc0c1e4446ab35952268450212";
+		private const string c_appurl = "http://3.6.180.240:8991/";
+		private const bool c_appauto = false;
+		private const bool c_applog = false;
+
 		private bool _isInited = false;
 		private bool _isStarted = false;
 		private Func<string, string> _configProxy;
@@ -60,8 +65,8 @@ namespace SDK.TDSDK
 
 			var tokens = api.configs == null || api.configs.Length == 0 ? new TDTOKEN[1] : api.configs;
 			var tk = tokens[0] == null || tokens[0].appId == null ? new TDTOKEN("", serverUrl: "") : tokens[0];
-			var appid = GetCfg<string>("td_appid", tk.appId);
-			var url = GetCfg<string>("td_url", tk.serverUrl);
+			var appid = c_appid ?? GetCfg<string>("td_appid", tk.appId);
+			var url = c_appurl ?? GetCfg<string>("td_url", tk.serverUrl);
 
 			if (string.IsNullOrEmpty(appid) || string.IsNullOrEmpty(url))
 			{
@@ -71,14 +76,14 @@ namespace SDK.TDSDK
 
 			tk.appId = appid;
 			tk.serverUrl = url;
-			tk.mode = GetCfg<TDMODE>("td_mode", tk.mode);
-			tk.timeZone = GetCfg<TDTIME>("td_zone", tk.timeZone);
+			//tk.mode = GetCfg<TDMODE>("td_mode", tk.mode);
+			//tk.timeZone = GetCfg<TDTIME>("td_zone", tk.timeZone);
 
 			tokens[0] = tk;
 			api.configs = tokens;
-			api.networkType = GetCfg<TDNetworkType>("td_net", api.networkType);
-			api.enableLog = GetCfg<bool>("td_log", api.enableLog);
-			api.startManually = GetCfg<bool>("td_auto", api.startManually);
+			api.enableLog = c_applog;// GetCfg<bool>("td_log", api.enableLog);
+			api.startManually = c_appauto;// GetCfg<bool>("td_auto", api.startManually);
+										  //api.networkType = GetCfg<TDNetworkType>("td_net", api.networkType);
 
 			var superproperties = default(Dictionary<string, object>);
 			DoGetCommonSuperProperties(ref superproperties);

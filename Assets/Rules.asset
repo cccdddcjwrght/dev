@@ -75,7 +75,7 @@ MonoBehaviour:
     assetBundleName: characters
   - searchPath: Assets/BuildAsset/VisualScript
     searchPattern: '*.prefab,*.asset'
-    nameBy: 0
+    nameBy: 1
     assetBundleName: visualscript
   - searchPath: Assets/BuildAsset/fonts
     searchPattern: '*.asset,*.ttf'
@@ -2290,6 +2290,8 @@ MonoBehaviour:
     path: assets/buildasset/json/testrankdata.txt.bytes
   - bundle: assets/buildasset/log/lan.bytes.unity3d
     path: assets/buildasset/log/lan.bytes
+  - bundle: assets/buildasset/log/log4net-error.xml.bytes.unity3d
+    path: assets/buildasset/log/log4net-error.xml.bytes
   - bundle: assets/buildasset/log/log4net.xml.bytes.unity3d
     path: assets/buildasset/log/log4net.xml.bytes
   - bundle: assets/buildasset/prefabs.unity3d
@@ -3370,271 +3372,249 @@ MonoBehaviour:
     path: assets/buildasset/ui/worktable_atlas0.png
   - bundle: assets/buildasset/ui/worktable.unity3d
     path: assets/buildasset/ui/worktable_fui.bytes
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/excute/excute.asset.unity3d
     path: assets/buildasset/visualscript/excute/excute.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game.asset.unity3d
     path: assets/buildasset/visualscript/game.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/attribute/getgratuity.asset.unity3d
     path: assets/buildasset/visualscript/game/attribute/getgratuity.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/attribute/getgratuityrate.asset.unity3d
     path: assets/buildasset/visualscript/game/attribute/getgratuityrate.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/audio/gameaudio.asset.unity3d
     path: assets/buildasset/visualscript/game/audio/gameaudio.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/build/createelevator.asset.unity3d
     path: assets/buildasset/visualscript/game/build/createelevator.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/build/elevator.asset.unity3d
     path: assets/buildasset/visualscript/game/build/elevator.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/build/initlevelelevator.asset.unity3d
     path: assets/buildasset/visualscript/game/build/initlevelelevator.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/build/moveobjectto.asset.unity3d
     path: assets/buildasset/visualscript/game/build/moveobjectto.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/car/bus.asset.unity3d
     path: assets/buildasset/visualscript/game/car/bus.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/car/buscustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/car/buscustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/car/car.asset.unity3d
     path: assets/buildasset/visualscript/game/car/car.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/car/carcustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/car/carcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/car/carfactory.asset.unity3d
     path: assets/buildasset/visualscript/game/car/carfactory.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/car/carorder.asset.unity3d
     path: assets/buildasset/visualscript/game/car/carorder.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/chef.asset.unity3d
     path: assets/buildasset/visualscript/game/character/chef.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/createcharacterevent.asset.unity3d
     path: assets/buildasset/visualscript/game/character/createcharacterevent.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/createcharactersinelevator.asset.unity3d
     path: assets/buildasset/visualscript/game/character/createcharactersinelevator.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/createcustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/createcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/createelevatorcustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/createelevatorcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/customer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/customer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/customer2.asset.unity3d
     path: assets/buildasset/visualscript/game/character/customer2.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/customercommon.asset.unity3d
     path: assets/buildasset/visualscript/game/character/customercommon.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/friendcustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/friendcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset.unity3d
     path: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/player.asset.unity3d
     path: assets/buildasset/visualscript/game/character/player.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/superwaiter.asset.unity3d
     path: assets/buildasset/visualscript/game/character/superwaiter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/characterinitstate.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/characterinitstate.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/cooking.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/cooking.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/customerleave.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/customerleave.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/startcooking.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/startcooking.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/startordering.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/startordering.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/utils/workerchangelook.asset.unity3d
     path: assets/buildasset/visualscript/game/character/utils/workerchangelook.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/waitcharacterfinish.asset.unity3d
     path: assets/buildasset/visualscript/game/character/waitcharacterfinish.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/character/waiter.asset.unity3d
     path: assets/buildasset/visualscript/game/character/waiter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/friendcustomercreater.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/friendcustomercreater.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/getfriendconfig.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendconfig.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/getfriendgratuity.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendgratuity.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/getfriendordernum.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendordernum.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/getrandromfriendid.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/getrandromfriendid.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/hirefriendanimation.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/hirefriendanimation.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/closeguidefinger.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/closemask.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/guide.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/guideaddstep.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/guideclick.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/guidestep.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/guidewaitevent.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/guidewaititem.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/guidewaitui.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/showguidefinger.asset
-  - bundle: visualscript.unity3d
-    path: assets/buildasset/visualscript/game/guide/showmask.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/init/createlevelcharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/init/createlevelcharacter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/order/ordercookfinish.asset.unity3d
     path: assets/buildasset/visualscript/game/order/ordercookfinish.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/order/ordercookstart.asset.unity3d
     path: assets/buildasset/visualscript/game/order/ordercookstart.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/order/orderfinish.asset.unity3d
     path: assets/buildasset/visualscript/game/order/orderfinish.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/order/orderfoodtips.asset.unity3d
     path: assets/buildasset/visualscript/game/order/orderfoodtips.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/order/orderreputationtip.asset.unity3d
     path: assets/buildasset/visualscript/game/order/orderreputationtip.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/createbullet.asset.unity3d
     path: assets/buildasset/visualscript/game/room/createbullet.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/customerleavebullet.asset.unity3d
     path: assets/buildasset/visualscript/game/room/customerleavebullet.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/customerleavedressup.asset.unity3d
     path: assets/buildasset/visualscript/game/room/customerleavedressup.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/customerleavereturn.asset.unity3d
     path: assets/buildasset/visualscript/game/room/customerleavereturn.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/getbullettargetposition.asset.unity3d
     path: assets/buildasset/visualscript/game/room/getbullettargetposition.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/iselevatorroom.asset.unity3d
     path: assets/buildasset/visualscript/game/room/iselevatorroom.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/dispatchfoodreadlyorder2woker.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/dispatchfoodreadlyorder2woker.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/dispatchorder2waitergetfood.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/dispatchorder2waitergetfood.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/dispatchorder2woker.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/dispatchorder2woker.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/dispatchordertask.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/dispatchordertask.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/dispatchwaitcustomer2worker.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/dispatchwaitcustomer2worker.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/getbestemptywaiter.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/getbestemptywaiter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/getdistanceonlypriority.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/getdistanceonlypriority.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/getworkerspriority.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/getworkerspriority.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/manager/roommanager.asset.unity3d
     path: assets/buildasset/visualscript/game/room/manager/roommanager.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/onapppause.asset.unity3d
     path: assets/buildasset/visualscript/game/room/onapppause.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/oncustomerclose.asset.unity3d
     path: assets/buildasset/visualscript/game/room/oncustomerclose.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/oncustomercreate.asset.unity3d
     path: assets/buildasset/visualscript/game/room/oncustomercreate.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/railwaylooking.asset.unity3d
     path: assets/buildasset/visualscript/game/room/railwaylooking.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/room/roomcleanup.asset.unity3d
     path: assets/buildasset/visualscript/game/room/roomcleanup.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/additem.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/additem.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/charactermove.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/charactermove3d.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/charactermove3d.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/createcharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/createcharacter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getcookingpos.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getcookingpos.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getfoodtype.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getfoodtype.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getindexpos.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getindexpos.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getonlinetime.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getonlinetime.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getorderpos.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getorderpos.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/gettablechair.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/recovercharacter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/recoverlevelcharacter.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/recoverlevelcharacter.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/game/utils/setitem.asset.unity3d
     path: assets/buildasset/visualscript/game/utils/setitem.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/gameelevator.asset.unity3d
     path: assets/buildasset/visualscript/gameelevator.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/gmscript.asset.unity3d
     path: assets/buildasset/visualscript/gmscript.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/login/login.asset.unity3d
     path: assets/buildasset/visualscript/login/login.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/bus.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/bus.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/buscustomer.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/buscustomer.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/car.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/car.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/carcustomer.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/carcustomer.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/chef.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/chef.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/customer.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/customer.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/customertest.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/customertest.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/player.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/player.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/player2.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/player2.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/ai/waiter.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/ai/waiter.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/building/elevator.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/building/elevator.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/game.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/guide.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/guide.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/login.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/login.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/reqexcute.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/reqexcute.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/prefabs/scenevariables.prefab.unity3d
     path: assets/buildasset/visualscript/prefabs/scenevariables.prefab
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/test/cartest.asset.unity3d
     path: assets/buildasset/visualscript/test/cartest.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/test/createtestcustomer.asset.unity3d
     path: assets/buildasset/visualscript/test/createtestcustomer.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/test/customertest.asset.unity3d
     path: assets/buildasset/visualscript/test/customertest.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/test/gametest.asset.unity3d
     path: assets/buildasset/visualscript/test/gametest.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/test/testfriendconfig.asset.unity3d
     path: assets/buildasset/visualscript/test/testfriendconfig.asset
-  - bundle: visualscript.unity3d
+  - bundle: assets/buildasset/visualscript/testevent.asset.unity3d
     path: assets/buildasset/visualscript/testevent.asset
   ruleBundles:
   - name: assets/buildasset/art/scenes/animal.unity3d
@@ -4877,6 +4857,9 @@ MonoBehaviour:
   - name: assets/buildasset/log/lan.bytes.unity3d
     assets:
     - assets/buildasset/log/lan.bytes
+  - name: assets/buildasset/log/log4net-error.xml.bytes.unity3d
+    assets:
+    - assets/buildasset/log/log4net-error.xml.bytes
   - name: assets/buildasset/log/log4net.xml.bytes.unity3d
     assets:
     - assets/buildasset/log/log4net.xml.bytes
@@ -5464,140 +5447,371 @@ MonoBehaviour:
   - name: assets/buildasset/customcharacters/role/hair-9_mesh.asset.unity3d
     assets:
     - assets/buildasset/customcharacters/role/hair-9_mesh.asset
-  - name: visualscript.unity3d
+  - name: assets/buildasset/visualscript/prefabs/game.prefab.unity3d
     assets:
     - assets/buildasset/visualscript/prefabs/game.prefab
+  - name: assets/buildasset/visualscript/prefabs/guide.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/guide.prefab
+  - name: assets/buildasset/visualscript/prefabs/login.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/login.prefab
+  - name: assets/buildasset/visualscript/prefabs/reqexcute.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/reqexcute.prefab
+  - name: assets/buildasset/visualscript/prefabs/scenevariables.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/scenevariables.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/bus.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/bus.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/buscustomer.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/buscustomer.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/car.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/car.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/carcustomer.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/carcustomer.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/chef.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/chef.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/customer.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/customer.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/customertest.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/customertest.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/friendcustomer.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/player.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/player.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/player2.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/player2.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/superwaiter.prefab
+  - name: assets/buildasset/visualscript/prefabs/ai/waiter.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/ai/waiter.prefab
+  - name: assets/buildasset/visualscript/prefabs/building/elevator.prefab.unity3d
+    assets:
     - assets/buildasset/visualscript/prefabs/building/elevator.prefab
+  - name: assets/buildasset/visualscript/game.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game.asset
+  - name: assets/buildasset/visualscript/gameelevator.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/gameelevator.asset
+  - name: assets/buildasset/visualscript/gmscript.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/gmscript.asset
+  - name: assets/buildasset/visualscript/testevent.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/testevent.asset
+  - name: assets/buildasset/visualscript/excute/excute.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/excute/excute.asset
+  - name: assets/buildasset/visualscript/login/login.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/login/login.asset
+  - name: assets/buildasset/visualscript/test/cartest.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/test/cartest.asset
+  - name: assets/buildasset/visualscript/test/createtestcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/test/createtestcustomer.asset
+  - name: assets/buildasset/visualscript/test/customertest.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/test/customertest.asset
+  - name: assets/buildasset/visualscript/test/gametest.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/test/gametest.asset
+  - name: assets/buildasset/visualscript/test/testfriendconfig.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/test/testfriendconfig.asset
+  - name: assets/buildasset/visualscript/game/attribute/getgratuity.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/attribute/getgratuity.asset
+  - name: assets/buildasset/visualscript/game/attribute/getgratuityrate.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/attribute/getgratuityrate.asset
+  - name: assets/buildasset/visualscript/game/audio/gameaudio.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/audio/gameaudio.asset
+  - name: assets/buildasset/visualscript/game/build/createelevator.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/build/createelevator.asset
+  - name: assets/buildasset/visualscript/game/build/elevator.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/build/elevator.asset
+  - name: assets/buildasset/visualscript/game/build/initlevelelevator.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/build/initlevelelevator.asset
+  - name: assets/buildasset/visualscript/game/build/moveobjectto.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/build/moveobjectto.asset
+  - name: assets/buildasset/visualscript/game/car/bus.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/car/bus.asset
+  - name: assets/buildasset/visualscript/game/car/buscustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/car/buscustomer.asset
+  - name: assets/buildasset/visualscript/game/car/car.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/car/car.asset
+  - name: assets/buildasset/visualscript/game/car/carcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/car/carcustomer.asset
+  - name: assets/buildasset/visualscript/game/car/carfactory.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/car/carfactory.asset
+  - name: assets/buildasset/visualscript/game/car/carorder.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/car/carorder.asset
+  - name: assets/buildasset/visualscript/game/character/chef.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/chef.asset
+  - name: assets/buildasset/visualscript/game/character/createcharacterevent.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/createcharacterevent.asset
+  - name: assets/buildasset/visualscript/game/character/createcharactersinelevator.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/createcharactersinelevator.asset
+  - name: assets/buildasset/visualscript/game/character/createcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/createcustomer.asset
+  - name: assets/buildasset/visualscript/game/character/createelevatorcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/createelevatorcustomer.asset
+  - name: assets/buildasset/visualscript/game/character/customer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/customer.asset
+  - name: assets/buildasset/visualscript/game/character/customer2.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/customer2.asset
+  - name: assets/buildasset/visualscript/game/character/customercommon.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/customercommon.asset
+  - name: assets/buildasset/visualscript/game/character/friendcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/friendcustomer.asset
+  - name: assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/getcustomerfoodnum.asset
+  - name: assets/buildasset/visualscript/game/character/player.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/player.asset
+  - name: assets/buildasset/visualscript/game/character/superwaiter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/superwaiter.asset
+  - name: assets/buildasset/visualscript/game/character/waitcharacterfinish.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/waitcharacterfinish.asset
+  - name: assets/buildasset/visualscript/game/character/waiter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/waiter.asset
+  - name: assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/checkfriendcustomercreate.asset
+  - name: assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/firendcustomertrigger.asset
+  - name: assets/buildasset/visualscript/game/friend/friendcustomercreater.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/friendcustomercreater.asset
+  - name: assets/buildasset/visualscript/game/friend/getfriendconfig.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/getfriendconfig.asset
+  - name: assets/buildasset/visualscript/game/friend/getfriendgratuity.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/getfriendgratuity.asset
+  - name: assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/getfriendgratuityrate.asset
+  - name: assets/buildasset/visualscript/game/friend/getfriendordernum.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/getfriendordernum.asset
+  - name: assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/getfriendtriggertime.asset
+  - name: assets/buildasset/visualscript/game/friend/getrandromfriendid.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/getrandromfriendid.asset
+  - name: assets/buildasset/visualscript/game/friend/hirefriendanimation.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/hirefriendanimation.asset
+  - name: assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/friend/hirefriendcharacter.asset
-    - assets/buildasset/visualscript/game/guide/closeguidefinger.asset
-    - assets/buildasset/visualscript/game/guide/closemask.asset
-    - assets/buildasset/visualscript/game/guide/guide.asset
-    - assets/buildasset/visualscript/game/guide/guideaddstep.asset
-    - assets/buildasset/visualscript/game/guide/guideclick.asset
-    - assets/buildasset/visualscript/game/guide/guidestep.asset
-    - assets/buildasset/visualscript/game/guide/guidewaitevent.asset
-    - assets/buildasset/visualscript/game/guide/guidewaititem.asset
-    - assets/buildasset/visualscript/game/guide/guidewaitui.asset
-    - assets/buildasset/visualscript/game/guide/showguidefinger.asset
-    - assets/buildasset/visualscript/game/guide/showmask.asset
+  - name: assets/buildasset/visualscript/game/init/createlevelcharacter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/init/createlevelcharacter.asset
+  - name: assets/buildasset/visualscript/game/order/ordercookfinish.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/order/ordercookfinish.asset
+  - name: assets/buildasset/visualscript/game/order/ordercookstart.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/order/ordercookstart.asset
+  - name: assets/buildasset/visualscript/game/order/orderfinish.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/order/orderfinish.asset
+  - name: assets/buildasset/visualscript/game/order/orderfoodtips.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/order/orderfoodtips.asset
+  - name: assets/buildasset/visualscript/game/order/orderreputationtip.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/order/orderreputationtip.asset
+  - name: assets/buildasset/visualscript/game/room/createbullet.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/createbullet.asset
+  - name: assets/buildasset/visualscript/game/room/customerleavebullet.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/customerleavebullet.asset
+  - name: assets/buildasset/visualscript/game/room/customerleavedressup.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/customerleavedressup.asset
+  - name: assets/buildasset/visualscript/game/room/customerleavereturn.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/customerleavereturn.asset
+  - name: assets/buildasset/visualscript/game/room/getbullettargetposition.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/getbullettargetposition.asset
+  - name: assets/buildasset/visualscript/game/room/iselevatorroom.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/iselevatorroom.asset
+  - name: assets/buildasset/visualscript/game/room/onapppause.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/onapppause.asset
+  - name: assets/buildasset/visualscript/game/room/oncustomerclose.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/oncustomerclose.asset
+  - name: assets/buildasset/visualscript/game/room/oncustomercreate.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/oncustomercreate.asset
+  - name: assets/buildasset/visualscript/game/room/railwaylooking.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/railwaylooking.asset
+  - name: assets/buildasset/visualscript/game/room/roomcleanup.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/roomcleanup.asset
+  - name: assets/buildasset/visualscript/game/utils/additem.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/additem.asset
+  - name: assets/buildasset/visualscript/game/utils/charactermove.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/charactermove.asset
+  - name: assets/buildasset/visualscript/game/utils/charactermove3d.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/charactermove3d.asset
+  - name: assets/buildasset/visualscript/game/utils/createcharacter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/createcharacter.asset
+  - name: assets/buildasset/visualscript/game/utils/createlevelcharacter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/createlevelcharacter.asset
+  - name: assets/buildasset/visualscript/game/utils/getcharacerattribute.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getcharacerattribute.asset
+  - name: assets/buildasset/visualscript/game/utils/getcookingpos.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getcookingpos.asset
+  - name: assets/buildasset/visualscript/game/utils/getfoodtype.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getfoodtype.asset
+  - name: assets/buildasset/visualscript/game/utils/getindexpos.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getindexpos.asset
+  - name: assets/buildasset/visualscript/game/utils/getonlinetime.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getonlinetime.asset
+  - name: assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getorderchairfromchair.asset
+  - name: assets/buildasset/visualscript/game/utils/getorderpos.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getorderpos.asset
+  - name: assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/getrandomfoodtype.asset
+  - name: assets/buildasset/visualscript/game/utils/gettablechair.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/gettablechair.asset
+  - name: assets/buildasset/visualscript/game/utils/recovercharacter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/recovercharacter.asset
+  - name: assets/buildasset/visualscript/game/utils/recoverlevelcharacter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/recoverlevelcharacter.asset
+  - name: assets/buildasset/visualscript/game/utils/setitem.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/utils/setitem.asset
+  - name: assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/characterfinishorder.asset
+  - name: assets/buildasset/visualscript/game/character/utils/characterinitstate.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/characterinitstate.asset
+  - name: assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/cheftakeorder.asset
+  - name: assets/buildasset/visualscript/game/character/utils/cooking.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/cooking.asset
+  - name: assets/buildasset/visualscript/game/character/utils/customerleave.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/customerleave.asset
+  - name: assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/quitsleepcustomer.asset
+  - name: assets/buildasset/visualscript/game/character/utils/startcooking.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/startcooking.asset
+  - name: assets/buildasset/visualscript/game/character/utils/startordering.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/startordering.asset
+  - name: assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/walktonewcustomer.asset
+  - name: assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/walktoordercustomer.asset
+  - name: assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/walktosleepcustomer.asset
+  - name: assets/buildasset/visualscript/game/character/utils/workerchangelook.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/character/utils/workerchangelook.asset
+  - name: assets/buildasset/visualscript/game/room/manager/dispatchfoodreadlyorder2woker.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/dispatchfoodreadlyorder2woker.asset
+  - name: assets/buildasset/visualscript/game/room/manager/dispatchorder2waitergetfood.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/dispatchorder2waitergetfood.asset
+  - name: assets/buildasset/visualscript/game/room/manager/dispatchorder2woker.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/dispatchorder2woker.asset
+  - name: assets/buildasset/visualscript/game/room/manager/dispatchordertask.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/dispatchordertask.asset
+  - name: assets/buildasset/visualscript/game/room/manager/dispatchwaitcustomer2worker.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/dispatchwaitcustomer2worker.asset
+  - name: assets/buildasset/visualscript/game/room/manager/getbestemptywaiter.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/getbestemptywaiter.asset
+  - name: assets/buildasset/visualscript/game/room/manager/getdistanceonlypriority.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/getdistanceonlypriority.asset
+  - name: assets/buildasset/visualscript/game/room/manager/getworkerspriority.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/getworkerspriority.asset
+  - name: assets/buildasset/visualscript/game/room/manager/roommanager.asset.unity3d
+    assets:
     - assets/buildasset/visualscript/game/room/manager/roommanager.asset
   - name: assets/buildasset/fonts/lilitaone/lilitaone-regular-sdf.asset.unity3d
     assets:

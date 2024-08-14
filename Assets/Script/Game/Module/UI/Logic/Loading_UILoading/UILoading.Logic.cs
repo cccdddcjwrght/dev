@@ -39,6 +39,7 @@ namespace SGame.UI
 			m_progressBar.value = 0;
 			m_text.text = "ui_loading_tips".Local();
 			context.onUpdate += OnUpdate;
+			StaticDefine.G_IS_LOADING = true;
 		}
 
 		void OnUpdate(UIContext context)
@@ -51,6 +52,8 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			context.onUpdate -= OnUpdate;
+			StaticDefine.G_IS_LOADING = false;
+
 		}
 	}
 }

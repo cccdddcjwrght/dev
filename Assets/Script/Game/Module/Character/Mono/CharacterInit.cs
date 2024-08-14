@@ -135,7 +135,7 @@ using System.Collections.Generic;
             ai.transform.localPosition = Vector3.zero;
             ai.transform.localScale = Vector3.one;
             ai.name = "AI";
-            
+			ai.SetActive(true);
             script = ai;
             
             if (script != null)

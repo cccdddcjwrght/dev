@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using FairyGUI;
 using GameConfigs;
-using Microsoft.SqlServer.Server;
 using SGame;
 using SGame.UI;
 using SGame.UI.Player;

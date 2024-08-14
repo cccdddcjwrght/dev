@@ -38,12 +38,12 @@ namespace SGame
 				log.Error(e.Message + "-" + e.StackTrace);
 			}
 
-			var go = resource.LoadPrefab(path);
+			/*var go = resource.LoadPrefab(path);
 			if (go)
 			{
 				go = GameObject.Instantiate(go);
 				GameObject.DontDestroyOnLoad(go);
-			}
+			}*/
 #if !SVR_RELEASE
 			UIUtils.OpenUI("gmui");
 #endif
@@ -58,11 +58,17 @@ namespace SGame
 
 		private IEnumerator CallInitMethod(List<System.Reflection.MethodInfo> methods)
 		{
-			yield return new WaitEvent<int>(((int)GameEvent.ENTER_ROOM));
+
+
+			yield return new WaitEvent<int>(((int)GameEvent.BEFORE_ENTER_ROOM));
 			methods.Foreach(m => m.Invoke(null, Array.Empty<object>()));
+
+
 			DataCenter.HunterUtil.Init();
 			DataCenter.CookbookUtils.Init();
 			DataCenter.WorkerDataUtils.Init();
+
+
 		}
 
 

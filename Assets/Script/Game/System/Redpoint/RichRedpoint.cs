@@ -56,6 +56,11 @@ namespace SGame
 
 		#region Override
 
+		protected override bool CheckUpdatae()
+		{
+			return !StaticDefine.G_IS_LOADING;
+		}
+
 		protected override void InitCalculation()
 		{
 			OnCalculation = (c, t, a) =>

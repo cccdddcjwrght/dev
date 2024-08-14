@@ -206,5 +206,7 @@ namespace SGame
 		public static Vector3 G_GET_WORKER_POS	= default;
 		public static int G_GET_WORKER_TYPE		= 0;
 
+		public static bool G_IS_LOADING = true;
+
 	}
 }

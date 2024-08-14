@@ -167,6 +167,8 @@ namespace SGame
 
 		protected override void OnUpdate()
 		{
+			if (!CheckUpdatae()) return;
+
 			if (_commandBuffSys == null) return;
 			var cmd = _commandBuffSys.CreateCommandBuffer();
 
@@ -880,6 +882,8 @@ namespace SGame
 		{
 			return SystemInfo.deviceUniqueIdentifier;
 		}
+
+		protected virtual bool CheckUpdatae() { return true; }
 
 		#endregion
 

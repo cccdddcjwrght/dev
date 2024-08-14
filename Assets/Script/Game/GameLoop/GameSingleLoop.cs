@@ -11,69 +11,68 @@ namespace SGame
 	/// <summary>
 	/// 单机逻辑
 	/// </summary>
-	public class GameSingleLoop :  IGameLoop
+	public class GameSingleLoop : IGameLoop
 	{
 		/// <summary>
 		///  游戏状态
 		/// </summary>
 		public enum GAME_STATE
 		{
-			LOGIN	= 0, // 登录界面, 登录逻辑
+			LOGIN = 0, // 登录界面, 登录逻辑
 			GAMEING = 1, // 游戏中
-			LOBBY   = 2, // 大厅
+			LOBBY = 2, // 大厅
 		}
-		
+
 		/// <summary>
 		/// 模块初始化
 		/// </summary>
 		void InitModule()
 		{
 			//GameLogicGroup.UpdateSystem();
-			m_commonModule		 = new List<IModule>();
-			var world			 = m_gameWorld;
-			var ecsWorld		 = world.GetECSWorld();
-			var randomSystem	 = RandomSystem.Instance;
-			var propertyManager  = PropertyManager.Instance;
+			m_commonModule = new List<IModule>();
+			var world = m_gameWorld;
+			var ecsWorld = world.GetECSWorld();
+			var randomSystem = RandomSystem.Instance;
+			var propertyManager = PropertyManager.Instance;
 
 			randomSystem.Initalize((uint)Time.frameCount);
 			propertyManager.Initalize();
 
 			// 初始化UI
 			InitalizeUI();
-			
+
 			// 数据中心
 			var dataCenter = new DataCenter(m_gameWorld);
 			dataCenter.Load();
 			m_commonModule.Add(dataCenter);
-			
+
 			m_loginModule = new LoginModuleSingle(world);
-			m_gameModule = new GameModuleSingle(world, m_resourceManager,  randomSystem);
-			
+			m_gameModule = new GameModuleSingle(world, m_resourceManager, randomSystem);
+
+
+			AudioSystem.Instance.SetSoundVolume("BackgroundVolume", DataCenter.Instance.setData.musicVal);
+			AudioSystem.Instance.SetSoundVolume("UIVolume", DataCenter.Instance.setData.soundVal);
+
+
+		}
+
+		public void InitGameModule()
+		{
 			// 初始化语言
 			DataCenter.Instance.setData.InitItemDataDic();
-			
 			// 活动时间系统
 			ActiveTimeSystem.Instance.Initalize();
-
-			AudioSystem.Instance.SetSoundVolume("BackgroundVolume",DataCenter.Instance.setData.musicVal);
-			AudioSystem.Instance.SetSoundVolume("UIVolume",DataCenter.Instance.setData.soundVal);
-	
 			Firend.FriendModule.Instance.Initalize();
-
 			ExclusiveModule.Instance.Initalize();
 			ReputationModule.Instance.Initalize();
-			
 			NewbieGiftModule.Instance.Initalize();
-
 			PiggyBankModule.Instance.Initalize();
 			GrowGiftModule.Instance.Initialize();
 			TomorrowGiftModule.Instance.Initalize();
-
 			AdModule.Instance.Initalize();
 			RankModule.Instance.Initalize();
 			TransitionModule.Instance.Initalize();
 			RecordModule.Instance.Initalize();
-			
 			CustomerBookModule.Instance.Initalize();
 			BuffShopModule.Instance.Initalize();
 		}
@@ -85,22 +84,26 @@ namespace SGame
 		/// <return>初始化是否成功</return>
 		public bool Init(string[] args)
 		{
-			m_stateMachine =		 new StateMachine<GAME_STATE>();
-			
+			m_stateMachine = new StateMachine<GAME_STATE>();
+
 			// 客户端网络模块初始化
-			m_gameWorld			= new GameWorld();
-			
+			m_gameWorld = new GameWorld();
+
 			// 资源管理系统
-			m_resourceManager	= new ResourceManager(m_gameWorld);
-			
+			m_resourceManager = new ResourceManager(m_gameWorld);
+
 			// 初始化状体机
-			m_stateMachine.Add(GAME_STATE.GAMEING, ()=>m_gameModule.Enter(), () => m_gameModule.Update(), () => m_gameModule.Shutdown());
-			m_stateMachine.Add(GAME_STATE.LOGIN, ()=>m_loginModule.Enter(), ()=>
+			m_stateMachine.Add(GAME_STATE.GAMEING, () =>
+			{
+				InitGameModule();
+				m_gameModule.Enter();
+			}, () => m_gameModule.Update(), () => m_gameModule.Shutdown());
+			m_stateMachine.Add(GAME_STATE.LOGIN, () => m_loginModule.Enter(), () =>
 			{
 				m_loginModule.Update();
 				if (m_loginModule.IsFinished)
 					m_stateMachine.SwitchTo(GAME_STATE.GAMEING);
-			}, ()=> m_loginModule.Shutdown());
+			}, () => m_loginModule.Shutdown());
 
 			// 初始化模块
 			InitModule();
@@ -109,20 +112,20 @@ namespace SGame
 			m_stateMachine.SwitchTo(GAME_STATE.LOGIN);
 			return true;
 		}
-		
+
 		/// <summary>
 		/// 游戏主循环
 		/// </summary>
 		public void Update()
 		{
 			float deltaTime = (float)GlobalTime.deltaTime;
-			
+
 			// 更新游戏时间
 			m_gameTime.AddDuration(deltaTime);
 
 			// 显示时间更新
 			m_renderTime.AddDuration(deltaTime);
-			
+
 			// 公共模块更新
 			foreach (var module in m_commonModule)
 				module.Update();
@@ -143,11 +146,11 @@ namespace SGame
 		{
 			/// 后续该代码要做成自动化
 			// 手动绑定登录的
-			var	uiModule		= UIModule.Instance;
+			var uiModule = UIModule.Instance;
 			uiModule.Initalize(m_gameWorld, new UIPreprocess());
-			var	reg				= new UIReg();
-			reg.RegAllUI(new UIContext() {uiModule = uiModule});
-			
+			var reg = new UIReg();
+			reg.RegAllUI(new UIContext() { uiModule = uiModule });
+
 			uiModule.Reg("Login", "Login", UILogin.Create);
 			uiModule.Reg("Progress", "Hud", HUDProgress.Create);
 			uiModule.Reg("FloatText", "Hud", HUDFloatText.Create);
@@ -157,7 +160,7 @@ namespace SGame
 
 			//uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			SGame.UI.Login.LoginBinder.BindAll();
-			
+
 		}
 
 		/// <summary>
@@ -168,7 +171,7 @@ namespace SGame
 			log.Info("Game Shutdown!");
 			m_stateMachine.Shutdown();
 			//NetworkManager.Instance.Shutdown();
-			
+
 			foreach (var m in m_commonModule)
 				m.Shutdown();
 
@@ -180,41 +183,41 @@ namespace SGame
 		/// </summary>
 		public void LateUpdate()
 		{
-			
+
 		}
 
 		///////////////////////////////////////////////////////// DATA ////////////////////////////////////////////////////////////////////////////////
 		/// <summary>
 		///  ECS 对象世界, 给使用者一个统一接口创建对象. 并将GameObject 与 Entity 的生命周期绑定(战斗系统必须)
 		/// </summary>
-		GameWorld                m_gameWorld;
+		GameWorld m_gameWorld;
 
 		/// <summary>
 		/// 公共模块
 		/// </summary>
-		private List<IModule>    m_commonModule;
+		private List<IModule> m_commonModule;
 
 		/// <summary>
 		/// 登录模块
 		/// </summary>
 		private LoginModuleSingle m_loginModule;
 
-		private GameModuleSingle  m_gameModule;
+		private GameModuleSingle m_gameModule;
 
 		/// <summary>
 		/// 游戏内资源加载接口
 		/// </summary>
-		ResourceManager          m_resourceManager;
+		ResourceManager m_resourceManager;
 
 		/// <summary>
 		///  游戏时间, 游戏逻辑以该时间为准
 		/// </summary>
-		private GameTime         m_gameTime;
-		
+		private GameTime m_gameTime;
+
 		/// <summary>
 		/// 游戏对象的显示时间
 		/// </summary>
-		private GameTime          m_renderTime;
+		private GameTime m_renderTime;
 
 		/// <summary>
 		///  状态机, 游戏中每个大模块是互斥的, 通过状态机管理
