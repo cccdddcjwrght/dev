@@ -140,6 +140,11 @@ namespace SGame
 
 		}
 
+		public void Insert2Cache(int id, int num, PropertyGroup type = PropertyGroup.ITEM) 
+		{
+			m_caches.Values.Add(new ItemData.Value() { id = id, num = num, type = type });
+		}
+
 		/// <summary>
 		/// 合并Cache物品数据到Item
 		/// </summary>

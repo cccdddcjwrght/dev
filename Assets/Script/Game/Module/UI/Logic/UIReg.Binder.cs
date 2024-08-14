@@ -42,7 +42,6 @@ namespace SGame.UI{
 			context.uiModule.Reg("RoomExclusiveUI", "RoomExclusive", () => new UIRoomExclusive()); SGame.UI.RoomExclusive.RoomExclusiveBinder.BindAll();
 			context.uiModule.Reg("WelcomeNewLevelUI", "EnterScene", ()=>new UIWelcomeNewLevel());
 			context.uiModule.Reg("LevelCompletedUI", "EnterScene", ()=>new UILevelCompleted());
-			context.uiModule.Reg("GoodReputationUI", "Reputation", () => new UIGoodReputation()); SGame.UI.Reputation.ReputationBinder.BindAll();
 			context.uiModule.Reg("TotalBoostUI", "Reputation", () => new UITotalBoost());
 			context.uiModule.Reg("FriendTipUI", "Hud", ()=>new UIFriendTip());
 			context.uiModule.Reg("FriendDetailUI", "GameFriend", ()=>new UIFriendDetail());
@@ -100,6 +99,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("WorkerCollectPropertyUI", "Cookbook", ()=>new UIWorkerCollectProperty());
 			context.uiModule.Reg("WorkerUpUI", "Cookbook", ()=>new UIWorkerUp());
 			context.uiModule.Reg("EquipPreviewUI", "Player", ()=>new UIEquipPreview());
+			context.uiModule.Reg("LuckHelpUI", "Reputation", ()=>new UILuckHelp());SGame.UI.Reputation.ReputationBinder.BindAll();;
 		}
 	}
 }

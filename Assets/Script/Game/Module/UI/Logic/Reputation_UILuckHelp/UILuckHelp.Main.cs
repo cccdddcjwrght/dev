@@ -4,17 +4,17 @@ namespace SGame.UI{
 	using SGame;
 	using SGame.UI.Reputation;
 	
-	public partial class UIGoodReputation : IUIScript
+	public partial class UILuckHelp : IUIScript
 	{
-		private static ILog log = LogManager.GetLogger("ui." + nameof(UIGoodReputation));
+		private static ILog log = LogManager.GetLogger("ui." + nameof(UILuckHelp));
 
-		private UI_GoodReputationUI m_view;
+		private UI_LuckHelpUI m_view;
 
 		public void OnInit(UIContext context)
 		{
 			context.onClose += OnClose;
 			context.onShown += OnShow;
-			m_view = context.content as UI_GoodReputationUI;
+			m_view = context.content as UI_LuckHelpUI;
 			BeforeInit(context);
 			InitUI(context);
 			InitEvent(context);

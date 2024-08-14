@@ -24,7 +24,6 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_LuckShow.m_reward, new EventCallback1(_OnLuckShow_RewardClick));
 			UIListener.ListenerIcon(m_view.m_LuckShow, new EventCallback1(_OnLuckShowClick));
 			UIListener.ListenerIcon(m_view.m_BigLuckShow, new EventCallback1(_OnBigLuckShowClick));
-			UIListener.ListenerIcon(m_view.m_LuckHelp, new EventCallback1(_OnLuckHelpClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -39,7 +38,6 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_LuckShow.m_reward, new EventCallback1(_OnLuckShow_RewardClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_LuckShow, new EventCallback1(_OnLuckShowClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_BigLuckShow, new EventCallback1(_OnBigLuckShowClick),remove:true);
-			UIListener.ListenerIcon(m_view.m_LuckHelp, new EventCallback1(_OnLuckHelpClick),remove:true);
 
 		}
 		void _OnRewardChanged(EventContext data){
@@ -111,12 +109,6 @@ namespace SGame.UI{
 		partial void OnBigLuckShowClick(EventContext data);
 		void SetBigLuckShowText(string data)=>UIListener.SetText(m_view.m_BigLuckShow,data);
 		string GetBigLuckShowText()=>UIListener.GetText(m_view.m_BigLuckShow);
-		void _OnLuckHelpClick(EventContext data){
-			OnLuckHelpClick(data);
-		}
-		partial void OnLuckHelpClick(EventContext data);
-		void SetLuckHelpText(string data)=>UIListener.SetText(m_view.m_LuckHelp,data);
-		string GetLuckHelpText()=>UIListener.GetText(m_view.m_LuckHelp);
 
 	}
 }

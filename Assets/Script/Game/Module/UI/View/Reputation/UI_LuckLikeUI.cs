@@ -26,7 +26,6 @@ namespace SGame.UI.Reputation
         public GGroup m_content;
         public UI_LuckShow m_LuckShow;
         public UI_BigLuckShow m_BigLuckShow;
-        public UI_LuckHelp m_LuckHelp;
         public GGraph m___effect;
         public Transition m_t0;
         public Transition m_t1;
@@ -60,8 +59,7 @@ namespace SGame.UI.Reputation
             m_content = (GGroup)GetChildAt(33);
             m_LuckShow = (UI_LuckShow)GetChildAt(34);
             m_BigLuckShow = (UI_BigLuckShow)GetChildAt(35);
-            m_LuckHelp = (UI_LuckHelp)GetChildAt(36);
-            m___effect = (GGraph)GetChildAt(37);
+            m___effect = (GGraph)GetChildAt(36);
             m_t0 = GetTransitionAt(0);
             m_t1 = GetTransitionAt(1);
         }

@@ -17,13 +17,10 @@ namespace SGame.UI{
 		int m_LikeCfgId;        //好评奖励Id
 		int m_HiddenCfgId;		//隐藏奖励Id
 		List<LikeRewardData> m_RewardData;  //储存的奖励
-		//List<LikeRewardData> m_DropRewardData;
 		List<ItemData.Value> m_DropItem;    //随机的掉落物品
 
-		ItemData.Value m_CurReward;     //当前抽中的奖励
+		ItemData.Value m_CurReward = new ItemData.Value();     //当前抽中的奖励
 		List<int[]> m_CommonRewardList = new List<int[]>();	//普通奖励（不用暂存）
-
-		//List<int> m_HideCfgIds = new List<int>();
 
 		int m_TotalNum = 6;		//抽奖类型数量
 		float m_Height = 200;   //抽奖item高度
@@ -32,7 +29,6 @@ namespace SGame.UI{
 		bool m_IsPlaying = false;	//是否抽奖中
 		bool m_Auto = false;        //是否自动抽奖
 
-		//float m_AutoTime = 0;
 		GTweener m_Tweener;
 		float m_AutoCloseTime = 3f; //自动关闭时间
 		bool isPop = false;			//是否有奖励弹框
@@ -96,8 +92,7 @@ namespace SGame.UI{
 				m_view.m_LuckShow.visible = false;
 				RefreshRewardList();
 			});
-			m_view.m_tipBtn.onClick.Add(() => m_view.m_LuckHelp.visible = true);
-			m_view.m_LuckHelp.onClick.Add(() => m_view.m_LuckHelp.visible = false);
+			m_view.m_tipBtn.onClick.Add(() => SGame.UIUtils.OpenUI("luckhelp"));
 
 			m_view.m_t1.Play();
 		}
@@ -156,13 +151,15 @@ namespace SGame.UI{
 
 				if (config.ResultType == 1)
 				{
-					m_CurReward = new ItemData.Value() { id = config.Reward(0), num = config.Reward(1) };
-					PropertyManager.Instance.Insert2Cache(new List<int[]>() { new int[] { 1, config.Reward(0), config.Reward(1) } });
+					m_CurReward.id = config.Reward(0);
+					m_CurReward.num = config.Reward(1);
+					PropertyManager.Instance.Insert2Cache(config.Reward(0), config.Reward(1));
 				}
 				else if (config.ResultType == 2)
 				{
-					m_CurReward = new ItemData.Value() { id = config.Reward(0), num = config.Reward(1) };
-					if(config.Reward(0) == 1 || config.Reward(0) == 2) PropertyManager.Instance.Insert2Cache(new List<int[]>() { new int[] { 1, config.Reward(0), config.Reward(1) } });
+					m_CurReward.id = config.Reward(0);
+					m_CurReward.num = config.Reward(1);
+					if (config.Reward(0) == 1 || config.Reward(0) == 2) PropertyManager.Instance.Insert2Cache(config.Reward(0), config.Reward(1));
 					else DataCenter.LikeUtil.AddRewardData(config.Reward(0), config.Reward(1));
 				}
 				else if (config.ResultType == 3) 
@@ -171,7 +168,8 @@ namespace SGame.UI{
 					m_HiddenCfgId = DataCenter.LikeUtil.GetHiddenRewardIndex();
 					if (ConfigSystem.Instance.TryGet<GameConfigs.Likes_JackpotRowData>(m_HiddenCfgId, out var cfg)) 
 					{
-						m_CurReward = new ItemData.Value() { id = cfg.Reward(0), num = cfg.Reward(1) };
+						m_CurReward.id = cfg.Reward(0);
+						m_CurReward.num = cfg.Reward(1);
 						DataCenter.LikeUtil.AddRewardData(cfg.Reward(0), cfg.Reward(1));
 					}
 				}
@@ -227,10 +225,15 @@ namespace SGame.UI{
 			}
 		}
 
+		int[] m_Temp = new int[3];
 		void PlayCommonShow() 
 		{
 			m_CommonRewardList.Clear();
-			m_CommonRewardList.Add(new int[] { 1, m_CurReward.id, (int)m_CurReward.num });
+
+			m_Temp[0] = 1;
+			m_Temp[1] = m_CurReward.id;
+			m_Temp[2] = (int)m_CurReward.num;
+			m_CommonRewardList.Add(m_Temp);
 
 			isPop = true;
 			Utils.ShowRewards(m_CommonRewardList, closeCall: () =>
@@ -334,26 +337,6 @@ namespace SGame.UI{
 				gObject.SetIcon(config.Icon);
 		}
 
-		//void OnBigRewardItemRenderer(int index, GObject gObject) 
-		//{
-		//	var cfgId = m_HideCfgIds[index];
-		//	gObject.SetIcon(Utils.GetItemIcon(1, cfgId));
-		//}
-
-		//打开碎片宝箱
-		//void OpenFramentUI() 
-		//{
-		//	if (m_DropItem == null || m_DropItem.Count <= 0) return;
-
-		//	if (isHaveBox)
-		//	{
-		//		DelayExcuter.Instance.OnlyWaitUIClose("eqgiftui", () =>
-		//		{
-		//			SGame.UIUtils.OpenUI("frament", m_DropItem);
-		//		});
-		//	}
-		//	else SGame.UIUtils.OpenUI("frament", m_DropItem);
-		//}
 
 		partial void UnInitLogic(UIContext context){
 			context.onUpdate -= OnUpdate;

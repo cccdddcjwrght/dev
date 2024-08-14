@@ -5,22 +5,22 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.Reputation
 {
-    public partial class UI_LuckHelp : GLabel
+    public partial class UI_LuckHelpUI : GLabel
     {
-        public GGraph m_bg;
+        public GGraph m_mask;
         public GGroup m_content;
         public const string URL = "ui://vnok3a30vlyv1m";
 
-        public static UI_LuckHelp CreateInstance()
+        public static UI_LuckHelpUI CreateInstance()
         {
-            return (UI_LuckHelp)UIPackage.CreateObject("Reputation", "LuckHelp");
+            return (UI_LuckHelpUI)UIPackage.CreateObject("Reputation", "LuckHelpUI");
         }
 
         public override void ConstructFromXML(XML xml)
         {
             base.ConstructFromXML(xml);
 
-            m_bg = (GGraph)GetChildAt(0);
+            m_mask = (GGraph)GetChildAt(0);
             m_content = (GGroup)GetChildAt(10);
         }
     }
