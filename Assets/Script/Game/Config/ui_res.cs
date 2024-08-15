@@ -56,6 +56,7 @@ public struct ui_resRowData : IFlatbufferObject
   public int Mask { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int DisableAudio { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Priority { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Cache { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ui_resRowData> Createui_resRowData(FlatBufferBuilder builder,
       int id = 0,
@@ -69,8 +70,10 @@ public struct ui_resRowData : IFlatbufferObject
       int AniHide = 0,
       int mask = 0,
       int DisableAudio = 0,
-      int Priority = 0) {
-    builder.StartTable(12);
+      int Priority = 0,
+      int cache = 0) {
+    builder.StartTable(13);
+    ui_resRowData.AddCache(builder, cache);
     ui_resRowData.AddPriority(builder, Priority);
     ui_resRowData.AddDisableAudio(builder, DisableAudio);
     ui_resRowData.AddMask(builder, mask);
@@ -86,7 +89,7 @@ public struct ui_resRowData : IFlatbufferObject
     return ui_resRowData.Endui_resRowData(builder);
   }
 
-  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(12); }
+  public static void Startui_resRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddId(FlatBufferBuilder builder, int id) { builder.AddInt(0, id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddComName(FlatBufferBuilder builder, StringOffset ComNameOffset) { builder.AddOffset(2, ComNameOffset.Value, 0); }
@@ -102,6 +105,7 @@ public struct ui_resRowData : IFlatbufferObject
   public static void AddMask(FlatBufferBuilder builder, int mask) { builder.AddInt(9, mask, 0); }
   public static void AddDisableAudio(FlatBufferBuilder builder, int DisableAudio) { builder.AddInt(10, DisableAudio, 0); }
   public static void AddPriority(FlatBufferBuilder builder, int Priority) { builder.AddInt(11, Priority, 0); }
+  public static void AddCache(FlatBufferBuilder builder, int cache) { builder.AddInt(12, cache, 0); }
   public static Offset<GameConfigs.ui_resRowData> Endui_resRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ui_resRowData>(o);

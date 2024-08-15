@@ -177,6 +177,9 @@ namespace SGame.UI
 				case "console":
 					DoConsole(ss);
 					break;
+				case "guide":
+					DoGuide(ss);
+					break;
 			}
 
 
@@ -260,6 +263,17 @@ namespace SGame.UI
 				}
 			}
 
+		}
+
+		private void DoGuide(string[] ss) 
+		{
+			if (ss.Length > 0) 
+			{
+				if (int.TryParse(ss[1], out var id)) 
+				{
+					GuideManager.Instance.StartGuide(id);
+				}
+			}
 		}
 
 	}

@@ -126,6 +126,16 @@ namespace SGame
             }
         }
 
+        public void ClearAllGuide() 
+        {
+            for (int i = runtimeDataList.Count - 1; i >= 0; i--)
+            {
+                runtimeDataList[i].FinishGuide(1);
+                runtimeDataList.RemoveAt(i);
+            }
+            Debug.Log("clear all guide");
+        }
+
         public void FinishGuide(int guideId) 
         {
             var index = runtimeDataList.FindIndex((r) => r.guideId == guideId);
@@ -235,6 +245,9 @@ namespace SGame
 
         public void Update() 
         {
+//#if DEBUG
+            if (Input.GetKeyDown(KeyCode.F1))
+                ClearAllGuide();
 
             if (Input.GetKeyDown(KeyCode.F4)) 
                 isGetPath = true;
@@ -244,16 +257,6 @@ namespace SGame
 
             if (isGetPath) 
             {
-                if (Input.GetMouseButtonDown(0)) 
-                {
-                    //зјБъ
-                    Vector2 pos = Input.mousePosition;
-                    pos.y = Screen.height - pos.y;
-                    pos = GRoot.inst.GlobalToLocal(pos);
-                    Debug.Log(string.Format("<color=yellow> Pos {0}</color>", pos));
-                    UIUtils.CloseUIByName("dialogue");
-                }
-
                 if (Input.GetMouseButtonDown(0) && Stage.isTouchOnUI) 
                 {
                     List<string> uiNames = new List<string>();
@@ -270,6 +273,7 @@ namespace SGame
                     GUIUtility.systemCopyBuffer = path;
                 }
             }
+//#endif
         }
     }
 }
