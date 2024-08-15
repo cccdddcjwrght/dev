@@ -10,14 +10,16 @@ namespace SGame.UI
 	public partial class UIPlayer
 	{
 		private EventHandleContainer handleContainer = new EventHandleContainer();
+		private UIContext _con;
 
 		partial void InitEvent(UIContext context)
 		{
+			_con = context;
 			handleContainer += EventManager.Instance.Reg<int>(((int)GameEvent.ROLE_EQUIP_PUTON), OnEquipPut);
 			handleContainer += EventManager.Instance.Reg(((int)GameEvent.EQUIP_REFRESH), OnEquipUpdate);
 			handleContainer += EventManager.Instance.Reg(((int)GameEvent.ROLE_EQUIP_CHANGE), OnPlayerEquipChange);
 			handleContainer += EventManager.Instance.Reg(((int)GameEvent.ROLE_PROPERTY_REFRESH), RefreshProperty);
-
+			context.window.needCache = true;
 		}
 
 		partial void UnInitEvent(UIContext context)

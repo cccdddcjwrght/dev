@@ -162,13 +162,13 @@ namespace SGame.UI
 			}
 		}
 
-		public List<UIWindow> GetVisibleUI()
+		public List<UIWindow> GetVisibleUI(bool includeNoParent = false)
 		{
 			List<UIWindow> ret = new List<UIWindow>();
 			UIWindow[] windows = m_groupVisible.ToComponentDataArray<UIWindow>();
 			foreach (var w in windows)
 			{
-				if (w != null && w.Value != null && !w.Value.isHiding && w.Value.isShowing)
+				if (w != null && w.Value != null && !w.Value.isHiding && (includeNoParent || w.Value.isShowing))
 				{
 					ret.Add(w);
 				}

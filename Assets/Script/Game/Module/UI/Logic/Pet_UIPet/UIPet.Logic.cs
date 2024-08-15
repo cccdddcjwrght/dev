@@ -10,7 +10,6 @@ namespace SGame.UI
 	using System.Linq;
 	using System;
 	using GameConfigs;
-	using System.Drawing;
 
 	public partial class UIPet
 	{
@@ -42,6 +41,12 @@ namespace SGame.UI
 			m_view.onClick.Add(OnViewClick);
 			m_view.m_body.SetCurrency(2, "currency");
 			InitList();
+			SetInfo();
+		}
+
+		partial void DoShow(UIContext context)
+		{
+			eggState = 0;
 			SetInfo();
 		}
 
@@ -205,6 +210,7 @@ namespace SGame.UI
 					m_view.m_egg.m_progress.max = egg.eCfg.Time;
 					m_view.m_egg.m_quality.selectedIndex = egg.eCfg.Quality;
 					SetPrice();
+					CloseTimer();
 					_timer = Utils.Timer(egg.GetRemainder(), SetPrice, m_view, completed: SetEggHatching);
 					break;
 				case 2:

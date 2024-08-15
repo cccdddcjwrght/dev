@@ -16,7 +16,7 @@ namespace SGame.UI
 			EventManager.Instance.Reg<PetItem, int>(((int)GameEvent.PET_REFRESH), OnPetRefresh);
 			EventManager.Instance.Reg<string>(((int)GameEvent.UI_HIDE), OnUIClose);
 
-
+			context.window.needCache = true;
 		}
 
 		partial void UnInitEvent(UIContext context)

@@ -79,7 +79,7 @@ namespace SGame
 		/// </summary>
 		public static void ReloadVisibleUI()
 		{
-			List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI();
+			List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI(true);
 			List<int> uiID = new List<int>();
 
 			// 除了HUD 的UI, 所有UI都重新开一遍
@@ -94,8 +94,9 @@ namespace SGame
 					}
 					if (uiconfig.Type == (int)UIType.UI && !uiID.Contains(configID))
 					{
-						uiID.Add(configID);
-						ui.Value.Close();
+						if (ui.Value != null && ui.Value.isShowing)
+							uiID.Add(configID);
+						ui.Value.Close(true);
 					}
 				}
 			}
@@ -204,7 +205,12 @@ namespace SGame
 				var e = UIModule.Instance.GetUI(name);
 				if (e != default && mgr.Exists(e))
 				{
-					TriggerUIEvent(e, "OnRefresh", data);
+					var win = GetUIView(name);
+					if (win != null)
+					{
+						if (win.Value.parent == null) win.Value.Show();
+						else TriggerUIEvent(e, "OnRefresh", data);
+					}
 					return e;
 				}
 				else if (!UIRequestMgr.Check(uid))
