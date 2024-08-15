@@ -9,6 +9,10 @@ namespace SGame.UI
     {
     }
 
+	//ui再次打开
+	public struct UIReShow : IComponentData { }
+
+
     [UpdateInGroup(typeof(UIGroup))]
     public partial class SpawnUISystem : SystemBase
     {
@@ -165,9 +169,19 @@ namespace SGame.UI
                     EntityManager.AddComponent<UIInitalized>(e);
                 }
             ).WithStructuralChanges().WithoutBurst().Run();
-            
-            // 3. 更新 FairyGUI 包的加载
-            m_packageRequest.Update();
+
+			Entities.WithNone<DespawningEntity>().WithAll<UIReShow,UIInitalized>().ForEach((Entity e, UIWindow window) => { 
+
+				EntityManager.RemoveComponent<UIReShow>(e);
+				if (window.Value != null && !window.Value.isClosed && !window.Value.isShowing)
+				{
+					window.Value.Show();
+				}
+
+			}).WithStructuralChanges().WithoutBurst().Run();
+
+			// 3. 更新 FairyGUI 包的加载
+			m_packageRequest.Update();
         }
 
     }

@@ -20,14 +20,13 @@ namespace SGame.UI
 
 		partial void BeforeInit(UIContext context)
 		{
-			if (context.GetParam()?.Value is WorktableInfo info)
-			{
-				this.info = info;
-			}
+			context.beginShown += RefreshView;
+			context.window.needCache = true;
 		}
 
-		partial void InitLogic(UIContext context)
+		void RefreshView(UIContext context)
 		{
+			this.info = context.GetParam().Value.To<WorktableInfo>();
 			if (info.id > 0)
 			{
 				this.Delay(() =>

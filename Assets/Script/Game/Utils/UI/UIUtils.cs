@@ -208,7 +208,11 @@ namespace SGame
 					var win = GetUIView(name);
 					if (win != null)
 					{
-						if (win.Value.parent == null) win.Value.Show();
+						if (win.Value.parent == null)
+						{
+							if (data != default) mgr.AddComponentObject(e, data);
+							mgr.AddComponent<UIReShow>(e);
+						}
 						else TriggerUIEvent(e, "OnRefresh", data);
 					}
 					return e;
@@ -373,10 +377,10 @@ namespace SGame
 		/// <param name="follow"></param>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public static Entity ShowHUD(string uiname, Transform follow, float3 offset)
+		public static Entity ShowHUD(string uiname, Transform follow, float3 offset, bool onlyone = false)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			Entity ui = UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiname));
+			Entity ui = onlyone ? OpenUI(uiname) : UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiname));
 
 			if (!entityManager.HasComponent<HUDFlow>(ui))
 			{

@@ -44,7 +44,7 @@ namespace SGame
 						Close();
 						_cid = place.cfgID;
 						ConfigSystem.Instance.TryGet<RoomMachineRowData>(_cid, out var cfg);
-						_hud = UIUtils.ShowHUD("worktable", place.transform, new float3(cfg.HudOffset(0), cfg.HudOffsetLength > 0 ? cfg.HudOffset(1) : 1, cfg.HudOffset(2)));
+						_hud = UIUtils.ShowHUD("worktable", place.transform, new float3(cfg.HudOffset(0), cfg.HudOffsetLength > 0 ? cfg.HudOffset(1) : 1, cfg.HudOffset(2)), true);
 						_hud.SetParam(new WorktableInfo()
 						{
 							id = region.cfgID,
@@ -59,7 +59,7 @@ namespace SGame
 			{
 				if (_cid == build.cfgID) return;
 				_cid = build.cfgID;
-				_hud = UIUtils.ShowHUD("worktable", build.holder, new float3(0, 1, 0));
+				_hud = UIUtils.ShowHUD("worktable", build.holder, new float3(0, 1, 0), true);
 				_hud.SetParam(new WorktableInfo()
 				{
 					id = build.cfgID,

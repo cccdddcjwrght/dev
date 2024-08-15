@@ -19,7 +19,7 @@ namespace SGame.UI
         {
             Entities.WithAll<HUDSync, UIInitalized>().WithNone<DespawningEntity>().ForEach((Entity e, UIWindow data, in LocalTransform translation) =>
             {
-                if (data.Value != null && !data.Value.isClosed)
+                if (data.Value != null && !data.Value.isClosed && data.Value.isShowing)
                 {
                     var ui = data.Value;
                     Vector2 pos = SGame.UIUtils.GetUIPosition(ui.parent, translation.Position, PositionType.POS3D);

@@ -207,6 +207,35 @@ namespace SGame.UI
 			return Entity.Null;
 		}
 
+		public Entity GetUI(int ui)
+		{
+			UIWindow[] windows = m_groupVisible.ToComponentDataArray<UIWindow>();
+			foreach (var w in windows)
+			{
+				if (w != null && w.Value.configID!=0 && w.Value.configID == ui)
+				{
+					return w.entity;
+				}
+			}
+
+			return Entity.Null;
+		}
+
+		public bool ReShow(int id , out Entity entity)
+		{
+			entity = GetUI(id);
+			if (entity != default && UIModule.Instance.CheckOpened(entity))
+			{
+				var win = GetEntityManager().GetComponentData<UIWindow>(entity);
+				if (win != null)
+				{
+					win.Value.Show();
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public EntityManager GetEntityManager()
 		{
 			return m_gameWorld.GetEntityManager();

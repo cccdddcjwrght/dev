@@ -100,6 +100,8 @@ namespace SGame.UI
 		private IUIScript m_uiScript;
 		private UIContext m_context;
 
+		public UIContext context { get => m_context; }
+
 		public int configID { get => m_context.configID; }
 
 
