@@ -8,51 +8,9 @@ using Unity.Entities;
 namespace SGame
 {
     
-    public struct PoolID
-    {
-        // 数组索引
-        public int Index ;      
-        
-        // 对象版本号, 防止已经索引的对象 数据串了
-        public int Version;
 
-        public override string ToString()
-        {
-            return "Index:" + Index.ToString() + " Version:" + Version.ToString();
-        }
-
-        public static PoolID NULL => new PoolID {Index = -1, Version = 0};
-
-        // 符号判断
-        public static bool operator==(PoolID lhs, PoolID rhs)
-        {
-            return lhs.Index == rhs.Index && lhs.Version == rhs.Version;
-        }
-
-        public static bool operator!=(PoolID lhs, PoolID rhs)
-        {
-            return !(lhs == rhs);
-        }
-        
-        public bool Equals(PoolID entity)
-        {
-            return entity.Index == Index && entity.Version == Version;
-        }
-        
-        public override bool Equals(object compare)
-        {
-            return compare is PoolID compareEntity && Equals(compareEntity);
-        }
-
-        public override int GetHashCode()
-        {
-            return Index;
-        }
-    }
-
-    
     // 简单的对象池, 使用int 来索引对象
-    public class ObjectPool<T> : IEnumerable<T> where T : class,new()
+    public class SObjectPool<T> : IEnumerable<T> where T : class,new()
     {
         public delegate T    AllocDelegate();
         public delegate void DeSpawnDelegate(T obj);
@@ -66,10 +24,17 @@ namespace SGame
         struct ExtendData
         {
             // 当前数据的版本号
-            public int  Version; 
-        
-            // 当前数据是否已经在使用中
-            public bool isUsed;
+            public int  Version;
+
+            public enum State : int
+            {
+                EMPTY   = 0,
+                USED    = 1,
+                FREE    = 2
+            }
+
+            // 状态
+            public State state;
         }
         
         // 所有数据
@@ -79,21 +44,36 @@ namespace SGame
         private List<ExtendData>  m_exDatas = new List<ExtendData>();
         
         // 空数据链表
-        private Stack<int>        m_free  = new Stack<int>();
+        // private Stack<int>        m_free  = new Stack<int>();
 
         private AllocDelegate       m_Alloc   = null;
         private SpawnDelegate       m_Spawn   = null;
         private DeSpawnDelegate     m_DeSpawn = null;
         private DisposeDelegate     m_Dispose = null;
         
-        public int usedCount => m_datas.Count - m_free.Count;
+        // 已经使用的数量
+        private int                 m_usedCount = 0;
+        
+        // 在缓存中的数量
+        private int                 m_freeCount = 0;
+
+        // 使用数量
+        public int usedCount        => m_usedCount;
+
+        // 统计重量
+        public int allCount => m_usedCount + m_freeCount;
+
+        /// <summary>
+        /// 剩余数量
+        /// </summary>
+        public int freeCount => m_freeCount;
         
         // 实现Enumerator接口
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < m_datas.Count; i++)
             {
-                if (m_exDatas[i].isUsed == true)
+                if (m_exDatas[i].state == ExtendData.State.USED)
                 {
                     yield return m_datas[i];
                 }
@@ -120,41 +100,81 @@ namespace SGame
             return ret;
         }
 
-        public ObjectPool(AllocDelegate alloc = null, SpawnDelegate spawn = null, DeSpawnDelegate deSpawn = null, DisposeDelegate dispose = null)
+        public SObjectPool(AllocDelegate alloc = null, SpawnDelegate spawn = null, DeSpawnDelegate deSpawn = null, DisposeDelegate dispose = null)
         {
             m_Alloc     = alloc;
             m_Spawn     = spawn;
             m_DeSpawn   = deSpawn;
             m_Dispose   = dispose;
+            m_usedCount = 0;
+            m_freeCount = 0;
         }
 
         // 使用数据, 并返回版本号, 将状态改为使用!
         private int UseData(int index)
         {
             ExtendData v = m_exDatas[index];
-            GameDebug.Assert(v.isUsed == false, "state is not match!");
+            GameDebug.Assert(v.state != ExtendData.State.USED, "state is not match!");
             
-            v.isUsed = true;
+            v.state = ExtendData.State.USED;
+            v.Version++;
             m_exDatas[index] = v;
+            m_usedCount++;
             m_Spawn?.Invoke(m_datas[index]);
             return v.Version;
         }
-        
+
+        /// <summary>
+        /// 查找空闲节点的索引
+        /// </summary>
+        /// <returns></returns>
+        int GetFreeIndex()
+        {
+            if (m_freeCount == 0)
+                return -1;
+
+            return FindIndex(ExtendData.State.FREE);
+        }
+
+        int FindIndex(ExtendData.State state)
+        {
+            for (int i = 0; i < m_exDatas.Count; i++)
+            {
+                if (m_exDatas[i].state == state)
+                    return i;
+            }
+
+            return -1;
+        }
+
         public PoolID Alloc()
         {
-            int index = 0;
-            PoolID id = PoolID.NULL; 
-            if (m_free.TryPop(out id.Index))
+            // 获取已有的
+            int index = GetFreeIndex();
+            int version = 0;
+            if (index >= 0)
             {
-                id.Version = UseData(id.Index);
-                return id;
+                version = UseData(index);
+                return new PoolID() { Index = index, Version = version };
             }
             
+            
             // 新的
-            m_datas.Add(NewObject());
-            m_exDatas.Add( new ExtendData(){Version =  0, isUsed = false});
-            index = m_datas.Count - 1;
-            int version = UseData(index);
+            index = FindIndex(ExtendData.State.EMPTY);
+            if (index >= 0)
+            {
+                // 内部有空位
+                m_datas[index] = NewObject();
+                version = UseData(index);
+            }
+            else
+            {
+                // 添加新的
+                m_datas.Add(NewObject());
+                m_exDatas.Add(new ExtendData() { Version = 0, state = ExtendData.State.EMPTY });
+                index = m_datas.Count - 1;
+                version = UseData(index);
+            }
             return new PoolID {Index = index, Version = version};
         }
 
@@ -180,7 +200,7 @@ namespace SGame
             }
 
             var exData = m_exDatas[id.Index];
-            if (exData.Version != id.Version || exData.isUsed == false)
+            if (exData.Version != id.Version || exData.state != ExtendData.State.USED)
             {
                 return false;
             }
@@ -188,7 +208,7 @@ namespace SGame
             return true;
         }
 
-        // 通过对象找ID, 不建议使用， 新年差!
+        // 通过对象找ID, 不建议使用， 性能差
         PoolID GetID(T value)
         {
             for (int i = 0; i < m_datas.Count; i++)
@@ -196,7 +216,7 @@ namespace SGame
                 if (m_datas[i] == value)
                 {
                     // 该对象已经被释放了, 不能返回对象ID
-                    if (m_exDatas[i].isUsed == false)
+                    if (m_exDatas[i].state != ExtendData.State.USED)
                         return PoolID.NULL;
 
                     return new PoolID() {Index = i, Version = m_exDatas[i].Version};
@@ -216,7 +236,7 @@ namespace SGame
             return Free(id);
         }
 
-        // 释放对象
+        // 回收对象
         public bool Free(PoolID id)
         {
             if (isExits(id) == false)
@@ -224,31 +244,49 @@ namespace SGame
                 return false;
             }
 
-            if (m_free.Contains(id.Index))
+            // 原有ID失效, 并加入
+            var exData = m_exDatas[id.Index];
+            exData.state = ExtendData.State.FREE;
+            m_exDatas[id.Index] = exData;
+            m_usedCount--;
+            m_freeCount++;
+            
+            m_DeSpawn?.Invoke(m_datas[id.Index]);
+            return true;
+        }
+
+        /// <summary>
+        /// 关闭对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Dispose(PoolID id)
+        {
+            if (isExits(id) == false)
             {
-                GameDebug.Assert(false, "Data state not match!");
                 return false;
             }
 
             // 原有ID失效, 并加入
             var exData = m_exDatas[id.Index];
-            exData.Version++;                   // 有效对象版本号加1
-            exData.isUsed = false;
+            exData.state = ExtendData.State.EMPTY;
             m_exDatas[id.Index] = exData;
+            m_usedCount--;
             
-            m_DeSpawn?.Invoke(m_datas[id.Index]);
-            m_free.Push(id.Index);
+            m_Dispose?.Invoke(m_datas[id.Index]);
             return true;
         }
 
-        public void Dispose()
+        /// <summary>
+        /// 清空所有
+        /// </summary>
+        public void DisposeAll()
         {
             foreach (var item in m_datas)
                 m_Dispose(item);
             
             m_datas.Clear();
             m_exDatas.Clear();
-            m_free.Clear();
         }
     }
 }

@@ -10,8 +10,10 @@ namespace SGame.UI{
     using GameConfigs;
 
     public partial class UITechnology
-	{
-		private Entity  m_entity;
+    {
+	    private UIContext m_context;
+	    private Entity entity => m_context.entity;
+	    
 		partial void InitLogic(UIContext context){
 			var techList = m_view.m_techList;
 			var bgUI = m_view.m_techFrame;
@@ -19,7 +21,7 @@ namespace SGame.UI{
 			
 			techList.itemRenderer = RenderListItem;
 			techList.numItems = m_AbilityData.len; 
-			m_entity = context.entity;
+			m_context = context;
 			bgUI.GetChild("close").asButton.onClick.Add(OnClickClose);
 			bgUI.GetChild("closeBg").onClick.Add(OnClickClose);
 		}
@@ -27,7 +29,7 @@ namespace SGame.UI{
 		private void OnClickClose()
 		{
 			// 关闭UI
-			UIModule.Instance.CloseUI(m_entity);
+			UIModule.Instance.CloseUI(entity);
 		}
 
 		private void RenderListItem(int index, GObject item)

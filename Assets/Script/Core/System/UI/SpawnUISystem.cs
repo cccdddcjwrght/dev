@@ -59,6 +59,15 @@ namespace SGame.UI
             return m_packageRequest.Load(uiPackage);
         }
 
+        void FillContext(UIContext context, Entity e, FairyGUI.GComponent content, int configId )
+        {
+            context.gameWorld = m_gameWorld;
+            context.uiModule = UIModule.Instance;
+            context.entity = e;
+            context.content = content;
+            context.configID = configId;
+        }
+        
         UIContext CreateContext(Entity e, FairyGUI.GComponent content, int configId )
         {
             UIContext context = new UIContext();
@@ -78,7 +87,7 @@ namespace SGame.UI
             //EntityCommandBuffer comamndBuffer = m_commandSystem.CreateCommandBuffer();// new EntityCommandBuffer(Allocator.Temp);
 
             // 1. 生成Package加载
-            Entities.WithNone<UIWindow, UIInitalized, DespawningEntity>().ForEach((Entity e, UIRequest request) =>
+            Entities.WithNone<UIWindow, UIInitalized, DespawningUI>().ForEach((Entity e, UIRequest request) =>
             {
                 if (request.configId == 0 && (string.IsNullOrEmpty(request.comName) || string.IsNullOrEmpty(request.pkgName)))
                 {
@@ -113,13 +122,13 @@ namespace SGame.UI
             ).WithStructuralChanges().WithoutBurst().Run();
             
             // 2. UI 加载中
-            Entities.WithNone<UIInitalized, DespawningEntity>().ForEach((Entity e, UIRequest request, UIWindow window) =>
+            Entities.WithNone<UIInitalized, DespawningUI>().ForEach((Entity e, UIRequest request, UIWindow window) =>
                 {
                     // 1. 判断包是否加载成功
                     if (!string.IsNullOrEmpty(window.uiPackage.error))
                     {
                         log.Error("Load UI Package Fail=" + window.uiPackage.error);
-                        EntityManager.AddComponent<DespawningEntity>(e);
+                        EntityManager.AddComponent<DespawningUI>(e);
                         return;
                     }
 
@@ -140,30 +149,37 @@ namespace SGame.UI
                     }
                     
                     // 4. 创建WINDOW
-                    var fui = new FairyWindow();
-                    fui.bringToFontOnClick = false; // 点击不会改变顺序
-                    var gCom = window.gObject.asCom;
-                    fui.contentPane = gCom;
-                    
-                    IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.comName, pkgName = request.pkgName });
-                    UIContext context = CreateContext(e, gCom, request.configId);
-                    context.window = fui;
-                    window.Value = fui;
-                    window.entity = e;
-                    
-                    // UI初始化前的预处理, 比如配置表相关的设置
-                    fui.Initalize(script, context);
-                    if (m_preprocess != null)
+                    int cacheNum = m_preprocess != null ? m_preprocess.GetCacheNum(request.configId) : 0;
+                    var fui = UIFactory.Instance.Alloc(request.configId, window.uiPackage, request.comName, cacheNum);////new FairyWindow();
+                    if (fui.context == null)
                     {
-                        m_preprocess.Init(context);
+                        IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.comName, pkgName = request.pkgName });
+                        UIContext context = CreateContext(e, fui.contentPane, request.configId);
+                        context.window = fui;
+                        window.Value = fui;
+                        window.entity = e;
+
+                        // UI初始化前的预处理, 比如配置表相关的设置
+                        fui.Initalize(script, context);
+                        m_preprocess?.Init(context);
                         fui.Show();
-                        m_preprocess.AfterShow(context);
+                        m_preprocess?.AfterShow(context);
                     }
                     else
                     {
-                        fui.Show();
+                        // 重新显示
+                        fui.context.entity = e;
+                        window.Value = fui;
+                        window.entity = e;
+                        m_preprocess?.ReOpen(fui.context);
+                        //fui.context?.onOpen(fui.context);
+                        fui.Reopen();
+                        /////////////////fui.Show();/
+                        m_preprocess?.AfterShow(fui.context);
                     }
+                    
                     UIRequestMgr.Remove(request.configId);
+
                     // 5. 设置加载完成标记
                     EntityManager.RemoveComponent<UIRequest>(e);
                     EntityManager.AddComponent<UIInitalized>(e);

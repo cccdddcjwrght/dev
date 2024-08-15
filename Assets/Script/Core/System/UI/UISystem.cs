@@ -52,12 +52,15 @@ namespace SGame.UI
 			float deltaTime = World.Time.DeltaTime;
 			
 			// 1. UI更新
-			Entities.WithAll<UIInitalized>().ForEach((Entity e, UIWindow win) =>
+			Entities.WithAll<UIInitalized>().WithNone<DespawningUI>().ForEach((Entity e, UIWindow win) =>
 			{
-				if (win.Value.isReadly == false)
-					return;
-				
-				m_windowCache.Add(win.Value);
+				if (win.Value != null)
+				{
+					if (win.Value.isReadly == false)
+						return;
+
+					m_windowCache.Add(win.Value);
+				}
 			}).WithoutBurst().Run();
 
 			foreach (var w in m_windowCache)

@@ -18,10 +18,17 @@ public class HUDProgress : IUIScript
     public void OnInit(UIContext context)
     {
         context.window.contentPane.touchable = false;
+        context.onOpen += OnOpend;
         progressUI = context.content as UI_Progress;
+        context.onUpdate += Update;
+        
+        OnOpend(context);
+    }
+
+    void OnOpend(UIContext context)
+    {
         time = context.gameWorld.GetEntityManager().GetComponentData<TweenTime>(context.entity).Value;
         updateTime = 0;
-        context.onUpdate += Update;
     }
 
     void Update(UIContext context)

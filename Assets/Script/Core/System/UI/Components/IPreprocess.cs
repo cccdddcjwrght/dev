@@ -9,8 +9,13 @@ namespace SGame.UI
     {
         void Init(UIContext context);
 
+        void ReOpen(UIContext context);
+
         void AfterShow(UIContext context);
 
         bool GetUIInfo(int configId, out string comName, out string pkgName);
+        
+        // 缓存数量
+        int GetCacheNum(int configID);
     }
 }

@@ -83,6 +83,12 @@ public class Game : SGame.MonoSingleton<Game>
 		this.gameObject.AddComponent<RemoteDebugAttach>();
 		FairyGUI.GRoot.inst.displayObject.gameObject.transform.parent.gameObject.AddComponent<RemoteDebugAttach>();
 		FairyGUI.StageCamera.main.gameObject.AddComponent<RemoteDebugAttach>();
+
+		Reporter reporter = GameObject.FindObjectOfType<Reporter>();
+		if (reporter != null)
+		{
+			reporter.gameObject.AddComponent<RemoteDebugAttach>();
+		}
 	}
 
 

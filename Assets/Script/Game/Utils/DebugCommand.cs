@@ -14,7 +14,28 @@ namespace SGame
         public static void Init()
         {
             Game.console.AddCommand("camera", CameraDepth, "Main Camera Depth [num]");
+            Game.console.AddCommand("framerate", FrameRate, "framerate [num]");
+            Game.console.AddCommand("ui", UICommand, "ui [open|close] [name]");
         }
+
+        static void FrameRate(string[] args)
+        {
+            if (args == null || args.Length == 0)
+            {
+                log.Error("frame rate args invalid");
+                Game.console.Write("frame rate args invalid\n");
+                return;
+            }
+
+            if (!int.TryParse(args[0], out int value))
+            {
+                log.Error("can not convert to number =" + args[0]);
+                return;
+            }
+            
+            Application.targetFrameRate = value;
+        }
+
 
         static void CameraDepth(string[] args)
         {
@@ -43,6 +64,26 @@ namespace SGame
             }
 
             //Game.console.Write("game name=" + Camera.main.name);
+        }
+
+        static void UICommand(string[] args)
+        {
+            if (args.Length != 2)
+            {
+                return;
+            }
+
+            switch (args[0])
+            {
+                case "open":
+                    UIUtils.OpenUI(args[1]);
+                    break;
+                
+                case "close":
+                    UIUtils.CloseUIByName(args[1]);
+                    break;
+            }
+            
         }
     }
 }

@@ -12,43 +12,40 @@ namespace SGame.UI
     public partial class DespawnUISystem : SystemBase
     {
         private EndSimulationEntityCommandBufferSystem m_commandBufferSystem;
-        public List<Entity> m_DestoryEntity = new List<Entity>();
 
         protected override void OnCreate()
         {
             base.OnCreate();
             m_commandBufferSystem = World.GetOrCreateSystemManaged<EndSimulationEntityCommandBufferSystem>();
         }
-
-        public void RemoveEntity(Entity e)
-        {
-            if (!m_DestoryEntity.Contains(e))
-                m_DestoryEntity.Add(e);
-        }
-
+        
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBufferSystem.CreateCommandBuffer();
-
-            foreach (var e in m_DestoryEntity)
+            Entities.ForEach((Entity e, UIWindow window, in DespawningUI despawn) =>
             {
-                if (EntityManager.Exists(e) && !EntityManager.HasComponent<DespawningEntity>(e))
-                {                
-                    commandBuffer.AddComponent<DespawningEntity>(e);
+                if (despawn.isDispose)
+                {
+                    // 直接销毁
+                    UIFactory.Instance.Dispose(window.Value);
                 }
-            }
-            m_DestoryEntity.Clear();
-
-            Entities.WithAll<DespawningEntity>().ForEach((Entity e, UIWindow window) =>
-            {
+                else
+                {
+                    // 缓存回收
+                    UIFactory.Instance.Free(window.Value);
+                }
+                
+                // 删除UI对象
                 window.Dispose();
-            }).WithoutBurst().Run();
+                commandBuffer.DestroyEntity(e);
+            }).WithStructuralChanges().WithoutBurst().Run();
             
             // 检测来自UI内部的关闭设置
-            Entities.WithAll<UIInitalized>().WithNone<DespawningEntity>().ForEach((Entity e, UIWindow window) =>
+            Entities.WithAll<UIInitalized>().WithNone<DespawningUI>().ForEach((Entity e, UIWindow window) =>
             {
                 if (window.Value != null &&  window.Value.isClosed) {
-                    commandBuffer.AddComponent<DespawningEntity>(e);
+                    commandBuffer.AddComponent<DespawningUI>(e);
+                    commandBuffer.SetComponent(e, new DespawningUI(){isDispose = false});
                 }
             }).WithStructuralChanges().WithoutBurst().Run();
         }

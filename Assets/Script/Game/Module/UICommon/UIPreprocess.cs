@@ -14,6 +14,29 @@ namespace SGame
 	{
 		private static ILog log = LogManager.GetLogger("xl.ui");
 
+		public int GetCacheNum(int configID)
+		{
+			return 99;
+		}
+
+		public void ReOpen(UIContext context)
+		{
+			if (context.configID != 0)
+			{
+				if (!ConfigSystem.Instance.TryGet(context.configID, out GameConfigs.ui_resRowData ui))
+				{
+					log.Error("ui config not found=" + context.configID);
+					return;
+				}
+				
+				if (ui.Type == (int)UIType.HUD)
+				{
+					context.window.isFullScreen = false;
+					HUDSetup(context);
+				}
+			}
+		}
+
 		// 初始化UI状态, 包括是否全屏等等
 		public void Init(UIContext context)
 		{
@@ -63,8 +86,6 @@ namespace SGame
 					context.window.isFullScreen = false;
 					HUDSetup(context);
 				}
-
-
 			}
 		}
 

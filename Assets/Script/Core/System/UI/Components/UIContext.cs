@@ -55,6 +55,11 @@ namespace SGame.UI
         public Action<UIContext> onClose;
 
         /// <summary>
+        /// UI打开事件
+        /// </summary>
+        public Action<UIContext> onOpen;
+
+        /// <summary>
         /// UI的更新事件
         /// </summary>
         public Action<UIContext> onUpdate;

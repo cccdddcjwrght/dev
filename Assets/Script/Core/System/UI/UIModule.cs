@@ -65,7 +65,7 @@ namespace SGame.UI
 			m_preProcess = preProcessing;
 
 			m_groupVisible = m_gameWorld.GetEntityManager().CreateEntityQuery(typeof(UIWindow),
-				ComponentType.Exclude<DespawningEntity>());
+				ComponentType.Exclude<DespawningUI>());
 
 			// 不要FairyGUI管理
 			UIPackage.unloadBundleByFGUI = false;
@@ -111,12 +111,12 @@ namespace SGame.UI
 		/// </summary>
 		/// <param name="ui">要关闭的UI对象</param>
 		/// <param name="win">Window对象</param>        
-		public bool CloseUI(Entity ui)
+		public bool CloseUI(Entity ui, bool isDispose = false)
 		{
 			EntityManager mgr = m_gameWorld.GetECSWorld().EntityManager;
 			if (mgr.Exists(ui))
 			{
-				if (mgr.HasComponent<DespawningEntity>(ui))
+				if (mgr.HasComponent<DespawningUI>(ui))
 				{
 					// 该UI已经关闭 或正在销毁
 					return false;
@@ -127,6 +127,12 @@ namespace SGame.UI
 					if (mgr.HasComponent<UIWindow>(ui))
 					{
 						UIWindow window = mgr.GetComponentData<UIWindow>(ui);
+						if (window.Value.isClosing)
+						{
+							log.Warn("repeate closing ui=" + ui);
+							return true;
+						}
+
 						if (window.Value != null)
 						{
 							window.Value.Close();
@@ -135,8 +141,9 @@ namespace SGame.UI
 					}
 					else
 					{
+						mgr.AddComponentData(ui, new DespawningUI() { isDispose = isDispose });
 						log.Error("is not ui=" + ui);
-						m_despawnSystem.RemoveEntity(ui);
+						//m_despawnSystem.RemoveEntity(ui);
 						return false;
 					}
 				}
@@ -185,7 +192,7 @@ namespace SGame.UI
 		public bool CheckOpened(Entity ui)
 		{
 			var entityManager = m_gameWorld.GetEntityManager();
-			return entityManager.HasComponent<UIInitalized>(ui) && !entityManager.HasComponent<DespawningEntity>(ui);
+			return entityManager.HasComponent<UIInitalized>(ui) && !entityManager.HasComponent<DespawningUI>(ui);
 		}
 
 		/// <summary>
