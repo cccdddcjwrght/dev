@@ -27,17 +27,9 @@ namespace SGame.UI
 			minit = minit > 0 ? minit : 0.05f;
 
 			m_view.SetPivot(0.5f, 1f, true);
-			if (info.id > 0 && info.type == 2)
-			{
-				_press = new LongPressGesture(m_view.m_click)
-				{
-					once = false,
-					interval = it,
-					trigger = ct
-				};
-				_press.onBegin.Add(OnBegin);
-				_press.onEnd.Add(() => pressFlag = false);
-			}
+			_press = new LongPressGesture(m_view.m_click) { once = false, interval = it, trigger = ct };
+			_press.onBegin.Add(OnBegin);
+			_press.onEnd.Add(() => pressFlag = false);
 
 			GRoot.inst.onClick.Add(OnOtherUIClick);
 
@@ -71,8 +63,8 @@ namespace SGame.UI
 						interval -= (it - minit) * 0.1f;
 				}
 			}
-
-			Run().Start();
+			if (info.type == 2)
+				Run().Start();
 		}
 
 		void OnGoldChange(double val, double change)
@@ -92,7 +84,7 @@ namespace SGame.UI
 			}
 		}
 
-		void OnFlightUpdate(int id, int star) 
+		void OnFlightUpdate(int id, int star)
 		{
 			TransitionModule.Instance.PlayFlight(m_view.m_rewardlist.GetChild("0"), (int)FlightType.DIAMOND);
 		}

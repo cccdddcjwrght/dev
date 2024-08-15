@@ -42,6 +42,8 @@ namespace SGame.UI
 		partial void InitLogic(UIContext context)
 		{
 			context.onShown += OnShow;
+			context.onHide += OnHide;
+
 			m_view.m_body.SetCurrency(1, "gold",iconCtr:"1");
 			m_view.m_body.SetCurrency(2, "diamond", iconCtr: "1");
 
@@ -59,10 +61,16 @@ namespace SGame.UI
 
 		void OnShow(UIContext context)
 		{
+			SceneCameraSystem.Instance.ToggleCamera(false);
+			Refresh();
 			_targetGoods = (context.GetParam()?.Value as object[]).Val<int>(0);
 			if (_targetGoods > 0 && _goodsItems.TryGetValue(_targetGoods, out var g))
 				m_view.m_content.m_goods.ScrollToView(m_view.m_content.m_goods.GetChildIndex(g));
+		}
 
+		void OnHide(UIContext context)
+		{
+			SceneCameraSystem.Instance.ToggleCamera(state: true);
 		}
 
 		void Refresh()

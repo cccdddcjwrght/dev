@@ -10,6 +10,7 @@ namespace SGame.UI
 	using GameConfigs;
 	using System.Linq;
 	using System;
+	using Unity.Entities;
 
 	public partial class UIWorktablePanel
 	{
@@ -17,16 +18,21 @@ namespace SGame.UI
 		private WorktableInfo info;
 		private int[] stars;
 		private List<CookBookItem> books;
+		private UnityEngine.Coroutine effCoroutine;
+		private Entity effEntity;
 
 		partial void BeforeInit(UIContext context)
 		{
 			context.beginShown += RefreshView;
+			context.onHide += OnHide;
+
 			context.window.needCache = true;
 		}
 
 		void RefreshView(UIContext context)
 		{
 			this.info = context.GetParam().Value.To<WorktableInfo>();
+
 			if (info.id > 0)
 			{
 				this.Delay(() =>
@@ -57,6 +63,15 @@ namespace SGame.UI
 			}
 		}
 
+		void OnHide(UIContext context)
+		{
+			m_view.m_tips.RemoveChildrenToPool();
+			effCoroutine?.Stop();
+			if (effEntity != default)
+				EffectSystem.Instance.ReleaseEffect(effEntity);
+			effEntity = default;
+		}
+
 		partial void UnInitLogic(UIContext context)
 		{
 			books?.Clear();
@@ -71,7 +86,7 @@ namespace SGame.UI
 			if (!data.isTable)
 			{
 				books = data.cfg.GetItemIdArray().Select(id => DataCenter.CookbookUtils.GetBook(id)).ToList();
-
+				m_view.m_foods.RemoveChildrenToPool();
 				SGame.UIUtils.AddListItems(m_view.m_foods, books, OnSetFoodItemInfo);
 				var index = Utils.FindCompareIndex(books, (a, b) => a.GetPrice().CompareTo(b.GetPrice()), b => b.IsEnable(), def: 0);
 				OnFoodClick(index, books[index]);
@@ -148,7 +163,7 @@ namespace SGame.UI
 			UIListener.SetControllerSelect(m_view.m_click, "gray", state ? 0 : 1);
 			m_view.m_btnty.selectedIndex = state ? 0 : 1;
 			if (!state) m_view.m_click.GetChild("bg").icon = null;
-			else UIListener.SetControllerSelect(m_view.m_click, "bgColor", 0 , false);
+			else UIListener.SetControllerSelect(m_view.m_click, "bgColor", 0, false);
 		}
 
 		private void SetUpStarRewards()
@@ -276,7 +291,7 @@ namespace SGame.UI
 					if (state)
 					{
 						m_view.m_btnty.selectedIndex = 0;
-						UIListener.SetControllerSelect(m_view.m_click, "bgColor", 0 , false);
+						UIListener.SetControllerSelect(m_view.m_click, "bgColor", 0, false);
 					}
 				}
 				catch (Exception e)
@@ -345,7 +360,7 @@ namespace SGame.UI
 					DataCenter.MachineUtil.UpdateLevel(info.id, 0);
 					LevelRefresh();
 					ShowUplevelEffect();
-					EffectSystem.Instance.AddEffect(2, m_view.m_click);
+					effEntity = EffectSystem.Instance.AddEffect(2, m_view.m_click);
 					return true;
 			}
 			pressFlag = false;
@@ -365,7 +380,7 @@ namespace SGame.UI
 				var item = m_view.m_tips.GetFromPool(null) as UI_Tips;
 				ls.Add(item.SetTextByKey("tips_main_btn_upgrade_2", data.addProfit));
 			}
-			AddItem(ls.ToArray()).Start();
+			effCoroutine = AddItem(ls.ToArray()).Start();
 		}
 
 		void OnFoodClick(int index, CookBookItem book)
@@ -411,6 +426,7 @@ namespace SGame.UI
 				m_view.m_tips.ScrollToView(m_view.m_tips.numItems - 1, true);
 				yield return new WaitForSeconds(0.2f);
 			}
+			effCoroutine = default;
 		}
 
 		partial void OnClickClick(EventContext data)

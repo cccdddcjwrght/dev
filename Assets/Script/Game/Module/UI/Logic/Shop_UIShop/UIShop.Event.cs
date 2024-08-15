@@ -10,6 +10,7 @@ namespace SGame.UI
 	{
 		partial void InitEvent(UIContext context)
 		{
+			context.window.needCache = true;
 			EventManager.Instance.Reg<int>(((int)GameEvent.SHOP_GOODS_BUY_RESULT), OnGoodsBuyResult);
 			EventManager.Instance.Reg(((int)GameEvent.SHOP_REFRESH), OnShopRefresh);
 			UIListener.ListenerClose(m_view.m_rate_2.m_bg, new EventCallback1(OnRateClose));
