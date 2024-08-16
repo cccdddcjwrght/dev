@@ -12,7 +12,7 @@ namespace SGame.UI{
 
 		public void OnInit(UIContext context)
 		{
-			context.onClose += OnClose;
+			context.onUninit += OnClose;
 			m_view = context.content as UI_GuideUI;
 			BeforeInit(context);
 			InitUI(context);
@@ -23,7 +23,7 @@ namespace SGame.UI{
 
 		private void OnClose(UIContext context)
 		{
-			context.onClose -= OnClose;
+			context.onUninit -= OnClose;
 			UnInitUI(context);
 			UnInitEvent(context);
 			UnInitLogic(context);

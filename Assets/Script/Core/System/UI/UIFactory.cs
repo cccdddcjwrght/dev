@@ -112,6 +112,7 @@ namespace SGame.UI
 
         void OnDispose(FairyWindow window)
         {
+			window.context?.onUninit?.Invoke(window.context);
             window.Dispose();
         }
         

@@ -22,9 +22,13 @@ namespace SGame.UI
 		void CustomerBookInit()
 		{
 			m_view.m_listCustomer.itemRenderer = OnRenderCustomer;
+			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.CUSTOMER_BOOK_UPDATE, OnCustomerBookUpdate);
+		}
+
+		void CustomerBookRefresh()
+		{
 			CustomerBookModule.Instance.ReSort();
 			m_view.m_listCustomer.numItems = CustomerBookModule.Instance.Datas.Count;
-			m_eventContainer += EventManager.Instance.Reg((int)GameEvent.CUSTOMER_BOOK_UPDATE, OnCustomerBookUpdate);
 		}
 
 		void OnCustomerBookUpdate()

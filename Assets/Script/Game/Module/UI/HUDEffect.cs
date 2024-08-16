@@ -17,7 +17,7 @@ public class HUDEffect : IUIScript
 
     public void OnInit(UIContext context)
     {
-        context.onClose += OnClose;
+        context.onUninit += OnClose;
         context.window.contentPane.touchable = false;
         //effectUI = context.content as UI_Effect;
         //effect = EffectSystem.Instance.AddEffect(8, effectUI);

@@ -12,7 +12,7 @@ namespace SGame.UI{
 
 		public void OnInit(UIContext context)
 		{
-			context.onClose += OnClose;
+			context.onUninit += OnClose;
 			context.onShown += OnShow;
 			m_view = context.content as UI_CookbookUpUI;
 			BeforeInit(context);
@@ -24,8 +24,8 @@ namespace SGame.UI{
 
 		private void OnClose(UIContext context)
 		{
-			context.onClose -= OnClose;
-			context.onShown -= OnShow;
+			context.onUninit -= OnClose;
+			context.onOpen -= OnShow;
 			UnInitUI(context);
 			UnInitEvent(context);
 			UnInitLogic(context);

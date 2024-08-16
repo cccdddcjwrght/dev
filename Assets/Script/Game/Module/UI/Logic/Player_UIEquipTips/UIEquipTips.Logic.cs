@@ -35,7 +35,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			context.window.needCache = true;
+			//context.window.needCache = true;
 			checktime = GlobalDesginConfig.GetFloat("eqtips_longpress_check_time", 0.5f);
 			interval = GlobalDesginConfig.GetFloat("eqtips_longpress_interval", 0.1f);
 			mininterval = GlobalDesginConfig.GetFloat("eqtips_longpress_interval_min", 0.05f);

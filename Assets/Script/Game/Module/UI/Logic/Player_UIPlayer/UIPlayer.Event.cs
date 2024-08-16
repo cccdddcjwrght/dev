@@ -19,7 +19,7 @@ namespace SGame.UI
 			handleContainer += EventManager.Instance.Reg(((int)GameEvent.EQUIP_REFRESH), OnEquipUpdate);
 			handleContainer += EventManager.Instance.Reg(((int)GameEvent.ROLE_EQUIP_CHANGE), OnPlayerEquipChange);
 			handleContainer += EventManager.Instance.Reg(((int)GameEvent.ROLE_PROPERTY_REFRESH), RefreshProperty);
-			context.window.needCache = true;
+			//context.window.needCache = true;
 		}
 
 		partial void UnInitEvent(UIContext context)

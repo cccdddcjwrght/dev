@@ -50,9 +50,14 @@ namespace SGame.UI
         public Action<UIContext> onHide;
 
         /// <summary>
-        /// UI关闭事件
+        /// UI关闭注销
         /// </summary>
-        public Action<UIContext> onClose;
+        public Action<UIContext> onUninit;
+
+		/// <summary>
+		/// UI关闭
+		/// </summary>
+		public Action<UIContext> onClose;
 
         /// <summary>
         /// UI打开事件

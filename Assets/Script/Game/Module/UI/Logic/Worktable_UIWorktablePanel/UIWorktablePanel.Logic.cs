@@ -26,7 +26,7 @@ namespace SGame.UI
 			context.beginShown += RefreshView;
 			context.onHide += OnHide;
 
-			context.window.needCache = true;
+			//context.window.needCache = true;
 		}
 
 		void RefreshView(UIContext context)

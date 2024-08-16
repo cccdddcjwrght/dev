@@ -25,11 +25,22 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
+			context.onHide += OnHide;
+			m_events.Add(EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnEvent));
+			m_events.Add(EventManager.Instance.Reg<double, double>((int)GameEvent.PROPERTY_GOLD_CHANGE, (a, b) => SetChangeInfo()));
+		}
+
+		partial void DoShow(UIContext context)
+		{
 			data = context.GetParam()?.Value.To<object[]>().Val<CookBookItem>(0);
 			if (data == null) { DoCloseUIClick(null); return; }
 			SetInfo();
-			m_events.Add(EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnEvent));
-			m_events.Add(EventManager.Instance.Reg<double, double>((int)GameEvent.PROPERTY_GOLD_CHANGE, (a, b) => SetChangeInfo()));
+		}
+
+		void OnHide(UIContext context)
+		{
+			if (effect != default)
+				EffectSystem.Instance.ReleaseEffect(effect);
 		}
 
 		partial void UnInitLogic(UIContext context)
@@ -37,8 +48,6 @@ namespace SGame.UI
 			data = default;
 			stars = default;
 			m_events.Close();
-			if (effect != default)
-				EffectSystem.Instance.ReleaseEffect(effect);
 		}
 
 		#endregion

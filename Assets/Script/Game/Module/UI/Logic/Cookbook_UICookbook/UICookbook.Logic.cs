@@ -48,15 +48,19 @@ namespace SGame.UI
 
 
 			#endregion
+			CustomerBookInit();
 
+		}
+
+		partial void DoShow(UIContext context)
+		{
 			m_view.m_waiter.visible = m_view.m_waiter.name.IsOpend(false);
 			m_view.m_cooker.visible = m_view.m_cooker.name.IsOpend(false);
-			
+
 			OnViewRefresh();
 			SwitchTabsPage(0);
 			OnTabsChanged(null);
-
-			CustomerBookInit();
+			CustomerBookRefresh();
 		}
 
 		partial void UnInitLogic(UIContext context)
