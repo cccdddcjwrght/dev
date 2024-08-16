@@ -109,6 +109,11 @@ namespace SGame
 			return win != null && win.isShowing && win.visible && !win.isHiding;
 		}
 
+		protected override FairyWindow GetUI(string ui)
+		{
+			return GRoot.inst.GetChild(ui) as FairyWindow;
+		}
+
 		#endregion
 
 		#region UI Event

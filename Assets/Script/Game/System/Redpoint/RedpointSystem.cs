@@ -87,6 +87,8 @@ namespace SGame
 		public string res;
 		public string ui;
 		public string path;
+		public string ctr;
+		public string filter;
 		public Vector3 offset;
 		public EventHandleContainer ehandler;
 
@@ -341,15 +343,14 @@ namespace SGame
 				var cpath = rdata.path;
 				if (!string.IsNullOrEmpty(_ui) && !string.IsNullOrEmpty(cpath) && CheckUIState(_ui) == true)
 				{
-					var _f = data.Filter;
-					var _c = data.Ctr;
+					var _f = rdata.filter;
+					var _c = rdata.ctr;
 					var e = GetUI(_ui);
-					if (EntityManager.HasComponent<UIWindow>(e))
+					if (e != null && e.isShowing)
 					{
-						var w = EntityManager.GetComponentData<UIWindow>(e);
-						if (w != null)
+						var p = e.contentPane;
+						if (p != null)
 						{
-							var p = w.Value.contentPane;
 							var fstate = string.IsNullOrEmpty(_f);
 							if (cpath[0] == '*')
 							{
@@ -369,7 +370,7 @@ namespace SGame
 							}
 							else
 							{
-								var path = cpath.Replace("/", ".");
+								var path = cpath;
 								if (path.EndsWith(".*"))
 								{
 									path = path.Substring(0, path.Length - 2);
@@ -588,9 +589,10 @@ namespace SGame
 			if (redpoint.id > 0)
 			{
 				var cfg = GetConfig(redpoint.id);
-				if (cfg.IsValid())
+				if (cfg.ByteBuffer != null)
 				{
-					if (cfg.DependFuncID > 0 && !FunctionSystem.Instance.IsOpened(cfg.DependFuncID))
+					var fid = cfg.DependFuncID;
+					if (fid > 0 && !FunctionSystem.Instance.IsOpened(fid))
 						return redpoint.status = 0;
 					else
 					{
@@ -609,7 +611,7 @@ namespace SGame
 
 		private int OnRedpointStatusChange(int id, bool status, GameConfigs.RedConfigRowData cfg = default)
 		{
-			if (cfg.IsValid() || (cfg = GetConfig(id)).IsValid())
+			if (cfg.ByteBuffer != null || (cfg = GetConfig(id)).ByteBuffer != null)
 			{
 				ToggleRedpoint(cfg, status);
 				return cfg.Interval > 0 ? cfg.Interval : __red_check_time;
@@ -820,6 +822,8 @@ namespace SGame
 					res = cfg.Res,
 					ui = cfg.Ui,
 					path = cfg.Path,
+					ctr = cfg.Ctr,
+					filter = cfg.Filter,
 					offset = new Vector3(cfg.Offset(0), cfg.Offset(1), cfg.Offset(2)),
 					clickCall = needcall ? (e) => OnItemClick(cfg.Id, e) : default
 				};
@@ -880,7 +884,7 @@ namespace SGame
 
 		protected virtual bool CheckUIState(string ui) => UIUtils.CheckUIIsOpen(ui);
 
-		protected virtual Entity GetUI(string ui) => UIUtils.GetUIEntity(ui);
+		protected virtual FairyWindow GetUI(string ui) => default;
 
 		protected virtual void Goto(int id) => id.Goto();
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Unity.Entities;
 using UnityEngine;
 
@@ -123,6 +124,7 @@ namespace SGame
 		{
 			if (data != null && data.IsInitAll)
 			{
+
 				data.Save();
 				var str = JsonUtility.ToJson(data);
 				PlayerPrefs.SetString(key ?? __DKey, str);
@@ -143,14 +145,20 @@ namespace SGame
 		static void SetTimer()
 		{
 			new Action(() => SaveData(DataCenter.Instance)).CallWhenQuit();
-			0.Loop(() =>
-			{
-				SaveData(DataCenter.Instance);
-				
-				#if DATA_SYNC 
+
+			ThreadPool.QueueUserWorkItem((a) => {
+
+				while (Application.isPlaying)
+				{
+					Thread.Sleep(10000);
+					SaveData(DataCenter.Instance);
+#if DATA_SYNC
 					DataSyncModule.SendDataToServer();
-				#endif
-			}, () => true, 10000, 10000);
+#endif
+				}
+
+			});
+
 		}
 	}
 }

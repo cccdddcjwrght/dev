@@ -139,7 +139,7 @@ namespace SGame
 				}
 				if (ifMissAdd && (val == null || val.id == 0))
 				{ val = AddWorktable(id, scene); }
-				if (val != null && val.type != 1 && !(val.cfg.IsValid() || val.objCfg.IsValid()))
+				if (val != null && val.type == -1)
 					val.Refresh();
 				return val;
 			}
@@ -422,17 +422,16 @@ namespace SGame
 
 			public static int CheckCanUpLevel(Worktable worktable)
 			{
-				if (worktable != null && (worktable.cfg.IsValid() || worktable.objCfg.IsValid()))
+				if (worktable != null && worktable.notNormalTable && worktable.type != -1)
 				{
-					var cost = worktable.GetUpCost(out var type, out var id);
 					if (worktable.level >= worktable.maxlv) return Error_Code.LV_MAX;
-					if (worktable.level > 0 && !PropertyManager.Instance.CheckCount(id, cost, type))
+					if (worktable.level > 0 && !PropertyManager.Instance.CheckCount(1, worktable.GetCostVal()))
 						return Error_Code.ITEM_NOT_ENOUGH;
-					if (worktable.objLvCfg.IsValid() && worktable.objLvCfg.Condition > 0)
+					if (worktable.condition > 0)
 					{
-						if (!IsAreaEnable(worktable.objLvCfg.Condition)) return Error_Code.AREA_IS_LOCK;
+						if (!IsAreaEnable(worktable.condition)) return Error_Code.AREA_IS_LOCK;
 					}
-					return 0;
+					return Error_Code.SUCCESS;
 				}
 				return -1;
 			}
@@ -559,7 +558,7 @@ namespace SGame
 		public List<Machine> stations = new List<Machine>();
 
 		[NonSerialized]
-		public int type;
+		public int type = -1;
 		[NonSerialized]
 		public MachineRowData cfg;
 		[NonSerialized]
@@ -576,19 +575,24 @@ namespace SGame
 		public int addProfit;
 		[NonSerialized]
 		public int addMachine;
-		[NonReorderable]
+		[NonSerialized]
 		public int reward;
-		[NonReorderable]
+		[NonSerialized]
 		public List<int[]> starRewards;
-		[NonReorderable]
+		[NonSerialized]
 		public int addCooker;
-		[NonReorderable]
+		[NonSerialized]
 		public int addRole;
-		[NonReorderable]
+		[NonSerialized]
 		public int addWaiter;
-		[NonReorderable]
+		[NonSerialized]
 		public int lvStart;
-
+		[NonSerialized]
+		public float[] upcost;
+		[NonSerialized]
+		public float[] unlockcost;
+		[NonSerialized]
+		public int condition;
 
 		static Dictionary<int, List<RoomMachineRowData>> ALL_TABLE_CFGS = null;
 
@@ -600,6 +604,8 @@ namespace SGame
 		public string name { get { return foodCfg.IsValid() ? foodCfg.Name : cfg.IsValid() ? cfg.MachineName : objCfg.IsValid() ? objCfg.Name : null; } }
 
 		public string foodName { get { return foodCfg.IsValid() ? "ui_worktable_name".Local(null, foodCfg.Name.Local()) : name.Local(); } }
+
+		public bool notNormalTable { get { return type != 1; } }
 
 		public bool IsMaxLv()
 		{
@@ -614,13 +620,7 @@ namespace SGame
 
 		public float[] GetUnlockPrice()
 		{
-			if (cfg.IsValid())
-				return cfg.GetUnlockPriceArray();
-			if (objLvCfg.IsValid() && objLvCfg.CostLength > 0)
-				return objLvCfg.GetCostArray();
-			if (objCfg.IsValid())
-				return objCfg.GetCostArray();
-			return default;
+			return unlockcost;
 		}
 
 		public double GetPrice(int bookid = 0, bool baseval = false)
@@ -661,6 +661,12 @@ namespace SGame
 			return GetUpCost(out _, out _);
 		}
 
+		public double GetCostVal()
+		{
+			if (upcost == null) return 0;
+			return !isTable ? (0.01d * upcost[2] * cfg.UpgradeRatio).ToInt() : upcost[2];
+		}
+
 		public double GetUpCost(out int type, out int id)
 		{
 			type = id = 0;
@@ -668,18 +674,20 @@ namespace SGame
 			{
 				if (lvcfg.IsValid())
 				{
-					type = (int)lvcfg.UpgradePrice(0);
-					id = (int)lvcfg.UpgradePrice(1);
-					return (0.01d * lvcfg.UpgradePrice(2) * cfg.UpgradeRatio).ToInt();
+					if (upcost == null) upcost = lvcfg.GetUpgradePriceArray();
+					type = (int)upcost[0];
+					id = (int)upcost[1];
+					return (0.01d * upcost[2] * cfg.UpgradeRatio).ToInt();
 				}
 			}
 			else if (objLvCfg.IsValid())
 			{
-				type = (int)objLvCfg.Cost(0);
-				id = (int)objLvCfg.Cost(1);
-				return objLvCfg.Cost(2);
+				if (upcost == null) return default;
+				type = (int)upcost[0];
+				id = (int)upcost[1];
+				return upcost[2];
 			}
-			return 0;
+			return default;
 		}
 
 		public bool CanUpLv()
@@ -706,7 +714,7 @@ namespace SGame
 		public void Refresh()
 		{
 			if (lvcfg.IsValid()) star = lvcfg.MachineStar;
-			if (type == 0)
+			if (type == -1)
 			{
 				if (ALL_TABLE_CFGS == null)
 					ALL_TABLE_CFGS = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => true).GroupBy(v => v.Machine).ToDictionary(c => c.Key, c => c.ToList());
@@ -727,19 +735,31 @@ namespace SGame
 					}
 				}
 				else
-					type = -1;
+					type = -9999;
 
 				if (!ConfigSystem.Instance.TryGet<MachineRowData>(id, out cfg))
 					isTable = true;
+				else
+					unlockcost = cfg.GetUnlockPriceArray();
 			}
 
 			if (type > 3)
 			{
-				if (lv > 0) ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level, out objLvCfg);
+				if (lv > 0)
+				{
+
+					if (ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level, out objLvCfg))
+					{
+						upcost = objLvCfg.GetCostArray();
+						condition = objLvCfg.Condition;
+					}
+				}
 				ConfigSystem.Instance.TryGet<RoomObjLevelRowData>(level + 1, out objNextLvCfg);
+				unlockcost = objLvCfg.IsValid() && objLvCfg.CostLength > 0 ? objLvCfg.GetCostArray() : objCfg.GetCostArray();
 			}
 			else if (!isTable && ConfigSystem.Instance.TryGet<MachineUpgradeRowData>(level, out lvcfg))
 			{
+				upcost = lvcfg.GetUpgradePriceArray();
 				if (food == 0) food = cfg.ItemId(0);
 				ConfigSystem.Instance.TryGet(item, out foodCfg);
 				if ((starRewards == null || lvcfg.MachineStar > star))
