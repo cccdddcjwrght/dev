@@ -137,6 +137,7 @@ namespace SGame.UI
                         return;
 
                     // 3. 加载GObject
+                    /*
                     if (window.gObject == null)
                     {
                         window.gObject = window.uiPackage.uiPackage.CreateObject(request.comName);
@@ -147,6 +148,7 @@ namespace SGame.UI
                             return;
                         }
                     }
+                    */
                     
                     // 4. 创建WINDOW
                     int cacheNum = m_preprocess != null ? m_preprocess.GetCacheNum(request.configId) : 0;

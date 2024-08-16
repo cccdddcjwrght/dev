@@ -99,6 +99,8 @@ namespace SGame.UI
 
         // 显示结束事件
         public Action<FairyWindow>  onShownFinish;
+        
+        public bool needCache = false;
 
         private IUIScript m_uiScript;
         private UIContext m_context;
@@ -261,7 +263,7 @@ namespace SGame.UI
             return true;
         }
 
-        public void Close()
+        public void Close(bool nocache = false)
         {
             CleanTween();
             m_isDelayClose = true;
