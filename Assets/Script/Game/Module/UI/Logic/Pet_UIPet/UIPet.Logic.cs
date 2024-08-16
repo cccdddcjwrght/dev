@@ -32,6 +32,8 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
+			context.onHide += OnHide;
+
 			m_view.z = 400;
 			m_view.m_eggpanel.z = -500;
 			m_view.m_tips.z = -500;
@@ -42,6 +44,11 @@ namespace SGame.UI
 			m_view.m_body.SetCurrency(2, "currency");
 			InitList();
 			SetInfo();
+		}
+
+		void OnHide(UIContext context)
+		{
+			DataCenter.PetUtil.ClearNewFlag(_isClickEgg ? -1 : 0);
 		}
 
 		partial void DoShow(UIContext context)
@@ -478,7 +485,6 @@ namespace SGame.UI
 		{
 			_timer?.Invoke(false);
 			m_view.onClick.Remove(OnViewClick);
-			DataCenter.PetUtil.ClearNewFlag(_isClickEgg ? -1 : 0);
 			m_view.m_pet.m_model.m_model.Release();
 			_selectEgg = default;
 			EventManager.Instance.UnReg<PetItem, Action>(((int)GameEvent.PET_BORN_EVO), OnPetBornEvo);
