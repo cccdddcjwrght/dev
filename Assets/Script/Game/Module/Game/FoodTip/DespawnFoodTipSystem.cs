@@ -1,3 +1,4 @@
+using SGame.UI;
 using Unity.Entities;
 
 namespace SGame
@@ -22,7 +23,7 @@ namespace SGame
             {
                 if (EntityManager.Exists(tip.ui))
                 {
-                    commandBuffer.AddComponent<DespawningEntity>(tip.ui);
+                    commandBuffer.AddComponent<DespawningUI>(tip.ui);
                 }
             }).WithoutBurst().WithStructuralChanges().Run();
         }

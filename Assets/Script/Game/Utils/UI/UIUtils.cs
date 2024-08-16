@@ -451,10 +451,9 @@ namespace SGame
 			Entity ui = ShowHUD("floattext", pos, float3.zero);
 			entityManager.AddComponent<LocalTransform>(ui);
 			entityManager.AddComponent<HUDTips>(ui);
-			entityManager.AddComponent<LiveTime>(ui);
 			entityManager.SetComponentData(ui, LocalTransform.FromPosition(pos.position));
 			entityManager.SetComponentData(ui, new HUDTips { title = Utils.ConvertNumberStr(gold), color = color, fontSize = fontSize, speed = speed });
-			entityManager.SetComponentData(ui, new LiveTime { Value = duration });
+			entityManager.AddComponentData(ui, new UILiveTime { Value = duration });
 			PropertyManager.Instance.GetGroup(PropertyGroup.ITEM).AddNum((int)ItemID.GOLD, gold);
 			return ui;
 		}

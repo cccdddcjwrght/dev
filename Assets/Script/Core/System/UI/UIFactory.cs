@@ -107,7 +107,7 @@ namespace SGame.UI
 
         void OnDespawnUI(FairyWindow window)
         {
-            //window.HideImmediately();
+            window.HideImmediately();
         }
 
         void OnDispose(FairyWindow window)
@@ -186,7 +186,8 @@ namespace SGame.UI
             var poolID = window.poolID;
             if (!m_uiPools.TryGetValue(id, out UIPool pool))
             {
-                return false;
+                OnDispose(window);
+                return true;
             }
 
             if (pool.count > pool.cacheNum)

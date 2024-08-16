@@ -16,7 +16,13 @@ namespace SGame
 
 		public int GetCacheNum(int configID)
 		{
-			return 99;
+            if (!ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData ui))
+            {
+                log.Error("ui config not found=" + configID);
+                return 0;
+            }
+            
+            return ui.Cache;
 		}
 
 		public void ReOpen(UIContext context)
