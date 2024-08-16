@@ -261,8 +261,7 @@ namespace SGame
 
 		public bool IsUnlock()
 		{
-			var level = DataCenter.Instance.roomData.roomID;
-			return cfg.IsValid() && cfg.Unlock(0) <= level && cfg.Unlock(1) >= level && DataCenter.MachineUtil.IsAreaEnable(cfg.UnlockArea);
+			return cfg.IsValid() && DataCenter.Instance.roomData.Check(cfg.Unlock(0), cfg.Unlock(1)) && DataCenter.MachineUtil.IsAreaEnable(cfg.UnlockArea);
 		}
 
 	}

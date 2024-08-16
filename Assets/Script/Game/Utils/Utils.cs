@@ -1308,12 +1308,14 @@ namespace SGame
 		public static bool GetCurrentTaskProgress(out int value, out int max)
 		{
 			var CurTaskId = DataCenter.TaskMainUtil.GetCurTaskCfgId();
+			var info = DataCenter.TaskMainUtil.CurrentTaskInfo;
 			value = 0;
 			max = 0;
-			if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(CurTaskId, out var cfg))
+			if (info.cfg.IsValid())
 			{
-				max = cfg.TaskValue(1);
-				value = DataCenter.TaskMainUtil.GetTaskProgress(cfg.TaskType, cfg.GetTaskValueArray());
+				var cfg = info.cfg;
+				max = info.values[1];
+				value = DataCenter.TaskMainUtil.GetTaskProgress(cfg.TaskType, info.values);
 				if (cfg.ProgressType == 1)
 				{
 					value = value >= max ? 1 : 0;

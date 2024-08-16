@@ -126,6 +126,8 @@ namespace SGame
 		public CookBookRowData nextLvCfg;
 
 		private List<CookBookRowData> cfgLists;
+		private int[] cost;
+		private int[] condition;
 
 		public bool IsMaxLv()
 		{
@@ -191,18 +193,18 @@ namespace SGame
 					switch (lvCfg.ConditionType)
 					{
 						case 1:
-							f = DataCenter.Instance.roomData.tables.Contains(lvCfg.ConditionValue(0));
+							f = DataCenter.Instance.roomData.tables.Contains(condition[0]);
 							break;
 						case 2:
-							f = DataCenter.MachineUtil.IsAreaEnable(lvCfg.ConditionValue(0));
+							f = DataCenter.MachineUtil.IsAreaEnable(condition[0]);
 							break;
 						case 3:
-							f = Utils.CheckItemCount(lvCfg.ConditionValue(0), lvCfg.ConditionValue(1), false);
+							f = Utils.CheckItemCount(condition[0], condition[1], false);
 							if (!f) itemnot = true;
 							break;
 					}
 					if (!f) return false;
-					if (checkcost && !PropertyManager.Instance.CheckCountByArgs(lvCfg.GetCostArray()))
+					if (checkcost && !PropertyManager.Instance.CheckCountByArgs(cost))
 					{
 						itemnot = true;
 						return false;
@@ -238,6 +240,8 @@ namespace SGame
 					level = Math.Clamp(level, 1, maxLv);
 					lvCfg = level > 0 ? cfgLists[level - 1] : default;
 					nextLvCfg = level >= cfgLists.Count ? default : cfgLists[level];
+					cost = lvCfg.GetCostArray();
+					condition = lvCfg.GetConditionValueArray();
 				}
 			}
 			return this;

@@ -32,7 +32,6 @@ namespace SGame.UI
 		void RefreshView(UIContext context)
 		{
 			this.info = context.GetParam().Value.To<WorktableInfo>();
-
 			if (info.id > 0)
 			{
 				this.Delay(() =>
@@ -67,8 +66,7 @@ namespace SGame.UI
 		{
 			m_view.m_tips.RemoveChildrenToPool();
 			effCoroutine?.Stop();
-			if (effEntity != default)
-				EffectSystem.Instance.ReleaseEffect(effEntity);
+			if (effEntity != default) EffectSystem.Instance.ReleaseEffect(effEntity);
 			effEntity = default;
 		}
 

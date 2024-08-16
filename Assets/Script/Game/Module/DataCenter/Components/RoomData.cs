@@ -240,6 +240,12 @@ namespace SGame
 				return rooms?.Count > 0 ? rooms[0] : default;
 			}
 		}
+	
+		public bool Check(int min , int max)
+		{
+			return roomID >= min && roomID <= max;
+		}
+
 	}
 
 

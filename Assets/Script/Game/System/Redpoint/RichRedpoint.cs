@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FairyGUI;
 using FlatBuffers;
 using GameConfigs;
 using GameTools;
@@ -74,11 +75,11 @@ namespace SGame
 			};
 		}
 
-		protected override void SetRedOnGameObject(GameObject child, bool status, RedConfigRowData data = default)
+		protected override void SetRedOnGameObject(GameObject child, bool status, RPData data = null)
 		{
 			if (child == null) return;
 
-			if (!string.IsNullOrEmpty(data.Res) && data.Res[0] == '*')
+			if (!string.IsNullOrEmpty(data.res) && data.res[0] == '*')
 			{
 				var id = child.GetInstanceID();
 				if (status)
@@ -87,12 +88,8 @@ namespace SGame
 					{
 						_hudID[id] = G_LOCK;
 
-						_hudID[id] = UIUtils.ShowHUD(data.Res.Substring(1), child.transform, new float3(data.Offset(0), data.Offset(1), data.Offset(2)));
+						_hudID[id] = UIUtils.ShowHUD(data.res.Substring(1), child.transform, data.offset);
 						_hudID[id].SetParam(new object[] { child, data });
-						/*this.Delay(() =>
-						{
-						}, 1);*/
-
 					}
 				}
 				else if (_hudID.TryGetValue(id, out var e) && e != G_LOCK && e != default)
@@ -103,7 +100,13 @@ namespace SGame
 				return;
 			}
 
-			base.SetRedOnGameObject(child, status, data);
+			base.SetRedOnGameObject(child, status , data);
+		}
+
+		protected override bool CheckUIState(string ui)
+		{
+			var win = GRoot.inst.GetChild(ui) as FairyWindow;
+			return win != null && win.isShowing && win.visible && !win.isHiding;
 		}
 
 		#endregion
@@ -112,7 +115,7 @@ namespace SGame
 
 		private void OnUIShow(string ui)
 		{
-			if (DataCenter.Instance!=null && DataCenter.Instance.IsInitAll)
+			if (DataCenter.Instance != null && DataCenter.Instance.IsInitAll)
 			{
 				Init();
 				this.Delay(() => MarkRedpointGroup(ui, true), 1);
@@ -127,11 +130,11 @@ namespace SGame
 
 		private void OnLevelRoom()
 		{
-			if(_hudID?.Count > 0)
+			if (_hudID?.Count > 0)
 			{
 				foreach (var item in _hudID)
 				{
-					if (item.Value!=default && EntityManager.Exists(item.Value))
+					if (item.Value != default && EntityManager.Exists(item.Value))
 						UIUtils.CloseUI(item.Value);
 				}
 				_hudID.Clear();
@@ -238,7 +241,7 @@ namespace SGame
 						{
 							return conditonSys.GetConditonCalculator(key, null)?.Do(cfg, null, args) == true;
 						}
-						else if (cfg.Activity!=0)
+						else if (cfg.Activity != 0)
 						{
 							//正数：具体活动ID；负数：活动类型
 							var actType = cfg.Activity;
@@ -256,7 +259,7 @@ namespace SGame
 							if (isopen)
 							{
 								var c = conditonSys.GetConditonCalculator(key, null);
-								if (c != null) return  c.Do(cfg, null, args);
+								if (c != null) return c.Do(cfg, null, args);
 							}
 							return isopen;
 

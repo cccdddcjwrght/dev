@@ -50,6 +50,7 @@ namespace SGame
 	{
 		public class MachineUtil
 		{
+			static private int _tempIndex = 0;
 
 			private static Dictionary<string, int> _areas = new Dictionary<string, int>();
 
@@ -128,9 +129,10 @@ namespace SGame
 				var val = default(Worktable);
 				if (ls != null && ls.Count > 0)
 				{
-					for (int i = 0; i < ls.Count; i++)
+					_tempIndex = 0;
+					for (_tempIndex = 0; _tempIndex < ls.Count; _tempIndex++)
 					{
-						var w = ls[i];
+						var w = ls[_tempIndex];
 						if (w != null && w.id == id)
 						{ val = w; break; }
 					}
@@ -148,7 +150,18 @@ namespace SGame
 				{
 					var ws = GetWorktables();
 					if (ws?.Count > 0)
-						return ws.FindAll(w => condition(w));
+					{
+						var ls = default(List<Worktable>);
+						foreach (var w in ws)
+						{
+							if (condition(w))
+							{
+								ls = ls ?? new List<Worktable>();
+								ls.Add(w);
+							}
+						}
+						return ls;
+					}
 				}
 				return default;
 			}
@@ -438,10 +451,12 @@ namespace SGame
 
 			public static bool CheckAllWorktableIsMaxLv()
 			{
-				var ws = GetWorktables(w => !w.isTable);
-				if (ws?.Count > 0)
-					return ws.All(w => w.level >= w.maxlv);
-				return false;
+				return GetWorktables(CheckMaxLv) != null;
+			}
+
+			private static bool CheckMaxLv(Worktable worktable)
+			{
+				return !worktable.isTable && worktable.level >= worktable.max;
 			}
 
 			/// <summary>
@@ -695,7 +710,7 @@ namespace SGame
 			{
 				if (ALL_TABLE_CFGS == null)
 					ALL_TABLE_CFGS = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => true).GroupBy(v => v.Machine).ToDictionary(c => c.Key, c => c.ToList());
-				
+
 				ALL_TABLE_CFGS.TryGetValue(id, out var ls);
 				var first = ls.FirstOrDefault();
 				lvStart = 0;

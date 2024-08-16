@@ -11,6 +11,13 @@ namespace SGame
         public int cfgId;       //当前任务id
     }
 
+	public class TaskInfo
+	{
+		public int id;
+		public GameConfigs.MainTaskRowData cfg;
+		public int[] values;
+	}
+
     public partial class DataCenter 
     {
         public TaskMainData taskMainData = new TaskMainData();
@@ -18,6 +25,7 @@ namespace SGame
         public static class TaskMainUtil
         {
             public static TaskMainData m_TaskMainData { get { return DataCenter.Instance.taskMainData; } }
+			static public TaskInfo CurrentTaskInfo { get; private set; }
             static bool isGet = false;
 
             //打开界面是否自动领取奖励
@@ -31,8 +39,16 @@ namespace SGame
                 if (m_TaskMainData.cfgId == 0) 
                 {
                     var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.MainTask>();
-                    m_TaskMainData.cfgId = configs.Datalist(0).Value.Id;
+					m_TaskMainData.cfgId = configs.Datalist(0).Value.Id;
                 }
+
+				if(CurrentTaskInfo == null || CurrentTaskInfo.id != m_TaskMainData.cfgId)
+				{
+					CurrentTaskInfo = CurrentTaskInfo ?? new TaskInfo();
+					CurrentTaskInfo.id = m_TaskMainData.cfgId;
+					if(ConfigSystem.Instance.TryGet(CurrentTaskInfo.id, out CurrentTaskInfo.cfg))
+						CurrentTaskInfo.values = CurrentTaskInfo.cfg.GetTaskValueArray();
+				}
                 return m_TaskMainData.cfgId;
             }
 
@@ -136,10 +152,12 @@ namespace SGame
             static int oldValue;
             public static void RefreshTaskState() 
             {
-                if (ConfigSystem.Instance.TryGet<GameConfigs.MainTaskRowData>(GetCurTaskCfgId(), out var cfg))
+				GetCurTaskCfgId();
+				if (CurrentTaskInfo.cfg.IsValid())
                 {
-                    var max = cfg.TaskValue(1);
-                    var value = GetTaskProgress(cfg.TaskType, cfg.GetTaskValueArray());
+					var cfg = CurrentTaskInfo.cfg;
+                    var max = CurrentTaskInfo.values[1];
+                    var value = GetTaskProgress(cfg.TaskType, CurrentTaskInfo.values);
                     var state = value >= max;
                     if (isGet != state && state == true)
                     {

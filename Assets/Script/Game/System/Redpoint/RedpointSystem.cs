@@ -84,6 +84,10 @@ namespace SGame
 		public Entity check;
 		public Entity node;
 		public GameConfigs.RedConfigRowData cfg;
+		public string res;
+		public string ui;
+		public string path;
+		public Vector3 offset;
 		public EventHandleContainer ehandler;
 
 		public EventCallback1 clickCall;
@@ -330,15 +334,15 @@ namespace SGame
 
 		public void ToggleRedpoint(GameConfigs.RedConfigRowData data, bool status)
 		{
-			if (data.IsValid() && !string.IsNullOrEmpty(data.Ui) && !string.IsNullOrEmpty(data.Path))
+			if (data.IsValid())
 			{
-				var _ui = data.Ui;
-
-				if (CheckUIState(_ui) == true)
+				var rdata = _datas[data.Id];
+				var _ui = rdata.ui;
+				var cpath = rdata.path;
+				if (!string.IsNullOrEmpty(_ui) && !string.IsNullOrEmpty(cpath) && CheckUIState(_ui) == true)
 				{
 					var _f = data.Filter;
 					var _c = data.Ctr;
-					var cpath = data.Path;
 					var e = GetUI(_ui);
 					if (EntityManager.HasComponent<UIWindow>(e))
 					{
@@ -357,11 +361,11 @@ namespace SGame
 										for (int i = 0; i < gos.Length; i++)
 										{
 											if (gos[i].activeInHierarchy && (!fstate || gos[i].name.Contains(_f) || gos[i].transform.Find(_f)))
-												SetRedOnGameObject(gos[i], OnCalculation?.Invoke(data, gos[i], null) == true, data);
+												SetRedOnGameObject(gos[i], OnCalculation?.Invoke(data, gos[i], null) == true, rdata);
 										}
 									}
 								}
-								else SetRedOnGameObject(GameObject.Find(cpath.Substring(1)), status, data);
+								else SetRedOnGameObject(GameObject.Find(cpath.Substring(1)), status, rdata);
 							}
 							else
 							{
@@ -414,7 +418,7 @@ namespace SGame
 			return false;
 		}
 
-		protected virtual void SetRedOnGameObject(GameObject child, bool status, GameConfigs.RedConfigRowData data = default)
+		protected virtual void SetRedOnGameObject(GameObject child, bool status, RPData data = null)
 		{
 			if (!child) return;
 
@@ -432,8 +436,8 @@ namespace SGame
 				this.Delay(() =>
 				{
 					var e = SpawnSystem.Instance.Spawn(
-						data.Res, child, 0,
-						new Vector3(data.Offset(0), data.Offset(1), data.Offset(2)) + child.transform.position,
+						data.res, child, 0,
+						data.offset + child.transform.position,
 						name: "__red_auto");
 					if (e != Entity.Null)
 						SpawnSystem.Instance.SetLayer(e, LayerMask.NameToLayer(__red_layer));
@@ -813,6 +817,10 @@ namespace SGame
 					id = cfg.Id,
 					cfg = cfg,
 					key = needcall ? __red_key + cfg.Id : null,
+					res = cfg.Res,
+					ui = cfg.Ui,
+					path = cfg.Path,
+					offset = new Vector3(cfg.Offset(0), cfg.Offset(1), cfg.Offset(2)),
 					clickCall = needcall ? (e) => OnItemClick(cfg.Id, e) : default
 				};
 			return default;

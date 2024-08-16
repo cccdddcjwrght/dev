@@ -44,8 +44,7 @@ namespace SGame.UI
 			context.onShown += OnShow;
 			context.onHide += OnHide;
 
-			m_view.m_body.SetCurrency(1, "gold",iconCtr:"1");
-			m_view.m_body.SetCurrency(2, "diamond", iconCtr: "1");
+
 
 			Refresh();
 		}
@@ -61,6 +60,8 @@ namespace SGame.UI
 
 		void OnShow(UIContext context)
 		{
+			m_view.m_body.SetCurrency(1, "gold", iconCtr: "1");
+			m_view.m_body.SetCurrency(2, "diamond", iconCtr: "1");
 			SceneCameraSystem.Instance.ToggleCamera(false);
 			Refresh();
 			_targetGoods = (context.GetParam()?.Value as object[]).Val<int>(0);

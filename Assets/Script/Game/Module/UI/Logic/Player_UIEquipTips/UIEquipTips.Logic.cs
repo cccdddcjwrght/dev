@@ -35,7 +35,7 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-
+			context.window.needCache = true;
 			checktime = GlobalDesginConfig.GetFloat("eqtips_longpress_check_time", 0.5f);
 			interval = GlobalDesginConfig.GetFloat("eqtips_longpress_interval", 0.1f);
 			mininterval = GlobalDesginConfig.GetFloat("eqtips_longpress_interval_min", 0.05f);
@@ -44,9 +44,13 @@ namespace SGame.UI
 			pressHandler = new LongPressGesture(m_view.m_up) { once = false, interval = interval, trigger = checktime };
 			pressHandler.onAction.Add(OnUpClick);
 			pressHandler.onEnd.Add(() => pressFlag = false);
-
-
 			m_view.z = -500;
+
+		}
+
+		partial void DoShow(UIContext context)
+		{
+
 			var eq = (context.GetParam().Value as object[]).Val<BaseEquip>(0);
 			if (eq is EquipItem) equip = eq as EquipItem;
 			else { equip = new EquipItem() { cfgID = eq.cfgID, level = eq.level, quality = eq.quality, progress = 0 }; equip.Refresh(); }
@@ -55,10 +59,6 @@ namespace SGame.UI
 			m_view.m_flag.selectedIndex = showBtn ? 0 : 1;
 			SetInfo();
 			SetEffectsInfo();
-		}
-
-		partial void DoShow(UIContext context)
-		{
 		}
 
 		void SetInfo()

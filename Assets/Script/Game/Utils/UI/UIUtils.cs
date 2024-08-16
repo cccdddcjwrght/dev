@@ -251,7 +251,8 @@ namespace SGame
 		{
 			if (string.IsNullOrEmpty(name)) return false;
 			var mgr = UIModule.Instance.GetEntityManager();
-			var e = UIModule.Instance.GetUI(name);
+
+			var e =  UIModule.Instance.GetUI(name);
 			return e.IsExists() && UIModule.Instance.CheckOpened(e);
 		}
 
