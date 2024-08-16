@@ -451,12 +451,12 @@ namespace SGame
 
 			public static bool CheckAllWorktableIsMaxLv()
 			{
-				return GetWorktables(CheckMaxLv) != null;
+				return GetWorktables(CheckMaxLv) == null;
 			}
 
 			private static bool CheckMaxLv(Worktable worktable)
 			{
-				return !worktable.isTable && worktable.level >= worktable.max;
+				return !worktable.isTable && worktable.level < worktable.maxlv;
 			}
 
 			/// <summary>
