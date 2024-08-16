@@ -135,20 +135,6 @@ namespace SGame.UI
                     // 2. 等待UIPackage 加载完成
                     if (!window.uiPackage.isDone)
                         return;
-
-                    // 3. 加载GObject
-                    /*
-                    if (window.gObject == null)
-                    {
-                        window.gObject = window.uiPackage.uiPackage.CreateObject(request.comName);
-                        if (window.gObject == null)
-                        {
-                            log.Error("Package " + request.pkgName + " ui=" + request.comName + " not found");
-                            EntityManager.DestroyEntity(e);
-                            return;
-                        }
-                    }
-                    */
                     
                     // 4. 创建WINDOW
                     int cacheNum = m_preprocess != null ? m_preprocess.GetCacheNum(request.configId) : 0;
@@ -174,9 +160,7 @@ namespace SGame.UI
                         window.Value = fui;
                         window.entity = e;
                         m_preprocess?.ReOpen(fui.context);
-                        //fui.context?.onOpen(fui.context);
                         fui.Reopen();
-                        /////////////////fui.Show();/
                         m_preprocess?.AfterShow(fui.context);
                     }
                     
