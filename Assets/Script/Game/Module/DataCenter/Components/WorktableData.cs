@@ -425,7 +425,7 @@ namespace SGame
 				if (worktable != null && worktable.notNormalTable && worktable.type != -1)
 				{
 					if (worktable.level >= worktable.maxlv) return Error_Code.LV_MAX;
-					if (worktable.level > 0 && !PropertyManager.Instance.CheckCount(1, worktable.GetCostVal()))
+					if (worktable.level > 0 && !PropertyManager.Instance.CheckCount(1, worktable.GetCostVal(),1))
 						return Error_Code.ITEM_NOT_ENOUGH;
 					if (worktable.condition > 0)
 					{

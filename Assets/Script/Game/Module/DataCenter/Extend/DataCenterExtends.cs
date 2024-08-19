@@ -144,11 +144,15 @@ namespace SGame
 
 		static void SetTimer()
 		{
-			new Action(() => SaveData(DataCenter.Instance)).CallWhenQuit();
+			var flag = true;
+			new Action(() => {
+				flag = false;
+				SaveData(DataCenter.Instance);
+			}).CallWhenQuit();
 
 			ThreadPool.QueueUserWorkItem((a) => {
-
-				while (Application.isPlaying)
+				Thread.CurrentThread.Name = "SaveData";
+				while (flag)
 				{
 					Thread.Sleep(10000);
 					SaveData(DataCenter.Instance);
