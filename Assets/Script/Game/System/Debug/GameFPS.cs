@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using log4net;
 using UnityEngine;
 using SGame;
+using Unity.Entities;
 
 public class GameFPS : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class GameFPS : MonoBehaviour
         public float    minFps;
         public float    maxFps;
         public float    avgFps;
+        public float    lowerFps; // 低帧率百分比
         
         /// <summary>
         /// 显示帧率
@@ -66,6 +68,7 @@ public class GameFPS : MonoBehaviour
             float minTime = float.MaxValue;
             float maxTime = float.MinValue;
             float avg = 0;
+            int lowerCount = 0;
             foreach (var t in timerRecord)
             {
                 avg += t;
@@ -75,17 +78,24 @@ public class GameFPS : MonoBehaviour
 
                 if (t > maxTime)
                     maxTime = t;
+
+                if (t > 0.05f)
+                    lowerCount++;
             }
 
             minFps = GetFps(maxTime);
             avgFps = GetFps(avg / timerRecord.Length);
             maxFps = GetFps(minTime);
+            lowerFps = lowerCount * 100.0f / timerRecord.Length;
         }
     }
+
+    private const string SETTING_FPS_NAME = "setting.fps";
     
     void Start()
     {
         Game.console.AddCommand("show", Cmd, "show [fps|task] Command");
+        m_fpsData.enable = PlayerPrefs.GetInt(SETTING_FPS_NAME, 0) != 0;
     }
     
     void Cmd(string[] args)
@@ -105,6 +115,8 @@ public class GameFPS : MonoBehaviour
                 m_fpsData.enable = !m_fpsData.enable;
                 if (m_fpsData.enable) 
                     this.enabled = true;
+
+                PlayerPrefs.SetInt(SETTING_FPS_NAME, m_fpsData.enable ? 1 : 0);
                 break;
             
             case "task":
@@ -125,8 +137,9 @@ public class GameFPS : MonoBehaviour
         m_fpsData.Update(Time.deltaTime);
         
         DebugOverlay.DrawRect(-1, y, 36, 2, backgroundColor);
-        DebugOverlay.Write(0, y, "fps{0,6:###.##}", 
-            m_fpsData.fps);
+        DebugOverlay.Write(0, y, "fps{0,6:###.##}, lower={1, 6:###.##}%", 
+            m_fpsData.fps,
+            m_fpsData.lowerFps);
         
         DebugOverlay.Write(0, y + 1, "min{0,6:###.##} avg{1, 6:###.##} max{2,6:###.##}", 
             m_fpsData.minFps,

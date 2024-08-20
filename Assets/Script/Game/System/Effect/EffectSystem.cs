@@ -13,7 +13,7 @@ using UnityEngine.Animations;
 namespace SGame
 {
 	// 请求创建UI特效
-	public class RequestSpawnUIEffect : IComponentData
+	public class RequestSpawnEffect : IComponentData
 	{
 		// 创建类型
 		public enum ReqType
@@ -41,12 +41,14 @@ namespace SGame
 	// 创建好的特效会添加
 	public struct EffectSysData : ICleanupComponentData
 	{
+		public int		effectId; // 特效ID
+		public PoolID	poolID;   // 对象池ID 
 	}
 
 	// 特效对象标签
 	public struct EffectData : IComponentData
 	{
-		public int effectId; // 特效ID
+		public int		effectId;	// 特效ID
 	}
 
 	// 特效系统
@@ -56,9 +58,7 @@ namespace SGame
 		private ConfigSystem configSystem;
 
 		// 实例化后的特效
-		private Dictionary<Entity, GameObject> m_effectObjects;
-		//private Dictionary<Entity, GoWrapper >   m_uiWrappers;
-		//private Dictionary<Entity, GGraph >     m_uiHoders;
+		//private Dictionary<Entity, GameObject> m_effectObjects;
 
 		// 请求创建UI特效
 		private EntityArchetype m_actRequestUIEffect;
@@ -77,12 +77,12 @@ namespace SGame
 		{
 			base.OnCreate();
 
-			m_effectObjects = new Dictionary<Entity, GameObject>();
+			//m_effectObjects = new Dictionary<Entity, GameObject>();
 			configSystem = ConfigSystem.Instance;
 			//m_commandBuffer             = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
 
 			m_actEffect = EntityManager.CreateArchetype(typeof(EffectData), typeof(LocalTransform), typeof(LocalToWorld));
-			m_actRequestUIEffect = EntityManager.CreateArchetype(typeof(RequestSpawnUIEffect));
+			m_actRequestUIEffect = EntityManager.CreateArchetype(typeof(RequestSpawnEffect));
 		}
 
 		public static EffectSystem Instance
@@ -94,13 +94,13 @@ namespace SGame
 		{
 			//EntityCommandBuffer cb = m_commandBuffer.CreateCommandBuffer();
 
-			SpawnUIEffect();
+			SpawnEffect();
 
 			ProcessDestoryEffect();
 		}
 
 		// 实例化特效
-		GameObject InstanceEffect(Entity effect, AssetRequest prefabRequest, RequestSpawnUIEffect.ReqType reqType)
+		GameObject InstanceEffect(Entity effect, int effectID, AssetRequest prefabRequest, RequestSpawnEffect.ReqType reqType)
 		{
 			GameObject prefab = prefabRequest.asset as GameObject;
 			if (prefab == null)
@@ -108,13 +108,29 @@ namespace SGame
 				log.Error("Prefab Is Null!");
 				return null;
 			}
-			GameObject obj = GameObject.Instantiate(prefab);
-			if (reqType != RequestSpawnUIEffect.ReqType.REQ_3D && reqType != RequestSpawnUIEffect.ReqType.REQ_3DPARENT)
+
+			var poolID = EffectFactory.Instance.Alloc(effectID, prefabRequest);
+			if (poolID == PoolID.NULL)
 			{
-				EffectMono mono = obj.AddComponent<EffectMono>();
+				log.Error("alloc effect fail=" + effectID);
+				return null;
+			}
+
+			EntityManager.AddComponentData(effect, new EffectSysData() { effectId = effectID, poolID = poolID });
+			GameObject obj = EffectFactory.Instance.Get(effectID, poolID); //GameObject.Instantiate(prefab);
+			
+			
+			if (reqType != RequestSpawnEffect.ReqType.REQ_3D && reqType != RequestSpawnEffect.ReqType.REQ_3DPARENT)
+			{
+
+				EffectMono mono = obj.GetComponent<EffectMono>();
+				if (mono == null)
+				{
+					mono = obj.AddComponent<EffectMono>();
+				}
+
 				mono.entity = effect;
-				mono.prefabRequest = prefabRequest;
-				m_effectObjects.Add(effect, obj);
+				mono.effectID = effectID;
 				return obj;
 			}
 			else
@@ -125,19 +141,12 @@ namespace SGame
 				var localTransform = EntityManager.GetComponentData<LocalTransform>(effect);
 				parent.transform.position = localTransform.Position;
 				parent.transform.rotation = localTransform.Rotation;
-				//if (EntityManager.HasComponent<Scale>(effect))
-				//{
-				//	float scale = EntityManager.GetComponentData<Scale>(effect).Value;
-				//	parent.transform.localScale = new Vector3(scale, scale, scale);
-				//}
 				parent.transform.localScale = new Vector3(localTransform.Scale, localTransform.Scale, localTransform.Scale);
-				m_effectObjects.Add(effect, parent);
-				
 				EffectMono mono = parent.AddComponent<EffectMono>();
 				EntityManager.AddComponentObject(effect, mono);
 				EntityManager.AddComponentObject(effect, mono.transform);
 				mono.entity = effect;
-				mono.prefabRequest = prefabRequest;
+				mono.effectID = effectID;
 				return parent;
 			}
 		}
@@ -152,14 +161,14 @@ namespace SGame
 		}
 
 		// 创建UI特效
-		void SpawnUIEffect()
+		void SpawnEffect()
 		{
-			Entities.WithAll<RequestSpawnUIEffect>().ForEach((Entity e, RequestSpawnUIEffect req) =>
+			Entities.WithAll<RequestSpawnEffect>().ForEach((Entity e, RequestSpawnEffect req) =>
 			{
 				switch (req.reqType)
 				{
-					case RequestSpawnUIEffect.ReqType.REQ_FAIRYUI:
-						if (req.hoder == null || req.hoder.isDisposed)
+					case RequestSpawnEffect.ReqType.REQ_FAIRYUI:
+						if (req.hoder == null || req.hoder.isDisposed) 
 						{
 							// 挂点已经销毁, 不用创建了
 							req.prefabRequest.Release();
@@ -168,9 +177,9 @@ namespace SGame
 							return;
 						}
 						break;
-					case RequestSpawnUIEffect.ReqType.REQ_3D:
+					case RequestSpawnEffect.ReqType.REQ_3D:
 						break;
-					case RequestSpawnUIEffect.ReqType.REQ_3DPARENT:
+					case RequestSpawnEffect.ReqType.REQ_3DPARENT:
 						if (req.parent == null)
 						{
 							// 有父节点, 但是父节点已经被销毁!
@@ -193,18 +202,20 @@ namespace SGame
 						if (EntityManager.Exists(req.entity) == true)
 						{
 							// 实例化特效
-							GameObject obj = InstanceEffect(req.entity, prefabRequest, req.reqType);
+							GameObject obj = InstanceEffect(req.entity, req.effectId, prefabRequest, req.reqType);
 
 							// 添加到fairygui 上面去
 							switch (req.reqType)
 							{
-								case RequestSpawnUIEffect.ReqType.REQ_FAIRYUI:
+								case RequestSpawnEffect.ReqType.REQ_FAIRYUI:
 									{
 										GoWrapper wrapper = req.hoder.displayObject as GoWrapper;
 										if (wrapper != null)
 										{
 											if (wrapper.wrapTarget != null)
-												GameObject.Destroy(wrapper.wrapTarget);
+											{
+												CloseEffect(wrapper.wrapTarget);
+											}
 											wrapper.wrapTarget = obj;
 										}
 										else
@@ -219,7 +230,7 @@ namespace SGame
 									SetupGameObject(obj, req.position, req.scale, req.rotation);
 									break;
 
-								case RequestSpawnUIEffect.ReqType.REQ_3DPARENT:
+								case RequestSpawnEffect.ReqType.REQ_3DPARENT:
 									{
 										// 自带父节点
 										//obj.transform.parent = req.parent.transform;
@@ -229,7 +240,7 @@ namespace SGame
 									}
 									break;
 
-								case RequestSpawnUIEffect.ReqType.REQ_3D:
+								case RequestSpawnEffect.ReqType.REQ_3D:
 									{
 										// 设置子节点位置信息
 										SetupGameObject(obj.transform.GetChild(0).gameObject, req.position, req.scale, req.rotation);
@@ -239,7 +250,7 @@ namespace SGame
 
 
 							// 加载成功
-							EntityManager.AddComponent<EffectSysData>(req.entity);
+							//EntityManager.AddComponent<EffectSysData>(req.entity);
 
 							EffectMono mono = obj.GetComponent<EffectMono>();
 							if (mono != null)
@@ -269,16 +280,29 @@ namespace SGame
 		// 清理创建的GameObject对象
 		void ProcessDestoryEffect()
 		{
-			Entities.WithAll<EffectSysData>().WithNone<EffectData>().ForEach((Entity e) =>
+			Entities.WithNone<EffectData>().ForEach((Entity e, in EffectSysData data) =>
 			{
-				GameObject effectObject = null;
-				if (m_effectObjects.Remove(e, out effectObject))
-				{
-					GameObject.Destroy(effectObject);
-				}
-
+				EffectFactory.Instance.Free(data.effectId, data.poolID);
 				EntityManager.RemoveComponent<EffectSysData>(e);
 			}).WithoutBurst().WithStructuralChanges().Run();
+		}
+
+		public void CloseEffect(GameObject obj)
+		{
+			if (obj != null)
+			{
+				var mono = obj.GetComponentInParent<EffectMono>();
+				if (mono == null)
+				{
+					GameObject.Destroy(obj);
+					return;
+				}
+
+				if (mono.entity != Entity.Null)
+				{
+					CloseEffect(mono.entity);
+				}
+			}
 		}
 
 		// 删除特效
@@ -301,9 +325,11 @@ namespace SGame
 		public GameObject GetEffect(Entity e)
 		{
 			GameObject ret = null;
-			if (m_effectObjects.TryGetValue(e, out ret))
-				return ret;
-			return null;
+			if (!IsLoaded(e))
+				return null;
+
+			var sysData = EntityManager.GetComponentData<EffectSysData>(e);
+			return EffectFactory.Instance.Get(sysData.effectId, sysData.poolID);
 		}
 
 		/// <summary>
@@ -368,7 +394,7 @@ namespace SGame
 		/// </summary>
 		/// <param name="spawnData">请求创建对象</param>
 		/// <returns>新的UI对象的索引</returns>
-		public Entity SpawnBase(RequestSpawnUIEffect spawnData)
+		public Entity SpawnBase(RequestSpawnEffect spawnData)
 		{
 			// 创建特效对象
 			if (spawnData.entity == Entity.Null)
@@ -393,8 +419,8 @@ namespace SGame
 				EntityManager.SetComponentData(spawnData.entity, new LiveTime { Value = spawnData.duration });
 			}
 
-			var d = EntityManager.GetComponentData<RequestSpawnUIEffect>(spawnRequest);
-			if (spawnData.reqType == RequestSpawnUIEffect.ReqType.REQ_3D)
+			var d = EntityManager.GetComponentData<RequestSpawnEffect>(spawnRequest);
+			if (spawnData.reqType == RequestSpawnEffect.ReqType.REQ_3D)
 			{
 				// 添加上对象同步
 				if (!EntityManager.HasComponent<EntitySyncGameObjectTag>(spawnData.entity))
@@ -435,7 +461,7 @@ namespace SGame
 			}
 			
 			// 设置加载请求
-			var req = new RequestSpawnUIEffect
+			var req = new RequestSpawnEffect
 			{
 				effectId		= effectId,
 				entity			= Entity.Null,
@@ -444,7 +470,7 @@ namespace SGame
 				rotation		= rotation,
 				scale			= scale,
 				prefabRequest	= assetRequest,
-				reqType			= parent != null ? RequestSpawnUIEffect.ReqType.REQ_3DPARENT : RequestSpawnUIEffect.ReqType.REQ_3D,
+				reqType			= parent != null ? RequestSpawnEffect.ReqType.REQ_3DPARENT : RequestSpawnEffect.ReqType.REQ_3D,
 				parent			= parent,
 				duration		= config.Duration,
 			};
@@ -470,7 +496,7 @@ namespace SGame
 			}
 
 			// 设置加载请求
-			var req = new RequestSpawnUIEffect
+			var req = new RequestSpawnEffect
 			{
 				effectId = 0,
 				entity = Entity.Null,
@@ -479,7 +505,7 @@ namespace SGame
 				rotation = rot,
 				scale = scale,
 				prefabRequest = assetRequest,
-				reqType = parent != null ? RequestSpawnUIEffect.ReqType.REQ_3DPARENT : RequestSpawnUIEffect.ReqType.REQ_3D,
+				reqType = parent != null ? RequestSpawnEffect.ReqType.REQ_3DPARENT : RequestSpawnEffect.ReqType.REQ_3D,
 				parent = parent,
 				duration = 0,
 			};
@@ -518,7 +544,7 @@ namespace SGame
 			}
 
 			// 设置加载请求
-			var req = new RequestSpawnUIEffect
+			var req = new RequestSpawnEffect
 			{
 				effectId = effectId,
 				entity = Entity.Null,
@@ -527,7 +553,7 @@ namespace SGame
 				rotation = rotation,
 				scale = scale,
 				prefabRequest = assetRequest,
-				reqType = RequestSpawnUIEffect.ReqType.REQ_FAIRYUI,
+				reqType = RequestSpawnEffect.ReqType.REQ_FAIRYUI,
 				duration = config.Duration,
 			};
 

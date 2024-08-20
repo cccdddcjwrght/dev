@@ -262,17 +262,24 @@ namespace SGame
         /// <returns></returns>
         public bool Dispose(PoolID id)
         {
-            if (isExits(id) == false)
-            {
-                return false;
-            }
-
             // 原有ID失效, 并加入
             var exData = m_exDatas[id.Index];
+            if (exData.state == ExtendData.State.EMPTY)
+                return false;
+
+            switch (exData.state)
+            {
+                case ExtendData.State.FREE:
+                    m_freeCount--;
+                    break;
+                
+                case ExtendData.State.USED:
+                    m_usedCount--;
+                    break;
+            }
+            
             exData.state = ExtendData.State.EMPTY;
             m_exDatas[id.Index] = exData;
-            m_usedCount--;
-            
             m_Dispose?.Invoke(m_datas[id.Index]);
             return true;
         }

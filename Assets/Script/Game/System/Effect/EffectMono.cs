@@ -20,9 +20,6 @@ public interface IEffectOperator
 
 public class EffectMono : MonoBehaviour, IEffectOperator
 {
-    // 预制请求
-    public libx.AssetRequest    prefabRequest;
-    
     // 对应Entity索引
     public Entity               entity;
 
@@ -30,6 +27,8 @@ public class EffectMono : MonoBehaviour, IEffectOperator
     private ParticleSystem      m_particle;
     
     private float               m_particleTime;
+
+    public int effectID = 0;
 
     public float                duration
     {
@@ -66,19 +65,14 @@ public class EffectMono : MonoBehaviour, IEffectOperator
 
     private void OnDestroy()
     {
-        if (prefabRequest != null)
-        {
-            prefabRequest.Release();
-            prefabRequest = null;
-        }
-
+        int e = effectID;
         if (entity != Entity.Null)
         {
 			// 删除Entity
 			if (World.DefaultGameObjectInjectionWorld != null)
 			{
 				EntityManager mgr = World.DefaultGameObjectInjectionWorld.EntityManager;
-				if (mgr.Exists(entity))
+				if (mgr.Exists(entity) && !mgr.HasComponent<DespawningEntity>(entity))
 				{
 					mgr.AddComponent<DespawningEntity>(entity);
 				}

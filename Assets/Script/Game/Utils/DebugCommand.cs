@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FairyGUI;
 using log4net;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -16,6 +17,26 @@ namespace SGame
             Game.console.AddCommand("camera", CameraDepth, "Main Camera Depth [num]");
             Game.console.AddCommand("framerate", FrameRate, "framerate [num]");
             Game.console.AddCommand("ui", UICommand, "ui [open|close] [name]");
+            Game.console.AddCommand("autosave", AutoSaveCmd, "austosave [open|close]");
+        }
+
+        static void AutoSaveCmd(string[] args)
+        {
+            if (args == null || args.Length == 0)
+            {
+                log.Error("invalid argv");
+                return;
+            }
+
+            switch (args[0])
+            {
+                case "open":
+                    DataCenterExtension.IS_AUTO_SAVE = true;
+                    break;
+                case "close":
+                    DataCenterExtension.IS_AUTO_SAVE = false;
+                    break;
+            }
         }
 
         static void FrameRate(string[] args)
@@ -44,22 +65,43 @@ namespace SGame
                 return;
             }
 
+            //StageCamera.main
             switch (args[0])
             {
                 case "depth":
-                    if (args.Length < 2)
                     {
-                        Game.console.Write("argv invalid");
-                        return;
-                    }
+                        if (args.Length < 2)
+                        {
+                            Game.console.Write("argv invalid");
+                            return;
+                        }
 
-                    if (!int.TryParse(args[1], out int value))
-                    {
-                        Game.console.Write("Pare Int Fail =" + args[1]);
-                        return;
+                        if (!int.TryParse(args[1], out int value))
+                        {
+                            Game.console.Write("Pare Int Fail =" + args[1]);
+                            return;
+                        }
+                        var data = Camera.main.GetComponent<UniversalAdditionalCameraData>();
+                        data.requiresDepthTexture = value != 0;
                     }
-                    var data = Camera.main.GetComponent<UniversalAdditionalCameraData>();
-                    data.requiresDepthTexture = value != 0;
+                    break;
+
+                case "udepth":
+                    {
+                        if (args.Length < 2)
+                        {
+                            Game.console.Write("argv invalid");
+                            return;
+                        }
+
+                        if (!int.TryParse(args[1], out int value))
+                        {
+                            Game.console.Write("Pare Int Fail =" + args[1]);
+                            return;
+                        }
+                        var data = StageCamera.main.GetComponent<UniversalAdditionalCameraData>();
+                        data.requiresDepthTexture = value != 0;
+                    }
                     break;
             }
 
@@ -83,7 +125,6 @@ namespace SGame
                     UIUtils.CloseUIByName(args[1]);
                     break;
             }
-            
         }
     }
 }
