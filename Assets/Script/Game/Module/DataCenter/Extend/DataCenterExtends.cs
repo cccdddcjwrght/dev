@@ -142,6 +142,8 @@ namespace SGame
 				SaveData(data);
 		}
 
+		public static bool IS_AUTO_SAVE = true;
+		
 		static void SetTimer()
 		{
 			var flag = true;
@@ -155,10 +157,14 @@ namespace SGame
 				while (flag)
 				{
 					Thread.Sleep(10000);
-					SaveData(DataCenter.Instance);
+					if (IS_AUTO_SAVE)
+					{
+						SaveData(DataCenter.Instance);
 #if DATA_SYNC
-					DataSyncModule.SendDataToServer();
+						DataSyncModule.SendDataToServer();
 #endif
+					}
+
 				}
 
 			});

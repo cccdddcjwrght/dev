@@ -18,6 +18,40 @@ namespace SGame
             Game.console.AddCommand("framerate", FrameRate, "framerate [num]");
             Game.console.AddCommand("ui", UICommand, "ui [open|close] [name]");
             Game.console.AddCommand("autosave", AutoSaveCmd, "austosave [open|close]");
+            Game.console.AddCommand("quality", SetQuality, "quality [level|lod] [num]");
+
+        }
+
+        static void SetQuality(string[] args)
+        {
+            if (args.Length != 2)
+            {
+                Game.console.Write("error argv num\n");
+                return;
+            }
+
+            if (!int.TryParse(args[1], out int value))
+            {
+                Game.console.Write("parse int param fail=" + args[1]);
+                return;
+            }
+
+            switch (args[0])
+            {
+                case "level":
+                    QualitySettings.SetQualityLevel(value);
+                    Game.console.Write("set quality level success\n");
+                    break;
+                
+                case "lod":
+                    Shader.globalMaximumLOD = value;
+                    Game.console.Write("set shader load success\n");
+                    break;
+                
+                default:
+                    Game.console.Write("error param=" + args[0]);
+                    break;
+            }
         }
 
         static void AutoSaveCmd(string[] args)
