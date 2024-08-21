@@ -47,7 +47,7 @@ namespace SGame
 	/// <summary>
 	/// 属性枚举
 	/// </summary>
-	public enum EnumAttribute
+	public enum EnumAttribute : int
 	{
 		//===================================
 		//价格
@@ -123,6 +123,56 @@ namespace SGame
 		/// 广告收益持续时间加成
 		/// </summary>
 		AdTime = 304,
+
+
+		//=======================================
+		//=================战斗属性===============
+		#region 战斗属性-基础
+		/// <summary>
+		/// 血量-基础
+		/// </summary>
+		Hp = 10001,
+		/// <summary>
+		/// 攻击-基础
+		/// </summary>
+		Attack = 10002,
+		/// <summary>
+		/// 攻击速度-基础
+		/// </summary>
+		AtkSpeed = 10003,
+		#endregion
+
+		#region 战斗属性-二级属性
+		/// <summary>
+		/// 闪避
+		/// </summary>
+		Dodge = 10101,
+		/// <summary>
+		/// 连击
+		/// </summary>
+		Combo = 10102,
+		/// <summary>
+		/// 暴击
+		/// </summary>
+		Crit = 10103,
+		/// <summary>
+		/// 眩晕
+		/// </summary>
+		Stun = 10104,
+		/// <summary>
+		/// 吸血
+		/// </summary>
+		Steal = 10105,
+		#endregion
+
+		#region 战斗属性-二级属性-抗性
+		AntiDodge = 10201,
+		AntiCombo = 10202,
+		AntiCrit = 10203,
+		AntiStun = 10204,
+		AntiSteal = 10205,
+		#endregion
+
 	}
 
 	/// <summary>
@@ -176,7 +226,18 @@ namespace SGame
 		/// 雇佣
 		/// </summary>
 		Employee = 1 << 10,//1024
-
+		/// <summary>
+		/// 探索者
+		/// </summary>
+		Explorer = 1 << 11,//2048
+		/// <summary>
+		/// 
+		/// </summary>
+		Monster = 1 << 12,//4096
+		/// <summary>
+		/// boss
+		/// </summary>
+		Boss = 1 << 13, //8192
 	}
 
 	/// <summary>
@@ -298,10 +359,10 @@ namespace SGame
 
 	public enum EnumMachineType
 	{
-		CUSTOM = 1,		// 顾客桌子
-		DISH = 2,		// 放餐机
-		MACHINE = 3,	//机器桌子
-		JOB = 4	,		//招工
-		EVOTABLE = 5,	//升级桌
+		CUSTOM = 1,     // 顾客桌子
+		DISH = 2,       // 放餐机
+		MACHINE = 3,    //机器桌子
+		JOB = 4,        //招工
+		EVOTABLE = 5,   //升级桌
 	}
 }
