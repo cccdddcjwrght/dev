@@ -632,6 +632,17 @@ namespace SGame
 					qType -= 5;
 			}
 
+			static public EnumQuality Type2Quality(EnumQualityType qualityType)
+			{
+				switch (qualityType)
+				{
+					case EnumQualityType.Orange: return EnumQuality.Orange;
+					case EnumQualityType.Red: return EnumQuality.Red;
+					case EnumQualityType.Max: return EnumQuality.Max;
+					default: return (EnumQuality)((int)qualityType); ;
+				}
+			}
+
 			static public int[] GetQualityUnlockBuff(EquipmentRowData equipment, int quality)
 			{
 

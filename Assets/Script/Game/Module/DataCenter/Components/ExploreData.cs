@@ -13,16 +13,42 @@ namespace SGame
 
 		public static class ExploreUtil
 		{
+			public readonly static IReadOnlyList<EnumAttribute> c_fight_attrs = new List<EnumAttribute>()
+			{
+				EnumAttribute.Hp,
+				EnumAttribute.Attack,
+				//EnumAttribute.AtkSpeed,
+				EnumAttribute.Dodge,
+				EnumAttribute.Combo,
+				EnumAttribute.Crit,
+				EnumAttribute.Stun,
+				EnumAttribute.Steal,
+				EnumAttribute.AntiDodge,
+				EnumAttribute.AntiCombo,
+				EnumAttribute.AntiCrit,
+				EnumAttribute.AntiStun,
+				EnumAttribute.AntiSteal,
+			};
+
 			public static float c_strong_power { get; private set; }
 			public static Dictionary<int, float> c_attr_power_ratios { get; private set; } = new Dictionary<int, float>();
+			public static IReadOnlyList<int[]> c_cache_attr { get; private set; }
+
 
 			private static ExploreData data { get { return Instance.exploreData; } }
 
 			public static void Init()
 			{
-				for (var i = EnumAttribute.Hp; i <= EnumAttribute.AntiSteal; i++)
+				var ls = new List<int[]>();
+				foreach (var i in c_fight_attrs)
+				{
 					c_attr_power_ratios[(int)i] = GlobalDesginConfig.GetFloat(i.ToString().ToLower() + "_ratio", 2f);
+					ls.Add(new int[] { ((int)i), 0 });
+				}
+				c_cache_attr = ls;
 				c_strong_power = GlobalDesginConfig.GetFloat("battle_equip_fortify", 2f);
+
+				data.Refresh();
 			}
 
 			static public EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, Func<int, int> getVal, double power = 1)
@@ -80,7 +106,7 @@ namespace SGame
 			static public float GetPowerRatio(int attribute)
 			{
 				c_attr_power_ratios.TryGetValue(attribute, out float ratio);
-				return ratio;
+				return ratio == 0 ? 1 : ratio;
 			}
 
 			static public double CaluPower(params EqAttrInfo[] attrs)
@@ -89,10 +115,44 @@ namespace SGame
 				{
 					var p = 0d;
 					for (int i = 0; i < attrs.Length; i++)
-						p += GetPowerRatio(attrs[i].id);
+						p += GetPowerRatio(attrs[i].id) * attrs[i].val;
 					return p.ToInt();
 				}
 				return 0;
+			}
+
+			static public double CaluPower(params int[][] attrs) {
+
+				if (attrs != null && attrs.Length > 0)
+				{
+					var p = 0d;
+					for (int i = 0; i < attrs.Length; i++)
+						p += GetPowerRatio(attrs[i][0]) * attrs[i][1];
+					return p.ToInt();
+				}
+				return 0;
+
+			}
+
+
+			static public List<int[]> GetAttrList(bool all, params FightEquip[] eqs)
+			{
+				if (eqs?.Length > 0)
+				{
+					var v = eqs
+						.Where(e => e.cfgID > 0 && e.attrs != null)
+						.SelectMany(e => e.attrs)
+						.Select(e => e.ToArray());
+
+					if (all)
+						v = v.Concat(c_cache_attr);
+
+					return v.GroupBy(v => v[0])
+						.ToDictionary(v => v.Key, v => v.Sum(i => i[1]))
+						.Select(v => new int[] { v.Key, v.Value })
+						.ToList();
+				}
+				return default;
 			}
 
 		}
@@ -119,10 +179,15 @@ namespace SGame
 		[NonSerialized]
 		public ExploreToolLevelRowData exploreToolNextLevel;
 
+		public int exploreMaxLv { get; private set; }
+		public int toolMaxLv { get; private set; }
+
 		public void Refresh()
 		{
 			explorer.Refresh();
 			RefreshCfg();
+			exploreMaxLv = ConfigSystem.Instance.LoadConfig<ExploreLevel>().DatalistLength;
+			toolMaxLv = ConfigSystem.Instance.LoadConfig<ExploreToolLevel>().DatalistLength;
 		}
 
 		public void RefreshCfg()
@@ -130,21 +195,35 @@ namespace SGame
 			level = Math.Clamp(level, 1, 999);
 			toolLevel = Math.Clamp(toolLevel, 1, 999);
 			ConfigSystem.Instance.TryGet(level, out exploreLevel);
-			ConfigSystem.Instance.TryGet(level+1, out exploreNextLevel);
+			ConfigSystem.Instance.TryGet(level + 1, out exploreNextLevel);
 			ConfigSystem.Instance.TryGet(toolLevel, out exploreToolLevel);
-			ConfigSystem.Instance.TryGet(toolLevel+1, out exploreToolNextLevel);
+			ConfigSystem.Instance.TryGet(toolLevel + 1, out exploreToolNextLevel);
 		}
 
 		public bool IsExploreMaxLv()
 		{
-			return !exploreNextLevel.IsValid();
+			return level >= exploreMaxLv;
 		}
 
 		public bool IsExploreToolMaxLv()
 		{
-			return !exploreToolNextLevel.IsValid();
+			return toolLevel >= toolMaxLv;
 		}
 
+		public int ToolUpRemaining()
+		{
+			if (uplvtime > 0)
+				return uplvtime - GameServerTime.Instance.serverTime;
+			return 0;
+		}
+
+		public void ToolUpLv(int add = 1)
+		{
+			if (IsExploreToolMaxLv()) return;
+			uplvtime = 0;
+			toolLevel += add;
+			RefreshCfg();
+		}
 	}
 
 	[Serializable]
