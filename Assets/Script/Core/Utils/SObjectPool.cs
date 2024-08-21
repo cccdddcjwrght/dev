@@ -10,7 +10,7 @@ namespace SGame
     
 
     // 简单的对象池, 使用int 来索引对象
-    public class SObjectPool<T> : IEnumerable<T> where T : class,new()
+    public class SObjectPool<T> : IEnumerable<T> where T : class//,new()
     {
         public delegate T    AllocDelegate();
         public delegate void DeSpawnDelegate(T obj);
@@ -90,15 +90,7 @@ namespace SGame
             return GetEnumerator1();
         }
 
-        private T NewObject()
-        {
-            T ret = null;
-            if (m_Alloc == null)
-                ret = new T();
-            else
-                ret = m_Alloc();
-            return ret;
-        }
+        private T NewObject() => m_Alloc();
 
         public SObjectPool(AllocDelegate alloc = null, SpawnDelegate spawn = null, DeSpawnDelegate deSpawn = null, DisposeDelegate dispose = null)
         {

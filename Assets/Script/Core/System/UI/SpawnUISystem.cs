@@ -59,22 +59,12 @@ namespace SGame.UI
             return m_packageRequest.Load(uiPackage);
         }
 
-        void FillContext(UIContext context, Entity e, FairyGUI.GComponent content, int configId )
-        {
-            context.gameWorld = m_gameWorld;
-            context.uiModule = UIModule.Instance;
-            context.entity = e;
-            context.content = content;
-            context.configID = configId;
-        }
-        
-        UIContext CreateContext(Entity e, FairyGUI.GComponent content, int configId )
+        UIContext CreateContext(Entity e, int configId )
         {
             UIContext context = new UIContext();
             context.gameWorld = m_gameWorld;
             context.uiModule = UIModule.Instance;
             context.entity = e;
-            context.content = content;
             context.configID = configId;
             return context;
         }
@@ -138,13 +128,19 @@ namespace SGame.UI
                     
                     // 4. 创建WINDOW
                     int cacheNum = m_preprocess != null ? m_preprocess.GetCacheNum(request.configId) : 0;
-                    var fui = UIFactory.Instance.Alloc(request.configId, window.uiPackage, request.comName, cacheNum);////new FairyWindow();
+                    var fui = UIFactory.Instance.Alloc(request.type, 
+                        request.parent, 
+                        request.configId,  
+                        window.uiPackage, 
+                        request.comName, 
+                        cacheNum);////new FairyWindow();
+
                     if (fui.context == null)
                     {
                         IUIScript script = m_scriptFactory.Create(new UIInfo() { comName = request.comName, pkgName = request.pkgName });
-                        UIContext context = CreateContext(e, fui.contentPane, request.configId);
-                        context.window = fui;
-                        window.Value = fui;
+                        UIContext context = CreateContext(e, request.configId);
+                        context.BaseWindow = fui;
+                        window.BaseValue = fui;
                         window.entity = e;
 
                         // UI初始化前的预处理, 比如配置表相关的设置
@@ -157,7 +153,7 @@ namespace SGame.UI
                     {
                         // 重新显示
                         fui.context.entity = e;
-                        window.Value = fui;
+                        window.BaseValue = fui;
                         window.entity = e;
                         m_preprocess?.ReOpen(fui.context);
                         fui.Reopen();

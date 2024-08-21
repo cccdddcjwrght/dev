@@ -36,12 +36,12 @@ namespace SGame.UI
 		// 有效的显示
 		private EntityQuery    m_groupVisible;
 
-		private List<FairyWindow> m_windowCache;
+		private List<IBaseWindow> m_windowCache;
 
 		protected override void OnCreate()
 		{
 			base.OnCreate();
-			m_windowCache = new List<FairyWindow>(32);
+			m_windowCache = new List<IBaseWindow>(32);
 		}
 
 		/// <summary>
@@ -56,10 +56,10 @@ namespace SGame.UI
 			{
 				if (win.Value != null)
 				{
-					if (win.Value.isReadly == false)
-						return;
-
-					m_windowCache.Add(win.Value);
+					if (win.Value.isReadyShowed)
+					{
+						m_windowCache.Add(win.Value);
+					}
 				}
 			}).WithoutBurst().Run();
 

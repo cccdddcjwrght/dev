@@ -22,12 +22,14 @@ namespace SGame.UI
         /// <summary>
         /// UI节点
         /// </summary>
-        public GComponent        content;
+        public GComponent        content => BaseWindow.content;
 
         /// <summary>
         /// Window 对象
         /// </summary>
-        public FairyWindow       window;
+        public IBaseWindow       BaseWindow;
+
+        public FairyWindow window => (BaseWindow as FairyWindow);
 
         /// <summary>
         /// UI对象本身

@@ -24,17 +24,21 @@ namespace SGame.UI
             var commandBuffer = m_commandBufferSystem.CreateCommandBuffer();
             Entities.ForEach((Entity e, UIWindow window, in DespawningUI despawn) =>
             {
-                if (despawn.isDispose)
+                if (window.Value is FairyWindow)
                 {
-                    // 直接销毁
-                    UIFactory.Instance.Dispose(window.Value);
-                }
-                else
-                {
-                    // 缓存回收
-                    UIFactory.Instance.Free(window.Value);
+                    if (despawn.isDispose)
+                    {
+                        // 直接销毁
+                        UIFactory.Instance.Dispose(window.Value);
+                    }
+                    else
+                    {
+                        // 缓存回收
+                        UIFactory.Instance.Free(window.Value);
+                    }
                 }
                 
+
                 // 删除UI对象
                 window.Dispose();
                 commandBuffer.DestroyEntity(e);

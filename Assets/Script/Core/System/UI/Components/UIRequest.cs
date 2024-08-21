@@ -39,6 +39,16 @@ namespace SGame.UI
 		// 配置表名称
 		public int configId;
 
+		/// <summary>
+		/// 父节点
+		/// </summary>
+		public GComponent parent;
+
+		/// <summary>
+		/// 创建的UI类型
+		/// </summary>
+		public UI_TYPE type = UI_TYPE.WINDOW;
+
 		// 创建UI 对象
 		public static Entity Create(EntityCommandBuffer commandBuffer, string name, string pkgName)
 		{
