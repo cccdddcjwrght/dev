@@ -121,7 +121,8 @@ namespace SGame
 				return 0;
 			}
 
-			static public double CaluPower(params int[][] attrs) {
+			static public double CaluPower(params int[][] attrs)
+			{
 
 				if (attrs != null && attrs.Length > 0)
 				{
@@ -140,7 +141,7 @@ namespace SGame
 				if (eqs?.Length > 0)
 				{
 					var v = eqs
-						.Where(e => e.cfgID > 0 && e.attrs != null)
+						.Where(e => e.attrs?.Count > 0)
 						.SelectMany(e => e.attrs)
 						.Select(e => e.ToArray());
 
@@ -155,6 +156,30 @@ namespace SGame
 				return default;
 			}
 
+			static public List<EqAttrInfo> GetRoleAttr(int battleRoleID)
+			{
+				if (battleRoleID > 0)
+				{
+					if (ConfigSystem.Instance.TryGet<BattleRoleRowData>(battleRoleID, out var cfg))
+					{
+						return new List<EqAttrInfo>() {
+							new EqAttrInfo(((int)EnumAttribute.Hp), cfg.Hp),
+							new EqAttrInfo(((int)EnumAttribute.Attack), cfg.Atk),
+							new EqAttrInfo(((int)EnumAttribute.AtkSpeed), cfg.Speed),
+							new EqAttrInfo(((int)EnumAttribute.Dodge), cfg.Dodge),
+							new EqAttrInfo(((int)EnumAttribute.Combo), cfg.Combo),
+							new EqAttrInfo(((int)EnumAttribute.Stun), cfg.Stun),
+							new EqAttrInfo(((int)EnumAttribute.Steal), cfg.Steal),
+							new EqAttrInfo(((int)EnumAttribute.AntiDodge), cfg.AntiDodge),
+							new EqAttrInfo(((int)EnumAttribute.AntiCombo), cfg.AntiCombo),
+							new EqAttrInfo(((int)EnumAttribute.AntiCrit), cfg.AntiCrit),
+							new EqAttrInfo(((int)EnumAttribute.AntiStun), cfg.AntiStun),
+							new EqAttrInfo(((int)EnumAttribute.AntiSteal), cfg.AntiSteal),
+						};
+					}
+				}
+				return default;
+			}
 		}
 
 	}
@@ -229,14 +254,36 @@ namespace SGame
 	[Serializable]
 	public class ExploreRoleData
 	{
+
+		public int roleID;
 		public FightEquip[] equips = new FightEquip[8];
 
+		[NonSerialized]
+		public BattleRoleRowData cfg;
+
 		private double power;
+		private List<int[]> _attrs;
 
 		public ExploreRoleData Refresh()
 		{
+			if (roleID == 0)
+				roleID = GlobalDesginConfig.GetInt("battle_role_id", 1);
+
+			if (!cfg.IsValid() || cfg.Id != roleID)
+			{
+				if (ConfigSystem.Instance.TryGet(roleID, out cfg))
+					equips[0] = new FightEquip() { attrs = DataCenter.ExploreUtil.GetRoleAttr(roleID) };
+				else GameDebug.LogError($"战斗角色数据配置错误{roleID}");
+			}
 			equips.Foreach(e => e.Refresh());
 			return this;
+		}
+
+		public List<int[]> GetAllAttr(bool calu = false)
+		{
+			if (calu || _attrs == null)
+				_attrs = DataCenter.ExploreUtil.GetAttrList(false, equips);
+			return _attrs;
 		}
 
 		public double GetPower(bool recalu = false)
