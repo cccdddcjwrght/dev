@@ -41,6 +41,18 @@ public struct EquipQualityRowData : IFlatbufferObject
 #endif
   public int[] GetBreakRewardArray() { return __p.__vector_as_array<int>(16); }
   public int BuffNum { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AttribNum(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int AttribNumLength { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetAttribNumBytes() { return __p.__vector_as_span<int>(20, 4); }
+#else
+  public ArraySegment<byte>? GetAttribNumBytes() { return __p.__vector_as_arraysegment(20); }
+#endif
+  public int[] GetAttribNumArray() { return __p.__vector_as_array<int>(20); }
+  public int HpRatio { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AtkRatio { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AttribRatio { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AnitAttribRatio { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.EquipQualityRowData> CreateEquipQualityRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -50,8 +62,18 @@ public struct EquipQualityRowData : IFlatbufferObject
       int AdvanceType = 0,
       int AdvanceValue = 0,
       VectorOffset BreakRewardOffset = default(VectorOffset),
-      int BuffNum = 0) {
-    builder.StartTable(8);
+      int BuffNum = 0,
+      VectorOffset AttribNumOffset = default(VectorOffset),
+      int HpRatio = 0,
+      int AtkRatio = 0,
+      int AttribRatio = 0,
+      int AnitAttribRatio = 0) {
+    builder.StartTable(13);
+    EquipQualityRowData.AddAnitAttribRatio(builder, AnitAttribRatio);
+    EquipQualityRowData.AddAttribRatio(builder, AttribRatio);
+    EquipQualityRowData.AddAtkRatio(builder, AtkRatio);
+    EquipQualityRowData.AddHpRatio(builder, HpRatio);
+    EquipQualityRowData.AddAttribNum(builder, AttribNumOffset);
     EquipQualityRowData.AddBuffNum(builder, BuffNum);
     EquipQualityRowData.AddBreakReward(builder, BreakRewardOffset);
     EquipQualityRowData.AddAdvanceValue(builder, AdvanceValue);
@@ -63,7 +85,7 @@ public struct EquipQualityRowData : IFlatbufferObject
     return EquipQualityRowData.EndEquipQualityRowData(builder);
   }
 
-  public static void StartEquipQualityRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StartEquipQualityRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddMainBuff(FlatBufferBuilder builder, VectorOffset MainBuffOffset) { builder.AddOffset(1, MainBuffOffset.Value, 0); }
   public static VectorOffset CreateMainBuffVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
@@ -78,6 +100,14 @@ public struct EquipQualityRowData : IFlatbufferObject
   public static VectorOffset CreateBreakRewardVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartBreakRewardVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddBuffNum(FlatBufferBuilder builder, int BuffNum) { builder.AddInt(7, BuffNum, 0); }
+  public static void AddAttribNum(FlatBufferBuilder builder, VectorOffset AttribNumOffset) { builder.AddOffset(8, AttribNumOffset.Value, 0); }
+  public static VectorOffset CreateAttribNumVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateAttribNumVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartAttribNumVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddHpRatio(FlatBufferBuilder builder, int HpRatio) { builder.AddInt(9, HpRatio, 0); }
+  public static void AddAtkRatio(FlatBufferBuilder builder, int AtkRatio) { builder.AddInt(10, AtkRatio, 0); }
+  public static void AddAttribRatio(FlatBufferBuilder builder, int AttribRatio) { builder.AddInt(11, AttribRatio, 0); }
+  public static void AddAnitAttribRatio(FlatBufferBuilder builder, int AnitAttribRatio) { builder.AddInt(12, AnitAttribRatio, 0); }
   public static Offset<GameConfigs.EquipQualityRowData> EndEquipQualityRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipQualityRowData>(o);

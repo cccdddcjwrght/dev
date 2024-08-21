@@ -64,7 +64,7 @@ namespace SGame.UI
 			m_view.m_Gold.onClick.Add(OnOpenTotalClick);
 			m_view.m_totalBtn.onClick.Add(OnOpenTotalClick);
 			m_view.m_btnShop.onClick.Set(()=>((int)FunctionID.SHOP).Goto());
-			m_view.m_techBtn.onClick.Set(()=>((int)FunctionID.TECH).Goto());
+			m_view.m_explore.onClick.Set(()=>((int)FunctionID.EXPLORE).Goto());
 
 			m_view.m_equipBtn.onClick.Add(() => OpenUI(FunctionID.ROLE_EQUIP));
 			m_view.m_recipeBtn.onClick.Add(()=> OpenUI(FunctionID.RECIPE));
@@ -199,7 +199,7 @@ namespace SGame.UI
 			if (StaticDefine.PAUSE_MAIN_REFRESH) return;
 
 			m_view.m_Diamond.visible = 34.IsOpend(false);
-			m_view.m_techBtn.visible = CheckFuncOpen(FunctionID.TECH);
+			m_view.m_explore.visible = CheckFuncOpen(FunctionID.EXPLORE);
 			var adBtn = m_view.m_AdBtn;
 			adBtn.visible = 16.IsOpend(false);
 			m_view.m_hotFoodBtn.visible = 37.IsOpend(false);

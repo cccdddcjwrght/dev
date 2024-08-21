@@ -100,6 +100,9 @@ namespace SGame.UI{
 			context.uiModule.Reg("WorkerUpUI", "Cookbook", ()=>new UIWorkerUp());
 			context.uiModule.Reg("EquipPreviewUI", "Player", ()=>new UIEquipPreview());
 			context.uiModule.Reg("LuckHelpUI", "Reputation", ()=>new UILuckHelp());SGame.UI.Reputation.ReputationBinder.BindAll();;
+			context.uiModule.Reg("FightEquipTipsUI", "Explore", ()=>new UIFightEquipTips());
+			context.uiModule.Reg("FightInfoUI", "Explore", ()=>new UIFightInfo());
+			context.uiModule.Reg("ExploreUI", "Explore", ()=>new UIExplore());SGame.UI.Explore.ExploreBinder.BindAll();;
 		}
 	}
 }

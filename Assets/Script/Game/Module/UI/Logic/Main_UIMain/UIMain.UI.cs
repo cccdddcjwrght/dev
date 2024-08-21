@@ -42,7 +42,7 @@ namespace SGame.UI{
 			m_view.m_taskBtn.m_finish.onChanged.Add(new EventCallback1(_OnTaskBtn_FinishChanged));
 			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick));
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick));
-			UIListener.Listener(m_view.m_techBtn, new EventCallback1(_OnTechBtnClick));
+			UIListener.Listener(m_view.m_explore, new EventCallback1(_OnExploreClick));
 			UIListener.Listener(m_view.m_recipeBtn, new EventCallback1(_OnRecipeBtnClick));
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick));
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick));
@@ -85,7 +85,7 @@ namespace SGame.UI{
 			m_view.m_taskBtn.m_finish.onChanged.Remove(new EventCallback1(_OnTaskBtn_FinishChanged));
 			UIListener.Listener(m_view.m_taskBtn, new EventCallback1(_OnTaskBtnClick),remove:true);
 			UIListener.Listener(m_view.m_totalBtn, new EventCallback1(_OnTotalBtnClick),remove:true);
-			UIListener.Listener(m_view.m_techBtn, new EventCallback1(_OnTechBtnClick),remove:true);
+			UIListener.Listener(m_view.m_explore, new EventCallback1(_OnExploreClick),remove:true);
 			UIListener.Listener(m_view.m_recipeBtn, new EventCallback1(_OnRecipeBtnClick),remove:true);
 			UIListener.Listener(m_view.m_AdBtn, new EventCallback1(_OnAdBtnClick),remove:true);
 			UIListener.Listener(m_view.m_equipBtn, new EventCallback1(_OnEquipBtnClick),remove:true);
@@ -263,12 +263,12 @@ namespace SGame.UI{
 			OnTotalBtnClick(data);
 		}
 		partial void OnTotalBtnClick(EventContext data);
-		void _OnTechBtnClick(EventContext data){
-			OnTechBtnClick(data);
+		void _OnExploreClick(EventContext data){
+			OnExploreClick(data);
 		}
-		partial void OnTechBtnClick(EventContext data);
-		void SetTechBtnText(string data)=>UIListener.SetText(m_view.m_techBtn,data);
-		string GetTechBtnText()=>UIListener.GetText(m_view.m_techBtn);
+		partial void OnExploreClick(EventContext data);
+		void SetExploreText(string data)=>UIListener.SetText(m_view.m_explore,data);
+		string GetExploreText()=>UIListener.GetText(m_view.m_explore);
 		void _OnRecipeBtnClick(EventContext data){
 			OnRecipeBtnClick(data);
 		}

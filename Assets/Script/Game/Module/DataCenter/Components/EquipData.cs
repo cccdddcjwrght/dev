@@ -26,7 +26,7 @@ namespace SGame
 
 				_data.items?.ForEach(e => e.Refresh());
 				_data.equipeds.Foreach(e => e?.Refresh());
-				c_max_auto_merge_quality = GlobalDesginConfig.GetInt("equip_automerge_max", 0); 
+				c_max_auto_merge_quality = GlobalDesginConfig.GetInt("equip_automerge_max", 0);
 				StaticDefine.EQUIP_MAX_LEVEL = ConfigSystem.Instance.GetConfigCount(typeof(EquipUpLevelCost));
 				CheckCanMerge();
 			}
@@ -263,6 +263,11 @@ namespace SGame
 			{
 				if (count > 0 && eq > 0 && (cfg.IsValid() || ConfigSystem.Instance.TryGet<GameConfigs.EquipmentRowData>(eq, out cfg)))
 				{
+					if (cfg.Type > 10)
+					{
+						log.Error("不能添加战斗装备！！！！");
+						return;
+					}
 					for (int i = 0; i < count; i++)
 					{
 						var e = new EquipItem()
@@ -675,7 +680,7 @@ namespace SGame
 
 			static public void CheckCanMerge()
 			{
-				var rets = GetCombineList(ignoreselected: true , checkauto:true);
+				var rets = GetCombineList(ignoreselected: true, checkauto: true);
 				_data.canMerge = rets?.Count > 0;
 				if (_data.canMerge)
 					_data.canAutoMerge = c_max_auto_merge_quality > 0 ? rets[rets.Count - 1] == null : true;
@@ -729,6 +734,7 @@ namespace SGame
 		public int cfgID;
 		public int level;
 		public int quality;
+		[NonSerialized]
 		public ulong effectID;
 
 		public byte isnew;
@@ -777,7 +783,7 @@ namespace SGame
 
 		private Dictionary<string, string> _partData;
 		private int _baseAttrVal;
-		private List<int[]> _effects;
+		protected List<int[]> _effects;
 		private List<int[]> _vEffects;
 
 		public virtual BaseEquip UpQuality(int nextquality = -1)
@@ -809,13 +815,16 @@ namespace SGame
 			if (!this.cfg.IsValid()) ConfigSystem.Instance.TryGet(cfgID, out cfg);
 			if (quality <= 0) quality = this.cfg.Quality;
 
-			ConfigSystem.Instance.TryGet(level, out lvcfg);
-			ConfigSystem.Instance.TryGet(level + 1, out nextlvcfg);
-			ConfigSystem.Instance.TryGet(quality, out qcfg);
+			if (type < 10)
+			{
+				ConfigSystem.Instance.TryGet(level, out lvcfg);
+				ConfigSystem.Instance.TryGet(level + 1, out nextlvcfg);
+				ConfigSystem.Instance.TryGet(quality, out qcfg);
 
-			upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality, lvcfg);
-			attrID = qcfg.IsValid() ? qcfg.MainBuff(0) : 0;
-			_baseAttrVal = qcfg.IsValid() ? qcfg.MainBuff(1) : 0;
+				upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality, lvcfg);
+				attrID = qcfg.IsValid() ? qcfg.MainBuff(0) : 0;
+				_baseAttrVal = qcfg.IsValid() ? qcfg.MainBuff(1) : 0;
+			}
 			if (type > 0)
 			{
 				if (type < 5)
@@ -828,7 +837,7 @@ namespace SGame
 			return this;
 		}
 
-		public int GetAttrVal(bool needlv = true, int lv = 0)
+		public virtual int GetAttrVal(bool needlv = true, int lv = 0, int id = 0)
 		{
 			lv = (lv > 0 ? lv : level) - 1;
 			return _baseAttrVal + (needlv && qcfg.IsValid() ? qcfg.MainBuffAdd * lv : 0);
@@ -883,7 +892,7 @@ namespace SGame
 			}
 		}
 
-		public List<int[]> GetEffects(bool valid = false)
+		public virtual List<int[]> GetEffects(bool valid = false)
 		{
 			ConvertBuff();
 			if (valid)
@@ -924,7 +933,7 @@ namespace SGame
 			};
 		}
 
-		private void ConvertBuff()
+		protected virtual void ConvertBuff()
 		{
 			if (cfg.IsValid() && cfg.BuffLength > 1)
 			{

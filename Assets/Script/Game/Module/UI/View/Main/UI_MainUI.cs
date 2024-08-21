@@ -23,7 +23,7 @@ namespace SGame.UI.Main
         public UI_LikeBtn m_likeBtn;
         public UI_TaskBtn m_taskBtn;
         public UI_TotalBtn m_totalBtn;
-        public GButton m_techBtn;
+        public GButton m_explore;
         public GButton m_recipeBtn;
         public GButton m_AdBtn;
         public GButton m_equipBtn;
@@ -60,7 +60,7 @@ namespace SGame.UI.Main
             m_likeBtn = (UI_LikeBtn)GetChildAt(10);
             m_taskBtn = (UI_TaskBtn)GetChildAt(11);
             m_totalBtn = (UI_TotalBtn)GetChildAt(12);
-            m_techBtn = (GButton)GetChildAt(13);
+            m_explore = (GButton)GetChildAt(13);
             m_recipeBtn = (GButton)GetChildAt(14);
             m_AdBtn = (GButton)GetChildAt(15);
             m_equipBtn = (GButton)GetChildAt(16);

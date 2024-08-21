@@ -98,6 +98,9 @@ namespace SGame
 				//车
 				for (int i = 0; i < cfg.CarIdLength; i++)
 					attrSys.Register(((int)EnumTarget.Customer), cfg.CarId(i), CreateAttribute(2, cfg.CarId(i)));
+			
+
+
 			}
 		}
 

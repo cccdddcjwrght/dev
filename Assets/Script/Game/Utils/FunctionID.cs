@@ -18,5 +18,6 @@ namespace SGame
         RECIPE     = 33, // 食谱
         FRIEND_CUSTOMER = 35, // 好友客人功能定义 
         HOT_FOOD   =    37,   //热卖菜品
+		EXPLORE	   = 41,//探索
     }
 }

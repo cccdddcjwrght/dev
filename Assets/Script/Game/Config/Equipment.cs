@@ -101,6 +101,7 @@ public struct EquipmentRowData : IFlatbufferObject
   public ArraySegment<byte>? GetBuffBytes() { return __p.__vector_as_arraysegment(34); }
 #endif
   public int[] GetBuffArray() { return __p.__vector_as_array<int>(34); }
+  public int SubTyoe { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.EquipmentRowData> CreateEquipmentRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -118,8 +119,10 @@ public struct EquipmentRowData : IFlatbufferObject
       VectorOffset Part3Offset = default(VectorOffset),
       VectorOffset Part4Offset = default(VectorOffset),
       VectorOffset Part5Offset = default(VectorOffset),
-      VectorOffset BuffOffset = default(VectorOffset)) {
-    builder.StartTable(16);
+      VectorOffset BuffOffset = default(VectorOffset),
+      int SubTyoe = 0) {
+    builder.StartTable(17);
+    EquipmentRowData.AddSubTyoe(builder, SubTyoe);
     EquipmentRowData.AddBuff(builder, BuffOffset);
     EquipmentRowData.AddPart5(builder, Part5Offset);
     EquipmentRowData.AddPart4(builder, Part4Offset);
@@ -139,7 +142,7 @@ public struct EquipmentRowData : IFlatbufferObject
     return EquipmentRowData.EndEquipmentRowData(builder);
   }
 
-  public static void StartEquipmentRowData(FlatBufferBuilder builder) { builder.StartTable(16); }
+  public static void StartEquipmentRowData(FlatBufferBuilder builder) { builder.StartTable(17); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddDescription(FlatBufferBuilder builder, StringOffset DescriptionOffset) { builder.AddOffset(2, DescriptionOffset.Value, 0); }
@@ -174,6 +177,7 @@ public struct EquipmentRowData : IFlatbufferObject
   public static VectorOffset CreateBuffVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateBuffVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartBuffVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddSubTyoe(FlatBufferBuilder builder, int SubTyoe) { builder.AddInt(16, SubTyoe, 0); }
   public static Offset<GameConfigs.EquipmentRowData> EndEquipmentRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipmentRowData>(o);
