@@ -26,7 +26,7 @@ namespace SGame
 			{
 				while (true)
 				{
-					if (data.uplvtime > 0 && data.ToolUpRemaining()<=0)
+					if (data.uplvtime > 0 && data.ToolUpRemaining() <= 0)
 						ExploreToolUpLv(true);
 					yield return w;
 				}
@@ -63,7 +63,8 @@ namespace SGame
 
 		}
 
-		static public bool ExploreToolUpLv(bool imm = false , double cost = 0) {
+		static public bool ExploreToolUpLv(bool imm = false, double cost = 0)
+		{
 
 			var data = DataCenter.Instance.exploreData;
 			if (data.uplvtime >= 0)
@@ -77,6 +78,29 @@ namespace SGame
 				}
 			}
 			return false;
+		}
+
+		static public bool ExploreSuccess()
+		{
+			var data = DataCenter.Instance.exploreData;
+
+			var toolcfg = data.exploreToolLevel;
+			var eq = DataCenter.ExploreUtil.RandomFightEquip(toolcfg);
+			if (eq != null)
+			{
+				data.cacheEquip = eq;
+				return true;
+			}
+
+			return false;
+		}
+
+		static public void ExploreDropEquip(FightEquip equip)
+		{
+			if (equip != null)
+			{
+				var data = DataCenter.Instance.exploreData;
+			}
 		}
 
 	}

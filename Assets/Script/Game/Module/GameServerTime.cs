@@ -23,6 +23,8 @@ public class GameServerTime : Singleton<GameServerTime>
 
 	public ICrossDay crossDay;
 
+	public int stime { get; private set; }
+
 	public int serverDay
 	{
 		get
@@ -35,7 +37,7 @@ public class GameServerTime : Singleton<GameServerTime>
 					m_nextServerDayTime += daySecond;
 					t = (int)m_nextServerDayTime - 2;
 				}
-				m_lastDay =  DateTimeOffset.FromUnixTimeSeconds(t).DateTime.DayOfYear;
+				m_lastDay = DateTimeOffset.FromUnixTimeSeconds(t).DateTime.DayOfYear;
 				crossDay?.OnDayChange(m_lastDay);
 			}
 			return m_lastDay;
@@ -55,10 +57,10 @@ public class GameServerTime : Singleton<GameServerTime>
 	{
 		if (nextDayTime > 0)
 			m_nextServerDayTime = nextDayTime + delaySecond;
-		else if(nextDayTime == -1)
+		else if (nextDayTime == -1)
 		{
 			var d = DateTimeOffset.FromUnixTimeSeconds(serverTime);
-			d = new DateTimeOffset(d.Year, d.Month, d.Day,0,0,0, default).AddDays(1);
+			d = new DateTimeOffset(d.Year, d.Month, d.Day, 0, 0, 0, default).AddDays(1);
 			m_nextServerDayTime = d.ToUnixTimeSeconds();
 			m_lastDay = DateTimeOffset.FromUnixTimeSeconds(serverTime).DateTime.DayOfYear;
 		}
@@ -66,6 +68,11 @@ public class GameServerTime : Singleton<GameServerTime>
 		m_serverTime = serverTime;
 		m_lastDay = serverDay;
 
+	}
+
+	public void DoUpdate()
+	{
+		stime = serverTime;
 	}
 
 	// 服务器时间

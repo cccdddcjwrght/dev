@@ -297,6 +297,8 @@ public class Game : SGame.MonoSingleton<Game>
 		// 更新计数器时间
 		GlobalTime.UpdateFrameTime();
 
+		GameServerTime.Instance.DoUpdate();
+
 		// 事件系统更新
 		eventManager.Update();
 

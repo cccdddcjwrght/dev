@@ -16,6 +16,7 @@ namespace SGame
 		protected Animator animator;
 
 		protected object data;
+		private bool _isLoaded;
 
 		private Func<object, IEnumerator> _loader;
 		private Action<UIModel> _loaded;
@@ -68,6 +69,7 @@ namespace SGame
 
 		public UIModel RefreshModel(string animaName = null, float delay = 0)
 		{
+			_isLoaded = false;
 			_loadCoroutine?.Stop();
 			_loadCoroutine = CreateModel(animaName, delay).Start();
 			return this;
@@ -113,6 +115,11 @@ namespace SGame
 				animator.Play(animation);
 			}
 			return this;
+		}
+
+		public bool IsLoadCompleted()
+		{
+			return _isLoaded;
 		}
 
 		public void Release()
@@ -164,6 +171,7 @@ namespace SGame
 					go.SetLayer("UILight");
 					RefreshTRS(go);
 					go.SetActive(true);
+					_isLoaded = true;
 					_loaded?.Invoke(this);
 					animator = go.GetComponent<Animator>();
 					animator?.Play(animaName ?? "idle");

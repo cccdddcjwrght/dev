@@ -45,7 +45,7 @@ namespace SGame
 
 		partial void BeforeSave()
 		{
-			accountData.lasttime = GameServerTime.Instance.serverTime;
+			accountData.lasttime = GameServerTime.Instance.stime;
 #if !SVR_RELEASE
 			log.Warn("save offline point:" + accountData.lasttime); 
 #endif

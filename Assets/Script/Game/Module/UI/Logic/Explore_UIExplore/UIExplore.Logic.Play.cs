@@ -10,6 +10,22 @@ namespace SGame.UI
 	using System.Collections;
 	using System.IO;
 
+	public enum MoveState
+	{
+		None,
+		Moving,
+		Completed,
+	}
+
+	class MoveInfo
+	{
+		public MoveState flag;
+		public float target;
+
+		public bool state;
+		public float last;
+	}
+
 	public partial class UIExplore
 	{
 		private Coroutine _exlogic;
@@ -20,9 +36,9 @@ namespace SGame.UI
 		private WaitForSeconds _waitDead;
 		private WaitForSeconds _waitRest;
 
-
 		private bool fightState { get { return m_view.m_exploreState.selectedIndex == 1; } set { m_view.m_exploreState.selectedIndex = value ? 1 : 0; } }
 		private bool autoState { get { return m_view.m_exploreAuto.selectedIndex == 1; } }
+		private MoveInfo move { get; set; } = new MoveInfo();
 
 
 		void InitPlay()
@@ -42,7 +58,8 @@ namespace SGame.UI
 		{
 			_exlogic?.Stop();
 			_exlogic = Logic().Start();
-			_model.RefreshModel();
+			_model.RefreshModel("walk");
+			ShowNewEquip();
 		}
 
 		void OnHide_Play(UIContext context)
@@ -86,15 +103,21 @@ namespace SGame.UI
 				SetExploreToolInfo(false);
 		}
 
+		partial void OnExploreStateChanged(EventContext data)
+		{
+		}
+
 		#region ExploreLogic
 
 		IEnumerator Logic()
 		{
+			MapLoop(false);
 			while (m_view.visible)
 			{
 				yield return WaitReq();
 				yield return MoveMonster();
 				yield return DoExplore();
+				yield return WaitEquipHandler();
 				yield return CheckComplete();
 			}
 		}
@@ -102,25 +125,28 @@ namespace SGame.UI
 		IEnumerator WaitReq()
 		{
 			yield return _checkExplore;
-			PropertyManager.Instance.Update(1, ConstDefine.EXPLORE_ITEM, 1, true);
 			DataLogic();
 		}
 
-		void SpawnMonster()
+		GObject SpawnMonster()
 		{
 			m_view.m_monster.xy = m_view.m_mholder.xy;
 			m_view.m_monster.alpha = 1;
 			m_view.m_monster.scale = Vector2.one;
 			m_view.m_monster.visible = true;
+			return m_view.m_monster;
 		}
 
 		IEnumerator MoveMonster()
 		{
-			SpawnMonster();
-			var target = m_view.m_holder.xy;
+			Fast();
+			yield return null;
+			var m = SpawnMonster();
 			var flag = false;
-			m_view.m_monster.TweenMoveX(target.x + 130, 5f).OnComplete(() => flag = true).SetEase(EaseType.Linear);
+			var target = m_view.m_holder.x + 130;
+			m.TweenMoveX(target, Mathf.Abs(target - m.x) / GetSpeed()).SetEase(EaseType.Linear).OnComplete(() => flag = true);
 			yield return new WaitUntil(() => flag);
+			if (!autoState) Fast(true);
 		}
 
 		IEnumerator DoExplore()
@@ -130,11 +156,18 @@ namespace SGame.UI
 			yield return _waitAtk;
 			m_view.m_kill.Play();
 			yield return _waitDead;
-			MapLoop(false);
+		}
+
+		IEnumerator WaitEquipHandler()
+		{
+			ShowNewEquip();
+			yield return new WaitUntil(() => exploreData.cacheEquip == null || exploreData.cacheEquip.cfgID == 0);
 		}
 
 		IEnumerator CheckComplete()
 		{
+			_model.Play("walk");
+			MapLoop(false);
 			var end = true;
 			if (autoState)
 			{
@@ -151,6 +184,7 @@ namespace SGame.UI
 				end = false;
 				yield return null;
 			}
+			if (end) Fast(true);
 			fightState = end;
 		}
 
@@ -170,7 +204,17 @@ namespace SGame.UI
 			return r;
 		}
 
-		void DataLogic() { }
+		void DataLogic()
+		{
+			PropertyManager.Instance.Update(1, ConstDefine.EXPLORE_ITEM, 1, true);
+			RequestExcuteSystem.ExploreSuccess();
+		}
+
+		void ShowNewEquip()
+		{
+			if (exploreData.cacheEquip?.cfgID > 0)
+				SGame.UIUtils.OpenUI("fightequiptips", exploreData.cacheEquip);
+		}
 
 		#endregion
 

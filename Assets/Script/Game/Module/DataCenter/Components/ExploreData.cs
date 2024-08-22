@@ -180,6 +180,25 @@ namespace SGame
 				}
 				return default;
 			}
+
+			static public FightEquip RandomFightEquip(ExploreToolLevelRowData cfg, int count = 1)
+			{
+				if (cfg.IsValid() && count > 0)
+				{
+					var pw = cfg.GetTypeWeightArray();
+					var qw = cfg.GetQualityWeightArray();
+
+					var eqs = EquipUtil.RandomEquip(pw, count, 11);
+					if (eqs.Count > 0)
+					{
+						var e = eqs[0];
+						var q = EquipUtil.Type2Quality(((EnumQualityType)SGame.Randoms.Random._R.NextWeight(qw) + 1));
+						return new FightEquip() { level = 1, cfg = e, cfgID = e.Id, quality = (int)q }.Refresh() as FightEquip;
+					}
+				}
+				return default;
+			}
+
 		}
 
 	}
@@ -194,6 +213,8 @@ namespace SGame
 
 		public int toolLevel;//工具等级
 		public int uplvtime;//升级结束时间
+
+		public FightEquip cacheEquip;
 
 		[NonSerialized]
 		public ExploreLevelRowData exploreLevel;
@@ -210,6 +231,7 @@ namespace SGame
 		public void Refresh()
 		{
 			explorer.Refresh();
+			cacheEquip?.Refresh();
 			RefreshCfg();
 			exploreMaxLv = ConfigSystem.Instance.LoadConfig<ExploreLevel>().DatalistLength;
 			toolMaxLv = ConfigSystem.Instance.LoadConfig<ExploreToolLevel>().DatalistLength;
@@ -249,6 +271,13 @@ namespace SGame
 			toolLevel += add;
 			RefreshCfg();
 		}
+
+		public void AddExp(int exp)
+		{
+			if (IsExploreMaxLv()) return;
+			this.exp += exp;
+		}
+
 	}
 
 	[Serializable]
@@ -277,6 +306,12 @@ namespace SGame
 			}
 			equips.Foreach(e => e.Refresh());
 			return this;
+		}
+
+		public FightEquip GetEquip(int pos)
+		{
+			var eq = equips.Length > pos && pos > 0 ? equips[pos] : default;
+			return eq != null && eq.cfgID > 0 ? eq : default;
 		}
 
 		public List<int[]> GetAllAttr(bool calu = false)
@@ -316,6 +351,7 @@ namespace SGame
 			base.Refresh();
 			if (type > 10)
 			{
+				this.level = Math.Max(1, this.level);
 				if (!battleLvCfg.IsValid() || level != battleLvCfg.Id)
 				{
 					if (ConfigSystem.Instance.TryGet(level, out battleLvCfg))
@@ -330,6 +366,8 @@ namespace SGame
 		public override int GetAttrVal(bool needlv = true, int lv = 0, int id = 0)
 		{
 			id = id == 0 ? ((int)EnumAttribute.Hp) : id;
+			if (attrDic == null)
+				ConvertBuff();
 			if (attrDic.TryGetValue(id, out var v))
 				return v.val;
 			return 0;
@@ -360,13 +398,24 @@ namespace SGame
 						attrs.Add(GetBattleInfo((EnumAttribute)id, this, power));
 					}
 				}
-
 				if (attrDic == null)
 				{
 					attrDic = attrs.ToDictionary(v => v.id);
 					power = DataCenter.ExploreUtil.CaluPower(attrs.ToArray());
 				}
+
+				if (_effects == null)
+					_effects = attrs.Select(v => v.ToArray()).ToList();
+
 			}
+			attrDic = attrDic ?? new Dictionary<int, EqAttrInfo>();
+			_effects = _effects ?? new List<int[]>();
+		}
+
+		public override List<int[]> GetEffects(bool valid = false)
+		{
+			ConvertBuff();
+			return _effects;
 		}
 
 		static private EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, double power = 1)

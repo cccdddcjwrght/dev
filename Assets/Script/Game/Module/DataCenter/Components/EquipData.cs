@@ -21,8 +21,14 @@ namespace SGame
 			private static StringBuilder _sb = new StringBuilder();
 			private static List<int> _unlockQualityDic;
 
+			private static Dictionary<int, List<EquipmentRowData>> _eqTables = new Dictionary<int, List<EquipmentRowData>>();
+
 			static public void Init()
 			{
+				/*_eqTables = ConfigSystem.Instance
+					.Finds<EquipmentRowData>(a => a.Quality == 1)
+					.GroupBy(e => e.Type)
+					.ToDictionary(e => e.Key, e => e.ToList());*/
 
 				_data.items?.ForEach(e => e.Refresh());
 				_data.equipeds.Foreach(e => e?.Refresh());
@@ -701,6 +707,28 @@ namespace SGame
 					_data.canAutoMerge = false;
 			}
 
+			static public List<EquipmentRowData> RandomEquip(int[] typeWeight, int count = 1, int keyadd = 0, List<int> acts = null)
+			{
+				var weight = typeWeight;
+				var rand = new SGame.Randoms.Random();
+				var rets = new List<EquipmentRowData>();
+
+				for (int i = 0; i < count; i++)
+				{
+					var ws = rand.NextWeights(weight, count, false).GroupBy(v => v);
+					foreach (var item in ws)
+					{
+						var k = item.Key + keyadd;
+						if (!_eqTables.TryGetValue(k, out var ls))
+							_eqTables[k] = ls = ConfigSystem.Instance.Finds<GameConfigs.EquipmentRowData>(e => e.Quality == 1 && e.Type == k);
+						var eqs = acts == null || acts.Count == 0 ? ls : ls.FindAll(e => acts.Contains(e.Activity));
+						rand.NextItem(eqs, item.Count(), ref rets);
+					}
+				}
+
+				return rets;
+
+			}
 		}
 
 	}
@@ -781,6 +809,7 @@ namespace SGame
 		[NonSerialized]
 		public int upflag;
 
+
 		public int upLvCost { get; private set; }
 		public int type { get { return cfg.IsValid() ? cfg.Type : _type; } }
 		public string name { get { return cfg.IsValid() && _name == null ? cfg.Name : _name; } }
@@ -792,6 +821,7 @@ namespace SGame
 
 		protected int _type;
 		protected string _name;
+		protected bool _hasAttr;
 
 
 		private Dictionary<string, string> _partData;
@@ -828,25 +858,24 @@ namespace SGame
 			if (!this.cfg.IsValid()) ConfigSystem.Instance.TryGet(cfgID, out cfg);
 			if (quality <= 0) quality = this.cfg.Quality;
 
+			if (!qcfg.IsValid() || qcfg.Id != quality)
+			{
+				ConfigSystem.Instance.TryGet(quality, out qcfg);
+				DataCenter.EquipUtil.ConvertQuality(quality, out qType, out qStep);
+			}
+
 			if (type < 10)
 			{
+				this.level = Math.Max(1, this.level);
 				ConfigSystem.Instance.TryGet(level, out lvcfg);
 				ConfigSystem.Instance.TryGet(level + 1, out nextlvcfg);
-				ConfigSystem.Instance.TryGet(quality, out qcfg);
 
 				upLvCost = DataCenter.EquipUtil.GetUplevelConst(level, quality, lvcfg);
 				attrID = qcfg.IsValid() ? qcfg.MainBuff(0) : 0;
 				_baseAttrVal = qcfg.IsValid() ? qcfg.MainBuff(1) : 0;
+				if (type < 5) ConvertBuff();
 			}
-			if (type > 0)
-			{
-				if (type < 5)
-				{
-					DataCenter.EquipUtil.ConvertQuality(quality, out qType, out qStep);
-					this.level = Math.Max(1, this.level);
-					ConvertBuff();
-				}
-			}
+
 			return this;
 		}
 
@@ -908,8 +937,7 @@ namespace SGame
 		public virtual List<int[]> GetEffects(bool valid = false)
 		{
 			ConvertBuff();
-			if (valid)
-				return _vEffects;
+			if (valid) return _vEffects;
 			return _effects;
 		}
 
