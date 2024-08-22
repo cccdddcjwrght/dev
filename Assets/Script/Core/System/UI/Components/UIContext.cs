@@ -19,6 +19,8 @@ namespace SGame.UI
         /// </summary>
         public UIModule          uiModule;
 
+        public EntityManager EntityManager => gameWorld.GetEntityManager();
+
         /// <summary>
         /// UI节点
         /// </summary>

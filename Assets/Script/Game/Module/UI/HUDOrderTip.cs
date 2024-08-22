@@ -20,7 +20,6 @@ public class HUDOrderTip : IUIScript
         _uiOrderTipUI = context.content as UI_OrderTip;
         context.window.AddEventListener("OrderNumUpdate", OnFoodNumUpdate);
         context.onOpen += OnOpen;
-        OnOpen(context);
     }
 
     void OnOpen(UIContext context)

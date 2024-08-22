@@ -19,8 +19,6 @@ public class HUDEffect : IUIScript
     {
         context.onUninit += OnClose;
         context.window.contentPane.touchable = false;
-        //effectUI = context.content as UI_Effect;
-        //effect = EffectSystem.Instance.AddEffect(8, effectUI);
     }
 
     private void OnClose(UIContext obj)

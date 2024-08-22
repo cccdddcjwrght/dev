@@ -45,7 +45,7 @@ namespace SGame.UI
 		{
 			get
 			{
-				if (Value == null)
+				if (BaseValue == null)
 					return false;
 
 				return Value.isReadyShowed;

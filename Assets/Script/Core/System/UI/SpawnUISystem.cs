@@ -7,6 +7,7 @@ namespace SGame.UI
     // UI加载完毕
     public struct UIInitalized : IComponentData
     {
+        public int configID;
     }
 
 	//ui再次打开
@@ -74,8 +75,6 @@ namespace SGame.UI
             if (!isInit)
                 return;
             
-            //EntityCommandBuffer comamndBuffer = m_commandSystem.CreateCommandBuffer();// new EntityCommandBuffer(Allocator.Temp);
-
             // 1. 生成Package加载
             Entities.WithNone<UIWindow, UIInitalized, DespawningUI>().ForEach((Entity e, UIRequest request) =>
             {
@@ -133,7 +132,7 @@ namespace SGame.UI
                         request.configId,  
                         window.uiPackage, 
                         request.comName, 
-                        cacheNum);////new FairyWindow();
+                        cacheNum);
 
                     if (fui.context == null)
                     {
@@ -153,27 +152,27 @@ namespace SGame.UI
                     {
                         // 重新显示
                         fui.context.entity = e;
-                        window.BaseValue = fui;
                         window.entity = e;
+                        window.BaseValue = fui;
                         m_preprocess?.ReOpen(fui.context);
                         fui.Reopen();
                         m_preprocess?.AfterShow(fui.context);
                     }
-                    
+                       
                     UIRequestMgr.Remove(request.configId);
 
                     // 5. 设置加载完成标记
                     EntityManager.RemoveComponent<UIRequest>(e);
-                    EntityManager.AddComponent<UIInitalized>(e);
+                    EntityManager.AddComponentData(e, new UIInitalized() { configID = request.configId }); //AddComponent<UIInitalized>(e);
                 }
             ).WithStructuralChanges().WithoutBurst().Run();
 
 			Entities.WithNone<DespawningEntity>().WithAll<UIReShow,UIInitalized>().ForEach((Entity e, UIWindow window) => { 
 
 				EntityManager.RemoveComponent<UIReShow>(e);
-				if (window.Value != null && !window.Value.isClosed && !window.Value.isShowing)
+				if (window.BaseValue != null && !window.BaseValue.isClosed && !window.BaseValue.isShowing)
 				{
-					window.Value.Show();
+					window.BaseValue.Show();
 				}
 
 			}).WithStructuralChanges().WithoutBurst().Run();

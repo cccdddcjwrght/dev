@@ -21,8 +21,18 @@ public class HUDProgress : IUIScript
         context.onOpen += OnOpend;
         progressUI = context.content as UI_Progress;
         context.onUpdate += Update;
-        
-        OnOpend(context);
+        context.onShown += OnShow;
+        context.onHide += OnHide;
+    }
+
+    void OnShow(UIContext context)
+    {
+        log.Info("HUDProgress On Show=" + context.entity);
+    }
+
+    void OnHide(UIContext context)
+    {
+        log.Info("HUDProgress On Hide=" + context.entity);
     }
 
     void OnOpend(UIContext context)

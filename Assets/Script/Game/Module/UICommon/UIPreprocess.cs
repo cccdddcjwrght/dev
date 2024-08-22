@@ -37,7 +37,7 @@ namespace SGame
 				
 				if (ui.Type == (int)UIType.HUD)
 				{
-					context.window.isFullScreen = false;
+					//context.window.isFullScreen = false;
 					HUDSetup(context);
 				}
 			}
@@ -64,33 +64,36 @@ namespace SGame
 				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type);
 #endif
 
-				if (ui.Type == (int)UIType.UI)
+				if (context.BaseWindow.type == UI_TYPE.WINDOW)
 				{
-					// 添加UI对动画 显示与隐藏的支持
-					UIAnimationBind.Bind(context);
-					context.window.isFullScreen = true;
-
-					context.onShown += OnUIShow;
-					context.onHide += OnUIHide;
-
-
-					if (ui.Mask != 0)
+					if (ui.Type == (int)UIType.UI)
 					{
-						context.beginShown += OnMaskShow;
-						context.onHide += OnMaskHide;
-					}
+						// 添加UI对动画 显示与隐藏的支持
+						UIAnimationBind.Bind(context);
+						context.window.isFullScreen = true;
 
-					if (0 == ui.DisableAudio)
+						context.onShown += OnUIShow;
+						context.onHide += OnUIHide;
+
+
+						if (ui.Mask != 0)
+						{
+							context.beginShown += OnMaskShow;
+							context.onHide += OnMaskHide;
+						}
+
+						if (0 == ui.DisableAudio)
+						{
+							context.beginShown += OnPlayUIShowAudio;
+							context.beginHide += OnPlayUIHideAudio;
+						}
+
+					}
+					else if (ui.Type == (int)UIType.HUD)
 					{
-						context.beginShown += OnPlayUIShowAudio;
-						context.beginHide += OnPlayUIHideAudio;
+						context.window.isFullScreen = false;
+						HUDSetup(context);
 					}
-
-				}
-				else if (ui.Type == (int)UIType.HUD)
-				{
-					context.window.isFullScreen = false;
-					HUDSetup(context);
 				}
 			}
 		}

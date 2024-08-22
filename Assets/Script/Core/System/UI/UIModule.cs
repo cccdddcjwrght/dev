@@ -127,15 +127,15 @@ namespace SGame.UI
 					if (mgr.HasComponent<UIWindow>(ui))
 					{
 						UIWindow window = mgr.GetComponentData<UIWindow>(ui);
-						if (window.Value.isClosing)
+						if (window.BaseValue.isClosing)
 						{
 							log.Warn("repeate closing ui=" + ui);
 							return true;
 						}
 
-						if (window.Value != null)
+						if (window.BaseValue != null)
 						{
-							window.Value.Close();
+							window.BaseValue.Close();
 							return true;
 						}
 					}
@@ -175,7 +175,7 @@ namespace SGame.UI
 			UIWindow[] windows = m_groupVisible.ToComponentDataArray<UIWindow>();
 			foreach (var w in windows)
 			{
-				if (w != null && w.Value != null && !w.Value.isClosing && (includeNoParent || w.Value.isShowing))
+				if (w != null && w.BaseValue != null && !w.BaseValue.isClosing && (includeNoParent || w.BaseValue.isShowing))
 				{
 					ret.Add(w);
 				}
@@ -219,7 +219,7 @@ namespace SGame.UI
 			UIWindow[] windows = m_groupVisible.ToComponentDataArray<UIWindow>();
 			foreach (var w in windows)
 			{
-				if (w != null && w.Value.configID!=0 && w.Value.configID == ui)
+				if (w != null && w.BaseValue.configID!=0 && w.BaseValue.configID == ui)
 				{
 					return w.entity;
 				}
@@ -236,7 +236,7 @@ namespace SGame.UI
 				var win = GetEntityManager().GetComponentData<UIWindow>(entity);
 				if (win != null)
 				{
-					win.Value.Show();
+					win.BaseValue.Show();
 					return true;
 				}
 			}

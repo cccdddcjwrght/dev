@@ -12,8 +12,6 @@ namespace SGame.UI
 	{
 		private const string SHOW_ANIM_NAME = "doshow";
 		private const string HIDE_ANIM_NAME = "dohide";
-
-		public Entity uiEntity;
 		
 		public PoolID m_poolID = PoolID.NULL;
 
@@ -153,33 +151,29 @@ namespace SGame.UI
 				x = (GRoot.inst.width - width) / 2;
 				y = (GRoot.inst.height - height) / 2;
 			}
-			
+
 			if (m_uiScript != null)
 				m_uiScript.OnInit(m_context);
-
+			
+			m_context.onOpen?.Invoke(m_context);
 		}
 
 		override protected void OnShown()
 		{
 			name = uiname;
 			contentPane.name = "contentPane";
-			//log.Debug("UI OnShow=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
 			m_isReadyShowed = true;
 			m_isDelayClose = false;
-
 			base.OnShown();
-
 			m_context.onShown?.Invoke(m_context);
 		}
 
 		protected override void OnHide()
 		{
-			//log.Debug("UI OnHide=" + this.uiname + " isDelayClose=" + m_isDelayClose.ToString());
 			m_isReadyShowed = false;
 			m_isHiding = false;
 			base.OnHide();
 			m_context.onHide?.Invoke(m_context);
-
 			if (m_isDelayClose == true)
 			{
 				m_isDelayClose = false;
@@ -203,7 +197,6 @@ namespace SGame.UI
 			m_isHiding = false;
 			context.onOpen?.Invoke(context);
 			this.Show();
-			//OnShown();
 		}
 
 		void CleanTween()
@@ -235,13 +228,17 @@ namespace SGame.UI
 
 		public void CloseImmediately()
 		{
-			m_isClosed = true;
-			m_context.onClose?.Invoke(m_context);
+			if (m_isClosed == false || isShowing)
+			{
+				HideImmediately();
+				OnClose();
+			}
 		}
 
-		public void OnClose()
+		void OnClose()
 		{
-
+			m_isClosed = true;
+			m_context.onClose?.Invoke(m_context);
 		}
 
 		public void HandleScreenSizeChanged()

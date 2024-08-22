@@ -44,6 +44,17 @@ namespace SGame.UI
 			m_windowCache = new List<IBaseWindow>(32);
 		}
 
+		void CheckAdd(UIWindow win)
+		{
+			if (win.BaseValue != null)
+			{
+				if (win.BaseValue.isReadyShowed)
+				{
+					m_windowCache.Add(win.BaseValue);
+				}
+			}
+		}
+		
 		/// <summary>
 		/// 更新
 		/// </summary>
@@ -54,13 +65,7 @@ namespace SGame.UI
 			// 1. UI更新
 			Entities.WithAll<UIInitalized>().WithNone<DespawningUI>().ForEach((Entity e, UIWindow win) =>
 			{
-				if (win.Value != null)
-				{
-					if (win.Value.isReadyShowed)
-					{
-						m_windowCache.Add(win.Value);
-					}
-				}
+				CheckAdd(win);
 			}).WithoutBurst().Run();
 
 			foreach (var w in m_windowCache)

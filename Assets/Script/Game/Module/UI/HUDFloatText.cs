@@ -18,7 +18,6 @@ public class HUDFloatText : IUIScript
         context.window.contentPane.touchable = false;
         _uiFloatText = context.content as UI_FloatText;
         context.onOpen += OnOpen;
-        OnOpen(context);
     }
 
     void OnOpen(UIContext context)
