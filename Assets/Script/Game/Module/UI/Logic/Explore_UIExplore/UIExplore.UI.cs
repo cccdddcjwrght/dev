@@ -15,6 +15,7 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_exploreState.onChanged.Add(new EventCallback1(_OnExploreStateChanged));
 			m_view.m_exploreAuto.onChanged.Add(new EventCallback1(_OnExploreAutoChanged));
+			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
 			m_view.m_eq11.m_quality.onChanged.Add(new EventCallback1(_OnFightEquip_QualityChanged));
@@ -57,6 +58,7 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 			m_view.m_exploreState.onChanged.Remove(new EventCallback1(_OnExploreStateChanged));
 			m_view.m_exploreAuto.onChanged.Remove(new EventCallback1(_OnExploreAutoChanged));
+			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick),remove:true);
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
 			m_view.m_eq11.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquip_QualityChanged));
@@ -108,6 +110,12 @@ namespace SGame.UI{
 		void SwitchExploreAutoPage(int index)=>m_view.m_exploreAuto.selectedIndex=index;
 		void SetTopbarText(string data)=>UIListener.SetText(m_view.m_topbar,data);
 		string GetTopbarText()=>UIListener.GetText(m_view.m_topbar);
+		void _OnFightBtnClick(EventContext data){
+			OnFightBtnClick(data);
+		}
+		partial void OnFightBtnClick(EventContext data);
+		void SetFightBtnText(string data)=>UIListener.SetText(m_view.m_fightBtn,data);
+		string GetFightBtnText()=>UIListener.GetText(m_view.m_fightBtn);
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

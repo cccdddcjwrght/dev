@@ -102,13 +102,11 @@ namespace SGame.UI{
 			context.uiModule.Reg("LuckHelpUI", "Reputation", ()=>new UILuckHelp());SGame.UI.Reputation.ReputationBinder.BindAll();;
 			context.uiModule.Reg("FightEquipTipsUI", "Explore", ()=>new UIFightEquipTips());
 			context.uiModule.Reg("FightInfoUI", "Explore", ()=>new UIFightInfo());
-			context.uiModule.Reg("ExploreToolUI", "Explore", () => new UIExploreTool());
 			context.uiModule.Reg("ExploreUI", "Explore", ()=>new UIExplore());SGame.UI.Explore.ExploreBinder.BindAll();;
 			context.uiModule.Reg("FightWinUI", "Explore", ()=>new UIFightWin());
-			context.uiModule.Reg("FightItemDetailUI", "Explore", ()=>new UIFightItemDetail());
 			context.uiModule.Reg("FightLoseUI", "Explore", ()=>new UIFightLose());
 			context.uiModule.Reg("FightLevelUI", "Explore", ()=>new UIFightLevel());
-			context.uiModule.Reg("FightTestUI", "Explore", ()=>new UIFightTest());
+			context.uiModule.Reg("FightItemDetailUI", "Explore", ()=>new UIFightItemDetail());
 		}
 	}
 }

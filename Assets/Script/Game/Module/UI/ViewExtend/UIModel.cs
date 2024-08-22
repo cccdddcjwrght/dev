@@ -101,6 +101,11 @@ namespace SGame
 			return goWrapper != null ? goWrapper.wrapTarget : default;
 		}
 
+		public GGraph GetRoot() 
+		{
+			return holder;
+		}
+
 		public UIModel Play(string animation)
 		{
 			if (this.animator != null)

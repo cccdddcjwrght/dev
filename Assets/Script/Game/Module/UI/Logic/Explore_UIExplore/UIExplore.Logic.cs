@@ -26,6 +26,7 @@ namespace SGame.UI
 			InitMap();
 			InitInfo();
 			InitPlay();
+			InitBattle();
 		}
 
 		partial void DoOpen(UIContext context)

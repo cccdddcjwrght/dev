@@ -10,6 +10,7 @@ namespace SGame.UI.Explore
         public Controller m_new;
         public Controller m_upstate;
         public Controller m_bgtype;
+        public UI_FightEquip m_eq;
         public GTextField m_name;
         public GList m_attrs;
         public GTextField m_power;
@@ -27,6 +28,7 @@ namespace SGame.UI.Explore
             m_new = GetControllerAt(0);
             m_upstate = GetControllerAt(1);
             m_bgtype = GetControllerAt(2);
+            m_eq = (UI_FightEquip)GetChildAt(3);
             m_name = (GTextField)GetChildAt(5);
             m_attrs = (GList)GetChildAt(6);
             m_power = (GTextField)GetChildAt(7);
