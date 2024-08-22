@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameConfigs;
 using UnityEngine;
 
 namespace SGame
@@ -10,9 +11,15 @@ namespace SGame
 	partial class RequestExcuteSystem
 	{
 
+		static int c_drop_equip_exp;
+		static int c_drop_equip_coin;
+
+
 		[InitCall]
 		static void InitExplore()
 		{
+			c_drop_equip_exp = GlobalDesginConfig.GetInt("battle_explore_drop_exp", 100);
+			c_drop_equip_coin = GlobalDesginConfig.GetInt("battle_explore_drop_coin", 100);
 
 			DataCenter.ExploreUtil.Init();
 			StartUpToolTimer();
@@ -89,17 +96,34 @@ namespace SGame
 			if (eq != null)
 			{
 				data.cacheEquip = eq;
+				eq.isnew = 1;
 				return true;
 			}
 
 			return false;
 		}
 
-		static public void ExploreDropEquip(FightEquip equip)
+		static public void ExplorePutOnEquip(FightEquip equip, FightEquip drop)
 		{
-			if (equip != null)
+			if (equip != null || drop != null)
 			{
 				var data = DataCenter.Instance.exploreData;
+
+				if (equip != null)
+				{
+					if (data.explorer.Puton(equip))
+						_eMgr.Trigger(((int)GameEvent.EXPLORE_CHNAGE_EQUIP), equip);
+				}
+
+				if (drop != null)
+				{
+					if (drop == data.cacheEquip) drop.Clear();
+					data.AddExp(c_drop_equip_exp);
+					BuffShopModule.Instance.GetBuffShopCoin(c_drop_equip_coin);
+					_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
+				}
+
+				data.cacheEquip = default;
 			}
 		}
 

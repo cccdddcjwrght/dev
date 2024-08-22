@@ -5,13 +5,22 @@ namespace SGame.UI
 	using UnityEngine;
 	using SGame;
 	using SGame.UI.Explore;
+	using GameConfigs;
 
 	public partial class UIFightEquipTips
 	{
+		private FightEquip current;
 		private FightEquip equip;
+		private double ratio;
+
+		private float _best;
+		private float _worse;
+
 
 		partial void InitLogic(UIContext context)
 		{
+			_best = GlobalDesginConfig.GetFloat("battle_equip_better");
+			_worse = GlobalDesginConfig.GetFloat("battle_equip_worse");
 
 			DoOpen(context);
 
@@ -21,23 +30,58 @@ namespace SGame.UI
 		{
 			equip = context.GetParam().Value.To<object[]>().Val<FightEquip>(0);
 			var type = equip.type;
-			var current = DataCenter.Instance.exploreData.explorer.GetEquip(type - 10);
+			current = DataCenter.Instance.exploreData.explorer.GetEquip(type - 10);
 			m_view.m_type.selectedIndex = current != null ? 1 : 0;
 
 			m_view.m_info.SetFightEquipInfo(equip, current);
-			if (current != null) m_view.m_old.SetFightEquipInfo(current, equip);
+			if (current != null)
+			{
+				ratio = equip.power / current.power;
+				m_view.m_old.SetFightEquipInfo(current, equip);
+			}
 
+		}
+
+		partial void OnPutonClick(EventContext data)
+		{
+			DropEquip(equip, current);
 		}
 
 		partial void OnDropClick(EventContext data)
 		{
-			SGame.UIUtils.Confirm("ui_notice_title", "ui_notice_tips1", (index) =>
-			{
-				if (index == -1)
-				{
+			DropEquip(current, equip);
+		}
 
-				}
-			}, new string[] { "ui_common_return" });
+		void DropEquip(FightEquip equip, FightEquip drop)
+		{
+			if (equip == null && drop == null) return;
+
+			var showtips = drop != null;
+
+			if (showtips && equip != null)
+			{
+				if (equip.isnew == 1)
+					showtips = ratio < _worse;
+				else
+					showtips = ratio > _best;
+			}
+
+			if (!showtips)
+			{
+				RequestExcuteSystem.ExplorePutOnEquip(equip, drop);
+				SGame.UIUtils.CloseUIByID(__id);
+			}
+			else
+			{
+				SGame.UIUtils.Confirm("ui_notice_title", drop.isnew == 1 ? "ui_notice_tips1" : "ui_notice_tips2", (index) =>
+				{
+					if (index == -1)
+					{
+						RequestExcuteSystem.ExplorePutOnEquip(equip, drop);
+						SGame.UIUtils.CloseUIByID(__id);
+					}
+				}, new string[] { "ui_common_return" });
+			}
 		}
 
 		partial void DoHide(UIContext context)

@@ -8,6 +8,7 @@ namespace SGame.UI
 	using SGame.UI.Common;
 	using SGame.UI.Pet;
 	using System.Collections;
+	using Unity.Entities.UniversalDelegates;
 
 	public partial class UIExplore
 	{
@@ -17,6 +18,8 @@ namespace SGame.UI
 		{
 			eventHandle += EventManager.Instance.Reg(((int)GameEvent.EXPLORE_TOOL_UP_LV), OnExploreToolUp);
 			eventHandle += EventManager.Instance.Reg(((int)GameEvent.EXPLORE_TOOL_UP_LV_START), RefreshCD);
+			eventHandle += EventManager.Instance.Reg<FightEquip>(((int)GameEvent.EXPLORE_CHNAGE_EQUIP), OnFightEquipChange);
+			eventHandle += EventManager.Instance.Reg(((int)GameEvent.EXPLORE_UP_LEVEL), SetExploreLv);
 			eventHandle += EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnItemChange);
 			onOpen += OnOpen_Info;
 		}
@@ -69,8 +72,8 @@ namespace SGame.UI
 		void SetAttr()
 		{
 			m_view.m_power.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetPower()));
-			m_view.m_hp.m_val.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetPower()));
-			m_view.m_atk.m_val.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetPower()));
+			m_view.m_hp.m_val.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetAttr(((int)EnumAttribute.Hp))));
+			m_view.m_atk.m_val.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetAttr(((int)EnumAttribute.Attack))));
 		}
 
 		void SetEquipInfo()
@@ -81,9 +84,7 @@ namespace SGame.UI
 				var idx = i + 10;
 				var eq = m_view.GetChild("eq" + idx);
 				if (eq != null)
-				{
 					eq.SetEquipInfo(eqs[i], true, idx);
-				}
 			}
 		}
 
@@ -107,6 +108,16 @@ namespace SGame.UI
 			if (b == ConstDefine.EXPLORE_ITEM)
 			{
 				SetExploreToolInfo(false);
+			}
+		}
+
+		void OnFightEquipChange(FightEquip equip)
+		{
+			if (equip != null)
+			{
+				var eq = m_view.GetChild("eq" + equip.type);
+				if (eq != null) eq.SetEquipInfo(equip, true, equip.type);
+				SetAttr();
 			}
 		}
 

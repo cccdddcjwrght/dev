@@ -213,7 +213,19 @@ namespace SGame.UI
 		void ShowNewEquip()
 		{
 			if (exploreData.cacheEquip?.cfgID > 0)
+			{
+				var neq = exploreData.cacheEquip;
+				if (autoState)
+				{
+					var eq = exploreData.explorer.GetEquip(exploreData.cacheEquip.type - 10);
+					if (eq?.cfgID > 0 && neq.power <= eq.power)
+					{
+						RequestExcuteSystem.ExplorePutOnEquip(null, neq);
+						return;
+					}
+				}
 				SGame.UIUtils.OpenUI("fightequiptips", exploreData.cacheEquip);
+			}
 		}
 
 		#endregion

@@ -27,6 +27,8 @@ namespace SGame.UI
 			_onClick = args.GetArg("call").To<Action<int>>();
 			_clickClose = args.GetArg("clickclose", true).To<bool>();
 
+			m_view.m_body.m_body.m_close.onClick.Add(OnCloseClick);
+
 			SetContext(args.GetArg("context")?.ToString(), args.GetArg("contextcall").To<Action<GComponent>>());
 			SetBtns(btn);
 			m_view.z = -400;
@@ -83,8 +85,8 @@ namespace SGame.UI
 		{
 			OnConfirmBody_Click1Click(null);
 		}
-
-		partial void OnUICloseClick(ref bool state)
+		
+		void OnCloseClick()
 		{
 			_onClick?.Invoke(-1);
 		}

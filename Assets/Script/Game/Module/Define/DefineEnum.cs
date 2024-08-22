@@ -49,6 +49,7 @@ namespace SGame
 	/// </summary>
 	public enum EnumAttribute : int
 	{
+		None = 0,
 		//===================================
 		//价格
 		Price = 101,

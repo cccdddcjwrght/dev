@@ -999,6 +999,23 @@ namespace SGame
 			}
 		}
 
+		public virtual void Clear()
+		{
+			cfg = default;
+			qcfg = default;
+			lvcfg = default;
+			nextlvcfg = default;
+			_name = default;
+			icon = default;
+			_effects?.Clear();
+			_vEffects?.Clear();
+			_effects = null;
+			_vEffects = null;
+			mats = default;
+			_partData?.Clear();
+			_partData = default;
+		}
+
 	}
 
 	[Serializable]

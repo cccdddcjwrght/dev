@@ -13,22 +13,44 @@ namespace SGame
 
 		public static class ExploreUtil
 		{
+			#region const
 			public readonly static IReadOnlyList<EnumAttribute> c_fight_attrs = new List<EnumAttribute>()
 			{
 				EnumAttribute.Hp,
 				EnumAttribute.Attack,
-				//EnumAttribute.AtkSpeed,
+				EnumAttribute.AtkSpeed,
+
 				EnumAttribute.Dodge,
 				EnumAttribute.Combo,
 				EnumAttribute.Crit,
 				EnumAttribute.Stun,
 				EnumAttribute.Steal,
+
 				EnumAttribute.AntiDodge,
 				EnumAttribute.AntiCombo,
 				EnumAttribute.AntiCrit,
 				EnumAttribute.AntiStun,
 				EnumAttribute.AntiSteal,
 			};
+
+			public readonly static IReadOnlyList<EnumAttribute> c_fight_attrs_1 = new List<EnumAttribute>()
+			{
+				EnumAttribute.Dodge,
+				EnumAttribute.Combo,
+				EnumAttribute.Crit,
+				EnumAttribute.Stun,
+				EnumAttribute.Steal,
+			};
+
+			public readonly static IReadOnlyList<EnumAttribute> c_fight_attrs_2 = new List<EnumAttribute>()
+			{
+				EnumAttribute.AntiDodge,
+				EnumAttribute.AntiCombo,
+				EnumAttribute.AntiCrit,
+				EnumAttribute.AntiStun,
+				EnumAttribute.AntiSteal,
+			}; 
+			#endregion
 
 			public static float c_strong_power { get; private set; }
 			public static Dictionary<int, float> c_attr_power_ratios { get; private set; } = new Dictionary<int, float>();
@@ -191,9 +213,16 @@ namespace SGame
 					var eqs = EquipUtil.RandomEquip(pw, count, 11);
 					if (eqs.Count > 0)
 					{
+						var rnd = SGame.Randoms.Random._R;
 						var e = eqs[0];
-						var q = EquipUtil.Type2Quality(((EnumQualityType)SGame.Randoms.Random._R.NextWeight(qw) + 1));
-						return new FightEquip() { level = 1, cfg = e, cfgID = e.Id, quality = (int)q }.Refresh() as FightEquip;
+						var q = EquipUtil.Type2Quality(((EnumQualityType)rnd.NextWeight(qw) + 1));
+						return new FightEquip()
+						{
+							level = Math.Max(1, rnd.Next(data.level - 4, data.level + 1)),
+							cfg = e,
+							cfgID = e.Id,
+							quality = (int)q
+						}.Refresh() as FightEquip;
 					}
 				}
 				return default;
@@ -272,10 +301,19 @@ namespace SGame
 			RefreshCfg();
 		}
 
-		public void AddExp(int exp)
+		public bool AddExp(int exp)
 		{
-			if (IsExploreMaxLv()) return;
+			if (IsExploreMaxLv()) return false;
 			this.exp += exp;
+			var f = false;
+			while (!IsExploreMaxLv() && this.exp >= this.exploreLevel.Exp)
+			{
+				this.exp -= this.exploreLevel.Exp;
+				level++;
+				RefreshCfg();
+				f = true;
+			}
+			return f;
 		}
 
 	}
@@ -314,11 +352,38 @@ namespace SGame
 			return eq != null && eq.cfgID > 0 ? eq : default;
 		}
 
+		public bool Puton(FightEquip equip)
+		{
+			if (equip != null && equip.cfgID > 0 && equip.type > 10)
+			{
+				var pos = equip.type - 10;
+				var old = equips[pos];
+				if (old != null && old == equip) return false;
+				equips[pos] = equip;
+				equip.isnew = 0;
+				if (old != null) old.Clear();
+				GetAllAttr(true);
+				return true;
+			}
+			return false;
+		}
+
 		public List<int[]> GetAllAttr(bool calu = false)
 		{
 			if (calu || _attrs == null)
 				_attrs = DataCenter.ExploreUtil.GetAttrList(false, equips);
 			return _attrs;
+		}
+
+		public int GetAttr(int id)
+		{
+			if (id >= 0)
+			{
+				var attr = GetAllAttr();
+				for (int i = 0; i < attr.Count; i++)
+					if (attr[i][0] == id) return attr[i][1];
+			}
+			return 0;
 		}
 
 		public double GetPower(bool recalu = false)
@@ -386,17 +451,13 @@ namespace SGame
 					attrs.Add(GetBattleInfo(EnumAttribute.Hp, this, power));
 					attrs.Add(GetBattleInfo(EnumAttribute.Attack, this, power));
 
-					for (int i = 0; i < addnum; i++)
-					{
-						var id = rnd.Next(((int)EnumAttribute.Dodge), ((int)EnumAttribute.Steal));
-						attrs.Add(GetBattleInfo((EnumAttribute)id, this, power));
-					}
+					var ls = new List<EnumAttribute>();
+					rnd.NextItem(DataCenter.ExploreUtil.c_fight_attrs_1.ToList(), addnum, ref ls, true);
+					rnd.NextItem(DataCenter.ExploreUtil.c_fight_attrs_2.ToList(), anitnum, ref ls, true);
 
-					for (int i = 0; i < anitnum; i++)
-					{
-						var id = rnd.Next(((int)EnumAttribute.AntiDodge), ((int)EnumAttribute.AntiSteal));
+					foreach (var id in ls)
 						attrs.Add(GetBattleInfo((EnumAttribute)id, this, power));
-					}
+					attrs.Sort((a, b) => a.id.CompareTo(b.id));
 				}
 				if (attrDic == null)
 				{
@@ -416,6 +477,16 @@ namespace SGame
 		{
 			ConvertBuff();
 			return _effects;
+		}
+
+		public override void Clear()
+		{
+			base.Clear();
+			battleLvCfg = default;
+			attrs?.Clear();
+			attrs = default;
+			attrDic?.Clear();
+			attrDic = default;
 		}
 
 		static private EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, double power = 1)
