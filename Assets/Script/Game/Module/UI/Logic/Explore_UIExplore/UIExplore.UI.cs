@@ -13,6 +13,8 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
+			m_view.m_exploreState.onChanged.Add(new EventCallback1(_OnExploreStateChanged));
+			m_view.m_exploreAuto.onChanged.Add(new EventCallback1(_OnExploreAutoChanged));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
 			m_view.m_eq11.m_quality.onChanged.Add(new EventCallback1(_OnFightEquip_QualityChanged));
@@ -53,6 +55,8 @@ namespace SGame.UI{
 
 		}
 		partial void UnInitUI(UIContext context){
+			m_view.m_exploreState.onChanged.Remove(new EventCallback1(_OnExploreStateChanged));
+			m_view.m_exploreAuto.onChanged.Remove(new EventCallback1(_OnExploreAutoChanged));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
 			m_view.m_eq11.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquip_QualityChanged));
@@ -92,6 +96,16 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick),remove:true);
 
 		}
+		void _OnExploreStateChanged(EventContext data){
+			OnExploreStateChanged(data);
+		}
+		partial void OnExploreStateChanged(EventContext data);
+		void SwitchExploreStatePage(int index)=>m_view.m_exploreState.selectedIndex=index;
+		void _OnExploreAutoChanged(EventContext data){
+			OnExploreAutoChanged(data);
+		}
+		partial void OnExploreAutoChanged(EventContext data);
+		void SwitchExploreAutoPage(int index)=>m_view.m_exploreAuto.selectedIndex=index;
 		void SetTopbarText(string data)=>UIListener.SetText(m_view.m_topbar,data);
 		string GetTopbarText()=>UIListener.GetText(m_view.m_topbar);
 		void DoCloseUIClick(EventContext data){
@@ -109,6 +123,8 @@ namespace SGame.UI{
 			OnProgressClick(data);
 		}
 		partial void OnProgressClick(EventContext data);
+		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
+		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
 		void _OnFightEquip_QualityChanged(EventContext data){
 			OnFightEquip_QualityChanged(data);
 		}
@@ -227,6 +243,8 @@ namespace SGame.UI{
 		partial void OnFindClick(EventContext data);
 		void SetFindText(string data)=>UIListener.SetText(m_view.m_find,data);
 		string GetFindText()=>UIListener.GetText(m_view.m_find);
+		void SetToolBtn_TimeText(string data)=>UIListener.SetText(m_view.m_tool.m_time,data);
+		string GetToolBtn_TimeText()=>UIListener.GetText(m_view.m_tool.m_time);
 		void _OnToolClick(EventContext data){
 			OnToolClick(data);
 		}

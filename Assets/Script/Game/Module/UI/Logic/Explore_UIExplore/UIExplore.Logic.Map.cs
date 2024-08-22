@@ -18,6 +18,12 @@ namespace SGame.UI
 			m_view.m_map.width *= 2;
 			mapAnim = m_view.m_map.TweenMoveX(-w, 10).SetEase(EaseType.Linear).SetRepeat(-1);
 			MapLoop(true);
+			onOpen += OnOpen_Map;
+		}
+
+		void OnOpen_Map(UIContext context) {
+
+			MapLoop(false);
 
 		}
 

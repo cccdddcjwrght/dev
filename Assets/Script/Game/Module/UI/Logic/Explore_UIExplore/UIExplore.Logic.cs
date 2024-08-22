@@ -8,12 +8,15 @@ namespace SGame.UI
 	using SGame.UI.Common;
 	using SGame.UI.Pet;
 	using System;
+	using System.Collections;
 
 	public partial class UIExplore
 	{
 		private Action<UIContext> onOpen;
 		private Action<UIContext> onHide;
 		private Action<UIContext> onClose;
+
+		private EventHandleContainer eventHandle = new EventHandleContainer();
 
 		private ExploreData exploreData { get { return DataCenter.Instance.exploreData; } }
 
@@ -22,6 +25,7 @@ namespace SGame.UI
 			InitBar();
 			InitMap();
 			InitInfo();
+			InitPlay();
 		}
 
 		partial void DoOpen(UIContext context)
@@ -39,11 +43,21 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			onClose?.Invoke(context);
+			eventHandle?.Close();
+			eventHandle = null;
+		}
+
+		partial void OnToolClick(EventContext data)
+		{
+			SGame.UIUtils.OpenUI("exploretool");
 		}
 
 		partial void OnHelpClick(EventContext data)
 		{
+			SGame.UIUtils.OpenUI("fightinfo", exploreData.explorer);
 		}
+
+
 
 		void InitBar()
 		{
@@ -66,7 +80,7 @@ namespace SGame.UI
 			}
 		}
 
-
+		
 
 	}
 }

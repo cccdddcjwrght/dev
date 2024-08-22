@@ -1,16 +1,29 @@
 ﻿
-namespace SGame.UI{
+namespace SGame.UI
+{
 	using FairyGUI;
 	using UnityEngine;
 	using SGame;
 	using SGame.UI.Explore;
-	
+
 	public partial class UIFightInfo
 	{
-		partial void InitLogic(UIContext context){
+		private ExploreRoleData roleData;
 
+
+		partial void DoOpen(UIContext context)
+		{
+			roleData = context.GetParam()?.Value.To<object[]>().Val<ExploreRoleData>(0);
+			SetAttrList();
 		}
-		partial void UnInitLogic(UIContext context){
+
+		void SetAttrList()
+		{
+			m_view.m_attr.SetFightAttrList(DataCenter.ExploreUtil.GetAttrList(true, roleData.equips));
+		}
+
+		partial void UnInitLogic(UIContext context)
+		{
 
 		}
 	}

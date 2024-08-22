@@ -7,6 +7,8 @@ namespace SGame.UI.Explore
 {
     public partial class UI_ExploreUI : GLabel
     {
+        public Controller m_exploreState;
+        public Controller m_exploreAuto;
         public GLoader m_map;
         public GLabel m_topbar;
         public GButton m_close;
@@ -24,6 +26,10 @@ namespace SGame.UI.Explore
         public GTextField m_power;
         public UI_FightEquipInfo m_eqinfo;
         public GGraph m_holder;
+        public GGraph m_mholder;
+        public GLoader m_monster;
+        public GGraph m_battlemonster;
+        public Transition m_kill;
         public const string URL = "ui://ow12is1hpm5b14";
 
         public static UI_ExploreUI CreateInstance()
@@ -35,23 +41,29 @@ namespace SGame.UI.Explore
         {
             base.ConstructFromXML(xml);
 
+            m_exploreState = GetControllerAt(0);
+            m_exploreAuto = GetControllerAt(1);
             m_map = (GLoader)GetChildAt(0);
             m_topbar = (GLabel)GetChildAt(1);
             m_close = (GButton)GetChildAt(3);
             m_progress = (UI_ExploreProgress)GetChildAt(4);
-            m_eq11 = (UI_FightEquip)GetChildAt(8);
-            m_eq12 = (UI_FightEquip)GetChildAt(9);
-            m_eq13 = (UI_FightEquip)GetChildAt(10);
-            m_eq20 = (UI_FightEquip)GetChildAt(11);
-            m_find = (GButton)GetChildAt(13);
-            m_tool = (UI_ToolBtn)GetChildAt(14);
-            m_auto = (GButton)GetChildAt(15);
-            m_help = (GButton)GetChildAt(18);
-            m_hp = (UI_FightAttr)GetChildAt(19);
-            m_atk = (UI_FightAttr)GetChildAt(20);
+            m_eq11 = (UI_FightEquip)GetChildAt(9);
+            m_eq12 = (UI_FightEquip)GetChildAt(10);
+            m_eq13 = (UI_FightEquip)GetChildAt(11);
+            m_eq20 = (UI_FightEquip)GetChildAt(12);
+            m_find = (GButton)GetChildAt(14);
+            m_tool = (UI_ToolBtn)GetChildAt(15);
+            m_auto = (GButton)GetChildAt(16);
+            m_help = (GButton)GetChildAt(19);
+            m_hp = (UI_FightAttr)GetChildAt(20);
+            m_atk = (UI_FightAttr)GetChildAt(21);
             m_power = (GTextField)GetChildAt(24);
             m_eqinfo = (UI_FightEquipInfo)GetChildAt(26);
-            m_holder = (GGraph)GetChildAt(28);
+            m_holder = (GGraph)GetChildAt(29);
+            m_mholder = (GGraph)GetChildAt(30);
+            m_monster = (GLoader)GetChildAt(31);
+            m_battlemonster = (GGraph)GetChildAt(32);
+            m_kill = GetTransitionAt(0);
         }
     }
 }

@@ -216,5 +216,9 @@ namespace SGame
 		HOTFOOD_REFRESH					= 28000, //热卖商品刷新
 
 		BUFFSHOP_REFRESH				= 29000, //buff商店刷新
+
+		//探索===========================================================
+		EXPLORE_TOOL_UP_LV_START		= 30101,//探索道具开始
+		EXPLORE_TOOL_UP_LV				= 30102,//探索道具升级
 	}
 }

@@ -59,7 +59,7 @@ namespace SGame
 
 			static public string GetRoleEquipString() => GetRoleEquipString(0);
 
-			static public string GetRoleEquipString(int roleType, IList<BaseEquip> eqs = null, bool needpet = true)
+			static public string GetRoleEquipString(int roleType, IList<BaseEquip> eqs = null, bool needpet = true, string baseModel = null)
 			{
 				eqs = eqs ?? _data.equipeds;
 				var rt = roleType;
@@ -74,18 +74,20 @@ namespace SGame
 							roleType = level.PlayerId;
 					}
 
-					if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(roleType, out var role))
+					if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(roleType, out var role)
+						&& ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
 					{
-						if (ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
-						{
-							var ss = model.Part.Split('|');
-							if (ss.Length % 2 == 1)
-							{
-								for (int i = 1; i < ss.Length - 1; i += 2)
-									parts[ss[i].ToLower()] = ss[i + 1];
-							}
-						}
+						baseModel = model.Part;
 					}
+					if (string.IsNullOrEmpty(baseModel)) return default;
+
+					var ss = baseModel.Split('|');
+					if (ss.Length % 2 == 1)
+					{
+						for (int i = 1; i < ss.Length - 1; i += 2)
+							parts[ss[i].ToLower()] = ss[i + 1];
+					}
+
 					if (rt == 0)
 						_data.defaultEquipPart = parts;
 

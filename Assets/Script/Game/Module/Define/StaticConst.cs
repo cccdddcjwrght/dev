@@ -174,6 +174,15 @@ namespace SGame
 		public const int EQUIP_UPQUALITY_MAT = 100;
 
 		#endregion
+
+		#region 探索
+
+		/// <summary>
+		/// 探索材料
+		/// </summary>
+		public const int EXPLORE_ITEM = 3;
+
+		#endregion
 	}
 
 	/// <summary>

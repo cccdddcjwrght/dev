@@ -8,6 +8,8 @@ namespace SGame.UI.Explore
     public partial class UI_ToolBtn : GButton
     {
         public GImage m_bg;
+        public GImage m_cd;
+        public GTextField m_time;
         public const string URL = "ui://ow12is1hpm5b15";
 
         public static UI_ToolBtn CreateInstance()
@@ -20,6 +22,8 @@ namespace SGame.UI.Explore
             base.ConstructFromXML(xml);
 
             m_bg = (GImage)GetChildAt(0);
+            m_cd = (GImage)GetChildAt(3);
+            m_time = (GTextField)GetChildAt(4);
         }
     }
 }

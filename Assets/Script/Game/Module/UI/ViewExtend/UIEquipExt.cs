@@ -41,6 +41,7 @@ partial class UIListenerExt
 		bool checkup = false
 	)
 	{
+		if (gObject == null) return false;
 		var root = gObject;
 		if (root is UI_EqPos eqPos)
 		{
@@ -82,6 +83,7 @@ partial class UIListenerExt
 			}
 			else
 			{
+				gObject.data = equip;
 				gObject.SetIcon(equip.icon);
 				UIListener.SetControllerSelect(gObject, "type", 2, false);
 				UIListener.SetControllerSelect(gObject, "partstate", 0);

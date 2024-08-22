@@ -15,7 +15,7 @@ namespace SGame.UI{
 			context.onUninit += OnClose;
 			context.onShown += OnShow;
 			context.onHide += OnHide;
-			context.onOpen += OnOpen;
+			context.beginShown += OnOpen;
 
 			m_view = context.content as UI_FightInfoUI;
 			BeforeInit(context);
@@ -30,7 +30,7 @@ namespace SGame.UI{
 			context.onUninit -= OnClose;
 			context.onShown -= OnShow;
 			context.onHide -= OnHide;
-			context.onOpen -= OnOpen;
+			context.beginShown -= OnOpen;
 			UnInitUI(context);
 			UnInitEvent(context);
 			UnInitLogic(context);
