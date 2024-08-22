@@ -76,6 +76,9 @@ namespace SGame
 
 			//热卖菜品初始化
 			HotFoodModule.Instance.Initalize();
+
+			//战斗初始化
+			BattleManager.Instance.Initalize();
 		}
 
 		IEnumerator TestData()

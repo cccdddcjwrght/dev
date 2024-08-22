@@ -28,6 +28,11 @@ namespace SGame
         //是否胜利
         private bool isWin = false;
 
+        public void Initalize() 
+        {
+            BattleTimer.Instance.Start();
+        }
+
         /// <summary>
         /// 战斗开始
         /// </summary>
