@@ -29,7 +29,7 @@ namespace SGame.UI
             if (BattleManager.Instance.isCombat) yield break;
 
             _battleRole = new BattleRole(_model);
-
+            _battleRole.LoadAttribute(DataCenter.Instance.exploreData.explorer.roleID);
             m_view.m_battlemonster.xy = m_view.m_mholder.xy;
 
             if (_monster == null)
@@ -49,7 +49,7 @@ namespace SGame.UI
 
             _battleMonster = new BattleMonster(_monster);
             _battleMonster.LoadAttribute(1);
-            yield return _battleMonster.Move(1, 315, 2);
+            yield return _battleMonster.Move(1, 330, 2);
 
             BattleManager.Instance.BattleStart(_battleRole, _battleMonster);
         }

@@ -13,11 +13,6 @@ namespace SGame
             forward = -1;
         }
 
-        public void LoadAttribute(int cfgId)
-        {
-            attributes.ReadAttribute(cfgId);
-        }
-
         public override void Dead()
         {
 

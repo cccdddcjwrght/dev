@@ -1,7 +1,4 @@
-using FairyGUI;
-using SGame;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SGame 
@@ -21,6 +18,11 @@ namespace SGame
         //½ÇÉ«×´Ì¬
         public CharacterState state;
 
+        /// <summary>
+        /// ÊÇ·ñ´æ»î
+        /// </summary>
+        public bool isAlive { get { return attributes.GetBaseAttribute(SGame.EnumAttribute.Hp) > 0; } }
+
         public BaseBattleCharacter(UIModel model)
         {
             _model = model;
@@ -29,19 +31,22 @@ namespace SGame
             state = new CharacterState();
         }
 
-        /// <summary>
-        /// ÊÇ·ñ´æ»î
-        /// </summary>
-        public bool isAlive { get { return attributes.GetBaseAttribute(SGame.EnumAttribute.Hp) > 0; } }
+        public virtual void LoadAttribute(int cfgId)
+        {
+            attributes.ReadAttribute(cfgId);
+        }
 
         public virtual IEnumerator DoAttack(BaseBattleCharacter target, AttackEffect attackEffect)
         {
             yield return Move(1, BattleConst.move_distance, BattleConst.move_time);
 
-            float curTime = BattleTimer.Instance.CurTime();
-            float attackEndTime = curTime + GetAttackTime();
-            yield return new WaitWhile(() => BattleTimer.Instance.CurTime() < attackEndTime);
+            //²¥·Å¹¥»÷¶¯»­
+            _model.Play("Attack");
+            yield return Move(1, 0, 1f);
+     
             target.DoHit(attackEffect.damage).Start();
+
+            yield return Move(1, 0, 1f);
 
             if (attackEffect.stateList != null && attackEffect.stateList.Count > 0)
                 attackEffect.stateList.ForEach((v) => target.state.ApplyState(v));
@@ -93,11 +98,14 @@ namespace SGame
                 yield return Move(-1, 50, 0.25f);
                 yield return Move(1, 50, 0.25f);
             }
-
-            attributes.ChangeAttribute(EnumAttribute.Hp, -damage);
-            if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) Dead();
-
-            Debug.Log(string.Format("<color=red>{0} hit:{1} curhp: {2} time: {3}</color>", roleType.ToString(), damage, attributes.GetBaseAttribute(EnumAttribute.Hp), Time.realtimeSinceStartupAsDouble));
+            else 
+            {
+                attributes.ChangeAttribute(EnumAttribute.Hp, -damage);
+                yield return Move(-1, 10, 0.1f);
+                yield return Move(1, 10, 0.1f);
+                if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) Dead();
+            }
+            //Debug.Log(string.Format("<color=red>{0} hit:{1} curhp: {2} time: {3}</color>", roleType.ToString(), damage, attributes.GetBaseAttribute(EnumAttribute.Hp), Time.realtimeSinceStartupAsDouble));
         }
 
         public abstract void Dead();

@@ -166,6 +166,7 @@ namespace SGame
             EventManager.Instance.Trigger((int)GameEvent.BATTLE_OVER);
 
             isCombat = false;
+
             characterList.Clear();
             roundList.Clear();
         }
