@@ -127,6 +127,7 @@ namespace SGame.UI
 					if (mgr.HasComponent<UIWindow>(ui))
 					{
 						UIWindow window = mgr.GetComponentData<UIWindow>(ui);
+						log.Debug("close ui=" + window.BaseValue.configID + " name=" + window.BaseValue.uiname);
 						if (window.BaseValue.isClosing)
 						{
 							log.Warn("repeate closing ui=" + ui);

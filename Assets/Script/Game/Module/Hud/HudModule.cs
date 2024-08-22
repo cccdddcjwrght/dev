@@ -2,7 +2,7 @@ using SGame.UI;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
+using FairyGUI;
 
 namespace SGame
 {
@@ -32,6 +32,8 @@ namespace SGame
         {
             return m_hudUIWindow;
         }
+
+        public GComponent GetHUDRoot() => m_hudUIWindow.BaseValue.content;
 
 
         public HudModule(GameWorld world)

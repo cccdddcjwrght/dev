@@ -79,17 +79,22 @@ namespace SGame.UI
                     }
                 case UI_TYPE.COM_WINDOW:
                     {
+                        ComWindow ret = null;
                         if (cacheNum == 0)
                         {
-                            return UIComWindowPool.NewOne(uiPackage.uiPackage, comName);
+                            ret = UIComWindowPool.NewOne(configID, uiPackage.uiPackage, comName);
+                        }
+                        else
+                        {
+                            var pool = GetOrCreateCom(configID, uiPackage, comName, cacheNum);
+                            var pid = pool.Alloc();
+                            ret = pool.Get(pid);
+                            ret.SetPoolID(pid);
                         }
 
-                        var pool = GetOrCreateCom(configID, uiPackage, comName, cacheNum);
-                        var pid = pool.Alloc();
-                        var ret = pool.Get(pid);
-                        ret.SetPoolID(pid);
+                        ret.SetParent(parent);
+                        return ret;
                     }
-                    break;
             }
             return null;
         }

@@ -33,6 +33,8 @@ namespace SGame.UI
 
         public FairyWindow window => (BaseWindow as FairyWindow);
 
+        public GComponent rootUI => BaseWindow.type == UI_TYPE.WINDOW ? window : content;
+
         /// <summary>
         /// UI对象本身
         /// </summary>

@@ -16,9 +16,9 @@ public class HUDOrderTip : IUIScript
 
     public void OnInit(UIContext context)
     {
-        context.window.contentPane.touchable = false;
+        context.content.touchable = false;
         _uiOrderTipUI = context.content as UI_OrderTip;
-        context.window.AddEventListener("OrderNumUpdate", OnFoodNumUpdate);
+        context.rootUI.AddEventListener("OrderNumUpdate", OnFoodNumUpdate);
         context.onOpen += OnOpen;
     }
 

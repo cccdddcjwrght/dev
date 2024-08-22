@@ -43,6 +43,18 @@ namespace SGame
 			}
 		}
 
+		void SetupUIOrder(IBaseWindow win, int order)
+		{
+			if (win.type == UI_TYPE.WINDOW)
+			{
+				(win as FairyWindow).sortingOrder = order;
+			}
+			else
+			{
+				win.content.sortingOrder = order;
+			}
+		}
+
 		// 初始化UI状态, 包括是否全屏等等
 		public void Init(UIContext context)
 		{
@@ -55,8 +67,10 @@ namespace SGame
 				}
 
 				// 设置UI显示层级
-				context.window.sortingOrder = ui.Order;
-				context.window.uiname = ui.Name;
+				SetupUIOrder(context.BaseWindow, ui.Order);
+				
+				context.BaseWindow.uiname = ui.Name;
+				//context.window.uiname = ui.Name;
 
 				EventManager.Instance.Trigger((int)GameEvent.GUIDE_UI_SHOW, ui.Name);
 
@@ -64,7 +78,7 @@ namespace SGame
 				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type);
 #endif
 
-				if (context.BaseWindow.type == UI_TYPE.WINDOW)
+				//if (context.BaseWindow.type == UI_TYPE.WINDOW)
 				{
 					if (ui.Type == (int)UIType.UI)
 					{
@@ -91,7 +105,8 @@ namespace SGame
 					}
 					else if (ui.Type == (int)UIType.HUD)
 					{
-						context.window.isFullScreen = false;
+						if (context.BaseWindow.type == UI_TYPE.WINDOW)
+							context.window.isFullScreen = false;
 						HUDSetup(context);
 					}
 				}
@@ -180,7 +195,7 @@ namespace SGame
 						trans.Position = (float3)flow.Value.position + flow.offset;
 						entityManager.SetComponentData(e, trans);
 
-						var uiwindow = context.window;
+						var uiwindow = context.rootUI;
 						Vector2 pos = SGame.UIUtils.GetUIPosition(uiwindow.parent, trans.Position, PositionType.POS3D);
 						uiwindow.xy = pos;
 					}

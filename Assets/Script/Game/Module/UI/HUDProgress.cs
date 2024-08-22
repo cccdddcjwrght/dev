@@ -17,7 +17,8 @@ public class HUDProgress : IUIScript
 
     public void OnInit(UIContext context)
     {
-        context.window.contentPane.touchable = false;
+        context.content.touchable = false;
+        //context.window.contentPane.touchable = false;
         context.onOpen += OnOpend;
         progressUI = context.content as UI_Progress;
         context.onUpdate += Update;

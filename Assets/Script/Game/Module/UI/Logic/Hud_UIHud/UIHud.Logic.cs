@@ -9,7 +9,7 @@ namespace SGame.UI{
 	{
 		partial void InitLogic(UIContext context)
 		{
-			context.content.touchable = false;
+			context.content.touchable = true;
 		}
 		
 		partial void UnInitLogic(UIContext context){

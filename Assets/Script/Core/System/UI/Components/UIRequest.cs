@@ -75,11 +75,18 @@ namespace SGame.UI
 			return e;
 		}
 
-		public static Entity Create(EntityManager entityManager, int configId)
+		public static Entity Create(EntityManager entityManager, int configId, UI_TYPE t = UI_TYPE.WINDOW, GComponent parent = null)
 		{
 			UIRequestMgr.Add(configId);
 			Entity e = entityManager.CreateEntity(typeof(UIRequest));
-			entityManager.SetComponentData(e, new UIRequest() { comName = null, pkgName = null, configId = configId });
+			entityManager.SetComponentData(e, new UIRequest()
+			{
+				comName = null, 
+				pkgName = null, 
+				configId = configId,
+				type = t,
+				parent = parent
+			});
 			return e;
 		}
 	}

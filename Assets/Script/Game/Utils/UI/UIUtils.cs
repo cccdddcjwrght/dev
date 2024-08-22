@@ -85,7 +85,7 @@ namespace SGame
 			// 除了HUD 的UI, 所有UI都重新开一遍
 			foreach (var ui in allUI)
 			{
-				var configID = ui.Value.configID;
+				var configID = ui.BaseValue.configID;
 				if (ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData uiconfig))
 				{
 					if (HasUIGroup(configID, 11) || uiconfig.Name == "mask")
@@ -94,9 +94,9 @@ namespace SGame
 					}
 					if (uiconfig.Type == (int)UIType.UI && !uiID.Contains(configID))
 					{
-						if (ui.Value != null && ui.Value.isShowing)
+						if (ui.BaseValue != null && ui.BaseValue.isShowing)
 							uiID.Add(configID);
-						ui.Value.Close(true);
+						ui.BaseValue.Close(true);
 					}
 				}
 			}
@@ -208,7 +208,7 @@ namespace SGame
 					var win = GetUIView(name);
 					if (win != null)
 					{
-						if (win.Value.parent == null)
+						if (win.rootUI.parent == null)
 						{
 							if (data != default) mgr.AddComponentObject(e, data);
 							mgr.AddComponent<UIReShow>(e);
@@ -328,7 +328,7 @@ namespace SGame
 			{
 				foreach (var w in wins)
 				{
-					if (HasUIGroup(w.Value.configID, 10))
+					if (HasUIGroup(w.BaseValue.configID, 10))
 					{
 						continue;
 					}
@@ -381,7 +381,9 @@ namespace SGame
 		public static Entity ShowHUD(string uiname, Transform follow, float3 offset, bool onlyone = false)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			Entity ui = onlyone ? OpenUI(uiname) : UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiname));
+			Entity ui = onlyone ? OpenUI(uiname) : UIRequest.Create(entityManager
+				, SGame.UIUtils.GetUI(uiname)
+				, UI_TYPE.COM_WINDOW, HudModule.Instance.GetHUDRoot());
 
 			if (!entityManager.HasComponent<HUDFlow>(ui))
 			{
@@ -544,9 +546,9 @@ namespace SGame
 			if (EntityManager.HasComponent<UIWindow>(e))
 			{
 				var ui = EntityManager.GetComponentObject<UIWindow>(e);
-				if (ui != null && ui.Value != null)
+				if (ui != null && ui.BaseValue != null)
 				{
-					ui.Value.DispatchEvent(eventName, param);
+					ui.rootUI.DispatchEvent(eventName, param);
 				}
 			}
 		}
@@ -615,7 +617,7 @@ namespace SGame
 			if (e == Entity.Null)
 				return;
 			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
-			var item = ui.Value.contentPane.GetChildByPath(uiPath);
+			var item = ui.BaseValue.content.GetChildByPath(uiPath);
 			if (item == null)
 				Debug.Log("ui path not found={0}, {1}" + uiName + uiPath);
 
@@ -635,7 +637,7 @@ namespace SGame
 
 			Entity e = GetUIEntity(uiName);
 			var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<UIWindow>(e);
-			var item = ui.Value.contentPane.GetChildByPath(uiPath);
+			var item = ui.BaseValue.content.GetChildByPath(uiPath);
 			if (item == null)
 			{
 				Debug.Log("ui path not found={0}, {1}" + uiName + uiPath);
@@ -728,12 +730,12 @@ namespace SGame
 			{
 				residentuis = residentuis ?? ResidentUI;
 				var mainui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
-				mainSorting = mainui.Value.sortingOrder;
+				mainSorting = mainui.rootUI.sortingOrder;
 				List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI();
 				foreach (var ui in allUI)
 				{
-					if (residentuis.Contains(ui.Value.uiname)) continue;
-					if (ui.Value.sortingOrder > mainSorting)
+					if (residentuis.Contains(ui.BaseValue.uiname)) continue;
+					if (ui.rootUI.sortingOrder > mainSorting)
 						return false;
 				}
 			}

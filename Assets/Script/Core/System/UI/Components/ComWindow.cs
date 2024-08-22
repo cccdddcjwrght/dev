@@ -5,6 +5,9 @@ using UnityEngine;
 using FairyGUI;
 namespace SGame.UI
 {
+    /// <summary>
+    /// 简单UI, 用于处理HUD等简单的UI, 但必须要有父节点
+    /// </summary>
     public class ComWindow : IBaseWindow
     {
         private int         m_configID;
@@ -14,22 +17,24 @@ namespace SGame.UI
         private bool        m_closed;
         private PoolID      m_poolID;
         private IUIScript   m_scirpt;
+        private bool        m_isInit = false;
 
-        public ComWindow(GComponent component)
+        public ComWindow(int configID, GComponent component)
         {
             m_gcomponet = component;
+            m_configID = configID;
+        }
+
+        public void SetParent(GComponent parent)
+        {
+            m_parent = parent;
         }
 
         public void SetPoolID(PoolID poolID)
         {
             m_poolID = poolID;
         }
-        
-        public void Initalize()
-        {
-            
-        }
-        
+
         public UI_TYPE type => UI_TYPE.COM_WINDOW;
 
         public GComponent content => m_gcomponet;
@@ -57,9 +62,19 @@ namespace SGame.UI
             {
                 m_parent.AddChild(m_gcomponet);
                 m_gcomponet.visible = true;
+
+                if (!m_isInit)
+                    OnInit();
                 
                 m_context.onShown?.Invoke(m_context);
             }
+        }
+
+        void OnInit()
+        {
+            m_isInit = true;
+            m_scirpt?.OnInit(m_context);
+            m_context.onOpen?.Invoke(m_context);
         }
 
         /// <summary>
@@ -69,10 +84,17 @@ namespace SGame.UI
         {
             if (isShowing)
             {
+                HideImmediately();
+                m_context.onHide?.Invoke(m_context);
+            }
+        }
+
+        public void HideImmediately()
+        {
+            if (isShowing)
+            {
                 m_parent.RemoveChild(m_gcomponet);
                 m_gcomponet.visible = false;
-                
-                m_context.onHide?.Invoke(m_context);
             }
         }
 
@@ -97,7 +119,12 @@ namespace SGame.UI
         /// <param name="nocache"></param>
         public void Close(bool nocache = false)
         {
-            m_closed = true;
+            Hide();
+            if (m_closed == false)
+            {
+                m_closed = true;
+                m_context.onClose?.Invoke(m_context);
+            }
         }
 
         /// <summary>
@@ -113,9 +140,9 @@ namespace SGame.UI
         /// <summary>
         /// 是否显示
         /// </summary>
-        public bool isShowing => !m_closed && m_gcomponet.parent != null;
+        public bool isShowing => m_gcomponet.parent != null;
 
-        public UIContext context { get; }
+        public UIContext context => m_context;
 
         public void OnFrameUpdate(double deltaTime)
         {
@@ -140,8 +167,9 @@ namespace SGame.UI
 
         public void Reopen()
         {
-            
-            //m_context
+            m_closed = false;
+            m_context.onOpen?.Invoke(m_context);
+            Show();
         }
     }
 }

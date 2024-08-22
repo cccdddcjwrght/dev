@@ -122,7 +122,7 @@ namespace SGame
 			{
 				var main = UIUtils.GetUIView("mainui");
 				if (main != null)
-					_workerFlag = main.Value.contentPane.GetChild("workflag") as UI_GetWorkerFlag;
+					_workerFlag = main.BaseValue.content.GetChild("workflag") as UI_GetWorkerFlag;
 			}
 			if (_workerFlag != null) _workerFlag.visible = state;
 			return state && _workerFlag != null && _workerFlag.parent != null;

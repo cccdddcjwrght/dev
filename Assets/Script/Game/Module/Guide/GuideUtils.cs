@@ -38,7 +38,7 @@ namespace SGame
             if (e != Entity.Null) 
             {
                 var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
-                ui.Value.sortingOrder = 1;
+                ui.rootUI.sortingOrder = 1;
             }
         }
     }

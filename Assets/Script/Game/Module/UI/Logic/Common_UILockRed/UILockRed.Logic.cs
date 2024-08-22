@@ -53,7 +53,7 @@ namespace SGame.UI
 
         partial void DoShow(UIContext context)
         {
-			context.window.name += area;
+			context.rootUI.name += area;
 		}
         private void RefreshInfo()
 		{

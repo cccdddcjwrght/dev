@@ -43,7 +43,7 @@ namespace SGame.UI
         protected override void OnUpdate()
         {
             var commandBuffer = m_commandBuffer.CreateCommandBuffer();
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e, HUDFlow flow, ref LocalTransform trans) =>
+            Entities.WithNone<DespawningUI>().ForEach((Entity e, HUDFlow flow, ref LocalTransform trans) =>
             {
                 if (flow.Value != null)
                 {
@@ -53,12 +53,12 @@ namespace SGame.UI
                 {
                     // 跟随的目标已经销毁了
                     commandBuffer.RemoveComponent<HUDFlow>(e);
-                    commandBuffer.AddComponent<DespawningEntity>(e);
+                    commandBuffer.AddComponent<DespawningUI>(e);
                 }
             }).WithoutBurst().WithStructuralChanges().Run();
 
             var translationQuery = GetComponentLookup<LocalTransform>();
-            Entities.WithNone<DespawningEntity>().ForEach((Entity e,  ref LocalTransform trans, ref HUDFlowE flow) =>
+            Entities.WithNone<DespawningUI>().ForEach((Entity e,  ref LocalTransform trans, ref HUDFlowE flow) =>
             {
                 if (flow.Value != Entity.Null && translationQuery.HasComponent(flow.Value))
                 {
@@ -69,7 +69,7 @@ namespace SGame.UI
                 {
                     // 跟随的目标已经销毁了
                     commandBuffer.RemoveComponent<HUDFlow>(e);
-                    commandBuffer.AddComponent<DespawningEntity>(e);
+                    commandBuffer.AddComponent<DespawningUI>(e);
                 }
             }).WithoutBurst().WithStructuralChanges().Run();
         }

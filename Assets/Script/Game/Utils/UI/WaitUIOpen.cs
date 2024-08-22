@@ -40,7 +40,7 @@ namespace SGame
 				if (m_waitAnimation)
 				{
 					var win = m_mgr.GetComponentObject<UIWindow>(m_eUI);
-					if (!win.Value.isReadyShowed) return true;
+					if (!win.BaseValue.isReadyShowed) return true;
 				}
 
 				if (m_delay-- > 0) return true;

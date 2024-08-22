@@ -42,7 +42,7 @@ namespace SGame.UI
 
         void OnDespawn(ComWindow w)
         {
-            
+            w.HideImmediately();
         }
 
         void OnDispose(ComWindow w)
@@ -55,9 +55,9 @@ namespace SGame.UI
         /// 创建新的UI
         /// </summary>
         /// <returns></returns>
-        ComWindow NewOne() => NewOne(uiPackage.uiPackage, comName);
+        ComWindow NewOne() => NewOne(m_configID, uiPackage.uiPackage, comName);
 
-        public static ComWindow NewOne(UIPackage uiPackage, string comName)
+        public static ComWindow NewOne(int configID,  UIPackage uiPackage, string comName)
         {
             var gObject = uiPackage.CreateObject(comName) as GComponent;
             if (gObject == null)
@@ -66,7 +66,7 @@ namespace SGame.UI
                 return null;
             }
 
-            ComWindow win = new ComWindow(gObject);
+            ComWindow win = new ComWindow(configID, gObject);
             return win;
         }
 

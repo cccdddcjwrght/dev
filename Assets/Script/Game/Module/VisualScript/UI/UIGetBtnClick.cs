@@ -31,7 +31,7 @@ public class UIGetBtnClick : Unit
             string path = flow.GetValue<string>(uiClickName);
             Entity e = UIUtils.GetUIEntity(name);
             var ui = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<SGame.UI.UIWindow>(e);
-            var gObject = ui.Value.contentPane.GetChildByPath(path);
+            var gObject = ui.BaseValue.content.GetChildByPath(path);
             if (gObject != null)
             {
                 gObject.onClick.Add(Click);

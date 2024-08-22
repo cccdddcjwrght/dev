@@ -17,11 +17,11 @@ namespace SGame.UI
         
         protected override void OnUpdate()
         {
-            Entities.WithAll<HUDSync, UIInitalized>().WithNone<DespawningEntity>().ForEach((Entity e, UIWindow data, in LocalTransform translation) =>
+            Entities.WithAll<HUDSync, UIInitalized>().WithNone<DespawningUI>().ForEach((Entity e, UIWindow data, in LocalTransform translation) =>
             {
-                if (data.Value != null && !data.Value.isClosed && data.Value.isShowing)
+                if (data.BaseValue != null && !data.BaseValue.isClosed && data.BaseValue.isShowing)
                 {
-                    var ui = data.Value;
+                    var ui = data.rootUI;
                     Vector2 pos = SGame.UIUtils.GetUIPosition(ui.parent, translation.Position, PositionType.POS3D);
                     ui.xy = pos;
                 }

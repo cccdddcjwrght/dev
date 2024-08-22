@@ -12,7 +12,7 @@ public class HUDReputationTip : IUIScript
     public void OnInit(UIContext context)
     {
         context.onUninit += OnClose;
-        context.window.contentPane.touchable = false;
+        context.BaseWindow.content.touchable = false;
     }
 
     private void OnClose(UIContext obj)

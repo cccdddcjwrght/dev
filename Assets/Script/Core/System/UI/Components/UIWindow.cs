@@ -18,7 +18,8 @@ namespace SGame.UI
 		public FairyWindow Value => BaseValue as FairyWindow;
 
 		public IBaseWindow BaseValue;
-
+		public GComponent rootUI => BaseValue.type == UI_TYPE.WINDOW ? Value : BaseValue.content;
+		
 		// 自己的Entity
 		public Entity entity;
 
@@ -48,7 +49,7 @@ namespace SGame.UI
 				if (BaseValue == null)
 					return false;
 
-				return Value.isReadyShowed;
+				return BaseValue.isReadyShowed;
 			}
 		}
 	}
