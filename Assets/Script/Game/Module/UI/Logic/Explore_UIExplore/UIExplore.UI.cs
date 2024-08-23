@@ -50,7 +50,7 @@ namespace SGame.UI{
 			m_view.m_atk.m_uptype.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_uptypeChanged));
 			UIListener.ListenerIcon(m_view.m_atk, new EventCallback1(_OnAtkClick));
 			m_view.m_eqinfo.m_type.onChanged.Add(new EventCallback1(_OnFightEquipInfo_TypeChanged));
-			m_view.m_eqinfo.m_body.m_type.onChanged.Add(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_typeChanged));
+			m_view.m_eqinfo.m_body.m_bgtype.onChanged.Add(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_typeChanged));
 			m_view.m_eqinfo.m_body.m_quality.onChanged.Add(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_qualityChanged));
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick));
@@ -94,7 +94,7 @@ namespace SGame.UI{
 			m_view.m_atk.m_uptype.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_uptypeChanged));
 			UIListener.ListenerIcon(m_view.m_atk, new EventCallback1(_OnAtkClick),remove:true);
 			m_view.m_eqinfo.m_type.onChanged.Remove(new EventCallback1(_OnFightEquipInfo_TypeChanged));
-			m_view.m_eqinfo.m_body.m_type.onChanged.Remove(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_typeChanged));
+			m_view.m_eqinfo.m_body.m_bgtype.onChanged.Remove(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_typeChanged));
 			m_view.m_eqinfo.m_body.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_qualityChanged));
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick),remove:true);
@@ -325,14 +325,14 @@ namespace SGame.UI{
 			OnFightEquipInfoBody_Eqinfo_body_typeChanged(data);
 		}
 		partial void OnFightEquipInfoBody_Eqinfo_body_typeChanged(EventContext data);
-		void SwitchFightEquipInfoBody_Eqinfo_body_typePage(int index)=>m_view.m_eqinfo.m_body.m_type.selectedIndex=index;
+		void SwitchFightEquipInfoBody_Eqinfo_body_typePage(int index)=>m_view.m_eqinfo.m_body.m_bgtype.selectedIndex=index;
 		void _OnFightEquipInfoBody_Eqinfo_body_qualityChanged(EventContext data){
 			OnFightEquipInfoBody_Eqinfo_body_qualityChanged(data);
 		}
 		partial void OnFightEquipInfoBody_Eqinfo_body_qualityChanged(EventContext data);
 		void SwitchFightEquipInfoBody_Eqinfo_body_qualityPage(int index)=>m_view.m_eqinfo.m_body.m_quality.selectedIndex=index;
-		void SetFightEquipInfoBody_Eqinfo_body_qstrText(string data)=>UIListener.SetText(m_view.m_eqinfo.m_body.m_qstr,data);
-		string GetFightEquipInfoBody_Eqinfo_body_qstrText()=>UIListener.GetText(m_view.m_eqinfo.m_body.m_qstr);
+		void SetFightEquipInfoBody_Eqinfo_body_qstrText(string data)=>UIListener.SetText(m_view.m_eqinfo.m_body.m_qname,data);
+		string GetFightEquipInfoBody_Eqinfo_body_qstrText()=>UIListener.GetText(m_view.m_eqinfo.m_body.m_qname);
 		void SetFightEquipInfo_Eqinfo_bodyText(string data)=>UIListener.SetText(m_view.m_eqinfo.m_body,data);
 		string GetFightEquipInfo_Eqinfo_bodyText()=>UIListener.GetText(m_view.m_eqinfo.m_body);
 		void _OnEqinfoClick(EventContext data){

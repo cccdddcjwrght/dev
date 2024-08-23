@@ -156,8 +156,9 @@ namespace SGame.UI
 					var info = m_view.m_eqinfo;
 					if (g == m_view.m_eq11) info.m_type.selectedIndex = 1;
 					else info.m_type.selectedIndex = 0;
-					info.m_body.SetFightEquipInfo(d);
-					info.xy = g.xy + new Vector2(g.size.x * 0.5f, 5);
+					info.m_body.SetFightEquipInfo(d , attrsize:1);
+					info.m_body.m_attrs.ResizeToFit();
+					info.xy = g.xy + new Vector2(50, -10);
 					m_view.m_eqinfostate.selectedIndex = 1;
 				}
 			}

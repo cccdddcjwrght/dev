@@ -11,7 +11,7 @@ namespace SGame.UI.Explore
 
 		static private Action<GObject, object> __cacheCall;
 		static private FightEquip __compareEquip;
-
+		static private int __attrsize;
 		static private void OnAddAttr(int index, object data, GObject view)
 		{
 			var val = data as int[];
@@ -23,14 +23,14 @@ namespace SGame.UI.Explore
 					var v = k < EnumAttribute.Dodge ? Utils.ConvertNumberStrLimit3(val[1]) : (ConstDefine.C_PER_SCALE * val[1]).Round() + "%";
 					view.SetTextByKey($"ui_fight_attr_{k.ToString().ToLower()}");
 					UIListener.SetTextWithName(view, "val", v);
-					UIListener.SetControllerSelect(view, "size", 0);
+					UIListener.SetControllerSelect(view, "size", __attrsize);
 					UIListener.SetControllerSelect(view, "uptype", 0);
 					if (__compareEquip != null)
 					{
 						var otherval = __compareEquip.GetAttrVal(id: val[0]);
 						if (otherval != val[0])
 							UIListener.SetControllerSelect(view, "uptype", val[1] > otherval ? 1 : 2, false);
-  					}
+					}
 					__cacheCall?.Invoke(view, data);
 				}
 				else
@@ -42,7 +42,7 @@ namespace SGame.UI.Explore
 			}
 		}
 
-		static public GObject SetFightAttrList(this GObject gObject, List<int[]> attrs, Action<GObject, object> call = null, string listName = "attrs", FightEquip compare = null, int addnull = 0)
+		static public GObject SetFightAttrList(this GObject gObject, List<int[]> attrs, Action<GObject, object> call = null, string listName = "attrs", FightEquip compare = null, int addnull = 0, int attrsize = 0)
 		{
 			if (gObject != null && !string.IsNullOrEmpty(listName))
 			{
@@ -60,23 +60,25 @@ namespace SGame.UI.Explore
 						}
 						__cacheCall = call;
 						__compareEquip = compare;
+						__attrsize = attrsize;
 						SGame.UIUtils.AddListItems(ls, attrs, OnAddAttr);
 						__compareEquip = default;
 						__cacheCall = null;
+						__attrsize = 0;
 					}
 				}
 			}
 			return gObject;
 		}
 
-		static public GObject SetFightEquipInfo(this GObject gObject, FightEquip equip, FightEquip other = null , Action<GObject, object> call = null)
+		static public GObject SetFightEquipInfo(this GObject gObject, FightEquip equip, FightEquip other = null, Action<GObject, object> call = null, int attrsize = 0)
 		{
 			if (gObject == null) return null;
 			var eq = gObject?.asCom?.GetChild("eq") ?? gObject;
 			UIListener.SetControllerSelect(eq, "strongstate", equip.strong, false);
-			UIListener.SetTextWithName(gObject, "name", equip.name);
-			eq.SetEquipInfo(equip,true,equip.type);
-			gObject.SetFightAttrList(equip.GetEffects() , call , compare: other , addnull:1 );
+			UIListener.SetTextWithName(gObject, "name", equip.name.Local(),false);
+			eq.SetEquipInfo(equip, true, equip.type);
+			gObject.SetFightAttrList(equip.GetEffects(), call, compare: other, addnull: 1, attrsize: attrsize);
 			var upstate = 0;
 			if (other != null && equip.isnew == 1)
 			{
@@ -95,8 +97,5 @@ namespace SGame.UI.Explore
 
 	}
 
-	partial class UI_FightEquipTipsBody
-	{
-	}
 
 }
