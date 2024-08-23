@@ -18,7 +18,7 @@ namespace SGame
 			{
 				EnumAttribute.Hp,
 				EnumAttribute.Attack,
-				EnumAttribute.AtkSpeed,
+				//EnumAttribute.AtkSpeed,
 
 				EnumAttribute.Dodge,
 				EnumAttribute.Combo,
@@ -64,7 +64,7 @@ namespace SGame
 				var ls = new List<int[]>();
 				foreach (var i in c_fight_attrs)
 				{
-					c_attr_power_ratios[(int)i] = GlobalDesginConfig.GetFloat(i.ToString().ToLower() + "_ratio", 2f);
+					c_attr_power_ratios[(int)i] = GlobalDesginConfig.GetFloat(i.ToString().ToLower() + "_ratio", 0f);
 					ls.Add(new int[] { ((int)i), 0 });
 				}
 				c_cache_attr = ls;
@@ -191,9 +191,10 @@ namespace SGame
 						return new List<EqAttrInfo>() {
 							new EqAttrInfo(((int)EnumAttribute.Hp), cfg.Hp),
 							new EqAttrInfo(((int)EnumAttribute.Attack), cfg.Atk),
-							new EqAttrInfo(((int)EnumAttribute.AtkSpeed), cfg.Speed),
+							//new EqAttrInfo(((int)EnumAttribute.AtkSpeed), cfg.Speed),
 							new EqAttrInfo(((int)EnumAttribute.Dodge), cfg.Dodge),
 							new EqAttrInfo(((int)EnumAttribute.Combo), cfg.Combo),
+							new EqAttrInfo(((int)EnumAttribute.Crit), cfg.Crit),
 							new EqAttrInfo(((int)EnumAttribute.Stun), cfg.Stun),
 							new EqAttrInfo(((int)EnumAttribute.Steal), cfg.Steal),
 							new EqAttrInfo(((int)EnumAttribute.AntiDodge), cfg.AntiDodge),
@@ -401,7 +402,7 @@ namespace SGame
 		{
 			if (recalu || power == 0)
 			{
-				power = equips.Sum(e => e.power);
+				power = equips.Where(e => e != null && e.power != 0).Sum(e => e.power);
 			}
 			return power;
 		}

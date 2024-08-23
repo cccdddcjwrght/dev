@@ -355,12 +355,16 @@ namespace SGame.UI{
 			OnFightHp1Click(data);
 		}
 		partial void OnFightHp1Click(EventContext data);
+		void SetFightHp1Text(string data)=>UIListener.SetText(m_view.m_fightHp1,data);
+		string GetFightHp1Text()=>UIListener.GetText(m_view.m_fightHp1);
 		void SetFightHp_FightHp2_valueText(string data)=>UIListener.SetText(m_view.m_fightHp2.m_value,data);
 		string GetFightHp_FightHp2_valueText()=>UIListener.GetText(m_view.m_fightHp2.m_value);
 		void _OnFightHp2Click(EventContext data){
 			OnFightHp2Click(data);
 		}
 		partial void OnFightHp2Click(EventContext data);
+		void SetFightHp2Text(string data)=>UIListener.SetText(m_view.m_fightHp2,data);
+		string GetFightHp2Text()=>UIListener.GetText(m_view.m_fightHp2);
 
 	}
 }
