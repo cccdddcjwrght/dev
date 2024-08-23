@@ -48,6 +48,12 @@ namespace SGame.UI
 			UIListener.SetControllerSelect(gObject, "size", 1);
 		}
 
+		partial void OnPuton0Click(EventContext data)
+		{
+			DropEquip(equip, current);
+		}
+
+
 		partial void OnPutonClick(EventContext data)
 		{
 			DropEquip(equip, current);

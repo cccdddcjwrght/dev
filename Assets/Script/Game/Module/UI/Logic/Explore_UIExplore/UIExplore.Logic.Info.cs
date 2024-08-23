@@ -101,7 +101,7 @@ namespace SGame.UI
 		{
 			var toolnum = PropertyManager.Instance.GetItem(ConstDefine.EXPLORE_ITEM).num;
 			m_view.m_find.SetText(Utils.ConvertNumberStrLimit3(toolnum), false);
-			m_view.m_find.grayed = toolnum <= 0;
+			m_view.m_find.grayed = fightState || autoState || toolnum <= 0;
 			if (refreshlv)
 				m_view.m_tool.SetTextByKey("ui_common_lv1", exploreData.toolLevel);
 		}

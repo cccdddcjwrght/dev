@@ -11,6 +11,7 @@ namespace SGame.UI.Explore
         public Controller m_size;
         public UI_FightEquipTipsBody m_old;
         public UI_FightEquipTipsBody m_info;
+        public GButton m_puton0;
         public GButton m_drop;
         public GButton m_puton;
         public const string URL = "ui://ow12is1hpm5b1n";
@@ -28,8 +29,9 @@ namespace SGame.UI.Explore
             m_size = GetControllerAt(1);
             m_old = (UI_FightEquipTipsBody)GetChildAt(2);
             m_info = (UI_FightEquipTipsBody)GetChildAt(3);
-            m_drop = (GButton)GetChildAt(4);
-            m_puton = (GButton)GetChildAt(5);
+            m_puton0 = (GButton)GetChildAt(4);
+            m_drop = (GButton)GetChildAt(6);
+            m_puton = (GButton)GetChildAt(7);
         }
     }
 }

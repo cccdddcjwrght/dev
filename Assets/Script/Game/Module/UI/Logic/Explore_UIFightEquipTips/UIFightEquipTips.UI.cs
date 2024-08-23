@@ -33,6 +33,7 @@ namespace SGame.UI{
 			m_view.m_info.m_eq.m_part.onChanged.Add(new EventCallback1(_OnFightEquip_Infoq_partChanged));
 			UIListener.Listener(m_view.m_info.m_eq, new EventCallback1(_OnFightEquipTipsBody_InfoqClick));
 			UIListener.ListenerIcon(m_view.m_info, new EventCallback1(_OnInfoClick));
+			UIListener.Listener(m_view.m_puton0, new EventCallback1(_OnPuton0Click));
 			UIListener.Listener(m_view.m_drop, new EventCallback1(_OnDropClick));
 			UIListener.Listener(m_view.m_puton, new EventCallback1(_OnPutonClick));
 
@@ -58,6 +59,7 @@ namespace SGame.UI{
 			m_view.m_info.m_eq.m_part.onChanged.Remove(new EventCallback1(_OnFightEquip_Infoq_partChanged));
 			UIListener.Listener(m_view.m_info.m_eq, new EventCallback1(_OnFightEquipTipsBody_InfoqClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_info, new EventCallback1(_OnInfoClick),remove:true);
+			UIListener.Listener(m_view.m_puton0, new EventCallback1(_OnPuton0Click),remove:true);
 			UIListener.Listener(m_view.m_drop, new EventCallback1(_OnDropClick),remove:true);
 			UIListener.Listener(m_view.m_puton, new EventCallback1(_OnPutonClick),remove:true);
 
@@ -178,6 +180,12 @@ namespace SGame.UI{
 		partial void OnInfoClick(EventContext data);
 		void SetInfoText(string data)=>UIListener.SetText(m_view.m_info,data);
 		string GetInfoText()=>UIListener.GetText(m_view.m_info);
+		void _OnPuton0Click(EventContext data){
+			OnPuton0Click(data);
+		}
+		partial void OnPuton0Click(EventContext data);
+		void SetPuton0Text(string data)=>UIListener.SetText(m_view.m_puton0,data);
+		string GetPuton0Text()=>UIListener.GetText(m_view.m_puton0);
 		void _OnDropClick(EventContext data){
 			OnDropClick(data);
 		}
