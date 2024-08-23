@@ -24,6 +24,7 @@ namespace SGame
 
             _hpBar.max = attributes.GetBaseAttributeUpperLimit(EnumAttribute.Hp);
             _hpBar.value = attributes.GetBaseAttribute(EnumAttribute.Hp);
+            UpdateHpUI();
         }
 
         public override void Dead()
