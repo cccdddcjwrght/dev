@@ -486,8 +486,6 @@ namespace SGame
 			}
 			attrDic = attrDic ?? new Dictionary<int, EqAttrInfo>();
 			_effects = _effects ?? new List<int[]>();
-			power = power == 0 && attrs?.Count > 0 ? DataCenter.ExploreUtil.CaluPower(attrs.ToArray()) : -1;
-
 		}
 
 		public override List<int[]> GetEffects(bool valid = false)
