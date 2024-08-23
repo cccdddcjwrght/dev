@@ -37,7 +37,7 @@ namespace SGame.UI
 			if (current != null)
 			{
 				ratio = equip.power / current.power;
-				m_view.m_old.SetFightEquipInfo(current, equip, SetAttrInfo);
+				m_view.m_old.SetFightEquipInfo(current, null, SetAttrInfo);
 			}
 
 		}

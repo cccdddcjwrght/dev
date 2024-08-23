@@ -112,7 +112,10 @@ namespace SGame
 				if (equip != null)
 				{
 					if (data.explorer.Puton(equip))
+					{
+						data.explorer.GetPower(true);
 						_eMgr.Trigger(((int)GameEvent.EXPLORE_CHNAGE_EQUIP), equip);
+					}
 				}
 
 				if (drop != null)

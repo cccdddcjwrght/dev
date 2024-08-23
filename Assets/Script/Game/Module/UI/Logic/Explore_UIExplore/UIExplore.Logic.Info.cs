@@ -85,7 +85,7 @@ namespace SGame.UI
 
 		void SetAttr()
 		{
-			m_view.m_power.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetPower()));
+			m_view.m_power.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetPower(true)));
 			m_view.m_hp.m_val.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetAttr(((int)EnumAttribute.Hp))));
 			m_view.m_atk.m_val.SetText(Utils.ConvertNumberStrLimit3(exploreData.explorer.GetAttr(((int)EnumAttribute.Attack))));
 		}
