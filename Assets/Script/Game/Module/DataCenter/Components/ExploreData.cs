@@ -49,7 +49,7 @@ namespace SGame
 				EnumAttribute.AntiCrit,
 				EnumAttribute.AntiStun,
 				EnumAttribute.AntiSteal,
-			}; 
+			};
 			#endregion
 
 			public static float c_strong_power { get; private set; }
@@ -75,6 +75,10 @@ namespace SGame
 
 			static public EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, Func<int, int> getVal, double power = 1)
 			{
+
+				if(getVal == null)
+					return new EqAttrInfo(((int)attribute), 0);
+
 				var min = getVal(0);
 				var max = getVal(1);
 #if !SVR_RELEASE || CHECK
@@ -106,7 +110,7 @@ namespace SGame
 					{
 						case EnumAttribute.Hp: return cfg.HpRange;
 						case EnumAttribute.Attack: return cfg.AtkRange;
-						case EnumAttribute.AtkSpeed: return null;
+						case EnumAttribute.AtkSpeed: return cfg.g;
 
 						case EnumAttribute.Dodge: return cfg.Dodge;
 						case EnumAttribute.Combo: return cfg.Combo;
@@ -451,14 +455,15 @@ namespace SGame
 				{
 					var power = strong == 1 ? DataCenter.ExploreUtil.c_strong_power : 1;
 					var addnum = qcfg.AttribNum(0);
-					var anitnum = qcfg.AttribNum(1);
+					var anitnum = qcfg.AttribNumLength > 1 ? qcfg.AttribNum(1) : 0;
 					var rnd = SGame.Randoms.Random._R;
 					attrs.Add(GetBattleInfo(EnumAttribute.Hp, this, power));
 					attrs.Add(GetBattleInfo(EnumAttribute.Attack, this, power));
+					//attrs.Add(GetBattleInfo(EnumAttribute.AtkSpeed, this, power));
 
 					var ls = new List<EnumAttribute>();
-					rnd.NextItem(DataCenter.ExploreUtil.c_fight_attrs_1.ToList(), addnum, ref ls, true);
-					rnd.NextItem(DataCenter.ExploreUtil.c_fight_attrs_2.ToList(), anitnum, ref ls, true);
+					if (addnum > 0) rnd.NextItem(DataCenter.ExploreUtil.c_fight_attrs_1.ToList(), addnum, ref ls, true);
+					if (anitnum > 0) rnd.NextItem(DataCenter.ExploreUtil.c_fight_attrs_2.ToList(), anitnum, ref ls, true);
 
 					foreach (var id in ls)
 						attrs.Add(GetBattleInfo((EnumAttribute)id, this, power));

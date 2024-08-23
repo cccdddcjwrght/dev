@@ -169,7 +169,7 @@ namespace SGame
 		public static string ConvertNumberStr(double number, int limit = 3)
 		{
 			var unit = "";
-			var sign = number > 0 ? unit : "-";
+			var sign = number >= 0 ? unit : "-";
 			number = Math.Abs(number);
 			if (number >= 1000)
 			{
