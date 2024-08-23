@@ -9,6 +9,7 @@ namespace SGame.UI.Explore
     {
         public Controller m_exploreState;
         public Controller m_exploreAuto;
+        public Controller m_eqinfostate;
         public GLoader m_map;
         public GLabel m_topbar;
         public GButton m_fightBtn;
@@ -30,7 +31,10 @@ namespace SGame.UI.Explore
         public GGraph m_mholder;
         public GLoader m_monster;
         public GGraph m_battlemonster;
+        public GTextField m_exptips;
         public Transition m_kill;
+        public Transition m_expanim;
+        public Transition m_showeqinfo;
         public const string URL = "ui://ow12is1hpm5b14";
 
         public static UI_ExploreUI CreateInstance()
@@ -44,6 +48,7 @@ namespace SGame.UI.Explore
 
             m_exploreState = GetControllerAt(0);
             m_exploreAuto = GetControllerAt(1);
+            m_eqinfostate = GetControllerAt(2);
             m_map = (GLoader)GetChildAt(0);
             m_topbar = (GLabel)GetChildAt(1);
             m_fightBtn = (GButton)GetChildAt(2);
@@ -65,7 +70,10 @@ namespace SGame.UI.Explore
             m_mholder = (GGraph)GetChildAt(31);
             m_monster = (GLoader)GetChildAt(32);
             m_battlemonster = (GGraph)GetChildAt(33);
+            m_exptips = (GTextField)GetChildAt(34);
             m_kill = GetTransitionAt(0);
+            m_expanim = GetTransitionAt(1);
+            m_showeqinfo = GetTransitionAt(2);
         }
     }
 }

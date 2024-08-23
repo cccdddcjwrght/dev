@@ -169,6 +169,8 @@ namespace SGame
 		public static string ConvertNumberStr(double number, int limit = 3)
 		{
 			var unit = "";
+			var sign = number > 0 ? unit : "-";
+			number = Math.Abs(number);
 			if (number >= 1000)
 			{
 				int a, b, c;
@@ -197,13 +199,13 @@ namespace SGame
 			if (limit > 0)
 			{
 				if (number < Math.Pow(10, limit - 1))
-					return number.ToString($"G{limit}") + unit;
+					return sign + number.ToString($"G{limit}") + unit;
 				else
-					return ((int)number).ToString($"G{limit}") + unit;
+					return sign + ((int)number).ToString($"G{limit}") + unit;
 
 			}
 			else
-				return number.ToString() + unit;
+				return sign + number.ToString() + unit;
 		}
 
 		/// <summary>

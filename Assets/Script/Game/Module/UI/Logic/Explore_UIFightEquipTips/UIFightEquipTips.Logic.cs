@@ -33,13 +33,19 @@ namespace SGame.UI
 			current = DataCenter.Instance.exploreData.explorer.GetEquip(type - 10);
 			m_view.m_type.selectedIndex = current != null ? 1 : 0;
 
-			m_view.m_info.SetFightEquipInfo(equip, current);
+			m_view.m_info.SetFightEquipInfo(equip, current , SetAttrInfo);
 			if (current != null)
 			{
 				ratio = equip.power / current.power;
-				m_view.m_old.SetFightEquipInfo(current, equip);
+				m_view.m_old.SetFightEquipInfo(current, equip, SetAttrInfo);
 			}
 
+		}
+
+		void SetAttrInfo(GObject gObject , object data)
+		{
+			if(gObject == null) return;
+			UIListener.SetControllerSelect(gObject, "size", 1);
 		}
 
 		partial void OnPutonClick(EventContext data)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FairyGUI;
-using Unity.Entities.UniversalDelegates;
 
 namespace SGame.UI.Explore
 {
@@ -21,21 +20,23 @@ namespace SGame.UI.Explore
 				if (val[0] > 0)
 				{
 					var k = ((EnumAttribute)val[0]);
-					var v = k < EnumAttribute.Dodge ? val[1].ToString() : (ConstDefine.C_PER_SCALE * val[1]).Round() + "%";
+					var v = k < EnumAttribute.Dodge ? Utils.ConvertNumberStrLimit3(val[1]) : (ConstDefine.C_PER_SCALE * val[1]).Round() + "%";
 					view.SetTextByKey($"ui_fight_attr_{k.ToString().ToLower()}");
 					UIListener.SetTextWithName(view, "val", v);
+					UIListener.SetControllerSelect(view, "size", 0);
 					UIListener.SetControllerSelect(view, "uptype", 0);
 					if (__compareEquip != null)
 					{
 						var otherval = __compareEquip.GetAttrVal(id: val[0]);
 						if (otherval != val[0])
 							UIListener.SetControllerSelect(view, "uptype", val[1] > otherval ? 1 : 2, false);
-					}
+  					}
 					__cacheCall?.Invoke(view, data);
 				}
 				else
 				{
 					view.SetText(null, false);
+					UIListener.SetControllerSelect(view, "uptype", 0);
 					UIListener.SetTextWithName(view, "val", null, false);
 				}
 			}
@@ -45,7 +46,7 @@ namespace SGame.UI.Explore
 		{
 			if (gObject != null && !string.IsNullOrEmpty(listName))
 			{
-				var ls = gObject.asList ?? gObject.asCom?.GetChild(listName).asList;
+				var ls = gObject.asList ?? gObject.asCom?.GetChild(listName)?.asList;
 				if (ls != null)
 				{
 					ls.RemoveChildrenToPool();
@@ -68,14 +69,14 @@ namespace SGame.UI.Explore
 			return gObject;
 		}
 
-		static public GObject SetFightEquipInfo(this GObject gObject, FightEquip equip, FightEquip other = null)
+		static public GObject SetFightEquipInfo(this GObject gObject, FightEquip equip, FightEquip other = null , Action<GObject, object> call = null)
 		{
 			if (gObject == null) return null;
 			var eq = gObject?.asCom?.GetChild("eq") ?? gObject;
 			UIListener.SetControllerSelect(eq, "strongstate", equip.strong, false);
 			UIListener.SetTextWithName(gObject, "name", equip.name);
-			eq.SetEquipInfo(equip);
-			gObject.SetFightAttrList(equip.GetEffects(), compare: other);
+			eq.SetEquipInfo(equip,true,equip.type);
+			gObject.SetFightAttrList(equip.GetEffects() , call , compare: other , addnull:1 );
 			var upstate = 0;
 			if (other != null && equip.isnew == 1)
 			{
@@ -83,7 +84,7 @@ namespace SGame.UI.Explore
 				if (v != 0)
 				{
 					upstate = v > 0 ? 1 : 2;
-					UIListener.SetTextWithName(gObject, "power", (v > 0 ? "+" : "") + v);
+					UIListener.SetTextWithName(gObject, "power", (v > 0 ? "+" : "") + Utils.ConvertNumberStrLimit3(v.ToInt()));
 				}
 			}
 			UIListener.SetControllerSelect(gObject, "new", equip.isnew, false);

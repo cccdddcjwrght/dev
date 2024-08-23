@@ -15,6 +15,7 @@ namespace SGame.UI{
 			__id = context.configID;
 			m_view.m_exploreState.onChanged.Add(new EventCallback1(_OnExploreStateChanged));
 			m_view.m_exploreAuto.onChanged.Add(new EventCallback1(_OnExploreAutoChanged));
+			m_view.m_eqinfostate.onChanged.Add(new EventCallback1(_OnEqinfostateChanged));
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
@@ -58,6 +59,7 @@ namespace SGame.UI{
 		partial void UnInitUI(UIContext context){
 			m_view.m_exploreState.onChanged.Remove(new EventCallback1(_OnExploreStateChanged));
 			m_view.m_exploreAuto.onChanged.Remove(new EventCallback1(_OnExploreAutoChanged));
+			m_view.m_eqinfostate.onChanged.Remove(new EventCallback1(_OnEqinfostateChanged));
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick),remove:true);
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
@@ -108,6 +110,11 @@ namespace SGame.UI{
 		}
 		partial void OnExploreAutoChanged(EventContext data);
 		void SwitchExploreAutoPage(int index)=>m_view.m_exploreAuto.selectedIndex=index;
+		void _OnEqinfostateChanged(EventContext data){
+			OnEqinfostateChanged(data);
+		}
+		partial void OnEqinfostateChanged(EventContext data);
+		void SwitchEqinfostatePage(int index)=>m_view.m_eqinfostate.selectedIndex=index;
 		void SetTopbarText(string data)=>UIListener.SetText(m_view.m_topbar,data);
 		string GetTopbarText()=>UIListener.GetText(m_view.m_topbar);
 		void _OnFightBtnClick(EventContext data){
@@ -332,6 +339,8 @@ namespace SGame.UI{
 			OnEqinfoClick(data);
 		}
 		partial void OnEqinfoClick(EventContext data);
+		void SetExptipsText(string data)=>UIListener.SetText(m_view.m_exptips,data);
+		string GetExptipsText()=>UIListener.GetText(m_view.m_exptips);
 
 	}
 }

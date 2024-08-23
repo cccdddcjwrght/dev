@@ -9,6 +9,7 @@ namespace SGame.UI
 	using SGame.UI.Pet;
 	using System.Collections;
 	using System.IO;
+	using System;
 
 	public enum MoveState
 	{
@@ -52,6 +53,7 @@ namespace SGame.UI
 			_waitDead = new WaitForSeconds(0.5f);
 			_waitRest = new WaitForSeconds(2f);
 
+			((Action)CancelAuto).CallWhenPause();
 		}
 
 		void OnOpen_Play(UIContext context)
@@ -226,6 +228,11 @@ namespace SGame.UI
 				}
 				SGame.UIUtils.OpenUI("fightequiptips", exploreData.cacheEquip);
 			}
+		}
+
+		void CancelAuto()
+		{
+			SwitchExploreAutoPage(0);
 		}
 
 		#endregion

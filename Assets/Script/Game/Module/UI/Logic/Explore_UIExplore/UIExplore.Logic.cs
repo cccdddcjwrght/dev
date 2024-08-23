@@ -55,7 +55,7 @@ namespace SGame.UI
 
 		partial void OnHelpClick(EventContext data)
 		{
-			SGame.UIUtils.OpenUI("fightinfo", exploreData.explorer);
+			SGame.UIUtils.OpenUI("fightinfo", exploreData.explorer.GetAllAttr());
 		}
 
 

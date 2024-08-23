@@ -168,7 +168,7 @@ namespace SGame
 						.Select(e => e.ToArray());
 
 					if (all)
-						v = v.Concat(c_cache_attr);
+						v = c_cache_attr.Concat(v);
 
 					return v.GroupBy(v => v[0])
 						.ToDictionary(v => v.Key, v => v.Sum(i => i[1]))
@@ -218,10 +218,11 @@ namespace SGame
 						var q = EquipUtil.Type2Quality(((EnumQualityType)rnd.NextWeight(qw) + 1));
 						return new FightEquip()
 						{
-							level = Math.Max(1, rnd.Next(data.level - 4, data.level + 1)),
+							level = Math.Max(1, rnd.Next(data.level - 4, data.level + 1)),//等级
 							cfg = e,
 							cfgID = e.Id,
-							quality = (int)q
+							quality = (int)q,//品质
+							strong = rnd.Rate(data.exploreToolLevel.FortifyChance) ? 1 : 0,//强化
 						}.Refresh() as FightEquip;
 					}
 				}
@@ -253,6 +254,9 @@ namespace SGame
 		public ExploreToolLevelRowData exploreToolLevel;
 		[NonSerialized]
 		public ExploreToolLevelRowData exploreToolNextLevel;
+
+		[NonSerialized]
+		public int addExp;
 
 		public int exploreMaxLv { get; private set; }
 		public int toolMaxLv { get; private set; }
@@ -305,6 +309,7 @@ namespace SGame
 		{
 			if (IsExploreMaxLv()) return false;
 			this.exp += exp;
+			addExp = exp;
 			var f = false;
 			while (!IsExploreMaxLv() && this.exp >= this.exploreLevel.Exp)
 			{

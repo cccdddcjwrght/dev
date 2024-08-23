@@ -5,7 +5,7 @@ using FairyGUI.Utils;
 
 namespace SGame.UI.Explore
 {
-    public partial class UI_FightEquipInfo : GComponent
+    public partial class UI_FightEquipInfo : GLabel
     {
         public Controller m_type;
         public UI_FightEquipInfoBody m_body;

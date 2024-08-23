@@ -13,6 +13,7 @@ namespace SGame.UI
 	public partial class UIExplore
 	{
 		private Coroutine _cd;
+		private bool _clickeqflag;
 
 		void InitInfo()
 		{
@@ -22,12 +23,19 @@ namespace SGame.UI
 			eventHandle += EventManager.Instance.Reg(((int)GameEvent.EXPLORE_UP_LEVEL), SetExploreLv);
 			eventHandle += EventManager.Instance.Reg<int, int, int, int>(((int)GameEvent.ITEM_CHANGE_BURYINGPOINT), OnItemChange);
 			onOpen += OnOpen_Info;
+			onClose += OnClose_Info;
+			m_view.onClick.Add(OnViewClick);
 		}
 
 		void OnOpen_Info(UIContext context)
 		{
 			SetBaseInfo();
 			RefreshCD();
+		}
+
+		void OnClose_Info(UIContext context)
+		{
+			m_view.onClick.Clear();
 		}
 
 		void SetBaseInfo()
@@ -67,6 +75,12 @@ namespace SGame.UI
 			m_view.m_progress.value = exploreData.exp;
 			m_view.m_progress.max = exploreData.exploreLevel.Exp;
 			m_view.m_progress.SetTextByKey("ui_common_lv1", exploreData.level);
+			if (exploreData.addExp > 0)
+			{
+				m_view.m_exptips.text = "+" + exploreData.addExp;
+				exploreData.addExp = 0;
+				m_view.m_expanim.Play();
+			}
 		}
 
 		void SetAttr()
@@ -80,12 +94,7 @@ namespace SGame.UI
 		{
 			var eqs = exploreData.explorer.equips;
 			for (int i = 1; i < eqs.Length; i++)
-			{
-				var idx = i + 10;
-				var eq = m_view.GetChild("eq" + idx);
-				if (eq != null)
-					eq.SetEquipInfo(eqs[i], true, idx);
-			}
+				SetEquipInfo(eqs[i], false);
 		}
 
 		void SetExploreToolInfo(bool refreshlv = true)
@@ -95,6 +104,23 @@ namespace SGame.UI
 			m_view.m_find.grayed = toolnum <= 0;
 			if (refreshlv)
 				m_view.m_tool.SetTextByKey("ui_common_lv1", exploreData.toolLevel);
+		}
+
+		void SetEquipInfo(FightEquip equip, bool refreshattr = false)
+		{
+			if (equip != null)
+			{
+				var eq = m_view.GetChild("eq" + equip.type);
+				if (eq != null)
+				{
+					eq.SetFightEquipInfo(equip);
+					eq.data = equip;
+					if (refreshattr)
+					{
+						SetAttr();
+					}
+				}
+			}
 		}
 
 		void OnExploreToolUp()
@@ -113,13 +139,44 @@ namespace SGame.UI
 
 		void OnFightEquipChange(FightEquip equip)
 		{
-			if (equip != null)
+			SetEquipInfo(equip, true);
+		}
+
+		void OnEqClick(EventContext data)
+		{
+
+			var g = data.sender as GObject;
+			if (g != null)
 			{
-				var eq = m_view.GetChild("eq" + equip.type);
-				if (eq != null) eq.SetEquipInfo(equip, true, equip.type);
-				SetAttr();
+				var d = g.data as FightEquip;
+				if (d != null)
+				{
+					_clickeqflag = true;
+					m_view.m_eqinfostate.selectedIndex = 0;
+					var info = m_view.m_eqinfo;
+					if (g == m_view.m_eq11) info.m_type.selectedIndex = 1;
+					else info.m_type.selectedIndex = 0;
+					info.m_body.SetFightEquipInfo(d);
+					info.xy = g.xy + new Vector2(g.size.x * 0.5f, 5);
+					m_view.m_eqinfostate.selectedIndex = 1;
+				}
 			}
 		}
+
+		void OnViewClick(EventContext data)
+		{
+
+			if (!_clickeqflag)
+			{
+				if (m_view != null)
+					m_view.m_eqinfostate.selectedIndex = 0;
+			}
+			_clickeqflag = false;
+		}
+
+		partial void OnEq11Click(EventContext data) => OnEqClick(data);
+		partial void OnEq12Click(EventContext data) => OnEqClick(data);
+		partial void OnEq13Click(EventContext data) => OnEqClick(data);
 
 	}
 }
