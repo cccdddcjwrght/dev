@@ -124,6 +124,10 @@ namespace SGame.UI
                     // 超出缓存数量直接销毁
                     return pool.Dispose(poolID);
                 }
+                var win = pool.Get(poolID);
+                if (win.isDisposed)
+                    return pool.Dispose(poolID);
+                
                 return pool.Free(poolID);
             }
             // 基础的UI
@@ -139,6 +143,11 @@ namespace SGame.UI
                 {
                     return pool.Dispose(poolID);
                 }
+
+                var win = pool.Get(poolID);
+                if (win.isDisposed)
+                    return pool.Dispose(poolID);
+                
                 return pool.Free(poolID);
             }
 
