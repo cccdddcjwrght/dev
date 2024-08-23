@@ -22,7 +22,7 @@ namespace SGame.UI.Explore
             base.ConstructFromXML(xml);
 
             m_bg = (GImage)GetChildAt(0);
-            m_cd = (GImage)GetChildAt(3);
+            m_cd = (GImage)GetChildAt(2);
             m_time = (GTextField)GetChildAt(4);
         }
     }

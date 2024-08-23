@@ -134,6 +134,8 @@ namespace SGame.UI{
 		partial void OnProgressClick(EventContext data);
 		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
 		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
+		void SetRoundText(string data)=>UIListener.SetText(m_view.m_round,data);
+		string GetRoundText()=>UIListener.GetText(m_view.m_round);
 		void _OnFightEquip_QualityChanged(EventContext data){
 			OnFightEquip_QualityChanged(data);
 		}
