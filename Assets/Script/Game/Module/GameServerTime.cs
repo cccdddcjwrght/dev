@@ -73,6 +73,7 @@ public class GameServerTime : Singleton<GameServerTime>
 
 	public void DoUpdate()
 	{
+		m_realtime = Time.realtimeSinceStartupAsDouble;
 		stime = serverTime;
 	}
 
