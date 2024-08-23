@@ -107,6 +107,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("FightLoseUI", "Explore", ()=>new UIFightLose());
 			context.uiModule.Reg("FightLevelUI", "Explore", ()=>new UIFightLevel());
 			context.uiModule.Reg("FightItemDetailUI", "Explore", ()=>new UIFightItemDetail());
+			context.uiModule.Reg("ExploreToolUI", "Explore", () => new UIExploreTool());
 		}
 	}
 }
