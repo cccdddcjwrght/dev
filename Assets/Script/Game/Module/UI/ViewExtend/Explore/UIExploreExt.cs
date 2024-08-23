@@ -28,7 +28,7 @@ namespace SGame.UI.Explore
 					if (__compareEquip != null)
 					{
 						var otherval = __compareEquip.GetAttrVal(id: val[0]);
-						if (otherval != val[0])
+						if (otherval != val[1])
 							UIListener.SetControllerSelect(view, "uptype", val[1] > otherval ? 1 : 2, false);
 					}
 					__cacheCall?.Invoke(view, data);
