@@ -61,7 +61,7 @@ namespace SGame
 						return true;
 					}
 					else
-						"item_not_enough".Local(null, Utils.GetItemName(1, cost[2]).Local()).Tips();
+						"item_not_enough".Local(null, Utils.GetItemName(1, cost[1]).Local()).Tips();
 				}
 			}
 

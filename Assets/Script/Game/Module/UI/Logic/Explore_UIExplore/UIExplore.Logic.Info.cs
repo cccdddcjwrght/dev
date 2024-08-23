@@ -42,8 +42,9 @@ namespace SGame.UI
 		{
 			SetExploreLv();
 			SetAttr();
-			SetExploreToolInfo();
+			//SetExploreToolInfo();
 			SetEquipInfo();
+			ResetBtnState();
 		}
 
 		void RefreshCD()
@@ -100,10 +101,9 @@ namespace SGame.UI
 		void SetExploreToolInfo(bool refreshlv = true)
 		{
 			var toolnum = PropertyManager.Instance.GetItem(ConstDefine.EXPLORE_ITEM).num;
-			m_view.m_find.SetText(Utils.ConvertNumberStrLimit3(toolnum), false);
 			m_view.m_find.grayed = fightState || autoState || toolnum <= 0;
-			if (refreshlv)
-				m_view.m_tool.SetTextByKey("ui_common_lv1", exploreData.toolLevel);
+			m_view.m_find.SetText(Utils.ConvertNumberStrLimit3(toolnum), false);
+			if (refreshlv) m_view.m_tool.SetTextByKey("ui_common_lv1", exploreData.toolLevel);
 		}
 
 		void SetEquipInfo(FightEquip equip, bool refreshattr = false)
@@ -121,6 +121,13 @@ namespace SGame.UI
 					}
 				}
 			}
+		}
+
+		void ResetBtnState()
+		{
+			SetExploreToolInfo(false);
+			RefreshAutoState();
+			m_view.m_tool.grayed = false;
 		}
 
 		void OnExploreToolUp()

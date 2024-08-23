@@ -69,7 +69,7 @@ namespace SGame.UI.Explore
             m_help = (GButton)GetChildAt(22);
             m_hp = (UI_FightAttr)GetChildAt(23);
             m_atk = (UI_FightAttr)GetChildAt(24);
-            m_power = (GTextField)GetChildAt(28);
+            m_power = (GTextField)GetChildAt(27);
             m_eqinfo = (UI_FightEquipInfo)GetChildAt(30);
             m_holder = (GGraph)GetChildAt(33);
             m_mholder = (GGraph)GetChildAt(34);
