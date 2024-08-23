@@ -122,6 +122,7 @@ namespace SGame
             if (_hpBar != null) 
             {
                 _hpBar.value = attributes.GetBaseAttribute(EnumAttribute.Hp);
+                _hpBar.GetChild("value").SetText($"{Utils.ConvertNumberStr(_hpBar.value)}/{Utils.ConvertNumberStr(_hpBar.max)}");
             }
         }
 

@@ -13,15 +13,22 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
+			m_view.m_meet.onChanged.Add(new EventCallback1(_OnMeetChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.Listener(m_view.m_battleBtn, new EventCallback1(_OnBattleBtnClick));
 
 		}
 		partial void UnInitUI(UIContext context){
+			m_view.m_meet.onChanged.Remove(new EventCallback1(_OnMeetChanged));
 			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.Listener(m_view.m_battleBtn, new EventCallback1(_OnBattleBtnClick),remove:true);
 
 		}
+		void _OnMeetChanged(EventContext data){
+			OnMeetChanged(data);
+		}
+		partial void OnMeetChanged(EventContext data);
+		void SwitchMeetPage(int index)=>m_view.m_meet.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);

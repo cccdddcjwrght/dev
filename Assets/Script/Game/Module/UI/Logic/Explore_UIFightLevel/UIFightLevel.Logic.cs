@@ -26,7 +26,8 @@ namespace SGame.UI{
 				var fightAttr = attribute.GetFightAttr();
 				m_view.m_list.SetFightAttrList(fightAttr);
 				var fightValue = DataCenter.ExploreUtil.CaluPower(fightAttr.ToArray());
-				m_view.m_fight.SetText("+" + fightValue);
+				m_view.m_meet.selectedIndex = DataCenter.Instance.exploreData.explorer.GetPower() > fightValue ? 0 : 1;
+				m_view.m_fight.SetText(Utils.ConvertNumberStr(fightValue));
 			}
 		}
 

@@ -42,6 +42,9 @@ namespace SGame
             characterList.Add(role);
             characterList.Add(monster);
 
+            characterList.Sort((a, b) => b.attributes.GetBaseAttribute(EnumAttribute.AtkSpeed)
+            .CompareTo(a.attributes.GetBaseAttribute(EnumAttribute.AtkSpeed)));
+
             GenerateRoundData();
             ResetCharacter();
 
@@ -83,6 +86,7 @@ namespace SGame
                 }
                 roundIndex++;
             }
+            roundIndex = 1; //重置一下
             isWin = CheckVictory();
             if(isWin) DataCenter.BattleLevelUtil.NextLevel();
         }
@@ -93,10 +97,17 @@ namespace SGame
         /// <returns></returns>
         public IEnumerator PlayRound()
         {
+            int temp = 0;
             for (int i = 0; i < roundList.Count; i++)
             {
                 var roundData = roundList[i];
                 roundIndex = roundData.roundIndex;
+                if (temp != roundIndex)
+                {
+                    temp = roundIndex;
+                    EventManager.Instance.Trigger((int)GameEvent.BATTLE_ROUND);
+                }
+
                 roundData.attacker.state.UpdateState();
                 //攻击效果
                 for (int j = 0; j < roundData.attackList.Count; j++)

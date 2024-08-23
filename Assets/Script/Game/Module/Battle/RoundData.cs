@@ -76,8 +76,8 @@ namespace SGame
                     steal = Mathf.CeilToInt(damage * Mathf.Max(attacker.attributes.GetBaseAttribute(EnumAttribute.Steal)
                         - defender.attributes.GetBaseAttribute(EnumAttribute.AntiSteal), 0) * 0.0001f);
 
-                    steal = Mathf.Min(steal, defender.attributes.GetBaseAttributeUpperLimit(EnumAttribute.Hp) -
-                        defender.attributes.GetBaseAttribute(EnumAttribute.Hp));
+                    steal = Mathf.Min(steal, attacker.attributes.GetBaseAttributeUpperLimit(EnumAttribute.Hp) -
+                        attacker.attributes.GetBaseAttribute(EnumAttribute.Hp), 0);
                     damage = Mathf.Min(damage, defender.attributes.GetBaseAttribute(EnumAttribute.Hp));
                     attackList.Add(new AttackEffect()
                     {

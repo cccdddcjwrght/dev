@@ -54,6 +54,8 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick));
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick));
+			UIListener.ListenerIcon(m_view.m_fightHp1, new EventCallback1(_OnFightHp1Click));
+			UIListener.ListenerIcon(m_view.m_fightHp2, new EventCallback1(_OnFightHp2Click));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -98,6 +100,8 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick),remove:true);
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_fightHp1, new EventCallback1(_OnFightHp1Click),remove:true);
+			UIListener.ListenerIcon(m_view.m_fightHp2, new EventCallback1(_OnFightHp2Click),remove:true);
 
 		}
 		void _OnExploreStateChanged(EventContext data){
@@ -345,10 +349,18 @@ namespace SGame.UI{
 		partial void OnFightBtnClick(EventContext data);
 		void SetFightBtnText(string data)=>UIListener.SetText(m_view.m_fightBtn,data);
 		string GetFightBtnText()=>UIListener.GetText(m_view.m_fightBtn);
-		void SetFightHp1Text(string data)=>UIListener.SetText(m_view.m_fightHp1,data);
-		string GetFightHp1Text()=>UIListener.GetText(m_view.m_fightHp1);
-		void SetFightHp2Text(string data)=>UIListener.SetText(m_view.m_fightHp2,data);
-		string GetFightHp2Text()=>UIListener.GetText(m_view.m_fightHp2);
+		void SetFightHp_ValueText(string data)=>UIListener.SetText(m_view.m_fightHp1.m_value,data);
+		string GetFightHp_ValueText()=>UIListener.GetText(m_view.m_fightHp1.m_value);
+		void _OnFightHp1Click(EventContext data){
+			OnFightHp1Click(data);
+		}
+		partial void OnFightHp1Click(EventContext data);
+		void SetFightHp_FightHp2_valueText(string data)=>UIListener.SetText(m_view.m_fightHp2.m_value,data);
+		string GetFightHp_FightHp2_valueText()=>UIListener.GetText(m_view.m_fightHp2.m_value);
+		void _OnFightHp2Click(EventContext data){
+			OnFightHp2Click(data);
+		}
+		partial void OnFightHp2Click(EventContext data);
 
 	}
 }

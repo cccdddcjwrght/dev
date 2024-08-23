@@ -7,6 +7,7 @@ namespace SGame.UI.Explore
 {
     public partial class UI_FightLevelUI : GLabel
     {
+        public Controller m_meet;
         public GLabel m_body;
         public GTextField m_name;
         public GTextField m_fight;
@@ -25,6 +26,7 @@ namespace SGame.UI.Explore
         {
             base.ConstructFromXML(xml);
 
+            m_meet = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
             m_name = (GTextField)GetChildAt(1);
             m_fight = (GTextField)GetChildAt(5);

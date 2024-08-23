@@ -18,9 +18,11 @@ namespace SGame.UI
         {
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_START, TriggerBattle);
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_OVER, ExitBattle);
+            eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_ROUND, RefreshRound);
             onClose += (UIContext context)=> BreakOffBattle();
 
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
+            RefreshFightLevel();
         }
 
         partial void OnFightBtnClick(EventContext data)
@@ -37,10 +39,11 @@ namespace SGame.UI
         {
             if (BattleManager.Instance.isCombat) yield break;
 
+            EnableExploreButton(false);
             m_view.m_fightBtn.visible = false;
             _battleRole = new BattleRole(_model,m_view.m_fightHp1);
             _battleRole.LoadAttribute(DataCenter.Instance.exploreData.explorer.roleID);
-            m_view.m_battlemonster.xy = m_view.m_mholder.xy;
+            m_view.m_battlemonster.x = m_view.m_mholder.x;
 
             ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.showLevel, out var config);
             _monsterCfgId = config.Monster;
@@ -63,17 +66,45 @@ namespace SGame.UI
             _battleMonster = new BattleMonster(_monster, m_view.m_fightHp2);
             _battleMonster.LoadAttribute(_monsterCfgId);
             yield return _battleMonster.Move(1, 330, 2);
-
+            MapLoop(true);
+            yield return new WaitForSeconds(0.5f);
             BattleManager.Instance.BattleStart(_battleRole, _battleMonster);
+            m_view.m_roundGroup.visible = true;
         }
 
         public void ExitBattle()
         {
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
+            m_view.m_roundGroup.visible = false;
+            EnableExploreButton(true);
+            RefreshFightLevel();
 
+            MapLoop(false);
             _battleRole.Dispose();
             _battleMonster.Dispose();
             _monster.Reset();
+        }
+
+        //设置所有关于探索按钮状态
+        public void EnableExploreButton(bool active) 
+        {
+            m_view.m_tool.enabled = active;
+            m_view.m_find.enabled = active;
+            m_view.m_auto.enabled = active;
+        }
+
+
+        public void RefreshFightLevel() 
+        {
+            if (ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.level, out var config))
+            {
+                m_view.m_fightBtn.SetText(config.Name);
+            } 
+        }
+
+        public void RefreshRound() 
+        {
+            m_view.m_round.SetText($"{BattleManager.Instance.GetRoundIndex()}/{BattleConst.max_turncount}");
         }
 
         public void BreakOffBattle()

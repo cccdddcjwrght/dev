@@ -34,8 +34,8 @@ namespace SGame.UI.Explore
         public GGraph m_battlemonster;
         public GTextField m_exptips;
         public GButton m_fightBtn;
-        public GProgressBar m_fightHp1;
-        public GProgressBar m_fightHp2;
+        public UI_FightHp m_fightHp1;
+        public UI_FightHp m_fightHp2;
         public Transition m_kill;
         public Transition m_expanim;
         public Transition m_showeqinfo;
@@ -77,8 +77,8 @@ namespace SGame.UI.Explore
             m_battlemonster = (GGraph)GetChildAt(35);
             m_exptips = (GTextField)GetChildAt(36);
             m_fightBtn = (GButton)GetChildAt(37);
-            m_fightHp1 = (GProgressBar)GetChildAt(38);
-            m_fightHp2 = (GProgressBar)GetChildAt(39);
+            m_fightHp1 = (UI_FightHp)GetChildAt(38);
+            m_fightHp2 = (UI_FightHp)GetChildAt(39);
             m_kill = GetTransitionAt(0);
             m_expanim = GetTransitionAt(1);
             m_showeqinfo = GetTransitionAt(2);

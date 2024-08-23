@@ -68,8 +68,11 @@ namespace SGame
 
         public void SetAttribute(int attribute, int value)
         {
-            if (fightAttrDict.TryGetValue(attribute, out var info))
+            if (fightAttrDict.TryGetValue(attribute, out var info)) 
+            {
                 info.val = value;
+                info.upperLimit = value;
+            }
         }
 
         public int GetBaseAttribute(EnumAttribute attribute)
