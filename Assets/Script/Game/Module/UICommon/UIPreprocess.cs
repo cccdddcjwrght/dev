@@ -54,7 +54,7 @@ namespace SGame
 				win.content.sortingOrder = order;
 			}
 		}
-
+		
 		// 初始化UI状态, 包括是否全屏等等
 		public void Init(UIContext context)
 		{
@@ -78,14 +78,15 @@ namespace SGame
 				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type);
 #endif
 
-				//if (context.BaseWindow.type == UI_TYPE.WINDOW)
+				if (context.BaseWindow.type == UI_TYPE.WINDOW)
 				{
+					// 窗口类型
 					if (ui.Type == (int)UIType.UI)
 					{
 						// 添加UI对动画 显示与隐藏的支持
 						UIAnimationBind.Bind(context);
+						
 						context.window.isFullScreen = true;
-
 						context.onShown += OnUIShow;
 						context.onHide += OnUIHide;
 
@@ -105,8 +106,15 @@ namespace SGame
 					}
 					else if (ui.Type == (int)UIType.HUD)
 					{
-						if (context.BaseWindow.type == UI_TYPE.WINDOW)
-							context.window.isFullScreen = false;
+						context.window.isFullScreen = false;
+						HUDSetup(context);
+					}
+				}
+				else
+				{
+					// 非窗口类型
+					if (ui.Type == (int)UIType.HUD)
+					{
 						HUDSetup(context);
 					}
 				}
@@ -148,8 +156,8 @@ namespace SGame
 
 #region 事件
 
-		void OnUIShow(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_SHOW), context.window.uiname);
-		void OnUIHide(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_HIDE), context.window.uiname);
+		void OnUIShow(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_SHOW), context.BaseWindow.uiname);
+		void OnUIHide(UIContext context) => EventManager.Instance.Trigger(((int)GameEvent.UI_HIDE), context.BaseWindow.uiname);
 
 #endregion
 

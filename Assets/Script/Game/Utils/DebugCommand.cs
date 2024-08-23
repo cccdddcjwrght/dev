@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using FairyGUI;
 using log4net;
+using SGame.UI;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -19,7 +21,55 @@ namespace SGame
             Game.console.AddCommand("ui", UICommand, "ui [open|close] [name]");
             Game.console.AddCommand("autosave", AutoSaveCmd, "austosave [open|close]");
             Game.console.AddCommand("quality", SetQuality, "quality [level|lod] [num]");
+            Game.console.AddCommand("show2dui", Show2DUI, " [uiname] [p uiname] [uipath] [showtext]");
 
+        }
+
+        /// <summary>
+        /// 用于测试2D子UI 的代码
+        /// </summary>
+        /// <param name="args"></param>
+        static void Show2DUI(string[] args)
+        {
+            string uiPath = null;
+            string showText = "test text";
+            if (args.Length < 2)
+            {
+                Game.console.Write("error argv num" + + args.Length + "\n");
+                return;
+            }
+
+            if (args.Length >= 3)
+                uiPath = args[2];
+
+            if (args.Length >= 4)
+                showText = args[3];
+
+            var parentEntity = UIUtils.GetUIEntity(args[1]);
+            if (parentEntity == Entity.Null)
+            {
+                Game.console.Write("parent ui not found=" + args[1]);
+                return;
+            }
+
+            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            if (!EntityManager.HasComponent<UIWindow>(parentEntity))
+            {
+                Game.console.Write("parent ui not found=" + args[1]);
+                return;
+            }
+            UIWindow ui = EntityManager.GetComponentObject<UIWindow>(parentEntity);
+
+            var parentComponent = string.IsNullOrEmpty(uiPath) ? ui.BaseValue.content : ui.BaseValue.content.GetChildByPath(uiPath) as GComponent;
+            if (parentComponent == null)
+            {
+                Game.console.Write("uiPath Not found=" + uiPath);
+                return;
+            }
+            
+            var ret = UIUtils.Show2DUI(args[0], parentComponent);
+            EntityManager.AddComponentObject(ret, new HUDTips(){title = showText});
+            Game.console.Write("show2dui success=" + ret);
         }
 
         static void SetQuality(string[] args)

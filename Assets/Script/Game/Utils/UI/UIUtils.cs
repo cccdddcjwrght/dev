@@ -422,6 +422,26 @@ namespace SGame
 		}
 
 		/// <summary>
+		/// 将UI显示到某个子节点下面
+		/// </summary>
+		/// <param name="uiname"></param>
+		/// <param name="parent"></param>
+		/// <returns></returns>
+		public static Entity Show2DUI(string uiname, GComponent parent)
+		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			Entity ui = UIRequest.Create(entityManager, 
+				SGame.UIUtils.GetUI(uiname),
+				UI_TYPE.COM_WINDOW, 
+				parent);
+
+			//FairyWindow win;
+			//win.contentPane.GetChildByPath()
+			//win.GetChildByPath("")
+			return ui;
+		}
+
+		/// <summary>
 		/// 显示等待HUD
 		/// </summary>
 		/// <param name="progressTime"></param>
