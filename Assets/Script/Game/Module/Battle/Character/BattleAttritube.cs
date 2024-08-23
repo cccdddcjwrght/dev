@@ -103,6 +103,11 @@ namespace SGame
             var undulate = Random.Range(AtkRatio1, AtkRatio2) * 0.01f;
             return Mathf.CeilToInt(undulate * GetBaseAttribute(EnumAttribute.Attack));
         }
+
+        public List<int[]> GetFightAttr() 
+        {
+            return fightAttrList.Select(v => new int[] { v.id, v.upperLimit }).ToList();
+        }
     }
 }
 

@@ -7,7 +7,7 @@ namespace SGame
 {
     public class BattleMonster : BaseBattleCharacter
     {
-        public BattleMonster(UIModel model) : base(model)
+        public BattleMonster(UIModel model, GProgressBar hpBar) : base(model, hpBar)
         {
             roleType = RoleType.MONSTER;
             forward = -1;

@@ -84,6 +84,7 @@ namespace SGame
                 roundIndex++;
             }
             isWin = CheckVictory();
+            if(isWin) DataCenter.BattleLevelUtil.NextLevel();
         }
 
         /// <summary>
@@ -173,12 +174,14 @@ namespace SGame
 
         void BattleWin()
         {
-            Debug.Log("Win -");
+            SGame.UIUtils.OpenUI("fightwin");
+            //Debug.Log("Win -");
         }
 
         void BattleLose()
         {
-            Debug.Log("Lose -");
+            SGame.UIUtils.OpenUI("fightlose");
+            //Debug.Log("Lose -");
         }
     }
 }

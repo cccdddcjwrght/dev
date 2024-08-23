@@ -11,15 +11,24 @@ namespace SGame.UI
         private BattleRole _battleRole;
         private BattleMonster _battleMonster;
 
+        private int _monsterCfgId;
         private UIModel _monster;
 
         public void InitBattle() 
         {
+            eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_START, TriggerBattle);
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_OVER, ExitBattle);
             onClose += (UIContext context)=> BreakOffBattle();
+
+            m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
         }
 
         partial void OnFightBtnClick(EventContext data)
+        {
+            SGame.UIUtils.OpenUI("fightlevel", DataCenter.Instance.battleLevelData.showLevel);
+        }
+
+        void TriggerBattle() 
         {
             EnterBattle().Start();
         }
@@ -28,9 +37,13 @@ namespace SGame.UI
         {
             if (BattleManager.Instance.isCombat) yield break;
 
-            _battleRole = new BattleRole(_model);
+            m_view.m_fightBtn.visible = false;
+            _battleRole = new BattleRole(_model,m_view.m_fightHp1);
             _battleRole.LoadAttribute(DataCenter.Instance.exploreData.explorer.roleID);
             m_view.m_battlemonster.xy = m_view.m_mholder.xy;
+
+            ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.showLevel, out var config);
+            _monsterCfgId = config.Monster;
 
             if (_monster == null)
             {
@@ -47,8 +60,8 @@ namespace SGame.UI
             }
             _monster.RefreshModel();
 
-            _battleMonster = new BattleMonster(_monster);
-            _battleMonster.LoadAttribute(1);
+            _battleMonster = new BattleMonster(_monster, m_view.m_fightHp2);
+            _battleMonster.LoadAttribute(_monsterCfgId);
             yield return _battleMonster.Move(1, 330, 2);
 
             BattleManager.Instance.BattleStart(_battleRole, _battleMonster);
@@ -56,6 +69,8 @@ namespace SGame.UI
 
         public void ExitBattle()
         {
+            m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
+
             _battleRole.Dispose();
             _battleMonster.Dispose();
             _monster.Reset();
@@ -66,15 +81,17 @@ namespace SGame.UI
             BattleManager.Instance.DiscontinuePlayRound();
         }
 
-        //
         public IEnumerator LoadMonsterModel(object data)
         {
-            var modelName = "boss-2";
+            string modelName = string.Empty;
+            if (ConfigSystem.Instance.TryGet<GameConfigs.BattleRoleRowData>(_monsterCfgId, out var config)) 
+                modelName = config.Model;
+            
             var path = "Assets/BuildAsset/Prefabs/Monster/" + modelName;
 #if UNITY_EDITOR
             if (!File.Exists(path + ".prefab"))
             {
-                Debug.LogError($"模型资源不存在:{path},将使用临时资源");
+                Debug.LogError($"boss模型资源不存在:{path},将使用临时资源");
                 path = "Assets/BuildAsset/Prefabs/Monster/boss-2";
             }
 #endif

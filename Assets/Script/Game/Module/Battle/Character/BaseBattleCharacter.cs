@@ -1,3 +1,4 @@
+using FairyGUI;
 using System.Collections;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace SGame
         public RoleType roleType;
         //节点
         protected UIModel _model;
+        protected GProgressBar _hpBar;
+
         protected int forward;
 
         public BattleAttritube attributes;
@@ -23,9 +26,10 @@ namespace SGame
         /// </summary>
         public bool isAlive { get { return attributes.GetBaseAttribute(SGame.EnumAttribute.Hp) > 0; } }
 
-        public BaseBattleCharacter(UIModel model)
+        public BaseBattleCharacter(UIModel model, GProgressBar hpBar)
         {
             _model = model;
+            _hpBar = hpBar;
 
             attributes = new BattleAttritube();
             state = new CharacterState();
@@ -34,6 +38,9 @@ namespace SGame
         public virtual void LoadAttribute(int cfgId)
         {
             attributes.ReadAttribute(cfgId);
+            _hpBar.max = attributes.GetBaseAttributeUpperLimit(EnumAttribute.Hp);
+            _hpBar.visible = true;
+            UpdateHpUI();
         }
 
         public virtual IEnumerator DoAttack(BaseBattleCharacter target, AttackEffect attackEffect)
@@ -54,6 +61,7 @@ namespace SGame
             if (attackEffect.steal > 0)
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, attackEffect.steal);
+                UpdateHpUI();
                 //吸血效果
             }
 
@@ -105,14 +113,27 @@ namespace SGame
                 yield return Move(1, 10, 0.1f);
                 if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) Dead();
             }
+            UpdateHpUI();
             //Debug.Log(string.Format("<color=red>{0} hit:{1} curhp: {2} time: {3}</color>", roleType.ToString(), damage, attributes.GetBaseAttribute(EnumAttribute.Hp), Time.realtimeSinceStartupAsDouble));
         }
+
+        public void UpdateHpUI() 
+        {
+            if (_hpBar != null) 
+            {
+                _hpBar.value = attributes.GetBaseAttribute(EnumAttribute.Hp);
+            }
+        }
+
 
         public abstract void Dead();
 
         public virtual void Dispose() 
         {
             _model = null;
+
+            _hpBar.visible = false;
+            _hpBar = null;
             attributes = null;
             state.Reset();
             state = null;

@@ -10,7 +10,13 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 
 		}
-		partial void UnInitLogic(UIContext context){
+
+        partial void OnConfirmBtnClick(EventContext data)
+        {
+			SGame.UIUtils.CloseUIByID(__id);
+        }
+
+        partial void UnInitLogic(UIContext context){
 
 		}
 	}
