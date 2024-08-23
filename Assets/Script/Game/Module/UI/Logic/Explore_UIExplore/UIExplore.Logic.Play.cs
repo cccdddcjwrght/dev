@@ -61,6 +61,7 @@ namespace SGame.UI
 			_exlogic?.Stop();
 			_exlogic = Logic().Start();
 			_model.RefreshModel("walk");
+			RefreshAutoState();
 			ShowNewEquip();
 		}
 
@@ -87,7 +88,7 @@ namespace SGame.UI
 		{
 			if (!autoState)
 			{
-				if ("exploreauto".IsOpend(true, "ui_explore_auto_tips".Local()))
+				if (41.IsOpend(true, "ui_explore_auto_tips".Local()))
 				{
 					if (CheckItem(true))
 						SwitchExploreAutoPage(1);
@@ -235,7 +236,10 @@ namespace SGame.UI
 			SwitchExploreAutoPage(0);
 		}
 
-
+		void RefreshAutoState()
+		{
+			m_view.m_auto.grayed = !41.IsOpend(false); 
+		}
 
 		#endregion
 
