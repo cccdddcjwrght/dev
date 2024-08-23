@@ -18,6 +18,7 @@ namespace SGame.UI
         private PoolID      m_poolID;
         private IUIScript   m_scirpt;
         private bool        m_isInit = false;
+        private bool        m_isDisposed = false;
 
         public ComWindow(int configID, GComponent component)
         {
@@ -155,6 +156,12 @@ namespace SGame.UI
             {
                 context?.onUninit?.Invoke(context);
                 m_gcomponet.Dispose();
+                m_isDisposed = true;
+            }
+            else if (!m_isDisposed)
+            {
+                context?.onUninit?.Invoke(context);
+                m_isDisposed = true;
             }
         }
 
