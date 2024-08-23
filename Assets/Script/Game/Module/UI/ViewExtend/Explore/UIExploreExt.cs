@@ -80,9 +80,9 @@ namespace SGame.UI.Explore
 			eq.SetEquipInfo(equip, true, equip.type);
 			gObject.SetFightAttrList(equip.GetEffects(), call, compare: other, addnull: 1, attrsize: attrsize);
 			var upstate = 0;
-			if (other != null && equip.isnew == 1)
+			if ( equip.isnew == 1)
 			{
-				var v = equip.power - other.power;
+				var v = equip.power - (other!=null ? other.power : 0);
 				if (v != 0)
 				{
 					upstate = v > 0 ? 1 : 2;
