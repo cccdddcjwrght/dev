@@ -55,7 +55,6 @@ public class GameServerTime : Singleton<GameServerTime>
 	// 更新服务器时间
 	public void Update(int serverTime, int nextDayTime = 0)
 	{
-		m_realtime = Time.realtimeSinceStartupAsDouble;
 		if (nextDayTime > 0)
 			m_nextServerDayTime = nextDayTime + delaySecond;
 		else if (nextDayTime == -1)
@@ -93,7 +92,5 @@ public class GameServerTime : Singleton<GameServerTime>
 
 	public int nextDayTime { get { return (int)m_nextServerDayTime; } }
 
-	private double m_realtime = 0;
-
-	private double realtime { get { return m_realtime; } }
+	private double realtime { get { return Time.realtimeSinceStartupAsDouble; } }
 }
