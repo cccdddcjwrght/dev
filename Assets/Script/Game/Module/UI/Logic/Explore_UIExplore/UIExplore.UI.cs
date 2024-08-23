@@ -333,6 +333,8 @@ namespace SGame.UI{
 			OnEqinfoClick(data);
 		}
 		partial void OnEqinfoClick(EventContext data);
+		void SetEqinfoText(string data)=>UIListener.SetText(m_view.m_eqinfo,data);
+		string GetEqinfoText()=>UIListener.GetText(m_view.m_eqinfo);
 		void SetExptipsText(string data)=>UIListener.SetText(m_view.m_exptips,data);
 		string GetExptipsText()=>UIListener.GetText(m_view.m_exptips);
 		void _OnFightBtnClick(EventContext data){

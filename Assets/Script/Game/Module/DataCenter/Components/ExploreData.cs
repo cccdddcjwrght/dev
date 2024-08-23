@@ -261,6 +261,8 @@ namespace SGame
 
 		[NonSerialized]
 		public int addExp;
+		[NonSerialized]
+		public bool showgoldfly = true;
 
 		public int exploreMaxLv { get; private set; }
 		public int toolMaxLv { get; private set; }

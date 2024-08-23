@@ -123,7 +123,8 @@ namespace SGame
 					data.AddExp(c_drop_equip_exp);
 					_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
 
-					TransitionModule.Instance.PlayFlight(FairyGUI.GRoot.inst, 1);
+					if (data.showgoldfly)
+						TransitionModule.Instance.PlayFlight(FairyGUI.GRoot.inst, 1);
 
 				}
 

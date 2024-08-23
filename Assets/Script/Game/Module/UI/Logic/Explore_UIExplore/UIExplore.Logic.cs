@@ -31,6 +31,7 @@ namespace SGame.UI
 
 		partial void DoOpen(UIContext context)
 		{
+			exploreData.showgoldfly = true;
 			onOpen?.Invoke(context);
 			SetHead();
 		}
@@ -67,7 +68,7 @@ namespace SGame.UI
 			{
 				bar.SetCurrency(1, "gold", iconCtr: "1");
 				bar.SetCurrency(2, "diamond", iconCtr: "2");
-				bar.m_shop.onClick.Set(() => "shop".Goto());
+				bar.m_shop.onClick.Set(OpenShop);
 			}
 
 		}
@@ -82,6 +83,19 @@ namespace SGame.UI
 			}
 		}
 
+		void OpenShop()
+		{
+			exploreData.showgoldfly = false;
+			if ("shop".Goto())
+				WaitShopClose().Start();
+		}
 
+		IEnumerator WaitShopClose()
+		{
+			yield return new WaitForSeconds(0.2f);
+			var ui = SGame.UIUtils.GetUIView("shopui");
+			yield return new WaitUntil(() =>ui == null || ui.Value.isClosed);
+			exploreData.showgoldfly = true;
+		}
 	}
 }
