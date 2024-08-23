@@ -93,7 +93,7 @@ namespace SGame.UI
         {
             if (isShowing)
             {
-                m_parent.RemoveChild(m_gcomponet);
+                m_gcomponet.parent.RemoveChild(m_gcomponet);
                 m_gcomponet.visible = false;
             }
         }

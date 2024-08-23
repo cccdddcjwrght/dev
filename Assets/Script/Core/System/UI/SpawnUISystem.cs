@@ -154,6 +154,11 @@ namespace SGame.UI
                         fui.context.entity = e;
                         window.entity = e;
                         window.BaseValue = fui;
+                        if (fui.type == UI_TYPE.COM_WINDOW)
+                        {
+                            // 该类型需要设置父节点
+                            (fui as ComWindow).SetParent(request.parent);
+                        }
                         m_preprocess?.ReOpen(fui.context);
                         fui.Reopen();
                         m_preprocess?.AfterShow(fui.context);
