@@ -68,7 +68,7 @@ namespace SGame.UI
             yield return _battleMonster.Move(1, 330, 2);
             MapLoop(true);
             yield return new WaitForSeconds(0.5f);
-            BattleManager.Instance.BattleStart(_battleRole, _battleMonster);
+            BattleManager.Instance.BattleStart(_battleRole, _battleMonster, config.Inning);
             m_view.m_roundGroup.visible = true;
         }
 
@@ -77,6 +77,7 @@ namespace SGame.UI
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
             m_view.m_roundGroup.visible = false;
             EnableExploreButton(true);
+            SetBaseInfo();
             RefreshFightLevel();
 
             MapLoop(false);
@@ -85,14 +86,13 @@ namespace SGame.UI
             _monster.Reset();
         }
 
-        //设置所有关于探索按钮状态
+        //设置部分探索按钮状态
         public void EnableExploreButton(bool active) 
         {
-            m_view.m_tool.enabled = active;
             m_view.m_find.enabled = active;
+            m_view.m_tool.enabled = active;
             m_view.m_auto.enabled = active;
         }
-
 
         public void RefreshFightLevel() 
         {

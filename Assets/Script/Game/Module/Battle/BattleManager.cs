@@ -25,6 +25,9 @@ namespace SGame
         //当前第几回合
         private int roundIndex = 1;
 
+        //最大回合
+        private int _maxRound;
+
         //是否胜利
         private bool isWin = false;
 
@@ -36,9 +39,10 @@ namespace SGame
         /// <summary>
         /// 战斗开始
         /// </summary>
-        public void BattleStart(BaseBattleCharacter role, BaseBattleCharacter monster)
+        public void BattleStart(BaseBattleCharacter role, BaseBattleCharacter monster, int maxRound)
         {
             isCombat = true;
+            _maxRound = maxRound;
             characterList.Add(role);
             characterList.Add(monster);
 
@@ -127,7 +131,7 @@ namespace SGame
         {
             bool hasRoleAlive = false;
             bool hasMonsterAlive = false;
-            bool isMaxTrunCount = roundIndex <= BattleConst.max_turncount;
+            bool isMaxTrunCount = roundIndex <= _maxRound;
 
             for (int i = 0; i < characterList.Count; i++)
             {
