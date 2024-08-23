@@ -46,7 +46,7 @@ namespace SGame
                     return m_pool.Free(id);
                 }
                 
-                log.Error("dispose id=" + effectID + " poolID=" + id.ToString());
+                log.Warn("dispose id=" + effectID + " poolID=" + id.ToString());
                 return m_pool.Dispose(id);
             }
 

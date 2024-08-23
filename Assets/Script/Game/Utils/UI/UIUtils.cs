@@ -407,7 +407,10 @@ namespace SGame
 		public static Entity ShowHUD(string uiname, Entity follow, float3 offset)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			Entity ui = UIRequest.Create(entityManager, SGame.UIUtils.GetUI(uiname));
+			Entity ui = UIRequest.Create(entityManager, 
+				SGame.UIUtils.GetUI(uiname),
+				UI_TYPE.COM_WINDOW, 
+				HudModule.Instance.GetHUDRoot());
 
 			if (!entityManager.HasComponent<HUDFlowE>(ui))
 			{

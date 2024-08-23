@@ -12,17 +12,16 @@ namespace SGame.UI{
 		private double _value;
 		partial void InitLogic(UIContext context)
 		{
-			var param = context.gameWorld.GetEntityManager().GetComponentData<UIParam>(context.entity);
+			var param = context.EntityManager.GetComponentData<UIParam>(context.entity);
 			_foodTipEntity = (Entity)param.Value;
-			//m_view.m_title.text = Utils.ConvertNumberStr(value);
-			context.window.xy = new Vector2(999999f, 99999f);
+			context.rootUI.xy = new Vector2(999999f, 99999f);
 			_value = 0;
 			context.onUpdate += OnUpdate;
 		}
 
 		void OnUpdate(UIContext context)
 		{
-			var entityManager = context.gameWorld.GetEntityManager();
+			var entityManager = context.EntityManager;
 			if (entityManager.Exists(_foodTipEntity) && entityManager.HasComponent<FoodTips>(_foodTipEntity))
 			{
 				var foodTip = entityManager.GetComponentData<FoodTips>(_foodTipEntity);
