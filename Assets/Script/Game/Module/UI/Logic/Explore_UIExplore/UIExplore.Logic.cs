@@ -67,6 +67,7 @@ namespace SGame.UI
 			{
 				bar.SetCurrency(1, "gold", iconCtr: "1");
 				bar.SetCurrency(2, "diamond", iconCtr: "2");
+				bar.m_shop.onClick.Set(() => "shop".Goto());
 			}
 
 		}
@@ -81,7 +82,6 @@ namespace SGame.UI
 			}
 		}
 
-		
 
 	}
 }
