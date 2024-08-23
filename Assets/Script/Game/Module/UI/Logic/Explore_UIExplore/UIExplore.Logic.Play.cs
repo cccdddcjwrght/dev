@@ -108,6 +108,8 @@ namespace SGame.UI
 
 		partial void OnExploreStateChanged(EventContext data)
 		{
+			if (!fightState)
+				SetExploreToolInfo(false);
 		}
 
 		#region ExploreLogic
