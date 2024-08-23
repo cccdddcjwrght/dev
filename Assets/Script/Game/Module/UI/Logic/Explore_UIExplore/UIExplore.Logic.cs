@@ -34,12 +34,12 @@ namespace SGame.UI
 			exploreData.showgoldfly = true;
 			onOpen?.Invoke(context);
 			SetHead();
-			SceneCameraSystem.Instance.ToggleCamera(false);
+			//SceneCameraSystem.Instance.ToggleCamera(false);
 		}
 
 		partial void DoHide(UIContext context)
 		{
-			SceneCameraSystem.Instance.ToggleCamera(true);
+			//SceneCameraSystem.Instance.ToggleCamera(true);
 			onHide?.Invoke(context);
 			MapLoop(true);
 		}

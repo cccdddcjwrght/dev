@@ -79,14 +79,14 @@ namespace SGame.UI
 			}
 			else
 			{
-				SGame.UIUtils.Confirm("ui_notice_title", drop.isnew == 1 ? "ui_notice_tips1" : "ui_notice_tips2", (index) =>
+				SGame.UIUtils.Confirm("@ui_notice_title", drop.isnew == 1 ? "@ui_notice_tips1" : "@ui_notice_tips2", (index) =>
 				{
 					if (index == -1)
 					{
 						RequestExcuteSystem.ExplorePutOnEquip(equip, drop);
 						SGame.UIUtils.CloseUIByID(__id);
 					}
-				}, new string[] { "ui_common_return" });
+				}, new string[] { "@ui_common_return" });
 			}
 		}
 
