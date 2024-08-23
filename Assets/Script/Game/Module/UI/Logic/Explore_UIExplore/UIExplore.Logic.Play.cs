@@ -235,6 +235,8 @@ namespace SGame.UI
 			SwitchExploreAutoPage(0);
 		}
 
+
+
 		#endregion
 
 		#region Role

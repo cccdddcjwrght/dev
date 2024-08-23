@@ -118,9 +118,13 @@ namespace SGame
 				if (drop != null)
 				{
 					if (drop == data.cacheEquip) drop.Clear();
+					var gold = BuffShopModule.Instance.GetBuffShopCoin(c_drop_equip_coin);
+					PropertyManager.Instance.Update(1, 1, gold);
 					data.AddExp(c_drop_equip_exp);
-					BuffShopModule.Instance.GetBuffShopCoin(c_drop_equip_coin);
 					_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
+
+					TransitionModule.Instance.PlayFlight(FairyGUI.GRoot.inst, 1);
+
 				}
 
 				data.cacheEquip = default;

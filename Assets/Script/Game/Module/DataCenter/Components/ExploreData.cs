@@ -110,7 +110,7 @@ namespace SGame
 					{
 						case EnumAttribute.Hp: return cfg.HpRange;
 						case EnumAttribute.Attack: return cfg.AtkRange;
-						case EnumAttribute.AtkSpeed: return cfg.g;
+						case EnumAttribute.AtkSpeed: return null;
 
 						case EnumAttribute.Dodge: return cfg.Dodge;
 						case EnumAttribute.Combo: return cfg.Combo;
