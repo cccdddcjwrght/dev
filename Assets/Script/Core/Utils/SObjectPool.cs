@@ -107,6 +107,9 @@ namespace SGame
         {
             ExtendData v = m_exDatas[index];
             GameDebug.Assert(v.state != ExtendData.State.USED, "state is not match!");
+
+            if (v.state == ExtendData.State.FREE)
+                m_freeCount--;
             
             v.state = ExtendData.State.USED;
             v.Version++;
