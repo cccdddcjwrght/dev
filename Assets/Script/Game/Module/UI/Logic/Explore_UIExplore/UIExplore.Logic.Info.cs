@@ -42,7 +42,7 @@ namespace SGame.UI
 		{
 			SetExploreLv();
 			SetAttr();
-			//SetExploreToolInfo();
+			SetExploreToolInfo();
 			SetEquipInfo();
 			ResetBtnState();
 		}
