@@ -77,7 +77,7 @@ namespace SGame
                         - defender.attributes.GetBaseAttribute(EnumAttribute.AntiSteal), 0) * 0.0001f);
 
                     steal = Mathf.Min(steal, attacker.attributes.GetBaseAttributeUpperLimit(EnumAttribute.Hp) -
-                        attacker.attributes.GetBaseAttribute(EnumAttribute.Hp), 0);
+                        attacker.attributes.GetBaseAttribute(EnumAttribute.Hp));
                     damage = Mathf.Min(damage, defender.attributes.GetBaseAttribute(EnumAttribute.Hp));
                     attackList.Add(new AttackEffect()
                     {

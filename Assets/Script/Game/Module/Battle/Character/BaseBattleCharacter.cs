@@ -1,5 +1,7 @@
 using FairyGUI;
+using SGame.UI;
 using System.Collections;
+using Unity.Entities;
 using UnityEngine;
 
 namespace SGame 
@@ -52,9 +54,6 @@ namespace SGame
             yield return Move(1, 0, 1f);
      
             target.DoHit(attackEffect.damage).Start();
-
-            yield return Move(1, 0, 1f);
-
             if (attackEffect.stateList != null && attackEffect.stateList.Count > 0)
                 attackEffect.stateList.ForEach((v) => target.state.ApplyState(v));
 
@@ -75,6 +74,7 @@ namespace SGame
                 //Á¬»÷Ð§¹û
             }
 
+            yield return Move(1, 0, 1f);
             yield return Move(-1, BattleConst.move_distance, BattleConst.move_time);
             yield return new WaitForSeconds(0.5f);
         }
@@ -109,6 +109,10 @@ namespace SGame
             else 
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, -damage);
+                //var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                //var e = SGame.UIUtils.Show2DUI("floattext", _hpBar);
+                //EntityManager.AddComponentObject(e, new HUDTips() { title = $"-{damage}", color = Color.red });
+
                 yield return Move(-1, 10, 0.1f);
                 yield return Move(1, 10, 0.1f);
                 if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) Dead();
