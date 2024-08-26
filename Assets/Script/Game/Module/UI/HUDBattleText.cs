@@ -21,6 +21,7 @@ public class HUDBattleText : IUIScript
 
         _hudTips = context.gameWorld.GetEntityManager().GetComponentObject<HUDTips>(context.entity);
         _uiBattleText.m_title.color = _hudTips.color;
+        _uiBattleText.m_float.Play();
 
         context.onOpen += OnOpen;
         context.rootUI.SetXY(_hudTips.offsetX, _hudTips.offsetY);
