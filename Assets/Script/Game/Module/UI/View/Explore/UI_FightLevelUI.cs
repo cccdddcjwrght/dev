@@ -13,6 +13,8 @@ namespace SGame.UI.Explore
         public GTextField m_fight;
         public GTextField m_grade;
         public GList m_list;
+        public GLoader m_reward1;
+        public GLoader m_reward2;
         public GButton m_battleBtn;
         public GLoader m_tip;
         public const string URL = "ui://ow12is1hkp2b1r";
@@ -32,6 +34,8 @@ namespace SGame.UI.Explore
             m_fight = (GTextField)GetChildAt(5);
             m_grade = (GTextField)GetChildAt(8);
             m_list = (GList)GetChildAt(10);
+            m_reward1 = (GLoader)GetChildAt(12);
+            m_reward2 = (GLoader)GetChildAt(13);
             m_battleBtn = (GButton)GetChildAt(15);
             m_tip = (GLoader)GetChildAt(16);
         }
