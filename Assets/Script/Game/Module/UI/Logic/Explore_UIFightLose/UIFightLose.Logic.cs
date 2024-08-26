@@ -8,7 +8,7 @@ namespace SGame.UI{
 	public partial class UIFightLose
 	{
 		partial void InitLogic(UIContext context){
-
+			DataCenter.BattleLevelUtil.UpdateCacheResult();
 		}
 
         partial void OnConfirmBtnClick(EventContext data)

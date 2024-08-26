@@ -10,8 +10,8 @@ namespace SGame
         public int level = 1;           //战斗结果出现就更新
         public int showLevel = 1;       //(显示等级)等待战斗表现结束再更新
 
-        //暂时存储的奖励，避免玩家未领取
-        public List<int[]> battleRewards = new List<int[]>();
+        public bool cacheResult;        //是否有缓存战斗结果
+        public bool battlResult;        //战斗结果
     }
 
     public partial class DataCenter
@@ -30,22 +30,14 @@ namespace SGame
             public static void Init() 
             {
                 _maxLevel = ConfigSystem.Instance.GetConfigCount(typeof(BattleLevelRowData));
-                Instance.battleLevelData.battleRewards.ForEach((v)
-                    => PropertyManager.Instance.Update(v[0], v[1], v[2]));
-
-                UpdateShowLevel();
             }
 
 
-            public static void NextLevel() 
+            public static void CacheBattleResult(bool result) 
             {
-                ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(m_Data.level, out var config);
-                if (config.IsValid()) 
-                {
-                    Instance.battleLevelData.battleRewards =
-                        GetReward(config.GetRewardId1Array(), config.GetRewardId2Array());
-                }
-                m_Data.level++;
+                m_Data.cacheResult = true;
+                m_Data.battlResult = result;
+                if(result) m_Data.level++;
             }
 
             public static List<int[]> GetReward(int[] rewardIds, int[] rewardNums) 
@@ -61,10 +53,19 @@ namespace SGame
                 return list;
             }
 
-            public static void UpdateShowLevel() 
+            public static void ShowBattleResult() 
             {
-                Instance.battleLevelData.showLevel = Instance.battleLevelData.level;
-                Instance.battleLevelData.battleRewards?.Clear();
+                if (m_Data.cacheResult) 
+                {
+                    if (m_Data.battlResult) SGame.UIUtils.OpenUI("fightwin");
+                    else SGame.UIUtils.OpenUI("fightlose");
+                }
+            }
+
+            public static void UpdateCacheResult() 
+            {
+                m_Data.showLevel = m_Data.level;
+                m_Data.cacheResult = false;
             }
         }
     }

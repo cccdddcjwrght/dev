@@ -10,6 +10,7 @@ namespace SGame.UI
     {
         private BattleRole _battleRole;
         private BattleMonster _battleMonster;
+        bool _show = false;
 
         private int _monsterCfgId;
         private UIModel _monster;
@@ -21,7 +22,9 @@ namespace SGame.UI
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_START, TriggerBattle);
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_OVER, ExitBattle);
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_ROUND, RefreshRound);
-            onClose += (UIContext context)=> BreakOffBattle();
+            onOpen += OnOpen_Battle;
+            onHide += OnHide_Battle;
+            onClose += OnClose_Battle;
 
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
             RefreshFightLevel();
@@ -80,6 +83,7 @@ namespace SGame.UI
         {
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
             m_view.m_roundGroup.visible = false;
+            ShowBattleResult();
             EnableExploreButton(true);
             SetBaseInfo();
             RefreshFightLevel();
@@ -111,10 +115,34 @@ namespace SGame.UI
             m_view.m_round.SetText($"{BattleManager.Instance.GetRoundIndex()}/{BattleConst.max_turncount}");
         }
 
-        public void BreakOffBattle()
+        public void OnOpen_Battle(UIContext context) 
+        {
+            _show = true;
+            DelaySetting().Start();
+            ShowBattleResult();
+        }
+
+        public void OnHide_Battle(UIContext context) 
+        {
+            _show = false;
+        }
+
+        public void OnClose_Battle(UIContext context)
         {
             _battle.Stop();
             BattleManager.Instance.DiscontinuePlayRound();
+        }
+
+        public IEnumerator DelaySetting() 
+        {
+            yield return null;
+            if (BattleManager.Instance.isCombat) MapLoop(true);
+        }
+
+        public void ShowBattleResult() 
+        {
+            if (_show && !BattleManager.Instance.isCombat) 
+                DataCenter.BattleLevelUtil.ShowBattleResult();
         }
 
         public IEnumerator LoadMonsterModel(object data)

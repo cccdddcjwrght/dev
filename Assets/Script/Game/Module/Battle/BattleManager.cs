@@ -93,7 +93,8 @@ namespace SGame
             }
             roundIndex = 1; //重置一下
             isWin = CheckVictory();
-            if(isWin) DataCenter.BattleLevelUtil.NextLevel();
+
+            DataCenter.BattleLevelUtil.CacheBattleResult(isWin);
         }
 
         /// <summary>
@@ -167,7 +168,7 @@ namespace SGame
             if (isCombat) 
             {
                 _roundCorotine?.Stop();
-                BattleFinish();
+                BattleFinish(false);
             }
             
         }
@@ -175,26 +176,27 @@ namespace SGame
         /// <summary>
         /// 战斗结束
         /// </summary>
-        void BattleFinish()
+        void BattleFinish(bool isTrigger = true)
         {
-            if (isWin) BattleWin();
-            else BattleLose();
+            //if (isWin) BattleWin();
+            //else BattleLose();
 
             isCombat = false;
-            EventManager.Instance.Trigger((int)GameEvent.BATTLE_OVER);
             characterList.Clear();
             roundList.Clear();
+
+            if(isTrigger) EventManager.Instance.Trigger((int)GameEvent.BATTLE_OVER);
         }
 
         void BattleWin()
         {
-            SGame.UIUtils.OpenUI("fightwin");
+            //SGame.UIUtils.OpenUI("fightwin");
             //Debug.Log("Win -");
         }
 
         void BattleLose()
         {
-            SGame.UIUtils.OpenUI("fightlose");
+            //SGame.UIUtils.OpenUI("fightlose");
             //Debug.Log("Lose -");
         }
     }

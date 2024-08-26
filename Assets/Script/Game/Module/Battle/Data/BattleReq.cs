@@ -29,7 +29,7 @@ namespace SGame
                 var rewards = DataCenter.BattleLevelUtil.GetReward(config.GetRewardId1Array(), config.GetRewardNum1Array());
                 Utils.ShowRewards(rewards);
             }
-            DataCenter.BattleLevelUtil.UpdateShowLevel();
+            DataCenter.BattleLevelUtil.UpdateCacheResult();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace SGame
                 var rewards = DataCenter.BattleLevelUtil.GetReward(config.GetRewardId2Array(), config.GetRewardNum2Array());
                 Utils.ShowRewards(rewards);
             }
-            DataCenter.BattleLevelUtil.UpdateShowLevel();
+            DataCenter.BattleLevelUtil.UpdateCacheResult();
         }
     }
 }
