@@ -16,6 +16,7 @@ namespace SGame.UI.Hud
             UIObjectFactory.SetPackageItemExtension(UI_FloatText.URL, typeof(UI_FloatText));
             UIObjectFactory.SetPackageItemExtension(UI_OrderTip.URL, typeof(UI_OrderTip));
             UIObjectFactory.SetPackageItemExtension(UI_Progress.URL, typeof(UI_Progress));
+            UIObjectFactory.SetPackageItemExtension(UI_BattleText.URL, typeof(UI_BattleText));
             UIObjectFactory.SetPackageItemExtension(UI_FoodTipUI.URL, typeof(UI_FoodTipUI));
             UIObjectFactory.SetPackageItemExtension(UI_FriendTipUI.URL, typeof(UI_FriendTipUI));
         }

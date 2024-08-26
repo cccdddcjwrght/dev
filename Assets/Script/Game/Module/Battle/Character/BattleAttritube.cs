@@ -34,7 +34,7 @@ namespace SGame
             {
                 SetBaseAttribute((int)EnumAttribute.Hp, config.Hp);
                 SetBaseAttribute((int)EnumAttribute.Attack, config.Atk);
-                SetBaseAttribute((int)EnumAttribute.AtkSpeed, config.Speed);
+                //SetBaseAttribute((int)EnumAttribute.AtkSpeed, config.Speed);
                 SetBaseAttribute((int)EnumAttribute.Dodge, config.Dodge);
                 SetBaseAttribute((int)EnumAttribute.Combo, config.Combo);
                 SetBaseAttribute((int)EnumAttribute.Crit, config.Crit);

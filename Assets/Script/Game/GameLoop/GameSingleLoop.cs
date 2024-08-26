@@ -160,6 +160,7 @@ namespace SGame
 			uiModule.Reg("OrderTip", "Hud", HUDOrderTip.Create);
 			uiModule.Reg("Effect", "Hud", HUDEffect.Create);
 			uiModule.Reg("ReputationTip", "Hud", HUDReputationTip.Create);
+			uiModule.Reg("BattleText", "Hud", HUDBattleText.Create);
 
 			//uiModule.Reg("Hotfix", "Hotfix", UIHotfix.Create);
 			SGame.UI.Login.LoginBinder.BindAll();

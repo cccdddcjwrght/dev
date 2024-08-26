@@ -31,6 +31,7 @@ namespace SGame
         /// <param name="isCombo">当前攻击是不是触发的连击</param>
         public void RecordAttack(bool isCombo)
         {
+            if (defender.attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) return;
             //检测是否有眩晕状态
             if (!attacker.state.IsHasState(BattleStateType.DIZZ))
             {

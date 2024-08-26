@@ -20,7 +20,8 @@ namespace SGame.UI{
 			ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(level, out var config);
 			if (config.IsValid()) 
 			{
-				m_view.m_name.SetText(UIListener.Local(config.Name));
+				ConfigSystem.Instance.TryGet<GameConfigs.BattleRoleRowData>(config.Monster, out var roleConfig);
+				m_view.m_name.SetText(UIListener.Local(roleConfig.Name));
 				attribute.ReadAttribute(config.Monster);
 
 				var fightAttr = attribute.GetFightAttr();

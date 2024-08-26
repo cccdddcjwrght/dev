@@ -65,6 +65,7 @@ namespace SGame.UI
 
             _battleMonster = new BattleMonster(_monster, m_view.m_fightHp2);
             _battleMonster.LoadAttribute(_monsterCfgId);
+
             yield return _battleMonster.Move(1, 330, 2);
             MapLoop(true);
             yield return new WaitForSeconds(0.5f);
@@ -98,7 +99,7 @@ namespace SGame.UI
         {
             if (ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.level, out var config))
             {
-                m_view.m_fightBtn.SetText(config.Name);
+                m_view.m_fightBtn.SetText(UIListener.Local(config.Name));
             } 
         }
 

@@ -60,6 +60,7 @@ namespace SGame
             if (attackEffect.steal > 0)
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, attackEffect.steal);
+                ShowBattleText($"+{attackEffect.steal}", Color.green, 0, 150);
                 UpdateHpUI();
                 //ÎüÑªÐ§¹û
             }
@@ -109,16 +110,20 @@ namespace SGame
             else 
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, -damage);
-                //var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-                //var e = SGame.UIUtils.Show2DUI("floattext", _hpBar);
-                //EntityManager.AddComponentObject(e, new HUDTips() { title = $"-{damage}", color = Color.red });
-
+                ShowBattleText($"-{damage}", Color.red, 0, 150);
                 yield return Move(-1, 10, 0.1f);
                 yield return Move(1, 10, 0.1f);
                 if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) Dead();
             }
             UpdateHpUI();
             //Debug.Log(string.Format("<color=red>{0} hit:{1} curhp: {2} time: {3}</color>", roleType.ToString(), damage, attributes.GetBaseAttribute(EnumAttribute.Hp), Time.realtimeSinceStartupAsDouble));
+        }
+
+        public void ShowBattleText(string title, Color color,float offsetX, float offsetY) 
+        {
+            var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var e = SGame.UIUtils.Show2DUI("battletext", _hpBar);
+            EntityManager.AddComponentObject(e, new HUDTips() { title = $"{title}", color = color, offsetX = offsetX, offsetY = offsetY });
         }
 
         public void UpdateHpUI() 
@@ -129,7 +134,6 @@ namespace SGame
                 _hpBar.GetChild("value").SetText($"{Utils.ConvertNumberStr(_hpBar.value)}/{Utils.ConvertNumberStr(_hpBar.max)}");
             }
         }
-
 
         public abstract void Dead();
 
