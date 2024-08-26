@@ -1,4 +1,5 @@
 using System;
+using log4net;
 using UnityEngine;
 using Unity.Entities;
 
@@ -20,6 +21,8 @@ public interface IEffectOperator
 
 public class EffectMono : MonoBehaviour, IEffectOperator
 {
+    private static ILog log = LogManager.GetLogger("game.effect");
+    
     // 对应Entity索引
     public Entity               entity;
 
@@ -42,7 +45,7 @@ public class EffectMono : MonoBehaviour, IEffectOperator
     {
         m_particle = GetComponentInChildren<ParticleSystem>();
     }
-
+    
     public void Play()
     {
         if (m_particle)
@@ -79,5 +82,10 @@ public class EffectMono : MonoBehaviour, IEffectOperator
 			}
             entity = Entity.Null;
         }
+    }
+
+    void OnDespawned()
+    {
+        Stop();
     }
 }

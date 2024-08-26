@@ -118,7 +118,7 @@ namespace SGame
 
 			EntityManager.AddComponentData(effect, new EffectSysData() { effectId = effectID, poolID = poolID });
 			GameObject obj = EffectFactory.Instance.Get(effectID, poolID); //GameObject.Instantiate(prefab);
-			
+			log.Debug("effect instance =" + effectID + " instanceID="  + obj.GetInstanceID());
 			
 			if (reqType != RequestSpawnEffect.ReqType.REQ_3D && reqType != RequestSpawnEffect.ReqType.REQ_3DPARENT)
 			{
@@ -201,6 +201,17 @@ namespace SGame
 					{
 						if (EntityManager.Exists(req.entity) == true)
 						{
+							// 对象先删除再生成, 防止对象是刚生成的那个
+							if (req.reqType == RequestSpawnEffect.ReqType.REQ_FAIRYUI)
+							{
+								GoWrapper wrapper = req.hoder.displayObject as GoWrapper;
+								if (wrapper != null && wrapper.wrapTarget != null)
+								{
+									CloseEffect(wrapper.wrapTarget);
+									wrapper.wrapTarget = null;
+								}
+							}
+							
 							// 实例化特效
 							GameObject obj = InstanceEffect(req.entity, req.effectId, prefabRequest, req.reqType);
 
@@ -213,9 +224,7 @@ namespace SGame
 										if (wrapper != null)
 										{
 											if (wrapper.wrapTarget != null)
-											{
-												CloseEffect(wrapper.wrapTarget);
-											}
+												log.Error("wrapper is not null!!!");
 											wrapper.wrapTarget = obj;
 										}
 										else
@@ -291,7 +300,9 @@ namespace SGame
 		{
 			if (obj != null)
 			{
-				var mono = obj.GetComponentInParent<EffectMono>();
+				log.Debug("effect close name=" + obj.name + "instanceID=" + obj.GetInstanceID());
+
+				var mono = obj.GetComponentInParent<EffectMono>(true);
 				if (mono == null)
 				{
 					GameObject.Destroy(obj);
