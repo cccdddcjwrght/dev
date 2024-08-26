@@ -16,12 +16,16 @@
 		private Action<bool> _timer;
 		private double _price;
 
+		private Controller _dCtr;
+		private double _diamondCount;
+
 		private EventHandleContainer eventHandle = new EventHandleContainer();
 
 		const string c_explore_ad = "explore_ad";
 
 		partial void InitLogic(UIContext context)
 		{
+			_dCtr = m_view.m_diamondbtn.GetController("gray");
 			eventHandle += EventManager.Instance.Reg(((int)GameEvent.EXPLORE_TOOL_UP_LV), OnExploreToolUpLv);
 			DoOpen(context);
 		}
@@ -36,6 +40,7 @@
 			_nextData = next.IsValid() ? next.GetQualityWeightArray() : _currentData;
 			m_view.m_level.SetTextByKey("ui_common_lv", _data.toolLevel, _data.toolMaxLv);
 
+			_diamondCount = PropertyManager.Instance.GetItem(2).num;
 			m_view.m_type.selectedIndex = -1;
 			m_view.m_adbtn.grayed = !DataCenter.AdUtil.IsAdCanPlay(c_explore_ad) || !NetworkUtils.IsNetworkReachability();
 			SetInfo();
@@ -76,7 +81,11 @@
 		{
 			var p = Mathf.CeilToInt((1f * _data.exploreToolNextLevel.Cost(2)) / _data.exploreToolNextLevel.Time);
 			var v = _price = p * _data.ToolUpRemaining();
-			if (v > 0) m_view.m_diamondbtn.SetText(Utils.ConvertNumberStrLimit3(v), false);
+			if (v >= 0)
+			{
+				m_view.m_diamondbtn.SetText(Utils.ConvertNumberStrLimit3(v), false);
+				if (_dCtr != null) _dCtr.selectedIndex = v > _diamondCount ? 1 : 0;
+			}
 		}
 
 		void RefreshState()
@@ -92,7 +101,7 @@
 		{
 			IEnumerator Run()
 			{
-				while (_data!=null && _data.ToolUpRemaining() > 0)
+				while (_data != null && _data.ToolUpRemaining() > 0)
 				{
 					SetCompleteBtnInfo();
 					m_view.m_time.text = Utils.FormatTime(_data.ToolUpRemaining());
@@ -162,7 +171,7 @@
 
 		partial void OnDiamondbtnClick(EventContext data)
 		{
-			if(RequestExcuteSystem.ExploreToolUpLv(true, _price))
+			if (RequestExcuteSystem.ExploreToolUpLv(true, _price))
 				SetInfo();
 		}
 

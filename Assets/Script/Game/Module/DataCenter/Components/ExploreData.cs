@@ -192,15 +192,16 @@ namespace SGame
 							new EqAttrInfo(((int)EnumAttribute.Hp), cfg.Hp),
 							new EqAttrInfo(((int)EnumAttribute.Attack), cfg.Atk),
 							//new EqAttrInfo(((int)EnumAttribute.AtkSpeed), cfg.Speed),
+
 							new EqAttrInfo(((int)EnumAttribute.Dodge), cfg.Dodge),
-							new EqAttrInfo(((int)EnumAttribute.Combo), cfg.Combo),
-							new EqAttrInfo(((int)EnumAttribute.Crit), cfg.Crit),
-							new EqAttrInfo(((int)EnumAttribute.Stun), cfg.Stun),
-							new EqAttrInfo(((int)EnumAttribute.Steal), cfg.Steal),
 							new EqAttrInfo(((int)EnumAttribute.AntiDodge), cfg.AntiDodge),
+							new EqAttrInfo(((int)EnumAttribute.Combo), cfg.Combo),
 							new EqAttrInfo(((int)EnumAttribute.AntiCombo), cfg.AntiCombo),
+							new EqAttrInfo(((int)EnumAttribute.Crit), cfg.Crit),
 							new EqAttrInfo(((int)EnumAttribute.AntiCrit), cfg.AntiCrit),
+							new EqAttrInfo(((int)EnumAttribute.Stun), cfg.Stun),
 							new EqAttrInfo(((int)EnumAttribute.AntiStun), cfg.AntiStun),
+							new EqAttrInfo(((int)EnumAttribute.Steal), cfg.Steal),
 							new EqAttrInfo(((int)EnumAttribute.AntiSteal), cfg.AntiSteal),
 						};
 					}
