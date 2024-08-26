@@ -15,8 +15,7 @@ namespace SGame.UI.Cookbook
         public GTextField m_tips;
         public GTextField m_level;
         public GTextField m_limit;
-        public GRichTextField m_cost;
-        public GLoader m_item;
+        public GList m_costs;
         public GButton m_click;
         public Transition m_t0;
         public const string URL = "ui://n2tgmsyur4i19";
@@ -38,9 +37,8 @@ namespace SGame.UI.Cookbook
             m_tips = (GTextField)GetChildAt(11);
             m_level = (GTextField)GetChildAt(12);
             m_limit = (GTextField)GetChildAt(13);
-            m_cost = (GRichTextField)GetChildAt(14);
-            m_item = (GLoader)GetChildAt(15);
-            m_click = (GButton)GetChildAt(18);
+            m_costs = (GList)GetChildAt(14);
+            m_click = (GButton)GetChildAt(17);
             m_t0 = GetTransitionAt(0);
         }
     }

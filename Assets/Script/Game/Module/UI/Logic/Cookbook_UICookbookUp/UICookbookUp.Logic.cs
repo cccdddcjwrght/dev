@@ -67,11 +67,6 @@ namespace SGame.UI
 			m_view.m_level.SetTextByKey("ui_common_lv1", data.level);
 
 			isEnable = data.IsEnable();
-			if (isEnable)
-				m_view.m_item.SetIcon(Utils.GetItemIcon(1, data.lvCfg.Cost(1)));
-			else if (data.lvCfg.ConditionType == 3)
-				m_view.m_item.SetIcon(Utils.GetItemIcon(1, data.lvCfg.ConditionValue(0)));
-
 			m_view.m_mode.selectedIndex = isEnable ? 0 : 1;
 			m_view.m_click.SetTextByKey(isEnable ? "ui_cookbook_up" : "ui_cookbook_unlock");
 			SetUpState();
@@ -81,10 +76,10 @@ namespace SGame.UI
 		private void SetUpState()
 		{
 			var flag = data.CanUpLv(out var scenelimit, out var itemnot, isEnable);
-			var cost = data.GetCost(out _, out var currency);
-			var count = PropertyManager.Instance.GetItem(currency).num;
 			m_view.m_type.selectedIndex = data.IsMaxLv() ? 2 : flag ? 0 : itemnot ? 3 : 1;
-			m_view.m_cost.SetText(Utils.ConvertNumberStr(count) + "[color=#000000]/" + Utils.ConvertNumberStr(cost), false);
+			RefreshCost();
+			//m_view.m_cost.SetText(Utils.ConvertNumberStr(count) + "[color=#000000]/" + Utils.ConvertNumberStr(cost), false);
+
 			if (!flag)
 			{
 				if (scenelimit)
@@ -109,7 +104,7 @@ namespace SGame.UI
 		}
 
 
-		private void SetUpChangeInfo(GList list = null , int fcolor = 0 , bool neednext = true)
+		private void SetUpChangeInfo(GList list = null, int fcolor = 0, bool neednext = true)
 		{
 			var f = neednext && isEnable && data.nextLvCfg.IsValid();
 			list = list ?? m_view.m_pros;
@@ -133,7 +128,7 @@ namespace SGame.UI
 				list.GetChildAt(2) as UI_PropertyUpdateIcon,
 				"ui_cookbook_price",
 				DataCenter.MachineUtil.GetWorkPriceByItem(data.id), 0,
-				fcolor:fcolor
+				fcolor: fcolor
 			);
 		}
 
@@ -142,7 +137,7 @@ namespace SGame.UI
 			UIListener.SetControllerSelect(star, "type", stars[index]);
 		}
 
-		private void SetPropertInfo(UI_PropertyUpdateIcon view, string name, double val, double next, string ext = null , int fcolor = 0)
+		private void SetPropertInfo(UI_PropertyUpdateIcon view, string name, double val, double next, string ext = null, int fcolor = 0)
 		{
 			if (view != null)
 			{
@@ -164,11 +159,46 @@ namespace SGame.UI
 			}
 		}
 
+		private void RefreshCost()
+		{
+			switch (m_view.m_type.selectedIndex)
+			{
+				case 0:
+				case 3:
+					var costs = data.GetCostArray();
+					m_view.m_costs.RemoveChildrenToPool();
+					for (int i = 0; i < costs.Length; i += 2)
+						SGame.UIUtils.AddListItem(m_view.m_costs, OnSetCostItem, costs);
+					break;
+			}
+		}
+
+		void OnSetCostItem(int idx, object data, GObject gObject)
+		{
+			var d = data as int[];
+			var v = gObject as UI_BookItem;
+			if (d != null)
+			{
+				idx *= 2;
+				var id = d[idx];
+				var val = d[idx + 1];
+				var count = PropertyManager.Instance.GetItem(id).num;
+				var col = count >= val ? "[color=#05dd6d]" : "[color=#ff0000]";
+
+				v.m_hidebg.selectedIndex = 1;
+				v.m_fsize.selectedIndex = 1;
+
+				v.SetIcon(Utils.GetItemIcon(1, id));
+				v.m_level.SetText(col + Utils.ConvertNumberStr(count) + "[color=#000000]/" + Utils.ConvertNumberStr(val), false);
+
+			}
+		}
+
 		partial void OnClickClick(EventContext data)
 		{
 
 			var state = isEnable;
-			if ( DataCenter.CookbookUtils.UpLv(this.data.id))
+			if (DataCenter.CookbookUtils.UpLv(this.data.id))
 			{
 				ShowGetNewBook(SetChangeInfo, state);
 			}
@@ -188,7 +218,7 @@ namespace SGame.UI
 				if (panel == null) yield break;
 				panel.SetIcon(this.data.cfg.Icon);
 				panel.m_uplv.selectedIndex = isuplv ? 1 : 0;
-				SetUpChangeInfo(panel.m_pros , 1 , false);
+				SetUpChangeInfo(panel.m_pros, 1, false);
 				call?.Invoke();
 				yield return new WaitForSeconds(0.5f);
 				loader.parent.touchable = true;
@@ -201,5 +231,8 @@ namespace SGame.UI
 		}
 
 		void OnEvent(int id, int a, int b, int c) => SetUpState();
+
+
+
 	}
 }

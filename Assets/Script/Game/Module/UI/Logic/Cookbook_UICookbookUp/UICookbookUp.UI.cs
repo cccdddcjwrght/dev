@@ -51,8 +51,6 @@ namespace SGame.UI{
 		string GetLevelText()=>UIListener.GetText(m_view.m_level);
 		void SetLimitText(string data)=>UIListener.SetText(m_view.m_limit,data);
 		string GetLimitText()=>UIListener.GetText(m_view.m_limit);
-		void SetCostText(string data)=>UIListener.SetText(m_view.m_cost,data);
-		string GetCostText()=>UIListener.GetText(m_view.m_cost);
 		void _OnClickClick(EventContext data){
 			OnClickClick(data);
 		}

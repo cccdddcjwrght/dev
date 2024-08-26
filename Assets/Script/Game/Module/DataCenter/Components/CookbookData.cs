@@ -56,8 +56,7 @@ namespace SGame
 					var enable = book.IsEnable();
 					if (book.CanUpLv(out _, enable))
 					{
-						var cost = book.GetCost(out var ty, out var item);
-						PropertyManager.Instance.Update(ty, item, cost, true);
+						DataCenter.CostItem(false, book.GetCostArray());
 						if (enable)
 						{
 							book.level++;
@@ -72,6 +71,56 @@ namespace SGame
 				return false;
 			}
 
+		}
+
+		static public bool CostItem(bool onlycheck, params int[] cost)
+		{
+			if (cost != null && cost.Length > 2)
+			{
+				for (int i = 0; i < cost.Length; i += 2)
+				{
+					var id = (int)cost[i];
+					var val = cost[i + 1];
+					if (!PropertyManager.Instance.CheckCount(id, val, 1)) return false;
+				}
+
+				if (!onlycheck)
+				{
+					for (int i = 0; i < cost.Length; i += 2)
+					{
+						var id = (int)cost[i];
+						var val = cost[i + 1];
+						PropertyManager.Instance.Update(1, id, val, true);
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+
+		static public bool CostItem(bool onlycheck, params double[] cost)
+		{
+			if (cost != null && cost.Length > 2)
+			{
+				for (int i = 0; i < cost.Length; i += 2)
+				{
+					var id = (int)cost[i];
+					var val = cost[i + 1];
+					if (!PropertyManager.Instance.CheckCount(id, val, 1)) return false;
+				}
+
+				if (!onlycheck)
+				{
+					for (int i = 0; i < cost.Length; i += 2)
+					{
+						var id = (int)cost[i];
+						var val = cost[i + 1];
+						PropertyManager.Instance.Update(1, id, val, true);
+					}
+				}
+				return true;
+			}
+			return false;
 		}
 
 	}
@@ -97,9 +146,10 @@ namespace SGame
 				bookIDs = cfgs.Keys.ToList();
 				bookDics = new Dictionary<int, CookBookItem>();
 			}
-			books.ForEach(b => { 
+			books.ForEach(b =>
+			{
 				b.Refresh();
-				bookDics[b.id] = b; 
+				bookDics[b.id] = b;
 			});
 			bookIDs.ForEach(b => DataCenter.CookbookUtils.GetBook(b));
 
@@ -108,7 +158,7 @@ namespace SGame
 	}
 
 	[Serializable]
-	public class CookBookItem 
+	public class CookBookItem
 	{
 		public int id;
 		public int level;
@@ -161,12 +211,24 @@ namespace SGame
 				else
 				{
 					var cost = lvCfg.GetCostArray();
-					type = (int)cost[0];
-					id = (int)cost[1];
-					return cost[2];
+					type = 1;
+					id = (int)cost[0];
+					return cost[1];
 				}
 			}
 			return 0;
+		}
+
+		public int[] GetCostArray()
+		{
+			if (lvCfg.IsValid())
+			{
+				if (lvCfg.ConditionType == 3 && !enable)
+					return lvCfg.GetConditionValueArray();
+				else
+					return lvCfg.GetCostArray();
+			}
+			return default;
 		}
 
 		public double GetPrice()
@@ -204,7 +266,7 @@ namespace SGame
 							break;
 					}
 					if (!f) return false;
-					if (checkcost && !PropertyManager.Instance.CheckCountByArgs(cost))
+					if (checkcost && !DataCenter.CostItem( true, cost))
 					{
 						itemnot = true;
 						return false;
