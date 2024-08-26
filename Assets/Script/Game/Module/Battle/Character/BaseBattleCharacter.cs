@@ -90,12 +90,13 @@ namespace SGame
             float forwardTime = startTime + time;
 
             float curTime = startTime;
-            while (curTime < forwardTime)
+            yield return new WaitWhile(() =>
             {
                 curTime = BattleTimer.Instance.CurTime();
                 root.x = Mathf.Lerp(cx, tx, (curTime - startTime) / time);
-                yield return null;
-            }
+                return curTime < forwardTime;
+            });
+
             root.x = tx;
         }
 
@@ -104,6 +105,7 @@ namespace SGame
         {
             if (damage <= 0)
             {
+                ShowBattleText("miss", Color.gray, 0, 150);
                 yield return Move(-1, 50, 0.25f);
                 yield return Move(1, 50, 0.25f);
             }

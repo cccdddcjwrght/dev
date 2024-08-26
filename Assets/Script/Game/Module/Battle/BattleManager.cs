@@ -39,7 +39,7 @@ namespace SGame
         /// <summary>
         /// Õ½¶·¿ªÊ¼
         /// </summary>
-        public void BattleStart(BaseBattleCharacter role, BaseBattleCharacter monster, int maxRound)
+        public IEnumerator BattleStart(BaseBattleCharacter role, BaseBattleCharacter monster, int maxRound, float waitTime)
         {
             isCombat = true;
             _maxRound = maxRound;
@@ -52,6 +52,7 @@ namespace SGame
             GenerateRoundData();
             ResetCharacter();
 
+            yield return new WaitForSeconds(waitTime);
             _roundCorotine = PlayRound().Start();
         }
 
@@ -179,10 +180,8 @@ namespace SGame
             if (isWin) BattleWin();
             else BattleLose();
 
-            EventManager.Instance.Trigger((int)GameEvent.BATTLE_OVER);
-
             isCombat = false;
-
+            EventManager.Instance.Trigger((int)GameEvent.BATTLE_OVER);
             characterList.Clear();
             roundList.Clear();
         }

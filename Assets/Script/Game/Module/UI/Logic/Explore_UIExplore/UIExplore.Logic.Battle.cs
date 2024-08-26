@@ -14,6 +14,8 @@ namespace SGame.UI
         private int _monsterCfgId;
         private UIModel _monster;
 
+        private UnityEngine.Coroutine _battle;
+
         public void InitBattle() 
         {
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_START, TriggerBattle);
@@ -32,7 +34,7 @@ namespace SGame.UI
 
         void TriggerBattle() 
         {
-            EnterBattle().Start();
+            _battle = EnterBattle().Start();
         }
 
         public IEnumerator EnterBattle()
@@ -66,10 +68,11 @@ namespace SGame.UI
             _battleMonster = new BattleMonster(_monster, m_view.m_fightHp2);
             _battleMonster.LoadAttribute(_monsterCfgId);
 
-            yield return _battleMonster.Move(1, 330, 2);
+            float moveTime = 2;
+            BattleManager.Instance.BattleStart(_battleRole, _battleMonster, config.Inning, moveTime + 0.5f).Start();
+            yield return _battleMonster.Move(1, 330, moveTime);
             MapLoop(true);
             yield return new WaitForSeconds(0.5f);
-            BattleManager.Instance.BattleStart(_battleRole, _battleMonster, config.Inning);
             m_view.m_roundGroup.visible = true;
         }
 
@@ -110,6 +113,7 @@ namespace SGame.UI
 
         public void BreakOffBattle()
         {
+            _battle.Stop();
             BattleManager.Instance.DiscontinuePlayRound();
         }
 
