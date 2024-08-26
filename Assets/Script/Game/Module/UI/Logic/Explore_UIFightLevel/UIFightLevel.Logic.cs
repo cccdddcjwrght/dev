@@ -12,6 +12,9 @@ namespace SGame.UI{
 			level = (int)context.GetParam()?.Value.To<object[]>().Val<int>(0);
 
 			m_view.m_tip.onClick.Add(OnTipBtnClick);
+			m_view.m_reward1.onClick.Add(OnRewardPreBtnClick);
+			m_view.m_reward2.onClick.Add(OnRewardPreAdBtnClick);
+
 			UpdateInfo();
 		}
 
@@ -37,7 +40,17 @@ namespace SGame.UI{
 			SGame.UIUtils.OpenUI("fightinfo", attribute.GetFightAttr());
 		}
 
-        partial void OnBattleBtnClick(EventContext data)
+		void OnRewardPreBtnClick() 
+		{
+			SGame.UIUtils.OpenUI("fightrewardpre", false);
+		}
+
+		void OnRewardPreAdBtnClick()
+		{
+			SGame.UIUtils.OpenUI("fightrewardpre", true);
+		}
+
+		partial void OnBattleBtnClick(EventContext data)
         {
 			RequestExcuteSystem.BattleBegin();
 			SGame.UIUtils.CloseUIByID(__id);
