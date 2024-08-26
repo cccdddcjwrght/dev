@@ -51,13 +51,11 @@
 		{
 			if (!_data.IsExploreToolMaxLv())
 			{
+				m_view.m_condition.visible = DataCenter.Instance.roomData.roomID < _data.exploreToolLevel.MapId;
 				if (ConfigSystem.Instance.TryGet<RoomRowData>(_data.exploreToolLevel.MapId, out var scene))
-				{
 					m_view.m_condition.SetTextByKey("ui_exploretool_condition", scene.Name.Local());
-					m_view.m_condition.visible = DataCenter.Instance.roomData.roomID < scene.ID;
-				}
 				else
-					m_view.m_condition.visible = false;
+					m_view.m_condition.SetTextByKey("ui_exploretool_condition", _data.exploreToolLevel.MapId);
 
 				m_view.m_click.SetText(Utils.ConvertNumberStrLimit3(_data.exploreToolLevel.Cost(2)), false);
 				RefreshState();
