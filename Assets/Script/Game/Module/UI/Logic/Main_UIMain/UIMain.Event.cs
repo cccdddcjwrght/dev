@@ -130,8 +130,8 @@ namespace SGame.UI
 			// 地图
 			m_funcManager.Register((int)FunctionID.MAP).SetOnClick(()=>SGame.UIUtils.OpenUI("enterscenetemp", DataCenter.Instance.roomData.current.id + 1));
 
-			//任务
-			//m_funcManager.Register(32, () => DataCenter.TaskMainUtil.IsShow());
+			//全局科技
+			m_funcManager.Register(((int)FunctionID.TECH));
 			//排行榜
 			m_funcManager.Register(26, () => RankModule.Instance.IsOpen(), () => RankModule.Instance.GetRankTime());
 
