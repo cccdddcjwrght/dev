@@ -17,7 +17,7 @@ namespace SGame
             var v = stateList.Find((v) => v.type == state.type);
             if (v != null)
             {
-                v.round += state.round;
+                v.round += state.round - 1;
             }
             else
             {

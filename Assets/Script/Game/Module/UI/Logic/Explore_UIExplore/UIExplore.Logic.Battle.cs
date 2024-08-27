@@ -74,6 +74,7 @@ namespace SGame.UI
             float moveTime = 2;
             BattleManager.Instance.BattleStart(_battleRole, _battleMonster, config.Inning, moveTime + 0.5f).Start();
             yield return _battleMonster.Move(1, 330, moveTime);
+            _battleRole.PlayIdleAnim();
             MapLoop(true);
             yield return new WaitForSeconds(0.5f);
             m_view.m_roundGroup.visible = true;
@@ -89,6 +90,7 @@ namespace SGame.UI
             RefreshFightLevel();
 
             MapLoop(false);
+
             _battleRole.Dispose();
             _battleMonster.Dispose();
             _monster.Reset();

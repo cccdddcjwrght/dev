@@ -56,8 +56,8 @@ namespace SGame
             yield return Move(1, BattleConst.move_distance, BattleConst.move_time);
 
             //播放攻击动画
-            _model.Play("Attack");
-            yield return Move(1, 0, 1f);
+            _model.Play("attack");
+            yield return new WaitForSeconds(0.55f);
 
             ShowEffect(3003, _hpBar.m_effect.m__attack, new Vector2(100, 150));
             target.DoHit(attackEffect.damage, attackEffect.isCritical).Start();
@@ -83,13 +83,15 @@ namespace SGame
                 //连击效果
             }
 
-            yield return Move(1, 0, 1f);
+            yield return new WaitForSeconds(0.55f);
+            _model.Play("idle");
             yield return Move(-1, BattleConst.move_distance, BattleConst.move_time);
             yield return new WaitForSeconds(0.5f);
         }
 
         public IEnumerator Move(int dir, float distance, float time)
         {
+            _model.Play("walk");
             var root = _model.GetRoot();
             var cx = root.x;
             var tx = root.x + forward * distance * dir;
@@ -106,6 +108,7 @@ namespace SGame
             });
 
             root.x = tx;
+            _model.Play("idle");
         }
 
 
@@ -123,12 +126,18 @@ namespace SGame
                 var hitEffectId = isCritical ? 3002 : 3001;
                 ShowEffect(hitEffectId, _hpBar.m_effect.m__hit, new Vector2(0, 150));
                 ShowBattleText($"-{damage}", Color.red, 52, 150);
-                yield return Move(-1, 10, 0.1f);
-                yield return Move(1, 10, 0.1f);
-                if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) Dead();
+                _model.Play("hit");
+                //yield return Move(-1, 10, 0.1f);
+                //yield return Move(1, 10, 0.1f);
             }
             UpdateHpUI();
-            //Debug.Log(string.Format("<color=red>{0} hit:{1} curhp: {2} time: {3}</color>", roleType.ToString(), damage, attributes.GetBaseAttribute(EnumAttribute.Hp), Time.realtimeSinceStartupAsDouble));
+            yield return new WaitForSeconds(0.55f);
+            if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) 
+            {
+                Dead();
+                yield break;
+            }
+            _model.Play("idle");
         }
 
         public void ShowBattleText(string title, Color color,float offsetX, float offsetY) 
@@ -152,6 +161,11 @@ namespace SGame
             var e = EffectSystem.Instance.SpawnUI(effectId, holder);
             holder.SetPosition(pos.x, pos.y, -500 * forward);
             return e;
+        }
+
+        public void PlayIdleAnim() 
+        {
+            _model.Play("idle");
         }
 
         public abstract void Dead();

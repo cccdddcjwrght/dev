@@ -54,7 +54,9 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick));
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick));
+			UIListener.ListenerIcon(m_view.m_fightHp1.m_effect, new EventCallback1(_OnFightHp_EffectClick));
 			UIListener.ListenerIcon(m_view.m_fightHp1, new EventCallback1(_OnFightHp1Click));
+			UIListener.ListenerIcon(m_view.m_fightHp2.m_effect, new EventCallback1(_OnFightHp_FightHp2ffectClick));
 			UIListener.ListenerIcon(m_view.m_fightHp2, new EventCallback1(_OnFightHp2Click));
 
 		}
@@ -100,7 +102,9 @@ namespace SGame.UI{
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick),remove:true);
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick),remove:true);
+			UIListener.ListenerIcon(m_view.m_fightHp1.m_effect, new EventCallback1(_OnFightHp_EffectClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_fightHp1, new EventCallback1(_OnFightHp1Click),remove:true);
+			UIListener.ListenerIcon(m_view.m_fightHp2.m_effect, new EventCallback1(_OnFightHp_FightHp2ffectClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_fightHp2, new EventCallback1(_OnFightHp2Click),remove:true);
 
 		}
@@ -351,6 +355,12 @@ namespace SGame.UI{
 		string GetFightBtnText()=>UIListener.GetText(m_view.m_fightBtn);
 		void SetFightHp_ValueText(string data)=>UIListener.SetText(m_view.m_fightHp1.m_value,data);
 		string GetFightHp_ValueText()=>UIListener.GetText(m_view.m_fightHp1.m_value);
+		void _OnFightHp_EffectClick(EventContext data){
+			OnFightHp_EffectClick(data);
+		}
+		partial void OnFightHp_EffectClick(EventContext data);
+		void SetFightHp_FightHp1ffectText(string data)=>UIListener.SetText(m_view.m_fightHp1.m_effect,data);
+		string GetFightHp_FightHp1ffectText()=>UIListener.GetText(m_view.m_fightHp1.m_effect);
 		void _OnFightHp1Click(EventContext data){
 			OnFightHp1Click(data);
 		}
@@ -359,6 +369,12 @@ namespace SGame.UI{
 		string GetFightHp1Text()=>UIListener.GetText(m_view.m_fightHp1);
 		void SetFightHp_FightHp2_valueText(string data)=>UIListener.SetText(m_view.m_fightHp2.m_value,data);
 		string GetFightHp_FightHp2_valueText()=>UIListener.GetText(m_view.m_fightHp2.m_value);
+		void _OnFightHp_FightHp2ffectClick(EventContext data){
+			OnFightHp_FightHp2ffectClick(data);
+		}
+		partial void OnFightHp_FightHp2ffectClick(EventContext data);
+		void SetFightHp_FightHp2ffectText(string data)=>UIListener.SetText(m_view.m_fightHp2.m_effect,data);
+		string GetFightHp_FightHp2ffectText()=>UIListener.GetText(m_view.m_fightHp2.m_effect);
 		void _OnFightHp2Click(EventContext data){
 			OnFightHp2Click(data);
 		}

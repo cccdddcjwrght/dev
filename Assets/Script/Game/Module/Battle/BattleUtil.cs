@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class BattleUtil 
+namespace SGame 
 {
-    public static bool TriggerProbability(int value) 
+    public static class BattleUtil
     {
-        var num = Random.Range(0, 10000) + 1;
-        if (num < value)
-            return true;
-        return false;
+        public static bool TriggerProbability(int value)
+        {
+            var num = SGame.Randoms.Random._R.Next(0,10000);
+            if (num < value)
+                return true;
+            return false;
+        }
     }
 }
+

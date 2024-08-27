@@ -18,7 +18,7 @@ namespace SGame
 
         public override void Dead()
         {
-
+            _model.Play("die");
         }
     }
 }
