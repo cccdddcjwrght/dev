@@ -80,7 +80,7 @@ namespace SGame
 							roleType = level.PlayerId;
 					}
 
-					if (ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(roleType, out var role)
+					if (roleType > 0 && ConfigSystem.Instance.TryGet<GameConfigs.RoleDataRowData>(roleType, out var role)
 						&& ConfigSystem.Instance.TryGet<GameConfigs.roleRowData>(role.Model, out var model))
 					{
 						baseModel = model.Part;

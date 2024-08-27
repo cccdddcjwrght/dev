@@ -408,6 +408,13 @@ namespace SGame
 			return power;
 		}
 
+		public string GetRoleModelString()
+		{
+			if (cfg.IsValid())
+				return DataCenter.EquipUtil.GetRoleEquipString(-1, equips, false, cfg.Model);
+			return default;
+		}
+
 	}
 
 	[Serializable]

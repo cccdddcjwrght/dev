@@ -265,17 +265,7 @@ namespace SGame.UI
 
 		IEnumerator LoadModel(object data)
 		{
-
-			var path = "Assets/BuildAsset/Prefabs/Explore/" + exploreData.explorer.cfg.Model;
-#if UNITY_EDITOR
-			if (!File.Exists(path + ".prefab"))
-			{
-				Debug.LogError($"探索模型资源不存在:{path},将使用临时资源");
-				path = "Assets/BuildAsset/Prefabs/Explore/001";
-			}
-#endif
-			return SpawnSystem.Instance.SpawnAndWait(path);
-
+			return Utils.GenCharacter(exploreData.explorer.GetRoleModelString());
 		}
 
 		#endregion

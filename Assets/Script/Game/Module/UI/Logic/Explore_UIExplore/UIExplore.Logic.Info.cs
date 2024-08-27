@@ -147,6 +147,7 @@ namespace SGame.UI
 		void OnFightEquipChange(FightEquip equip)
 		{
 			SetEquipInfo(equip, true);
+			_model?.RefreshModel();
 		}
 
 		void OnEqClick(EventContext data)
