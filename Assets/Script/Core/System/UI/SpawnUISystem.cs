@@ -7,7 +7,7 @@ namespace SGame.UI
     // UI加载完毕
     public struct UIInitalized : IComponentData
     {
-        public int configID;
+        //public int configID;
     }
 
 	//ui再次打开
@@ -168,7 +168,7 @@ namespace SGame.UI
 
                     // 5. 设置加载完成标记
                     EntityManager.RemoveComponent<UIRequest>(e);
-                    EntityManager.AddComponentData(e, new UIInitalized() { configID = request.configId }); //AddComponent<UIInitalized>(e);
+                    EntityManager.AddComponent<UIInitalized>(e);
                 }
             ).WithStructuralChanges().WithoutBurst().Run();
 

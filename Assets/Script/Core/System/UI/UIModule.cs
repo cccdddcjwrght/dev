@@ -42,9 +42,24 @@ namespace SGame.UI
 		// 有效的显示
 		private EntityQuery m_groupVisible;
 
+		// UI状态
+		public enum UI_STATE
+		{
+			EMPTY    = 0,	// 不是UI
+			REQUEST  = 1,   // UI 请求中
+			SHOWING  = 2,   // 正在显示
+			SHOWED   = 3,   // 已经显示
+			CLOSING  = 4,   // 正在关闭
+			CLOSED   = 5,   // 已经关闭
+			DISPOSED = 6,   // 已经销毁
+		}
+
+		private Dictionary<int, Entity> m_singletonUI;
+
 		public UIModule()
 		{
 			s_module = this;
+			m_singletonUI = new Dictionary<int, Entity>();
 		}
 
 		/// <summary>
@@ -247,6 +262,96 @@ namespace SGame.UI
 		public EntityManager GetEntityManager()
 		{
 			return m_gameWorld.GetEntityManager();
+		}
+
+		/// <summary>
+		/// 获取UI状态
+		/// </summary>
+		/// <param name="e"></param>
+		/// <returns></returns>
+		public UI_STATE GetUIState(Entity e)
+		{
+			var EntityManager = m_gameWorld.GetEntityManager(); //World.DefaultGameObjectInjectionWorld.EntityManager;
+			if (!EntityManager.Exists(e))
+				return UI_STATE.DISPOSED;
+			
+			bool hasRequest = EntityManager.HasComponent<UIRequest>(e);
+			if (hasRequest)
+				return UI_STATE.REQUEST;
+			
+			bool hasWindow = EntityManager.HasComponent<UIWindow>(e);
+			if (!hasWindow)
+				return UI_STATE.EMPTY;
+
+			UIWindow w = EntityManager.GetComponentObject<UIWindow>(e);
+			if (w.BaseValue == null || w.BaseValue.isDisposed)
+				return UI_STATE.DISPOSED;
+			if (w.BaseValue.isClosing)
+			{
+				return w.BaseValue.isClosed ? UI_STATE.CLOSED : UI_STATE.CLOSING;
+			}
+
+			if (w.BaseValue.isShowing)
+			{
+				return w.BaseValue.isReadyShowed ? UI_STATE.SHOWING : UI_STATE.SHOWED;
+			}
+
+			if (EntityManager.HasComponent<DespawningUI>(e))
+				return UI_STATE.CLOSING;
+			return UI_STATE.CLOSED;
+		}
+
+		/// <summary>
+		/// 显示单列UI, 只能显示WINDOW类型
+		/// </summary>
+		/// <param name="configID">配置表ID</param>
+		/// <returns></returns>
+		public Entity ShowSingleton(int configID)
+		{
+			var EntityManager = m_gameWorld.GetEntityManager();
+			if (m_singletonUI.TryGetValue(configID, out Entity e))
+			{
+				UI_STATE state = GetUIState(e);
+				switch (state)
+				{
+					// 请求中或显示了 就直接返回UI无需重复创建
+					case UI_STATE.REQUEST:
+					case UI_STATE.SHOWING:
+					case UI_STATE.SHOWED:
+						return e;
+					
+					case UI_STATE.CLOSING:
+					case UI_STATE.CLOSED:
+						{
+							// 调用过关闭, 就需要重新打开
+							if (EntityManager.HasComponent<DespawningUI>(e))
+								EntityManager.RemoveComponent<DespawningUI>(e);
+							
+							UIWindow win = EntityManager.GetComponentObject<UIWindow>(e);
+							m_preProcess?.ReOpen(win.BaseValue.context);
+							win.BaseValue.Reopen();
+							m_preProcess?.AfterShow(win.BaseValue.context);
+							return e;
+						}
+					default:
+							break;
+				}
+			}
+
+			// UI没有打开, 创建UI显示请求
+			var newEntity = EntityManager.CreateEntity();
+			EntityManager.AddComponentObject(newEntity, new UIRequest()
+			{
+				configId = configID,
+				type	 = UI_TYPE.WINDOW,
+				parent   = null
+			});
+
+			if (!m_singletonUI.ContainsKey(configID))
+				m_singletonUI.Add(configID, newEntity);
+			else
+				m_singletonUI[configID] = newEntity;
+			return newEntity;
 		}
 	}
 }
