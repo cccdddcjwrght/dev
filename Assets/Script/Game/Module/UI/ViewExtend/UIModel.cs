@@ -112,7 +112,7 @@ namespace SGame
 		{
 			if (this.animator != null)
 			{
-				animator.Play(animation);
+				animator.CrossFade(animation , 0.2f);
 			}
 			return this;
 		}
@@ -173,7 +173,7 @@ namespace SGame
 					go.SetActive(true);
 					_isLoaded = true;
 					_loaded?.Invoke(this);
-					animator = go.GetComponent<Animator>();
+					animator = go.GetComponent<Animator>() ?? go.GetComponentInChildren<Animator>();
 					animator?.Play(animaName ?? "idle");
 					yield break;
 				}

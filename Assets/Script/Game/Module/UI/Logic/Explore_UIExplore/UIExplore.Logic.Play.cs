@@ -49,7 +49,7 @@ namespace SGame.UI
 			InitRole();
 
 			_checkExplore = new WaitUntil(CheckCmd);
-			_waitAtk = new WaitForSeconds(0.3f);
+			_waitAtk = new WaitForSeconds(1f);
 			_waitDead = new WaitForSeconds(0.5f);
 			_waitRest = new WaitForSeconds(1f);
 
@@ -158,7 +158,7 @@ namespace SGame.UI
 		IEnumerator DoExplore()
 		{
 			MapLoop(true);
-			_model.Play("attack");
+			_model.Play("dig");
 			yield return _waitAtk;
 			m_view.m_kill.Play();
 			yield return _waitDead;
@@ -256,10 +256,11 @@ namespace SGame.UI
 
 		void InitRole()
 		{
-			m_view.z = 300;
+			m_view.z = 400;
+			m_view.m_holder.z = -100;
 			_model = new UIModel(m_view.m_holder)
 				.SetData(exploreData.explorer)
-				.SetTRS(Vector3.zero, new Vector3(0, 110, -45), 200)
+				.SetTRS(Vector3.zero, new Vector3(-5, 145, -15), 150)
 				.SetLoad(LoadModel);
 		}
 

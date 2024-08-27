@@ -69,6 +69,7 @@ namespace SGame
 			{
 				eqs = eqs ?? _data.equipeds;
 				var rt = roleType;
+				var rstr = "role";
 				#region 当前场景角色基模数据
 				var parts = _data.defaultEquipPart;
 				if (_data.defaultEquipPart == null || roleType != 0)
@@ -90,6 +91,7 @@ namespace SGame
 					var ss = baseModel.Split('|');
 					if (ss.Length % 2 == 1)
 					{
+						rstr = ss[0];
 						for (int i = 1; i < ss.Length - 1; i += 2)
 							parts[ss[i].ToLower()] = ss[i + 1];
 					}
@@ -107,7 +109,7 @@ namespace SGame
 						e.ReplacePart(d);
 				});
 				_sb.Clear();
-				_sb.Append("role");
+				_sb.Append(rstr);
 
 				d.ToList().ForEach(kv => _sb.AppendFormat("|{0}|{1}", kv.Key, kv.Value));
 				if (rt == 0 && needpet && Instance.petData.pet != null)
