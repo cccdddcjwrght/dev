@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6073203542111567350}
-  - component: {fileID: 7995036762161408569}
-  - component: {fileID: 3378894899238436134}
+  - component: {fileID: 727030069836194637}
+  - component: {fileID: 696107669703389209}
   m_Layer: 0
   m_Name: body-1
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &7995036762161408569
+--- !u!137 &727030069836194637
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,7 +113,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.01662141, y: -0.00000008940697, z: 0.3450123}
     m_Extent: {x: 0.29439506, y: 0.3800342, z: 0.46748263}
   m_DirtyAABB: 0
---- !u!114 &3378894899238436134
+--- !u!114 &696107669703389209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,4 +154,5 @@ MonoBehaviour:
   - Bip001 R Foot
   - Bip001 R Toe0
   - Bip001 R Toe0Nub
-  materials: []
+  materials:
+  - {fileID: 2100000, guid: 1a23e086d684c2746aeed06efa7d5799, type: 2}
