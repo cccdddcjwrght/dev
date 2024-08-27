@@ -1,5 +1,6 @@
 using FairyGUI;
 using SGame.UI;
+using SGame.UI.Explore;
 using System.Collections;
 using Unity.Entities;
 using UnityEngine;
@@ -15,7 +16,12 @@ namespace SGame
         public RoleType roleType;
         //节点
         protected UIModel _model;
-        protected GProgressBar _hpBar;
+        protected UI_FightHp _hpBar;
+
+        public UI_FightHp hpBar 
+        {
+            get { return _hpBar; }
+        }
 
         protected int forward;
 
@@ -28,7 +34,7 @@ namespace SGame
         /// </summary>
         public bool isAlive { get { return attributes.GetBaseAttribute(SGame.EnumAttribute.Hp) > 0; } }
 
-        public BaseBattleCharacter(UIModel model, GProgressBar hpBar)
+        public BaseBattleCharacter(UIModel model, UI_FightHp hpBar)
         {
             _model = model;
             _hpBar = hpBar;
@@ -52,15 +58,17 @@ namespace SGame
             //播放攻击动画
             _model.Play("Attack");
             yield return Move(1, 0, 1f);
-     
-            target.DoHit(attackEffect.damage).Start();
+
+            ShowEffect(3003, _hpBar.m_effect.m__attack, new Vector2(100, 150));
+            target.DoHit(attackEffect.damage, attackEffect.isCritical).Start();
             if (attackEffect.stateList != null && attackEffect.stateList.Count > 0)
-                attackEffect.stateList.ForEach((v) => target.state.ApplyState(v));
+                attackEffect.stateList.ForEach((v) => target.state.ApplyState(v, target));
 
             if (attackEffect.steal > 0)
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, attackEffect.steal);
-                ShowBattleText($"+{attackEffect.steal}", Color.green, 0, 150);
+                ShowBattleText($"+{attackEffect.steal}", Color.green, 52, 150);
+                ShowEffect(3004, _hpBar.m_effect.m__steal, new Vector2(100, 150));
                 UpdateHpUI();
                 //吸血效果
             }
@@ -101,18 +109,20 @@ namespace SGame
         }
 
 
-        public virtual IEnumerator DoHit(int damage)
+        public virtual IEnumerator DoHit(int damage, bool isCritical)
         {
             if (damage <= 0)
             {
-                ShowBattleText("miss", Color.gray, 0, 150);
+                ShowBattleText("miss", Color.gray, 52, 150);
                 yield return Move(-1, 50, 0.25f);
                 yield return Move(1, 50, 0.25f);
             }
             else 
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, -damage);
-                ShowBattleText($"-{damage}", Color.red, 0, 150);
+                var hitEffectId = isCritical ? 3002 : 3001;
+                ShowEffect(hitEffectId, _hpBar.m_effect.m__hit, new Vector2(0, 150));
+                ShowBattleText($"-{damage}", Color.red, 52, 150);
                 yield return Move(-1, 10, 0.1f);
                 yield return Move(1, 10, 0.1f);
                 if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) Dead();
@@ -135,6 +145,13 @@ namespace SGame
                 _hpBar.value = attributes.GetBaseAttribute(EnumAttribute.Hp);
                 _hpBar.GetChild("value").SetText($"{Utils.ConvertNumberStr(_hpBar.value)}/{Utils.ConvertNumberStr(_hpBar.max)}");
             }
+        }
+
+        public Entity ShowEffect(int effectId, GGraph holder, Vector2 pos) 
+        {
+            var e = EffectSystem.Instance.SpawnUI(effectId, holder);
+            holder.SetPosition(pos.x, pos.y, -500 * forward);
+            return e;
         }
 
         public abstract void Dead();
