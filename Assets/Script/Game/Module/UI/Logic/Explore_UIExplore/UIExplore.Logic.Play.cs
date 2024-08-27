@@ -178,12 +178,12 @@ namespace SGame.UI
 			if (autoState)
 			{
 				if (CheckItem(true))
-					yield return _waitRest;
-				else
 				{
 					end = false;
-					SwitchExploreAutoPage(0);
+					yield return _waitRest;
 				}
+				else
+					SwitchExploreAutoPage(0);
 			}
 			else
 			{
