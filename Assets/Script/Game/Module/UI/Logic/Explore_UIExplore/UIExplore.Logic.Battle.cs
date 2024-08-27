@@ -57,13 +57,13 @@ namespace SGame.UI
             {
                 _monster = new UIModel(m_view.m_battlemonster)
                     .SetData(0)
-                    .SetTRS(Vector3.zero, new Vector3(0, -110, 45), 30)
+                    .SetTRS(Vector3.zero, new Vector3(0, 180, 0), 50)
                     .SetLoad(LoadMonsterModel);
             }
             else
             {
                 _monster.SetData(0).
-                    SetTRS(Vector3.zero, new Vector3(0, -110, 45), 30).
+                    SetTRS(Vector3.zero, new Vector3(0, 180, 0), 50).
                     SetLoad(LoadMonsterModel);
             }
             _monster.RefreshModel();
