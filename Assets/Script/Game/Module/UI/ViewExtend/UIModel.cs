@@ -14,6 +14,7 @@ namespace SGame
 		protected GGraph holder;
 		protected GoWrapper goWrapper;
 		protected Animator animator;
+		protected string lastAnimationName;
 
 		protected object data;
 		private bool _isLoaded;
@@ -110,9 +111,10 @@ namespace SGame
 
 		public UIModel Play(string animation)
 		{
-			if (this.animator != null)
+			lastAnimationName = animation;
+			if (this.animator != null && string.IsNullOrEmpty(animation))
 			{
-				animator.CrossFade(animation , 0.2f);
+				animator.CrossFade(lastAnimationName, 0.2f);
 			}
 			return this;
 		}
@@ -174,7 +176,7 @@ namespace SGame
 					_isLoaded = true;
 					_loaded?.Invoke(this);
 					animator = go.GetComponent<Animator>() ?? go.GetComponentInChildren<Animator>();
-					animator?.Play(animaName ?? "idle");
+					animator?.Play(animaName ?? lastAnimationName ?? "idle");
 					yield break;
 				}
 				GameObject.Destroy(go);
