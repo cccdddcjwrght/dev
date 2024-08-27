@@ -75,7 +75,7 @@ namespace SGame
 
 		static public bool CostItem(bool onlycheck, params int[] cost)
 		{
-			if (cost != null && cost.Length > 2)
+			if (cost != null && cost.Length>= 2)
 			{
 				for (int i = 0; i < cost.Length; i += 2)
 				{
@@ -100,7 +100,7 @@ namespace SGame
 
 		static public bool CostItem(bool onlycheck, params double[] cost)
 		{
-			if (cost != null && cost.Length > 2)
+			if (cost != null && cost.Length >= 2)
 			{
 				for (int i = 0; i < cost.Length; i += 2)
 				{
