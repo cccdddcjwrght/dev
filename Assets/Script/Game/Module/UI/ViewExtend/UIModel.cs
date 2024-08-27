@@ -112,7 +112,7 @@ namespace SGame
 		public UIModel Play(string animation)
 		{
 			lastAnimationName = animation;
-			if (this.animator != null && string.IsNullOrEmpty(animation))
+			if (this.animator != null && !string.IsNullOrEmpty(animation))
 			{
 				animator.CrossFade(lastAnimationName, 0.2f);
 			}
