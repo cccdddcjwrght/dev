@@ -44,6 +44,8 @@ namespace SGame
 
                 var rate = Mathf.Max(defender.attributes.GetBaseAttribute(EnumAttribute.Dodge) -
                     attacker.attributes.GetBaseAttribute(EnumAttribute.AntiDodge), 0);
+                if (defender.state.IsHasState(BattleStateType.DIZZ)) rate = 0;
+
                 // «∑Ò…¡±‹
                 triggerDodge = BattleUtil.TriggerProbability(rate);
                 if (triggerDodge)

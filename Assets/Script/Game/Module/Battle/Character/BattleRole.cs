@@ -1,5 +1,6 @@
 using FairyGUI;
 using SGame;
+using SGame.UI.Explore;
 using UnityEngine;
 
 namespace SGame 
@@ -9,7 +10,7 @@ namespace SGame
     /// </summary>
     public class BattleRole : BaseBattleCharacter
     {
-        public BattleRole(UIModel model, GProgressBar hpBar) : base(model, hpBar)
+        public BattleRole(UIModel model, UI_FightHp hpBar) : base(model, hpBar)
         {
             roleType = RoleType.ROLE;
             forward = 1;

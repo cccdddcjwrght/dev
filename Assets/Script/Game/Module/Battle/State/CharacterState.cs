@@ -12,11 +12,21 @@ namespace SGame
         /// Ìí¼Ó×´Ì¬
         /// </summary>
         /// <param name="state"></param>
-        public void ApplyState(BaseState state)
+        public void ApplyState(BaseState state, BaseBattleCharacter character = null)
         {
-            stateList.Add(state);
-            if (state.isImmediately)
-                state.Exctue();
+            var v = stateList.Find((v) => v.type == state.type);
+            if (v != null)
+            {
+                v.round += state.round;
+            }
+            else
+            {
+                stateList.Add(state);
+                state.Init(character);
+                if (state.isImmediately)
+                    state.Exctue();
+            }
+            
         }
 
         /// <summary>
