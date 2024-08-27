@@ -51,7 +51,7 @@ namespace SGame.UI
 			_checkExplore = new WaitUntil(CheckCmd);
 			_waitAtk = new WaitForSeconds(0.3f);
 			_waitDead = new WaitForSeconds(0.5f);
-			_waitRest = new WaitForSeconds(2f);
+			_waitRest = new WaitForSeconds(1f);
 
 			((Action)CancelAuto).CallWhenPause();
 		}
@@ -68,6 +68,7 @@ namespace SGame.UI
 		void OnHide_Play(UIContext context)
 		{
 			_model.ClearModel();
+			ResetExplore();
 			SwitchExploreAutoPage(0);
 			fightState = false;
 			_exlogic?.Stop();
@@ -117,7 +118,7 @@ namespace SGame.UI
 		IEnumerator Logic()
 		{
 			MapLoop(false);
-			while (m_view.visible)
+			while (m_view!=null && m_view.visible)
 			{
 				yield return WaitReq();
 				yield return MoveMonster();
@@ -189,7 +190,7 @@ namespace SGame.UI
 				end = false;
 				yield return null;
 			}
-			if (end) Fast(true);
+			if (end) ResetExplore();
 			fightState = end;
 		}
 
@@ -241,6 +242,12 @@ namespace SGame.UI
 		void RefreshAutoState()
 		{
 			m_view.m_auto.grayed = !41.IsOpend(false); 
+		}
+
+		void ResetExplore()
+		{
+			m_view.m_monster.alpha = 0;//怪隐藏
+			Fast(true);
 		}
 
 		#endregion
