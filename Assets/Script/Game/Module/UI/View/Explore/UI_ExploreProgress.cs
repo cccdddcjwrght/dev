@@ -8,6 +8,7 @@ namespace SGame.UI.Explore
     public partial class UI_ExploreProgress : GProgressBar
     {
         public GTextField m___text;
+        public GTextField m_limit;
         public const string URL = "ui://ow12is1hpm5b18";
 
         public static UI_ExploreProgress CreateInstance()
@@ -20,6 +21,7 @@ namespace SGame.UI.Explore
             base.ConstructFromXML(xml);
 
             m___text = (GTextField)GetChildAt(3);
+            m_limit = (GTextField)GetChildAt(4);
         }
     }
 }

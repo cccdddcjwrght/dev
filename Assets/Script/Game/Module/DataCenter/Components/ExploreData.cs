@@ -236,6 +236,13 @@ namespace SGame
 				return default;
 			}
 
+			static public int GetCurrentMaxExploreLv()
+			{
+				var r = Instance.roomData.current.roomCfg;
+				var a = Instance.roomData.current.GetNewAreaCfg();
+				if (a.IsValid()) return a.ExploreLevelMax;
+				else return r.ExploreLevelMax;
+			}
 		}
 
 	}

@@ -77,6 +77,8 @@ namespace SGame.UI
 			m_view.m_progress.max = exploreData.exploreLevel.Exp;
 			m_view.m_progress.value = Mathf.Min(exploreData.exp, exploreData.exploreLevel.Exp);
 			m_view.m_progress.SetTextByKey("ui_common_lv1", exploreData.level);
+			m_view.m_progress.m_limit.SetTextByKey("ui_common_max_lv", DataCenter.ExploreUtil.GetCurrentMaxExploreLv());
+
 			if (exploreData.addExp > 0)
 			{
 				m_view.m_exptips.text = "+" + exploreData.addExp;

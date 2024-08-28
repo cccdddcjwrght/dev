@@ -117,6 +117,7 @@ public struct RoomAreaRowData : IFlatbufferObject
   public ArraySegment<byte>? GetReward3Bytes() { return __p.__vector_as_arraysegment(40); }
 #endif
   public int[] GetReward3Array() { return __p.__vector_as_array<int>(40); }
+  public int ExploreLevelMax { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomAreaRowData> CreateRoomAreaRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -137,8 +138,10 @@ public struct RoomAreaRowData : IFlatbufferObject
       VectorOffset OrderMachineIDOffset = default(VectorOffset),
       VectorOffset Reward1Offset = default(VectorOffset),
       VectorOffset Reward2Offset = default(VectorOffset),
-      VectorOffset Reward3Offset = default(VectorOffset)) {
-    builder.StartTable(19);
+      VectorOffset Reward3Offset = default(VectorOffset),
+      int ExploreLevelMax = 0) {
+    builder.StartTable(20);
+    RoomAreaRowData.AddExploreLevelMax(builder, ExploreLevelMax);
     RoomAreaRowData.AddReward3(builder, Reward3Offset);
     RoomAreaRowData.AddReward2(builder, Reward2Offset);
     RoomAreaRowData.AddReward1(builder, Reward1Offset);
@@ -161,7 +164,7 @@ public struct RoomAreaRowData : IFlatbufferObject
     return RoomAreaRowData.EndRoomAreaRowData(builder);
   }
 
-  public static void StartRoomAreaRowData(FlatBufferBuilder builder) { builder.StartTable(19); }
+  public static void StartRoomAreaRowData(FlatBufferBuilder builder) { builder.StartTable(20); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddScene(FlatBufferBuilder builder, int Scene) { builder.AddInt(1, Scene, 0); }
   public static void AddType(FlatBufferBuilder builder, int Type) { builder.AddInt(2, Type, 0); }
@@ -202,6 +205,7 @@ public struct RoomAreaRowData : IFlatbufferObject
   public static VectorOffset CreateReward3Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateReward3VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartReward3Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddExploreLevelMax(FlatBufferBuilder builder, int ExploreLevelMax) { builder.AddInt(19, ExploreLevelMax, 0); }
   public static Offset<GameConfigs.RoomAreaRowData> EndRoomAreaRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomAreaRowData>(o);

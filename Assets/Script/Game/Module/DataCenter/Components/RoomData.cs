@@ -293,6 +293,17 @@ namespace SGame
 
 		}
 
+		public RoomAreaRowData GetNewAreaCfg()
+		{
+			if (areas?.Count > 0)
+			{
+				var a = areas[areas.Count - 1];
+				roomAreas.TryGetValue(a, out var c);
+				return c;
+			}
+			return default;
+
+		}
 	}
 
 

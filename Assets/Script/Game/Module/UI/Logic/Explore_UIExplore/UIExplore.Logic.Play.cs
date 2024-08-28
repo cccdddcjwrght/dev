@@ -108,7 +108,12 @@ namespace SGame.UI
 		partial void OnExploreAutoChanged(EventContext data)
 		{
 			if (!autoState)
+			{
+				m_view.m_auto.SetTextByKey("ui_explore_auto");
 				SetExploreToolInfo(false);
+			}
+			else
+				m_view.m_auto.SetTextByKey("ui_explore_stop");
 		}
 
 		partial void OnExploreStateChanged(EventContext data)

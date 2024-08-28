@@ -109,6 +109,7 @@ public struct RoomRowData : IFlatbufferObject
   public ArraySegment<byte>? GetNewGoodsBytes() { return __p.__vector_as_arraysegment(40); }
 #endif
   public int[] GetNewGoodsArray() { return __p.__vector_as_array<int>(40); }
+  public int ExploreLevelMax { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.RoomRowData> CreateRoomRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -129,8 +130,10 @@ public struct RoomRowData : IFlatbufferObject
       int InvestorGems = 0,
       int InvestorRatio = 0,
       VectorOffset RecommendValueOffset = default(VectorOffset),
-      VectorOffset NewGoodsOffset = default(VectorOffset)) {
-    builder.StartTable(19);
+      VectorOffset NewGoodsOffset = default(VectorOffset),
+      int ExploreLevelMax = 0) {
+    builder.StartTable(20);
+    RoomRowData.AddExploreLevelMax(builder, ExploreLevelMax);
     RoomRowData.AddNewGoods(builder, NewGoodsOffset);
     RoomRowData.AddRecommendValue(builder, RecommendValueOffset);
     RoomRowData.AddInvestorRatio(builder, InvestorRatio);
@@ -153,7 +156,7 @@ public struct RoomRowData : IFlatbufferObject
     return RoomRowData.EndRoomRowData(builder);
   }
 
-  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(19); }
+  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(20); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
@@ -188,6 +191,7 @@ public struct RoomRowData : IFlatbufferObject
   public static VectorOffset CreateNewGoodsVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateNewGoodsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartNewGoodsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddExploreLevelMax(FlatBufferBuilder builder, int ExploreLevelMax) { builder.AddInt(19, ExploreLevelMax, 0); }
   public static Offset<GameConfigs.RoomRowData> EndRoomRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomRowData>(o);
