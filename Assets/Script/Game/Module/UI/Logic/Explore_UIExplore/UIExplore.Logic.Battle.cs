@@ -73,7 +73,6 @@ namespace SGame.UI
   
             _battleMonster = new BattleMonster(_monster, m_view.m_fightHp2);
             _battleMonster.LoadAttribute(_monsterCfgId);
-            _battleMonster.attributes.SetAttribute((int)EnumAttribute.Stun, 5000);
             _battleMonster.model.Play("idle");
 
             float moveTime = 2;
