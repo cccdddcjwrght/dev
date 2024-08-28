@@ -29,6 +29,10 @@ namespace SGame.UI
 
 	public partial class UIExplore
 	{
+		const string c_walk_name = "walk";
+		const string c_attack_name = "dig";
+
+
 		private Coroutine _exlogic;
 		private UIModel _model;
 
@@ -58,9 +62,9 @@ namespace SGame.UI
 
 		void OnOpen_Play(UIContext context)
 		{
+			_model.RefreshModel(c_walk_name);
 			_exlogic?.Stop();
 			_exlogic = Logic().Start();
-			_model.RefreshModel("walk");
 			RefreshAutoState();
 			ShowNewEquip();
 		}
@@ -118,7 +122,9 @@ namespace SGame.UI
 		IEnumerator Logic()
 		{
 			MapLoop(false);
-			while (m_view!=null && m_view.visible)
+			yield return new WaitUntil(() => _model.IsLoadCompleted());
+			_model.Play(c_walk_name);
+			while (m_view != null && m_view.visible)
 			{
 				yield return WaitReq();
 				yield return MoveMonster();
@@ -158,7 +164,7 @@ namespace SGame.UI
 		IEnumerator DoExplore()
 		{
 			MapLoop(true);
-			_model.Play("dig");
+			_model.Play(c_attack_name);
 			yield return _waitAtk;
 			m_view.m_kill.Play();
 			yield return _waitDead;
@@ -172,7 +178,7 @@ namespace SGame.UI
 
 		IEnumerator CheckComplete()
 		{
-			_model.Play("walk");
+			_model.Play(c_walk_name);
 			MapLoop(false);
 			var end = true;
 			if (autoState)
@@ -241,7 +247,7 @@ namespace SGame.UI
 
 		void RefreshAutoState()
 		{
-			m_view.m_auto.grayed = !41.IsOpend(false); 
+			m_view.m_auto.grayed = !41.IsOpend(false);
 		}
 
 		void ResetExplore()

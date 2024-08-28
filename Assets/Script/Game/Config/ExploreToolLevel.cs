@@ -48,6 +48,7 @@ public struct ExploreToolLevelRowData : IFlatbufferObject
 #endif
   public int[] GetQualityWeightArray() { return __p.__vector_as_array<int>(16); }
   public int FortifyChance { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int ExploreLevel { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.ExploreToolLevelRowData> CreateExploreToolLevelRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -57,8 +58,10 @@ public struct ExploreToolLevelRowData : IFlatbufferObject
       int ADTime = 0,
       VectorOffset TypeWeightOffset = default(VectorOffset),
       VectorOffset QualityWeightOffset = default(VectorOffset),
-      int FortifyChance = 0) {
-    builder.StartTable(8);
+      int FortifyChance = 0,
+      int ExploreLevel = 0) {
+    builder.StartTable(9);
+    ExploreToolLevelRowData.AddExploreLevel(builder, ExploreLevel);
     ExploreToolLevelRowData.AddFortifyChance(builder, FortifyChance);
     ExploreToolLevelRowData.AddQualityWeight(builder, QualityWeightOffset);
     ExploreToolLevelRowData.AddTypeWeight(builder, TypeWeightOffset);
@@ -70,7 +73,7 @@ public struct ExploreToolLevelRowData : IFlatbufferObject
     return ExploreToolLevelRowData.EndExploreToolLevelRowData(builder);
   }
 
-  public static void StartExploreToolLevelRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StartExploreToolLevelRowData(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddMapId(FlatBufferBuilder builder, int MapId) { builder.AddInt(1, MapId, 0); }
   public static void AddCost(FlatBufferBuilder builder, VectorOffset CostOffset) { builder.AddOffset(2, CostOffset.Value, 0); }
@@ -88,6 +91,7 @@ public struct ExploreToolLevelRowData : IFlatbufferObject
   public static VectorOffset CreateQualityWeightVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartQualityWeightVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddFortifyChance(FlatBufferBuilder builder, int FortifyChance) { builder.AddInt(7, FortifyChance, 0); }
+  public static void AddExploreLevel(FlatBufferBuilder builder, int ExploreLevel) { builder.AddInt(8, ExploreLevel, 0); }
   public static Offset<GameConfigs.ExploreToolLevelRowData> EndExploreToolLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ExploreToolLevelRowData>(o);

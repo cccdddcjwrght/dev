@@ -135,10 +135,11 @@ namespace SGame
 			AfterLoad();
 		}
 
-		public void Save()
+		public DataCenter Save()
 		{
 			BeforeSave();
 			DoSave();
+			return this;
 		}
 
 		public void Initalize()

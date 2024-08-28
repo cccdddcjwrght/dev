@@ -51,12 +51,21 @@
 		{
 			if (!_data.IsExploreToolMaxLv())
 			{
-				m_view.m_condition.visible = DataCenter.Instance.roomData.roomID < _data.exploreToolLevel.MapId;
-				if (ConfigSystem.Instance.TryGet<RoomRowData>(_data.exploreToolLevel.MapId, out var scene))
-					m_view.m_condition.SetTextByKey("ui_exploretool_condition", scene.Name.Local());
-				else
-					m_view.m_condition.SetTextByKey("ui_exploretool_condition", _data.exploreToolLevel.MapId);
+				var state = _data.exploreToolLevel.MapId > 0 && DataCenter.Instance.roomData.roomID < _data.exploreToolLevel.MapId;
+				if (state)
+				{
+					if (ConfigSystem.Instance.TryGet<RoomRowData>(_data.exploreToolLevel.MapId, out var scene))
+						m_view.m_condition.SetTextByKey("ui_exploretool_condition", scene.Name.Local());
+					else
+						m_view.m_condition.SetTextByKey("ui_exploretool_condition", _data.exploreToolLevel.MapId);
+				}
+				else if (_data.exploreToolLevel.ExploreLevel > 0 && _data.exploreToolLevel.ExploreLevel > _data.level)
+				{
+					state = true;
+					m_view.m_condition.SetTextByKey("ui_exploretool_condition1", _data.exploreToolLevel.ExploreLevel);
+				}
 
+				m_view.m_condition.visible = state;
 				m_view.m_click.SetText(Utils.ConvertNumberStrLimit3(_data.exploreToolLevel.Cost(2)), false);
 				RefreshState();
 			}
@@ -77,8 +86,7 @@
 
 		void SetCompleteBtnInfo()
 		{
-			var p = Mathf.CeilToInt((1f * _data.exploreToolNextLevel.Cost(2)) / _data.exploreToolNextLevel.Time);
-			var v = _price = p * _data.ToolUpRemaining();
+			var v = _price = _data.price * Math.Floor(_data.ToolUpRemaining() / 60f);
 			if (v >= 0)
 			{
 				m_view.m_diamondbtn.SetText(Utils.ConvertNumberStrLimit3(v), false);

@@ -43,25 +43,27 @@ namespace SGame
 
 		static public bool ExploreBeginToolUpLv()
 		{
-
 			var data = DataCenter.Instance.exploreData;
-
 			if (!data.IsExploreToolMaxLv())
 			{
 				var room = DataCenter.Instance.roomData.roomID;
 				var conditon = data.exploreToolLevel.MapId;
 				if (room >= conditon)
 				{
-					var cost = data.exploreToolLevel.GetCostArray();
-					if (PropertyManager.Instance.CheckCountByArgs(cost))
+					conditon = data.exploreToolNextLevel.ExploreLevel;
+					if (conditon > 0 && data.level >= conditon)
 					{
-						PropertyManager.Instance.UpdateByArgs(true, cost);
-						data.uplvtime = GameServerTime.Instance.serverTime + data.exploreToolLevel.Time;
-						_eMgr.Trigger(((int)GameEvent.EXPLORE_TOOL_UP_LV_START));
-						return true;
+						var cost = data.exploreToolLevel.GetCostArray();
+						if (PropertyManager.Instance.CheckCountByArgs(cost))
+						{
+							PropertyManager.Instance.UpdateByArgs(true, cost);
+							data.uplvtime = GameServerTime.Instance.serverTime + data.exploreToolLevel.Time;
+							_eMgr.Trigger(((int)GameEvent.EXPLORE_TOOL_UP_LV_START));
+							return true;
+						}
+						else
+							"item_not_enough".Local(null, Utils.GetItemName(1, cost[1]).Local()).Tips();
 					}
-					else
-						"item_not_enough".Local(null, Utils.GetItemName(1, cost[1]).Local()).Tips();
 				}
 			}
 

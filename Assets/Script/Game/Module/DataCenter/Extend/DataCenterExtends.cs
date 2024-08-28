@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using Unity.Entities;
@@ -13,6 +14,8 @@ namespace SGame
 	{
 		[System.NonSerialized]
 		public int offlinetime;
+
+		public string cacheJson { get; set; }
 
 		public void SetData<T>(T data) where T : unmanaged, IComponentData
 		{
@@ -47,10 +50,15 @@ namespace SGame
 		{
 			accountData.lasttime = GameServerTime.Instance.stime;
 #if !SVR_RELEASE
-			log.Warn("save offline point:" + accountData.lasttime); 
+			log.Warn("save offline point:" + accountData.lasttime);
 #endif
 		}
 
+		partial void DoSave()
+		{
+			if (cacheJson == null && IsInitAll)
+				cacheJson = JsonUtility.ToJson(this);
+		}
 	}
 
 	public static partial class DataCenterExtension
@@ -93,7 +101,7 @@ namespace SGame
 #if !SVR_RELEASE
 			var path = Application.persistentDataPath + "/data_" + key;
 			System.IO.File.WriteAllText(path, str);
-#endif			
+#endif
 		}
 
 		public static bool LoadData(this DataCenter data, string key = null)
@@ -120,13 +128,19 @@ namespace SGame
 			return ret;
 		}
 
-		public static void SaveData(this DataCenter data, string key = null)
+		public static void SaveData(this DataCenter data, string key = null, bool dontsave = false)
 		{
 			if (data != null && data.IsInitAll)
 			{
+				var str = default(string);
+				if (!dontsave) data.Save();
+				lock (data)
+				{
+					str = data.cacheJson;
+					data.cacheJson = null;
+				}
+				if (str == null) return;
 
-				data.Save();
-				var str = JsonUtility.ToJson(data);
 				PlayerPrefs.SetString(key ?? __DKey, str);
 				PlayerPrefs.Save();
 #if !SVR_RELEASE
@@ -143,30 +157,41 @@ namespace SGame
 		}
 
 		public static bool IS_AUTO_SAVE = true;
-		
+
 		static void SetTimer()
 		{
+			var time = 10000;
 			var flag = true;
-			new Action(() => {
+			//游戏结束存盘
+			new Action(() =>
+			{
 				flag = false;
 				SaveData(DataCenter.Instance);
 			}).CallWhenQuit();
+			//定时存盘
+			0.Loop(() =>
+			{
+				SaveData(DataCenter.Instance, dontsave: true);
+			}, () => true, 1000, time);
 
-			ThreadPool.QueueUserWorkItem((a) => {
+			ThreadPool.QueueUserWorkItem((a) =>
+			{
 				Thread.CurrentThread.Name = "SaveData";
 				while (flag)
 				{
-					Thread.Sleep(10000);
-					if (IS_AUTO_SAVE)
+					Thread.Sleep(time);
+					if (!IS_AUTO_SAVE) continue;
+					try
 					{
-						SaveData(DataCenter.Instance);
-#if DATA_SYNC
+						DataCenter.Instance.cacheJson = default;
+						DataCenter.Instance.Save();
 						DataSyncModule.SendDataToServer();
-#endif
 					}
-
+					catch (Exception e)
+					{
+						Debug.LogException(e);
+					}
 				}
-
 			});
 
 		}

@@ -18,6 +18,7 @@ namespace SGame.UI{
 			m_view.m_eqinfostate.onChanged.Add(new EventCallback1(_OnEqinfostateChanged));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick));
+			UIListener.Listener(m_view.m_warn, new EventCallback1(_OnWarnClick));
 			m_view.m_eq11.m_quality.onChanged.Add(new EventCallback1(_OnFightEquip_QualityChanged));
 			m_view.m_eq11.m_strongstate.onChanged.Add(new EventCallback1(_OnFightEquip_StrongstateChanged));
 			m_view.m_eq11.m_type.onChanged.Add(new EventCallback1(_OnFightEquip_TypeChanged));
@@ -66,6 +67,7 @@ namespace SGame.UI{
 			m_view.m_eqinfostate.onChanged.Remove(new EventCallback1(_OnEqinfostateChanged));
 			UIListener.ListenerClose(m_view.m_close, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_progress, new EventCallback1(_OnProgressClick),remove:true);
+			UIListener.Listener(m_view.m_warn, new EventCallback1(_OnWarnClick),remove:true);
 			m_view.m_eq11.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquip_QualityChanged));
 			m_view.m_eq11.m_strongstate.onChanged.Remove(new EventCallback1(_OnFightEquip_StrongstateChanged));
 			m_view.m_eq11.m_type.onChanged.Remove(new EventCallback1(_OnFightEquip_TypeChanged));
@@ -142,6 +144,12 @@ namespace SGame.UI{
 		partial void OnProgressClick(EventContext data);
 		void SetProgressText(string data)=>UIListener.SetText(m_view.m_progress,data);
 		string GetProgressText()=>UIListener.GetText(m_view.m_progress);
+		void _OnWarnClick(EventContext data){
+			OnWarnClick(data);
+		}
+		partial void OnWarnClick(EventContext data);
+		void SetWarnText(string data)=>UIListener.SetText(m_view.m_warn,data);
+		string GetWarnText()=>UIListener.GetText(m_view.m_warn);
 		void SetRoundText(string data)=>UIListener.SetText(m_view.m_round,data);
 		string GetRoundText()=>UIListener.GetText(m_view.m_round);
 		void _OnFightEquip_QualityChanged(EventContext data){

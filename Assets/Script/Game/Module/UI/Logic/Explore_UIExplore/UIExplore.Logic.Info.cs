@@ -29,6 +29,7 @@ namespace SGame.UI
 
 		void OnOpen_Info(UIContext context)
 		{
+			exploreData.CheckCanUpLv();
 			SetBaseInfo();
 			RefreshCD();
 		}
@@ -73,8 +74,8 @@ namespace SGame.UI
 
 		void SetExploreLv()
 		{
-			m_view.m_progress.value = exploreData.exp;
 			m_view.m_progress.max = exploreData.exploreLevel.Exp;
+			m_view.m_progress.value = Mathf.Min(exploreData.exp, exploreData.exploreLevel.Exp);
 			m_view.m_progress.SetTextByKey("ui_common_lv1", exploreData.level);
 			if (exploreData.addExp > 0)
 			{
@@ -82,6 +83,7 @@ namespace SGame.UI
 				exploreData.addExp = 0;
 				m_view.m_expanim.Play();
 			}
+			m_view.m_warn.visible = exploreData.lvPause;
 		}
 
 		void SetAttr()
@@ -164,7 +166,7 @@ namespace SGame.UI
 					var info = m_view.m_eqinfo;
 					if (g == m_view.m_eq11) info.m_type.selectedIndex = 1;
 					else info.m_type.selectedIndex = 0;
-					info.m_body.SetFightEquipInfo(d , attrsize:1);
+					info.m_body.SetFightEquipInfo(d, attrsize: 1);
 					info.m_body.m_attrs.ResizeToFit();
 					info.xy = g.xy + new Vector2(50, -10);
 					m_view.m_eqinfostate.selectedIndex = 1;
@@ -181,6 +183,11 @@ namespace SGame.UI
 					m_view.m_eqinfostate.selectedIndex = 0;
 			}
 			_clickeqflag = false;
+		}
+
+		partial void OnWarnClick(EventContext data)
+		{
+			exploreData.exploreLevel.UnlockTips.Local().Tips();
 		}
 
 		partial void OnEq11Click(EventContext data) => OnEqClick(data);

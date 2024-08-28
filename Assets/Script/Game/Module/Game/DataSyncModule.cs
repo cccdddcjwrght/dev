@@ -63,10 +63,12 @@ namespace SGame
 
         public static void SendDataToServer()
         {
-            var dataStr = DataCenterExtension.GetStrFromDisk();
+#if DATA_SYNC
+			var dataStr = DataCenterExtension.GetStrFromDisk();
             HttpPackage pkg = new HttpPackage() { data = dataStr };
             var sendData = JsonUtility.ToJson(pkg);
             HttpSystem.Instance.Post("uploadData", sendData);
-        }
-    }
+#endif
+		}
+	}
 }

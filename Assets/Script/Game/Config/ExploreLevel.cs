@@ -21,19 +21,43 @@ public struct ExploreLevelRowData : IFlatbufferObject
 
   public int Id { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Exp { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Area(int j) { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int AreaLength { get { int o = __p.__offset(8); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetAreaBytes() { return __p.__vector_as_span<int>(8, 4); }
+#else
+  public ArraySegment<byte>? GetAreaBytes() { return __p.__vector_as_arraysegment(8); }
+#endif
+  public int[] GetAreaArray() { return __p.__vector_as_array<int>(8); }
+  public string UnlockTips { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetUnlockTipsBytes() { return __p.__vector_as_span<byte>(10, 1); }
+#else
+  public ArraySegment<byte>? GetUnlockTipsBytes() { return __p.__vector_as_arraysegment(10); }
+#endif
+  public byte[] GetUnlockTipsArray() { return __p.__vector_as_array<byte>(10); }
 
   public static Offset<GameConfigs.ExploreLevelRowData> CreateExploreLevelRowData(FlatBufferBuilder builder,
       int Id = 0,
-      int Exp = 0) {
-    builder.StartTable(2);
+      int Exp = 0,
+      VectorOffset AreaOffset = default(VectorOffset),
+      StringOffset UnlockTipsOffset = default(StringOffset)) {
+    builder.StartTable(4);
+    ExploreLevelRowData.AddUnlockTips(builder, UnlockTipsOffset);
+    ExploreLevelRowData.AddArea(builder, AreaOffset);
     ExploreLevelRowData.AddExp(builder, Exp);
     ExploreLevelRowData.AddId(builder, Id);
     return ExploreLevelRowData.EndExploreLevelRowData(builder);
   }
 
-  public static void StartExploreLevelRowData(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void StartExploreLevelRowData(FlatBufferBuilder builder) { builder.StartTable(4); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddExp(FlatBufferBuilder builder, int Exp) { builder.AddInt(1, Exp, 0); }
+  public static void AddArea(FlatBufferBuilder builder, VectorOffset AreaOffset) { builder.AddOffset(2, AreaOffset.Value, 0); }
+  public static VectorOffset CreateAreaVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateAreaVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartAreaVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddUnlockTips(FlatBufferBuilder builder, StringOffset UnlockTipsOffset) { builder.AddOffset(3, UnlockTipsOffset.Value, 0); }
   public static Offset<GameConfigs.ExploreLevelRowData> EndExploreLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.ExploreLevelRowData>(o);

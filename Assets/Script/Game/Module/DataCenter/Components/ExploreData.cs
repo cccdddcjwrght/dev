@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameConfigs;
+using UnityEngine;
 
 namespace SGame
 {
@@ -167,7 +168,7 @@ namespace SGame
 				if (eqs?.Length > 0)
 				{
 					var v = eqs
-						.Where(e => e.attrs?.Count > 0)
+						.Where(e => e?.attrs?.Count > 0)
 						.SelectMany(e => e.attrs)
 						.Select(e => e.ToArray());
 
@@ -265,9 +266,12 @@ namespace SGame
 		public int addExp;
 		[NonSerialized]
 		public bool showgoldfly = true;
+		[NonSerialized]
+		public int price;
 
 		public int exploreMaxLv { get; private set; }
 		public int toolMaxLv { get; private set; }
+		public bool lvPause { get; private set; }
 
 		public void Refresh()
 		{
@@ -286,6 +290,10 @@ namespace SGame
 			ConfigSystem.Instance.TryGet(level + 1, out exploreNextLevel);
 			ConfigSystem.Instance.TryGet(toolLevel, out exploreToolLevel);
 			ConfigSystem.Instance.TryGet(toolLevel + 1, out exploreToolNextLevel);
+
+			price = Mathf.CeilToInt((1f * exploreToolNextLevel.Cost(2)) / exploreToolNextLevel.Time) * 60;
+
+
 		}
 
 		public bool IsExploreMaxLv()
@@ -319,7 +327,7 @@ namespace SGame
 			this.exp += exp;
 			addExp = exp;
 			var f = false;
-			while (!IsExploreMaxLv() && this.exp >= this.exploreLevel.Exp)
+			while (this.exp >= this.exploreLevel.Exp && CheckCanUpLv())
 			{
 				this.exp -= this.exploreLevel.Exp;
 				level++;
@@ -327,6 +335,23 @@ namespace SGame
 				f = true;
 			}
 			return f;
+		}
+
+		public bool CheckCanUpLv()
+		{
+			lvPause = false;
+			if (IsExploreMaxLv()) return false;
+			if (exploreLevel.AreaLength > 0)
+			{
+				var s = exploreLevel.Area(0);
+				var a = exploreLevel.Area(1);
+				if (s > DataCenter.Instance.roomData.roomID || !DataCenter.RoomUtil.IsAreaEnable(a))
+				{
+					lvPause = true;
+					return false;
+				}
+			}
+			return true;
 		}
 
 	}
@@ -355,7 +380,7 @@ namespace SGame
 					equips[0] = new FightEquip() { attrs = DataCenter.ExploreUtil.GetRoleAttr(roleID) };
 				else GameDebug.LogError($"战斗角色数据配置错误{roleID}");
 			}
-			equips.Foreach(e => e.Refresh());
+			equips.Foreach(e => e?.Refresh());
 			return this;
 		}
 
