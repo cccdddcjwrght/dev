@@ -40,7 +40,11 @@ namespace SGame.UI{
 			m_view.m_eq20.m_part.onChanged.Add(new EventCallback1(_OnFightEquip_Eq20_partChanged));
 			UIListener.Listener(m_view.m_eq20, new EventCallback1(_OnEq20Click));
 			UIListener.Listener(m_view.m_find, new EventCallback1(_OnFindClick));
+			m_view.m_tool.m_type.onChanged.Add(new EventCallback1(_OnToolBtn_TypeChanged));
+			m_view.m_tool.m_state.onChanged.Add(new EventCallback1(_OnToolBtn_StateChanged));
 			UIListener.Listener(m_view.m_tool, new EventCallback1(_OnToolClick));
+			m_view.m_auto.m_type.onChanged.Add(new EventCallback1(_OnToolBtn_Auto_typeChanged));
+			m_view.m_auto.m_state.onChanged.Add(new EventCallback1(_OnToolBtn_Auto_stateChanged));
 			UIListener.Listener(m_view.m_auto, new EventCallback1(_OnAutoClick));
 			UIListener.Listener(m_view.m_help, new EventCallback1(_OnHelpClick));
 			m_view.m_hp.m_size.onChanged.Add(new EventCallback1(_OnFightAttr_SizeChanged));
@@ -89,7 +93,11 @@ namespace SGame.UI{
 			m_view.m_eq20.m_part.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq20_partChanged));
 			UIListener.Listener(m_view.m_eq20, new EventCallback1(_OnEq20Click),remove:true);
 			UIListener.Listener(m_view.m_find, new EventCallback1(_OnFindClick),remove:true);
+			m_view.m_tool.m_type.onChanged.Remove(new EventCallback1(_OnToolBtn_TypeChanged));
+			m_view.m_tool.m_state.onChanged.Remove(new EventCallback1(_OnToolBtn_StateChanged));
 			UIListener.Listener(m_view.m_tool, new EventCallback1(_OnToolClick),remove:true);
+			m_view.m_auto.m_type.onChanged.Remove(new EventCallback1(_OnToolBtn_Auto_typeChanged));
+			m_view.m_auto.m_state.onChanged.Remove(new EventCallback1(_OnToolBtn_Auto_stateChanged));
 			UIListener.Listener(m_view.m_auto, new EventCallback1(_OnAutoClick),remove:true);
 			UIListener.Listener(m_view.m_help, new EventCallback1(_OnHelpClick),remove:true);
 			m_view.m_hp.m_size.onChanged.Remove(new EventCallback1(_OnFightAttr_SizeChanged));
@@ -270,6 +278,16 @@ namespace SGame.UI{
 		partial void OnFindClick(EventContext data);
 		void SetFindText(string data)=>UIListener.SetText(m_view.m_find,data);
 		string GetFindText()=>UIListener.GetText(m_view.m_find);
+		void _OnToolBtn_TypeChanged(EventContext data){
+			OnToolBtn_TypeChanged(data);
+		}
+		partial void OnToolBtn_TypeChanged(EventContext data);
+		void SwitchToolBtn_TypePage(int index)=>m_view.m_tool.m_type.selectedIndex=index;
+		void _OnToolBtn_StateChanged(EventContext data){
+			OnToolBtn_StateChanged(data);
+		}
+		partial void OnToolBtn_StateChanged(EventContext data);
+		void SwitchToolBtn_StatePage(int index)=>m_view.m_tool.m_state.selectedIndex=index;
 		void SetToolBtn_TimeText(string data)=>UIListener.SetText(m_view.m_tool.m_time,data);
 		string GetToolBtn_TimeText()=>UIListener.GetText(m_view.m_tool.m_time);
 		void _OnToolClick(EventContext data){
@@ -278,6 +296,18 @@ namespace SGame.UI{
 		partial void OnToolClick(EventContext data);
 		void SetToolText(string data)=>UIListener.SetText(m_view.m_tool,data);
 		string GetToolText()=>UIListener.GetText(m_view.m_tool);
+		void _OnToolBtn_Auto_typeChanged(EventContext data){
+			OnToolBtn_Auto_typeChanged(data);
+		}
+		partial void OnToolBtn_Auto_typeChanged(EventContext data);
+		void SwitchToolBtn_Auto_typePage(int index)=>m_view.m_auto.m_type.selectedIndex=index;
+		void _OnToolBtn_Auto_stateChanged(EventContext data){
+			OnToolBtn_Auto_stateChanged(data);
+		}
+		partial void OnToolBtn_Auto_stateChanged(EventContext data);
+		void SwitchToolBtn_Auto_statePage(int index)=>m_view.m_auto.m_state.selectedIndex=index;
+		void SetToolBtn_Auto_timeText(string data)=>UIListener.SetText(m_view.m_auto.m_time,data);
+		string GetToolBtn_Auto_timeText()=>UIListener.GetText(m_view.m_auto.m_time);
 		void _OnAutoClick(EventContext data){
 			OnAutoClick(data);
 		}

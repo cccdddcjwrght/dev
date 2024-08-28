@@ -23,7 +23,7 @@ namespace SGame.UI.Explore
         public UI_FightEquip m_eq20;
         public GButton m_find;
         public UI_ToolBtn m_tool;
-        public GButton m_auto;
+        public UI_ToolBtn m_auto;
         public GButton m_help;
         public UI_FightAttr m_hp;
         public UI_FightAttr m_atk;
@@ -67,7 +67,7 @@ namespace SGame.UI.Explore
             m_eq20 = (UI_FightEquip)GetChildAt(16);
             m_find = (GButton)GetChildAt(18);
             m_tool = (UI_ToolBtn)GetChildAt(19);
-            m_auto = (GButton)GetChildAt(20);
+            m_auto = (UI_ToolBtn)GetChildAt(20);
             m_help = (GButton)GetChildAt(23);
             m_hp = (UI_FightAttr)GetChildAt(24);
             m_atk = (UI_FightAttr)GetChildAt(25);
