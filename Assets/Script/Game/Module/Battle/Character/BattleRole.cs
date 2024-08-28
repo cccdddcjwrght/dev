@@ -30,7 +30,7 @@ namespace SGame
 
         public override void Dead()
         {
-            _model.Play("idle");
+            _model.Play("dead");
         }
 
         public override void Dispose()

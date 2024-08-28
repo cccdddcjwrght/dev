@@ -263,7 +263,7 @@ namespace SGame.UI
 		void InitRole()
 		{
 			m_view.z = 400;
-			m_view.m_holder.z = -100;
+			m_view.m_holder.z = -200;
 			_model = new UIModel(m_view.m_holder)
 				.SetData(exploreData.explorer)
 				.SetTRS(Vector3.zero, new Vector3(-5, 145, -15), 150)

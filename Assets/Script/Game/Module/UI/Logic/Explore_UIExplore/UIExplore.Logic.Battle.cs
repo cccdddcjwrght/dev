@@ -20,12 +20,15 @@ namespace SGame.UI
         public void InitBattle() 
         {
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_START, TriggerBattle);
-            eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_OVER, ExitBattle);
+            eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_OVER, ()=> ExitExpression().Start());
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_ROUND, RefreshRound);
             onOpen += OnOpen_Battle;
             onHide += OnHide_Battle;
             onClose += OnClose_Battle;
 
+            m_view.m_battlemonster.z = -200;
+            m_view.m_fightHp1.z = -200;
+            m_view.m_fightHp2.z = -200;
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
             RefreshFightLevel();
         }
@@ -48,7 +51,6 @@ namespace SGame.UI
             m_view.m_fightBtn.visible = false;
             _battleRole = new BattleRole(_model,m_view.m_fightHp1);
             _battleRole.LoadAttribute(DataCenter.Instance.exploreData.explorer.roleID);
-            //m_view.m_battlemonster.x = m_view.m_mholder.x;
 
             ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.showLevel, out var config);
             _monsterCfgId = config.Monster;
@@ -67,17 +69,28 @@ namespace SGame.UI
                     SetLoad(LoadMonsterModel);
             }
             _monster.RefreshModel();
-
+            yield return new WaitForSeconds(0.5f);
+  
             _battleMonster = new BattleMonster(_monster, m_view.m_fightHp2);
             _battleMonster.LoadAttribute(_monsterCfgId);
+            _battleMonster.attributes.SetAttribute((int)EnumAttribute.Stun, 5000);
 
             float moveTime = 2;
             BattleManager.Instance.BattleStart(_battleRole, _battleMonster, config.Inning, moveTime + 0.5f).Start();
             yield return _battleMonster.Move(1, 330, moveTime);
-            _battleRole.PlayIdleAnim();
+            _battleRole.model.Play("idle");
             MapLoop(true);
             yield return new WaitForSeconds(0.5f);
             m_view.m_roundGroup.visible = true;
+        }
+
+        public IEnumerator ExitExpression() 
+        {
+            if (BattleManager.Instance.isWin)
+                _battleRole.model.Play("win");
+            yield return new WaitForSeconds(0.8f);
+
+            ExitBattle();
         }
 
         public void ExitBattle()

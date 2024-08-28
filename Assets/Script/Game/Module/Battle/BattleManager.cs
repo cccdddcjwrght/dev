@@ -29,7 +29,7 @@ namespace SGame
         private int _maxRound;
 
         //ÊÇ·ñÊ¤Àû
-        private bool isWin = false;
+        public bool isWin = false;
 
         public void Initalize() 
         {

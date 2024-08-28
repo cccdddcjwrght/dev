@@ -18,9 +18,16 @@ namespace SGame
         protected UIModel _model;
         protected UI_FightHp _hpBar;
 
+        private Equipments m_slot;
+
         public UI_FightHp hpBar 
         {
             get { return _hpBar; }
+        }
+
+        public UIModel model 
+        {
+            get { return _model; }
         }
 
         protected int forward;
@@ -39,6 +46,7 @@ namespace SGame
             _model = model;
             _hpBar = hpBar;
 
+            m_slot = model.GetModel().GetOrAddComponent<Equipments>();
             attributes = new BattleAttritube();
             state = new CharacterState();
         }
@@ -68,7 +76,7 @@ namespace SGame
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, attackEffect.steal);
                 ShowBattleText($"+{attackEffect.steal}", Color.green, 52, 150);
-                ShowEffect(3004, _hpBar.m_effect.m__steal, new Vector2(100, 150));
+                ShowEffect(3004, _hpBar.m_effect.m__steal, new Vector2(0, 170));
                 UpdateHpUI();
                 //ÎüÑªÐ§¹û
             }
@@ -145,6 +153,7 @@ namespace SGame
             var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             var e = SGame.UIUtils.Show2DUI("battletext", _hpBar);
             EntityManager.AddComponentObject(e, new HUDTips() { title = $"{title}", color = color, offsetX = offsetX, offsetY = offsetY });
+            //EntityManager.SetComponentData(e, new LiveTime() { Value = 1.25f });
         }
 
         public void UpdateHpUI() 
@@ -156,16 +165,22 @@ namespace SGame
             }
         }
 
+        public Entity ShowEffect(int effectId, GGraph holder, SlotType slotType) 
+        {
+            var t = m_slot.GetSlot(slotType);
+            if (t == null) return default;
+
+            var e = EffectSystem.Instance.SpawnUI(effectId, holder);
+            var pos = _hpBar.m_effect.WorldToLocal(t.position, Camera.main);
+            holder.xy = pos;
+            return e;
+        }
+
         public Entity ShowEffect(int effectId, GGraph holder, Vector2 pos) 
         {
             var e = EffectSystem.Instance.SpawnUI(effectId, holder);
             holder.SetPosition(pos.x, pos.y, -500 * forward);
             return e;
-        }
-
-        public void PlayIdleAnim() 
-        {
-            _model.Play("idle");
         }
 
         public abstract void Dead();
