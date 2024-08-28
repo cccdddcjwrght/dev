@@ -45,22 +45,38 @@ public struct BattleLevelRowData : IFlatbufferObject
   public ArraySegment<byte>? GetRewardNum1Bytes() { return __p.__vector_as_arraysegment(14); }
 #endif
   public int[] GetRewardNum1Array() { return __p.__vector_as_array<int>(14); }
-  public int RewardId2(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int RewardId2Length { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int Rewardodds1(int j) { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Rewardodds1Length { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetRewardId2Bytes() { return __p.__vector_as_span<int>(16, 4); }
+  public Span<int> GetRewardodds1Bytes() { return __p.__vector_as_span<int>(16, 4); }
 #else
-  public ArraySegment<byte>? GetRewardId2Bytes() { return __p.__vector_as_arraysegment(16); }
+  public ArraySegment<byte>? GetRewardodds1Bytes() { return __p.__vector_as_arraysegment(16); }
 #endif
-  public int[] GetRewardId2Array() { return __p.__vector_as_array<int>(16); }
-  public int RewardNum2(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int RewardNum2Length { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public int[] GetRewardodds1Array() { return __p.__vector_as_array<int>(16); }
+  public int RewardId2(int j) { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int RewardId2Length { get { int o = __p.__offset(18); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetRewardNum2Bytes() { return __p.__vector_as_span<int>(18, 4); }
+  public Span<int> GetRewardId2Bytes() { return __p.__vector_as_span<int>(18, 4); }
 #else
-  public ArraySegment<byte>? GetRewardNum2Bytes() { return __p.__vector_as_arraysegment(18); }
+  public ArraySegment<byte>? GetRewardId2Bytes() { return __p.__vector_as_arraysegment(18); }
 #endif
-  public int[] GetRewardNum2Array() { return __p.__vector_as_array<int>(18); }
+  public int[] GetRewardId2Array() { return __p.__vector_as_array<int>(18); }
+  public int RewardNum2(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int RewardNum2Length { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetRewardNum2Bytes() { return __p.__vector_as_span<int>(20, 4); }
+#else
+  public ArraySegment<byte>? GetRewardNum2Bytes() { return __p.__vector_as_arraysegment(20); }
+#endif
+  public int[] GetRewardNum2Array() { return __p.__vector_as_array<int>(20); }
+  public int Rewardodds2(int j) { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int Rewardodds2Length { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetRewardodds2Bytes() { return __p.__vector_as_span<int>(22, 4); }
+#else
+  public ArraySegment<byte>? GetRewardodds2Bytes() { return __p.__vector_as_arraysegment(22); }
+#endif
+  public int[] GetRewardodds2Array() { return __p.__vector_as_array<int>(22); }
 
   public static Offset<GameConfigs.BattleLevelRowData> CreateBattleLevelRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -69,11 +85,15 @@ public struct BattleLevelRowData : IFlatbufferObject
       int Inning = 0,
       VectorOffset RewardId1Offset = default(VectorOffset),
       VectorOffset RewardNum1Offset = default(VectorOffset),
+      VectorOffset Rewardodds1Offset = default(VectorOffset),
       VectorOffset RewardId2Offset = default(VectorOffset),
-      VectorOffset RewardNum2Offset = default(VectorOffset)) {
-    builder.StartTable(8);
+      VectorOffset RewardNum2Offset = default(VectorOffset),
+      VectorOffset Rewardodds2Offset = default(VectorOffset)) {
+    builder.StartTable(10);
+    BattleLevelRowData.AddRewardodds2(builder, Rewardodds2Offset);
     BattleLevelRowData.AddRewardNum2(builder, RewardNum2Offset);
     BattleLevelRowData.AddRewardId2(builder, RewardId2Offset);
+    BattleLevelRowData.AddRewardodds1(builder, Rewardodds1Offset);
     BattleLevelRowData.AddRewardNum1(builder, RewardNum1Offset);
     BattleLevelRowData.AddRewardId1(builder, RewardId1Offset);
     BattleLevelRowData.AddInning(builder, Inning);
@@ -83,7 +103,7 @@ public struct BattleLevelRowData : IFlatbufferObject
     return BattleLevelRowData.EndBattleLevelRowData(builder);
   }
 
-  public static void StartBattleLevelRowData(FlatBufferBuilder builder) { builder.StartTable(8); }
+  public static void StartBattleLevelRowData(FlatBufferBuilder builder) { builder.StartTable(10); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddMonster(FlatBufferBuilder builder, int Monster) { builder.AddInt(2, Monster, 0); }
@@ -96,14 +116,22 @@ public struct BattleLevelRowData : IFlatbufferObject
   public static VectorOffset CreateRewardNum1Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRewardNum1VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRewardNum1Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddRewardId2(FlatBufferBuilder builder, VectorOffset RewardId2Offset) { builder.AddOffset(6, RewardId2Offset.Value, 0); }
+  public static void AddRewardodds1(FlatBufferBuilder builder, VectorOffset Rewardodds1Offset) { builder.AddOffset(6, Rewardodds1Offset.Value, 0); }
+  public static VectorOffset CreateRewardodds1Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateRewardodds1VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartRewardodds1Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddRewardId2(FlatBufferBuilder builder, VectorOffset RewardId2Offset) { builder.AddOffset(7, RewardId2Offset.Value, 0); }
   public static VectorOffset CreateRewardId2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRewardId2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRewardId2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddRewardNum2(FlatBufferBuilder builder, VectorOffset RewardNum2Offset) { builder.AddOffset(7, RewardNum2Offset.Value, 0); }
+  public static void AddRewardNum2(FlatBufferBuilder builder, VectorOffset RewardNum2Offset) { builder.AddOffset(8, RewardNum2Offset.Value, 0); }
   public static VectorOffset CreateRewardNum2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateRewardNum2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartRewardNum2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddRewardodds2(FlatBufferBuilder builder, VectorOffset Rewardodds2Offset) { builder.AddOffset(9, Rewardodds2Offset.Value, 0); }
+  public static VectorOffset CreateRewardodds2Vector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateRewardodds2VectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartRewardodds2Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.BattleLevelRowData> EndBattleLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.BattleLevelRowData>(o);

@@ -12,7 +12,24 @@ namespace SGame
 
         public bool cacheResult;        //是否有缓存战斗结果
         public bool battlResult;        //战斗结果
+
+        //当前关卡未领取奖励
+        public List<FightReward> award = new List<FightReward>();   
+        public List<FightReward> adAward = new List<FightReward>(); 
     }
+
+    [Serializable]
+    public class FightReward 
+    {
+        public int id;
+        public int num;
+
+        public int[] getArray() 
+        {
+            return new int[] { 1, id, num };
+        }
+    }
+
 
     public partial class DataCenter
     {
@@ -37,10 +54,16 @@ namespace SGame
             {
                 m_Data.cacheResult = true;
                 m_Data.battlResult = result;
-                if(result) m_Data.level++;
+                if (result) 
+                {
+                    m_Data.level++;
+                    ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(m_Data.showLevel, out var config);
+                    m_Data.award = GetReward(config.GetRewardId1Array(), config.GetRewardNum1Array(), config.GetRewardodds1Array());
+                    m_Data.adAward = GetReward(config.GetRewardId2Array(), config.GetRewardNum2Array(), config.GetRewardodds2Array());
+                }
             }
 
-            public static List<int[]> GetReward(int[] rewardIds, int[] rewardNums) 
+            public static List<int[]> GetShowReward(int[] rewardIds, int[] rewardNums) 
             {
                 if (rewardIds.Length != rewardNums.Length)
                     return default;
@@ -52,6 +75,22 @@ namespace SGame
                 }
                 return list;
             }
+
+            public static List<FightReward> GetReward(int[] rewardIds, int[] rewardNums, int[] odds)
+            {
+                if (rewardIds.Length != rewardNums.Length)
+                    return default;
+                List<FightReward> list = new List<FightReward>();
+                for (int i = 0; i < rewardIds.Length; i++)
+                {
+                    if (SGame.Randoms.Random._R.Rate(odds[i])) 
+                    {
+                        list.Add(new FightReward() { id = rewardIds[i], num = rewardNums[i] });
+                    }
+                }
+                return list;
+            }
+
 
             public static void ShowBattleResult() 
             {

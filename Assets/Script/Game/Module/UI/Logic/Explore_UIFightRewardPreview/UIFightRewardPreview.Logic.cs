@@ -18,8 +18,8 @@ namespace SGame.UI{
 			ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(level, out var config);
 			if (config.IsValid())
 			{
-				if(_isAd) _rewardList = DataCenter.BattleLevelUtil.GetReward(config.GetRewardId2Array(), config.GetRewardNum2Array());
-				else _rewardList = DataCenter.BattleLevelUtil.GetReward(config.GetRewardId1Array(), config.GetRewardNum1Array());
+				if(_isAd) _rewardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId2Array(), config.GetRewardNum2Array());
+				else _rewardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId1Array(), config.GetRewardNum1Array());
 			}
 
 			m_view.m_list1.itemRenderer = OnItemRenderer;

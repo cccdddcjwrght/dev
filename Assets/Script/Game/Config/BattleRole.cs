@@ -27,38 +27,46 @@ public struct BattleRoleRowData : IFlatbufferObject
   public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
-  public string Model { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string Icon { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetModelBytes() { return __p.__vector_as_span<byte>(8, 1); }
+  public Span<byte> GetIconBytes() { return __p.__vector_as_span<byte>(8, 1); }
 #else
-  public ArraySegment<byte>? GetModelBytes() { return __p.__vector_as_arraysegment(8); }
+  public ArraySegment<byte>? GetIconBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
-  public byte[] GetModelArray() { return __p.__vector_as_array<byte>(8); }
-  public int Speed { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AtkRatio(int j) { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
-  public int AtkRatioLength { get { int o = __p.__offset(12); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte[] GetIconArray() { return __p.__vector_as_array<byte>(8); }
+  public string Model { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<int> GetAtkRatioBytes() { return __p.__vector_as_span<int>(12, 4); }
+  public Span<byte> GetModelBytes() { return __p.__vector_as_span<byte>(10, 1); }
 #else
-  public ArraySegment<byte>? GetAtkRatioBytes() { return __p.__vector_as_arraysegment(12); }
+  public ArraySegment<byte>? GetModelBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
-  public int[] GetAtkRatioArray() { return __p.__vector_as_array<int>(12); }
-  public int Hp { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Atk { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Dodge { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Combo { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Crit { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Stun { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Steal { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AntiDodge { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AntiCombo { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AntiCrit { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AntiStun { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int AntiSteal { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public byte[] GetModelArray() { return __p.__vector_as_array<byte>(10); }
+  public int Speed { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AtkRatio(int j) { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int AtkRatioLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetAtkRatioBytes() { return __p.__vector_as_span<int>(14, 4); }
+#else
+  public ArraySegment<byte>? GetAtkRatioBytes() { return __p.__vector_as_arraysegment(14); }
+#endif
+  public int[] GetAtkRatioArray() { return __p.__vector_as_array<int>(14); }
+  public int Hp { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Atk { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Dodge { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Combo { get { int o = __p.__offset(22); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Crit { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Stun { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int Steal { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AntiDodge { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AntiCombo { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AntiCrit { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AntiStun { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int AntiSteal { get { int o = __p.__offset(38); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GameConfigs.BattleRoleRowData> CreateBattleRoleRowData(FlatBufferBuilder builder,
       int Id = 0,
       StringOffset NameOffset = default(StringOffset),
+      StringOffset IconOffset = default(StringOffset),
       StringOffset ModelOffset = default(StringOffset),
       int Speed = 0,
       VectorOffset AtkRatioOffset = default(VectorOffset),
@@ -74,7 +82,7 @@ public struct BattleRoleRowData : IFlatbufferObject
       int AntiCrit = 0,
       int AntiStun = 0,
       int AntiSteal = 0) {
-    builder.StartTable(17);
+    builder.StartTable(18);
     BattleRoleRowData.AddAntiSteal(builder, AntiSteal);
     BattleRoleRowData.AddAntiStun(builder, AntiStun);
     BattleRoleRowData.AddAntiCrit(builder, AntiCrit);
@@ -90,32 +98,34 @@ public struct BattleRoleRowData : IFlatbufferObject
     BattleRoleRowData.AddAtkRatio(builder, AtkRatioOffset);
     BattleRoleRowData.AddSpeed(builder, Speed);
     BattleRoleRowData.AddModel(builder, ModelOffset);
+    BattleRoleRowData.AddIcon(builder, IconOffset);
     BattleRoleRowData.AddName(builder, NameOffset);
     BattleRoleRowData.AddId(builder, Id);
     return BattleRoleRowData.EndBattleRoleRowData(builder);
   }
 
-  public static void StartBattleRoleRowData(FlatBufferBuilder builder) { builder.StartTable(17); }
+  public static void StartBattleRoleRowData(FlatBufferBuilder builder) { builder.StartTable(18); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
-  public static void AddModel(FlatBufferBuilder builder, StringOffset ModelOffset) { builder.AddOffset(2, ModelOffset.Value, 0); }
-  public static void AddSpeed(FlatBufferBuilder builder, int Speed) { builder.AddInt(3, Speed, 0); }
-  public static void AddAtkRatio(FlatBufferBuilder builder, VectorOffset AtkRatioOffset) { builder.AddOffset(4, AtkRatioOffset.Value, 0); }
+  public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
+  public static void AddModel(FlatBufferBuilder builder, StringOffset ModelOffset) { builder.AddOffset(3, ModelOffset.Value, 0); }
+  public static void AddSpeed(FlatBufferBuilder builder, int Speed) { builder.AddInt(4, Speed, 0); }
+  public static void AddAtkRatio(FlatBufferBuilder builder, VectorOffset AtkRatioOffset) { builder.AddOffset(5, AtkRatioOffset.Value, 0); }
   public static VectorOffset CreateAtkRatioVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateAtkRatioVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartAtkRatioVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddHp(FlatBufferBuilder builder, int Hp) { builder.AddInt(5, Hp, 0); }
-  public static void AddAtk(FlatBufferBuilder builder, int Atk) { builder.AddInt(6, Atk, 0); }
-  public static void AddDodge(FlatBufferBuilder builder, int Dodge) { builder.AddInt(7, Dodge, 0); }
-  public static void AddCombo(FlatBufferBuilder builder, int Combo) { builder.AddInt(8, Combo, 0); }
-  public static void AddCrit(FlatBufferBuilder builder, int Crit) { builder.AddInt(9, Crit, 0); }
-  public static void AddStun(FlatBufferBuilder builder, int Stun) { builder.AddInt(10, Stun, 0); }
-  public static void AddSteal(FlatBufferBuilder builder, int Steal) { builder.AddInt(11, Steal, 0); }
-  public static void AddAntiDodge(FlatBufferBuilder builder, int AntiDodge) { builder.AddInt(12, AntiDodge, 0); }
-  public static void AddAntiCombo(FlatBufferBuilder builder, int AntiCombo) { builder.AddInt(13, AntiCombo, 0); }
-  public static void AddAntiCrit(FlatBufferBuilder builder, int AntiCrit) { builder.AddInt(14, AntiCrit, 0); }
-  public static void AddAntiStun(FlatBufferBuilder builder, int AntiStun) { builder.AddInt(15, AntiStun, 0); }
-  public static void AddAntiSteal(FlatBufferBuilder builder, int AntiSteal) { builder.AddInt(16, AntiSteal, 0); }
+  public static void AddHp(FlatBufferBuilder builder, int Hp) { builder.AddInt(6, Hp, 0); }
+  public static void AddAtk(FlatBufferBuilder builder, int Atk) { builder.AddInt(7, Atk, 0); }
+  public static void AddDodge(FlatBufferBuilder builder, int Dodge) { builder.AddInt(8, Dodge, 0); }
+  public static void AddCombo(FlatBufferBuilder builder, int Combo) { builder.AddInt(9, Combo, 0); }
+  public static void AddCrit(FlatBufferBuilder builder, int Crit) { builder.AddInt(10, Crit, 0); }
+  public static void AddStun(FlatBufferBuilder builder, int Stun) { builder.AddInt(11, Stun, 0); }
+  public static void AddSteal(FlatBufferBuilder builder, int Steal) { builder.AddInt(12, Steal, 0); }
+  public static void AddAntiDodge(FlatBufferBuilder builder, int AntiDodge) { builder.AddInt(13, AntiDodge, 0); }
+  public static void AddAntiCombo(FlatBufferBuilder builder, int AntiCombo) { builder.AddInt(14, AntiCombo, 0); }
+  public static void AddAntiCrit(FlatBufferBuilder builder, int AntiCrit) { builder.AddInt(15, AntiCrit, 0); }
+  public static void AddAntiStun(FlatBufferBuilder builder, int AntiStun) { builder.AddInt(16, AntiStun, 0); }
+  public static void AddAntiSteal(FlatBufferBuilder builder, int AntiSteal) { builder.AddInt(17, AntiSteal, 0); }
   public static Offset<GameConfigs.BattleRoleRowData> EndBattleRoleRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.BattleRoleRowData>(o);

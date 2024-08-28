@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SGame 
@@ -23,12 +24,7 @@ namespace SGame
         /// </summary>
         public static void BattleAward() 
         {
-            ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.showLevel, out var config);
-            if (config.IsValid()) 
-            {
-                var rewards = DataCenter.BattleLevelUtil.GetReward(config.GetRewardId1Array(), config.GetRewardNum1Array());
-                Utils.ShowRewards(rewards);
-            }
+            Utils.ShowRewards(DataCenter.Instance.battleLevelData.award.Select((v) => v.getArray()).ToList());
             DataCenter.BattleLevelUtil.UpdateCacheResult();
         }
 
@@ -37,12 +33,7 @@ namespace SGame
         /// </summary>
         public static void BattleAdAward() 
         {
-            ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.showLevel, out var config);
-            if (config.IsValid())
-            {
-                var rewards = DataCenter.BattleLevelUtil.GetReward(config.GetRewardId2Array(), config.GetRewardNum2Array());
-                Utils.ShowRewards(rewards);
-            }
+            Utils.ShowRewards(DataCenter.Instance.battleLevelData.adAward.Select((v) => v.getArray()).ToList());
             DataCenter.BattleLevelUtil.UpdateCacheResult();
         }
     }
