@@ -345,7 +345,8 @@ namespace SGame
 			{
 				var s = exploreLevel.Area(0);
 				var a = exploreLevel.Area(1);
-				if (s > DataCenter.Instance.roomData.roomID || !DataCenter.RoomUtil.IsAreaEnable(a))
+				if (DataCenter.Instance.roomData.roomID > s) return true;
+				if (!DataCenter.RoomUtil.IsAreaEnable(a))
 				{
 					lvPause = true;
 					return false;
