@@ -14,9 +14,10 @@ namespace SGame.UI{
 		partial void InitLogic(UIContext context){
 			m_view.m_rewardList1.itemRenderer = OnRewardItemRenderer;
 			m_view.m_rewardList2.itemRenderer = OnAdRewardItemRenderer;
-
-			awardList = DataCenter.Instance.battleLevelData.award.Select((v) => v.getArray()).ToList();
-			adAwardList = DataCenter.Instance.battleLevelData.adAward.Select((v) => v.getArray()).ToList();
+			var level = DataCenter.Instance.battleLevelData.showLevel;
+			ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(level, out var config);
+			awardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId1Array(), config.GetRewardNum1Array());
+			adAwardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId2Array(), config.GetRewardNum2Array());
 			m_view.m_rewardList1.numItems = awardList.Count;
 			m_view.m_rewardList2.numItems = adAwardList.Count;
 		}
