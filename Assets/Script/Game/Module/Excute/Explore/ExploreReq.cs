@@ -18,7 +18,7 @@ namespace SGame
 		[InitCall]
 		static void InitExplore()
 		{
-			c_drop_equip_exp = GlobalDesginConfig.GetInt("battle_explore_drop_exp", 100);
+			c_drop_equip_exp = 20; GlobalDesginConfig.GetInt("battle_explore_drop_exp", 100);
 			c_drop_equip_coin = GlobalDesginConfig.GetInt("battle_explore_drop_coin", 100);
 
 			DataCenter.ExploreUtil.Init();
@@ -50,7 +50,7 @@ namespace SGame
 				var conditon = data.exploreToolLevel.MapId;
 				if (room >= conditon)
 				{
-					conditon = data.exploreToolNextLevel.ExploreLevel;
+					conditon = data.exploreToolLevel.ExploreLevel;
 					if (conditon > 0 && data.level >= conditon)
 					{
 						var cost = data.exploreToolLevel.GetCostArray();

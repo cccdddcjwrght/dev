@@ -158,7 +158,6 @@ namespace SGame.UI
 			var target = m_view.m_holder.x + 130;
 			m.TweenMoveX(target, Mathf.Abs(target - m.x) / GetSpeed()).SetEase(EaseType.Linear).OnComplete(() => flag = true);
 			yield return new WaitUntil(() => flag);
-			if (!autoState) Fast(true);
 		}
 
 		IEnumerator DoExplore()
@@ -168,6 +167,7 @@ namespace SGame.UI
 			yield return _waitAtk;
 			m_view.m_kill.Play();
 			yield return _waitDead;
+			if (!autoState) Fast(true);
 		}
 
 		IEnumerator WaitEquipHandler()

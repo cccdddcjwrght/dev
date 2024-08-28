@@ -178,7 +178,7 @@
 		partial void OnDiamondbtnClick(EventContext data)
 		{
 			if (RequestExcuteSystem.ExploreToolUpLv(true, _price))
-				SetInfo();
+				DoOpen(null);
 		}
 
 		partial void DoHide(UIContext context)
