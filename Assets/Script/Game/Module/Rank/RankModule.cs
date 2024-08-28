@@ -6,6 +6,7 @@ using Http;
 using SGame.Http;
 using System;
 using System.Linq;
+using log4net;
 
 namespace SGame 
 {
@@ -22,9 +23,11 @@ namespace SGame
 
     public class RankModule : Singleton<RankModule>
     {
+        private static ILog log = LogManager.GetLogger("rank");
+
         //对应活动 ?
         public const int RANK_ACTIVE_ID = 3;
-
+          
         public RankData rankData { get { return DataCenter.Instance.rankData;}}
         RankScore rankScore = DataCenter.Instance.rankScore;
 
@@ -67,25 +70,24 @@ namespace SGame
             yield return result;
             if (!string.IsNullOrEmpty(result.error))
             {
-                Debug.LogWarning("ranks data fail=" + result.error);
+                log.LogInfo("ranks data fail=" + result.error);
                 yield break;
             }
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
 
-            Debug.LogWarning("ranks data:" + result.data);
+            log.LogInfo("ranks data:" + result.data);
             rankPanelData = JsonUtility.FromJson<RankPanelData>(pkg.data);
 
-            if (rankPanelData.ids?.Length > 0) 
-            {
-                Debug.Log("rank cache time:" + DataCenter.Instance.rankCacheData.startTime + "rank begin time:" + rankPanelData.ids[0].begin_time);
-                rankPanelData.ids.Foreach((r) => Debug.Log(string.Format("cur rankId:{0},marker:{1}, startTime:{2}, endTime:{3}", r.id, r.marker, r.begin_time, r.end_time)));
-            }
+            //if (rankPanelData.ids?.Length > 0) 
+            //{
+                //Debug.Log("rank cache time:" + DataCenter.Instance.rankCacheData.startTime + "rank begin time:" + rankPanelData.ids[0].begin_time);
+                //rankPanelData.ids.Foreach((r) => Debug.Log(string.Format("cur rankId:{0},marker:{1}, startTime:{2}, endTime:{3}", r.id, r.marker, r.begin_time, r.end_time)));
+            //}
                 
             if (rankPanelData.ids?.Length > 0 && DataCenter.Instance.rankCacheData.startTime != rankPanelData.ids[0].begin_time) 
             {
                 DataCenter.Instance.rankCacheData.startTime = rankPanelData.ids[0].begin_time;
                 ClearRankScore();//清除自己排行标识数据
-                Debug.Log("rank clear data------------");
             }
 
             if (rankPanelData.rewards?.Length > 0) 
@@ -94,12 +96,12 @@ namespace SGame
                 if (DataCenter.Instance.rankCacheData.rewards?.Length > 0)
                     list.AddRange(DataCenter.Instance.rankCacheData.rewards?.ToList());
                 DataCenter.Instance.rankCacheData.rewards = list.ToArray();
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type  {0}rankindex:{1}", r.id, r.rank)));
+                //DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------save rank reward----type  {0}rankindex:{1}", r.id, r.rank)));
             } 
  
             if (popReward && DataCenter.Instance.rankCacheData.rewards?.Length > 0) 
             {
-                DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type  {0}rankindex:{1}", r.id, r.rank)));
+                //DataCenter.Instance.rankCacheData.rewards.Foreach((r) => Debug.Log(string.Format("------open rank reward----type  {0}rankindex:{1}", r.id, r.rank)));
                 OpenResultView(DataCenter.Instance.rankCacheData.rewards.ToArray());
                 DataCenter.Instance.rankCacheData.rewards = null;
             }
@@ -124,11 +126,11 @@ namespace SGame
             if (!string.IsNullOrEmpty(result.error))
             {
                 if(isTip) "tips_ranking_1".Tips();
-                Debug.LogWarning("rank data fail=" + result.error);
+                log.LogInfo("rank data fail=" + result.error);
                 yield break;
             }
 
-            Debug.LogWarning("rank data:" + result.data);
+            log.LogInfo("rank data:" + result.data);
             pkg = JsonUtility.FromJson<HttpPackage>(result.data);
             DataCenter.Instance.rankData = JsonUtility.FromJson<RankData>(pkg.data);
 

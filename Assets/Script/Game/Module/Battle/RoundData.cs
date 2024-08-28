@@ -1,3 +1,4 @@
+using log4net;
 using SGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace SGame
     /// </summary>
     public class RoundData
     {
+        private static ILog log = LogManager.GetLogger("battle");
+
         public int roundIndex;     //当前回合
         public BaseBattleCharacter attacker;
         public BaseBattleCharacter defender;
@@ -51,7 +54,7 @@ namespace SGame
                 if (triggerDodge)
                 {
                     attackList.Add(new AttackEffect());
-                    Debug.Log(string.Format("攻击方类型:{0}, 受击方类型:{1} 被闪避了", attacker.roleType.ToString(), defender.roleType.ToString()));
+                    log.LogInfo(string.Format("攻击方类型:{0}, 受击方类型:{1} 被闪避了", attacker.roleType.ToString(), defender.roleType.ToString()));
                 }
                 else
                 {
@@ -104,14 +107,14 @@ namespace SGame
                     RecordAttack(triggerCombo);
                 }
 
-                Debug.Log(string.Format("Battle- 攻击方类型:{0}\n造成伤害:{1}\n吸血:{2}\n剩余血量:{3}\n受击方类型:{4}\n剩余血量:{5}\n是否触发暴击{6}\n是否触发连击:{7}\n是否触发眩晕{8}",
+                log.LogInfo(string.Format("攻击方类型:{0}\n造成伤害:{1}\n吸血:{2}\n剩余血量:{3}\n受击方类型:{4}\n剩余血量:{5}\n是否触发暴击{6}\n是否触发连击:{7}\n是否触发眩晕{8}",
                 attacker.roleType.ToString(), damage, steal, attacker.attributes.GetBaseAttribute(EnumAttribute.Hp),
                 defender.roleType.ToString(), defender.attributes.GetBaseAttribute(EnumAttribute.Hp),
                 triggerCrit, triggerCombo, triggerDizz));
             }
             else
             {
-                Debug.Log(string.Format("攻击方类型:{0}, 当前处于眩晕状态, 跳过当前回合", attacker.roleType.ToString()));
+                log.LogInfo(string.Format("攻击方类型:{0}, 当前处于眩晕状态, 跳过当前回合", attacker.roleType.ToString()));
             }
         }
     }
