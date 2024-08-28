@@ -74,11 +74,11 @@ namespace SGame.UI.Explore
             m_holder = (GGraph)GetChildAt(33);
             m_mholder = (GGraph)GetChildAt(34);
             m_monster = (GLoader)GetChildAt(35);
-            m_battlemonster = (GGraph)GetChildAt(36);
-            m_exptips = (GTextField)GetChildAt(37);
-            m_fightBtn = (GButton)GetChildAt(38);
-            m_fightHp1 = (UI_FightHp)GetChildAt(39);
-            m_fightHp2 = (UI_FightHp)GetChildAt(40);
+            m_battlemonster = (GGraph)GetChildAt(37);
+            m_exptips = (GTextField)GetChildAt(38);
+            m_fightBtn = (GButton)GetChildAt(39);
+            m_fightHp1 = (UI_FightHp)GetChildAt(40);
+            m_fightHp2 = (UI_FightHp)GetChildAt(41);
             m_kill = GetTransitionAt(0);
             m_expanim = GetTransitionAt(1);
             m_showeqinfo = GetTransitionAt(2);
