@@ -48,7 +48,7 @@ namespace SGame.UI
             m_view.m_fightBtn.visible = false;
             _battleRole = new BattleRole(_model,m_view.m_fightHp1);
             _battleRole.LoadAttribute(DataCenter.Instance.exploreData.explorer.roleID);
-            m_view.m_battlemonster.x = m_view.m_mholder.x;
+            //m_view.m_battlemonster.x = m_view.m_mholder.x;
 
             ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.showLevel, out var config);
             _monsterCfgId = config.Monster;
@@ -84,6 +84,8 @@ namespace SGame.UI
         {
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
             m_view.m_roundGroup.visible = false;
+            m_view.m_battlemonster.x = m_view.m_mholder.x;
+
             ShowBattleResult();
             EnableExploreButton(true);
             SetBaseInfo();
