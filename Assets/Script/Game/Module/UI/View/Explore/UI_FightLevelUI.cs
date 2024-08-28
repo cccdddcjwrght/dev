@@ -31,13 +31,13 @@ namespace SGame.UI.Explore
             m_meet = GetControllerAt(0);
             m_body = (GLabel)GetChildAt(0);
             m_name = (GTextField)GetChildAt(1);
-            m_fight = (GTextField)GetChildAt(5);
-            m_grade = (GTextField)GetChildAt(8);
-            m_list = (GList)GetChildAt(10);
-            m_reward1 = (GLoader)GetChildAt(12);
-            m_reward2 = (GLoader)GetChildAt(13);
-            m_battleBtn = (GButton)GetChildAt(15);
-            m_tip = (GLoader)GetChildAt(16);
+            m_fight = (GTextField)GetChildAt(6);
+            m_grade = (GTextField)GetChildAt(9);
+            m_list = (GList)GetChildAt(11);
+            m_reward1 = (GLoader)GetChildAt(13);
+            m_reward2 = (GLoader)GetChildAt(14);
+            m_battleBtn = (GButton)GetChildAt(16);
+            m_tip = (GLoader)GetChildAt(17);
         }
     }
 }

@@ -123,6 +123,8 @@ namespace SGame.UI
         {
             if (ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(DataCenter.Instance.battleLevelData.level, out var config))
             {
+                ConfigSystem.Instance.TryGet<GameConfigs.BattleRoleRowData>(config.Monster, out var roleConfig);
+                m_view.m_fightBtn.SetIcon(roleConfig.Icon);
                 m_view.m_fightBtn.SetText(UIListener.Local(config.Name));
             } 
         }

@@ -25,6 +25,7 @@ namespace SGame.UI{
 			{
 				ConfigSystem.Instance.TryGet<GameConfigs.BattleRoleRowData>(config.Monster, out var roleConfig);
 				m_view.m_name.SetText(UIListener.Local(roleConfig.Name));
+				m_view.SetIcon(roleConfig.Icon);
 				attribute.ReadAttribute(config.Monster);
 
 				var fightAttr = attribute.GetFightAttr();
