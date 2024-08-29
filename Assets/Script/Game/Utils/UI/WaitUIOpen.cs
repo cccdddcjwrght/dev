@@ -35,7 +35,7 @@ namespace SGame
 			{
 				return false;
 			}
-			if (m_mgr.HasComponent<UIInitalized>(m_eUI) && !m_mgr.HasComponent<DespawningEntity>(m_eUI))
+			if (m_mgr.HasComponent<UIInitalized>(m_eUI) && !m_mgr.HasComponent<DespawningUI>(m_eUI))
 			{
 				if (m_waitAnimation)
 				{
