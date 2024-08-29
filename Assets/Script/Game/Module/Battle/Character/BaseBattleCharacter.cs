@@ -68,9 +68,9 @@ namespace SGame
             yield return new WaitForSeconds(0.55f);
 
             ShowEffect(3003, _hpBar.m_effect.m__attack, new Vector2(100, 150));
-            target.DoHit(attackEffect.damage, attackEffect.isCritical).Start();
             if (attackEffect.stateList != null && attackEffect.stateList.Count > 0)
                 attackEffect.stateList.ForEach((v) => target.state.ApplyState(v, target));
+            target.DoHit(attackEffect.damage, attackEffect.isCritical).Start();
 
             if (attackEffect.steal > 0)
             {
@@ -131,20 +131,24 @@ namespace SGame
             else 
             {
                 attributes.ChangeAttribute(EnumAttribute.Hp, -damage);
+                UpdateHpUI();
                 var hitEffectId = isCritical ? 3002 : 3001;
                 ShowEffect(hitEffectId, _hpBar.m_effect.m__hit, new Vector2(0, 150));
                 ShowBattleText($"-{damage}", Color.red, 52, 150);
-                _model.Play("hit");
+
                 //yield return Move(-1, 10, 0.1f);
                 //yield return Move(1, 10, 0.1f);
+                if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0)
+                {
+                    Dead();
+                    yield break;
+                }
+                else 
+                {
+                    _model.Play("hit");
+                }
             }
-            UpdateHpUI();
             yield return new WaitForSeconds(0.55f);
-            if (attributes.GetBaseAttribute(EnumAttribute.Hp) <= 0) 
-            {
-                Dead();
-                yield break;
-            }
             _model.Play("idle");
         }
 
@@ -183,7 +187,10 @@ namespace SGame
             return e;
         }
 
-        public abstract void Dead();
+        public virtual void Dead() 
+        {
+            state.Reset();
+        }
 
         public virtual void Dispose() 
         {

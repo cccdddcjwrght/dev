@@ -20,7 +20,8 @@ namespace SGame
             //生成特效
             if (_effect == Entity.Null && _character != null) 
             {
-                _effect = _character.ShowEffect(3005, _character.hpBar.m_effect.m__dizz, new Vector2(0,60));
+                _effect = _character.ShowEffect(3005, _character.hpBar.m_effect.m__dizz, new Vector2(0, 60));
+                //_effect = _character.ShowEffect(3005, _character.hpBar.m_effect.m__dizz, SlotType.HUD);
             }
         }
 
