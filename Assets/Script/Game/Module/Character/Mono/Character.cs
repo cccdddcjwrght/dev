@@ -151,11 +151,20 @@ namespace SGame
 
         void Update()
         {
+
             if (m_init != null && !m_init.IsTerminated)
+            {
+                GameProfiler.BeginSample("CharacterInit");
                 m_init.Step();
-            
+                GameProfiler.EndSample();
+            }
+
             if (m_modelLoading != null && !m_modelLoading.IsTerminated)
+            {
+                GameProfiler.BeginSample("CharacterModelLoading");
                 m_modelLoading.Step();
+                GameProfiler.EndSample();
+            }
         }
 
         /// <summary>
@@ -175,7 +184,17 @@ namespace SGame
 
         private void OnDestroy()
         {
+            Despawned();
+        }
+
+        public void Despawned()
+        {
             Clear();
+            if (script != null)
+            {
+                CharacterAIFactory.Instance.Free(script);
+                script = null;
+            }
             
             if (m_init != null)
             {
@@ -585,6 +604,7 @@ namespace SGame
         /// <returns></returns>
         IEnumerator ChangLooking(string part)
         {
+            GameProfiler.BeginSample("Character ParseString");
             m_characterLooking = part;
             var data = CharacterPartGen.ParseString(part);
             List<string> weapons = data.GetValues("weapon");
@@ -594,18 +614,27 @@ namespace SGame
             data.RemoveDatas("effect");
             data.RemoveData("pet");
             var newPart = data.ToPartString();
+            GameProfiler.EndSample();
+            
+            GameProfiler.BeginSample("Character GetOrCreate");
             CharacterPool pool = CharacterFactory.Instance.GetOrCreate(newPart);
+            GameProfiler.EndSample();
+
+            
             //var gen = CharacterGenerator.CreateWithConfig(newPart);
             //while (gen.ConfigReady == false)
             //    yield return null;
             yield return pool;
 
+            GameProfiler.BeginSample("Character Spawn");
             var ani = CharacterFactory.Instance.Spawn(pool);
             ani.transform.SetParent(transform, false);
             ani.transform.localRotation = Quaternion.identity;
             ani.transform.localPosition = Vector3.zero;
             ani.transform.localScale = Vector3.one;
             ani.SetActive(true);
+            GameProfiler.EndSample();
+
 
             //ani.name = "Model";
             
@@ -619,9 +648,12 @@ namespace SGame
 
             //GameObject.Destroy(model);
             yield return null;
+            GameProfiler.BeginSample("Character UpdateModel");
             m_slot.UpdateModel();
+            GameProfiler.EndSample();
             model = ani;
             
+            GameProfiler.BeginSample("Character Setup");
             // 设置武器
             foreach (var weaponStr in weapons)
             {
@@ -663,6 +695,7 @@ namespace SGame
             }
 
             modelAnimator = ani.GetComponent<Animator>();
+            GameProfiler.EndSample();
         }
 
         public void ShowSleep() 

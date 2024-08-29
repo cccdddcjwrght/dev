@@ -61,12 +61,15 @@ using System.Collections.Generic;
         /// <returns></returns>
         IEnumerator InitModel()
         {
+            GameProfiler.BeginSample("InitModel.GetPool");
             ConfigSystem.Instance.TryGet(m_roleConfig.Model, out GameConfigs.roleRowData config);
             var pool = CharacterFactory.Instance.GetOrCreate(config.Part);
+            GameProfiler.EndSample();
             while (!pool.isDone)
                 yield return null;
             
             // 创建对象
+            GameProfiler.BeginSample("SpawnModel");
             GameObject ani = CharacterFactory.Instance.Spawn(pool); //loading.pool.GetObject(id);
             ani.transform.SetParent(transform, false);
             ani.transform.localRotation = Quaternion.identity;
@@ -79,16 +82,18 @@ using System.Collections.Generic;
                 var scaleVector = new Vector3(config.RoleScale(0), config.RoleScale(1), config.RoleScale(2));
                 ani.transform.localScale = scaleVector;
             }
+            GameProfiler.EndSample();
 
             model = ani;
             SetLooking(pool.config);
             
+            GameProfiler.BeginSample("AttachComponent");
             modelAnimator       = model.GetComponent<Animator>();
             m_slot              = gameObject.AddComponent<Equipments>();
             ani.SetActive(true);
-            //m_slot.UpdateModel();
             if (roleType == (int)EnumRole.Player)
                 model.SetActive(false);
+            GameProfiler.EndSample();
         }
         
         
@@ -120,15 +125,25 @@ using System.Collections.Generic;
                 }
             }
 
+            var ai = CharacterAIFactory.Instance.Create(configAI);
+            ai.transform.parent = transform;
+            ai.transform.localRotation = Quaternion.identity;
+            ai.transform.localPosition = Vector3.zero;
+            ai.transform.localScale = Vector3.one;
+            ai.name = "AI";
+            script = ai;
+            /*
+            GameProfiler.BeginSample("LoadAIAsset");
             var ai_path = Utils.GetAIPath(configAI);
             var req = Assets.LoadAsset(ai_path, typeof(GameObject));
+            GameProfiler.EndSample();
             yield return req;
             var prefab = req.asset as GameObject;
             
             // 等待上一个AI结束
             //var waitReq = AILoader.Instance.AddWait();
             //yield return waitReq;
-            
+            GameProfiler.BeginSample("InstanceAI");
             var ai = GameObject.Instantiate(prefab);
             ai.transform.parent = transform;
             ai.transform.localRotation = Quaternion.identity;
@@ -137,9 +152,16 @@ using System.Collections.Generic;
             ai.name = "AI";
 			ai.SetActive(true);
             script = ai;
+            */
+            
             
             if (script != null)
+            {
+                GameProfiler.BeginSample("TriggerInit");
                 EventBus.Trigger(CharacterInit.EventHook, script, this);
+                GameProfiler.EndSample();
+            }
+
         }
 
         IEnumerator RunInit(CharacterSpawnResult result)

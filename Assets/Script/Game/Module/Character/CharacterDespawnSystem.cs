@@ -50,7 +50,7 @@ namespace SGame
 
                 if (item.character != null)
                 {
-                    item.character.Clear();
+                    item.character.Despawned();
                     GameObject.Destroy(item.character.gameObject);
                 }
             }
