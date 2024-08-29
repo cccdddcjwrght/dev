@@ -87,13 +87,15 @@ namespace SGame.UI
 			}
 			if (CheckItem())
 				fightState = true;
+			else
+				"shop".Goto();
 		}
 
 		partial void OnAutoClick(EventContext data)
 		{
 			if (!autoState)
 			{
-				if (41.IsOpend(true, "ui_explore_auto_tips".Local()))
+				if (42.IsOpend(true, "ui_explore_auto_tips".Local()))
 				{
 					if (CheckItem(true))
 						SwitchExploreAutoPage(1);
@@ -198,7 +200,6 @@ namespace SGame.UI
 			}
 			else
 			{
-				end = false;
 				yield return null;
 			}
 			if (end) ResetExplore();
@@ -252,7 +253,7 @@ namespace SGame.UI
 
 		void RefreshAutoState()
 		{
-			m_view.m_auto.grayed = !41.IsOpend(false);
+			m_view.m_auto.grayed = !42.IsOpend(false);
 		}
 
 		void ResetExplore()
