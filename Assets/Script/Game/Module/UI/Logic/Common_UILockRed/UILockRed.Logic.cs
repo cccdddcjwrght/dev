@@ -71,7 +71,7 @@ namespace SGame.UI
 						log.Error(e.Message);
 					}
 					panel = m_view.m_child.component as UI_LockPanelUI;
-					//panel.name = "lockpanel";
+					panel.name = "lockpanel";
 					if (panel == null) return;
 				}
 				m_view.m_flag.selectedIndex = 1;
