@@ -159,6 +159,10 @@ namespace SGame
 			{
 				panel.m_lv.text = lv.ToString();
 				panel.m_old.text = old.ToString();
+				view.parent.TweenFade(0, 0.5f).SetDelay(3).OnComplete(() =>
+				{
+					UIUtils.CloseUIByName("rewardlist");
+				});
 			}
 		}
 
