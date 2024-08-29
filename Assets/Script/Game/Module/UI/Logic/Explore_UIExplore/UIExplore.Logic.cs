@@ -22,7 +22,6 @@ namespace SGame.UI
 
 		partial void InitLogic(UIContext context)
 		{
-			InitBar();
 			InitMap();
 			InitInfo();
 			InitPlay();
@@ -34,6 +33,7 @@ namespace SGame.UI
 			exploreData.showgoldfly = true;
 			onOpen?.Invoke(context);
 			SetHead();
+			InitBar();
 			//SceneCameraSystem.Instance.ToggleCamera(false);
 		}
 

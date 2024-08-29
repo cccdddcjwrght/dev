@@ -35,6 +35,7 @@ namespace SGame.UI
 
 		private Coroutine _exlogic;
 		private UIModel _model;
+		private bool _autoPutonNewEquip;
 
 		private IEnumerator _checkExplore;
 		private WaitForSeconds _waitAtk;
@@ -58,6 +59,10 @@ namespace SGame.UI
 			_waitRest = new WaitForSeconds(1f);
 
 			((Action)CancelAuto).CallWhenPause();
+
+#if UNITY_EDITOR
+			eventHandle += EventManager.Instance.Reg(-((int)GameEvent.EXPLORE_CHNAGE_EQUIP), () => _autoPutonNewEquip = !_autoPutonNewEquip);
+#endif
 		}
 
 		void OnOpen_Play(UIContext context)
@@ -241,6 +246,15 @@ namespace SGame.UI
 						RequestExcuteSystem.ExplorePutOnEquip(null, neq);
 						return;
 					}
+
+#if !SVR_RELEASE && UNITY_EDITOR
+					if (_autoPutonNewEquip)
+					{
+						RequestExcuteSystem.ExplorePutOnEquip(neq, eq);
+						return;
+					}
+#endif
+
 				}
 				SGame.UIUtils.OpenUI("fightequiptips", exploreData.cacheEquip);
 			}
