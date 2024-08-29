@@ -137,7 +137,7 @@ namespace SGame
 						data.waitFlag = true;
 						Utils.ShowRewards(
 							() => data.waitFlag = false,
-							title: "ui_explore_uplv_title",
+							title: "@ui_explore_uplv_title",
 							contentCall: (view) => OnShowExploreLvUp(view, data.level, old)
 						);
 					}
