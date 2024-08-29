@@ -71,6 +71,10 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
+			var c = _call;
+			_call = null;
+			c?.Invoke();
+
 			if (_get || _itemList?.fly == true)
 			{
 				TransitionModule.Instance.PlayFlight(m_view.m_body.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
@@ -95,9 +99,7 @@ namespace SGame.UI
 			//界面不能点击时，不能关闭
 			if (!_flag || !m_view.touchable || !m_view.m_body.touchable) return;
 			SGame.UIUtils.CloseUIByID(__id);
-			var c = _call;
-			_call = null;
-			c?.Invoke();
+
 		}
 
 		void SetRewards()
