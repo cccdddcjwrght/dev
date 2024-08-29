@@ -18,8 +18,8 @@ namespace SGame.UI{
 			ConfigSystem.Instance.TryGet<GameConfigs.BattleLevelRowData>(level, out var config);
 			if (config.IsValid())
 			{
-				if(_isAd) _rewardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId2Array(), config.GetRewardNum2Array());
-				else _rewardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId1Array(), config.GetRewardNum1Array());
+				if(_isAd) _rewardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId2Array(), config.GetRewardNum2Array(),config.GetRewardodds2Array());
+				else _rewardList = DataCenter.BattleLevelUtil.GetShowReward(config.GetRewardId1Array(), config.GetRewardNum1Array(), config.GetRewardodds1Array());
 			}
 
 			m_view.m_list1.itemRenderer = OnItemRenderer;
@@ -33,7 +33,7 @@ namespace SGame.UI{
 		void OnItemRenderer(int index, GObject gObject) 
 		{
 			var item = gObject as UI_FightReward;
-			item.SetData(_rewardList[index][1], _rewardList[index][2]);
+			item.SetData(_rewardList[index][1], _rewardList[index][2], _rewardList[index][3]);
 		}
 
 		partial void UnInitLogic(UIContext context){

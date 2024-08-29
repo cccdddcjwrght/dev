@@ -146,6 +146,8 @@ namespace SGame.UI{
 		string GetCloseText()=>UIListener.GetText(m_view.m_close);
 		void SetExploreProgress___textText(string data)=>UIListener.SetText(m_view.m_progress.m___text,data);
 		string GetExploreProgress___textText()=>UIListener.GetText(m_view.m_progress.m___text);
+		void SetExploreProgress_LimitText(string data)=>UIListener.SetText(m_view.m_progress.m_limit,data);
+		string GetExploreProgress_LimitText()=>UIListener.GetText(m_view.m_progress.m_limit);
 		void _OnProgressClick(EventContext data){
 			OnProgressClick(data);
 		}

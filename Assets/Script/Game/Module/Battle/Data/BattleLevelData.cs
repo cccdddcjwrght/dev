@@ -63,14 +63,14 @@ namespace SGame
                 }
             }
 
-            public static List<int[]> GetShowReward(int[] rewardIds, int[] rewardNums) 
+            public static List<int[]> GetShowReward(int[] rewardIds, int[] rewardNums, int[] odds) 
             {
                 if (rewardIds.Length != rewardNums.Length)
                     return default;
                 List<int[]> list = new List<int[]>();
                 for (int i = 0; i < rewardIds.Length; i++)
                 {
-                    int[] v = new int[] { 1, rewardIds[i], rewardNums[i] };
+                    int[] v = new int[] { 1, rewardIds[i], rewardNums[i], odds[i] };
                     list.Add(v);
                 }
                 return list;
