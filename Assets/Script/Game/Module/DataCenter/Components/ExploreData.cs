@@ -16,7 +16,7 @@ namespace SGame
 		{
 			#region const
 
-			public static int c_exploretool_time_cost { get; private set; }
+			public static float c_exploretool_time_cost { get; private set; }
 			
 			public readonly static IReadOnlyList<EnumAttribute> c_fight_attrs = new List<EnumAttribute>()
 			{
@@ -73,7 +73,7 @@ namespace SGame
 				}
 				c_cache_attr = ls;
 				c_strong_power = GlobalDesginConfig.GetFloat("battle_equip_fortify", 2f);
-				c_exploretool_time_cost = GlobalDesginConfig.GetInt("battle_explore_gem", 100); 
+				c_exploretool_time_cost = GlobalDesginConfig.GetFloat("battle_explore_gem", 100); 
 
 				data.Refresh();
 			}
@@ -278,7 +278,7 @@ namespace SGame
 		[NonSerialized]
 		public bool showgoldfly = true;
 		[NonSerialized]
-		public int price;
+		public float price;
 		[NonSerialized]
 		public bool waitFlag;
 

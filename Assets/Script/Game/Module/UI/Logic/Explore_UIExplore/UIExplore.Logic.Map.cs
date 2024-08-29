@@ -25,7 +25,7 @@ namespace SGame.UI
 			var w = m_view.m_map.width;
 			m_view.m_map.width *= 2;
 
-			_mapSpeed = GlobalDesginConfig.GetFloat("explore_map_speed", 150);
+			_mapSpeed = GlobalDesginConfig.GetFloat("explore_map_speed", 100);
 			c_tscale = GlobalDesginConfig.GetFloat("explore_map_time_scale", 3f);
 
 			mapAnim = m_view.m_map
