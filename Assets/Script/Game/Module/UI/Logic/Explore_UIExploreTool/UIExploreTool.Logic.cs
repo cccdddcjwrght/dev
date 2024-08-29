@@ -86,7 +86,7 @@
 
 		void SetCompleteBtnInfo()
 		{
-			var v = _price = _data.price * Math.Floor(_data.ToolUpRemaining() / 300f);
+			var v = _price = _data.price * Math.Ceiling(_data.ToolUpRemaining() / 300f);
 			if (v >= 0)
 			{
 				m_view.m_diamondbtn.SetText(Utils.ConvertNumberStrLimit3(v), false);
