@@ -22,11 +22,7 @@ namespace SGame
 
             Debug.Log("<color=yellow>GridClick runing</color>");
             //监听界面打开后再完成该步骤
-            m_EventHandle += EventManager.Instance.Reg<string>((int)GameEvent.GUIDE_UI_SHOW, (name)=> 
-            {
-                if (name == "worktable" || name == "getworker" || name == "unlocktable") Finish();
-            });
-
+            m_EventHandle += EventManager.Instance.Reg((int)GameEvent.WORK_REGION_CLICK, Finish);
             m_Handler.InitConfig(m_Config);
 
             if (m_Config.Force == 0)

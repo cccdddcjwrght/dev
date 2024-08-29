@@ -72,7 +72,7 @@ namespace SGame
 				context.BaseWindow.uiname = ui.Name;
 				//context.window.uiname = ui.Name;
 
-				EventManager.Instance.Trigger((int)GameEvent.GUIDE_UI_SHOW, ui.Name);
+				//EventManager.Instance.Trigger((int)GameEvent.GUIDE_UI_SHOW, ui.Name);
 
 #if !EVENT_LOG_OFF && !SVR_RELEASE
 				log.Info("show ui name=" + ui.Name + " uitype=" + ui.Type);
