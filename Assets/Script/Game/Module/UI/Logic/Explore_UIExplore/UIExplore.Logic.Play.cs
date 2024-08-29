@@ -202,7 +202,7 @@ namespace SGame.UI
 				yield return null;
 			}
 			if (end) ResetExplore();
-			fightState = end;
+			fightState = !end;
 		}
 
 		bool CheckCmd()
