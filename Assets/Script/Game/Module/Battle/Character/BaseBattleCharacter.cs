@@ -157,7 +157,7 @@ namespace SGame
             var EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             var e = SGame.UIUtils.Show2DUI("battletext", _hpBar);
             EntityManager.AddComponentObject(e, new HUDTips() { title = $"{title}", color = color, offsetX = offsetX, offsetY = offsetY });
-            //EntityManager.SetComponentData(e, new LiveTime() { Value = 1.25f });
+            EntityManager.AddComponentData(e, new UILiveTime() { Value = 1.25f });
         }
 
         public void UpdateHpUI() 
@@ -175,7 +175,10 @@ namespace SGame
             if (t == null) return default;
 
             var e = EffectSystem.Instance.SpawnUI(effectId, holder);
-            var pos = _hpBar.m_effect.WorldToLocal(t.position, Camera.main);
+            var screenPos = StageCamera.main.WorldToScreenPoint(t.position);
+            screenPos.y = Screen.height - screenPos.y;
+            Vector2 pt = GRoot.inst.GlobalToLocal(screenPos);
+            var pos = GRoot.inst.TransformPoint(pt, _hpBar.m_effect);
             holder.xy = pos;
             return e;
         }
