@@ -24,7 +24,7 @@ namespace SGame
         /// </summary>
         public static void BattleAward() 
         {
-            Utils.ShowRewards(DataCenter.Instance.battleLevelData.award.Select((v) => v.getArray()).ToList());
+            Utils.ShowFightRewards(DataCenter.Instance.battleLevelData.award.Select((v) => v.getArray()).ToList(), type: 0);
             DataCenter.BattleLevelUtil.UpdateCacheResult();
         }
 
@@ -33,7 +33,7 @@ namespace SGame
         /// </summary>
         public static void BattleAdAward() 
         {
-            Utils.ShowRewards(DataCenter.Instance.battleLevelData.adAward.Select((v) => v.getArray()).ToList());
+            Utils.ShowFightRewards(DataCenter.Instance.battleLevelData.adAward.Select((v) => v.getArray()).ToList(), type: 1);
             DataCenter.BattleLevelUtil.UpdateCacheResult();
         }
     }
