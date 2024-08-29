@@ -10,6 +10,8 @@ namespace SGame.UI.Common
         public Controller m_size;
         public Controller m_timestate;
         public Controller m_closetype;
+        public Controller m_type;
+        public Controller m_hideclose;
         public GRichTextField m_time;
         public UI_CloseBtn m_close;
         public const string URL = "ui://2w8thcm7e9cj14";
@@ -26,6 +28,8 @@ namespace SGame.UI.Common
             m_size = GetControllerAt(0);
             m_timestate = GetControllerAt(1);
             m_closetype = GetControllerAt(2);
+            m_type = GetControllerAt(3);
+            m_hideclose = GetControllerAt(4);
             m_time = (GRichTextField)GetChildAt(1);
             m_close = (UI_CloseBtn)GetChildAt(6);
         }

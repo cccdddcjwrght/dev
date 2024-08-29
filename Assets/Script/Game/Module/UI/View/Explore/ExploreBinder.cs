@@ -29,6 +29,7 @@ namespace SGame.UI.Explore
             UIObjectFactory.SetPackageItemExtension(UI_ExploreToolItem.URL, typeof(UI_ExploreToolItem));
             UIObjectFactory.SetPackageItemExtension(UI_FightEquipTipsUI.URL, typeof(UI_FightEquipTipsUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightEquipTipsBody.URL, typeof(UI_FightEquipTipsBody));
+            UIObjectFactory.SetPackageItemExtension(UI_ExploreLvBody.URL, typeof(UI_ExploreLvBody));
         }
     }
 }

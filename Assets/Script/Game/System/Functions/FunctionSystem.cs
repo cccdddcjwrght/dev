@@ -165,7 +165,7 @@ namespace SGame
 							int area = cfg.OpenVal(0);
 							if (!DataCenter.RoomUtil.IsAreaEnable(area))
 							{
-								tips = "@ui_area_is_lock";
+								tips = tips ?? "@ui_area_is_lock";
 								ret = false;
 							}
 							break;

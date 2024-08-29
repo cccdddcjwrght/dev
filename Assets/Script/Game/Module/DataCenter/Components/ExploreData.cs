@@ -15,6 +15,9 @@ namespace SGame
 		public static class ExploreUtil
 		{
 			#region const
+
+			public static int c_exploretool_time_cost { get; private set; }
+			
 			public readonly static IReadOnlyList<EnumAttribute> c_fight_attrs = new List<EnumAttribute>()
 			{
 				EnumAttribute.Hp,
@@ -70,6 +73,7 @@ namespace SGame
 				}
 				c_cache_attr = ls;
 				c_strong_power = GlobalDesginConfig.GetFloat("battle_equip_fortify", 2f);
+				c_exploretool_time_cost = GlobalDesginConfig.GetInt("battle_explore_gem", 100); 
 
 				data.Refresh();
 			}
@@ -275,6 +279,8 @@ namespace SGame
 		public bool showgoldfly = true;
 		[NonSerialized]
 		public int price;
+		[NonSerialized]
+		public bool waitFlag;
 
 		public int exploreMaxLv { get; private set; }
 		public int toolMaxLv { get; private set; }
@@ -298,7 +304,7 @@ namespace SGame
 			ConfigSystem.Instance.TryGet(toolLevel, out exploreToolLevel);
 			ConfigSystem.Instance.TryGet(toolLevel + 1, out exploreToolNextLevel);
 
-			price = Mathf.CeilToInt((1f * exploreToolNextLevel.Cost(2)) / exploreToolNextLevel.Time) * 60;
+			price = DataCenter.ExploreUtil.c_exploretool_time_cost;
 
 
 		}

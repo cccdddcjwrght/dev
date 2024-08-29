@@ -180,7 +180,7 @@ namespace SGame.UI
 		IEnumerator WaitEquipHandler()
 		{
 			ShowNewEquip();
-			yield return new WaitUntil(() => exploreData.cacheEquip == null || exploreData.cacheEquip.cfgID == 0);
+			yield return new WaitUntil(() => (exploreData.cacheEquip == null || exploreData.cacheEquip.cfgID == 0) && !exploreData.waitFlag);
 		}
 
 		IEnumerator CheckComplete()

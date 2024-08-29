@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameConfigs;
+using SGame.UI.Common;
+using SGame.UI.Explore;
 using UnityEngine;
 
 namespace SGame
@@ -18,7 +20,7 @@ namespace SGame
 		[InitCall]
 		static void InitExplore()
 		{
-			c_drop_equip_exp =  GlobalDesginConfig.GetInt("battle_explore_drop_exp", 100);
+			c_drop_equip_exp = GlobalDesginConfig.GetInt("battle_explore_drop_exp", 100);
 			c_drop_equip_coin = GlobalDesginConfig.GetInt("battle_explore_drop_coin", 100);
 
 			DataCenter.ExploreUtil.Init();
@@ -114,7 +116,7 @@ namespace SGame
 			if (equip != null || drop != null)
 			{
 				var data = DataCenter.Instance.exploreData;
-
+				var flag = true;
 				if (equip != null)
 				{
 					if (data.explorer.Puton(equip))
@@ -129,15 +131,34 @@ namespace SGame
 					if (drop == data.cacheEquip) drop.Clear();
 					var gold = BuffShopModule.Instance.GetBuffShopCoin(c_drop_equip_coin);
 					PropertyManager.Instance.Update(1, 1, gold);
-					data.AddExp(c_drop_equip_exp);
-					_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
+					var old = data.level;
+					if (data.AddExp(c_drop_equip_exp))
+					{
+						data.waitFlag = true;
+						Utils.ShowRewards(
+							() => data.waitFlag = false,
+							title: "ui_explore_uplv_title",
+							contentCall: (view) => OnShowExploreLvUp(view, data.level, old)
+						);
+					}
 
+					_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
 					if (data.showgoldfly)
 						TransitionModule.Instance.PlayFlight(FairyGUI.GRoot.inst, 1);
 
 				}
-
 				data.cacheEquip = default;
+			}
+		}
+
+		static void OnShowExploreLvUp(UI_CommonRewardBody view, int lv, int old)
+		{
+			view.m_loader.url = "ui://Explore/ExploreLvBody";
+			var panel = view.m_loader.component as UI_ExploreLvBody;
+			if (panel != null)
+			{
+				panel.m_lv.text = lv.ToString();
+				panel.m_old.text = old.ToString();
 			}
 		}
 
