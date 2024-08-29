@@ -69,7 +69,10 @@ namespace SGame.UI
 				_cd = Run().Start();
 			}
 			else
+			{
 				cd.visible = false;
+				m_view.m_tool.m_time.text = default;
+			}
 		}
 
 		void SetExploreLv()
