@@ -11,8 +11,9 @@ namespace SGame
 	{
 		GOLD = 1,
 		DIAMOND = 2,
-		BOX = 3,
-		PET = 4,
+		SHOVEL = 3,
+		BOX = 4,
+		PET = 5,
 	}
 
 	public struct FlightItem
@@ -133,7 +134,7 @@ namespace SGame
 		//检测奖励id是否是需要播放飞行特效
 		public bool CheckIsTranId(int id)
 		{
-			if (id == (int)FlightType.GOLD || id == (int)FlightType.DIAMOND || CheckIsBox(id) || CheckIsPet(id))
+			if (id == (int)FlightType.GOLD || id == (int)FlightType.DIAMOND || id == (int)FlightType.SHOVEL || CheckIsBox(id) || CheckIsPet(id))
 				return true;
 			return false;
 		}

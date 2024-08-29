@@ -86,7 +86,7 @@ namespace SGame.UI
 
 		void OnFlightUpdate(int id, int star)
 		{
-			TransitionModule.Instance.PlayFlight(m_view.m_rewardlist.GetChild("0"), (int)FlightType.DIAMOND);
+			TransitionModule.Instance.PlayFlight(m_view.m_rewardlist.GetChild("0"), (int)FlightType.SHOVEL);
 		}
 	}
 }

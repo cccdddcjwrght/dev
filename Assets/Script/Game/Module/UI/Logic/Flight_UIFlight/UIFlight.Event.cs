@@ -106,20 +106,24 @@ namespace SGame.UI{
 				return 21;
 			}
 
-			else if (id == 2) 
+			else if (id == 2)
 			{
 				if (type == 2) return 47;
 				return 22;
-			} 
+			}
+
+			else if (id == 3)
+				return 61;
 			return 26;
 		}
 
 		int GetFlyEffectID(int id) 
 		{
-			if (id == 1) return 23;			//金币飞行特效id
-			else if (id == 2) return 24;	//钻石飞行特效id
+			if (id == 1) return 23;         //金币飞行特效id
+			else if (id == 2) return 24;    //钻石飞行特效id
+			else if (id == 3) return 62;
 			//宠物蛋飞行特效
-			else if(TransitionModule.Instance.CheckIsPet(id)) return 500;
+			else if (TransitionModule.Instance.CheckIsPet(id)) return 500;
 			return id;
 		}
 
@@ -168,6 +172,7 @@ namespace SGame.UI{
 		{
 			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy - new Vector2(m_view.m_Gold.width * 0.5f, 0);
 			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy - new Vector2(m_view.m_Diamond.width * 0.5f, 0);
+			else if (id == (int)FlightType.SHOVEL) return m_view.m_Gold.xy - new Vector2(0, 150);
 			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f) + new Vector2(-8, 3)/*偏差*/;
 			else if (TransitionModule.Instance.CheckIsPet(id)) return m_view.m_Pet.xy;
 			return default;
