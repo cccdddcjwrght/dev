@@ -13,6 +13,7 @@ namespace SGame.UI{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
 		Stack<GGraph> graphStack = new Stack<GGraph>();
 		public float speed = GlobalDesginConfig.GetFloat("get_effect_speed"); //特效移动速度
+		private Vector2 _exploreXY;
 
 		bool m_IsSet;
 
@@ -172,7 +173,7 @@ namespace SGame.UI{
 		{
 			if (id == (int)FlightType.GOLD) return m_view.m_Gold.xy - new Vector2(m_view.m_Gold.width * 0.5f, 0);
 			else if (id == (int)FlightType.DIAMOND) return m_view.m_Diamond.xy - new Vector2(m_view.m_Diamond.width * 0.5f, 0);
-			else if (id == (int)FlightType.SHOVEL) return m_view.m_Gold.xy - new Vector2(0, 150);
+			else if (id == (int)FlightType.SHOVEL) return _exploreXY;
 			else if (TransitionModule.Instance.CheckIsBox(id)) return m_view.m_Box.xy + new Vector2(m_view.m_Box.width * 0.5f, m_view.m_Box.height * 0.5f) + new Vector2(-8, 3)/*偏差*/;
 			else if (TransitionModule.Instance.CheckIsPet(id)) return m_view.m_Pet.xy;
 			return default;
@@ -221,6 +222,8 @@ namespace SGame.UI{
 					m_view.m_Box.xy = GRoot.inst.GlobalToLocal(boxGObject.LocalToGlobal(Vector2.zero));
 					m_view.m_Pet.xy = ui.Value.contentPane.GetChildByPath("petBtn").xy;
 					m_view.m_totalBtn.xy = ui.Value.contentPane.GetChildByPath("totalBtn").xy;
+					_exploreXY = ui.Value.contentPane.GetChildByPath("explore").xy;
+
 				}
 			}
 			//m_IsSet = true;
