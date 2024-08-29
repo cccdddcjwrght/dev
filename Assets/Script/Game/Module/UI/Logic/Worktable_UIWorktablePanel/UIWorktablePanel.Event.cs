@@ -50,8 +50,9 @@ namespace SGame.UI
 
 		void OnBegin()
 		{
-			pressFlag = true;
+			if (GuideManager.Instance.IsCoerce) return;
 
+			pressFlag = true;
 			System.Collections.IEnumerator Run()
 			{
 				var interval = it;

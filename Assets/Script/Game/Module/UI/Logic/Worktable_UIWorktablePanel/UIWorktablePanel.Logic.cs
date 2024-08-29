@@ -64,6 +64,7 @@ namespace SGame.UI
 
 		void OnHide(UIContext context)
 		{
+			pressFlag = false;
 			m_view.m_tips.RemoveChildrenToPool();
 			effCoroutine?.Stop();
 			if (effEntity != default) EffectSystem.Instance.ReleaseEffect(effEntity);

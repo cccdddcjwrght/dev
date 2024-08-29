@@ -79,7 +79,7 @@ namespace SGame
             clickTarget = m_Handler.GetTarget();
             clickTarget.onClick.Add(Finish);
             Debug.Log(string.Format("<color=yellow>{0} add guide click event</color>", clickTarget.name));
-            clickTarget.onTouchBegin.Clear();
+            //clickTarget.onTouchBegin.Clear();
 
             if (m_Config.Force == 0)
             {

@@ -61,6 +61,7 @@ namespace SGame.UI{
 				once = true,
 			};
 			_press.onBegin.Add(() => {
+				if (GuideManager.Instance.IsCoerce) return;
 				if (DataCenter.Instance.likeData.likeNum <= 0) return;
 				SetAutoState(true);
 				EffectSystem.Instance.AddEffect(48, m_view.m___clickeffect);
@@ -75,6 +76,7 @@ namespace SGame.UI{
 			Entity effect = Entity.Null;
 			_effpress.onBegin.Add(() =>
 			{
+				if (GuideManager.Instance.IsCoerce) return;
 				if (DataCenter.Instance.likeData.likeNum <= 0) return;
 				effect = EffectSystem.Instance.AddEffect(49, m_view.m___clickeffect);
 			});
