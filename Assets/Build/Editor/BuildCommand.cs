@@ -265,6 +265,8 @@ static class BuildCommand
 	static void PerformBuild()
 	{
 		Console.WriteLine(":: Performing build");
+		string[] args = Environment.GetCommandLineArgs();
+		Console.WriteLine(string.Join("|", args));
 		if (File.Exists(C_BUILD_RESULT_FILE))
 			File.Delete(C_BUILD_RESULT_FILE);
 		HandlAllVar();
