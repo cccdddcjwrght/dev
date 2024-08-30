@@ -90,7 +90,7 @@ namespace SGame
 				if (min > max)
 					GameDebug.LogError($"等级{cfg.cfg.Id}-战斗装备的属性{getVal.GetType().Name}的范围异常");
 #endif
-				var rate = 1d;
+				var rate = 1;
 				var id = ((int)attribute);
 				switch (attribute)
 				{
@@ -103,7 +103,7 @@ namespace SGame
 						break;
 
 				}
-				var v = ConstDefine.C_PER_SCALE * SGame.Randoms.Random._R.Next(min, max) * power * rate;
+				var v = ConstDefine.C_PER_SCALE * SGame.Randoms.Random._R.Next(min * rate * (int)power, max * rate * (int)power)  ;
 				return new EqAttrInfo(((int)attribute), (int)v.ToInt());
 			}
 
