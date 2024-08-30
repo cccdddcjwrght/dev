@@ -8,6 +8,7 @@ namespace SGame.UI.Explore
     {
         public static void BindAll()
         {
+            UIObjectFactory.SetPackageItemExtension(UI_FightTip.URL, typeof(UI_FightTip));
             UIObjectFactory.SetPackageItemExtension(UI_FightLevelUI.URL, typeof(UI_FightLevelUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightLoseUI.URL, typeof(UI_FightLoseUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightWinUI.URL, typeof(UI_FightWinUI));

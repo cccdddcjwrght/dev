@@ -74,8 +74,17 @@ namespace SGame.UI.Explore
 					var obj = UIPackage.CreateObject("Explore", "FightTip");
 					obj.onRemovedFromStage.Add(() => obj.Dispose());
 					GRoot.inst.ShowPopup(obj, this, PopupDirection.Up);
-					obj.xy += new UnityEngine.Vector2(80, 50);
+
+					var xy = obj.xy + new UnityEngine.Vector2(80, 50);
+					obj.xy = xy;
 					obj.SetText(odds + "%");
+
+					if (obj.x + obj.width > GRoot.inst.width)
+					{
+						obj.SetPivot(1, 0, true);
+						UIListener.SetControllerSelect(obj, "state", 1);
+						obj.xy = xy;
+					}
 				}
 			});
 		}
