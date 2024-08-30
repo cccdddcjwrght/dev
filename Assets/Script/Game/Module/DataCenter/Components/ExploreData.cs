@@ -98,6 +98,7 @@ namespace SGame
 					case EnumAttribute.Attack: rate = cfg.qcfg.AtkRatio; break;
 					case EnumAttribute.AtkSpeed: rate = 1; break;
 					default:
+						power = 1;
 						if (id <= 10200) rate = cfg.qcfg.AttribRatio;
 						else rate = cfg.qcfg.AnitAttribRatio;
 						break;
