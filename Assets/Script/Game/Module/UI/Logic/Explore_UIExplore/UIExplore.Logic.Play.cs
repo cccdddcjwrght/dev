@@ -10,6 +10,7 @@ namespace SGame.UI
 	using System.Collections;
 	using System.IO;
 	using System;
+	using GameConfigs;
 
 	public enum MoveState
 	{
@@ -31,6 +32,10 @@ namespace SGame.UI
 	{
 		const string c_walk_name = "walk";
 		const string c_attack_name = "dig";
+
+		float c_normal_walk_speed = 0.8f;
+		float c_explore_walk_speed = 1.2f;
+
 
 
 		private Coroutine _exlogic;
@@ -57,6 +62,10 @@ namespace SGame.UI
 			_waitAtk = new WaitForSeconds(1f);
 			_waitDead = new WaitForSeconds(0.5f);
 			_waitRest = new WaitForSeconds(1f);
+
+			c_normal_walk_speed = GlobalDesginConfig.GetFloat("explore_normal_walk_speed", c_normal_walk_speed);
+			c_explore_walk_speed = GlobalDesginConfig.GetFloat("explore_fast_walk_speed", c_explore_walk_speed);
+
 
 			((Action)CancelAuto).CallWhenPause();
 
@@ -135,7 +144,7 @@ namespace SGame.UI
 		{
 			MapLoop(false);
 			yield return new WaitUntil(() => _model.IsLoadCompleted());
-			_model.Play(c_walk_name);
+			ResetExplore();
 			while (m_view != null && m_view.visible)
 			{
 				yield return WaitReq();
@@ -149,6 +158,7 @@ namespace SGame.UI
 		IEnumerator WaitReq()
 		{
 			yield return _checkExplore;
+			_model.Play(c_walk_name,1.2f);
 			DataLogic();
 		}
 
@@ -273,6 +283,7 @@ namespace SGame.UI
 		void ResetExplore()
 		{
 			m_view.m_monster.alpha = 0;//怪隐藏
+			_model?.Play(c_walk_name, 0.8f);
 			Fast(true);
 		}
 

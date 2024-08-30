@@ -15,6 +15,7 @@ namespace SGame
 		protected GoWrapper goWrapper;
 		protected Animator animator;
 		protected string lastAnimationName;
+		protected float aniSpeed;
 
 		protected object data;
 		private bool _isLoaded;
@@ -109,12 +110,14 @@ namespace SGame
 			return holder;
 		}
 
-		public UIModel Play(string animation)
+		public UIModel Play(string animation , float speed = 1)
 		{
 			lastAnimationName = animation;
+			aniSpeed = speed;
 			if (this.animator != null && !string.IsNullOrEmpty(animation))
 			{
 				animator.CrossFade(lastAnimationName, 0.2f);
+				animator.speed = speed;
 			}
 			return this;
 		}
