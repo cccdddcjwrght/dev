@@ -11,7 +11,7 @@ namespace SGame.UI{
     public partial class UIFlight
 	{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
-		Stack<GGraph> graphStack = new Stack<GGraph>();
+		//Stack<GGraph> graphStack = new Stack<GGraph>();
 		public float speed = GlobalDesginConfig.GetFloat("get_effect_speed"); //特效移动速度
 		private Vector2 _exploreXY;
 
@@ -51,7 +51,7 @@ namespace SGame.UI{
 
 		void Play(int id, Vector2 startPos, Vector2 endPos, float duration, int type = 0) 
 		{
-			AddEffect(id, startPos, endPos, duration, type);
+ 			AddEffect(id, startPos, endPos, duration, type);
 		}
 
 		void AddEffect(int id, Vector2 startPos, Vector2 endPos, float duration, int type) 
@@ -145,28 +145,25 @@ namespace SGame.UI{
         GGraph GetGraph(float x, float y)
         {
 			GGraph holder;
-			if (graphStack.Count > 0)
-				holder = graphStack.Pop();
-            else
+			//if (graphStack.Count > 0)
+			//	holder = graphStack.Pop();
+            //else
             {
                 holder = new GGraph();
                 holder.SetSize(1, 1);
                 m_view.AddChild(holder);
 			}
 			holder.SetXY(x, y);
-			holder.visible = true;
+			//holder.visible = true;
             return holder;
         }
 
 		void Push(GObject holder, int id) 
 		{
-			//Utils.Timer(0.5f)
-
-			holder.visible = false;
-            for (int i = 0; i < holder.displayObject.gameObject.transform.childCount; i++)
-				GameObject.Destroy(holder.displayObject.gameObject.transform.GetChild(i).gameObject);
-
-			graphStack.Push(holder.asGraph);
+			//holder.visible = false;
+			//holder.asGraph.SetNativeObject(null);
+			holder.Dispose();
+			//graphStack.Push(holder.asGraph);
 		}
 
 		Vector2 GetFinalPos(int id) 

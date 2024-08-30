@@ -164,8 +164,8 @@ namespace SGame
 
 			if (gObject.pivot == Vector2.zero)
 			{
-				ret.x += gObject.actualWidth * 0.5f;
-				ret.y += gObject.actualHeight * 0.5f;
+				ret.x += gObject.width * 0.5f;
+				ret.y += gObject.height * 0.5f;
 			}
 			return ret;
 		}
