@@ -78,7 +78,7 @@ namespace SGame
 
 		public bool HasEvent(int id)
 		{
-			log.LogDebug("trigger event =" + (GameEvent)id + " id=" + id);
+			//log.LogDebug("trigger event =" + (GameEvent)id + " id=" + id);
 			bool hasKey = _registers.ContainsKey(id);
 			return hasKey;
 		}

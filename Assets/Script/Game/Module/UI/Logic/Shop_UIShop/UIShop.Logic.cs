@@ -23,6 +23,7 @@ namespace SGame.UI
 		private UnityEngine.Coroutine _timer;
 		private bool _flag = false;
 		private bool _isFirst;
+		private int _lastNums;
 
 		private Dictionary<int, Action> _refreshCall = new Dictionary<int, Action>();
 
@@ -124,13 +125,11 @@ namespace SGame.UI
 					}
 				}
 			}
-			if (_isFirst)
+
+			if (_lastNums != list.numItems)
 			{
 				list.ResizeToFit();
-				//m_view.m_content.height += list.height;
-				/*var h = m_view.viewHeight - m_view.m_content.y;
-				if (h > m_view.m_content.viewHeight) m_view.m_content.viewHeight = h;*/
-				_isFirst = false;
+				_lastNums = list.numItems;
 			}
 		}
 
