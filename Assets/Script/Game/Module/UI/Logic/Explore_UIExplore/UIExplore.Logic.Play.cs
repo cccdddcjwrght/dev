@@ -49,6 +49,8 @@ namespace SGame.UI
 
 		private bool fightState { get { return m_view.m_exploreState.selectedIndex == 1; } set { m_view.m_exploreState.selectedIndex = value ? 1 : 0; } }
 		private bool autoState { get { return m_view.m_exploreAuto.selectedIndex == 1; } }
+
+		private bool isCombat { get { return BattleManager.Instance.isCombat; } }
 		private MoveInfo move { get; set; } = new MoveInfo();
 
 
@@ -94,6 +96,8 @@ namespace SGame.UI
 
 		partial void OnFindClick(EventContext data)
 		{
+			if (isCombat) return;
+
 			if (fightState)
 			{
 				"@ui_explore_work_tips".Tips();
@@ -107,6 +111,8 @@ namespace SGame.UI
 
 		partial void OnAutoClick(EventContext data)
 		{
+			if (isCombat) return;
+
 			if (!autoState)
 			{
 				if (42.IsOpend(true, "ui_explore_auto_tips".Local()))
@@ -277,7 +283,7 @@ namespace SGame.UI
 
 		void RefreshAutoState()
 		{
-			m_view.m_auto.grayed = !42.IsOpend(false);
+			m_view.m_auto.grayed = !42.IsOpend(false) || isCombat;
 		}
 
 		void ResetExplore()

@@ -47,8 +47,10 @@ namespace SGame.UI
         {
             if (BattleManager.Instance.isCombat) yield break;
 
-            EnableExploreButton(false);
+            BattleManager.Instance.isCombat = true;
             m_view.m_fightBtn.visible = false;
+
+            SetBaseInfo();
             _battleRole = new BattleRole(_model,m_view.m_fightHp1);
             _battleRole.LoadAttribute(DataCenter.Instance.exploreData.explorer.roleID);
 
@@ -100,7 +102,6 @@ namespace SGame.UI
             m_view.m_battlemonster.x = m_view.m_mholder.x;
 
             ShowBattleResult();
-            EnableExploreButton(true);
             SetBaseInfo();
             RefreshFightLevel();
 
@@ -109,14 +110,6 @@ namespace SGame.UI
             _battleRole.Dispose();
             _battleMonster.Dispose();
             _monster.Reset();
-        }
-
-        //设置部分探索按钮状态
-        public void EnableExploreButton(bool active) 
-        {
-            m_view.m_find.enabled = active;
-            m_view.m_tool.enabled = active;
-            m_view.m_auto.enabled = active;
         }
 
         public void RefreshFightLevel() 
