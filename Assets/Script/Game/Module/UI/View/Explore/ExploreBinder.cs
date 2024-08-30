@@ -9,13 +9,14 @@ namespace SGame.UI.Explore
         public static void BindAll()
         {
             UIObjectFactory.SetPackageItemExtension(UI_FightTip.URL, typeof(UI_FightTip));
+            UIObjectFactory.SetPackageItemExtension(UI_FightGiftUI.URL, typeof(UI_FightGiftUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightLevelUI.URL, typeof(UI_FightLevelUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightLoseUI.URL, typeof(UI_FightLoseUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightWinUI.URL, typeof(UI_FightWinUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightReward.URL, typeof(UI_FightReward));
             UIObjectFactory.SetPackageItemExtension(UI_FightItemDetailUI.URL, typeof(UI_FightItemDetailUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightHp.URL, typeof(UI_FightHp));
-            UIObjectFactory.SetPackageItemExtension(UI_FightGiftUI.URL, typeof(UI_FightGiftUI));
+            UIObjectFactory.SetPackageItemExtension(UI_GiftBody.URL, typeof(UI_GiftBody));
             UIObjectFactory.SetPackageItemExtension(UI_FightRewardPreviewUI.URL, typeof(UI_FightRewardPreviewUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightEffect.URL, typeof(UI_FightEffect));
             UIObjectFactory.SetPackageItemExtension(UI_ExploreUI.URL, typeof(UI_ExploreUI));

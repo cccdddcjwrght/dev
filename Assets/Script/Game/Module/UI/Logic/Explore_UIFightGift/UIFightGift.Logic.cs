@@ -30,7 +30,7 @@ namespace SGame.UI{
 
 			m_view.z = -300;
 			_flag = false;
-
+			m_view.m_body.m_click.onClick.Add(OnClickBtn);
 			var args = context.GetParam()?.Value.To<object[]>();
 			_itemList = args.Val<ItemList>(0);
 			_rewards = _itemList == null ? args.Val<List<double[]>>(0) : _itemList.vals;
@@ -39,7 +39,7 @@ namespace SGame.UI{
 			{
 				SetBaseInfo(args);
 				SetRewards();
-				m_view.m_type.selectedIndex = _type;
+				m_view.m_body.m_type.selectedIndex = _type;
 				if (_get == true) PropertyManager.Instance.Insert2Cache(_rewards);
 				return;
 			}
@@ -70,7 +70,7 @@ namespace SGame.UI{
 		{
 			if (_get || _itemList?.fly == true)
 			{
-				TransitionModule.Instance.PlayFlight(m_view.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
+				TransitionModule.Instance.PlayFlight(m_view.m_body.m_list, _rewards.Select(v => Array.ConvertAll<double, int>(v, a => (int)a)).ToList());
 				Do().Start();
 			}
 			_effects.Foreach((e) => EffectSystem.Instance.ReleaseEffect(e));
@@ -87,7 +87,7 @@ namespace SGame.UI{
 
 		}
 
-        partial void OnClickClick(EventContext data)
+        public void OnClickBtn(EventContext data)
 		{
 			//界面不能点击时，不能关闭
 			if (!_flag || !m_view.touchable) return;
@@ -99,7 +99,7 @@ namespace SGame.UI{
 
 		void SetRewards()
 		{
-			SGame.UIUtils.AddListItems(m_view.m_list, _rewards, (index, data, g) =>
+			SGame.UIUtils.AddListItems(m_view.m_body.m_list, _rewards, (index, data, g) =>
 			{
 				g.SetCommonItem(null, data as double[]);
 				var item = (UI_BigItem)g;
