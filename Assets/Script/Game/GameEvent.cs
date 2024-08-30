@@ -57,6 +57,8 @@ namespace SGame
 		CHARACTER_CREATE			= 301, // 角色创建 (int 角色实例ID, int roleID, int roleType)
 		CHARACTER_REMOVE			= 302, // 角色销毁 (int 角色实例ID)
 		
+		ROOM_AUTOCREATE_CUSTOMER    = 303, // 触发自动创建顾客
+		
 		/// <summary>
 		///  座位
 		/// </summary>

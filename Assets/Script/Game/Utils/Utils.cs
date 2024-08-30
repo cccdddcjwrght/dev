@@ -1351,5 +1351,11 @@ namespace SGame
 			ret.y = y * height;
 			return ret;
 		}
+
+		/// <summary>
+		/// 获得好友触发时长
+		/// </summary>
+		/// <returns></returns>
+		public static float GetFriendTriggerTime() => FriendModule.GetFriendTriggerTime();
 	}
 }

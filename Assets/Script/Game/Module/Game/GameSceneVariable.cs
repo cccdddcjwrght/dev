@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SGame.Firend;
 using UnityEngine;
 
 namespace SGame
@@ -9,12 +10,13 @@ namespace SGame
     /// 场景数据
     /// </summary>
    public class GameSceneVariable : MonoBehaviour
-   {
-       public static GameSceneVariable Instance;
+    {
+        private static GameSceneVariable m_Instance = null;
+        public static GameSceneVariable Instance => m_Instance;
 
        private void Awake()
        {
-           Instance = this;
+           m_Instance = this;
        }
 
        /// <summary>
@@ -51,5 +53,21 @@ namespace SGame
        /// 获得在线时长
        /// </summary>
        public int OnlineTime => GameServerTime.Instance.serverTime - RoomTime;
-   }
+
+       /// <summary>
+       /// 判断是否需要创建好友顾客
+       /// </summary>
+       public bool HasCreateFriendCustomer => FriendCustomerTrigger && FriendModule.Instance.HasFriend();
+
+       /// <summary>
+       /// 添加顾客数量
+       /// </summary>
+       public void AddCustomer(int value) => CurrentCustomer += value;
+
+       /// <summary>
+       /// 最大客户数量添加
+       /// </summary>
+       /// <param name="value"></param>
+       public void AddMaxCustomer(int value) => MaxCustomer += value;
+    }
 }

@@ -512,5 +512,33 @@ namespace SGame.Firend
 
             return false;
         }
+        
+        /// <summary>
+        /// 获得好友触发时间（秒)
+        /// </summary>
+        /// <returns></returns>
+        public static float GetFriendTriggerTime()
+        {
+            int onlineTime = GameSceneVariable.Instance.OnlineTime;
+            var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.friend>();
+            for (int i = configs.DatalistLength - 1; i >= 0; i--)
+            {
+                var value = configs.Datalist(i);
+                if (value.Value.Time >= onlineTime)
+                {
+                    // 找到配置
+                    if (value.Value.GapTimeLength != 2)
+                    {
+                        log.Error("friend config gaptime param length error=" + value.Value.GapTimeLength);
+                        return 0;
+                    }
+
+                    int randValue = RandomSystem.Instance.NextInt(value.Value.GapTime(0), value.Value.GapTime(1));
+                    return (float)randValue;
+                }
+            }
+
+            return 0;
+        }
     }
 }
