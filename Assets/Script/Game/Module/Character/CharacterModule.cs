@@ -148,8 +148,6 @@ namespace SGame
                     Character character = entityManager.GetComponentObject<Character>(e);
                     if (check == null || check(character))
                     {
-                        if (rets == null)
-                            rets = new List<Character>();
                         rets.Add(character);
                     }
                 }
@@ -158,18 +156,25 @@ namespace SGame
             return rets.Count > 0;
         }
 
-        /*
-        /// <summary>
-        /// 获得空闲角色
-        /// </summary>
-        /// <param name="roleType"></param>
-        /// <returns></returns>
-        public List<Character> GetIdleCharacters(int roleType1, int roleType2)
+        public Character FindFirst(Func<Character, bool> check = null)
         {
-            return FindCharacters((character) => character.isIdle && character.roleType == roleType);
+            var entities = m_characterFindQuery.ToEntityArray(Allocator.Temp);
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            foreach (var e in entities)
+            {
+                if (entityManager.HasComponent<Character>(e))
+                {
+                    Character character = entityManager.GetComponentObject<Character>(e);
+                    if (check == null || check(character))
+                    {
+                        entities.Dispose();
+                        return character;
+                    }
+                }
+            }
+            entities.Dispose();
+            return null;
         }
-        */
-        
 
         public bool DespawnCharacter(int charcterID)
         {

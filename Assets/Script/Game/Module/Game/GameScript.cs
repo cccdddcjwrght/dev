@@ -11,18 +11,20 @@ namespace SGame
    /// <summary>
    /// 房间逻辑流程控制
    /// </summary>
-   public class GameScript : MonoBehaviour
+   public partial class GameScript : MonoBehaviour
    {
       private static ILog log = LogManager.GetLogger("xl.game");
       
       private GameSceneVariable  m_sceneVariable;
       private Fiber              m_Logic;
+      private RoomManager        m_roomManager;
       
       //public bool IsInit 
       void Start()
       {
          m_sceneVariable   = GetComponent<GameSceneVariable>();
          m_Logic           = new Fiber(GameLogic());
+         m_roomManager     = new RoomManager();
       }
 
       IEnumerator GameLogic()
@@ -34,7 +36,8 @@ namespace SGame
          yield return FiberHelper.RunParallel(
             AutoCreateCustomer(),
             AutoCreateCar(),
-            AutoTriggerFriendCustomer());
+            AutoTriggerFriendCustomer(),
+            m_roomManager.Run());
       }
       
       // 房间开始流程
