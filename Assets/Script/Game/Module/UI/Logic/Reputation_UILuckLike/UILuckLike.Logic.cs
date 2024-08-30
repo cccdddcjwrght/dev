@@ -240,11 +240,11 @@ namespace SGame.UI{
 			isPop = true;
 			Utils.ShowRewards(m_CommonRewardList, closeCall: () =>
 			{
-				var ui = SGame.UIUtils.GetUIView("rewardlist");
-				TransitionModule.Instance.PlayFlight(ui.Value.contentPane.GetChildByPath("body.list").asList, m_CommonRewardList);
-				PropertyManager.Instance.CombineCache2Items();
+				//var ui = SGame.UIUtils.GetUIView("rewardlist");
+				//TransitionModule.Instance.PlayFlight(ui.Value.contentPane.GetChildByPath("body.list").asList, m_CommonRewardList);
+				//PropertyManager.Instance.CombineCache2Items();
 				isPop = false;
-			}, updatedata: false);
+			}, updatedata: true);
 
 			//自动抽奖需要关闭领取奖励界面
 			if (m_Auto)
@@ -271,6 +271,7 @@ namespace SGame.UI{
 			EffectSystem.Instance.AddEffect(36, m_view.m_LuckShow.m_reward);
 
 			m_view.m_LuckShow.m_reward.xy = start_pos;
+			m_view.m_LuckShow.m_reward.scale = new Vector2(1.5f,1.5f);
 			m_Tweener = GTween.To(start_pos, end_pos, 1).SetDelay(1).SetTarget(m_view).OnUpdate((t) =>
             {
                 m_view.m_LuckShow.m_reward.xy = t.value.vec2;
