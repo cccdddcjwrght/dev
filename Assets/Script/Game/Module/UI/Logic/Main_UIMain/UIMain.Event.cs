@@ -254,7 +254,8 @@ namespace SGame.UI
 			if (!string.IsNullOrEmpty(config.uiname))
 				item.name = config.uiname;
 
-			if(ui.onClick.isEmpty) ui.onClick.Add(OnRighMenuClick);
+			ui.onClick.Remove(OnRighMenuClick);
+			ui.onClick.Add(OnRighMenuClick);
 			if (ui == null)
 			{
 				log.Error("item can not conver=" + config.config.Id);
