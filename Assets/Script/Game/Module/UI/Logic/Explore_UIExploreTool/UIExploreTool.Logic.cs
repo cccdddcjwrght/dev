@@ -71,7 +71,7 @@
 			}
 			else
 			{
-				m_view.m_type.selectedIndex = 3;
+				m_view.m_type.selectedIndex = 4;
 			}
 		}
 
@@ -99,6 +99,7 @@
 			var type = 0;
 			if (_data.uplvtime > GameServerTime.Instance.serverTime) type = 1;
 			if (type == 0) type = PropertyManager.Instance.CheckCountByArgs(_data.exploreToolLevel.GetCostArray()) ? 0 : 2;
+			if (type == 0) type = m_view.m_condition.visible ? 3 : 0;
 
 			m_view.m_type.selectedIndex = type;
 		}
