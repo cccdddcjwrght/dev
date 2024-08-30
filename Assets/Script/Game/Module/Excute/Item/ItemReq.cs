@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace SGame
 		private static Queue<ItemData.Value> _chestQueues = new Queue<ItemData.Value>();
 
 		private static List<int> _chestKeyIds;
+		private static List<int> _cacheChestIds = new List<int>();
 
 		private static ChestRowData _chest;
 		private static ItemRowData _item;
@@ -162,8 +164,9 @@ namespace SGame
 					var dropId = cfg.TypeId;
 					if (num > old) 
 					{
-						DoExcuteChestKey(dropId, (int)c);
+                        for (int i = 0; i < c; i++) _cacheChestIds.Add(dropId);
 						PropertyManager.Instance.Update(1, id, c, true);
+						DoExcuteChestKey().Start();
 					}
 				}
 			}
@@ -185,14 +188,18 @@ namespace SGame
 			}
 		}
 
-		private static void DoExcuteChestKey(int dropId, int count) 
+		private static IEnumerator DoExcuteChestKey() 
 		{
-			if (count > 0) 
+			yield return null;
+			if(_cacheChestIds.Count > 0)
 			{
-				var list = DataCenter.LikeUtil.GetItemDrop(dropId, count);
+				List<ItemData.Value> list = new List<ItemData.Value>();
+                for (int i = 0; i < _cacheChestIds.Count; i++)
+					list = DataCenter.LikeUtil.GetItemDrop(_cacheChestIds[i], 1, i == 0);
 				list.Foreach((i) => PropertyManager.Instance.Update(i.type, i.id, i.num));
 				if(!UIUtils.CheckUIIsOpen("frament"))
 					UIUtils.OpenUI("frament", list);
+				_cacheChestIds.Clear();
 			}
 		}
 
