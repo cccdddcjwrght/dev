@@ -15,6 +15,7 @@ namespace SGame.UI.Explore
             UIObjectFactory.SetPackageItemExtension(UI_FightWinUI.URL, typeof(UI_FightWinUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightReward.URL, typeof(UI_FightReward));
             UIObjectFactory.SetPackageItemExtension(UI_FightItemDetailUI.URL, typeof(UI_FightItemDetailUI));
+            UIObjectFactory.SetPackageItemExtension(UI_FightBtn.URL, typeof(UI_FightBtn));
             UIObjectFactory.SetPackageItemExtension(UI_FightHp.URL, typeof(UI_FightHp));
             UIObjectFactory.SetPackageItemExtension(UI_GiftBody.URL, typeof(UI_GiftBody));
             UIObjectFactory.SetPackageItemExtension(UI_FightRewardPreviewUI.URL, typeof(UI_FightRewardPreviewUI));
