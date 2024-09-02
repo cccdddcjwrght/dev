@@ -82,12 +82,12 @@ namespace SGame
 			{
 				if (imm || data.ToolUpRemaining() <= 0)
 				{
-					data.ToolUpLv();
 					if (cost > 0)
 					{
 						if (!Utils.CheckItemCount(2, cost)) return false;
 						PropertyManager.Instance.Update(1, 2, cost, true);
 					}
+					data.ToolUpLv();
 					_eMgr.Trigger(((int)GameEvent.EXPLORE_TOOL_UP_LV));
 					return true;
 				}
