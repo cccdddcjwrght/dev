@@ -34,13 +34,12 @@ namespace SGame.UI.Explore
         public GLoader m_monster;
         public GGraph m_battlemonster;
         public GTextField m_exptips;
-        public GButton m_fightBtn;
+        public UI_FightBtn m_fightBtn;
         public UI_FightHp m_fightHp1;
         public UI_FightHp m_fightHp2;
         public Transition m_kill;
         public Transition m_expanim;
         public Transition m_showeqinfo;
-        public Transition m_t3;
         public Transition m_t4;
         public const string URL = "ui://ow12is1hpm5b14";
 
@@ -80,14 +79,13 @@ namespace SGame.UI.Explore
             m_monster = (GLoader)GetChildAt(36);
             m_battlemonster = (GGraph)GetChildAt(38);
             m_exptips = (GTextField)GetChildAt(39);
-            m_fightBtn = (GButton)GetChildAt(40);
+            m_fightBtn = (UI_FightBtn)GetChildAt(40);
             m_fightHp1 = (UI_FightHp)GetChildAt(41);
             m_fightHp2 = (UI_FightHp)GetChildAt(42);
             m_kill = GetTransitionAt(0);
             m_expanim = GetTransitionAt(1);
             m_showeqinfo = GetTransitionAt(2);
-            m_t3 = GetTransitionAt(3);
-            m_t4 = GetTransitionAt(4);
+            m_t4 = GetTransitionAt(3);
         }
     }
 }
