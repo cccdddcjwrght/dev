@@ -15,6 +15,8 @@ namespace SGame
         //眩晕回合数
         public static readonly int dizziness_inning = GlobalDesginConfig.GetInt("dizziness_inning");
 
+        public static readonly float stun_again_ratio = GlobalDesginConfig.GetFloat("stun_again_ratio");
+
         public static readonly int max_turncount = 15;          //最大回合数
 
         public const float move_distance = 100f;

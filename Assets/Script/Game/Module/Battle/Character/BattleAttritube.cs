@@ -26,6 +26,7 @@ namespace SGame
         public int AtkRatio2;
 
         public int batterCount;         //当前角色连击次数
+        public int stunCount;           //眩晕对方次数
 
         //读取配置属性
         public void ReadAttribute(int cfgId)
@@ -50,6 +51,7 @@ namespace SGame
                 AtkRatio2 = config.AtkRatio(1);
             }
             batterCount = 0;
+            stunCount = 0;
             fightAttrDict = fightAttrList.ToDictionary(v => v.id);
         }
 
@@ -59,6 +61,7 @@ namespace SGame
             attrList.ForEach((v) => SetAttribute(v[0], v[1]));
             fightAttrDict = fightAttrList.ToDictionary(v => v.id);
             batterCount = 0;
+            stunCount = 0;
         }
 
         public void SetBaseAttribute(int attribute, int value)

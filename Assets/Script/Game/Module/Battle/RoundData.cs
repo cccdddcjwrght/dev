@@ -68,14 +68,16 @@ namespace SGame
                         damage = Mathf.CeilToInt(damage * BattleConst.criticalhit_ratio);
                     }
 
-                    rate = Mathf.Max(attacker.attributes.GetBaseAttribute(EnumAttribute.Stun)
-                        - defender.attributes.GetBaseAttribute(EnumAttribute.AntiStun), 0);
+                    //Ñ£ÔÎ
+                    rate = (int)Mathf.Max((attacker.attributes.GetBaseAttribute(EnumAttribute.Stun) - defender.attributes.GetBaseAttribute(EnumAttribute.AntiStun)) 
+                        * (Mathf.Pow(BattleConst.stun_again_ratio, attacker.attributes.stunCount)), 0);
                     triggerDizz = BattleUtil.TriggerProbability(rate);
                     if (triggerDizz)
                     {
                         defender.state.ApplyState(new DizzState());
                         stateList = new List<BaseState>();
                         stateList.Add(new DizzState() { stateShow = true });
+                        attacker.attributes.stunCount++;
                     }
 
                     //ÎüÑª
