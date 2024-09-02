@@ -166,7 +166,7 @@
 				if (s)
 				{
 					_data.uplvtime -= t;
-					if (_data.uplvtime <= 0)
+					if (_data.ToolUpRemaining() <= 0)
 					{
 						_data.uplvtime = 0;
 						_price = 0;
