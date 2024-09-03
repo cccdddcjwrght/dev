@@ -163,7 +163,7 @@ namespace SGame
 		// 创建UI特效
 		void SpawnEffect()
 		{
-			Entities.WithAll<RequestSpawnEffect>().ForEach((Entity e, RequestSpawnEffect req) =>
+			Entities.WithName("SpawnEffect").WithAll<RequestSpawnEffect>().ForEach((Entity e, RequestSpawnEffect req) =>
 			{
 				switch (req.reqType)
 				{
@@ -289,7 +289,7 @@ namespace SGame
 		// 清理创建的GameObject对象
 		void ProcessDestoryEffect()
 		{
-			Entities.WithNone<EffectData>().ForEach((Entity e, in EffectSysData data) =>
+			Entities.WithName("DestoryEffect").WithNone<EffectData>().ForEach((Entity e, in EffectSysData data) =>
 			{
 				EffectFactory.Instance.Free(data.effectId, data.poolID);
 				EntityManager.RemoveComponent<EffectSysData>(e);

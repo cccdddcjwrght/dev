@@ -76,7 +76,7 @@ namespace SGame.UI
                 return;
             
             // 1. 生成Package加载
-            Entities.WithNone<UIWindow, UIInitalized, DespawningUI>().ForEach((Entity e, UIRequest request) =>
+            Entities.WithName("RequestLoad").WithNone<UIWindow, UIInitalized, DespawningUI>().ForEach((Entity e, UIRequest request) =>
             {
                 if (request.configId == 0 && (string.IsNullOrEmpty(request.comName) || string.IsNullOrEmpty(request.pkgName)))
                 {
@@ -111,7 +111,7 @@ namespace SGame.UI
             ).WithStructuralChanges().WithoutBurst().Run();
             
             // 2. UI 加载中
-            Entities.WithNone<UIInitalized, DespawningUI>().ForEach((Entity e, UIRequest request, UIWindow window) =>
+            Entities.WithName("ShowUI").WithNone<UIInitalized, DespawningUI>().ForEach((Entity e, UIRequest request, UIWindow window) =>
                 {
                     // 1. 判断包是否加载成功
                     if (!string.IsNullOrEmpty(window.uiPackage.error))
@@ -172,18 +172,16 @@ namespace SGame.UI
                 }
             ).WithStructuralChanges().WithoutBurst().Run();
 
-			Entities.WithNone<DespawningEntity>().WithAll<UIReShow,UIInitalized>().ForEach((Entity e, UIWindow window) => { 
-
+			Entities.WithName("ReShow").WithNone<DespawningEntity>().WithAll<UIReShow,UIInitalized>().ForEach((Entity e, UIWindow window) => { 
 				EntityManager.RemoveComponent<UIReShow>(e);
 				if (window.BaseValue != null && !window.BaseValue.isClosed && !window.BaseValue.isShowing)
 				{
 					window.BaseValue.Show();
 				}
-
 			}).WithStructuralChanges().WithoutBurst().Run();
 
 			// 3. 更新 FairyGUI 包的加载
-			m_packageRequest.Update();
+            m_packageRequest.Update();
         }
 
     }

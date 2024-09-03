@@ -35,8 +35,11 @@ namespace SGame
 
         void OnDespawned(GameObject ai)
         {
-            ai.SetActive(false);
-            ai.transform.SetParent(m_poolObject.transform);
+            if (ai != null)
+            {
+                ai.SetActive(false);
+                ai.transform.SetParent(m_poolObject.transform);
+            }
         }
 
         GameObjectPool GetOrCreate(string aiName)

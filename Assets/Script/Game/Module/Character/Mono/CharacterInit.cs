@@ -125,6 +125,7 @@ using System.Collections.Generic;
                 }
             }
 
+            log.Info("Create AI=" + configAI);
             var ai = CharacterAIFactory.Instance.Create(configAI);
             ai.transform.parent = transform;
             ai.transform.localRotation = Quaternion.identity;

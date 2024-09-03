@@ -63,7 +63,7 @@ namespace SGame.UI
 			float deltaTime = World.Time.DeltaTime;
 			
 			// 1. UI更新
-			Entities.WithAll<UIInitalized>().WithNone<DespawningUI>().ForEach((Entity e, UIWindow win) =>
+			Entities.WithName("CheckAdd").WithAll<UIInitalized>().WithNone<DespawningUI>().ForEach((Entity e, UIWindow win) =>
 			{
 				CheckAdd(win);
 			}).WithoutBurst().Run();
