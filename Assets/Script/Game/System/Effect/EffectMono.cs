@@ -33,6 +33,8 @@ public class EffectMono : MonoBehaviour, IEffectOperator
 
     public int effectID = 0;
 
+    public FairyGUI.GoWrapper m_goWrapper;
+
     public float                duration
     {
         get
@@ -56,6 +58,17 @@ public class EffectMono : MonoBehaviour, IEffectOperator
     {
         if (m_particle)
             m_particle.Stop();
+    }
+
+    public void Clear()
+    {
+        Stop();
+        if (m_goWrapper != null)
+        {
+            if (m_goWrapper.wrapTarget == gameObject)
+                m_goWrapper.wrapTarget = null;
+            m_goWrapper = null;
+        }
     }
 
     public bool isPlaying { get { return m_particle.isPlaying; } }
@@ -86,6 +99,7 @@ public class EffectMono : MonoBehaviour, IEffectOperator
 
     void OnDespawned()
     {
-        Stop();
+        //Stop();
+        Clear();
     }
 }

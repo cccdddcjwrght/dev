@@ -100,7 +100,7 @@ namespace SGame
 		}
 
 		// 实例化特效
-		GameObject InstanceEffect(Entity effect, int effectID, AssetRequest prefabRequest, RequestSpawnEffect.ReqType reqType)
+		EffectMono InstanceEffect(Entity effect, int effectID, AssetRequest prefabRequest, RequestSpawnEffect.ReqType reqType)
 		{
 			GameObject prefab = prefabRequest.asset as GameObject;
 			if (prefab == null)
@@ -131,7 +131,7 @@ namespace SGame
 
 				mono.entity = effect;
 				mono.effectID = effectID;
-				return obj;
+				return mono;
 			}
 			else
 			{
@@ -147,7 +147,7 @@ namespace SGame
 				EntityManager.AddComponentObject(effect, mono.transform);
 				mono.entity = effect;
 				mono.effectID = effectID;
-				return parent;
+				return mono;
 			}
 		}
 
@@ -213,7 +213,7 @@ namespace SGame
 							}
 							
 							// 实例化特效
-							GameObject obj = InstanceEffect(req.entity, req.effectId, prefabRequest, req.reqType);
+							EffectMono effectMono = InstanceEffect(req.entity, req.effectId, prefabRequest, req.reqType);
 
 							// 添加到fairygui 上面去
 							switch (req.reqType)
@@ -225,34 +225,35 @@ namespace SGame
 										{
 											if (wrapper.wrapTarget != null)
 												log.Error("wrapper is not null!!!");
-											wrapper.wrapTarget = obj;
+											wrapper.wrapTarget = effectMono.gameObject;
 										}
 										else
 										{
-											wrapper = new GoWrapper(obj);
+											wrapper = new GoWrapper(effectMono.gameObject);
 										}
 
 										req.hoder.SetNativeObject(wrapper);
+										effectMono.m_goWrapper = wrapper;
 									}
 
 									// 设置缩放
-									SetupGameObject(obj, req.position, req.scale, req.rotation);
+									SetupGameObject(effectMono.gameObject, req.position, req.scale, req.rotation);
 									break;
 
 								case RequestSpawnEffect.ReqType.REQ_3DPARENT:
 									{
 										// 自带父节点
 										//obj.transform.parent = req.parent.transform;
-										obj.transform.SetParent(req.parent.transform, false);
+										effectMono.transform.SetParent(req.parent.transform, false);
 										//SetupGameObject(obj, req.position + (Vector3)GetComponent<Translation>(req.entity).Value, req.scale, req.rotation);
-										SetupGameObject(obj.transform.GetChild(0).gameObject, req.position, req.scale, req.rotation);
+										SetupGameObject(effectMono.transform.GetChild(0).gameObject, req.position, req.scale, req.rotation);
 									}
 									break;
 
 								case RequestSpawnEffect.ReqType.REQ_3D:
 									{
 										// 设置子节点位置信息
-										SetupGameObject(obj.transform.GetChild(0).gameObject, req.position, req.scale, req.rotation);
+										SetupGameObject(effectMono.transform.GetChild(0).gameObject, req.position, req.scale, req.rotation);
 									}
 									break;
 							}
@@ -260,10 +261,8 @@ namespace SGame
 
 							// 加载成功
 							//EntityManager.AddComponent<EffectSysData>(req.entity);
-
-							EffectMono mono = obj.GetComponent<EffectMono>();
-							if (mono != null)
-								mono.Play();
+							EffectMono mono = effectMono;//.GetComponent<EffectMono>();
+							mono.Play();
 						}
 						else
 						{
@@ -322,7 +321,23 @@ namespace SGame
 			// 添加销毁entity 的事件
 			if (EntityManager.Exists(e) && !EntityManager.HasComponent<DespawningEntity>(e))
 			{
-				EntityManager.AddComponent<DespawningEntity>(e);
+				bool hasDespawing = EntityManager.HasComponent<DespawningEntity>(e);
+				if (!hasDespawing)
+				{
+					EntityManager.AddComponent<DespawningEntity>(e);
+
+					if (EntityManager.HasComponent<EffectSysData>(e))
+					{
+						var d = EntityManager.GetComponentData<EffectSysData>(e);
+						var effObj = EffectFactory.Instance.Get(d.effectId, d.poolID);
+						var effMono = effObj.GetComponent<EffectMono>();
+						effObj.SetActive(false);
+						if (effMono != null)
+						{
+							effMono.Clear();
+						}
+					}
+				}
 			}
 		}
 
