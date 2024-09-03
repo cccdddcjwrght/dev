@@ -36,6 +36,7 @@ namespace SGame.UI
 
 		void OnClose_Info(UIContext context)
 		{
+			_cd?.Stop();
 			m_view.onClick.Clear();
 		}
 
@@ -54,7 +55,7 @@ namespace SGame.UI
 			IEnumerator Run()
 			{
 				var r = 0f;
-				while (cd != null && (r = exploreData.ToolUpRemaining()) > 0)
+				while (m_view != null && (r = exploreData.ToolUpRemaining()) > 0)
 				{
 					cd.fillAmount = r / exploreData.exploreToolLevel.Time;
 					m_view.m_tool.m_time.text = Utils.FormatTime((int)r);
