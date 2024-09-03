@@ -391,6 +391,8 @@ namespace SGame.UI{
 			OnFightBtnClick(data);
 		}
 		partial void OnFightBtnClick(EventContext data);
+		void SetFightBtnText(string data)=>UIListener.SetText(m_view.m_fightBtn,data);
+		string GetFightBtnText()=>UIListener.GetText(m_view.m_fightBtn);
 		void SetFightHp_ValueText(string data)=>UIListener.SetText(m_view.m_fightHp1.m_value,data);
 		string GetFightHp_ValueText()=>UIListener.GetText(m_view.m_fightHp1.m_value);
 		void _OnFightHp_EffectClick(EventContext data){
