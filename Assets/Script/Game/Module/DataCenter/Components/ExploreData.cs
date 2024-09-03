@@ -230,7 +230,7 @@ namespace SGame
 						var q = EquipUtil.Type2Quality(((EnumQualityType)rnd.NextWeight(qw) + 1));
 						return new FightEquip()
 						{
-							level = Math.Max(1, rnd.Next(data.level - 4, data.level + 1)),//等级
+							level = rnd.Next(Math.Max(1,data.level - 4), Math.Min(data.exploreMaxLv, data.level + 1)),//等级
 							cfg = e,
 							cfgID = e.Id,
 							quality = (int)q,//品质
