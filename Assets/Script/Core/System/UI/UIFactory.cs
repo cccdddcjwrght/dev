@@ -169,5 +169,16 @@ namespace SGame.UI
 
             return pool.Dispose(poolID);
         }
+
+        /// <summary>
+        /// 清空所有缓存
+        /// </summary>
+        public void ClearCache()
+        {
+            foreach (var pool in m_uiPools.Values)
+            {
+                pool.ClearCache();
+            }
+        }
     }
 }

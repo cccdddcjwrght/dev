@@ -109,5 +109,17 @@ namespace SGame.UI
             uiPackage.Release();
             uiPackage = null;
         }
+
+        /// <summary>
+        /// 清空缓存内的数据
+        /// </summary>
+        public void ClearCache()
+        {
+            var freeList = pool.GetFreeList();
+            foreach (var item in freeList)
+            {
+                Dispose(item);
+            }
+        }
     }
 }

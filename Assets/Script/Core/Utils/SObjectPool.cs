@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using Unity.Entities;
+using UnityEditor.PackageManager;
+using UnityEngine;
 
 // 自定义的类对象池
 namespace SGame
@@ -290,5 +292,34 @@ namespace SGame
             m_datas.Clear();
             m_exDatas.Clear();
         }
+        
+        /// <summary>
+        /// 获得所有可用的对象
+        /// </summary>
+        /// <returns></returns>
+        public List<PoolID> GetFreeList()
+        {
+            List<PoolID> ret = new List<PoolID>();
+            for (int i = 0; i < m_exDatas.Count; i++)
+            {
+                var item = m_exDatas[i];
+                if (item.state == ExtendData.State.FREE)
+                {
+                    ret.Add(new PoolID()
+                    {
+                        Version = item.Version, 
+                        Index = i
+                    });
+                }
+            }
+
+            if (m_freeCount != ret.Count)
+            {
+                Debug.LogError("not match free count");
+            }
+
+            return ret;
+        }
+
     }
 }

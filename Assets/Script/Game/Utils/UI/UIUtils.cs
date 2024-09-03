@@ -79,12 +79,22 @@ namespace SGame
 		/// </summary>
 		public static void ReloadVisibleUI()
 		{
+			const int HUD_ID = 5; // HUD 的配置ID
 			List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI(true);
 			List<int> uiID = new List<int>();
+			
+			UIFactory.Instance.ClearCache();
 
 			// 除了HUD 的UI, 所有UI都重新开一遍
 			foreach (var ui in allUI)
 			{
+				// 所有子UI都不处理， 子UI都是HUD
+				if (ui.BaseValue.type == UI_TYPE.COM_WINDOW)
+					continue;
+				
+				if (ui.BaseValue.configID == HUD_ID)
+					continue;
+					
 				var configID = ui.BaseValue.configID;
 				if (ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData uiconfig))
 				{
