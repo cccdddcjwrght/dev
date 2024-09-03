@@ -141,6 +141,7 @@ namespace SGame.UI{
 			m_view.m_t0.Stop();
 			DataCenter.Instance.likeData.likeNum--;
 			EventManager.Instance.Trigger((int)GameEvent.ROOM_LIKE_ADD, 0);
+			EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.LIKE_LOTTERY, 1);
 
 			m_LikeCfgId = DataCenter.LikeUtil.GetLotteryIndex();
 			EventManager.Instance.Trigger((int)GameEvent.LIKE_SPIN, m_LikeCfgId);

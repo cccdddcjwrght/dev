@@ -32,6 +32,10 @@ namespace SGame
 		DECORATION = 21,   //摆件id升到X级
 		AREA = 22,   //解锁区域id
 		COOK = 23,   //菜品id升到X级
+		EXPLORE = 24,	//探索次数
+		BOSS = 25,		//挑战boss次数
+		LIKE_LOTTERY = 26,	//好评抽奖次数
+		DIALY_TASK = 27, //日常任务次数
 	}
 
 	public enum RecordFunctionId
@@ -41,6 +45,7 @@ namespace SGame
 		EXCHANGE = 28,   //兑换活动
 		CLUB = 31,   //俱乐部
 		TASK = 32,   //主线任务
+		DAILY_TASK = 43,//日常任务
 	}
 
 	[Serializable]

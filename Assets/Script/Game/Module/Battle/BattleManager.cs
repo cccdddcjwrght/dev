@@ -52,6 +52,8 @@ namespace SGame
             GenerateRoundData();
             ResetCharacter();
 
+            EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.BOSS, 1);
+
             yield return new WaitForSeconds(waitTime);
             _roundCorotine = PlayRound().Start();
         }

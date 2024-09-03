@@ -231,5 +231,9 @@ namespace SGame
 		BATTLE_START					= 30200,	//战斗开始
 		BATTLE_OVER						= 30201,	//战斗结束
 		BATTLE_ROUND					= 30202,	//回合变化
+
+
+		//日常任务
+		DAILY_TASK_UPDATE				= 30301,
 	}
 }

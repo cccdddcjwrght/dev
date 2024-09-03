@@ -110,6 +110,7 @@ namespace SGame.UI{
 			context.uiModule.Reg("ExploreToolUI", "Explore", () => new UIExploreTool());
 			context.uiModule.Reg("FightRewardPreviewUI", "Explore", ()=>new UIFightRewardPreview());
 			context.uiModule.Reg("FightGiftUI", "Explore", () => new UIFightGift());
+			context.uiModule.Reg("DailyTaskUI", "DailyTask", ()=>new UIDailyTask());SGame.UI.DailyTask.DailyTaskBinder.BindAll();;
 		}
 	}
 }

@@ -103,6 +103,7 @@ namespace SGame
 			var eq = DataCenter.ExploreUtil.RandomFightEquip(toolcfg);
 			if (eq != null)
 			{
+				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EXPLORE, 1);
 				data.cacheEquip = eq;
 				eq.isnew = 1;
 				return true;
