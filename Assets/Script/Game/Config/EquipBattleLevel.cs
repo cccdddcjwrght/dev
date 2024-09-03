@@ -116,6 +116,22 @@ public struct EquipBattleLevelRowData : IFlatbufferObject
   public ArraySegment<byte>? GetAntiStealBytes() { return __p.__vector_as_arraysegment(28); }
 #endif
   public int[] GetAntiStealArray() { return __p.__vector_as_array<int>(28); }
+  public int HpStrongRange(int j) { int o = __p.__offset(30); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int HpStrongRangeLength { get { int o = __p.__offset(30); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetHpStrongRangeBytes() { return __p.__vector_as_span<int>(30, 4); }
+#else
+  public ArraySegment<byte>? GetHpStrongRangeBytes() { return __p.__vector_as_arraysegment(30); }
+#endif
+  public int[] GetHpStrongRangeArray() { return __p.__vector_as_array<int>(30); }
+  public int AtkStrongRange(int j) { int o = __p.__offset(32); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int AtkStrongRangeLength { get { int o = __p.__offset(32); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetAtkStrongRangeBytes() { return __p.__vector_as_span<int>(32, 4); }
+#else
+  public ArraySegment<byte>? GetAtkStrongRangeBytes() { return __p.__vector_as_arraysegment(32); }
+#endif
+  public int[] GetAtkStrongRangeArray() { return __p.__vector_as_array<int>(32); }
 
   public static Offset<GameConfigs.EquipBattleLevelRowData> CreateEquipBattleLevelRowData(FlatBufferBuilder builder,
       int Id = 0,
@@ -130,8 +146,12 @@ public struct EquipBattleLevelRowData : IFlatbufferObject
       VectorOffset AntiComboOffset = default(VectorOffset),
       VectorOffset AntiCritOffset = default(VectorOffset),
       VectorOffset AntiStunOffset = default(VectorOffset),
-      VectorOffset AntiStealOffset = default(VectorOffset)) {
-    builder.StartTable(13);
+      VectorOffset AntiStealOffset = default(VectorOffset),
+      VectorOffset HpStrongRangeOffset = default(VectorOffset),
+      VectorOffset AtkStrongRangeOffset = default(VectorOffset)) {
+    builder.StartTable(15);
+    EquipBattleLevelRowData.AddAtkStrongRange(builder, AtkStrongRangeOffset);
+    EquipBattleLevelRowData.AddHpStrongRange(builder, HpStrongRangeOffset);
     EquipBattleLevelRowData.AddAntiSteal(builder, AntiStealOffset);
     EquipBattleLevelRowData.AddAntiStun(builder, AntiStunOffset);
     EquipBattleLevelRowData.AddAntiCrit(builder, AntiCritOffset);
@@ -148,7 +168,7 @@ public struct EquipBattleLevelRowData : IFlatbufferObject
     return EquipBattleLevelRowData.EndEquipBattleLevelRowData(builder);
   }
 
-  public static void StartEquipBattleLevelRowData(FlatBufferBuilder builder) { builder.StartTable(13); }
+  public static void StartEquipBattleLevelRowData(FlatBufferBuilder builder) { builder.StartTable(15); }
   public static void AddId(FlatBufferBuilder builder, int Id) { builder.AddInt(0, Id, 0); }
   public static void AddHpRange(FlatBufferBuilder builder, VectorOffset HpRangeOffset) { builder.AddOffset(1, HpRangeOffset.Value, 0); }
   public static VectorOffset CreateHpRangeVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
@@ -198,6 +218,14 @@ public struct EquipBattleLevelRowData : IFlatbufferObject
   public static VectorOffset CreateAntiStealVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateAntiStealVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartAntiStealVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddHpStrongRange(FlatBufferBuilder builder, VectorOffset HpStrongRangeOffset) { builder.AddOffset(13, HpStrongRangeOffset.Value, 0); }
+  public static VectorOffset CreateHpStrongRangeVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateHpStrongRangeVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartHpStrongRangeVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddAtkStrongRange(FlatBufferBuilder builder, VectorOffset AtkStrongRangeOffset) { builder.AddOffset(14, AtkStrongRangeOffset.Value, 0); }
+  public static VectorOffset CreateAtkStrongRangeVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateAtkStrongRangeVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartAtkStrongRangeVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.EquipBattleLevelRowData> EndEquipBattleLevelRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.EquipBattleLevelRowData>(o);

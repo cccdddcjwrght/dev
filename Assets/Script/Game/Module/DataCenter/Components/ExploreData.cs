@@ -17,7 +17,7 @@ namespace SGame
 			#region const
 
 			public static float c_exploretool_time_cost { get; private set; }
-			
+
 			public readonly static IReadOnlyList<EnumAttribute> c_fight_attrs = new List<EnumAttribute>()
 			{
 				EnumAttribute.Hp,
@@ -73,12 +73,12 @@ namespace SGame
 				}
 				c_cache_attr = ls;
 				c_strong_power = GlobalDesginConfig.GetFloat("battle_equip_fortify", 2f);
-				c_exploretool_time_cost = GlobalDesginConfig.GetInt("battle_explore_gem", 100); 
+				c_exploretool_time_cost = GlobalDesginConfig.GetInt("battle_explore_gem", 100);
 
 				data.Refresh();
 			}
 
-			static public EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, Func<int, int> getVal, double power = 1)
+			static public EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, Func<int, int> getVal, float power = 1f)
 			{
 
 				if (getVal == null)
@@ -92,6 +92,7 @@ namespace SGame
 #endif
 				var rate = 1;
 				var id = ((int)attribute);
+				power = power == 0 ? 1f : power;
 				switch (attribute)
 				{
 					case EnumAttribute.Hp: rate = cfg.qcfg.HpRatio; break;
@@ -99,23 +100,23 @@ namespace SGame
 					case EnumAttribute.AtkSpeed: rate = 1; break;
 					default:
 						power = 1;
-						if (id <= 10200) rate = cfg.qcfg.AttribRatio;
+						if (id < ((int)EnumAttribute.AntiDodge)) rate = cfg.qcfg.AttribRatio;
 						else rate = cfg.qcfg.AnitAttribRatio;
 						break;
 
 				}
-				var v = ConstDefine.C_PER_SCALE * SGame.Randoms.Random._R.Next(min * rate * (int)power, max * rate * (int)power)  ;
+				var v = ConstDefine.C_PER_SCALE * SGame.Randoms.Random._R.NextFloat(min * rate * power, max * rate * power);
 				return new EqAttrInfo(((int)attribute), (int)v.ToInt());
 			}
 
-			static public Func<int, int> GetAttrFunc(EnumAttribute attribute, EquipBattleLevelRowData cfg)
+			static public Func<int, int> GetAttrFunc(EnumAttribute attribute, EquipBattleLevelRowData cfg, bool isstrong = false)
 			{
 				if (cfg.IsValid())
 				{
 					switch (attribute)
 					{
-						case EnumAttribute.Hp: return cfg.HpRange;
-						case EnumAttribute.Attack: return cfg.AtkRange;
+						case EnumAttribute.Hp: return isstrong ? cfg.HpStrongRange : cfg.HpRange;
+						case EnumAttribute.Attack: return isstrong ? cfg.AtkStrongRange : cfg.AtkRange;
 						case EnumAttribute.AtkSpeed: return null;
 
 						case EnumAttribute.Dodge: return cfg.Dodge;
@@ -230,7 +231,7 @@ namespace SGame
 						var q = EquipUtil.Type2Quality(((EnumQualityType)rnd.NextWeight(qw) + 1));
 						return new FightEquip()
 						{
-							level = Math.Max(1, rnd.Next(data.level - 4, data.level + 1)),//等级
+							level = rnd.Next(Math.Max(1, data.level - 4), Math.Min(data.exploreMaxLv, data.level + 1)),//等级
 							cfg = e,
 							cfgID = e.Id,
 							quality = (int)q,//品质
@@ -507,7 +508,7 @@ namespace SGame
 			{
 				if (attrs == null || attrs.Count == 0)
 				{
-					var power = strong == 1 ? DataCenter.ExploreUtil.c_strong_power : 1;
+					var power = strong;
 					var addnum = qcfg.AttribNum(0);
 					var anitnum = qcfg.AttribNumLength > 1 ? qcfg.AttribNum(1) : 0;
 					var rnd = SGame.Randoms.Random._R;
@@ -553,10 +554,10 @@ namespace SGame
 			attrDic = default;
 		}
 
-		static private EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, double power = 1)
+		static private EqAttrInfo GetBattleInfo(EnumAttribute attribute, FightEquip cfg, float power = 1)
 		{
 			return DataCenter.ExploreUtil.GetBattleInfo(
-						attribute, cfg, DataCenter.ExploreUtil.GetAttrFunc(attribute, cfg.battleLvCfg),
+						attribute, cfg, DataCenter.ExploreUtil.GetAttrFunc(attribute, cfg.battleLvCfg, power > 0),
 						power
 					);
 		}
