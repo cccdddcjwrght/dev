@@ -21,7 +21,7 @@ namespace SGame.UI.Explore
             base.ConstructFromXML(xml);
 
             m_body = (GLabel)GetChildAt(0);
-            m_attr = (GList)GetChildAt(1);
+            m_attr = (GList)GetChildAt(2);
         }
     }
 }

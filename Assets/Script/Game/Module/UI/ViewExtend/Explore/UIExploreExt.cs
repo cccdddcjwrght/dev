@@ -23,6 +23,7 @@ namespace SGame.UI.Explore
 					var v = k < EnumAttribute.Dodge ? Utils.ConvertNumberStrLimit3(val[1]) : (ConstDefine.C_PER_SCALE * val[1]).Round() + "%";
 					view.SetTextByKey($"ui_fight_attr_{k.ToString().ToLower()}");
 					UIListener.SetTextWithName(view, "val", v);
+					UIListener.SetTextWithName(view, "val2", v);
 					UIListener.SetControllerSelect(view, "size", __attrsize);
 					UIListener.SetControllerSelect(view, "uptype", 0);
 					if (__compareEquip != null)
@@ -77,7 +78,7 @@ namespace SGame.UI.Explore
 			var eq = gObject?.asCom?.GetChild("eq") ?? gObject;
 			UIListener.SetControllerSelect(eq, "strongstate", equip.strong, false);
 			UIListener.SetTextWithName(gObject, "name", equip.name.Local(),false);
-			eq.SetEquipInfo(equip, true, equip.type);
+			eq.SetEquipInfo(equip, true, equip.type,lvformat:"ui_common_lv1");
 			gObject.SetFightAttrList(equip.GetEffects(), call, compare: other, addnull: 1, attrsize: attrsize);
 			var upstate = 0;
 			if ( equip.isnew == 1)

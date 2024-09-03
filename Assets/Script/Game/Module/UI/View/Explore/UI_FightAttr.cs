@@ -9,7 +9,9 @@ namespace SGame.UI.Explore
     {
         public Controller m_size;
         public Controller m_uptype;
+        public Controller m_ftype;
         public GTextField m_val;
+        public GTextField m_val2;
         public const string URL = "ui://ow12is1hpm5b17";
 
         public static UI_FightAttr CreateInstance()
@@ -23,7 +25,9 @@ namespace SGame.UI.Explore
 
             m_size = GetControllerAt(0);
             m_uptype = GetControllerAt(1);
+            m_ftype = GetControllerAt(2);
             m_val = (GTextField)GetChildAt(1);
+            m_val2 = (GTextField)GetChildAt(2);
         }
     }
 }

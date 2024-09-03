@@ -46,6 +46,7 @@ namespace SGame.UI
 		{
 			if(gObject == null) return;
 			UIListener.SetControllerSelect(gObject, "size", 1);
+			UIListener.SetControllerSelect(gObject, "ftype", 1);
 		}
 
 		partial void OnPuton0Click(EventContext data)
