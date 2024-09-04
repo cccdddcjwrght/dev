@@ -524,7 +524,7 @@ namespace SGame.Firend
             for (int i = configs.DatalistLength - 1; i >= 0; i--)
             {
                 var value = configs.Datalist(i);
-                if (value.Value.Time >= onlineTime)
+                if (value.Value.Time < onlineTime)
                 {
                     // 找到配置
                     if (value.Value.GapTimeLength != 2)
@@ -540,5 +540,27 @@ namespace SGame.Firend
 
             return 0;
         }
+        
+        
+        /// <summary>
+        /// 获得最低的在线等待时长
+        /// </summary>
+        /// <returns></returns>
+        public static float GetOnlineWaitTime()
+        {
+            int onlineTime = GameSceneVariable.Instance.OnlineTime;
+            var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.friend>();
+            if (configs.DatalistLength <= 0)
+            {
+                log.Error("friend config not found");
+                return 0;
+            }
+            
+            var value = configs.Datalist(0);
+            float ret = (float)value.Value.Time - onlineTime;
+            return ret;
+        }
     }
+    
+
 }

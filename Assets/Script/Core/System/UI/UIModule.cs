@@ -128,6 +128,8 @@ namespace SGame.UI
 		/// <param name="win">Window对象</param>        
 		public bool CloseUI(Entity ui, bool isDispose = false)
 		{
+			if (m_gameWorld.GetECSWorld() == null)
+				return false;
 			EntityManager mgr = m_gameWorld.GetECSWorld().EntityManager;
 			if (mgr.Exists(ui))
 			{

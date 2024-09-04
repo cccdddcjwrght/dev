@@ -103,6 +103,8 @@ public class GameWorld
 
     public World GetECSWorld()
     {
+        if (m_ECSWorld.IsCreated == false)
+            return null;
         return m_ECSWorld;
     }
 /*

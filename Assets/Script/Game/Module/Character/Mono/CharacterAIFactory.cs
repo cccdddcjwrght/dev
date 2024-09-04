@@ -35,7 +35,7 @@ namespace SGame
 
         void OnDespawned(GameObject ai)
         {
-            if (ai != null)
+            if (ai != null && m_poolObject != null)
             {
                 ai.SetActive(false);
                 ai.transform.SetParent(m_poolObject.transform);

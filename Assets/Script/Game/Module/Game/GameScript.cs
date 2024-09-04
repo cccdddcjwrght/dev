@@ -125,6 +125,10 @@ namespace SGame
             yield return FiberHelper.Wait(1.0f);
          }
 
+         float waitTime = FriendModule.GetOnlineWaitTime();
+         if (waitTime > 0)
+            yield return FiberHelper.Wait(waitTime + 0.5f);
+         
          while (true)//FriendModule.Instance.HasFriend())
          {
             yield return null;
