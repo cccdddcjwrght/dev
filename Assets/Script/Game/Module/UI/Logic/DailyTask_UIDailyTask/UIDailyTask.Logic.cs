@@ -88,12 +88,12 @@ namespace SGame.UI{
 		{
 			Utils.Timer(GameServerTime.Instance.nextDayInterval, () =>
 			{
-				m_view.m_dayTime.SetText(Utils.TimeFormat(GameServerTime.Instance.nextDayInterval));
+				m_view.m_dayTime.SetText(Utils.FormatTime(GameServerTime.Instance.nextDayInterval));
 			}, m_view);
 
 			Utils.Timer(DataCenter.DailyTaskUtil.nextWeekInterval, () =>
 			{
-				m_view.m_weekTime.SetText(Utils.FormatTime(DataCenter.DailyTaskUtil.nextWeekInterval));
+				m_view.m_weekTime.SetText(Utils.FormatTime(DataCenter.DailyTaskUtil.nextWeekInterval, daylimit: 7));
 			}, m_view);
 		}
 
