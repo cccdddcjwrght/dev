@@ -80,13 +80,21 @@ namespace SGame
             public static int GetMachineProgress(int id, int target)
             {
                 int value = 0;
-                var cfg = ConfigSystem.Instance.Find<GameConfigs.RoomMachineRowData>((c) => c.Machine == id);
+				/*var cfg = ConfigSystem.Instance.Find<GameConfigs.RoomMachineRowData>((c) => c.Machine == id);
                 if (cfg.IsValid())
                 {
                     if (Instance.roomData.current.id > cfg.Scene) return target;
                     MachineUtil.GetMachine(cfg.ID, out var worktable);
                     if (worktable != null) value = Math.Min(worktable.lv, target);
-                }
+                }*/
+
+				if (Instance.roomData.current.HasWorktabke(id))
+				{
+					var w = MachineUtil.GetWorktable(id);
+					if(w!=null) value = Math.Min(w.lv, target);
+				}
+				else return target;
+
                 return value;
             }
 
@@ -153,7 +161,7 @@ namespace SGame
             public static void RefreshTaskState() 
             {
 				GetCurTaskCfgId();
-				if (CurrentTaskInfo.cfg.IsValid())
+				if (CurrentTaskInfo.cfg.ByteBuffer!=null)
                 {
 					var cfg = CurrentTaskInfo.cfg;
                     var max = CurrentTaskInfo.values[1];

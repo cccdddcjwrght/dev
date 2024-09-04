@@ -178,6 +178,8 @@ namespace SGame
 		private List<CookBookRowData> cfgLists;
 		private int[] cost;
 		private int[] condition;
+		private int cType;
+		private int cMap;
 
 		public bool IsMaxLv()
 		{
@@ -246,13 +248,13 @@ namespace SGame
 			scenelimit = false;
 			itemnot = false;
 			if (IsMaxLv()) return false;
-			if (lvCfg.IsValid())
+			if (cType >= 0)
 			{
 				var scene = DataCenter.Instance.roomData.roomID;
-				if (lvCfg.Map <= scene)
+				if (cMap <= scene)
 				{
 					var f = true;
-					switch (lvCfg.ConditionType)
+					switch (cType)
 					{
 						case 1:
 							f = DataCenter.Instance.roomData.tables.Contains(condition[0]);
@@ -304,6 +306,12 @@ namespace SGame
 					nextLvCfg = level >= cfgLists.Count ? default : cfgLists[level];
 					cost = lvCfg.GetCostArray();
 					condition = lvCfg.GetConditionValueArray();
+					cType = lvCfg.ConditionType;
+					cMap = lvCfg.Map;
+				}
+				else
+				{
+					cType = -1;
 				}
 			}
 			return this;

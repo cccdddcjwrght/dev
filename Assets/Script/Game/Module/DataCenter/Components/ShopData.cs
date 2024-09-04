@@ -261,7 +261,7 @@ namespace SGame
 
 		public bool IsUnlock()
 		{
-			return cfg.IsValid() && DataCenter.Instance.roomData.Check(cfg.Unlock(0), cfg.Unlock(1)) && DataCenter.MachineUtil.IsAreaEnable(cfg.UnlockArea);
+			return cfg.ByteBuffer != null && DataCenter.Instance.roomData.Check(cfg.Unlock(0), cfg.Unlock(1)) && DataCenter.MachineUtil.IsAreaEnable(cfg.UnlockArea);
 		}
 
 	}

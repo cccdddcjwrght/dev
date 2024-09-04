@@ -66,11 +66,12 @@ namespace SGame
 		{
 			OnCalculation = (c, t, a) =>
 			{
-				var cfg = (RedConfigRowData)c;
-				var condition = ConditionUtil.conditonSys.GetConditonCalculator(c, null, cfg.Id);
-				var ret = condition?.Do(c, t, a) == true;
+				var cfg = c as RPData;
+				if (cfg == null) return false;
+				var condition = ConditionUtil.conditonSys.GetConditonCalculator(c, null, cfg.id);
+				var ret = condition?.Do(cfg.cfg, t, a) == true;
 				if (condition is IRedText txt)
-					SetText(cfg.Id, txt.text);
+					SetText(cfg.id, txt.text);
 				return ret;
 			};
 		}
@@ -282,16 +283,21 @@ namespace SGame
 			if (token == 0 || !_keys.TryGetValue(token, out key))
 			{
 				if (obj is int || obj is string) key = obj.ToString() + "_" + (ext ?? "id");
-				else if (obj is IFlatbufferObject)
+				else if (obj is IFlatbufferObject || obj is RPData)
 				{
 					var type = -1;
 					var id = 0;
-					if (obj is RedConfigRowData red)
+					var d = obj as RPData;
+					if (d != null)
+					{
+						id = d.id;
+						type = d.cfg.Type;
+					}
+					else if (obj is RedConfigRowData red)
 					{
 						id = red.Id;
 						type = red.Type;
 					}
-
 					if (type >= 0)
 					{
 						if (type < 101) key = id + "_id";

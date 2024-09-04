@@ -266,6 +266,8 @@ namespace SGame
 		public Dictionary<int, RoomTechRowData> roomTechs;
 		[NonSerialized]
 		public Dictionary<int, RoomAreaRowData> roomAreas;
+		[NonSerialized]
+		public List<int> wtableID;
 
 		[NonSerialized]
 		public bool isnew;
@@ -287,6 +289,7 @@ namespace SGame
 			if (!roomCfg.IsValid())
 				ConfigSystem.Instance.TryGet(id, out roomCfg);
 
+			wtableID = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => c.Scene == id).GroupBy(c => c.Machine).ToDictionary(v => v.Key).Keys.ToList();
 			roomAreas = ConfigSystem.Instance.Finds<RoomAreaRowData>(c => c.Scene == id).ToDictionary(c => c.ID);
 			waitAreas = roomAreas.Keys.Where(v => !areas.Contains(v)).ToList();
 			worktables?.ForEach(w => w.Refresh());
@@ -304,6 +307,12 @@ namespace SGame
 			return default;
 
 		}
+
+		public bool HasWorktabke(int id)
+		{
+			return wtableID.Contains(id);
+		}
+
 	}
 
 

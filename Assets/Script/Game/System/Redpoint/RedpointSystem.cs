@@ -80,6 +80,7 @@ namespace SGame
 	public class RPData
 	{
 		public int id;
+		public RedpointType rtype;
 		public string key;
 		public Entity check;
 		public Entity node;
@@ -89,6 +90,7 @@ namespace SGame
 		public string path;
 		public string ctr;
 		public string filter;
+		public string cname;
 		public Vector3 offset;
 		public EventHandleContainer ehandler;
 
@@ -163,7 +165,7 @@ namespace SGame
 		/// </summary>
 		private List<int> _onceCheckReds;
 		private List<object> _stateCache = new List<object>();
-		public Func<FlatBuffers.IFlatbufferObject, object, string, bool> OnCalculation;
+		public Func<object, object, string, bool> OnCalculation;
 
 		protected override void OnCreate()
 		{
@@ -319,7 +321,7 @@ namespace SGame
 					if (gs != null && gs.Count > 0)
 					{
 						foreach (var item in gs)
-							ToggleRedpoint(item, open);
+							ToggleRedpoint(item.Id, open);
 					}
 				}
 			}
@@ -328,17 +330,16 @@ namespace SGame
 		public void ToggleRedpoint(int id, bool status)
 		{
 
-			if (ConfigSystem.Instance.TryGet<GameConfigs.RedConfigRowData>(id, out var data))
+			if (_datas.TryGetValue(id, out var data))
 			{
 				ToggleRedpoint(data, status);
 			}
 		}
 
-		public void ToggleRedpoint(GameConfigs.RedConfigRowData data, bool status)
+		public void ToggleRedpoint(RPData rdata, bool status)
 		{
-			if (data.IsValid())
+			if (rdata != null)
 			{
-				var rdata = _datas[data.Id];
 				var _ui = rdata.ui;
 				var cpath = rdata.path;
 				if (!string.IsNullOrEmpty(_ui) && !string.IsNullOrEmpty(cpath) && CheckUIState(_ui) == true)
@@ -362,7 +363,7 @@ namespace SGame
 										for (int i = 0; i < gos.Length; i++)
 										{
 											if (gos[i].activeInHierarchy && (!fstate || gos[i].name.Contains(_f) || gos[i].transform.Find(_f)))
-												SetRedOnGameObject(gos[i], OnCalculation?.Invoke(data, gos[i], null) == true, rdata);
+												SetRedOnGameObject(gos[i], OnCalculation?.Invoke(rdata, gos[i], null) == true, rdata);
 										}
 									}
 								}
@@ -381,8 +382,8 @@ namespace SGame
 										{
 											if (item is GComponent && (fstate || item.name.Contains(_f)))
 											{
-												status = _stateCache.Contains(data.Id + item.name);
-												SetRedPointState(item.asCom, !status && OnCalculation?.Invoke(data, item, item.name) == true, data);
+												status = _stateCache.Contains(rdata.id + item.name);
+												SetRedPointState(item.asCom, !status && OnCalculation?.Invoke(rdata, item, item.name) == true, rdata);
 											}
 										}
 									}
@@ -390,7 +391,7 @@ namespace SGame
 								else
 								{
 									var child = p.GetChildByPath(path)?.asCom;
-									if (child != null) SetRedPointState(child, status, data);
+									if (child != null) SetRedPointState(child, status, rdata);
 									else GameDebug.LogWarning($"没有在界面[{_ui}]找到路径[{cpath}]的对象");
 								}
 							}
@@ -446,37 +447,34 @@ namespace SGame
 			}
 		}
 
-		private void SetRedPointState(GComponent child, bool status, GameConfigs.RedConfigRowData data = default)
+		private void SetRedPointState(GComponent child, bool status, RPData data = default)
 		{
-
-			if (child != null)
+			if (child != null && data != null)
 			{
 				FairyGUI.Controller c = default;
-				if (data.IsValid() && !string.IsNullOrEmpty(data.Ctr))
-					c = child.GetController(data.Ctr);
+				if (!string.IsNullOrEmpty(data.ctr))
+					c = child.GetController(data.ctr);
 				else
 					c = child.GetController(__red_name);
-				//if (c != null)
-				//	c.selectedIndex = status ? 1 : 0;
 
-				if (c == null || !string.IsNullOrEmpty(data.Res))
+				if (c == null || !string.IsNullOrEmpty(data.res))
 				{
-					var cname = string.IsNullOrEmpty(data.Childname) ? __red_name : data.Childname;
+					var cname = string.IsNullOrEmpty(data.cname) ? __red_name : data.cname;
 					var old = child.GetChildByPath(cname);
 					if (status)
 					{
 						var item = old;
 						if (item == null)
 						{
-							item = FairyGUI.UIPackage.CreateObjectFromURL(data.Res)
+							item = FairyGUI.UIPackage.CreateObjectFromURL(data.res)
 								?? FairyGUI.UIPackage.CreateObjectFromURL("ui://Common/Redpoint");
 							item.name = cname;
 							item.data = __flag;//动态创建的红点，加个标识
 						}
 						item.visible = true;
 						if (old == null) child.AddChild(item);
-						SetPos(item, data.Postion, data.Offset(0), data.Offset(1));
-						if (item != null && GetText(data.Id, out var txt))
+						SetPos(item, data.cfg.Postion, data.offset.x, data.offset.y);
+						if (item != null && GetText(data.id, out var txt))
 							item.SetText(txt);
 					}
 					else if (old != null)
@@ -488,7 +486,6 @@ namespace SGame
 				else if (c != null) c.selectedIndex = status ? 1 : 0;
 				OnRedpointItemChange(child, data, status);
 			}
-
 		}
 
 		private void SetPos(FairyGUI.GObject red, int type, float x = 0, float y = 0)
@@ -588,10 +585,10 @@ namespace SGame
 		{
 			if (redpoint.id > 0)
 			{
-				var cfg = GetConfig(redpoint.id);
-				if (cfg.ByteBuffer != null)
+				var cfg = GetRData(redpoint.id);
+				if (cfg != null)
 				{
-					var fid = cfg.DependFuncID;
+					var fid = cfg.cfg.DependFuncID;
 					if (fid > 0 && !FunctionSystem.Instance.IsOpened(fid))
 						return redpoint.status = 0;
 					else
@@ -601,7 +598,7 @@ namespace SGame
 						if (OnCalculation != null)
 							status = OnCalculation(cfg, null, null);
 						redpoint.status = (byte)(status ? 1 : 0);
-						redpoint.time = (cfg.Interval == 0 ? __red_check_time : cfg.Interval) + (int)math.floor(World.Time.ElapsedTime) * 1000;
+						redpoint.time = (cfg.cfg.Interval == 0 ? __red_check_time : cfg.cfg.Interval) + (int)math.floor(World.Time.ElapsedTime) * 1000;
 						return old == redpoint.status ? 0 : 1;
 					}
 				}
@@ -613,29 +610,26 @@ namespace SGame
 		{
 			if (cfg.ByteBuffer != null || (cfg = GetConfig(id)).ByteBuffer != null)
 			{
-				ToggleRedpoint(cfg, status);
+				ToggleRedpoint(id, status);
 				return cfg.Interval > 0 ? cfg.Interval : __red_check_time;
 			}
 			return 0;
 		}
 
-		private void OnRedpointItemChange(FairyGUI.GComponent item, GameConfigs.RedConfigRowData data, bool state)
+		private void OnRedpointItemChange(FairyGUI.GComponent item, RPData data, bool state)
 		{
-			if (item != null)
+			if (item != null && data != null)
 			{
-				if (_datas.TryGetValue(data.Id, out var d))
+				item.onClick.Remove(data.clickCall);
+				var ty = data.rtype;
+				if (state && (
+					ty == RedpointType.EveryDay
+					|| ty == RedpointType.Login
+					|| ty == RedpointType.OnceClick
+					|| ty == RedpointType.Guide
+					|| ty == RedpointType.Group))
 				{
-					item.onClick.Remove(d.clickCall);
-					var ty = (RedpointType)data.Type;
-					if (state && (
-						ty == RedpointType.EveryDay
-						|| ty == RedpointType.Login
-						|| ty == RedpointType.OnceClick
-						|| ty == RedpointType.Guide
-						|| ty == RedpointType.Group))
-					{
-						item.onClick.Add(d.clickCall);
-					}
+					item.onClick.Add(data.clickCall);
 				}
 			}
 		}
@@ -656,12 +650,12 @@ namespace SGame
 						var o = id + item.name;
 						if (_stateCache.Contains(o)) return;
 						_stateCache.Add(o);
-						SetRedPointState(item, false, cfg);
+						SetRedPointState(item, false, e);
 						return;
 					}
 					_onceCheckReds?.Add(id);//游戏期间记录
 
-					SetRedPointState(item, status: false, cfg);
+					SetRedPointState(item, status: false, e);
 					if (cfg.Type == (int)RedpointType.EveryDay)
 						LoadOrSaveLocalRedStatus(id, out _);//本地缓存
 					else if (cfg.Type == (int)RedpointType.OnceClick || cfg.Type == ((int)RedpointType.Guide))
@@ -725,6 +719,14 @@ namespace SGame
 			if (_datas.TryGetValue(id, out var cfg))
 				return cfg.cfg;
 			return default;
+		}
+
+		private RPData GetRData(int id) {
+
+			if (_datas.TryGetValue(id, out var cfg))
+				return cfg;
+			return default;
+
 		}
 
 		protected void Init()
@@ -817,6 +819,7 @@ namespace SGame
 				return new RPData()
 				{
 					id = cfg.Id,
+					rtype = (RedpointType)cfg.Type,
 					cfg = cfg,
 					key = needcall ? __red_key + cfg.Id : null,
 					res = cfg.Res,
@@ -824,6 +827,7 @@ namespace SGame
 					path = cfg.Path,
 					ctr = cfg.Ctr,
 					filter = cfg.Filter,
+					cname = cfg.Childname,
 					offset = new Vector3(cfg.Offset(0), cfg.Offset(1), cfg.Offset(2)),
 					clickCall = needcall ? (e) => OnItemClick(cfg.Id, e) : default
 				};
