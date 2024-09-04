@@ -157,11 +157,18 @@ namespace SGame
 		}
 
 		public static bool IS_AUTO_SAVE = true;
+		public static bool IS_START = false;
 
 		static void SetTimer()
 		{
+
+			if (IS_START) return;
+			IS_START = true;
+
 			var time = 10000;
 			var flag = true;
+
+
 			//游戏结束存盘
 			new Action(() =>
 			{
@@ -176,7 +183,6 @@ namespace SGame
 
 			ThreadPool.QueueUserWorkItem((a) =>
 			{
-				Thread.CurrentThread.Name = "SaveData";
 				while (flag)
 				{
 					Thread.Sleep(time);
