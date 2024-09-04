@@ -267,7 +267,7 @@ namespace SGame
             int lastCharacter = 0;
             foreach (var item in m_caches)
             {
-                if (item.m_characterID != 0 && lastCharacter != item.m_characterID)
+                if (item.m_characterID != 0)// && lastCharacter != item.m_characterID)
                 {
                     lastCharacter = item.m_characterID;
                     item.Dispatch();

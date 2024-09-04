@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using log4net;
 using UnityEngine;
 
 namespace SGame
@@ -9,6 +10,8 @@ namespace SGame
     /// </summary>
     public class RoomManager
     {
+        private static ILog log = LogManager.GetLogger("game.order");
+        
         private static int TAKE_ORDER_ROLE_MASK = 0;
         private static int COOK_ROLE_MASK = 0;
         private static int CHECK_ROLE_MASK = 0;
@@ -96,6 +99,12 @@ namespace SGame
         void DispathTaskCook(int workArea)
         {
             int roleTypeMask = COOK_ROLE_MASK;
+
+            // 找到符合条件的任务
+            FindChefTask(workArea, m_taskCache);
+            if (m_taskCache.Count == 0)
+                return;
+            
             
             // 查找符合条件的角色
             CharacterModule.Instance.FindCharacters(m_characterCache, (character) =>
@@ -104,13 +113,10 @@ namespace SGame
                 && BitOperator.Get(roleTypeMask, character.roleType));
 
             if (m_characterCache.Count == 0)
+            {
+                log.Error("not found worker at area=" + workArea);
                 return;
-
-            // 找到符合条件的任务
-            FindChefTask(workArea, m_taskCache);
-            if (m_taskCache.Count == 0)
-                return;
-
+            }
 
             // 派发任务标记
             foreach (var t in m_taskCache)
