@@ -53,20 +53,20 @@ namespace SGame.UI
 			log.Debug("show tips=" + name  + " delay=" + delay);
 			if (string.IsNullOrEmpty(name) || name == "-1")
 			{
-				m_view.m_myfloat.Stop(false, false);
+				m_view.m_myfloat.Stop(setToComplete: false, false);
 				m_view.visible = false;
 				return;
 			}
 			m_view.visible = true;
 			m_view.m_title.text = name;
 			m_view.m_myfloat.Stop(false, false);
+			_tipsItem.y = _oldY;
 			_tipsItem.alpha = 0f;
 			_mask.height = _oldHeight;
 			if (delay > 0)
 			{
-				_tipsItem.y = _oldY;
 				_tipsItem.TweenFade(1, 0.2f);
-				m_view.m_myfloat.Play(1, delay, 0.3f, -1f, null);
+				m_view.m_myfloat.Play(1, delay, startTime: 0.3f, -1f, null);
 				_mask.height = 3000;
 			}
 			else
