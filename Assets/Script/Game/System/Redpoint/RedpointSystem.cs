@@ -92,6 +92,7 @@ namespace SGame
 		public string filter;
 		public string cname;
 		public Vector3 offset;
+		public string[] nodes;
 		public EventHandleContainer ehandler;
 
 		public EventCallback1 clickCall;
@@ -207,14 +208,14 @@ namespace SGame
 				if (World.Time.ElapsedTime * 1000 > redpoint.time)
 				{
 					var old = redpoint.status;
-					var d = GetConfig(redpoint.id);
+					var d = GetRData(redpoint.id);
 					var s = CheckRedStatus(redpoint.id, d);
 					var t = (int)(World.Time.ElapsedTime * 1000);
 					redpoint.status = (byte)(s ? 1 : 0);
-					if (d.Type == 5 || old != redpoint.status)
+					if (d.cfg.Type == 5 || old != redpoint.status)
 						redpoint.time = OnRedpointStatusChange(redpoint.id, s, d) + t;
 					else
-						redpoint.time = (d.Interval > 0 ? d.Interval : __red_check_time) + t;
+						redpoint.time = (d.cfg.Interval > 0 ? d.cfg.Interval : __red_check_time) + t;
 				}
 			}).WithoutBurst().WithStructuralChanges().Run();
 		}
@@ -226,31 +227,28 @@ namespace SGame
 			OnCalculation = null;
 		}
 
-		public bool CheckRedStatus(int id, GameConfigs.RedConfigRowData cfg = default, bool checkCache = true)
+		public bool CheckRedStatus(int id, RPData e, bool checkCache = true)
 		{
-			_datas.TryGetValue(id, out var e);
+			if (e == null) _datas.TryGetValue(id, out e);
 			if (checkCache && e?.IsExists(EntityManager) == true)//自身条件计算
 				return e.GetData<Redpoint>(EntityManager).status == 1;
 			//下面就是依赖或者直接计算了
-			if (e != null) cfg = cfg.IsValid() ? cfg : e.cfg;
-			if (cfg.IsValid() || ConfigSystem.Instance.TryGet(id, out cfg))
+			if (e != null)
 			{
-				var ty = (RedpointType)cfg.Type;
-				if (cfg.DependFuncID > 0)
-					if (!IsFuncOpened(cfg.DependFuncID)) return false;
-
-				switch (ty)
+				if (e.cfg.DependFuncID > 0)
+					if (!IsFuncOpened(e.cfg.DependFuncID)) return false;
+				switch (e.rtype)
 				{
 					case RedpointType.Permanent:
 					case RedpointType.Group: return true;
-					case RedpointType.Leaf: return CheckNodeStatus(true, cfg);
-					case RedpointType.Node: return CheckNodeStatus(false, cfg);
+					case RedpointType.Leaf: return CheckNodeStatus(true, e);
+					case RedpointType.Node: return CheckNodeStatus(false, e);
 					case RedpointType.EveryDay:
 					case RedpointType.Login:
 					case RedpointType.OnceClick:
 						return CheckRedPointNeedCheck(id, e?.key);
 					case RedpointType.Guide:
-						return CheckRedPointNeedCheck(id, e?.key) && CheckNodeStatus(false, cfg);
+						return CheckRedPointNeedCheck(id, e?.key) && CheckNodeStatus(false, e);
 
 				}
 			}
@@ -374,18 +372,27 @@ namespace SGame
 								var path = cpath;
 								if (path.EndsWith(".*"))
 								{
-									path = path.Substring(0, path.Length - 2);
-									var list = p.GetChildByPath(path)?.asCom;
+									//path = path.Substring(0, path.Length - 2);
+									var list = FindUINode(p, rdata)?.asCom;//p.GetChildByPath(path)?.asCom;
 									if (list != null && list.numChildren > 0)
 									{
-										foreach (var item in list.GetChildren())
+										for (int i = 0; i < list.numChildren; i++)
 										{
+											var item = list.GetChildAt(i);
 											if (item is GComponent && (fstate || item.name.Contains(_f)))
 											{
 												status = _stateCache.Contains(rdata.id + item.name);
 												SetRedPointState(item.asCom, !status && OnCalculation?.Invoke(rdata, item, item.name) == true, rdata);
 											}
 										}
+										/*foreach (var item in list.GetChildren())
+										{
+											if (item is GComponent && (fstate || item.name.Contains(_f)))
+											{
+												status = _stateCache.Contains(rdata.id + item.name);
+												SetRedPointState(item.asCom, !status && OnCalculation?.Invoke(rdata, item, item.name) == true, rdata);
+											}
+										}*/
 									}
 								}
 								else
@@ -532,7 +539,7 @@ namespace SGame
 			{
 				for (int i = 0; i < ids.Length; i++)
 				{
-					var s = CheckRedStatus(ids[i]);
+					var s = CheckRedStatus(ids[i], default);
 					if (and && !s)
 						return false;
 					else if (!and && s)
@@ -542,14 +549,14 @@ namespace SGame
 			return and;
 		}
 
-		private bool CheckNodeStatus(bool and, GameConfigs.RedConfigRowData data)
+		private bool CheckNodeStatus(bool and, RPData data)
 		{
-			var l = data.DependsLength;
+			var l = data.cfg.DependsLength;
 			if (l > 0)
 			{
 				for (int i = 0; i < l; i++)
 				{
-					var s = CheckRedStatus(data.Depends(i));
+					var s = CheckRedStatus(data.cfg.Depends(i), default);
 					if (and && !s)
 						return false;
 					else if (!and && s)
@@ -606,12 +613,12 @@ namespace SGame
 			return -1;
 		}
 
-		private int OnRedpointStatusChange(int id, bool status, GameConfigs.RedConfigRowData cfg = default)
+		private int OnRedpointStatusChange(int id, bool status, RPData cfg = default)
 		{
-			if (cfg.ByteBuffer != null || (cfg = GetConfig(id)).ByteBuffer != null)
+			if (cfg != null || (cfg = GetRData(id)) != null)
 			{
 				ToggleRedpoint(id, status);
-				return cfg.Interval > 0 ? cfg.Interval : __red_check_time;
+				return cfg.cfg.Interval > 0 ? cfg.cfg.Interval : __red_check_time;
 			}
 			return 0;
 		}
@@ -721,7 +728,8 @@ namespace SGame
 			return default;
 		}
 
-		private RPData GetRData(int id) {
+		private RPData GetRData(int id)
+		{
 
 			if (_datas.TryGetValue(id, out var cfg))
 				return cfg;
@@ -760,7 +768,7 @@ namespace SGame
 				for (int i = 0; i < all.DatalistLength; i++)
 				{
 					var c = all.Datalist(i).Value;
-					if (c.IsValid())
+					if (c.ByteBuffer != null)
 					{
 						var flag = c.Type > 100 || c.DependsLength == 0;
 						var data = _datas[c.Id] = CreateData(c, flag);
@@ -828,6 +836,7 @@ namespace SGame
 					ctr = cfg.Ctr,
 					filter = cfg.Filter,
 					cname = cfg.Childname,
+					nodes = cfg.Path.Split(".", StringSplitOptions.RemoveEmptyEntries),
 					offset = new Vector3(cfg.Offset(0), cfg.Offset(1), cfg.Offset(2)),
 					clickCall = needcall ? (e) => OnItemClick(cfg.Id, e) : default
 				};
@@ -865,6 +874,35 @@ namespace SGame
 				else
 					status = new List<int>();
 			}
+		}
+
+		private GObject FindUINode(GComponent component, RPData data)
+		{
+			if (component != null && data != null && data.nodes!=null)
+			{
+				var arr = data.nodes;
+				int cnt = arr.Length - 1;
+				GComponent gcom = component;
+				GObject obj = null;
+				for (int i = 0; i < cnt; ++i)
+				{
+					obj = gcom.GetChild(arr[i]);
+					if (obj == null) break;
+
+					if (i != cnt - 1)
+					{
+						if (!(obj is GComponent))
+						{
+							obj = null;
+							break;
+						}
+						else
+							gcom = (GComponent)obj;
+					}
+				}
+
+			}
+			return default;
 		}
 
 		#region Handler

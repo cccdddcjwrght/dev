@@ -450,7 +450,19 @@ namespace SGame
 
 			public static bool CheckAllWorktableIsMaxLv()
 			{
-				return GetWorktables(CheckMaxLv) == null;
+				var ws = GetWorktables();
+				if(ws!=null && ws.Count > 0)
+				{
+					for (int i = 0; i < ws.Count; i++)
+					{
+						var w = ws[i];
+						if(w!=null && !w.isTable)
+						{
+							if (w.level < w.maxlv) return false;
+						}
+					}
+				}
+				return true;
 			}
 
 			private static bool CheckMaxLv(Worktable worktable)

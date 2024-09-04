@@ -51,6 +51,7 @@ namespace SGame
         private List<int> randomBuffs = new List<int>();
         //¹Ì¶¨buffid
         private List<int> fixedBuffs = new List<int>();
+		private List<int> fixedBuffShopID = new List<int>();
 
         public void Initalize() 
         {
@@ -68,12 +69,16 @@ namespace SGame
         public void InitConfigData() 
         {
             var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.BoostShop>();
-            for (int i = 0; i < configs.DatalistLength; i++)
-            {
-                var config = configs.Datalist(i).Value;
-                if (config.Type == 1) randomBuffs.Add(config.Id);
-                else fixedBuffs.Add(config.Id);
-            }
+			for (int i = 0; i < configs.DatalistLength; i++)
+			{
+				var config = configs.Datalist(i).Value;
+				if (config.Type == 1) randomBuffs.Add(config.Id);
+				else
+				{
+					fixedBuffs.Add(config.Id);
+					fixedBuffShopID.Add(config.ShopId);
+				}
+			}
         }
 
         public void LoadShopBuffData()
@@ -175,10 +180,9 @@ namespace SGame
             var good = DataCenter.Instance.shopData.goodDic[GetRandomShopId()];
             if (good.IsFree() && good.CDTime() <= 0) return true;
 
-            for (int i = 0; i < fixedBuffs.Count; i++)
+            for (int i = 0; i < fixedBuffShopID.Count; i++)
             {
-                var config = GetConfig(fixedBuffs[i]);
-                good = DataCenter.Instance.shopData.goodDic[config.ShopId];
+                good = DataCenter.Instance.shopData.goodDic[fixedBuffs[i]];
                 if (good.IsFree() && good.CDTime() <= 0) return true;
             }
             return false;

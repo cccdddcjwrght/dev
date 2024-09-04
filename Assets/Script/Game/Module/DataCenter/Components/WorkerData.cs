@@ -257,10 +257,9 @@ namespace SGame
 
 		public bool IsMaxLv()
 		{
-			if (cfg.IsValid())
+			if (cfg.ByteBuffer!= null)
 			{
-				return level >= (cfg.RoleType == 1
-					? DataCenter.WorkerDataUtils.c_worker_maxlv : DataCenter.WorkerDataUtils.c_waiter_maxlv);
+				return level >= (cfg.RoleType == 1 ? DataCenter.WorkerDataUtils.c_worker_maxlv : DataCenter.WorkerDataUtils.c_waiter_maxlv);
 			}
 			return false;
 		}
@@ -274,7 +273,7 @@ namespace SGame
 		{
 			type = 0;
 			id = this.id;
-			if (lvCfg.IsValid())
+			if (lvCfg.ByteBuffer!=null)
 			{
 				type = 1;
 				return Math.Ceiling(lvCfg.UpgradePrice * cfg.LevelRatio);
@@ -284,13 +283,14 @@ namespace SGame
 
 		public bool CanUpLv()
 		{
-			if (IsMaxLv()) return false;
-			if (lvCfg.IsValid())
+			var f = false;
+			if (IsMaxLv()) return f;
+			if (lvCfg.ByteBuffer != null)
 			{
 				var need = GetCost(out _, out var item);
-				return need == 0 || Utils.CheckItemCount(item, need, false);
+				return need == 0 || PropertyManager.Instance.CheckCount(item, need, 1);
 			}
-			return false;
+			return f;
 		}
 
 		public bool IsSelected()

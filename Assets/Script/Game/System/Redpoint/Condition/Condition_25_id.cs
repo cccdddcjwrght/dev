@@ -24,8 +24,7 @@ namespace SGame
 			var data = DataCenter.Instance.cookbook.books;
 			for (int i = 0; i < data.Count; i++)
 			{
-				var c = data[i];
-				if (c.CanUpLv(out _)) return true;
+				if (data[i].OnlyCheck()) return true;
 			}
 			return false;
 		}

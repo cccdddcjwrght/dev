@@ -75,7 +75,7 @@ namespace SGame
 
 		static public bool CostItem(bool onlycheck, params int[] cost)
 		{
-			if (cost != null && cost.Length>= 2)
+			if (cost != null && cost.Length >= 2)
 			{
 				for (int i = 0; i < cost.Length; i += 2)
 				{
@@ -268,7 +268,7 @@ namespace SGame
 							break;
 					}
 					if (!f) return false;
-					if (checkcost && !DataCenter.CostItem( true, cost))
+					if (checkcost && !DataCenter.CostItem(true, cost))
 					{
 						itemnot = true;
 						return false;
@@ -277,6 +277,32 @@ namespace SGame
 
 				}
 				scenelimit = true;
+				return false;
+			}
+			return false;
+		}
+
+		public bool OnlyCheck(bool checkcost = true)
+		{
+			if (IsMaxLv()) return false;
+			if (cType >= 0)
+			{
+				var scene = DataCenter.Instance.roomData.roomID;
+				if (cMap <= scene)
+				{
+					var f = true;
+					switch (cType)
+					{
+						case 1: f = DataCenter.Instance.roomData.tables.Contains(condition[0]); break;
+						case 2: f = DataCenter.MachineUtil.IsAreaEnable(condition[0]); break;
+						case 3: f = PropertyManager.Instance.CheckCount(condition[0], condition[1], 1); break;
+					}
+					if (!f) return false;
+					if (checkcost && !DataCenter.CostItem(true, cost))
+						return false;
+					return true;
+
+				}
 				return false;
 			}
 			return false;
