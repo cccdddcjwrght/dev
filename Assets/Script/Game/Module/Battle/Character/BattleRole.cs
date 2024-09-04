@@ -32,6 +32,7 @@ namespace SGame
         {
             base.Dead();
             _model.Play("dead");
+            46.ToAudioID().PlayAudio();
         }
 
         public override void Dispose()

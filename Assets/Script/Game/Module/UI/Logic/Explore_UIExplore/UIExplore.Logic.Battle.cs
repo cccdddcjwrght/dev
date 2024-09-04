@@ -46,7 +46,7 @@ namespace SGame.UI
         public IEnumerator EnterBattle()
         {
             if (BattleManager.Instance.isCombat) yield break;
-
+            43.ToAudioID().PlayAudio();
             BattleManager.Instance.isCombat = true;
             m_view.m_fightBtn.visible = false;
 
@@ -97,6 +97,7 @@ namespace SGame.UI
 
         public void ExitBattle()
         {
+            if(_show) 42.ToAudioID().PlayAudio();
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
             m_view.m_roundGroup.visible = false;
             m_view.m_battlemonster.x = m_view.m_mholder.x;
@@ -147,8 +148,12 @@ namespace SGame.UI
 
         public IEnumerator DelaySetting() 
         {
-            yield return null;
-            if (BattleManager.Instance.isCombat) MapLoop(true);
+            yield return new WaitForSeconds(0.1f);
+            if (BattleManager.Instance.isCombat) 
+            {
+                43.ToAudioID().PlayAudio();
+                MapLoop(true);
+            };
         }
 
         public void ShowBattleResult() 

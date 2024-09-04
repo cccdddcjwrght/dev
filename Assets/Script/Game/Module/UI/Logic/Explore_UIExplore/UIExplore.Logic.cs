@@ -30,6 +30,7 @@ namespace SGame.UI
 
 		partial void DoOpen(UIContext context)
 		{
+			42.ToAudioID().PlayAudio();
 			exploreData.showgoldfly = true;
 			onOpen?.Invoke(context);
 			SetHead();
@@ -42,6 +43,7 @@ namespace SGame.UI
 			//SceneCameraSystem.Instance.ToggleCamera(true);
 			onHide?.Invoke(context);
 			MapLoop(true);
+			1.ToAudioID().PlayAudio();
 		}
 
 		partial void UnInitLogic(UIContext context)

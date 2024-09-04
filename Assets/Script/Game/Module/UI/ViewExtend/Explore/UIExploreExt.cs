@@ -83,11 +83,13 @@ namespace SGame.UI.Explore
 			var upstate = 0;
 			if ( equip.isnew == 1)
 			{
+				
 				var v = equip.power - (other!=null ? other.power : 0);
 				if (v != 0)
 				{
 					upstate = v > 0 ? 1 : 2;
 					UIListener.SetTextWithName(gObject, "power", (v > 0 ? "+" : "") + Utils.ConvertNumberStrLimit3(v.ToInt()));
+					if (upstate == 1) 52.ToAudioID().PlayAudio();
 				}
 			}
 			UIListener.SetControllerSelect(gObject, "new", equip.isnew, false);

@@ -14,6 +14,7 @@ namespace SGame.UI{
 		private List<int[]> adAwardList;
 
 		partial void InitLogic(UIContext context){
+			48.ToAudioID().PlayAudio();
 			m_view.m_rewardList1.itemRenderer = OnRewardItemRenderer;
 			m_view.m_rewardList2.itemRenderer = OnAdRewardItemRenderer;
 			var level = DataCenter.Instance.battleLevelData.showLevel;

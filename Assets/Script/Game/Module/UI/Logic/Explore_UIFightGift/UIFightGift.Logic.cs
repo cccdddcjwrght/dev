@@ -27,7 +27,7 @@ namespace SGame.UI{
 
 		partial void InitLogic(UIContext context)
 		{
-
+			54.ToAudioID().PlayAudio();
 			m_view.z = -300;
 			_flag = false;
 			m_view.m_body.m_click.onClick.Add(OnClickBtn);

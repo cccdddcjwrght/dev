@@ -158,6 +158,7 @@ namespace SGame
 			var panel = view.m_loader.component as UI_ExploreLvBody;
 			if (panel != null)
 			{
+				55.ToAudioID().PlayAudio();
 				panel.m_lv.text = lv.ToString();
 				panel.m_old.text = old.ToString();
 				view.parent.TweenFade(0, 0.5f).SetDelay(3).OnComplete(() =>

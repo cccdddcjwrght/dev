@@ -8,6 +8,7 @@ namespace SGame.UI{
 	public partial class UIFightLose
 	{
 		partial void InitLogic(UIContext context){
+			47.ToAudioID().PlayAudio();
 			DataCenter.BattleLevelUtil.UpdateCacheResult();
 		}
 

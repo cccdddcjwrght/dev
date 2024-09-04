@@ -20,6 +20,7 @@ namespace SGame
         {
             base.Dead();
             _model.Play("die");
+            45.ToAudioID().PlayAudio();
         }
     }
 }

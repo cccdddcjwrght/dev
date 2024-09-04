@@ -80,17 +80,24 @@ namespace SGame
                 UpdateHpUI();
                 //吸血效果
             }
-
+            int attackAudioId = 44;
             if (attackEffect.isCritical)
             {
                 //暴击效果
+                attackAudioId = 50;
+            }
+
+            //状态集合 目前只有眩晕
+            if (attackEffect.stateList?.Count > 0) 
+            {
+                attackAudioId = 49;
             }
 
             if (attackEffect.isCombo)
             {
                 //连击效果
             }
-
+            attackAudioId.ToAudioID().PlayAudio();
             yield return new WaitForSeconds(0.55f);
             _model.Play("idle");
             yield return Move(-1, BattleConst.move_distance, BattleConst.move_time);

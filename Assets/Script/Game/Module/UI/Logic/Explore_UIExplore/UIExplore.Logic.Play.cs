@@ -179,6 +179,7 @@ namespace SGame.UI
 
 		IEnumerator MoveMonster()
 		{
+			51.ToAudioID().PlayAudio();
 			Fast();
 			yield return null;
 			var m = SpawnMonster();
@@ -190,6 +191,7 @@ namespace SGame.UI
 
 		IEnumerator DoExplore()
 		{
+			52.ToAudioID().PlayAudio();
 			MapLoop(true);
 			_model.Play(c_attack_name);
 			yield return _waitAtk;

@@ -151,7 +151,8 @@ namespace SGame.UI
 				return TomorrowGiftModule.Instance.CanShow();
 			}, () => TomorrowGiftModule.Instance.time);
 
-			m_funcManager.Register((int)FunctionID.DAILY_TASK, funcTime: ()=> GameServerTime.Instance.nextDayInterval);
+			m_funcManager.Register((int)FunctionID.DAILY_TASK, funcTime: ()=> GameServerTime.Instance.nextDayInterval, 
+				complete:() => DataCenter.DailyTaskUtil.GenerateTask());
 
 			// 成长礼包
 			m_funcManager.Register(GrowGiftModule.OPEND_ID, () => GrowGiftModule.Instance.IsOpend(0), () => GrowGiftModule.Instance.GetActiveTime(0), 0, "growgift1");
