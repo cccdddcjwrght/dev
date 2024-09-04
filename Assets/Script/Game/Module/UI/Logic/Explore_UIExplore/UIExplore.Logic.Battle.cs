@@ -22,6 +22,7 @@ namespace SGame.UI
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_START, TriggerBattle);
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_OVER, ()=> ExitExpression().Start());
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_ROUND, RefreshRound);
+            eventHandle += EventManager.Instance.Reg<int>((int)GameEvent.BATTLE_AUDIO, PlayBattleAudio);
             onOpen += OnOpen_Battle;
             onHide += OnHide_Battle;
             onClose += OnClose_Battle;
@@ -111,6 +112,12 @@ namespace SGame.UI
             _battleRole.Dispose();
             _battleMonster.Dispose();
             _monster.Reset();
+        }
+
+        void PlayBattleAudio(int audioId) 
+        {
+            if (!_show) return;
+            audioId.ToAudioID().PlayAudio();
         }
 
         public void RefreshFightLevel() 

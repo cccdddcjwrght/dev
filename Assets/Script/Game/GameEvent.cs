@@ -231,6 +231,7 @@ namespace SGame
 		BATTLE_START					= 30200,	//战斗开始
 		BATTLE_OVER						= 30201,	//战斗结束
 		BATTLE_ROUND					= 30202,	//回合变化
+		BATTLE_AUDIO					= 30203,	//战斗音效
 
 
 		//日常任务

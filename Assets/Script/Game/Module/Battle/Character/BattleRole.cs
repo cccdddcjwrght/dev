@@ -32,7 +32,8 @@ namespace SGame
         {
             base.Dead();
             _model.Play("dead");
-            46.ToAudioID().PlayAudio();
+            //46.ToAudioID().PlayAudio();
+            EventManager.Instance.Trigger((int)GameEvent.BATTLE_AUDIO, 46);
         }
 
         public override void Dispose()

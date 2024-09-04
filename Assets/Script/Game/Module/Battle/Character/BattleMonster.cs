@@ -20,7 +20,8 @@ namespace SGame
         {
             base.Dead();
             _model.Play("die");
-            45.ToAudioID().PlayAudio();
+            //45.ToAudioID().PlayAudio();
+            EventManager.Instance.Trigger((int)GameEvent.BATTLE_AUDIO, 45);
         }
     }
 }

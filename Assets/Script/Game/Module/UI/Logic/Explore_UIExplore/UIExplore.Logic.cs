@@ -44,6 +44,7 @@ namespace SGame.UI
 			onHide?.Invoke(context);
 			MapLoop(true);
 			1.ToAudioID().PlayAudio();
+			AudioSystem.Instance.Stop(SoundType.UI);
 		}
 
 		partial void UnInitLogic(UIContext context)

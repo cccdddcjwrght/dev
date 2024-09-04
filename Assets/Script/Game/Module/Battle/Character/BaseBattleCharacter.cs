@@ -97,7 +97,8 @@ namespace SGame
             {
                 //Á¬»÷Ð§¹û
             }
-            attackAudioId.ToAudioID().PlayAudio();
+            EventManager.Instance.Trigger((int)GameEvent.BATTLE_AUDIO, attackAudioId);
+            //attackAudioId.ToAudioID().PlayAudio();
             yield return new WaitForSeconds(0.55f);
             _model.Play("idle");
             yield return Move(-1, BattleConst.move_distance, BattleConst.move_time);
