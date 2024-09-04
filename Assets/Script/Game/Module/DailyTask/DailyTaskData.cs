@@ -132,10 +132,9 @@ namespace SGame
             {
                 List<int> weights = new List<int>();
                 var configs = ConfigSystem.Instance.LoadConfig<DailyTask>();
-
-                int weight = 0;
                 for (int i = 0; i < configs.DatalistLength; i++)
                 {
+                    int weight = 0;
                     var config = configs.Datalist(i).Value;
                     var min = config.TaskUnlock(0);
                     var max = config.TaskUnlock(1);
