@@ -900,6 +900,7 @@ namespace SGame
 							gcom = (GComponent)obj;
 					}
 				}
+				return obj;
 
 			}
 			return default;
