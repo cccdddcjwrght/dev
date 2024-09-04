@@ -24,9 +24,9 @@ namespace SGame
 
         private UIWindow m_hudUIWindow;
         
-        private static Entity m_sysTips = Entity.Null; // 系统文字提示
-        
         public bool IsReadly { get { return m_hudUIWindow != null; } }
+
+        public const int SYSTEM_TIP_ID = 28; // 系统提示UI
         
         public UIWindow GetHUD()
         {
@@ -43,7 +43,6 @@ namespace SGame
 
             // 创建UI
             m_hudUI = UIRequest.Create(EntityManager, UIUtils.GetUI("hud"));
-            m_sysTips = Entity.Null;
         }
 
         EntityManager EntityManager
@@ -93,16 +92,16 @@ namespace SGame
         /// <param name="text"></param>
         public void SystemTips(object text)
         {
-            //UIUtils.ShowHUD()
             var entityManager = UIModule.Instance.GetEntityManager();
-            if (!UIModule.Instance.CheckOpened(m_sysTips))
+            var sysTips = UIModule.Instance.ShowSingleton(SYSTEM_TIP_ID);
+            var state = UIModule.Instance.GetUIState(sysTips);
+            if (state == UIModule.UI_STATE.REQUEST)
             {
-                m_sysTips = UIRequest.Create(entityManager, UIUtils.GetUI("SystemTip"));
-                entityManager.AddComponentData(m_sysTips, new UIParam() { Value = text });
+                entityManager.AddComponentData(sysTips, new UIParam() { Value = text });
             }
             else
             {
-                UIUtils.TriggerUIEvent(m_sysTips, "UpdateTip", text);
+                UIUtils.TriggerUIEvent(sysTips, "UpdateTip", text);
             }
         }
 

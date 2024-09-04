@@ -295,7 +295,7 @@ namespace SGame.UI
 
 			if (w.BaseValue.isShowing)
 			{
-				return w.BaseValue.isReadyShowed ? UI_STATE.SHOWING : UI_STATE.SHOWED;
+				return w.BaseValue.isReadyShowed ? UI_STATE.SHOWED : UI_STATE.SHOWING;
 			}
 
 			if (EntityManager.HasComponent<DespawningUI>(e))

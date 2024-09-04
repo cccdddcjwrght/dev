@@ -73,13 +73,12 @@ namespace SGame
 			return false;
 		}
 
-
 		/// <summary>
 		/// 重新加载可见UI
 		/// </summary>
 		public static void ReloadVisibleUI()
 		{
-			const int HUD_ID = 5; // HUD 的配置ID
+			//const int HUD_ID = 5; // HUD 的配置ID
 			List<UI.UIWindow> allUI = UIModule.Instance.GetVisibleUI(true);
 			List<int> uiID = new List<int>();
 			
@@ -92,16 +91,13 @@ namespace SGame
 				if (ui.BaseValue.type == UI_TYPE.COM_WINDOW)
 					continue;
 				
-				if (ui.BaseValue.configID == HUD_ID)
-					continue;
-					
+				// 屏蔽重新加载
 				var configID = ui.BaseValue.configID;
+				if (HasUIGroup(configID, 11))
+					continue;
+
 				if (ConfigSystem.Instance.TryGet(configID, out GameConfigs.ui_resRowData uiconfig))
 				{
-					if (HasUIGroup(configID, 11) || uiconfig.Name == "mask")
-					{
-						continue;
-					}
 					if (uiconfig.Type == (int)UIType.UI && !uiID.Contains(configID))
 					{
 						if (ui.BaseValue != null && ui.BaseValue.isShowing)
@@ -114,7 +110,7 @@ namespace SGame
 			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			foreach (var id in uiID)
 			{
-				UIRequest.Create(entityManager, id);
+				UIModule.Instance.ShowSingleton(id);
 			}
 			EventManager.Instance.Trigger((int)GameEvent.RELOAD_ALL_UI);
 		}
