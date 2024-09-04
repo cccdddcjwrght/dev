@@ -168,6 +168,7 @@ namespace SGame.UI
 		{
 			var eq = SetEquipInfo(equip, true);
 			_model?.RefreshModel();
+			EffectSystem.Instance.AddEffect(66, m_view.m_modeleffect);
 			if (eq != null) _eqEffect = EffectSystem.Instance.AddEffect(65, eq);
 		}
 

@@ -62,7 +62,7 @@ namespace SGame.UI
 
 			_checkExplore = new WaitUntil(CheckCmd);
 			_waitAtk = new WaitForSeconds(1f);
-			_waitDead = new WaitForSeconds(0.5f);
+			_waitDead = new WaitForSeconds(0.8f);
 			_waitRest = new WaitForSeconds(1f);
 
 			c_normal_walk_speed = GlobalDesginConfig.GetFloat("explore_normal_walk_speed", c_normal_walk_speed);
@@ -196,6 +196,7 @@ namespace SGame.UI
 			_model.Play(c_attack_name);
 			yield return _waitAtk;
 			m_view.m_kill.Play();
+			EffectSystem.Instance.AddEffect(67, m_view.m_monstereffect);
 			yield return _waitDead;
 			if (!autoState) Fast(true);
 		}
