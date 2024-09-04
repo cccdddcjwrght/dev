@@ -21,8 +21,8 @@ namespace SGame
                 task.isFinish = true;
                 dailyTaskData.dayLiveness += task.GetConfig().TaskReward;
                 dailyTaskData.weekLiveness += task.GetConfig().TaskReward;
+                EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.DIALY_TASK, 1);
                 EventManager.Instance.Trigger((int)GameEvent.DAILY_TASK_UPDATE);
-                EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, RecordDataEnum.DIALY_TASK, 1);
             }
         }
 
