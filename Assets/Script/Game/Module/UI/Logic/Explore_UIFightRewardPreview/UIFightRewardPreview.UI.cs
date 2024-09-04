@@ -13,20 +13,13 @@ namespace SGame.UI{
 
 		partial void InitUI(UIContext context){
 			__id = context.configID;
-			m_view.m_ad.onChanged.Add(new EventCallback1(_OnAdChanged));
-			UIListener.ListenerClose(m_view.m_mask, new EventCallback1(DoCloseUIClick));
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick));
 
 		}
 		partial void UnInitUI(UIContext context){
-			m_view.m_ad.onChanged.Remove(new EventCallback1(_OnAdChanged));
-			UIListener.ListenerClose(m_view.m_mask, new EventCallback1(DoCloseUIClick),remove:true);
+			UIListener.ListenerClose(m_view.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 
 		}
-		void _OnAdChanged(EventContext data){
-			OnAdChanged(data);
-		}
-		partial void OnAdChanged(EventContext data);
-		void SwitchAdPage(int index)=>m_view.m_ad.selectedIndex=index;
 		void DoCloseUIClick(EventContext data){
 			 bool __closestate = true;
 			 OnUICloseClick(ref __closestate);
@@ -34,6 +27,8 @@ namespace SGame.UI{
 			 
 		}
 		partial void OnUICloseClick(ref bool state);
+		void SetBodyText(string data)=>UIListener.SetText(m_view.m_body,data);
+		string GetBodyText()=>UIListener.GetText(m_view.m_body);
 
 	}
 }

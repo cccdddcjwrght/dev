@@ -7,12 +7,9 @@ namespace SGame.UI.Explore
 {
     public partial class UI_FightRewardPreviewUI : GLabel
     {
-        public Controller m_ad;
-        public GGraph m_mask;
-        public GList m_list1;
-        public GGroup m_rewardGroup1;
-        public GList m_list2;
-        public GGroup m_rewardGroup2;
+        public GLabel m_body;
+        public GList m_list;
+        public GGroup m_content;
         public const string URL = "ui://ow12is1hm3fd2e";
 
         public static UI_FightRewardPreviewUI CreateInstance()
@@ -24,12 +21,9 @@ namespace SGame.UI.Explore
         {
             base.ConstructFromXML(xml);
 
-            m_ad = GetControllerAt(0);
-            m_mask = (GGraph)GetChildAt(0);
-            m_list1 = (GList)GetChildAt(5);
-            m_rewardGroup1 = (GGroup)GetChildAt(6);
-            m_list2 = (GList)GetChildAt(11);
-            m_rewardGroup2 = (GGroup)GetChildAt(12);
+            m_body = (GLabel)GetChildAt(0);
+            m_list = (GList)GetChildAt(2);
+            m_content = (GGroup)GetChildAt(3);
         }
     }
 }

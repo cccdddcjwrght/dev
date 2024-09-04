@@ -33,11 +33,11 @@ namespace SGame.UI.Explore
             m_level = (GTextField)GetChildAt(4);
             m_desc = (GTextField)GetChildAt(5);
             m_condition = (GTextField)GetChildAt(6);
-            m_list = (GList)GetChildAt(10);
-            m_click = (GButton)GetChildAt(11);
-            m_diamondbtn = (GButton)GetChildAt(12);
-            m_adbtn = (GButton)GetChildAt(13);
-            m_time = (GTextField)GetChildAt(14);
+            m_list = (GList)GetChildAt(9);
+            m_click = (GButton)GetChildAt(10);
+            m_diamondbtn = (GButton)GetChildAt(11);
+            m_adbtn = (GButton)GetChildAt(12);
+            m_time = (GTextField)GetChildAt(13);
         }
     }
 }
