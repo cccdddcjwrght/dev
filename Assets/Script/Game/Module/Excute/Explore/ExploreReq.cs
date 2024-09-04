@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FairyGUI;
 using GameConfigs;
 using SGame.UI.Common;
 using SGame.UI.Explore;
@@ -142,11 +143,10 @@ namespace SGame
 							contentCall: (view) => OnShowExploreLvUp(view, data.level, old)
 						);
 					}
-
+					flag = data.addExp > 0;
 					_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
 					if (data.showgoldfly)
-						TransitionModule.Instance.PlayFlight(FairyGUI.GRoot.inst, 1);
-
+						RunFly(flag).Start();
 				}
 				data.cacheEquip = default;
 			}
@@ -167,5 +167,16 @@ namespace SGame
 			}
 		}
 
+		static IEnumerator RunFly(bool showexp = true)
+		{
+			TransitionModule.Instance.PlayFlight(FairyGUI.GRoot.inst, 1);
+
+			if (showexp )
+			{
+				yield return new WaitForSeconds(0.5f);
+				var p = UIUtils.GetUIPosition("explore", "progress.n2", true);
+				TransitionModule.Instance.PlayFlight(GRoot.inst, ((int)ItemID.EXP), endpos: p);
+			}
+		}
 	}
 }

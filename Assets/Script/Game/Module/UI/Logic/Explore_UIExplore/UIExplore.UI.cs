@@ -49,9 +49,11 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_help, new EventCallback1(_OnHelpClick));
 			m_view.m_hp.m_size.onChanged.Add(new EventCallback1(_OnFightAttr_SizeChanged));
 			m_view.m_hp.m_uptype.onChanged.Add(new EventCallback1(_OnFightAttr_UptypeChanged));
+			m_view.m_hp.m_ftype.onChanged.Add(new EventCallback1(_OnFightAttr_FtypeChanged));
 			UIListener.ListenerIcon(m_view.m_hp, new EventCallback1(_OnHpClick));
 			m_view.m_atk.m_size.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_sizeChanged));
 			m_view.m_atk.m_uptype.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_uptypeChanged));
+			m_view.m_atk.m_ftype.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_ftypeChanged));
 			UIListener.ListenerIcon(m_view.m_atk, new EventCallback1(_OnAtkClick));
 			m_view.m_eqinfo.m_type.onChanged.Add(new EventCallback1(_OnFightEquipInfo_TypeChanged));
 			m_view.m_eqinfo.m_body.m_bgtype.onChanged.Add(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_bgtypeChanged));
@@ -102,9 +104,11 @@ namespace SGame.UI{
 			UIListener.Listener(m_view.m_help, new EventCallback1(_OnHelpClick),remove:true);
 			m_view.m_hp.m_size.onChanged.Remove(new EventCallback1(_OnFightAttr_SizeChanged));
 			m_view.m_hp.m_uptype.onChanged.Remove(new EventCallback1(_OnFightAttr_UptypeChanged));
+			m_view.m_hp.m_ftype.onChanged.Remove(new EventCallback1(_OnFightAttr_FtypeChanged));
 			UIListener.ListenerIcon(m_view.m_hp, new EventCallback1(_OnHpClick),remove:true);
 			m_view.m_atk.m_size.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_sizeChanged));
 			m_view.m_atk.m_uptype.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_uptypeChanged));
+			m_view.m_atk.m_ftype.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_ftypeChanged));
 			UIListener.ListenerIcon(m_view.m_atk, new EventCallback1(_OnAtkClick),remove:true);
 			m_view.m_eqinfo.m_type.onChanged.Remove(new EventCallback1(_OnFightEquipInfo_TypeChanged));
 			m_view.m_eqinfo.m_body.m_bgtype.onChanged.Remove(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_bgtypeChanged));
@@ -332,8 +336,15 @@ namespace SGame.UI{
 		}
 		partial void OnFightAttr_UptypeChanged(EventContext data);
 		void SwitchFightAttr_UptypePage(int index)=>m_view.m_hp.m_uptype.selectedIndex=index;
+		void _OnFightAttr_FtypeChanged(EventContext data){
+			OnFightAttr_FtypeChanged(data);
+		}
+		partial void OnFightAttr_FtypeChanged(EventContext data);
+		void SwitchFightAttr_FtypePage(int index)=>m_view.m_hp.m_ftype.selectedIndex=index;
 		void SetFightAttr_ValText(string data)=>UIListener.SetText(m_view.m_hp.m_val,data);
 		string GetFightAttr_ValText()=>UIListener.GetText(m_view.m_hp.m_val);
+		void SetFightAttr_Val2Text(string data)=>UIListener.SetText(m_view.m_hp.m_val2,data);
+		string GetFightAttr_Val2Text()=>UIListener.GetText(m_view.m_hp.m_val2);
 		void _OnHpClick(EventContext data){
 			OnHpClick(data);
 		}
@@ -350,8 +361,15 @@ namespace SGame.UI{
 		}
 		partial void OnFightAttr_Atk_uptypeChanged(EventContext data);
 		void SwitchFightAttr_Atk_uptypePage(int index)=>m_view.m_atk.m_uptype.selectedIndex=index;
+		void _OnFightAttr_Atk_ftypeChanged(EventContext data){
+			OnFightAttr_Atk_ftypeChanged(data);
+		}
+		partial void OnFightAttr_Atk_ftypeChanged(EventContext data);
+		void SwitchFightAttr_Atk_ftypePage(int index)=>m_view.m_atk.m_ftype.selectedIndex=index;
 		void SetFightAttr_Atk_valText(string data)=>UIListener.SetText(m_view.m_atk.m_val,data);
 		string GetFightAttr_Atk_valText()=>UIListener.GetText(m_view.m_atk.m_val);
+		void SetFightAttr_Atk_val2Text(string data)=>UIListener.SetText(m_view.m_atk.m_val2,data);
+		string GetFightAttr_Atk_val2Text()=>UIListener.GetText(m_view.m_atk.m_val2);
 		void _OnAtkClick(EventContext data){
 			OnAtkClick(data);
 		}

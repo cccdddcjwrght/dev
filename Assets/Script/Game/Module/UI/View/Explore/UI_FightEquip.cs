@@ -16,6 +16,7 @@ namespace SGame.UI.Explore
         public GTextField m_level;
         public GLoader m_part_2;
         public GImage m_strong;
+        public GGraph m___effect;
         public const string URL = "ui://ow12is1hpm5b16";
 
         public static UI_FightEquip CreateInstance()
@@ -36,6 +37,7 @@ namespace SGame.UI.Explore
             m_level = (GTextField)GetChildAt(4);
             m_part_2 = (GLoader)GetChildAt(6);
             m_strong = (GImage)GetChildAt(7);
+            m___effect = (GGraph)GetChildAt(9);
         }
     }
 }

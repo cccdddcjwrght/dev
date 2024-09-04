@@ -41,6 +41,7 @@ namespace SGame.UI.Explore
         public Transition m_expanim;
         public Transition m_showeqinfo;
         public Transition m_t4;
+        public Transition m_t5;
         public const string URL = "ui://ow12is1hpm5b14";
 
         public static UI_ExploreUI CreateInstance()
@@ -86,6 +87,7 @@ namespace SGame.UI.Explore
             m_expanim = GetTransitionAt(1);
             m_showeqinfo = GetTransitionAt(2);
             m_t4 = GetTransitionAt(3);
+            m_t5 = GetTransitionAt(4);
         }
     }
 }

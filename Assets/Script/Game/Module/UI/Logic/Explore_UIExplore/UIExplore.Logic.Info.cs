@@ -8,12 +8,14 @@ namespace SGame.UI
 	using SGame.UI.Common;
 	using SGame.UI.Pet;
 	using System.Collections;
-	using Unity.Entities.UniversalDelegates;
+	using System.Collections.Generic;
+	using Unity.Entities;
 
 	public partial class UIExplore
 	{
 		private Coroutine _cd;
 		private bool _clickeqflag;
+		private Entity _eqEffect;
 
 		void InitInfo()
 		{
@@ -38,6 +40,8 @@ namespace SGame.UI
 		{
 			_cd?.Stop();
 			m_view.onClick.Clear();
+			if (_eqEffect != null)
+				EffectSystem.Instance.ReleaseEffect(_eqEffect);
 		}
 
 		void SetBaseInfo()
@@ -93,9 +97,7 @@ namespace SGame.UI
 
 			if (exploreData.addExp > 0)
 			{
-				m_view.m_exptips.text = "+" + exploreData.addExp;
-				exploreData.addExp = 0;
-				m_view.m_expanim.Play();
+				DoExpAdd();
 			}
 			m_view.m_warn.visible = exploreData.lvPause;
 		}
@@ -122,7 +124,7 @@ namespace SGame.UI
 			if (refreshlv) m_view.m_tool.SetTextByKey("ui_common_lv1", exploreData.toolLevel);
 		}
 
-		void SetEquipInfo(FightEquip equip, bool refreshattr = false)
+		GObject SetEquipInfo(FightEquip equip, bool refreshattr = false)
 		{
 			if (equip != null)
 			{
@@ -135,8 +137,10 @@ namespace SGame.UI
 					{
 						SetAttr();
 					}
+					return eq;
 				}
 			}
+			return default;
 		}
 
 		void ResetBtnState()
@@ -162,8 +166,9 @@ namespace SGame.UI
 
 		void OnFightEquipChange(FightEquip equip)
 		{
-			SetEquipInfo(equip, true);
+			var eq = SetEquipInfo(equip, true);
 			_model?.RefreshModel();
+			if (eq != null) _eqEffect = EffectSystem.Instance.AddEffect(65, eq);
 		}
 
 		void OnEqClick(EventContext data)
@@ -197,6 +202,13 @@ namespace SGame.UI
 					m_view.m_eqinfostate.selectedIndex = 0;
 			}
 			_clickeqflag = false;
+		}
+
+		void DoExpAdd()
+		{
+			m_view.m_exptips.text = "+" + exploreData.addExp;
+			exploreData.addExp = 0;
+			m_view.m_expanim.Play(1, 1f, null);
 		}
 
 		partial void OnWarnClick(EventContext data)

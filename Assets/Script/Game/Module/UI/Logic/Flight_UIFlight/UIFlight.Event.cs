@@ -112,9 +112,9 @@ namespace SGame.UI{
 				if (type == 2) return 47;
 				return 22;
 			}
-
 			else if (id == 3)
 				return 61;
+			else if (id == ((int)ItemID.EXP)) return 63;
 			return 26;
 		}
 
@@ -123,6 +123,7 @@ namespace SGame.UI{
 			if (id == 1) return 23;         //金币飞行特效id
 			else if (id == 2) return 24;    //钻石飞行特效id
 			else if (id == 3) return 62;
+			else if (id == ((int)ItemID.EXP)) return 64;
 			//宠物蛋飞行特效
 			else if (TransitionModule.Instance.CheckIsPet(id)) return 500;
 			return id;
