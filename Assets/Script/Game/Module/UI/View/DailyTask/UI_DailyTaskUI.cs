@@ -17,6 +17,7 @@ namespace SGame.UI.DailyTask
         public UI_DailyGiftItem m_giftItem4;
         public UI_DailyGiftItem m_giftItem5;
         public GList m_taskList;
+        public UI_DailyPop m_pop;
         public GTextField m_dayTime;
         public GTextField m_weekTime;
         public GTextField m_weekValue;
@@ -43,11 +44,12 @@ namespace SGame.UI.DailyTask
             m_giftItem4 = (UI_DailyGiftItem)GetChildAt(10);
             m_giftItem5 = (UI_DailyGiftItem)GetChildAt(11);
             m_taskList = (GList)GetChildAt(12);
-            m_dayTime = (GTextField)GetChildAt(17);
-            m_weekTime = (GTextField)GetChildAt(20);
-            m_weekValue = (GTextField)GetChildAt(24);
-            m_rewardList = (GList)GetChildAt(25);
-            m_content = (GGroup)GetChildAt(26);
+            m_pop = (UI_DailyPop)GetChildAt(15);
+            m_dayTime = (GTextField)GetChildAt(18);
+            m_weekTime = (GTextField)GetChildAt(21);
+            m_weekValue = (GTextField)GetChildAt(25);
+            m_rewardList = (GList)GetChildAt(26);
+            m_content = (GGroup)GetChildAt(27);
         }
     }
 }

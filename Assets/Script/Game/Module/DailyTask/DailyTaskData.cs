@@ -1,3 +1,4 @@
+using GameConfigs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,9 +27,9 @@ namespace SGame
     {
         public int cfgId;
         public bool isFinish;
-        public GameConfigs.DailyTaskRowData GetConfig()
+        public DailyTaskRowData GetConfig()
         {
-            ConfigSystem.Instance.TryGet<GameConfigs.DailyTaskRowData>(cfgId, out var config);
+            ConfigSystem.Instance.TryGet<DailyTaskRowData>(cfgId, out var config);
             return config;
         }
 
@@ -50,10 +51,17 @@ namespace SGame
         public int needLiveness;
         public bool isGet;
 
-        public GameConfigs.DailyRewardRowData GetConfig() 
+        public DailyRewardRowData GetConfig() 
         {
-            ConfigSystem.Instance.TryGet<GameConfigs.DailyRewardRowData>(cfgId, out var config);
+            ConfigSystem.Instance.TryGet<DailyRewardRowData>(cfgId, out var config);
             return config;
+        }
+
+        public bool IsCanGet() 
+        {
+            if (isGet) return false;
+            if (GetConfig().Type == 1) return DataCenter.Instance.dailyTaskData.dayLiveness >= needLiveness;
+            else return DataCenter.Instance.dailyTaskData.weekLiveness >= needLiveness;
         }
     }
 
@@ -64,9 +72,11 @@ namespace SGame
         public static class DailyTaskUtil 
         {
             public static DailyTaskData m_Data { get { return Instance.dailyTaskData; } }
+            private static int daily_task_num = GlobalDesginConfig.GetInt("daily_task_num", 3);
             public static void Init() 
             {
                 GenerateTask();
+                EventManager.Instance.Reg<int>((int)GameEvent.ENTER_ROOM, (s) => { GenerateTask(); });
             }
 
             public static int nextWeekInterval 
@@ -81,7 +91,7 @@ namespace SGame
                 {
                     m_Data.tasks.Clear();
                     m_Data.dayLiveness = 0;
-                    var t = GetRandomDayTasks(3);
+                    var t = GetRandomDayTasks(daily_task_num);
                     m_Data.tasks = t.Select(v => new DailyTaskItem() 
                     { 
                         cfgId = v,
@@ -102,12 +112,13 @@ namespace SGame
                     m_Data.weekRewards = GetDailyRewards(2);
                     m_Data.nextWeekRefreshTime = GetNextWeekDay();
                 }
+                EventManager.Instance.Trigger((int)GameEvent.DAILY_TASK_UPDATE);
             }
 
             public static List<DailyReward> GetDailyRewards(int type) 
             {
                 var roomId = Instance.roomData.roomID;
-                var list = ConfigSystem.Instance.Finds<GameConfigs.DailyRewardRowData>((v) => v.Type == type 
+                var list = ConfigSystem.Instance.Finds<DailyRewardRowData>((v) => v.Type == type 
                 && roomId >= v.LevelUnlock(0) && roomId <= v.LevelUnlock(1));
                 return list.Select(v => new DailyReward() 
                 { 
@@ -120,7 +131,7 @@ namespace SGame
             public static int[] GetRandomDayTasks(int num) 
             {
                 List<int> weights = new List<int>();
-                var configs = ConfigSystem.Instance.LoadConfig<GameConfigs.DailyTask>();
+                var configs = ConfigSystem.Instance.LoadConfig<DailyTask>();
 
                 int weight = 0;
                 for (int i = 0; i < configs.DatalistLength; i++)
@@ -145,6 +156,17 @@ namespace SGame
 
                 d = d.AddDays(nextMonday);
                 return (int)d.ToUnixTimeSeconds();
+            }
+
+            public static bool CheckRed() 
+            {
+                foreach (var v in m_Data.tasks)
+                    if (v.IsGet()) return true;
+                foreach (var v in m_Data.dayRewards)
+                    if (v.IsCanGet()) return true;
+                foreach (var v in m_Data.weekRewards)
+                    if (v.IsCanGet()) return true;
+                return false;
             }
         }
     }

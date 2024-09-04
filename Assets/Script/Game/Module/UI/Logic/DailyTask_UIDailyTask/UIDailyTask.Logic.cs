@@ -11,7 +11,9 @@ namespace SGame.UI{
 	{
 		private EventHandleContainer m_Event = new EventHandleContainer();
 		private List<UI_DailyGiftItem> m_GiftItems = new List<UI_DailyGiftItem>();
+		private List<int[]> m_PopItems;
 
+		private bool _isPop = false;
 		partial void InitLogic(UIContext context){
 			m_view.m_taskList.SetVirtual();
 			m_view.m_taskList.itemRenderer = OnTaskItemRenderer;
@@ -26,11 +28,35 @@ namespace SGame.UI{
 
 		void LoadGiftItem() 
 		{
-            for (int i = 1; i <= 5; i++)
+			m_view.onClick.Add(()=> 
+			{
+				if (!_isPop) 
+				{
+					m_view.m_pop.visible = false;
+				}
+				_isPop = false;
+			});
+			m_view.m_pop.m_list.itemRenderer = OnPopItemRenderer;
+
+			for (int i = 1; i <= 5; i++)
             {
 				var giftItem = (UI_DailyGiftItem)m_view.GetChild("giftItem" + i);
 				m_GiftItems.Add(giftItem);
-				giftItem.onClick.Add(giftItem.OnClick);
+				giftItem.onClick.Add(()=> 
+				{
+					if (giftItem.m_state.selectedIndex != 1)
+					{
+						m_PopItems = giftItem.GetRewardList();
+						m_view.m_pop.m_list.numItems = m_PopItems.Count;
+						m_view.m_pop.m_list.ResizeToFit();
+						m_view.m_pop.SetPivot(1 - Mathf.Pow(0.5f, m_PopItems.Count), 1f, true);
+						m_view.m_pop.xy = giftItem.xy;
+						m_view.m_pop.visible = true;
+						_isPop = true;
+					}
+					giftItem.OnClick();
+					
+				});
             }
 		}
 
@@ -83,6 +109,13 @@ namespace SGame.UI{
 			item.SetData(DataCenter.Instance.dailyTaskData.weekRewards[index]);
 		}
 
+		void OnPopItemRenderer(int index, GObject gObject) 
+		{
+			var v = m_PopItems[index];
+			gObject.SetIcon(Utils.GetItemIcon(v[0], v[1]));
+			gObject.SetText(Utils.ConvertNumberStrLimit3(v[2]));
+		}
+
 		partial void UnInitLogic(UIContext context){
 			m_Event.Close();
 			m_Event = null;
@@ -92,7 +125,9 @@ namespace SGame.UI{
 
 namespace SGame.UI.DailyTask 
 {
-	using SGame;
+    using FairyGUI;
+    using SGame;
+    using System.Collections.Generic;
     using UnityEngine;
 
     public partial class UI_DailyGiftItem 
@@ -109,10 +144,20 @@ namespace SGame.UI.DailyTask
 
 		public void OnClick() 
 		{
-			if (m_state.selectedIndex == 1) 
+			if (m_state.selectedIndex == 1)
 			{
 				RequestExcuteSystem.DailyGiftGet(m_DailyReward.cfgId);
 			}
+		}
+
+		public List<int[]> GetRewardList() 
+		{
+			var config = m_DailyReward.GetConfig();
+			var list = Utils.GetArrayList(true,
+				config.GetReward1Array,
+				config.GetReward2Array,
+				config.GetReward3Array);
+			return list;
 		}
 	}
 

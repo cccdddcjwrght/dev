@@ -24,6 +24,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_giftItem4, new EventCallback1(_OnGiftItem4Click));
 			m_view.m_giftItem5.m_state.onChanged.Add(new EventCallback1(_OnDailyGiftItem_GiftItem5_stateChanged));
 			UIListener.ListenerIcon(m_view.m_giftItem5, new EventCallback1(_OnGiftItem5Click));
+			UIListener.ListenerIcon(m_view.m_pop, new EventCallback1(_OnPopClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -38,6 +39,7 @@ namespace SGame.UI{
 			UIListener.ListenerIcon(m_view.m_giftItem4, new EventCallback1(_OnGiftItem4Click),remove:true);
 			m_view.m_giftItem5.m_state.onChanged.Remove(new EventCallback1(_OnDailyGiftItem_GiftItem5_stateChanged));
 			UIListener.ListenerIcon(m_view.m_giftItem5, new EventCallback1(_OnGiftItem5Click),remove:true);
+			UIListener.ListenerIcon(m_view.m_pop, new EventCallback1(_OnPopClick),remove:true);
 
 		}
 		void DoCloseUIClick(EventContext data){
@@ -106,6 +108,12 @@ namespace SGame.UI{
 		partial void OnGiftItem5Click(EventContext data);
 		void SetGiftItem5Text(string data)=>UIListener.SetText(m_view.m_giftItem5,data);
 		string GetGiftItem5Text()=>UIListener.GetText(m_view.m_giftItem5);
+		void _OnPopClick(EventContext data){
+			OnPopClick(data);
+		}
+		partial void OnPopClick(EventContext data);
+		void SetPopText(string data)=>UIListener.SetText(m_view.m_pop,data);
+		string GetPopText()=>UIListener.GetText(m_view.m_pop);
 		void SetDayTimeText(string data)=>UIListener.SetText(m_view.m_dayTime,data);
 		string GetDayTimeText()=>UIListener.GetText(m_view.m_dayTime);
 		void SetWeekTimeText(string data)=>UIListener.SetText(m_view.m_weekTime,data);

@@ -12,6 +12,7 @@ namespace SGame.UI.DailyTask
             UIObjectFactory.SetPackageItemExtension(UI_DailyGiftItem.URL, typeof(UI_DailyGiftItem));
             UIObjectFactory.SetPackageItemExtension(UI_DailyTaskItem.URL, typeof(UI_DailyTaskItem));
             UIObjectFactory.SetPackageItemExtension(UI_DailyRewardItem.URL, typeof(UI_DailyRewardItem));
+            UIObjectFactory.SetPackageItemExtension(UI_DailyPop.URL, typeof(UI_DailyPop));
         }
     }
 }
