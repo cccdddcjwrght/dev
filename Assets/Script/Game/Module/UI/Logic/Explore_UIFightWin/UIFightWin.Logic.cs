@@ -45,8 +45,14 @@ namespace SGame.UI{
 
         partial void OnAdBtnClick(EventContext data)
         {
-			RequestExcuteSystem.BattleAdAward();
-			SGame.UIUtils.CloseUIByID(__id);
+			AdModule.PlayAd("explore_battle_ad", (s) =>
+			{
+				if (s)
+				{
+					RequestExcuteSystem.BattleAdAward();
+					SGame.UIUtils.CloseUIByID(__id);
+				}
+			});
 		}
 
         partial void UnInitLogic(UIContext context){
