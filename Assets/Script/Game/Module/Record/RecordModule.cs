@@ -109,7 +109,7 @@ namespace SGame
 		{
 			m_RecordTotalData.data.ForEach((d) =>
 			{
-				if (d.funcId.IsOpend() || d.funcId == (int)RecordFunctionId.NONE)
+				if (d.funcId.IsOpend(false) || d.funcId == (int)RecordFunctionId.NONE)
 				{
 					var index = d.recordDatas.FindIndex((r) => r.type == type);
 					if (index == -1)
