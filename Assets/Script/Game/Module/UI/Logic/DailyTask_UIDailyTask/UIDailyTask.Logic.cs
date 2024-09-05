@@ -93,7 +93,7 @@ namespace SGame.UI{
 
 			Utils.Timer(DataCenter.DailyTaskUtil.nextWeekInterval, () =>
 			{
-				m_view.m_weekTime.SetText(Utils.FormatTime(DataCenter.DailyTaskUtil.nextWeekInterval, daylimit: 7));
+				m_view.m_weekTime.SetText(Utils.FormatTime(DataCenter.DailyTaskUtil.nextWeekInterval, daylimit: 1));
 			}, m_view);
 		}
 

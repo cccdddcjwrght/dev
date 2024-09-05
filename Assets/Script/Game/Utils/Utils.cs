@@ -663,7 +663,8 @@ namespace SGame
 			if (hour > 24 && daylimit > 0)
 			{
 				var day = math.floor(hour / 24);
-				if (day >= daylimit) return string.Format(formats[4], day);
+				hour = (int)math.floor(hour - day * 24);//(int)math.floor((time - (day * 24 * 3600)) / 3600);
+				if (day >= daylimit) return string.Format(formats[3], day, hour);
 			}
 			if (needsec)
 				return string.Format(formats[2], hour, min, sec);
