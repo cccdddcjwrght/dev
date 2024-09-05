@@ -50,27 +50,28 @@ namespace SGame.UI
 
 		void ShowText(string name, float delay = 0)
 		{
-			log.Debug("show tips=" + name  + " delay=" + delay);
+			log.Debug("show tips=" + name + " delay=" + delay);
 			if (string.IsNullOrEmpty(name) || name == "-1")
 			{
 				m_view.m_myfloat.Stop(setToComplete: false, false);
 				m_view.visible = false;
 				return;
 			}
+
+			m_view.m_myfloat.Stop(false, false);
 			m_view.visible = true;
 			m_view.m_title.text = name;
-			m_view.m_myfloat.Stop(false, false);
+			_mask.height = _oldHeight;
 			_tipsItem.y = _oldY;
 			_tipsItem.alpha = 0f;
-			_mask.height = _oldHeight;
 			if (delay > 0)
 			{
 				_tipsItem.TweenFade(1, 0.2f);
-				m_view.m_myfloat.Play(1, delay, startTime: 0.3f, -1f, null);
+				m_view.m_myfloat.Play(1, delay, startTime: 0.3f, -1f, OnCompleted);
 				_mask.height = 3000;
 			}
 			else
-				m_view.m_myfloat.Play();
+				m_view.m_myfloat.Play(1, Time.deltaTime, OnCompleted);
 		}
 
 		void OnUpdateTip(EventContext fcontex)
@@ -80,6 +81,13 @@ namespace SGame.UI
 
 		partial void UnInitLogic(UIContext context)
 		{
+			m_view.m_myfloat.Stop();
 		}
+
+		void OnCompleted()
+		{
+			m_view.visible = false;
+		}
+
 	}
 }
