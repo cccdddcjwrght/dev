@@ -162,6 +162,7 @@ namespace SGame.UI
 			{
 				SetExploreToolInfo(false);
 			}
+			RefreshRed();
 		}
 
 		void OnFightEquipChange(FightEquip equip)

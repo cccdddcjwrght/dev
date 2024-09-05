@@ -113,6 +113,7 @@ namespace SGame.UI
 		{
 			if (isCombat) return;
 
+
 			if (!autoState)
 			{
 				if (42.IsOpend(true, "ui_explore_auto_tips".Local()))

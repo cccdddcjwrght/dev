@@ -41,15 +41,25 @@ namespace SGame.UI
 			m_view.m_eqTab.selectedIndex = 0;
 			OnDataRefresh(false);
 
-			m_view.m_body.SetCurrency(2, "currency");
 			m_view.m_equipup.onClick.AddCapture(OnCheckTabOpen);
 
+			context.onHide += DoHide;
+
+		}
+
+		partial void DoShow(UIContext context)
+		{
+			m_view.m_body.SetCurrency(2, "currency");
+		}
+
+		void DoHide(UIContext context)
+		{
+			DataCenter.EquipUtil.CancelAllNewFlag();
 		}
 
 		partial void UnInitLogic(UIContext context)
 		{
 			m_view.m_EquipPage.Uninit();
-			DataCenter.EquipUtil.CancelAllNewFlag();
 		}
 
 		void OnDataRefresh(bool refreshtabs = true)

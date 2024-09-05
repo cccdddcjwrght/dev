@@ -74,8 +74,15 @@ namespace SGame.UI
 				bar.SetCurrency(1, "gold", iconCtr: "1");
 				bar.SetCurrency(2, "diamond", iconCtr: "2");
 				bar.m_shop.onClick.Set(OpenShop);
+				RefreshRed();
 			}
 
+		}
+
+		void RefreshRed()
+		{
+			if (m_view == null) return;
+			(m_view.m_topbar as UI_CurrencyHead).m_shopred.selectedIndex = DataCenter.ShopUtil.HasFree() ? 1 : 0;
 		}
 
 		void SetHead()
@@ -99,7 +106,7 @@ namespace SGame.UI
 		{
 			yield return new WaitForSeconds(0.2f);
 			var ui = SGame.UIUtils.GetUIView("shopui");
-			yield return new WaitUntil(() =>ui == null || ui.Value.isClosed);
+			yield return new WaitUntil(() => ui == null || ui.Value.isClosed);
 			exploreData.showgoldfly = true;
 		}
 	}

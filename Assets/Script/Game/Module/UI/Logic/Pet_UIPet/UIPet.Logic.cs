@@ -41,7 +41,6 @@ namespace SGame.UI
 			EventManager.Instance.Reg<PetItem, Action>(((int)GameEvent.PET_BORN_EVO), OnPetBornEvo);
 			m_view.onClick.Clear();
 			m_view.onClick.Add(OnViewClick);
-			m_view.m_body.SetCurrency(2, "currency");
 			InitList();
 			SetInfo();
 		}
@@ -55,6 +54,7 @@ namespace SGame.UI
 		{
 			eggState = 0;
 			SetInfo();
+			m_view.m_body.SetCurrency(2, "currency");
 		}
 
 		void SetInfo()
@@ -221,6 +221,8 @@ namespace SGame.UI
 					_timer = Utils.Timer(egg.GetRemainder(), SetPrice, m_view, completed: SetEggHatching);
 					break;
 				case 2:
+					m_view.m_egg.m_progress.max = 1;
+					m_view.m_egg.m_progress.value = 1;
 					m_view.m_egg.m_quality.selectedIndex = egg.eCfg.Quality;
 					break;
 			}

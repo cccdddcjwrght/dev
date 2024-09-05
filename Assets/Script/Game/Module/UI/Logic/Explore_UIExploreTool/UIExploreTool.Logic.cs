@@ -123,9 +123,11 @@
 		partial void OnTypeChanged(EventContext data)
 		{
 			var s = m_view.m_type.selectedIndex;
+			_diamondCount = PropertyManager.Instance.GetItem(2).num;
 			switch (s)
 			{
 				case 1:
+					SetCompleteBtnInfo();
 					SetAdBtnInfo();
 					RefreshTime();
 					break;

@@ -10,6 +10,7 @@ namespace SGame.UI.Common
         public Controller m_currency;
         public Controller m_closetype;
         public Controller m_type;
+        public Controller m_shopred;
         public UI_CloseBtn m_close;
         public UI_Currency m_gold;
         public UI_Currency m_diamond;
@@ -29,6 +30,7 @@ namespace SGame.UI.Common
             m_currency = GetControllerAt(0);
             m_closetype = GetControllerAt(1);
             m_type = GetControllerAt(2);
+            m_shopred = GetControllerAt(3);
             m_close = (UI_CloseBtn)GetChildAt(1);
             m_gold = (UI_Currency)GetChildAt(2);
             m_diamond = (UI_Currency)GetChildAt(3);
