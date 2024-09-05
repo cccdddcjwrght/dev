@@ -18,6 +18,7 @@ namespace SGame
             if (v != null)
             {
                 v.round += state.round - 1;
+                v.ShowEffect();
             }
             else
             {

@@ -28,21 +28,26 @@ namespace SGame
         /// </summary>
         public virtual void Exctue()
         {
-            DataAmend();
+            ChangeData();
             if (stateShow) ShowEffect();
         }
 
         //处理数据
-        public virtual void DataAmend() { }
+        public virtual void ChangeData() { }
 
         //状态表现
         public virtual void ShowEffect() { }
 
-        public abstract void Dispose();
+        public virtual void RemoveEffect() { }
 
-        public void Reduce() => round--;
+        public virtual void Dispose() 
+        {
+            RemoveEffect();
+        }
 
-        //检测持续回合
+        public virtual void Reduce() => round--;
+
+        //检测状态结束
         public bool IsExpired()
         {
             return round <= 0;

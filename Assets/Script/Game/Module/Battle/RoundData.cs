@@ -79,6 +79,10 @@ namespace SGame
                         stateList.Add(new DizzState() { stateShow = true });
                         attacker.attributes.stunCount++;
                     }
+                    else 
+                    {
+                        attacker.attributes.stunCount = 0;
+                    }
 
                     //吸血
                     steal = Mathf.CeilToInt(damage * Mathf.Max(attacker.attributes.GetBaseAttribute(EnumAttribute.Steal)
@@ -107,6 +111,10 @@ namespace SGame
                 {
                     attacker.attributes.batterCount++;
                     RecordAttack(triggerCombo);
+                }
+                else 
+                {
+                    attacker.attributes.batterCount = 0;
                 }
 
                 log.LogInfo(string.Format("攻击方类型:{0}\n造成伤害:{1}\n吸血:{2}\n剩余血量:{3}\n受击方类型:{4}\n剩余血量:{5}\n是否触发暴击{6}\n是否触发连击:{7}\n是否触发眩晕{8}",

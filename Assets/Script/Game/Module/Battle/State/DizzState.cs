@@ -15,6 +15,13 @@ namespace SGame
             type = BattleStateType.DIZZ;
         }
 
+        public override void Reduce()
+        {
+            base.Reduce();
+            if (round <= 1) 
+                RemoveEffect();
+        }
+
         public override void ShowEffect()
         {
             //生成特效
@@ -25,7 +32,7 @@ namespace SGame
             }
         }
 
-        public override void Dispose()
+        public override void RemoveEffect()
         {
             if (stateShow && _effect != Entity.Null)
             {
