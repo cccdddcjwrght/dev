@@ -342,14 +342,26 @@ namespace SGame.UI{
 		}
 
 
-		partial void UnInitLogic(UIContext context){
-			context.onUpdate -= OnUpdate;
-			_press?.Dispose();
-			_effpress?.Dispose();
-			m_Event.Close();
-			m_Event = null;
+        partial void DoShow(UIContext context)
+        {
+			RefreshLikeNum();
+			RefreshRewardList();
+		}
 
-			//AudioSystem.Instance.Stop(SoundType.MASTER);
+        partial void DoHide(UIContext context)
+        {
+			isPop = false;
+			m_Auto = false;
+			m_IsPlaying = false;
+			m_Tweener?.Kill();
+
+			RefreshPlayBtnState();
+			RefreshAutoState();
+			m_view.m_list1.scrollPane.SetPosY(0,false);
+			m_view.m_list2.scrollPane.SetPosY(0, false);
+			m_view.m_reward.selectedIndex = 0;
+
+			AudioSystem.Instance.Stop(SoundType.UI);
 			PropertyManager.Instance.CombineCache2Items();
 			List<int[]> list = new List<int[]>();
 
@@ -365,6 +377,15 @@ namespace SGame.UI{
 				//关闭界面的时候打开领取普通大奖获得的奖励
 				OpenReward().Start();
 			}
+		}
+
+        partial void UnInitLogic(UIContext context){
+			context.onUpdate -= OnUpdate;
+			_press?.Dispose();
+			_effpress?.Dispose();
+
+			m_Event.Close();
+			m_Event = null;
 		}
 
 		IEnumerator WaitRewardClose() 
