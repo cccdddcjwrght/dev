@@ -18,7 +18,7 @@ namespace SGame
 			var data = Instance.cacheData;
 			if (!string.IsNullOrEmpty(key))
 			{
-				var index = data.datas.FindIndex(v => v.key == key);
+				var index = FindDataIndex(data.datas, key);
 				if(index >= 0)
 				{
 					return data.datas[index].str;
@@ -27,12 +27,32 @@ namespace SGame
 			return def;
 		}
 
+		static int FindDataIndex(List<CacheItem> datas, string key)
+		{
+			for (int i = 0; i < datas.Count; i++)
+			{
+				if (datas[i].key == key)
+					return i;
+			}
+			
+			return -1;
+		}
+		
+		static CacheItem FindData(List<CacheItem> datas, string key)
+		{
+			var index = FindDataIndex(datas, key);
+			if (index < 0)
+				return null;
+
+			return datas[index];
+		}
+
 		static public int GetIntValue(string key, int def = default)
 		{
 			var data = Instance.cacheData;
 			if (!string.IsNullOrEmpty(key))
 			{
-				var index = data.datas.FindIndex(v => v.key == key);
+				var index = FindDataIndex(data.datas, key);//.FindIndex(v => v.key == key);
 				if (index >= 0)
 				{
 					return data.datas[index].val;
@@ -46,7 +66,7 @@ namespace SGame
 			var data = Instance.cacheData;
 			if (!string.IsNullOrEmpty(key))
 			{
-				var index = data.datas.FindIndex(v => v.key == key);
+				var index = FindDataIndex(data.datas, key);
 				if (index >= 0)
 				{
 					return data.datas[index].dval;
@@ -73,7 +93,7 @@ namespace SGame
 			var data = Instance.cacheData;
 			if (!string.IsNullOrEmpty(key))
 			{
-				var item = data.datas.Find(v => v.key == key);
+				var item = FindData(data.datas, key);//data.datas.Find(v => v.key == key);
 				if (item == null)
 					data.datas.Add(new CacheItem() { key = key, val = val });
 				else
@@ -86,7 +106,7 @@ namespace SGame
 			var data = Instance.cacheData;
 			if (!string.IsNullOrEmpty(key))
 			{
-				var item = data.datas.Find(v => v.key == key);
+				var item = FindData(data.datas, key); //
 				if (item == null)
 					data.datas.Add(new CacheItem() { key = key, dval = val });
 				else

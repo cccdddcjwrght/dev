@@ -91,7 +91,7 @@ namespace FairyGUI
                         AddChild(_contentPane);
                         this.SetSize(_contentPane.width, _contentPane.height);
                         _contentPane.AddRelation(this, RelationType.Size);
-                        _contentPane.fairyBatching = true;
+                        //_contentPane.fairyBatching = true;
                         _frame = _contentPane.GetChild("frame") as GComponent;
                         if (_frame != null)
                         {

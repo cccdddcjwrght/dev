@@ -1124,8 +1124,7 @@ namespace SGame
 		/// <returns></returns>
 		public static int GetMaxCustomer()
 		{
-			int value = Unity.VisualScripting.SceneVariables.Instance(SceneManager.GetActiveScene()).variables.declarations.Get<int>("MaxCustomer");
-			return value;
+			return GameSceneVariable.Instance.MaxCustomer;
 		}
 
 		/// <summary>

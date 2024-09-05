@@ -556,24 +556,38 @@ namespace SGame.UI
 
 
 		bool m_OldAdShowState;
+
+		private static string AdTypeInvestStr = AdType.Invest.ToString();
+		
 		void OnRefreshAdState()
 		{
+			GameProfiler.BeginSample("refreshad1");
 			var hotFoodData = DataCenter.Instance.hotFoodData;
 			m_view.m_hotFoodBtn.m_hoting.selectedIndex = hotFoodData.IsForce() ? 1 : 0;
 			m_view.m_hotFoodBtn.m_cd.selectedIndex = !hotFoodData.IsForce() && hotFoodData.GetCdTime() > 0 ? 1 : 0;
 
 			bool networkState = NetworkUtils.IsNetworkReachability();
+			GameProfiler.BeginSample("refreshad1-1");
 			m_view.m_AdBtn.enabled = AdModule.Instance.GetBuffTime() > 0 || networkState;
+			GameProfiler.EndSample();
+
+			GameProfiler.EndSample();
 			if (!networkState)
 			{
+				GameProfiler.BeginSample("refreshad1.1");
 				m_view.m_InvestBtn.visible = false;
-				AdModule.Instance.RecordEnterTime(AdType.Invest.ToString());
+				AdModule.Instance.RecordEnterTime(AdTypeInvestStr);
+				GameProfiler.EndSample();
 				return;
 			}
 
-			AdModule.Instance.GetAdShowTime(AdType.Invest.ToString(), out bool state, out int time);
+			GameProfiler.BeginSample("refreshad2");
+			AdModule.Instance.GetAdShowTime(AdTypeInvestStr, out bool state, out int time);
+			GameProfiler.EndSample();
 			//state = true;
 			//m_view.m_InvestBtn.visible = state;
+			GameProfiler.BeginSample("refreshad3");
+
 			if (m_OldAdShowState != state) 
 			{
 				m_OldAdShowState = state;
@@ -589,15 +603,19 @@ namespace SGame.UI
 				}
 				else m_view.m_dohide.Play(()=>m_view.m_InvestBtn.visible = false);
 			}
+			GameProfiler.EndSample();
 
 			if (state)
 			{
+				GameProfiler.BeginSample("refreshad4");
+
 				var btn = m_view.m_InvestBtn as UI_InvestMan;
 				btn.m_bar.fillAmount = (float)time / DataCenter.AdUtil.GetAdSustainTime(AdType.Invest.ToString());
 				AdModule.Instance.GetAdInvestNum(out int itemId, out double num);
 				string url = itemId == (int)ItemID.GOLD ? "ui_shop_icon_coin_03" : "ui_shop_icon_gem_02";
 				btn.SetText(string.Format("+{0}", Utils.ConvertNumberStr(num)));
 				btn.SetIcon(url);
+				GameProfiler.EndSample();
 			}
 		}
 

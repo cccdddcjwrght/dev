@@ -16,7 +16,7 @@ namespace SGame
         [System.Diagnostics.Conditional("ENABLE_DEBUG")]
         public static void Init()
         {
-            Game.console.AddCommand("camera", CameraDepth, "Main Camera Depth [num]");
+            Game.console.AddCommand("camera", CameraDepth, "[depth|udepth] [0|1]");
             Game.console.AddCommand("framerate", FrameRate, "framerate [num]");
             Game.console.AddCommand("ui", UICommand, "ui [open|close] [name]");
             Game.console.AddCommand("autosave", AutoSaveCmd, "austosave [open|close]");
