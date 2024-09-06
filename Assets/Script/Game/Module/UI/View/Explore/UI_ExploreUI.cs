@@ -39,6 +39,7 @@ namespace SGame.UI.Explore
         public UI_FightBtn m_fightBtn;
         public UI_FightHp m_fightHp1;
         public UI_FightHp m_fightHp2;
+        public UI_FightFinger m_finger;
         public Transition m_kill;
         public Transition m_expanim;
         public Transition m_showeqinfo;
@@ -87,6 +88,7 @@ namespace SGame.UI.Explore
             m_fightBtn = (UI_FightBtn)GetChildAt(42);
             m_fightHp1 = (UI_FightHp)GetChildAt(43);
             m_fightHp2 = (UI_FightHp)GetChildAt(44);
+            m_finger = (UI_FightFinger)GetChildAt(45);
             m_kill = GetTransitionAt(0);
             m_expanim = GetTransitionAt(1);
             m_showeqinfo = GetTransitionAt(2);

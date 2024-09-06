@@ -198,6 +198,8 @@ namespace SGame.UI{
 		partial void OnPutonClick(EventContext data);
 		void SetPutonText(string data)=>UIListener.SetText(m_view.m_puton,data);
 		string GetPutonText()=>UIListener.GetText(m_view.m_puton);
+		void SetCountText(string data)=>UIListener.SetText(m_view.m_count,data);
+		string GetCountText()=>UIListener.GetText(m_view.m_count);
 
 	}
 }

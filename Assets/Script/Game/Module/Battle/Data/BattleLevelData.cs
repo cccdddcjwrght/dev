@@ -10,12 +10,20 @@ namespace SGame
         public int level = 1;           //战斗结果出现就更新
         public int showLevel = 1;       //(显示等级)等待战斗表现结束再更新
 
+        public int cdTime;              //战斗cd时间
+        public int failCount;           //当前战斗失败次数
+
         public bool cacheResult;        //是否有缓存战斗结果
         public bool battlResult;        //战斗结果
 
         //当前关卡未领取奖励
         public List<FightReward> award = new List<FightReward>();   
-        public List<FightReward> adAward = new List<FightReward>(); 
+        public List<FightReward> adAward = new List<FightReward>();
+
+        public int GetCdTime() 
+        {
+            return cdTime - GameServerTime.Instance.serverTime;
+        }
     }
 
     [Serializable]
@@ -36,6 +44,17 @@ namespace SGame
         public BattleLevelData battleLevelData = new BattleLevelData();
         public static class BattleLevelUtil
         {
+            //获取当前关卡配置
+            public static BattleLevelRowData battleLevelConfig 
+            { 
+                get 
+                {
+                    if (ConfigSystem.Instance.TryGet<BattleLevelRowData>(m_Data.level, out var config))
+                        return config;
+                    return default;
+                } 
+            }
+
             private static BattleLevelData m_Data { get { return Instance.battleLevelData; } }
             private static int _maxLevel;
 
@@ -96,8 +115,28 @@ namespace SGame
             {
                 if (m_Data.cacheResult) 
                 {
-                    if (m_Data.battlResult) SGame.UIUtils.OpenUI("fightwin");
-                    else SGame.UIUtils.OpenUI("fightlose");
+                    if (m_Data.battlResult)
+                    {
+                        SGame.UIUtils.OpenUI("fightwin");
+                        m_Data.failCount = 0;
+                    }
+                    else 
+                    {
+                        SGame.UIUtils.OpenUI("fightlose");
+                        FailLimit();
+                    }
+                }
+            }
+
+            public static void FailLimit() 
+            {
+                m_Data.failCount++;
+
+                if (battleLevelConfig.FailNum == 0) return;
+                if (m_Data.failCount >= battleLevelConfig.FailNum) 
+                {
+                    m_Data.cdTime = GameServerTime.Instance.serverTime + battleLevelConfig.ChallengeCd;
+                    m_Data.failCount = 0;
                 }
             }
 

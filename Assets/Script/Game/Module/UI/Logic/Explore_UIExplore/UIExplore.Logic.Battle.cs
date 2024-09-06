@@ -23,20 +23,48 @@ namespace SGame.UI
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_OVER, ()=> ExitExpression().Start());
             eventHandle += EventManager.Instance.Reg((int)GameEvent.BATTLE_ROUND, RefreshRound);
             eventHandle += EventManager.Instance.Reg<int>((int)GameEvent.BATTLE_AUDIO, PlayBattleAudio);
+            eventHandle += EventManager.Instance.Reg((int)GameEvent.EXPLORE_FIGHT_CHANGE, RefreshFightLevel);
             onOpen += OnOpen_Battle;
             onHide += OnHide_Battle;
             onClose += OnClose_Battle;
+
+            m_view.m_find.onClick.Add(CloseFightLimitGuide);
 
             m_view.m_battlemonster.z = -200;
             m_view.m_fightHp1.z = -200;
             m_view.m_fightHp2.z = -200;
             m_view.m_fightBtn.visible = !DataCenter.BattleLevelUtil.IsMax;
-            RefreshFightLevel();
+            
         }
 
         partial void OnFightBtnClick(EventContext data)
         {
-            SGame.UIUtils.OpenUI("fightlevel", DataCenter.Instance.battleLevelData.showLevel);
+            if (m_view.m_fightBtn.m_state.selectedIndex == 2)
+            {
+                "@ui_fightbtn_cd_tip".Tips();
+                PlayFightLimitGuide();
+            }
+            else if (m_view.m_fightBtn.m_state.selectedIndex == 0) 
+            {
+                "@ui_fightbtn_unlock_tip".Tips();
+                PlayFightLimitGuide();
+            }
+            else
+                SGame.UIUtils.OpenUI("fightlevel", DataCenter.Instance.battleLevelData.showLevel);
+        }
+
+        public void PlayFightLimitGuide() 
+        {
+            m_view.m_finger.visible = true;
+            if (m_view.m_finger.m_play.playing)
+                return;
+            m_view.m_finger.m_play.Play(CloseFightLimitGuide);
+        }
+
+        public void CloseFightLimitGuide() 
+        {
+            m_view.m_finger.m_play.Stop();
+            m_view.m_finger.visible = false;
         }
 
         void TriggerBattle() 
@@ -126,6 +154,29 @@ namespace SGame.UI
             {
                 ConfigSystem.Instance.TryGet<GameConfigs.BattleRoleRowData>(config.Monster, out var roleConfig);
                 m_view.m_fightBtn.SetText(UIListener.Local(config.Name));
+                var battleLevelConfig = DataCenter.BattleLevelUtil.battleLevelConfig;
+                if (DataCenter.Instance.exploreData.explorer.GetPower() < battleLevelConfig.CombatNum)
+                {
+                    m_view.m_fightBtn.m_state.selectedIndex = 0;
+                    m_view.m_fightBtn.m_fight.SetText(Utils.ConvertNumberStrLimit3(battleLevelConfig.CombatNum));
+                }
+                else if (DataCenter.Instance.battleLevelData.GetCdTime() > 0)
+                {
+                    m_view.m_fightBtn.m_state.selectedIndex = 2;
+                    Utils.Timer(DataCenter.Instance.battleLevelData.GetCdTime(), () =>
+                    {
+                        var totalTime = battleLevelConfig.ChallengeCd;
+                        var cdTime = DataCenter.Instance.battleLevelData.GetCdTime();
+                        m_view.m_fightBtn.m_bar.fillAmount = (float)(totalTime - cdTime)/ totalTime;
+                        m_view.m_fightBtn.m_time.SetText(Utils.FormatTime(cdTime));
+                    }, m_view, completed: RefreshFightLevel);
+                }
+                else 
+                {
+                    m_view.m_fightBtn.m_state.selectedIndex = 1;
+                    m_view.m_fightBtn.m_bar.fillAmount = 1;
+                }
+
             } 
         }
 
@@ -138,6 +189,8 @@ namespace SGame.UI
         {
             _show = true;
             DelaySetting().Start();
+
+            RefreshFightLevel();
             ShowBattleResult();
         }
 

@@ -10,6 +10,7 @@ namespace SGame.UI.Explore
         {
             UIObjectFactory.SetPackageItemExtension(UI_FightTip.URL, typeof(UI_FightTip));
             UIObjectFactory.SetPackageItemExtension(UI_FightGiftUI.URL, typeof(UI_FightGiftUI));
+            UIObjectFactory.SetPackageItemExtension(UI_FightFinger.URL, typeof(UI_FightFinger));
             UIObjectFactory.SetPackageItemExtension(UI_FightLevelUI.URL, typeof(UI_FightLevelUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightLoseUI.URL, typeof(UI_FightLoseUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightWinUI.URL, typeof(UI_FightWinUI));
@@ -20,6 +21,12 @@ namespace SGame.UI.Explore
             UIObjectFactory.SetPackageItemExtension(UI_GiftBody.URL, typeof(UI_GiftBody));
             UIObjectFactory.SetPackageItemExtension(UI_FightRewardPreviewUI.URL, typeof(UI_FightRewardPreviewUI));
             UIObjectFactory.SetPackageItemExtension(UI_FightEffect.URL, typeof(UI_FightEffect));
+            UIObjectFactory.SetPackageItemExtension(UI_ExploreAutoSetUI.URL, typeof(UI_ExploreAutoSetUI));
+            UIObjectFactory.SetPackageItemExtension(UI_ExploreSelectBtn.URL, typeof(UI_ExploreSelectBtn));
+            UIObjectFactory.SetPackageItemExtension(UI_ComboBox1_item.URL, typeof(UI_ComboBox1_item));
+            UIObjectFactory.SetPackageItemExtension(UI_ComboBox1_popup.URL, typeof(UI_ComboBox1_popup));
+            UIObjectFactory.SetPackageItemExtension(UI_ConditionType.URL, typeof(UI_ConditionType));
+            UIObjectFactory.SetPackageItemExtension(UI_CheckBox.URL, typeof(UI_CheckBox));
             UIObjectFactory.SetPackageItemExtension(UI_ExploreUI.URL, typeof(UI_ExploreUI));
             UIObjectFactory.SetPackageItemExtension(UI_ToolBtn.URL, typeof(UI_ToolBtn));
             UIObjectFactory.SetPackageItemExtension(UI_FightEquip.URL, typeof(UI_FightEquip));

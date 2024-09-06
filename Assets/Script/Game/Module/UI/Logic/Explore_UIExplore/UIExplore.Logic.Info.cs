@@ -136,6 +136,7 @@ namespace SGame.UI
 					if (refreshattr)
 					{
 						SetAttr();
+						EventManager.Instance.Trigger((int)GameEvent.EXPLORE_FIGHT_CHANGE);
 					}
 					return eq;
 				}

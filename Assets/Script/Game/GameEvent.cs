@@ -224,7 +224,7 @@ namespace SGame
 		EXPLORE_TOOL_UP_LV				= 30102,//探索道具升级
 		EXPLORE_UP_LEVEL				= 30103,//探索升级
 		EXPLORE_CHNAGE_EQUIP			= 30104,//探索装备更新
-
+		EXPLORE_FIGHT_CHANGE			= 30204,//探索角色战力变化
 
 
 		//战斗===========================================================

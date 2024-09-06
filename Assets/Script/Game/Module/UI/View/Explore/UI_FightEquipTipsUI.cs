@@ -14,6 +14,7 @@ namespace SGame.UI.Explore
         public GButton m_puton0;
         public GButton m_drop;
         public GButton m_puton;
+        public GTextField m_count;
         public const string URL = "ui://ow12is1hpm5b1n";
 
         public static UI_FightEquipTipsUI CreateInstance()
@@ -32,6 +33,7 @@ namespace SGame.UI.Explore
             m_puton0 = (GButton)GetChildAt(4);
             m_drop = (GButton)GetChildAt(6);
             m_puton = (GButton)GetChildAt(7);
+            m_count = (GTextField)GetChildAt(10);
         }
     }
 }

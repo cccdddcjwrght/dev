@@ -60,11 +60,13 @@ namespace SGame.UI{
 			m_view.m_eqinfo.m_body.m_quality.onChanged.Add(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_qualityChanged));
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick));
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick));
+			m_view.m_fightBtn.m_state.onChanged.Add(new EventCallback1(_OnFightBtn_StateChanged));
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick));
 			UIListener.ListenerIcon(m_view.m_fightHp1.m_effect, new EventCallback1(_OnFightHp_EffectClick));
 			UIListener.ListenerIcon(m_view.m_fightHp1, new EventCallback1(_OnFightHp1Click));
 			UIListener.ListenerIcon(m_view.m_fightHp2.m_effect, new EventCallback1(_OnFightHp_FightHp2ffectClick));
 			UIListener.ListenerIcon(m_view.m_fightHp2, new EventCallback1(_OnFightHp2Click));
+			UIListener.ListenerIcon(m_view.m_finger, new EventCallback1(_OnFingerClick));
 
 		}
 		partial void UnInitUI(UIContext context){
@@ -115,11 +117,13 @@ namespace SGame.UI{
 			m_view.m_eqinfo.m_body.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_qualityChanged));
 			UIListener.ListenerClose(m_view.m_eqinfo.m_body, new EventCallback1(DoCloseUIClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_eqinfo, new EventCallback1(_OnEqinfoClick),remove:true);
+			m_view.m_fightBtn.m_state.onChanged.Remove(new EventCallback1(_OnFightBtn_StateChanged));
 			UIListener.Listener(m_view.m_fightBtn, new EventCallback1(_OnFightBtnClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_fightHp1.m_effect, new EventCallback1(_OnFightHp_EffectClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_fightHp1, new EventCallback1(_OnFightHp1Click),remove:true);
 			UIListener.ListenerIcon(m_view.m_fightHp2.m_effect, new EventCallback1(_OnFightHp_FightHp2ffectClick),remove:true);
 			UIListener.ListenerIcon(m_view.m_fightHp2, new EventCallback1(_OnFightHp2Click),remove:true);
+			UIListener.ListenerIcon(m_view.m_finger, new EventCallback1(_OnFingerClick),remove:true);
 
 		}
 		void _OnExploreStateChanged(EventContext data){
@@ -405,6 +409,15 @@ namespace SGame.UI{
 		string GetEqinfoText()=>UIListener.GetText(m_view.m_eqinfo);
 		void SetExptipsText(string data)=>UIListener.SetText(m_view.m_exptips,data);
 		string GetExptipsText()=>UIListener.GetText(m_view.m_exptips);
+		void _OnFightBtn_StateChanged(EventContext data){
+			OnFightBtn_StateChanged(data);
+		}
+		partial void OnFightBtn_StateChanged(EventContext data);
+		void SwitchFightBtn_StatePage(int index)=>m_view.m_fightBtn.m_state.selectedIndex=index;
+		void SetFightBtn_FightText(string data)=>UIListener.SetText(m_view.m_fightBtn.m_fight,data);
+		string GetFightBtn_FightText()=>UIListener.GetText(m_view.m_fightBtn.m_fight);
+		void SetFightBtn_TimeText(string data)=>UIListener.SetText(m_view.m_fightBtn.m_time,data);
+		string GetFightBtn_TimeText()=>UIListener.GetText(m_view.m_fightBtn.m_time);
 		void _OnFightBtnClick(EventContext data){
 			OnFightBtnClick(data);
 		}
@@ -439,6 +452,10 @@ namespace SGame.UI{
 		partial void OnFightHp2Click(EventContext data);
 		void SetFightHp2Text(string data)=>UIListener.SetText(m_view.m_fightHp2,data);
 		string GetFightHp2Text()=>UIListener.GetText(m_view.m_fightHp2);
+		void _OnFingerClick(EventContext data){
+			OnFingerClick(data);
+		}
+		partial void OnFingerClick(EventContext data);
 
 	}
 }
