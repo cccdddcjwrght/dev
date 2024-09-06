@@ -6,9 +6,13 @@ namespace SGame.UI
 	using SGame;
 	using SGame.UI.Explore;
 	using GameConfigs;
+	using System.Collections.Generic;
 
 	public partial class UIFightEquipTips
 	{
+		private FightEquip[] _equips;
+		private int _index;
+
 		private FightEquip current;
 		private FightEquip equip;
 		private double ratio;
@@ -22,29 +26,44 @@ namespace SGame.UI
 			_best = GlobalDesginConfig.GetFloat("battle_equip_better");
 			_worse = GlobalDesginConfig.GetFloat("battle_equip_worse");
 
-			DoOpen(context);
-
 		}
 
 		partial void DoOpen(UIContext context)
 		{
-			equip = context.GetParam().Value.To<object[]>().Val<FightEquip>(0);
-			var type = equip.type;
-			current = DataCenter.Instance.exploreData.explorer.GetEquip(type - 10);
-			m_view.m_type.selectedIndex = current != null ? 1 : 0;
-
-			m_view.m_info.SetFightEquipInfo(equip, current , SetAttrInfo);
-			if (current != null)
-			{
-				ratio = equip.power / current.power;
-				m_view.m_old.SetFightEquipInfo(current, null, SetAttrInfo);
-			}
-
+			_equips = context.GetParam().Value.To<object[]>().Val<List<FightEquip>>(0).ToArray();
+			_index = 0;
+			if (_equips?.Length > 0)
+				ShowEquip();
+			else
+				SGame.UIUtils.CloseUIByID(context.configID);
 		}
 
-		void SetAttrInfo(GObject gObject , object data)
+		void ShowEquip()
 		{
-			if(gObject == null) return;
+			if (_equips.Length > _index)
+			{
+				equip = _equips[_index++];
+				if (equip == null) { ShowEquip(); return; }
+				var type = equip.type;
+				m_view.m_count.text = $"{_index}/{_equips.Length}";
+				current = DataCenter.Instance.exploreData.explorer.GetEquip(type - 10);
+				m_view.m_type.selectedIndex = current != null ? 1 : 0;
+				m_view.m_info.SetFightEquipInfo(equip, current, SetAttrInfo);
+				if (current != null)
+				{
+					ratio = equip.power / current.power;
+					m_view.m_old.SetFightEquipInfo(current, null, SetAttrInfo);
+				}
+			}
+			else
+			{
+				SGame.UIUtils.CloseUIByID(__id);
+			}
+		}
+
+		void SetAttrInfo(GObject gObject, object data)
+		{
+			if (gObject == null) return;
 			UIListener.SetControllerSelect(gObject, "size", 1);
 			UIListener.SetControllerSelect(gObject, "ftype", 1);
 		}
@@ -82,7 +101,7 @@ namespace SGame.UI
 			if (!showtips)
 			{
 				RequestExcuteSystem.ExplorePutOnEquip(equip, drop);
-				SGame.UIUtils.CloseUIByID(__id);
+				ShowEquip();
 			}
 			else
 			{
@@ -91,7 +110,7 @@ namespace SGame.UI
 					if (index == -1)
 					{
 						RequestExcuteSystem.ExplorePutOnEquip(equip, drop);
-						SGame.UIUtils.CloseUIByID(__id);
+						ShowEquip();
 					}
 				}, new string[] { "@ui_common_return" });
 			}
@@ -100,6 +119,8 @@ namespace SGame.UI
 		partial void DoHide(UIContext context)
 		{
 			equip = null;
+			_equips = default;
+			current = default;
 		}
 
 		partial void UnInitLogic(UIContext context)

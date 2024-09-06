@@ -77,19 +77,19 @@ namespace SGame.UI.Explore
 			if (gObject == null) return null;
 			var eq = gObject?.asCom?.GetChild("eq") ?? gObject;
 			UIListener.SetControllerSelect(eq, "strongstate", equip.strong, false);
-			UIListener.SetTextWithName(gObject, "name", equip.name.Local(),false);
-			eq.SetEquipInfo(equip, true, equip.type,lvformat:"ui_common_lv1");
+			UIListener.SetTextWithName(gObject, "name", equip.name.Local(), false);
+			eq.SetEquipInfo(equip, true, equip.type, lvformat: "ui_common_lv1");
 			gObject.SetFightAttrList(equip.GetEffects(), call, compare: other, addnull: 1, attrsize: attrsize);
 			var upstate = 0;
-			if ( equip.isnew == 1)
+			if (equip.isnew == 1)
 			{
-				
-				var v = equip.power - (other!=null ? other.power : 0);
+
+				var v = equip.power - (other != null ? other.power : 0);
 				if (v != 0)
 				{
 					upstate = v > 0 ? 1 : 2;
 					UIListener.SetTextWithName(gObject, "power", (v > 0 ? "+" : "") + Utils.ConvertNumberStrLimit3(v.ToInt()));
-					if(upstate == 1) 53.ToAudioID().PlayAudio();
+					if (upstate == 1) 53.ToAudioID().PlayAudio();
 				}
 			}
 			UIListener.SetControllerSelect(gObject, "new", equip.isnew, false);
@@ -100,5 +100,34 @@ namespace SGame.UI.Explore
 
 	}
 
-
+	partial class UI_ExploreSelectBtn
+	{
+		protected override void RenderDropdownList()
+		{
+			base.RenderDropdownList();
+			var ls = _list;
+			var condition = values;
+			for (int i = 0; i < ls.numChildren; i++)
+			{
+				var item = ls.GetChildAt(i) as UI_ComboBox1_item;
+				if (condition.Length > i)
+				{
+					if (1.Equals(data))
+					{
+						if (int.TryParse(condition[i], out var lv))
+						{
+							var s = DataCenter.Instance.exploreData.level >= lv ? 0 : 1;
+							item.m_islock.selectedIndex = s;
+						}
+					}
+					else if (2.Equals(data))
+					{
+						item.m_type.selectedIndex = 1;
+						item.m_quality.selectedIndex = i + 1;
+						item.SetTextByKey("ui_quality_name_" + values[i]);
+					}
+				}
+			}
+		}
+	}
 }

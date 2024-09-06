@@ -224,11 +224,13 @@ namespace SGame
 		EXPLORE_TOOL_UP_LV				= 30102,//探索道具升级
 		EXPLORE_UP_LEVEL				= 30103,//探索升级
 		EXPLORE_CHNAGE_EQUIP			= 30104,//探索装备更新
+		EXPLORE_AUTO_TOGGLE				= 30105,//自动探索开关(bool state)
 		EXPLORE_FIGHT_CHANGE			= 30204,//探索角色战力变化
 
 
+
 		//战斗===========================================================
-		BATTLE_START					= 30200,	//战斗开始
+		BATTLE_START = 30200,	//战斗开始
 		BATTLE_OVER						= 30201,	//战斗结束
 		BATTLE_ROUND					= 30202,	//回合变化
 		BATTLE_AUDIO					= 30203,	//战斗音效

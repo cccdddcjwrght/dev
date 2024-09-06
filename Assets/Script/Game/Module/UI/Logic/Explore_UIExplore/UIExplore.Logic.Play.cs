@@ -51,8 +51,8 @@ namespace SGame.UI
 		private bool autoState { get { return m_view.m_exploreAuto.selectedIndex == 1; } }
 
 		private bool isCombat { get { return BattleManager.Instance.isCombat; } }
-		private MoveInfo move { get; set; } = new MoveInfo();
 
+		private FightEquip[] _tempEqs = new FightEquip[16];
 
 		void InitPlay()
 		{
@@ -70,6 +70,7 @@ namespace SGame.UI
 
 
 			((Action)CancelAuto).CallWhenPause();
+			eventHandle += EventManager.Instance.Reg<bool>(((int)GameEvent.EXPLORE_AUTO_TOGGLE), OnAutoEvent);
 
 #if UNITY_EDITOR
 			eventHandle += EventManager.Instance.Reg(-((int)GameEvent.EXPLORE_CHNAGE_EQUIP), () => _autoPutonNewEquip = !_autoPutonNewEquip);
@@ -119,7 +120,9 @@ namespace SGame.UI
 				if (42.IsOpend(true, "ui_explore_auto_tips".Local()))
 				{
 					if (CheckItem(true))
-						SwitchExploreAutoPage(1);
+					{
+						SGame.UIUtils.OpenUI("exploreautoset");
+					}
 				}
 			}
 			else
@@ -145,6 +148,11 @@ namespace SGame.UI
 				SetExploreToolInfo(false);
 		}
 
+		void OnAutoEvent(bool state)
+		{
+			SwitchExploreAutoPage(state ? 1 : 0);
+		}
+
 		#region ExploreLogic
 
 		IEnumerator Logic()
@@ -165,7 +173,7 @@ namespace SGame.UI
 		IEnumerator WaitReq()
 		{
 			yield return _checkExplore;
-			_model.Play(c_walk_name,1.2f);
+			_model.Play(c_walk_name, 1.2f);
 			DataLogic();
 		}
 
@@ -205,7 +213,7 @@ namespace SGame.UI
 		IEnumerator WaitEquipHandler()
 		{
 			ShowNewEquip();
-			yield return new WaitUntil(() => (exploreData.cacheEquip == null || exploreData.cacheEquip.cfgID == 0) && !exploreData.waitFlag);
+			yield return new WaitUntil(() => (exploreData.cacheEqs == null || exploreData.cacheEqs.Count == 0) && !exploreData.waitFlag);
 		}
 
 		IEnumerator CheckComplete()
@@ -250,33 +258,19 @@ namespace SGame.UI
 		void DataLogic()
 		{
 			PropertyManager.Instance.Update(1, ConstDefine.EXPLORE_ITEM, 1, true);
-			RequestExcuteSystem.ExploreSuccess();
+			RequestExcuteSystem.ExploreSuccess(autoState ? exploreData.autoCfg.cost : 1);
 		}
 
 		void ShowNewEquip()
 		{
-			if (exploreData.cacheEquip?.cfgID > 0)
+			if (exploreData.cacheEqs?.Count > 0)
 			{
-				var neq = exploreData.cacheEquip;
 				if (autoState)
 				{
-					var eq = exploreData.explorer.GetEquip(exploreData.cacheEquip.type - 10);
-					if (eq?.cfgID > 0 && neq.power <= eq.power)
-					{
-						RequestExcuteSystem.ExplorePutOnEquip(null, neq);
-						return;
-					}
-
-#if !SVR_RELEASE && UNITY_EDITOR
-					if (_autoPutonNewEquip)
-					{
-						RequestExcuteSystem.ExplorePutOnEquip(neq, eq);
-						return;
-					}
-#endif
-
+					AutoFilter();
+					if (exploreData.cacheEqs?.Count == 0) return;
 				}
-				SGame.UIUtils.OpenUI("fightequiptips", exploreData.cacheEquip);
+				SGame.UIUtils.OpenUI("fightequiptips", exploreData.cacheEqs);
 			}
 		}
 
@@ -295,6 +289,23 @@ namespace SGame.UI
 			m_view.m_monster.alpha = 0;//怪隐藏
 			_model?.Play(c_walk_name, 0.8f);
 			Fast(true);
+		}
+
+		void AutoFilter()
+		{
+			if (exploreData.cacheEqs?.Count > 0)
+			{
+				var eqs = exploreData.cacheEqs;
+				var index = 0;
+				for (int i = eqs.Count - 1; i >= 0; i--)
+				{
+					var item = eqs[i];
+					if (!exploreData.Filter(item))
+						_tempEqs[index++] = item;
+				}
+				if (index > 0) RequestExcuteSystem.ExplorePutOnEquip(null, _tempEqs);
+				Array.Clear(_tempEqs, 0, _tempEqs.Length);
+			}
 		}
 
 		#endregion

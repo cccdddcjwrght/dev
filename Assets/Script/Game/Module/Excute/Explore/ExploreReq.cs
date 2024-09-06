@@ -96,29 +96,27 @@ namespace SGame
 			return false;
 		}
 
-		static public bool ExploreSuccess()
+		static public bool ExploreSuccess(int count = 1)
 		{
 			var data = DataCenter.Instance.exploreData;
 
 			var toolcfg = data.exploreToolLevel;
-			var eq = DataCenter.ExploreUtil.RandomFightEquip(toolcfg);
-			if (eq != null)
+			var eqs = DataCenter.ExploreUtil.RandomFightEquip(toolcfg, count);
+			if (eqs?.Count > 0)
 			{
 				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.EXPLORE, 1);
-				data.cacheEquip = eq;
-				eq.isnew = 1;
+				data.cacheEqs = eqs;
 				return true;
 			}
 
 			return false;
 		}
 
-		static public void ExplorePutOnEquip(FightEquip equip, FightEquip drop)
+		static public void ExplorePutOnEquip(FightEquip equip, params FightEquip[] drops)
 		{
-			if (equip != null || drop != null)
+			if (equip != null || drops?.Length > 0)
 			{
 				var data = DataCenter.Instance.exploreData;
-				var flag = true;
 				if (equip != null)
 				{
 					if (data.explorer.Puton(equip))
@@ -128,27 +126,35 @@ namespace SGame
 					}
 				}
 
-				if (drop != null)
+				if (drops?.Length > 0)
 				{
-					if (drop == data.cacheEquip) drop.Clear();
-					var gold = BuffShopModule.Instance.GetBuffShopCoin(c_drop_equip_coin);
-					PropertyManager.Instance.Update(1, 1, gold);
 					var old = data.level;
-					if (data.AddExp(c_drop_equip_exp))
+					var count = 0;
+					foreach (var drop in drops)
 					{
-						data.waitFlag = true;
-						Utils.ShowRewards(
-							() => data.waitFlag = false,
-							title: "@ui_explore_uplv_title",
-							contentCall: (view) => OnShowExploreLvUp(view, data.level, old)
-						);
+						if (drop != null)
+						{
+							count++;
+							if (drop.isnew == 1) { drop.Clear(); data.cacheEqs?.Remove(drop); }
+							if (data.AddExp(c_drop_equip_exp))
+								data.waitFlag = true;
+						}
+						else break;
 					}
-					flag = data.addExp > 0;
-					_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
-					if (data.showgoldfly)
-						RunFly(flag).Start();
+					if (count > 0)
+					{
+						var gold = BuffShopModule.Instance.GetBuffShopCoin(c_drop_equip_coin * count);
+						PropertyManager.Instance.Update(1, 1, gold);
+						if (data.showgoldfly) RunFly(data.addExp > 0).Start();
+						if (data.waitFlag)
+						{
+							Utils.ShowRewards(() => data.waitFlag = false, title: "@ui_explore_uplv_title",
+								contentCall: (view) => OnShowExploreLvUp(view, data.level, old)
+							);
+						}
+						_eMgr.Trigger(((int)GameEvent.EXPLORE_UP_LEVEL));
+					}
 				}
-				data.cacheEquip = default;
 			}
 		}
 
@@ -172,7 +178,7 @@ namespace SGame
 		{
 			TransitionModule.Instance.PlayFlight(FairyGUI.GRoot.inst, 1);
 
-			if (showexp )
+			if (showexp)
 			{
 				yield return new WaitForSeconds(0.5f);
 				var p = UIUtils.GetUIPosition("explore", "progress.n2", true);

@@ -216,7 +216,7 @@ namespace SGame
 				return default;
 			}
 
-			static public FightEquip RandomFightEquip(ExploreToolLevelRowData cfg, int count = 1)
+			static public List<FightEquip> RandomFightEquip(ExploreToolLevelRowData cfg, int count = 1)
 			{
 				if (cfg.IsValid() && count > 0)
 				{
@@ -227,16 +227,23 @@ namespace SGame
 					if (eqs.Count > 0)
 					{
 						var rnd = SGame.Randoms.Random._R;
-						var e = eqs[0];
-						var q = EquipUtil.Type2Quality(((EnumQualityType)rnd.NextWeight(qw) + 1));
-						return new FightEquip()
+						var ls = new List<FightEquip>();
+						for (int i = 0; i < count; i++)
 						{
-							level = rnd.Next(Math.Max(1, data.level - 4), Math.Min(data.exploreMaxLv, data.level + 1)),//等级
-							cfg = e,
-							cfgID = e.Id,
-							quality = (int)q,//品质
-							strong = rnd.Rate(data.exploreToolLevel.FortifyChance) ? 1 : 0,//强化
-						}.Refresh() as FightEquip;
+							var e = eqs[i];
+							var q = EquipUtil.Type2Quality(((EnumQualityType)rnd.NextWeight(qw) + 1));
+							var eq = new FightEquip()
+							{
+								level = rnd.Next(Math.Max(1, data.level - 4), Math.Min(data.exploreMaxLv, data.level + 1)),//等级
+								cfg = e,
+								cfgID = e.Id,
+								quality = (int)q,//品质
+								strong = rnd.Rate(data.exploreToolLevel.FortifyChance) ? 1 : 0,//强化
+								isnew = 1,
+							}.Refresh() as FightEquip;
+							ls.Add(eq);
+						}
+						return ls;
 					}
 				}
 				return default;
@@ -264,6 +271,7 @@ namespace SGame
 		public int toolLevel;//工具等级
 		public int uplvtime;//升级结束时间
 
+		public List<FightEquip> cacheEqs = new List<FightEquip>();
 		public FightEquip cacheEquip;
 
 		[NonSerialized]
@@ -274,6 +282,11 @@ namespace SGame
 		public ExploreToolLevelRowData exploreToolLevel;
 		[NonSerialized]
 		public ExploreToolLevelRowData exploreToolNextLevel;
+
+		/// <summary>
+		/// 自动参数配置
+		/// </summary>
+		public ExploreAutoCfg autoCfg { get; private set; } = new ExploreAutoCfg();
 
 		[NonSerialized]
 		public int addExp;
@@ -291,7 +304,7 @@ namespace SGame
 		public void Refresh()
 		{
 			explorer.Refresh();
-			cacheEquip?.Refresh();
+			cacheEqs?.ForEach(e => e.Refresh());
 			RefreshCfg();
 			exploreMaxLv = ConfigSystem.Instance.LoadConfig<ExploreLevel>().DatalistLength;
 			toolMaxLv = ConfigSystem.Instance.LoadConfig<ExploreToolLevel>().DatalistLength;
@@ -340,7 +353,7 @@ namespace SGame
 		{
 			if (IsExploreMaxLv()) return false;
 			this.exp += exp;
-			addExp = exp;
+			addExp += exp;
 			var f = false;
 			while (this.exp >= this.exploreLevel.Exp && CheckCanUpLv())
 			{
@@ -370,6 +383,29 @@ namespace SGame
 			return true;
 		}
 
+
+		public bool Filter(FightEquip newEquip)
+		{
+			if (autoCfg != null && newEquip != null)
+			{
+				var oldeq = explorer.GetEquip(newEquip.type - 10);
+				var c1 = newEquip.quality >= autoCfg.quality;
+				var c2 = oldeq == null || oldeq.cfgID == 0 ? true : newEquip.power >= oldeq.power;
+				if (autoCfg.and ? c1 && ( autoCfg.comparePower ? c2 : true) : c1 || ( autoCfg.comparePower ? c2 : false))
+				{
+					if (autoCfg.attrFilter?.Count > 0)
+					{
+						foreach (var item in autoCfg.attrFilter)
+						{
+							if (newEquip.GetAttrVal(id: item) > 0) return true;
+						}
+						return false;
+					}
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 
 	[Serializable]
@@ -560,6 +596,55 @@ namespace SGame
 						attribute, cfg, DataCenter.ExploreUtil.GetAttrFunc(attribute, cfg.battleLvCfg, power > 0),
 						power
 					);
+		}
+
+	}
+
+	public class ExploreAutoCfg
+	{
+		public static string[] CONST_CFG_ITEM;
+		public static string[] CONST_CFG_CONDITION;
+
+
+		public int cost;
+
+		public bool and;
+
+		public int quality = 1;
+		public bool comparePower;
+
+		public List<int> attrFilter = new List<int>();
+
+		public int GetCurrentCostIndex()
+		{
+			return Math.Max(0, Array.IndexOf(CONST_CFG_ITEM, cost.ToString()));
+		}
+
+		static public void GetCostList(out string[] item, out string[] condition)
+		{
+			item = default;
+			condition = default;
+			if (CONST_CFG_ITEM == null)
+			{
+				var ls = GlobalDesginConfig.GetIntArray("battle_explore_auto_num");
+				if (ls?.Length > 1)
+				{
+					CONST_CFG_ITEM = new string[ls.Length / 2];
+					CONST_CFG_CONDITION = new string[CONST_CFG_ITEM.Length];
+
+					for (int i = 0; i < ls.Length; i += 2)
+					{
+						CONST_CFG_ITEM[i / 2] = ls[i].ToString();
+						CONST_CFG_CONDITION[i / 2] = ls[i + 1].ToString();
+					}
+				}
+				else
+				{
+					CONST_CFG_ITEM = new string[0];
+				}
+			}
+			item = CONST_CFG_ITEM;
+			condition = CONST_CFG_CONDITION;
 		}
 
 	}
