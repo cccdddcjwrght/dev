@@ -12,6 +12,7 @@ namespace SGame
 
         public int cdTime;              //战斗cd时间
         public int failCount;           //当前战斗失败次数
+        public int unlockLevel;         //战力解锁关卡
 
         public bool cacheResult;        //是否有缓存战斗结果
         public bool battlResult;        //战斗结果
@@ -138,6 +139,19 @@ namespace SGame
                     m_Data.cdTime = GameServerTime.Instance.serverTime + battleLevelConfig.ChallengeCd;
                     m_Data.failCount = 0;
                 }
+            }
+
+            public static void UpdateUnlockFightLevel() 
+            {
+                if (Instance.exploreData.explorer.GetPower() >= battleLevelConfig.CombatNum) 
+                {
+                    m_Data.unlockLevel = battleLevelConfig.Id;
+                }
+            }
+
+            public static bool GetUnlock() 
+            {
+                return m_Data.unlockLevel >= battleLevelConfig.Id;
             }
 
             public static void UpdateCacheResult() 

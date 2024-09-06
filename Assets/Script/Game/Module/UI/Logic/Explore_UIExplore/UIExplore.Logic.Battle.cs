@@ -155,7 +155,8 @@ namespace SGame.UI
                 ConfigSystem.Instance.TryGet<GameConfigs.BattleRoleRowData>(config.Monster, out var roleConfig);
                 m_view.m_fightBtn.SetText(UIListener.Local(config.Name));
                 var battleLevelConfig = DataCenter.BattleLevelUtil.battleLevelConfig;
-                if (DataCenter.Instance.exploreData.explorer.GetPower() < battleLevelConfig.CombatNum)
+                DataCenter.BattleLevelUtil.UpdateUnlockFightLevel();
+                if (!DataCenter.BattleLevelUtil.GetUnlock())
                 {
                     m_view.m_fightBtn.m_state.selectedIndex = 0;
                     m_view.m_fightBtn.m_fight.SetText(Utils.ConvertNumberStrLimit3(battleLevelConfig.CombatNum));
