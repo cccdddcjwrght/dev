@@ -121,6 +121,7 @@ namespace SGame
 				{
 					if (data.explorer.Puton(equip))
 					{
+						if (equip.isnew == 1) data.cacheEqs?.Remove(equip);
 						data.explorer.GetPower(true);
 						_eMgr.Trigger(((int)GameEvent.EXPLORE_CHNAGE_EQUIP), equip);
 					}
@@ -135,7 +136,10 @@ namespace SGame
 						if (drop != null)
 						{
 							count++;
-							if (drop.isnew == 1) { drop.Clear(); data.cacheEqs?.Remove(drop); }
+							if (data.cacheEqs.Contains(drop)) { 
+								data.cacheEqs?.Remove(drop);
+								drop.Clear();
+							}
 							if (data.AddExp(c_drop_equip_exp))
 								data.waitFlag = true;
 						}

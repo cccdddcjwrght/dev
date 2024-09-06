@@ -12,6 +12,7 @@ namespace SGame.UI
 	{
 		private FightEquip[] _equips;
 		private int _index;
+		private bool _tipsState;
 
 		private FightEquip current;
 		private FightEquip equip;
@@ -43,6 +44,7 @@ namespace SGame.UI
 			if (_equips.Length > _index)
 			{
 				equip = _equips[_index++];
+				_tipsState = false;
 				if (equip == null) { ShowEquip(); return; }
 				var type = equip.type;
 				m_view.m_count.text = $"{_index}/{_equips.Length}";
@@ -98,7 +100,7 @@ namespace SGame.UI
 					showtips = ratio > _best;
 			}
 
-			if (!showtips)
+			if (!showtips || _tipsState)
 			{
 				RequestExcuteSystem.ExplorePutOnEquip(equip, drop);
 				ShowEquip();
@@ -107,11 +109,7 @@ namespace SGame.UI
 			{
 				SGame.UIUtils.Confirm("@ui_notice_title", drop.isnew == 1 ? "@ui_notice_tips1" : "@ui_notice_tips2", (index) =>
 				{
-					if (index == -1)
-					{
-						RequestExcuteSystem.ExplorePutOnEquip(equip, drop);
-						ShowEquip();
-					}
+					_tipsState = true;
 				}, new string[] { "@ui_common_return" });
 			}
 		}

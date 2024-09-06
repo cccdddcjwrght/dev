@@ -172,9 +172,16 @@ namespace SGame.UI
 
 		IEnumerator WaitReq()
 		{
-			yield return _checkExplore;
+			var flag = true;
+			while (flag)
+			{
+				yield return _checkExplore;
+				if (DataLogic()) break;
+				else StopExplore();
+
+			}
+
 			_model.Play(c_walk_name, 1.2f);
-			DataLogic();
 		}
 
 		GObject SpawnMonster()
@@ -223,7 +230,7 @@ namespace SGame.UI
 			var end = true;
 			if (autoState)
 			{
-				if (CheckItem(true))
+				if (CheckItem(true, exploreData.autoCfg.cost))
 				{
 					end = false;
 					yield return _waitRest;
@@ -241,24 +248,28 @@ namespace SGame.UI
 
 		bool CheckCmd()
 		{
-
 			return fightState || autoState;
-
 		}
 
-		bool CheckItem(bool tips = false)
+		bool CheckItem(bool tips = false, int need = 1)
 		{
 			var count = PropertyManager.Instance.GetItem(ConstDefine.EXPLORE_ITEM).num;
-			var r = count > 0;
+			var r = count >= need;
 			if (!r && tips)
 				"@ui_explore_tool_not_enough".Tips();
 			return r;
 		}
 
-		void DataLogic()
+		bool DataLogic()
 		{
-			PropertyManager.Instance.Update(1, ConstDefine.EXPLORE_ITEM, 1, true);
-			RequestExcuteSystem.ExploreSuccess(autoState ? exploreData.autoCfg.cost : 1);
+			var cost = autoState ? exploreData.autoCfg.cost : 1;
+			if (CheckItem(true, cost))
+			{
+				PropertyManager.Instance.Update(1, ConstDefine.EXPLORE_ITEM, cost, true);
+				RequestExcuteSystem.ExploreSuccess(cost);
+				return true;
+			}
+			return false;
 		}
 
 		void ShowNewEquip()
@@ -277,6 +288,13 @@ namespace SGame.UI
 		void CancelAuto()
 		{
 			SwitchExploreAutoPage(0);
+		}
+
+		void StopExplore()
+		{
+			SwitchExploreAutoPage(0);
+			fightState = false;
+			ResetExplore();
 		}
 
 		void RefreshAutoState()

@@ -43,8 +43,13 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
-			EventManager.Instance.Trigger(((int)GameEvent.EXPLORE_AUTO_TOGGLE), true);
-			DoCloseUIClick(null);
+			if (PropertyManager.Instance.GetItem(ConstDefine.EXPLORE_ITEM).num >= autoCfg.cost)
+			{
+				EventManager.Instance.Trigger(((int)GameEvent.EXPLORE_AUTO_TOGGLE), true);
+				DoCloseUIClick(null);
+			}
+			else
+				"@ui_explore_tool_not_enough".Tips();
 		}
 
 		partial void UnInitLogic(UIContext context)
