@@ -11,7 +11,7 @@ namespace SGame.UI{
     public partial class UIFlight
 	{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
-		//Stack<GGraph> graphStack = new Stack<GGraph>();
+		Stack<GGraph> graphStack = new Stack<GGraph>();
 		public float speed = GlobalDesginConfig.GetFloat("get_effect_speed"); //特效移动速度
 		private Vector2 _exploreXY;
 
@@ -146,25 +146,25 @@ namespace SGame.UI{
         GGraph GetGraph(float x, float y)
         {
 			GGraph holder;
-			//if (graphStack.Count > 0)
-			//	holder = graphStack.Pop();
-            //else
+			if (graphStack.Count > 0)
+				holder = graphStack.Pop();
+            else
             {
                 holder = new GGraph();
                 holder.SetSize(1, 1);
                 m_view.AddChild(holder);
 			}
 			holder.SetXY(x, y);
-			//holder.visible = true;
+			holder.visible = true;
             return holder;
         }
 
 		void Push(GObject holder, int id) 
 		{
-			//holder.visible = false;
+			holder.visible = false;
 			//holder.asGraph.SetNativeObject(null);
-			holder.Dispose();
-			//graphStack.Push(holder.asGraph);
+			//holder.Dispose();
+			graphStack.Push(holder.asGraph);
 		}
 
 		Vector2 GetFinalPos(int id) 
