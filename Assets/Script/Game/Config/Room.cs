@@ -110,6 +110,14 @@ public struct RoomRowData : IFlatbufferObject
 #endif
   public int[] GetNewGoodsArray() { return __p.__vector_as_array<int>(40); }
   public int ExploreLevelMax { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int MachineBuff(int j) { int o = __p.__offset(44); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int MachineBuffLength { get { int o = __p.__offset(44); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetMachineBuffBytes() { return __p.__vector_as_span<int>(44, 4); }
+#else
+  public ArraySegment<byte>? GetMachineBuffBytes() { return __p.__vector_as_arraysegment(44); }
+#endif
+  public int[] GetMachineBuffArray() { return __p.__vector_as_array<int>(44); }
 
   public static Offset<GameConfigs.RoomRowData> CreateRoomRowData(FlatBufferBuilder builder,
       int ID = 0,
@@ -131,8 +139,10 @@ public struct RoomRowData : IFlatbufferObject
       int InvestorRatio = 0,
       VectorOffset RecommendValueOffset = default(VectorOffset),
       VectorOffset NewGoodsOffset = default(VectorOffset),
-      int ExploreLevelMax = 0) {
-    builder.StartTable(20);
+      int ExploreLevelMax = 0,
+      VectorOffset MachineBuffOffset = default(VectorOffset)) {
+    builder.StartTable(21);
+    RoomRowData.AddMachineBuff(builder, MachineBuffOffset);
     RoomRowData.AddExploreLevelMax(builder, ExploreLevelMax);
     RoomRowData.AddNewGoods(builder, NewGoodsOffset);
     RoomRowData.AddRecommendValue(builder, RecommendValueOffset);
@@ -156,7 +166,7 @@ public struct RoomRowData : IFlatbufferObject
     return RoomRowData.EndRoomRowData(builder);
   }
 
-  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(20); }
+  public static void StartRoomRowData(FlatBufferBuilder builder) { builder.StartTable(21); }
   public static void AddID(FlatBufferBuilder builder, int ID) { builder.AddInt(0, ID, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset NameOffset) { builder.AddOffset(1, NameOffset.Value, 0); }
   public static void AddIcon(FlatBufferBuilder builder, StringOffset IconOffset) { builder.AddOffset(2, IconOffset.Value, 0); }
@@ -192,6 +202,10 @@ public struct RoomRowData : IFlatbufferObject
   public static VectorOffset CreateNewGoodsVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartNewGoodsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static void AddExploreLevelMax(FlatBufferBuilder builder, int ExploreLevelMax) { builder.AddInt(19, ExploreLevelMax, 0); }
+  public static void AddMachineBuff(FlatBufferBuilder builder, VectorOffset MachineBuffOffset) { builder.AddOffset(20, MachineBuffOffset.Value, 0); }
+  public static VectorOffset CreateMachineBuffVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateMachineBuffVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartMachineBuffVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GameConfigs.RoomRowData> EndRoomRowData(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GameConfigs.RoomRowData>(o);

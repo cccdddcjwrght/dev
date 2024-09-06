@@ -42,6 +42,8 @@ namespace SGame.Dining
 			WorktableHud.Instance.Init();
 
 			EventManager.Instance.Reg(((int)GameEvent.WORK_TABLE_ALL_MAX_LV), OnWorktableAllMaxLv);
+			EventManager.Instance.Reg<int,int>(((int)GameEvent.WORK_TABLE_UPLEVEL), OnWorktableUpLv);
+
 
 		}
 
@@ -190,9 +192,19 @@ namespace SGame.Dining
 
 		#region Event
 
+		private UnityEngine.Coroutine _handler;
+		private int _waitFrame;
+
 		private void OnWorktableAllMaxLv()
 		{
 			ShowCompletedUI().Start();
+		}
+
+		private void OnWorktableUpLv(int id , int lv)
+		{
+			_waitFrame = 100;
+			if (_handler == null)
+				_handler = CheckMachineBuff().Start();
 		}
 
 		IEnumerator ShowCompletedUI()
@@ -201,6 +213,15 @@ namespace SGame.Dining
 			yield return new WaitUntil(() => !TransitionModule.isPlay);
 			WorktableHud.Instance.Close();
 			SGame.UIUtils.OpenUI("levelcomplete");
+		}
+
+		IEnumerator CheckMachineBuff()
+		{
+			yield return null;
+			while (_waitFrame-- > 0) yield return null;
+			_room.CheckMachineBuff();
+			_handler = default;
+
 		}
 
 		#endregion

@@ -62,7 +62,6 @@ namespace SGame
 					rd.rooms.Insert(0, r);
 					ud.scene = id;
 					r.Refresh();
-
 					Instance.roomData.roomID = id;
 					Instance.roomData.room = r;
 					Instance.SetUserData(ud);
@@ -240,8 +239,8 @@ namespace SGame
 				return rooms?.Count > 0 ? rooms[0] : default;
 			}
 		}
-	
-		public bool Check(int min , int max)
+
+		public bool Check(int min, int max)
 		{
 			return roomID >= min && roomID <= max;
 		}
@@ -259,6 +258,7 @@ namespace SGame
 		public List<int> techs = new List<int>();
 		public int waiter;
 		public int cooker;
+		public int machineBuff;
 
 		[NonSerialized]
 		public List<int> waitAreas = new List<int>();
@@ -273,6 +273,7 @@ namespace SGame
 		public bool isnew;
 		[NonSerialized]
 		public RoomRowData roomCfg;
+		public List<int[]> buffDic { get; private set; }
 
 		public int GetAreaType(int area)
 		{
@@ -288,6 +289,17 @@ namespace SGame
 		{
 			if (!roomCfg.IsValid())
 				ConfigSystem.Instance.TryGet(id, out roomCfg);
+
+			if (buffDic == null)
+			{
+				var arr = roomCfg.GetMachineBuffArray();
+				buffDic = new List<int[]>();
+				for (int i = 0; i < arr.Length; i += 3)
+				{
+					var buff = new int[] { arr[i], arr[i + 1], arr[i + 2] };
+					buffDic.Add(buff);
+				}
+			}
 
 			wtableID = ConfigSystem.Instance.Finds<RoomMachineRowData>(c => c.Scene == id).GroupBy(c => c.Machine).ToDictionary(v => v.Key).Keys.ToList();
 			roomAreas = ConfigSystem.Instance.Finds<RoomAreaRowData>(c => c.Scene == id).ToDictionary(c => c.ID);
@@ -311,6 +323,46 @@ namespace SGame
 		public bool HasWorktabke(int id)
 		{
 			return wtableID.Contains(id);
+		}
+
+		public int GetAllWorktableLv()
+		{
+			var lv = 0;
+			foreach (var item in worktables)
+			{
+				if (item.type == 0) lv += item.lv;
+			}
+			return lv;
+		}
+
+		public void CheckMachineBuff(int buffid = 0)
+		{
+			int[] val = default;
+			var lv = GetAllWorktableLv();
+			for (int i = buffDic.Count - 1; i >= 0; i--)
+			{
+				var buff = buffDic[i];
+				if (buff[0] <= lv)
+				{
+					val = buff;
+					break;
+				}
+			}
+
+			if (val != null)
+			{
+				if (buffid != 0 || val[0] != machineBuff)
+				{
+					machineBuff = val[0];
+					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData() { id = 0, from = ((int)EnumFrom.MachineLv) });
+					EventManager.Instance.Trigger(((int)GameEvent.BUFF_TRIGGER), new BuffData()
+					{
+						id = val[1],
+						val = val[2],
+						from = ((int)EnumFrom.MachineLv)
+					});
+				}
+			}
 		}
 
 	}

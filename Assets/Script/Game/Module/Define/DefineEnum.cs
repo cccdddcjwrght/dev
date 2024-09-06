@@ -336,6 +336,10 @@ namespace SGame
 		/// 工人收集
 		/// </summary>
 		WorkerCollect,
+		/// <summary>
+		/// 工作台总等级
+		/// </summary>
+		MachineLv,
 	}
 
 	/// <summary>

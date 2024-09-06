@@ -43,6 +43,7 @@ namespace SGame.UI
 
 		partial void OnClickClick(EventContext data)
 		{
+			OnCostChange();
 			if (PropertyManager.Instance.GetItem(ConstDefine.EXPLORE_ITEM).num >= autoCfg.cost)
 			{
 				EventManager.Instance.Trigger(((int)GameEvent.EXPLORE_AUTO_TOGGLE), true);
@@ -96,7 +97,7 @@ namespace SGame.UI
 			var select = selectBox.selectedIndex;
 			if (int.TryParse(selectBox.value, out var lv) && data.level < lv)
 			{
-				"@ui_explore_auto_tips10".Tips();
+				"ui_explore_auto_tips10".Local(null , lv).Tips(null) ;
 				selectBox.selectedIndex = autoCfg.GetCurrentCostIndex();
 			}
 			else

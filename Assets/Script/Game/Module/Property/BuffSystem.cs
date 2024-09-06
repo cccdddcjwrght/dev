@@ -47,6 +47,7 @@ namespace SGame
 			DataCenter.EquipUtil.InitEquipEffects();
 			//全局科技
 			DataCenter.Instance.abilityData.InitAbilityList();
+			DataCenter.Instance.roomData.current.CheckMachineBuff(-1);
 
 		}
 		#endregion

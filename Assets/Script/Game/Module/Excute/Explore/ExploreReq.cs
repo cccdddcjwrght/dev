@@ -119,9 +119,10 @@ namespace SGame
 				var data = DataCenter.Instance.exploreData;
 				if (equip != null)
 				{
+					var isnew = equip.isnew;
 					if (data.explorer.Puton(equip))
 					{
-						if (equip.isnew == 1) data.cacheEqs?.Remove(equip);
+						if (isnew == 1) data.cacheEqs?.Remove(equip);
 						data.explorer.GetPower(true);
 						_eMgr.Trigger(((int)GameEvent.EXPLORE_CHNAGE_EQUIP), equip);
 					}
