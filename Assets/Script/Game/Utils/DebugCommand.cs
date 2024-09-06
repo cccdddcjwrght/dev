@@ -12,6 +12,9 @@ namespace SGame
     public class DebugCommand
     {
         private static ILog log = LogManager.GetLogger("debug");
+        private const string SETTING_CAMERA_DEPTH   = "setting_camera_depth";
+        private const string SETTING_CAMERA_UDEPTH  = "setting_camera_udepth";
+        private const string SETTING_PHYSICS        = "setting_physics";
         
         [System.Diagnostics.Conditional("ENABLE_DEBUG")]
         public static void Init()
@@ -19,10 +22,47 @@ namespace SGame
             Game.console.AddCommand("camera", CameraDepth, "[depth|udepth] [0|1]");
             Game.console.AddCommand("framerate", FrameRate, "framerate [num]");
             Game.console.AddCommand("ui", UICommand, "ui [open|close] [name]");
-            Game.console.AddCommand("autosave", AutoSaveCmd, "austosave [open|close]");
+            Game.console.AddCommand("autosave", AutoSaveCmd, "austosave [on|off]");
             Game.console.AddCommand("quality", SetQuality, "quality [level|lod] [num]");
             Game.console.AddCommand("show2dui", Show2DUI, " [uiname] [p uiname] [uipath] [showtext]");
+            Game.console.AddCommand("physics", PhysicsCmd, "physics [0|1|2](SimulationMode)");
 
+            if (PlayerPrefs.HasKey(SETTING_CAMERA_DEPTH))
+            {
+                CameraDepth(new string[]{"depth", PlayerPrefs.GetString(SETTING_CAMERA_DEPTH)});
+            }
+            if (PlayerPrefs.HasKey(SETTING_CAMERA_UDEPTH))
+            {
+                CameraDepth(new string[]{"udepth", PlayerPrefs.GetString(SETTING_CAMERA_UDEPTH)});
+            }
+            if (PlayerPrefs.HasKey(SETTING_PHYSICS))
+            {
+                PhysicsCmd(new string[] { PlayerPrefs.GetString(SETTING_PHYSICS) });
+            }
+        }
+
+        /// <summary>
+        /// 物理开关 
+        /// </summary>
+        /// <param name="args">0,FixedUpdate, 1, Update, 2 Script</param>
+        static void PhysicsCmd(string[] args)
+        {
+            if (args.Length < 1)
+            {
+                Game.console.Write("error argv num" + + args.Length + "\n");
+                return;
+            }
+
+            if (!int.TryParse(args[0], out int value))
+            {
+                Game.console.Write("error parese int =" + args[0] + "\n");
+                return;
+            }
+
+            Physics.simulationMode = (SimulationMode)value;
+            Physics2D.simulationMode = (SimulationMode2D)value;
+            PlayerPrefs.SetString(SETTING_PHYSICS, args[0]);
+            Game.console.Write("Set physics simulationMode success=" + value);
         }
 
         /// <summary>
@@ -166,6 +206,7 @@ namespace SGame
                             return;
                         }
                         var data = Camera.main.GetComponent<UniversalAdditionalCameraData>();
+                        PlayerPrefs.SetString(SETTING_CAMERA_DEPTH, args[1]);
                         data.requiresDepthTexture = value != 0;
                     }
                     break;
@@ -183,6 +224,7 @@ namespace SGame
                             Game.console.Write("Pare Int Fail =" + args[1]);
                             return;
                         }
+                        PlayerPrefs.SetString(SETTING_CAMERA_UDEPTH, args[1]);
                         var data = StageCamera.main.GetComponent<UniversalAdditionalCameraData>();
                         data.requiresDepthTexture = value != 0;
                     }

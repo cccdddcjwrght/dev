@@ -7,45 +7,45 @@ namespace SGame
 {
 	public enum RecordDataEnum
 	{
-		CHAPTER = 1,    //Íê³ÉÕÂ½Ú´ÎÊý
-		LEVEL = 2,    //Íê³É¹Ø¿¨´ÎÊý
-		BOX = 3,    //´ò¿ª³¡¾°Ïä×ÓÊýÁ¿
-		WORKER = 4,    //¹ÍÓ¶¹¤ÈËÊýÁ¿
-		SELL = 5,    //³öÊÛÉÌÆ·ÊýÁ¿
-		SERVE = 6,    //·þÎñ¿Í»§ÈËÊý
-		TIP = 7,    //ÊÕ¼¯¿ÍÈËÐ¡·Ñ´ÎÊý
-		EQUIP_BOX = 8,    //´ò¿ª×°±¸±¦ÏäÊýÁ¿
-		AD = 9,    //¹Û¿´¹ã¸æ´ÎÊý
-		EQUIP_LEVEL = 10,   //Éý¼¶×°±¸´ÎÊý
-		EQUIP_STAGE = 11,   //½ø½××°±¸´ÎÊý
-		PET = 12,   //³èÎï½ø»¯´ÎÊý
-		FIRST_LOGIN = 13,   //Ê×´ÎµÇÂ¼
-		PET_BORN = 14,   //³èÎï·õ»¯´ÎÊý
-		TABEL_LEVEL = 15,   //¼Ó¹¤Ì¨Éý¼¶
-		TECH_LEVEL = 16,   //¿Æ¼¼Éý¼¶´ÎÊý
-		PERFECT = 17,   //ÍêÃÀÖÆ×÷´ÎÊý
-		IMMEDIATE = 18,   //Á¢¼´Íê³É´ÎÊý
+		CHAPTER = 1,    //å®Œæˆç« èŠ‚æ¬¡æ•°
+		LEVEL = 2,    //å®Œæˆå…³å¡æ¬¡æ•°
+		BOX = 3,    //æ‰“å¼€åœºæ™¯ç®±å­æ•°é‡
+		WORKER = 4,    //é›‡ä½£å·¥äººæ•°é‡
+		SELL = 5,    //å‡ºå”®å•†å“æ•°é‡
+		SERVE = 6,    //æœåŠ¡å®¢æˆ·äººæ•°
+		TIP = 7,    //æ”¶é›†å®¢äººå°è´¹æ¬¡æ•°
+		EQUIP_BOX = 8,    //æ‰“å¼€è£…å¤‡å®ç®±æ•°é‡
+		AD = 9,    //è§‚çœ‹å¹¿å‘Šæ¬¡æ•°
+		EQUIP_LEVEL = 10,   //å‡çº§è£…å¤‡æ¬¡æ•°
+		EQUIP_STAGE = 11,   //è¿›é˜¶è£…å¤‡æ¬¡æ•°
+		PET = 12,   //å® ç‰©è¿›åŒ–æ¬¡æ•°
+		FIRST_LOGIN = 13,   //é¦–æ¬¡ç™»å½•
+		PET_BORN = 14,   //å® ç‰©å­µåŒ–æ¬¡æ•°
+		TABEL_LEVEL = 15,   //åŠ å·¥å°å‡çº§
+		TECH_LEVEL = 16,   //ç§‘æŠ€å‡çº§æ¬¡æ•°
+		PERFECT = 17,   //å®Œç¾Žåˆ¶ä½œæ¬¡æ•°
+		IMMEDIATE = 18,   //ç«‹å³å®Œæˆæ¬¡æ•°
 
-		//ÈÎÎñÀàÐÍ
-		MACHINE = 19,   //²Ù×÷Ì¨idÉýµ½X¼¶
-		TABLE = 20,   //×À×ÓidÉýµ½X¼¶
-		DECORATION = 21,   //°Ú¼þidÉýµ½X¼¶
-		AREA = 22,   //½âËøÇøÓòid
-		COOK = 23,   //²ËÆ·idÉýµ½X¼¶
-		EXPLORE = 24,	//Ì½Ë÷´ÎÊý
-		BOSS = 25,		//ÌôÕ½boss´ÎÊý
-		LIKE_LOTTERY = 26,	//ºÃÆÀ³é½±´ÎÊý
-		DIALY_TASK = 27, //ÈÕ³£ÈÎÎñ´ÎÊý
+		//ä»»åŠ¡ç±»åž‹
+		MACHINE = 19,   //æ“ä½œå°idå‡åˆ°Xçº§
+		TABLE = 20,   //æ¡Œå­idå‡åˆ°Xçº§
+		DECORATION = 21,   //æ‘†ä»¶idå‡åˆ°Xçº§
+		AREA = 22,   //è§£é”åŒºåŸŸid
+		COOK = 23,   //èœå“idå‡åˆ°Xçº§
+		EXPLORE = 24,	//æŽ¢ç´¢æ¬¡æ•°
+		BOSS = 25,		//æŒ‘æˆ˜bossæ¬¡æ•°
+		LIKE_LOTTERY = 26,	//å¥½è¯„æŠ½å¥–æ¬¡æ•°
+		DIALY_TASK = 27, //æ—¥å¸¸ä»»åŠ¡æ¬¡æ•°
 	}
 
 	public enum RecordFunctionId
 	{
-		NONE = 0,    //Ä¬ÈÏ
-		RANK = 26,   //ÅÅÐÐ
-		EXCHANGE = 28,   //¶Ò»»»î¶¯
-		CLUB = 31,   //¾ãÀÖ²¿
-		TASK = 32,   //Ö÷ÏßÈÎÎñ
-		DAILY_TASK = 43,//ÈÕ³£ÈÎÎñ
+		NONE = 0,    //é»˜è®¤
+		RANK = 26,   //æŽ’è¡Œ
+		EXCHANGE = 28,   //å…‘æ¢æ´»åŠ¨
+		CLUB = 31,   //ä¿±ä¹éƒ¨
+		TASK = 32,   //ä¸»çº¿ä»»åŠ¡
+		DAILY_TASK = 43,//æ—¥å¸¸ä»»åŠ¡
 	}
 
 	[Serializable]
@@ -73,7 +73,7 @@ namespace SGame
 		public RecordTotalData recordTotalData = new RecordTotalData();
 	}
 
-	//¼ÇÂ¼Êý¾Ý
+	//è®°å½•æ•°æ®
 	public class RecordModule : Singleton<RecordModule>
 	{
 		public EventHandleContainer m_EventHandle = new EventHandleContainer();
@@ -82,7 +82,7 @@ namespace SGame
 		public void Initalize()
 		{
 			m_EventHandle += EventManager.Instance.Reg<int, int>((int)GameEvent.RECORD_PROGRESS, AddValue);
-			//½øÈëÏÂÒ»¹ØÖ®Ç° ¼ÆËãµ±Ç°Ð¡·ÑµÄÀÛ¼Æ´ÎÊý
+			//è¿›å…¥ä¸‹ä¸€å…³ä¹‹å‰ è®¡ç®—å½“å‰å°è´¹çš„ç´¯è®¡æ¬¡æ•°
 			m_EventHandle += EventManager.Instance.Reg<int>((int)GameEvent.BEFORE_ENTER_ROOM, (s) =>
 			{
 				EventManager.Instance.Trigger((int)GameEvent.RECORD_PROGRESS, (int)RecordDataEnum.TIP, DataCenter.Instance.m_foodTipsCount);
@@ -150,7 +150,7 @@ namespace SGame
 			return 0;
 		}
 
-		//Çå³ý¼ÇÂ¼Êý¾Ý
+		//æ¸…é™¤è®°å½•æ•°æ®
 		public void ClearValue(int type, int funcId = 0)
 		{
 			var index = m_RecordTotalData.data.FindIndex((d) => d.funcId == funcId);

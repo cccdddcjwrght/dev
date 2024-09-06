@@ -87,7 +87,13 @@ namespace SGame
 
 		public static EffectSystem Instance
 		{
-			get { return World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<EffectSystem>(); }
+			get
+			{
+				if (World.DefaultGameObjectInjectionWorld == null)
+					return null;
+				
+				return World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<EffectSystem>();
+			}
 		}
 
 		protected override void OnUpdate()
@@ -318,6 +324,9 @@ namespace SGame
 		// 删除特效
 		public void CloseEffect(Entity e)
 		{
+			if (this == null)
+				return;
+			
 			// 添加销毁entity 的事件
 			if (EntityManager.Exists(e) && !EntityManager.HasComponent<DespawningEntity>(e))
 			{

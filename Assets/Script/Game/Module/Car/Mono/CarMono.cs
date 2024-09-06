@@ -263,8 +263,11 @@ namespace SGame
         private void OnDestroy()
         {
             log.Debug(string.Format("CarMono OnDestroy Entity={0} ameobject={1}", entity, GetInstanceID()));
-            m_logicHandle.Close();
-            m_seats.Clear();
+            if (World.DefaultGameObjectInjectionWorld != null)
+            {
+                m_logicHandle.Close();
+                m_seats.Clear();
+            }
         }
 
         void ClearCahracter() => m_seats.ClearCahracter();

@@ -557,7 +557,8 @@ namespace SGame.Firend
             }
             
             var value = configs.Datalist(0);
-            float ret = (float)value.Value.Time - onlineTime;
+            //float ret = (float)value.Value.Time - onlineTime;
+            float ret = (float)value.Value.Time;// - onlineTime;
             return ret;
         }
     }

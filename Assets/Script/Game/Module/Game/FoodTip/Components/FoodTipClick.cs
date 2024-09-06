@@ -7,15 +7,17 @@ namespace SGame
     /// <summary>
     /// 点击小费
     /// </summary>
-    public class FoodTipClick : MonoBehaviour, ITouchOrHited,ITrigger
+    public class FoodTipClick : MonoBehaviour, ITouchOrHited, ITrigger
     {
-		public bool isTrigger { get; set; } = false;
+        public bool isTrigger { get; set; } = false;
 
         private bool m_isClicked = false;
+        
 
         void OnSpawned()
         {
             m_isClicked = false;
+            PhysicsUpdate.Instance.Update();
         }
 
         void OnDespawned()

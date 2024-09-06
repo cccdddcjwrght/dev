@@ -56,7 +56,7 @@ namespace SGame
         }
 
         /// <summary>
-        /// »ñÈ¡ÈÈÂôÊ³Îï¶îÍâË¢³öÈ¨ÖØ
+        /// è·å–çƒ­å–é£Ÿç‰©é¢å¤–åˆ·å‡ºæƒé‡
         /// </summary>
         public int GetHotFoodWeight(int foodID) 
         {
@@ -80,7 +80,7 @@ namespace SGame
         public int cdTime;
 
         /// <summary>
-        /// ¿ªÊ¼ÈÈÂô
+        /// å¼€å§‹çƒ­å–
         /// </summary>
         /// <param name="foodID"></param>
         public void Start(int foodID) 
@@ -91,7 +91,7 @@ namespace SGame
         }
 
         /// <summary>
-        /// ½áÊøÈÈÂô
+        /// ç»“æŸçƒ­å–
         /// </summary>
         public void Stop() 
         {
@@ -108,7 +108,7 @@ namespace SGame
         }
 
         /// <summary>
-        /// ÊÇ·ñÈÈÂôÖĞ
+        /// æ˜¯å¦çƒ­å–ä¸­
         /// </summary>
         /// <returns></returns>
         public bool IsForce() 
@@ -117,7 +117,7 @@ namespace SGame
         }
 
         /// <summary>
-        /// »ñÈ¡³ÖĞøÊ±¼ä
+        /// è·å–æŒç»­æ—¶é—´
         /// </summary>
         /// <returns></returns>
         public int GetTime() 
@@ -126,7 +126,7 @@ namespace SGame
         }
 
         /// <summary>
-        /// »ñÈ¡cdÀäÈ´Ê±¼ä
+        /// è·å–cdå†·å´æ—¶é—´
         /// </summary>
         /// <returns></returns>
         public int GetCdTime() 
