@@ -54,18 +54,18 @@ namespace SGame.UI
 				var list = DataCenter.TaskMainUtil.GetRoomAllTaskReward();
 				if (list.Count > 0)
 				{
-					IEnumerator OpenReward()
-					{
+					//IEnumerator OpenReward()
+					//{
 						Utils.ShowRewards(list, () => SGame.UIUtils.OpenUI("enterscenetemp"), "@ui_taskreward_title");
 						DataCenter.TaskMainUtil.SkipNextRoomTask();
 
-						yield return SGame.UIUtils.CheckUIIsOpen("rewardlist");
-						var window = SGame.UIUtils.GetUIView("rewardlist");
+						//yield return SGame.UIUtils.CheckUIIsOpen("rewardlist");
+						//var window = SGame.UIUtils.GetUIView("rewardlist");
 
-						var ui = (UI_CommonRewardUI)window.gObject;
-						ui.m_body.GetChild("n4").SetTextByKey("ui_taskreward_continue");
-					}
-					OpenReward().Start();
+						//var ui = (UI_CommonRewardUI)window.gObject;
+						//ui.m_body.GetChild("n4").SetTextByKey("ui_taskreward_continue");
+					//}
+					//OpenReward().Start();
 				}
 				else SGame.UIUtils.OpenUI("enterscenetemp");
 				//SGame.UIUtils.OpenUI("enterscene", DataCenter.Instance.roomData.roomID + 1);
