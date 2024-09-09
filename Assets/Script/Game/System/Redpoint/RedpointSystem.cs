@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FairyGUI;
+using FlatBuffers;
 using SGame.UI;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -77,7 +78,7 @@ namespace SGame
 	public struct RedStatusChange : IComponentData { }
 	public struct RedDestroy : IComponentData { }
 
-	public class RPData
+	public class RPData :IFlatbufferObject
 	{
 		public int id;
 		public RedpointType rtype;
@@ -135,6 +136,12 @@ namespace SGame
 			check = default;
 		}
 
+		public void __init(int _i, ByteBuffer _bb)
+		{
+			throw new NotImplementedException();
+		}
+
+		public ByteBuffer ByteBuffer => default;
 	}
 
 	public abstract partial class RedpointSystem : SystemBase

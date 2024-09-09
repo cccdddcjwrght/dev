@@ -69,7 +69,7 @@ namespace SGame
 				var cfg = c as RPData;
 				if (cfg == null) return false;
 				var condition = ConditionUtil.conditonSys.GetConditonCalculator(c, null, cfg.id);
-				var ret = condition?.Do(cfg.cfg, t, a) == true;
+				var ret = condition?.Do(cfg, t, a) == true;
 				if (condition is IRedText txt)
 					SetText(cfg.id, txt.text);
 				return ret;
