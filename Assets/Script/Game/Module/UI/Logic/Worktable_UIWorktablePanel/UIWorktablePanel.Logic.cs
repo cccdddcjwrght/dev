@@ -39,9 +39,11 @@ namespace SGame.UI
 					EventManager.Instance.Trigger(((int)GameEvent.WORK_HUD_SHOW));
 				}, 200);
 
-				m_view.m_pos.selectedIndex = 0;
-				m_view.m_type.selectedIndex = 0;
-				m_view.m_maxlv.selectedIndex = 0;
+				m_view.m_pos.selectedIndex		= 0;
+				m_view.m_type.selectedIndex		= 0;
+				m_view.m_maxlv.selectedIndex	= 0;
+				m_view.m_isAd.selectedIndex		= 0;
+
 				this.data = DataCenter.MachineUtil.GetWorktable(info.id);
 				switch (info.type)
 				{
