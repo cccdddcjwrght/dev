@@ -31,10 +31,11 @@ namespace SGame.UI
 	public partial class UIExplore
 	{
 		const string c_walk_name = "walk";
+		const string c_run_name = "run";
 		const string c_attack_name = "dig";
 
-		float c_normal_walk_speed = 0.8f;
-		float c_explore_walk_speed = 1.2f;
+		float c_normal_walk_speed = 1f;
+		float c_explore_walk_speed = 1f;
 
 
 
@@ -181,7 +182,7 @@ namespace SGame.UI
 
 			}
 
-			_model.Play(c_walk_name, 1.2f);
+			_model.Play(c_run_name, c_explore_walk_speed);
 		}
 
 		GObject SpawnMonster()
@@ -305,7 +306,7 @@ namespace SGame.UI
 		void ResetExplore()
 		{
 			m_view.m_monster.alpha = 0;//怪隐藏
-			_model?.Play(c_walk_name, 0.8f);
+			_model?.Play(c_walk_name, c_normal_walk_speed);
 			Fast(true);
 		}
 
