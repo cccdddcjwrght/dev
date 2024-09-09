@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1102 &-4804808993888405945
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: run
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 1827226128182048838, guid: 03903ac47e52c7b4ebece17f118dede9, type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-2014852334075397728
 AnimatorState:
   serializedVersion: 6
@@ -63,28 +89,31 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 9221638070234266161}
-    m_Position: {x: 487.50006, y: -715.41675, z: 0}
+    m_Position: {x: 450, y: -480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2236535334552746363}
-    m_Position: {x: 500, y: -590, z: 0}
+    m_Position: {x: 450, y: -370, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6410358923965346884}
-    m_Position: {x: 470, y: -440, z: 0}
+    m_Position: {x: 450, y: -270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -920566843487322751}
-    m_Position: {x: 450, y: -280, z: 0}
+    m_Position: {x: 450, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8666126270093140747}
     m_Position: {x: 450, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2910806561306527778}
-    m_Position: {x: 450, y: 60, z: 0}
+    m_Position: {x: 450, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6408800486146135793}
-    m_Position: {x: 460, y: 210, z: 0}
+    m_Position: {x: 450, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2014852334075397728}
-    m_Position: {x: 440, y: 320, z: 0}
+    m_Position: {x: 450, y: 110, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -4804808993888405945}
+    m_Position: {x: 450, y: 170, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
