@@ -200,8 +200,10 @@ namespace SGame
 
 			public static void CheckDefaultSelect()
 			{
-				if (data.selectID == 0 && "cooker".IsOpend(false)) Select(data.datas.Find(d => d.cfg.RoleType == 1 && d.level == 1));
-				if (data.selectWaiterID == 0 && "waiter".IsOpend(false)) Select(data.datas.Find(d => d.cfg.RoleType == 2 && d.level == 1));
+				if (data.selectID == 0 ) 
+					Select(data.datas.Find(d => d.cfg.RoleType == 1 && d.level == 1));
+				if (data.selectWaiterID == 0 ) 
+					Select(data.datas.Find(d => d.cfg.RoleType == 2 && d.level == 1));
 			}
 
 		}
