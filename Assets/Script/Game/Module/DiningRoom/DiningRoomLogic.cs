@@ -469,6 +469,7 @@ namespace SGame.Dining
 			animation = default;
 			tagGo = default;
 			onClick = default;
+			SetTag(null);
 		}
 
 		public void SetCollider(Bounds bounds)
@@ -510,10 +511,11 @@ namespace SGame.Dining
 		public void SetTag(string tag)
 		{
 			var oldtag = this.tag;
-			if (_tagHits.TryGetValue(oldtag, out var ls) && ls.Contains(this))
+			if (!string.IsNullOrEmpty(oldtag) && _tagHits.TryGetValue(oldtag, out var ls) && ls.Contains(this))
 				ls.Remove(this);
 			this.tag = tag;
-			CheckTag();
+			if (tag != null)
+				CheckTag();
 		}
 
 		void CheckTag()
@@ -533,9 +535,13 @@ namespace SGame.Dining
 			if (_tagHits.TryGetValue(tag, out var ls))
 			{
 				objects = objects ?? new List<GameObject>();
-				for (int i = 0; i < ls.Count; i++)
+				for (int i = ls.Count - 1; i >= 0; i--)
 				{
-					objects.Add(ls[i].tagGo);
+					var t = ls[i];
+					if (t != null && t.tagGo)
+						objects.Add(t.tagGo);
+					else
+						ls.RemoveAt(i);
 				}
 			}
 		}
