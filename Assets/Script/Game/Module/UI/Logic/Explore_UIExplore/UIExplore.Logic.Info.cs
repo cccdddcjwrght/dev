@@ -69,13 +69,13 @@ namespace SGame.UI
 			_cd?.Stop();
 			if (exploreData.uplvtime > 0)
 			{
-				cd.visible = true;
+				m_view.m_tool.m_showcd.selectedIndex = 1;
 				cd.fillAmount = 1;
 				_cd = Run().Start();
 			}
 			else
 			{
-				cd.visible = false;
+				m_view.m_tool.m_showcd.selectedIndex = 0;
 				m_view.m_tool.m_time.text = default;
 			}
 		}
@@ -92,7 +92,7 @@ namespace SGame.UI
 				m_view.m_progress.max = exploreData.exploreLevel.Exp;
 				m_view.m_progress.value = Mathf.Min(exploreData.exp, exploreData.exploreLevel.Exp);
 			}
-			m_view.m_progress.SetTextByKey("ui_common_lv1", exploreData.level);
+			m_view.m_progress.SetText(exploreData.level.ToString());
 			m_view.m_progress.m_limit.SetTextByKey("ui_common_max_lv", DataCenter.ExploreUtil.GetCurrentMaxExploreLv());
 
 			if (exploreData.addExp > 0)
@@ -120,7 +120,7 @@ namespace SGame.UI
 		{
 			var toolnum = PropertyManager.Instance.GetItem(ConstDefine.EXPLORE_ITEM).num;
 			m_view.m_find.grayed = fightState || autoState || toolnum <= 0 || isCombat;
-			m_view.m_find.SetText(Utils.ConvertNumberStrLimit3(toolnum), false);
+			m_view.m_count.SetText("X"+Utils.ConvertNumberStrLimit3(toolnum), false);
 			if (refreshlv) m_view.m_tool.SetTextByKey("ui_common_lv1", exploreData.toolLevel);
 		}
 
@@ -186,7 +186,7 @@ namespace SGame.UI
 					_clickeqflag = true;
 					m_view.m_eqinfostate.selectedIndex = 0;
 					var info = m_view.m_eqinfo;
-					if (g == m_view.m_eq11) info.m_type.selectedIndex = 1;
+					if (g == m_view.m_eq11 || g == m_view.m_eq14) info.m_type.selectedIndex = 1;
 					else info.m_type.selectedIndex = 0;
 					info.m_body.SetFightEquipInfo(d, attrsize: 1);
 					info.m_body.m_attrs.ResizeToFit();
@@ -222,6 +222,8 @@ namespace SGame.UI
 		partial void OnEq11Click(EventContext data) => OnEqClick(data);
 		partial void OnEq12Click(EventContext data) => OnEqClick(data);
 		partial void OnEq13Click(EventContext data) => OnEqClick(data);
-
+		partial void OnEq14Click(EventContext data) => OnEqClick(data);
+		partial void OnEq15Click(EventContext data) => OnEqClick(data);
+		partial void OnEq16Click(EventContext data) => OnEqClick(data);
 	}
 }

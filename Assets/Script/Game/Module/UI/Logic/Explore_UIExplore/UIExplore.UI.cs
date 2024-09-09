@@ -34,26 +34,51 @@ namespace SGame.UI{
 			m_view.m_eq13.m_type.onChanged.Add(new EventCallback1(_OnFightEquip_Eq13_typeChanged));
 			m_view.m_eq13.m_part.onChanged.Add(new EventCallback1(_OnFightEquip_Eq13_partChanged));
 			UIListener.Listener(m_view.m_eq13, new EventCallback1(_OnEq13Click));
+			m_view.m_eq14.m_quality.onChanged.Add(new EventCallback1(_OnFightEquip_Eq14_qualityChanged));
+			m_view.m_eq14.m_strongstate.onChanged.Add(new EventCallback1(_OnFightEquip_Eq14_strongstateChanged));
+			m_view.m_eq14.m_type.onChanged.Add(new EventCallback1(_OnFightEquip_Eq14_typeChanged));
+			m_view.m_eq14.m_part.onChanged.Add(new EventCallback1(_OnFightEquip_Eq14_partChanged));
+			UIListener.Listener(m_view.m_eq14, new EventCallback1(_OnEq14Click));
+			m_view.m_eq15.m_quality.onChanged.Add(new EventCallback1(_OnFightEquip_Eq15_qualityChanged));
+			m_view.m_eq15.m_strongstate.onChanged.Add(new EventCallback1(_OnFightEquip_Eq15_strongstateChanged));
+			m_view.m_eq15.m_type.onChanged.Add(new EventCallback1(_OnFightEquip_Eq15_typeChanged));
+			m_view.m_eq15.m_part.onChanged.Add(new EventCallback1(_OnFightEquip_Eq15_partChanged));
+			UIListener.Listener(m_view.m_eq15, new EventCallback1(_OnEq15Click));
+			m_view.m_eq16.m_quality.onChanged.Add(new EventCallback1(_OnFightEquip_Eq16_qualityChanged));
+			m_view.m_eq16.m_strongstate.onChanged.Add(new EventCallback1(_OnFightEquip_Eq16_strongstateChanged));
+			m_view.m_eq16.m_type.onChanged.Add(new EventCallback1(_OnFightEquip_Eq16_typeChanged));
+			m_view.m_eq16.m_part.onChanged.Add(new EventCallback1(_OnFightEquip_Eq16_partChanged));
+			UIListener.Listener(m_view.m_eq16, new EventCallback1(_OnEq16Click));
 			m_view.m_eq20.m_quality.onChanged.Add(new EventCallback1(_OnFightEquip_Eq20_qualityChanged));
 			m_view.m_eq20.m_strongstate.onChanged.Add(new EventCallback1(_OnFightEquip_Eq20_strongstateChanged));
 			m_view.m_eq20.m_type.onChanged.Add(new EventCallback1(_OnFightEquip_Eq20_typeChanged));
 			m_view.m_eq20.m_part.onChanged.Add(new EventCallback1(_OnFightEquip_Eq20_partChanged));
 			UIListener.Listener(m_view.m_eq20, new EventCallback1(_OnEq20Click));
-			UIListener.Listener(m_view.m_find, new EventCallback1(_OnFindClick));
 			m_view.m_tool.m_type.onChanged.Add(new EventCallback1(_OnToolBtn_TypeChanged));
 			m_view.m_tool.m_state.onChanged.Add(new EventCallback1(_OnToolBtn_StateChanged));
+			m_view.m_tool.m_bgcolor.onChanged.Add(new EventCallback1(_OnToolBtn_BgcolorChanged));
+			m_view.m_tool.m_showcd.onChanged.Add(new EventCallback1(_OnToolBtn_ShowcdChanged));
 			UIListener.Listener(m_view.m_tool, new EventCallback1(_OnToolClick));
 			m_view.m_auto.m_type.onChanged.Add(new EventCallback1(_OnToolBtn_Auto_typeChanged));
 			m_view.m_auto.m_state.onChanged.Add(new EventCallback1(_OnToolBtn_Auto_stateChanged));
+			m_view.m_auto.m_bgcolor.onChanged.Add(new EventCallback1(_OnToolBtn_Auto_bgcolorChanged));
+			m_view.m_auto.m_showcd.onChanged.Add(new EventCallback1(_OnToolBtn_Auto_showcdChanged));
 			UIListener.Listener(m_view.m_auto, new EventCallback1(_OnAutoClick));
+			m_view.m_find.m_type.onChanged.Add(new EventCallback1(_OnToolBtn_Find_typeChanged));
+			m_view.m_find.m_state.onChanged.Add(new EventCallback1(_OnToolBtn_Find_stateChanged));
+			m_view.m_find.m_bgcolor.onChanged.Add(new EventCallback1(_OnToolBtn_Find_bgcolorChanged));
+			m_view.m_find.m_showcd.onChanged.Add(new EventCallback1(_OnToolBtn_Find_showcdChanged));
+			UIListener.Listener(m_view.m_find, new EventCallback1(_OnFindClick));
 			UIListener.Listener(m_view.m_help, new EventCallback1(_OnHelpClick));
 			m_view.m_hp.m_size.onChanged.Add(new EventCallback1(_OnFightAttr_SizeChanged));
 			m_view.m_hp.m_uptype.onChanged.Add(new EventCallback1(_OnFightAttr_UptypeChanged));
 			m_view.m_hp.m_ftype.onChanged.Add(new EventCallback1(_OnFightAttr_FtypeChanged));
+			m_view.m_hp.m_color.onChanged.Add(new EventCallback1(_OnFightAttr_ColorChanged));
 			UIListener.ListenerIcon(m_view.m_hp, new EventCallback1(_OnHpClick));
 			m_view.m_atk.m_size.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_sizeChanged));
 			m_view.m_atk.m_uptype.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_uptypeChanged));
 			m_view.m_atk.m_ftype.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_ftypeChanged));
+			m_view.m_atk.m_color.onChanged.Add(new EventCallback1(_OnFightAttr_Atk_colorChanged));
 			UIListener.ListenerIcon(m_view.m_atk, new EventCallback1(_OnAtkClick));
 			m_view.m_eqinfo.m_type.onChanged.Add(new EventCallback1(_OnFightEquipInfo_TypeChanged));
 			m_view.m_eqinfo.m_body.m_bgtype.onChanged.Add(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_bgtypeChanged));
@@ -91,26 +116,51 @@ namespace SGame.UI{
 			m_view.m_eq13.m_type.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq13_typeChanged));
 			m_view.m_eq13.m_part.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq13_partChanged));
 			UIListener.Listener(m_view.m_eq13, new EventCallback1(_OnEq13Click),remove:true);
+			m_view.m_eq14.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq14_qualityChanged));
+			m_view.m_eq14.m_strongstate.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq14_strongstateChanged));
+			m_view.m_eq14.m_type.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq14_typeChanged));
+			m_view.m_eq14.m_part.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq14_partChanged));
+			UIListener.Listener(m_view.m_eq14, new EventCallback1(_OnEq14Click),remove:true);
+			m_view.m_eq15.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq15_qualityChanged));
+			m_view.m_eq15.m_strongstate.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq15_strongstateChanged));
+			m_view.m_eq15.m_type.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq15_typeChanged));
+			m_view.m_eq15.m_part.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq15_partChanged));
+			UIListener.Listener(m_view.m_eq15, new EventCallback1(_OnEq15Click),remove:true);
+			m_view.m_eq16.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq16_qualityChanged));
+			m_view.m_eq16.m_strongstate.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq16_strongstateChanged));
+			m_view.m_eq16.m_type.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq16_typeChanged));
+			m_view.m_eq16.m_part.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq16_partChanged));
+			UIListener.Listener(m_view.m_eq16, new EventCallback1(_OnEq16Click),remove:true);
 			m_view.m_eq20.m_quality.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq20_qualityChanged));
 			m_view.m_eq20.m_strongstate.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq20_strongstateChanged));
 			m_view.m_eq20.m_type.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq20_typeChanged));
 			m_view.m_eq20.m_part.onChanged.Remove(new EventCallback1(_OnFightEquip_Eq20_partChanged));
 			UIListener.Listener(m_view.m_eq20, new EventCallback1(_OnEq20Click),remove:true);
-			UIListener.Listener(m_view.m_find, new EventCallback1(_OnFindClick),remove:true);
 			m_view.m_tool.m_type.onChanged.Remove(new EventCallback1(_OnToolBtn_TypeChanged));
 			m_view.m_tool.m_state.onChanged.Remove(new EventCallback1(_OnToolBtn_StateChanged));
+			m_view.m_tool.m_bgcolor.onChanged.Remove(new EventCallback1(_OnToolBtn_BgcolorChanged));
+			m_view.m_tool.m_showcd.onChanged.Remove(new EventCallback1(_OnToolBtn_ShowcdChanged));
 			UIListener.Listener(m_view.m_tool, new EventCallback1(_OnToolClick),remove:true);
 			m_view.m_auto.m_type.onChanged.Remove(new EventCallback1(_OnToolBtn_Auto_typeChanged));
 			m_view.m_auto.m_state.onChanged.Remove(new EventCallback1(_OnToolBtn_Auto_stateChanged));
+			m_view.m_auto.m_bgcolor.onChanged.Remove(new EventCallback1(_OnToolBtn_Auto_bgcolorChanged));
+			m_view.m_auto.m_showcd.onChanged.Remove(new EventCallback1(_OnToolBtn_Auto_showcdChanged));
 			UIListener.Listener(m_view.m_auto, new EventCallback1(_OnAutoClick),remove:true);
+			m_view.m_find.m_type.onChanged.Remove(new EventCallback1(_OnToolBtn_Find_typeChanged));
+			m_view.m_find.m_state.onChanged.Remove(new EventCallback1(_OnToolBtn_Find_stateChanged));
+			m_view.m_find.m_bgcolor.onChanged.Remove(new EventCallback1(_OnToolBtn_Find_bgcolorChanged));
+			m_view.m_find.m_showcd.onChanged.Remove(new EventCallback1(_OnToolBtn_Find_showcdChanged));
+			UIListener.Listener(m_view.m_find, new EventCallback1(_OnFindClick),remove:true);
 			UIListener.Listener(m_view.m_help, new EventCallback1(_OnHelpClick),remove:true);
 			m_view.m_hp.m_size.onChanged.Remove(new EventCallback1(_OnFightAttr_SizeChanged));
 			m_view.m_hp.m_uptype.onChanged.Remove(new EventCallback1(_OnFightAttr_UptypeChanged));
 			m_view.m_hp.m_ftype.onChanged.Remove(new EventCallback1(_OnFightAttr_FtypeChanged));
+			m_view.m_hp.m_color.onChanged.Remove(new EventCallback1(_OnFightAttr_ColorChanged));
 			UIListener.ListenerIcon(m_view.m_hp, new EventCallback1(_OnHpClick),remove:true);
 			m_view.m_atk.m_size.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_sizeChanged));
 			m_view.m_atk.m_uptype.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_uptypeChanged));
 			m_view.m_atk.m_ftype.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_ftypeChanged));
+			m_view.m_atk.m_color.onChanged.Remove(new EventCallback1(_OnFightAttr_Atk_colorChanged));
 			UIListener.ListenerIcon(m_view.m_atk, new EventCallback1(_OnAtkClick),remove:true);
 			m_view.m_eqinfo.m_type.onChanged.Remove(new EventCallback1(_OnFightEquipInfo_TypeChanged));
 			m_view.m_eqinfo.m_body.m_bgtype.onChanged.Remove(new EventCallback1(_OnFightEquipInfoBody_Eqinfo_body_bgtypeChanged));
@@ -254,6 +304,90 @@ namespace SGame.UI{
 		partial void OnEq13Click(EventContext data);
 		void SetEq13Text(string data)=>UIListener.SetText(m_view.m_eq13,data);
 		string GetEq13Text()=>UIListener.GetText(m_view.m_eq13);
+		void _OnFightEquip_Eq14_qualityChanged(EventContext data){
+			OnFightEquip_Eq14_qualityChanged(data);
+		}
+		partial void OnFightEquip_Eq14_qualityChanged(EventContext data);
+		void SwitchFightEquip_Eq14_qualityPage(int index)=>m_view.m_eq14.m_quality.selectedIndex=index;
+		void _OnFightEquip_Eq14_strongstateChanged(EventContext data){
+			OnFightEquip_Eq14_strongstateChanged(data);
+		}
+		partial void OnFightEquip_Eq14_strongstateChanged(EventContext data);
+		void SwitchFightEquip_Eq14_strongstatePage(int index)=>m_view.m_eq14.m_strongstate.selectedIndex=index;
+		void _OnFightEquip_Eq14_typeChanged(EventContext data){
+			OnFightEquip_Eq14_typeChanged(data);
+		}
+		partial void OnFightEquip_Eq14_typeChanged(EventContext data);
+		void SwitchFightEquip_Eq14_typePage(int index)=>m_view.m_eq14.m_type.selectedIndex=index;
+		void _OnFightEquip_Eq14_partChanged(EventContext data){
+			OnFightEquip_Eq14_partChanged(data);
+		}
+		partial void OnFightEquip_Eq14_partChanged(EventContext data);
+		void SwitchFightEquip_Eq14_partPage(int index)=>m_view.m_eq14.m_part.selectedIndex=index;
+		void SetFightEquip_Eq14_levelText(string data)=>UIListener.SetText(m_view.m_eq14.m_level,data);
+		string GetFightEquip_Eq14_levelText()=>UIListener.GetText(m_view.m_eq14.m_level);
+		void _OnEq14Click(EventContext data){
+			OnEq14Click(data);
+		}
+		partial void OnEq14Click(EventContext data);
+		void SetEq14Text(string data)=>UIListener.SetText(m_view.m_eq14,data);
+		string GetEq14Text()=>UIListener.GetText(m_view.m_eq14);
+		void _OnFightEquip_Eq15_qualityChanged(EventContext data){
+			OnFightEquip_Eq15_qualityChanged(data);
+		}
+		partial void OnFightEquip_Eq15_qualityChanged(EventContext data);
+		void SwitchFightEquip_Eq15_qualityPage(int index)=>m_view.m_eq15.m_quality.selectedIndex=index;
+		void _OnFightEquip_Eq15_strongstateChanged(EventContext data){
+			OnFightEquip_Eq15_strongstateChanged(data);
+		}
+		partial void OnFightEquip_Eq15_strongstateChanged(EventContext data);
+		void SwitchFightEquip_Eq15_strongstatePage(int index)=>m_view.m_eq15.m_strongstate.selectedIndex=index;
+		void _OnFightEquip_Eq15_typeChanged(EventContext data){
+			OnFightEquip_Eq15_typeChanged(data);
+		}
+		partial void OnFightEquip_Eq15_typeChanged(EventContext data);
+		void SwitchFightEquip_Eq15_typePage(int index)=>m_view.m_eq15.m_type.selectedIndex=index;
+		void _OnFightEquip_Eq15_partChanged(EventContext data){
+			OnFightEquip_Eq15_partChanged(data);
+		}
+		partial void OnFightEquip_Eq15_partChanged(EventContext data);
+		void SwitchFightEquip_Eq15_partPage(int index)=>m_view.m_eq15.m_part.selectedIndex=index;
+		void SetFightEquip_Eq15_levelText(string data)=>UIListener.SetText(m_view.m_eq15.m_level,data);
+		string GetFightEquip_Eq15_levelText()=>UIListener.GetText(m_view.m_eq15.m_level);
+		void _OnEq15Click(EventContext data){
+			OnEq15Click(data);
+		}
+		partial void OnEq15Click(EventContext data);
+		void SetEq15Text(string data)=>UIListener.SetText(m_view.m_eq15,data);
+		string GetEq15Text()=>UIListener.GetText(m_view.m_eq15);
+		void _OnFightEquip_Eq16_qualityChanged(EventContext data){
+			OnFightEquip_Eq16_qualityChanged(data);
+		}
+		partial void OnFightEquip_Eq16_qualityChanged(EventContext data);
+		void SwitchFightEquip_Eq16_qualityPage(int index)=>m_view.m_eq16.m_quality.selectedIndex=index;
+		void _OnFightEquip_Eq16_strongstateChanged(EventContext data){
+			OnFightEquip_Eq16_strongstateChanged(data);
+		}
+		partial void OnFightEquip_Eq16_strongstateChanged(EventContext data);
+		void SwitchFightEquip_Eq16_strongstatePage(int index)=>m_view.m_eq16.m_strongstate.selectedIndex=index;
+		void _OnFightEquip_Eq16_typeChanged(EventContext data){
+			OnFightEquip_Eq16_typeChanged(data);
+		}
+		partial void OnFightEquip_Eq16_typeChanged(EventContext data);
+		void SwitchFightEquip_Eq16_typePage(int index)=>m_view.m_eq16.m_type.selectedIndex=index;
+		void _OnFightEquip_Eq16_partChanged(EventContext data){
+			OnFightEquip_Eq16_partChanged(data);
+		}
+		partial void OnFightEquip_Eq16_partChanged(EventContext data);
+		void SwitchFightEquip_Eq16_partPage(int index)=>m_view.m_eq16.m_part.selectedIndex=index;
+		void SetFightEquip_Eq16_levelText(string data)=>UIListener.SetText(m_view.m_eq16.m_level,data);
+		string GetFightEquip_Eq16_levelText()=>UIListener.GetText(m_view.m_eq16.m_level);
+		void _OnEq16Click(EventContext data){
+			OnEq16Click(data);
+		}
+		partial void OnEq16Click(EventContext data);
+		void SetEq16Text(string data)=>UIListener.SetText(m_view.m_eq16,data);
+		string GetEq16Text()=>UIListener.GetText(m_view.m_eq16);
 		void _OnFightEquip_Eq20_qualityChanged(EventContext data){
 			OnFightEquip_Eq20_qualityChanged(data);
 		}
@@ -282,12 +416,6 @@ namespace SGame.UI{
 		partial void OnEq20Click(EventContext data);
 		void SetEq20Text(string data)=>UIListener.SetText(m_view.m_eq20,data);
 		string GetEq20Text()=>UIListener.GetText(m_view.m_eq20);
-		void _OnFindClick(EventContext data){
-			OnFindClick(data);
-		}
-		partial void OnFindClick(EventContext data);
-		void SetFindText(string data)=>UIListener.SetText(m_view.m_find,data);
-		string GetFindText()=>UIListener.GetText(m_view.m_find);
 		void _OnToolBtn_TypeChanged(EventContext data){
 			OnToolBtn_TypeChanged(data);
 		}
@@ -298,6 +426,16 @@ namespace SGame.UI{
 		}
 		partial void OnToolBtn_StateChanged(EventContext data);
 		void SwitchToolBtn_StatePage(int index)=>m_view.m_tool.m_state.selectedIndex=index;
+		void _OnToolBtn_BgcolorChanged(EventContext data){
+			OnToolBtn_BgcolorChanged(data);
+		}
+		partial void OnToolBtn_BgcolorChanged(EventContext data);
+		void SwitchToolBtn_BgcolorPage(int index)=>m_view.m_tool.m_bgcolor.selectedIndex=index;
+		void _OnToolBtn_ShowcdChanged(EventContext data){
+			OnToolBtn_ShowcdChanged(data);
+		}
+		partial void OnToolBtn_ShowcdChanged(EventContext data);
+		void SwitchToolBtn_ShowcdPage(int index)=>m_view.m_tool.m_showcd.selectedIndex=index;
 		void SetToolBtn_TimeText(string data)=>UIListener.SetText(m_view.m_tool.m_time,data);
 		string GetToolBtn_TimeText()=>UIListener.GetText(m_view.m_tool.m_time);
 		void _OnToolClick(EventContext data){
@@ -316,6 +454,16 @@ namespace SGame.UI{
 		}
 		partial void OnToolBtn_Auto_stateChanged(EventContext data);
 		void SwitchToolBtn_Auto_statePage(int index)=>m_view.m_auto.m_state.selectedIndex=index;
+		void _OnToolBtn_Auto_bgcolorChanged(EventContext data){
+			OnToolBtn_Auto_bgcolorChanged(data);
+		}
+		partial void OnToolBtn_Auto_bgcolorChanged(EventContext data);
+		void SwitchToolBtn_Auto_bgcolorPage(int index)=>m_view.m_auto.m_bgcolor.selectedIndex=index;
+		void _OnToolBtn_Auto_showcdChanged(EventContext data){
+			OnToolBtn_Auto_showcdChanged(data);
+		}
+		partial void OnToolBtn_Auto_showcdChanged(EventContext data);
+		void SwitchToolBtn_Auto_showcdPage(int index)=>m_view.m_auto.m_showcd.selectedIndex=index;
 		void SetToolBtn_Auto_timeText(string data)=>UIListener.SetText(m_view.m_auto.m_time,data);
 		string GetToolBtn_Auto_timeText()=>UIListener.GetText(m_view.m_auto.m_time);
 		void _OnAutoClick(EventContext data){
@@ -324,6 +472,36 @@ namespace SGame.UI{
 		partial void OnAutoClick(EventContext data);
 		void SetAutoText(string data)=>UIListener.SetText(m_view.m_auto,data);
 		string GetAutoText()=>UIListener.GetText(m_view.m_auto);
+		void _OnToolBtn_Find_typeChanged(EventContext data){
+			OnToolBtn_Find_typeChanged(data);
+		}
+		partial void OnToolBtn_Find_typeChanged(EventContext data);
+		void SwitchToolBtn_Find_typePage(int index)=>m_view.m_find.m_type.selectedIndex=index;
+		void _OnToolBtn_Find_stateChanged(EventContext data){
+			OnToolBtn_Find_stateChanged(data);
+		}
+		partial void OnToolBtn_Find_stateChanged(EventContext data);
+		void SwitchToolBtn_Find_statePage(int index)=>m_view.m_find.m_state.selectedIndex=index;
+		void _OnToolBtn_Find_bgcolorChanged(EventContext data){
+			OnToolBtn_Find_bgcolorChanged(data);
+		}
+		partial void OnToolBtn_Find_bgcolorChanged(EventContext data);
+		void SwitchToolBtn_Find_bgcolorPage(int index)=>m_view.m_find.m_bgcolor.selectedIndex=index;
+		void _OnToolBtn_Find_showcdChanged(EventContext data){
+			OnToolBtn_Find_showcdChanged(data);
+		}
+		partial void OnToolBtn_Find_showcdChanged(EventContext data);
+		void SwitchToolBtn_Find_showcdPage(int index)=>m_view.m_find.m_showcd.selectedIndex=index;
+		void SetToolBtn_Find_timeText(string data)=>UIListener.SetText(m_view.m_find.m_time,data);
+		string GetToolBtn_Find_timeText()=>UIListener.GetText(m_view.m_find.m_time);
+		void _OnFindClick(EventContext data){
+			OnFindClick(data);
+		}
+		partial void OnFindClick(EventContext data);
+		void SetFindText(string data)=>UIListener.SetText(m_view.m_find,data);
+		string GetFindText()=>UIListener.GetText(m_view.m_find);
+		void SetCountText(string data)=>UIListener.SetText(m_view.m_count,data);
+		string GetCountText()=>UIListener.GetText(m_view.m_count);
 		void _OnHelpClick(EventContext data){
 			OnHelpClick(data);
 		}
@@ -345,6 +523,11 @@ namespace SGame.UI{
 		}
 		partial void OnFightAttr_FtypeChanged(EventContext data);
 		void SwitchFightAttr_FtypePage(int index)=>m_view.m_hp.m_ftype.selectedIndex=index;
+		void _OnFightAttr_ColorChanged(EventContext data){
+			OnFightAttr_ColorChanged(data);
+		}
+		partial void OnFightAttr_ColorChanged(EventContext data);
+		void SwitchFightAttr_ColorPage(int index)=>m_view.m_hp.m_color.selectedIndex=index;
 		void SetFightAttr_ValText(string data)=>UIListener.SetText(m_view.m_hp.m_val,data);
 		string GetFightAttr_ValText()=>UIListener.GetText(m_view.m_hp.m_val);
 		void SetFightAttr_Val2Text(string data)=>UIListener.SetText(m_view.m_hp.m_val2,data);
@@ -370,6 +553,11 @@ namespace SGame.UI{
 		}
 		partial void OnFightAttr_Atk_ftypeChanged(EventContext data);
 		void SwitchFightAttr_Atk_ftypePage(int index)=>m_view.m_atk.m_ftype.selectedIndex=index;
+		void _OnFightAttr_Atk_colorChanged(EventContext data){
+			OnFightAttr_Atk_colorChanged(data);
+		}
+		partial void OnFightAttr_Atk_colorChanged(EventContext data);
+		void SwitchFightAttr_Atk_colorPage(int index)=>m_view.m_atk.m_color.selectedIndex=index;
 		void SetFightAttr_Atk_valText(string data)=>UIListener.SetText(m_view.m_atk.m_val,data);
 		string GetFightAttr_Atk_valText()=>UIListener.GetText(m_view.m_atk.m_val);
 		void SetFightAttr_Atk_val2Text(string data)=>UIListener.SetText(m_view.m_atk.m_val2,data);
@@ -456,6 +644,8 @@ namespace SGame.UI{
 			OnFingerClick(data);
 		}
 		partial void OnFingerClick(EventContext data);
+		void SetFingerText(string data)=>UIListener.SetText(m_view.m_finger,data);
+		string GetFingerText()=>UIListener.GetText(m_view.m_finger);
 
 	}
 }

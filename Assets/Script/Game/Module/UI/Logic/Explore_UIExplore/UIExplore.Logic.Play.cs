@@ -226,7 +226,7 @@ namespace SGame.UI
 
 		IEnumerator CheckComplete()
 		{
-			_model.Play(c_walk_name);
+			_model.Play(c_run_name);
 			MapLoop(false);
 			var end = true;
 			if (autoState)

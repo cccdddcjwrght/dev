@@ -134,11 +134,12 @@ namespace SGame
 			{
 				var str = default(string);
 				if (!dontsave) data.Save();
-				lock (data)
+				System.Threading.Interlocked.Exchange<string>(ref str, data.cacheJson);
+				/*lock (data)
 				{
 					str = data.cacheJson;
 					data.cacheJson = null;
-				}
+				}*/
 				if (str == null) return;
 
 				PlayerPrefs.SetString(key ?? __DKey, str);
