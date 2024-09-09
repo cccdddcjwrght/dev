@@ -18,6 +18,7 @@ namespace SGame
         SHOP_BUFF1,
         SHOP_BUFF2,
         SHOP_BUFF3,
+        TABLE_BUFF,
     }
 
     public class ReputationModule : Singleton<ReputationModule>
@@ -83,6 +84,7 @@ namespace SGame
                 new TotalItem(){ name = "ui_boosts_name_4", type = ShopBuffEnum.SHOP_BUFF1 },
                 new TotalItem(){ name = "ui_boosts_name_5", type = ShopBuffEnum.SHOP_BUFF2 },
                 new TotalItem(){ name = "ui_boosts_name_6", type = ShopBuffEnum.SHOP_BUFF3 },
+                new TotalItem(){ name = "ui_boosts_name_7", type = ShopBuffEnum.TABLE_BUFF, isEver = true },
             };
         }
 
@@ -164,6 +166,22 @@ namespace SGame
                 shop_buff.isForce = buff_time > 0;
                 shop_buff.multiple = data != null ? 1 + data.value * PERCENTAGE_VALUE : 0;
             }
+
+            //¹¤×÷Ì¨buff
+            var table_buff = m_TotalList.Find((t) => t.type == ShopBuffEnum.TABLE_BUFF);
+            var lv = DataCenter.Instance.roomData.room.GetAllWorktableLv();
+            var buff_dict = DataCenter.Instance.roomData.room.buffDic;
+            var table_value = 0f;
+            for (int i = 0; i < buff_dict.Count; i++)
+            {
+                var buff = buff_dict[i];
+                if (buff[0] <= lv) 
+                {
+                    table_value = 1 + buff[2] * 0.01f;
+                }
+            }
+            table_buff.isForce = table_value > 0;
+            table_buff.multiple = (int)table_value;
 
             EventManager.Instance.Trigger((int)GameEvent.TOTAL_REFRESH);
         }
