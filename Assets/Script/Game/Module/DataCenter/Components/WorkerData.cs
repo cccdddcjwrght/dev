@@ -29,6 +29,7 @@ namespace SGame
 					c_waiter_maxlv = ConfigSystem.Instance.Finds<WorkerLevelRowData>(c => c.WorkerId == 2).Count;
 				}
 				data.Refresh();
+				CheckDefaultSelect();
 				EventManager.Instance.Reg(((int)GameEvent.BUFF_RESET), BuffTrigger);
 				EventManager.Instance.Reg<int>(((int)GameEvent.WORK_AREA_UNLOCK), (a) => RefreshBuff());
 
