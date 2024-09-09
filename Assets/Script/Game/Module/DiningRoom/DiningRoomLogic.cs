@@ -351,6 +351,7 @@ namespace SGame.Dining
 			holder.position = pos;
 
 			var region = lockGo.AddComponent<RegionHit>();
+			region.tagGo = holder.gameObject;
 			region.region = cfg.ID;
 			region.place = -1;
 			region.SetCollider(default);
@@ -401,8 +402,9 @@ namespace SGame.Dining
 		static private Vector3 _g_size;
 		static private Vector3 _g_center;
 
+		static private Dictionary<string, List<RegionHit>> _tagHits = new Dictionary<string, List<RegionHit>>();
 
-		private List<string> C_IGNORE_UI = new List<string>() {
+		private static List<string> C_IGNORE_UI = new List<string>() {
 			"gmui","mask","guidefinger","guideui",
 			"scenedecorui","hud","flight","SystemTip",
 			"guideback","fingerui"
@@ -413,15 +415,15 @@ namespace SGame.Dining
 		public Action<int, int> onClick;
 
 		public BoxCollider collider;
-
 		public Animation animation;
+		public GameObject tagGo;
 
 		static private Vector3 g_size;
 		static private Vector3 g_center;
 
 		private bool _hasGet;
 
-		private void Awake()
+		void Awake()
 		{
 			if (g_size == Vector3.zero)
 			{
@@ -456,6 +458,19 @@ namespace SGame.Dining
 
 		}
 
+		void Start()
+		{
+			CheckTag();
+		}
+
+		private void OnDestroy()
+		{
+			collider = default;
+			animation = default;
+			tagGo = default;
+			onClick = default;
+		}
+
 		public void SetCollider(Bounds bounds)
 		{
 
@@ -472,7 +487,6 @@ namespace SGame.Dining
 			if (UIUtils.CheckIsOnlyMainUI(C_IGNORE_UI))
 				onClick?.Invoke(region, place);
 		}
-
 
 		private string _clipName;
 		public void Play(string name)
@@ -493,7 +507,46 @@ namespace SGame.Dining
 			}
 		}
 
+		public void SetTag(string tag)
+		{
+			var oldtag = this.tag;
+			if (_tagHits.TryGetValue(oldtag, out var ls) && ls.Contains(this))
+				ls.Remove(this);
+			this.tag = tag;
+			CheckTag();
+		}
+
+		void CheckTag()
+		{
+			if (tag != "Untagged") tagGo = gameObject;
+			if (tagGo != null && !string.IsNullOrEmpty(tagGo.tag))
+			{
+				var tag = tagGo.tag;
+				if (!_tagHits.TryGetValue(tag, out var ls))
+					_tagHits[tag] = ls = new List<RegionHit>();
+				ls.Add(this);
+			}
+		}
+
+		static public void GetGameObjectsByTag(string tag, ref List<GameObject> objects)
+		{
+			if (_tagHits.TryGetValue(tag, out var ls))
+			{
+				objects = objects ?? new List<GameObject>();
+				for (int i = 0; i < ls.Count; i++)
+				{
+					objects.Add(ls[i].tagGo);
+				}
+			}
+		}
+
+		static public void ClearTags()
+		{
+			_tagHits.Clear();
+		}
+
 	}
+
 
 
 	#endregion
@@ -541,6 +594,7 @@ namespace SGame.Dining
 			if (_sceneGrid == null)
 			{
 				_isInited = false;
+				RegionHit.ClearTags();
 				InitView();
 				InitBuilds();
 				InitArea();

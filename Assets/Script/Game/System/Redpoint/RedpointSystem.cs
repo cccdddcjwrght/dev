@@ -78,7 +78,7 @@ namespace SGame
 	public struct RedStatusChange : IComponentData { }
 	public struct RedDestroy : IComponentData { }
 
-	public class RPData :IFlatbufferObject
+	public class RPData : IFlatbufferObject
 	{
 		public int id;
 		public RedpointType rtype;
@@ -164,7 +164,7 @@ namespace SGame
 		private Dictionary<string, List<GameConfigs.RedConfigRowData>> _hideCheckGroup = new Dictionary<string, List<GameConfigs.RedConfigRowData>>();
 		private EndSimulationEntityCommandBufferSystem _commandBuffSys;
 		private Dictionary<int, string> _texts = new Dictionary<int, string>();
-
+		private List<GameObject> _gObjects;
 
 		protected bool _isInited = false;
 
@@ -362,13 +362,12 @@ namespace SGame
 							{
 								if (!string.IsNullOrEmpty(_c))
 								{
-									var gos = GameObject.FindGameObjectsWithTag(_c);
-									if (gos?.Length > 0)
+									if (GetGameObjectByTag(_c , ref _gObjects))
 									{
-										for (int i = 0; i < gos.Length; i++)
+										for (int i = 0; i < _gObjects.Count; i++)
 										{
-											if (gos[i].activeInHierarchy && (!fstate || gos[i].name.Contains(_f) || gos[i].transform.Find(_f)))
-												SetRedOnGameObject(gos[i], OnCalculation?.Invoke(rdata, gos[i], null) == true, rdata);
+											if (_gObjects[i].activeInHierarchy && (!fstate || _gObjects[i].name.Contains(_f) || _gObjects[i].transform.Find(_f)))
+												SetRedOnGameObject(_gObjects[i], OnCalculation?.Invoke(rdata, _gObjects[i], null) == true, rdata);
 										}
 									}
 								}
@@ -885,7 +884,7 @@ namespace SGame
 
 		private GObject FindUINode(GComponent component, RPData data)
 		{
-			if (component != null && data != null && data.nodes!=null)
+			if (component != null && data != null && data.nodes != null)
 			{
 				var arr = data.nodes;
 				int cnt = arr.Length - 1;
@@ -946,6 +945,20 @@ namespace SGame
 		}
 
 		protected virtual bool CheckUpdatae() { return true; }
+
+		protected virtual bool GetGameObjectByTag(string tag, ref List<GameObject> objects)
+		{
+
+			objects = objects ?? new List<GameObject>();
+			objects.Clear();
+			var gs = GameObject.FindGameObjectsWithTag(tag);
+			if (gs != null && gs.Length > 0)
+			{
+				objects.AddRange(gs);
+				return true;
+			}
+			return false;
+		}
 
 		#endregion
 

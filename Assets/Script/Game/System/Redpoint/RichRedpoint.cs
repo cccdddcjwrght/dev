@@ -7,6 +7,7 @@ using FlatBuffers;
 using GameConfigs;
 using GameTools;
 using log4net;
+using SGame.Dining;
 using SGame.UI;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -101,7 +102,7 @@ namespace SGame
 				return;
 			}
 
-			base.SetRedOnGameObject(child, status , data);
+			base.SetRedOnGameObject(child, status, data);
 		}
 
 		protected override bool CheckUIState(string ui)
@@ -113,6 +114,22 @@ namespace SGame
 		protected override FairyWindow GetUI(string ui)
 		{
 			return GRoot.inst.GetChild(ui) as FairyWindow;
+		}
+
+		protected override bool GetGameObjectByTag(string tag, ref List<GameObject> objects)
+		{
+			switch (tag)
+			{
+				case "area":
+				case ConstDefine.C_WORKER_TABLE_GO_TAG:
+				case ConstDefine.C_WORKER_TABLE_RECRUIT_TAG:
+					objects?.Clear();
+					RegionHit.GetGameObjectsByTag(tag, ref objects);
+					break;
+				default:
+					return base.GetGameObjectByTag(tag, ref objects);
+			}
+			return objects != null && objects.Count > 0;
 		}
 
 		#endregion

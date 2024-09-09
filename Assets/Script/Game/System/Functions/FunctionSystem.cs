@@ -138,8 +138,7 @@ namespace SGame
 
 						case 1://关卡等级
 							var scene = DataCenter.Instance.GetUserData().scene;
-							var args = cfg.GetOpenValArray();
-							if (scene > args[1] || scene < args[0])
+							if (scene > cfg.OpenVal(1) || scene < cfg.OpenVal(0))
 								ret = false;
 							break;
 

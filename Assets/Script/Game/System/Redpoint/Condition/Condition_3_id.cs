@@ -48,7 +48,7 @@ namespace SGame
 			{
 				var size = mono.collider.size;
 				size.y = 5;
-				mono.tag = ConstDefine.C_WORKER_TABLE_RECRUIT_TAG;
+				mono.SetTag(ConstDefine.C_WORKER_TABLE_RECRUIT_TAG);
 				mono.collider.size = size;
 			}
 		}

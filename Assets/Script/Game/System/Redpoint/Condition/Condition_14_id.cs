@@ -28,7 +28,12 @@ namespace SGame
 
 		public bool Do(IFlatbufferObject cfg, object target, string args)
 		{
-			return petData.pets.Any(p => p.isnew == 1 ) || data.newegg.Count > 0;
+			if (data.newegg.Count > 0) return true;
+			foreach (var item in petData.pets)
+			{
+				if (item.isnew == 1) return true;
+			}
+			return false;
 		}
 
 		private void OnEvent(int type, int id, int change, int val)
