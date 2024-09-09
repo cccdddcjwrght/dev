@@ -399,6 +399,8 @@ namespace SGame.Dining
 
 	class RegionHit : MonoBehaviour, ITouchOrHited
 	{
+		const string c_def_tag = "Untagged";
+
 		static private Vector3 _g_size;
 		static private Vector3 _g_center;
 
@@ -469,7 +471,7 @@ namespace SGame.Dining
 			animation = default;
 			tagGo = default;
 			onClick = default;
-			SetTag(null);
+			SetTag(c_def_tag);
 		}
 
 		public void SetCollider(Bounds bounds)
@@ -514,13 +516,13 @@ namespace SGame.Dining
 			if (!string.IsNullOrEmpty(oldtag) && _tagHits.TryGetValue(oldtag, out var ls) && ls.Contains(this))
 				ls.Remove(this);
 			this.tag = tag;
-			if (tag != null)
+			if (tag != c_def_tag)
 				CheckTag();
 		}
 
 		void CheckTag()
 		{
-			if (tag != "Untagged") tagGo = gameObject;
+			if (tag != c_def_tag) tagGo = gameObject;
 			if (tagGo != null && !string.IsNullOrEmpty(tagGo.tag))
 			{
 				var tag = tagGo.tag;
