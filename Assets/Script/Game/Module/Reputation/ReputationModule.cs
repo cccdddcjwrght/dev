@@ -169,17 +169,21 @@ namespace SGame
 
             //¹¤×÷Ì¨buff
             var table_buff = m_TotalList.Find((t) => t.type == ShopBuffEnum.TABLE_BUFF);
-            var lv = DataCenter.Instance.roomData.room.GetAllWorktableLv();
-            var buff_dict = DataCenter.Instance.roomData.room.buffDic;
+            var lv = DataCenter.Instance.roomData.room?.GetAllWorktableLv();
+            var buff_dict = DataCenter.Instance.roomData.room?.buffDic;
             var table_value = 0f;
-            for (int i = 0; i < buff_dict.Count; i++)
+            if (buff_dict != null) 
             {
-                var buff = buff_dict[i];
-                if (buff[0] <= lv) 
+                for (int i = 0; i < buff_dict.Count; i++)
                 {
-                    table_value = 1 + buff[2] * 0.01f;
+                    var buff = buff_dict[i];
+                    if (buff[0] <= lv)
+                    {
+                        table_value = 1 + buff[2] * 0.01f;
+                    }
                 }
             }
+            
             table_buff.isForce = table_value > 0;
             table_buff.multiple = (int)table_value;
 
