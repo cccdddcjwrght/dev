@@ -71,15 +71,24 @@ public class UIListener
 			var ofont = format.font;
 			var dfont = font[0];
 
-			if (!string.IsNullOrEmpty(ofont) && ofont != dfont)
+			if (!string.IsNullOrEmpty(ofont) )
 			{
-				ofont = ofont.ToLower();
-				if (ofont.EndsWith("sdf"))
-					ofont = dfont;
-				else
-					ofont = font[1];
-				format.font = ofont;
+				if (ofont != dfont)
+				{
+					ofont = ofont.ToLower();
+					if (ofont.EndsWith("sdf"))
+						ofont = dfont;
+					else
+						ofont = font[1];
+					format.font = ofont;
+					field.textFormat = format;
+				}
+			}
+			else
+			{
 				field.textFormat = format;
+
+				//(field.displayObject as TextField)?.ApplyFormat();
 			}
 		}
 	}

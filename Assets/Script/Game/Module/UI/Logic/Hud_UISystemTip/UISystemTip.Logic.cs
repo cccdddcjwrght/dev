@@ -24,6 +24,9 @@ namespace SGame.UI
 
 			m_view.visible = false;
 			m_view.z = -550;
+
+			EventManager.Instance.Reg(((int)GameEvent.RELOAD_ALL_UI), OnReload);
+
 			context.window.AddEventListener("UpdateTip", OnUpdateTip);
 			context.content.xy = Vector2.zero;
 			if (context.gameWorld.GetEntityManager().HasComponent<UIParam>(context.entity))
@@ -82,6 +85,7 @@ namespace SGame.UI
 		partial void UnInitLogic(UIContext context)
 		{
 			m_view.m_myfloat.Stop();
+			EventManager.Instance.UnReg(((int)GameEvent.RELOAD_ALL_UI), OnReload);
 		}
 
 		void OnCompleted()
@@ -89,5 +93,9 @@ namespace SGame.UI
 			m_view.visible = false;
 		}
 
+		void OnReload()
+		{
+			UIListener.LocalAllChild(m_view.m_title , true);
+		}
 	}
 }
