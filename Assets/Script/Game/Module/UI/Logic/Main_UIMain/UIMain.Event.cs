@@ -84,6 +84,7 @@ namespace SGame.UI
 			m_handles += EventManager.Instance.Reg((int)GameEvent.HOTFOOD_REFRESH, OnRefreshHotFood);
 			m_handles += EventManager.Instance.Reg<int>((int)GameEvent.MAIN_TASK_UPDATE, (t)=> RefreshTaskDes());
 			m_handles += EventManager.Instance.Reg((int)GameEvent.MAIN_TASK_PROGRESS_CHANGE, ()=> RefreshTaskState());
+			m_handles += EventManager.Instance.Reg((int)GameEvent.RELOAD_ALL_UI, OnReload);
 
 			OnHeadSetting();
 			OnEventRefreshItem();
@@ -722,6 +723,16 @@ namespace SGame.UI
 		partial void OnWorkflagClick(EventContext data)
 		{
 			SceneCameraSystem.Instance.Focus(StaticDefine.G_GET_WORKER_POS , useY:false , time:0.5f);
+		}
+
+		public void OnReload() 
+		{
+			UIListener.LocalAllChild(m_view.m_taskBtn, true);
+			UIListener.LocalAllChild(m_view.m_AdBtn, true);
+
+			ConfigSystem.Instance.TryGet<MainTaskRowData>(DataCenter.TaskMainUtil.GetCurTaskCfgId(), out var config);
+			if (config.IsValid()) m_view.m_taskBtn.SetTextByKey(config.TaskDes);
+			RefreshAdBtn();
 		}
 
 	}
