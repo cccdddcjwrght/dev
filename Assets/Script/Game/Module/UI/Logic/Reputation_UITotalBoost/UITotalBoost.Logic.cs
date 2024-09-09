@@ -26,7 +26,7 @@ namespace SGame.UI{
 			ReputationModule.Instance.RefreshVailedBuffList();
 			m_TotalItems = ReputationModule.Instance.GetVailedBuffList();
 			m_view.m_list.numItems = m_TotalItems.Count;
-			m_view.m_totalNum.SetText(string.Format("X{0}", ReputationModule.Instance.GetTotalValue().ToString()));
+			m_view.m_totalNum.SetText(string.Format("X{0}", Utils.ConvertNumberStrLimit3(ReputationModule.Instance.GetTotalValue())));
 		}
 
 		void OnItemRenderer(int index, GObject gObject) 
@@ -34,7 +34,7 @@ namespace SGame.UI{
 			var data = m_TotalItems[index];
 			var item = gObject as UI_BoosItem;
 			item.m_name.SetTextByKey(data.name);
-			item.m_multiple.SetText(string.Format("X{0}",data.multiple));
+			item.m_multiple.SetText(string.Format("X{0}",Utils.ConvertNumberStrLimit3(data.multiple)));
 			int startTime = GameServerTime.Instance.serverTime;
 			if (data.time > 0)
 			{

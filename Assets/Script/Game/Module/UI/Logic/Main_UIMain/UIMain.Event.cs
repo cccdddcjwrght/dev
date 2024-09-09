@@ -539,7 +539,7 @@ namespace SGame.UI
 		void OnRefreshTotalState()
 		{
 			var value = ReputationModule.Instance.GetTotalValue();
-			m_view.m_totalBtn.m_num.text = string.Format("X{0}", value);
+			m_view.m_totalBtn.m_num.text = string.Format("X{0}", Utils.ConvertNumberStrLimit3(value));
 
 			if (BuffShopModule.Instance.GetHaveBuffVaild())
 			{
