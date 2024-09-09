@@ -176,11 +176,6 @@ namespace SGame
 				flag = false;
 				SaveData(DataCenter.Instance);
 			}).CallWhenQuit();
-			//定时存盘
-			0.Loop(() =>
-			{
-				SaveData(DataCenter.Instance, dontsave: true);
-			}, () => true, 1000, time);
 
 			ThreadPool.QueueUserWorkItem((a) =>
 			{
