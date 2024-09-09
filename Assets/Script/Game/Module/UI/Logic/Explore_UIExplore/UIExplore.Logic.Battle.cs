@@ -100,7 +100,7 @@ namespace SGame.UI
                     SetLoad(LoadMonsterModel);
             }
             _monster.RefreshModel();
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
   
             _battleMonster = new BattleMonster(_monster, m_view.m_fightHp2);
             _battleMonster.LoadAttribute(_monsterCfgId);

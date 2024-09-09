@@ -11,7 +11,7 @@ namespace SGame
     {
         public override IEnumerator Excute()
         {
-            yield return new WaitWhile(() => BattleManager.Instance.isCombat = false);
+            yield return new WaitUntil(() => { return !BattleManager.Instance.isCombat; });
             Finish();
         }
     }
