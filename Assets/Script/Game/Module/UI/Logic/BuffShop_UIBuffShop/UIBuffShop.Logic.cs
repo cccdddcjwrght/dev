@@ -52,7 +52,7 @@ namespace SGame.UI{
 
 		public void RefreshData() 
 		{
-			m_view.m_total.SetTextByKey("ui_boostshop_tips1", ReputationModule.Instance.GetTotalValue());
+			m_view.m_total.SetTextByKey("ui_boostshop_tips1", Utils.ConvertNumberStrLimit3(ReputationModule.Instance.GetTotalValue()));
 
 			RefreshRandomBtnState();
 			m_forceData = BuffShopModule.Instance.GetForceRandomBuffData();
